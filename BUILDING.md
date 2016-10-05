@@ -1,0 +1,1 @@
+To build **pdfHtml Community**, you need to build the html2pdf solution.
