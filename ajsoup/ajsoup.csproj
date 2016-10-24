@@ -44,7 +44,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\sharp\itextcore\itext\itext.io\itext.io.csproj">
+    <ProjectReference Include="..\..\itextcore\itext\itext.io\itext.io.csproj">
       <Project>{cee5e7e1-1bf0-4be1-9941-903262ce2f83}</Project>
       <Name>itext.io</Name>
     </ProjectReference>

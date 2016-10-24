@@ -563,7 +563,7 @@ namespace Org.Jsoup.Nodes {
 
         public virtual Object Clone() {
             Org.Jsoup.Nodes.OutputSettings clone;
-            clone = (Org.Jsoup.Nodes.OutputSettings)base.Clone();
+            clone = (Org.Jsoup.Nodes.OutputSettings)MemberwiseClone();
             clone.Charset(charset.BodyName);
             clone.escapeMode = Entities.EscapeMode.ValueOf(escapeMode.Name());
             return clone;

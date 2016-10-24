@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Org.Jsoup;
 using Org.Jsoup.Helper;
@@ -94,7 +95,7 @@ namespace Org.Jsoup.Nodes {
             if (attributes == null) {
                 return 0;
             }
-            return attributes.Count;
+            return attributes.Count();
         }
 
         /// <summary>Add all the attributes from the incoming set to this set.</summary>
@@ -109,8 +110,12 @@ namespace Org.Jsoup.Nodes {
             attributes.AddAll(incoming.attributes);
         }
 
-        public virtual IEnumerator<Org.Jsoup.Nodes.Attribute> Iterator() {
-            return AsList().Iterator();
+        public virtual IEnumerator<Org.Jsoup.Nodes.Attribute> GetEnumerator() {
+            return AsList().GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return this.GetEnumerator();
         }
 
         /// <summary>Get the attributes as a List, for iteration.</summary>
@@ -121,9 +126,9 @@ namespace Org.Jsoup.Nodes {
         /// <returns>an view of the attributes as a List.</returns>
         public virtual IList<Org.Jsoup.Nodes.Attribute> AsList() {
             if (attributes == null) {
-                return JavaCollectionsUtil.EmptyList();
+                return JavaCollectionsUtil.EmptyList<Attribute>();
             }
-            IList<Org.Jsoup.Nodes.Attribute> list = new List<Org.Jsoup.Nodes.Attribute>(attributes.Count);
+            IList<Org.Jsoup.Nodes.Attribute> list = new List<Org.Jsoup.Nodes.Attribute>(attributes.Count());
             foreach (KeyValuePair<String, Org.Jsoup.Nodes.Attribute> entry in attributes) {
                 list.Add(entry.Value);
             }
@@ -138,7 +143,7 @@ namespace Org.Jsoup.Nodes {
         /// </summary>
         /// <returns>map of custom data attributes.</returns>
         public virtual IDictionary<String, String> Dataset() {
-            return new Attributes.Dataset(this);
+            return new Attributes._Dataset(this);
         }
 
         /// <summary>Get the HTML representation of these attributes.</summary>
@@ -200,113 +205,146 @@ namespace Org.Jsoup.Nodes {
                 return new Attributes();
             }
             Attributes clone;
-            clone = (Attributes)base.Clone();
-            clone.attributes = new LinkedDictionary<String, Org.Jsoup.Nodes.Attribute>(attributes.Count);
+            clone = (Attributes)MemberwiseClone();
+            clone.attributes = new LinkedDictionary<String, Org.Jsoup.Nodes.Attribute>(attributes.Count());
             foreach (Org.Jsoup.Nodes.Attribute attribute in this) {
                 clone.attributes[attribute.Key] = (Org.Jsoup.Nodes.Attribute)attribute.Clone();
             }
             return clone;
         }
 
-        private class Dataset : AbstractMap<String, String> {
-            private Dataset(Attributes _enclosing) {
-                this._enclosing = _enclosing;
-                if (this._enclosing.attributes == null) {
-                    this._enclosing.attributes = new LinkedDictionary<String, Org.Jsoup.Nodes.Attribute>(2);
+        private class _Dataset : IDictionary<string, string>
+        {
+            private readonly LinkedDictionary<string, Attribute> enclosingAttributes;
+
+            public _Dataset(Attributes enclosing)
+            {
+                if (enclosing.attributes == null)
+                {
+                    enclosing.attributes = new LinkedDictionary<string, Attribute>(2);
                 }
+                this.enclosingAttributes = enclosing.attributes;
             }
 
-            public override ICollection<KeyValuePair<String, String>> EntrySet() {
-                return new Attributes.Dataset.EntrySet(this);
+            public void Add(string key, string value)
+            {
+                string dataKey = Attributes.DataKey(key);
+                Attribute attr = new Attribute(dataKey, value);
+                enclosingAttributes.Add(dataKey, attr);
             }
 
-            public override String Put(String key, String value) {
-                String dataKey = Attributes.DataKey(key);
-                String oldValue = this._enclosing.HasKey(dataKey) ? this._enclosing.attributes.Get(dataKey).Value : null;
-                Org.Jsoup.Nodes.Attribute attr = new Org.Jsoup.Nodes.Attribute(dataKey, value);
-                this._enclosing.attributes[dataKey] = attr;
-                return oldValue;
+            public bool ContainsKey(string key)
+            {
+                string dataKey = Attributes.DataKey(key);
+                return enclosingAttributes.ContainsKey(dataKey);
             }
 
-            private class EntrySet : AbstractSet<KeyValuePair<String, String>> {
-                public override IEnumerator<KeyValuePair<String, String>> Iterator() {
-                    return new Attributes.Dataset.DatasetIterator(this);
-                }
-
-                public override int Count {
-                    get {
-                        int count = 0;
-                        IEnumerator iter = new Attributes.Dataset.DatasetIterator(this);
-                        while (iter.HasNext()) {
-                            count++;
-                        }
-                        return count;
-                    }
-                }
-
-                internal EntrySet(Dataset _enclosing) {
-                    this._enclosing = _enclosing;
-                }
-
-                private readonly Dataset _enclosing;
+            public ICollection<string> Keys
+            {
+                get { return this.Select(a => a.Key).ToArray(); }
             }
 
-            private class DatasetIterator : IEnumerator<KeyValuePair<String, String>> {
-                private IEnumerator<Org.Jsoup.Nodes.Attribute> attrIter = this._enclosing._enclosing.attributes.Values.Iterator
-                    ();
+            public bool Remove(string key)
+            {
+                string dataKey = Attributes.DataKey(key);
+                return enclosingAttributes.Remove(dataKey);
+            }
 
-                private Org.Jsoup.Nodes.Attribute attr;
-
-                public virtual bool HasNext() {
-                    while (this.attrIter.HasNext()) {
-                        this.attr = this.attrIter.Next();
-                        if (this.attr.IsDataAttribute()) {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-
-                public virtual KeyValuePair<String, String> Next() {
-                    return new Org.Jsoup.Nodes.Attribute(this.attr.Key.Substring(Attributes.dataPrefix.Length), this.attr.Value
-                        );
-                }
-
-                public virtual void Remove() {
-                    this._enclosing._enclosing.attributes.JRemove(this.attr.Key);
-                }
-
-                public void Dispose() {
-                    
-                }
-                
-                public bool MoveNext() {
-                    if (!HasNext()) {
-                        return false;
-                    }
-                    
-                    Current = Next();
+            public bool TryGetValue(string key, out string value)
+            {
+                string dataKey = Attributes.DataKey(key);
+                Attribute attr = null;
+                if (enclosingAttributes.TryGetValue(dataKey, out attr))
+                {
+                    value = attr.Value;
                     return true;
                 }
-                
-                public void Reset() {
-                    throw new System.NotSupportedException();
-                }
-                
-                public KeyValuePair Current { get; private set; }
-                
-                object IEnumerator.Current {
-                    get { return Current; }
-                }
-
-                internal DatasetIterator(Dataset _enclosing) {
-                    this._enclosing = _enclosing;
-                }
-
-                private readonly Dataset _enclosing;
+                value = null;
+                return false;
             }
 
-            private readonly Attributes _enclosing;
+            public ICollection<string> Values
+            {
+                get { return this.Select(a => a.Value).ToArray(); }
+            }
+
+            public string this[string key]
+            {
+                get
+                {
+                    string dataKey = Attributes.DataKey(key);
+                    Attribute attr = enclosingAttributes[dataKey];
+                    return attr.Value;
+                }
+                set
+                {
+                    string dataKey = Attributes.DataKey(key);
+                    Attribute attr = new Attribute(dataKey, value);
+                    enclosingAttributes[dataKey] = attr;
+                }
+            }
+
+            public void Add(KeyValuePair<string, string> item)
+            {
+                this.Add(item.Key, item.Value);
+            }
+
+            public void Clear()
+            {
+                var dataAttrs = GetDataAttributes().ToList();
+                foreach (var dataAttr in dataAttrs)
+                {
+                    enclosingAttributes.Remove(dataAttr.Key);
+                }
+            }
+
+            private IEnumerable<Attribute> GetDataAttributes()
+            {
+                return enclosingAttributes
+                    .Select(p => (Attribute)p.Value)
+                    .Where(a => a.IsDataAttribute());
+            }
+
+            public bool Contains(KeyValuePair<string, string> item)
+            {
+                string value = null;
+                return (this.TryGetValue(item.Key, out value) && (value == item.Value));
+            }
+
+            public void CopyTo(KeyValuePair<string, string>[] array, int arrayIndex)
+            {
+                foreach (var pair in this)
+                {
+                    array[arrayIndex++] = pair;
+                }
+            }
+
+            public int Count
+            {
+                get { return GetDataAttributes().Count(); }
+            }
+
+            public bool IsReadOnly
+            {
+                get { return false; }
+            }
+
+            public bool Remove(KeyValuePair<string, string> item)
+            {
+                return this.Contains(item) && this.Remove(item.Key);
+            }
+
+            public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
+            {
+                return GetDataAttributes()
+                    .Select(a => new KeyValuePair<string, string>(a.Key.Substring(dataPrefix.Length) /*substring*/, a.Value))
+                    .GetEnumerator();
+            }
+
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            {
+                return this.GetEnumerator();
+            }
         }
 
         private static String DataKey(String key) {

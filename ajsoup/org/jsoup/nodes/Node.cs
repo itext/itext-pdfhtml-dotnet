@@ -597,7 +597,8 @@ namespace Org.Jsoup.Nodes {
         /// <see cref="System.Text.StringBuilder"/>
         /// , for chaining.
         /// </returns>
-        public virtual StringBuilder Html(StringBuilder appendable) {
+        public virtual T Html<T>(T appendable)
+            where T : StringBuilder {
             OuterHtml(appendable);
             return appendable;
         }

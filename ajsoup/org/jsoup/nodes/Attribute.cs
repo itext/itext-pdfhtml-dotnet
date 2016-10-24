@@ -8,7 +8,7 @@ namespace Org.Jsoup.Nodes {
     /// <summary>A single key + value attribute.</summary>
     /// <remarks>A single key + value attribute. Keys are trimmed and normalised to lower-case.</remarks>
     /// <author>Jonathan Hedley, jonathan@hedley.net</author>
-    public class Attribute : KeyValuePair<String, String>, ICloneable {
+    public class Attribute : ICloneable {
         private static readonly String[] booleanAttributes = new String[] { "allowfullscreen", "async", "autofocus"
             , "checked", "compact", "declare", "default", "defer", "disabled", "formnovalidate", "hidden", "inert"
             , "ismap", "itemscope", "multiple", "muted", "nohref", "noresize", "noshade", "novalidate", "nowrap", 
@@ -147,7 +147,7 @@ namespace Org.Jsoup.Nodes {
         }
 
         public virtual Object Clone() {
-            return base.Clone();
+            return MemberwiseClone();
         }
         // only fields are immutable strings key and value, so no more deep copy required
     }
