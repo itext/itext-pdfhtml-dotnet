@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Text;
-using Java.Net;
+using Org.Jsoup;
 
 namespace Org.Jsoup.Helper {
     /// <summary>A minimal String utility class.</summary>
@@ -16,7 +16,7 @@ namespace Org.Jsoup.Helper {
         /// <param name="sep">string to place between strings</param>
         /// <returns>joined string</returns>
         public static String Join(ICollection strings, String sep) {
-            return Join(strings.Iterator(), sep);
+            return Join(strings.GetEnumerator(), sep);
         }
 
         /// <summary>Join a collection of strings by a seperator</summary>
@@ -24,18 +24,17 @@ namespace Org.Jsoup.Helper {
         /// <param name="sep">string to place between strings</param>
         /// <returns>joined string</returns>
         public static String Join(IEnumerator strings, String sep) {
-            if (!strings.HasNext()) {
+            if (!strings.MoveNext()) {
                 return "";
             }
-            String start = strings.Next().ToString();
-            if (!strings.HasNext()) {
-                // only one, avoid builder
+            String start = strings.Current.ToString();
+            if (!strings.MoveNext()) {
                 return start;
             }
-            StringBuilder sb = new StringBuilder(64).Append(start);
-            while (strings.HasNext()) {
+            StringBuilder sb = new StringBuilder(64).Append(start).Append(sep).Append(strings.Current);
+            while (strings.MoveNext()) {
                 sb.Append(sep);
-                sb.Append(strings.Next());
+                sb.Append(strings.Current);
             }
             return sb.ToString();
         }
@@ -83,7 +82,7 @@ namespace Org.Jsoup.Helper {
             }
             int l = @string.Length;
             for (int i = 0; i < l; i++) {
-                if (!char.IsDigit(@string.CodePointAt(i))) {
+                if (!char.IsDigit(@string[i])) {
                     return false;
                 }
             }
@@ -158,15 +157,11 @@ namespace Org.Jsoup.Helper {
         /// <returns>the resolved absolute URL</returns>
         /// <exception cref="Java.Net.MalformedURLException">if an error occurred generating the URL</exception>
         public static Uri Resolve(Uri @base, String relUrl) {
-            // workaround: java resolves '//path/file + ?foo' to '//path/?foo', not '//path/file?foo' as desired
-            if (relUrl.StartsWith("?")) {
-                relUrl = @base.GetPath() + relUrl;
+            Uri result;
+            if (!TryResolve(@base, relUrl, out result)) {
+                throw new MalformedURLException();
             }
-            // workaround: //example.com + ./foo = //example.com/./foo, not //example.com/foo
-            if (relUrl.IndexOf('.') == 0 && @base.GetFile().IndexOf('/') != 0) {
-                @base = new Uri(@base.GetProtocol(), @base.GetHost(), @base.GetPort(), "/" + @base.GetFile());
-            }
-            return new Uri(@base, relUrl);
+            return result;
         }
 
         /// <summary>Create a new absolute URL, from a provided existing absolute URL and a relative URL component.</summary>
@@ -174,21 +169,31 @@ namespace Org.Jsoup.Helper {
         /// <param name="relUrl">the relative URL to resolve. (If it's already absolute, it will be returned)</param>
         /// <returns>an absolute URL if one was able to be generated, or the empty string if not</returns>
         public static String Resolve(String baseUrl, String relUrl) {
-            Uri @base;
-            try {
-                try {
-                    @base = new Uri(baseUrl);
+            Uri @base, result;
+            UriBuilder builder = new UriBuilder();
+            if (Uri.TryCreate(baseUrl, UriKind.Absolute, out @base)) {
+                if (!TryResolve(@base, relUrl, out result)) {
+                    return "";
                 }
-                catch (MalformedURLException) {
-                    // the base is unsuitable, but the attribute/rel may be abs on its own, so try that
-                    Uri abs = new Uri(relUrl);
-                    return abs.ToExternalForm();
-                }
-                return Resolve(@base, relUrl).ToExternalForm();
             }
-            catch (MalformedURLException) {
+            if (!Uri.TryCreate(relUrl, UriKind.Absolute, out result)) {
                 return "";
             }
+            return result.ToExternalForm();
+        }
+
+        private static bool TryResolve(Uri @base, String relUrl, out Uri result) {
+            // workaround: java resolves '//path/file + ?foo' to '//path/?foo', not '//path/file?foo' as desired
+            if (relUrl.StartsWith("?"))
+            {
+                relUrl = @base.AbsolutePath + relUrl;
+            }
+            // workaround: //example.com + ./foo = //example.com/./foo, not //example.com/foo
+            // seems fine in C#
+            //if (relUrl.IndexOf('.') == 0 && @base.PathAndQuery.IndexOf('/') != 0) {
+            //    var builder = new UriBuilder(@base.Scheme, @base.Host, @base.Port, "/" + @base.PathAndQuery);
+            //}
+            return Uri.TryCreate(@base, relUrl, out result);
         }
     }
 }

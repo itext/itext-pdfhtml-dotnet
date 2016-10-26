@@ -4,16 +4,6 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using Java.IO;
-using Java.Net;
-using Java.Nio;
-using Java.Nio.Charset;
-using Java.Security;
-using Java.Util.Zip;
-using Javax.Net.Ssl;
-using Org.BouncyCastle.Security;
-using Org.BouncyCastle.X509;
-using Org.Jsoup;
 using Org.Jsoup.Nodes;
 using Org.Jsoup.Parser;
 using iText.IO.Util;
@@ -28,13 +18,13 @@ namespace Org.Jsoup.Helper {
     public class HttpConnection : Connection {
         public const String CONTENT_ENCODING = "Content-Encoding";
 
-        private const String CONTENT_TYPE = "Content-Type";
+        internal const String CONTENT_TYPE = "Content-Type";
 
-        private const String MULTIPART_FORM_DATA = "multipart/form-data";
+        internal const String MULTIPART_FORM_DATA = "multipart/form-data";
 
-        private const String FORM_URL_ENCODED = "application/x-www-form-urlencoded";
+        internal const String FORM_URL_ENCODED = "application/x-www-form-urlencoded";
 
-        private const int HTTP_TEMP_REDIR = 307;
+        internal const int HTTP_TEMP_REDIR = 307;
 
         // http/1.1 temporary redirect, not in Java's set.
         public static Connection Connect(String url) {
@@ -49,14 +39,14 @@ namespace Org.Jsoup.Helper {
             return con;
         }
 
-        private static String EncodeUrl(String url) {
+        internal static String EncodeUrl(String url) {
             if (url == null) {
                 return null;
             }
             return iText.IO.Util.StringUtil.ReplaceAll(url, " ", "%20");
         }
 
-        private static String EncodeMimeName(String val) {
+        internal static String EncodeMimeName(String val) {
             if (val == null) {
                 return null;
             }
@@ -80,7 +70,7 @@ namespace Org.Jsoup.Helper {
         public virtual Connection Url(String url) {
             Validate.NotEmpty(url, "Must supply a valid URL");
             try {
-                req.Url(new Uri(EncodeUrl(url)));
+                req.Url(new Uri(Org.Jsoup.Helper.HttpConnection.EncodeUrl(url)));
             }
             catch (MalformedURLException e) {
                 throw new ArgumentException("Malformed URL: " + url, e);
@@ -312,7 +302,7 @@ namespace Org.Jsoup.Helper {
         // reconstitute the query, ready for appends
         // includes host, port
         // moved into url as get params
-        private static bool NeedsMultipart(IRequest req) {
+        internal static bool NeedsMultipart(IRequest req) {
             // multipart mode, for files. add the header if we see something with an inputstream, and return a non-null boundary
             bool needsMulti = false;
             foreach (IKeyVal keyVal in req.Data()) {
@@ -325,7 +315,7 @@ namespace Org.Jsoup.Helper {
         }
     }
 
-    internal abstract class Base<T> : IBase<T>
+    public abstract class Base<T> : IBase<T>
         where T : IBase<T> {
         internal Uri url;
 
@@ -335,7 +325,7 @@ namespace Org.Jsoup.Helper {
 
         internal IDictionary<String, String> cookies;
 
-        private Base() {
+        internal Base() {
             headers = new LinkedDictionary<String, String>();
             cookies = new LinkedDictionary<String, String>();
         }
@@ -385,9 +375,9 @@ namespace Org.Jsoup.Helper {
 
         public virtual T RemoveHeader(String name) {
             Validate.NotEmpty(name, "Header name must not be empty");
-            KeyValuePair<String, String> entry = ScanHeaders(name);
-            if (entry != null) {
-                headers.JRemove(entry.Key);
+            KeyValuePair<String, String> entry;
+            if (TryScanHeaders(name, out entry)) {
+                headers.Remove(entry.Key);
             }
             return (T)this;
         }
@@ -403,22 +393,24 @@ namespace Org.Jsoup.Helper {
                 value = headers.Get(name.ToLower(System.Globalization.CultureInfo.InvariantCulture));
             }
             if (value == null) {
-                KeyValuePair<String, String> entry = ScanHeaders(name);
-                if (entry != null) {
+                KeyValuePair<String, String> entry;
+                if (TryScanHeaders(name, out entry)) {
                     value = entry.Value;
                 }
             }
             return value;
         }
 
-        private KeyValuePair<String, String> ScanHeaders(String name) {
+        private bool TryScanHeaders(String name, out KeyValuePair<String, String> result) {
             String lc = name.ToLower(System.Globalization.CultureInfo.InvariantCulture);
             foreach (KeyValuePair<String, String> entry in headers) {
                 if (entry.Key.ToLower(System.Globalization.CultureInfo.InvariantCulture).Equals(lc)) {
-                    return entry;
+                    result = entry;
+                    return true;
                 }
             }
-            return null;
+            result = new KeyValuePair<String, String>("", "");
+            return false;
         }
 
         public virtual String Cookie(String name) {
@@ -468,18 +460,18 @@ namespace Org.Jsoup.Helper {
 
         private Org.Jsoup.Parser.Parser parser;
 
-        private bool parserDefined = false;
+        internal bool parserDefined = false;
 
         private bool validateTSLCertificates = true;
 
         private String postDataCharset = DataUtil.defaultCharset;
 
-        private Request() {
+        internal Request() {
             timeoutMilliseconds = 3000;
             maxBodySizeBytes = 1024 * 1024;
             followRedirects = true;
             data = new List<IKeyVal>();
-            method = Method.GET;
+            method = Org.Jsoup.Method.GET;
             headers["Accept-Encoding"] = "gzip";
             parser = Org.Jsoup.Parser.Parser.HtmlParser();
         }
@@ -488,13 +480,13 @@ namespace Org.Jsoup.Helper {
             return proxy;
         }
 
-        public virtual Org.Jsoup.Helper.Request Proxy(WebProxy proxy) {
+        public virtual IRequest Proxy(WebProxy proxy) {
             this.proxy = proxy;
             return this;
         }
 
-        public virtual Org.Jsoup.Helper.Request Proxy(String host, int port) {
-            this.proxy = new WebProxy(Proxy.Type.HTTP, InetSocketAddress.CreateUnresolved(host, port));
+        public virtual IRequest Proxy(String host, int port) {
+            this.proxy = new WebProxy(host, port);
             return this;
         }
 
@@ -502,7 +494,7 @@ namespace Org.Jsoup.Helper {
             return timeoutMilliseconds;
         }
 
-        public virtual Org.Jsoup.Helper.Request Timeout(int millis) {
+        public virtual IRequest Timeout(int millis) {
             Validate.IsTrue(millis >= 0, "Timeout milliseconds must be 0 (infinite) or greater");
             timeoutMilliseconds = millis;
             return this;
@@ -553,7 +545,7 @@ namespace Org.Jsoup.Helper {
             return this;
         }
 
-        public virtual Org.Jsoup.Helper.Request Data(IKeyVal keyval) {
+        public virtual IRequest Data(IKeyVal keyval) {
             Validate.NotNull(keyval, "Key val must not be null");
             data.Add(keyval);
             return this;
@@ -572,7 +564,7 @@ namespace Org.Jsoup.Helper {
             return body;
         }
 
-        public virtual Org.Jsoup.Helper.Request Parser(Org.Jsoup.Parser.Parser parser) {
+        public virtual IRequest Parser(Org.Jsoup.Parser.Parser parser) {
             this.parser = parser;
             parserDefined = true;
             return this;
@@ -584,8 +576,8 @@ namespace Org.Jsoup.Helper {
 
         public virtual IRequest PostDataCharset(String charset) {
             Validate.NotNull(charset, "Charset must not be null");
-            if (!Encoding.IsSupported(charset)) {
-                throw new IllegalCharsetNameException(charset);
+            if (!PortUtil.CharsetIsSupported(charset)) {
+                throw new ArgumentException(charset);
             }
             this.postDataCharset = charset;
             return this;
@@ -598,8 +590,6 @@ namespace Org.Jsoup.Helper {
 
     public class Response : Base<IResponse>, IResponse {
         private const int MAX_REDIRECTS = 20;
-
-        private static SSLSocketFactory sslSocketFactory;
 
         private const String LOCATION = "Location";
 
@@ -632,7 +622,7 @@ namespace Org.Jsoup.Helper {
             if (previousResponse != null) {
                 numRedirects = previousResponse.numRedirects + 1;
                 if (numRedirects >= MAX_REDIRECTS) {
-                    throw new System.IO.IOException(String.Format("Too many redirects occurred trying to load URL %s", previousResponse
+                    throw new System.IO.IOException(String.Format("Too many redirects occurred trying to load URL {0}", previousResponse
                         .Url()));
                 }
             }
@@ -647,7 +637,7 @@ namespace Org.Jsoup.Helper {
         internal static Org.Jsoup.Helper.Response Execute(IRequest req, Org.Jsoup.Helper.Response previousResponse
             ) {
             Validate.NotNull(req, "Request must not be null");
-            String protocol = req.Url().GetProtocol();
+            String protocol = req.Url().Scheme;
             if (!protocol.Equals("http") && !protocol.Equals("https")) {
                 throw new MalformedURLException("Only http & https protocols supported");
             }
@@ -665,7 +655,7 @@ namespace Org.Jsoup.Helper {
                     mimeBoundary = SetOutputContentType(req);
                 }
             }
-            HttpURLConnection conn = CreateConnection(req);
+            HttpWebRequest conn = CreateConnection(req);
             Org.Jsoup.Helper.Response res;
             try {
                 conn.Connect();
@@ -677,15 +667,16 @@ namespace Org.Jsoup.Helper {
                 res.SetupFromConnection(conn, previousResponse);
                 res.req = req;
                 if (res.HasHeader(LOCATION) && req.FollowRedirects()) {
-                    if (status != HTTP_TEMP_REDIR) {
-                        req.Method(Method.GET);
+                    if (status != HttpConnection.HTTP_TEMP_REDIR) {
+                        req.Method(Org.Jsoup.Method.GET);
                         req.Data().Clear();
                     }
                     String location = res.Header(LOCATION);
                     if (location != null && location.StartsWith("http:/") && location[6] != '/') {
                         location = location.Substring(6);
                     }
-                    req.Url(Org.Jsoup.Helper.StringUtil.Resolve(req.Url(), EncodeUrl(location)));
+                    req.Url(Org.Jsoup.Helper.StringUtil.Resolve(req.Url(), Org.Jsoup.Helper.HttpConnection.EncodeUrl(location)
+                        ));
                     foreach (KeyValuePair<String, String> cookie in res.cookies) {
                         req.Cookie(cookie.Key, cookie.Value);
                     }
@@ -706,11 +697,11 @@ namespace Org.Jsoup.Helper {
                     }
                 }
                 res.charset = DataUtil.GetCharsetFromContentType(res.contentType);
-                if (conn.GetContentLength() != 0 && req.Method() != Method.HEAD) {
+                if (conn.GetContentLength() != 0 && req.Method() != Org.Jsoup.Method.HEAD) {
                     Stream bodyStream = null;
                     try {
                         bodyStream = conn.GetErrorStream() != null ? conn.GetErrorStream() : conn.GetInputStream();
-                        if (res.HasHeaderWithValue(CONTENT_ENCODING, "gzip")) {
+                        if (res.HasHeaderWithValue(HttpConnection.CONTENT_ENCODING, "gzip")) {
                             bodyStream = new GZIPInputStream(bodyStream);
                         }
                         res.byteData = DataUtil.ReadToByteBuffer(bodyStream, req.MaxBodySize());
@@ -722,7 +713,7 @@ namespace Org.Jsoup.Helper {
                     }
                 }
                 else {
-                    res.byteData = DataUtil.EmptyByteBuffer();
+                    res.byteData = Org.Jsoup.Helper.ByteBuffer.EmptyByteBuffer();
                 }
             }
             finally {
@@ -779,101 +770,53 @@ namespace Org.Jsoup.Helper {
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private static HttpURLConnection CreateConnection(IRequest req) {
-            HttpURLConnection conn = (HttpURLConnection)(req.Proxy() == null ? req.Url().OpenConnection() : req.Url().
-                OpenConnection(req.Proxy()));
-            conn.SetRequestMethod(req.Method().Name());
-            conn.SetInstanceFollowRedirects(false);
-            conn.SetConnectTimeout(req.Timeout());
-            conn.SetReadTimeout(req.Timeout());
-            if (conn is HttpsURLConnection) {
-                if (!req.ValidateTLSCertificates()) {
-                    InitUnSecureTSL();
-                    ((HttpsURLConnection)conn).SetSSLSocketFactory(sslSocketFactory);
-                    ((HttpsURLConnection)conn).SetHostnameVerifier(GetInsecureVerifier());
-                }
-            }
-            if (req.Method().HasBody()) {
-                conn.SetDoOutput(true);
-            }
+        private static HttpWebRequest CreateConnection(IRequest req) {
+            HttpWebRequest conn = (HttpWebRequest) WebRequest.Create(req.Url());
+            conn.Proxy = req.Proxy();
+            conn.Method = req.Method().Name();
+            conn.AllowAutoRedirect = false;
+            conn.Timeout = req.Timeout();
+            conn.ReadWriteTimeout = req.Timeout();
+
+            //if (!req.ValidateTLSCertificates()) {
+            //    ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            //}
+
+            //if (req.Method().HasBody()) {
+            //    conn.SetDoOutput(true);
+            //}
+
             if (req.Cookies().Count > 0) {
-                conn.AddRequestProperty("Cookie", GetRequestCookieString(req));
+                conn.Headers.Add(HttpRequestHeader.Cookie, GetRequestCookieString(req));
             }
-            foreach (KeyValuePair<String, String> header in req.Headers()) {
-                conn.AddRequestProperty(header.Key, header.Value);
-            }
+            AddHeaders(conn, req.Headers());
             return conn;
         }
 
-        /// <summary>Instantiate Hostname Verifier that does nothing.</summary>
-        /// <remarks>
-        /// Instantiate Hostname Verifier that does nothing.
-        /// This is used for connections with disabled SSL certificates validation.
-        /// </remarks>
-        /// <returns>Hostname Verifier that does nothing and accepts all hostnames</returns>
-        private static HostnameVerifier GetInsecureVerifier() {
-            return new _HostnameVerifier_715();
-        }
+        private static void AddHeaders(HttpWebRequest request, IDictionary<String, String> headers) {
+            var tmp = new Dictionary<String, String>(headers);
 
-        private sealed class _HostnameVerifier_715 : HostnameVerifier {
-            public _HostnameVerifier_715() {
+            if (tmp.ContainsKey("Accept")) {
+                request.Accept = tmp.JRemove("Accept");
+            }
+            if (tmp.ContainsKey("Connection")) {
+                request.Connection = tmp.JRemove("Connection");
+            }
+            if (tmp.ContainsKey("Referer")) {
+                request.Accept = tmp.JRemove("Referer");
+            }
+            if (tmp.ContainsKey("User-agent")) {
+                request.UserAgent = tmp.JRemove("User-agent");
             }
 
-            public bool Verify(String urlHostName, SSLSession session) {
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// Initialise Trust manager that does not validate certificate chains and
-        /// add it to current SSLContext.
-        /// </summary>
-        /// <remarks>
-        /// Initialise Trust manager that does not validate certificate chains and
-        /// add it to current SSLContext.
-        /// <p/>
-        /// please not that this method will only perform action if sslSocketFactory is not yet
-        /// instantiated.
-        /// </remarks>
-        /// <exception cref="System.IO.IOException"/>
-        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.Synchronized
-            )]
-        private static void InitUnSecureTSL() {
-            if (sslSocketFactory == null) {
-                TrustManager[] trustAllCerts = new TrustManager[] { new _X509TrustManager_734() };
-                SSLContext sslContext;
-                try {
-                    sslContext = SSLContext.GetInstance("SSL");
-                    sslContext.Init(null, trustAllCerts, new SecureRandom());
-                    sslSocketFactory = sslContext.GetSocketFactory();
-                }
-                catch (SecurityUtilityException) {
-                    throw new System.IO.IOException("Can't create unsecure trust manager");
-                }
-                catch (KeyManagementException) {
-                    throw new System.IO.IOException("Can't create unsecure trust manager");
-                }
-            }
-        }
-
-        private sealed class _X509TrustManager_734 : X509TrustManager {
-            public _X509TrustManager_734() {
-            }
-
-            public void CheckClientTrusted(X509Certificate[] chain, String authType) {
-            }
-
-            public void CheckServerTrusted(X509Certificate[] chain, String authType) {
-            }
-
-            public X509Certificate[] GetAcceptedIssuers() {
-                return null;
+            foreach (var entry in tmp) {
+                request.Headers[entry.Key] = entry.Value;
             }
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private void SetupFromConnection(HttpURLConnection conn, IResponse previousResponse) {
-            method = Method.ValueOf(conn.GetRequestMethod());
+        private void SetupFromConnection(HttpWebRequest conn, IResponse previousResponse) {
+            method = Org.Jsoup.Method.ValueOf(conn.GetRequestMethod());
             url = conn.GetURL();
             statusCode = conn.GetResponseCode();
             statusMessage = conn.GetResponseMessage();
@@ -889,7 +832,7 @@ namespace Org.Jsoup.Helper {
             }
         }
 
-        private static LinkedDictionary<String, IList<String>> CreateHeaderMap(HttpURLConnection conn) {
+        private static LinkedDictionary<String, IList<String>> CreateHeaderMap(HttpWebRequest conn) {
             LinkedDictionary<String, IList<String>> headers = new LinkedDictionary<String, IList<String>>();
             int i = 0;
             while (true) {
@@ -957,12 +900,13 @@ namespace Org.Jsoup.Helper {
 
         private static String SetOutputContentType(IRequest req) {
             String bound = null;
-            if (NeedsMultipart(req)) {
+            if (Org.Jsoup.Helper.HttpConnection.NeedsMultipart(req)) {
                 bound = DataUtil.MimeBoundary();
-                req.Header(CONTENT_TYPE, MULTIPART_FORM_DATA + "; boundary=" + bound);
+                req.Header(HttpConnection.CONTENT_TYPE, HttpConnection.MULTIPART_FORM_DATA + "; boundary=" + bound);
             }
             else {
-                req.Header(CONTENT_TYPE, FORM_URL_ENCODED + "; charset=" + req.PostDataCharset());
+                req.Header(HttpConnection.CONTENT_TYPE, HttpConnection.FORM_URL_ENCODED + "; charset=" + req.PostDataCharset
+                    ());
             }
             return bound;
         }
@@ -977,11 +921,11 @@ namespace Org.Jsoup.Helper {
                     w.Write(bound);
                     w.Write("\r\n");
                     w.Write("Content-Disposition: form-data; name=\"");
-                    w.Write(EncodeMimeName(keyVal.Key()));
+                    w.Write(Org.Jsoup.Helper.HttpConnection.EncodeMimeName(keyVal.Key()));
                     w.Write("\"");
                     if (keyVal.HasInputStream()) {
                         w.Write("; filename=\"");
-                        w.Write(EncodeMimeName(keyVal.Value()));
+                        w.Write(Org.Jsoup.Helper.HttpConnection.EncodeMimeName(keyVal.Value()));
                         w.Write("\"\r\nContent-Type: application/octet-stream\r\n\r\n");
                         w.Flush();
                         DataUtil.CrossStreams(keyVal.InputStream(), outputStream);
@@ -1010,9 +954,9 @@ namespace Org.Jsoup.Helper {
                         else {
                             first = false;
                         }
-                        w.Write(URLEncoder.Encode(keyVal.Key(), req.PostDataCharset()));
+                        w.Write(Org.Jsoup.PortUtil.UrlEncode(keyVal.Key(), req.PostDataCharset()));
                         w.Write('=');
-                        w.Write(URLEncoder.Encode(keyVal.Value(), req.PostDataCharset()));
+                        w.Write(Org.Jsoup.PortUtil.UrlEncode(keyVal.Value(), req.PostDataCharset()));
                     }
                 }
             }
@@ -1039,9 +983,9 @@ namespace Org.Jsoup.Helper {
             Uri @in = req.Url();
             StringBuilder url = new StringBuilder();
             bool first = true;
-            url.Append(@in.GetProtocol()).Append("://").Append(@in.GetAuthority()).Append(@in.GetPath()).Append("?");
-            if (@in.GetQuery() != null) {
-                url.Append(@in.GetQuery());
+            url.Append(@in.Scheme).Append("://").Append(@in.Authority).Append(@in.AbsolutePath).Append("?");
+            if (@in.Query != null) {
+                url.Append(@in.Query);
                 first = false;
             }
             foreach (IKeyVal keyVal in req.Data()) {
@@ -1052,8 +996,8 @@ namespace Org.Jsoup.Helper {
                 else {
                     first = false;
                 }
-                url.Append(URLEncoder.Encode(keyVal.Key(), DataUtil.defaultCharset)).Append('=').Append(URLEncoder.Encode(
-                    keyVal.Value(), DataUtil.defaultCharset));
+                url.Append(Org.Jsoup.PortUtil.UrlEncode(keyVal.Key(), DataUtil.defaultCharset)).Append('=').Append(Org.Jsoup.PortUtil.UrlEncode
+                    (keyVal.Value(), DataUtil.defaultCharset));
             }
             req.Url(new Uri(url.ToString()));
             req.Data().Clear();

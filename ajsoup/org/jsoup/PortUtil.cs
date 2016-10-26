@@ -1,10 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Web;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Org.Jsoup {
     internal static class PortUtil {
+        public static readonly string EscapedSingleBracket = "'";
+        public static readonly string SignedNumberFormat = ":+0;-#";
+
+        public const int CHARACTER_MIN_SUPPLEMENTARY_CODE_POINT = 0x010000;
+
         public static bool HasMatch(Regex pattern, String input) {
 
             return pattern.IsMatch(input);
@@ -19,14 +26,29 @@ namespace Org.Jsoup {
             return char.ConvertFromUtf32(codePoint).ToCharArray();
         }
 
-        public const int CHARACTER_MIN_SUPPLEMENTARY_CODE_POINT = 0x010000;
-
         public static int CharCount(int codePoint) {
             return codePoint >= CHARACTER_MIN_SUPPLEMENTARY_CODE_POINT ? 2 : 1;
         }
 
         public static Encoding NewEncoder(Encoding charset) {
             return charset;
+        }
+
+        public static bool CharsetIsSupported(string charset) {
+            try {
+                var enc = Encoding.GetEncoding(charset);
+                return true;
+            } catch (ArgumentException) {
+                return false;
+            }
+        }
+
+        public static bool IsSuccessful(Match m) {
+            return m.Success;
+        }
+
+        public static String UrlEncode(String s, String charsetName) {
+            return HttpUtility.UrlEncode(s, Encoding.GetEncoding(charsetName));
         }
     }
 

@@ -1,15 +1,29 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using iText.IO.Util;
+using Org.Jsoup.Helper;
 
 namespace Org.Jsoup
 {
     internal static class PortingExtension
     {
+        public static String Decode(this Encoding encoding, ByteBuffer byteBuffer) {
+            var temp = Encoding.GetEncoding(encoding.CodePage, EncoderFallback.ReplacementFallback,
+                DecoderFallback.ReplacementFallback);
+            var result = temp.GetString(byteBuffer.buffer, byteBuffer.position, byteBuffer.Remaining());
+            byteBuffer.Position(byteBuffer.buffer.Length - 1);
+            return result;
+        }
+
+        public static String ToExternalForm(this Uri uri) {
+            return Uri.UnescapeDataString(uri.ToString());
+        }
+
         public static bool CanEncode(this Encoding encoding, char c) {
             return encoding.CanEncode(c.ToString());
         }
