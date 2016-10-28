@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using Org.Jsoup;
 
@@ -7,22 +8,27 @@ namespace Org.Jsoup.Helper {
     /// <summary>A minimal String utility class.</summary>
     /// <remarks>A minimal String utility class. Designed for internal jsoup use only.</remarks>
     public sealed class StringUtil {
-        private static readonly String[] padding = new String[] { "", " ", "  ", "   ", "    ", "     ", "      ", 
-            "       ", "        ", "         ", "          " };
-
         // memoised padding up to 10
         /// <summary>Join a collection of strings by a seperator</summary>
         /// <param name="strings">collection of string objects</param>
         /// <param name="sep">string to place between strings</param>
         /// <returns>joined string</returns>
-        public static String Join(ICollection strings, String sep) {
-            return Join(strings.GetEnumerator(), sep);
-        }
+        private static readonly String[] padding = new String[] { "", " ", "  ", "   ", "    ", "     ", "      ", 
+            "       ", "        ", "         ", "          " };
+
 
         /// <summary>Join a collection of strings by a seperator</summary>
         /// <param name="strings">iterator of string objects</param>
         /// <param name="sep">string to place between strings</param>
         /// <returns>joined string</returns>
+        //public static String Join(IEnumerable strings, String sep) {
+        //    return Join(strings.GetEnumerator(), sep);
+        //}
+
+        public static String Join<T>(IEnumerable<T> strings, String sep) {
+            return Join(strings.GetEnumerator(), sep);
+        }
+
         public static String Join(IEnumerator strings, String sep) {
             if (!strings.MoveNext()) {
                 return "";
@@ -155,7 +161,7 @@ namespace Org.Jsoup.Helper {
         /// <param name="base">the existing absolulte base URL</param>
         /// <param name="relUrl">the relative URL to resolve. (If it's already absolute, it will be returned)</param>
         /// <returns>the resolved absolute URL</returns>
-        /// <exception cref="Java.Net.MalformedURLException">if an error occurred generating the URL</exception>
+        /// <exception cref="MalformedURLException">if an error occurred generating the URL</exception>
         public static Uri Resolve(Uri @base, String relUrl) {
             Uri result;
             if (!TryResolve(@base, relUrl, out result)) {

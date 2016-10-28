@@ -1,15 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Org.Jsoup;
 using Org.Jsoup.Helper;
 
 namespace Org.Jsoup.Nodes {
     /// <summary>A HTML Form Element provides ready access to the form fields/controls that are associated with it.
     ///     </summary>
-    /// <remarks>
-    /// A HTML Form Element provides ready access to the form fields/controls that are associated with it. It also allows a
-    /// form to easily be submitted.
-    /// </remarks>
     public class FormElement : Element {
         private readonly Org.Jsoup.Select.Elements elements = new Org.Jsoup.Select.Elements();
 
@@ -35,33 +30,31 @@ namespace Org.Jsoup.Nodes {
             return this;
         }
 
-        /// <summary>Prepare to submit this form.</summary>
-        /// <remarks>
-        /// Prepare to submit this form. A Connection object is created with the request set up from the form values. You
-        /// can then set up other options (like user-agent, timeout, cookies), then execute it.
-        /// </remarks>
-        /// <returns>a connection prepared from the values of this form.</returns>
-        /// <exception cref="System.ArgumentException">
-        /// if the form's absolute action URL cannot be determined. Make sure you pass the
-        /// document's base URI when parsing.
-        /// </exception>
-        public virtual Connection Submit() {
-            String action = HasAttr("action") ? AbsUrl("action") : BaseUri();
-            Validate.NotEmpty(action, "Could not determine a form action URL for submit. Ensure you set a base URI when parsing."
-                );
-            Org.Jsoup.Method method = Attr("method").ToUpper(System.Globalization.CultureInfo.InvariantCulture).Equals
-                ("POST") ? Org.Jsoup.Method.POST : Org.Jsoup.Method.GET;
-            return Org.Jsoup.Jsoup.Connect(action).Data(FormData()).Method(method);
-        }
-
+        //    /**
+        //     * Prepare to submit this form. A Connection object is created with the request set up from the form values. You
+        //     * can then set up other options (like user-agent, timeout, cookies), then execute it.
+        //     * @return a connection prepared from the values of this form.
+        //     * @throws IllegalArgumentException if the form's absolute action URL cannot be determined. Make sure you pass the
+        //     * document's base URI when parsing.
+        //     */
+        //    public Connection submit() {
+        //        String action = hasAttr("action") ? absUrl("action") : baseUri();
+        //        Validate.notEmpty(action, "Could not determine a form action URL for submit. Ensure you set a base URI when parsing.");
+        //        Connection.Method method = attr("method").toUpperCase().equals("POST") ?
+        //                Connection.Method.POST : Connection.Method.GET;
+        //
+        //        return Jsoup.connect(action)
+        //                .data(formData())
+        //                .method(method);
+        //    }
         /// <summary>Get the data that this form submits.</summary>
         /// <remarks>
         /// Get the data that this form submits. The returned list is a copy of the data, and changes to the contents of the
         /// list will not be reflected in the DOM.
         /// </remarks>
         /// <returns>a list of key vals</returns>
-        public virtual IList<IKeyVal> FormData() {
-            List<IKeyVal> data = new List<IKeyVal>();
+        public virtual IList<KeyVal> FormData() {
+            List<KeyVal> data = new List<KeyVal>();
             // iterate the form control elements and accumulate their values
             foreach (Element el in elements) {
                 if (!el.Tag().IsFormSubmittable()) {

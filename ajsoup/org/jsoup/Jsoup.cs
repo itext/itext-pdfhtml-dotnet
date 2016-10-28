@@ -61,30 +61,6 @@ namespace Org.Jsoup {
             return Org.Jsoup.Parser.Parser.Parse(html, "");
         }
 
-        /// <summary>
-        /// Creates a new
-        /// <see cref="Connection"/>
-        /// to a URL. Use to fetch and parse a HTML page.
-        /// <p>
-        /// Use examples:
-        /// <ul>
-        /// <li><code>Document doc = Jsoup.connect("http://example.com").userAgent("Mozilla").data("name", "jsoup").get();</code></li>
-        /// <li><code>Document doc = Jsoup.connect("http://example.com").cookie("auth", "token").post();</code></li>
-        /// </ul>
-        /// </summary>
-        /// <param name="url">
-        /// URL to connect to. The protocol must be
-        /// <c>http</c>
-        /// or
-        /// <c>https</c>
-        /// .
-        /// </param>
-        /// <returns>the connection. You can add data, cookies, and headers; set the user-agent, referrer, method; and then execute.
-        ///     </returns>
-        public static Connection Connect(String url) {
-            return HttpConnection.Connect(url);
-        }
-
         /// <summary>Parse the contents of a file as HTML.</summary>
         /// <param name="in">file to load HTML from</param>
         /// <param name="charsetName">
@@ -200,40 +176,6 @@ namespace Org.Jsoup {
         /// <seealso cref="Org.Jsoup.Nodes.Document.Body()"/>
         public static Document ParseBodyFragment(String bodyHtml) {
             return Org.Jsoup.Parser.Parser.ParseBodyFragment(bodyHtml, "");
-        }
-
-        /// <summary>Fetch a URL, and parse it as HTML.</summary>
-        /// <remarks>
-        /// Fetch a URL, and parse it as HTML. Provided for compatibility; in most cases use
-        /// <see cref="Connect(System.String)"/>
-        /// instead.
-        /// <p>
-        /// The encoding character set is determined by the content-type header or http-equiv meta tag, or falls back to
-        /// <c>UTF-8</c>
-        /// .
-        /// </remarks>
-        /// <param name="url">
-        /// URL to fetch (with a GET). The protocol must be
-        /// <c>http</c>
-        /// or
-        /// <c>https</c>
-        /// .
-        /// </param>
-        /// <param name="timeoutMillis">Connection and read timeout, in milliseconds. If exceeded, IOException is thrown.
-        ///     </param>
-        /// <returns>The parsed HTML.</returns>
-        /// <exception cref="Java.Net.MalformedURLException">if the request URL is not a HTTP or HTTPS URL, or is otherwise malformed
-        ///     </exception>
-        /// <exception cref="HttpStatusException">if the response is not OK and HTTP response errors are not ignored</exception>
-        /// <exception cref="UnsupportedMimeTypeException">if the response mime type is not supported and those errors are not ignored
-        ///     </exception>
-        /// <exception cref="Java.Net.SocketTimeoutException">if the connection times out</exception>
-        /// <exception cref="System.IO.IOException">if a connection or read error occurs</exception>
-        /// <seealso cref="Connect(System.String)"/>
-        public static Document Parse(Uri url, int timeoutMillis) {
-            Connection con = HttpConnection.Connect(url);
-            con.Timeout(timeoutMillis);
-            return con.Get();
         }
 
         /// <summary>

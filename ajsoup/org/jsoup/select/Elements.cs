@@ -19,7 +19,7 @@ namespace Org.Jsoup.Select {
     /// </p>
     /// </summary>
     /// <author>Jonathan Hedley, jonathan@hedley.net</author>
-    public class Elements : List<Element> {
+    public class Elements : List<Element>, ICloneable {
         public Elements() {
         }
 
@@ -41,7 +41,7 @@ namespace Org.Jsoup.Select {
 
         /// <summary>Creates a deep copy of these elements.</summary>
         /// <returns>a deep copy</returns>
-        public override Object Clone() {
+        public Object Clone() {
             Org.Jsoup.Select.Elements clone = new Org.Jsoup.Select.Elements(Count);
             foreach (Element e in this) {
                 clone.Add((Element)e.Clone());

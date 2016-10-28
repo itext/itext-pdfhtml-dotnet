@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -12,6 +13,29 @@ namespace Org.Jsoup
 {
     internal static class PortingExtension
     {
+        public static bool RegionMatches(this string s, bool ignoreCase, int toffset, String other, int ooffset, int len) {
+            return 0 == String.Compare(s, toffset, other, ooffset, len, ignoreCase, CultureInfo.InvariantCulture);
+        }
+
+        public static bool StartsWith(this string s, string prefix, int pos) {
+            int to = pos;
+            int po = 0;
+            int pc = prefix.Length;
+            if ((pos < 0) || (pos > s.Length - pc)) {
+                return false;
+            }
+            while (--pc >= 0) {
+                if (s[to++] != prefix[po++]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static void ReadFully(this FileStream stream, byte[] bytes) {
+            stream.Read(bytes, 0, bytes.Length);
+        }
+
         public static String Decode(this Encoding encoding, ByteBuffer byteBuffer) {
             var temp = Encoding.GetEncoding(encoding.CodePage, EncoderFallback.ReplacementFallback,
                 DecoderFallback.ReplacementFallback);

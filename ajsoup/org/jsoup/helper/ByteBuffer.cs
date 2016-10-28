@@ -32,6 +32,10 @@ namespace Org.Jsoup.Helper
             return this;
         }
 
+        public byte[] Array() {
+            return buffer;
+        }
+
         private byte Get() {
             return buffer[position++];
         }

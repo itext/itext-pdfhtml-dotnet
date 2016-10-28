@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Web;
 using System.Text;
@@ -11,6 +12,10 @@ namespace Org.Jsoup {
         public static readonly string SignedNumberFormat = ":+0;-#";
 
         public const int CHARACTER_MIN_SUPPLEMENTARY_CODE_POINT = 0x010000;
+
+        public static FileStream GetReadOnlyRandomAccesFile(FileInfo file) {
+            return file.Open(FileMode.Open, FileAccess.Read);
+        }
 
         public static bool HasMatch(Regex pattern, String input) {
 
@@ -45,10 +50,6 @@ namespace Org.Jsoup {
 
         public static bool IsSuccessful(Match m) {
             return m.Success;
-        }
-
-        public static String UrlEncode(String s, String charsetName) {
-            return HttpUtility.UrlEncode(s, Encoding.GetEncoding(charsetName));
         }
     }
 

@@ -1319,14 +1319,8 @@ namespace Org.Jsoup.Nodes {
             return GetOutputSettings().PrettyPrint() ? accum.ToString().Trim() : accum.ToString();
         }
 
-        private void Html(StringBuilder accum) {
-            foreach (Node node in childNodes) {
-                node.OuterHtml(accum);
-            }
-        }
-
         /// <summary><inheritDoc/></summary>
-        public override T Html<T>(T appendable) {
+        public override StringBuilder Html(StringBuilder appendable) {
             foreach (Node node in childNodes) {
                 node.OuterHtml(appendable);
             }

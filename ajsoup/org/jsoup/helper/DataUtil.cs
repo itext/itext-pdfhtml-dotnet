@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using Java.Nio;
 using Org.Jsoup;
 using Org.Jsoup.Nodes;
 
@@ -173,7 +172,7 @@ namespace Org.Jsoup.Helper {
         internal static ByteBuffer ReadFileToByteBuffer(FileInfo file) {
             FileStream randomAccessFile = null;
             try {
-                randomAccessFile = new FileStream(file, "r");
+                randomAccessFile = PortUtil.GetReadOnlyRandomAccesFile(file);
                 byte[] bytes = new byte[(int)randomAccessFile.Length];
                 randomAccessFile.ReadFully(bytes);
                 return ByteBuffer.Wrap(bytes);
