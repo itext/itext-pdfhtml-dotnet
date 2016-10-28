@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Java.Nio;
-using Java.Nio.Charset;
+using Org.Jsoup;
 using Org.Jsoup.Nodes;
 
 namespace Org.Jsoup.Helper {
@@ -185,10 +185,6 @@ namespace Org.Jsoup.Helper {
             }
         }
 
-        internal static ByteBuffer EmptyByteBuffer() {
-            return ByteBuffer.Allocate(0);
-        }
-
         /// <summary>Parse out a charset from a content type header.</summary>
         /// <remarks>
         /// Parse out a charset from a content type header. If the charset is not supported, returns null (so the default
@@ -201,7 +197,7 @@ namespace Org.Jsoup.Helper {
                 return null;
             }
             Match m = iText.IO.Util.StringUtil.Match(charsetPattern, contentType);
-            if (m.Find()) {
+            if (PortUtil.IsSuccessful(m)) {
                 String charset = iText.IO.Util.StringUtil.Group(m, 1).Trim();
                 charset = charset.Replace("charset=", "");
                 return ValidateCharset(charset);
@@ -214,16 +210,12 @@ namespace Org.Jsoup.Helper {
                 return null;
             }
             cs = iText.IO.Util.StringUtil.ReplaceAll(cs.Trim(), "[\"']", "");
-            try {
-                if (Encoding.IsSupported(cs)) {
-                    return cs;
-                }
-                cs = cs.ToUpper(System.Globalization.CultureInfo.InvariantCulture);
-                if (Encoding.IsSupported(cs)) {
-                    return cs;
-                }
+            if (PortUtil.CharsetIsSupported(cs)) {
+                return cs;
             }
-            catch (IllegalCharsetNameException) {
+            cs = cs.ToUpper(System.Globalization.CultureInfo.InvariantCulture);
+            if (PortUtil.CharsetIsSupported(cs)) {
+                return cs;
             }
             // if our this charset matching fails.... we just take the default
             return null;

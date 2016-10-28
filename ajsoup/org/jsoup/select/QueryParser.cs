@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using Org.Jsoup;
 using Org.Jsoup.Helper;
 using Org.Jsoup.Parser;
 
@@ -268,8 +269,9 @@ namespace Org.Jsoup.Select {
                                                                                                                 }
                                                                                                                 else {
                                                                                                                     // unhandled
-                                                                                                                    throw new Selector.SelectorParseException("Could not parse query '%s': unexpected token at '%s'", query, tq
-                                                                                                                        .Remainder());
+                                                                                                                    throw new Selector.SelectorParseException("Could not parse query " + PortUtil.EscapedSingleBracket + "{0}"
+                                                                                                                         + PortUtil.EscapedSingleBracket + ": unexpected token at " + PortUtil.EscapedSingleBracket + "{1}" + 
+                                                                                                                        PortUtil.EscapedSingleBracket, query, tq.Remainder());
                                                                                                                 }
                                                                                                             }
                                                                                                         }
@@ -362,8 +364,9 @@ namespace Org.Jsoup.Select {
                                             ())));
                                     }
                                     else {
-                                        throw new Selector.SelectorParseException("Could not parse attribute query '%s': unexpected token at '%s'"
-                                            , query, cq.Remainder());
+                                        throw new Selector.SelectorParseException("Could not parse attribute query " + PortUtil.EscapedSingleBracket
+                                             + "{0}" + PortUtil.EscapedSingleBracket + ": unexpected token at " + PortUtil.EscapedSingleBracket + 
+                                            "{1}" + PortUtil.EscapedSingleBracket, query, cq.Remainder());
                                     }
                                 }
                             }
@@ -424,7 +427,8 @@ namespace Org.Jsoup.Select {
                             b = System.Convert.ToInt32(iText.IO.Util.StringUtil.Group(mB).ReplaceFirst("^\\+", ""));
                         }
                         else {
-                            throw new Selector.SelectorParseException("Could not parse nth-index '%s': unexpected format", argS);
+                            throw new Selector.SelectorParseException("Could not parse nth-index " + PortUtil.EscapedSingleBracket + "{0}"
+                                 + PortUtil.EscapedSingleBracket + ": unexpected format", argS);
                         }
                     }
                 }

@@ -27,7 +27,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":has(%s)", evaluator);
+                return String.Format(":has({0})", evaluator);
             }
         }
 
@@ -41,7 +41,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":not%s", evaluator);
+                return String.Format(":not{0}", evaluator);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":parent%s", evaluator);
+                return String.Format(":parent{0}", evaluator);
             }
         }
 
@@ -86,7 +86,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":ImmediateParent%s", evaluator);
+                return String.Format(":ImmediateParent{0}", evaluator);
             }
         }
 
@@ -110,7 +110,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":prev*%s", evaluator);
+                return String.Format(":prev*{0}", evaluator);
             }
         }
 
@@ -128,7 +128,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":prev%s", evaluator);
+                return String.Format(":prev{0}", evaluator);
             }
         }
     }

@@ -554,7 +554,7 @@ namespace Org.Jsoup.Nodes {
             }
             selector.Insert(0, " > ");
             if (((Org.Jsoup.Nodes.Element)Parent()).Select(selector.ToString()).Count > 1) {
-                selector.Append(String.Format(":nth-child(%d)", ElementSiblingIndex() + 1));
+                selector.Append(String.Format(":nth-child({0})", ElementSiblingIndex() + 1));
             }
             return ((Org.Jsoup.Nodes.Element)Parent()).CssSelector() + selector.ToString();
         }
@@ -945,12 +945,12 @@ namespace Org.Jsoup.Nodes {
         /// <seealso cref="TextNodes()"/>
         public virtual String Text() {
             StringBuilder accum = new StringBuilder();
-            new NodeTraversor(new _NodeVisitor_893(accum)).Traverse(this);
+            new NodeTraversor(new _NodeVisitor_894(accum)).Traverse(this);
             return accum.ToString().Trim();
         }
 
-        private sealed class _NodeVisitor_893 : NodeVisitor {
-            public _NodeVisitor_893(StringBuilder accum) {
+        private sealed class _NodeVisitor_894 : NodeVisitor {
+            public _NodeVisitor_894(StringBuilder accum) {
                 this.accum = accum;
             }
 

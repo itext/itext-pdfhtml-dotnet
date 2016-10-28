@@ -205,7 +205,7 @@ namespace Org.Jsoup.Parser {
 
         internal virtual void Error(HtmlTreeBuilderState state) {
             if (errors.CanAddError()) {
-                errors.Add(new ParseError(reader.Pos(), "Unexpected token [%s] when in state [%s]", currentToken.TokenType
+                errors.Add(new ParseError(reader.Pos(), "Unexpected token [{0}] when in state [{1}]", currentToken.TokenType
                     (), state));
             }
         }

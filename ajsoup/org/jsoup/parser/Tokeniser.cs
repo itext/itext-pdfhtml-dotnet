@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using Org.Jsoup;
 using Org.Jsoup.Helper;
 using Org.Jsoup.Nodes;
 
@@ -217,7 +218,8 @@ namespace Org.Jsoup.Parser {
                     reader.RewindToMark();
                     if (looksLegit) {
                         // named with semicolon
-                        CharacterReferenceError(String.Format("invalid named referenece '%s'", nameRef));
+                        CharacterReferenceError(String.Format("invalid named referenece " + PortUtil.EscapedSingleBracket + "{0}" 
+                            + PortUtil.EscapedSingleBracket, nameRef));
                     }
                     return null;
                 }
@@ -277,21 +279,21 @@ namespace Org.Jsoup.Parser {
 
         internal void Error(TokeniserState state) {
             if (errors.CanAddError()) {
-                errors.Add(new ParseError(reader.Pos(), "Unexpected character '%s' in input state [%s]", reader.Current(), 
-                    state));
+                errors.Add(new ParseError(reader.Pos(), "Unexpected character " + PortUtil.EscapedSingleBracket + "{0}" + 
+                    PortUtil.EscapedSingleBracket + " in input state [{}]", reader.Current(), state));
             }
         }
 
         internal void EofError(TokeniserState state) {
             if (errors.CanAddError()) {
-                errors.Add(new ParseError(reader.Pos(), "Unexpectedly reached end of file (EOF) in input state [%s]", state
+                errors.Add(new ParseError(reader.Pos(), "Unexpectedly reached end of file (EOF) in input state [{0}]", state
                     ));
             }
         }
 
         private void CharacterReferenceError(String message) {
             if (errors.CanAddError()) {
-                errors.Add(new ParseError(reader.Pos(), "Invalid character reference: %s", message));
+                errors.Add(new ParseError(reader.Pos(), "Invalid character reference: {0}", message));
             }
         }
 

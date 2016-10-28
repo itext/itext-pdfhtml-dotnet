@@ -33,7 +33,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("%s", tagName);
+                return String.Format("{0}", tagName);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("#%s", id);
+                return String.Format("#{0}", id);
             }
         }
 
@@ -67,7 +67,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(".%s", className);
+                return String.Format(".{0}", className);
             }
         }
 
@@ -84,7 +84,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("[%s]", key);
+                return String.Format("[{0}]", key);
             }
         }
 
@@ -107,7 +107,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("[^%s]", keyPrefix);
+                return String.Format("[^{0}]", keyPrefix);
             }
         }
 
@@ -122,7 +122,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("[%s=%s]", key, value);
+                return String.Format("[{0}={1}]", key, value);
             }
         }
 
@@ -137,7 +137,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("[%s!=%s]", key, value);
+                return String.Format("[{0}!={1}]", key, value);
             }
         }
 
@@ -154,7 +154,7 @@ namespace Org.Jsoup.Select {
 
             // value is lower case already
             public override String ToString() {
-                return String.Format("[%s^=%s]", key, value);
+                return String.Format("[{0}^={1}]", key, value);
             }
         }
 
@@ -171,7 +171,7 @@ namespace Org.Jsoup.Select {
 
             // value is lower case
             public override String ToString() {
-                return String.Format("[%s$=%s]", key, value);
+                return String.Format("[{0}$={1}]", key, value);
             }
         }
 
@@ -188,7 +188,7 @@ namespace Org.Jsoup.Select {
 
             // value is lower case
             public override String ToString() {
-                return String.Format("[%s*=%s]", key, value);
+                return String.Format("[{0}*={1}]", key, value);
             }
         }
 
@@ -208,7 +208,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("[%s~=%s]", key, pattern.ToString());
+                return String.Format("[{0}~={1}]", key, pattern.ToString());
             }
         }
 
@@ -255,7 +255,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":lt(%d)", index);
+                return String.Format(":lt({0})", index);
             }
         }
 
@@ -274,7 +274,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":gt(%d)", index);
+                return String.Format(":gt({0})", index);
             }
         }
 
@@ -289,7 +289,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":eq(%d)", index);
+                return String.Format(":eq({0})", index);
             }
         }
 
@@ -353,12 +353,12 @@ namespace Org.Jsoup.Select {
 
             public override String ToString() {
                 if (a == 0) {
-                    return String.Format(":%s(%d)", GetPseudoClass(), b);
+                    return String.Format(":{0}({1})", GetPseudoClass(), b);
                 }
                 if (b == 0) {
-                    return String.Format(":%s(%dn)", GetPseudoClass(), a);
+                    return String.Format(":{0}({1}n)", GetPseudoClass(), a);
                 }
-                return String.Format(":%s(%dn%+d)", GetPseudoClass(), a, b);
+                return String.Format(":{0}({1}n{2" + PortUtil.SignedNumberFormat + "})", GetPseudoClass(), a, b);
             }
 
             protected internal abstract String GetPseudoClass();
@@ -540,7 +540,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":contains(%s", searchText);
+                return String.Format(":contains({0}", searchText);
             }
         }
 
@@ -557,7 +557,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":containsOwn(%s", searchText);
+                return String.Format(":containsOwn({0}", searchText);
             }
         }
 
@@ -574,7 +574,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":matchesOwn(%s", pattern);
+                return String.Format(":matchesOwn({0}", pattern);
             }
         }
     }
@@ -592,7 +592,7 @@ namespace Org.Jsoup.Select {
         }
 
         public override String ToString() {
-            return String.Format(":matches(%s", pattern);
+            return String.Format(":matches({0}", pattern);
         }
     }
 }

@@ -94,7 +94,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":or%s", evaluators);
+                return String.Format(":or{0}", evaluators);
             }
         }
     }

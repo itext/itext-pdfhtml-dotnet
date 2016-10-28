@@ -101,7 +101,7 @@ namespace Org.Jsoup.Examples {
                 }
                 else {
                     if (name.Equals("a")) {
-                        this.Append(String.Format(" <%s>", node.AbsUrl("href")));
+                        this.Append(String.Format(" <{0}>", node.AbsUrl("href")));
                     }
                 }
             }

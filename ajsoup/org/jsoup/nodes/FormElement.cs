@@ -49,8 +49,8 @@ namespace Org.Jsoup.Nodes {
             String action = HasAttr("action") ? AbsUrl("action") : BaseUri();
             Validate.NotEmpty(action, "Could not determine a form action URL for submit. Ensure you set a base URI when parsing."
                 );
-            Method method = Attr("method").ToUpper(System.Globalization.CultureInfo.InvariantCulture).Equals("POST") ? 
-                Method.POST : Method.GET;
+            Org.Jsoup.Method method = Attr("method").ToUpper(System.Globalization.CultureInfo.InvariantCulture).Equals
+                ("POST") ? Org.Jsoup.Method.POST : Org.Jsoup.Method.GET;
             return Org.Jsoup.Jsoup.Connect(action).Data(FormData()).Method(method);
         }
 
