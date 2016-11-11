@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -13,6 +14,14 @@ namespace Org.Jsoup
 {
     internal static class PortingExtension
     {
+        public static String Name(this Encoding e) {
+            return e.WebName.ToUpperInvariant();
+        }
+
+        public static String DisplayName(this Encoding e) {
+            return e.WebName.ToUpperInvariant();
+        }
+
         public static bool RegionMatches(this string s, bool ignoreCase, int toffset, String other, int ooffset, int len) {
             return 0 == String.Compare(s, toffset, other, ooffset, len, ignoreCase, CultureInfo.InvariantCulture);
         }
@@ -44,8 +53,39 @@ namespace Org.Jsoup
             return result;
         }
 
-        public static String ToExternalForm(this Uri uri) {
-            return Uri.UnescapeDataString(uri.ToString());
+        public static String ToExternalForm(this Uri u) {
+            /*
+            // pre-compute length of StringBuffer
+            int len = u.Scheme.Length + 1;
+            if (!String.IsNullOrEmpty(u.Authority))
+                len += 2 + u.Authority.Length;
+            if (!String.IsNullOrEmpty(u.AbsolutePath))
+                len += u.AbsolutePath.Length - (u.AbsolutePath.EndsWith("/") ? 1 : 0);
+            if (!String.IsNullOrEmpty(u.Query))
+                len += u.Query.Length;
+            if (!String.IsNullOrEmpty(u.Fragment))
+                len += 1 + u.Fragment.Length;
+
+            StringBuilder result = new StringBuilder(len);
+            result.Append(u.Scheme);
+            result.Append(":");
+            if (!String.IsNullOrEmpty(u.Authority)) {
+                result.Append("//");
+                result.Append(u.Authority);
+            }
+            if (!String.IsNullOrEmpty(u.AbsolutePath)) {
+                var path = u.AbsolutePath;
+                if (path.EndsWith("/"))
+                    path = path.Substring(0, path.Length - 1);
+                result.Append(path);
+            }
+            if (!String.IsNullOrEmpty(u.Query))
+                result.Append(u.Query);
+            if (!String.IsNullOrEmpty(u.Fragment))
+                result.Append(u.Fragment);
+            return result.ToString();
+            */
+            return Uri.UnescapeDataString(u.AbsoluteUri);
         }
 
         public static bool CanEncode(this Encoding encoding, char c) {
@@ -68,7 +108,11 @@ namespace Org.Jsoup
         }
 
         public static Stream GetResourceAsStream(this Type type, string filename) {
-            return ResourceUtil.GetResourceStream(filename, type);
+            Stream s = ResourceUtil.GetResourceStream(type.Namespace.ToLower(CultureInfo.InvariantCulture) + "." + filename, type);
+            if (s == null) {
+                throw new IOException();
+            }
+            return s;
         }
 
         public static int CodePointAt(this String str, int index) {
@@ -130,6 +174,15 @@ namespace Org.Jsoup
             return encoding.GetBytes(str);
         }
 
+        public static byte[] GetBytes(this String str, String encodingName)
+        {
+            return Encoding.GetEncoding(encodingName).GetBytes(str);
+        }
+
+        public static ByteBuffer Encode(this Encoding encoding, String str) {
+            return ByteBuffer.Wrap(encoding.GetBytes(str));
+        }
+
         public static long Seek(this FileStream fs, long offset)
         {
             return fs.Seek(offset, SeekOrigin.Begin);
@@ -161,6 +214,11 @@ namespace Org.Jsoup
             {
                 c.Add(o);
             }
+        }
+
+        public static T[] ToArray<T>(this ICollection<T> col) {
+            T[] result = new T[col.Count];
+            return col.ToArray<T>(result);
         }
 
         public static T[] ToArray<T>(this ICollection<T> col, T[] toArray)

@@ -190,14 +190,15 @@ namespace Org.Jsoup.Nodes {
                 return false;
             }
             Attributes that = (Attributes)o;
-            return !(attributes != null ? !attributes.Equals(that.attributes) : that.attributes != null);
+            return
+                !(attributes != null ? !iText.IO.Util.JavaUtil.DictionariesEquals(attributes, that.attributes) : that.attributes != null);
         }
 
         /// <summary>Calculates the hashcode of these attributes, by iterating all attributes and summing their hashcodes.
         ///     </summary>
         /// <returns>calculated hashcode</returns>
         public override int GetHashCode() {
-            return attributes != null ? attributes.GetHashCode() : 0;
+            return attributes != null ? iText.IO.Util.JavaUtil.DictionaryHashCode(attributes) : 0;
         }
 
         public virtual Object Clone() {
@@ -205,57 +206,48 @@ namespace Org.Jsoup.Nodes {
                 return new Attributes();
             }
             Attributes clone;
-            clone = (Attributes)MemberwiseClone();
+            clone = (Attributes) MemberwiseClone();
             clone.attributes = new LinkedDictionary<String, Org.Jsoup.Nodes.Attribute>(attributes.Count());
             foreach (Org.Jsoup.Nodes.Attribute attribute in this) {
-                clone.attributes[attribute.Key] = (Org.Jsoup.Nodes.Attribute)attribute.Clone();
+                clone.attributes[attribute.Key] = (Org.Jsoup.Nodes.Attribute) attribute.Clone();
             }
             return clone;
         }
 
-        private class _Dataset : IDictionary<string, string>
-        {
+        private class _Dataset : IDictionary<string, string> {
             private readonly LinkedDictionary<string, Attribute> enclosingAttributes;
 
-            public _Dataset(Attributes enclosing)
-            {
-                if (enclosing.attributes == null)
-                {
+            public _Dataset(Attributes enclosing) {
+                if (enclosing.attributes == null) {
                     enclosing.attributes = new LinkedDictionary<string, Attribute>(2);
                 }
                 this.enclosingAttributes = enclosing.attributes;
             }
 
-            public void Add(string key, string value)
-            {
+            public void Add(string key, string value) {
                 string dataKey = Attributes.DataKey(key);
                 Attribute attr = new Attribute(dataKey, value);
                 enclosingAttributes.Add(dataKey, attr);
             }
 
-            public bool ContainsKey(string key)
-            {
+            public bool ContainsKey(string key) {
                 string dataKey = Attributes.DataKey(key);
-                return enclosingAttributes.ContainsKey(dataKey);
+                return !String.IsNullOrEmpty(key) && enclosingAttributes.ContainsKey(dataKey);
             }
 
-            public ICollection<string> Keys
-            {
+            public ICollection<string> Keys {
                 get { return this.Select(a => a.Key).ToArray(); }
             }
 
-            public bool Remove(string key)
-            {
+            public bool Remove(string key) {
                 string dataKey = Attributes.DataKey(key);
-                return enclosingAttributes.Remove(dataKey);
+                return !String.IsNullOrEmpty(key) && enclosingAttributes.Remove(dataKey);
             }
 
-            public bool TryGetValue(string key, out string value)
-            {
+            public bool TryGetValue(string key, out string value) {
                 string dataKey = Attributes.DataKey(key);
-                Attribute attr = null;
-                if (enclosingAttributes.TryGetValue(dataKey, out attr))
-                {
+                Attribute attr;
+                if (!String.IsNullOrEmpty(key) && enclosingAttributes.TryGetValue(dataKey, out attr)) {
                     value = attr.Value;
                     return true;
                 }
@@ -263,86 +255,74 @@ namespace Org.Jsoup.Nodes {
                 return false;
             }
 
-            public ICollection<string> Values
-            {
+            public ICollection<string> Values {
                 get { return this.Select(a => a.Value).ToArray(); }
             }
 
-            public string this[string key]
-            {
-                get
-                {
+            public string this[string key] {
+                get {
+                    if (String.IsNullOrEmpty(key)) {
+                        throw new KeyNotFoundException();
+                    }
                     string dataKey = Attributes.DataKey(key);
                     Attribute attr = enclosingAttributes[dataKey];
                     return attr.Value;
                 }
-                set
-                {
+                set {
                     string dataKey = Attributes.DataKey(key);
                     Attribute attr = new Attribute(dataKey, value);
                     enclosingAttributes[dataKey] = attr;
                 }
             }
 
-            public void Add(KeyValuePair<string, string> item)
-            {
+            public void Add(KeyValuePair<string, string> item) {
                 this.Add(item.Key, item.Value);
             }
 
-            public void Clear()
-            {
+            public void Clear() {
                 var dataAttrs = GetDataAttributes().ToList();
-                foreach (var dataAttr in dataAttrs)
-                {
+                foreach (var dataAttr in dataAttrs) {
                     enclosingAttributes.Remove(dataAttr.Key);
                 }
             }
 
-            private IEnumerable<Attribute> GetDataAttributes()
-            {
+            private IEnumerable<Attribute> GetDataAttributes() {
                 return enclosingAttributes
-                    .Select(p => (Attribute)p.Value)
+                    .Select(p => (Attribute) p.Value)
                     .Where(a => a.IsDataAttribute());
             }
 
-            public bool Contains(KeyValuePair<string, string> item)
-            {
+            public bool Contains(KeyValuePair<string, string> item) {
                 string value = null;
                 return (this.TryGetValue(item.Key, out value) && (value == item.Value));
             }
 
-            public void CopyTo(KeyValuePair<string, string>[] array, int arrayIndex)
-            {
-                foreach (var pair in this)
-                {
+            public void CopyTo(KeyValuePair<string, string>[] array, int arrayIndex) {
+                foreach (var pair in this) {
                     array[arrayIndex++] = pair;
                 }
             }
 
-            public int Count
-            {
+            public int Count {
                 get { return GetDataAttributes().Count(); }
             }
 
-            public bool IsReadOnly
-            {
+            public bool IsReadOnly {
                 get { return false; }
             }
 
-            public bool Remove(KeyValuePair<string, string> item)
-            {
+            public bool Remove(KeyValuePair<string, string> item) {
                 return this.Contains(item) && this.Remove(item.Key);
             }
 
-            public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
-            {
+            public IEnumerator<KeyValuePair<string, string>> GetEnumerator() {
                 return GetDataAttributes()
-                    .Select(a => new KeyValuePair<string, string>(a.Key.Substring(dataPrefix.Length) /*substring*/, a.Value))
+                    .Select(
+                        a => new KeyValuePair<string, string>(a.Key.Substring(dataPrefix.Length) /*substring*/, a.Value))
                     .GetEnumerator();
             }
 
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
+            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
                 return this.GetEnumerator();
             }
         }

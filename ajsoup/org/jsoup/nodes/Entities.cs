@@ -115,7 +115,7 @@ namespace Org.Jsoup.Nodes {
             bool reachedNonWhite = false;
             Entities.EscapeMode escapeMode = outputSettings.EscapeMode();
             Encoding encoder = outputSettings.Charset();
-            Entities.CoreCharset coreCharset = GetCoreCharsetByName(outputSettings.Charset().BodyName);
+            Entities.CoreCharset coreCharset = GetCoreCharsetByName(outputSettings.Charset().Name());
             IDictionary<char, String> map = escapeMode.GetMap();
             int length = str.Length;
             int codePoint;

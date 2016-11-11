@@ -22,6 +22,12 @@ namespace Org.Jsoup.Parser {
         /// </remarks>
         internal abstract Org.Jsoup.Parser.Token Reset();
 
+        internal static void Reset(StringBuilder sb) {
+            if (sb != null) {
+                sb.Delete(0, sb.Length);
+            }
+        }
+
         internal sealed class Doctype : Token {
             internal readonly StringBuilder name = new StringBuilder();
 
@@ -36,6 +42,9 @@ namespace Org.Jsoup.Parser {
             }
 
             internal override Token Reset() {
+                Reset(name);
+                Reset(publicIdentifier);
+                Reset(systemIdentifier);
                 forceQuirks = false;
                 return this;
             }
@@ -82,6 +91,7 @@ namespace Org.Jsoup.Parser {
             internal override Token Reset() {
                 tagName = null;
                 pendingAttributeName = null;
+                Reset(pendingAttributeValue);
                 pendingAttributeValueS = null;
                 hasEmptyAttributeValue = false;
                 hasPendingAttributeValue = false;
@@ -113,6 +123,7 @@ namespace Org.Jsoup.Parser {
                 pendingAttributeName = null;
                 hasEmptyAttributeValue = false;
                 hasPendingAttributeValue = false;
+                Reset(pendingAttributeValue);
                 pendingAttributeValueS = null;
             }
 
@@ -240,6 +251,7 @@ namespace Org.Jsoup.Parser {
             internal bool bogus = false;
 
             internal override Token Reset() {
+                Reset(data);
                 bogus = false;
                 return this;
             }

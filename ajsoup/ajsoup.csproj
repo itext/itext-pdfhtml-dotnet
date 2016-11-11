@@ -45,6 +45,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="org\jsoup\nodes\entities-base.properties" />
+    <EmbeddedResource Include="org\jsoup\nodes\entities-full.properties" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\itextcore\itext\itext.io\itext.io.csproj">
       <Project>{cee5e7e1-1bf0-4be1-9941-903262ce2f83}</Project>
       <Name>itext.io</Name>

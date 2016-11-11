@@ -336,12 +336,12 @@ namespace Org.Jsoup.Nodes {
                 if (syntax == Syntax.html) {
                     Element metaCharset = Select("meta[charset]").First();
                     if (metaCharset != null) {
-                        metaCharset.Attr("charset", Charset().HeaderName);
+                        metaCharset.Attr("charset", Charset().DisplayName());
                     }
                     else {
                         Element head = Head();
                         if (head != null) {
-                            head.AppendElement("meta").Attr("charset", Charset().HeaderName);
+                            head.AppendElement("meta").Attr("charset", Charset().DisplayName());
                         }
                     }
                     // Remove obsolete elements
@@ -353,7 +353,7 @@ namespace Org.Jsoup.Nodes {
                         if (node is XmlDeclaration) {
                             XmlDeclaration decl = (XmlDeclaration)node;
                             if (decl.Name().Equals("xml")) {
-                                decl.Attr("encoding", Charset().HeaderName);
+                                decl.Attr("encoding", Charset().DisplayName());
                                 String version = decl.Attr("version");
                                 if (version != null) {
                                     decl.Attr("version", "1.0");
@@ -362,14 +362,14 @@ namespace Org.Jsoup.Nodes {
                             else {
                                 decl = new XmlDeclaration("xml", baseUri, false);
                                 decl.Attr("version", "1.0");
-                                decl.Attr("encoding", Charset().HeaderName);
+                                decl.Attr("encoding", Charset().DisplayName());
                                 PrependChild(decl);
                             }
                         }
                         else {
                             XmlDeclaration decl = new XmlDeclaration("xml", baseUri, false);
                             decl.Attr("version", "1.0");
-                            decl.Attr("encoding", Charset().HeaderName);
+                            decl.Attr("encoding", Charset().DisplayName());
                             PrependChild(decl);
                         }
                     }
@@ -564,7 +564,7 @@ namespace Org.Jsoup.Nodes {
         public virtual Object Clone() {
             Org.Jsoup.Nodes.OutputSettings clone;
             clone = (Org.Jsoup.Nodes.OutputSettings)MemberwiseClone();
-            clone.Charset(charset.BodyName);
+            clone.Charset(charset.Name());
             clone.escapeMode = Entities.EscapeMode.ValueOf(escapeMode.Name());
             return clone;
         }

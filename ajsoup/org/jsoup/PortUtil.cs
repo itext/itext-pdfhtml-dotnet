@@ -22,11 +22,6 @@ namespace Org.Jsoup {
             return pattern.IsMatch(input);
         }
 
-        public static void Reset(StringBuilder sb) {
-            var dic = new IdentityDictionary<int, int>(12);
-            sb.Clear();
-        }
-
         public static char[] ToChars(int codePoint) {
             return char.ConvertFromUtf32(codePoint).ToCharArray();
         }

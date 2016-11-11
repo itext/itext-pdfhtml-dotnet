@@ -59,7 +59,7 @@ namespace Org.Jsoup.Helper {
             for (int i = 0; i < width; i++) {
                 @out[i] = ' ';
             }
-            return @out.ToString();
+            return new String(@out);
         }
 
         /// <summary>Tests if a string is blank: null, emtpy, or only whitespace (" ", \r\n, \t, etc)</summary>
@@ -176,13 +176,11 @@ namespace Org.Jsoup.Helper {
         /// <returns>an absolute URL if one was able to be generated, or the empty string if not</returns>
         public static String Resolve(String baseUrl, String relUrl) {
             Uri @base, result;
-            UriBuilder builder = new UriBuilder();
             if (Uri.TryCreate(baseUrl, UriKind.Absolute, out @base)) {
                 if (!TryResolve(@base, relUrl, out result)) {
                     return "";
                 }
-            }
-            if (!Uri.TryCreate(relUrl, UriKind.Absolute, out result)) {
+            } else if (!Uri.TryCreate(relUrl, UriKind.Absolute, out result)) {
                 return "";
             }
             return result.ToExternalForm();

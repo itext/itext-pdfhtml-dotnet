@@ -129,7 +129,7 @@ namespace Org.Jsoup.Parser {
         }
 
         internal void Emit(char[] chars) {
-            Emit(chars.ToString());
+            Emit(iText.IO.Util.JavaUtil.GetStringForChars(chars));
         }
 
         internal void Emit(char c) {
@@ -264,6 +264,7 @@ namespace Org.Jsoup.Parser {
         }
 
         internal void CreateTempBuffer() {
+            Token.Reset(dataBuffer);
         }
 
         internal bool IsAppropriateEndTagToken() {
