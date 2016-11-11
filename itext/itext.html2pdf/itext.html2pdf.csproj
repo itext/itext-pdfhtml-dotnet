@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FF6BA09D-3655-466A-8C17-A7BFD3479CA1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>
+    </RootNamespace>
+    <AssemblyName>itext.html2pdf</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>itext.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\itext.html2pdf.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\itext.html2pdf.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="org\jsoup\**\*.cs" />
+    <Compile Include="itext\html2pdf\**\*.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\KeyVersionAttribute.cs" />
+    <Compile Include="Html2PdfExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="org\jsoup\nodes\entities-base.properties" />
+    <EmbeddedResource Include="org\jsoup\nodes\entities-full.properties" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.forms\itext.forms.csproj">
+      <Project>{e2828ac4-3c63-4b2a-b5ad-5f98862775be}</Project>
+      <Name>itext.forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.io\itext.io.csproj">
+      <Project>{cee5e7e1-1bf0-4be1-9941-903262ce2f83}</Project>
+      <Name>itext.io</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj">
+      <Project>{4e7819e8-7555-4e2e-9a01-d8718a2cfdda}</Project>
+      <Name>itext.kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.layout\itext.layout.csproj">
+      <Project>{42173642-db52-44d3-9883-3e34c65c53bc}</Project>
+      <Name>itext.layout</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="itext.snk" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="resources\default.css">
+      <LogicalName>iText.Html2Pdf.default.css</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\font\FreeMono.ttf">
+      <LogicalName>iText.Html2Pdf.font.FreeMono.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\font\FreeMonoBold.ttf">
+      <LogicalName>iText.Html2Pdf.font.FreeMonoBold.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\font\FreeMonoBoldOblique.ttf">
+      <LogicalName>iText.Html2Pdf.font.FreeMonoBoldOblique.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\font\FreeMonoOblique.ttf">
+      <LogicalName>iText.Html2Pdf.font.FreeMonoOblique.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\font\FreeSans.ttf">
+      <LogicalName>iText.Html2Pdf.font.FreeSans.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\font\FreeSansBold.ttf">
+      <LogicalName>iText.Html2Pdf.font.FreeSansBold.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\font\FreeSansBoldOblique.ttf">
+      <LogicalName>iText.Html2Pdf.font.FreeSansBoldOblique.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\font\FreeSansOblique.ttf">
+      <LogicalName>iText.Html2Pdf.font.FreeSansOblique.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\font\FreeSerif.ttf">
+      <LogicalName>iText.Html2Pdf.font.FreeSerif.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\font\FreeSerifBold.ttf">
+      <LogicalName>iText.Html2Pdf.font.FreeSerifBold.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\font\FreeSerifBoldItalic.ttf">
+      <LogicalName>iText.Html2Pdf.font.FreeSerifBoldItalic.ttf</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="resources\font\FreeSerifItalic.ttf">
+      <LogicalName>iText.Html2Pdf.font.FreeSerifItalic.ttf</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
