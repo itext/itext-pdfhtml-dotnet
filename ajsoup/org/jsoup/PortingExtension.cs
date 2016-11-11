@@ -46,9 +46,35 @@ namespace Org.Jsoup
         }
 
         public static String Decode(this Encoding encoding, ByteBuffer byteBuffer) {
-            var temp = Encoding.GetEncoding(encoding.CodePage, EncoderFallback.ReplacementFallback,
-                DecoderFallback.ReplacementFallback);
-            var result = temp.GetString(byteBuffer.buffer, byteBuffer.position, byteBuffer.Remaining());
+            byte[] bom;
+            int offset = 0;
+            Encoding temp = null;
+            if (encoding.CodePage == Encoding.Unicode.CodePage && byteBuffer.Remaining() >= 2) {
+                bom = new byte[2];
+                byteBuffer.Peek(bom);
+                if (bom[0] == (byte)0xFE && bom[1] == (byte)0xFF) {
+                    temp = Encoding.BigEndianUnicode;
+                    offset = 2;
+                }
+                if (bom[0] == (byte)0xFF && bom[1] == (byte)0xFE) {
+                    offset = 2;
+                }
+            }
+            if (encoding.CodePage == Encoding.UTF32.CodePage && byteBuffer.Remaining() >= 4) {
+                bom = new byte[4];
+                byteBuffer.Peek(bom);
+                if (bom[0] == 0x00 && bom[1] == 0x00 && bom[2] == (byte) 0xFE && bom[3] == (byte) 0xFF) {
+                    temp = Encoding.GetEncoding("utf-32be");
+                    offset = 4;
+                }
+                if (bom[0] == (byte)0xFF && bom[1] == (byte)0xFE && bom[2] == 0x00 && bom[3] == 0x00) {
+                    offset = 4;
+                }
+            }
+            if (temp == null) {
+                temp = Encoding.GetEncoding(encoding.CodePage, EncoderFallback.ReplacementFallback, DecoderFallback.ReplacementFallback);
+            }
+            var result = temp.GetString(byteBuffer.buffer, byteBuffer.position + offset, byteBuffer.Remaining() - offset);
             byteBuffer.Position(byteBuffer.buffer.Length - 1);
             return result;
         }

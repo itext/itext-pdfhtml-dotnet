@@ -50,6 +50,12 @@ namespace Org.Jsoup.Helper
             return this;
         }
 
+        public ByteBuffer Peek(byte[] dest) {
+            int start = position;
+            Get(dest);
+            return Position(start);
+        }
+
         public int Remaining() {
             return buffer.Length - position;
         }
