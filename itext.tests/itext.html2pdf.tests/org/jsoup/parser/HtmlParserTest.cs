@@ -964,8 +964,8 @@ namespace Org.Jsoup.Parser {
             Document doc = Org.Jsoup.Jsoup.Parse(@in, "UTF-8");
             doc.OutputSettings().PrettyPrint(true);
             String rendered = doc.ToString();
-            int endOfEmail = rendered.IndexOf("Comment");
-            int guarantee = rendered.IndexOf("Why am I here?");
+            int endOfEmail = rendered.IndexOf("Comment", StringComparison.Ordinal);
+            int guarantee = rendered.IndexOf("Why am I here?", StringComparison.Ordinal);
             NUnit.Framework.Assert.IsTrue(endOfEmail > -1, "Comment not found");
             NUnit.Framework.Assert.IsTrue(guarantee > -1, "Search text not found");
             NUnit.Framework.Assert.IsTrue(guarantee > endOfEmail, "Search text did not come after comment");
