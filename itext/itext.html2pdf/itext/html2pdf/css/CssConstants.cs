@@ -190,6 +190,8 @@ namespace iText.Html2pdf.Css {
 
         public const String MAX_HEIGHT = "max-height";
 
+        public const String MEDIA = "media";
+
         public const String MIN_HEIGHT = "min-height";
 
         public const String OPACITY = "opacity";

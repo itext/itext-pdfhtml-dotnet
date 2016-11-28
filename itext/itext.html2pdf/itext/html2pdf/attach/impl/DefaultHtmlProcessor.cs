@@ -250,7 +250,8 @@ namespace iText.Html2pdf.Attach.Impl {
                     ICssApplier cssApplier = CssApplierFactory.GetCssApplier(element.Name());
                     if (cssApplier == null) {
                         if (!ignoredCssTags.Contains(element.Name())) {
-                            logger.Error("No css applier found for tag " + element.Name());
+                            logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.Name())
+                                );
                         }
                     }
                     else {
@@ -259,8 +260,8 @@ namespace iText.Html2pdf.Attach.Impl {
                     if (!context.GetState().Empty()) {
                         bool childProcessed = context.GetState().Top().ProcessTagChild(tagWorker, context);
                         if (!childProcessed) {
-                            logger.Error(String.Format("Worker of type %s wasn't able to process %s", context.GetState().Top().GetType
-                                ().FullName, tagWorker.GetType().FullName));
+                            logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, context
+                                .GetState().Top().GetType().FullName, tagWorker.GetType().FullName));
                         }
                     }
                     else {
@@ -278,12 +279,12 @@ namespace iText.Html2pdf.Attach.Impl {
                         if (!context.GetState().Empty()) {
                             bool contentProcessed = context.GetState().Top().ProcessContent(content, context);
                             if (!contentProcessed) {
-                                logger.Error(String.Format("Worker of type %s wasn't able to process it's text content", context.GetState(
-                                    ).Top().GetType().FullName));
+                                logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT, context
+                                    .GetState().Top().GetType().FullName));
                             }
                         }
                         else {
-                            logger.Error("No consumer found for content");
+                            logger.Error(iText.Html2pdf.LogMessageConstant.NO_CONSUMER_FOUND_FOR_CONTENT);
                         }
                     }
                 }

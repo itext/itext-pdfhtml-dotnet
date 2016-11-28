@@ -40,7 +40,6 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.IO.Log;
 using iText.Kernel.Font;
 
 namespace iText.Html2pdf.Font {
@@ -56,14 +55,12 @@ namespace iText.Html2pdf.Font {
             try {
                 result = PdfFontFactory.CreateFont(name);
             }
-            catch (Exception any) {
-                LoggerFactory.GetLogger(GetType()).Error(String.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_FONT
-                    , name), any);
+            catch (Exception) {
+                //LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name), any);
                 result = PdfFontFactory.CreateFont();
             }
             if (result == null) {
-                LoggerFactory.GetLogger(GetType()).Error(String.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_FONT
-                    , name));
+                //LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name));
                 result = PdfFontFactory.CreateFont();
             }
             return result;

@@ -66,7 +66,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         )));
                 }
                 catch (System.IO.IOException exc) {
-                    logger.Error("Could not load font", exc);
+                    logger.Error(iText.Html2pdf.LogMessageConstant.ERROR_LOADING_FONT, exc);
                 }
             }
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
@@ -121,7 +121,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 IList<Underline> underlineList = new List<Underline>();
                 foreach (String textDecoration in textDecorations) {
                     if (CssConstants.BLINK.Equals(textDecoration)) {
-                        logger.Error("text-decoration: blink not supported");
+                        logger.Error(iText.Html2pdf.LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
                     }
                     else {
                         if (CssConstants.LINE_THROUGH.Equals(textDecoration)) {
@@ -155,7 +155,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(Property.FIRST_LINE_INDENT, textIndentValue.GetValue());
                 }
                 else {
-                    logger.Error("text-indent in percents is not supported");
+                    logger.Error(iText.Html2pdf.LogMessageConstant.TEXT_INDENT_IN_PERCENTS_IS_NOT_SUPPORTED);
                 }
             }
             String letterSpacing = cssProps.Get(CssConstants.LETTER_SPACING);

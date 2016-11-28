@@ -64,7 +64,8 @@ namespace iText.Html2pdf.Css.Parse {
                 }
                 else {
                     if (propertyDeclarationStr.Trim().Length != 0) {
-                        logger.Error("Invalid property declaration: " + propertyDeclarationStr);
+                        logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, propertyDeclarationStr
+                            .Trim()));
                     }
                 }
             }
@@ -89,7 +90,7 @@ namespace iText.Html2pdf.Css.Parse {
                     ruleSets.Add(new CssRuleSet(selector, declarations));
                 }
                 catch (Exception exc) {
-                    logger.Error("Error parsing selector", exc);
+                    logger.Error(iText.Html2pdf.LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, exc);
                     //if any separated selector has errors, all others become invalid.
                     //in this case we just clear map, it is the easies way to support this.
                     declarations.Clear();

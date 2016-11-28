@@ -53,8 +53,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.MarginApplierUtil
             ));
 
-        private const String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
-
         private MarginApplierUtil() {
         }
 
@@ -73,25 +71,25 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 element.SetProperty(Property.MARGIN_TOP, marginTopVal.GetValue());
             }
             else {
-                logger.Error(MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
             if (marginBottomVal.IsPointValue()) {
                 element.SetProperty(Property.MARGIN_BOTTOM, marginBottomVal.GetValue());
             }
             else {
-                logger.Error(MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
             if (marginLeftVal.IsPointValue()) {
                 element.SetProperty(Property.MARGIN_LEFT, marginLeftVal.GetValue());
             }
             else {
-                logger.Error(MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
             if (marginRightVal.IsPointValue()) {
                 element.SetProperty(Property.MARGIN_RIGHT, marginRightVal.GetValue());
             }
             else {
-                logger.Error(MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
         }
     }

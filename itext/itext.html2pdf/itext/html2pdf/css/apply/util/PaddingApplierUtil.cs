@@ -53,8 +53,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.PaddingApplierUtil
             ));
 
-        private const String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
-
         private PaddingApplierUtil() {
         }
 
@@ -73,25 +71,25 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 element.SetProperty(Property.PADDING_TOP, marginTopVal.GetValue());
             }
             else {
-                logger.Error(PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
             if (marginBottomVal.IsPointValue()) {
                 element.SetProperty(Property.PADDING_BOTTOM, marginBottomVal.GetValue());
             }
             else {
-                logger.Error(PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
             if (marginLeftVal.IsPointValue()) {
                 element.SetProperty(Property.PADDING_LEFT, marginLeftVal.GetValue());
             }
             else {
-                logger.Error(PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
             if (marginRightVal.IsPointValue()) {
                 element.SetProperty(Property.PADDING_RIGHT, marginRightVal.GetValue());
             }
             else {
-                logger.Error(PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
             }
         }
     }

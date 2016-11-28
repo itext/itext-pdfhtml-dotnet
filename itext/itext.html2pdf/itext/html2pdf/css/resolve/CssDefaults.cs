@@ -85,6 +85,8 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues[CssConstants.MARGIN_LEFT] = "0";
             defaultValues[CssConstants.MARGIN_RIGHT] = "0";
             defaultValues[CssConstants.MARGIN_TOP] = "0";
+            defaultValues[CssConstants.OUTLINE_COLOR] = CssConstants.INVERT;
+            defaultValues[CssConstants.OUTLINE_STYLE] = CssConstants.NONE;
             defaultValues[CssConstants.PADDING_BOTTOM] = "0";
             defaultValues[CssConstants.PADDING_LEFT] = "0";
             defaultValues[CssConstants.PADDING_RIGHT] = "0";
@@ -93,6 +95,7 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues[CssConstants.LIST_STYLE_IMAGE] = CssConstants.NONE;
             defaultValues[CssConstants.LIST_STYLE_POSITION] = CssConstants.OUTSIDE;
             defaultValues[CssConstants.TEXT_ALIGN] = CssConstants.START;
+            defaultValues[CssConstants.TEXT_DECORATION] = CssConstants.NONE;
             defaultValues[CssConstants.WHITE_SPACE] = CssConstants.NORMAL;
             defaultValues[CssConstants.TEXT_TRANSFORM] = CssConstants.NONE;
         }

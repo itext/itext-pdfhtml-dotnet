@@ -44,10 +44,14 @@ using System.Collections.Generic;
 using System.Text;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Parse;
+using iText.IO.Log;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Parse.Syntax {
     public sealed class CssParserStateController {
         private IParserState currentState;
+
+        private bool isCurrentRuleSupported = true;
 
         private IParserState previousActiveState;
 
@@ -58,6 +62,9 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         private CssStyleSheet styleSheet;
 
         private Stack<CssNestedAtRule> nestedAtRules;
+
+        private static readonly ICollection<String> SUPPORTED_RULES = JavaCollectionsUtil.UnmodifiableSet(new HashSet
+            <String>(iText.IO.Util.JavaUtil.ArraysAsList(CssConstants.MEDIA)));
 
         private readonly IParserState commentStartState;
 
@@ -74,6 +81,7 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         private readonly IParserState atRuleBlockState;
 
         public CssParserStateController() {
+            //Hashed value
             // Non-comment
             styleSheet = new CssStyleSheet();
             nestedAtRules = new Stack<CssNestedAtRule>();
@@ -147,24 +155,32 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         }
 
         internal void StoreCurrentProperties() {
-            ProcessProperties(currentSelector, buffer.ToString());
+            if (isCurrentRuleSupported) {
+                ProcessProperties(currentSelector, buffer.ToString());
+            }
             currentSelector = null;
             buffer.Length = 0;
         }
 
         internal void StoreSemicolonAtRule() {
-            ProcessSemicolonAtRule(buffer.ToString());
+            if (isCurrentRuleSupported) {
+                ProcessSemicolonAtRule(buffer.ToString());
+            }
             buffer.Length = 0;
         }
 
         internal void FinishAtRuleBlock() {
             CssNestedAtRule atRule = nestedAtRules.Pop();
-            ProcessFinishedAtRuleBlock(atRule);
+            if (isCurrentRuleSupported) {
+                ProcessFinishedAtRuleBlock(atRule);
+            }
+            isCurrentRuleSupported = IsCurrentRuleSupported();
             buffer.Length = 0;
         }
 
         internal void PushBlockPrecedingAtRule() {
             nestedAtRules.Push(CssNestedAtRuleFactory.CreateNestedRule(buffer.ToString()));
+            isCurrentRuleSupported = IsCurrentRuleSupported();
             buffer.Length = 0;
         }
 
@@ -200,6 +216,15 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             else {
                 styleSheet.AddStatement(atRule);
             }
+        }
+
+        private bool IsCurrentRuleSupported() {
+            bool isSupported = nestedAtRules.IsEmpty() || SUPPORTED_RULES.Contains(nestedAtRules.Peek().GetRuleName());
+            if (!isSupported) {
+                LoggerFactory.GetLogger(GetType()).Error(String.Format(iText.Html2pdf.LogMessageConstant.RULE_IS_NOT_SUPPORTED
+                    , nestedAtRules.Peek().GetRuleName()));
+            }
+            return isSupported;
         }
     }
 }
