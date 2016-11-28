@@ -96,7 +96,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
         public virtual void CollapsingTest05() {
             // "min-height" property affects margins collapse differently in chrome and mozilla. While in chrome, this property
             // seems to not have any effect on collapsing margins at all (child margins collapse with parent margins even if
@@ -124,7 +123,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Not working correctly")]
         public virtual void CollapsingTest07_malformed() {
             Test("collapsingTest07_malformed.html", "collapsingTest07_malformed.pdf", "diff_");
         }
@@ -132,7 +130,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Not working correctly")]
         public virtual void CollapsingTest07_malformed2() {
             Test("collapsingTest07_malformed2.html", "collapsingTest07_malformed2.pdf", "diff_");
         }
@@ -169,7 +166,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CollapsingTest12() {
-            Test("collapsingTest11.html", "collapsingTest11.pdf", "diff_");
+            Test("collapsingTest12.html", "collapsingTest12.pdf", "diff_");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -193,7 +190,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Not working correctly")]
         public virtual void EmptyInlinesTest01() {
             Test("emptyInlinesTest01.html", "emptyInlinesTest01.pdf", "diff_");
         }
@@ -201,7 +197,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Not working correctly")]
         public virtual void EmptyInlinesTest02() {
             Test("emptyInlinesTest02.html", "emptyInlinesTest02.pdf", "diff_");
         }
@@ -238,7 +233,14 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Not working correctly")]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
+        public virtual void NegativeMarginsTest03() {
+            Test("negativeMarginsTest03.html", "negativeMarginsTest03.pdf", "diff_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void NotSanitizedTest01() {
             Test("notSanitizedTest01.html", "notSanitizedTest01.pdf", "diff_");
         }
@@ -246,7 +248,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Not working correctly")]
         public virtual void NotSanitizedTest02() {
             Test("notSanitizedTest02.html", "notSanitizedTest02.pdf", "diff_");
         }
@@ -254,7 +255,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Not working correctly")]
         public virtual void SelfCollapsingEmptyInlinesTest01() {
             Test("selfCollapsingEmptyInlinesTest01.html", "selfCollapsingEmptyInlinesTest01.pdf", "diff_");
         }
@@ -262,7 +262,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Not working correctly")]
         public virtual void SelfCollapsingEmptyInlinesTest02() {
             Test("selfCollapsingEmptyInlinesTest02.html", "selfCollapsingEmptyInlinesTest02.pdf", "diff_");
         }
@@ -270,7 +269,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Not working correctly")]
         public virtual void SelfCollapsingEmptyInlinesTest03() {
             Test("selfCollapsingEmptyInlinesTest03.html", "selfCollapsingEmptyInlinesTest03.pdf", "diff_");
         }
@@ -401,6 +399,13 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void SelfCollapsingTest16() {
             Test("selfCollapsingTest16.html", "selfCollapsingTest16.pdf", "diff_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SelfCollapsingTest17() {
+            Test("selfCollapsingTest17.html", "selfCollapsingTest17.pdf", "diff_");
         }
 
         /// <exception cref="System.IO.IOException"/>
