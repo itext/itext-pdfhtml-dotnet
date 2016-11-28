@@ -49,6 +49,7 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class HeightTest : ExtendedITextTest {
@@ -65,6 +66,7 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 2)]
         [NUnit.Framework.Test]
         public virtual void HeightTest01() {
             String testName = "heightTest01";
@@ -89,6 +91,7 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 2)]
         [NUnit.Framework.Test]
         public virtual void HeightTest03() {
             String testName = "heightTest03";
