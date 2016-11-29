@@ -174,5 +174,15 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "captionTag.pdf", sourceFolder
                  + "cmp_captionTag.pdf", destinationFolder, "diff11_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BrInTdTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "brInTd.html"), new FileInfo(destinationFolder + "brInTd.pdf"
+                ));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "brInTd.pdf", sourceFolder
+                 + "cmp_brInTd.pdf", destinationFolder, "diff12_"));
+        }
     }
 }

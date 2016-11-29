@@ -88,7 +88,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 processed = allChildrenProcesssed;
             }
             else {
-                processed = ProcessChild(childTagWorker.GetElementResult());
+                if (childTagWorker is BrTagWorker) {
+                    inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
+                    processed = true;
+                }
+                else {
+                    processed = ProcessChild(childTagWorker.GetElementResult());
+                }
             }
             return processed;
         }
