@@ -64,7 +64,7 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         private Stack<CssNestedAtRule> nestedAtRules;
 
         private static readonly ICollection<String> SUPPORTED_RULES = JavaCollectionsUtil.UnmodifiableSet(new HashSet
-            <String>(iText.IO.Util.JavaUtil.ArraysAsList(CssConstants.MEDIA)));
+            <String>(iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName.MEDIA)));
 
         private readonly IParserState commentStartState;
 
