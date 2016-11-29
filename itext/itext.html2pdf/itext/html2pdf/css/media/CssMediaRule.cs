@@ -50,6 +50,7 @@ namespace iText.Html2pdf.Css.Media {
 
         public CssMediaRule(String ruleName, String ruleParameters)
             : base(ruleName, ruleParameters) {
+            // TODO get rid of ruleName in constructor? It is always CssRuleName.MEDIA
             mediaQueries = MediaQueryParser.ParseMediaQueries(ruleParameters);
         }
 

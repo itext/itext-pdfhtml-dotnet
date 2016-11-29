@@ -159,7 +159,16 @@ namespace iText.Html2pdf.Css.Resolve {
                             String styleSheetUri = headChildElement.GetAttribute(AttributeConstants.HREF);
                             try {
                                 Stream stream = resourceResolver.RetrieveStyleSheet(styleSheetUri);
-                                cssStyleSheet.AppendCssStyleSheet(CssStyleSheetParser.Parse(stream));
+                                CssStyleSheet styleSheet = CssStyleSheetParser.Parse(stream);
+                                String mediaAttribute = headChildElement.GetAttribute(AttributeConstants.MEDIA);
+                                if (mediaAttribute != null && mediaAttribute.Length > 0) {
+                                    IList<CssStatement> statements = styleSheet.GetStatements();
+                                    CssMediaRule mediaRule = new CssMediaRule(CssRuleName.MEDIA, mediaAttribute);
+                                    mediaRule.AddStatementsToBody(statements);
+                                    styleSheet = new CssStyleSheet();
+                                    styleSheet.AddStatement(mediaRule);
+                                }
+                                cssStyleSheet.AppendCssStyleSheet(styleSheet);
                             }
                             catch (System.IO.IOException exc) {
                                 ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));

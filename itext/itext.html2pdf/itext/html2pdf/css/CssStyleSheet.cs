@@ -74,6 +74,10 @@ namespace iText.Html2pdf.Css {
             return sb.ToString();
         }
 
+        public virtual IList<CssStatement> GetStatements() {
+            return JavaCollectionsUtil.UnmodifiableList(statements);
+        }
+
         public virtual IList<CssDeclaration> GetCssDeclarations(IElementNode element, MediaDeviceDescription deviceDescription
             ) {
             IList<CssRuleSet> ruleSets = GetCssRuleSets(element, deviceDescription);

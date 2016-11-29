@@ -60,6 +60,10 @@ namespace iText.Html2pdf.Css {
             this.body.Add(statement);
         }
 
+        public virtual void AddStatementsToBody(ICollection<CssStatement> statements) {
+            this.body.AddAll(statements);
+        }
+
         public override String ToString() {
             StringBuilder sb = new StringBuilder();
             sb.Append(String.Format("@{0} {1} ", ruleName, ruleParameters));

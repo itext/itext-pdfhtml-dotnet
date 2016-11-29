@@ -43,9 +43,6 @@ using System;
 
 namespace iText.Html2pdf.Html {
     public sealed class AttributeConstants {
-        private AttributeConstants() {
-        }
-
         public const String ALIGN = "align";
 
         public const String BGCOLOR = "bgcolor";
@@ -64,6 +61,8 @@ namespace iText.Html2pdf.Html {
 
         public const String ID = "id";
 
+        public const String MEDIA = "media";
+
         public const String NAME = "name";
 
         public const String NOSHADE = "noshade";
@@ -81,6 +80,9 @@ namespace iText.Html2pdf.Html {
         public const String WIDTH = "width";
 
         public const String STYLESHEET = "stylesheet";
+
+        private AttributeConstants() {
+        }
         // attribute values
     }
 }

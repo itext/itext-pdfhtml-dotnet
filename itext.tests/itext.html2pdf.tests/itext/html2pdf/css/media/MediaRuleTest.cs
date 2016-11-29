@@ -42,18 +42,23 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Html2pdf;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Media {
     public class MediaRuleTest : ExtendedITextTest {
@@ -187,6 +192,21 @@ namespace iText.Html2pdf.Css.Media {
             NUnit.Framework.Assert.AreEqual(0, declarations3.Count);
             NUnit.Framework.Assert.AreEqual(1, declarations1.Count);
             NUnit.Framework.Assert.AreEqual("color: red", declarations1[0].ToString());
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.TEXT_WAS_NOT_PROCESSED, Count = 10)]
+        public virtual void Test07() {
+            String htmlFileName = sourceFolder + "html07.html";
+            byte[] bytes = StreamUtil.InputStreamToArray(new FileStream(htmlFileName, FileMode.Open, FileAccess.Read));
+            String html = iText.IO.Util.JavaUtil.GetStringForBytes(bytes);
+            MediaDeviceDescription printDevice = new MediaDeviceDescription(MediaType.PRINT);
+            MediaDeviceDescription screenDevice = new MediaDeviceDescription(MediaType.SCREEN).SetWidth(1000);
+            IList<IElement> printElements = HtmlConverter.ConvertToElements(html, printDevice, sourceFolder);
+            IList<IElement> screenElements = HtmlConverter.ConvertToElements(html, screenDevice, sourceFolder);
+            NUnit.Framework.Assert.AreEqual(12f, (float?)printElements[0].GetProperty<float?>(Property.FONT_SIZE), 1e-10f);
+            NUnit.Framework.Assert.AreEqual(20f, (float?)screenElements[0].GetProperty<float?>(Property.FONT_SIZE), 1e-10f);
         }
     }
 }
