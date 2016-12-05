@@ -173,16 +173,14 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Not working correctly")]
         public virtual void ElementTableTest() {
-            // TODO empty table is not self-collapsing
             Test("elementTableTest.html", "elementTableTest.pdf", "diff_");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Not working correctly")]
+        [NUnit.Framework.Ignore("DEVSIX-962")]
         public virtual void ElementUlOlLiTest() {
-            // TODO empty list items could be treated as self-collapsing elements
             Test("elementUlOlLiTest.html", "elementUlOlLiTest.pdf", "diff_");
         }
 
