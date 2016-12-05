@@ -52,12 +52,11 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    [NUnit.Framework.Ignore("Ignored for now")]
-    public class CollapsingMarginsTest : ExtendedITextTest {
-        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/css/CollapsingMarginsTest/";
+    public class CssCollapsingMarginsTest : ExtendedITextTest {
+        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/css/CssCollapsingMarginsTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/css/CollapsingMarginsTest/";
+             + "/test/itext/html2pdf/css/CssCollapsingMarginsTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
@@ -199,20 +198,6 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void EmptyInlinesTest02() {
             Test("emptyInlinesTest02.html", "emptyInlinesTest02.pdf", "diff_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void ImgTest01() {
-            Test("imgTest01.html", "imgTest01.pdf", "diff_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void ImgTest02() {
-            Test("imgTest02.html", "imgTest02.pdf", "diff_");
         }
 
         /// <exception cref="System.IO.IOException"/>

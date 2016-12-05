@@ -53,6 +53,7 @@ using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
@@ -141,6 +142,7 @@ namespace iText.Html2pdf.Attach.Impl {
             IList<IElement> elements = new List<IElement>();
             foreach (IPropertyContainer propertyContainer in roots) {
                 if (propertyContainer is IElement) {
+                    propertyContainer.SetProperty(Property.COLLAPSING_MARGINS, true);
                     elements.Add((IElement)propertyContainer);
                 }
             }
