@@ -171,8 +171,8 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Not working correctly")]
         public virtual void ElementTableTest() {
+            // empty tables don't self-collapse in browsers
             Test("elementTableTest.html", "elementTableTest.pdf", "diff_");
         }
 

@@ -132,7 +132,14 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                 }
                 arr[k] = width_1;
             }
-            Table table = new Table(arr);
+            Table table;
+            if (arr.Length > 0) {
+                table = new Table(arr);
+            }
+            else {
+                // if table is empty, create empty table with single column
+                table = new Table(1);
+            }
             if (headerRows != null) {
                 foreach (IList<Cell> headerRow in headerRows) {
                     foreach (Cell headerCell in headerRow) {
