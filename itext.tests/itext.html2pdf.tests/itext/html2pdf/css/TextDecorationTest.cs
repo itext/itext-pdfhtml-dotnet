@@ -92,5 +92,49 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textDecorationTest03.pdf"
                 , sourceFolder + "cmp_textDecorationTest03.pdf", destinationFolder, "diff03_"));
         }
+
+        //Text decoration property is in defaults.css for a[href], should be replaced by css.
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TextDecoration04Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textDecorationTest04.html"), new FileInfo(destinationFolder
+                 + "textDecorationTest04.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textDecorationTest04.pdf"
+                , sourceFolder + "cmp_textDecorationTest04.pdf", destinationFolder, "diff04_"));
+        }
+
+        //Text decoration children with none (values should be merged, none should be ignored)
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TextDecoration05Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textDecorationTest05.html"), new FileInfo(destinationFolder
+                 + "textDecorationTest05.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textDecorationTest05.pdf"
+                , sourceFolder + "cmp_textDecorationTest05.pdf", destinationFolder, "diff05_"));
+        }
+
+        //Text decoration with display:inline-block spans (values should be replaced)
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TextDecoration06Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textDecorationTest06.html"), new FileInfo(destinationFolder
+                 + "textDecorationTest06.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textDecorationTest06.pdf"
+                , sourceFolder + "cmp_textDecorationTest06.pdf", destinationFolder, "diff06_"));
+        }
+
+        //Text decoration property should be replaced by node's style attribute.
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TextDecoration07Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textDecorationTest07.html"), new FileInfo(destinationFolder
+                 + "textDecorationTest07.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textDecorationTest07.pdf"
+                , sourceFolder + "cmp_textDecorationTest07.pdf", destinationFolder, "diff07_"));
+        }
     }
 }

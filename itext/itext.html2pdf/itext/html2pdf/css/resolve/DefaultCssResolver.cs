@@ -80,30 +80,14 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
                 if (parentStyles != null) {
                     foreach (KeyValuePair<String, String> entry in parentStyles) {
-                        String cssProperty = entry.Key;
-                        String elementPropValue = elementStyles.Get(cssProperty);
-                        if ((elementPropValue == null && CssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals
-                            (elementPropValue)) {
-                            MergeCssDeclaration(elementStyles, cssProperty, entry.Value);
-                        }
-                        else {
-                            if (CssConstants.TEXT_DECORATION.Equals(cssProperty)) {
-                                // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
-                                /* Text decorations on inline boxes are drawn across the entire element,
-                                going across any descendant elements without paying any attention to their presence. */
-                                // Also, when, for example, parent element has text-decoration:underline, and the child text-decoration:overline,
-                                // then the text in the child will be both overline and underline. This is why the declarations are merged
-                                // See TextDecorationTest#textDecoration01Test
-                                MergeCssDeclaration(elementStyles, cssProperty, entry.Value);
-                            }
-                        }
+                        MergeParentCssDeclaration(elementStyles, entry.Key, entry.Value);
                     }
                     String elementFontSize = elementStyles.Get(CssConstants.FONT_SIZE);
                     String parentFontSizeStr = parentStyles.Get(CssConstants.FONT_SIZE);
                     if (CssUtils.IsRelativeValue(elementFontSize) && parentFontSizeStr != null) {
                         float parentFontSize = CssUtils.ParseAbsoluteLength(parentFontSizeStr);
                         float absoluteFontSize = CssUtils.ParseRelativeValue(elementFontSize, parentFontSize);
-                        MergeCssDeclaration(elementStyles, CssConstants.FONT_SIZE, absoluteFontSize + "pt");
+                        elementStyles[CssConstants.FONT_SIZE] = absoluteFontSize + "pt";
                     }
                 }
             }
@@ -115,7 +99,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
             }
             foreach (String key in keys) {
-                MergeCssDeclaration(elementStyles, key, CssDefaults.GetDefaultValue(key));
+                elementStyles[key] = CssDefaults.GetDefaultValue(key);
             }
             return elementStyles;
         }
@@ -126,13 +110,13 @@ namespace iText.Html2pdf.Css.Resolve {
                 IShorthandResolver shorthandResolver = ShorthandResolverFactory.GetShorthandResolver(cssDeclaration.GetProperty
                     ());
                 if (shorthandResolver == null) {
-                    MergeCssDeclaration(stylesMap, cssDeclaration.GetProperty(), cssDeclaration.GetExpression());
+                    stylesMap[cssDeclaration.GetProperty()] = cssDeclaration.GetExpression();
                 }
                 else {
                     IList<CssDeclaration> resolvedShorthandProps = shorthandResolver.ResolveShorthand(cssDeclaration.GetExpression
                         ());
                     foreach (CssDeclaration resolvedProp in resolvedShorthandProps) {
-                        MergeCssDeclaration(stylesMap, resolvedProp.GetProperty(), resolvedProp.GetExpression());
+                        stylesMap[resolvedProp.GetProperty()] = resolvedProp.GetExpression();
                     }
                 }
             }
@@ -186,12 +170,23 @@ namespace iText.Html2pdf.Css.Resolve {
             return null;
         }
 
-        private void MergeCssDeclaration(IDictionary<String, String> styles, String cssProperty, String value) {
-            if (CssConstants.TEXT_DECORATION.Equals(cssProperty) && styles.ContainsKey(cssProperty)) {
-                styles[cssProperty] = CssPropertyMerger.MergeTextDecoration(styles.Get(cssProperty), value);
+        private void MergeParentCssDeclaration(IDictionary<String, String> styles, String cssProperty, String parentPropValue
+            ) {
+            String childPropValue = styles.Get(cssProperty);
+            if ((childPropValue == null && CssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals(childPropValue
+                )) {
+                styles[cssProperty] = parentPropValue;
             }
             else {
-                styles[cssProperty] = value;
+                if (CssConstants.TEXT_DECORATION.Equals(cssProperty)) {
+                    // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
+                    /* Text decorations on inline boxes are drawn across the entire element,
+                    going across any descendant elements without paying any attention to their presence. */
+                    // Also, when, for example, parent element has text-decoration:underline, and the child text-decoration:overline,
+                    // then the text in the child will be both overline and underline. This is why the declarations are merged
+                    // See TextDecorationTest#textDecoration01Test
+                    styles[cssProperty] = CssPropertyMerger.MergeTextDecoration(childPropValue, parentPropValue);
+                }
             }
         }
     }

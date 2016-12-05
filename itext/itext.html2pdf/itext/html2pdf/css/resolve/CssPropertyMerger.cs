@@ -42,6 +42,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using iText.Html2pdf.Css;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
@@ -58,12 +59,8 @@ namespace iText.Html2pdf.Css.Resolve {
                     return firstValue;
                 }
             }
-            String[] firstParts = iText.IO.Util.StringUtil.Split(firstValue, "\\s+");
-            String[] secondParts = iText.IO.Util.StringUtil.Split(secondValue, "\\s+");
-            // LinkedHashSet to make order invariant of JVM
-            ICollection<String> merged = new LinkedHashSet<String>();
-            merged.AddAll(iText.IO.Util.JavaUtil.ArraysAsList(firstParts));
-            merged.AddAll(iText.IO.Util.JavaUtil.ArraysAsList(secondParts));
+            ICollection<String> merged = NormalizeTextDecoration(firstValue);
+            merged.AddAll(NormalizeTextDecoration(secondValue));
             StringBuilder sb = new StringBuilder();
             foreach (String mergedProp in merged) {
                 if (sb.Length != 0) {
@@ -71,7 +68,19 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
                 sb.Append(mergedProp);
             }
-            return sb.ToString();
+            return sb.Length != 0 ? sb.ToString() : CssConstants.NONE;
+        }
+
+        private static ICollection<String> NormalizeTextDecoration(String value) {
+            String[] parts = iText.IO.Util.StringUtil.Split(value, "\\s+");
+            // LinkedHashSet to make order invariant of JVM
+            ICollection<String> merged = new LinkedHashSet<String>();
+            merged.AddAll(iText.IO.Util.JavaUtil.ArraysAsList(parts));
+            // if none and any other decoration are used together, none is displayed
+            if (merged.Contains(CssConstants.NONE)) {
+                merged.Clear();
+            }
+            return merged;
         }
     }
 }
