@@ -43,6 +43,7 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
+using iText.Html2pdf.Css.Util;
 using iText.IO.Log;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
@@ -79,7 +80,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             String lineHeightValue = null;
             String fontFamilyValue = null;
             String[] props = iText.IO.Util.StringUtil.Split(iText.IO.Util.StringUtil.ReplaceAll(shorthandExpression, ",\\s*"
-                , ","), " ");
+                , ","), "\"?( |$)(?=(([^\"]*\"){2})*[^\"]*$)\"?");
             foreach (String value in props) {
                 int slashSymbolIndex = value.IndexOf('/');
                 if (CssConstants.ITALIC.Equals(value) || CssConstants.OBLIQUE.Equals(value)) {
@@ -99,7 +100,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                                 lineHeightValue = value.JSubstring(slashSymbolIndex + 1, value.Length);
                             }
                             else {
-                                if (FONT_SIZE_VALUES.Contains(value)) {
+                                if (FONT_SIZE_VALUES.Contains(value) || CssUtils.IsMetricValue(value) || CssUtils.IsNumericValue(value)) {
                                     fontSizeValue = value;
                                 }
                                 else {
