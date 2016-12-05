@@ -119,6 +119,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-958")]
         public virtual void TextDecoration06Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textDecorationTest06.html"), new FileInfo(destinationFolder
                  + "textDecorationTest06.pdf"));
