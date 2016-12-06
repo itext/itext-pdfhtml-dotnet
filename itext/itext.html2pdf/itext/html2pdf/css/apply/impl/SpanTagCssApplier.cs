@@ -60,6 +60,8 @@ namespace iText.Html2pdf.Css.Apply.Impl {
              context) {
             FontStyleApplierUtil.ApplyFontStyles(css, context, element);
             BackgroundApplierUtil.ApplyBackground(css, context, element);
+            //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
+            BorderStyleApplierUtil.ApplyBorders(css, context, element);
         }
     }
 }

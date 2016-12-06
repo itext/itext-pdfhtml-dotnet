@@ -76,7 +76,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 IDictionary<String, String> parentStyles = ((IElementNode)element.ParentNode()).GetStyles();
                 if (parentStyles == null && !(element.ParentNode() is IDocumentNode)) {
                     ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
-                    logger.Error("Element parent styles are not resolved. Styles for current element might be incorrect.");
+                    logger.Error(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
                 }
                 if (parentStyles != null) {
                     foreach (KeyValuePair<String, String> entry in parentStyles) {
@@ -87,7 +87,7 @@ namespace iText.Html2pdf.Css.Resolve {
                     if (CssUtils.IsRelativeValue(elementFontSize) && parentFontSizeStr != null) {
                         float parentFontSize = CssUtils.ParseAbsoluteLength(parentFontSizeStr);
                         float absoluteFontSize = CssUtils.ParseRelativeValue(elementFontSize, parentFontSize);
-                        elementStyles[CssConstants.FONT_SIZE] = absoluteFontSize + "pt";
+                        elementStyles[CssConstants.FONT_SIZE] = absoluteFontSize + CssConstants.PT;
                     }
                 }
             }
