@@ -59,7 +59,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
         protected internal abstract String GetPostfix();
 
         public virtual IList<CssDeclaration> ResolveShorthand(String shorthandExpression) {
-            String[] props = iText.IO.Util.StringUtil.Split(shorthandExpression, " ");
+            String[] props = iText.IO.Util.StringUtil.Split(shorthandExpression, "\\s+");
             IList<CssDeclaration> resolvedDecl = new List<CssDeclaration>();
             String topProperty = String.Format(_0_TOP_1, GetPrefix(), GetPostfix());
             String rightProperty = String.Format(_0_RIGHT_1, GetPrefix(), GetPostfix());

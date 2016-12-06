@@ -62,7 +62,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                     ), new CssDeclaration(CssConstants.LIST_STYLE_POSITION, shorthandExpression), new CssDeclaration(CssConstants
                     .LIST_STYLE_IMAGE, shorthandExpression));
             }
-            String[] props = iText.IO.Util.StringUtil.Split(shorthandExpression, " ");
+            String[] props = iText.IO.Util.StringUtil.Split(shorthandExpression, "\\s+");
             String listStyleTypeValue = null;
             String listStylePositionValue = null;
             String listStyleImageValue = null;

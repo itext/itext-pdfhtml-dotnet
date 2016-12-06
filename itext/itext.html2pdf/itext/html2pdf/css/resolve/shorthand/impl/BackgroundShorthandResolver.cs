@@ -84,7 +84,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             // TODO ignore multiple backgrounds at the moment
             String backgroundExpression = commaSeparatedExpressions[0];
             String[] resolvedProps = new String[8];
-            String[] props = iText.IO.Util.StringUtil.Split(backgroundExpression, " ");
+            String[] props = iText.IO.Util.StringUtil.Split(backgroundExpression, "\\s+");
             bool slashEncountered = false;
             foreach (String value in props) {
                 int slashCharInd = value.IndexOf('/');

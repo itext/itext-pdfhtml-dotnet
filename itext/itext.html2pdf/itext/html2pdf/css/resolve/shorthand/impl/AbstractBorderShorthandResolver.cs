@@ -63,7 +63,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(widthPropName, shorthandExpression), new CssDeclaration
                     (stylePropName, shorthandExpression), new CssDeclaration(colorPropName, shorthandExpression));
             }
-            String[] props = iText.IO.Util.StringUtil.Split(shorthandExpression, " ");
+            String[] props = iText.IO.Util.StringUtil.Split(shorthandExpression, "\\s+");
             String borderColorValue = null;
             String borderStyleValue = null;
             String borderWidthValue = null;

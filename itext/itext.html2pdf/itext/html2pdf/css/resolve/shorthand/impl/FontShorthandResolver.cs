@@ -41,6 +41,7 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
+using System.Text;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.Html2pdf.Css.Util;
@@ -79,9 +80,9 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             String fontSizeValue = null;
             String lineHeightValue = null;
             String fontFamilyValue = null;
-            String[] props = iText.IO.Util.StringUtil.Split(iText.IO.Util.StringUtil.ReplaceAll(shorthandExpression, ",\\s*"
-                , ","), "\"?( |$)(?=(([^\"]*\"){2})*[^\"]*$)\"?");
-            foreach (String value in props) {
+            IList<String> properties = GetFontProperties(iText.IO.Util.StringUtil.ReplaceAll(shorthandExpression, "\\s*,\\s*"
+                , ","));
+            foreach (String value in properties) {
                 int slashSymbolIndex = value.IndexOf('/');
                 if (CssConstants.ITALIC.Equals(value) || CssConstants.OBLIQUE.Equals(value)) {
                     fontStyleValue = value;
@@ -119,6 +120,41 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                 (CssConstants.LINE_HEIGHT, lineHeightValue == null ? CssConstants.INITIAL : lineHeightValue), new CssDeclaration
                 (CssConstants.FONT_FAMILY, fontFamilyValue == null ? CssConstants.INITIAL : fontFamilyValue));
             return cssDeclarations;
+        }
+
+        private IList<String> GetFontProperties(String shorthandExpression) {
+            bool doubleQuotesAreSpotted = false;
+            bool singleQuoteIsSpotted = false;
+            IList<String> properties = new List<String>();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < shorthandExpression.Length; i++) {
+                char currentChar = shorthandExpression[i];
+                if (currentChar == '\"') {
+                    doubleQuotesAreSpotted = !doubleQuotesAreSpotted;
+                    sb.Append(currentChar);
+                }
+                else {
+                    if (currentChar == '\'') {
+                        singleQuoteIsSpotted = !singleQuoteIsSpotted;
+                        sb.Append(currentChar);
+                    }
+                    else {
+                        if (!doubleQuotesAreSpotted && !singleQuoteIsSpotted && iText.IO.Util.TextUtil.IsWhiteSpace(currentChar)) {
+                            if (sb.Length > 0) {
+                                properties.Add(sb.ToString());
+                                sb = new StringBuilder();
+                            }
+                        }
+                        else {
+                            sb.Append(currentChar);
+                        }
+                    }
+                }
+            }
+            if (sb.Length > 0) {
+                properties.Add(sb.ToString());
+            }
+            return properties;
         }
     }
 }
