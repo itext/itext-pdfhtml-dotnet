@@ -141,7 +141,7 @@ namespace iText.Html2pdf.Attach.Util {
 
         public virtual Paragraph CreateLeavesContainer() {
             if (collapseSpaces) {
-                waitingLeaves = TrimUtil.TrimLeafElementsFirstAndSanitize(waitingLeaves);
+                waitingLeaves = TrimUtil.TrimLeafElementsAndSanitize(waitingLeaves);
             }
             if (CssConstants.CAPITALIZE.Equals(textTransform)) {
                 Capitalize(waitingLeaves);
