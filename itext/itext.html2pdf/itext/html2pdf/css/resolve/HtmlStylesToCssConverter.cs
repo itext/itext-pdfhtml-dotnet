@@ -60,7 +60,7 @@ namespace iText.Html2pdf.Css.Resolve {
         static HtmlStylesToCssConverter() {
             CssStyleSheet parsedStylesheet = new CssStyleSheet();
             try {
-                parsedStylesheet = CssStyleSheetParser.Parse(ResourceUtil.GetResourceStream(DEFAULT_CSS_PATH, typeof(HtmlStylesToCssConverter)));
+                parsedStylesheet = CssStyleSheetParser.Parse(ResourceUtil.GetResourceStream(DEFAULT_CSS_PATH));
             }
             catch (System.IO.IOException exc) {
                 ILogger logger = LoggerFactory.GetLogger(typeof(HtmlStylesToCssConverter));
@@ -85,10 +85,10 @@ namespace iText.Html2pdf.Css.Resolve {
                 ();
             htmlAttributeConverters[AttributeConstants.TYPE] = new HtmlStylesToCssConverter.TypeAttributeConverter();
             htmlAttributeConverters[AttributeConstants.WIDTH] = new HtmlStylesToCssConverter.WidthAttributeConverter();
+            htmlAttributeConverters[AttributeConstants.HEIGHT] = new HtmlStylesToCssConverter.HeightAttributeConverter
+                ();
         }
 
-        // TODO
-        //        htmlAttributeConverters.put("height", );
         public static IList<CssDeclaration> Convert(IElementNode element) {
             IList<CssDeclaration> convertedHtmlStyles = new List<CssDeclaration>();
             IList<CssDeclaration> tagCssStyles = defaultCss.GetCssDeclarations(element, MediaDeviceDescription.CreateDefault
@@ -261,7 +261,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private class WidthAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
             public virtual bool IsSupportedForElement(String elementName) {
-                return TagConstants.HR.Equals(elementName);
+                return TagConstants.HR.Equals(elementName) || TagConstants.IMG.Equals(elementName);
             }
 
             public virtual IList<CssDeclaration> Convert(String elementName, String value) {
@@ -270,6 +270,17 @@ namespace iText.Html2pdf.Css.Resolve {
                     cssEquivalent += CssConstants.PX;
                 }
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.WIDTH, cssEquivalent));
+            }
+        }
+
+        private class HeightAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            public virtual bool IsSupportedForElement(String elementName) {
+                return TagConstants.IMG.Equals(elementName);
+            }
+
+            public virtual IList<CssDeclaration> Convert(String elementName, String value) {
+                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, value + CssConstants.PX
+                    ));
             }
         }
 

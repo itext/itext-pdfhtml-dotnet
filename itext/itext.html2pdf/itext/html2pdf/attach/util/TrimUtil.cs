@@ -49,38 +49,15 @@ namespace iText.Html2pdf.Attach.Util {
 
         // Note that the end is not trimmed. Maybe we should trim the content here, but the end trim is performed during layout anyway
         public static IList<ILeafElement> TrimLeafElementsFirstAndSanitize(IList<ILeafElement> leafElements) {
-            IList<ILeafElement> waitingLeafs = new List<ILeafElement>(leafElements);
-            while (waitingLeafs.Count > 0 && waitingLeafs[0] is Text) {
-                Text text = (Text)waitingLeafs[0];
-                TrimLeafElementFirst(text);
-                if (text.GetText().Length == 0) {
-                    waitingLeafs.JRemoveAt(0);
-                }
-                else {
-                    break;
-                }
-            }
+            List<ILeafElement> waitingLeafs = new List<ILeafElement>(leafElements);
+            TrimSubList(waitingLeafs, 0, waitingLeafs.Count, false);
+            //trimSubList(waitingLeafs, 0, waitingLeafs.size(), true);
             int pos = 0;
             while (pos < waitingLeafs.Count - 1) {
                 if (waitingLeafs[pos] is Text) {
                     Text first = (Text)waitingLeafs[pos];
                     if (first.GetText().Length > 0 && IsNonLineBreakSpace(first.GetText()[first.GetText().Length - 1])) {
-                        while (pos + 1 < waitingLeafs.Count && waitingLeafs[pos + 1] is Text) {
-                            Text second = (Text)waitingLeafs[pos + 1];
-                            if (second.GetText().Length > 0 && IsNonLineBreakSpace(second.GetText()[0])) {
-                                int secondPos = 0;
-                                while (secondPos < second.GetText().Length && IsNonLineBreakSpace(second.GetText()[secondPos])) {
-                                    secondPos++;
-                                }
-                                second.SetText(second.GetText().Substring(secondPos));
-                            }
-                            if (second.GetText().Length == 0) {
-                                waitingLeafs.JRemoveAt(pos + 1);
-                            }
-                            else {
-                                break;
-                            }
-                        }
+                        TrimSubList(waitingLeafs, pos + 1, waitingLeafs.Count, false);
                     }
                 }
                 pos++;
@@ -88,20 +65,51 @@ namespace iText.Html2pdf.Attach.Util {
             return waitingLeafs;
         }
 
-        public static ILeafElement TrimLeafElementFirst(ILeafElement leafElement) {
+        internal static bool IsNonLineBreakSpace(char ch) {
+            return iText.IO.Util.TextUtil.IsWhiteSpace(ch) && ch != '\n';
+        }
+
+        private static void TrimSubList(List<ILeafElement> list, int begin, int end, bool last) {
+            while (end > begin) {
+                int pos = last ? end - 1 : begin;
+                ILeafElement leaf = list[pos];
+                if (leaf is Text) {
+                    Text text = (Text)leaf;
+                    TrimLeafElement(text, last);
+                    if (text.GetText().Length == 0) {
+                        list.JRemoveAt(pos);
+                        end--;
+                        continue;
+                    }
+                }
+                break;
+            }
+        }
+
+        private static ILeafElement TrimLeafElement(ILeafElement leafElement, bool last) {
             if (leafElement is Text) {
                 Text text = (Text)leafElement;
-                int pos = 0;
-                while (pos < text.GetText().Length && IsNonLineBreakSpace(text.GetText()[pos])) {
-                    pos++;
-                }
-                text.SetText(text.GetText().Substring(pos));
+                int begin = last ? 0 : GetFirstNoneSpaceIndex(text);
+                int end = last ? GetLastNoneSpaceIndex(text) : text.GetText().Length;
+                text.SetText(text.GetText().JSubstring(begin, end));
             }
             return leafElement;
         }
 
-        internal static bool IsNonLineBreakSpace(char ch) {
-            return iText.IO.Util.TextUtil.IsWhiteSpace(ch) && ch != '\n';
+        private static int GetFirstNoneSpaceIndex(Text text) {
+            int pos = 0;
+            while (pos < text.GetText().Length && IsNonLineBreakSpace(text.GetText()[pos])) {
+                pos++;
+            }
+            return pos;
+        }
+
+        private static int GetLastNoneSpaceIndex(Text text) {
+            int pos = text.GetText().Length;
+            while (pos > 0 && IsNonLineBreakSpace(text.GetText()[pos - 1])) {
+                pos--;
+            }
+            return pos;
         }
     }
 }

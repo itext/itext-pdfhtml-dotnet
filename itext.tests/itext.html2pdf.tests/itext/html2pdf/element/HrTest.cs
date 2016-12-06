@@ -131,7 +131,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains 'float' in css")]
+        [NUnit.Framework.Ignore("DEVSIX-938")]
         public virtual void HrTest09() {
             RunHrTest("09");
         }
@@ -139,7 +139,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains 'float' in css")]
+        [NUnit.Framework.Ignore("DEVSIX-938")]
         public virtual void HrTest10() {
             RunHrTest("10");
         }

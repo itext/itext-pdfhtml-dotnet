@@ -57,6 +57,8 @@ namespace iText.Html2pdf.Html {
 
         public const String FACE = "face";
 
+        public const String HEIGHT = "height";
+
         public const String HREF = "href";
 
         public const String ID = "id";
