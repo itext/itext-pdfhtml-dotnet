@@ -48,22 +48,22 @@ namespace iText.Html2pdf.Attach.Util {
         }
 
         public static IList<ILeafElement> TrimLeafElementsAndSanitize(IList<ILeafElement> leafElements) {
-            List<ILeafElement> waitingLeafs = new List<ILeafElement>(leafElements);
-            TrimSubList(waitingLeafs, 0, waitingLeafs.Count, false);
-            TrimSubList(waitingLeafs, 0, waitingLeafs.Count, true);
+            List<ILeafElement> waitingLeaves = new List<ILeafElement>(leafElements);
+            TrimSubList(waitingLeaves, 0, waitingLeaves.Count, false);
+            TrimSubList(waitingLeaves, 0, waitingLeaves.Count, true);
             int pos = 0;
-            while (pos < waitingLeafs.Count - 1) {
-                if (waitingLeafs[pos] is Text) {
-                    Text first = (Text)waitingLeafs[pos];
-                    int firstEnd = GetIndexAfterLastNoneSpace(first);
+            while (pos < waitingLeaves.Count - 1) {
+                if (waitingLeaves[pos] is Text) {
+                    Text first = (Text)waitingLeaves[pos];
+                    int firstEnd = GetIndexAfterLastNonSpace(first);
                     if (firstEnd < first.GetText().Length) {
-                        TrimSubList(waitingLeafs, pos + 1, waitingLeafs.Count, false);
+                        TrimSubList(waitingLeaves, pos + 1, waitingLeaves.Count, false);
                         first.SetText(first.GetText().JSubstring(0, firstEnd + 1));
                     }
                 }
                 pos++;
             }
-            return waitingLeafs;
+            return waitingLeaves;
         }
 
         internal static bool IsNonLineBreakSpace(char ch) {
@@ -90,14 +90,14 @@ namespace iText.Html2pdf.Attach.Util {
         private static ILeafElement TrimLeafElement(ILeafElement leafElement, bool last) {
             if (leafElement is Text) {
                 Text text = (Text)leafElement;
-                int begin = last ? 0 : GetIndexOfFirstNoneSpace(text);
-                int end = last ? GetIndexAfterLastNoneSpace(text) : text.GetText().Length;
+                int begin = last ? 0 : GetIndexOfFirstNonSpace(text);
+                int end = last ? GetIndexAfterLastNonSpace(text) : text.GetText().Length;
                 text.SetText(text.GetText().JSubstring(begin, end));
             }
             return leafElement;
         }
 
-        private static int GetIndexOfFirstNoneSpace(Text text) {
+        private static int GetIndexOfFirstNonSpace(Text text) {
             int pos = 0;
             while (pos < text.GetText().Length && IsNonLineBreakSpace(text.GetText()[pos])) {
                 pos++;
@@ -105,7 +105,7 @@ namespace iText.Html2pdf.Attach.Util {
             return pos;
         }
 
-        private static int GetIndexAfterLastNoneSpace(Text text) {
+        private static int GetIndexAfterLastNonSpace(Text text) {
             int pos = text.GetText().Length;
             while (pos > 0 && IsNonLineBreakSpace(text.GetText()[pos - 1])) {
                 pos--;
