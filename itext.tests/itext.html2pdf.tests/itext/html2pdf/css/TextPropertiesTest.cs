@@ -77,7 +77,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage("text-decoration: blink not supported")]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED)]
         public virtual void TextDecoration01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textDecorationTest01.html"), new FileInfo(destinationFolder
                  + "textDecorationTest01.pdf"));
@@ -88,7 +88,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage("text-indent in percents is not supported")]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.TEXT_INDENT_IN_PERCENTS_IS_NOT_SUPPORTED)]
         public virtual void TextIndent01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textIndentTest01.html"), new FileInfo(destinationFolder
                  + "textIndentTest01.pdf"));
