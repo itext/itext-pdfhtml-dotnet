@@ -40,53 +40,39 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.IO;
+using iText.Html2pdf;
+using iText.Kernel.Utils;
+using System.Collections.Generic;
+using System.Reflection;
+using System.IO;
+using Versions.Attributes;
+using iText.Kernel;
+using iText.Test;
 
-namespace iText.Html2pdf.Html {
-    public sealed class AttributeConstants {
-        public const String ALIGN = "align";
+namespace iText.Html2pdf.Element {
+    public class AbbrTest : ExtendedITextTest {
+        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/element/AbbrTest/";
 
-        public const String BGCOLOR = "bgcolor";
+        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+             + "/test/itext/html2pdf/element/AbbrTest/";
 
-        public const String BORDER = "border";
-
-        public const String CLASS = "class";
-
-        public const String COLOR = "color";
-
-        public const String DIR = "dir";
-
-        public const String FACE = "face";
-
-        public const String HEIGHT = "height";
-
-        public const String HREF = "href";
-
-        public const String ID = "id";
-
-        public const String MEDIA = "media";
-
-        public const String NAME = "name";
-
-        public const String NOSHADE = "noshade";
-
-        public const String REL = "rel";
-
-        public const String SIZE = "size";
-
-        public const String SRC = "src";
-
-        public const String STYLE = "style";
-
-        public const String TYPE = "type";
-
-        public const String WIDTH = "width";
-
-        public const String TITLE = "title";
-
-        public const String STYLESHEET = "stylesheet";
-
-        private AttributeConstants() {
+        [NUnit.Framework.OneTimeSetUp]
+        public static void BeforeClass() {
+                );
+            CreateDestinationFolder(destinationFolder);
         }
-        // attribute values
+
+        //TODO unignore when a abrr tag worker is implemented
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Ignore("")]
+        [NUnit.Framework.Test]
+        public virtual void AbbrTest01() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "abbrTest01.html"), new FileInfo(destinationFolder 
+                + "abbrTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "abbrTest01.pdf", sourceFolder
+                 + "cmp_abbrTest01.pdf", destinationFolder, "diff01_"));
+        }
     }
 }
