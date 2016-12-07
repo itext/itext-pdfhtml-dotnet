@@ -67,13 +67,13 @@ namespace iText.Html2pdf.Attach {
             }
             //Use reflection to create an instance
             try {
-                ConstructorInfo ctor = tagWorkerClass.GetConstructor(new Type[] { typeof(IElementNode), typeof(ProcessorContext)});
+                ConstructorInfo ctor = tagWorkerClass.GetConstructor(new Type[] {typeof(IElementNode), typeof(ProcessorContext)});
                 ITagWorker res = (ITagWorker)ctor.Invoke(new object[] { tag, context});
                 return res;
             }
-            catch (Exception e) {
+            catch (Exception) {
                 throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
-                    );
+                    , tagWorkerClass.FullName, tag.Name());
             }
         }
 

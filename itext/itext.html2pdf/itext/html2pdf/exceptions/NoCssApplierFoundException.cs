@@ -42,13 +42,11 @@
 using System;
 
 namespace iText.Html2pdf.Exceptions {
-    /// <summary>Created by SamuelHuylebroeck on 12/1/2016.</summary>
     public class NoCssApplierFoundException : Exception {
-        public NoCssApplierFoundException(String className, String message)
-            : base(message + className) {
+        public NoCssApplierFoundException(String message, String className, String tag)
+            : base(String.Format(message, className, tag)) {
         }
 
-        public const String ReflectionFailed = "Reflection failed for class: ";
-        //TODO cleanup excpetions and make more verbose
+        public const String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
     }
 }

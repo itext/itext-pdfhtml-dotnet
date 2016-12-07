@@ -107,11 +107,9 @@ namespace iText.Html2pdf.Attach.Impl {
             // TODO <tbody> is not supported. Styles will be propagated anyway
             // The tags we do not want to apply css to and therefore exclude from the logging
             // Content from <tr> is thrown upwards to parent, in other cases css is inherited anyway
-            this.context = context;
             this.cssResolver = cssResolver;
             this.root = root;
             this.resourceResolver = resourceResolver;
-            this.roots = roots;
             this.tagWorkerFactory = tagWorkerFactory;
             this.cssApplierFactory = cssApplierFactory;
         }
@@ -256,7 +254,6 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (!IsDisplayable(element)) {
                     return;
                 }
-                //ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
                 ITagWorker tagWorker = tagWorkerFactory.GetTagWorkerInstance(element, context);
                 if (tagWorker == null) {
                     // TODO for stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links

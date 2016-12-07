@@ -66,9 +66,9 @@ namespace iText.Html2pdf.Css.Apply {
                 ICssApplier res = (ICssApplier)System.Activator.CreateInstance(cssApplierClass);
                 return res;
             }
-            catch (Exception ex) {
-                throw new NoCssApplierFoundException(cssApplierClass.FullName, NoCssApplierFoundException.ReflectionFailed
-                    );
+            catch (Exception) {
+                throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.FullName
+                    , tag);
             }
         }
 

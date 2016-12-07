@@ -42,13 +42,11 @@
 using System;
 
 namespace iText.Html2pdf.Exceptions {
-    /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
     public class NoTagWorkerFoundException : Exception {
-        public NoTagWorkerFoundException(String message)
-            : base(message) {
+        public NoTagWorkerFoundException(String message, String classNames, String tag)
+            : base(String.Format(message, classNames, tag)) {
         }
 
-        public const String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Reflection in TagWorkerFactory implementation failed";
-        //TODO; Replace this generic message with a more specific one
+        public const String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
     }
 }
