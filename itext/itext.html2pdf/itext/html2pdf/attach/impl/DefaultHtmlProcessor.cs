@@ -83,14 +83,35 @@ namespace iText.Html2pdf.Attach.Impl {
 
         private IList<IPropertyContainer> roots;
 
-        public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver) {
+        private ITagWorkerFactory tagWorkerFactory;
+
+        private ICssApplierFactory cssApplierFactory;
+
+        public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver)
+            : this(node, cssResolver, resourceResolver, new DefaultTagWorkerFactory(), new DefaultCssApplierFactory()) {
+        }
+
+        public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver, ITagWorkerFactory
+             tagWorkerFactory)
+            : this(node, cssResolver, resourceResolver, tagWorkerFactory, new DefaultCssApplierFactory()) {
+        }
+
+        public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver, ICssApplierFactory
+             cssApplierFactory)
+            : this(node, cssResolver, resourceResolver, new DefaultTagWorkerFactory(), cssApplierFactory) {
+        }
+
+        public DefaultHtmlProcessor(INode root, ICssResolver cssResolver, ResourceResolver resourceResolver, ITagWorkerFactory
+             tagWorkerFactory, ICssApplierFactory cssApplierFactory) {
             // The tags that do not map into any workers and are deliberately excluded from the logging
             // TODO <tbody> is not supported. Styles will be propagated anyway
             // The tags we do not want to apply css to and therefore exclude from the logging
             // Content from <tr> is thrown upwards to parent, in other cases css is inherited anyway
             this.cssResolver = cssResolver;
-            this.root = node;
+            this.root = root;
             this.resourceResolver = resourceResolver;
+            this.tagWorkerFactory = tagWorkerFactory;
+            this.cssApplierFactory = cssApplierFactory;
         }
 
         public virtual IList<IElement> ProcessElements() {
@@ -233,7 +254,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (!IsDisplayable(element)) {
                     return;
                 }
-                ITagWorker tagWorker = TagWorkerFactory.GetTagWorker(element, context);
+                ITagWorker tagWorker = tagWorkerFactory.GetTagWorkerInstance(element, context);
                 if (tagWorker == null) {
                     // TODO for stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
                     if (!ignoredTags.Contains(element.Name()) && !HtmlUtils.IsStyleSheetLink(element)) {
@@ -249,7 +270,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
                     context.GetState().Pop();
-                    ICssApplier cssApplier = CssApplierFactory.GetCssApplier(element.Name());
+                    ICssApplier cssApplier = cssApplierFactory.GetCssApplier(element.Name());
                     if (cssApplier == null) {
                         if (!ignoredCssTags.Contains(element.Name())) {
                             logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.Name())

@@ -48,6 +48,8 @@ namespace iText.Html2pdf.Html {
 
         public const String A = "a";
 
+        public const String ABBR = "abbr";
+
         public const String ARTICLE = "article";
 
         public const String ASIDE = "aside";

@@ -40,13 +40,49 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using iText.Html2pdf.Css.Apply;
+using iText.Html2pdf.Html;
+using System.Collections.Generic;
+using System.Reflection;
+using System.IO;
+using Versions.Attributes;
+using iText.Kernel;
+using iText.Test;
 
-namespace iText.Html2pdf {
-    public class Html2PdfException : Exception {
-        public Html2PdfException(String message)
-            : base(message) {
+namespace iText.Html2pdf.Css {
+    /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
+    public class DefaultCssApplierFactoryTest : ExtendedITextTest {
+        [NUnit.Framework.OneTimeSetUp]
+        public static void BeforeClass() {
+                );
         }
 
-        public const String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
+        [NUnit.Framework.Test]
+        public virtual void RegisterTagApplierTest() {
+            String tag = "dummy";
+            Type applierClass = typeof(BlockCssApplier);
+            ICssApplierFactory df = new DefaultCssApplierFactory();
+            df.RegisterCssApplier(tag, applierClass);
+            ICssApplier ca = df.GetCssApplier(tag);
+            NUnit.Framework.Assert.AreEqual(ca.GetType(), applierClass);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RetrieveTagApplierTest() {
+            String tag = TagConstants.DIV;
+            Type expected = typeof(BlockCssApplier);
+            ICssApplierFactory df = new DefaultCssApplierFactory();
+            ICssApplier ca = df.GetCssApplier(tag);
+            NUnit.Framework.Assert.AreEqual(ca.GetType(), expected);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RemoveTagApplierTest() {
+            String tag = TagConstants.DIV;
+            ICssApplierFactory df = new DefaultCssApplierFactory();
+            df.RemoveCssApplier(tag);
+            ICssApplier ca = df.GetCssApplier(tag);
+            NUnit.Framework.Assert.IsNull(ca);
+        }
     }
 }

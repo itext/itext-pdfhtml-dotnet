@@ -40,53 +40,56 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Reflection;
+using iText.Html2pdf.Exceptions;
+using iText.Html2pdf.Html.Node;
 
-namespace iText.Html2pdf.Html {
-    public sealed class AttributeConstants {
-        public const String ALIGN = "align";
+namespace iText.Html2pdf.Attach {
+    /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
+    public class DefaultTagWorkerFactory : ITagWorkerFactory {
+        /// <summary>Internal map to keep track of tags and associated tagworkers</summary>
+        private IDictionary<String, Type> map;
 
-        public const String BGCOLOR = "bgcolor";
-
-        public const String BORDER = "border";
-
-        public const String CLASS = "class";
-
-        public const String COLOR = "color";
-
-        public const String DIR = "dir";
-
-        public const String FACE = "face";
-
-        public const String HEIGHT = "height";
-
-        public const String HREF = "href";
-
-        public const String ID = "id";
-
-        public const String MEDIA = "media";
-
-        public const String NAME = "name";
-
-        public const String NOSHADE = "noshade";
-
-        public const String REL = "rel";
-
-        public const String SIZE = "size";
-
-        public const String SRC = "src";
-
-        public const String STYLE = "style";
-
-        public const String TYPE = "type";
-
-        public const String WIDTH = "width";
-
-        public const String TITLE = "title";
-
-        public const String STYLESHEET = "stylesheet";
-
-        private AttributeConstants() {
+        public DefaultTagWorkerFactory() {
+            this.map = new ConcurrentDictionary<String, Type>();
+            RegisterDefaultHtmlTagWorkers();
         }
-        // attribute values
+
+        /// <exception cref="iText.Html2pdf.Exceptions.NoTagWorkerFoundException"/>
+        public virtual ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context) {
+            //Get Tag Worker class name
+            Type tagWorkerClass = map.Get(tag.Name());
+            if (tagWorkerClass == null) {
+                //TODO:Log the fact that no instance could be found
+                return null;
+            }
+            //Use reflection to create an instance
+            try {
+                ConstructorInfo ctor = tagWorkerClass.GetConstructor(new Type[] {typeof(IElementNode), typeof(ProcessorContext)});
+                ITagWorker res = (ITagWorker)ctor.Invoke(new object[] {tag, context});
+                return res;
+            }
+            catch (Exception) {
+                throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
+                    , tagWorkerClass.FullName, tag.Name());
+            }
+        }
+
+        public virtual void RegisterTagWorker(String tag, Type tagWorkerClass) {
+            map[tag] = tagWorkerClass;
+        }
+
+        public virtual void RemoveTagWorker(String tag) {
+            map.JRemove(tag);
+        }
+
+        private void RegisterDefaultHtmlTagWorkers() {
+            IDictionary<String, Type> defaultMapping = DefaultTagWorkerMapping.GetDefaultTagWorkerMapping();
+            foreach (KeyValuePair<String, Type> ent in defaultMapping) {
+                map[ent.Key] = ent.Value;
+            }
+        }
     }
 }

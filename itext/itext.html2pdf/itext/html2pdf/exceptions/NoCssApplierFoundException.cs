@@ -41,52 +41,12 @@
     address: sales@itextpdf.com */
 using System;
 
-namespace iText.Html2pdf.Html {
-    public sealed class AttributeConstants {
-        public const String ALIGN = "align";
-
-        public const String BGCOLOR = "bgcolor";
-
-        public const String BORDER = "border";
-
-        public const String CLASS = "class";
-
-        public const String COLOR = "color";
-
-        public const String DIR = "dir";
-
-        public const String FACE = "face";
-
-        public const String HEIGHT = "height";
-
-        public const String HREF = "href";
-
-        public const String ID = "id";
-
-        public const String MEDIA = "media";
-
-        public const String NAME = "name";
-
-        public const String NOSHADE = "noshade";
-
-        public const String REL = "rel";
-
-        public const String SIZE = "size";
-
-        public const String SRC = "src";
-
-        public const String STYLE = "style";
-
-        public const String TYPE = "type";
-
-        public const String WIDTH = "width";
-
-        public const String TITLE = "title";
-
-        public const String STYLESHEET = "stylesheet";
-
-        private AttributeConstants() {
+namespace iText.Html2pdf.Exceptions {
+    public class NoCssApplierFoundException : Exception {
+        public NoCssApplierFoundException(String message, String className, String tag)
+            : base(String.Format(message, className, tag)) {
         }
-        // attribute values
+
+        public const String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
     }
 }

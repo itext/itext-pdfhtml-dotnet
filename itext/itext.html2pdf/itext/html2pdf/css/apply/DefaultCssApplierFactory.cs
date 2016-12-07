@@ -40,53 +40,51 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using iText.Html2pdf.Exceptions;
 
-namespace iText.Html2pdf.Html {
-    public sealed class AttributeConstants {
-        public const String ALIGN = "align";
+namespace iText.Html2pdf.Css.Apply {
+    /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
+    public class DefaultCssApplierFactory : ICssApplierFactory {
+        private IDictionary<String, Type> map;
 
-        public const String BGCOLOR = "bgcolor";
-
-        public const String BORDER = "border";
-
-        public const String CLASS = "class";
-
-        public const String COLOR = "color";
-
-        public const String DIR = "dir";
-
-        public const String FACE = "face";
-
-        public const String HEIGHT = "height";
-
-        public const String HREF = "href";
-
-        public const String ID = "id";
-
-        public const String MEDIA = "media";
-
-        public const String NAME = "name";
-
-        public const String NOSHADE = "noshade";
-
-        public const String REL = "rel";
-
-        public const String SIZE = "size";
-
-        public const String SRC = "src";
-
-        public const String STYLE = "style";
-
-        public const String TYPE = "type";
-
-        public const String WIDTH = "width";
-
-        public const String TITLE = "title";
-
-        public const String STYLESHEET = "stylesheet";
-
-        private AttributeConstants() {
+        public DefaultCssApplierFactory() {
+            this.map = new ConcurrentDictionary<String, Type>();
+            this.RegisterDefaultCssAppliers();
         }
-        // attribute values
+
+        public virtual ICssApplier GetCssApplier(String tag) {
+            //Get css applier classname
+            Type cssApplierClass = map.Get(tag);
+            if (cssApplierClass == null) {
+                //TODO add logging
+                return null;
+            }
+            //Use reflection to create an instance
+            try {
+                ICssApplier res = (ICssApplier)System.Activator.CreateInstance(cssApplierClass);
+                return res;
+            }
+            catch (Exception) {
+                throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.FullName
+                    , tag);
+            }
+        }
+
+        public virtual void RegisterCssApplier(String tag, Type classToRegister) {
+            this.map[tag] = classToRegister;
+        }
+
+        public virtual void RemoveCssApplier(String tag) {
+            this.map.JRemove(tag);
+        }
+
+        private void RegisterDefaultCssAppliers() {
+            IDictionary<String, Type> defaultMapping = DefaultTagCssApplierMapping.GetDefaultCssApplierMapping();
+            foreach (KeyValuePair<String, Type> ent in defaultMapping) {
+                map[ent.Key] = ent.Value;
+            }
+        }
     }
 }
