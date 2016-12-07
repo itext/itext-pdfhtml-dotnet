@@ -39,13 +39,16 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
+using System;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Attach {
+    [Obsolete]
     public class TagWorkerFactory {
-        // TODO add possibility to register operators
+        // TODO add possibility to register operators-->See DefaultTagWorkerFactory
+        [Obsolete]
         public static ITagWorker GetTagWorker(IElementNode tag, ProcessorContext context) {
             switch (tag.Name()) {
                 case TagConstants.A: {

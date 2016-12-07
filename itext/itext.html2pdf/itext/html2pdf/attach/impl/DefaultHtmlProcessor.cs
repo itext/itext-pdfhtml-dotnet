@@ -83,6 +83,8 @@ namespace iText.Html2pdf.Attach.Impl {
 
         private IList<IPropertyContainer> roots;
 
+        private ITagWorkerFactory tagWorkerFactory;
+
         public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver) {
             // The tags that do not map into any workers and are deliberately excluded from the logging
             // TODO <tbody> is not supported. Styles will be propagated anyway
@@ -91,6 +93,15 @@ namespace iText.Html2pdf.Attach.Impl {
             this.cssResolver = cssResolver;
             this.root = node;
             this.resourceResolver = resourceResolver;
+            this.tagWorkerFactory = new DefaultTagWorkerFactory();
+        }
+
+        public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver, ITagWorkerFactory
+             tagWorkerFactory) {
+            this.cssResolver = cssResolver;
+            this.root = node;
+            this.resourceResolver = resourceResolver;
+            this.tagWorkerFactory = tagWorkerFactory;
         }
 
         public virtual IList<IElement> ProcessElements() {
@@ -233,7 +244,8 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (!IsDisplayable(element)) {
                     return;
                 }
-                ITagWorker tagWorker = TagWorkerFactory.GetTagWorker(element, context);
+                //ITagWorker tagWorker = TagWorkerFactory.getTagWorker(element, context);
+                ITagWorker tagWorker = tagWorkerFactory.GetTagWorkerInstance(element, context);
                 if (tagWorker == null) {
                     // TODO for stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
                     if (!ignoredTags.Contains(element.Name()) && !HtmlUtils.IsStyleSheetLink(element)) {

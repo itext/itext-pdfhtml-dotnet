@@ -45,6 +45,7 @@ using System.IO;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Resolve;
+using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup;
 using iText.Html2pdf.Html.Node;

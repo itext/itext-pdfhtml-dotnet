@@ -40,13 +40,23 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using iText.Html2pdf.Html.Node;
 
-namespace iText.Html2pdf {
-    public class Html2PdfException : Exception {
-        public Html2PdfException(String message)
-            : base(message) {
-        }
+namespace iText.Html2pdf.Attach {
+    /// <summary>
+    /// TagProcessorFactory Interface
+    /// Created by SamuelHuylebroeck on 11/30/2016.
+    /// </summary>
+    public interface ITagWorkerFactory {
+        /// <summary>Look up a TagProcessor for the given tag and returns an instance constructed with passed parameters.
+        ///     </summary>
+        /// <param name="tag"/>
+        /// <param name="context"/>
+        /// <returns/>
+        ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context);
 
-        public const String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
+        void RegisterTagWorker(String tag, String nameSpace);
+
+        void RemovetagWorker(String tag);
     }
 }
