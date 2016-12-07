@@ -75,7 +75,6 @@ namespace iText.Html2pdf {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-924")]
         public virtual void HelloParagraphTableTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_paragraph_table.html"), new FileInfo(destinationFolder
                  + "hello_paragraph_table.pdf"));
@@ -106,7 +105,6 @@ namespace iText.Html2pdf {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-924")]
         public virtual void HelloParagraphNestedInTableDocumentTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_paragraph_nested_in_table.html"), new FileInfo
                 (destinationFolder + "hello_paragraph_nested_in_table.pdf"));
