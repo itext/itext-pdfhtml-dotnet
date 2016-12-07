@@ -42,54 +42,48 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Reflection;
 using iText.Html2pdf;
 using iText.Html2pdf.Exceptions;
-using iText.Html2pdf.Html.Node;
 
-namespace iText.Html2pdf.Attach {
+namespace iText.Html2pdf.Css.Apply {
     /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
-    public class DefaultTagWorkerFactory : ITagWorkerFactory {
-        /// <summary>Internal map to keep track of tags and associated tagworkers</summary>
+    public class DefaultCssApplierFactory : ICssApplierFactory {
         private IDictionary<String, String> map;
 
-        public DefaultTagWorkerFactory() {
+        public DefaultCssApplierFactory() {
             this.map = new ConcurrentDictionary<String, String>();
-            RegisterDefaultHtmlTagWorkers();
+            this.RegisterDefaultCssAppliers();
         }
 
-        /// <exception cref="iText.Html2pdf.Exceptions.NoTagWorkerFoundException"/>
-        public virtual ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context) {
-            //Get Tag Worker class name
-            String tagWorkerClassName = map.Get(tag.Name());
-            if (tagWorkerClassName == null) {
-                //TODO:Log the fact that no instance could be found
-                //throw new NoTagWorkerFoundException(NoTagWorkerFoundException.NoTagWorkerRegistered);
+        public virtual ICssApplier GetCssApplier(String tag) {
+            //Get css applier classname
+            String cssApplierClassName = map.Get(tag);
+            if (cssApplierClassName == null) {
+                //TODO add logging
                 return null;
             }
             //Use reflection to create an instance
             try {
-                Type c = System.Type.GetType(tagWorkerClassName);
-                ConstructorInfo ctor = c.GetConstructor(new Type[] { typeof(IElementNode), typeof(ProcessorContext)});
-                ITagWorker res = (ITagWorker)ctor.Invoke(new object[] { tag, context });
+                Type c = System.Type.GetType(cssApplierClassName);
+                ICssApplier res = (ICssApplier)System.Activator.CreateInstance(c);
                 return res;
             }
             catch (Exception e) {
-                throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
+                throw new NoCssApplierFoundException(cssApplierClassName, NoCssApplierFoundException.NoSuchCssApplierExists
                     );
             }
         }
 
-        public virtual void RegisterTagWorker(String tag, String nameSpace) {
-            map[tag] = nameSpace;
+        public virtual void RegisterCssApplier(String tag, String @namespace) {
+            this.map[tag] = @namespace;
         }
 
-        public virtual void RemovetagWorker(String tag) {
-            map.JRemove(tag);
+        public virtual void RemoveCssApplier(String tag) {
+            this.map.JRemove(tag);
         }
 
-        private void RegisterDefaultHtmlTagWorkers() {
-            IDictionary<String, String> defaultMapping = DefaultTagMapping.GetDefaultTagWorkerMapping();
+        private void RegisterDefaultCssAppliers() {
+            IDictionary<String, String> defaultMapping = DefaultTagMapping.GetDefaultCssApplierMapping();
             foreach (KeyValuePair<String, String> ent in defaultMapping) {
                 map[ent.Key] = ent.Value;
             }

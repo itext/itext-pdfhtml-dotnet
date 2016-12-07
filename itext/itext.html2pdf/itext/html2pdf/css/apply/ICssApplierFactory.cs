@@ -40,59 +40,14 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Reflection;
-using iText.Html2pdf;
-using iText.Html2pdf.Exceptions;
-using iText.Html2pdf.Html.Node;
 
-namespace iText.Html2pdf.Attach {
+namespace iText.Html2pdf.Css.Apply {
     /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
-    public class DefaultTagWorkerFactory : ITagWorkerFactory {
-        /// <summary>Internal map to keep track of tags and associated tagworkers</summary>
-        private IDictionary<String, String> map;
+    public interface ICssApplierFactory {
+        ICssApplier GetCssApplier(String tag);
 
-        public DefaultTagWorkerFactory() {
-            this.map = new ConcurrentDictionary<String, String>();
-            RegisterDefaultHtmlTagWorkers();
-        }
+        void RegisterCssApplier(String tag, String @namespace);
 
-        /// <exception cref="iText.Html2pdf.Exceptions.NoTagWorkerFoundException"/>
-        public virtual ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context) {
-            //Get Tag Worker class name
-            String tagWorkerClassName = map.Get(tag.Name());
-            if (tagWorkerClassName == null) {
-                //TODO:Log the fact that no instance could be found
-                //throw new NoTagWorkerFoundException(NoTagWorkerFoundException.NoTagWorkerRegistered);
-                return null;
-            }
-            //Use reflection to create an instance
-            try {
-                Type c = System.Type.GetType(tagWorkerClassName);
-                ConstructorInfo ctor = c.GetConstructor(new Type[] { typeof(IElementNode), typeof(ProcessorContext)});
-                ITagWorker res = (ITagWorker)ctor.Invoke(new object[] { tag, context });
-                return res;
-            }
-            catch (Exception e) {
-                throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
-                    );
-            }
-        }
-
-        public virtual void RegisterTagWorker(String tag, String nameSpace) {
-            map[tag] = nameSpace;
-        }
-
-        public virtual void RemovetagWorker(String tag) {
-            map.JRemove(tag);
-        }
-
-        private void RegisterDefaultHtmlTagWorkers() {
-            IDictionary<String, String> defaultMapping = DefaultTagMapping.GetDefaultTagWorkerMapping();
-            foreach (KeyValuePair<String, String> ent in defaultMapping) {
-                map[ent.Key] = ent.Value;
-            }
-        }
+        void RemoveCssApplier(String tag);
     }
 }

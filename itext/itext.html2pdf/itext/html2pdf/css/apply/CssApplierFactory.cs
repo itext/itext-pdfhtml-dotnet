@@ -44,7 +44,9 @@ using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Html;
 
 namespace iText.Html2pdf.Css.Apply {
+    [Obsolete]
     public class CssApplierFactory {
+        [Obsolete]
         public static ICssApplier GetCssApplier(String tag) {
             switch (tag) {
                 case TagConstants.A: {

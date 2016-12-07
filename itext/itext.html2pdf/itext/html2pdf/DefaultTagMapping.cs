@@ -43,9 +43,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach.Impl.Tags;
+using iText.Html2pdf.Css.Apply;
+using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Html;
 
-namespace iText.Html2pdf.Attach.Util {
+namespace iText.Html2pdf {
     /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
     public class DefaultTagMapping {
         public static IDictionary<String, String> GetDefaultTagWorkerMapping() {
@@ -101,6 +103,58 @@ namespace iText.Html2pdf.Attach.Util {
             mapping[TagConstants.TR] = typeof(TrTagWorker).FullName;
             mapping[TagConstants.U] = typeof(SpanTagWorker).FullName;
             mapping[TagConstants.UL] = typeof(UlOlTagWorker).FullName;
+            return mapping;
+        }
+
+        public static IDictionary<String, String> GetDefaultCssApplierMapping() {
+            IDictionary<String, String> mapping = new ConcurrentDictionary<String, String>();
+            mapping[TagConstants.A] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.ARTICLE] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.B] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.ASIDE] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.BLOCKQUOTE] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.BODY] = typeof(BodyTagCssApplier).FullName;
+            mapping[TagConstants.CITE] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.CODE] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.EM] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.DT] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.DD] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.DIV] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.FOOTER] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.H1] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.H2] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.H3] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.H4] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.H5] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.H6] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.HEADER] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.HR] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.IMG] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.MAIN] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.NAV] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.P] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.SECTION] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.TABLE] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.TFOOT] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.THEAD] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.DL] = typeof(DlTagCssApplier).FullName;
+            mapping[TagConstants.HTML] = typeof(HtmlTagCssApplier).FullName;
+            mapping[TagConstants.I] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.LI] = typeof(LiTagCssApplier).FullName;
+            mapping[TagConstants.OL] = typeof(UlOlTagCssApplier).FullName;
+            mapping[TagConstants.PRE] = typeof(BlockCssApplier).FullName;
+            mapping[TagConstants.Q] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.SMALL] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.SPAN] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.STRIKE] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.STRONG] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.SUB] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.SUP] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.TD] = typeof(TdTagCssApplier).FullName;
+            mapping[TagConstants.TH] = typeof(TdTagCssApplier).FullName;
+            mapping[TagConstants.TIME] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.U] = typeof(SpanTagCssApplier).FullName;
+            mapping[TagConstants.UL] = typeof(UlOlTagCssApplier).FullName;
             return mapping;
         }
     }
