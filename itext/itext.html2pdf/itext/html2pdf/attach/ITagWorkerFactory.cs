@@ -55,8 +55,8 @@ namespace iText.Html2pdf.Attach {
         /// <returns/>
         ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context);
 
-        void RegisterTagWorker(String tag, String nameSpace);
+        void RegisterTagWorker(String tag, Type tagWorkerClass);
 
-        void RemovetagWorker(String tag);
+        void RemoveTagWorker(String tag);
     }
 }

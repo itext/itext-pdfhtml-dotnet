@@ -57,23 +57,26 @@ namespace iText.Html2pdf.Css {
                 );
         }
 
+        [NUnit.Framework.Test]
         public virtual void RegisterTagApplierTest() {
             String tag = "dummy";
-            String nameSpace = typeof(BlockCssApplier).FullName;
+            Type applierClass = typeof(BlockCssApplier);
             ICssApplierFactory df = new DefaultCssApplierFactory();
-            df.RegisterCssApplier(tag, nameSpace);
+            df.RegisterCssApplier(tag, applierClass);
             ICssApplier ca = df.GetCssApplier(tag);
-            NUnit.Framework.Assert.AreEqual(ca.GetType().FullName, nameSpace);
+            NUnit.Framework.Assert.AreEqual(ca.GetType(), applierClass);
         }
 
+        [NUnit.Framework.Test]
         public virtual void RetrieveTagApplierTest() {
             String tag = TagConstants.DIV;
-            String expected = typeof(TagConstants).FullName;
+            Type expected = typeof(BlockCssApplier);
             ICssApplierFactory df = new DefaultCssApplierFactory();
             ICssApplier ca = df.GetCssApplier(tag);
-            NUnit.Framework.Assert.AreEqual(ca.GetType().FullName, expected);
+            NUnit.Framework.Assert.AreEqual(ca.GetType(), expected);
         }
 
+        [NUnit.Framework.Test]
         public virtual void RemoveTagApplierTest() {
             String tag = TagConstants.DIV;
             ICssApplierFactory df = new DefaultCssApplierFactory();

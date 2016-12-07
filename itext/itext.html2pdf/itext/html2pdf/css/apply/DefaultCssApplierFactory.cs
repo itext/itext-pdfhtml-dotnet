@@ -42,40 +42,38 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using iText.Html2pdf;
 using iText.Html2pdf.Exceptions;
 
 namespace iText.Html2pdf.Css.Apply {
     /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
     public class DefaultCssApplierFactory : ICssApplierFactory {
-        private IDictionary<String, String> map;
+        private IDictionary<String, Type> map;
 
         public DefaultCssApplierFactory() {
-            this.map = new ConcurrentDictionary<String, String>();
+            this.map = new ConcurrentDictionary<String, Type>();
             this.RegisterDefaultCssAppliers();
         }
 
         public virtual ICssApplier GetCssApplier(String tag) {
             //Get css applier classname
-            String cssApplierClassName = map.Get(tag);
-            if (cssApplierClassName == null) {
+            Type cssApplierClass = map.Get(tag);
+            if (cssApplierClass == null) {
                 //TODO add logging
                 return null;
             }
             //Use reflection to create an instance
             try {
-                Type c = System.Type.GetType(cssApplierClassName);
-                ICssApplier res = (ICssApplier)System.Activator.CreateInstance(c);
+                ICssApplier res = (ICssApplier)System.Activator.CreateInstance(cssApplierClass);
                 return res;
             }
-            catch (Exception e) {
-                throw new NoCssApplierFoundException(cssApplierClassName, NoCssApplierFoundException.NoSuchCssApplierExists
+            catch (Exception ex) {
+                throw new NoCssApplierFoundException(cssApplierClass.FullName, NoCssApplierFoundException.ReflectionFailed
                     );
             }
         }
 
-        public virtual void RegisterCssApplier(String tag, String @namespace) {
-            this.map[tag] = @namespace;
+        public virtual void RegisterCssApplier(String tag, Type classToRegister) {
+            this.map[tag] = classToRegister;
         }
 
         public virtual void RemoveCssApplier(String tag) {
@@ -83,8 +81,8 @@ namespace iText.Html2pdf.Css.Apply {
         }
 
         private void RegisterDefaultCssAppliers() {
-            IDictionary<String, String> defaultMapping = DefaultTagMapping.GetDefaultCssApplierMapping();
-            foreach (KeyValuePair<String, String> ent in defaultMapping) {
+            IDictionary<String, Type> defaultMapping = DefaultTagCssApplierMapping.GetDefaultCssApplierMapping();
+            foreach (KeyValuePair<String, Type> ent in defaultMapping) {
                 map[ent.Key] = ent.Value;
             }
         }

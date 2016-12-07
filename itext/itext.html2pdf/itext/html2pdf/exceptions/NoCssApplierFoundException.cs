@@ -44,17 +44,11 @@ using System;
 namespace iText.Html2pdf.Exceptions {
     /// <summary>Created by SamuelHuylebroeck on 12/1/2016.</summary>
     public class NoCssApplierFoundException : Exception {
-        public NoCssApplierFoundException(String message)
-            : base(message) {
-        }
-
         public NoCssApplierFoundException(String className, String message)
             : base(message + className) {
         }
 
-        public static String NoSuchCssApplierExists = "No such Css Applier exists: ";
-
-        public static String ReflectionFailed = "Reflection failed for class: ";
+        public const String ReflectionFailed = "Reflection failed for class: ";
         //TODO cleanup excpetions and make more verbose
     }
 }

@@ -43,7 +43,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
-using iText.Html2pdf;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html.Node;
 
@@ -51,27 +50,25 @@ namespace iText.Html2pdf.Attach {
     /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
     public class DefaultTagWorkerFactory : ITagWorkerFactory {
         /// <summary>Internal map to keep track of tags and associated tagworkers</summary>
-        private IDictionary<String, String> map;
+        private IDictionary<String, Type> map;
 
         public DefaultTagWorkerFactory() {
-            this.map = new ConcurrentDictionary<String, String>();
+            this.map = new ConcurrentDictionary<String, Type>();
             RegisterDefaultHtmlTagWorkers();
         }
 
         /// <exception cref="iText.Html2pdf.Exceptions.NoTagWorkerFoundException"/>
         public virtual ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context) {
             //Get Tag Worker class name
-            String tagWorkerClassName = map.Get(tag.Name());
-            if (tagWorkerClassName == null) {
+            Type tagWorkerClass = map.Get(tag.Name());
+            if (tagWorkerClass == null) {
                 //TODO:Log the fact that no instance could be found
-                //throw new NoTagWorkerFoundException(NoTagWorkerFoundException.NoTagWorkerRegistered);
                 return null;
             }
             //Use reflection to create an instance
             try {
-                Type c = System.Type.GetType(tagWorkerClassName);
-                ConstructorInfo ctor = c.GetConstructor(new Type[] { typeof(IElementNode), typeof(ProcessorContext)});
-                ITagWorker res = (ITagWorker)ctor.Invoke(new object[] { tag, context });
+                ConstructorInfo ctor = tagWorkerClass.GetConstructor(new Type[] { typeof(IElementNode), typeof(ProcessorContext)});
+                ITagWorker res = (ITagWorker)ctor.Invoke(new object[] { tag, context});
                 return res;
             }
             catch (Exception e) {
@@ -80,17 +77,17 @@ namespace iText.Html2pdf.Attach {
             }
         }
 
-        public virtual void RegisterTagWorker(String tag, String nameSpace) {
-            map[tag] = nameSpace;
+        public virtual void RegisterTagWorker(String tag, Type tagWorkerClass) {
+            map[tag] = tagWorkerClass;
         }
 
-        public virtual void RemovetagWorker(String tag) {
+        public virtual void RemoveTagWorker(String tag) {
             map.JRemove(tag);
         }
 
         private void RegisterDefaultHtmlTagWorkers() {
-            IDictionary<String, String> defaultMapping = DefaultTagMapping.GetDefaultTagWorkerMapping();
-            foreach (KeyValuePair<String, String> ent in defaultMapping) {
+            IDictionary<String, Type> defaultMapping = DefaultTagWorkerMapping.GetDefaultTagWorkerMapping();
+            foreach (KeyValuePair<String, Type> ent in defaultMapping) {
                 map[ent.Key] = ent.Value;
             }
         }

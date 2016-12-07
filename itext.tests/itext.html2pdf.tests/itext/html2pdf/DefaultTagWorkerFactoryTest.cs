@@ -45,7 +45,6 @@ using System.Collections.Generic;
 using Org.Jsoup.Nodes;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
-using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
@@ -67,37 +66,31 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         public virtual void RegisterTest() {
             String tag = "dummy";
-            String nameSpace = typeof(DivTagWorker).FullName;
+            Type expected = typeof(DivTagWorker);
             String snippet = "<dummy><p>Hello</p></dummy>";
             Document doc = Org.Jsoup.Jsoup.Parse(snippet);
             IDictionary<String, String> styles = new ConcurrentDictionary<String, String>();
-            styles[CssConstants.WHITE_SPACE] = "";
-            styles[CssConstants.TEXT_TRANSFORM] = "";
             IElementNode testNode = new JsoupElementNode(doc.GetElementsByTag(tag)[0]);
             testNode.SetStyles(styles);
-            String expected = typeof(DivTagWorker).FullName;
             DefaultTagWorkerFactory df = new DefaultTagWorkerFactory();
-            df.RegisterTagWorker(tag, nameSpace);
+            df.RegisterTagWorker(tag, expected);
             ITagWorker tw = df.GetTagWorkerInstance(testNode, null);
-            NUnit.Framework.Assert.AreEqual(tw.GetType().FullName, expected);
+            NUnit.Framework.Assert.AreEqual(tw.GetType(), expected);
         }
 
         [NUnit.Framework.Test]
         public virtual void OverWriteTest() {
             String tag = TagConstants.DIV;
-            String nameSpace = typeof(SpanTagWorker).FullName;
-            String expected = typeof(SpanTagWorker).FullName;
+            Type expected = typeof(SpanTagWorker);
             String snippet = "<" + tag + "><p>Hello</p></" + tag + ">";
             Document doc = Org.Jsoup.Jsoup.Parse(snippet);
             IDictionary<String, String> styles = new ConcurrentDictionary<String, String>();
-            styles[CssConstants.WHITE_SPACE] = "";
-            styles[CssConstants.TEXT_TRANSFORM] = "";
             IElementNode testNode = new JsoupElementNode(doc.GetElementsByTag(tag)[0]);
             testNode.SetStyles(styles);
             DefaultTagWorkerFactory df = new DefaultTagWorkerFactory();
-            df.RegisterTagWorker(tag, nameSpace);
+            df.RegisterTagWorker(tag, expected);
             ITagWorker tw = df.GetTagWorkerInstance(testNode, null);
-            NUnit.Framework.Assert.AreEqual(tw.GetType().FullName, expected);
+            NUnit.Framework.Assert.AreEqual(tw.GetType(), expected);
         }
 
         [NUnit.Framework.Test]
@@ -106,12 +99,10 @@ namespace iText.Html2pdf {
             String snippet = "<" + tag + "><p>Hello</p></" + tag + ">";
             Document doc = Org.Jsoup.Jsoup.Parse(snippet);
             IDictionary<String, String> styles = new ConcurrentDictionary<String, String>();
-            styles[CssConstants.WHITE_SPACE] = "";
-            styles[CssConstants.TEXT_TRANSFORM] = "";
             IElementNode testNode = new JsoupElementNode(doc.GetElementsByTag(tag)[0]);
             testNode.SetStyles(styles);
             DefaultTagWorkerFactory df = new DefaultTagWorkerFactory();
-            df.RemovetagWorker(tag);
+            df.RemoveTagWorker(tag);
             ITagWorker tw = df.GetTagWorkerInstance(testNode, null);
             NUnit.Framework.Assert.IsNull(tw);
         }

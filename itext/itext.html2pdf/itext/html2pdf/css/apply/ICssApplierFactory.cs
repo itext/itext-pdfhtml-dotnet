@@ -46,7 +46,7 @@ namespace iText.Html2pdf.Css.Apply {
     public interface ICssApplierFactory {
         ICssApplier GetCssApplier(String tag);
 
-        void RegisterCssApplier(String tag, String @namespace);
+        void RegisterCssApplier(String tag, Type applierToUse);
 
         void RemoveCssApplier(String tag);
     }

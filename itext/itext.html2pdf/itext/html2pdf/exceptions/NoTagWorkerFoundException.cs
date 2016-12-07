@@ -48,10 +48,6 @@ namespace iText.Html2pdf.Exceptions {
             : base(message) {
         }
 
-        public const String NoTagWorkerRegistered = "No tag worker is registered for this tag in the TagWorkerFactory";
-
-        public const String TagWorkerClassDoesNotExist = "No TagWorker implementation exists for this namespace";
-
         public const String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Reflection in TagWorkerFactory implementation failed";
         //TODO; Replace this generic message with a more specific one
     }
