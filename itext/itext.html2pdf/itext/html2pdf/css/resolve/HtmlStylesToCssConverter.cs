@@ -99,7 +99,7 @@ namespace iText.Html2pdf.Css.Resolve {
             foreach (IAttribute a in element.GetAttributes()) {
                 HtmlStylesToCssConverter.IAttributeConverter aConverter = htmlAttributeConverters.Get(a.GetKey());
                 if (aConverter != null && aConverter.IsSupportedForElement(element.Name())) {
-                    convertedHtmlStyles.AddAll(aConverter.Convert(element.Name(), a.GetValue()));
+                    convertedHtmlStyles.AddAll(aConverter.Convert(element, a.GetValue()));
                 }
             }
             return convertedHtmlStyles;
@@ -108,7 +108,7 @@ namespace iText.Html2pdf.Css.Resolve {
         private interface IAttributeConverter {
             bool IsSupportedForElement(String elementName);
 
-            IList<CssDeclaration> Convert(String elementName, String value);
+            IList<CssDeclaration> Convert(IElementNode element, String value);
         }
 
         private class BorderAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
@@ -117,9 +117,32 @@ namespace iText.Html2pdf.Css.Resolve {
                 return TagConstants.IMG.Equals(elementName) || TagConstants.TABLE.Equals(elementName);
             }
 
-            public virtual IList<CssDeclaration> Convert(String elementName, String value) {
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
+                ApplyBordersToTableCells(element, value);
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BORDER, value + "px solid black"
                     ));
+            }
+
+            private static void ApplyBordersToTableCells(IElementNode element, String value) {
+                IList<INode> nodes = element.ChildNodes();
+                foreach (INode node in nodes) {
+                    if (node is IElementNode) {
+                        String elementName = ((IElementNode)node).Name();
+                        if (elementName.Equals(TagConstants.TD) || elementName.Equals(TagConstants.TH)) {
+                            String styleAttribute = ((IElementNode)node).GetAttribute(AttributeConstants.STYLE);
+                            if (styleAttribute == null) {
+                                styleAttribute = "";
+                            }
+                            if (!styleAttribute.Contains(CssConstants.BORDER)) {
+                                ((IElementNode)node).GetAttributes().SetAttribute(AttributeConstants.STYLE, styleAttribute + "; " + new CssDeclaration
+                                    (CssConstants.BORDER, value + "px solid black").ToString());
+                            }
+                        }
+                        else {
+                            ApplyBordersToTableCells((IElementNode)node, value);
+                        }
+                    }
+                }
             }
         }
 
@@ -132,7 +155,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 return supportedTags.Contains(elementName);
             }
 
-            public virtual IList<CssDeclaration> Convert(String elementName, String value) {
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BACKGROUND_COLOR, value));
             }
         }
@@ -142,7 +165,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 return TagConstants.FONT.Equals(elementName);
             }
 
-            public virtual IList<CssDeclaration> Convert(String elementName, String value) {
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.COLOR, value));
             }
         }
@@ -152,9 +175,10 @@ namespace iText.Html2pdf.Css.Resolve {
                 return TagConstants.FONT.Equals(elementName) || TagConstants.HR.Equals(elementName);
             }
 
-            public virtual IList<CssDeclaration> Convert(String elementName, String value) {
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 String cssValueEquivalent = null;
                 String cssPropertyEquivalent = null;
+                String elementName = element.Name();
                 if (TagConstants.FONT.Equals(elementName)) {
                     cssPropertyEquivalent = CssConstants.FONT_SIZE;
                     if ("1".Equals(value)) {
@@ -206,7 +230,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 return TagConstants.FONT.Equals(elementName);
             }
 
-            public virtual IList<CssDeclaration> Convert(String elementName, String value) {
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.FONT_FAMILY, value));
             }
         }
@@ -216,7 +240,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 return TagConstants.OL.Equals(elementName);
             }
 
-            public virtual IList<CssDeclaration> Convert(String elementName, String value) {
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 String cssEquivalent = null;
                 switch (value) {
                     case "1": {
@@ -254,7 +278,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 return true;
             }
 
-            public virtual IList<CssDeclaration> Convert(String elementName, String value) {
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.DIRECTION, value));
             }
         }
@@ -264,7 +288,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 return TagConstants.HR.Equals(elementName) || TagConstants.IMG.Equals(elementName);
             }
 
-            public virtual IList<CssDeclaration> Convert(String elementName, String value) {
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 String cssEquivalent = value;
                 if (!value.EndsWith("%")) {
                     cssEquivalent += CssConstants.PX;
@@ -278,7 +302,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 return TagConstants.IMG.Equals(elementName);
             }
 
-            public virtual IList<CssDeclaration> Convert(String elementName, String value) {
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, value + CssConstants.PX
                     ));
             }
@@ -289,7 +313,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 return TagConstants.HR.Equals(elementName);
             }
 
-            public virtual IList<CssDeclaration> Convert(String elementName, String value) {
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 IList<CssDeclaration> result = new List<CssDeclaration>(2);
                 if ("right".Equals(value)) {
                     result.Add(new CssDeclaration(CssConstants.MARGIN_RIGHT, "0"));
@@ -314,7 +338,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 return TagConstants.HR.Equals(elementName);
             }
 
-            public virtual IList<CssDeclaration> Convert(String elementName, String value) {
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, "2px"), new CssDeclaration
                     (CssConstants.BORDER_WIDTH, "0"), new CssDeclaration(CssConstants.BACKGROUND_COLOR, "gray"));
             }

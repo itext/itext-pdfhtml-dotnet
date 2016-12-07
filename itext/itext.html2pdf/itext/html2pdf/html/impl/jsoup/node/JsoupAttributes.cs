@@ -45,70 +45,63 @@ using System.Collections.Generic;
 using Org.Jsoup.Nodes;
 using iText.Html2pdf.Html.Node;
 
-namespace iText.Html2pdf.Html.Impl.Jsoup.Node
-{
-    public class JsoupAttributes : IAttributes
-    {
+namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
+    public class JsoupAttributes : IAttributes {
         private Attributes attributes;
 
-        public JsoupAttributes(Attributes attributes)
-        {
+        public JsoupAttributes(Attributes attributes) {
             this.attributes = attributes;
         }
 
-        public virtual String GetAttribute(String key)
-        {
+        public virtual String GetAttribute(String key) {
             return attributes.HasKey(key) ? attributes.Get(key) : null;
         }
 
-        public virtual int Size()
-        {
+        public virtual void SetAttribute(String key, String value) {
+            if (attributes.HasKey(key)) {
+                attributes.Remove(key);
+            }
+            attributes.Put(key, value);
+        }
+
+        public virtual int Size() {
             return attributes.Size();
         }
 
-        private class AttributeIterator : IEnumerator<IAttribute>
-        {
+        private class AttributeIterator : IEnumerator<IAttribute> {
             private IEnumerator<Org.Jsoup.Nodes.Attribute> iterator;
 
-            public AttributeIterator(IEnumerator<Org.Jsoup.Nodes.Attribute> iterator)
-            {
+            public AttributeIterator(IEnumerator<Org.Jsoup.Nodes.Attribute> iterator) {
                 this.iterator = iterator;
             }
 
 
-            public void Dispose()
-            {
+            public void Dispose() {
                 iterator.Dispose();
             }
 
-            public bool MoveNext()
-            {
+            public bool MoveNext() {
                 return iterator.MoveNext();
             }
 
-            public void Reset()
-            {
+            public void Reset() {
                 iterator.Reset();
             }
 
-            public IAttribute Current
-            {
+            public IAttribute Current {
                 get { return new JsoupAttribute(iterator.Current); }
             }
 
-            object IEnumerator.Current
-            {
+            object IEnumerator.Current {
                 get { return Current; }
             }
         }
 
-        public IEnumerator<IAttribute> GetEnumerator()
-        {
+        public IEnumerator<IAttribute> GetEnumerator() {
             return new JsoupAttributes.AttributeIterator(attributes.GetEnumerator());
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
+        IEnumerator IEnumerable.GetEnumerator() {
             return GetEnumerator();
         }
     }

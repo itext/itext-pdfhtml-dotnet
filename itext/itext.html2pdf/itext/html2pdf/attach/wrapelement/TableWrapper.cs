@@ -171,14 +171,29 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             int maxRowSize = 1;
             foreach (IList<Cell> row in rows) {
                 maxRowSize = Math.Max(maxRowSize, row.Count);
+                int colspanSum = 0;
                 for (int j = 0; j < row.Count; j++) {
-                    if (maxWidths.Count <= j) {
-                        UnitValue width = row[j].GetWidth();
-                        if (width == null) {
-                            maxWidths.Add(null);
+                    if (maxWidths.Count <= j + colspanSum) {
+                        Cell cell = row[j];
+                        UnitValue width = cell.GetWidth();
+                        if (cell.GetColspan() > 1) {
+                            for (int i = 0; i < cell.GetColspan(); i++) {
+                                if (width == null) {
+                                    maxWidths.Add(null);
+                                }
+                                else {
+                                    maxWidths.Add(new UnitValue(width.GetUnitType(), width.GetValue() / cell.GetColspan()));
+                                }
+                                colspanSum++;
+                            }
                         }
                         else {
-                            maxWidths.Add(row[j].GetWidth());
+                            if (width == null) {
+                                maxWidths.Add(null);
+                            }
+                            else {
+                                maxWidths.Add(cell.GetWidth());
+                            }
                         }
                     }
                     else {

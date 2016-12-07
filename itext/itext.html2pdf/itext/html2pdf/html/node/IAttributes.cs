@@ -46,6 +46,8 @@ namespace iText.Html2pdf.Html.Node {
     public interface IAttributes : IEnumerable<IAttribute> {
         String GetAttribute(String key);
 
+        void SetAttribute(String key, String value);
+
         int Size();
     }
 }

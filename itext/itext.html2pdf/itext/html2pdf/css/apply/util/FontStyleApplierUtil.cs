@@ -85,6 +85,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
             }
+            if (cssProps.Get(CssConstants.FONT_STYLE) != null) {
+                String fontStyle = cssProps.Get(CssConstants.FONT_STYLE);
+                if (CssConstants.ITALIC.EqualsIgnoreCase(fontStyle) || CssConstants.OBLIQUE.EqualsIgnoreCase(fontStyle)) {
+                    element.SetProperty(Property.ITALIC_SIMULATION, true);
+                }
+                else {
+                    element.SetProperty(Property.ITALIC_SIMULATION, false);
+                }
+            }
             if (cssProps.Get(CssConstants.COLOR) != null) {
                 element.SetProperty(Property.FONT_COLOR, WebColors.GetRGBColor(cssProps.Get(CssConstants.COLOR)));
             }
