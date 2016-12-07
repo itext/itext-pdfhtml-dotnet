@@ -45,7 +45,6 @@ using System.Collections.Generic;
 using iText.Html2pdf.Exceptions;
 
 namespace iText.Html2pdf.Css.Apply {
-    /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
     public class DefaultCssApplierFactory : ICssApplierFactory {
         private IDictionary<String, Type> map;
 
@@ -63,8 +62,7 @@ namespace iText.Html2pdf.Css.Apply {
             }
             //Use reflection to create an instance
             try {
-                ICssApplier res = (ICssApplier)System.Activator.CreateInstance(cssApplierClass);
-                return res;
+                return (ICssApplier)System.Activator.CreateInstance(cssApplierClass);
             }
             catch (Exception) {
                 throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.FullName
