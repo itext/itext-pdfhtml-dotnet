@@ -54,8 +54,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.WidthHeightApplierUtil
             ));
 
-        private const String HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED = "Height value in percent not supported";
-
         private WidthHeightApplierUtil() {
         }
 
@@ -75,7 +73,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         element.SetProperty(Property.HEIGHT, height.GetValue());
                     }
                     else {
-                        logger.Error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                        logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     }
                 }
             }
@@ -89,7 +87,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
                 else {
-                    logger.Error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 }
             }
             String minHeightVal = cssProps.Get(CssConstants.MIN_HEIGHT);
@@ -99,7 +97,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(Property.MIN_HEIGHT, height.GetValue());
                 }
                 else {
-                    logger.Error(HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                 }
             }
         }
