@@ -40,20 +40,16 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.Html2pdf;
+using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Resolver.Font;
-using iText.Html2pdf.Resolver.Resource;
-using iText.Kernel.Pdf;
 
-namespace iText.Html2pdf.Attach {
-    public class ProcessorContext {
+namespace iText.Html2pdf {
+    public class ConverterProperties {
+        private MediaDeviceDescription mediaDeviceDescription;
+
         private IFontResolver fontResolver;
-
-        private ResourceResolver resourceResolver;
-
-        private MediaDeviceDescription deviceDescription;
 
         private ITagWorkerFactory tagWorkerFactory;
 
@@ -61,79 +57,62 @@ namespace iText.Html2pdf.Attach {
 
         private String baseUri;
 
-        private State state;
-
-        private PdfDocument pdfDocument;
-
-        public ProcessorContext(ConverterProperties converterProperties) {
-            // Variable fields
-            if (converterProperties == null) {
-                converterProperties = new ConverterProperties();
-            }
-            state = new State();
-            deviceDescription = converterProperties.GetMediaDeviceDescription();
-            if (deviceDescription == null) {
-                deviceDescription = MediaDeviceDescription.CreateDefault();
-            }
-            fontResolver = converterProperties.GetFontResolver();
-            if (fontResolver == null) {
-                fontResolver = new DefaultFontResolver();
-            }
-            tagWorkerFactory = converterProperties.GetTagWorkerFactory();
-            if (tagWorkerFactory == null) {
-                tagWorkerFactory = new DefaultTagWorkerFactory();
-            }
-            cssApplierFactory = converterProperties.GetCssApplierFactory();
-            if (cssApplierFactory == null) {
-                cssApplierFactory = new DefaultCssApplierFactory();
-            }
-            baseUri = converterProperties.GetBaseUri();
-            if (baseUri == null) {
-                baseUri = "";
-            }
-            resourceResolver = new ResourceResolver(baseUri);
+        public ConverterProperties() {
         }
 
-        public virtual void SetFontResolver(IFontResolver fontResolver) {
-            this.fontResolver = fontResolver;
+        public ConverterProperties(iText.Html2pdf.ConverterProperties other) {
+            this.mediaDeviceDescription = other.mediaDeviceDescription;
+            this.fontResolver = other.fontResolver;
+            this.tagWorkerFactory = other.tagWorkerFactory;
+            this.cssApplierFactory = other.cssApplierFactory;
+            this.baseUri = other.baseUri;
         }
 
-        public virtual State GetState() {
-            return state;
+        public virtual MediaDeviceDescription GetMediaDeviceDescription() {
+            return mediaDeviceDescription;
         }
 
-        public virtual PdfDocument GetPdfDocument() {
-            return pdfDocument;
+        public virtual iText.Html2pdf.ConverterProperties SetMediaDeviceDescription(MediaDeviceDescription mediaDeviceDescription
+            ) {
+            this.mediaDeviceDescription = mediaDeviceDescription;
+            return this;
         }
 
         public virtual IFontResolver GetFontResolver() {
             return fontResolver;
         }
 
-        public virtual ResourceResolver GetResourceResolver() {
-            return resourceResolver;
-        }
-
-        public virtual MediaDeviceDescription GetDeviceDescription() {
-            return deviceDescription;
+        public virtual iText.Html2pdf.ConverterProperties SetFontResolver(IFontResolver fontResolver) {
+            this.fontResolver = fontResolver;
+            return this;
         }
 
         public virtual ITagWorkerFactory GetTagWorkerFactory() {
             return tagWorkerFactory;
         }
 
+        public virtual iText.Html2pdf.ConverterProperties SetTagWorkerFactory(ITagWorkerFactory tagWorkerFactory) {
+            this.tagWorkerFactory = tagWorkerFactory;
+            return this;
+        }
+
         public virtual ICssApplierFactory GetCssApplierFactory() {
             return cssApplierFactory;
         }
 
-        public virtual void Reset() {
-            this.pdfDocument = null;
-            this.state = new State();
+        public virtual iText.Html2pdf.ConverterProperties SetCssApplierFactory(ICssApplierFactory cssApplierFactory
+            ) {
+            this.cssApplierFactory = cssApplierFactory;
+            return this;
         }
 
-        public virtual void Reset(PdfDocument pdfDocument) {
-            Reset();
-            this.pdfDocument = pdfDocument;
+        public virtual String GetBaseUri() {
+            return baseUri;
+        }
+
+        public virtual iText.Html2pdf.ConverterProperties SetBaseUri(String baseUri) {
+            this.baseUri = baseUri;
+            return this;
         }
     }
 }

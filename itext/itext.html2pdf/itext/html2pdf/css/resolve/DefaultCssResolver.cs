@@ -42,7 +42,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using iText.Html2pdf;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Parse;
@@ -50,6 +49,7 @@ using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
+using iText.Html2pdf.Resolver.Resource;
 using iText.IO.Log;
 
 namespace iText.Html2pdf.Css.Resolve {

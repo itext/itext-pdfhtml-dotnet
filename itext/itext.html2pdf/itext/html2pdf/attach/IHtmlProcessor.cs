@@ -40,14 +40,15 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System.Collections.Generic;
+using iText.Html2pdf.Html.Node;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach {
     public interface IHtmlProcessor {
-        Document ProcessDocument(PdfDocument pdfDocument);
+        Document ProcessDocument(INode root, PdfDocument pdfDocument);
 
-        IList<IElement> ProcessElements();
+        IList<IElement> ProcessElements(INode root);
     }
 }

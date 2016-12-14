@@ -42,7 +42,6 @@
 using System;
 
 namespace iText.Html2pdf.Css.Apply {
-    /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
     public interface ICssApplierFactory {
         ICssApplier GetCssApplier(String tag);
 

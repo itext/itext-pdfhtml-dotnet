@@ -123,7 +123,8 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void ListTest06() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "listTest06.html"), new FileInfo(destinationFolder 
-                + "listTest06.pdf"), new MediaDeviceDescription(MediaType.PRINT));
+                + "listTest06.pdf"), new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription(MediaType
+                .PRINT)));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "listTest06.pdf", sourceFolder
                  + "cmp_listTest06.pdf", destinationFolder, "diff06_"));
         }
@@ -133,7 +134,8 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void ListTest07() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "listTest07.html"), new FileInfo(destinationFolder 
-                + "listTest07.pdf"), new MediaDeviceDescription(MediaType.PRINT));
+                + "listTest07.pdf"), new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription(MediaType
+                .PRINT)));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "listTest07.pdf", sourceFolder
                  + "cmp_listTest07.pdf", destinationFolder, "diff07_"));
         }
@@ -157,7 +159,8 @@ namespace iText.Html2pdf.Element {
             PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "listToPdfa.pdf"), PdfAConformanceLevel
                 .PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", @is));
             HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "listToPdfa.html", FileMode.Open, FileAccess.Read
-                ), pdfADocument, "", new MediaDeviceDescription(MediaType.PRINT));
+                ), pdfADocument, new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription(MediaType
+                .PRINT)));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "listToPdfa.pdf", sourceFolder
                  + "cmp_listToPdfa.pdf", destinationFolder, "diff99_"));
         }

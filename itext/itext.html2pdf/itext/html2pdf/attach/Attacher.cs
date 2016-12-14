@@ -42,7 +42,6 @@
 using System.Collections.Generic;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl;
-using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Html.Node;
 using iText.Kernel.Pdf;
 using iText.Layout;
@@ -53,16 +52,15 @@ namespace iText.Html2pdf.Attach {
         private Attacher() {
         }
 
-        public static Document Attach(IDocumentNode documentNode, ICssResolver cssResolver, PdfDocument pdfDocument
-            , ResourceResolver resourceResolver) {
-            IHtmlProcessor processor = new DefaultHtmlProcessor(documentNode, cssResolver, resourceResolver);
-            return processor.ProcessDocument(pdfDocument);
+        public static Document Attach(IDocumentNode documentNode, PdfDocument pdfDocument, ConverterProperties converterProperties
+            ) {
+            IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);
+            return processor.ProcessDocument(documentNode, pdfDocument);
         }
 
-        public static IList<IElement> Attach(IDocumentNode documentNode, ICssResolver cssResolver, ResourceResolver
-             resourceResolver) {
-            IHtmlProcessor processor = new DefaultHtmlProcessor(documentNode, cssResolver, resourceResolver);
-            return processor.ProcessElements();
+        public static IList<IElement> Attach(IDocumentNode documentNode, ConverterProperties converterProperties) {
+            IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);
+            return processor.ProcessElements(documentNode);
         }
     }
 }

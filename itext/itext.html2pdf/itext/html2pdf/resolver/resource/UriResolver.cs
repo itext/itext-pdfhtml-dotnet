@@ -42,7 +42,7 @@
 using System;
 using System.IO;
 
-namespace iText.Html2pdf {
+namespace iText.Html2pdf.Resolver.Resource {
     internal class UriResolver {
         private Uri baseUrl;
 

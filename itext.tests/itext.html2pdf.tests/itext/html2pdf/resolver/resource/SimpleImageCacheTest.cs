@@ -43,7 +43,7 @@ using System;
 using iText.IO.Image;
 using iText.Test;
 
-namespace iText.Html2pdf {
+namespace iText.Html2pdf.Resolver.Resource {
     public class SimpleImageCacheTest : ExtendedITextTest {
         [NUnit.Framework.SetUp]
         public virtual void Before() {

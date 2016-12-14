@@ -71,7 +71,7 @@ namespace iText.Html2pdf {
             String outPdf = destinationFolder + "resourceResolverTest01.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest01.pdf";
             HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "resourceResolverTest01.html", FileMode.Open, FileAccess.Read
-                ), new FileStream(outPdf, FileMode.Create), baseUri);
+                ), new FileStream(outPdf, FileMode.Create), new ConverterProperties().SetBaseUri(baseUri));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff01_"
                 ));
         }
@@ -86,7 +86,7 @@ namespace iText.Html2pdf {
             String outPdf = destinationFolder + "resourceResolverTest02.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest02.pdf";
             HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "resourceResolverTest01.html", FileMode.Open, FileAccess.Read
-                ), new FileStream(outPdf, FileMode.Create), baseUri);
+                ), new FileStream(outPdf, FileMode.Create), new ConverterProperties().SetBaseUri(baseUri));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff02_"
                 ));
         }
@@ -99,7 +99,7 @@ namespace iText.Html2pdf {
             String outPdf = destinationFolder + "resourceResolverTest03.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest03.pdf";
             HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "resourceResolverTest03.html", FileMode.Open, FileAccess.Read
-                ), new FileStream(outPdf, FileMode.Create), baseUri);
+                ), new FileStream(outPdf, FileMode.Create), new ConverterProperties().SetBaseUri(baseUri));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff03_"
                 ));
         }
@@ -113,7 +113,7 @@ namespace iText.Html2pdf {
             String outPdf = destinationFolder + "resourceResolverTest04.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest04.pdf";
             HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "resourceResolverTest03.html", FileMode.Open, FileAccess.Read
-                ), new FileStream(outPdf, FileMode.Create), invalidBaseUri);
+                ), new FileStream(outPdf, FileMode.Create), new ConverterProperties().SetBaseUri(invalidBaseUri));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff04_"
                 ));
         }
@@ -128,7 +128,7 @@ namespace iText.Html2pdf {
             String outPdf = destinationFolder + "resourceResolverTest05.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest05.pdf";
             HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "resourceResolverTest03.html", FileMode.Open, FileAccess.Read
-                ), new FileStream(outPdf, FileMode.Create), baseUri);
+                ), new FileStream(outPdf, FileMode.Create), new ConverterProperties().SetBaseUri(baseUri));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff05_"
                 ));
         }

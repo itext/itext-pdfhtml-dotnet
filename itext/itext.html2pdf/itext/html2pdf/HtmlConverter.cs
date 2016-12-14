@@ -43,8 +43,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Css.Media;
-using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup;
@@ -68,52 +66,61 @@ namespace iText.Html2pdf {
         // TODO add overloads without automatic elements flushing
         /// <exception cref="System.IO.IOException"/>
         public static void ConvertToPdf(String html, Stream pdfStream) {
-            ConvertToPdf(html, pdfStream, "");
+            ConvertToPdf(html, pdfStream, null);
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public static void ConvertToPdf(String html, Stream pdfStream, String baseUri) {
-            ConvertToPdf(html, new PdfWriter(pdfStream), baseUri);
+        public static void ConvertToPdf(String html, Stream pdfStream, ConverterProperties converterProperties) {
+            ConvertToPdf(html, new PdfWriter(pdfStream), converterProperties);
         }
 
         /// <exception cref="System.IO.IOException"/>
         public static void ConvertToPdf(String html, PdfWriter pdfWriter) {
-            ConvertToPdf(html, pdfWriter, "");
+            ConvertToPdf(html, pdfWriter, null);
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public static void ConvertToPdf(String html, PdfWriter pdfWriter, String baseUri) {
+        public static void ConvertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
             Stream stream = new MemoryStream(html.GetBytes());
-            ConvertToPdf(stream, pdfWriter, baseUri);
+            ConvertToPdf(stream, pdfWriter, converterProperties);
         }
 
         /// <exception cref="System.IO.IOException"/>
         public static void ConvertToPdf(FileInfo htmlFile, FileInfo pdfFile) {
-            ConvertToPdf(htmlFile, pdfFile, MediaDeviceDescription.CreateDefault());
+            ConvertToPdf(htmlFile, pdfFile, null);
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public static void ConvertToPdf(FileInfo htmlFile, FileInfo pdfFile, MediaDeviceDescription deviceDescription
+        public static void ConvertToPdf(FileInfo htmlFile, FileInfo pdfFile, ConverterProperties converterProperties
             ) {
+            if (converterProperties == null) {
+                converterProperties = new ConverterProperties().SetBaseUri(FileUtil.GetParentDirectory(htmlFile.FullName) 
+                    + Path.DirectorySeparatorChar);
+            }
+            else {
+                if (converterProperties.GetBaseUri() == null) {
+                    converterProperties = new ConverterProperties(converterProperties).SetBaseUri(FileUtil.GetParentDirectory(
+                        htmlFile.FullName) + Path.DirectorySeparatorChar);
+                }
+            }
             ConvertToPdf(new FileStream(htmlFile.FullName, FileMode.Open, FileAccess.Read), new FileStream(pdfFile.FullName
-                , FileMode.Create), FileUtil.GetParentDirectory(htmlFile.FullName) + Path.DirectorySeparatorChar, deviceDescription
-                );
+                , FileMode.Create), converterProperties);
         }
 
         /// <exception cref="System.IO.IOException"/>
         public static void ConvertToPdf(Stream htmlStream, Stream pdfStream) {
-            ConvertToPdf(htmlStream, pdfStream, "");
+            ConvertToPdf(htmlStream, pdfStream, null);
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public static void ConvertToPdf(Stream htmlStream, Stream pdfStream, String baseUri) {
-            ConvertToPdf(htmlStream, pdfStream, baseUri, MediaDeviceDescription.CreateDefault());
+        public static void ConvertToPdf(Stream htmlStream, Stream pdfStream, ConverterProperties converterProperties
+            ) {
+            ConvertToPdf(htmlStream, new PdfWriter(pdfStream), converterProperties);
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public static void ConvertToPdf(Stream htmlStream, Stream pdfStream, String baseUri, MediaDeviceDescription
-             deviceDescription) {
-            ConvertToPdf(htmlStream, new PdfWriter(pdfStream), baseUri, deviceDescription);
+        public static void ConvertToPdf(Stream htmlStream, PdfDocument pdfDocument) {
+            ConvertToPdf(htmlStream, pdfDocument, null);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -122,52 +129,32 @@ namespace iText.Html2pdf {
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public static void ConvertToPdf(Stream htmlStream, PdfDocument pdfDocument) {
-            ConvertToPdf(htmlStream, pdfDocument, "");
+        public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
+            ) {
+            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter), converterProperties);
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter, String baseUri) {
-            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter), baseUri);
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        public static void ConvertToPdf(Stream htmlStream, PdfDocument pdfDocument, String baseUri) {
-            ConvertToPdf(htmlStream, pdfDocument, baseUri, MediaDeviceDescription.CreateDefault());
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter, String baseUri, MediaDeviceDescription
-             deviceDescription) {
-            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter), baseUri, deviceDescription);
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        public static void ConvertToPdf(Stream htmlStream, PdfDocument pdfDocument, String baseUri, MediaDeviceDescription
-             deviceDescription) {
-            Document document = ConvertToDocument(htmlStream, pdfDocument, baseUri, deviceDescription);
+        public static void ConvertToPdf(Stream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties
+            ) {
+            Document document = ConvertToDocument(htmlStream, pdfDocument, converterProperties);
             document.Close();
         }
 
         /// <exception cref="System.IO.IOException"/>
         public static Document ConvertToDocument(Stream htmlStream, PdfWriter pdfWriter) {
-            return ConvertToDocument(htmlStream, pdfWriter, "");
+            return ConvertToDocument(htmlStream, pdfWriter, null);
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public static Document ConvertToDocument(Stream htmlStream, PdfWriter pdfWriter, String baseUri) {
-            return ConvertToDocument(htmlStream, pdfWriter, baseUri, MediaDeviceDescription.CreateDefault());
+        public static Document ConvertToDocument(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
+            ) {
+            return ConvertToDocument(htmlStream, new PdfDocument(pdfWriter), converterProperties);
         }
 
         /// <exception cref="System.IO.IOException"/>
-        public static Document ConvertToDocument(Stream htmlStream, PdfWriter pdfWriter, String baseUri, MediaDeviceDescription
-             deviceDescription) {
-            return ConvertToDocument(htmlStream, new PdfDocument(pdfWriter), baseUri, deviceDescription);
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        public static Document ConvertToDocument(Stream htmlStream, PdfDocument pdfDocument, String baseUri, MediaDeviceDescription
-             deviceDescription) {
+        public static Document ConvertToDocument(Stream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties
+            ) {
 
             try 
             {
@@ -200,10 +187,7 @@ namespace iText.Html2pdf {
             IHtmlParser parser = new JsoupHtmlParser();
             String detectedCharset = DetectEncoding(htmlStream);
             IDocumentNode doc = parser.Parse(htmlStream, detectedCharset);
-            ResourceResolver resourceResolver = new ResourceResolver(baseUri);
-            ICssResolver cssResolver = new DefaultCssResolver(doc, deviceDescription, resourceResolver);
-            Document document = Attacher.Attach(doc, cssResolver, pdfDocument, resourceResolver);
-            return document;
+            return Attacher.Attach(doc, pdfDocument, converterProperties);
         }
 
         private static Type GetClass(string className)
@@ -245,19 +229,10 @@ namespace iText.Html2pdf {
         }
 
         public static IList<IElement> ConvertToElements(String html) {
-            return ConvertToElements(html, "");
+            return ConvertToElements(html, null);
         }
 
-        public static IList<IElement> ConvertToElements(String html, String baseUri) {
-            return ConvertToElements(html, MediaDeviceDescription.CreateDefault(), baseUri);
-        }
-
-        public static IList<IElement> ConvertToElements(String html, MediaDeviceDescription deviceDescription) {
-            return ConvertToElements(html, deviceDescription, "");
-        }
-
-        public static IList<IElement> ConvertToElements(String html, MediaDeviceDescription deviceDescription, String
-             baseUri) {
+        public static IList<IElement> ConvertToElements(String html, ConverterProperties converterProperties) {
 
             try 
             {
@@ -286,9 +261,7 @@ namespace iText.Html2pdf {
             }
             IHtmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(html);
-            ResourceResolver resourceResolver = new ResourceResolver(baseUri);
-            ICssResolver cssResolver = new DefaultCssResolver(doc, deviceDescription, resourceResolver);
-            return Attacher.Attach(doc, cssResolver, resourceResolver);
+            return Attacher.Attach(doc, converterProperties);
         }
 
         // TODO

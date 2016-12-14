@@ -44,7 +44,7 @@ using System.IO;
 using iText.IO.Image;
 using iText.IO.Log;
 
-namespace iText.Html2pdf {
+namespace iText.Html2pdf.Resolver.Resource {
     public class ResourceResolver {
         private UriResolver uriResolver;
 
@@ -90,7 +90,7 @@ namespace iText.Html2pdf {
                 return imageData;
             }
             catch (Exception e) {
-                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.ResourceResolver));
+                ILogger logger = LoggerFactory.GetLogger(typeof(ResourceResolver));
                 logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, 
                     uriResolver.GetBaseUri(), src), e);
                 return null;

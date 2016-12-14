@@ -75,46 +75,19 @@ namespace iText.Html2pdf.Attach.Impl {
 
         private ProcessorContext context;
 
-        private ICssResolver cssResolver;
-
-        private INode root;
-
-        private ResourceResolver resourceResolver;
-
         private IList<IPropertyContainer> roots;
 
-        private ITagWorkerFactory tagWorkerFactory;
+        private ICssResolver cssResolver;
 
-        private ICssApplierFactory cssApplierFactory;
-
-        public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver)
-            : this(node, cssResolver, resourceResolver, new DefaultTagWorkerFactory(), new DefaultCssApplierFactory()) {
-        }
-
-        public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver, ITagWorkerFactory
-             tagWorkerFactory)
-            : this(node, cssResolver, resourceResolver, tagWorkerFactory, new DefaultCssApplierFactory()) {
-        }
-
-        public DefaultHtmlProcessor(INode node, ICssResolver cssResolver, ResourceResolver resourceResolver, ICssApplierFactory
-             cssApplierFactory)
-            : this(node, cssResolver, resourceResolver, new DefaultTagWorkerFactory(), cssApplierFactory) {
-        }
-
-        public DefaultHtmlProcessor(INode root, ICssResolver cssResolver, ResourceResolver resourceResolver, ITagWorkerFactory
-             tagWorkerFactory, ICssApplierFactory cssApplierFactory) {
+        public DefaultHtmlProcessor(ConverterProperties converterProperties) {
             // The tags that do not map into any workers and are deliberately excluded from the logging
             // TODO <tbody> is not supported. Styles will be propagated anyway
             // The tags we do not want to apply css to and therefore exclude from the logging
             // Content from <tr> is thrown upwards to parent, in other cases css is inherited anyway
-            this.cssResolver = cssResolver;
-            this.root = root;
-            this.resourceResolver = resourceResolver;
-            this.tagWorkerFactory = tagWorkerFactory;
-            this.cssApplierFactory = cssApplierFactory;
+            this.context = new ProcessorContext(converterProperties);
         }
 
-        public virtual IList<IElement> ProcessElements() {
+        public virtual IList<IElement> ProcessElements(INode root) {
 
             try 
             {
@@ -141,8 +114,9 @@ namespace iText.Html2pdf.Attach.Impl {
                     throw;
                 }
             }
-            context = new ProcessorContext(cssResolver, resourceResolver);
+            context.Reset();
             roots = new List<IPropertyContainer>();
+            cssResolver = new DefaultCssResolver(root, context.GetDeviceDescription(), context.GetResourceResolver());
             IElementNode html = FindHtmlNode(root);
             IElementNode body = FindBodyNode(root);
             // Force resolve styles to fetch default font size etc
@@ -159,7 +133,6 @@ namespace iText.Html2pdf.Attach.Impl {
                     }
                 }
             }
-            context = null;
             IList<IElement> elements = new List<IElement>();
             foreach (IPropertyContainer propertyContainer in roots) {
                 if (propertyContainer is IElement) {
@@ -167,6 +140,7 @@ namespace iText.Html2pdf.Attach.Impl {
                     elements.Add((IElement)propertyContainer);
                 }
             }
+            cssResolver = null;
             roots = null;
             return elements;
         }
@@ -209,7 +183,7 @@ namespace iText.Html2pdf.Attach.Impl {
             return type;
         }
 
-        public virtual Document ProcessDocument(PdfDocument pdfDocument) {
+        public virtual Document ProcessDocument(INode root, PdfDocument pdfDocument) {
 
             try 
             {
@@ -236,13 +210,15 @@ namespace iText.Html2pdf.Attach.Impl {
                     throw;
                 }
             }
-            context = new ProcessorContext(cssResolver, pdfDocument, resourceResolver);
+            context.Reset(pdfDocument);
             // TODO store html version from document type in context if necessary
             roots = new List<IPropertyContainer>();
+            cssResolver = new DefaultCssResolver(root, context.GetDeviceDescription(), context.GetResourceResolver());
             root = FindHtmlNode(root);
             Visit(root);
             context = null;
             Document doc = (Document)roots[0];
+            cssResolver = null;
             roots = null;
             return doc;
         }
@@ -250,11 +226,11 @@ namespace iText.Html2pdf.Attach.Impl {
         private void Visit(INode node) {
             if (node is IElementNode) {
                 IElementNode element = (IElementNode)node;
-                element.SetStyles(context.GetCssResolver().ResolveStyles(element));
+                element.SetStyles(cssResolver.ResolveStyles(element));
                 if (!IsDisplayable(element)) {
                     return;
                 }
-                ITagWorker tagWorker = tagWorkerFactory.GetTagWorkerInstance(element, context);
+                ITagWorker tagWorker = context.GetTagWorkerFactory().GetTagWorkerInstance(element, context);
                 if (tagWorker == null) {
                     // TODO for stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
                     if (!ignoredTags.Contains(element.Name()) && !HtmlUtils.IsStyleSheetLink(element)) {
@@ -270,7 +246,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
                     context.GetState().Pop();
-                    ICssApplier cssApplier = cssApplierFactory.GetCssApplier(element.Name());
+                    ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(element.Name());
                     if (cssApplier == null) {
                         if (!ignoredCssTags.Contains(element.Name())) {
                             logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.Name())

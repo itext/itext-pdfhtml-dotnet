@@ -42,7 +42,7 @@
 using System;
 using iText.Kernel.Font;
 
-namespace iText.Html2pdf.Font {
+namespace iText.Html2pdf.Resolver.Font {
     public interface IFontResolver {
         /// <exception cref="System.IO.IOException"/>
         PdfFont GetFont(String name);

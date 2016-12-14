@@ -40,71 +40,30 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.Collections.Generic;
-using iText.IO.Image;
-using iText.IO.Util;
+using iText.Kernel.Font;
 
-namespace iText.Html2pdf {
-    internal class SimpleImageCache {
-        private IDictionary<String, ImageData> cache = new LinkedDictionary<String, ImageData>();
-
-        private IDictionary<String, int?> imagesFrequency = new LinkedDictionary<String, int?>();
-
-        private int capacity;
-
-        internal SimpleImageCache() {
-            this.capacity = 100;
+namespace iText.Html2pdf.Resolver.Font {
+    public class DefaultFontResolver : IFontResolver {
+        public DefaultFontResolver() {
         }
 
-        internal SimpleImageCache(int capacity) {
-            if (capacity < 1) {
-                throw new ArgumentException("capacity");
+        //PdfFontFactory.registerSystemDirectories();
+        /// <exception cref="System.IO.IOException"/>
+        public virtual PdfFont GetFont(String name) {
+            //return PdfFontFactory.createRegisteredFont(name);
+            PdfFont result;
+            try {
+                result = PdfFontFactory.CreateFont(name);
             }
-            this.capacity = capacity;
-        }
-
-        internal virtual void PutImage(String src, ImageData imageData) {
-            if (cache.ContainsKey(src)) {
-                return;
+            catch (Exception) {
+                //LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name), any);
+                result = PdfFontFactory.CreateFont();
             }
-            EnsureCapacity();
-            cache[src] = imageData;
-        }
-
-        internal virtual ImageData GetImage(String src) {
-            int? frequency = imagesFrequency.Get(src);
-            if (frequency != null) {
-                imagesFrequency[src] = frequency + 1;
+            if (result == null) {
+                //LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name));
+                result = PdfFontFactory.CreateFont();
             }
-            else {
-                imagesFrequency[src] = 1;
-            }
-            return cache.Get(src);
-        }
-
-        internal virtual int Size() {
-            return cache.Count;
-        }
-
-        private void EnsureCapacity() {
-            if (cache.Count >= capacity) {
-                String mostUnpopularImg = null;
-                int minFrequency = int.MaxValue;
-                foreach (String imgSrc in cache.Keys) {
-                    // TODO keySet preserves order of LinkedList? and in .net?
-                    int? imgFrequency = imagesFrequency.Get(imgSrc);
-                    if (imgFrequency == null || imgFrequency < minFrequency) {
-                        mostUnpopularImg = imgSrc;
-                        if (imgFrequency == null) {
-                            break;
-                        }
-                        else {
-                            minFrequency = (int)imgFrequency;
-                        }
-                    }
-                }
-                cache.JRemove(mostUnpopularImg);
-            }
+            return result;
         }
     }
 }

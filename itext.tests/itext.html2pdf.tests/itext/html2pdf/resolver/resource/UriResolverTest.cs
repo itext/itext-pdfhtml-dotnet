@@ -43,7 +43,7 @@ using System;
 using System.IO;
 using iText.Test;
 
-namespace iText.Html2pdf {
+namespace iText.Html2pdf.Resolver.Resource {
     public class UriResolverTest : ExtendedITextTest {
         /// <exception cref="Java.Net.MalformedURLException"/>
         [NUnit.Framework.Test]

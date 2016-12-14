@@ -43,10 +43,7 @@ using System;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Attach {
-    /// <summary>
-    /// TagProcessorFactory Interface
-    /// Created by SamuelHuylebroeck on 11/30/2016.
-    /// </summary>
+    /// <summary>TagProcessorFactory Interface</summary>
     public interface ITagWorkerFactory {
         /// <summary>Look up a TagProcessor for the given tag and returns an instance constructed with passed parameters.
         ///     </summary>
