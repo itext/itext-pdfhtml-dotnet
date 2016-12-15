@@ -56,7 +56,7 @@ namespace iText.Html2pdf.Attach {
             RegisterDefaultHtmlTagWorkers();
         }
 
-        /// <exception cref="iText.Html2pdf.Exception.NoTagWorkerFoundException"/>
+        /// <exception cref="iText.Html2pdf.Exceptions.NoTagWorkerFoundException"/>
         public virtual ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context) {
             //Get Tag Worker class name
             Type tagWorkerClass = map.Get(tag.Name());
