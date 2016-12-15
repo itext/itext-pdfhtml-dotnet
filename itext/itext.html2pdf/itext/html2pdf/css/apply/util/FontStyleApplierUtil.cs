@@ -252,11 +252,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         public static float ParseRelativeFontSize(String relativeFontSizeValue, float baseValue) {
             if (CssConstants.SMALLER.Equals(relativeFontSizeValue)) {
-                return baseValue / 1.2f;
+                return (float)(baseValue / 1.2);
             }
             else {
                 if (CssConstants.LARGER.Equals(relativeFontSizeValue)) {
-                    return baseValue * 1.2f;
+                    return (float)(baseValue * 1.2);
                 }
             }
             return CssUtils.ParseRelativeValue(relativeFontSizeValue, baseValue);
