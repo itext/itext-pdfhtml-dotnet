@@ -45,6 +45,7 @@ using System.IO;
 using System.Text;
 using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Resolve;
+using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup;
 using iText.Html2pdf.Html.Node;
@@ -176,7 +177,7 @@ namespace iText.Html2pdf.Css {
             Test("htmlStylesConvertingTest05.html", "html body table", "border-bottom-style: solid", "border-left-style: solid"
                 , "border-right-style: solid", "border-top-style: solid", "border-bottom-width: 2px", "border-left-width: 2px"
                 , "border-right-width: 2px", "border-top-width: 2px", "border-bottom-color: black", "border-left-color: black"
-                , "border-right-color: black", "border-top-color: black", "font-size: 12.0pt", "margin-bottom: 0", "margin-left: 0"
+                , "border-right-color: black", "border-top-color: black", "font-size: 12pt", "margin-bottom: 0", "margin-left: 0"
                 , "margin-right: 0", "margin-top: 0", "text-indent: 0");
         }
 
@@ -317,12 +318,49 @@ namespace iText.Html2pdf.Css {
             bool sizesEqual = expectedStyles.Count == actualStyles.Count;
             bool elementsEqual = true;
             foreach (String str in actualStyles) {
-                if (!expectedStyles.Contains(str)) {
-                    elementsEqual = false;
-                    break;
+                if (str.StartsWith("font-size")) {
+                    if (!CompareFloatProperty(expectedStyles, actualStyles, "font-size")) {
+                        elementsEqual = false;
+                        break;
+                    }
+                }
+                else {
+                    if (!expectedStyles.Contains(str)) {
+                        elementsEqual = false;
+                        break;
+                    }
                 }
             }
             return sizesEqual && elementsEqual;
+        }
+
+        private bool CompareFloatProperty(ICollection<String> expectedStyles, ICollection<String> actualStyles, String
+             propertyName) {
+            String containsExpected = null;
+            foreach (String str in expectedStyles) {
+                if (str.StartsWith(propertyName)) {
+                    containsExpected = str;
+                }
+            }
+            String containsActual = null;
+            foreach (String str_1 in actualStyles) {
+                if (str_1.StartsWith(propertyName)) {
+                    containsActual = str_1;
+                }
+            }
+            if (containsActual == null && containsExpected == null) {
+                return true;
+            }
+            if (containsActual != null && containsExpected != null) {
+                containsActual = containsActual.Substring(propertyName.Length + 1).Trim();
+                containsExpected = containsExpected.Substring(propertyName.Length + 1).Trim();
+                float actual = CssUtils.ParseAbsoluteLength(containsActual, CssConstants.PT);
+                float expected = CssUtils.ParseAbsoluteLength(containsExpected, CssConstants.PT);
+                return Math.Abs(actual - expected) < 0.0001;
+            }
+            else {
+                return false;
+            }
         }
     }
 }
