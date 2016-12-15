@@ -51,11 +51,11 @@ using iText.Kernel;
 using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class AbbrTest : ExtendedITextTest {
-        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/element/AbbrTest/";
+    public class AddressTest : ExtendedITextTest {
+        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/element/AddressTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/element/AbbrTest/";
+             + "/test/itext/html2pdf/element/AddressTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
@@ -66,11 +66,11 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void AbbrTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "abbrTest01.html"), new FileInfo(destinationFolder 
-                + "abbrTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "abbrTest01.pdf", sourceFolder
-                 + "cmp_abbrTest01.pdf", destinationFolder, "diff01_"));
+        public virtual void Address01Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "addressTest01.html"), new FileInfo(destinationFolder
+                 + "addressTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "addressTest01.pdf", 
+                sourceFolder + "cmp_addressTest01.pdf", destinationFolder, "diff01_"));
         }
     }
 }

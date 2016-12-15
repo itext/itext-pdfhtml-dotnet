@@ -49,7 +49,6 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class TableTest : ExtendedITextTest {
@@ -162,17 +161,6 @@ namespace iText.Html2pdf.Element {
                 ));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "thTag.pdf", sourceFolder
                  + "cmp_thTag.pdf", destinationFolder, "diff10_"));
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
-        public virtual void CaptionTagTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "captionTag.html"), new FileInfo(destinationFolder 
-                + "captionTag.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "captionTag.pdf", sourceFolder
-                 + "cmp_captionTag.pdf", destinationFolder, "diff11_"));
         }
 
         /// <exception cref="System.IO.IOException"/>

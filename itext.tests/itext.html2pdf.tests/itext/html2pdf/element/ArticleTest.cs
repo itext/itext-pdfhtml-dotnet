@@ -51,11 +51,11 @@ using iText.Kernel;
 using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class AbbrTest : ExtendedITextTest {
-        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/element/AbbrTest/";
+    public class ArticleTest : ExtendedITextTest {
+        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/element/ArticleTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/element/AbbrTest/";
+             + "/test/itext/html2pdf/element/ArticleTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
@@ -66,11 +66,21 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void AbbrTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "abbrTest01.html"), new FileInfo(destinationFolder 
-                + "abbrTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "abbrTest01.pdf", sourceFolder
-                 + "cmp_abbrTest01.pdf", destinationFolder, "diff01_"));
+        public virtual void Aside01Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "articleTest01.html"), new FileInfo(destinationFolder
+                 + "articleTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "articleTest01.pdf", 
+                sourceFolder + "cmp_articleTest01.pdf", destinationFolder, "diff01_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Aside02Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "articleTest02.html"), new FileInfo(destinationFolder
+                 + "articleTest02.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "articleTest02.pdf", 
+                sourceFolder + "cmp_articleTest02.pdf", destinationFolder, "diff02_"));
         }
     }
 }

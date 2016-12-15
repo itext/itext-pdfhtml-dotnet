@@ -72,5 +72,15 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "blockquoteTest01.pdf"
                 , sourceFolder + "cmp_blockquoteTest01.pdf", destinationFolder, "diff01_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Blockquote02Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "blockquoteTest02.html"), new FileInfo(destinationFolder
+                 + "blockquoteTest02.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "blockquoteTest02.pdf"
+                , sourceFolder + "cmp_blockquoteTest02.pdf", destinationFolder, "diff02_"));
+        }
     }
 }
