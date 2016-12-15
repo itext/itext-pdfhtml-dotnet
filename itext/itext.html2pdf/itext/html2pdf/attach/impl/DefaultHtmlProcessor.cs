@@ -216,7 +216,6 @@ namespace iText.Html2pdf.Attach.Impl {
             cssResolver = new DefaultCssResolver(root, context.GetDeviceDescription(), context.GetResourceResolver());
             root = FindHtmlNode(root);
             Visit(root);
-            context = null;
             Document doc = (Document)roots[0];
             cssResolver = null;
             roots = null;
