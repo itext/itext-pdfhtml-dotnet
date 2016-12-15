@@ -54,18 +54,26 @@ namespace iText.Html2pdf.Css.Apply {
             if (mapping == null) {
                 IDictionary<String, Type> buildMap = new Dictionary<String, Type>();
                 buildMap[TagConstants.A] = typeof(SpanTagCssApplier);
+                //buildMap.put(TagConstants.ABBR, SpanTagCssApplier.class);
+                buildMap[TagConstants.ADDRESS] = typeof(BlockCssApplier);
                 buildMap[TagConstants.ARTICLE] = typeof(BlockCssApplier);
-                buildMap[TagConstants.B] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.ASIDE] = typeof(BlockCssApplier);
+                buildMap[TagConstants.B] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.BLOCKQUOTE] = typeof(BlockCssApplier);
                 buildMap[TagConstants.BODY] = typeof(BodyTagCssApplier);
+                buildMap[TagConstants.CAPTION] = typeof(BlockCssApplier);
+                buildMap[TagConstants.CENTER] = typeof(BlockCssApplier);
                 buildMap[TagConstants.CITE] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.CODE] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.EM] = typeof(SpanTagCssApplier);
+                buildMap[TagConstants.DEL] = typeof(SpanTagCssApplier);
+                buildMap[TagConstants.DFN] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.DT] = typeof(BlockCssApplier);
                 buildMap[TagConstants.DD] = typeof(BlockCssApplier);
                 buildMap[TagConstants.DIV] = typeof(BlockCssApplier);
                 buildMap[TagConstants.FOOTER] = typeof(BlockCssApplier);
+                buildMap[TagConstants.FIGCAPTION] = typeof(BlockCssApplier);
+                buildMap[TagConstants.FIGURE] = typeof(BlockCssApplier);
                 buildMap[TagConstants.H1] = typeof(BlockCssApplier);
                 buildMap[TagConstants.H2] = typeof(BlockCssApplier);
                 buildMap[TagConstants.H3] = typeof(BlockCssApplier);
@@ -85,10 +93,15 @@ namespace iText.Html2pdf.Css.Apply {
                 buildMap[TagConstants.DL] = typeof(DlTagCssApplier);
                 buildMap[TagConstants.HTML] = typeof(HtmlTagCssApplier);
                 buildMap[TagConstants.I] = typeof(SpanTagCssApplier);
+                buildMap[TagConstants.INS] = typeof(SpanTagCssApplier);
+                buildMap[TagConstants.KBD] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.LI] = typeof(LiTagCssApplier);
+                buildMap[TagConstants.MARK] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.OL] = typeof(UlOlTagCssApplier);
                 buildMap[TagConstants.PRE] = typeof(BlockCssApplier);
                 buildMap[TagConstants.Q] = typeof(SpanTagCssApplier);
+                buildMap[TagConstants.S] = typeof(SpanTagCssApplier);
+                buildMap[TagConstants.SAMP] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.SMALL] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.SPAN] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.STRIKE] = typeof(SpanTagCssApplier);
@@ -100,6 +113,7 @@ namespace iText.Html2pdf.Css.Apply {
                 buildMap[TagConstants.TIME] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.U] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.UL] = typeof(UlOlTagCssApplier);
+                buildMap[TagConstants.VAR] = typeof(SpanTagCssApplier);
                 mapping = JavaCollectionsUtil.UnmodifiableMap(buildMap);
             }
             return mapping;

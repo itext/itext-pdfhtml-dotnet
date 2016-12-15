@@ -48,7 +48,7 @@ namespace iText.Html2pdf {
         /// <exception cref="Java.Net.MalformedURLException"/>
         [NUnit.Framework.Test]
         public virtual void UriResolverTest01() {
-            String absolutePathRoot = "file:///" + (Directory.GetCurrentDirectory() + "/").Replace
+            String absolutePathRoot = "file://" + System.IO.Path.Combine("").ToAbsolutePath().GetRoot().ToString().Replace
                 ('\\', '/').ReplaceFirst("^/", "");
             String absoluteBaseUri = absolutePathRoot + "test/folder/index.html";
             UriResolver resolver = new UriResolver(absoluteBaseUri);
@@ -67,7 +67,7 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         public virtual void UriResolverTest02() {
             UriResolver resolver = new UriResolver("test/folder/index.html");
-            String runFolder = new Uri((Directory.GetCurrentDirectory() + "/")).ToExternalForm();
+            String runFolder = System.IO.Path.Combine("").ToUri().ToURL().ToExternalForm();
             NUnit.Framework.Assert.AreEqual(runFolder + "test/folder/index.html", resolver.GetBaseUri());
             NUnit.Framework.Assert.AreEqual(runFolder + "test/folder/innerTest", resolver.ResolveAgainstBaseUri("innerTest"
                 ).ToExternalForm());
@@ -83,7 +83,7 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         public virtual void UriResolverTest03() {
             UriResolver resolver = new UriResolver("/test/folder/index.html");
-            String rootFolder = new Uri(Path.GetPathRoot((Directory.GetCurrentDirectory() + "/"))).ToExternalForm();
+            String rootFolder = System.IO.Path.Combine("").ToAbsolutePath().GetRoot().ToUri().ToURL().ToExternalForm();
             NUnit.Framework.Assert.AreEqual(rootFolder + "test/folder/index.html", resolver.GetBaseUri());
             NUnit.Framework.Assert.AreEqual(rootFolder + "test/folder/innerTest", resolver.ResolveAgainstBaseUri("innerTest"
                 ).ToExternalForm());
@@ -99,7 +99,7 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         public virtual void UriResolverTest04() {
             UriResolver resolver = new UriResolver("index.html");
-            String runFolder = new Uri((Directory.GetCurrentDirectory() + "/")).ToExternalForm();
+            String runFolder = System.IO.Path.Combine("").ToUri().ToURL().ToExternalForm();
             NUnit.Framework.Assert.AreEqual(runFolder + "index.html", resolver.GetBaseUri());
             NUnit.Framework.Assert.AreEqual(runFolder + "innerTest", resolver.ResolveAgainstBaseUri("innerTest").ToExternalForm
                 ());
@@ -113,7 +113,7 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         public virtual void UriResolverTest05() {
             UriResolver resolver = new UriResolver("/../test/folder/index.html");
-            String rootFolder = new Uri(Path.GetPathRoot((Directory.GetCurrentDirectory() + "/"))).ToExternalForm();
+            String rootFolder = System.IO.Path.Combine("").ToAbsolutePath().GetRoot().ToUri().ToURL().ToExternalForm();
             NUnit.Framework.Assert.AreEqual(rootFolder + "test/folder/index.html", resolver.GetBaseUri());
             NUnit.Framework.Assert.AreEqual(rootFolder + "test/folder/innerTest", resolver.ResolveAgainstBaseUri("innerTest"
                 ).ToExternalForm());
@@ -129,7 +129,8 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         public virtual void UriResolverTest06() {
             UriResolver resolver = new UriResolver("../test/folder/index.html");
-            String parentFolder = new Uri(Directory.GetParent((Directory.GetCurrentDirectory())).FullName).ToExternalForm() + "/";
+            String parentFolder = System.IO.Path.Combine("").ToAbsolutePath().GetParent().ToUri().ToURL().ToExternalForm
+                ();
             NUnit.Framework.Assert.AreEqual(parentFolder + "test/folder/index.html", resolver.GetBaseUri());
             NUnit.Framework.Assert.AreEqual(parentFolder + "test/folder/innerTest", resolver.ResolveAgainstBaseUri("innerTest"
                 ).ToExternalForm());
@@ -170,11 +171,11 @@ namespace iText.Html2pdf {
         /// <exception cref="Java.Net.MalformedURLException"/>
         [NUnit.Framework.Test]
         public virtual void UriResolverTest09() {
-            String absolutePathRoot = Path.GetPathRoot((Directory.GetCurrentDirectory() + "/")).Replace('\\', '/'
+            String absolutePathRoot = System.IO.Path.Combine("").ToAbsolutePath().GetRoot().ToString().Replace('\\', '/'
                 );
             String absoluteBaseUri = absolutePathRoot + "test/folder/index.html";
             UriResolver resolver = new UriResolver(absoluteBaseUri);
-            String uriRoot = new Uri(Path.GetPathRoot((Directory.GetCurrentDirectory() + "/"))).ToExternalForm();
+            String uriRoot = System.IO.Path.Combine("").ToAbsolutePath().GetRoot().ToUri().ToURL().ToExternalForm();
             NUnit.Framework.Assert.AreEqual(uriRoot + "test/folder/index.html", resolver.GetBaseUri());
             NUnit.Framework.Assert.AreEqual(uriRoot + "test/folder/innerTest", resolver.ResolveAgainstBaseUri("innerTest"
                 ).ToExternalForm());
@@ -190,11 +191,12 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         public virtual void UriResolverTest13() {
             UriResolver resolver = new UriResolver("");
-            String runFolder = new Uri((Directory.GetCurrentDirectory() + "/")).ToExternalForm();
+            String runFolder = System.IO.Path.Combine("").ToUri().ToURL().ToExternalForm();
             NUnit.Framework.Assert.AreEqual(runFolder, resolver.GetBaseUri());
             NUnit.Framework.Assert.AreEqual(runFolder + "innerTest", resolver.ResolveAgainstBaseUri("innerTest").ToExternalForm
                 ());
-            String parentToRunFolder = new Uri(Directory.GetParent(Directory.GetCurrentDirectory()).FullName + "/").ToExternalForm();
+            String parentToRunFolder = System.IO.Path.Combine("").ToAbsolutePath().GetParent().ToUri().ToURL().ToExternalForm
+                ();
             NUnit.Framework.Assert.AreEqual(parentToRunFolder + "folder2/innerTest2", resolver.ResolveAgainstBaseUri("../folder2/innerTest2"
                 ).ToExternalForm());
             NUnit.Framework.Assert.AreEqual(runFolder + "folder2/innerTest2", resolver.ResolveAgainstBaseUri("/folder2/innerTest2"
@@ -207,13 +209,13 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         public virtual void UriResolverTest14() {
             UriResolver resolver = new UriResolver("base/uri/index.html");
-            String runFolder = new Uri((Directory.GetCurrentDirectory() + "/")).ToExternalForm();
+            String runFolder = System.IO.Path.Combine("").ToUri().ToURL().ToExternalForm();
             NUnit.Framework.Assert.AreEqual(runFolder + "base/uri/index.html", resolver.GetBaseUri());
-            NUnit.Framework.Assert.AreEqual("file:///c:/test/folder/img.txt", resolver.ResolveAgainstBaseUri("file:/c:/test/folder/img.txt"
+            NUnit.Framework.Assert.AreEqual("file:/c:/test/folder/img.txt", resolver.ResolveAgainstBaseUri("file:/c:/test/folder/img.txt"
                 ).ToExternalForm());
-            NUnit.Framework.Assert.AreEqual("file:///c:/test/folder/img.txt", resolver.ResolveAgainstBaseUri("file://c:/test/folder/img.txt"
+            NUnit.Framework.Assert.AreEqual("file://c:/test/folder/img.txt", resolver.ResolveAgainstBaseUri("file://c:/test/folder/img.txt"
                 ).ToExternalForm());
-            NUnit.Framework.Assert.AreEqual("file:///c:/test/folder/data.jpg", resolver.ResolveAgainstBaseUri("file:///c:/test/folder/data.jpg"
+            NUnit.Framework.Assert.AreEqual("file:/c:/test/folder/data.jpg", resolver.ResolveAgainstBaseUri("file:///c:/test/folder/data.jpg"
                 ).ToExternalForm());
         }
 
@@ -223,7 +225,7 @@ namespace iText.Html2pdf {
         /// <exception cref="Java.Net.MalformedURLException"/>
         [NUnit.Framework.Test]
         public virtual void UriResolverTest15() {
-            String absolutePathRoot = "file:///" + Path.GetPathRoot((Directory.GetCurrentDirectory() + "/")).Replace
+            String absolutePathRoot = "file:/" + System.IO.Path.Combine("").ToAbsolutePath().GetRoot().ToString().Replace
                 ('\\', '/').ReplaceFirst("^/", "");
             String absoluteBaseUri = absolutePathRoot + "test/folder/index.html";
             UriResolver resolver = new UriResolver(absoluteBaseUri);
@@ -241,11 +243,11 @@ namespace iText.Html2pdf {
         /// <exception cref="Java.Net.MalformedURLException"/>
         [NUnit.Framework.Test]
         public virtual void UriResolverTest16() {
-            String absolutePathRoot = "file:///" + Path.GetPathRoot((Directory.GetCurrentDirectory() + "/")).Replace
+            String absolutePathRoot = "file:///" + System.IO.Path.Combine("").ToAbsolutePath().GetRoot().ToString().Replace
                 ('\\', '/').ReplaceFirst("^/", "");
             String absoluteBaseUri = absolutePathRoot + "test/folder/index.html";
             UriResolver resolver = new UriResolver(absoluteBaseUri);
-            String singleSlashRootPath = absolutePathRoot;
+            String singleSlashRootPath = absolutePathRoot.Replace("///", "/");
             NUnit.Framework.Assert.AreEqual(singleSlashRootPath + "test/folder/index.html", resolver.GetBaseUri());
             NUnit.Framework.Assert.AreEqual(singleSlashRootPath + "test/folder/innerTest", resolver.ResolveAgainstBaseUri
                 ("innerTest").ToExternalForm());

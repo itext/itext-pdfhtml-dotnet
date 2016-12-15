@@ -42,6 +42,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Java.Lang;
 using iText.Html2pdf.Exceptions;
 
 namespace iText.Html2pdf.Css.Apply {
@@ -66,7 +67,11 @@ namespace iText.Html2pdf.Css.Apply {
                 ICssApplier res = (ICssApplier)System.Activator.CreateInstance(cssApplierClass);
                 return res;
             }
-            catch (Exception) {
+            catch (MemberAccessException) {
+                throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.FullName
+                    , tag);
+            }
+            catch (InstantiationException) {
                 throw new NoCssApplierFoundException(NoCssApplierFoundException.ReflectionFailed, cssApplierClass.FullName
                     , tag);
             }

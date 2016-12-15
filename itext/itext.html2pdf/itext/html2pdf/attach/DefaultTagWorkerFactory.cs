@@ -43,6 +43,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
+using Java.Lang;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html.Node;
 
@@ -67,11 +68,23 @@ namespace iText.Html2pdf.Attach {
             }
             //Use reflection to create an instance
             try {
-                ConstructorInfo ctor = tagWorkerClass.GetConstructor(new Type[] {typeof(IElementNode), typeof(ProcessorContext)});
-                ITagWorker res = (ITagWorker)ctor.Invoke(new object[] {tag, context});
+                ConstructorInfo ctor = tagWorkerClass.GetConstructor(typeof(IElementNode), typeof(ProcessorContext));
+                ITagWorker res = (ITagWorker)ctor.Invoke(tag, context);
                 return res;
             }
-            catch (Exception) {
+            catch (MissingMethodException) {
+                throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
+                    , tagWorkerClass.FullName, tag.Name());
+            }
+            catch (MemberAccessException) {
+                throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
+                    , tagWorkerClass.FullName, tag.Name());
+            }
+            catch (InstantiationException) {
+                throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
+                    , tagWorkerClass.FullName, tag.Name());
+            }
+            catch (TargetInvocationException) {
                 throw new NoTagWorkerFoundException(NoTagWorkerFoundException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
                     , tagWorkerClass.FullName, tag.Name());
             }

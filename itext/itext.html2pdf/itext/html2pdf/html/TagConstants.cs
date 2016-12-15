@@ -50,11 +50,15 @@ namespace iText.Html2pdf.Html {
 
         public const String ABBR = "abbr";
 
+        public const String ADDRESS = "address";
+
         public const String ARTICLE = "article";
 
         public const String ASIDE = "aside";
 
         public const String B = "b";
+
+        public const String BDI = "bdi";
 
         public const String BIG = "big";
 
@@ -63,6 +67,8 @@ namespace iText.Html2pdf.Html {
         public const String BODY = "body";
 
         public const String BR = "br";
+
+        public const String CAPTION = "caption";
 
         public const String CENTER = "center";
 
@@ -76,6 +82,10 @@ namespace iText.Html2pdf.Html {
 
         public const String DD = "dd";
 
+        public const String DEL = "del";
+
+        public const String DFN = "dfn";
+
         public const String DL = "dl";
 
         public const String DT = "dt";
@@ -83,6 +93,10 @@ namespace iText.Html2pdf.Html {
         public const String DIV = "div";
 
         public const String EM = "em";
+
+        public const String FIGCAPTION = "figcaption";
+
+        public const String FIGURE = "figure";
 
         public const String FONT = "font";
 
@@ -112,11 +126,17 @@ namespace iText.Html2pdf.Html {
 
         public const String IMG = "img";
 
+        public const String INS = "ins";
+
+        public const String KBD = "kbd";
+
         public const String LI = "li";
 
         public const String LINK = "link";
 
         public const String MAIN = "main";
+
+        public const String MARK = "mark";
 
         public const String MARQUEE = "marquee";
 
@@ -131,6 +151,10 @@ namespace iText.Html2pdf.Html {
         public const String PRE = "pre";
 
         public const String Q = "q";
+
+        public const String S = "s";
+
+        public const String SAMP = "samp";
 
         public const String SECTION = "section";
 
@@ -169,5 +193,7 @@ namespace iText.Html2pdf.Html {
         public const String U = "u";
 
         public const String UL = "ul";
+
+        public const String VAR = "var";
     }
 }

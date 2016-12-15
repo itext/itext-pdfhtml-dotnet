@@ -54,27 +54,38 @@ namespace iText.Html2pdf.Attach {
             if (mapping == null) {
                 IDictionary<String, Type> buildMap = new Dictionary<String, Type>();
                 buildMap[TagConstants.A] = typeof(ATagWorker);
+                //buildMap.put(TagConstants.ABBR, ATagWorker.class);
+                buildMap[TagConstants.ADDRESS] = typeof(DivTagWorker);
                 buildMap[TagConstants.ARTICLE] = typeof(DivTagWorker);
                 buildMap[TagConstants.ASIDE] = typeof(DivTagWorker);
                 buildMap[TagConstants.B] = typeof(SpanTagWorker);
                 buildMap[TagConstants.BLOCKQUOTE] = typeof(DivTagWorker);
                 buildMap[TagConstants.BODY] = typeof(BodyTagWorker);
                 buildMap[TagConstants.BR] = typeof(BrTagWorker);
+                buildMap[TagConstants.CAPTION] = typeof(PTagWorker);
+                buildMap[TagConstants.CENTER] = typeof(PTagWorker);
                 buildMap[TagConstants.CITE] = typeof(SpanTagWorker);
                 buildMap[TagConstants.CODE] = typeof(SpanTagWorker);
+                buildMap[TagConstants.DEL] = typeof(SpanTagWorker);
+                buildMap[TagConstants.DFN] = typeof(SpanTagWorker);
                 buildMap[TagConstants.DIV] = typeof(DivTagWorker);
                 buildMap[TagConstants.DD] = typeof(DdTagWorker);
                 buildMap[TagConstants.DL] = typeof(DlTagWorker);
                 buildMap[TagConstants.DT] = typeof(DtTagWorker);
                 buildMap[TagConstants.EM] = typeof(SpanTagWorker);
+                buildMap[TagConstants.FIGCAPTION] = typeof(PTagWorker);
+                buildMap[TagConstants.FIGURE] = typeof(DivTagWorker);
                 buildMap[TagConstants.FOOTER] = typeof(DivTagWorker);
                 buildMap[TagConstants.HEADER] = typeof(DivTagWorker);
                 buildMap[TagConstants.HR] = typeof(HrTagWorker);
                 buildMap[TagConstants.HTML] = typeof(HtmlTagWorker);
                 buildMap[TagConstants.I] = typeof(SpanTagWorker);
                 buildMap[TagConstants.IMG] = typeof(ImgTagWorker);
+                buildMap[TagConstants.INS] = typeof(SpanTagWorker);
+                buildMap[TagConstants.KBD] = typeof(SpanTagWorker);
                 buildMap[TagConstants.LI] = typeof(LiTagWorker);
                 buildMap[TagConstants.MAIN] = typeof(DivTagWorker);
+                buildMap[TagConstants.MARK] = typeof(SpanTagWorker);
                 buildMap[TagConstants.META] = typeof(MetaTagWorker);
                 buildMap[TagConstants.NAV] = typeof(DivTagWorker);
                 buildMap[TagConstants.OL] = typeof(UlOlTagWorker);
@@ -87,6 +98,8 @@ namespace iText.Html2pdf.Attach {
                 buildMap[TagConstants.P] = typeof(PTagWorker);
                 buildMap[TagConstants.PRE] = typeof(PTagWorker);
                 buildMap[TagConstants.Q] = typeof(SpanTagWorker);
+                buildMap[TagConstants.S] = typeof(SpanTagWorker);
+                buildMap[TagConstants.SAMP] = typeof(SpanTagWorker);
                 buildMap[TagConstants.SECTION] = typeof(DivTagWorker);
                 buildMap[TagConstants.SMALL] = typeof(SpanTagWorker);
                 buildMap[TagConstants.SPAN] = typeof(SpanTagWorker);
@@ -104,6 +117,7 @@ namespace iText.Html2pdf.Attach {
                 buildMap[TagConstants.TR] = typeof(TrTagWorker);
                 buildMap[TagConstants.U] = typeof(SpanTagWorker);
                 buildMap[TagConstants.UL] = typeof(UlOlTagWorker);
+                buildMap[TagConstants.VAR] = typeof(SpanTagWorker);
                 mapping = JavaCollectionsUtil.UnmodifiableMap(buildMap);
             }
             return mapping;

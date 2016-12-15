@@ -41,6 +41,7 @@
     address: sales@itextpdf.com */
 using System;
 using System.IO;
+using Java.Nio.File;
 
 namespace iText.Html2pdf {
     internal class UriResolver {
@@ -65,12 +66,12 @@ namespace iText.Html2pdf {
                 uriString = uriString.ReplaceFirst("/*\\\\*", "");
                 if (!uriString.StartsWith("file:")) {
                     try {
-                        String path = System.IO.Path.Combine(uriString);
+                        Path path = System.IO.Path.Combine(uriString);
                         // In general this check is for windows only, in order to handle paths like "c:/temp/img.jpg".
                         // What concerns unix paths, we already removed leading slashes,
                         // therefore we can't meet here an absolute path.
-                        if (Path.IsPathRooted(path)) {
-                            resolvedUrl = new Uri(path);
+                        if (path.IsAbsolute()) {
+                            resolvedUrl = path.ToUri().ToURL();
                         }
                     }
                     catch (Exception) {
@@ -98,10 +99,9 @@ namespace iText.Html2pdf {
             Uri baseAsUrl = null;
             try {
                 Uri baseUri = new Uri(baseUriString);
-                if (Path.IsPathRooted(baseUri.AbsolutePath)) {
-                    baseAsUrl = baseUri;
-                    if ("file".Equals(baseUri.Scheme)) {
-                        baseAsUrl = new Uri(NormalizeFilePath(baseAsUrl.AbsolutePath));
+                if (baseUri.IsAbsolute()) {
+                    baseAsUrl = baseUri.ToURL();
+                    if ("file".Equals(baseUri.GetScheme())) {
                         isLocal = true;
                     }
                 }
@@ -112,28 +112,15 @@ namespace iText.Html2pdf {
         }
 
         private Uri UriAsFileUrl(String baseUriString) {
-            if (baseUriString.Length == 0) {
-                isLocal = true;
-                return new Uri(Directory.GetCurrentDirectory() + "/");
-            }
             Uri baseAsFileUrl = null;
             try {
-                baseAsFileUrl = new Uri(NormalizeFilePath(Path.GetFullPath(baseUriString)));
+                Path path = System.IO.Path.Combine(baseUriString);
+                baseAsFileUrl = path.ToAbsolutePath().Normalize().ToUri().ToURL();
                 isLocal = true;
             }
             catch (Exception) {
             }
             return baseAsFileUrl;
-        }
-
-        private static string NormalizeFilePath(String baseUriString) {
-            string path;
-            if (Directory.Exists(baseUriString)) {
-                path = baseUriString + "/";
-            } else {
-                path = baseUriString;
-            }
-            return path;
         }
     }
 }
