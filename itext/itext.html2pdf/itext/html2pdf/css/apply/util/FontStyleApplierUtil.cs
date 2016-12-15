@@ -92,7 +92,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(Property.ITALIC_SIMULATION, true);
                 }
                 else {
-                    if (CssConstants.ITALIC.EqualsIgnoreCase(fontStyle)) {
+                    if (CssConstants.NORMAL.EqualsIgnoreCase(fontStyle)) {
                         element.SetProperty(Property.ITALIC_SIMULATION, false);
                     }
                 }
