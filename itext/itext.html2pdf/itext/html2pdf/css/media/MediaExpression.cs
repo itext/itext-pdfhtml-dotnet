@@ -44,6 +44,8 @@ using iText.Html2pdf.Css.Util;
 
 namespace iText.Html2pdf.Css.Media {
     public class MediaExpression {
+        private const float DEFAULT_FONT_SIZE = 12;
+
         private bool minPrefix;
 
         private bool maxPrefix;
@@ -153,7 +155,7 @@ namespace iText.Html2pdf.Css.Media {
                 }
 
                 case MediaFeature.HEIGHT: {
-                    float val = CssUtils.ParseAbsoluteLength(value);
+                    float val = ParseAbsoluteLength(value);
                     if (minPrefix) {
                         return deviceDescription.GetHeight() >= val;
                     }
@@ -169,7 +171,7 @@ namespace iText.Html2pdf.Css.Media {
                 }
 
                 case MediaFeature.WIDTH: {
-                    float val = CssUtils.ParseAbsoluteLength(value);
+                    float val = ParseAbsoluteLength(value);
                     if (minPrefix) {
                         return deviceDescription.GetWidth() >= val;
                     }
@@ -203,6 +205,16 @@ namespace iText.Html2pdf.Css.Media {
                 default: {
                     return false;
                 }
+            }
+        }
+
+        private static float ParseAbsoluteLength(String value) {
+            if (CssUtils.IsRelativeValue(value)) {
+                // TODO here should be used default font size of the browser, it probably should be fetched from the more generic place than private class constant
+                return CssUtils.ParseRelativeValue(value, DEFAULT_FONT_SIZE);
+            }
+            else {
+                return CssUtils.ParseAbsoluteLength(value);
             }
         }
     }

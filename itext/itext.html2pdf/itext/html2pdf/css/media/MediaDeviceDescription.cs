@@ -106,7 +106,7 @@ namespace iText.Html2pdf.Css.Media {
             return width;
         }
 
-        public virtual iText.Html2pdf.Css.Media.MediaDeviceDescription SetWidth(int width) {
+        public virtual iText.Html2pdf.Css.Media.MediaDeviceDescription SetWidth(float width) {
             this.width = width;
             return this;
         }
@@ -115,7 +115,7 @@ namespace iText.Html2pdf.Css.Media {
             return height;
         }
 
-        public virtual iText.Html2pdf.Css.Media.MediaDeviceDescription SetHeight(int height) {
+        public virtual iText.Html2pdf.Css.Media.MediaDeviceDescription SetHeight(float height) {
             this.height = height;
             return this;
         }
