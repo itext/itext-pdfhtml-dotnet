@@ -3,7 +3,6 @@ pre, tt, code, kbd, samp {
     font-size: 9pt;
     line-height: 12pt;
 }
-
 dt {
     margin: 0;
 }
@@ -28,27 +27,22 @@ body {
     margin: 10%;
     font-size: 12pt;
 }
-
 p, dl, multicol {
     margin: 1em 0;
 }
-
 dd {
     margin-left: 40px;
     margin-bottom: 0;
     margin-right: 0;
     margin-top: 0;
 }
-
 blockquote, figure {
     margin: 1em 40px;
 }
-
 center {
     display: block;
     text-align: center;
 }
-
 blockquote[type="cite"] {
     border: 3px solid;
     padding-left: 1em;
@@ -56,54 +50,45 @@ blockquote[type="cite"] {
     border-width: thin;
     margin: 1em 0;
 }
-
 h1 {
     font-size: 2em;
     font-weight: bold;
     margin: 0.67em 0;
 }
-
 h2 {
     font-size: 1.5em;
     font-weight: bold;
     margin: 0.83em 0;
 }
-
 h3 {
     font-size: 1.17em;
     font-weight: bold;
     margin: 1em 0;
 }
-
-h4 {
+h4{
     font-size: 1em;
     font-weight: bold;
     margin: 1.33em 0;
 }
-
 h5 {
     font-size: 0.83em;
     font-weight: bold;
     margin: 1.67em 0;
 }
-
 h6 {
     font-size: 0.67em;
     font-weight: bold;
     margin: 2.33em 0;
 }
-
 listing {
     font-size: medium;
     margin: 1em 0;
     white-space: pre;
 }
-
 xmp, pre, plaintext {
     margin: 1em 0;
     white-space: pre;
 }
-
 table {
     margin-bottom: 0;
     margin-top: 0;
@@ -111,37 +96,30 @@ table {
     margin-right: 0;
     text-indent: 0;
 }
-
 caption {
     text-align: center;
+    display: table-caption;
 }
-
 tr {
     vertical-align: inherit;
 }
-
 tbody {
     vertical-align: middle;
 }
-
 thead {
     vertical-align: middle;
 }
-
 tfoot {
     vertical-align: middle;
 }
-
 table > tr {
     vertical-align: middle;
 }
-
 td {
     padding: 1px;
     text-align: inherit;
     vertical-align: inherit;
 }
-
 th {
     display: table-cell;
     font-weight: bold;
@@ -149,12 +127,10 @@ th {
     vertical-align: inherit;
     text-align: center;
 }
-
 sub {
     font-size: smaller;
     vertical-align: sub;
 }
-
 sup {
     font-size: smaller;
     vertical-align: super;
@@ -163,30 +139,27 @@ sup {
 nobr {
     white-space: nowrap;
 }
-
 mark {
     background: none repeat scroll 0 0 yellow;
     color: black;
 }
-
 abbr[title], acronym[title] {
     border-bottom: 1px dotted;
 }
-
 ul, menu, dir {
     list-style-type: disc;
     margin: 1em 0;
     padding-left: 40px;
 }
 
-    ul li ul {
-        list-style-type: circle;
-    }
+ul li ul {
+    list-style-type: circle;
+}
 
-    ol ul, ul ol, ul ul, ol ol {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
+ol ul, ul ol, ul ul, ol ol {
+    margin-top: 0;
+    margin-bottom: 0;
+}
 
 ol {
     list-style-type: decimal;
@@ -240,13 +213,13 @@ q {
     display: inline;
 }
 
-    q:before {
-        content: open-quote;
-    }
+q:before {
+    content: open-quote;
+}
 
-    q:after {
-        content: close-quote;
-    }
+q:after {
+    content: close-quote;
+}
 
 aside, article, main, nav, footer, header, section {
     display: block;
@@ -255,3 +228,79 @@ aside, article, main, nav, footer, header, section {
 cite {
     font-style: italic;
 }
+
+code {
+    font-family: monospaced;
+}
+
+address {
+    display: block;
+    font-style: italic;
+}
+
+center{
+    text-align: center;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+dfn {
+    font-style: italic;
+}
+
+fieldset {
+    display: block;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-top: 0.35em;
+    padding-bottom: 0.625em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    border: 2px groove;
+}
+
+figcaption {
+    display: block;
+}
+
+figure {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+ins {
+    text-decoration: underline;
+}
+
+kbd {
+    font-family: monospace;
+}
+
+mark {
+    background-color: yellow;
+    color: black;
+}
+
+s {
+    text-decoration: line-through;
+}
+
+samp {
+    font-family: monospace;
+}
+
+var {
+    font-style: italic;
+}
+
+img[align="left"] {
+    margin-right: 3px;
+}
+
+
+
