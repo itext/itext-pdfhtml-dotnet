@@ -43,6 +43,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Css.Resolve.Shorthand;
@@ -73,8 +74,10 @@ namespace iText.Html2pdf.Css.Resolve {
                 nodeCssDeclarations.AddAll(CssRuleSetParser.ParsePropertyDeclarations(styleAttribute));
             }
             IDictionary<String, String> elementStyles = CssDeclarationsToMap(nodeCssDeclarations);
+            String parentFontSizeStr = null;
             if (element.ParentNode() is IElementNode) {
-                IDictionary<String, String> parentStyles = ((IElementNode)element.ParentNode()).GetStyles();
+                IElementNode parentNode = (IElementNode)element.ParentNode();
+                IDictionary<String, String> parentStyles = parentNode.GetStyles();
                 if (parentStyles == null && !(element.ParentNode() is IDocumentNode)) {
                     ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
                     logger.Error(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
@@ -83,14 +86,26 @@ namespace iText.Html2pdf.Css.Resolve {
                     foreach (KeyValuePair<String, String> entry in parentStyles) {
                         MergeParentCssDeclaration(elementStyles, entry.Key, entry.Value);
                     }
-                    String elementFontSize = elementStyles.Get(CssConstants.FONT_SIZE);
-                    String parentFontSizeStr = parentStyles.Get(CssConstants.FONT_SIZE);
-                    if (CssUtils.IsRelativeValue(elementFontSize) && parentFontSizeStr != null) {
-                        float parentFontSize = CssUtils.ParseAbsoluteLength(parentFontSizeStr);
-                        float absoluteFontSize = CssUtils.ParseRelativeValue(elementFontSize, parentFontSize);
-                        elementStyles[CssConstants.FONT_SIZE] = absoluteFontSize + CssConstants.PT;
-                    }
+                    parentFontSizeStr = parentStyles.Get(CssConstants.FONT_SIZE);
                 }
+            }
+            String elementFontSize = elementStyles.Get(CssConstants.FONT_SIZE);
+            if (CssUtils.IsRelativeValue(elementFontSize) || CssConstants.LARGER.Equals(elementFontSize) || CssConstants
+                .SMALLER.Equals(elementFontSize)) {
+                float parentFontSize;
+                if (parentFontSizeStr == null) {
+                    parentFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants.FONT_SIZE
+                        ));
+                }
+                else {
+                    parentFontSize = CssUtils.ParseAbsoluteLength(parentFontSizeStr);
+                }
+                float absoluteFontSize = FontStyleApplierUtil.ParseRelativeFontSize(elementFontSize, parentFontSize);
+                elementStyles[CssConstants.FONT_SIZE] = absoluteFontSize + CssConstants.PT;
+            }
+            else {
+                elementStyles[CssConstants.FONT_SIZE] = FontStyleApplierUtil.ParseAbsoluteFontSize(elementFontSize) + CssConstants
+                    .PT;
             }
             ICollection<String> keys = new HashSet<String>();
             foreach (KeyValuePair<String, String> entry_1 in elementStyles) {

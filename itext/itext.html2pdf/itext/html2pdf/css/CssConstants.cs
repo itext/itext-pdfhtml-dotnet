@@ -467,6 +467,10 @@ namespace iText.Html2pdf.Css {
         public static readonly ICollection<String> BORDER_STYLE_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
             (new String[] { NONE, HIDDEN, DOTTED, DASHED, SOLID, DOUBLE, GROOVE, RIDGE, INSET, OUTSET }));
 
+        public static readonly ICollection<String> FONT_ABSOLUTE_SIZE_KEYWORDS = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+            (CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE
+            , CssConstants.X_LARGE, CssConstants.XX_LARGE));
+
         public const String CM = "cm";
 
         public const String EM = "em";

@@ -202,5 +202,64 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, 1.2f));
             }
         }
+
+        public static float ParseAbsoluteFontSize(String fontSizeValue) {
+            if (CssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS.Contains(fontSizeValue)) {
+                switch (fontSizeValue) {
+                    case CssConstants.XX_SMALL: {
+                        fontSizeValue = "9px";
+                        break;
+                    }
+
+                    case CssConstants.X_SMALL: {
+                        fontSizeValue = "10px";
+                        break;
+                    }
+
+                    case CssConstants.SMALL: {
+                        fontSizeValue = "13px";
+                        break;
+                    }
+
+                    case CssConstants.MEDIUM: {
+                        fontSizeValue = "16px";
+                        break;
+                    }
+
+                    case CssConstants.LARGE: {
+                        fontSizeValue = "18px";
+                        break;
+                    }
+
+                    case CssConstants.X_LARGE: {
+                        fontSizeValue = "24px";
+                        break;
+                    }
+
+                    case CssConstants.XX_LARGE: {
+                        fontSizeValue = "32px";
+                        break;
+                    }
+
+                    default: {
+                        fontSizeValue = "16px";
+                        break;
+                    }
+                }
+            }
+            return CssUtils.ParseAbsoluteLength(fontSizeValue);
+        }
+
+        public static float ParseRelativeFontSize(String relativeFontSizeValue, float baseValue) {
+            if (CssConstants.SMALLER.Equals(relativeFontSizeValue)) {
+                return baseValue / 1.2f;
+            }
+            else {
+                if (CssConstants.LARGER.Equals(relativeFontSizeValue)) {
+                    return baseValue * 1.2f;
+                }
+            }
+            return CssUtils.ParseRelativeValue(relativeFontSizeValue, baseValue);
+        }
     }
 }

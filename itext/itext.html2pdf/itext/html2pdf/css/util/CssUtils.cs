@@ -42,6 +42,7 @@
 using System;
 using System.Text;
 using iText.Html2pdf.Css;
+using iText.IO.Log;
 using iText.Kernel.Colors;
 using iText.Layout.Properties;
 
@@ -108,40 +109,47 @@ namespace iText.Html2pdf.Css.Util {
             }
             float f = float.Parse(length.JSubstring(0, pos), System.Globalization.CultureInfo.InvariantCulture);
             String unit = length.Substring(pos);
+            //points
+            if (unit.StartsWith(CssConstants.PT) || unit.Equals("") && defaultMetric.Equals(CssConstants.PT)) {
+                return f;
+            }
             // inches
             if (unit.StartsWith(CssConstants.IN) || (unit.Equals("") && defaultMetric.Equals(CssConstants.IN))) {
-                f *= 72f;
+                return f * 72f;
             }
             else {
                 // centimeters
                 if (unit.StartsWith(CssConstants.CM) || (unit.Equals("") && defaultMetric.Equals(CssConstants.CM))) {
-                    f = (f / 2.54f) * 72f;
+                    return (f / 2.54f) * 72f;
                 }
                 else {
                     // quarter of a millimeter (1/40th of a centimeter).
                     if (unit.StartsWith(CssConstants.Q) || (unit.Equals("") && defaultMetric.Equals(CssConstants.Q))) {
-                        f = (f / 2.54f) * 72f / 40;
+                        return (f / 2.54f) * 72f / 40;
                     }
                     else {
                         // millimeters
                         if (unit.StartsWith(CssConstants.MM) || (unit.Equals("") && defaultMetric.Equals(CssConstants.MM))) {
-                            f = (f / 25.4f) * 72f;
+                            return (f / 25.4f) * 72f;
                         }
                         else {
                             // picas
                             if (unit.StartsWith(CssConstants.PC) || (unit.Equals("") && defaultMetric.Equals(CssConstants.PC))) {
-                                f *= 12f;
+                                return f * 12f;
                             }
                             else {
                                 // pixels (1px = 0.75pt).
                                 if (unit.StartsWith(CssConstants.PX) || (unit.Equals("") && defaultMetric.Equals(CssConstants.PX))) {
-                                    f *= 0.75f;
+                                    return f * 0.75f;
                                 }
                             }
                         }
                     }
                 }
             }
+            ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Util.CssUtils));
+            logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, unit.Equals
+                ("") ? defaultMetric : unit));
             return f;
         }
 

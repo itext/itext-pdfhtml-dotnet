@@ -79,6 +79,8 @@ namespace iText.Html2pdf {
 
         public const String UNABLE_TO_RESOLVE_FONT = "Unable to resolve font: {0}. The default one will be used instead";
 
+        public const String UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED = "Unknown absolute metric length parsed \"{0}\".";
+
         public const String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
 
         public const String WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT = "Worker of type {0} unable to process it's text content";

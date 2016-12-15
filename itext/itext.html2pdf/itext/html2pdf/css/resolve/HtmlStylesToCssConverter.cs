@@ -113,16 +113,6 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private class BorderAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
             // TODO for table border, border attribute affects cell borders as well
-            public virtual bool IsSupportedForElement(String elementName) {
-                return TagConstants.IMG.Equals(elementName) || TagConstants.TABLE.Equals(elementName);
-            }
-
-            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
-                ApplyBordersToTableCells(element, value);
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BORDER, value + "px solid black"
-                    ));
-            }
-
             private static void ApplyBordersToTableCells(IElementNode element, String value) {
                 IList<INode> nodes = element.ChildNodes();
                 foreach (INode node in nodes) {
@@ -143,6 +133,16 @@ namespace iText.Html2pdf.Css.Resolve {
                         }
                     }
                 }
+            }
+
+            public virtual bool IsSupportedForElement(String elementName) {
+                return TagConstants.IMG.Equals(elementName) || TagConstants.TABLE.Equals(elementName);
+            }
+
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
+                ApplyBordersToTableCells(element, value);
+                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BORDER, value + "px solid black"
+                    ));
             }
         }
 
@@ -181,38 +181,48 @@ namespace iText.Html2pdf.Css.Resolve {
                 String elementName = element.Name();
                 if (TagConstants.FONT.Equals(elementName)) {
                     cssPropertyEquivalent = CssConstants.FONT_SIZE;
-                    if ("1".Equals(value)) {
-                        cssValueEquivalent = CssConstants.XX_SMALL;
-                    }
-                    else {
-                        if ("2".Equals(value)) {
+                    try {
+                        bool signedValue = value.Contains("-") || value.Contains("+");
+                        int htmlFontSize = System.Convert.ToInt32(value);
+                        if (signedValue) {
+                            htmlFontSize = 3 + htmlFontSize;
+                        }
+                        if (htmlFontSize < 2) {
                             cssValueEquivalent = CssConstants.X_SMALL;
                         }
                         else {
-                            if ("3".Equals(value)) {
-                                cssValueEquivalent = CssConstants.SMALL;
+                            if (htmlFontSize > 6) {
+                                cssValueEquivalent = "48px";
                             }
                             else {
-                                if ("4".Equals(value)) {
-                                    cssValueEquivalent = CssConstants.MEDIUM;
+                                if (htmlFontSize == 2) {
+                                    cssValueEquivalent = CssConstants.SMALL;
                                 }
                                 else {
-                                    if ("5".Equals(value)) {
-                                        cssValueEquivalent = CssConstants.LARGE;
+                                    if (htmlFontSize == 3) {
+                                        cssValueEquivalent = CssConstants.MEDIUM;
                                     }
                                     else {
-                                        if ("6".Equals(value)) {
-                                            cssValueEquivalent = CssConstants.X_LARGE;
+                                        if (htmlFontSize == 4) {
+                                            cssValueEquivalent = CssConstants.LARGE;
                                         }
                                         else {
-                                            if ("7".Equals(value)) {
-                                                cssValueEquivalent = CssConstants.XX_LARGE;
+                                            if (htmlFontSize == 5) {
+                                                cssValueEquivalent = CssConstants.X_LARGE;
+                                            }
+                                            else {
+                                                if (htmlFontSize == 6) {
+                                                    cssValueEquivalent = CssConstants.XX_LARGE;
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
                         }
+                    }
+                    catch (FormatException) {
+                        cssValueEquivalent = CssConstants.MEDIUM;
                     }
                 }
                 else {
@@ -303,8 +313,11 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, value + CssConstants.PX
-                    ));
+                String cssEquivalent = value;
+                if (!value.EndsWith("%")) {
+                    cssEquivalent += CssConstants.PX;
+                }
+                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, cssEquivalent));
             }
         }
 

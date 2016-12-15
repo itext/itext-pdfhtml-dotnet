@@ -83,5 +83,25 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "fontSizeTest02.pdf", 
                 sourceFolder + "cmp_fontSizeTest02.pdf", destinationFolder, "diff02_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FontAbsoluteKeywords() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "fontAbsoluteKeywords.html"), new FileInfo(destinationFolder
+                 + "fontAbsoluteKeywords.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "fontAbsoluteKeywords.pdf"
+                , sourceFolder + "cmp_fontAbsoluteKeywords.pdf", destinationFolder, "diff03_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FontRelativeKeywords() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "fontRelativeKeywords.html"), new FileInfo(destinationFolder
+                 + "fontRelativeKeywords.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "fontRelativeKeywords.pdf"
+                , sourceFolder + "cmp_fontRelativeKeywords.pdf", destinationFolder, "diff04_"));
+        }
     }
 }
