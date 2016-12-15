@@ -113,6 +113,7 @@ namespace iText.Html2pdf.Css.Apply {
                 buildMap[TagConstants.TD] = typeof(TdTagCssApplier);
                 buildMap[TagConstants.TH] = typeof(TdTagCssApplier);
                 buildMap[TagConstants.TIME] = typeof(SpanTagCssApplier);
+                buildMap[TagConstants.TR] = typeof(TrTagCssApplier);
                 buildMap[TagConstants.U] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.UL] = typeof(UlOlTagCssApplier);
                 buildMap[TagConstants.VAR] = typeof(SpanTagCssApplier);

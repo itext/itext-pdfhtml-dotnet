@@ -326,24 +326,29 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private class AlignAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
             public virtual bool IsSupportedForElement(String elementName) {
-                return TagConstants.HR.Equals(elementName);
+                return TagConstants.HR.Equals(elementName) || TagConstants.TD.Equals(elementName);
             }
 
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 IList<CssDeclaration> result = new List<CssDeclaration>(2);
-                if ("right".Equals(value)) {
-                    result.Add(new CssDeclaration(CssConstants.MARGIN_RIGHT, "0"));
-                }
-                else {
-                    if ("left".Equals(value)) {
-                        result.Add(new CssDeclaration(CssConstants.MARGIN_LEFT, "0"));
+                if (TagConstants.HR.Equals(element.Name())) {
+                    if ("right".Equals(value)) {
+                        result.Add(new CssDeclaration(CssConstants.MARGIN_RIGHT, "0"));
                     }
                     else {
-                        if ("center".Equals(value)) {
-                            result.Add(new CssDeclaration(CssConstants.MARGIN_RIGHT, CssConstants.AUTO));
-                            result.Add(new CssDeclaration(CssConstants.MARGIN_LEFT, CssConstants.AUTO));
+                        if ("left".Equals(value)) {
+                            result.Add(new CssDeclaration(CssConstants.MARGIN_LEFT, "0"));
+                        }
+                        else {
+                            if ("center".Equals(value)) {
+                                result.Add(new CssDeclaration(CssConstants.MARGIN_RIGHT, CssConstants.AUTO));
+                                result.Add(new CssDeclaration(CssConstants.MARGIN_LEFT, CssConstants.AUTO));
+                            }
                         }
                     }
+                }
+                else {
+                    result.Add(new CssDeclaration(CssConstants.TEXT_ALIGN, value));
                 }
                 return result;
             }
