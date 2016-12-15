@@ -54,15 +54,17 @@ namespace iText.Html2pdf.Attach {
             if (mapping == null) {
                 IDictionary<String, Type> buildMap = new Dictionary<String, Type>();
                 buildMap[TagConstants.A] = typeof(ATagWorker);
-                //buildMap.put(TagConstants.ABBR, ATagWorker.class);
+                buildMap[TagConstants.ABBR] = typeof(ATagWorker);
                 buildMap[TagConstants.ADDRESS] = typeof(DivTagWorker);
                 buildMap[TagConstants.ARTICLE] = typeof(DivTagWorker);
                 buildMap[TagConstants.ASIDE] = typeof(DivTagWorker);
                 buildMap[TagConstants.B] = typeof(SpanTagWorker);
+                buildMap[TagConstants.BDI] = typeof(SpanTagWorker);
+                buildMap[TagConstants.BDO] = typeof(SpanTagWorker);
                 buildMap[TagConstants.BLOCKQUOTE] = typeof(DivTagWorker);
                 buildMap[TagConstants.BODY] = typeof(BodyTagWorker);
                 buildMap[TagConstants.BR] = typeof(BrTagWorker);
-                buildMap[TagConstants.CAPTION] = typeof(PTagWorker);
+                //buildMap.put(TagConstants.CAPTION, SpanTagWorker.class);
                 buildMap[TagConstants.CENTER] = typeof(PTagWorker);
                 buildMap[TagConstants.CITE] = typeof(SpanTagWorker);
                 buildMap[TagConstants.CODE] = typeof(SpanTagWorker);

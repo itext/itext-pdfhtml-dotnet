@@ -63,10 +63,8 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        //TODO unignore when a abrr tag worker is implemented
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Ignore("")]
         [NUnit.Framework.Test]
         public virtual void AbbrTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "abbrTest01.html"), new FileInfo(destinationFolder 

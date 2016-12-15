@@ -54,14 +54,16 @@ namespace iText.Html2pdf.Css.Apply {
             if (mapping == null) {
                 IDictionary<String, Type> buildMap = new Dictionary<String, Type>();
                 buildMap[TagConstants.A] = typeof(SpanTagCssApplier);
-                //buildMap.put(TagConstants.ABBR, SpanTagCssApplier.class);
+                buildMap[TagConstants.ABBR] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.ADDRESS] = typeof(BlockCssApplier);
                 buildMap[TagConstants.ARTICLE] = typeof(BlockCssApplier);
                 buildMap[TagConstants.ASIDE] = typeof(BlockCssApplier);
                 buildMap[TagConstants.B] = typeof(SpanTagCssApplier);
+                buildMap[TagConstants.BDI] = typeof(SpanTagCssApplier);
+                buildMap[TagConstants.BDO] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.BLOCKQUOTE] = typeof(BlockCssApplier);
                 buildMap[TagConstants.BODY] = typeof(BodyTagCssApplier);
-                buildMap[TagConstants.CAPTION] = typeof(BlockCssApplier);
+                //buildMap.put(TagConstants.CAPTION,SpanTagCssApplier.class);
                 buildMap[TagConstants.CENTER] = typeof(BlockCssApplier);
                 buildMap[TagConstants.CITE] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.CODE] = typeof(SpanTagCssApplier);

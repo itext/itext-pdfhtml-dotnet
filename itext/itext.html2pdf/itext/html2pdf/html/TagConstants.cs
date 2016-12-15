@@ -60,6 +60,8 @@ namespace iText.Html2pdf.Html {
 
         public const String BDI = "bdi";
 
+        public const String BDO = "bdo";
+
         public const String BIG = "big";
 
         public const String BLOCKQUOTE = "blockquote";

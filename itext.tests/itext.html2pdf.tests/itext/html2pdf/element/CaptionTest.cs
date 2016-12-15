@@ -49,6 +49,7 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class CaptionTest : ExtendedITextTest {
@@ -66,6 +67,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
         public virtual void Caption01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "captionTest01.html"), new FileInfo(destinationFolder
                  + "captionTest01.pdf"));
