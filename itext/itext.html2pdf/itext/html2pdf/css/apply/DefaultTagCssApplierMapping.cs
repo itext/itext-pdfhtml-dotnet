@@ -46,7 +46,6 @@ using iText.Html2pdf.Html;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Apply {
-    /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
     public class DefaultTagCssApplierMapping {
         private static IDictionary<String, Type> mapping;
 
@@ -65,6 +64,7 @@ namespace iText.Html2pdf.Css.Apply {
                 buildMap[TagConstants.DT] = typeof(BlockCssApplier);
                 buildMap[TagConstants.DD] = typeof(BlockCssApplier);
                 buildMap[TagConstants.DIV] = typeof(BlockCssApplier);
+                buildMap[TagConstants.FONT] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.FOOTER] = typeof(BlockCssApplier);
                 buildMap[TagConstants.H1] = typeof(BlockCssApplier);
                 buildMap[TagConstants.H2] = typeof(BlockCssApplier);

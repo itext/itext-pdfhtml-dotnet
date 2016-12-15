@@ -46,7 +46,6 @@ using iText.Html2pdf.Html;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Attach {
-    /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
     public class DefaultTagWorkerMapping {
         private static IDictionary<String, Type> mapping;
 
@@ -67,6 +66,7 @@ namespace iText.Html2pdf.Attach {
                 buildMap[TagConstants.DL] = typeof(DlTagWorker);
                 buildMap[TagConstants.DT] = typeof(DtTagWorker);
                 buildMap[TagConstants.EM] = typeof(SpanTagWorker);
+                buildMap[TagConstants.FONT] = typeof(SpanTagWorker);
                 buildMap[TagConstants.FOOTER] = typeof(DivTagWorker);
                 buildMap[TagConstants.HEADER] = typeof(DivTagWorker);
                 buildMap[TagConstants.HR] = typeof(HrTagWorker);
