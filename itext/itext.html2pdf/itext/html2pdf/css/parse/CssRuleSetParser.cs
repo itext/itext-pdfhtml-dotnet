@@ -55,19 +55,22 @@ namespace iText.Html2pdf.Css.Parse {
         }
 
         public static IList<CssDeclaration> ParsePropertyDeclarations(String propertiesStr) {
-            String[] propertyDeclarationStrs = iText.IO.Util.StringUtil.Split(propertiesStr, ";");
             IList<CssDeclaration> declarations = new List<CssDeclaration>();
-            foreach (String propertyDeclarationStr in propertyDeclarationStrs) {
-                String[] propertySplit = iText.IO.Util.StringUtil.Split(propertyDeclarationStr, ":");
-                if (propertySplit.Length == 2) {
+            int pos = GetSemicolonPosition(propertiesStr);
+            while (pos != -1) {
+                String[] propertySplit = SplitCssProperty(propertiesStr.JSubstring(0, pos));
+                if (propertySplit != null) {
                     declarations.Add(new CssDeclaration(propertySplit[0], propertySplit[1]));
                 }
-                else {
-                    if (propertyDeclarationStr.Trim().Length != 0) {
-                        logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, propertyDeclarationStr
-                            .Trim()));
-                    }
+                propertiesStr = propertiesStr.Substring(pos + 1);
+                pos = GetSemicolonPosition(propertiesStr);
+            }
+            if (!String.IsNullOrEmpty(iText.IO.Util.StringUtil.ReplaceAll(propertiesStr, "[\\n\\r\\t ]", ""))) {
+                String[] propertySplit = SplitCssProperty(propertiesStr);
+                if (propertySplit != null) {
+                    declarations.Add(new CssDeclaration(propertySplit[0], propertySplit[1]));
                 }
+                return declarations;
             }
             return declarations;
         }
@@ -98,6 +101,29 @@ namespace iText.Html2pdf.Css.Parse {
                 }
             }
             return ruleSets;
+        }
+
+        private static String[] SplitCssProperty(String property) {
+            String[] result = new String[2];
+            int position = property.IndexOf(":", StringComparison.Ordinal);
+            if (position < 0) {
+                logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, property.Trim
+                    ()));
+                return null;
+            }
+            result[0] = property.JSubstring(0, position);
+            result[1] = property.Substring(position + 1);
+            return result;
+        }
+
+        private static int GetSemicolonPosition(String propertiesStr) {
+            int semiColonPos = propertiesStr.IndexOf(";", StringComparison.Ordinal);
+            int openedBracketPos = propertiesStr.IndexOf("(", StringComparison.Ordinal);
+            int closedBracketPos = propertiesStr.IndexOf(")", StringComparison.Ordinal);
+            if (semiColonPos != -1 && semiColonPos > openedBracketPos && semiColonPos < closedBracketPos) {
+                semiColonPos += GetSemicolonPosition(propertiesStr.Substring(semiColonPos + 1)) + 1;
+            }
+            return semiColonPos;
         }
     }
 }
