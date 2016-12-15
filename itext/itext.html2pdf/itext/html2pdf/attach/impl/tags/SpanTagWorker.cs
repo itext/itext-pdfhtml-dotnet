@@ -78,6 +78,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             IPropertyContainer element = childTagWorker.GetElementResult();
             if (element is ILeafElement) {
+                FlushInlineHelper();
                 spanWrapper.Add((ILeafElement)element);
                 ownLeafElements.Add(element);
                 return true;
