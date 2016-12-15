@@ -69,6 +69,7 @@ namespace iText.Html2pdf.Css.Resolve {
             nodeCssDeclarations.AddAll(cssStyleSheet.GetCssDeclarations(element, deviceDescription));
             String styleAttribute = element.GetAttribute(AttributeConstants.STYLE);
             if (styleAttribute != null) {
+                styleAttribute = ApplyTableBorderAttributeToItsCell(element, styleAttribute, nodeCssDeclarations);
                 nodeCssDeclarations.AddAll(CssRuleSetParser.ParsePropertyDeclarations(styleAttribute));
             }
             IDictionary<String, String> elementStyles = CssDeclarationsToMap(nodeCssDeclarations);
@@ -188,6 +189,24 @@ namespace iText.Html2pdf.Css.Resolve {
                     styles[cssProperty] = CssPropertyMerger.MergeTextDecoration(childPropValue, parentPropValue);
                 }
             }
+        }
+
+        private String ApplyTableBorderAttributeToItsCell(IElementNode element, String styleAttribute, IList<CssDeclaration
+            > nodeCssDeclarations) {
+            if ((element.Name().Equals(TagConstants.TD) || element.Name().Equals(TagConstants.TH)) && styleAttribute.Contains
+                (CssConstants.TABLE_CUSTOM_BORDER)) {
+                bool hasBordersProperty = false;
+                foreach (CssDeclaration cssDeclaration in nodeCssDeclarations) {
+                    if (cssDeclaration.GetProperty().Equals(CssConstants.BORDER)) {
+                        hasBordersProperty = true;
+                        break;
+                    }
+                }
+                if (!hasBordersProperty) {
+                    styleAttribute = styleAttribute.Replace(CssConstants.TABLE_CUSTOM_BORDER, CssConstants.BORDER);
+                }
+            }
+            return styleAttribute;
         }
     }
 }

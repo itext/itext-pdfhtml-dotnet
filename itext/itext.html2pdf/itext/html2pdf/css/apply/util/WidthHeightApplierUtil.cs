@@ -46,7 +46,6 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.IO.Log;
 using iText.Layout;
-using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
@@ -82,9 +81,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 UnitValue height = CssUtils.ParseLengthValueToPt(maxHeightVal, em);
                 if (height.IsPointValue()) {
                     element.SetProperty(Property.MAX_HEIGHT, height.GetValue());
-                    if (element is Image) {
-                        ((Image)element).SetAutoScale(true);
-                    }
                 }
                 else {
                     logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);

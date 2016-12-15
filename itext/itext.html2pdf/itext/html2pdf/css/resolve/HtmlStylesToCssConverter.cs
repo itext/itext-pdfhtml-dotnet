@@ -135,7 +135,7 @@ namespace iText.Html2pdf.Css.Resolve {
                             }
                             if (!styleAttribute.Contains(CssConstants.BORDER)) {
                                 ((IElementNode)node).GetAttributes().SetAttribute(AttributeConstants.STYLE, styleAttribute + "; " + new CssDeclaration
-                                    (CssConstants.BORDER, value + "px solid black").ToString());
+                                    (CssConstants.TABLE_CUSTOM_BORDER, value + "px solid black").ToString());
                             }
                         }
                         else {
