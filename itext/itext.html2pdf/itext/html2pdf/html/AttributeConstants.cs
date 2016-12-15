@@ -63,6 +63,8 @@ namespace iText.Html2pdf.Html {
 
         public const String ID = "id";
 
+        public const String LANG = "lang";
+
         public const String MEDIA = "media";
 
         public const String NAME = "name";

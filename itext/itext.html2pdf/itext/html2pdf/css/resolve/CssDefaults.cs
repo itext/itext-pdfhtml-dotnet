@@ -99,6 +99,7 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues[CssConstants.WHITE_SPACE] = CssConstants.NORMAL;
             defaultValues[CssConstants.TEXT_TRANSFORM] = CssConstants.NONE;
             defaultValues[CssConstants.TEXT_DECORATION] = CssConstants.NONE;
+            defaultValues[CssConstants.HYPHENS] = CssConstants.MANUAL;
         }
 
         // TODO not complete

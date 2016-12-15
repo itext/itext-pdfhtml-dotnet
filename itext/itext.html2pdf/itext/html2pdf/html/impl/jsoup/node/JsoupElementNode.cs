@@ -42,6 +42,7 @@
 using System;
 using System.Collections.Generic;
 using Org.Jsoup.Nodes;
+using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
@@ -52,10 +53,13 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
 
         private IDictionary<String, String> elementResolvedStyles;
 
+        private String lang = null;
+
         public JsoupElementNode(Element element)
             : base(element) {
             this.element = element;
             this.attributes = new JsoupAttributes(element.Attributes());
+            this.lang = GetAttribute(AttributeConstants.LANG);
         }
 
         public virtual String Name() {
@@ -76,6 +80,22 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
 
         public virtual IDictionary<String, String> GetStyles() {
             return this.elementResolvedStyles;
+        }
+
+        public virtual String GetLang() {
+            if (lang != null) {
+                return lang;
+            }
+            else {
+                INode parent = parentNode;
+                lang = parent is IElementNode ? ((IElementNode)parent).GetLang() : null;
+                if (lang == null) {
+                    // Set to empty string to "cache", i.e. not to traverse parent chain each time the method is called for
+                    // documents with no "lang" attribute
+                    lang = "";
+                }
+                return lang;
+            }
         }
     }
 }

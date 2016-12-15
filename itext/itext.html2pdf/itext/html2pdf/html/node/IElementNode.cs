@@ -53,5 +53,7 @@ namespace iText.Html2pdf.Html.Node {
         void SetStyles(IDictionary<String, String> stringStringMap);
 
         IDictionary<String, String> GetStyles();
+
+        String GetLang();
     }
 }

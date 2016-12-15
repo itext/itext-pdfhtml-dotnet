@@ -358,6 +358,8 @@ namespace iText.Html2pdf.Css {
 
         public const String LTR = "ltr";
 
+        public const String MANUAL = "manual";
+
         public const String MEDIUM = "medium";
 
         public const String MENU = "menu";

@@ -42,27 +42,46 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Tags;
-using iText.Html2pdf.Css.Apply;
-using iText.Html2pdf.Css.Apply.Util;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
+using iText.Layout.Hyphenation;
+using iText.Layout.Properties;
 
-namespace iText.Html2pdf.Css.Apply.Impl {
-    public class SpanTagCssApplier : ICssApplier {
-        public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-            foreach (IPropertyContainer child in ((SpanTagWorker)tagWorker).GetOwnLeafElements()) {
-                ApplyChildElementStyles(child, element.GetStyles(), context, element);
-            }
+namespace iText.Html2pdf.Css.Apply.Util {
+    public sealed class HyphenationApplierUtil {
+        private const int HYPHENATE_BEFORE = 2;
+
+        private const int HYPHENATE_AFTER = 3;
+
+        private HyphenationApplierUtil() {
         }
 
-        private void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String> css, ProcessorContext
-             context, IElementNode elementNode) {
-            FontStyleApplierUtil.ApplyFontStyles(css, context, element);
-            BackgroundApplierUtil.ApplyBackground(css, context, element);
-            //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
-            BorderStyleApplierUtil.ApplyBorders(css, context, element);
-            HyphenationApplierUtil.ApplyHyphenation(css, context, elementNode, element);
+        // TODO these are css properties actually, but it is not supported by the browsers currently
+        public static void ApplyHyphenation(IDictionary<String, String> cssProps, ProcessorContext context, IElementNode
+             elementNode, IPropertyContainer element) {
+            String value = cssProps.Get(CssConstants.HYPHENS);
+            if (value == null) {
+                value = CssDefaults.GetDefaultValue(CssConstants.HYPHENS);
+            }
+            if (CssConstants.NONE.Equals(value)) {
+                element.SetProperty(Property.HYPHENATION, null);
+            }
+            else {
+                if (CssConstants.MANUAL.Equals(value)) {
+                    element.SetProperty(Property.HYPHENATION, new HyphenationConfig(HYPHENATE_BEFORE, HYPHENATE_AFTER));
+                }
+                else {
+                    if (CssConstants.AUTO.Equals(value)) {
+                        String lang = elementNode.GetLang();
+                        if (lang != null && lang.Length > 0) {
+                            element.SetProperty(Property.HYPHENATION, new HyphenationConfig(lang.JSubstring(0, 2), "", HYPHENATE_BEFORE
+                                , HYPHENATE_AFTER));
+                        }
+                    }
+                }
+            }
         }
     }
 }
