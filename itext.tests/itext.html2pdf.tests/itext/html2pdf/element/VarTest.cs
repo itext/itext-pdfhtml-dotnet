@@ -67,10 +67,10 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Var01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "VarTest01.html"), new FileInfo(destinationFolder +
-                 "VarTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "VarTest01.pdf", sourceFolder
-                 + "cmp_VarTest01.pdf", destinationFolder, "diff01_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "varTest01.html"), new FileInfo(destinationFolder +
+                 "varTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "varTest01.pdf", sourceFolder
+                 + "cmp_varTest01.pdf", destinationFolder, "diff01_"));
         }
     }
 }
