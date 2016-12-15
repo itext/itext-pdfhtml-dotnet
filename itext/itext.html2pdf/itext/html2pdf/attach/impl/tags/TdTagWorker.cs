@@ -88,7 +88,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 processed = allChildrenProcesssed;
             }
             else {
-                if (childTagWorker is BrTagWorker) {
+                if (childTagWorker.GetElementResult() is ILeafElement) {
                     inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
                     processed = true;
                 }
@@ -109,12 +109,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (propertyContainer is IBlockElement) {
                 cell.Add((IBlockElement)propertyContainer);
                 processed = true;
-            }
-            else {
-                if (propertyContainer is Image) {
-                    cell.Add((Image)propertyContainer);
-                    processed = true;
-                }
             }
             return processed;
         }
