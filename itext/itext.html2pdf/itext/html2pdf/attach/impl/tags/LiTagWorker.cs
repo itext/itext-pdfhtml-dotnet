@@ -98,7 +98,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         public virtual IPropertyContainer GetElementResult() {
-            return list != null ? list : listItem;
+            return list != null ? (IPropertyContainer)list : listItem;
         }
 
         private bool ProcessChild(IPropertyContainer propertyContainer) {
