@@ -42,24 +42,28 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Css.Apply.Util;
-using iText.Html2pdf.Html.Node;
+using iText.Html2pdf.Css;
 using iText.Layout;
+using iText.Layout.Properties;
 
-namespace iText.Html2pdf.Css.Apply {
-    public class BlockCssApplier : ICssApplier {
-        public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-            IDictionary<String, String> cssProps = element.GetStyles();
-            IPropertyContainer container = tagWorker.GetElementResult();
-            if (container != null) {
-                WidthHeightApplierUtil.ApplyWidthHeight(cssProps, context, container);
-                BackgroundApplierUtil.ApplyBackground(cssProps, context, container);
-                MarginApplierUtil.ApplyMargins(cssProps, context, container);
-                PaddingApplierUtil.ApplyPaddings(cssProps, context, container);
-                FontStyleApplierUtil.ApplyFontStyles(cssProps, context, container);
-                BorderStyleApplierUtil.ApplyBorders(cssProps, context, container);
-                HyphenationApplierUtil.ApplyHyphenation(cssProps, context, element, container);
-                FloatApplierUtil.ApplyFloating(cssProps, context, container);
+namespace iText.Html2pdf.Css.Apply.Util {
+    public class FloatApplierUtil {
+        private FloatApplierUtil() {
+        }
+
+        public static void ApplyFloating(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
+             element) {
+            // TODO for now we only support alignment of floated elements, however we don't support text wrapping
+            String floatValue = cssProps.Get(CssConstants.FLOAT);
+            if (floatValue != null) {
+                if (CssConstants.LEFT.Equals(floatValue)) {
+                    element.SetProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
+                }
+                else {
+                    if (CssConstants.RIGHT.Equals(floatValue)) {
+                        element.SetProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.RIGHT);
+                    }
+                }
             }
         }
     }

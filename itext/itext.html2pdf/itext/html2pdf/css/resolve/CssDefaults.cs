@@ -76,6 +76,7 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues[CssConstants.BORDER_RIGHT_WIDTH] = CssConstants.MEDIUM;
             defaultValues[CssConstants.BORDER_TOP_WIDTH] = CssConstants.MEDIUM;
             defaultValues[CssConstants.BORDER_WIDTH] = CssConstants.MEDIUM;
+            defaultValues[CssConstants.FLOAT] = CssConstants.NONE;
             defaultValues[CssConstants.FONT_WEIGHT] = CssConstants.NORMAL;
             defaultValues[CssConstants.FONT_SIZE] = CssConstants.MEDIUM;
             defaultValues[CssConstants.FONT_STYLE] = CssConstants.NORMAL;

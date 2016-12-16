@@ -130,7 +130,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("float-property is not supported")]
         public virtual void HrTest09() {
             RunHrTest("09");
         }

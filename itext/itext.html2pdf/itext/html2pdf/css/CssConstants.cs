@@ -122,6 +122,8 @@ namespace iText.Html2pdf.Css {
 
         public const String EMPTY_CELLS = "empty-cells";
 
+        public const String FLOAT = "float";
+
         public const String FONT = "font";
 
         public const String FONT_FAMILY = "font-family";
