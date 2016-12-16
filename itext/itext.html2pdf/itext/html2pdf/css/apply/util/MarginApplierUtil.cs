@@ -46,6 +46,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.IO.Log;
 using iText.Layout;
+using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
@@ -62,35 +63,52 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String marginBottom = cssProps.Get(CssConstants.MARGIN_BOTTOM);
             String marginLeft = cssProps.Get(CssConstants.MARGIN_LEFT);
             String marginRight = cssProps.Get(CssConstants.MARGIN_RIGHT);
+            bool isBlock = element is IBlockElement;
+            bool isImage = element is Image;
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
-            UnitValue marginTopVal = CssUtils.ParseLengthValueToPt(marginTop, em);
-            UnitValue marginBottomVal = CssUtils.ParseLengthValueToPt(marginBottom, em);
-            UnitValue marginLeftVal = CssUtils.ParseLengthValueToPt(marginLeft, em);
-            UnitValue marginRightVal = CssUtils.ParseLengthValueToPt(marginRight, em);
-            if (marginTopVal.IsPointValue()) {
-                element.SetProperty(Property.MARGIN_TOP, marginTopVal.GetValue());
+            if (isBlock || isImage) {
+                TrySetMarginIfNotAuto(Property.MARGIN_TOP, marginTop, element, em);
+                TrySetMarginIfNotAuto(Property.MARGIN_BOTTOM, marginBottom, element, em);
             }
-            else {
+            bool isLeftAuto = !TrySetMarginIfNotAuto(Property.MARGIN_LEFT, marginLeft, element, em);
+            bool isRightAuto = !TrySetMarginIfNotAuto(Property.MARGIN_RIGHT, marginRight, element, em);
+            if (isBlock) {
+                if (isLeftAuto && isRightAuto) {
+                    element.SetProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.CENTER);
+                }
+                else {
+                    if (isLeftAuto) {
+                        element.SetProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.RIGHT);
+                    }
+                    else {
+                        if (isRightAuto) {
+                            element.SetProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static bool TrySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element
+            , float em) {
+            bool isAuto = CssConstants.AUTO.Equals(marginValue);
+            if (isAuto) {
+                return false;
+            }
+            float? marginTopVal = ParseMarginValue(marginValue, em);
+            if (marginTopVal != null) {
+                element.SetProperty(marginProperty, marginTopVal);
+            }
+            return true;
+        }
+
+        private static float? ParseMarginValue(String marginValString, float em) {
+            UnitValue marginTopUnitVal = CssUtils.ParseLengthValueToPt(marginValString, em);
+            if (!marginTopUnitVal.IsPointValue()) {
                 logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                return null;
             }
-            if (marginBottomVal.IsPointValue()) {
-                element.SetProperty(Property.MARGIN_BOTTOM, marginBottomVal.GetValue());
-            }
-            else {
-                logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
-            }
-            if (marginLeftVal.IsPointValue()) {
-                element.SetProperty(Property.MARGIN_LEFT, marginLeftVal.GetValue());
-            }
-            else {
-                logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
-            }
-            if (marginRightVal.IsPointValue()) {
-                element.SetProperty(Property.MARGIN_RIGHT, marginRightVal.GetValue());
-            }
-            else {
-                logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
-            }
+            return marginTopUnitVal.GetValue();
         }
     }
 }

@@ -170,7 +170,7 @@ namespace iText.Html2pdf.Element {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "brInTd.html"), new FileInfo(destinationFolder + "brInTd.pdf"
                 ));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "brInTd.pdf", sourceFolder
-                 + "cmp_brInTd.pdf", destinationFolder, "diff12_"));
+                 + "cmp_brInTd.pdf", destinationFolder, "diff11_"));
         }
     }
 }

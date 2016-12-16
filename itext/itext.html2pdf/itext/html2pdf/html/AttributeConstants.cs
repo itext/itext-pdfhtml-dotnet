@@ -85,7 +85,29 @@ namespace iText.Html2pdf.Html {
 
         public const String TITLE = "title";
 
+        public const String _1 = "1";
+
+        public const String A = "A";
+
+        public const String a = "a";
+
+        public const String BOTTOM = "bottom";
+
+        public const String CENTER = "center";
+
+        public const String I = "I";
+
+        public const String i = "i";
+
+        public const String LEFT = "left";
+
+        public const String MIDDLE = "middle";
+
+        public const String RIGHT = "right";
+
         public const String STYLESHEET = "stylesheet";
+
+        public const String TOP = "top";
 
         private AttributeConstants() {
         }

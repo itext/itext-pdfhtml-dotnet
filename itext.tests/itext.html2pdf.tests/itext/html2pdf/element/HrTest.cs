@@ -115,7 +115,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-938")]
         public virtual void HrTest07() {
             RunHrTest("07");
         }
@@ -131,7 +130,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-938")]
+        [NUnit.Framework.Ignore("float-property is not supported")]
         public virtual void HrTest09() {
             RunHrTest("09");
         }
@@ -139,7 +138,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-938")]
         public virtual void HrTest10() {
             RunHrTest("10");
         }

@@ -256,27 +256,27 @@ namespace iText.Html2pdf.Css.Resolve {
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 String cssEquivalent = null;
                 switch (value) {
-                    case "1": {
+                    case AttributeConstants._1: {
                         cssEquivalent = CssConstants.DECIMAL;
                         break;
                     }
 
-                    case "A": {
+                    case AttributeConstants.A: {
                         cssEquivalent = CssConstants.UPPER_ALPHA;
                         break;
                     }
 
-                    case "a": {
+                    case AttributeConstants.a: {
                         cssEquivalent = CssConstants.LOWER_ALPHA;
                         break;
                     }
 
-                    case "I": {
+                    case AttributeConstants.I: {
                         cssEquivalent = CssConstants.UPPER_ROMAN;
                         break;
                     }
 
-                    case "i": {
+                    case AttributeConstants.i: {
                         cssEquivalent = CssConstants.LOWER_ROMAN;
                         break;
                     }
@@ -303,7 +303,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 String cssEquivalent = value;
-                if (!value.EndsWith("%")) {
+                if (!value.EndsWith(CssConstants.PERCENTAGE)) {
                     cssEquivalent += CssConstants.PX;
                 }
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.WIDTH, cssEquivalent));
@@ -317,7 +317,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 String cssEquivalent = value;
-                if (!value.EndsWith("%")) {
+                if (!value.EndsWith(CssConstants.PERCENTAGE)) {
                     cssEquivalent += CssConstants.PX;
                 }
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, cssEquivalent));
@@ -326,28 +326,53 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private class AlignAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
             public virtual bool IsSupportedForElement(String elementName) {
-                return TagConstants.HR.Equals(elementName) || TagConstants.TD.Equals(elementName);
+                return TagConstants.HR.Equals(elementName) || TagConstants.TABLE.Equals(elementName) || TagConstants.IMG.Equals
+                    (elementName) || TagConstants.TD.Equals(elementName) || TagConstants.DIV.Equals(elementName) || TagConstants
+                    .P.Equals(elementName);
             }
 
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 IList<CssDeclaration> result = new List<CssDeclaration>(2);
-                if (TagConstants.HR.Equals(element.Name())) {
-                    if ("right".Equals(value)) {
-                        result.Add(new CssDeclaration(CssConstants.MARGIN_RIGHT, "0"));
+                if (TagConstants.HR.Equals(element.Name()) || TagConstants.TABLE.Equals(element.Name()) || TagConstants.IMG
+                    .Equals(element.Name())) {
+                    // TODO In fact, 'align' attribute on 'table' and 'img' tags should be translated to the 'float' css property, however it's not supported yet.
+                    // TODO Another difference here would be that alignment via margins is reset if element itself has explicit corresponding margin property,
+                    // however elements with 'float: left' for example are shown at the right side regardless of the margins. This means that a table with
+                    // 'align: right' in html are shown at the right side regardless of margins properties, however in our current implementation margins matter.
+                    // (see HorizontalAlignmentTest#alignAttribute04)
+                    String leftMargin = null;
+                    String rightMargin = null;
+                    if (AttributeConstants.RIGHT.Equals(value)) {
+                        leftMargin = CssConstants.AUTO;
+                        rightMargin = "0";
                     }
                     else {
-                        if ("left".Equals(value)) {
-                            result.Add(new CssDeclaration(CssConstants.MARGIN_LEFT, "0"));
+                        if (AttributeConstants.LEFT.Equals(value)) {
+                            leftMargin = "0";
+                            rightMargin = CssConstants.AUTO;
                         }
                         else {
-                            if ("center".Equals(value)) {
-                                result.Add(new CssDeclaration(CssConstants.MARGIN_RIGHT, CssConstants.AUTO));
-                                result.Add(new CssDeclaration(CssConstants.MARGIN_LEFT, CssConstants.AUTO));
+                            if (AttributeConstants.CENTER.Equals(value)) {
+                                leftMargin = CssConstants.AUTO;
+                                rightMargin = CssConstants.AUTO;
+                            }
+                            else {
+                                if (TagConstants.IMG.Equals(element.Name()) && AttributeConstants.TOP.Equals(value) && AttributeConstants.
+                                    MIDDLE.Equals(value) && AttributeConstants.BOTTOM.Equals(value)) {
+                                    result.Add(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
+                                }
                             }
                         }
                     }
+                    if (leftMargin != null) {
+                        result.Add(new CssDeclaration(CssConstants.MARGIN_LEFT, leftMargin));
+                        result.Add(new CssDeclaration(CssConstants.MARGIN_RIGHT, rightMargin));
+                    }
                 }
                 else {
+                    // TODO in fact, align attribute also affects horizontal alignment of all child blocks (not only direct children),
+                    // however this effect conflicts in queer manner with 'text-align' property if it set on the same blocks explicitly via CSS
+                    // (see HorizontalAlignmentTest#alignAttribute01)
                     result.Add(new CssDeclaration(CssConstants.TEXT_ALIGN, value));
                 }
                 return result;
