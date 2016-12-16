@@ -40,21 +40,32 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     public class LiTagWorker : ITagWorker {
         protected internal ListItem listItem;
 
+        protected internal List list;
+
         private WaitingInlineElementsHelper inlineHelper;
 
         public LiTagWorker(IElementNode element, ProcessorContext context) {
             listItem = new ListItem();
+            if (!(context.GetState().Top() is UlOlTagWorker) && !(context.GetState().Top() is DlTagWorker)) {
+                listItem.SetProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
+                list = new List();
+                list.Add(listItem);
+                IDictionary<String, String> styles = element.GetStyles();
+                styles[CssConstants.LIST_STYLE_TYPE] = CssConstants.DISC;
+            }
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
         }
@@ -87,7 +98,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         public virtual IPropertyContainer GetElementResult() {
-            return listItem;
+            return list != null ? list : listItem;
         }
 
         private bool ProcessChild(IPropertyContainer propertyContainer) {

@@ -134,6 +134,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
                                                             if (TagConstants.OL.Equals(elementName)) {
                                                                 SetListSymbol(element, ListNumberingType.DECIMAL);
                                                             }
+                                                            else {
+                                                                if (TagConstants.LI.Equals(elementName)) {
+                                                                    SetDiscStyle(element, em);
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
