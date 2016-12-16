@@ -107,6 +107,14 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             buffer.Append(ch);
         }
 
+        internal String GetBufferContents() {
+            return buffer.ToString();
+        }
+
+        internal void ResetBuffer() {
+            buffer.Length = 0;
+        }
+
         internal void EnterPreviousActiveState() {
             SetState(previousActiveState);
         }

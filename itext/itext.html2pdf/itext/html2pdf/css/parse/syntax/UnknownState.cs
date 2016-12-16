@@ -61,7 +61,14 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
                         controller.EnterPropertiesState();
                     }
                     else {
-                        controller.AppendToBuffer(ch);
+                        if (ch == '-' && "<!-".Equals(controller.GetBufferContents()) || ch == '>' && "--".Equals(controller.GetBufferContents
+                            ())) {
+                            // Ignoring html comments
+                            controller.ResetBuffer();
+                        }
+                        else {
+                            controller.AppendToBuffer(ch);
+                        }
                     }
                 }
             }
