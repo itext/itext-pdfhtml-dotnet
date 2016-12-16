@@ -43,6 +43,7 @@ using System;
 using System.IO;
 using iText.IO.Image;
 using iText.IO.Log;
+using iText.Kernel.Pdf.Xobject;
 
 namespace iText.Html2pdf.Resolver.Resource {
     public class ResourceResolver {
@@ -78,16 +79,16 @@ namespace iText.Html2pdf.Resolver.Resource {
             this.imageCache = new SimpleImageCache();
         }
 
-        public virtual ImageData RetrieveImage(String src) {
+        public virtual PdfImageXObject RetrieveImage(String src) {
             try {
                 Uri url = uriResolver.ResolveAgainstBaseUri(src);
                 String imageResolvedSrc = url.ToExternalForm();
-                ImageData imageData = imageCache.GetImage(imageResolvedSrc);
-                if (imageData == null) {
-                    imageData = ImageDataFactory.Create(url);
-                    imageCache.PutImage(imageResolvedSrc, imageData);
+                PdfImageXObject imageXObject = imageCache.GetImage(imageResolvedSrc);
+                if (imageXObject == null) {
+                    imageXObject = new PdfImageXObject(ImageDataFactory.Create(url));
+                    imageCache.PutImage(imageResolvedSrc, imageXObject);
                 }
-                return imageData;
+                return imageXObject;
             }
             catch (Exception e) {
                 ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Resolver.Resource.ResourceResolver));
@@ -100,6 +101,10 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// <exception cref="System.IO.IOException"/>
         public virtual Stream RetrieveStyleSheet(String uri) {
             return iText.IO.Util.UrlUtil.OpenStream(uriResolver.ResolveAgainstBaseUri(uri));
+        }
+
+        public virtual void ResetCache() {
+            imageCache.Reset();
         }
     }
 }

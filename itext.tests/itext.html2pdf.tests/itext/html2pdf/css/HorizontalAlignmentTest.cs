@@ -100,7 +100,6 @@ namespace iText.Html2pdf.Css {
             RunTest("marginsAutoInlines");
         }
 
-        //    @LogMessages(messages = {@LogMessage(messageTemplate = LogMessageConstant.CLIP_ELEMENT, count = 2)})
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         private void RunTest(String testName) {

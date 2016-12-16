@@ -40,21 +40,22 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.IO.Image;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Xobject;
 using iText.Test;
 
 namespace iText.Html2pdf.Resolver.Resource {
     public class SimpleImageCacheTest : ExtendedITextTest {
         [NUnit.Framework.SetUp]
         public virtual void Before() {
-            SimpleImageCacheTest.ImageDataStub.ResetNumbering();
+            SimpleImageCacheTest.ImageXObjectStub.ResetNumbering();
         }
 
         [NUnit.Framework.Test]
         public virtual void SimpleImageCacheTest01() {
             SimpleImageCache cache = new SimpleImageCache();
             String imgSrc = "src1.jpg";
-            SimpleImageCacheTest.ImageDataStub imageData = new SimpleImageCacheTest.ImageDataStub();
+            SimpleImageCacheTest.ImageXObjectStub imageData = new SimpleImageCacheTest.ImageXObjectStub();
             NUnit.Framework.Assert.AreEqual(0, cache.Size());
             cache.PutImage(imgSrc, imageData);
             NUnit.Framework.Assert.AreEqual(1, cache.Size());
@@ -64,9 +65,9 @@ namespace iText.Html2pdf.Resolver.Resource {
         [NUnit.Framework.Test]
         public virtual void SimpleImageCacheTest02() {
             String[] imgSrc = new String[] { "src0.jpg", "src1.jpg", "src2.jpg", "src3.jpg", "src4.jpg", "src5.jpg" };
-            SimpleImageCacheTest.ImageDataStub[] imgData = new SimpleImageCacheTest.ImageDataStub[] { new SimpleImageCacheTest.ImageDataStub
-                (), new SimpleImageCacheTest.ImageDataStub(), new SimpleImageCacheTest.ImageDataStub(), new SimpleImageCacheTest.ImageDataStub
-                (), new SimpleImageCacheTest.ImageDataStub(), new SimpleImageCacheTest.ImageDataStub() };
+            SimpleImageCacheTest.ImageXObjectStub[] imgData = new SimpleImageCacheTest.ImageXObjectStub[] { new SimpleImageCacheTest.ImageXObjectStub
+                (), new SimpleImageCacheTest.ImageXObjectStub(), new SimpleImageCacheTest.ImageXObjectStub(), new SimpleImageCacheTest.ImageXObjectStub
+                (), new SimpleImageCacheTest.ImageXObjectStub(), new SimpleImageCacheTest.ImageXObjectStub() };
             SimpleImageCache cache = new SimpleImageCache(4);
             // imgs frequency is increased on getImage call
             cache.GetImage(imgSrc[1]);
@@ -120,22 +121,22 @@ namespace iText.Html2pdf.Resolver.Resource {
             NUnit.Framework.Assert.IsNull(cache.GetImage(imgSrc[4]));
         }
 
-        private class ImageDataStub : ImageData {
+        private class ImageXObjectStub : PdfImageXObject {
             private static int totalNum = 0;
 
             private int num = 0;
 
-            internal ImageDataStub()
-                : base((byte[])null, ImageType.NONE) {
+            internal ImageXObjectStub()
+                : base(new PdfStream()) {
                 num = totalNum++;
-            }
-
-            public override String ToString() {
-                return "ImageDataStub_" + num.ToString();
             }
 
             public static void ResetNumbering() {
                 totalNum = 0;
+            }
+
+            public override String ToString() {
+                return "ImageXObjectStub_" + num.ToString();
             }
         }
     }

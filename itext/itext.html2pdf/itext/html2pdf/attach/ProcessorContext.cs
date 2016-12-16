@@ -129,6 +129,7 @@ namespace iText.Html2pdf.Attach {
         public virtual void Reset() {
             this.pdfDocument = null;
             this.state = new State();
+            this.resourceResolver.ResetCache();
         }
 
         public virtual void Reset(PdfDocument pdfDocument) {

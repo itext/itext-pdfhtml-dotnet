@@ -43,7 +43,7 @@ using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Image;
+using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Element;
 
@@ -52,10 +52,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private Image image;
 
         public ImgTagWorker(IElementNode element, ProcessorContext context) {
-            ImageData imageData = context.GetResourceResolver().RetrieveImage(element.GetAttribute(AttributeConstants.
-                SRC));
-            if (imageData != null) {
-                image = new iText.Layout.Element.Image(imageData);
+            PdfImageXObject imageXObject = context.GetResourceResolver().RetrieveImage(element.GetAttribute(AttributeConstants
+                .SRC));
+            if (imageXObject != null) {
+                image = new Image(imageXObject);
             }
         }
 

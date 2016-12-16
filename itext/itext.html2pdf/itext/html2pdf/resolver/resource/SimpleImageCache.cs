@@ -41,12 +41,12 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
-using iText.IO.Image;
 using iText.IO.Util;
+using iText.Kernel.Pdf.Xobject;
 
 namespace iText.Html2pdf.Resolver.Resource {
     internal class SimpleImageCache {
-        private IDictionary<String, ImageData> cache = new LinkedDictionary<String, ImageData>();
+        private IDictionary<String, PdfImageXObject> cache = new LinkedDictionary<String, PdfImageXObject>();
 
         private IDictionary<String, int?> imagesFrequency = new LinkedDictionary<String, int?>();
 
@@ -63,15 +63,15 @@ namespace iText.Html2pdf.Resolver.Resource {
             this.capacity = capacity;
         }
 
-        internal virtual void PutImage(String src, ImageData imageData) {
+        internal virtual void PutImage(String src, PdfImageXObject imageXObject) {
             if (cache.ContainsKey(src)) {
                 return;
             }
             EnsureCapacity();
-            cache[src] = imageData;
+            cache[src] = imageXObject;
         }
 
-        internal virtual ImageData GetImage(String src) {
+        internal virtual PdfImageXObject GetImage(String src) {
             int? frequency = imagesFrequency.Get(src);
             if (frequency != null) {
                 imagesFrequency[src] = frequency + 1;
@@ -84,6 +84,11 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         internal virtual int Size() {
             return cache.Count;
+        }
+
+        internal virtual void Reset() {
+            cache.Clear();
+            imagesFrequency.Clear();
         }
 
         private void EnsureCapacity() {

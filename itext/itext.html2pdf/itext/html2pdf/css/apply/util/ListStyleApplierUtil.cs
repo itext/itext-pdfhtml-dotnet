@@ -47,9 +47,9 @@ using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Font;
-using iText.IO.Image;
 using iText.IO.Log;
 using iText.Kernel.Font;
+using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -64,9 +64,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String listStyleImage = cssProps.Get(CssConstants.LIST_STYLE_IMAGE);
             if (listStyleImage != null && !CssConstants.NONE.Equals(listStyleImage)) {
                 String url = CssUtils.ExtractUrl(listStyleImage);
-                ImageData imageData = context.GetResourceResolver().RetrieveImage(url);
-                if (imageData != null) {
-                    element.SetProperty(Property.LIST_SYMBOL, new iText.Layout.Element.Image(imageData));
+                PdfImageXObject imageXObject = context.GetResourceResolver().RetrieveImage(url);
+                if (imageXObject != null) {
+                    element.SetProperty(Property.LIST_SYMBOL, new Image(imageXObject));
                     element.SetProperty(Property.LIST_SYMBOL_INDENT, 5);
                 }
             }
