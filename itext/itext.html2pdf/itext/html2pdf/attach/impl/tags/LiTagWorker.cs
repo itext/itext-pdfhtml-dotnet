@@ -40,11 +40,14 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Font;
+using iText.IO.Log;
+using iText.Kernel.Font;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -61,10 +64,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             listItem = new ListItem();
             if (!(context.GetState().Top() is UlOlTagWorker) && !(context.GetState().Top() is DlTagWorker)) {
                 listItem.SetProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
+                Text symbol = new Text(((char)108).ToString()).SetFont(CreateZapfDingBatsSafe());
+                symbol.SetTextRise(1.5f);
+                symbol.SetFontSize(4.5f);
+                float em = CssUtils.ParseAbsoluteLength(element.GetStyles().Get(CssConstants.FONT_SIZE));
+                listItem.SetProperty(Property.LIST_SYMBOL_INDENT, 1.5f * em);
+                listItem.SetProperty(Property.LIST_SYMBOL, symbol);
                 list = new List();
                 list.Add(listItem);
-                IDictionary<String, String> styles = element.GetStyles();
-                styles[CssConstants.LIST_STYLE_TYPE] = CssConstants.DISC;
             }
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
@@ -114,6 +121,17 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             return false;
+        }
+
+        private static PdfFont CreateZapfDingBatsSafe() {
+            try {
+                return PdfFontFactory.CreateFont(FontConstants.ZAPFDINGBATS);
+            }
+            catch (System.IO.IOException exc) {
+                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.LiTagWorker));
+                logger.Error("Unable to create ZapfDingBats font", exc);
+                return null;
+            }
         }
     }
 }
