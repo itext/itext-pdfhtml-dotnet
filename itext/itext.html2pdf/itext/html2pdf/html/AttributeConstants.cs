@@ -109,8 +109,11 @@ namespace iText.Html2pdf.Html {
 
         public const String TOP = "top";
 
+        public const String PARENT_TABLE_BORDER = "parenttableborder";
+
         private AttributeConstants() {
         }
         // attribute values
+        // iText custom attributes
     }
 }

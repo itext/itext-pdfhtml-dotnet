@@ -222,8 +222,6 @@ namespace iText.Html2pdf.Css {
 
         public const String TAB_SIZE = "tab-size";
 
-        public const String TABLE_CUSTOM_BORDER = "table-custom-border";
-
         public const String TEXT_ALIGN = "text-align";
 
         public const String TEXT_ALIGN_LAST = "text-align-last";

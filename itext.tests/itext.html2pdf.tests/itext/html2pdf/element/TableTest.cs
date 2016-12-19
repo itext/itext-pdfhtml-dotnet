@@ -60,117 +60,135 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
                 );
-            CreateDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloTableDocumentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_table.html"), new FileInfo(destinationFolder
-                 + "hello_table.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hello_table.pdf", sourceFolder
-                 + "cmp_hello_table.pdf", destinationFolder, "diff01_"));
+            RunTest("hello_table");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloTableHeaderFooterDocumentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_table_header_footer.html"), new FileInfo(destinationFolder
-                 + "hello_table_header_footer.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hello_table_header_footer.pdf"
-                , sourceFolder + "cmp_hello_table_header_footer.pdf", destinationFolder, "diff02_"));
+            RunTest("hello_table_header_footer");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloTableColspanDocumentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_table_colspan.html"), new FileInfo(destinationFolder
-                 + "hello_table_colspan.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hello_table_colspan.pdf"
-                , sourceFolder + "cmp_hello_table_colspan.pdf", destinationFolder, "diff03_"));
+            RunTest("hello_table_colspan");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloTableRowspanDocumentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_table_rowspan.html"), new FileInfo(destinationFolder
-                 + "hello_table_rowspan.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hello_table_rowspan.pdf"
-                , sourceFolder + "cmp_hello_table_rowspan.pdf", destinationFolder, "diff04_"));
+            RunTest("hello_table_rowspan");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloTableColspanRowspanDocumentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_table_colspan_rowspan.html"), new FileInfo(destinationFolder
-                 + "hello_table_colspan_rowspan.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hello_table_colspan_rowspan.pdf"
-                , sourceFolder + "cmp_hello_table_colspan_rowspan.pdf", destinationFolder, "diff05_"));
+            RunTest("hello_table_colspan_rowspan");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TableCssPropsTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "tableCssPropsTest01.html"), new FileInfo(destinationFolder
-                 + "tableCssPropsTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "tableCssPropsTest01.pdf"
-                , sourceFolder + "cmp_tableCssPropsTest01.pdf", destinationFolder, "diff06_"));
+            RunTest("tableCssPropsTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TableCssPropsTest02() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "tableCssPropsTest02.html"), new FileInfo(destinationFolder
-                 + "tableCssPropsTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "tableCssPropsTest02.pdf"
-                , sourceFolder + "cmp_tableCssPropsTest02.pdf", destinationFolder, "diff07_"));
+            RunTest("tableCssPropsTest02");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DefaultTableTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "defaultTable.html"), new FileInfo(destinationFolder
-                 + "defaultTable.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "defaultTable.pdf", sourceFolder
-                 + "cmp_defaultTable.pdf", destinationFolder, "diff08_"));
+            RunTest("defaultTable");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TextInTableAndRowTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textInTableAndRow.html"), new FileInfo(destinationFolder
-                 + "textInTableAndRow.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textInTableAndRow.pdf"
-                , sourceFolder + "cmp_textInTableAndRow.pdf", destinationFolder, "diff09_"));
+            RunTest("textInTableAndRow");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ThTagTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "thTag.html"), new FileInfo(destinationFolder + "thTag.pdf"
-                ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "thTag.pdf", sourceFolder
-                 + "cmp_thTag.pdf", destinationFolder, "diff10_"));
+            RunTest("thTag");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BrInTdTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "brInTd.html"), new FileInfo(destinationFolder + "brInTd.pdf"
-                ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "brInTd.pdf", sourceFolder
-                 + "cmp_brInTd.pdf", destinationFolder, "diff11_"));
+            RunTest("brInTd");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TableBorderAttributeTest01() {
+            RunTest("tableBorderAttributeTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TableBorderAttributeTest02() {
+            RunTest("tableBorderAttributeTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TableBorderAttributeTest03() {
+            RunTest("tableBorderAttributeTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TableBorderAttributeTest04() {
+            RunTest("tableBorderAttributeTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TableBorderAttributeTest05() {
+            RunTest("tableBorderAttributeTest05");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TableBorderAttributeTest06() {
+            RunTest("tableBorderAttributeTest06");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String testName) {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
         }
     }
 }

@@ -77,6 +77,18 @@ namespace iText.Html2pdf.Css.Util {
             }
         }
 
+        public static float? ParseFloat(String str) {
+            if (str == null) {
+                return null;
+            }
+            try {
+                return float.Parse(str);
+            }
+            catch (FormatException) {
+                return null;
+            }
+        }
+
         public static int[] ParseAspectRatio(String str) {
             int indexOfSlash = str.IndexOf('/');
             try {
