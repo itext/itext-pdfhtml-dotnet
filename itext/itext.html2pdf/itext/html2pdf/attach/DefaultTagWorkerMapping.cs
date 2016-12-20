@@ -98,7 +98,7 @@ namespace iText.Html2pdf.Attach {
                 buildMap[TagConstants.H5] = typeof(PTagWorker);
                 buildMap[TagConstants.H6] = typeof(PTagWorker);
                 buildMap[TagConstants.P] = typeof(PTagWorker);
-                buildMap[TagConstants.PRE] = typeof(PTagWorker);
+                buildMap[TagConstants.PRE] = typeof(DivTagWorker);
                 buildMap[TagConstants.Q] = typeof(SpanTagWorker);
                 buildMap[TagConstants.S] = typeof(SpanTagWorker);
                 buildMap[TagConstants.SAMP] = typeof(SpanTagWorker);
