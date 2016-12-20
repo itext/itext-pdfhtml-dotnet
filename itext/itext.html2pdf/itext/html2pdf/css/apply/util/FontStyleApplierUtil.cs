@@ -184,7 +184,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             // browsers ignore values in percents
             String lineHeight = cssProps.Get(CssConstants.LINE_HEIGHT);
-            if (lineHeight != null) {
+            if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight)) {
                 UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em);
                 if (CssUtils.IsNumericValue(lineHeight)) {
                     element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.GetValue()));
