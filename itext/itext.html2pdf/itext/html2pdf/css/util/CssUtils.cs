@@ -184,7 +184,8 @@ namespace iText.Html2pdf.Css.Util {
             if (pos == 0) {
                 return 0f;
             }
-            float f = float.Parse(relativeValue.JSubstring(0, pos), System.Globalization.CultureInfo.InvariantCulture);
+            double f = System.Double.Parse(relativeValue.JSubstring(0, pos), System.Globalization.CultureInfo.InvariantCulture
+                );
             String unit = relativeValue.Substring(pos);
             if (unit.StartsWith(CssConstants.PERCENTAGE)) {
                 f = baseValue * f / 100;
@@ -199,7 +200,7 @@ namespace iText.Html2pdf.Css.Util {
                     }
                 }
             }
-            return f;
+            return (float)f;
         }
 
         public static UnitValue ParseLengthValueToPt(String value, float emValue) {
