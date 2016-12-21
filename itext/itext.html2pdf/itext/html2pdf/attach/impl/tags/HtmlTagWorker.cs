@@ -44,7 +44,6 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
-using iText.Kernel.Geom;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -56,7 +55,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private WaitingInlineElementsHelper inlineHelper;
 
         public HtmlTagWorker(IElementNode element, ProcessorContext context) {
-            document = new Document(context.GetPdfDocument(), PageSize.A4);
+            document = new Document(context.GetPdfDocument());
             document.SetProperty(Property.COLLAPSING_MARGINS, true);
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));

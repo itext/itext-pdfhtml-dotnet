@@ -202,6 +202,8 @@ namespace iText.Html2pdf.Css {
 
         public const String OUTLINE_STYLE = "outline-style";
 
+        public const String OUTLINE_WIDTH = "outline-width";
+
         public const String OVERFLOW_WRAP = "overflow-wrap";
 
         public const String PADDING = "padding";

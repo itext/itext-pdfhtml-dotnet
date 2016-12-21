@@ -88,6 +88,7 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues[CssConstants.MARGIN_TOP] = "0";
             defaultValues[CssConstants.OUTLINE_COLOR] = CssConstants.INVERT;
             defaultValues[CssConstants.OUTLINE_STYLE] = CssConstants.NONE;
+            defaultValues[CssConstants.OUTLINE_WIDTH] = CssConstants.MEDIUM;
             defaultValues[CssConstants.PADDING_BOTTOM] = "0";
             defaultValues[CssConstants.PADDING_LEFT] = "0";
             defaultValues[CssConstants.PADDING_RIGHT] = "0";

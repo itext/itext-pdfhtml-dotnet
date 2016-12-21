@@ -95,12 +95,12 @@ namespace iText.Html2pdf {
             ) {
             if (converterProperties == null) {
                 converterProperties = new ConverterProperties().SetBaseUri(FileUtil.GetParentDirectory(htmlFile.FullName) 
-                    + Path.DirectorySeparatorChar);
+                    + System.IO.Path.DirectorySeparatorChar);
             }
             else {
                 if (converterProperties.GetBaseUri() == null) {
                     converterProperties = new ConverterProperties(converterProperties).SetBaseUri(FileUtil.GetParentDirectory(
-                        htmlFile.FullName) + Path.DirectorySeparatorChar);
+                        htmlFile.FullName) + System.IO.Path.DirectorySeparatorChar);
                 }
             }
             ConvertToPdf(new FileStream(htmlFile.FullName, FileMode.Open, FileAccess.Read), new FileStream(pdfFile.FullName
