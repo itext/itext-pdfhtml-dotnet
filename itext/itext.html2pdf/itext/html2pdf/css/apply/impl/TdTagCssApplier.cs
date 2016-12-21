@@ -58,7 +58,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             IPropertyContainer cell = worker.GetElementResult();
             if (cell != null) {
                 IDictionary<String, String> cssProps = element.GetStyles();
-                VerticalAlignmentApplierUtil.ApplyVerticalAlignment(element.GetStyles(), context, element, cell);
+                VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForCells(cssProps, context, cell);
                 float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
                 Border topBorder = BorderStyleApplierUtil.GetCertainBorder(cssProps.Get(CssConstants.BORDER_TOP_WIDTH), cssProps
                     .Get(CssConstants.BORDER_TOP_STYLE), cssProps.Get(CssConstants.BORDER_TOP_COLOR), em);

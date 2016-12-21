@@ -51,9 +51,12 @@ using iText.Layout;
 namespace iText.Html2pdf.Css.Apply.Impl {
     public class SpanTagCssApplier : ICssApplier {
         public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-            foreach (IPropertyContainer child in ((SpanTagWorker)tagWorker).GetOwnLeafElements()) {
+            SpanTagWorker spanTagWorker = (SpanTagWorker)tagWorker;
+            foreach (IPropertyContainer child in spanTagWorker.GetOwnLeafElements()) {
                 ApplyChildElementStyles(child, element.GetStyles(), context, element);
             }
+            VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForInlines(element.GetStyles(), context, element, spanTagWorker
+                .GetAllElements());
         }
 
         private void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String> css, ProcessorContext
@@ -66,8 +69,6 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             HyphenationApplierUtil.ApplyHyphenation(css, context, elementNode, element);
             //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
             MarginApplierUtil.ApplyMargins(css, context, element);
-            VerticalAlignmentApplierUtil.ApplyVerticalAlignment(elementNode.GetStyles(), context, elementNode, element
-                );
         }
     }
 }

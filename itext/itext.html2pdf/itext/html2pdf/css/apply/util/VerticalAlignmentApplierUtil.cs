@@ -58,57 +58,78 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private VerticalAlignmentApplierUtil() {
         }
 
-        public static void ApplyVerticalAlignment(IDictionary<String, String> cssProps, ProcessorContext context, 
-            IElementNode elementNode, IPropertyContainer element) {
+        public static void ApplyVerticalAlignmentForCells(IDictionary<String, String> cssProps, ProcessorContext context
+            , IPropertyContainer element) {
             String vAlignVal = cssProps.Get(CssConstants.VERTICAL_ALIGN);
             if (vAlignVal != null) {
-                // TODO for inline images and tables (inline-blocks) v-align is not supported 
-                if (element is Cell) {
-                    // In layout, 'top' is the default behaviour for cells;
-                    // 'baseline' is not supported at the moment on layout level, so it defaults to value 'top';
-                    // all other possible values except 'middle' and 'bottom' do not apply to cells; 'baseline' is applied instead.
+                // In layout, 'top' is the default behaviour for cells;
+                // 'baseline' is not supported at the moment on layout level, so it defaults to value 'top';
+                // all other possible values except 'middle' and 'bottom' do not apply to cells; 'baseline' is applied instead.
+                if (CssConstants.MIDDLE.Equals(vAlignVal)) {
+                    element.SetProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.MIDDLE);
+                }
+                else {
+                    if (CssConstants.BOTTOM.Equals(vAlignVal)) {
+                        element.SetProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
+                    }
+                }
+            }
+        }
+
+        public static void ApplyVerticalAlignmentForInlines(IDictionary<String, String> cssProps, ProcessorContext
+             context, IElementNode elementNode, IList<IPropertyContainer> childElements) {
+            String vAlignVal = cssProps.Get(CssConstants.VERTICAL_ALIGN);
+            if (vAlignVal != null) {
+                // TODO for inline images and tables (inline-blocks) v-align is not supported
+                float textRise = 0;
+                // TODO 'top' and 'bottom' values are not supported;
+                // 'top' and 'bottom' require information of actual line height, therefore should be applied at layout level;
+                // 'sub', 'super' calculations are based on the behaviour of the common browsers (+33% and -20% shift accordingly from the parent's font size);
+                // 'middle', 'text-top', 'text-bottom' calculations are based on the approximate assumptions that x-height is 0.5 of the font size
+                // and descender and ascender heights are 0.2 and 0.8 of the font size accordingly.
+                if (CssConstants.SUB.Equals(vAlignVal) || CssConstants.SUPER.Equals(vAlignVal)) {
+                    textRise = CalcTextRiseForSupSub(elementNode, vAlignVal);
+                }
+                else {
                     if (CssConstants.MIDDLE.Equals(vAlignVal)) {
-                        element.SetProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.MIDDLE);
+                        textRise = CalcTextRiseForMiddle(elementNode);
                     }
                     else {
-                        if (CssConstants.BOTTOM.Equals(vAlignVal)) {
-                            element.SetProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
+                        if (CssConstants.TEXT_TOP.Equals(vAlignVal)) {
+                            textRise = CalcTextRiseForTextTop(elementNode);
+                        }
+                        else {
+                            if (CssConstants.TEXT_BOTTOM.Equals(vAlignVal)) {
+                                textRise = CalcTextRiseForTextBottom(elementNode);
+                            }
+                            else {
+                                if (CssUtils.IsMetricValue(vAlignVal)) {
+                                    textRise = CssUtils.ParseAbsoluteLength(vAlignVal);
+                                }
+                                else {
+                                    if (vAlignVal.EndsWith(CssConstants.PERCENTAGE)) {
+                                        textRise = CalcTextRiseForPercentageValue(elementNode, vAlignVal);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-                else {
-                    if (element is Text) {
-                        // TODO 'top' and 'bottom' values are not supported;
-                        // 'top' and 'bottom' require information of actual line height, therefore should be applied at layout level;
-                        // 'sub', 'super' calculations are based on the behaviour of the common browsers (+33% and -20% shift accordingly from the parent's font size);
-                        // 'middle', 'text-top', 'text-bottom' calculations are based on the approximate assumptions that x-height is 0.5 of the font size
-                        // and descender and ascender heights are 0.2 and 0.8 of the font size accordingly.
-                        if (CssConstants.SUB.Equals(vAlignVal) || CssConstants.SUPER.Equals(vAlignVal)) {
-                            element.SetProperty(Property.TEXT_RISE, CalcTextRiseForSupSub(elementNode, vAlignVal));
-                        }
-                        else {
-                            if (CssConstants.MIDDLE.Equals(vAlignVal)) {
-                                element.SetProperty(Property.TEXT_RISE, CalcTextRiseForMiddle(elementNode));
+                if (textRise != 0) {
+                    foreach (IPropertyContainer element in childElements) {
+                        if (element is Text) {
+                            float? effectiveTr = element.GetProperty<float?>(Property.TEXT_RISE);
+                            if (effectiveTr != null) {
+                                effectiveTr += textRise;
                             }
                             else {
-                                if (CssConstants.TEXT_TOP.Equals(vAlignVal)) {
-                                    element.SetProperty(Property.TEXT_RISE, CalcTextRiseForTextTop(elementNode));
-                                }
-                                else {
-                                    if (CssConstants.TEXT_BOTTOM.Equals(vAlignVal)) {
-                                        element.SetProperty(Property.TEXT_RISE, CalcTextRiseForTextBottom(elementNode));
-                                    }
-                                    else {
-                                        if (CssUtils.IsMetricValue(vAlignVal)) {
-                                            element.SetProperty(Property.TEXT_RISE, CssUtils.ParseAbsoluteLength(vAlignVal));
-                                        }
-                                        else {
-                                            if (vAlignVal.EndsWith(CssConstants.PERCENTAGE)) {
-                                                element.SetProperty(Property.TEXT_RISE, CalcTextRiseForPercentageValue(elementNode, vAlignVal));
-                                            }
-                                        }
-                                    }
-                                }
+                                effectiveTr = textRise;
+                            }
+                            element.SetProperty(Property.TEXT_RISE, effectiveTr);
+                        }
+                        else {
+                            if (element is IBlockElement) {
+                                break;
                             }
                         }
                     }
