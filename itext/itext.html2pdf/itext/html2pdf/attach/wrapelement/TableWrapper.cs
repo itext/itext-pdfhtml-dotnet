@@ -108,33 +108,10 @@ namespace iText.Html2pdf.Attach.Wrapelement {
         }
 
         public virtual Table ToTable() {
-            IList<UnitValue> maxWidths = new List<UnitValue>();
-            if (rows != null) {
-                CalculateMaxWidths(rows, maxWidths);
-            }
-            if (headerRows != null) {
-                CalculateMaxWidths(headerRows, maxWidths);
-            }
-            if (footerRows != null) {
-                CalculateMaxWidths(footerRows, maxWidths);
-            }
-            UnitValue[] arr = new UnitValue[maxWidths.Count];
-            int nullWidth = 0;
-            foreach (UnitValue width in maxWidths) {
-                if (width == null) {
-                    nullWidth++;
-                }
-            }
-            for (int k = 0; k < maxWidths.Count; k++) {
-                UnitValue width_1 = maxWidths[k];
-                if (width_1 == null && nullWidth > 0) {
-                    width_1 = UnitValue.CreatePercentValue(100 / nullWidth);
-                }
-                arr[k] = width_1;
-            }
+            UnitValue[] widths = RecalculateWidths();
             Table table;
-            if (arr.Length > 0) {
-                table = new Table(arr);
+            if (widths.Length > 0) {
+                table = new Table(widths);
             }
             else {
                 // if table is empty, create empty table with single column
@@ -165,6 +142,49 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                 }
             }
             return table;
+        }
+
+        private UnitValue[] RecalculateWidths() {
+            IList<UnitValue> maxWidths = new List<UnitValue>();
+            if (rows != null) {
+                CalculateMaxWidths(rows, maxWidths);
+            }
+            if (headerRows != null) {
+                CalculateMaxWidths(headerRows, maxWidths);
+            }
+            if (footerRows != null) {
+                CalculateMaxWidths(footerRows, maxWidths);
+            }
+            UnitValue[] arr = new UnitValue[maxWidths.Count];
+            int nullWidth = 0;
+            float totalPercentSum = 0;
+            foreach (UnitValue width in maxWidths) {
+                if (width == null) {
+                    nullWidth++;
+                }
+                else {
+                    if (width.IsPercentValue()) {
+                        totalPercentSum += width.GetValue();
+                    }
+                }
+            }
+            if (totalPercentSum >= 100 && nullWidth != 0 && nullWidth < maxWidths.Count) {
+                // TODO In this case, the rest of the column should be assigned to min-width. This is currently unsupported,
+                // so we fall back to just division of the available place uniformly.
+                for (int i = 0; i < maxWidths.Count; i++) {
+                    arr[i] = UnitValue.CreatePercentValue(100 / maxWidths.Count);
+                }
+            }
+            else {
+                for (int k = 0; k < maxWidths.Count; k++) {
+                    UnitValue width_1 = maxWidths[k];
+                    if (width_1 == null && nullWidth > 0) {
+                        width_1 = UnitValue.CreatePercentValue((100 - totalPercentSum) / nullWidth);
+                    }
+                    arr[k] = width_1;
+                }
+            }
+            return arr;
         }
 
         private void CalculateMaxWidths(IList<IList<Cell>> rows, IList<UnitValue> maxWidths) {
