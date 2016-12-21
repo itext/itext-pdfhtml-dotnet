@@ -66,6 +66,8 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             HyphenationApplierUtil.ApplyHyphenation(css, context, elementNode, element);
             //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
             MarginApplierUtil.ApplyMargins(css, context, element);
+            VerticalAlignmentApplierUtil.ApplyVerticalAlignment(elementNode.GetStyles(), context, elementNode, element
+                );
         }
     }
 }

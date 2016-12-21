@@ -40,22 +40,14 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Tags;
-using iText.Html2pdf.Attach.Wrapelement;
 using iText.Html2pdf.Css.Apply;
-using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Html.Node;
-using iText.Layout.Element;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     public class TrTagCssApplier : ICssApplier {
         public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-            if (tagWorker is TrTagWorker) {
-                TableRowWrapper rowWrapper = ((TrTagWorker)tagWorker).GetTableRowWrapper();
-                foreach (Cell cell in rowWrapper.GetCells()) {
-                    BackgroundApplierUtil.ApplyBackground(element.GetStyles(), context, cell);
-                }
-            }
         }
+        // TODO background inheritance to cells is done via default.css at the moment, because it was overwriting cell's properties.
+        // TODO may be this applier will be removed in the future
     }
 }

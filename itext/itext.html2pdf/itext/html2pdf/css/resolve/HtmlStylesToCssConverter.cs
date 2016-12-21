@@ -88,6 +88,8 @@ namespace iText.Html2pdf.Css.Resolve {
             htmlAttributeConverters[AttributeConstants.WIDTH] = new HtmlStylesToCssConverter.WidthAttributeConverter();
             htmlAttributeConverters[AttributeConstants.HEIGHT] = new HtmlStylesToCssConverter.HeightAttributeConverter
                 ();
+            htmlAttributeConverters[AttributeConstants.VALIGN] = new HtmlStylesToCssConverter.VAlignAttributeConverter
+                ();
             // iText custom attributes
             htmlAttributeConverters[AttributeConstants.PARENT_TABLE_BORDER] = new HtmlStylesToCssConverter.ParentTableBorderAttributeConverter
                 ();
@@ -403,6 +405,17 @@ namespace iText.Html2pdf.Css.Resolve {
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, "2px"), new CssDeclaration
                     (CssConstants.BORDER_WIDTH, "0"), new CssDeclaration(CssConstants.BACKGROUND_COLOR, "gray"));
+            }
+        }
+
+        private class VAlignAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            public virtual bool IsSupportedForElement(String elementName) {
+                return TagConstants.TD.Equals(elementName) || TagConstants.TH.Equals(elementName) || TagConstants.TR.Equals
+                    (elementName);
+            }
+
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
+                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
             }
         }
     }

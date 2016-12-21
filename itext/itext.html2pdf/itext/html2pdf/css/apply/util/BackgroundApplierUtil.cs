@@ -54,8 +54,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         public static void ApplyBackground(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
-            if (cssProps.Get(CssConstants.BACKGROUND_COLOR) != null) {
-                Background background = new Background(WebColors.GetRGBColor(cssProps.Get(CssConstants.BACKGROUND_COLOR)));
+            String backgroundColorStr = cssProps.Get(CssConstants.BACKGROUND_COLOR);
+            if (backgroundColorStr != null && !CssConstants.TRANSPARENT.Equals(backgroundColorStr)) {
+                Background background = new Background(WebColors.GetRGBColor(backgroundColorStr));
                 element.SetProperty(Property.BACKGROUND, background);
             }
         }

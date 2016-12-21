@@ -81,6 +81,8 @@ namespace iText.Html2pdf.Html {
 
         public const String TYPE = "type";
 
+        public const String VALIGN = "valign";
+
         public const String VALUE = "value";
 
         public const String WIDTH = "width";

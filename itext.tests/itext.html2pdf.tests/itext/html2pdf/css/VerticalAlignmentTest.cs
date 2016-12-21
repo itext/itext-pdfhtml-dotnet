@@ -50,143 +50,132 @@ using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
 
-namespace iText.Html2pdf.Element {
-    public class TableTest : ExtendedITextTest {
-        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/element/TableTest/";
+namespace iText.Html2pdf.Css {
+    public class VerticalAlignmentTest {
+        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/css/VerticalAlignmentTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/element/TableTest/";
+             + "/test/itext/html2pdf/css/VerticalAlignmentTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
                 );
-            CreateOrClearDestinationFolder(destinationFolder);
+            ITextTest.CreateOrClearDestinationFolder(destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void HelloTableDocumentTest() {
-            RunTest("hello_table");
+        public virtual void VerticalAlignmentTest01() {
+            // TODO 'top' and 'bottom' values are not supported for now
+            RunTest("verticalAlignmentTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void HelloTableHeaderFooterDocumentTest() {
-            RunTest("hello_table_header_footer");
+        public virtual void VerticalAlignmentTest02() {
+            RunTest("verticalAlignmentTest02");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void HelloTableColspanDocumentTest() {
-            RunTest("hello_table_colspan");
+        public virtual void VerticalAlignmentTest03() {
+            RunTest("verticalAlignmentTest03");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void HelloTableRowspanDocumentTest() {
-            RunTest("hello_table_rowspan");
+        [NUnit.Framework.Ignore("Vertical alignment for inline images is not supported yet.")]
+        public virtual void VerticalAlignmentTest04() {
+            RunTest("verticalAlignmentTest04");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void HelloTableColspanRowspanDocumentTest() {
-            RunTest("hello_table_colspan_rowspan");
+        public virtual void VerticalAlignmentTest05() {
+            RunTest("verticalAlignmentTest05");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void TableCssPropsTest01() {
-            RunTest("tableCssPropsTest01");
+        public virtual void VerticalAlignmentTest06() {
+            RunTest("verticalAlignmentTest06");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void TableCssPropsTest02() {
-            RunTest("tableCssPropsTest02");
+        public virtual void VerticalAlignmentTest07() {
+            RunTest("verticalAlignmentTest07");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void TableCssPropsTest03() {
-            RunTest("tableCssPropsTest03");
+        public virtual void VerticalAlignmentTest08() {
+            RunTest("verticalAlignmentTest08");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void DefaultTableTest() {
-            RunTest("defaultTable");
+        public virtual void VerticalAlignmentTest09() {
+            RunTest("verticalAlignmentTest09");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void TextInTableAndRowTest() {
-            RunTest("textInTableAndRow");
+        public virtual void VerticalAlignmentTest10() {
+            // TODO interesting thing is that vertical alignment increases line height if needed, however itext doesn't in this case 
+            RunTest("verticalAlignmentTest10");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void ThTagTest() {
-            RunTest("thTag");
+        public virtual void VerticalAlignmentTest11() {
+            RunTest("verticalAlignmentTest11");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void BrInTdTest() {
-            RunTest("brInTd");
+        public virtual void VerticalAlignmentTest12() {
+            RunTest("verticalAlignmentTest12");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void TableBorderAttributeTest01() {
-            RunTest("tableBorderAttributeTest01");
+        public virtual void VerticalAlignmentCellTest01() {
+            RunTest("verticalAlignmentCellTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void TableBorderAttributeTest02() {
-            RunTest("tableBorderAttributeTest02");
+        public virtual void VerticalAlignmentCellTest02() {
+            RunTest("verticalAlignmentCellTest02");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void TableBorderAttributeTest03() {
-            RunTest("tableBorderAttributeTest03");
+        public virtual void VerticalAlignmentCellTest03() {
+            RunTest("verticalAlignmentCellTest03");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void TableBorderAttributeTest04() {
-            RunTest("tableBorderAttributeTest04");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void TableBorderAttributeTest05() {
-            RunTest("tableBorderAttributeTest05");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void TableBorderAttributeTest06() {
-            RunTest("tableBorderAttributeTest06");
+        public virtual void VAlignAttributeCellTest01() {
+            RunTest("vAlignAttributeCellTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -195,7 +184,7 @@ namespace iText.Html2pdf.Element {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
                  + testName + ".pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName + "_"));
         }
     }
 }

@@ -246,8 +246,6 @@ namespace iText.Html2pdf.Css {
 
         public const String UNICODE_BIDI = "unicode-bidi";
 
-        public const String VALIGN = "valign";
-
         public const String VERTICAL_ALIGN = "vertical-align";
 
         public const String VISIBILITY = "visibility";
@@ -368,6 +366,8 @@ namespace iText.Html2pdf.Css {
 
         public const String MESSAGE_BOX = "message-box";
 
+        public const String MIDDLE = "middle";
+
         public const String NO_REPEAT = "no-repeat";
 
         public const String NONE = "none";
@@ -423,6 +423,10 @@ namespace iText.Html2pdf.Css {
         public const String SUB = "sub";
 
         public const String SUPER = "super";
+
+        public const String TEXT_BOTTOM = "text-bottom";
+
+        public const String TEXT_TOP = "text-top";
 
         public const String THICK = "thick";
 
