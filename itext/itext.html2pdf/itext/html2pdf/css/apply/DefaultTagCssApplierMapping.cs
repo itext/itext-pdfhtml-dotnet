@@ -85,6 +85,7 @@ namespace iText.Html2pdf.Css.Apply {
                 buildMap[TagConstants.HEADER] = typeof(BlockCssApplier);
                 buildMap[TagConstants.HR] = typeof(BlockCssApplier);
                 buildMap[TagConstants.IMG] = typeof(BlockCssApplier);
+                buildMap[TagConstants.INPUT] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.MAIN] = typeof(BlockCssApplier);
                 buildMap[TagConstants.NAV] = typeof(BlockCssApplier);
                 buildMap[TagConstants.P] = typeof(BlockCssApplier);

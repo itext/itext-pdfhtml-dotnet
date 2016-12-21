@@ -83,6 +83,7 @@ namespace iText.Html2pdf.Attach {
                 buildMap[TagConstants.HTML] = typeof(HtmlTagWorker);
                 buildMap[TagConstants.I] = typeof(SpanTagWorker);
                 buildMap[TagConstants.IMG] = typeof(ImgTagWorker);
+                buildMap[TagConstants.INPUT] = typeof(InputTagWorker);
                 buildMap[TagConstants.INS] = typeof(SpanTagWorker);
                 buildMap[TagConstants.KBD] = typeof(SpanTagWorker);
                 buildMap[TagConstants.LI] = typeof(LiTagWorker);

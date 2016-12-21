@@ -128,6 +128,8 @@ namespace iText.Html2pdf.Html {
 
         public const String IMG = "img";
 
+        public const String INPUT = "input";
+
         public const String INS = "ins";
 
         public const String KBD = "kbd";

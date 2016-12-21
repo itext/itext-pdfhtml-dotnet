@@ -40,84 +40,24 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using iText.Html2pdf.Attach;
+using iText.Html2pdf.Html;
+using iText.Html2pdf.Html.Node;
+using iText.IO.Log;
 
-namespace iText.Html2pdf.Html {
-    public sealed class AttributeConstants {
-        public const String ALIGN = "align";
-
-        public const String BGCOLOR = "bgcolor";
-
-        public const String BORDER = "border";
-
-        public const String CLASS = "class";
-
-        public const String COLOR = "color";
-
-        public const String DIR = "dir";
-
-        public const String FACE = "face";
-
-        public const String HEIGHT = "height";
-
-        public const String HREF = "href";
-
-        public const String ID = "id";
-
-        public const String LANG = "lang";
-
-        public const String MEDIA = "media";
-
-        public const String NAME = "name";
-
-        public const String NOSHADE = "noshade";
-
-        public const String REL = "rel";
-
-        public const String SIZE = "size";
-
-        public const String SRC = "src";
-
-        public const String STYLE = "style";
-
-        public const String TYPE = "type";
-
-        public const String VALUE = "value";
-
-        public const String WIDTH = "width";
-
-        public const String TITLE = "title";
-
-        public const String _1 = "1";
-
-        public const String A = "A";
-
-        public const String a = "a";
-
-        public const String BOTTOM = "bottom";
-
-        public const String CENTER = "center";
-
-        public const String I = "I";
-
-        public const String i = "i";
-
-        public const String LEFT = "left";
-
-        public const String MIDDLE = "middle";
-
-        public const String RIGHT = "right";
-
-        public const String STYLESHEET = "stylesheet";
-
-        public const String TEXT = "text";
-
-        public const String TOP = "top";
-
-        public const String PARENT_TABLE_BORDER = "parenttableborder";
-
-        private AttributeConstants() {
+namespace iText.Html2pdf.Attach.Impl.Tags {
+    public class InputTagWorker : SpanTagWorker {
+        public InputTagWorker(IElementNode element, ProcessorContext context)
+            : base(element, context) {
+            String inputType = element.GetAttribute(AttributeConstants.TYPE);
+            if (AttributeConstants.TEXT.Equals(inputType)) {
+                String value = element.GetAttribute(AttributeConstants.VALUE);
+                ProcessContent(value, context);
+            }
+            else {
+                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
+                logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
+            }
         }
-        // attribute values
-        // iText custom attributes
     }
 }

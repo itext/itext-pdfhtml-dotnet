@@ -40,84 +40,37 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.IO;
+using iText.Html2pdf;
+using iText.Kernel.Utils;
+using System.Collections.Generic;
+using System.Reflection;
+using System.IO;
+using Versions.Attributes;
+using iText.Kernel;
+using iText.Test;
 
-namespace iText.Html2pdf.Html {
-    public sealed class AttributeConstants {
-        public const String ALIGN = "align";
+namespace iText.Html2pdf.Element {
+    public class InputTest : ExtendedITextTest {
+        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/element/InputTest/";
 
-        public const String BGCOLOR = "bgcolor";
+        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+             + "/test/itext/html2pdf/element/InputTest/";
 
-        public const String BORDER = "border";
-
-        public const String CLASS = "class";
-
-        public const String COLOR = "color";
-
-        public const String DIR = "dir";
-
-        public const String FACE = "face";
-
-        public const String HEIGHT = "height";
-
-        public const String HREF = "href";
-
-        public const String ID = "id";
-
-        public const String LANG = "lang";
-
-        public const String MEDIA = "media";
-
-        public const String NAME = "name";
-
-        public const String NOSHADE = "noshade";
-
-        public const String REL = "rel";
-
-        public const String SIZE = "size";
-
-        public const String SRC = "src";
-
-        public const String STYLE = "style";
-
-        public const String TYPE = "type";
-
-        public const String VALUE = "value";
-
-        public const String WIDTH = "width";
-
-        public const String TITLE = "title";
-
-        public const String _1 = "1";
-
-        public const String A = "A";
-
-        public const String a = "a";
-
-        public const String BOTTOM = "bottom";
-
-        public const String CENTER = "center";
-
-        public const String I = "I";
-
-        public const String i = "i";
-
-        public const String LEFT = "left";
-
-        public const String MIDDLE = "middle";
-
-        public const String RIGHT = "right";
-
-        public const String STYLESHEET = "stylesheet";
-
-        public const String TEXT = "text";
-
-        public const String TOP = "top";
-
-        public const String PARENT_TABLE_BORDER = "parenttableborder";
-
-        private AttributeConstants() {
+        [NUnit.Framework.OneTimeSetUp]
+        public static void BeforeClass() {
+                );
+            CreateDestinationFolder(destinationFolder);
         }
-        // attribute values
-        // iText custom attributes
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Input01Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "inputTest01.html"), new FileInfo(destinationFolder
+                 + "inputTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "inputTest01.pdf", sourceFolder
+                 + "cmp_inputTest01.pdf", destinationFolder, "diff01_"));
+        }
     }
 }

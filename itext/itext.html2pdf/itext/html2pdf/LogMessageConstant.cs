@@ -51,6 +51,8 @@ namespace iText.Html2pdf {
 
         public const String HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED = "Height value in percent not supported";
 
+        public const String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";
+
         public const String INVALID_CSS_PROPERTY_DECLARATION = "Invalid css property declaration: {0}";
 
         public const String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
