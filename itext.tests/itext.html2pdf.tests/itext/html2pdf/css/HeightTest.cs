@@ -93,7 +93,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 2)]
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("max-height works incorrectly in conjunction with collapsing bottom margins")]
         public virtual void HeightTest03() {
             String testName = "heightTest03";
             String diffPrefix = "diff03_";
