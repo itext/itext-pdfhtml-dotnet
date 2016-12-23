@@ -44,6 +44,7 @@ using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Parse;
+using iText.Html2pdf.Css.Resolve.Shorthand.Impl;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
@@ -90,17 +91,24 @@ namespace iText.Html2pdf.Css.Resolve {
                 ();
             htmlAttributeConverters[AttributeConstants.VALIGN] = new HtmlStylesToCssConverter.VAlignAttributeConverter
                 ();
-            // iText custom attributes
-            htmlAttributeConverters[AttributeConstants.PARENT_TABLE_BORDER] = new HtmlStylesToCssConverter.ParentTableBorderAttributeConverter
-                ();
         }
 
         public static IList<CssDeclaration> Convert(IElementNode element) {
-            IList<CssDeclaration> convertedHtmlStyles = new List<CssDeclaration>();
+            List<CssDeclaration> convertedHtmlStyles = new List<CssDeclaration>();
             IList<CssDeclaration> tagCssStyles = defaultCss.GetCssDeclarations(element, MediaDeviceDescription.CreateDefault
                 ());
             if (tagCssStyles != null) {
                 convertedHtmlStyles.AddAll(tagCssStyles);
+            }
+            if (element.GetAdditionalStyles() != null) {
+                Dictionary<String, String> additionalStyles = new Dictionary<String, String>();
+                foreach (IDictionary<String, String> styles in element.GetAdditionalStyles()) {
+                    additionalStyles.AddAll(styles);
+                }
+                convertedHtmlStyles.EnsureCapacity(convertedHtmlStyles.Count + additionalStyles.Count);
+                foreach (KeyValuePair<String, String> entry in additionalStyles) {
+                    convertedHtmlStyles.Add(new CssDeclaration(entry.Key, entry.Value));
+                }
             }
             foreach (IAttribute a in element.GetAttributes()) {
                 HtmlStylesToCssConverter.IAttributeConverter aConverter = htmlAttributeConverters.Get(a.GetKey());
@@ -118,16 +126,16 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         private class BorderAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
-            private static void ApplyBordersToTableCells(INode node, String value) {
+            private static void ApplyBordersToTableCells(INode node, IDictionary<String, String> borderStyles) {
                 IList<INode> nodes = node.ChildNodes();
                 foreach (INode childNode in nodes) {
                     if (childNode is IElementNode) {
                         IElementNode elementNode = (IElementNode)childNode;
                         if (TagConstants.TD.Equals(elementNode.Name()) || TagConstants.TH.Equals(elementNode.Name())) {
-                            elementNode.GetAttributes().SetAttribute(AttributeConstants.PARENT_TABLE_BORDER, value);
+                            elementNode.AddAdditionalStyles(borderStyles);
                         }
                         else {
-                            ApplyBordersToTableCells(childNode, value);
+                            ApplyBordersToTableCells(childNode, borderStyles);
                         }
                     }
                 }
@@ -138,29 +146,21 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
-                if (TagConstants.TABLE.Equals(element.Name())) {
-                    ApplyBordersToTableCells(element, value);
-                }
                 float? width = CssUtils.ParseFloat(value);
-                if (width != null && width >= 0) {
-                    return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BORDER, value + "px solid"));
+                if (width != null) {
+                    if (TagConstants.TABLE.Equals(element.Name()) && width != 0) {
+                        IList<CssDeclaration> declarations = new BorderShorthandResolver().ResolveShorthand("1px solid");
+                        IDictionary<String, String> styles = new Dictionary<String, String>(declarations.Count);
+                        foreach (CssDeclaration declaration in declarations) {
+                            styles[declaration.GetProperty()] = declaration.GetExpression();
+                        }
+                        ApplyBordersToTableCells(element, styles);
+                    }
+                    if (width >= 0) {
+                        return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BORDER, value + "px solid"));
+                    }
                 }
                 return JavaCollectionsUtil.EmptyList<CssDeclaration>();
-            }
-        }
-
-        private class ParentTableBorderAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
-            public virtual bool IsSupportedForElement(String elementName) {
-                return TagConstants.TD.Equals(elementName) || TagConstants.TH.Equals(elementName);
-            }
-
-            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
-                IList<CssDeclaration> cssDeclarations = new List<CssDeclaration>();
-                float? width = CssUtils.ParseFloat(value);
-                if (width != null && width != 0) {
-                    cssDeclarations.Add(new CssDeclaration(CssConstants.BORDER, "1px solid"));
-                }
-                return cssDeclarations;
             }
         }
 

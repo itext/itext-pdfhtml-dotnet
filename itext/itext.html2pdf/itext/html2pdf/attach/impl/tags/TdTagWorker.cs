@@ -44,6 +44,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
+using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
@@ -55,8 +56,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private WaitingInlineElementsHelper inlineHelper;
 
         public TdTagWorker(IElementNode element, ProcessorContext context) {
-            int? colspan = CssUtils.ParseInteger(element.GetAttribute(CssConstants.COLSPAN));
-            int? rowspan = CssUtils.ParseInteger(element.GetAttribute(CssConstants.ROWSPAN));
+            int? colspan = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.COLSPAN));
+            int? rowspan = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.ROWSPAN));
             colspan = colspan != null ? colspan : 1;
             rowspan = rowspan != null ? rowspan : 1;
             cell = new Cell((int)rowspan, (int)colspan);

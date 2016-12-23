@@ -63,6 +63,8 @@ namespace iText.Html2pdf.Attach {
                 buildMap[TagConstants.BLOCKQUOTE] = typeof(DivTagWorker);
                 buildMap[TagConstants.BODY] = typeof(BodyTagWorker);
                 buildMap[TagConstants.BR] = typeof(BrTagWorker);
+                buildMap[TagConstants.COL] = typeof(ColTagWorker);
+                buildMap[TagConstants.COLGROUP] = typeof(ColgroupTagWorker);
                 //buildMap.put(TagConstants.CAPTION, SpanTagWorker.class);
                 buildMap[TagConstants.CENTER] = typeof(DivTagWorker);
                 buildMap[TagConstants.CITE] = typeof(SpanTagWorker);

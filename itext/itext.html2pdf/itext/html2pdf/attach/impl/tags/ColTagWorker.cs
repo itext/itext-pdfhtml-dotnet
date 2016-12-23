@@ -40,24 +40,39 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.Collections.Generic;
+using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Wrapelement;
+using iText.Html2pdf.Css.Util;
+using iText.Html2pdf.Html;
+using iText.Html2pdf.Html.Node;
+using iText.Layout;
 
-namespace iText.Html2pdf.Html.Node {
-    public interface IElementNode : INode {
-        String Name();
+namespace iText.Html2pdf.Attach.Impl.Tags {
+    public class ColTagWorker : ITagWorker {
+        private ColWrapper col;
 
-        IAttributes GetAttributes();
+        public ColTagWorker(IElementNode element, ProcessorContext context) {
+            int? span = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.SPAN));
+            col = new ColWrapper(span != null ? (int)span : 1);
+        }
 
-        String GetAttribute(String key);
+        public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
+        }
 
-        void SetStyles(IDictionary<String, String> stringStringMap);
+        public virtual bool ProcessContent(String content, ProcessorContext context) {
+            return content == null || String.IsNullOrEmpty(content.Trim());
+        }
 
-        IDictionary<String, String> GetStyles();
+        public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+            return false;
+        }
 
-        IList<IDictionary<String, String>> GetAdditionalStyles();
+        public virtual IPropertyContainer GetElementResult() {
+            return null;
+        }
 
-        void AddAdditionalStyles(IDictionary<String, String> styles);
-
-        String GetLang();
+        public virtual ColWrapper GetColumn() {
+            return col;
+        }
     }
 }

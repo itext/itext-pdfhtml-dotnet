@@ -41,6 +41,7 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Attach.Wrapelement;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
@@ -58,9 +59,17 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         private ITagWorker parentTagWorker;
 
+        private WaitingColgroupsHelper colgroupsHelper;
+
         public TableTagWorker(IElementNode element, ProcessorContext context) {
             tableWrapper = new TableWrapper();
             parentTagWorker = context.GetState().Empty() ? null : context.GetState().Top();
+            if (parentTagWorker is iText.Html2pdf.Attach.Impl.Tags.TableTagWorker) {
+                ((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)parentTagWorker).ApplyColStyles();
+            }
+            else {
+                colgroupsHelper = new WaitingColgroupsHelper(element);
+            }
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
@@ -105,6 +114,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         }
                     }
                 }
+                else {
+                    if (childTagWorker is ColgroupTagWorker) {
+                        if (colgroupsHelper != null) {
+                            colgroupsHelper.Add(((ColgroupTagWorker)childTagWorker).GetColgroup());
+                            return true;
+                        }
+                    }
+                }
             }
             return false;
         }
@@ -119,6 +136,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public virtual void SetHeader() {
             header = true;
+        }
+
+        public virtual void ApplyColStyles() {
+            if (colgroupsHelper != null) {
+                colgroupsHelper.ApplyColStyles();
+            }
         }
     }
 }

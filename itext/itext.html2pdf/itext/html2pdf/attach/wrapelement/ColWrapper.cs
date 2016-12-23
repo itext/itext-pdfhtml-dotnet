@@ -41,23 +41,55 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
+using iText.Layout.Properties;
 
-namespace iText.Html2pdf.Html.Node {
-    public interface IElementNode : INode {
-        String Name();
+namespace iText.Html2pdf.Attach.Wrapelement {
+    public class ColWrapper : IWrapElement {
+        private int span;
 
-        IAttributes GetAttributes();
+        private UnitValue width;
 
-        String GetAttribute(String key);
+        private IDictionary<String, String> cellCssProps;
 
-        void SetStyles(IDictionary<String, String> stringStringMap);
+        private IDictionary<String, String> ownCssProps;
 
-        IDictionary<String, String> GetStyles();
+        public ColWrapper(int span) {
+            //Those properties should be inherited from <colgroup> to <col> and are eventually applied to <td> or <th>
+            //Those properties shouldn't be applied to <td> or <th>
+            this.span = span;
+        }
 
-        IList<IDictionary<String, String>> GetAdditionalStyles();
+        public virtual int GetSpan() {
+            return span;
+        }
 
-        void AddAdditionalStyles(IDictionary<String, String> styles);
+        public virtual UnitValue GetWidth() {
+            return width;
+        }
 
-        String GetLang();
+        public virtual iText.Html2pdf.Attach.Wrapelement.ColWrapper SetWidth(UnitValue width) {
+            this.width = width;
+            return this;
+        }
+
+        public virtual IDictionary<String, String> GetCellCssProps() {
+            return cellCssProps;
+        }
+
+        public virtual iText.Html2pdf.Attach.Wrapelement.ColWrapper SetCellCssProps(IDictionary<String, String> cellCssProps
+            ) {
+            this.cellCssProps = cellCssProps;
+            return this;
+        }
+
+        public virtual IDictionary<String, String> GetOwnCssProps() {
+            return ownCssProps;
+        }
+
+        public virtual iText.Html2pdf.Attach.Wrapelement.ColWrapper SetOwnCssProps(IDictionary<String, String> ownCssProps
+            ) {
+            this.ownCssProps = ownCssProps;
+            return this;
+        }
     }
 }

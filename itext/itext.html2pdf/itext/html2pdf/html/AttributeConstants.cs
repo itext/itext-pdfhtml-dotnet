@@ -53,6 +53,8 @@ namespace iText.Html2pdf.Html {
 
         public const String COLOR = "color";
 
+        public const String COLSPAN = "colspan";
+
         public const String DIR = "dir";
 
         public const String FACE = "face";
@@ -73,7 +75,11 @@ namespace iText.Html2pdf.Html {
 
         public const String REL = "rel";
 
+        public const String ROWSPAN = "rowspan";
+
         public const String SIZE = "size";
+
+        public const String SPAN = "span";
 
         public const String SRC = "src";
 

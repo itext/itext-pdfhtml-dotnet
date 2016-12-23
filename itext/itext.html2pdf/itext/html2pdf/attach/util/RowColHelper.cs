@@ -42,22 +42,64 @@
 using System;
 using System.Collections.Generic;
 
-namespace iText.Html2pdf.Html.Node {
-    public interface IElementNode : INode {
-        String Name();
+namespace iText.Html2pdf.Attach.Util {
+    public class RowColHelper {
+        private List<int> lastEmptyRow = new List<int>();
 
-        IAttributes GetAttributes();
+        private int currRow = -1;
 
-        String GetAttribute(String key);
+        private int currCol = 0;
 
-        void SetStyles(IDictionary<String, String> stringStringMap);
+        public virtual void NewRow() {
+            ++currRow;
+            currCol = 0;
+        }
 
-        IDictionary<String, String> GetStyles();
+        public virtual void UpdateCurrentPosition(int colspan, int rowspan) {
+            EnsureRowIsStarted();
+            while (lastEmptyRow.Count < currCol) {
+                lastEmptyRow.Add((int?)currRow);
+            }
+            int? value = (int?)currRow + rowspan;
+            if (lastEmptyRow.Count == currCol) {
+                lastEmptyRow.Add(value);
+            }
+            else {
+                lastEmptyRow[currCol] = Math.Max(value, lastEmptyRow[currCol]);
+            }
+            int size = lastEmptyRow.Count;
+            int end = currCol + colspan;
+            while (lastEmptyRow.Count < end) {
+                lastEmptyRow.Add(value);
+            }
+            for (int i = currCol; i < size; ++i) {
+                lastEmptyRow[i] = Math.Max(value, lastEmptyRow[i]);
+            }
+            currCol = end;
+        }
 
-        IList<IDictionary<String, String>> GetAdditionalStyles();
+        public virtual int MoveToNextEmptyCol() {
+            EnsureRowIsStarted();
+            while (!CanPutCell(currCol)) {
+                ++currCol;
+            }
+            return currCol;
+        }
 
-        void AddAdditionalStyles(IDictionary<String, String> styles);
+        public virtual bool CanPutCell(int col) {
+            EnsureRowIsStarted();
+            if (col >= lastEmptyRow.Count) {
+                return true;
+            }
+            else {
+                return lastEmptyRow[col] <= currRow;
+            }
+        }
 
-        String GetLang();
+        private void EnsureRowIsStarted() {
+            if (currRow == -1) {
+                NewRow();
+            }
+        }
     }
 }

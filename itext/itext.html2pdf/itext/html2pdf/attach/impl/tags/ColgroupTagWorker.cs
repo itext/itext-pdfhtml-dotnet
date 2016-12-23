@@ -40,24 +40,44 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.Collections.Generic;
+using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Wrapelement;
+using iText.Html2pdf.Css.Util;
+using iText.Html2pdf.Html;
+using iText.Html2pdf.Html.Node;
+using iText.Layout;
 
-namespace iText.Html2pdf.Html.Node {
-    public interface IElementNode : INode {
-        String Name();
+namespace iText.Html2pdf.Attach.Impl.Tags {
+    public class ColgroupTagWorker : ITagWorker {
+        private ColgroupWrapper colgroup;
 
-        IAttributes GetAttributes();
+        public ColgroupTagWorker(IElementNode element, ProcessorContext context) {
+            int? span = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.SPAN));
+            colgroup = new ColgroupWrapper(span != null ? (int)span : 1);
+        }
 
-        String GetAttribute(String key);
+        public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
+            colgroup.FinalizeCols();
+        }
 
-        void SetStyles(IDictionary<String, String> stringStringMap);
+        public virtual bool ProcessContent(String content, ProcessorContext context) {
+            return content == null || String.IsNullOrEmpty(content.Trim());
+        }
 
-        IDictionary<String, String> GetStyles();
+        public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+            if (childTagWorker is ColTagWorker) {
+                colgroup.GetColumns().Add(((ColTagWorker)childTagWorker).GetColumn());
+                return true;
+            }
+            return false;
+        }
 
-        IList<IDictionary<String, String>> GetAdditionalStyles();
+        public virtual IPropertyContainer GetElementResult() {
+            return null;
+        }
 
-        void AddAdditionalStyles(IDictionary<String, String> styles);
-
-        String GetLang();
+        public virtual ColgroupWrapper GetColgroup() {
+            return colgroup;
+        }
     }
 }

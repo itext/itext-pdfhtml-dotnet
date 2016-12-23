@@ -55,6 +55,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public TrTagWorker(IElementNode element, ProcessorContext context) {
             rowWrapper = new TableRowWrapper();
             parentTagWorker = context.GetState().Empty() ? null : context.GetState().Top();
+            if (parentTagWorker is TableTagWorker) {
+                ((TableTagWorker)parentTagWorker).ApplyColStyles();
+            }
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {

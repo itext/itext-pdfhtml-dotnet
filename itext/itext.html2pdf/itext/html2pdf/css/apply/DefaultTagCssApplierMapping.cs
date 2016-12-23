@@ -66,6 +66,8 @@ namespace iText.Html2pdf.Css.Apply {
                 buildMap[TagConstants.CENTER] = typeof(BlockCssApplier);
                 buildMap[TagConstants.CITE] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.CODE] = typeof(SpanTagCssApplier);
+                buildMap[TagConstants.COL] = typeof(ColTagCssApplier);
+                buildMap[TagConstants.COLGROUP] = typeof(ColgroupTagCssApplier);
                 buildMap[TagConstants.EM] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.DEL] = typeof(SpanTagCssApplier);
                 buildMap[TagConstants.DFN] = typeof(SpanTagCssApplier);

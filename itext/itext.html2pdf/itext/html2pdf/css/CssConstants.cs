@@ -114,8 +114,6 @@ namespace iText.Html2pdf.Css {
 
         public const String COLOR = "color";
 
-        public const String COLSPAN = "colspan";
-
         public const String DIRECTION = "direction";
 
         public const String DISPLAY = "display";
@@ -217,8 +215,6 @@ namespace iText.Html2pdf.Css {
         public const String PADDING_TOP = "padding-top";
 
         public const String QUOTES = "quotes";
-
-        public const String ROWSPAN = "rowspan";
 
         public const String STYLE = "style";
 

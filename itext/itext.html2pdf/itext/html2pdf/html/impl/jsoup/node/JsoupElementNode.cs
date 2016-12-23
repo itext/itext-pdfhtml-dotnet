@@ -53,6 +53,8 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
 
         private IDictionary<String, String> elementResolvedStyles;
 
+        private IList<IDictionary<String, String>> customDefaultStyles;
+
         private String lang = null;
 
         public JsoupElementNode(Element element)
@@ -80,6 +82,17 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
 
         public virtual IDictionary<String, String> GetStyles() {
             return this.elementResolvedStyles;
+        }
+
+        public virtual IList<IDictionary<String, String>> GetAdditionalStyles() {
+            return customDefaultStyles;
+        }
+
+        public virtual void AddAdditionalStyles(IDictionary<String, String> styles) {
+            if (customDefaultStyles == null) {
+                customDefaultStyles = new LinkedList<IDictionary<String, String>>();
+            }
+            customDefaultStyles.Add(styles);
         }
 
         public virtual String GetLang() {

@@ -41,23 +41,21 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
+using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Tags;
+using iText.Html2pdf.Css.Apply;
+using iText.Html2pdf.Css.Apply.Util;
+using iText.Html2pdf.Html.Node;
 
-namespace iText.Html2pdf.Html.Node {
-    public interface IElementNode : INode {
-        String Name();
-
-        IAttributes GetAttributes();
-
-        String GetAttribute(String key);
-
-        void SetStyles(IDictionary<String, String> stringStringMap);
-
-        IDictionary<String, String> GetStyles();
-
-        IList<IDictionary<String, String>> GetAdditionalStyles();
-
-        void AddAdditionalStyles(IDictionary<String, String> styles);
-
-        String GetLang();
+namespace iText.Html2pdf.Css.Apply.Impl {
+    public class ColTagCssApplier : ICssApplier {
+        public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
+            IDictionary<String, String> cssProps = element.GetStyles();
+            if (cssProps != null && tagWorker is ColTagWorker) {
+                ((ColTagWorker)tagWorker).GetColumn().SetCellCssProps(SupportedColColgroupPropertiesUtil.GetCellProperties
+                    (cssProps)).SetOwnCssProps(SupportedColColgroupPropertiesUtil.GetOwnProperties(cssProps)).SetWidth(SupportedColColgroupPropertiesUtil
+                    .GetWidth(cssProps));
+            }
+        }
     }
 }
