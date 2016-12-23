@@ -162,7 +162,7 @@ namespace iText.Html2pdf.Css.Resolve {
                                 String mediaAttribute = headChildElement.GetAttribute(AttributeConstants.MEDIA);
                                 if (mediaAttribute != null && mediaAttribute.Length > 0) {
                                     IList<CssStatement> statements = styleSheet.GetStatements();
-                                    CssMediaRule mediaRule = new CssMediaRule(CssRuleName.MEDIA, mediaAttribute);
+                                    CssMediaRule mediaRule = new CssMediaRule(mediaAttribute);
                                     mediaRule.AddStatementsToBody(statements);
                                     styleSheet = new CssStyleSheet();
                                     styleSheet.AddStatement(mediaRule);

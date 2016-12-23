@@ -72,7 +72,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font
+        //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font DEVSIX-917
         public static void ApplyListStyleTypeProperty(IElementNode node, IDictionary<String, String> cssProps, ProcessorContext
              context, IPropertyContainer element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));

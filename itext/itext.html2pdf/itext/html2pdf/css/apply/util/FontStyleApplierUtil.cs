@@ -86,6 +86,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             if (cssProps.Get(CssConstants.FONT_STYLE) != null) {
+                // TODO move to font selection mechanism
                 String fontStyle = cssProps.Get(CssConstants.FONT_STYLE);
                 if (CssConstants.ITALIC.EqualsIgnoreCase(fontStyle) || CssConstants.OBLIQUE.EqualsIgnoreCase(fontStyle)) {
                     element.SetProperty(Property.ITALIC_SIMULATION, true);

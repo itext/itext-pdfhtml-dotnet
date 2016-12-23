@@ -231,7 +231,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
                 ITagWorker tagWorker = context.GetTagWorkerFactory().GetTagWorkerInstance(element, context);
                 if (tagWorker == null) {
-                    // TODO for stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
+                    // For stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
                     if (!ignoredTags.Contains(element.Name()) && !HtmlUtils.IsStyleSheetLink(element)) {
                         logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).Name()));
                     }

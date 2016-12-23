@@ -48,9 +48,8 @@ namespace iText.Html2pdf.Css.Media {
     public class CssMediaRule : CssNestedAtRule {
         private IList<MediaQuery> mediaQueries;
 
-        public CssMediaRule(String ruleName, String ruleParameters)
-            : base(ruleName, ruleParameters) {
-            // TODO get rid of ruleName in constructor? It is always CssRuleName.MEDIA
+        public CssMediaRule(String ruleParameters)
+            : base(CssRuleName.MEDIA, ruleParameters) {
             mediaQueries = MediaQueryParser.ParseMediaQueries(ruleParameters);
         }
 

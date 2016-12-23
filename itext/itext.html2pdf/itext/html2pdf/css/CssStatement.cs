@@ -50,6 +50,5 @@ namespace iText.Html2pdf.Css {
             ) {
             return JavaCollectionsUtil.EmptyList<CssRuleSet>();
         }
-        //TODO
     }
 }

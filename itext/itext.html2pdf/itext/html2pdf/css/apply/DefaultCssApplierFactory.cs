@@ -54,13 +54,12 @@ namespace iText.Html2pdf.Css.Apply {
         }
 
         public virtual ICssApplier GetCssApplier(String tag) {
-            //Get css applier classname
+            // Get css applier classname
             Type cssApplierClass = map.Get(tag);
             if (cssApplierClass == null) {
-                //TODO add logging
                 return null;
             }
-            //Use reflection to create an instance
+            // Use reflection to create an instance
             try {
                 return (ICssApplier)System.Activator.CreateInstance(cssApplierClass);
             }

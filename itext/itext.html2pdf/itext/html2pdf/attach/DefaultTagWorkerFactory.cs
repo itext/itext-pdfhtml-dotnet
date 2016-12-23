@@ -48,7 +48,7 @@ using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Attach {
     public class DefaultTagWorkerFactory : ITagWorkerFactory {
-        /// <summary>Internal map to keep track of tags and associated tagworkers</summary>
+        /// <summary>Internal map to keep track of tags and associated tag workers</summary>
         private IDictionary<String, Type> map;
 
         public DefaultTagWorkerFactory() {
@@ -58,13 +58,13 @@ namespace iText.Html2pdf.Attach {
 
         /// <exception cref="iText.Html2pdf.Exceptions.NoTagWorkerFoundException"/>
         public virtual ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context) {
-            //Get Tag Worker class name
+            // Get Tag Worker class name
             Type tagWorkerClass = map.Get(tag.Name());
+            // No tag worker found for tag
             if (tagWorkerClass == null) {
-                //TODO:Log the fact that no instance could be found
                 return null;
             }
-            //Use reflection to create an instance
+            // Use reflection to create an instance
             try {
                 ConstructorInfo ctor = tagWorkerClass.GetConstructor(new Type[] { typeof(IElementNode), typeof(ProcessorContext
                     ) });

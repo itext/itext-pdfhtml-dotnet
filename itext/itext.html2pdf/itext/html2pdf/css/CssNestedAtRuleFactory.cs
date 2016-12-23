@@ -53,7 +53,7 @@ namespace iText.Html2pdf.Css {
             String ruleParameters = ruleDeclaration.Substring(ruleName.Length).Trim();
             switch (ruleName) {
                 case CssRuleName.MEDIA: {
-                    return new CssMediaRule(ruleName, ruleParameters);
+                    return new CssMediaRule(ruleParameters);
                 }
 
                 default: {
