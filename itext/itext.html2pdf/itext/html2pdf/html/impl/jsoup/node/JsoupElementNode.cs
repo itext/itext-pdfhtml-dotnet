@@ -90,7 +90,7 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
 
         public virtual void AddAdditionalStyles(IDictionary<String, String> styles) {
             if (customDefaultStyles == null) {
-                customDefaultStyles = new LinkedList<IDictionary<String, String>>();
+                customDefaultStyles = (IList<IDictionary<String, String>>)new LinkedList<IDictionary<String, String>>();
             }
             customDefaultStyles.Add(styles);
         }
