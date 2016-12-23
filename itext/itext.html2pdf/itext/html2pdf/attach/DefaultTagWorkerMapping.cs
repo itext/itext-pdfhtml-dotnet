@@ -64,7 +64,7 @@ namespace iText.Html2pdf.Attach {
                 buildMap[TagConstants.BODY] = typeof(BodyTagWorker);
                 buildMap[TagConstants.BR] = typeof(BrTagWorker);
                 //buildMap.put(TagConstants.CAPTION, SpanTagWorker.class);
-                buildMap[TagConstants.CENTER] = typeof(PTagWorker);
+                buildMap[TagConstants.CENTER] = typeof(DivTagWorker);
                 buildMap[TagConstants.CITE] = typeof(SpanTagWorker);
                 buildMap[TagConstants.CODE] = typeof(SpanTagWorker);
                 buildMap[TagConstants.DEL] = typeof(SpanTagWorker);
@@ -75,7 +75,7 @@ namespace iText.Html2pdf.Attach {
                 buildMap[TagConstants.DT] = typeof(DtTagWorker);
                 buildMap[TagConstants.EM] = typeof(SpanTagWorker);
                 buildMap[TagConstants.FONT] = typeof(SpanTagWorker);
-                buildMap[TagConstants.FIGCAPTION] = typeof(PTagWorker);
+                buildMap[TagConstants.FIGCAPTION] = typeof(DivTagWorker);
                 buildMap[TagConstants.FIGURE] = typeof(DivTagWorker);
                 buildMap[TagConstants.FOOTER] = typeof(DivTagWorker);
                 buildMap[TagConstants.HEADER] = typeof(DivTagWorker);
