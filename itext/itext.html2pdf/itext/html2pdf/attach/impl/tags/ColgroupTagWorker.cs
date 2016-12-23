@@ -57,7 +57,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
-            colgroup.FinalizeCols();
         }
 
         public virtual bool ProcessContent(String content, ProcessorContext context) {

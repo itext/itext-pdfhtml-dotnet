@@ -73,7 +73,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
-            table = tableWrapper.ToTable();
+            table = tableWrapper.ToTable(colgroupsHelper);
         }
 
         public virtual bool ProcessContent(String content, ProcessorContext context) {
@@ -92,7 +92,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             else {
                 if (childTagWorker is iText.Html2pdf.Attach.Impl.Tags.TableTagWorker) {
                     if (((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)childTagWorker).header) {
-                        Table header = ((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)childTagWorker).tableWrapper.ToTable();
+                        Table header = ((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)childTagWorker).tableWrapper.ToTable(colgroupsHelper
+                            );
                         for (int i = 0; i < header.GetNumberOfRows(); i++) {
                             tableWrapper.NewHeaderRow();
                             for (int j = 0; j < header.GetNumberOfColumns(); j++) {
@@ -103,7 +104,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     }
                     else {
                         if (((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)childTagWorker).footer) {
-                            Table footer = ((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)childTagWorker).tableWrapper.ToTable();
+                            Table footer = ((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)childTagWorker).tableWrapper.ToTable(colgroupsHelper
+                                );
                             for (int i = 0; i < footer.GetNumberOfRows(); i++) {
                                 tableWrapper.NewFooterRow();
                                 for (int j = 0; j < footer.GetNumberOfColumns(); j++) {
@@ -117,7 +119,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 else {
                     if (childTagWorker is ColgroupTagWorker) {
                         if (colgroupsHelper != null) {
-                            colgroupsHelper.Add(((ColgroupTagWorker)childTagWorker).GetColgroup());
+                            colgroupsHelper.Add(((ColgroupTagWorker)childTagWorker).GetColgroup().FinalizeCols());
                             return true;
                         }
                     }

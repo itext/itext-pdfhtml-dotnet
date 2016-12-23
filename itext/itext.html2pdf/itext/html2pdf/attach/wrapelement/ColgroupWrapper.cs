@@ -101,7 +101,10 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             return columns;
         }
 
-        public virtual void FinalizeCols() {
+        public virtual iText.Html2pdf.Attach.Wrapelement.ColgroupWrapper FinalizeCols() {
+            if (indexToColMapping != null) {
+                return this;
+            }
             if (columns.IsEmpty()) {
                 columns.Add(new ColWrapper(span).SetCellCssProps(cellCssProps).SetWidth(width));
             }
@@ -136,6 +139,7 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                 shift += span;
             }
             span = shift;
+            return this;
         }
 
         public virtual ColWrapper GetColumnByIndex(int index) {
