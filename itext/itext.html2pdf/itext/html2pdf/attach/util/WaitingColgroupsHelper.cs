@@ -144,7 +144,7 @@ namespace iText.Html2pdf.Attach.Util {
                     indexToColgroupMapping[j + shiftCol[i_1]] = i_1;
                 }
             }
-            colgroups.TrimToSize();
+            colgroups.TrimExcess();
         }
     }
 }
