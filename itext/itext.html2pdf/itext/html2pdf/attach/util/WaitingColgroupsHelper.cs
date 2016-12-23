@@ -49,7 +49,7 @@ namespace iText.Html2pdf.Attach.Util {
     public class WaitingColgroupsHelper {
         private IElementNode tableElement;
 
-        private IList<ColgroupWrapper> colgroups = new LinkedList<ColgroupWrapper>();
+        private List<ColgroupWrapper> colgroups = new List<ColgroupWrapper>();
 
         private int maxIndex = -1;
 
@@ -120,7 +120,7 @@ namespace iText.Html2pdf.Attach.Util {
                             if (GetColWraper(col) != null && GetColWraper(col).GetCellCssProps() != null) {
                                 element.AddAdditionalStyles(GetColWraper(col).GetCellCssProps());
                             }
-                            rowColHelper.UpdateCurrentPosition(colspan, rowspan);
+                            rowColHelper.UpdateCurrentPosition((int)colspan, (int)rowspan);
                         }
                         else {
                             ApplyColStyles(child, rowColHelper);
@@ -144,6 +144,7 @@ namespace iText.Html2pdf.Attach.Util {
                     indexToColgroupMapping[j + shiftCol[i_1]] = i_1;
                 }
             }
+            colgroups.TrimToSize();
         }
     }
 }

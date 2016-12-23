@@ -58,22 +58,16 @@ namespace iText.Html2pdf.Attach.Util {
         public virtual void UpdateCurrentPosition(int colspan, int rowspan) {
             EnsureRowIsStarted();
             while (lastEmptyRow.Count < currCol) {
-                lastEmptyRow.Add((int?)currRow);
+                lastEmptyRow.Add(currRow);
             }
-            int? value = (int?)currRow + rowspan;
-            if (lastEmptyRow.Count == currCol) {
-                lastEmptyRow.Add(value);
-            }
-            else {
-                lastEmptyRow[currCol] = Math.Max(value, lastEmptyRow[currCol]);
-            }
-            int size = lastEmptyRow.Count;
+            int value = currRow + rowspan;
             int end = currCol + colspan;
+            int middle = Math.Min(lastEmptyRow.Count, end);
+            for (int i = currCol; i < middle; ++i) {
+                lastEmptyRow[i] = Math.Max(value, lastEmptyRow[i]);
+            }
             while (lastEmptyRow.Count < end) {
                 lastEmptyRow.Add(value);
-            }
-            for (int i = currCol; i < size; ++i) {
-                lastEmptyRow[i] = Math.Max(value, lastEmptyRow[i]);
             }
             currCol = end;
         }
