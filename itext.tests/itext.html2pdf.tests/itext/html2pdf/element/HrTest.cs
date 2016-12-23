@@ -214,6 +214,13 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HrTest20() {
+            RunHrTest("20");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunHrTest(String id) {
             String htmlPath = sourceFolder + "hrTest" + id + ".html";
             String outPdfPath = destinationFolder + "hrTest" + id + ".pdf";
