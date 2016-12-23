@@ -130,15 +130,14 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                 ncol += col_1.GetSpan();
             }
             indexToColMapping = new int[ncol];
-            int shift = 0;
+            span = 0;
             for (int i = 0; i < columns.Count; ++i) {
-                int span = columns[i].GetSpan();
-                for (int j = 0; j < span; ++j) {
-                    indexToColMapping[shift + j] = i;
+                int colSpan = columns[i].GetSpan();
+                for (int j = 0; j < colSpan; ++j) {
+                    indexToColMapping[span + j] = i;
                 }
-                shift += span;
+                span += colSpan;
             }
-            span = shift;
             return this;
         }
 
