@@ -150,7 +150,9 @@ namespace iText.Html2pdf.Css.Resolve {
                     if (headChildElement.Name().Equals(TagConstants.STYLE)) {
                         if (currentNode.ChildNodes().Count > 0 && currentNode.ChildNodes()[0] is IDataNode) {
                             String styleData = ((IDataNode)currentNode.ChildNodes()[0]).GetWholeData();
-                            cssStyleSheet.AppendCssStyleSheet(CssStyleSheetParser.Parse(styleData));
+                            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(styleData);
+                            styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                            cssStyleSheet.AppendCssStyleSheet(styleSheet);
                         }
                     }
                     else {
@@ -159,14 +161,7 @@ namespace iText.Html2pdf.Css.Resolve {
                             try {
                                 Stream stream = resourceResolver.RetrieveStyleSheet(styleSheetUri);
                                 CssStyleSheet styleSheet = CssStyleSheetParser.Parse(stream);
-                                String mediaAttribute = headChildElement.GetAttribute(AttributeConstants.MEDIA);
-                                if (mediaAttribute != null && mediaAttribute.Length > 0) {
-                                    IList<CssStatement> statements = styleSheet.GetStatements();
-                                    CssMediaRule mediaRule = new CssMediaRule(mediaAttribute);
-                                    mediaRule.AddStatementsToBody(statements);
-                                    styleSheet = new CssStyleSheet();
-                                    styleSheet.AddStatement(mediaRule);
-                                }
+                                styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                                 cssStyleSheet.AppendCssStyleSheet(styleSheet);
                             }
                             catch (System.IO.IOException exc) {
@@ -183,6 +178,19 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
             }
             return null;
+        }
+
+        private CssStyleSheet WrapStyleSheetInMediaQueryIfNecessary(IElementNode headChildElement, CssStyleSheet styleSheet
+            ) {
+            String mediaAttribute = headChildElement.GetAttribute(AttributeConstants.MEDIA);
+            if (mediaAttribute != null && mediaAttribute.Length > 0) {
+                IList<CssStatement> statements = styleSheet.GetStatements();
+                CssMediaRule mediaRule = new CssMediaRule(mediaAttribute);
+                mediaRule.AddStatementsToBody(statements);
+                styleSheet = new CssStyleSheet();
+                styleSheet.AddStatement(mediaRule);
+            }
+            return styleSheet;
         }
 
         private void MergeParentCssDeclaration(IDictionary<String, String> styles, String cssProperty, String parentPropValue
