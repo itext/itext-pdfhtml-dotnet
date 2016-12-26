@@ -40,13 +40,37 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.IO;
+using iText.Html2pdf;
+using iText.Kernel.Utils;
+using System.Collections.Generic;
+using System.Reflection;
+using System.IO;
+using Versions.Attributes;
+using iText.Kernel;
+using iText.Test;
 
-namespace iText.Html2pdf.Exceptions {
-    public class NoCssApplierFoundException : Exception {
-        public NoCssApplierFoundException(String message, String className, String tag)
-            : base(String.Format(message, className, tag)) {
+namespace iText.Html2pdf.Element {
+    public class LabelTest : ExtendedITextTest {
+        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/element/LabelTest/";
+
+        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+             + "/test/itext/html2pdf/element/LabelTest/";
+
+        [NUnit.Framework.OneTimeSetUp]
+        public static void BeforeClass() {
+                );
+            CreateDestinationFolder(destinationFolder);
         }
 
-        public const String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Label01Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "labelTest01.html"), new FileInfo(destinationFolder
+                 + "labelTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "labelTest01.pdf", sourceFolder
+                 + "cmp_labelTest01.pdf", destinationFolder, "diff01_"));
+        }
     }
 }

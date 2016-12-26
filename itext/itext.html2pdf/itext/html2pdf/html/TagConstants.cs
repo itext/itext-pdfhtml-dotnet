@@ -134,6 +134,8 @@ namespace iText.Html2pdf.Html {
 
         public const String KBD = "kbd";
 
+        public const String LABEL = "label";
+
         public const String LI = "li";
 
         public const String LINK = "link";

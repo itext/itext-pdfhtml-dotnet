@@ -40,56 +40,13 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Reflection;
-using iText.Html2pdf.Exceptions;
-using iText.Html2pdf.Html.Node;
 
-namespace iText.Html2pdf.Attach {
-    public class DefaultTagWorkerFactory : ITagWorkerFactory {
-        /// <summary>Internal map to keep track of tags and associated tag workers</summary>
-        private IDictionary<String, Type> map;
-
-        public DefaultTagWorkerFactory() {
-            this.map = new ConcurrentDictionary<String, Type>();
-            RegisterDefaultHtmlTagWorkers();
+namespace iText.Html2pdf.Exceptions {
+    public class TagWorkerInitializationException : Exception {
+        public TagWorkerInitializationException(String message, String classNames, String tag)
+            : base(String.Format(message, classNames, tag)) {
         }
 
-        /// <exception cref="iText.Html2pdf.Exceptions.TagWorkerInitializationException"/>
-        public virtual ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context) {
-            // Get Tag Worker class name
-            Type tagWorkerClass = map.Get(tag.Name());
-            // No tag worker found for tag
-            if (tagWorkerClass == null) {
-                return null;
-            }
-            // Use reflection to create an instance
-            try {
-                ConstructorInfo ctor = tagWorkerClass.GetConstructor(new Type[] { typeof(IElementNode), typeof(ProcessorContext
-                    ) });
-                ITagWorker res = (ITagWorker)ctor.Invoke(new Object[] { tag, context });
-                return res;
-            }
-            catch (Exception) {
-                throw new TagWorkerInitializationException(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
-                    , tagWorkerClass.FullName, tag.Name());
-            }
-        }
-
-        public virtual void RegisterTagWorker(String tag, Type tagWorkerClass) {
-            map[tag] = tagWorkerClass;
-        }
-
-        public virtual void RemoveTagWorker(String tag) {
-            map.JRemove(tag);
-        }
-
-        private void RegisterDefaultHtmlTagWorkers() {
-            IDictionary<String, Type> defaultMapping = DefaultTagWorkerMapping.GetDefaultTagWorkerMapping();
-            foreach (KeyValuePair<String, Type> ent in defaultMapping) {
-                map[ent.Key] = ent.Value;
-            }
-        }
+        public const String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
     }
 }
