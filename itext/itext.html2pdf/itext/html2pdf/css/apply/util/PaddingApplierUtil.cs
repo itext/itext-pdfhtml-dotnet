@@ -67,29 +67,37 @@ namespace iText.Html2pdf.Css.Apply.Util {
             UnitValue marginBottomVal = CssUtils.ParseLengthValueToPt(paddingBottom, em);
             UnitValue marginLeftVal = CssUtils.ParseLengthValueToPt(paddingLeft, em);
             UnitValue marginRightVal = CssUtils.ParseLengthValueToPt(paddingRight, em);
-            if (marginTopVal.IsPointValue()) {
-                element.SetProperty(Property.PADDING_TOP, marginTopVal.GetValue());
+            if (marginTopVal != null) {
+                if (marginTopVal.IsPointValue()) {
+                    element.SetProperty(Property.PADDING_TOP, marginTopVal.GetValue());
+                }
+                else {
+                    logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                }
             }
-            else {
-                logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            if (marginBottomVal != null) {
+                if (marginBottomVal.IsPointValue()) {
+                    element.SetProperty(Property.PADDING_BOTTOM, marginBottomVal.GetValue());
+                }
+                else {
+                    logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                }
             }
-            if (marginBottomVal.IsPointValue()) {
-                element.SetProperty(Property.PADDING_BOTTOM, marginBottomVal.GetValue());
+            if (marginLeftVal != null) {
+                if (marginLeftVal.IsPointValue()) {
+                    element.SetProperty(Property.PADDING_LEFT, marginLeftVal.GetValue());
+                }
+                else {
+                    logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                }
             }
-            else {
-                logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
-            }
-            if (marginLeftVal.IsPointValue()) {
-                element.SetProperty(Property.PADDING_LEFT, marginLeftVal.GetValue());
-            }
-            else {
-                logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
-            }
-            if (marginRightVal.IsPointValue()) {
-                element.SetProperty(Property.PADDING_RIGHT, marginRightVal.GetValue());
-            }
-            else {
-                logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            if (marginRightVal != null) {
+                if (marginRightVal.IsPointValue()) {
+                    element.SetProperty(Property.PADDING_RIGHT, marginRightVal.GetValue());
+                }
+                else {
+                    logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                }
             }
         }
     }

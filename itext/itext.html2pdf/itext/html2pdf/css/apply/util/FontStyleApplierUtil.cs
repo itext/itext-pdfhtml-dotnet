@@ -161,11 +161,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String textIndent = cssProps.Get(CssConstants.TEXT_INDENT);
             if (textIndent != null) {
                 UnitValue textIndentValue = CssUtils.ParseLengthValueToPt(textIndent, em);
-                if (textIndentValue.IsPointValue()) {
-                    element.SetProperty(Property.FIRST_LINE_INDENT, textIndentValue.GetValue());
-                }
-                else {
-                    logger.Error(iText.Html2pdf.LogMessageConstant.TEXT_INDENT_IN_PERCENTS_IS_NOT_SUPPORTED);
+                if (textIndentValue != null) {
+                    if (textIndentValue.IsPointValue()) {
+                        element.SetProperty(Property.FIRST_LINE_INDENT, textIndentValue.GetValue());
+                    }
+                    else {
+                        logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
+                            .TEXT_INDENT));
+                    }
                 }
             }
             String letterSpacing = cssProps.Get(CssConstants.LETTER_SPACING);
@@ -179,8 +182,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String wordSpacing = cssProps.Get(CssConstants.WORD_SPACING);
             if (wordSpacing != null) {
                 UnitValue wordSpacingValue = CssUtils.ParseLengthValueToPt(wordSpacing, em);
-                if (wordSpacingValue.IsPointValue()) {
-                    element.SetProperty(Property.WORD_SPACING, wordSpacingValue.GetValue());
+                if (wordSpacingValue != null) {
+                    if (wordSpacingValue.IsPointValue()) {
+                        element.SetProperty(Property.WORD_SPACING, wordSpacingValue.GetValue());
+                    }
                 }
             }
             // browsers ignore values in percents
@@ -191,11 +196,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.GetValue()));
                 }
                 else {
-                    if (lineHeightValue.IsPointValue()) {
+                    if (lineHeightValue != null && lineHeightValue.IsPointValue()) {
                         element.SetProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.GetValue()));
                     }
                     else {
-                        element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.GetValue() / 100));
+                        if (lineHeightValue != null) {
+                            element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.GetValue() / 100));
+                        }
                     }
                 }
             }

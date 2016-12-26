@@ -43,6 +43,8 @@ using System;
 
 namespace iText.Html2pdf {
     public sealed class LogMessageConstant {
+        public const String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
+
         public const String ERROR_LOADING_FONT = "Error while loading font";
 
         public const String ERROR_PARSING_CSS_SELECTOR = "Error while parsing css selector";
@@ -72,8 +74,6 @@ namespace iText.Html2pdf {
         public const String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
 
         public const String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
-
-        public const String TEXT_INDENT_IN_PERCENTS_IS_NOT_SUPPORTED = "text-indent in percents is not supported";
 
         public const String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
 

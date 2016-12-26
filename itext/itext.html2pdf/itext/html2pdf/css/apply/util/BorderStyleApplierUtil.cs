@@ -110,6 +110,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             UnitValue unitValue = CssUtils.ParseLengthValueToPt(borderWidth, em);
+            if (unitValue == null) {
+                return null;
+            }
             if (unitValue.IsPercentValue()) {
                 LOGGER.Error("border-width in percents is not supported");
                 return null;

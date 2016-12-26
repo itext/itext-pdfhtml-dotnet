@@ -81,7 +81,11 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues[CssConstants.FONT_SIZE] = CssConstants.MEDIUM;
             defaultValues[CssConstants.FONT_STYLE] = CssConstants.NORMAL;
             defaultValues[CssConstants.FONT_VARIANT] = CssConstants.NORMAL;
+            defaultValues[CssConstants.HYPHENS] = CssConstants.MANUAL;
             defaultValues[CssConstants.LINE_HEIGHT] = CssConstants.NORMAL;
+            defaultValues[CssConstants.LIST_STYLE_TYPE] = CssConstants.DISC;
+            defaultValues[CssConstants.LIST_STYLE_IMAGE] = CssConstants.NONE;
+            defaultValues[CssConstants.LIST_STYLE_POSITION] = CssConstants.OUTSIDE;
             defaultValues[CssConstants.MARGIN_BOTTOM] = "0";
             defaultValues[CssConstants.MARGIN_LEFT] = "0";
             defaultValues[CssConstants.MARGIN_RIGHT] = "0";
@@ -93,15 +97,12 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues[CssConstants.PADDING_LEFT] = "0";
             defaultValues[CssConstants.PADDING_RIGHT] = "0";
             defaultValues[CssConstants.PADDING_TOP] = "0";
-            defaultValues[CssConstants.LIST_STYLE_TYPE] = CssConstants.DISC;
-            defaultValues[CssConstants.LIST_STYLE_IMAGE] = CssConstants.NONE;
-            defaultValues[CssConstants.LIST_STYLE_POSITION] = CssConstants.OUTSIDE;
+            defaultValues[CssConstants.POSITION] = CssConstants.STATIC;
             defaultValues[CssConstants.TEXT_ALIGN] = CssConstants.START;
             defaultValues[CssConstants.TEXT_DECORATION] = CssConstants.NONE;
-            defaultValues[CssConstants.WHITE_SPACE] = CssConstants.NORMAL;
             defaultValues[CssConstants.TEXT_TRANSFORM] = CssConstants.NONE;
             defaultValues[CssConstants.TEXT_DECORATION] = CssConstants.NONE;
-            defaultValues[CssConstants.HYPHENS] = CssConstants.MANUAL;
+            defaultValues[CssConstants.WHITE_SPACE] = CssConstants.NORMAL;
         }
 
         // TODO not complete

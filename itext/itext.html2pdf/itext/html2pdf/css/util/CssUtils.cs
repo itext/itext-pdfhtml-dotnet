@@ -218,7 +218,7 @@ namespace iText.Html2pdf.Css.Util {
                     }
                 }
             }
-            return new UnitValue(UnitValue.POINT, 0);
+            return null;
         }
 
         /// <summary>Returns value in dpi (currently)</summary>

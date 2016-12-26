@@ -68,32 +68,38 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (heightVal != null) {
                 if (!CssConstants.AUTO.Equals(heightVal)) {
                     UnitValue height = CssUtils.ParseLengthValueToPt(heightVal, em);
-                    if (height.IsPointValue()) {
-                        element.SetProperty(Property.HEIGHT, height.GetValue());
-                    }
-                    else {
-                        logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    if (height != null) {
+                        if (height.IsPointValue()) {
+                            element.SetProperty(Property.HEIGHT, height.GetValue());
+                        }
+                        else {
+                            logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                        }
                     }
                 }
             }
             String maxHeightVal = cssProps.Get(CssConstants.MAX_HEIGHT);
             if (maxHeightVal != null) {
                 UnitValue height = CssUtils.ParseLengthValueToPt(maxHeightVal, em);
-                if (height.IsPointValue()) {
-                    element.SetProperty(Property.MAX_HEIGHT, height.GetValue());
-                }
-                else {
-                    logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                if (height != null) {
+                    if (height.IsPointValue()) {
+                        element.SetProperty(Property.MAX_HEIGHT, height.GetValue());
+                    }
+                    else {
+                        logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    }
                 }
             }
             String minHeightVal = cssProps.Get(CssConstants.MIN_HEIGHT);
             if (minHeightVal != null) {
                 UnitValue height = CssUtils.ParseLengthValueToPt(minHeightVal, em);
-                if (height.IsPointValue()) {
-                    element.SetProperty(Property.MIN_HEIGHT, height.GetValue());
-                }
-                else {
-                    logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                if (height != null) {
+                    if (height.IsPointValue()) {
+                        element.SetProperty(Property.MIN_HEIGHT, height.GetValue());
+                    }
+                    else {
+                        logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    }
                 }
             }
         }

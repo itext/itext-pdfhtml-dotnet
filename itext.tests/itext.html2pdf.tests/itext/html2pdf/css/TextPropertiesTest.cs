@@ -88,7 +88,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.TEXT_INDENT_IN_PERCENTS_IS_NOT_SUPPORTED)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED)]
         public virtual void TextIndent01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textIndentTest01.html"), new FileInfo(destinationFolder
                  + "textIndentTest01.pdf"));

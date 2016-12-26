@@ -52,7 +52,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             String inputType = element.GetAttribute(AttributeConstants.TYPE);
             if (AttributeConstants.TEXT.Equals(inputType)) {
                 String value = element.GetAttribute(AttributeConstants.VALUE);
-                ProcessContent(value, context);
+                if (value != null) {
+                    ProcessContent(value, context);
+                }
             }
             else {
                 ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));

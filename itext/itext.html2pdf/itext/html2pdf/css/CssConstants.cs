@@ -214,6 +214,8 @@ namespace iText.Html2pdf.Css {
 
         public const String PADDING_TOP = "padding-top";
 
+        public const String POSITION = "position";
+
         public const String QUOTES = "quotes";
 
         public const String STYLE = "style";
@@ -259,6 +261,8 @@ namespace iText.Html2pdf.Css {
         public const String WORD_SPACING = "word-spacing";
 
         public const String WRITING_MODE = "writing-mode";
+
+        public const String ABSOLUTE = "absolute";
 
         public const String ARMENIAN = "armenian";
 
@@ -386,6 +390,8 @@ namespace iText.Html2pdf.Css {
 
         public const String PRE_WRAP = "pre-wrap";
 
+        public const String RELATIVE = "relative";
+
         public const String REPEAT = "repeat";
 
         public const String REPEAT_X = "repeat-x";
@@ -413,6 +419,8 @@ namespace iText.Html2pdf.Css {
         public const String SQUARE = "square";
 
         public const String START = "start";
+
+        public const String STATIC = "static";
 
         public const String STATUS_BAR = "status-bar";
 

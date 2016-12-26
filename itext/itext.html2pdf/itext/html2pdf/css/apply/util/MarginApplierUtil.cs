@@ -104,11 +104,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         private static float? ParseMarginValue(String marginValString, float em) {
             UnitValue marginTopUnitVal = CssUtils.ParseLengthValueToPt(marginValString, em);
-            if (!marginTopUnitVal.IsPointValue()) {
-                logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+            if (marginTopUnitVal != null) {
+                if (!marginTopUnitVal.IsPointValue()) {
+                    logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    return null;
+                }
+                return marginTopUnitVal.GetValue();
+            }
+            else {
                 return null;
             }
-            return marginTopUnitVal.GetValue();
         }
     }
 }
