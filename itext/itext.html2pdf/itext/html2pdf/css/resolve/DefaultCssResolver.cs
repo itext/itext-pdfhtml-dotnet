@@ -100,11 +100,12 @@ namespace iText.Html2pdf.Css.Resolve {
                     parentFontSize = CssUtils.ParseAbsoluteLength(parentFontSizeStr);
                 }
                 float absoluteFontSize = FontStyleApplierUtil.ParseRelativeFontSize(elementFontSize, parentFontSize);
-                elementStyles[CssConstants.FONT_SIZE] = absoluteFontSize + CssConstants.PT;
+                elementStyles[CssConstants.FONT_SIZE] = System.Convert.ToString(absoluteFontSize, System.Globalization.CultureInfo.InvariantCulture
+                    ) + CssConstants.PT;
             }
             else {
-                elementStyles[CssConstants.FONT_SIZE] = FontStyleApplierUtil.ParseAbsoluteFontSize(elementFontSize) + CssConstants
-                    .PT;
+                elementStyles[CssConstants.FONT_SIZE] = System.Convert.ToString(FontStyleApplierUtil.ParseAbsoluteFontSize
+                    (elementFontSize), System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT;
             }
             ICollection<String> keys = new HashSet<String>();
             foreach (KeyValuePair<String, String> entry_1 in elementStyles) {
