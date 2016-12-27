@@ -144,7 +144,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-939")]
         public virtual void HrTest11() {
             RunHrTest("11");
         }
@@ -152,7 +151,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-939")]
         public virtual void HrTest12() {
             RunHrTest("12");
         }

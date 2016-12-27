@@ -43,7 +43,9 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Util;
 using iText.Kernel.Colors;
+using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Properties;
 
@@ -56,8 +58,26 @@ namespace iText.Html2pdf.Css.Apply.Util {
              element) {
             String backgroundColorStr = cssProps.Get(CssConstants.BACKGROUND_COLOR);
             if (backgroundColorStr != null && !CssConstants.TRANSPARENT.Equals(backgroundColorStr)) {
-                Background background = new Background(WebColors.GetRGBColor(backgroundColorStr));
-                element.SetProperty(Property.BACKGROUND, background);
+                Background backgroundColor = new Background(WebColors.GetRGBColor(backgroundColorStr));
+                element.SetProperty(Property.BACKGROUND, backgroundColor);
+            }
+            String backgroundImageStr = cssProps.Get(CssConstants.BACKGROUND_IMAGE);
+            if (backgroundImageStr != null && !backgroundImageStr.Equals(CssConstants.NONE)) {
+                String backgroundRepeatStr = cssProps.Get(CssConstants.BACKGROUND_REPEAT);
+                PdfImageXObject image = context.GetResourceResolver().RetrieveImage(CssUtils.ExtractUrl(backgroundImageStr
+                    ));
+                bool repeatX = true;
+                bool repeatY = true;
+                if (backgroundRepeatStr != null) {
+                    repeatX = backgroundRepeatStr.Equals(CssConstants.REPEAT) || backgroundRepeatStr.Equals(CssConstants.REPEAT_X
+                        );
+                    repeatY = backgroundRepeatStr.Equals(CssConstants.REPEAT) || backgroundRepeatStr.Equals(CssConstants.REPEAT_Y
+                        );
+                }
+                if (image != null) {
+                    BackgroundImage backgroundImage = new BackgroundImage(image, repeatX, repeatY);
+                    element.SetProperty(Property.BACKGROUND_IMAGE, backgroundImage);
+                }
             }
         }
     }
