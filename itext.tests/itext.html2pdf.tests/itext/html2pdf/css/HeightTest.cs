@@ -105,7 +105,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("max-height overrides height in css, while in iText - not")]
         public virtual void HeightTest04() {
             String testName = "heightTest04";
             String diffPrefix = "diff04_";
