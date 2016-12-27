@@ -130,6 +130,19 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1007")]
+        public virtual void HeightTest06() {
+            String testName = "heightTest06";
+            String diffPrefix = "diff06_";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 2)]
         public virtual void HeightWithCollapsingMarginsTest01() {
             String testName = "heightWithCollapsingMarginsTest01";
