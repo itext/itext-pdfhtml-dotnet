@@ -70,8 +70,8 @@ namespace iText.Html2pdf.Attach.Impl {
             ));
 
         private static readonly ICollection<String> ignoredCssTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet
-            <String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.BR, TagConstants.TITLE, TagConstants.META, TagConstants
-            .TR)));
+            <String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.BR, TagConstants.LINK, TagConstants.META, TagConstants
+            .TITLE, TagConstants.TR)));
 
         private ProcessorContext context;
 
@@ -231,8 +231,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
                 ITagWorker tagWorker = context.GetTagWorkerFactory().GetTagWorkerInstance(element, context);
                 if (tagWorker == null) {
-                    // For stylesheet links it looks ugly, but log errors will be printed for other <link> elements, not css links
-                    if (!ignoredTags.Contains(element.Name()) && !HtmlUtils.IsStyleSheetLink(element)) {
+                    if (!ignoredTags.Contains(element.Name())) {
                         logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).Name()));
                     }
                 }
