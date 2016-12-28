@@ -55,7 +55,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             PdfImageXObject imageXObject = context.GetResourceResolver().RetrieveImage(element.GetAttribute(AttributeConstants
                 .SRC));
             if (imageXObject != null) {
-                image = new Image(imageXObject);
+                image = new ImgTagWorker.HtmlImage(this, imageXObject);
             }
         }
 
@@ -72,6 +72,26 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public virtual IPropertyContainer GetElementResult() {
             return image;
+        }
+
+        private class HtmlImage : Image {
+            private double pxToPt = 0.75;
+
+            public HtmlImage(ImgTagWorker _enclosing, PdfImageXObject xObject)
+                : base(xObject) {
+                this._enclosing = _enclosing;
+            }
+
+            // In iText by default we set image sizes (in points) exactly of the image height and width in pixels.
+            public override float GetImageWidth() {
+                return (float)(this.xObject.GetWidth() * this.pxToPt);
+            }
+
+            public override float GetImageHeight() {
+                return (float)(this.xObject.GetHeight() * this.pxToPt);
+            }
+
+            private readonly ImgTagWorker _enclosing;
         }
     }
 }

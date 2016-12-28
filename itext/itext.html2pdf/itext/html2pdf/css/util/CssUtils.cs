@@ -165,7 +165,6 @@ namespace iText.Html2pdf.Css.Util {
             return f;
         }
 
-        // TODO default metric?
         public static float ParseAbsoluteLength(String length) {
             return ParseAbsoluteLength(length, CssConstants.PX);
         }
