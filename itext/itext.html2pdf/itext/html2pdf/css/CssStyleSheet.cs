@@ -43,6 +43,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using iText.Html2pdf.Css.Media;
+using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 
@@ -95,7 +96,18 @@ namespace iText.Html2pdf.Css {
         private static void PopulateDeclarationsMap(IList<CssDeclaration> declarations, IDictionary<String, CssDeclaration
             > map) {
             foreach (CssDeclaration declaration in declarations) {
-                map[declaration.GetProperty()] = declaration;
+                IShorthandResolver shorthandResolver = ShorthandResolverFactory.GetShorthandResolver(declaration.GetProperty
+                    ());
+                if (shorthandResolver == null) {
+                    map[declaration.GetProperty()] = declaration;
+                }
+                else {
+                    IList<CssDeclaration> resolvedShorthandProps = shorthandResolver.ResolveShorthand(declaration.GetExpression
+                        ());
+                    foreach (CssDeclaration resolvedProp in resolvedShorthandProps) {
+                        map[resolvedProp.GetProperty()] = resolvedProp;
+                    }
+                }
             }
         }
 
