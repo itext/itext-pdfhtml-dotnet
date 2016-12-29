@@ -69,50 +69,79 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(Property.POSITION, LayoutPosition.RELATIVE);
                     ApplyLeftRightTopBottom(cssProps, context, element);
                 }
+                else {
+                    if (CssConstants.FIXED.Equals(position)) {
+                    }
+                }
             }
         }
 
+        //            element.setProperty(Property.POSITION, LayoutPosition.FIXED);
+        //            float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        //            applyLeftProperty(cssProps, element, em, Property.X);
+        //            applyTopProperty(cssProps, element, em, Property.Y);
+        // TODO
         private static void ApplyLeftRightTopBottom(IDictionary<String, String> cssProps, ProcessorContext context
             , IPropertyContainer element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            ApplyLeftProperty(cssProps, element, em, Property.LEFT);
+            ApplyRightProperty(cssProps, element, em, Property.RIGHT);
+            ApplyTopProperty(cssProps, element, em, Property.TOP);
+            ApplyBottomProperty(cssProps, element, em, Property.BOTTOM);
+        }
+
+        private static void ApplyLeftProperty(IDictionary<String, String> cssProps, IPropertyContainer element, float
+             em, int layoutPropertyMapping) {
             String left = cssProps.Get(CssConstants.LEFT);
-            String right = cssProps.Get(CssConstants.RIGHT);
-            String top = cssProps.Get(CssConstants.TOP);
-            String bottom = cssProps.Get(CssConstants.BOTTOM);
             UnitValue leftVal = CssUtils.ParseLengthValueToPt(left, em);
-            UnitValue rightVal = CssUtils.ParseLengthValueToPt(right, em);
-            UnitValue topVal = CssUtils.ParseLengthValueToPt(top, em);
-            UnitValue bottomVal = CssUtils.ParseLengthValueToPt(bottom, em);
             if (leftVal != null) {
                 if (leftVal.IsPointValue()) {
-                    element.SetProperty(Property.LEFT, leftVal.GetValue());
+                    element.SetProperty(layoutPropertyMapping, leftVal.GetValue());
                 }
                 else {
                     logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
                         .LEFT));
                 }
             }
+        }
+
+        private static void ApplyRightProperty(IDictionary<String, String> cssProps, IPropertyContainer element, float
+             em, int layoutPropertyMapping) {
+            String right = cssProps.Get(CssConstants.RIGHT);
+            UnitValue rightVal = CssUtils.ParseLengthValueToPt(right, em);
             if (rightVal != null) {
                 if (rightVal.IsPointValue()) {
-                    element.SetProperty(Property.RIGHT, rightVal.GetValue());
+                    element.SetProperty(layoutPropertyMapping, rightVal.GetValue());
                 }
                 else {
                     logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
                         .RIGHT));
                 }
             }
+        }
+
+        private static void ApplyTopProperty(IDictionary<String, String> cssProps, IPropertyContainer element, float
+             em, int layoutPropertyMapping) {
+            String top = cssProps.Get(CssConstants.TOP);
+            UnitValue topVal = CssUtils.ParseLengthValueToPt(top, em);
             if (topVal != null) {
                 if (topVal.IsPointValue()) {
-                    element.SetProperty(Property.TOP, topVal.GetValue());
+                    element.SetProperty(layoutPropertyMapping, topVal.GetValue());
                 }
                 else {
                     logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
                         .TOP));
                 }
             }
+        }
+
+        private static void ApplyBottomProperty(IDictionary<String, String> cssProps, IPropertyContainer element, 
+            float em, int layoutPropertyMapping) {
+            String bottom = cssProps.Get(CssConstants.BOTTOM);
+            UnitValue bottomVal = CssUtils.ParseLengthValueToPt(bottom, em);
             if (bottomVal != null) {
                 if (bottomVal.IsPointValue()) {
-                    element.SetProperty(Property.BOTTOM, bottomVal.GetValue());
+                    element.SetProperty(layoutPropertyMapping, bottomVal.GetValue());
                 }
                 else {
                     logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
