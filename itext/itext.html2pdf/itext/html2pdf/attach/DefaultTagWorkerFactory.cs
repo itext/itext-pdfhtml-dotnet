@@ -43,26 +43,44 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Attach {
     public class DefaultTagWorkerFactory : ITagWorkerFactory {
         /// <summary>Internal map to keep track of tags and associated tag workers</summary>
-        private IDictionary<String, Type> map;
+        private IDictionary<String, Type> tagMap;
+
+        private IDictionary<String, Type> displayMap;
+
+        private ICollection<String> displayPropertySupportedTags;
 
         public DefaultTagWorkerFactory() {
-            this.map = new ConcurrentDictionary<String, Type>();
+            //Internal mappings of tag workers and display ccs property
+            // Tags that will consider display property while creating tagWorker.
+            this.tagMap = new ConcurrentDictionary<String, Type>();
+            this.displayMap = new ConcurrentDictionary<String, Type>();
+            this.displayPropertySupportedTags = new HashSet<String>();
             RegisterDefaultHtmlTagWorkers();
         }
 
         /// <exception cref="iText.Html2pdf.Exceptions.TagWorkerInitializationException"/>
         public virtual ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context) {
             // Get Tag Worker class name
-            Type tagWorkerClass = map.Get(tag.Name());
+            Type tagWorkerClass = tagMap.Get(tag.Name());
             // No tag worker found for tag
             if (tagWorkerClass == null) {
                 return null;
+            }
+            if (tag.GetStyles() != null) {
+                String displayCssProp = tag.GetStyles().Get(CssConstants.DISPLAY);
+                if (displayCssProp != null) {
+                    Type displayWorkerClass = displayMap.Get(displayCssProp);
+                    if (displayPropertySupportedTags.Contains(tag.Name()) && displayWorkerClass != null) {
+                        tagWorkerClass = displayWorkerClass;
+                    }
+                }
             }
             // Use reflection to create an instance
             try {
@@ -78,18 +96,20 @@ namespace iText.Html2pdf.Attach {
         }
 
         public virtual void RegisterTagWorker(String tag, Type tagWorkerClass) {
-            map[tag] = tagWorkerClass;
+            tagMap[tag] = tagWorkerClass;
         }
 
         public virtual void RemoveTagWorker(String tag) {
-            map.JRemove(tag);
+            tagMap.JRemove(tag);
         }
 
         private void RegisterDefaultHtmlTagWorkers() {
             IDictionary<String, Type> defaultMapping = DefaultTagWorkerMapping.GetDefaultTagWorkerMapping();
             foreach (KeyValuePair<String, Type> ent in defaultMapping) {
-                map[ent.Key] = ent.Value;
+                tagMap[ent.Key] = ent.Value;
             }
+            displayMap.AddAll(DefaultDisplayWorkerMapping.GetDefaultDisplayWorkerMapping());
+            displayPropertySupportedTags.AddAll(DefaultDisplayWorkerMapping.GetSupportedTags());
         }
     }
 }

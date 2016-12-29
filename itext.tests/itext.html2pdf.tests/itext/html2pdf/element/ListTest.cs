@@ -173,6 +173,26 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void ListTest11() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "listTest11.html"), new FileInfo(destinationFolder 
+                + "listTest11.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "listTest11.pdf", sourceFolder
+                 + "cmp_listTest11.pdf", destinationFolder, "diff11_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ListTest12() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "listTest12.html"), new FileInfo(destinationFolder 
+                + "listTest12.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "listTest12.pdf", sourceFolder
+                 + "cmp_listTest12.pdf", destinationFolder, "diff12_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Conversion to Pdf/A for lists not supported. DEVSIX-917")]
         public virtual void ListToPdfaTest() {
             Stream @is = new FileStream(sourceFolder + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read);

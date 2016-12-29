@@ -326,6 +326,8 @@ namespace iText.Html2pdf.Css {
 
         public const String INITIAL = "initial";
 
+        public const String INLINE = "inline";
+
         public const String INSET = "inset";
 
         public const String INSIDE = "inside";
