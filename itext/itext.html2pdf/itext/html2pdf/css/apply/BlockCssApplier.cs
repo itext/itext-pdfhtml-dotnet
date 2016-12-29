@@ -60,6 +60,7 @@ namespace iText.Html2pdf.Css.Apply {
                 BorderStyleApplierUtil.ApplyBorders(cssProps, context, container);
                 HyphenationApplierUtil.ApplyHyphenation(cssProps, context, element, container);
                 FloatApplierUtil.ApplyFloating(cssProps, context, container);
+                PositionApplierUtil.ApplyPosition(cssProps, context, container);
             }
         }
     }
