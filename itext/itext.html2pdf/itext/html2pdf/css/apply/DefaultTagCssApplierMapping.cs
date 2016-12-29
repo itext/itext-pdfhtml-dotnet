@@ -39,90 +39,95 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-using System;
-using System.Collections.Generic;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Html;
-using iText.IO.Util;
+using iText.Html2pdf.Util;
 
 namespace iText.Html2pdf.Css.Apply {
-    public class DefaultTagCssApplierMapping {
-        private static IDictionary<String, Type> mapping;
+    internal class DefaultTagCssApplierMapping {
+        private DefaultTagCssApplierMapping() {
+        }
 
-        public static IDictionary<String, Type> GetDefaultCssApplierMapping() {
-            if (mapping == null) {
-                IDictionary<String, Type> buildMap = new Dictionary<String, Type>();
-                buildMap[TagConstants.A] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.ABBR] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.ADDRESS] = typeof(BlockCssApplier);
-                buildMap[TagConstants.ARTICLE] = typeof(BlockCssApplier);
-                buildMap[TagConstants.ASIDE] = typeof(BlockCssApplier);
-                buildMap[TagConstants.B] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.BDI] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.BDO] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.BLOCKQUOTE] = typeof(BlockCssApplier);
-                buildMap[TagConstants.BODY] = typeof(BodyTagCssApplier);
-                //buildMap.put(TagConstants.CAPTION,SpanTagCssApplier.class);
-                buildMap[TagConstants.CENTER] = typeof(BlockCssApplier);
-                buildMap[TagConstants.CITE] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.CODE] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.COL] = typeof(ColTagCssApplier);
-                buildMap[TagConstants.COLGROUP] = typeof(ColgroupTagCssApplier);
-                buildMap[TagConstants.EM] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.DEL] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.DFN] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.DT] = typeof(BlockCssApplier);
-                buildMap[TagConstants.DD] = typeof(BlockCssApplier);
-                buildMap[TagConstants.DIV] = typeof(BlockCssApplier);
-                buildMap[TagConstants.FONT] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.FOOTER] = typeof(BlockCssApplier);
-                buildMap[TagConstants.FIGCAPTION] = typeof(BlockCssApplier);
-                buildMap[TagConstants.FIGURE] = typeof(BlockCssApplier);
-                buildMap[TagConstants.H1] = typeof(BlockCssApplier);
-                buildMap[TagConstants.H2] = typeof(BlockCssApplier);
-                buildMap[TagConstants.H3] = typeof(BlockCssApplier);
-                buildMap[TagConstants.H4] = typeof(BlockCssApplier);
-                buildMap[TagConstants.H5] = typeof(BlockCssApplier);
-                buildMap[TagConstants.H6] = typeof(BlockCssApplier);
-                buildMap[TagConstants.HEADER] = typeof(BlockCssApplier);
-                buildMap[TagConstants.HR] = typeof(BlockCssApplier);
-                buildMap[TagConstants.IMG] = typeof(BlockCssApplier);
-                buildMap[TagConstants.INPUT] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.MAIN] = typeof(BlockCssApplier);
-                buildMap[TagConstants.NAV] = typeof(BlockCssApplier);
-                buildMap[TagConstants.P] = typeof(BlockCssApplier);
-                buildMap[TagConstants.SECTION] = typeof(BlockCssApplier);
-                buildMap[TagConstants.TABLE] = typeof(BlockCssApplier);
-                buildMap[TagConstants.TFOOT] = typeof(BlockCssApplier);
-                buildMap[TagConstants.THEAD] = typeof(BlockCssApplier);
-                buildMap[TagConstants.DL] = typeof(DlTagCssApplier);
-                buildMap[TagConstants.HTML] = typeof(HtmlTagCssApplier);
-                buildMap[TagConstants.I] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.INS] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.KBD] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.LABEL] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.LI] = typeof(LiTagCssApplier);
-                buildMap[TagConstants.MARK] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.OL] = typeof(UlOlTagCssApplier);
-                buildMap[TagConstants.PRE] = typeof(BlockCssApplier);
-                buildMap[TagConstants.Q] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.S] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.SAMP] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.SMALL] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.SPAN] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.STRIKE] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.STRONG] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.SUB] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.SUP] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.TD] = typeof(TdTagCssApplier);
-                buildMap[TagConstants.TH] = typeof(TdTagCssApplier);
-                buildMap[TagConstants.TIME] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.TR] = typeof(TrTagCssApplier);
-                buildMap[TagConstants.U] = typeof(SpanTagCssApplier);
-                buildMap[TagConstants.UL] = typeof(UlOlTagCssApplier);
-                buildMap[TagConstants.VAR] = typeof(SpanTagCssApplier);
-                mapping = JavaCollectionsUtil.UnmodifiableMap(buildMap);
-            }
+        private static TagProcessorMapping mapping;
+
+        static DefaultTagCssApplierMapping() {
+            mapping = new TagProcessorMapping();
+            mapping.PutMapping(TagConstants.A, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.ABBR, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.ADDRESS, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.ARTICLE, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.ASIDE, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.B, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.BDI, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.BDO, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.BLOCKQUOTE, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.BODY, typeof(BodyTagCssApplier));
+            mapping.PutMapping(TagConstants.CAPTION, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.CENTER, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.CITE, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.CODE, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.COL, typeof(ColTagCssApplier));
+            mapping.PutMapping(TagConstants.COLGROUP, typeof(ColgroupTagCssApplier));
+            mapping.PutMapping(TagConstants.EM, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.DEL, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.DFN, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.DT, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.DD, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.DIV, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.FONT, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.FOOTER, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.FIGCAPTION, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.FIGURE, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.H1, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.H2, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.H3, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.H4, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.H5, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.H6, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.HEADER, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.HR, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.IMG, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.INPUT, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.MAIN, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.NAV, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.P, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.SECTION, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.TABLE, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.TFOOT, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.THEAD, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.DL, typeof(DlTagCssApplier));
+            mapping.PutMapping(TagConstants.HTML, typeof(HtmlTagCssApplier));
+            mapping.PutMapping(TagConstants.I, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.INS, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.KBD, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.LABEL, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.LI, typeof(LiTagCssApplier));
+            mapping.PutMapping(TagConstants.MARK, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.OL, typeof(UlOlTagCssApplier));
+            mapping.PutMapping(TagConstants.PRE, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.Q, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.S, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.SAMP, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.SMALL, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.SPAN, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.STRIKE, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.STRONG, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.SUB, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.SUP, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.TD, typeof(TdTagCssApplier));
+            mapping.PutMapping(TagConstants.TH, typeof(TdTagCssApplier));
+            mapping.PutMapping(TagConstants.TIME, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.TR, typeof(TrTagCssApplier));
+            mapping.PutMapping(TagConstants.U, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.UL, typeof(UlOlTagCssApplier));
+            mapping.PutMapping(TagConstants.VAR, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.LI, CssConstants.INLINE, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.DD, CssConstants.INLINE, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.DT, CssConstants.INLINE, typeof(SpanTagCssApplier));
+        }
+
+        internal static TagProcessorMapping GetDefaultCssApplierMapping() {
             return mapping;
         }
     }

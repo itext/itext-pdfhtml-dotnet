@@ -47,13 +47,10 @@ namespace iText.Html2pdf.Attach {
     public interface ITagWorkerFactory {
         /// <summary>Look up a TagProcessor for the given tag and returns an instance constructed with passed parameters.
         ///     </summary>
-        /// <param name="tag"/>
-        /// <param name="context"/>
-        /// <returns/>
         ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context);
 
         void RegisterTagWorker(String tag, Type tagWorkerClass);
 
-        void RemoveTagWorker(String tag);
+        void RegisterTagWorker(String tag, String display, Type tagWorkerClass);
     }
 }

@@ -40,8 +40,10 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using Org.Jsoup.Nodes;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
@@ -50,7 +52,6 @@ using iText.Kernel;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
     public class DefaultCssApplierFactoryTest : ExtendedITextTest {
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
@@ -60,29 +61,24 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void RegisterTagApplierTest() {
             String tag = "dummy";
+            String snippet = "<dummy><p>Hello</p></dummy>";
+            Document doc = Org.Jsoup.Jsoup.Parse(snippet);
             Type applierClass = typeof(BlockCssApplier);
             ICssApplierFactory df = new DefaultCssApplierFactory();
             df.RegisterCssApplier(tag, applierClass);
-            ICssApplier ca = df.GetCssApplier(tag);
+            ICssApplier ca = df.GetCssApplier(new JsoupElementNode(doc.GetElementsByTag(tag)[0]));
             NUnit.Framework.Assert.AreEqual(ca.GetType(), applierClass);
         }
 
         [NUnit.Framework.Test]
         public virtual void RetrieveTagApplierTest() {
             String tag = TagConstants.DIV;
+            String snippet = "<" + tag + "><p>Hello</p></" + tag + ">";
+            Document doc = Org.Jsoup.Jsoup.Parse(snippet);
             Type expected = typeof(BlockCssApplier);
             ICssApplierFactory df = new DefaultCssApplierFactory();
-            ICssApplier ca = df.GetCssApplier(tag);
+            ICssApplier ca = df.GetCssApplier(new JsoupElementNode(doc.GetElementsByTag(tag)[0]));
             NUnit.Framework.Assert.AreEqual(ca.GetType(), expected);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void RemoveTagApplierTest() {
-            String tag = TagConstants.DIV;
-            ICssApplierFactory df = new DefaultCssApplierFactory();
-            df.RemoveCssApplier(tag);
-            ICssApplier ca = df.GetCssApplier(tag);
-            NUnit.Framework.Assert.IsNull(ca);
         }
     }
 }

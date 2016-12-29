@@ -40,47 +40,31 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Reflection;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html.Node;
+using iText.Html2pdf.Util;
 
 namespace iText.Html2pdf.Attach {
     public class DefaultTagWorkerFactory : ITagWorkerFactory {
-        /// <summary>Internal map to keep track of tags and associated tag workers</summary>
-        private IDictionary<String, Type> tagMap;
+        private TagProcessorMapping defaultMapping;
 
-        private IDictionary<String, Type> displayMap;
-
-        private ICollection<String> displayPropertySupportedTags;
+        private TagProcessorMapping userMapping;
 
         public DefaultTagWorkerFactory() {
-            //Internal mappings of tag workers and display ccs property
-            // Tags that will consider display property while creating tagWorker.
-            this.tagMap = new ConcurrentDictionary<String, Type>();
-            this.displayMap = new ConcurrentDictionary<String, Type>();
-            this.displayPropertySupportedTags = new HashSet<String>();
-            RegisterDefaultHtmlTagWorkers();
+            defaultMapping = DefaultTagWorkerMapping.GetDefaultTagWorkerMapping();
+            userMapping = new TagProcessorMapping();
         }
 
         /// <exception cref="iText.Html2pdf.Exceptions.TagWorkerInitializationException"/>
         public virtual ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context) {
-            // Get Tag Worker class name
-            Type tagWorkerClass = tagMap.Get(tag.Name());
-            // No tag worker found for tag
+            Type tagWorkerClass = GetTagWorkerClass(userMapping, tag);
+            if (tagWorkerClass == null) {
+                tagWorkerClass = GetTagWorkerClass(defaultMapping, tag);
+            }
             if (tagWorkerClass == null) {
                 return null;
-            }
-            if (tag.GetStyles() != null) {
-                String displayCssProp = tag.GetStyles().Get(CssConstants.DISPLAY);
-                if (displayCssProp != null) {
-                    Type displayWorkerClass = displayMap.Get(displayCssProp);
-                    if (displayPropertySupportedTags.Contains(tag.Name()) && displayWorkerClass != null) {
-                        tagWorkerClass = displayWorkerClass;
-                    }
-                }
             }
             // Use reflection to create an instance
             try {
@@ -96,20 +80,23 @@ namespace iText.Html2pdf.Attach {
         }
 
         public virtual void RegisterTagWorker(String tag, Type tagWorkerClass) {
-            tagMap[tag] = tagWorkerClass;
+            userMapping.PutMapping(tag, tagWorkerClass);
         }
 
-        public virtual void RemoveTagWorker(String tag) {
-            tagMap.JRemove(tag);
+        public virtual void RegisterTagWorker(String tag, String display, Type tagWorkerClass) {
+            userMapping.PutMapping(tag, display, tagWorkerClass);
         }
 
-        private void RegisterDefaultHtmlTagWorkers() {
-            IDictionary<String, Type> defaultMapping = DefaultTagWorkerMapping.GetDefaultTagWorkerMapping();
-            foreach (KeyValuePair<String, Type> ent in defaultMapping) {
-                tagMap[ent.Key] = ent.Value;
+        private static Type GetTagWorkerClass(TagProcessorMapping mapping, IElementNode tag) {
+            Type tagWorkerClass = null;
+            String display = tag.GetStyles() != null ? tag.GetStyles().Get(CssConstants.DISPLAY) : null;
+            if (display != null) {
+                tagWorkerClass = mapping.GetMapping(tag.Name(), display);
             }
-            displayMap.AddAll(DefaultDisplayWorkerMapping.GetDefaultDisplayWorkerMapping());
-            displayPropertySupportedTags.AddAll(DefaultDisplayWorkerMapping.GetSupportedTags());
+            if (tagWorkerClass == null) {
+                tagWorkerClass = mapping.GetMapping(tag.Name());
+            }
+            return tagWorkerClass;
         }
     }
 }

@@ -40,22 +40,27 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Exceptions;
+using iText.Html2pdf.Html.Node;
+using iText.Html2pdf.Util;
 
 namespace iText.Html2pdf.Css.Apply {
     public class DefaultCssApplierFactory : ICssApplierFactory {
-        private IDictionary<String, Type> map;
+        private TagProcessorMapping defaultMapping;
+
+        private TagProcessorMapping userMapping;
 
         public DefaultCssApplierFactory() {
-            this.map = new ConcurrentDictionary<String, Type>();
-            this.RegisterDefaultCssAppliers();
+            defaultMapping = DefaultTagCssApplierMapping.GetDefaultCssApplierMapping();
+            userMapping = new TagProcessorMapping();
         }
 
-        public virtual ICssApplier GetCssApplier(String tag) {
-            // Get css applier classname
-            Type cssApplierClass = map.Get(tag);
+        public virtual ICssApplier GetCssApplier(IElementNode tag) {
+            Type cssApplierClass = GetCssApplierClass(userMapping, tag);
+            if (cssApplierClass == null) {
+                cssApplierClass = GetCssApplierClass(defaultMapping, tag);
+            }
             if (cssApplierClass == null) {
                 return null;
             }
@@ -65,23 +70,28 @@ namespace iText.Html2pdf.Css.Apply {
             }
             catch (Exception) {
                 throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass
-                    .FullName, tag);
+                    .FullName, tag.Name());
             }
         }
 
         public virtual void RegisterCssApplier(String tag, Type classToRegister) {
-            this.map[tag] = classToRegister;
+            userMapping.PutMapping(tag, classToRegister);
         }
 
-        public virtual void RemoveCssApplier(String tag) {
-            this.map.JRemove(tag);
+        public virtual void RegisterCssApplier(String tag, String display, Type applierToUse) {
+            userMapping.PutMapping(tag, display, applierToUse);
         }
 
-        private void RegisterDefaultCssAppliers() {
-            IDictionary<String, Type> defaultMapping = DefaultTagCssApplierMapping.GetDefaultCssApplierMapping();
-            foreach (KeyValuePair<String, Type> ent in defaultMapping) {
-                map[ent.Key] = ent.Value;
+        private static Type GetCssApplierClass(TagProcessorMapping mapping, IElementNode tag) {
+            Type cssApplierClass = null;
+            String display = tag.GetStyles() != null ? tag.GetStyles().Get(CssConstants.DISPLAY) : null;
+            if (display != null) {
+                cssApplierClass = mapping.GetMapping(tag.Name(), display);
             }
+            if (cssApplierClass == null) {
+                cssApplierClass = mapping.GetMapping(tag.Name());
+            }
+            return cssApplierClass;
         }
     }
 }

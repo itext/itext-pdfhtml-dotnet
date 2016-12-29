@@ -41,33 +41,48 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
-using iText.Html2pdf.Attach.Impl.Tags;
-using iText.Html2pdf.Css;
-using iText.Html2pdf.Html;
-using iText.IO.Util;
 
-namespace iText.Html2pdf.Attach {
-    public class DefaultDisplayWorkerMapping {
-        private static IDictionary<String, Type> mapping;
+namespace iText.Html2pdf.Util {
+    public class TagProcessorMapping {
+        private static String DEFAULT_DISPLAY_KEY = "defaultKey";
 
-        private static ICollection<String> supportedTags;
+        private IDictionary<String, IDictionary<String, Type>> mapping;
 
-        public static IDictionary<String, Type> GetDefaultDisplayWorkerMapping() {
-            if (mapping == null) {
-                IDictionary<String, Type> buildMap = new Dictionary<String, Type>(1);
-                buildMap[CssConstants.INLINE] = typeof(SpanTagWorker);
-                mapping = JavaCollectionsUtil.UnmodifiableMap(buildMap);
-            }
-            return mapping;
+        public TagProcessorMapping() {
+            mapping = new Dictionary<String, IDictionary<String, Type>>();
         }
 
-        public static ICollection<String> GetSupportedTags() {
-            if (supportedTags == null) {
-                ICollection<String> buildSet = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.LI, TagConstants
-                    .DD, TagConstants.DT));
-                supportedTags = JavaCollectionsUtil.UnmodifiableSet(buildSet);
+        public virtual void PutMapping(String tag, Type mappingClass) {
+            EnsureMappingExists(tag)[DEFAULT_DISPLAY_KEY] = mappingClass;
+        }
+
+        public virtual void PutMapping(String tag, String display, Type mappingClass) {
+            EnsureMappingExists(tag)[display] = mappingClass;
+        }
+
+        public virtual Type GetMapping(String tag) {
+            return GetMapping(tag, DEFAULT_DISPLAY_KEY);
+        }
+
+        public virtual Type GetMapping(String tag, String display) {
+            IDictionary<String, Type> tagMapping = mapping.Get(tag);
+            if (tagMapping == null) {
+                return null;
             }
-            return supportedTags;
+            else {
+                return tagMapping.Get(display);
+            }
+        }
+
+        private IDictionary<String, Type> EnsureMappingExists(String tag) {
+            if (mapping.ContainsKey(tag)) {
+                return mapping.Get(tag);
+            }
+            else {
+                IDictionary<String, Type> tagMapping = new Dictionary<String, Type>();
+                mapping[tag] = tagMapping;
+                return tagMapping;
+            }
         }
     }
 }

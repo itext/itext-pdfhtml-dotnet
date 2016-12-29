@@ -244,7 +244,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
                     context.GetState().Pop();
-                    ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(element.Name());
+                    ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(element);
                     if (cssApplier == null) {
                         if (!ignoredCssTags.Contains(element.Name())) {
                             logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.Name())

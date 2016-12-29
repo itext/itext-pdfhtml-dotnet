@@ -39,95 +39,99 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-using System;
-using System.Collections.Generic;
 using iText.Html2pdf.Attach.Impl.Tags;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
-using iText.IO.Util;
+using iText.Html2pdf.Util;
 
 namespace iText.Html2pdf.Attach {
-    public class DefaultTagWorkerMapping {
-        private static IDictionary<String, Type> mapping;
+    internal class DefaultTagWorkerMapping {
+        private DefaultTagWorkerMapping() {
+        }
 
-        public static IDictionary<String, Type> GetDefaultTagWorkerMapping() {
-            if (mapping == null) {
-                IDictionary<String, Type> buildMap = new Dictionary<String, Type>();
-                buildMap[TagConstants.A] = typeof(ATagWorker);
-                buildMap[TagConstants.ABBR] = typeof(ATagWorker);
-                buildMap[TagConstants.ADDRESS] = typeof(DivTagWorker);
-                buildMap[TagConstants.ARTICLE] = typeof(DivTagWorker);
-                buildMap[TagConstants.ASIDE] = typeof(DivTagWorker);
-                buildMap[TagConstants.B] = typeof(SpanTagWorker);
-                buildMap[TagConstants.BDI] = typeof(SpanTagWorker);
-                buildMap[TagConstants.BDO] = typeof(SpanTagWorker);
-                buildMap[TagConstants.BLOCKQUOTE] = typeof(DivTagWorker);
-                buildMap[TagConstants.BODY] = typeof(BodyTagWorker);
-                buildMap[TagConstants.BR] = typeof(BrTagWorker);
-                buildMap[TagConstants.COL] = typeof(ColTagWorker);
-                buildMap[TagConstants.COLGROUP] = typeof(ColgroupTagWorker);
-                //buildMap.put(TagConstants.CAPTION, SpanTagWorker.class);
-                buildMap[TagConstants.CENTER] = typeof(DivTagWorker);
-                buildMap[TagConstants.CITE] = typeof(SpanTagWorker);
-                buildMap[TagConstants.CODE] = typeof(SpanTagWorker);
-                buildMap[TagConstants.DEL] = typeof(SpanTagWorker);
-                buildMap[TagConstants.DFN] = typeof(SpanTagWorker);
-                buildMap[TagConstants.DIV] = typeof(DivTagWorker);
-                buildMap[TagConstants.DD] = typeof(LiTagWorker);
-                buildMap[TagConstants.DL] = typeof(UlOlTagWorker);
-                buildMap[TagConstants.DT] = typeof(LiTagWorker);
-                buildMap[TagConstants.EM] = typeof(SpanTagWorker);
-                buildMap[TagConstants.FONT] = typeof(SpanTagWorker);
-                buildMap[TagConstants.FIGCAPTION] = typeof(DivTagWorker);
-                buildMap[TagConstants.FIGURE] = typeof(DivTagWorker);
-                buildMap[TagConstants.FOOTER] = typeof(DivTagWorker);
-                buildMap[TagConstants.HEADER] = typeof(DivTagWorker);
-                buildMap[TagConstants.HR] = typeof(HrTagWorker);
-                buildMap[TagConstants.HTML] = typeof(HtmlTagWorker);
-                buildMap[TagConstants.I] = typeof(SpanTagWorker);
-                buildMap[TagConstants.IMG] = typeof(ImgTagWorker);
-                buildMap[TagConstants.INPUT] = typeof(InputTagWorker);
-                buildMap[TagConstants.INS] = typeof(SpanTagWorker);
-                buildMap[TagConstants.KBD] = typeof(SpanTagWorker);
-                buildMap[TagConstants.LABEL] = typeof(SpanTagWorker);
-                buildMap[TagConstants.LI] = typeof(LiTagWorker);
-                buildMap[TagConstants.LINK] = typeof(LinkTagWorker);
-                buildMap[TagConstants.MAIN] = typeof(DivTagWorker);
-                buildMap[TagConstants.MARK] = typeof(SpanTagWorker);
-                buildMap[TagConstants.META] = typeof(MetaTagWorker);
-                buildMap[TagConstants.NAV] = typeof(DivTagWorker);
-                buildMap[TagConstants.OL] = typeof(UlOlTagWorker);
-                buildMap[TagConstants.H1] = typeof(DivTagWorker);
-                buildMap[TagConstants.H2] = typeof(DivTagWorker);
-                buildMap[TagConstants.H3] = typeof(DivTagWorker);
-                buildMap[TagConstants.H4] = typeof(DivTagWorker);
-                buildMap[TagConstants.H5] = typeof(DivTagWorker);
-                buildMap[TagConstants.H6] = typeof(DivTagWorker);
-                buildMap[TagConstants.P] = typeof(PTagWorker);
-                buildMap[TagConstants.PRE] = typeof(DivTagWorker);
-                buildMap[TagConstants.Q] = typeof(SpanTagWorker);
-                buildMap[TagConstants.S] = typeof(SpanTagWorker);
-                buildMap[TagConstants.SAMP] = typeof(SpanTagWorker);
-                buildMap[TagConstants.SECTION] = typeof(DivTagWorker);
-                buildMap[TagConstants.SMALL] = typeof(SpanTagWorker);
-                buildMap[TagConstants.SPAN] = typeof(SpanTagWorker);
-                buildMap[TagConstants.STRIKE] = typeof(SpanTagWorker);
-                buildMap[TagConstants.STRONG] = typeof(SpanTagWorker);
-                buildMap[TagConstants.SUB] = typeof(SpanTagWorker);
-                buildMap[TagConstants.SUP] = typeof(SpanTagWorker);
-                buildMap[TagConstants.TABLE] = typeof(TableTagWorker);
-                buildMap[TagConstants.TFOOT] = typeof(TableFooterTagWorker);
-                buildMap[TagConstants.THEAD] = typeof(TableHeaderTagWorker);
-                buildMap[TagConstants.TIME] = typeof(SpanTagWorker);
-                buildMap[TagConstants.TITLE] = typeof(TitleTagWorker);
-                buildMap[TagConstants.TD] = typeof(TdTagWorker);
-                buildMap[TagConstants.TH] = typeof(TdTagWorker);
-                buildMap[TagConstants.TR] = typeof(TrTagWorker);
-                buildMap[TagConstants.U] = typeof(SpanTagWorker);
-                buildMap[TagConstants.UL] = typeof(UlOlTagWorker);
-                buildMap[TagConstants.VAR] = typeof(SpanTagWorker);
-                mapping = JavaCollectionsUtil.UnmodifiableMap(buildMap);
-            }
-            return mapping;
+        private static TagProcessorMapping workerMapping;
+
+        static DefaultTagWorkerMapping() {
+            workerMapping = new TagProcessorMapping();
+            workerMapping.PutMapping(TagConstants.A, typeof(ATagWorker));
+            workerMapping.PutMapping(TagConstants.ABBR, typeof(ATagWorker));
+            workerMapping.PutMapping(TagConstants.ADDRESS, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.ARTICLE, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.ASIDE, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.B, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.BDI, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.BDO, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.BLOCKQUOTE, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.BODY, typeof(BodyTagWorker));
+            workerMapping.PutMapping(TagConstants.BR, typeof(BrTagWorker));
+            workerMapping.PutMapping(TagConstants.COL, typeof(ColTagWorker));
+            workerMapping.PutMapping(TagConstants.COLGROUP, typeof(ColgroupTagWorker));
+            workerMapping.PutMapping(TagConstants.CENTER, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.CITE, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.CODE, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.DEL, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.DFN, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.DIV, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.DD, typeof(LiTagWorker));
+            workerMapping.PutMapping(TagConstants.DL, typeof(UlOlTagWorker));
+            workerMapping.PutMapping(TagConstants.DT, typeof(LiTagWorker));
+            workerMapping.PutMapping(TagConstants.EM, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.FONT, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.FIGCAPTION, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.FIGURE, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.FOOTER, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.HEADER, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.HR, typeof(HrTagWorker));
+            workerMapping.PutMapping(TagConstants.HTML, typeof(HtmlTagWorker));
+            workerMapping.PutMapping(TagConstants.I, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.IMG, typeof(ImgTagWorker));
+            workerMapping.PutMapping(TagConstants.INPUT, typeof(InputTagWorker));
+            workerMapping.PutMapping(TagConstants.INS, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.KBD, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.LABEL, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.LI, typeof(LiTagWorker));
+            workerMapping.PutMapping(TagConstants.LINK, typeof(LinkTagWorker));
+            workerMapping.PutMapping(TagConstants.MAIN, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.MARK, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.META, typeof(MetaTagWorker));
+            workerMapping.PutMapping(TagConstants.NAV, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.OL, typeof(UlOlTagWorker));
+            workerMapping.PutMapping(TagConstants.H1, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.H2, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.H3, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.H4, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.H5, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.H6, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.P, typeof(PTagWorker));
+            workerMapping.PutMapping(TagConstants.PRE, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.Q, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.S, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.SAMP, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.SECTION, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.SMALL, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.SPAN, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.STRIKE, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.STRONG, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.SUB, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.SUP, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.TABLE, typeof(TableTagWorker));
+            workerMapping.PutMapping(TagConstants.TFOOT, typeof(TableFooterTagWorker));
+            workerMapping.PutMapping(TagConstants.THEAD, typeof(TableHeaderTagWorker));
+            workerMapping.PutMapping(TagConstants.TIME, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.TITLE, typeof(TitleTagWorker));
+            workerMapping.PutMapping(TagConstants.TD, typeof(TdTagWorker));
+            workerMapping.PutMapping(TagConstants.TH, typeof(TdTagWorker));
+            workerMapping.PutMapping(TagConstants.TR, typeof(TrTagWorker));
+            workerMapping.PutMapping(TagConstants.U, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.UL, typeof(UlOlTagWorker));
+            workerMapping.PutMapping(TagConstants.VAR, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.LI, CssConstants.INLINE, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.DD, CssConstants.INLINE, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.DT, CssConstants.INLINE, typeof(SpanTagWorker));
+        }
+
+        internal static TagProcessorMapping GetDefaultTagWorkerMapping() {
+            return workerMapping;
         }
     }
 }

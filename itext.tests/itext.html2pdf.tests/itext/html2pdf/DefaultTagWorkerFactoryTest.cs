@@ -56,7 +56,6 @@ using iText.Kernel;
 using iText.Test;
 
 namespace iText.Html2pdf {
-    /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
     public class DefaultTagWorkerFactoryTest : ExtendedITextTest {
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
@@ -91,20 +90,6 @@ namespace iText.Html2pdf {
             df.RegisterTagWorker(tag, expected);
             ITagWorker tw = df.GetTagWorkerInstance(testNode, null);
             NUnit.Framework.Assert.AreEqual(tw.GetType(), expected);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void RemoveTagWorkerTest() {
-            String tag = TagConstants.DIV;
-            String snippet = "<" + tag + "><p>Hello</p></" + tag + ">";
-            Document doc = Org.Jsoup.Jsoup.Parse(snippet);
-            IDictionary<String, String> styles = new ConcurrentDictionary<String, String>();
-            IElementNode testNode = new JsoupElementNode(doc.GetElementsByTag(tag)[0]);
-            testNode.SetStyles(styles);
-            DefaultTagWorkerFactory df = new DefaultTagWorkerFactory();
-            df.RemoveTagWorker(tag);
-            ITagWorker tw = df.GetTagWorkerInstance(testNode, null);
-            NUnit.Framework.Assert.IsNull(tw);
         }
     }
 }
