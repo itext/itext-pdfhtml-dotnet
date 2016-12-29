@@ -54,7 +54,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private WaitingInlineElementsHelper inlineHelper;
 
         public UlOlTagWorker(IElementNode element, ProcessorContext context) {
-            list = new List();
+            list = new List().SetListSymbol("");
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
         }
@@ -95,11 +95,15 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             Paragraph p = inlineHelper.CreateParagraphContainer();
             inlineHelper.FlushHangingLeaves(p);
             if (p.GetChildren().Count > 0) {
-                ListItem li = new ListItem();
-                li.Add(p);
-                li.SetListSymbol("");
-                list.Add(li);
+                AddUnlabeledListItem(p);
             }
+        }
+
+        private void AddUnlabeledListItem(IBlockElement item) {
+            ListItem li = new ListItem();
+            li.Add(item);
+            li.SetListSymbol("");
+            list.Add(li);
         }
 
         private bool AddBlockChild(IPropertyContainer child) {
@@ -107,6 +111,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (child is ListItem) {
                 list.Add((ListItem)child);
                 return true;
+            }
+            else {
+                if (child is IBlockElement) {
+                    AddUnlabeledListItem((IBlockElement)child);
+                    return true;
+                }
             }
             return false;
         }

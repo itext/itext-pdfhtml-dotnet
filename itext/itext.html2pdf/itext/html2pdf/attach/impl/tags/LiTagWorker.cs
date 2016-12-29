@@ -62,7 +62,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public LiTagWorker(IElementNode element, ProcessorContext context) {
             listItem = new ListItem();
-            if (!(context.GetState().Top() is UlOlTagWorker) && !(context.GetState().Top() is DlTagWorker)) {
+            if (!(context.GetState().Top() is UlOlTagWorker)) {
                 listItem.SetProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
                 Text symbol = new Text(((char)108).ToString()).SetFont(CreateZapfDingBatsSafe());
                 symbol.SetTextRise(1.5f);
