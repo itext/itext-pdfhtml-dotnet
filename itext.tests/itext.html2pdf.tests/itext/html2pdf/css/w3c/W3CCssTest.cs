@@ -86,12 +86,12 @@ namespace iText.Html2pdf.Css.W3c {
 
         private String GetDestinationFolder() {
             String localPackage = GetLocalPackage();
-            return baseDestinationFolder + localPackage + FileInfo.separatorChar + GetTestClassName() + FileInfo.separatorChar;
+            return baseDestinationFolder + localPackage + Path.DirectorySeparatorChar + GetTestClassName() + Path.DirectorySeparatorChar;
         }
 
         private String GetSourceFolder() {
             String localPackage = GetLocalPackage();
-            return baseSourceFolder + localPackage + FileInfo.separatorChar;
+            return baseSourceFolder + localPackage + Path.DirectorySeparatorChar;
         }
 
         private String GetTestClassName() {
@@ -99,9 +99,9 @@ namespace iText.Html2pdf.Css.W3c {
         }
 
         private String GetLocalPackage() {
-            String packageName = GetType().GetPackage().GetName();
-            String basePackageName = typeof(W3CCssTest).GetPackage().GetName();
-            return packageName.Substring(basePackageName.Length).Replace('.', FileInfo.separatorChar);
+            String packageName = GetType().Namespace.ToString();
+            String basePackageName = typeof(W3CCssTest).Namespace.ToString();
+            return packageName.Substring(basePackageName.Length).Replace('.', Path.DirectorySeparatorChar);
         }
 
         private String GetOutPdfFileName() {
