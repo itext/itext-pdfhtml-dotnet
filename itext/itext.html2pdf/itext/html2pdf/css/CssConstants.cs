@@ -270,6 +270,8 @@ namespace iText.Html2pdf.Css {
 
         public const String BLINK = "blink";
 
+        public const String BLOCK = "block";
+
         public const String BOLD = "bold";
 
         public const String BOLDER = "bolder";
