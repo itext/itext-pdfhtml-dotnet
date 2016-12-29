@@ -40,36 +40,12 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.Collections.Generic;
-using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Tags;
-using iText.Html2pdf.Css.Apply;
-using iText.Html2pdf.Css.Apply.Util;
-using iText.Html2pdf.Html.Node;
-using iText.Layout;
+using iText.Html2pdf.Css.W3c;
 
-namespace iText.Html2pdf.Css.Apply.Impl {
-    public class SpanTagCssApplier : ICssApplier {
-        public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-            SpanTagWorker spanTagWorker = (SpanTagWorker)tagWorker;
-            foreach (IPropertyContainer child in spanTagWorker.GetOwnLeafElements()) {
-                ApplyChildElementStyles(child, element.GetStyles(), context, element);
-            }
-            VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForInlines(element.GetStyles(), context, element, spanTagWorker
-                .GetAllElements());
-        }
-
-        private void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String> css, ProcessorContext
-             context, IElementNode elementNode) {
-            FontStyleApplierUtil.ApplyFontStyles(css, context, element);
-            //TODO: Background-applying currently doesn't work in html way for spans inside other spans.
-            BackgroundApplierUtil.ApplyBackground(css, context, element);
-            //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
-            BorderStyleApplierUtil.ApplyBorders(css, context, element);
-            HyphenationApplierUtil.ApplyHyphenation(css, context, elementNode, element);
-            //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
-            MarginApplierUtil.ApplyMargins(css, context, element);
-            PositionApplierUtil.ApplyPosition(css, context, element);
+namespace iText.Html2pdf.Css.W3c.Css21.Positioning {
+    public class TopOffset003Test : W3CCssTest {
+        protected internal override String GetHtmlFileName() {
+            return "top-offset-003.xht";
         }
     }
 }
