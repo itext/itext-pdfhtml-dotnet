@@ -175,8 +175,7 @@ namespace Org.Jsoup.Parser {
         public virtual String ConsumeToIgnoreCase(String seq) {
             int start = pos;
             String first = seq.JSubstring(0, 1);
-            bool canScan = first.ToLower(System.Globalization.CultureInfo.InvariantCulture).Equals(first.ToUpper(System.Globalization.CultureInfo.InvariantCulture
-                ));
+            bool canScan = first.ToLowerInvariant().Equals(first.ToUpperInvariant());
             // if first is not cased, use index of
             while (!IsEmpty()) {
                 if (Matches(seq)) {

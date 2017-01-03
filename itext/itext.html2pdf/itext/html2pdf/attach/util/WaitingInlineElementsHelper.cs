@@ -84,11 +84,11 @@ namespace iText.Html2pdf.Attach.Util {
                 }
             }
             if (CssConstants.UPPERCASE.Equals(textTransform)) {
-                text = text.ToUpper(System.Globalization.CultureInfo.InvariantCulture);
+                text = text.ToUpperInvariant();
             }
             else {
                 if (CssConstants.LOWERCASE.Equals(textTransform)) {
-                    text = text.ToLower(System.Globalization.CultureInfo.InvariantCulture);
+                    text = text.ToLowerInvariant();
                 }
             }
             waitingLeaves.Add(new iText.Layout.Element.Text(text));

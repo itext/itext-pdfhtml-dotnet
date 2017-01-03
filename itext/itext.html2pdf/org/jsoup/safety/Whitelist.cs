@@ -541,7 +541,7 @@ namespace Org.Jsoup.Safety {
                     }
                 }
                 prot += ":";
-                if (value.ToLower(System.Globalization.CultureInfo.InvariantCulture).StartsWith(prot)) {
+                if (value.ToLowerInvariant().StartsWith(prot)) {
                     return true;
                 }
             }

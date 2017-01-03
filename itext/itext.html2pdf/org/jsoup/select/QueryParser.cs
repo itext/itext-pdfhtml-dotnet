@@ -309,8 +309,7 @@ namespace Org.Jsoup.Select {
         private void ByClass() {
             String className = tq.ConsumeCssIdentifier();
             Validate.NotEmpty(className);
-            evals.Add(new Evaluator.Class(className.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture))
-                );
+            evals.Add(new Evaluator.Class(className.Trim().ToLowerInvariant()));
         }
 
         private void ByTag() {
@@ -320,7 +319,7 @@ namespace Org.Jsoup.Select {
             if (tagName.Contains("|")) {
                 tagName = tagName.Replace("|", ":");
             }
-            evals.Add(new Evaluator.Tag(tagName.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture)));
+            evals.Add(new Evaluator.Tag(tagName.Trim().ToLowerInvariant()));
         }
 
         private void ByAttribute() {
@@ -400,7 +399,7 @@ namespace Org.Jsoup.Select {
 
         //pseudo selectors :first-child, :last-child, :nth-child, ...
         private void CssNthChild(bool backwards, bool ofType) {
-            String argS = tq.ChompTo(")").Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+            String argS = tq.ChompTo(")").Trim().ToLowerInvariant();
             Match mAB = iText.IO.Util.StringUtil.Match(NTH_AB, argS);
             Match mB = iText.IO.Util.StringUtil.Match(NTH_B, argS);
             int a;

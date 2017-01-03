@@ -683,7 +683,7 @@ namespace Org.Jsoup.Nodes {
         ///     </returns>
         public virtual Elements GetElementsByTag(String tagName) {
             Validate.NotEmpty(tagName);
-            tagName = tagName.ToLower(System.Globalization.CultureInfo.InvariantCulture).Trim();
+            tagName = tagName.ToLowerInvariant().Trim();
             return Collector.Collect(new Evaluator.Tag(tagName), this);
         }
 
@@ -738,7 +738,7 @@ namespace Org.Jsoup.Nodes {
         /// <returns>elements that have this attribute, empty if none</returns>
         public virtual Elements GetElementsByAttribute(String key) {
             Validate.NotEmpty(key);
-            key = key.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+            key = key.Trim().ToLowerInvariant();
             return Collector.Collect(new Evaluator.Attribute(key), this);
         }
 
@@ -756,7 +756,7 @@ namespace Org.Jsoup.Nodes {
         /// <returns>elements that have attribute names that start with with the prefix, empty if none.</returns>
         public virtual Elements GetElementsByAttributeStarting(String keyPrefix) {
             Validate.NotEmpty(keyPrefix);
-            keyPrefix = keyPrefix.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+            keyPrefix = keyPrefix.Trim().ToLowerInvariant();
             return Collector.Collect(new Evaluator.AttributeStarting(keyPrefix), this);
         }
 

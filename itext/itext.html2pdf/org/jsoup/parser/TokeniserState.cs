@@ -277,7 +277,7 @@ namespace Org.Jsoup.Parser {
             internal override void Read(Tokeniser t, CharacterReader r) {
                 // previous TagOpen state did NOT consume, will have a letter char in current
                 //String tagName = r.consumeToAnySorted(tagCharsSorted).toLowerCase();
-                String tagName = r.ConsumeTagName().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+                String tagName = r.ConsumeTagName().ToLowerInvariant();
                 t.tagPending.AppendTagName(tagName);
                 switch (r.Consume()) {
                     case '\t':
@@ -389,7 +389,7 @@ namespace Org.Jsoup.Parser {
             internal override void Read(Tokeniser t, CharacterReader r) {
                 if (r.MatchesLetter()) {
                     String name = r.ConsumeLetterSequence();
-                    t.tagPending.AppendTagName(name.ToLower(System.Globalization.CultureInfo.InvariantCulture));
+                    t.tagPending.AppendTagName(name.ToLowerInvariant());
                     t.dataBuffer.Append(name);
                     return;
                 }
@@ -1093,7 +1093,7 @@ namespace Org.Jsoup.Parser {
             // from before attribute name
             internal override void Read(Tokeniser t, CharacterReader r) {
                 String name = r.ConsumeToAnySorted(TokeniserState.attributeNameCharsSorted);
-                t.tagPending.AppendAttributeName(name.ToLower(System.Globalization.CultureInfo.InvariantCulture));
+                t.tagPending.AppendAttributeName(name.ToLowerInvariant());
                 char c = r.Consume();
                 switch (c) {
                     case '\t':
@@ -2005,7 +2005,7 @@ namespace Org.Jsoup.Parser {
             internal override void Read(Tokeniser t, CharacterReader r) {
                 if (r.MatchesLetter()) {
                     String name = r.ConsumeLetterSequence();
-                    t.doctypePending.name.Append(name.ToLower(System.Globalization.CultureInfo.InvariantCulture));
+                    t.doctypePending.name.Append(name.ToLowerInvariant());
                     return;
                 }
                 char c = r.Consume();
@@ -2785,7 +2785,7 @@ namespace Org.Jsoup.Parser {
         private static void HandleDataEndTag(Tokeniser t, CharacterReader r, TokeniserState elseTransition) {
             if (r.MatchesLetter()) {
                 String name = r.ConsumeLetterSequence();
-                t.tagPending.AppendTagName(name.ToLower(System.Globalization.CultureInfo.InvariantCulture));
+                t.tagPending.AppendTagName(name.ToLowerInvariant());
                 t.dataBuffer.Append(name);
                 return;
             }
@@ -2883,7 +2883,7 @@ namespace Org.Jsoup.Parser {
              fallback) {
             if (r.MatchesLetter()) {
                 String name = r.ConsumeLetterSequence();
-                t.dataBuffer.Append(name.ToLower(System.Globalization.CultureInfo.InvariantCulture));
+                t.dataBuffer.Append(name.ToLowerInvariant());
                 t.Emit(name);
                 return;
             }

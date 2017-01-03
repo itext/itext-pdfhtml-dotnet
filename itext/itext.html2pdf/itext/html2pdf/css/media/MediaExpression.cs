@@ -55,9 +55,9 @@ namespace iText.Html2pdf.Css.Media {
         private String value;
 
         public MediaExpression(String feature, String value) {
-            this.feature = feature.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+            this.feature = feature.Trim().ToLowerInvariant();
             if (value != null) {
-                this.value = value.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+                this.value = value.Trim().ToLowerInvariant();
             }
             String minPref = MediaRuleConstants.MIN + "-";
             String maxPref = MediaRuleConstants.MAX + "-";

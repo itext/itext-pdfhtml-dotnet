@@ -271,8 +271,7 @@ namespace iText.Html2pdf.Css.Util {
 
         public static bool IsColorProperty(String value) {
             return value.Contains("rgb(") || value.Contains("rgba(") || value.Contains("#") || WebColors.NAMES.Contains
-                (value.ToLower(System.Globalization.CultureInfo.InvariantCulture)) || CssConstants.TRANSPARENT.Equals(
-                value);
+                (value.ToLowerInvariant()) || CssConstants.TRANSPARENT.Equals(value);
         }
 
         /// <summary>Checks whether a string contains an allowed metric unit in HTML/CSS; px, in, cm, mm, pc or pt.</summary>

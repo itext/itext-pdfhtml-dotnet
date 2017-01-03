@@ -49,7 +49,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
         private bool isUniversal;
 
         public CssTagSelectorItem(String tagName) {
-            this.tagName = tagName.ToLower(System.Globalization.CultureInfo.InvariantCulture);
+            this.tagName = tagName.ToLowerInvariant();
             this.isUniversal = "*".Equals(tagName);
         }
 

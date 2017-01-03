@@ -60,7 +60,7 @@ namespace iText.Html2pdf.Css.Media {
         }
 
         public static MediaQuery ParseMediaQuery(String mediaQueryStr) {
-            mediaQueryStr = mediaQueryStr.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+            mediaQueryStr = mediaQueryStr.Trim().ToLowerInvariant();
             bool only = false;
             bool not = false;
             if (mediaQueryStr.StartsWith(MediaRuleConstants.ONLY)) {

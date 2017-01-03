@@ -40,7 +40,7 @@ namespace Org.Jsoup.Parser {
             // for pre, textarea, script etc
             // a control that appears in forms: input, textarea, output etc
             // a control that can be submitted in a form: input etc
-            this.tagName = tagName.ToLower(System.Globalization.CultureInfo.InvariantCulture);
+            this.tagName = tagName.ToLowerInvariant();
         }
 
         /// <summary>Get this tag's name.</summary>
@@ -62,7 +62,7 @@ namespace Org.Jsoup.Parser {
             Validate.NotNull(tagName);
             Org.Jsoup.Parser.Tag tag = tags.Get(tagName);
             if (tag == null) {
-                tagName = tagName.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+                tagName = tagName.Trim().ToLowerInvariant();
                 Validate.NotEmpty(tagName);
                 tag = tags.Get(tagName);
                 if (tag == null) {

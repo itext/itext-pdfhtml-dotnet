@@ -119,7 +119,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             borderWidthValue = unitValue.GetValue();
             if (borderWidthValue > 0) {
-                switch (borderStyle.ToLower(System.Globalization.CultureInfo.InvariantCulture)) {
+                switch (borderStyle.ToLowerInvariant()) {
                     case CssConstants.SOLID: {
                         border = new SolidBorder(borderWidthValue);
                         break;

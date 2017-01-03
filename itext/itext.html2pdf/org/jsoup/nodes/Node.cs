@@ -75,7 +75,7 @@ namespace Org.Jsoup.Nodes {
                 return attributes.Get(attributeKey);
             }
             else {
-                if (attributeKey.ToLower(System.Globalization.CultureInfo.InvariantCulture).StartsWith("abs:")) {
+                if (attributeKey.ToLowerInvariant().StartsWith("abs:")) {
                     return AbsUrl(attributeKey.Substring("abs:".Length));
                 }
                 else {

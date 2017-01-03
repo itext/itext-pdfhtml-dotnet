@@ -148,8 +148,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override bool Matches(Element root, Element element) {
-                return element.HasAttr(key) && element.Attr(key).ToLower(System.Globalization.CultureInfo.InvariantCulture
-                    ).StartsWith(value);
+                return element.HasAttr(key) && element.Attr(key).ToLowerInvariant().StartsWith(value);
             }
 
             // value is lower case already
@@ -165,8 +164,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override bool Matches(Element root, Element element) {
-                return element.HasAttr(key) && element.Attr(key).ToLower(System.Globalization.CultureInfo.InvariantCulture
-                    ).EndsWith(value);
+                return element.HasAttr(key) && element.Attr(key).ToLowerInvariant().EndsWith(value);
             }
 
             // value is lower case
@@ -182,8 +180,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override bool Matches(Element root, Element element) {
-                return element.HasAttr(key) && element.Attr(key).ToLower(System.Globalization.CultureInfo.InvariantCulture
-                    ).Contains(value);
+                return element.HasAttr(key) && element.Attr(key).ToLowerInvariant().Contains(value);
             }
 
             // value is lower case
@@ -199,7 +196,7 @@ namespace Org.Jsoup.Select {
             internal Regex pattern;
 
             public AttributeWithValueMatching(String key, Regex pattern) {
-                this.key = key.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+                this.key = key.Trim().ToLowerInvariant();
                 this.pattern = pattern;
             }
 
@@ -221,11 +218,11 @@ namespace Org.Jsoup.Select {
             public AttributeKeyPair(String key, String value) {
                 Validate.NotEmpty(key);
                 Validate.NotEmpty(value);
-                this.key = key.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+                this.key = key.Trim().ToLowerInvariant();
                 if (value.StartsWith("\"") && value.EndsWith("\"") || value.StartsWith("'") && value.EndsWith("'")) {
                     value = value.JSubstring(1, value.Length - 1);
                 }
-                this.value = value.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+                this.value = value.Trim().ToLowerInvariant();
             }
         }
 
@@ -532,11 +529,11 @@ namespace Org.Jsoup.Select {
             private String searchText;
 
             public ContainsText(String searchText) {
-                this.searchText = searchText.ToLower(System.Globalization.CultureInfo.InvariantCulture);
+                this.searchText = searchText.ToLowerInvariant();
             }
 
             public override bool Matches(Element root, Element element) {
-                return (element.Text().ToLower(System.Globalization.CultureInfo.InvariantCulture).Contains(searchText));
+                return (element.Text().ToLowerInvariant().Contains(searchText));
             }
 
             public override String ToString() {
@@ -549,11 +546,11 @@ namespace Org.Jsoup.Select {
             private String searchText;
 
             public ContainsOwnText(String searchText) {
-                this.searchText = searchText.ToLower(System.Globalization.CultureInfo.InvariantCulture);
+                this.searchText = searchText.ToLowerInvariant();
             }
 
             public override bool Matches(Element root, Element element) {
-                return (element.OwnText().ToLower(System.Globalization.CultureInfo.InvariantCulture).Contains(searchText));
+                return (element.OwnText().ToLowerInvariant().Contains(searchText));
             }
 
             public override String ToString() {

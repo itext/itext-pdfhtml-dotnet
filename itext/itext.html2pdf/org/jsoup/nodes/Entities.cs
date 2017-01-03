@@ -318,7 +318,7 @@ namespace Org.Jsoup.Nodes {
                 String name = entry.Key;
                 if (outMap.ContainsKey(character)) {
                     // dupe, prefer the lower case version
-                    if (name.ToLower(System.Globalization.CultureInfo.InvariantCulture).Equals(name)) {
+                    if (name.ToLowerInvariant().Equals(name)) {
                         outMap[character] = name;
                     }
                 }
