@@ -86,7 +86,7 @@ namespace iText.Html2pdf.Css.Util {
                 LoggerFactory.GetLogger(typeof(CssPropertyNormalizer)).Warn(String.Format(iText.Html2pdf.LogMessageConstant
                     .QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION, source));
             }
-            buffer.Append(source, start, end);
+            buffer.JAppend(source, start, end);
             return end;
         }
 
