@@ -51,6 +51,10 @@ namespace iText.Html2pdf.Css.Util {
         private CssUtils() {
         }
 
+        public static String NormalizeCssProperty(String str) {
+            return str == null ? null : CssPropertyNormalizer.Normalize(str);
+        }
+
         public static String RemoveDoubleSpacesAndTrim(String str) {
             String[] parts = iText.IO.Util.StringUtil.Split(str, "\\s");
             StringBuilder sb = new StringBuilder();

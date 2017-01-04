@@ -75,5 +75,24 @@ namespace iText.Html2pdf.Css.Util {
             NUnit.Framework.Assert.AreEqual(576, CssUtils.ParseAbsoluteLength("8inch"), 0);
             NUnit.Framework.Assert.AreEqual(576, CssUtils.ParseAbsoluteLength("8", CssConstants.IN), 0);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void NormalizeProperty() {
+            NUnit.Framework.Assert.AreEqual("part1 part2", CssUtils.NormalizeCssProperty("   part1   part2  "));
+            NUnit.Framework.Assert.AreEqual("\" the next quote is ESCAPED \\\\\\\" still  IN string \"", CssUtils.NormalizeCssProperty
+                ("\" the next quote is ESCAPED \\\\\\\" still  IN string \""));
+            NUnit.Framework.Assert.AreEqual("\" the next quote is NOT ESCAPED \\\\\" not in the string", CssUtils.NormalizeCssProperty
+                ("\" the next quote is NOT ESCAPED \\\\\" NOT in   THE string"));
+            NUnit.Framework.Assert.AreEqual("\" You CAN put 'Single  Quotes' in double quotes WITHOUT escaping\"", CssUtils
+                .NormalizeCssProperty("\" You CAN put 'Single  Quotes' in double quotes WITHOUT escaping\""));
+            NUnit.Framework.Assert.AreEqual("' You CAN put \"DOUBLE  Quotes\" in double quotes WITHOUT escaping'", CssUtils
+                .NormalizeCssProperty("' You CAN put \"DOUBLE  Quotes\" in double quotes WITHOUT escaping'"));
+            NUnit.Framework.Assert.AreEqual("\" ( BLA \" attr(href)\" BLA )  \"", CssUtils.NormalizeCssProperty("\" ( BLA \"      AttR( Href  )\" BLA )  \""
+                ));
+            NUnit.Framework.Assert.AreEqual("\" (  \"attr(href) \"  )  \"", CssUtils.NormalizeCssProperty("\" (  \"aTTr( hREf  )   \"  )  \""
+                ));
+            NUnit.Framework.Assert.AreEqual("rgba(255,255,255,0.2)", CssUtils.NormalizeCssProperty("rgba(  255,  255 ,  255 ,0.2   )"
+                ));
+        }
     }
 }

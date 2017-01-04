@@ -40,10 +40,31 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.Collections.Generic;
+using iText.IO.Font;
 using iText.Kernel.Font;
 
 namespace iText.Html2pdf.Resolver.Font {
     public class DefaultFontResolver : IFontResolver {
+        internal static readonly Dictionary<String, String> DEFAULT_FONTS = new Dictionary<String, String>();
+
+        static DefaultFontResolver() {
+            DEFAULT_FONTS[FontConstants.COURIER.ToLowerInvariant()] = FontConstants.COURIER;
+            DEFAULT_FONTS[FontConstants.COURIER_BOLD.ToLowerInvariant()] = FontConstants.COURIER_BOLD;
+            DEFAULT_FONTS[FontConstants.COURIER_BOLDOBLIQUE.ToLowerInvariant()] = FontConstants.COURIER_BOLDOBLIQUE;
+            DEFAULT_FONTS[FontConstants.COURIER_OBLIQUE.ToLowerInvariant()] = FontConstants.COURIER_OBLIQUE;
+            DEFAULT_FONTS[FontConstants.HELVETICA.ToLowerInvariant()] = FontConstants.HELVETICA;
+            DEFAULT_FONTS[FontConstants.HELVETICA_BOLD.ToLowerInvariant()] = FontConstants.HELVETICA_BOLD;
+            DEFAULT_FONTS[FontConstants.HELVETICA_BOLDOBLIQUE.ToLowerInvariant()] = FontConstants.HELVETICA_BOLDOBLIQUE;
+            DEFAULT_FONTS[FontConstants.HELVETICA_OBLIQUE.ToLowerInvariant()] = FontConstants.HELVETICA_OBLIQUE;
+            DEFAULT_FONTS[FontConstants.SYMBOL.ToLowerInvariant()] = FontConstants.SYMBOL;
+            DEFAULT_FONTS[FontConstants.TIMES_ROMAN.ToLowerInvariant()] = FontConstants.TIMES_ROMAN;
+            DEFAULT_FONTS[FontConstants.TIMES_BOLD.ToLowerInvariant()] = FontConstants.TIMES_BOLD;
+            DEFAULT_FONTS[FontConstants.TIMES_BOLDITALIC.ToLowerInvariant()] = FontConstants.TIMES_BOLDITALIC;
+            DEFAULT_FONTS[FontConstants.TIMES_ITALIC.ToLowerInvariant()] = FontConstants.TIMES_ITALIC;
+            DEFAULT_FONTS[FontConstants.ZAPFDINGBATS.ToLowerInvariant()] = FontConstants.ZAPFDINGBATS;
+        }
+
         public DefaultFontResolver() {
         }
 
@@ -53,7 +74,13 @@ namespace iText.Html2pdf.Resolver.Font {
             //return PdfFontFactory.createRegisteredFont(name);
             PdfFont result;
             try {
-                result = PdfFontFactory.CreateFont(name);
+                String defaultName = DEFAULT_FONTS.Get(name.ToLowerInvariant());
+                if (defaultName != null) {
+                    result = PdfFontFactory.CreateFont(defaultName);
+                }
+                else {
+                    result = PdfFontFactory.CreateFont(name);
+                }
             }
             catch (Exception) {
                 //LoggerFactory.getLogger(getClass()).error(MessageFormat.format(LogMessageConstant.UNABLE_TO_RESOLVE_FONT, name), any);

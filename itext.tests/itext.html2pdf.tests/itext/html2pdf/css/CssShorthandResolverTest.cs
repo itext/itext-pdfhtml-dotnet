@@ -118,7 +118,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void BackgroundTest06() {
             String shorthandExpression = "DarkOliveGreen fixed center";
-            ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("background-color: DarkOliveGreen"
+            ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("background-color: darkolivegreen"
                 , "background-image: initial", "background-position: center", "background-size: initial", "background-repeat: initial"
                 , "background-origin: initial", "background-clip: initial", "background-attachment: fixed"));
             IShorthandResolver backgroundResolver = ShorthandResolverFactory.GetShorthandResolver(CssConstants.BACKGROUND
@@ -345,7 +345,7 @@ namespace iText.Html2pdf.Css {
         public virtual void FontTest01() {
             String shorthandExpression = "italic normal bold 12px/30px Georgia, serif";
             ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("font-style: italic"
-                , "font-variant: initial", "font-weight: bold", "font-size: 12px", "line-height: 30px", "font-family: Georgia,serif"
+                , "font-variant: initial", "font-weight: bold", "font-size: 12px", "line-height: 30px", "font-family: georgia,serif"
                 ));
             IShorthandResolver resolver = ShorthandResolverFactory.GetShorthandResolver(CssConstants.FONT);
             NUnit.Framework.Assert.IsNotNull(resolver);
@@ -357,7 +357,7 @@ namespace iText.Html2pdf.Css {
         public virtual void FontTest02() {
             String shorthandExpression = "bold Georgia, serif";
             ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("font-style: initial"
-                , "font-variant: initial", "font-weight: bold", "font-size: initial", "line-height: initial", "font-family: Georgia,serif"
+                , "font-variant: initial", "font-weight: bold", "font-size: initial", "line-height: initial", "font-family: georgia,serif"
                 ));
             IShorthandResolver resolver = ShorthandResolverFactory.GetShorthandResolver(CssConstants.FONT);
             NUnit.Framework.Assert.IsNotNull(resolver);
@@ -381,7 +381,7 @@ namespace iText.Html2pdf.Css {
         public virtual void FontTest04() {
             String shorthandExpression = "bold Georgia, serif, \"Times New Roman\"";
             ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("font-style: initial"
-                , "font-variant: initial", "font-weight: bold", "font-size: initial", "line-height: initial", "font-family: Georgia,serif,\"Times New Roman\""
+                , "font-variant: initial", "font-weight: bold", "font-size: initial", "line-height: initial", "font-family: georgia,serif,\"Times New Roman\""
                 ));
             IShorthandResolver resolver = ShorthandResolverFactory.GetShorthandResolver(CssConstants.FONT);
             NUnit.Framework.Assert.IsNotNull(resolver);
@@ -393,7 +393,7 @@ namespace iText.Html2pdf.Css {
         public virtual void FontTest05() {
             String shorthandExpression = "italic normal bold 12px/30px Georgia, \"Times New Roman\", serif";
             ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("font-style: italic"
-                , "font-variant: initial", "font-weight: bold", "font-size: 12px", "line-height: 30px", "font-family: Georgia,\"Times New Roman\",serif"
+                , "font-variant: initial", "font-weight: bold", "font-size: 12px", "line-height: 30px", "font-family: georgia,\"Times New Roman\",serif"
                 ));
             IShorthandResolver resolver = ShorthandResolverFactory.GetShorthandResolver(CssConstants.FONT);
             NUnit.Framework.Assert.IsNotNull(resolver);
@@ -405,7 +405,7 @@ namespace iText.Html2pdf.Css {
         public virtual void FontTest06() {
             String shorthandExpression = "italic normal bold 12px/30px Georgia    ,   \"Times New Roman\"   ,    serif";
             ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("font-style: italic"
-                , "font-variant: initial", "font-weight: bold", "font-size: 12px", "line-height: 30px", "font-family: Georgia,\"Times New Roman\",serif"
+                , "font-variant: initial", "font-weight: bold", "font-size: 12px", "line-height: 30px", "font-family: georgia,\"Times New Roman\",serif"
                 ));
             IShorthandResolver resolver = ShorthandResolverFactory.GetShorthandResolver(CssConstants.FONT);
             NUnit.Framework.Assert.IsNotNull(resolver);
@@ -417,7 +417,7 @@ namespace iText.Html2pdf.Css {
         public virtual void FontTest07() {
             String shorthandExpression = "italic normal bold 12px/30px Georgia    ,   \"Times New Roman\"   ";
             ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("font-style: italic"
-                , "font-variant: initial", "font-weight: bold", "font-size: 12px", "line-height: 30px", "font-family: Georgia,\"Times New Roman\""
+                , "font-variant: initial", "font-weight: bold", "font-size: 12px", "line-height: 30px", "font-family: georgia,\"Times New Roman\""
                 ));
             IShorthandResolver resolver = ShorthandResolverFactory.GetShorthandResolver(CssConstants.FONT);
             NUnit.Framework.Assert.IsNotNull(resolver);
@@ -429,7 +429,7 @@ namespace iText.Html2pdf.Css {
         public virtual void FontTest08() {
             String shorthandExpression = "Georgia,'Times New Roman'";
             ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("font-style: initial"
-                , "font-variant: initial", "font-weight: initial", "font-size: initial", "line-height: initial", "font-family: Georgia,'Times New Roman'"
+                , "font-variant: initial", "font-weight: initial", "font-size: initial", "line-height: initial", "font-family: georgia,'Times New Roman'"
                 ));
             IShorthandResolver resolver = ShorthandResolverFactory.GetShorthandResolver(CssConstants.FONT);
             NUnit.Framework.Assert.IsNotNull(resolver);
@@ -441,7 +441,7 @@ namespace iText.Html2pdf.Css {
         public virtual void FontTest09() {
             String shorthandExpression = "Georgia  ,   'Times New Roman', serif";
             ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("font-style: initial"
-                , "font-variant: initial", "font-weight: initial", "font-size: initial", "line-height: initial", "font-family: Georgia,'Times New Roman',serif"
+                , "font-variant: initial", "font-weight: initial", "font-size: initial", "line-height: initial", "font-family: georgia,'Times New Roman',serif"
                 ));
             IShorthandResolver resolver = ShorthandResolverFactory.GetShorthandResolver(CssConstants.FONT);
             NUnit.Framework.Assert.IsNotNull(resolver);

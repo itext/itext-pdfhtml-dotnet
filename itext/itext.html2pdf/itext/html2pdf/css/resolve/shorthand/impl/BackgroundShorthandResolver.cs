@@ -88,7 +88,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             bool slashEncountered = false;
             foreach (String value in props) {
                 int slashCharInd = value.IndexOf('/');
-                if (slashCharInd > 0) {
+                if (slashCharInd > 0 && !value.Contains("url(")) {
                     slashEncountered = true;
                     String value1 = value.JSubstring(0, slashCharInd);
                     String value2 = value.JSubstring(slashCharInd + 1, value.Length);

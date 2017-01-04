@@ -69,6 +69,8 @@ namespace iText.Html2pdf {
 
         public const String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
 
+        public const String QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "The quote is not closed in css expression: {0}";
+
         public const String RULE_IS_NOT_SUPPORTED = "The rule @{0} is unsupported. All selectors in this rule will be ignored.";
 
         public const String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";

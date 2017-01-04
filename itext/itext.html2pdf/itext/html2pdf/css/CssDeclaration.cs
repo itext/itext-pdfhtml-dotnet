@@ -49,8 +49,8 @@ namespace iText.Html2pdf.Css {
         private String expression;
 
         public CssDeclaration(String property, String expression) {
-            this.property = CssUtils.RemoveDoubleSpacesAndTrim(property);
-            this.expression = CssUtils.RemoveDoubleSpacesAndTrim(expression);
+            this.property = CssUtils.NormalizeCssProperty(property);
+            this.expression = CssUtils.NormalizeCssProperty(expression);
         }
 
         public override String ToString() {
