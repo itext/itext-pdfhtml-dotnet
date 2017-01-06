@@ -70,21 +70,22 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void CollectStylesDeclarationsTest01() {
             Test("collectStylesDeclarationsTest01.html", "html body p", "color: red", "text-align: center", "font-size: 11.25pt"
-                , "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em");
+                , "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void CollectStylesDeclarationsTest02() {
             Test("collectStylesDeclarationsTest02.html", "html body p", "color: blue", "text-align: center", "font-style: italic"
-                , "font-size: 11.25pt", "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em");
+                , "font-size: 11.25pt", "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", 
+                "display: block");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void CollectStylesDeclarationsTest03() {
             Test("collectStylesDeclarationsTest03.html", "html body p", "color: red", "text-align: right", "font-size: 7.5pt"
-                , "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em");
+                , "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -140,35 +141,36 @@ namespace iText.Html2pdf.Css {
                 , "border-left-style: dashed", "border-left-width: 5px", "border-right-style: dashed", "border-right-width: 5px"
                 , "border-top-style: dashed", "border-top-width: 5px", "border-bottom-color: red", "border-left-color: red"
                 , "border-right-color: red", "border-top-color: red", "font-size: 12.0pt", "margin-bottom: 1em", "margin-left: 0"
-                , "margin-right: 0", "margin-top: 1em");
+                , "margin-right: 0", "margin-top: 1em", "display: block");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest01() {
             Test("htmlStylesConvertingTest01.html", "html body b p", "font-weight: bold", "font-size: 12.0pt", "margin-bottom: 1em"
-                , "margin-left: 0", "margin-right: 0", "margin-top: 1em");
+                , "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest02() {
             Test("htmlStylesConvertingTest01.html", "html body b i p", "font-weight: bold", "font-style: italic", "font-size: 12.0pt"
-                , "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em");
+                , "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest03() {
             Test("htmlStylesConvertingTest01.html", "html body i p", "font-style: italic", "font-size: 12.0pt", "margin-bottom: 1em"
-                , "margin-left: 0", "margin-right: 0", "margin-top: 1em");
+                , "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest04() {
             Test("htmlStylesConvertingTest01.html", "html body i center p", "font-style: italic", "text-align: center"
-                , "font-size: 12.0pt", "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em");
+                , "font-size: 12.0pt", "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block"
+                );
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -178,14 +180,14 @@ namespace iText.Html2pdf.Css {
                 , "border-right-style: solid", "border-top-style: solid", "border-bottom-width: 2px", "border-left-width: 2px"
                 , "border-right-width: 2px", "border-top-width: 2px", "border-bottom-color: black", "border-left-color: black"
                 , "border-right-color: black", "border-top-color: black", "font-size: 12pt", "margin-bottom: 0", "margin-left: 0"
-                , "margin-right: 0", "margin-top: 0", "text-indent: 0");
+                , "margin-right: 0", "margin-top: 0", "text-indent: 0", "display: table");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest06() {
             Test("htmlStylesConvertingTest05.html", "html body table tbody tr", "background-color: yellow", "font-size: 12.0pt"
-                , "text-indent: 0", "vertical-align: middle");
+                , "text-indent: 0", "vertical-align: middle", "display: table-row");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -220,7 +222,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest11() {
             Test("htmlStylesConvertingTest10.html", "html body", "background-color: yellow", "font-size: 12.0pt", "margin-bottom: 10%"
-                , "margin-left: 10%", "margin-right: 10%", "margin-top: 10%");
+                , "margin-left: 10%", "margin-right: 10%", "margin-top: 10%", "display: block");
         }
 
         private void ResolveStylesForTree(INode node, ICssResolver cssResolver) {
