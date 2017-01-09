@@ -121,7 +121,13 @@ namespace iText.Html2pdf.Css.Parse {
             int openedBracketPos = propertiesStr.IndexOf("(", StringComparison.Ordinal);
             int closedBracketPos = propertiesStr.IndexOf(")", StringComparison.Ordinal);
             if (semiColonPos != -1 && semiColonPos > openedBracketPos && semiColonPos < closedBracketPos) {
-                semiColonPos += GetSemicolonPosition(propertiesStr.Substring(semiColonPos + 1)) + 1;
+                int pos = GetSemicolonPosition(propertiesStr.Substring(semiColonPos + 1)) + 1;
+                if (pos > 0) {
+                    semiColonPos += GetSemicolonPosition(propertiesStr.Substring(semiColonPos + 1)) + 1;
+                }
+                else {
+                    semiColonPos = -1;
+                }
             }
             return semiColonPos;
         }
