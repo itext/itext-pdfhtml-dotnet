@@ -42,35 +42,19 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Tags;
-using iText.Html2pdf.Css.Apply;
-using iText.Html2pdf.Css.Apply.Util;
-using iText.Html2pdf.Html.Node;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Util;
 using iText.Layout;
+using iText.Layout.Properties;
 
-namespace iText.Html2pdf.Css.Apply.Impl {
-    public class SpanTagCssApplier : ICssApplier {
-        public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-            SpanTagWorker spanTagWorker = (SpanTagWorker)tagWorker;
-            foreach (IPropertyContainer child in spanTagWorker.GetOwnLeafElements()) {
-                ApplyChildElementStyles(child, element.GetStyles(), context, element);
+namespace iText.Html2pdf.Css.Apply.Util {
+    public class OpacityApplierUtil {
+        public static void ApplyOpacity(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
+             container) {
+            float? opacity = CssUtils.ParseFloat(cssProps.Get(CssConstants.OPACITY));
+            if (opacity != null) {
+                container.SetProperty(Property.OPACITY, opacity);
             }
-            VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForInlines(element.GetStyles(), context, element, spanTagWorker
-                .GetAllElements());
-        }
-
-        private void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String> css, ProcessorContext
-             context, IElementNode elementNode) {
-            FontStyleApplierUtil.ApplyFontStyles(css, context, element);
-            //TODO: Background-applying currently doesn't work in html way for spans inside other spans.
-            BackgroundApplierUtil.ApplyBackground(css, context, element);
-            //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
-            BorderStyleApplierUtil.ApplyBorders(css, context, element);
-            HyphenationApplierUtil.ApplyHyphenation(css, context, elementNode, element);
-            //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
-            MarginApplierUtil.ApplyMargins(css, context, element);
-            PositionApplierUtil.ApplyPosition(css, context, element);
-            OpacityApplierUtil.ApplyOpacity(css, context, element);
         }
     }
 }
