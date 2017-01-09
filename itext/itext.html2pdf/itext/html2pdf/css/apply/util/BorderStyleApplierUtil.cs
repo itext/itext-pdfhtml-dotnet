@@ -89,7 +89,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (borderStyle == null || CssConstants.NONE.Equals(borderStyle)) {
                 return null;
             }
-            Border border = null;
             if (borderWidth == null) {
                 borderWidth = CssDefaults.GetDefaultValue(CssConstants.BORDER_WIDTH);
             }
@@ -118,45 +117,59 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return null;
             }
             borderWidthValue = unitValue.GetValue();
+            Border border = null;
             if (borderWidthValue > 0) {
-                switch (borderStyle.ToLowerInvariant()) {
+                DeviceRgb color = (DeviceRgb)Color.BLACK;
+                float opacity = 1f;
+                if (borderColor != null) {
+                    float[] rgbaColor = CssUtils.ParseRgbaColor(borderColor);
+                    color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
+                    opacity = rgbaColor[3];
+                }
+                else {
+                    if (CssConstants.GROOVE.Equals(borderStyle) || CssConstants.RIDGE.Equals(borderStyle) || CssConstants.INSET
+                        .Equals(borderStyle) || CssConstants.OUTSET.Equals(borderStyle)) {
+                        color = new DeviceRgb(212, 208, 200);
+                    }
+                }
+                switch (borderStyle) {
                     case CssConstants.SOLID: {
-                        border = new SolidBorder(borderWidthValue);
+                        border = new SolidBorder(color, borderWidthValue, opacity);
                         break;
                     }
 
                     case CssConstants.DASHED: {
-                        border = new DashedBorder(borderWidthValue);
+                        border = new DashedBorder(color, borderWidthValue, opacity);
                         break;
                     }
 
                     case CssConstants.DOTTED: {
-                        border = new DottedBorder(borderWidthValue);
+                        border = new DottedBorder(color, borderWidthValue, opacity);
                         break;
                     }
 
                     case CssConstants.DOUBLE: {
-                        border = new DoubleBorder(borderWidthValue);
+                        border = new DoubleBorder(color, borderWidthValue, opacity);
                         break;
                     }
 
                     case CssConstants.GROOVE: {
-                        border = new GrooveBorder(borderWidthValue);
+                        border = new GrooveBorder(color, borderWidthValue, opacity);
                         break;
                     }
 
                     case CssConstants.RIDGE: {
-                        border = new RidgeBorder(borderWidthValue);
+                        border = new RidgeBorder(color, borderWidthValue, opacity);
                         break;
                     }
 
                     case CssConstants.INSET: {
-                        border = new InsetBorder(borderWidthValue);
+                        border = new InsetBorder(color, borderWidthValue, opacity);
                         break;
                     }
 
                     case CssConstants.OUTSET: {
-                        border = new OutsetBorder(borderWidthValue);
+                        border = new OutsetBorder(color, borderWidthValue, opacity);
                         break;
                     }
 
@@ -164,9 +177,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         border = null;
                         break;
                     }
-                }
-                if (border != null && borderColor != null) {
-                    border.SetColor(WebColors.GetRGBColor(borderColor));
                 }
             }
             return border;

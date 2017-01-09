@@ -43,7 +43,6 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>Created by SamuelHuylebroeck on 11/30/2016.</summary>
     public class TableHeaderTagWorker : TableTagWorker {
         public TableHeaderTagWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {

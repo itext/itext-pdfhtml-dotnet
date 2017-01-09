@@ -278,6 +278,11 @@ namespace iText.Html2pdf.Css.Util {
                 (value.ToLowerInvariant()) || CssConstants.TRANSPARENT.Equals(value);
         }
 
+        public static float[] ParseRgbaColor(String colorValue) {
+            float[] rgbaColor = WebColors.GetRGBAColor(colorValue);
+            return rgbaColor;
+        }
+
         /// <summary>Checks whether a string contains an allowed metric unit in HTML/CSS; px, in, cm, mm, pc or pt.</summary>
         /// <param name="value">the string that needs to be checked.</param>
         /// <returns>boolean true if value contains an allowed metric value.</returns>

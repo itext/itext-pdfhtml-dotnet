@@ -96,7 +96,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             if (cssProps.Get(CssConstants.COLOR) != null) {
-                element.SetProperty(Property.FONT_COLOR, WebColors.GetRGBColor(cssProps.Get(CssConstants.COLOR)));
+                float[] rgbaColor = CssUtils.ParseRgbaColor(cssProps.Get(CssConstants.COLOR));
+                Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
+                float opacity = rgbaColor[3];
+                element.SetProperty(Property.FONT_COLOR, new TransparentColor(color, opacity));
             }
             // Make sure to place that before text-align applier
             String direction = cssProps.Get(CssConstants.DIRECTION);

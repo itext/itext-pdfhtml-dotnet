@@ -58,7 +58,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
              element) {
             String backgroundColorStr = cssProps.Get(CssConstants.BACKGROUND_COLOR);
             if (backgroundColorStr != null && !CssConstants.TRANSPARENT.Equals(backgroundColorStr)) {
-                Background backgroundColor = new Background(WebColors.GetRGBColor(backgroundColorStr));
+                float[] rgbaColor = CssUtils.ParseRgbaColor(backgroundColorStr);
+                Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
+                float opacity = rgbaColor[3];
+                Background backgroundColor = new Background(color, opacity);
                 element.SetProperty(Property.BACKGROUND, backgroundColor);
             }
             String backgroundImageStr = cssProps.Get(CssConstants.BACKGROUND_IMAGE);
