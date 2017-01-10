@@ -126,8 +126,8 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             }
             columns = JavaCollectionsUtil.UnmodifiableList(columns);
             int ncol = 0;
-            foreach (ColWrapper col_1 in columns) {
-                ncol += col_1.GetSpan();
+            foreach (ColWrapper col in columns) {
+                ncol += col.GetSpan();
             }
             indexToColMapping = new int[ncol];
             span = 0;

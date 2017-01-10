@@ -87,11 +87,11 @@ namespace iText.Html2pdf.Css {
                 CssDeclaration declaration = normalDeclarations[i];
                 sb.Append("    ").Append(declaration.ToString());
             }
-            for (int i_1 = 0; i_1 < importantDeclarations.Count; i_1++) {
-                if (i_1 > 0 || normalDeclarations.Count > 0) {
+            for (int i = 0; i < importantDeclarations.Count; i++) {
+                if (i > 0 || normalDeclarations.Count > 0) {
                     sb.Append(";").Append("\n");
                 }
-                CssDeclaration declaration = importantDeclarations[i_1];
+                CssDeclaration declaration = importantDeclarations[i];
                 sb.Append("    ").Append(declaration.ToString()).Append(" !important");
             }
             sb.Append("\n}");

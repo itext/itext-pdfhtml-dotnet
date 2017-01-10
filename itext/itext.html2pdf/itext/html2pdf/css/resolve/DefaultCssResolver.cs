@@ -108,10 +108,10 @@ namespace iText.Html2pdf.Css.Resolve {
                     (elementFontSize), System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT;
             }
             ICollection<String> keys = new HashSet<String>();
-            foreach (KeyValuePair<String, String> entry_1 in elementStyles) {
-                if (CssConstants.INITIAL.Equals(entry_1.Value) || CssConstants.INHERIT.Equals(entry_1.Value)) {
+            foreach (KeyValuePair<String, String> entry in elementStyles) {
+                if (CssConstants.INITIAL.Equals(entry.Value) || CssConstants.INHERIT.Equals(entry.Value)) {
                     // if "inherit" is not resolved till now, parents don't have it
-                    keys.Add(entry_1.Key);
+                    keys.Add(entry.Key);
                 }
             }
             foreach (String key in keys) {

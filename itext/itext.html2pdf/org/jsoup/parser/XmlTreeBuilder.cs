@@ -135,9 +135,9 @@ namespace Org.Jsoup.Parser {
                 return;
             }
             // not found, skip
-            for (int pos_1 = stack.Count - 1; pos_1 >= 0; pos_1--) {
-                Element next = stack[pos_1];
-                stack.JRemoveAt(pos_1);
+            for (int pos = stack.Count - 1; pos >= 0; pos--) {
+                Element next = stack[pos];
+                stack.JRemoveAt(pos);
                 if (next == firstFound) {
                     break;
                 }

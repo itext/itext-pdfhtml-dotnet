@@ -78,9 +78,9 @@ namespace Org.Jsoup.Nodes {
                         set = true;
                     }
                     if (!set) {
-                        Element option_1 = el.Select("option").First();
-                        if (option_1 != null) {
-                            data.Add(KeyVal.Create(name, option_1.Val()));
+                        Element option = el.Select("option").First();
+                        if (option != null) {
+                            data.Add(KeyVal.Create(name, option.Val()));
                         }
                     }
                 }

@@ -204,10 +204,10 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             if (totalPercentSum < 100) {
                 maxTotalWidth = Math.Max(maxTotalWidth, 100 / (100 - totalPercentSum) * totalAbsoluteSum);
                 // TODO: Layout based maxWidth calculations needed here. Currently unsupported.
-                for (int i_1 = 0; i_1 < tableWidths.Length; i_1++) {
-                    UnitValue width = tableWidths[i_1];
+                for (int i = 0; i < tableWidths.Length; i++) {
+                    UnitValue width = tableWidths[i];
                     if (width == null && nullWidth > 0) {
-                        tableWidths[i_1] = UnitValue.CreatePercentValue((100 - totalPercentSum) / nullWidth);
+                        tableWidths[i] = UnitValue.CreatePercentValue((100 - totalPercentSum) / nullWidth);
                     }
                 }
             }
@@ -215,8 +215,8 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                 if (nullWidth != 0 && nullWidth < tableWidths.Length) {
                     // TODO: In this case, the columns without percent width should be assigned to min-width. This is currently unsupported.
                     // So we fall back to just division of the available place uniformly.
-                    for (int i_1 = 0; i_1 < tableWidths.Length; i_1++) {
-                        tableWidths[i_1] = UnitValue.CreatePercentValue(100 / tableWidths.Length);
+                    for (int i = 0; i < tableWidths.Length; i++) {
+                        tableWidths[i] = UnitValue.CreatePercentValue(100 / tableWidths.Length);
                     }
                 }
             }

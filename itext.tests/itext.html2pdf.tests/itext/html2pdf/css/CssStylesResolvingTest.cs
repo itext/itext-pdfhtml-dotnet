@@ -345,9 +345,9 @@ namespace iText.Html2pdf.Css {
                 }
             }
             String containsActual = null;
-            foreach (String str_1 in actualStyles) {
-                if (str_1.StartsWith(propertyName)) {
-                    containsActual = str_1;
+            foreach (String str in actualStyles) {
+                if (str.StartsWith(propertyName)) {
+                    containsActual = str;
                 }
             }
             if (containsActual == null && containsExpected == null) {

@@ -17,11 +17,11 @@ namespace Org.Jsoup.Select {
             }
             sb.Append("</div>");
             sb.Append("<div id='type'>");
-            for (int i_1 = 1; i_1 <= 10; i_1++) {
-                sb.Append(String.Format("<p>{0}</p>", i_1));
-                sb.Append(String.Format("<span>{0}</span>", i_1));
-                sb.Append(String.Format("<em>{0}</em>", i_1));
-                sb.Append(String.Format("<svg>{0}</svg>", i_1));
+            for (int i = 1; i <= 10; i++) {
+                sb.Append(String.Format("<p>{0}</p>", i));
+                sb.Append(String.Format("<span>{0}</span>", i));
+                sb.Append(String.Format("<em>{0}</em>", i));
+                sb.Append(String.Format("<svg>{0}</svg>", i));
             }
             sb.Append("</div>");
             sb.Append("<span id='onlySpan'><br /></span>");

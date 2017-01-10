@@ -87,8 +87,8 @@ namespace iText.Html2pdf.Css {
             foreach (CssRuleSet ruleSet in ruleSets) {
                 PopulateDeclarationsMap(ruleSet.GetNormalDeclarations(), declarations);
             }
-            foreach (CssRuleSet ruleSet_1 in ruleSets) {
-                PopulateDeclarationsMap(ruleSet_1.GetImportantDeclarations(), declarations);
+            foreach (CssRuleSet ruleSet in ruleSets) {
+                PopulateDeclarationsMap(ruleSet.GetImportantDeclarations(), declarations);
             }
             return new List<CssDeclaration>(declarations.Values);
         }

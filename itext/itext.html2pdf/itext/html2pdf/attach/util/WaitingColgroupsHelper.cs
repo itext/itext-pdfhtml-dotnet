@@ -139,9 +139,9 @@ namespace iText.Html2pdf.Attach.Util {
             }
             maxIndex = shift - 1;
             indexToColgroupMapping = new int[shift];
-            for (int i_1 = 0; i_1 < colgroups.Count; ++i_1) {
-                for (int j = 0; j < colgroups[i_1].GetSpan(); ++j) {
-                    indexToColgroupMapping[j + shiftCol[i_1]] = i_1;
+            for (int i = 0; i < colgroups.Count; ++i) {
+                for (int j = 0; j < colgroups[i].GetSpan(); ++j) {
+                    indexToColgroupMapping[j + shiftCol[i]] = i;
                 }
             }
             colgroups.TrimExcess();

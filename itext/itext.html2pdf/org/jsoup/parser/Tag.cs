@@ -251,38 +251,38 @@ namespace Org.Jsoup.Parser {
                 Org.Jsoup.Parser.Tag tag = new Org.Jsoup.Parser.Tag(tagName);
                 Register(tag);
             }
-            foreach (String tagName_1 in inlineTags) {
-                Org.Jsoup.Parser.Tag tag = new Org.Jsoup.Parser.Tag(tagName_1);
+            foreach (String tagName in inlineTags) {
+                Org.Jsoup.Parser.Tag tag = new Org.Jsoup.Parser.Tag(tagName);
                 tag.isBlock = false;
                 tag.canContainBlock = false;
                 tag.formatAsBlock = false;
                 Register(tag);
             }
             // mods:
-            foreach (String tagName_2 in emptyTags) {
-                Org.Jsoup.Parser.Tag tag = tags.Get(tagName_2);
+            foreach (String tagName in emptyTags) {
+                Org.Jsoup.Parser.Tag tag = tags.Get(tagName);
                 Validate.NotNull(tag);
                 tag.canContainBlock = false;
                 tag.canContainInline = false;
                 tag.empty = true;
             }
-            foreach (String tagName_3 in formatAsInlineTags) {
-                Org.Jsoup.Parser.Tag tag = tags.Get(tagName_3);
+            foreach (String tagName in formatAsInlineTags) {
+                Org.Jsoup.Parser.Tag tag = tags.Get(tagName);
                 Validate.NotNull(tag);
                 tag.formatAsBlock = false;
             }
-            foreach (String tagName_4 in preserveWhitespaceTags) {
-                Org.Jsoup.Parser.Tag tag = tags.Get(tagName_4);
+            foreach (String tagName in preserveWhitespaceTags) {
+                Org.Jsoup.Parser.Tag tag = tags.Get(tagName);
                 Validate.NotNull(tag);
                 tag.preserveWhitespace = true;
             }
-            foreach (String tagName_5 in formListedTags) {
-                Org.Jsoup.Parser.Tag tag = tags.Get(tagName_5);
+            foreach (String tagName in formListedTags) {
+                Org.Jsoup.Parser.Tag tag = tags.Get(tagName);
                 Validate.NotNull(tag);
                 tag.formList = true;
             }
-            foreach (String tagName_6 in formSubmitTags) {
-                Org.Jsoup.Parser.Tag tag = tags.Get(tagName_6);
+            foreach (String tagName in formSubmitTags) {
+                Org.Jsoup.Parser.Tag tag = tags.Get(tagName);
                 Validate.NotNull(tag);
                 tag.formSubmit = true;
             }

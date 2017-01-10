@@ -161,10 +161,10 @@ namespace Org.Jsoup.Nodes {
                 }
             }
             for (int i = toMove.Count - 1; i >= 0; i--) {
-                Node node_1 = toMove[i];
-                element.RemoveChild(node_1);
+                Node node = toMove[i];
+                element.RemoveChild(node);
                 Body().PrependChild(new TextNode(" ", ""));
-                Body().PrependChild(node_1);
+                Body().PrependChild(node);
             }
         }
 
@@ -183,8 +183,8 @@ namespace Org.Jsoup.Nodes {
                     }
                     dupe.Remove();
                 }
-                foreach (Node dupe_1 in toMove) {
-                    master.AppendChild(dupe_1);
+                foreach (Node dupe in toMove) {
+                    master.AppendChild(dupe);
                 }
             }
             // ensure parented by <html>
