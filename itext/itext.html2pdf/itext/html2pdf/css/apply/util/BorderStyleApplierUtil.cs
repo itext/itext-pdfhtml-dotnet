@@ -122,9 +122,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 DeviceRgb color = (DeviceRgb)Color.BLACK;
                 float opacity = 1f;
                 if (borderColor != null) {
-                    float[] rgbaColor = CssUtils.ParseRgbaColor(borderColor);
-                    color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
-                    opacity = rgbaColor[3];
+                    if (!CssConstants.TRANSPARENT.Equals(borderColor)) {
+                        float[] rgbaColor = CssUtils.ParseRgbaColor(borderColor);
+                        color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
+                        opacity = rgbaColor[3];
+                    }
+                    else {
+                        opacity = 0f;
+                    }
                 }
                 else {
                     if (CssConstants.GROOVE.Equals(borderStyle) || CssConstants.RIDGE.Equals(borderStyle) || CssConstants.INSET

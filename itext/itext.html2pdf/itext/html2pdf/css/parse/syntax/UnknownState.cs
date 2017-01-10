@@ -61,13 +61,20 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
                         controller.EnterPropertiesState();
                     }
                     else {
-                        if (ch == '-' && "<!-".Equals(controller.GetBufferContents()) || ch == '>' && "--".Equals(controller.GetBufferContents
-                            ())) {
+                        if (ch == '-' && controller.GetBufferContents().EndsWith("<!-") || ch == '>' && controller.GetBufferContents
+                            ().EndsWith("--")) {
                             // Ignoring html comments
                             controller.ResetBuffer();
                         }
                         else {
-                            controller.AppendToBuffer(ch);
+                            if (ch == '[' && controller.GetBufferContents().EndsWith("<![CDATA") || ch == '>' && controller.GetBufferContents
+                                ().EndsWith("]]")) {
+                                // Ignoring CDATA keyword
+                                controller.ResetBuffer();
+                            }
+                            else {
+                                controller.AppendToBuffer(ch);
+                            }
                         }
                     }
                 }

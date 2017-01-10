@@ -83,7 +83,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                             inlineHelper.Add((ILeafElement)childElement);
                         }
                         else {
-                            if (childElement is IElementNode) {
+                            if (childElement is IElement) {
                                 allChildrenProcessed = AddBlockChild((IElement)childElement) && allChildrenProcessed;
                             }
                         }

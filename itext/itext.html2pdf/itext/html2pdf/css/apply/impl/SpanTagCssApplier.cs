@@ -43,20 +43,31 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     public class SpanTagCssApplier : ICssApplier {
         public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
             SpanTagWorker spanTagWorker = (SpanTagWorker)tagWorker;
+            IDictionary<String, String> cssStyles = element.GetStyles();
             foreach (IPropertyContainer child in spanTagWorker.GetOwnLeafElements()) {
-                ApplyChildElementStyles(child, element.GetStyles(), context, element);
+                ApplyChildElementStyles(child, cssStyles, context, element);
             }
-            VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForInlines(element.GetStyles(), context, element, spanTagWorker
-                .GetAllElements());
+            VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForInlines(cssStyles, context, element, spanTagWorker.GetAllElements
+                ());
+            if (cssStyles.ContainsKey(CssConstants.OPACITY)) {
+                foreach (IPropertyContainer elem in spanTagWorker.GetAllElements()) {
+                    if (elem is Text && !elem.HasProperty(Property.OPACITY)) {
+                        OpacityApplierUtil.ApplyOpacity(cssStyles, context, elem);
+                    }
+                }
+            }
         }
 
         private void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String> css, ProcessorContext
@@ -70,7 +81,6 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
             MarginApplierUtil.ApplyMargins(css, context, element);
             PositionApplierUtil.ApplyPosition(css, context, element);
-            OpacityApplierUtil.ApplyOpacity(css, context, element);
         }
     }
 }

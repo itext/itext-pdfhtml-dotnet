@@ -60,7 +60,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
                 );
-            CreateDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -133,6 +133,13 @@ namespace iText.Html2pdf.Css {
             // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
             // i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
             RunTest("innerOpacityTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void NestedInSpanTest() {
+            RunTest("nestedInSpanTest");
         }
 
         /// <exception cref="System.IO.IOException"/>

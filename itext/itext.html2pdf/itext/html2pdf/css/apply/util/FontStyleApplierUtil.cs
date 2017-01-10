@@ -95,11 +95,19 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(Property.ITALIC_SIMULATION, false);
                 }
             }
-            if (cssProps.Get(CssConstants.COLOR) != null) {
-                float[] rgbaColor = CssUtils.ParseRgbaColor(cssProps.Get(CssConstants.COLOR));
-                Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
-                float opacity = rgbaColor[3];
-                element.SetProperty(Property.FONT_COLOR, new TransparentColor(color, opacity));
+            String cssColorPropValue = cssProps.Get(CssConstants.COLOR);
+            if (cssColorPropValue != null) {
+                TransparentColor transparentColor;
+                if (!CssConstants.TRANSPARENT.Equals(cssColorPropValue)) {
+                    float[] rgbaColor = CssUtils.ParseRgbaColor(cssColorPropValue);
+                    Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
+                    float opacity = rgbaColor[3];
+                    transparentColor = new TransparentColor(color, opacity);
+                }
+                else {
+                    transparentColor = new TransparentColor(Color.BLACK, 0f);
+                }
+                element.SetProperty(Property.FONT_COLOR, transparentColor);
             }
             // Make sure to place that before text-align applier
             String direction = cssProps.Get(CssConstants.DIRECTION);
