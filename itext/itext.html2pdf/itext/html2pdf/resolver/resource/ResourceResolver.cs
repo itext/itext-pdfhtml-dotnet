@@ -41,6 +41,7 @@
     address: sales@itextpdf.com */
 using System;
 using System.IO;
+using iText.IO.Codec;
 using iText.IO.Image;
 using iText.IO.Log;
 using iText.Kernel.Pdf.Xobject;
@@ -80,6 +81,21 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         public virtual PdfImageXObject RetrieveImage(String src) {
+            if (src.Contains("base64")) {
+                try {
+                    String fixedSrc = iText.IO.Util.StringUtil.ReplaceAll(src, "\\s", "");
+                    fixedSrc = fixedSrc.Substring(fixedSrc.IndexOf("base64", StringComparison.Ordinal) + 7);
+                    PdfImageXObject imageXObject = new PdfImageXObject(ImageDataFactory.CreatePng(System.Convert.FromBase64String
+                        (fixedSrc)));
+                    imageCache.PutImage(fixedSrc, imageXObject);
+                    return imageXObject;
+                }
+                catch (Exception e) {
+                    ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Resolver.Resource.ResourceResolver));
+                    logger.Error(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_FROM_BASE64_SOURCE, e);
+                    return null;
+                }
+            }
             try {
                 Uri url = uriResolver.ResolveAgainstBaseUri(src);
                 String imageResolvedSrc = url.ToExternalForm();
