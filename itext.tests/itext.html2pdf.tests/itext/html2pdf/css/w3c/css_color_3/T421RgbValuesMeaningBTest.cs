@@ -43,8 +43,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_3 {
-    [NUnit.Framework.Ignore("DEVSIX-925: trimFirst on layout level trims all the non-breakable spaces;" + "DEVSIX-...: infinite loop in layout"
-        )]
+    [NUnit.Framework.Ignore("DEVSIX-925: trimFirst on layout level trims all the non-breakable spaces;")]
     public class T421RgbValuesMeaningBTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "t421-rgb-values-meaning-b.xht";
