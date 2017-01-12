@@ -122,5 +122,25 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithNonBreakableSpaceTest01.pdf"
                 , sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest01.pdf", destinationFolder, "diff06_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ParagraphWithNonBreakableSpaceTest02() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithNonBreakableSpaceTest02.html"), new FileInfo
+                (destinationFolder + "paragraphWithNonBreakableSpaceTest02.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithNonBreakableSpaceTest02.pdf"
+                , sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest02.pdf", destinationFolder, "diff07_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ParagraphWithNonBreakableSpaceTest03() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithNonBreakableSpaceTest03.html"), new FileInfo
+                (destinationFolder + "paragraphWithNonBreakableSpaceTest03.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithNonBreakableSpaceTest03.pdf"
+                , sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest03.pdf", destinationFolder, "diff08_"));
+        }
     }
 }
