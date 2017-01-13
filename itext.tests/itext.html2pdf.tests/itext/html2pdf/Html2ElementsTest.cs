@@ -62,6 +62,7 @@ namespace iText.Html2pdf {
             CreateDestinationFolder(destinationFolder);
         }
 
+        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlToElementsTest01() {
             String html = "<p>Hello world!</p>";
@@ -73,6 +74,7 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.AreEqual(12f, (float)(Object)p.GetProperty<float?>(Property.FONT_SIZE), 1e-10);
         }
 
+        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlToElementsTest02() {
             String html = "<table style=\"font-size: 2em\"><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table>";
@@ -86,6 +88,7 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.AreEqual(24f, (float)(Object)t.GetProperty<float?>(Property.FONT_SIZE), 1e-10);
         }
 
+        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlToElementsTest03() {
             String html = "<p>Hello world!</p><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p>";
@@ -99,6 +102,7 @@ namespace iText.Html2pdf {
                 .GetChildren()[0])).GetText());
         }
 
+        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlToElementsTest04() {
             // Handles malformed html
@@ -112,6 +116,7 @@ namespace iText.Html2pdf {
                 .GetChildren()[0])).GetText());
         }
 
+        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.TEXT_WAS_NOT_PROCESSED)]
         public virtual void HtmlToElementsTest05() {

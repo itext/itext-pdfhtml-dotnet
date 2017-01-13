@@ -228,11 +228,26 @@ namespace iText.Html2pdf {
             return type;
         }
 
+        /// <exception cref="System.IO.IOException"/>
         public static IList<IElement> ConvertToElements(String html) {
-            return ConvertToElements(html, null);
+            Stream stream = new MemoryStream(html.GetBytes());
+            return ConvertToElements(stream, null);
         }
 
+        /// <exception cref="System.IO.IOException"/>
+        public static IList<IElement> ConvertToElements(Stream htmlStream) {
+            return ConvertToElements(htmlStream, null);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
         public static IList<IElement> ConvertToElements(String html, ConverterProperties converterProperties) {
+            MemoryStream stream = new MemoryStream(html.GetBytes());
+            return ConvertToElements(stream, converterProperties);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        public static IList<IElement> ConvertToElements(Stream htmlStream, ConverterProperties converterProperties
+            ) {
 
             try 
             {
@@ -260,7 +275,7 @@ namespace iText.Html2pdf {
                 }
             }
             IHtmlParser parser = new JsoupHtmlParser();
-            IDocumentNode doc = parser.Parse(html);
+            IDocumentNode doc = parser.Parse(htmlStream, DetectEncoding(htmlStream));
             return Attacher.Attach(doc, converterProperties);
         }
 
