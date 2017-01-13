@@ -85,9 +85,11 @@ namespace iText.Html2pdf.Resolver.Resource {
                 try {
                     String fixedSrc = iText.IO.Util.StringUtil.ReplaceAll(src, "\\s", "");
                     fixedSrc = fixedSrc.Substring(fixedSrc.IndexOf("base64", StringComparison.Ordinal) + 7);
-                    PdfImageXObject imageXObject = new PdfImageXObject(ImageDataFactory.Create(System.Convert.FromBase64String
-                        (fixedSrc)));
-                    imageCache.PutImage(fixedSrc, imageXObject);
+                    PdfImageXObject imageXObject = imageCache.GetImage(fixedSrc);
+                    if (imageXObject == null) {
+                        imageXObject = new PdfImageXObject(ImageDataFactory.Create(System.Convert.FromBase64String(fixedSrc)));
+                        imageCache.PutImage(fixedSrc, imageXObject);
+                    }
                     return imageXObject;
                 }
                 catch (Exception) {
