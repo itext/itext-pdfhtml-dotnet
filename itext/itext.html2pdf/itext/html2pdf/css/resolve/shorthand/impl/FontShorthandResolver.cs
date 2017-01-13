@@ -101,7 +101,8 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                                 lineHeightValue = value.JSubstring(slashSymbolIndex + 1, value.Length);
                             }
                             else {
-                                if (FONT_SIZE_VALUES.Contains(value) || CssUtils.IsMetricValue(value) || CssUtils.IsNumericValue(value)) {
+                                if (FONT_SIZE_VALUES.Contains(value) || CssUtils.IsMetricValue(value) || CssUtils.IsNumericValue(value) ||
+                                     CssUtils.IsRelativeValue(value)) {
                                     fontSizeValue = value;
                                 }
                                 else {

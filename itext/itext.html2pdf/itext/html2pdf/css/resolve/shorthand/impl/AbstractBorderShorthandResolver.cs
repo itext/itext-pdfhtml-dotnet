@@ -69,7 +69,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             String borderWidthValue = null;
             foreach (String value in props) {
                 if (CssConstants.BORDER_WIDTH_VALUES.Contains(value) || CssUtils.IsNumericValue(value) || CssUtils.IsMetricValue
-                    (value)) {
+                    (value) || CssUtils.IsRelativeValue(value)) {
                     borderWidthValue = value;
                 }
                 else {

@@ -52,6 +52,7 @@ namespace iText.Html2pdf.Css.Util {
             NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("mm"));
             NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("pc"));
             NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("em"));
+            NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("rem"));
             NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("ex"));
             NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("pt"));
             NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("inch"));
