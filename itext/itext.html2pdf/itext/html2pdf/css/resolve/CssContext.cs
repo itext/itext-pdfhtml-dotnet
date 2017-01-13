@@ -40,11 +40,25 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.Collections.Generic;
-using iText.Html2pdf.Html.Node;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Apply.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
-    public interface ICssResolver {
-        IDictionary<String, String> ResolveStyles(IElementNode node, CssContext context);
+    public class CssContext {
+        private float rootFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants
+            .FONT_SIZE));
+
+        //value in pt
+        public virtual float GetRootFontSize() {
+            return rootFontSize;
+        }
+
+        public virtual void SetRootFontSize(float fontSize) {
+            this.rootFontSize = fontSize;
+        }
+
+        public virtual void SetRootFontSize(String fontSizeStr) {
+            this.rootFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(fontSizeStr);
+        }
     }
 }

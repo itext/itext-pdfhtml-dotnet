@@ -65,7 +65,7 @@ namespace iText.Html2pdf.Css.Resolve {
             CollectCssDeclarations(treeRoot, resourceResolver);
         }
 
-        public virtual IDictionary<String, String> ResolveStyles(IElementNode element) {
+        public virtual IDictionary<String, String> ResolveStyles(IElementNode element, CssContext context) {
             IList<CssDeclaration> nodeCssDeclarations = HtmlStylesToCssConverter.Convert(element);
             nodeCssDeclarations.AddAll(cssStyleSheet.GetCssDeclarations(element, deviceDescription));
             String styleAttribute = element.GetAttribute(AttributeConstants.STYLE);
@@ -91,21 +91,30 @@ namespace iText.Html2pdf.Css.Resolve {
             String elementFontSize = elementStyles.Get(CssConstants.FONT_SIZE);
             if (CssUtils.IsRelativeValue(elementFontSize) || CssConstants.LARGER.Equals(elementFontSize) || CssConstants
                 .SMALLER.Equals(elementFontSize)) {
-                float parentFontSize;
-                if (parentFontSizeStr == null) {
-                    parentFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants.FONT_SIZE
-                        ));
+                float baseFontSize;
+                if (CssUtils.IsRemValue(elementFontSize)) {
+                    baseFontSize = context.GetRootFontSize();
                 }
                 else {
-                    parentFontSize = CssUtils.ParseAbsoluteLength(parentFontSizeStr);
+                    if (parentFontSizeStr == null) {
+                        baseFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants.FONT_SIZE
+                            ));
+                    }
+                    else {
+                        baseFontSize = CssUtils.ParseAbsoluteLength(parentFontSizeStr);
+                    }
                 }
-                float absoluteFontSize = FontStyleApplierUtil.ParseRelativeFontSize(elementFontSize, parentFontSize);
+                float absoluteFontSize = FontStyleApplierUtil.ParseRelativeFontSize(elementFontSize, baseFontSize);
                 elementStyles[CssConstants.FONT_SIZE] = System.Convert.ToString(absoluteFontSize, System.Globalization.CultureInfo.InvariantCulture
                     ) + CssConstants.PT;
             }
             else {
                 elementStyles[CssConstants.FONT_SIZE] = System.Convert.ToString(FontStyleApplierUtil.ParseAbsoluteFontSize
                     (elementFontSize), System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT;
+            }
+            //Update root font size
+            if (TagConstants.HTML.Equals(element.Name())) {
+                context.SetRootFontSize(elementStyles.Get(CssConstants.FONT_SIZE));
             }
             ICollection<String> keys = new HashSet<String>();
             foreach (KeyValuePair<String, String> entry in elementStyles) {

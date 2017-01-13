@@ -70,6 +70,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            float rem = context.GetCssContext().GetRootFontSize();
             if (em != 0) {
                 element.SetProperty(Property.FONT_SIZE, em);
             }
@@ -171,7 +172,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             String textIndent = cssProps.Get(CssConstants.TEXT_INDENT);
             if (textIndent != null) {
-                UnitValue textIndentValue = CssUtils.ParseLengthValueToPt(textIndent, em);
+                UnitValue textIndentValue = CssUtils.ParseLengthValueToPt(textIndent, em, rem);
                 if (textIndentValue != null) {
                     if (textIndentValue.IsPointValue()) {
                         element.SetProperty(Property.FIRST_LINE_INDENT, textIndentValue.GetValue());
@@ -184,7 +185,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             String letterSpacing = cssProps.Get(CssConstants.LETTER_SPACING);
             if (letterSpacing != null) {
-                UnitValue letterSpacingValue = CssUtils.ParseLengthValueToPt(letterSpacing, em);
+                UnitValue letterSpacingValue = CssUtils.ParseLengthValueToPt(letterSpacing, em, rem);
                 if (letterSpacingValue.IsPointValue()) {
                     element.SetProperty(Property.CHARACTER_SPACING, letterSpacingValue.GetValue());
                 }
@@ -192,7 +193,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             // browsers ignore values in percents
             String wordSpacing = cssProps.Get(CssConstants.WORD_SPACING);
             if (wordSpacing != null) {
-                UnitValue wordSpacingValue = CssUtils.ParseLengthValueToPt(wordSpacing, em);
+                UnitValue wordSpacingValue = CssUtils.ParseLengthValueToPt(wordSpacing, em, rem);
                 if (wordSpacingValue != null) {
                     if (wordSpacingValue.IsPointValue()) {
                         element.SetProperty(Property.WORD_SPACING, wordSpacingValue.GetValue());
@@ -202,7 +203,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             // browsers ignore values in percents
             String lineHeight = cssProps.Get(CssConstants.LINE_HEIGHT);
             if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight)) {
-                UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em);
+                UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em, rem);
                 if (CssUtils.IsNumericValue(lineHeight)) {
                     element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.GetValue()));
                 }

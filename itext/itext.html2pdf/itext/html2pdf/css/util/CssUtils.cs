@@ -194,11 +194,11 @@ namespace iText.Html2pdf.Css.Util {
                 f = baseValue * f / 100;
             }
             else {
-                if (unit.StartsWith(CssConstants.EM)) {
+                if (unit.StartsWith(CssConstants.EM) || unit.StartsWith(CssConstants.REM)) {
                     f = baseValue * f;
                 }
                 else {
-                    if (unit.Contains(CssConstants.EX)) {
+                    if (unit.StartsWith(CssConstants.EX)) {
                         f = baseValue * f / 2;
                     }
                 }
@@ -206,7 +206,7 @@ namespace iText.Html2pdf.Css.Util {
             return (float)f;
         }
 
-        public static UnitValue ParseLengthValueToPt(String value, float emValue) {
+        public static UnitValue ParseLengthValueToPt(String value, float emValue, float remValue) {
             if (IsMetricValue(value) || IsNumericValue(value)) {
                 return new UnitValue(UnitValue.POINT, ParseAbsoluteLength(value));
             }
@@ -216,8 +216,13 @@ namespace iText.Html2pdf.Css.Util {
                         ));
                 }
                 else {
-                    if (value != null && (value.EndsWith(CssConstants.EM) || value.EndsWith(CssConstants.EX))) {
-                        return new UnitValue(UnitValue.POINT, ParseRelativeValue(value, emValue));
+                    if (IsRemValue(value)) {
+                        return new UnitValue(UnitValue.POINT, ParseRelativeValue(value, remValue));
+                    }
+                    else {
+                        if (value != null && (value.EndsWith(CssConstants.EM) || value.EndsWith(CssConstants.EX))) {
+                            return new UnitValue(UnitValue.POINT, ParseRelativeValue(value, emValue));
+                        }
                     }
                 }
             }
@@ -299,6 +304,13 @@ namespace iText.Html2pdf.Css.Util {
         public static bool IsRelativeValue(String value) {
             return value != null && (value.EndsWith(CssConstants.PERCENTAGE) || value.EndsWith(CssConstants.EM) || value
                 .EndsWith(CssConstants.EX));
+        }
+
+        /// <summary>Checks whether a string contains an allowed value relative to previously set root value.</summary>
+        /// <param name="value">the string that needs to be checked.</param>
+        /// <returns>boolean true if value contains an allowed metric value.</returns>
+        public static bool IsRemValue(String value) {
+            return value != null && (value.EndsWith(CssConstants.REM));
         }
 
         /// <summary>Checks whether a string matches a numeric value (e.g.</summary>

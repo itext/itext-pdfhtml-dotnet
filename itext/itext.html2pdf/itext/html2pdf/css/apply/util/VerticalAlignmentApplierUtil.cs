@@ -96,11 +96,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                     else {
                         if (CssConstants.TEXT_TOP.Equals(vAlignVal)) {
-                            textRise = CalcTextRiseForTextTop(elementNode);
+                            textRise = CalcTextRiseForTextTop(elementNode, context.GetCssContext().GetRootFontSize());
                         }
                         else {
                             if (CssConstants.TEXT_BOTTOM.Equals(vAlignVal)) {
-                                textRise = CalcTextRiseForTextBottom(elementNode);
+                                textRise = CalcTextRiseForTextBottom(elementNode, context.GetCssContext().GetRootFontSize());
                             }
                             else {
                                 if (CssUtils.IsMetricValue(vAlignVal)) {
@@ -108,7 +108,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                                 }
                                 else {
                                     if (vAlignVal.EndsWith(CssConstants.PERCENTAGE)) {
-                                        textRise = CalcTextRiseForPercentageValue(elementNode, vAlignVal);
+                                        textRise = CalcTextRiseForPercentageValue(elementNode, context.GetCssContext().GetRootFontSize(), vAlignVal
+                                            );
                                     }
                                 }
                             }
@@ -156,22 +157,22 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return xHeight - elementMidPoint;
         }
 
-        private static float CalcTextRiseForTextTop(IElementNode elementNode) {
+        private static float CalcTextRiseForTextTop(IElementNode elementNode, float rootFontSize) {
             String ownFontSizeStr = elementNode.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssUtils.ParseAbsoluteLength(ownFontSizeStr);
             String lineHeightStr = elementNode.GetStyles().Get(CssConstants.LINE_HEIGHT);
-            float lineHeightActualValue = GetLineHeightActualValue(fontSize, lineHeightStr);
+            float lineHeightActualValue = GetLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
             float parentFontSize = GetParentFontSize(elementNode);
             float elementTopEdge = (float)(fontSize * ASCENDER_COEFFICIENT + (lineHeightActualValue - fontSize) / 2);
             float parentTextTop = (float)(parentFontSize * ASCENDER_COEFFICIENT);
             return parentTextTop - elementTopEdge;
         }
 
-        private static float CalcTextRiseForTextBottom(IElementNode elementNode) {
+        private static float CalcTextRiseForTextBottom(IElementNode elementNode, float rootFontSize) {
             String ownFontSizeStr = elementNode.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssUtils.ParseAbsoluteLength(ownFontSizeStr);
             String lineHeightStr = elementNode.GetStyles().Get(CssConstants.LINE_HEIGHT);
-            float lineHeightActualValue = GetLineHeightActualValue(fontSize, lineHeightStr);
+            float lineHeightActualValue = GetLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
             float parentFontSize = GetParentFontSize(elementNode);
             float elementBottomEdge = (float)(fontSize * DESCENDER_COEFFICIENT + (lineHeightActualValue - fontSize) / 
                 2);
@@ -179,18 +180,19 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return elementBottomEdge - parentTextBottom;
         }
 
-        private static float CalcTextRiseForPercentageValue(IElementNode elementNode, String vAlignVal) {
+        private static float CalcTextRiseForPercentageValue(IElementNode elementNode, float rootFontSize, String vAlignVal
+            ) {
             String ownFontSizeStr = elementNode.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssUtils.ParseAbsoluteLength(ownFontSizeStr);
             String lineHeightStr = elementNode.GetStyles().Get(CssConstants.LINE_HEIGHT);
-            float lineHeightActualValue = GetLineHeightActualValue(fontSize, lineHeightStr);
+            float lineHeightActualValue = GetLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
             return CssUtils.ParseRelativeValue(vAlignVal, lineHeightActualValue);
         }
 
-        private static float GetLineHeightActualValue(float fontSize, String lineHeightStr) {
+        private static float GetLineHeightActualValue(float fontSize, float rootFontSize, String lineHeightStr) {
             float lineHeightActualValue;
             if (lineHeightStr != null) {
-                UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeightStr, fontSize);
+                UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeightStr, fontSize, rootFontSize);
                 if (CssUtils.IsNumericValue(lineHeightStr)) {
                     lineHeightActualValue = fontSize * lineHeightValue.GetValue();
                 }

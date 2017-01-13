@@ -505,6 +505,8 @@ namespace iText.Html2pdf.Css {
 
         public const String PX = "px";
 
+        public const String REM = "rem";
+
         public const String Q = "q";
 
         public const String DPI = "dpi";

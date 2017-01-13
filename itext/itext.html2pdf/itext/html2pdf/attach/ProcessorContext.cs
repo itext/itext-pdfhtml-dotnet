@@ -43,6 +43,7 @@ using System;
 using iText.Html2pdf;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Media;
+using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Resolver.Font;
 using iText.Html2pdf.Resolver.Resource;
 using iText.Kernel.Pdf;
@@ -60,6 +61,8 @@ namespace iText.Html2pdf.Attach {
         private ICssApplierFactory cssApplierFactory;
 
         private String baseUri;
+
+        private CssContext cssContext;
 
         private State state;
 
@@ -92,6 +95,7 @@ namespace iText.Html2pdf.Attach {
                 baseUri = "";
             }
             resourceResolver = new ResourceResolver(baseUri);
+            cssContext = new CssContext();
         }
 
         public virtual void SetFontResolver(IFontResolver fontResolver) {
@@ -126,10 +130,15 @@ namespace iText.Html2pdf.Attach {
             return cssApplierFactory;
         }
 
+        public virtual CssContext GetCssContext() {
+            return cssContext;
+        }
+
         public virtual void Reset() {
             this.pdfDocument = null;
             this.state = new State();
             this.resourceResolver.ResetCache();
+            this.cssContext = new CssContext();
         }
 
         public virtual void Reset(PdfDocument pdfDocument) {

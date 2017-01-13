@@ -41,6 +41,7 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
+using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.Layout.Properties;
@@ -67,10 +68,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
         (the table layout should change ann the width should be diminished), and to clip cells that are spaned to none-collapsed one.
         The state of the content in clipped cells is not specified*/
         //The Width is a special case, casue it should be transferred from <colgroup> to <col> but it not applied to <td> or <th>
-        public static UnitValue GetWidth(IDictionary<String, String> resolvedCssProps) {
+        public static UnitValue GetWidth(IDictionary<String, String> resolvedCssProps, ProcessorContext context) {
             float em = CssUtils.ParseAbsoluteLength(resolvedCssProps.Get(CssConstants.FONT_SIZE));
             String width = resolvedCssProps.Get(CssConstants.WIDTH);
-            return width != null ? CssUtils.ParseLengthValueToPt(width, em) : null;
+            return width != null ? CssUtils.ParseLengthValueToPt(width, em, context.GetCssContext().GetRootFontSize())
+                 : null;
         }
 
         public static IDictionary<String, String> GetCellProperties(IDictionary<String, String> resolvedCssProps) {

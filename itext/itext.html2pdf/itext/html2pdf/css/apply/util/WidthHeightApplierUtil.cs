@@ -59,15 +59,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static void ApplyWidthHeight(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            float rem = context.GetCssContext().GetRootFontSize();
             String widthVal = cssProps.Get(CssConstants.WIDTH);
             if (!CssConstants.AUTO.Equals(widthVal) && widthVal != null) {
-                UnitValue width = CssUtils.ParseLengthValueToPt(widthVal, em);
+                UnitValue width = CssUtils.ParseLengthValueToPt(widthVal, em, rem);
                 element.SetProperty(Property.WIDTH, width);
             }
             String heightVal = cssProps.Get(CssConstants.HEIGHT);
             if (heightVal != null) {
                 if (!CssConstants.AUTO.Equals(heightVal)) {
-                    UnitValue height = CssUtils.ParseLengthValueToPt(heightVal, em);
+                    UnitValue height = CssUtils.ParseLengthValueToPt(heightVal, em, rem);
                     if (height != null) {
                         if (height.IsPointValue()) {
                             element.SetProperty(Property.HEIGHT, height.GetValue());
@@ -80,7 +81,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             String maxHeightVal = cssProps.Get(CssConstants.MAX_HEIGHT);
             if (maxHeightVal != null) {
-                UnitValue height = CssUtils.ParseLengthValueToPt(maxHeightVal, em);
+                UnitValue height = CssUtils.ParseLengthValueToPt(maxHeightVal, em, rem);
                 if (height != null) {
                     if (height.IsPointValue()) {
                         element.SetProperty(Property.MAX_HEIGHT, height.GetValue());
@@ -92,7 +93,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             String minHeightVal = cssProps.Get(CssConstants.MIN_HEIGHT);
             if (minHeightVal != null) {
-                UnitValue height = CssUtils.ParseLengthValueToPt(minHeightVal, em);
+                UnitValue height = CssUtils.ParseLengthValueToPt(minHeightVal, em, rem);
                 if (height != null) {
                     if (height.IsPointValue()) {
                         element.SetProperty(Property.MIN_HEIGHT, height.GetValue());

@@ -84,16 +84,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static void ApplyLeftRightTopBottom(IDictionary<String, String> cssProps, ProcessorContext context
             , IPropertyContainer element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
-            ApplyLeftProperty(cssProps, element, em, Property.LEFT);
-            ApplyRightProperty(cssProps, element, em, Property.RIGHT);
-            ApplyTopProperty(cssProps, element, em, Property.TOP);
-            ApplyBottomProperty(cssProps, element, em, Property.BOTTOM);
+            float rem = context.GetCssContext().GetRootFontSize();
+            ApplyLeftProperty(cssProps, element, em, rem, Property.LEFT);
+            ApplyRightProperty(cssProps, element, em, rem, Property.RIGHT);
+            ApplyTopProperty(cssProps, element, em, rem, Property.TOP);
+            ApplyBottomProperty(cssProps, element, em, rem, Property.BOTTOM);
         }
 
         private static void ApplyLeftProperty(IDictionary<String, String> cssProps, IPropertyContainer element, float
-             em, int layoutPropertyMapping) {
+             em, float rem, int layoutPropertyMapping) {
             String left = cssProps.Get(CssConstants.LEFT);
-            UnitValue leftVal = CssUtils.ParseLengthValueToPt(left, em);
+            UnitValue leftVal = CssUtils.ParseLengthValueToPt(left, em, rem);
             if (leftVal != null) {
                 if (leftVal.IsPointValue()) {
                     element.SetProperty(layoutPropertyMapping, leftVal.GetValue());
@@ -106,9 +107,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         private static void ApplyRightProperty(IDictionary<String, String> cssProps, IPropertyContainer element, float
-             em, int layoutPropertyMapping) {
+             em, float rem, int layoutPropertyMapping) {
             String right = cssProps.Get(CssConstants.RIGHT);
-            UnitValue rightVal = CssUtils.ParseLengthValueToPt(right, em);
+            UnitValue rightVal = CssUtils.ParseLengthValueToPt(right, em, rem);
             if (rightVal != null) {
                 if (rightVal.IsPointValue()) {
                     element.SetProperty(layoutPropertyMapping, rightVal.GetValue());
@@ -121,9 +122,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         private static void ApplyTopProperty(IDictionary<String, String> cssProps, IPropertyContainer element, float
-             em, int layoutPropertyMapping) {
+             em, float rem, int layoutPropertyMapping) {
             String top = cssProps.Get(CssConstants.TOP);
-            UnitValue topVal = CssUtils.ParseLengthValueToPt(top, em);
+            UnitValue topVal = CssUtils.ParseLengthValueToPt(top, em, rem);
             if (topVal != null) {
                 if (topVal.IsPointValue()) {
                     element.SetProperty(layoutPropertyMapping, topVal.GetValue());
@@ -136,9 +137,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         private static void ApplyBottomProperty(IDictionary<String, String> cssProps, IPropertyContainer element, 
-            float em, int layoutPropertyMapping) {
+            float em, float rem, int layoutPropertyMapping) {
             String bottom = cssProps.Get(CssConstants.BOTTOM);
-            UnitValue bottomVal = CssUtils.ParseLengthValueToPt(bottom, em);
+            UnitValue bottomVal = CssUtils.ParseLengthValueToPt(bottom, em, rem);
             if (bottomVal != null) {
                 if (bottomVal.IsPointValue()) {
                     element.SetProperty(layoutPropertyMapping, bottomVal.GetValue());

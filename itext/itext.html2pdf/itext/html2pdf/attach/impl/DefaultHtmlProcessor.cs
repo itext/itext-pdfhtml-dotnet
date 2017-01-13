@@ -120,8 +120,8 @@ namespace iText.Html2pdf.Attach.Impl {
             IElementNode html = FindHtmlNode(root);
             IElementNode body = FindBodyNode(root);
             // Force resolve styles to fetch default font size etc
-            html.SetStyles(cssResolver.ResolveStyles(html));
-            body.SetStyles(cssResolver.ResolveStyles(body));
+            html.SetStyles(cssResolver.ResolveStyles(html, context.GetCssContext()));
+            body.SetStyles(cssResolver.ResolveStyles(body, context.GetCssContext()));
             foreach (INode node in body.ChildNodes()) {
                 if (node is IElementNode) {
                     Visit(node);
@@ -225,7 +225,7 @@ namespace iText.Html2pdf.Attach.Impl {
         private void Visit(INode node) {
             if (node is IElementNode) {
                 IElementNode element = (IElementNode)node;
-                element.SetStyles(cssResolver.ResolveStyles(element));
+                element.SetStyles(cssResolver.ResolveStyles(element, context.GetCssContext()));
                 if (!IsDisplayable(element)) {
                     return;
                 }

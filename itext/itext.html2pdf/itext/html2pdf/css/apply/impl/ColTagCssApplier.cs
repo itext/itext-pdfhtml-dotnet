@@ -54,7 +54,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             if (cssProps != null && tagWorker is ColTagWorker) {
                 ((ColTagWorker)tagWorker).GetColumn().SetCellCssProps(SupportedColColgroupPropertiesUtil.GetCellProperties
                     (cssProps)).SetOwnCssProps(SupportedColColgroupPropertiesUtil.GetOwnProperties(cssProps)).SetWidth(SupportedColColgroupPropertiesUtil
-                    .GetWidth(cssProps));
+                    .GetWidth(cssProps, context));
             }
         }
     }

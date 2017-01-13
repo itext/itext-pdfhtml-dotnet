@@ -225,12 +225,16 @@ namespace iText.Html2pdf.Css {
                 , "margin-left: 10%", "margin-right: 10%", "margin-top: 10%", "display: block");
         }
 
-        private void ResolveStylesForTree(INode node, ICssResolver cssResolver) {
+        private void ResolveStylesForTree(INode node, ICssResolver cssResolver, CssContext context) {
             if (node is IElementNode) {
-                ((IElementNode)node).SetStyles(cssResolver.ResolveStyles((IElementNode)node));
+                IElementNode element = (IElementNode)node;
+                element.SetStyles(cssResolver.ResolveStyles((IElementNode)node, context));
+                if (TagConstants.HTML.Equals(element.Name())) {
+                    context.SetRootFontSize(element.GetStyles().Get(CssConstants.FONT_SIZE));
+                }
             }
             foreach (INode child in node.ChildNodes()) {
-                ResolveStylesForTree(child, cssResolver);
+                ResolveStylesForTree(child, cssResolver, context);
             }
         }
 
@@ -241,7 +245,8 @@ namespace iText.Html2pdf.Css {
             IDocumentNode document = parser.Parse(new FileStream(filePath, FileMode.Open, FileAccess.Read), "UTF-8");
             ICssResolver cssResolver = new DefaultCssResolver(document, MediaDeviceDescription.CreateDefault(), new ResourceResolver
                 (""));
-            ResolveStylesForTree(document, cssResolver);
+            CssContext context = new CssContext();
+            ResolveStylesForTree(document, cssResolver, context);
             IElementNode element = FindElement(document, elementPath);
             if (element == null) {
                 NUnit.Framework.Assert.Fail(String.Format("Element at path \"{0}\" was not found.", elementPath));

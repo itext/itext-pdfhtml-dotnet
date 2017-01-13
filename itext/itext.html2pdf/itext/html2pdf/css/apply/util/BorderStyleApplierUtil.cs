@@ -62,30 +62,31 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static void ApplyBorders(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            float rem = context.GetCssContext().GetRootFontSize();
             Border topBorder = GetCertainBorder(cssProps.Get(CssConstants.BORDER_TOP_WIDTH), cssProps.Get(CssConstants
-                .BORDER_TOP_STYLE), cssProps.Get(CssConstants.BORDER_TOP_COLOR), em);
+                .BORDER_TOP_STYLE), cssProps.Get(CssConstants.BORDER_TOP_COLOR), em, rem);
             if (topBorder != null) {
                 element.SetProperty(Property.BORDER_TOP, topBorder);
             }
             Border bottomBorder = GetCertainBorder(cssProps.Get(CssConstants.BORDER_BOTTOM_WIDTH), cssProps.Get(CssConstants
-                .BORDER_BOTTOM_STYLE), cssProps.Get(CssConstants.BORDER_BOTTOM_COLOR), em);
+                .BORDER_BOTTOM_STYLE), cssProps.Get(CssConstants.BORDER_BOTTOM_COLOR), em, rem);
             if (bottomBorder != null) {
                 element.SetProperty(Property.BORDER_BOTTOM, bottomBorder);
             }
             Border leftBorder = GetCertainBorder(cssProps.Get(CssConstants.BORDER_LEFT_WIDTH), cssProps.Get(CssConstants
-                .BORDER_LEFT_STYLE), cssProps.Get(CssConstants.BORDER_LEFT_COLOR), em);
+                .BORDER_LEFT_STYLE), cssProps.Get(CssConstants.BORDER_LEFT_COLOR), em, rem);
             if (leftBorder != null) {
                 element.SetProperty(Property.BORDER_LEFT, leftBorder);
             }
             Border rightBorder = GetCertainBorder(cssProps.Get(CssConstants.BORDER_RIGHT_WIDTH), cssProps.Get(CssConstants
-                .BORDER_RIGHT_STYLE), cssProps.Get(CssConstants.BORDER_RIGHT_COLOR), em);
+                .BORDER_RIGHT_STYLE), cssProps.Get(CssConstants.BORDER_RIGHT_COLOR), em, rem);
             if (rightBorder != null) {
                 element.SetProperty(Property.BORDER_RIGHT, rightBorder);
             }
         }
 
         public static Border GetCertainBorder(String borderWidth, String borderStyle, String borderColor, float em
-            ) {
+            , float rem) {
             if (borderStyle == null || CssConstants.NONE.Equals(borderStyle)) {
                 return null;
             }
@@ -108,7 +109,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
             }
-            UnitValue unitValue = CssUtils.ParseLengthValueToPt(borderWidth, em);
+            UnitValue unitValue = CssUtils.ParseLengthValueToPt(borderWidth, em, rem);
             if (unitValue == null) {
                 return null;
             }

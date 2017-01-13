@@ -66,12 +66,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
             bool isBlock = element is IBlockElement;
             bool isImage = element is Image;
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            float rem = context.GetCssContext().GetRootFontSize();
             if (isBlock || isImage) {
-                TrySetMarginIfNotAuto(Property.MARGIN_TOP, marginTop, element, em);
-                TrySetMarginIfNotAuto(Property.MARGIN_BOTTOM, marginBottom, element, em);
+                TrySetMarginIfNotAuto(Property.MARGIN_TOP, marginTop, element, em, rem);
+                TrySetMarginIfNotAuto(Property.MARGIN_BOTTOM, marginBottom, element, em, rem);
             }
-            bool isLeftAuto = !TrySetMarginIfNotAuto(Property.MARGIN_LEFT, marginLeft, element, em);
-            bool isRightAuto = !TrySetMarginIfNotAuto(Property.MARGIN_RIGHT, marginRight, element, em);
+            bool isLeftAuto = !TrySetMarginIfNotAuto(Property.MARGIN_LEFT, marginLeft, element, em, rem);
+            bool isRightAuto = !TrySetMarginIfNotAuto(Property.MARGIN_RIGHT, marginRight, element, em, rem);
             if (isBlock) {
                 if (isLeftAuto && isRightAuto) {
                     element.SetProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.CENTER);
@@ -90,20 +91,20 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         private static bool TrySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element
-            , float em) {
+            , float em, float rem) {
             bool isAuto = CssConstants.AUTO.Equals(marginValue);
             if (isAuto) {
                 return false;
             }
-            float? marginTopVal = ParseMarginValue(marginValue, em);
+            float? marginTopVal = ParseMarginValue(marginValue, em, rem);
             if (marginTopVal != null) {
                 element.SetProperty(marginProperty, marginTopVal);
             }
             return true;
         }
 
-        private static float? ParseMarginValue(String marginValString, float em) {
-            UnitValue marginTopUnitVal = CssUtils.ParseLengthValueToPt(marginValString, em);
+        private static float? ParseMarginValue(String marginValString, float em, float rem) {
+            UnitValue marginTopUnitVal = CssUtils.ParseLengthValueToPt(marginValString, em, rem);
             if (marginTopUnitVal != null) {
                 if (!marginTopUnitVal.IsPointValue()) {
                     logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);

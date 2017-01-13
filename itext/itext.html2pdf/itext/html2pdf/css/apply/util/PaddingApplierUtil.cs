@@ -63,10 +63,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String paddingLeft = cssProps.Get(CssConstants.PADDING_LEFT);
             String paddingRight = cssProps.Get(CssConstants.PADDING_RIGHT);
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
-            UnitValue marginTopVal = CssUtils.ParseLengthValueToPt(paddingTop, em);
-            UnitValue marginBottomVal = CssUtils.ParseLengthValueToPt(paddingBottom, em);
-            UnitValue marginLeftVal = CssUtils.ParseLengthValueToPt(paddingLeft, em);
-            UnitValue marginRightVal = CssUtils.ParseLengthValueToPt(paddingRight, em);
+            float rem = context.GetCssContext().GetRootFontSize();
+            UnitValue marginTopVal = CssUtils.ParseLengthValueToPt(paddingTop, em, rem);
+            UnitValue marginBottomVal = CssUtils.ParseLengthValueToPt(paddingBottom, em, rem);
+            UnitValue marginLeftVal = CssUtils.ParseLengthValueToPt(paddingLeft, em, rem);
+            UnitValue marginRightVal = CssUtils.ParseLengthValueToPt(paddingRight, em, rem);
             if (marginTopVal != null) {
                 if (marginTopVal.IsPointValue()) {
                     element.SetProperty(Property.PADDING_TOP, marginTopVal.GetValue());
