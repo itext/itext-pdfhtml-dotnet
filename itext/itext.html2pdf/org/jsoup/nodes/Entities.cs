@@ -299,7 +299,7 @@ namespace Org.Jsoup.Nodes {
             try {
                 Stream @in = typeof(Entities).GetResourceAsStream(filename);
                 properties.Load(@in);
-                @in.Close();
+                @in.Dispose();
             }
             catch (System.IO.IOException e) {
                 throw new MissingResourceException("Error loading entities resource: " + e.Message, "Entities", filename);

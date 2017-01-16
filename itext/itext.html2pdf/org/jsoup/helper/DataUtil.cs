@@ -179,7 +179,7 @@ namespace Org.Jsoup.Helper {
             }
             finally {
                 if (randomAccessFile != null) {
-                    randomAccessFile.Close();
+                    randomAccessFile.Dispose();
                 }
             }
         }
