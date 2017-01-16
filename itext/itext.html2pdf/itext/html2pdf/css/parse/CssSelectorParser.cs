@@ -48,7 +48,7 @@ namespace iText.Html2pdf.Css.Parse {
     public sealed class CssSelectorParser {
         private static readonly ICollection<String> legacyPseudoElements = new HashSet<String>();
 
-        private const String SELECTOR_PATTERN_STR = "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^\"]+')))?\\])|(::?[\\w()-]*)|( )|(\\+)|(>)|(~)";
+        private const String SELECTOR_PATTERN_STR = "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^\"]+')))?\\])|(::?[a-zA-Z-]*(\\([ \t\\+\\.#\\w-]*\\))?)|( )|(\\+)|(>)|(~)";
 
         private static readonly Regex selectorPattern = iText.IO.Util.StringUtil.RegexCompile(SELECTOR_PATTERN_STR
             );

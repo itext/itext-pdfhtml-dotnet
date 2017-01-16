@@ -135,6 +135,40 @@ namespace iText.Html2pdf.Css.Selector.Item {
             NUnit.Framework.Assert.AreEqual(2, GetSpecificity("a::hover"));
         }
 
+        [NUnit.Framework.Test]
+        public virtual void Test17() {
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.CLASS_SPECIFICITY * 2, GetSpecificity(".class_name:nth-child(3n + 1)"
+                ));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Test18() {
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.CLASS_SPECIFICITY * 2, GetSpecificity(".class_name:nth-child(2n - 3)"
+                ));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Test19() {
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.CLASS_SPECIFICITY * 2, GetSpecificity(".class_name:lang(it)"
+                ));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Test20() {
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.CLASS_SPECIFICITY, GetSpecificity(":not(p)"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Test21() {
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.CLASS_SPECIFICITY, GetSpecificity(":not(#id)"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Test22() {
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.CLASS_SPECIFICITY, GetSpecificity(":not(.class_name)"
+                ));
+        }
+
         private int GetSpecificity(String selector) {
             return new CssSelector(selector).CalculateSpecificity();
         }
