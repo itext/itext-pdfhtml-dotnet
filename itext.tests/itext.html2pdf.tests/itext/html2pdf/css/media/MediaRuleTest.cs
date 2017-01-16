@@ -62,11 +62,11 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Media {
     public class MediaRuleTest : ExtendedITextTest {
-        private static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/css/media/MediaRuleTest/";
+        private static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/media/MediaRuleTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-                );
         }
 
         /// <exception cref="System.IO.IOException"/>

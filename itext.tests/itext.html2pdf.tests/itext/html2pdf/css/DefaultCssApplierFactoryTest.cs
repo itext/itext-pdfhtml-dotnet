@@ -55,7 +55,6 @@ namespace iText.Html2pdf.Css {
     public class DefaultCssApplierFactoryTest : ExtendedITextTest {
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-                );
         }
 
         [NUnit.Framework.Test]

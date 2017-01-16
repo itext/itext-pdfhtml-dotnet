@@ -57,11 +57,11 @@ using iText.Test;
 
 namespace iText.Html2pdf.Css {
     public class CssMatchingTest : ExtendedITextTest {
-        private static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/css/CssMatchingTest/";
+        private static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssMatchingTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-                );
         }
 
         /// <exception cref="System.IO.IOException"/>

@@ -58,7 +58,6 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-                );
             CreateDestinationFolder(destinationFolder);
         }
 

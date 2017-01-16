@@ -59,7 +59,6 @@ namespace iText.Html2pdf {
     public class DefaultTagWorkerFactoryTest : ExtendedITextTest {
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-                );
         }
 
         [NUnit.Framework.Test]

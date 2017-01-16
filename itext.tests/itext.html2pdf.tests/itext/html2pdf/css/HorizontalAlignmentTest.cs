@@ -52,14 +52,14 @@ using iText.Test;
 
 namespace iText.Html2pdf.Css {
     public class HorizontalAlignmentTest : ExtendedITextTest {
-        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/css/HorizontalAlignment/";
+        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/HorizontalAlignment/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/HorizontalAlignment/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-                );
             CreateOrClearDestinationFolder(destinationFolder);
         }
 

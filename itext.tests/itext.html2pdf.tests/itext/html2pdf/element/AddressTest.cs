@@ -52,14 +52,14 @@ using iText.Test;
 
 namespace iText.Html2pdf.Element {
     public class AddressTest : ExtendedITextTest {
-        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/element/AddressTest/";
+        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/AddressTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/element/AddressTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-                );
             CreateDestinationFolder(destinationFolder);
         }
 
