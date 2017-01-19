@@ -103,7 +103,7 @@ namespace iText.Html2pdf.Attach {
             workerMapping.PutMapping(TagConstants.H5, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.H6, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.P, typeof(PTagWorker));
-            workerMapping.PutMapping(TagConstants.PRE, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.PRE, typeof(PreTagWorker));
             workerMapping.PutMapping(TagConstants.Q, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.S, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SAMP, typeof(SpanTagWorker));

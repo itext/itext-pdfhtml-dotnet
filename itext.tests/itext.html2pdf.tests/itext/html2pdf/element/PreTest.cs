@@ -82,5 +82,15 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "preTest02.pdf", sourceFolder
                  + "cmp_preTest02.pdf", destinationFolder, "diff02_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Pre03Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "preTest03.html"), new FileInfo(destinationFolder +
+                 "preTest03.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "preTest03.pdf", sourceFolder
+                 + "cmp_preTest03.pdf", destinationFolder, "diff03_"));
+        }
     }
 }
