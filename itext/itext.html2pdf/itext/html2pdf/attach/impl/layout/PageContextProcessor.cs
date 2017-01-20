@@ -262,8 +262,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             float? right = ParseBoxValue(rightStr, em, rem, pageSize.GetWidth());
             float? bottom = ParseBoxValue(bottomStr, em, rem, pageSize.GetHeight());
             float? left = ParseBoxValue(leftStr, em, rem, pageSize.GetWidth());
-            return new float[] { top != null ? (float)top : defaultValue, right != null ? (float)right : defaultValue, bottom != null
-                 ? (float)bottom : defaultValue, left != null ? (float)left : defaultValue };
+            return new float[] { top != null ? (float)top : defaultValue, right != null ? (float)right : defaultValue, 
+                bottom != null ? (float)bottom : defaultValue, left != null ? (float)left : defaultValue };
         }
 
         private static float? ParseBoxValue(String valString, float em, float rem, float dimensionSize) {
