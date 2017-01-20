@@ -43,13 +43,13 @@ using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Media;
-using iText.Html2pdf.Resolver.Font;
+using iText.Layout.Font;
 
 namespace iText.Html2pdf {
     public class ConverterProperties {
         private MediaDeviceDescription mediaDeviceDescription;
 
-        private IFontResolver fontResolver;
+        private FontProvider fontProvider;
 
         private ITagWorkerFactory tagWorkerFactory;
 
@@ -62,7 +62,7 @@ namespace iText.Html2pdf {
 
         public ConverterProperties(iText.Html2pdf.ConverterProperties other) {
             this.mediaDeviceDescription = other.mediaDeviceDescription;
-            this.fontResolver = other.fontResolver;
+            this.fontProvider = other.fontProvider;
             this.tagWorkerFactory = other.tagWorkerFactory;
             this.cssApplierFactory = other.cssApplierFactory;
             this.baseUri = other.baseUri;
@@ -78,12 +78,12 @@ namespace iText.Html2pdf {
             return this;
         }
 
-        public virtual IFontResolver GetFontResolver() {
-            return fontResolver;
+        public virtual FontProvider GetFontProvider() {
+            return fontProvider;
         }
 
-        public virtual iText.Html2pdf.ConverterProperties SetFontResolver(IFontResolver fontResolver) {
-            this.fontResolver = fontResolver;
+        public virtual iText.Html2pdf.ConverterProperties SetFontProvider(FontProvider fontProvider) {
+            this.fontProvider = fontProvider;
             return this;
         }
 

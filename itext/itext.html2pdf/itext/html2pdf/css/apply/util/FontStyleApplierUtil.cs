@@ -61,13 +61,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static void ApplyFontStyles(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             if (cssProps.Get(CssConstants.FONT_FAMILY) != null) {
-                try {
-                    element.SetProperty(Property.FONT, context.GetFontResolver().GetFont(cssProps.Get(CssConstants.FONT_FAMILY
-                        )));
-                }
-                catch (System.IO.IOException exc) {
-                    logger.Error(iText.Html2pdf.LogMessageConstant.ERROR_LOADING_FONT, exc);
-                }
+                element.SetProperty(Property.FONT, cssProps.Get(CssConstants.FONT_FAMILY));
             }
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();

@@ -47,10 +47,11 @@ using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Resolver.Font;
 using iText.Html2pdf.Resolver.Resource;
 using iText.Kernel.Pdf;
+using iText.Layout.Font;
 
 namespace iText.Html2pdf.Attach {
     public class ProcessorContext {
-        private IFontResolver fontResolver;
+        private FontProvider fontProvider;
 
         private ResourceResolver resourceResolver;
 
@@ -78,9 +79,9 @@ namespace iText.Html2pdf.Attach {
             if (deviceDescription == null) {
                 deviceDescription = MediaDeviceDescription.CreateDefault();
             }
-            fontResolver = converterProperties.GetFontResolver();
-            if (fontResolver == null) {
-                fontResolver = new DefaultFontResolver();
+            fontProvider = converterProperties.GetFontProvider();
+            if (fontProvider == null) {
+                fontProvider = new DefaultFontProvider();
             }
             tagWorkerFactory = converterProperties.GetTagWorkerFactory();
             if (tagWorkerFactory == null) {
@@ -98,8 +99,8 @@ namespace iText.Html2pdf.Attach {
             cssContext = new CssContext();
         }
 
-        public virtual void SetFontResolver(IFontResolver fontResolver) {
-            this.fontResolver = fontResolver;
+        public virtual void SetFontProvider(FontProvider fontProvider) {
+            this.fontProvider = fontProvider;
         }
 
         public virtual State GetState() {
@@ -110,8 +111,8 @@ namespace iText.Html2pdf.Attach {
             return pdfDocument;
         }
 
-        public virtual IFontResolver GetFontResolver() {
-            return fontResolver;
+        public virtual FontProvider GetFontProvider() {
+            return fontProvider;
         }
 
         public virtual ResourceResolver GetResourceResolver() {

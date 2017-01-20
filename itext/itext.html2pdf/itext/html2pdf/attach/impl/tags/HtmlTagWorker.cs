@@ -57,6 +57,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public HtmlTagWorker(IElementNode element, ProcessorContext context) {
             document = new Document(context.GetPdfDocument());
             document.SetProperty(Property.COLLAPSING_MARGINS, true);
+            document.SetFontProvider(context.GetFontProvider());
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
         }

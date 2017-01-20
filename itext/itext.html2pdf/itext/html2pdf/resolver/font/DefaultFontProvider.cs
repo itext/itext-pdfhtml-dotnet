@@ -39,12 +39,14 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-using System;
-using iText.Kernel.Font;
+using iText.Layout.Font;
 
 namespace iText.Html2pdf.Resolver.Font {
-    public interface IFontResolver {
-        /// <exception cref="System.IO.IOException"/>
-        PdfFont GetFont(String name);
+    public class DefaultFontProvider : FontProvider {
+        public DefaultFontProvider()
+            : base() {
+            AddSystemFonts();
+            AddStandardPdfFonts();
+        }
     }
 }
