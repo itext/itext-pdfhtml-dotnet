@@ -73,6 +73,17 @@ namespace iText.Html2pdf.Css.Page {
         }
 
         public override void AddBodyCssDeclarations(IList<CssDeclaration> cssDeclarations) {
+            // TODO Due to this for-loop, on toString method call for the CssPageRule instance
+            //      all the body declarations will be duplicated for each pageSelector part.
+            //      This potentially could lead to a nasty behaviour when declarations will double
+            //      for each read-write iteration of the same css-file (however, this use case seems 
+            //      to be unlikely to happen). 
+            //      Possible solution would be to split single page rule with compound selector into 
+            //      several page rules with simple selectors on addition of the page rule to it's parent.
+            //
+            //      Also, the same concerns this method implementation in CssMarginRule class.
+            //      
+            //      See CssStyleSheetParserTest#test11 test.
             foreach (ICssSelector pageSelector in pageSelectors) {
                 this.body.Add(new CssNonStandardRuleSet(pageSelector, cssDeclarations));
             }

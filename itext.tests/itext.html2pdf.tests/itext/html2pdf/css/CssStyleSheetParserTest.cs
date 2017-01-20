@@ -166,6 +166,19 @@ namespace iText.Html2pdf.Css {
         }
 
         /// <exception cref="System.IO.IOException"/>
+        [NUnit.Framework.Test]
+        public virtual void Test11() {
+            // TODO in this test declarations of the page at-rule with compound selector are duplicated.
+            // See CssPageRule#addBodyCssDeclarations() method for the reason and possible solution if this becomes important.
+
+            String cssFile = sourceFolder + "css11.css";
+            String cmpFile = sourceFolder + "cmp_css11.css";
+            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
+                ));
+            NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
+        }
+
+        /// <exception cref="System.IO.IOException"/>
         private String GetCssFileContents(String filePath) {
             byte[] bytes = StreamUtil.InputStreamToArray(new FileStream(filePath, FileMode.Open, FileAccess.Read));
             String content = iText.IO.Util.JavaUtil.GetStringForBytes(bytes);

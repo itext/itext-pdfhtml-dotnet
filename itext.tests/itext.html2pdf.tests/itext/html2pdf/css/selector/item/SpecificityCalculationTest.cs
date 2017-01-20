@@ -169,8 +169,48 @@ namespace iText.Html2pdf.Css.Selector.Item {
                 ));
         }
 
+        [NUnit.Framework.Test]
+        public virtual void PageTest01() {
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.ID_SPECIFICITY, GetPageSelectorSpecificity("customPageName"
+                ));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageTest02() {
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.ID_SPECIFICITY + CssSpecificityConstants.CLASS_SPECIFICITY
+                , GetPageSelectorSpecificity("customPageName:first"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageTest03() {
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.ID_SPECIFICITY + CssSpecificityConstants.CLASS_SPECIFICITY
+                 * 2, GetPageSelectorSpecificity("customPageName:first:blank"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageTest04() {
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.ELEMENT_SPECIFICITY * 2, GetPageSelectorSpecificity
+                (":left:right"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageTest05() {
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.ID_SPECIFICITY + CssSpecificityConstants.CLASS_SPECIFICITY
+                , GetPageSelectorSpecificity("left:blank"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageTest06() {
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.ELEMENT_SPECIFICITY + CssSpecificityConstants.CLASS_SPECIFICITY
+                , GetPageSelectorSpecificity(":left:blank"));
+        }
+
         private int GetSpecificity(String selector) {
             return new CssSelector(selector).CalculateSpecificity();
+        }
+
+        private int GetPageSelectorSpecificity(String selector) {
+            return new CssPageSelector(selector).CalculateSpecificity();
         }
     }
 }
