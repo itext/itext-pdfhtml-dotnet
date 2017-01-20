@@ -45,6 +45,6 @@ using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Resolve {
     public interface ICssResolver {
-        IDictionary<String, String> ResolveStyles(IElementNode node, CssContext context);
+        IDictionary<String, String> ResolveStyles(INode node, CssContext context);
     }
 }

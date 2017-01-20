@@ -42,35 +42,17 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Media;
-using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Css.Resolve.Shorthand.Impl;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
     internal class HtmlStylesToCssConverter {
-        private const String DEFAULT_CSS_PATH = "iText.Html2Pdf.default.css";
-
-        private static readonly CssStyleSheet defaultCss;
-
         private static readonly IDictionary<String, HtmlStylesToCssConverter.IAttributeConverter> htmlAttributeConverters;
 
         static HtmlStylesToCssConverter() {
-            CssStyleSheet parsedStylesheet = new CssStyleSheet();
-            try {
-                parsedStylesheet = CssStyleSheetParser.Parse(ResourceUtil.GetResourceStream(DEFAULT_CSS_PATH));
-            }
-            catch (Exception exc) {
-                ILogger logger = LoggerFactory.GetLogger(typeof(HtmlStylesToCssConverter));
-                logger.Error("Error parsing default.css", exc);
-            }
-            finally {
-                defaultCss = parsedStylesheet;
-            }
             htmlAttributeConverters = new Dictionary<String, HtmlStylesToCssConverter.IAttributeConverter>();
             htmlAttributeConverters[AttributeConstants.ALIGN] = new HtmlStylesToCssConverter.AlignAttributeConverter();
             htmlAttributeConverters[AttributeConstants.BORDER] = new HtmlStylesToCssConverter.BorderAttributeConverter
@@ -95,14 +77,9 @@ namespace iText.Html2pdf.Css.Resolve {
 
         public static IList<CssDeclaration> Convert(IElementNode element) {
             List<CssDeclaration> convertedHtmlStyles = new List<CssDeclaration>();
-            IList<CssDeclaration> tagCssStyles = defaultCss.GetCssDeclarations(element, MediaDeviceDescription.CreateDefault
-                ());
-            if (tagCssStyles != null) {
-                convertedHtmlStyles.AddAll(tagCssStyles);
-            }
-            if (element.GetAdditionalStyles() != null) {
+            if (element.GetAdditionalHtmlStyles() != null) {
                 Dictionary<String, String> additionalStyles = new Dictionary<String, String>();
-                foreach (IDictionary<String, String> styles in element.GetAdditionalStyles()) {
+                foreach (IDictionary<String, String> styles in element.GetAdditionalHtmlStyles()) {
                     additionalStyles.AddAll(styles);
                 }
                 convertedHtmlStyles.EnsureCapacity(convertedHtmlStyles.Count + additionalStyles.Count);
@@ -132,7 +109,7 @@ namespace iText.Html2pdf.Css.Resolve {
                     if (childNode is IElementNode) {
                         IElementNode elementNode = (IElementNode)childNode;
                         if (TagConstants.TD.Equals(elementNode.Name()) || TagConstants.TH.Equals(elementNode.Name())) {
-                            elementNode.AddAdditionalStyles(borderStyles);
+                            elementNode.AddAdditionalHtmlStyles(borderStyles);
                         }
                         else {
                             ApplyBordersToTableCells(childNode, borderStyles);

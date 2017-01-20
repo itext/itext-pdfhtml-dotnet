@@ -53,8 +53,7 @@ namespace iText.Html2pdf.Css.Media {
             mediaQueries = MediaQueryParser.ParseMediaQueries(ruleParameters);
         }
 
-        public override IList<CssRuleSet> GetCssRuleSets(IElementNode element, MediaDeviceDescription deviceDescription
-            ) {
+        public override IList<CssRuleSet> GetCssRuleSets(INode element, MediaDeviceDescription deviceDescription) {
             IList<CssRuleSet> result = new List<CssRuleSet>();
             foreach (MediaQuery mediaQuery in mediaQueries) {
                 if (mediaQuery.Matches(deviceDescription)) {

@@ -40,28 +40,35 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.Collections.Generic;
+using System.Text;
+using iText.Html2pdf.Css.Selector.Item;
 using iText.Html2pdf.Html.Node;
 
-namespace iText.Html2pdf.Css.Selector.Item {
-    public class CssPseudoElementSelectorItem : ICssSelectorItem {
-        private String pseudoElement;
+namespace iText.Html2pdf.Css.Selector {
+    public abstract class AbstractCssSelector : ICssSelector {
+        protected internal IList<ICssSelectorItem> selectorItems;
 
-        public CssPseudoElementSelectorItem(String pseudoElement) {
-            // TODO now this is just a stub implementation
-            this.pseudoElement = pseudoElement;
+        public AbstractCssSelector(IList<ICssSelectorItem> selectorItems) {
+            this.selectorItems = selectorItems;
         }
 
-        public virtual int GetSpecificity() {
-            return CssSpecificityConstants.ELEMENT_SPECIFICITY;
+        public virtual int CalculateSpecificity() {
+            int specificity = 0;
+            foreach (ICssSelectorItem item in selectorItems) {
+                specificity += item.GetSpecificity();
+            }
+            return specificity;
         }
 
-        public virtual bool Matches(INode node) {
-            return false;
-        }
-
-        // TODO
         public override String ToString() {
-            return "::" + pseudoElement;
+            StringBuilder sb = new StringBuilder();
+            foreach (ICssSelectorItem item in selectorItems) {
+                sb.Append(item.ToString());
+            }
+            return sb.ToString();
         }
+
+        public abstract bool Matches(INode arg1);
     }
 }

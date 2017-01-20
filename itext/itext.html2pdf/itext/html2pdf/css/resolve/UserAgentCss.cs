@@ -40,28 +40,36 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.Collections.Generic;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Media;
+using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Log;
+using iText.IO.Util;
 
-namespace iText.Html2pdf.Css.Selector.Item {
-    public class CssPseudoElementSelectorItem : ICssSelectorItem {
-        private String pseudoElement;
+namespace iText.Html2pdf.Css.Resolve {
+    internal class UserAgentCss {
+        private const String DEFAULT_CSS_PATH = "com/itextpdf/html2pdf/default.css";
 
-        public CssPseudoElementSelectorItem(String pseudoElement) {
-            // TODO now this is just a stub implementation
-            this.pseudoElement = pseudoElement;
+        private static readonly CssStyleSheet defaultCss;
+
+        static UserAgentCss() {
+            CssStyleSheet parsedStylesheet = new CssStyleSheet();
+            try {
+                parsedStylesheet = CssStyleSheetParser.Parse(ResourceUtil.GetResourceStream(DEFAULT_CSS_PATH));
+            }
+            catch (Exception exc) {
+                ILogger logger = LoggerFactory.GetLogger(typeof(HtmlStylesToCssConverter));
+                logger.Error("Error parsing default.css", exc);
+            }
+            finally {
+                defaultCss = parsedStylesheet;
+            }
         }
 
-        public virtual int GetSpecificity() {
-            return CssSpecificityConstants.ELEMENT_SPECIFICITY;
-        }
-
-        public virtual bool Matches(INode node) {
-            return false;
-        }
-
-        // TODO
-        public override String ToString() {
-            return "::" + pseudoElement;
+        public static IList<CssDeclaration> GetStyles(INode node) {
+            return defaultCss.GetCssDeclarations(node, MediaDeviceDescription.CreateDefault());
         }
     }
 }

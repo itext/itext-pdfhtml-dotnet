@@ -118,7 +118,7 @@ namespace iText.Html2pdf.Attach.Util {
                             rowspan = rowspan != null ? rowspan : 1;
                             col = rowColHelper.MoveToNextEmptyCol();
                             if (GetColWraper(col) != null && GetColWraper(col).GetCellCssProps() != null) {
-                                element.AddAdditionalStyles(GetColWraper(col).GetCellCssProps());
+                                element.AddAdditionalHtmlStyles(GetColWraper(col).GetCellCssProps());
                             }
                             rowColHelper.UpdateCurrentPosition((int)colspan, (int)rowspan);
                         }

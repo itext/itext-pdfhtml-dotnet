@@ -79,11 +79,10 @@ namespace iText.Html2pdf.Css {
             return JavaCollectionsUtil.UnmodifiableList(statements);
         }
 
-        public virtual IList<CssDeclaration> GetCssDeclarations(IElementNode element, MediaDeviceDescription deviceDescription
+        public virtual IList<CssDeclaration> GetCssDeclarations(INode node, MediaDeviceDescription deviceDescription
             ) {
-            IList<CssRuleSet> ruleSets = GetCssRuleSets(element, deviceDescription);
+            IList<CssRuleSet> ruleSets = GetCssRuleSets(node, deviceDescription);
             IDictionary<String, CssDeclaration> declarations = new LinkedDictionary<String, CssDeclaration>();
-            JavaCollectionsUtil.Sort(ruleSets, new CssRuleSetComparator());
             foreach (CssRuleSet ruleSet in ruleSets) {
                 PopulateDeclarationsMap(ruleSet.GetNormalDeclarations(), declarations);
             }
@@ -111,11 +110,12 @@ namespace iText.Html2pdf.Css {
             }
         }
 
-        private IList<CssRuleSet> GetCssRuleSets(IElementNode element, MediaDeviceDescription deviceDescription) {
+        private IList<CssRuleSet> GetCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
             IList<CssRuleSet> ruleSets = new List<CssRuleSet>();
             foreach (CssStatement statement in statements) {
-                ruleSets.AddAll(statement.GetCssRuleSets(element, deviceDescription));
+                ruleSets.AddAll(statement.GetCssRuleSets(node, deviceDescription));
             }
+            JavaCollectionsUtil.Sort(ruleSets, new CssRuleSetComparator());
             return ruleSets;
         }
     }

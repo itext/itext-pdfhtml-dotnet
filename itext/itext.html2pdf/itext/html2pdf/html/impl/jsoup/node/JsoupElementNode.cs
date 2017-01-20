@@ -84,11 +84,11 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
             return this.elementResolvedStyles;
         }
 
-        public virtual IList<IDictionary<String, String>> GetAdditionalStyles() {
+        public virtual IList<IDictionary<String, String>> GetAdditionalHtmlStyles() {
             return customDefaultStyles;
         }
 
-        public virtual void AddAdditionalStyles(IDictionary<String, String> styles) {
+        public virtual void AddAdditionalHtmlStyles(IDictionary<String, String> styles) {
             if (customDefaultStyles == null) {
                 customDefaultStyles = new List<IDictionary<String, String>>();
             }

@@ -54,7 +54,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
             return 0;
         }
 
-        public virtual bool Matches(IElementNode element) {
+        public virtual bool Matches(INode node) {
             throw new InvalidOperationException("Separator item is not supposed to be matched against an element");
         }
 

@@ -53,21 +53,21 @@ namespace iText.Html2pdf.Css {
         private static readonly Regex importantMatcher = iText.IO.Util.StringUtil.RegexCompile(".*!\\s*important$"
             );
 
-        private CssSelector selector;
+        private ICssSelector selector;
 
         private IList<CssDeclaration> normalDeclarations;
 
         private IList<CssDeclaration> importantDeclarations;
 
-        public CssRuleSet(CssSelector selector, IList<CssDeclaration> declarations) {
+        public CssRuleSet(ICssSelector selector, IList<CssDeclaration> declarations) {
             this.selector = selector;
             this.normalDeclarations = new List<CssDeclaration>();
             this.importantDeclarations = new List<CssDeclaration>();
             SplitDeclarationsIntoNormalAndImportant(declarations);
         }
 
-        public override IList<iText.Html2pdf.Css.CssRuleSet> GetCssRuleSets(IElementNode element, MediaDeviceDescription
-             deviceDescription) {
+        public override IList<iText.Html2pdf.Css.CssRuleSet> GetCssRuleSets(INode element, MediaDeviceDescription 
+            deviceDescription) {
             if (selector.Matches(element)) {
                 return JavaCollectionsUtil.SingletonList(this);
             }
@@ -98,7 +98,7 @@ namespace iText.Html2pdf.Css {
             return sb.ToString();
         }
 
-        public virtual CssSelector GetSelector() {
+        public virtual ICssSelector GetSelector() {
             return selector;
         }
 

@@ -65,17 +65,22 @@ namespace iText.Html2pdf.Css.Resolve {
             CollectCssDeclarations(treeRoot, resourceResolver);
         }
 
-        public virtual IDictionary<String, String> ResolveStyles(IElementNode element, CssContext context) {
-            IList<CssDeclaration> nodeCssDeclarations = HtmlStylesToCssConverter.Convert(element);
+        public virtual IDictionary<String, String> ResolveStyles(INode element, CssContext context) {
+            IList<CssDeclaration> nodeCssDeclarations = UserAgentCss.GetStyles(element);
+            if (element is IElementNode) {
+                nodeCssDeclarations.AddAll(HtmlStylesToCssConverter.Convert((IElementNode)element));
+            }
             nodeCssDeclarations.AddAll(cssStyleSheet.GetCssDeclarations(element, deviceDescription));
-            String styleAttribute = element.GetAttribute(AttributeConstants.STYLE);
-            if (styleAttribute != null) {
-                nodeCssDeclarations.AddAll(CssRuleSetParser.ParsePropertyDeclarations(styleAttribute));
+            if (element is IElementNode) {
+                String styleAttribute = ((IElementNode)element).GetAttribute(AttributeConstants.STYLE);
+                if (styleAttribute != null) {
+                    nodeCssDeclarations.AddAll(CssRuleSetParser.ParsePropertyDeclarations(styleAttribute));
+                }
             }
             IDictionary<String, String> elementStyles = CssDeclarationsToMap(nodeCssDeclarations);
             String parentFontSizeStr = null;
-            if (element.ParentNode() is IElementNode) {
-                IElementNode parentNode = (IElementNode)element.ParentNode();
+            if (element.ParentNode() is IStylesContainer) {
+                IStylesContainer parentNode = (IStylesContainer)element.ParentNode();
                 IDictionary<String, String> parentStyles = parentNode.GetStyles();
                 if (parentStyles == null && !(element.ParentNode() is IDocumentNode)) {
                     ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
@@ -113,7 +118,7 @@ namespace iText.Html2pdf.Css.Resolve {
                     (elementFontSize), System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT;
             }
             //Update root font size
-            if (TagConstants.HTML.Equals(element.Name())) {
+            if (element is IElementNode && TagConstants.HTML.Equals(((IElementNode)element).Name())) {
                 context.SetRootFontSize(elementStyles.Get(CssConstants.FONT_SIZE));
             }
             ICollection<String> keys = new HashSet<String>();

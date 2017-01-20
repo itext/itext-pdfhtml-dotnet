@@ -43,20 +43,22 @@ using System;
 using System.Collections.Generic;
 
 namespace iText.Html2pdf.Html.Node {
-    public interface IElementNode : INode {
+    public interface IElementNode : INode, IStylesContainer {
         String Name();
 
         IAttributes GetAttributes();
 
         String GetAttribute(String key);
 
-        void SetStyles(IDictionary<String, String> stringStringMap);
+        /// <summary>Styles that affect element based on it's position in html DOM, e.g.</summary>
+        /// <remarks>
+        /// Styles that affect element based on it's position in html DOM, e.g. cell borders that are set due to the parent
+        /// table "border" attribute, or styles from "col" tags that affect table elements, or blocks horizontal alignment
+        /// that is the result of parent's "align" attribute.
+        /// </remarks>
+        IList<IDictionary<String, String>> GetAdditionalHtmlStyles();
 
-        IDictionary<String, String> GetStyles();
-
-        IList<IDictionary<String, String>> GetAdditionalStyles();
-
-        void AddAdditionalStyles(IDictionary<String, String> styles);
+        void AddAdditionalHtmlStyles(IDictionary<String, String> styles);
 
         String GetLang();
     }

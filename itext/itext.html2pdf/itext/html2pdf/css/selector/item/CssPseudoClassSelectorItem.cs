@@ -55,7 +55,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
             return CssSpecificityConstants.CLASS_SPECIFICITY;
         }
 
-        public virtual bool Matches(IElementNode element) {
+        public virtual bool Matches(INode node) {
             return false;
         }
 

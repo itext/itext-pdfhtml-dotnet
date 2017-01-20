@@ -39,29 +39,12 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-using System;
 using iText.Html2pdf.Html.Node;
 
-namespace iText.Html2pdf.Css.Selector.Item {
-    public class CssPseudoElementSelectorItem : ICssSelectorItem {
-        private String pseudoElement;
+namespace iText.Html2pdf.Css.Selector {
+    public interface ICssSelector {
+        int CalculateSpecificity();
 
-        public CssPseudoElementSelectorItem(String pseudoElement) {
-            // TODO now this is just a stub implementation
-            this.pseudoElement = pseudoElement;
-        }
-
-        public virtual int GetSpecificity() {
-            return CssSpecificityConstants.ELEMENT_SPECIFICITY;
-        }
-
-        public virtual bool Matches(INode node) {
-            return false;
-        }
-
-        // TODO
-        public override String ToString() {
-            return "::" + pseudoElement;
-        }
+        bool Matches(INode element);
     }
 }

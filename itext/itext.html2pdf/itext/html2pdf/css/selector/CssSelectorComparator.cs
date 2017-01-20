@@ -42,8 +42,8 @@
 using System.Collections.Generic;
 
 namespace iText.Html2pdf.Css.Selector {
-    public class CssSelectorComparator : IComparer<CssSelector> {
-        public virtual int Compare(CssSelector o1, CssSelector o2) {
+    public class CssSelectorComparator : IComparer<ICssSelector> {
+        public virtual int Compare(ICssSelector o1, ICssSelector o2) {
             return o1.CalculateSpecificity() - o2.CalculateSpecificity();
         }
     }

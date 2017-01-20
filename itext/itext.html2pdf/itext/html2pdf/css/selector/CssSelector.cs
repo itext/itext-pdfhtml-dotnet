@@ -41,41 +41,22 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
-using System.Text;
 using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Css.Selector.Item;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector {
-    public class CssSelector {
-        private IList<ICssSelectorItem> selectorItems;
-
-        public CssSelector(IList<ICssSelectorItem> selectorItems) {
-            this.selectorItems = selectorItems;
+    public class CssSelector : AbstractCssSelector {
+        public CssSelector(IList<ICssSelectorItem> selectorItems)
+            : base(selectorItems) {
         }
 
         public CssSelector(String selector)
             : this(CssSelectorParser.ParseSelectorItems(selector)) {
         }
 
-        public virtual int CalculateSpecificity() {
-            int specificity = 0;
-            foreach (ICssSelectorItem item in selectorItems) {
-                specificity += item.GetSpecificity();
-            }
-            return specificity;
-        }
-
-        public virtual bool Matches(IElementNode element) {
+        public override bool Matches(INode element) {
             return Matches(element, selectorItems.Count - 1);
-        }
-
-        public override String ToString() {
-            StringBuilder sb = new StringBuilder();
-            foreach (ICssSelectorItem item in selectorItems) {
-                sb.Append(item.ToString());
-            }
-            return sb.ToString();
         }
 
         private bool Matches(INode element, int lastSelectorItemInd) {
@@ -136,7 +117,7 @@ namespace iText.Html2pdf.Css.Selector {
                     }
                 }
                 else {
-                    if (!currentItem.Matches((IElementNode)element)) {
+                    if (!currentItem.Matches(element)) {
                         return false;
                     }
                 }

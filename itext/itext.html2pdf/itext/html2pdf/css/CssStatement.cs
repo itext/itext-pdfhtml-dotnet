@@ -46,8 +46,7 @@ using iText.IO.Util;
 
 namespace iText.Html2pdf.Css {
     public abstract class CssStatement {
-        public virtual IList<CssRuleSet> GetCssRuleSets(IElementNode element, MediaDeviceDescription deviceDescription
-            ) {
+        public virtual IList<CssRuleSet> GetCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
             return JavaCollectionsUtil.EmptyList<CssRuleSet>();
         }
     }

@@ -59,7 +59,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
             return "." + className;
         }
 
-        public virtual bool Matches(IElementNode element) {
+        public virtual bool Matches(INode node) {
+            if (!(node is IElementNode)) {
+                return false;
+            }
+            IElementNode element = (IElementNode)node;
             String classAttr = element.GetAttribute(AttributeConstants.CLASS);
             if (classAttr != null && classAttr.Length > 0) {
                 String[] classNames = iText.IO.Util.StringUtil.Split(classAttr, " ");
