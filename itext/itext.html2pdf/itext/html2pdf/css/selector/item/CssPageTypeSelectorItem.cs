@@ -40,6 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Html.Node;
 
@@ -59,7 +60,8 @@ namespace iText.Html2pdf.Css.Selector.Item {
             if (!(node is PageContextNode)) {
                 return false;
             }
-            return ((PageContextNode)node).GetPageTypeName().Equals(this.pageTypeName);
+            return !CssConstants.AUTO.Equals(pageTypeName.ToLowerInvariant()) && pageTypeName.Equals(((PageContextNode
+                )node).GetPageTypeName());
         }
     }
 }

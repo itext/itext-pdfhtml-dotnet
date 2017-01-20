@@ -66,7 +66,11 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         private Stack<IList<CssDeclaration>> storedPropertiesWithoutSelector;
 
         private static readonly ICollection<String> SUPPORTED_RULES = JavaCollectionsUtil.UnmodifiableSet(new HashSet
-            <String>(iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName.MEDIA, CssRuleName.PAGE)));
+            <String>(iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName.MEDIA, CssRuleName.PAGE, CssRuleName.TOP_LEFT_CORNER
+            , CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT, CssRuleName.TOP_RIGHT_CORNER, CssRuleName
+            .BOTTOM_LEFT_CORNER, CssRuleName.BOTTOM_LEFT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_RIGHT, CssRuleName
+            .BOTTOM_RIGHT_CORNER, CssRuleName.LEFT_TOP, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_BOTTOM, CssRuleName
+            .RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM)));
 
         private static readonly ICollection<String> CONDITIONAL_GROUP_RULES = JavaCollectionsUtil.UnmodifiableSet(
             new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName.MEDIA)));
@@ -150,7 +154,16 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
                 SetState(unknownState);
             }
             else {
-                SetState(conditionalGroupAtRuleBlockState);
+                EnterRuleStateBasedOnItsType();
+            }
+        }
+
+        internal void EnterRuleStateBasedOnItsType() {
+            if (CurrentAtRuleIsConditionalGroupRule()) {
+                EnterConditionalGroupAtRuleBlockState();
+            }
+            else {
+                EnterAtRuleBlockState();
             }
         }
 
@@ -201,10 +214,10 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             IList<CssDeclaration> storedProps = storedPropertiesWithoutSelector.Pop();
             CssNestedAtRule atRule = nestedAtRules.Pop();
             if (isCurrentRuleSupported) {
+                ProcessFinishedAtRuleBlock(atRule);
                 if (!storedProps.IsEmpty()) {
                     atRule.AddBodyCssDeclarations(storedProps);
                 }
-                ProcessFinishedAtRuleBlock(atRule);
             }
             isCurrentRuleSupported = IsCurrentRuleSupported();
             buffer.Length = 0;
@@ -215,11 +228,6 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             storedPropertiesWithoutSelector.Push(new List<CssDeclaration>());
             isCurrentRuleSupported = IsCurrentRuleSupported();
             buffer.Length = 0;
-        }
-
-        internal bool CurrentAtRuleIsConditionalGroupRule() {
-            return !isCurrentRuleSupported || (nestedAtRules.Count > 0 && CONDITIONAL_GROUP_RULES.Contains(nestedAtRules
-                .Peek().GetRuleName()));
         }
 
         private void SaveActiveState() {
@@ -270,6 +278,11 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
                     , nestedAtRules.Peek().GetRuleName()));
             }
             return isSupported;
+        }
+
+        private bool CurrentAtRuleIsConditionalGroupRule() {
+            return !isCurrentRuleSupported || (nestedAtRules.Count > 0 && CONDITIONAL_GROUP_RULES.Contains(nestedAtRules
+                .Peek().GetRuleName()));
         }
     }
 }

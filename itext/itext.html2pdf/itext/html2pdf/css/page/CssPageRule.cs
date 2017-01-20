@@ -64,10 +64,10 @@ namespace iText.Html2pdf.Css.Page {
             }
         }
 
-        public override IList<CssRuleSet> GetCssRuleSets(INode element, MediaDeviceDescription deviceDescription) {
+        public override IList<CssRuleSet> GetCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
             IList<CssRuleSet> result = new List<CssRuleSet>();
             foreach (CssStatement childStatement in body) {
-                result.AddAll(childStatement.GetCssRuleSets(element, deviceDescription));
+                result.AddAll(childStatement.GetCssRuleSets(node, deviceDescription));
             }
             return result;
         }
@@ -75,6 +75,19 @@ namespace iText.Html2pdf.Css.Page {
         public override void AddBodyCssDeclarations(IList<CssDeclaration> cssDeclarations) {
             foreach (ICssSelector pageSelector in pageSelectors) {
                 this.body.Add(new CssNonStandardRuleSet(pageSelector, cssDeclarations));
+            }
+        }
+
+        public override void AddStatementToBody(CssStatement statement) {
+            if (statement is CssMarginRule) {
+                ((CssMarginRule)statement).SetPageSelectors(pageSelectors);
+            }
+            this.body.Add(statement);
+        }
+
+        public override void AddStatementsToBody(ICollection<CssStatement> statements) {
+            foreach (CssStatement statement in statements) {
+                AddStatementToBody(statement);
             }
         }
     }

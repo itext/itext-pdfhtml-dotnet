@@ -41,26 +41,33 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Css.Parse;
-using iText.Html2pdf.Css.Selector.Item;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector {
-    public class CssPageSelector : AbstractCssSelector {
-        public CssPageSelector(String pageSelectorStr)
-            : base(CssPageSelectorParser.ParseSelectorItems(pageSelectorStr)) {
+    public class CssPageMarginBoxSelector : ICssSelector {
+        private String pageMarginBoxName;
+
+        private ICssSelector pageSelector;
+
+        public CssPageMarginBoxSelector(String pageMarginBoxName, ICssSelector pageSelector) {
+            this.pageMarginBoxName = pageMarginBoxName;
+            this.pageSelector = pageSelector;
         }
 
-        public override bool Matches(INode node) {
-            if (!(node is PageContextNode)) {
+        public virtual int CalculateSpecificity() {
+            return pageSelector.CalculateSpecificity();
+        }
+
+        public virtual bool Matches(INode node) {
+            if (!(node is PageMarginBoxContextNode)) {
                 return false;
             }
-            foreach (ICssSelectorItem selectorItem in selectorItems) {
-                if (!selectorItem.Matches(node)) {
-                    return false;
-                }
+            PageMarginBoxContextNode marginBoxNode = (PageMarginBoxContextNode)node;
+            if (pageMarginBoxName.Equals(marginBoxNode.GetMarginBoxName())) {
+                INode parent = node.ParentNode();
+                return pageSelector.Matches(parent);
             }
-            return true;
+            return false;
         }
     }
 }

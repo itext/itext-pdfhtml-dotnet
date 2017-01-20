@@ -45,6 +45,6 @@ namespace iText.Html2pdf.Css.Selector {
     public interface ICssSelector {
         int CalculateSpecificity();
 
-        bool Matches(INode element);
+        bool Matches(INode node);
     }
 }

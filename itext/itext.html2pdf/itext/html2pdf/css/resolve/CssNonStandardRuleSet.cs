@@ -58,14 +58,14 @@ namespace iText.Html2pdf.Css.Resolve {
                     sb.Append(";").Append("\n");
                 }
                 CssDeclaration declaration = GetNormalDeclarations()[i];
-                sb.Append("    ").Append(declaration.ToString());
+                sb.Append(declaration.ToString());
             }
             for (int i = 0; i < GetImportantDeclarations().Count; i++) {
                 if (i > 0 || GetNormalDeclarations().Count > 0) {
                     sb.Append(";").Append("\n");
                 }
                 CssDeclaration declaration = GetImportantDeclarations()[i];
-                sb.Append("    ").Append(declaration.ToString()).Append(" !important");
+                sb.Append(declaration.ToString()).Append(" !important");
             }
             return sb.ToString();
         }

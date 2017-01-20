@@ -46,8 +46,40 @@ namespace iText.Html2pdf.Css {
         private CssRuleName() {
         }
 
+        public const String BOTTOM_CENTER = "bottom-center";
+
+        public const String BOTTOM_LEFT = "bottom-left";
+
+        public const String BOTTOM_LEFT_CORNER = "bottom-left-corner";
+
+        public const String BOTTOM_RIGHT = "bottom-right";
+
+        public const String BOTTOM_RIGHT_CORNER = "bottom-right-corner";
+
+        public const String LEFT_BOTTOM = "left-bottom";
+
+        public const String LEFT_MIDDLE = "left-middle";
+
+        public const String LEFT_TOP = "left-top";
+
         public const String MEDIA = "media";
 
         public const String PAGE = "page";
+
+        public const String RIGHT_BOTTOM = "right-bottom";
+
+        public const String RIGHT_MIDDLE = "right-middle";
+
+        public const String RIGHT_TOP = "right-top";
+
+        public const String TOP_CENTER = "top-center";
+
+        public const String TOP_LEFT = "top-left";
+
+        public const String TOP_LEFT_CORNER = "top-left-corner";
+
+        public const String TOP_RIGHT = "top-right";
+
+        public const String TOP_RIGHT_CORNER = "top-right-corner";
     }
 }

@@ -41,17 +41,12 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Page {
-    public class PageContextNode : INode, IStylesContainer {
-        private IList<INode> childNodes = new List<INode>();
-
-        private INode parentNode;
-
-        private IDictionary<String, String> styles;
-
+    public class PageContextNode : CssContextNode {
         private String pageTypeName;
 
         private IList<String> pageClasses;
@@ -60,26 +55,9 @@ namespace iText.Html2pdf.Css.Page {
             : this(null) {
         }
 
-        public PageContextNode(INode parentNode) {
-            this.parentNode = parentNode;
+        public PageContextNode(INode parentNode)
+            : base(parentNode) {
             this.pageClasses = new List<String>();
-        }
-
-        public virtual IList<INode> ChildNodes() {
-            return JavaCollectionsUtil.UnmodifiableList(childNodes);
-        }
-
-        public virtual void AddChild(INode node) {
-            childNodes.Add(node);
-        }
-
-        public virtual INode ParentNode() {
-            return parentNode;
-        }
-
-        public virtual iText.Html2pdf.Css.Page.PageContextNode SetPageTypeName(String pageTypeName) {
-            this.pageTypeName = pageTypeName;
-            return this;
         }
 
         public virtual iText.Html2pdf.Css.Page.PageContextNode AddPageClass(String pageClass) {
@@ -91,16 +69,13 @@ namespace iText.Html2pdf.Css.Page {
             return this.pageTypeName;
         }
 
+        public virtual iText.Html2pdf.Css.Page.PageContextNode SetPageTypeName(String pageTypeName) {
+            this.pageTypeName = pageTypeName;
+            return this;
+        }
+
         public virtual IList<String> GetPageClasses() {
             return JavaCollectionsUtil.UnmodifiableList(pageClasses);
-        }
-
-        public virtual void SetStyles(IDictionary<String, String> stringStringMap) {
-            this.styles = stringStringMap;
-        }
-
-        public virtual IDictionary<String, String> GetStyles() {
-            return this.styles;
         }
     }
 }

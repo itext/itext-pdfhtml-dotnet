@@ -40,27 +40,23 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Css.Parse;
-using iText.Html2pdf.Css.Selector.Item;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
 
-namespace iText.Html2pdf.Css.Selector {
-    public class CssPageSelector : AbstractCssSelector {
-        public CssPageSelector(String pageSelectorStr)
-            : base(CssPageSelectorParser.ParseSelectorItems(pageSelectorStr)) {
+namespace iText.Html2pdf.Css.Page {
+    public class PageMarginBoxContextNode : CssContextNode {
+        private String marginBoxName;
+
+        public PageMarginBoxContextNode(INode parentNode, String marginBoxName)
+            : base(parentNode) {
+            this.marginBoxName = marginBoxName;
+            if (!(parentNode is PageContextNode)) {
+                throw new ArgumentException("Page-margin-box context node shall have a page context node as parent.");
+            }
         }
 
-        public override bool Matches(INode node) {
-            if (!(node is PageContextNode)) {
-                return false;
-            }
-            foreach (ICssSelectorItem selectorItem in selectorItems) {
-                if (!selectorItem.Matches(node)) {
-                    return false;
-                }
-            }
-            return true;
+        public virtual String GetMarginBoxName() {
+            return marginBoxName;
         }
     }
 }

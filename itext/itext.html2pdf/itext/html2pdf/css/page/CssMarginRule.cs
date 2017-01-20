@@ -40,27 +40,28 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Css.Parse;
-using iText.Html2pdf.Css.Selector.Item;
-using iText.Html2pdf.Html.Node;
+using System.Collections.Generic;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Resolve;
+using iText.Html2pdf.Css.Selector;
 
-namespace iText.Html2pdf.Css.Selector {
-    public class CssPageSelector : AbstractCssSelector {
-        public CssPageSelector(String pageSelectorStr)
-            : base(CssPageSelectorParser.ParseSelectorItems(pageSelectorStr)) {
+namespace iText.Html2pdf.Css.Page {
+    public class CssMarginRule : CssNestedAtRule {
+        private IList<ICssSelector> pageSelectors;
+
+        public CssMarginRule(String ruleName, String ruleParameters)
+            : base(ruleName, ruleParameters) {
         }
 
-        public override bool Matches(INode node) {
-            if (!(node is PageContextNode)) {
-                return false;
+        public override void AddBodyCssDeclarations(IList<CssDeclaration> cssDeclarations) {
+            foreach (ICssSelector pageSelector in pageSelectors) {
+                this.body.Add(new CssNonStandardRuleSet(new CssPageMarginBoxSelector(GetRuleName(), pageSelector), cssDeclarations
+                    ));
             }
-            foreach (ICssSelectorItem selectorItem in selectorItems) {
-                if (!selectorItem.Matches(node)) {
-                    return false;
-                }
-            }
-            return true;
+        }
+
+        internal virtual void SetPageSelectors(IList<ICssSelector> pageSelectors) {
+            this.pageSelectors = pageSelectors;
         }
     }
 }

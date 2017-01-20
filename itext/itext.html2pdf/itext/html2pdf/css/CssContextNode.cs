@@ -40,27 +40,40 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Css.Parse;
-using iText.Html2pdf.Css.Selector.Item;
+using System.Collections.Generic;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 
-namespace iText.Html2pdf.Css.Selector {
-    public class CssPageSelector : AbstractCssSelector {
-        public CssPageSelector(String pageSelectorStr)
-            : base(CssPageSelectorParser.ParseSelectorItems(pageSelectorStr)) {
+namespace iText.Html2pdf.Css {
+    public abstract class CssContextNode : INode, IStylesContainer {
+        private IList<INode> childNodes = new List<INode>();
+
+        private INode parentNode;
+
+        private IDictionary<String, String> styles;
+
+        public CssContextNode(INode parentNode) {
+            this.parentNode = parentNode;
         }
 
-        public override bool Matches(INode node) {
-            if (!(node is PageContextNode)) {
-                return false;
-            }
-            foreach (ICssSelectorItem selectorItem in selectorItems) {
-                if (!selectorItem.Matches(node)) {
-                    return false;
-                }
-            }
-            return true;
+        public virtual IList<INode> ChildNodes() {
+            return JavaCollectionsUtil.UnmodifiableList(childNodes);
+        }
+
+        public virtual void AddChild(INode node) {
+            childNodes.Add(node);
+        }
+
+        public virtual INode ParentNode() {
+            return parentNode;
+        }
+
+        public virtual void SetStyles(IDictionary<String, String> stringStringMap) {
+            this.styles = stringStringMap;
+        }
+
+        public virtual IDictionary<String, String> GetStyles() {
+            return this.styles;
         }
     }
 }
