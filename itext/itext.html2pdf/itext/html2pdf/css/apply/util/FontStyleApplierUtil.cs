@@ -60,35 +60,19 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         public static void ApplyFontStyles(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
-            if (cssProps.Get(CssConstants.FONT_FAMILY) != null) {
-                element.SetProperty(Property.FONT, cssProps.Get(CssConstants.FONT_FAMILY));
-            }
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
             if (em != 0) {
                 element.SetProperty(Property.FONT_SIZE, em);
             }
+            if (cssProps.Get(CssConstants.FONT_FAMILY) != null) {
+                element.SetProperty(Property.FONT, cssProps.Get(CssConstants.FONT_FAMILY));
+            }
             if (cssProps.Get(CssConstants.FONT_WEIGHT) != null) {
-                // TODO move to font selection mechanism
-                String fontWeight = cssProps.Get(CssConstants.FONT_WEIGHT);
-                if (CssConstants.BOLD.EqualsIgnoreCase(fontWeight)) {
-                    element.SetProperty(Property.BOLD_SIMULATION, true);
-                }
-                else {
-                    if (CssConstants.NORMAL.EqualsIgnoreCase(fontWeight)) {
-                        element.SetProperty(Property.BOLD_SIMULATION, false);
-                    }
-                }
+                element.SetProperty(Property.FONT_WEIGHT, cssProps.Get(CssConstants.FONT_WEIGHT));
             }
             if (cssProps.Get(CssConstants.FONT_STYLE) != null) {
-                // TODO move to font selection mechanism
-                String fontStyle = cssProps.Get(CssConstants.FONT_STYLE);
-                if (CssConstants.ITALIC.EqualsIgnoreCase(fontStyle) || CssConstants.OBLIQUE.EqualsIgnoreCase(fontStyle)) {
-                    element.SetProperty(Property.ITALIC_SIMULATION, true);
-                }
-                else {
-                    element.SetProperty(Property.ITALIC_SIMULATION, false);
-                }
+                element.SetProperty(Property.FONT_STYLE, cssProps.Get(CssConstants.FONT_STYLE));
             }
             String cssColorPropValue = cssProps.Get(CssConstants.COLOR);
             if (cssColorPropValue != null) {
