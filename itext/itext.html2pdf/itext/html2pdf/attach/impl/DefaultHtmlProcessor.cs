@@ -137,6 +137,7 @@ namespace iText.Html2pdf.Attach.Impl {
             foreach (IPropertyContainer propertyContainer in roots) {
                 if (propertyContainer is IElement) {
                     propertyContainer.SetProperty(Property.COLLAPSING_MARGINS, true);
+                    propertyContainer.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
                     elements.Add((IElement)propertyContainer);
                 }
             }

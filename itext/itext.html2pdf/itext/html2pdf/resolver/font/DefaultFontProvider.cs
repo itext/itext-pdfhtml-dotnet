@@ -39,14 +39,47 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
+using System;
+using System.IO;
+using iText.IO.Util;
 using iText.Layout.Font;
 
 namespace iText.Html2pdf.Resolver.Font {
     public class DefaultFontProvider : FontProvider {
+        private const String SHIPPED_FONT_RESOURCE_PATH = "iText.Html2Pdf.font.";
+
+        private static readonly String[] SHIPPED_FONT_NAMES = new String[] { "FreeMono.ttf", "FreeMonoBold.ttf", "FreeMonoBoldOblique.ttf"
+            , "FreeMonoOblique.ttf", "FreeSans.ttf", "FreeSansBold.ttf", "FreeSansBoldOblique.ttf", "FreeSansOblique.ttf"
+            , "FreeSerif.ttf", "FreeSerifBold.ttf", "FreeSerifBoldItalic.ttf", "FreeSerifItalic.ttf" };
+
         public DefaultFontProvider()
+            : this(true, true, false) {
+        }
+
+        public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFreeFonts, bool registerSystemFonts
+            )
             : base() {
-            AddSystemFonts();
-            AddStandardPdfFonts();
+            if (registerStandardPdfFonts) {
+                AddStandardPdfFonts();
+            }
+            if (registerShippedFreeFonts) {
+                AddShippedFreeFonts();
+            }
+            if (registerSystemFonts) {
+                AddSystemFonts();
+            }
+        }
+
+        private void AddShippedFreeFonts() {
+            foreach (String fontName in SHIPPED_FONT_NAMES) {
+                Stream stream = ResourceUtil.GetResourceStream(SHIPPED_FONT_RESOURCE_PATH + fontName);
+                try {
+                    byte[] fontProgramBytes = StreamUtil.InputStreamToArray(stream);
+                    AddFont(fontProgramBytes);
+                }
+                catch (Exception) {
+                }
+            }
         }
     }
 }

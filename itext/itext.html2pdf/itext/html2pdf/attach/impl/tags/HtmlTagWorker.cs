@@ -58,6 +58,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             document = new Document(context.GetPdfDocument());
             document.SetProperty(Property.COLLAPSING_MARGINS, true);
             document.SetFontProvider(context.GetFontProvider());
+            String fontFamily = element.GetStyles().Get(CssConstants.FONT_FAMILY);
+            document.SetProperty(Property.FONT, fontFamily);
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
         }

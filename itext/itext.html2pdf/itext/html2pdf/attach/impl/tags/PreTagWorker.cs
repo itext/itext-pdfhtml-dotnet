@@ -45,7 +45,7 @@ using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     public class PreTagWorker : DivTagWorker {
-        internal bool anyContentProcessed = false;
+        private bool anyContentProcessed = false;
 
         public PreTagWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {

@@ -66,7 +66,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void Aside01Test() {
+        public virtual void Article01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "articleTest01.html"), new FileInfo(destinationFolder
                  + "articleTest01.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "articleTest01.pdf", 
@@ -76,7 +76,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void Aside02Test() {
+        public virtual void Article02Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "articleTest02.html"), new FileInfo(destinationFolder
                  + "articleTest02.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "articleTest02.pdf", 
