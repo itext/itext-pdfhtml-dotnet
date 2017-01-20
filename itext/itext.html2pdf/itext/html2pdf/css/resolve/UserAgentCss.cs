@@ -60,7 +60,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 parsedStylesheet = CssStyleSheetParser.Parse(ResourceUtil.GetResourceStream(DEFAULT_CSS_PATH));
             }
             catch (Exception exc) {
-                ILogger logger = LoggerFactory.GetLogger(typeof(HtmlStylesToCssConverter));
+                ILogger logger = LoggerFactory.GetLogger(typeof(UserAgentCss));
                 logger.Error("Error parsing default.css", exc);
             }
             finally {

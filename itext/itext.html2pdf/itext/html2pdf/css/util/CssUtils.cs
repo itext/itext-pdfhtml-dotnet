@@ -86,7 +86,7 @@ namespace iText.Html2pdf.Css.Util {
                 return null;
             }
             try {
-                return float.Parse(str);
+                return float.Parse(str, System.Globalization.CultureInfo.InvariantCulture);
             }
             catch (FormatException) {
                 return null;
