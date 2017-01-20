@@ -50,7 +50,7 @@ using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
     internal class UserAgentCss {
-        private const String DEFAULT_CSS_PATH = "com/itextpdf/html2pdf/default.css";
+        private const String DEFAULT_CSS_PATH = "iText.Html2Pdf.default.css";
 
         private static readonly CssStyleSheet defaultCss;
 
