@@ -39,34 +39,27 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-namespace iText.Html2pdf.Css.Parse.Syntax {
-    internal class AtRuleBlockState : IParserState {
-        private CssParserStateController controller;
+using System;
+using iText.Html2pdf.Css.Page;
+using iText.Html2pdf.Html.Node;
 
-        public AtRuleBlockState(CssParserStateController controller) {
-            this.controller = controller;
+namespace iText.Html2pdf.Css.Selector.Item {
+    public class CssPageTypeSelectorItem : ICssSelectorItem {
+        private String pageTypeName;
+
+        public CssPageTypeSelectorItem(String pageTypeName) {
+            this.pageTypeName = pageTypeName;
         }
 
-        public virtual void Process(char ch) {
-            if (ch == '/') {
-                controller.EnterCommentStartState();
+        public virtual int GetSpecificity() {
+            return CssSpecificityConstants.ID_SPECIFICITY;
+        }
+
+        public virtual bool Matches(INode node) {
+            if (!(node is PageContextNode)) {
+                return false;
             }
-            else {
-                if (ch == '@') {
-                    controller.StoreCurrentPropertiesWithoutSelector();
-                    controller.EnterRuleState();
-                }
-                else {
-                    if (ch == '}') {
-                        controller.StoreCurrentPropertiesWithoutSelector();
-                        controller.FinishAtRuleBlock();
-                        controller.EnterUnknownStateIfNestedBlocksFinished();
-                    }
-                    else {
-                        controller.AppendToBuffer(ch);
-                    }
-                }
-            }
+            return ((PageContextNode)node).GetPageTypeName().Equals(this.pageTypeName);
         }
     }
 }

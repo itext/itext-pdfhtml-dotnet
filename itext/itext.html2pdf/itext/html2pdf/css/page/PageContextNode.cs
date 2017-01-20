@@ -39,34 +39,68 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-namespace iText.Html2pdf.Css.Parse.Syntax {
-    internal class AtRuleBlockState : IParserState {
-        private CssParserStateController controller;
+using System;
+using System.Collections.Generic;
+using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 
-        public AtRuleBlockState(CssParserStateController controller) {
-            this.controller = controller;
+namespace iText.Html2pdf.Css.Page {
+    public class PageContextNode : INode, IStylesContainer {
+        private IList<INode> childNodes = new List<INode>();
+
+        private INode parentNode;
+
+        private IDictionary<String, String> styles;
+
+        private String pageTypeName;
+
+        private IList<String> pageClasses;
+
+        public PageContextNode()
+            : this(null) {
         }
 
-        public virtual void Process(char ch) {
-            if (ch == '/') {
-                controller.EnterCommentStartState();
-            }
-            else {
-                if (ch == '@') {
-                    controller.StoreCurrentPropertiesWithoutSelector();
-                    controller.EnterRuleState();
-                }
-                else {
-                    if (ch == '}') {
-                        controller.StoreCurrentPropertiesWithoutSelector();
-                        controller.FinishAtRuleBlock();
-                        controller.EnterUnknownStateIfNestedBlocksFinished();
-                    }
-                    else {
-                        controller.AppendToBuffer(ch);
-                    }
-                }
-            }
+        public PageContextNode(INode parentNode) {
+            this.parentNode = parentNode;
+            this.pageClasses = new List<String>();
+        }
+
+        public virtual IList<INode> ChildNodes() {
+            return JavaCollectionsUtil.UnmodifiableList(childNodes);
+        }
+
+        public virtual void AddChild(INode node) {
+            childNodes.Add(node);
+        }
+
+        public virtual INode ParentNode() {
+            return parentNode;
+        }
+
+        public virtual iText.Html2pdf.Css.Page.PageContextNode SetPageTypeName(String pageTypeName) {
+            this.pageTypeName = pageTypeName;
+            return this;
+        }
+
+        public virtual iText.Html2pdf.Css.Page.PageContextNode AddPageClass(String pageClass) {
+            this.pageClasses.Add(pageClass.ToLowerInvariant());
+            return this;
+        }
+
+        public virtual String GetPageTypeName() {
+            return this.pageTypeName;
+        }
+
+        public virtual IList<String> GetPageClasses() {
+            return JavaCollectionsUtil.UnmodifiableList(pageClasses);
+        }
+
+        public virtual void SetStyles(IDictionary<String, String> stringStringMap) {
+            this.styles = stringStringMap;
+        }
+
+        public virtual IDictionary<String, String> GetStyles() {
+            return this.styles;
         }
     }
 }

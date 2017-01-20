@@ -39,34 +39,31 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-namespace iText.Html2pdf.Css.Parse.Syntax {
-    internal class AtRuleBlockState : IParserState {
-        private CssParserStateController controller;
+using System;
+using iText.Html2pdf.Css.Page;
+using iText.Html2pdf.Html.Node;
 
-        public AtRuleBlockState(CssParserStateController controller) {
-            this.controller = controller;
+namespace iText.Html2pdf.Css.Selector.Item {
+    public class CssPagePseudoClassSelectorItem : ICssSelectorItem {
+        private bool isSpreadPseudoClass;
+
+        private String pagePseudoClass;
+
+        public CssPagePseudoClassSelectorItem(String pagePseudoClass) {
+            this.isSpreadPseudoClass = pagePseudoClass.Equals(PageContextConstants.LEFT) || pagePseudoClass.Equals(PageContextConstants
+                .RIGHT);
+            this.pagePseudoClass = pagePseudoClass;
         }
 
-        public virtual void Process(char ch) {
-            if (ch == '/') {
-                controller.EnterCommentStartState();
+        public virtual int GetSpecificity() {
+            return isSpreadPseudoClass ? CssSpecificityConstants.ELEMENT_SPECIFICITY : CssSpecificityConstants.CLASS_SPECIFICITY;
+        }
+
+        public virtual bool Matches(INode node) {
+            if (!(node is PageContextNode)) {
+                return false;
             }
-            else {
-                if (ch == '@') {
-                    controller.StoreCurrentPropertiesWithoutSelector();
-                    controller.EnterRuleState();
-                }
-                else {
-                    if (ch == '}') {
-                        controller.StoreCurrentPropertiesWithoutSelector();
-                        controller.FinishAtRuleBlock();
-                        controller.EnterUnknownStateIfNestedBlocksFinished();
-                    }
-                    else {
-                        controller.AppendToBuffer(ch);
-                    }
-                }
-            }
+            return ((PageContextNode)node).GetPageClasses().Contains(pagePseudoClass);
         }
     }
 }

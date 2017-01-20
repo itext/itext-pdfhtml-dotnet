@@ -41,6 +41,7 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Css.Media;
+using iText.Html2pdf.Css.Page;
 
 namespace iText.Html2pdf.Css {
     public sealed class CssNestedAtRuleFactory {
@@ -56,6 +57,10 @@ namespace iText.Html2pdf.Css {
                     return new CssMediaRule(ruleParameters);
                 }
 
+                case CssRuleName.PAGE: {
+                    return new CssPageRule(ruleParameters);
+                }
+
                 default: {
                     return new CssNestedAtRule(ruleName, ruleParameters);
                 }
@@ -64,7 +69,20 @@ namespace iText.Html2pdf.Css {
 
         internal static String ExtractRuleNameFromDeclaration(String ruleDeclaration) {
             int spaceIndex = ruleDeclaration.IndexOf(' ');
-            return spaceIndex == -1 ? ruleDeclaration : ruleDeclaration.JSubstring(0, spaceIndex);
+            int colonIndex = ruleDeclaration.IndexOf(':');
+            int separatorIndex;
+            if (spaceIndex == -1) {
+                separatorIndex = colonIndex;
+            }
+            else {
+                if (colonIndex == -1) {
+                    separatorIndex = spaceIndex;
+                }
+                else {
+                    separatorIndex = Math.Min(spaceIndex, colonIndex);
+                }
+            }
+            return separatorIndex == -1 ? ruleDeclaration : ruleDeclaration.JSubstring(0, separatorIndex);
         }
     }
 }

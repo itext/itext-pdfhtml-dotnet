@@ -50,7 +50,12 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         public virtual void Process(char ch) {
             if (ch == '{') {
                 controller.PushBlockPrecedingAtRule();
-                controller.EnterAtRuleBlockState();
+                if (controller.CurrentAtRuleIsConditionalGroupRule()) {
+                    controller.EnterConditionalGroupAtRuleBlockState();
+                }
+                else {
+                    controller.EnterAtRuleBlockState();
+                }
             }
             else {
                 if (ch == ';') {

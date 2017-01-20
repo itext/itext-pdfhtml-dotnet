@@ -64,6 +64,10 @@ namespace iText.Html2pdf.Css {
             this.body.AddAll(statements);
         }
 
+        public virtual void AddBodyCssDeclarations(IList<CssDeclaration> cssDeclarations) {
+        }
+
+        // ignore by default
         public override String ToString() {
             StringBuilder sb = new StringBuilder();
             sb.Append(String.Format("@{0} {1} ", ruleName, ruleParameters));

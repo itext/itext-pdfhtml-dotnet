@@ -39,33 +39,42 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-namespace iText.Html2pdf.Css.Parse.Syntax {
-    internal class AtRuleBlockState : IParserState {
-        private CssParserStateController controller;
+using System;
+using System.Collections.Generic;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Media;
+using iText.Html2pdf.Css.Resolve;
+using iText.Html2pdf.Css.Selector;
+using iText.Html2pdf.Css.Util;
+using iText.Html2pdf.Html.Node;
 
-        public AtRuleBlockState(CssParserStateController controller) {
-            this.controller = controller;
+namespace iText.Html2pdf.Css.Page {
+    public class CssPageRule : CssNestedAtRule {
+        private IList<ICssSelector> pageSelectors;
+
+        public CssPageRule(String ruleParameters)
+            : base(CssRuleName.PAGE, ruleParameters) {
+            pageSelectors = new List<ICssSelector>();
+            String[] selectors = iText.IO.Util.StringUtil.Split(ruleParameters, ",");
+            for (int i = 0; i < selectors.Length; i++) {
+                selectors[i] = CssUtils.RemoveDoubleSpacesAndTrim(selectors[i]);
+            }
+            foreach (String currentSelectorStr in selectors) {
+                pageSelectors.Add(new CssPageSelector(currentSelectorStr));
+            }
         }
 
-        public virtual void Process(char ch) {
-            if (ch == '/') {
-                controller.EnterCommentStartState();
+        public override IList<CssRuleSet> GetCssRuleSets(INode element, MediaDeviceDescription deviceDescription) {
+            IList<CssRuleSet> result = new List<CssRuleSet>();
+            foreach (CssStatement childStatement in body) {
+                result.AddAll(childStatement.GetCssRuleSets(element, deviceDescription));
             }
-            else {
-                if (ch == '@') {
-                    controller.StoreCurrentPropertiesWithoutSelector();
-                    controller.EnterRuleState();
-                }
-                else {
-                    if (ch == '}') {
-                        controller.StoreCurrentPropertiesWithoutSelector();
-                        controller.FinishAtRuleBlock();
-                        controller.EnterUnknownStateIfNestedBlocksFinished();
-                    }
-                    else {
-                        controller.AppendToBuffer(ch);
-                    }
-                }
+            return result;
+        }
+
+        public override void AddBodyCssDeclarations(IList<CssDeclaration> cssDeclarations) {
+            foreach (ICssSelector pageSelector in pageSelectors) {
+                this.body.Add(new CssNonStandardRuleSet(pageSelector, cssDeclarations));
             }
         }
     }

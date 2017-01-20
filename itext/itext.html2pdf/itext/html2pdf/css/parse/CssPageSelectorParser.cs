@@ -39,34 +39,32 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-namespace iText.Html2pdf.Css.Parse.Syntax {
-    internal class AtRuleBlockState : IParserState {
-        private CssParserStateController controller;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using iText.Html2pdf.Css.Selector.Item;
 
-        public AtRuleBlockState(CssParserStateController controller) {
-            this.controller = controller;
-        }
+namespace iText.Html2pdf.Css.Parse {
+    public sealed class CssPageSelectorParser {
+        private const String PAGE_SELECTOR_PATTERN_STR = "(^-?[_a-zA-Z][\\w-]*)|(:(?i)(left|right|first|blank))";
 
-        public virtual void Process(char ch) {
-            if (ch == '/') {
-                controller.EnterCommentStartState();
-            }
-            else {
-                if (ch == '@') {
-                    controller.StoreCurrentPropertiesWithoutSelector();
-                    controller.EnterRuleState();
+        private static readonly Regex selectorPattern = iText.IO.Util.StringUtil.RegexCompile(PAGE_SELECTOR_PATTERN_STR
+            );
+
+        public static IList<ICssSelectorItem> ParseSelectorItems(String selectorItemsStr) {
+            IList<ICssSelectorItem> selectorItems = new List<ICssSelectorItem>();
+            Match itemMatcher = iText.IO.Util.StringUtil.Match(selectorPattern, selectorItemsStr);
+            while (itemMatcher.Success) {
+                String selectorItem = iText.IO.Util.StringUtil.Group(itemMatcher, 0);
+                itemMatcher = itemMatcher.NextMatch();
+                if (selectorItem[0] == ':') {
+                    selectorItems.Add(new CssPagePseudoClassSelectorItem(selectorItem.Substring(1).ToLowerInvariant()));
                 }
                 else {
-                    if (ch == '}') {
-                        controller.StoreCurrentPropertiesWithoutSelector();
-                        controller.FinishAtRuleBlock();
-                        controller.EnterUnknownStateIfNestedBlocksFinished();
-                    }
-                    else {
-                        controller.AppendToBuffer(ch);
-                    }
+                    selectorItems.Add(new CssPageTypeSelectorItem(selectorItem));
                 }
             }
+            return selectorItems;
         }
     }
 }

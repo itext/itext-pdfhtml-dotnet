@@ -39,34 +39,16 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-namespace iText.Html2pdf.Css.Parse.Syntax {
-    internal class AtRuleBlockState : IParserState {
-        private CssParserStateController controller;
+using System;
 
-        public AtRuleBlockState(CssParserStateController controller) {
-            this.controller = controller;
-        }
+namespace iText.Html2pdf.Css.Page {
+    public class PageContextConstants {
+        public const String BLANK = "blank";
 
-        public virtual void Process(char ch) {
-            if (ch == '/') {
-                controller.EnterCommentStartState();
-            }
-            else {
-                if (ch == '@') {
-                    controller.StoreCurrentPropertiesWithoutSelector();
-                    controller.EnterRuleState();
-                }
-                else {
-                    if (ch == '}') {
-                        controller.StoreCurrentPropertiesWithoutSelector();
-                        controller.FinishAtRuleBlock();
-                        controller.EnterUnknownStateIfNestedBlocksFinished();
-                    }
-                    else {
-                        controller.AppendToBuffer(ch);
-                    }
-                }
-            }
-        }
+        public const String FIRST = "first";
+
+        public const String LEFT = "left";
+
+        public const String RIGHT = "right";
     }
 }

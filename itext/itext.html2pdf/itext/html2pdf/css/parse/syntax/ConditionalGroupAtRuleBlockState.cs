@@ -40,30 +40,35 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 namespace iText.Html2pdf.Css.Parse.Syntax {
-    internal class AtRuleBlockState : IParserState {
+    internal class ConditionalGroupAtRuleBlockState : IParserState {
         private CssParserStateController controller;
 
-        public AtRuleBlockState(CssParserStateController controller) {
+        public ConditionalGroupAtRuleBlockState(CssParserStateController controller) {
             this.controller = controller;
         }
 
         public virtual void Process(char ch) {
+            // TODO use UnknownState?
             if (ch == '/') {
                 controller.EnterCommentStartState();
             }
             else {
                 if (ch == '@') {
-                    controller.StoreCurrentPropertiesWithoutSelector();
                     controller.EnterRuleState();
                 }
                 else {
-                    if (ch == '}') {
-                        controller.StoreCurrentPropertiesWithoutSelector();
-                        controller.FinishAtRuleBlock();
-                        controller.EnterUnknownStateIfNestedBlocksFinished();
+                    if (ch == '{') {
+                        controller.StoreCurrentSelector();
+                        controller.EnterPropertiesState();
                     }
                     else {
-                        controller.AppendToBuffer(ch);
+                        if (ch == '}') {
+                            controller.FinishAtRuleBlock();
+                            controller.EnterUnknownStateIfNestedBlocksFinished();
+                        }
+                        else {
+                            controller.AppendToBuffer(ch);
+                        }
                     }
                 }
             }

@@ -44,13 +44,10 @@ namespace iText.Html2pdf.Css.Selector.Item {
         private CssSpecificityConstants() {
         }
 
-        public const int STYLE_ATTRIBUTE_SPECIFICITY = 10000;
-
         public const int ID_SPECIFICITY = 1 << 20;
 
         public const int CLASS_SPECIFICITY = 1 << 10;
 
         public const int ELEMENT_SPECIFICITY = 1;
-        // TODO remove?
     }
 }

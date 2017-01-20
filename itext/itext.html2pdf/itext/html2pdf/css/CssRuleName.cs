@@ -47,5 +47,7 @@ namespace iText.Html2pdf.Css {
         }
 
         public const String MEDIA = "media";
+
+        public const String PAGE = "page";
     }
 }

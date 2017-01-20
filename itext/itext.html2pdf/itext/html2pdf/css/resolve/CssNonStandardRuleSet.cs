@@ -39,34 +39,35 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-namespace iText.Html2pdf.Css.Parse.Syntax {
-    internal class AtRuleBlockState : IParserState {
-        private CssParserStateController controller;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Selector;
 
-        public AtRuleBlockState(CssParserStateController controller) {
-            this.controller = controller;
+namespace iText.Html2pdf.Css.Resolve {
+    public class CssNonStandardRuleSet : CssRuleSet {
+        public CssNonStandardRuleSet(ICssSelector selector, IList<CssDeclaration> declarations)
+            : base(selector, declarations) {
         }
 
-        public virtual void Process(char ch) {
-            if (ch == '/') {
-                controller.EnterCommentStartState();
-            }
-            else {
-                if (ch == '@') {
-                    controller.StoreCurrentPropertiesWithoutSelector();
-                    controller.EnterRuleState();
+        public override String ToString() {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < GetNormalDeclarations().Count; i++) {
+                if (i > 0) {
+                    sb.Append(";").Append("\n");
                 }
-                else {
-                    if (ch == '}') {
-                        controller.StoreCurrentPropertiesWithoutSelector();
-                        controller.FinishAtRuleBlock();
-                        controller.EnterUnknownStateIfNestedBlocksFinished();
-                    }
-                    else {
-                        controller.AppendToBuffer(ch);
-                    }
-                }
+                CssDeclaration declaration = GetNormalDeclarations()[i];
+                sb.Append("    ").Append(declaration.ToString());
             }
+            for (int i = 0; i < GetImportantDeclarations().Count; i++) {
+                if (i > 0 || GetNormalDeclarations().Count > 0) {
+                    sb.Append(";").Append("\n");
+                }
+                CssDeclaration declaration = GetImportantDeclarations()[i];
+                sb.Append("    ").Append(declaration.ToString()).Append(" !important");
+            }
+            return sb.ToString();
         }
     }
 }
