@@ -63,26 +63,36 @@ namespace iText.Html2pdf.Css.Apply.Util {
              element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
-            Border topBorder = GetCertainBorder(cssProps.Get(CssConstants.BORDER_TOP_WIDTH), cssProps.Get(CssConstants
-                .BORDER_TOP_STYLE), cssProps.Get(CssConstants.BORDER_TOP_COLOR), em, rem);
-            if (topBorder != null) {
-                element.SetProperty(Property.BORDER_TOP, topBorder);
+            Border[] bordersArray = GetBordersArray(cssProps, em, rem);
+            if (bordersArray[0] != null) {
+                element.SetProperty(Property.BORDER_TOP, bordersArray[0]);
             }
-            Border bottomBorder = GetCertainBorder(cssProps.Get(CssConstants.BORDER_BOTTOM_WIDTH), cssProps.Get(CssConstants
-                .BORDER_BOTTOM_STYLE), cssProps.Get(CssConstants.BORDER_BOTTOM_COLOR), em, rem);
-            if (bottomBorder != null) {
-                element.SetProperty(Property.BORDER_BOTTOM, bottomBorder);
+            if (bordersArray[1] != null) {
+                element.SetProperty(Property.BORDER_RIGHT, bordersArray[1]);
             }
-            Border leftBorder = GetCertainBorder(cssProps.Get(CssConstants.BORDER_LEFT_WIDTH), cssProps.Get(CssConstants
-                .BORDER_LEFT_STYLE), cssProps.Get(CssConstants.BORDER_LEFT_COLOR), em, rem);
-            if (leftBorder != null) {
-                element.SetProperty(Property.BORDER_LEFT, leftBorder);
+            if (bordersArray[2] != null) {
+                element.SetProperty(Property.BORDER_BOTTOM, bordersArray[2]);
             }
-            Border rightBorder = GetCertainBorder(cssProps.Get(CssConstants.BORDER_RIGHT_WIDTH), cssProps.Get(CssConstants
-                .BORDER_RIGHT_STYLE), cssProps.Get(CssConstants.BORDER_RIGHT_COLOR), em, rem);
-            if (rightBorder != null) {
-                element.SetProperty(Property.BORDER_RIGHT, rightBorder);
+            if (bordersArray[3] != null) {
+                element.SetProperty(Property.BORDER_LEFT, bordersArray[3]);
             }
+        }
+
+        public static Border[] GetBordersArray(IDictionary<String, String> styles, float em, float rem) {
+            Border[] borders = new Border[4];
+            Border topBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_TOP_WIDTH), styles.Get(CssConstants.BORDER_TOP_STYLE
+                ), styles.Get(CssConstants.BORDER_TOP_COLOR), em, rem);
+            borders[0] = topBorder;
+            Border rightBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_RIGHT_WIDTH), styles.Get(CssConstants
+                .BORDER_RIGHT_STYLE), styles.Get(CssConstants.BORDER_RIGHT_COLOR), em, rem);
+            borders[1] = rightBorder;
+            Border bottomBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_BOTTOM_WIDTH), styles.Get(CssConstants
+                .BORDER_BOTTOM_STYLE), styles.Get(CssConstants.BORDER_BOTTOM_COLOR), em, rem);
+            borders[2] = bottomBorder;
+            Border leftBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_LEFT_WIDTH), styles.Get(CssConstants.BORDER_LEFT_STYLE
+                ), styles.Get(CssConstants.BORDER_LEFT_COLOR), em, rem);
+            borders[3] = leftBorder;
+            return borders;
         }
 
         public static Border GetCertainBorder(String borderWidth, String borderStyle, String borderColor, float em

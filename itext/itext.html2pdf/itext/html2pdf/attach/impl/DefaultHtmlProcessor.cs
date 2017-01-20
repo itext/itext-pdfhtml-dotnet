@@ -43,6 +43,7 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Resolve;
@@ -238,6 +239,9 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
                 else {
                     context.GetState().Push(tagWorker);
+                }
+                if (tagWorker is HtmlTagWorker) {
+                    ((HtmlTagWorker)tagWorker).ProcessPageRules(node, cssResolver, context);
                 }
                 foreach (INode childNode in element.ChildNodes()) {
                     Visit(childNode);

@@ -61,27 +61,18 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForCells(cssProps, context, cell);
                 float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
                 float rem = context.GetCssContext().GetRootFontSize();
-                Border topBorder = BorderStyleApplierUtil.GetCertainBorder(cssProps.Get(CssConstants.BORDER_TOP_WIDTH), cssProps
-                    .Get(CssConstants.BORDER_TOP_STYLE), cssProps.Get(CssConstants.BORDER_TOP_COLOR), em, rem);
-                if (topBorder == null) {
+                Border[] bordersArray = BorderStyleApplierUtil.GetBordersArray(cssProps, em, rem);
+                if (bordersArray[0] == null) {
                     cell.SetProperty(Property.BORDER_TOP, Border.NO_BORDER);
                 }
-                Border bottomBorder = BorderStyleApplierUtil.GetCertainBorder(cssProps.Get(CssConstants.BORDER_BOTTOM_WIDTH
-                    ), cssProps.Get(CssConstants.BORDER_BOTTOM_STYLE), cssProps.Get(CssConstants.BORDER_BOTTOM_COLOR), em, 
-                    rem);
-                if (bottomBorder == null) {
+                if (bordersArray[1] == null) {
+                    cell.SetProperty(Property.BORDER_RIGHT, Border.NO_BORDER);
+                }
+                if (bordersArray[2] == null) {
                     cell.SetProperty(Property.BORDER_BOTTOM, Border.NO_BORDER);
                 }
-                Border leftBorder = BorderStyleApplierUtil.GetCertainBorder(cssProps.Get(CssConstants.BORDER_LEFT_WIDTH), 
-                    cssProps.Get(CssConstants.BORDER_LEFT_STYLE), cssProps.Get(CssConstants.BORDER_LEFT_COLOR), em, rem);
-                if (leftBorder == null) {
+                if (bordersArray[3] == null) {
                     cell.SetProperty(Property.BORDER_LEFT, Border.NO_BORDER);
-                }
-                Border rightBorder = BorderStyleApplierUtil.GetCertainBorder(cssProps.Get(CssConstants.BORDER_RIGHT_WIDTH)
-                    , cssProps.Get(CssConstants.BORDER_RIGHT_STYLE), cssProps.Get(CssConstants.BORDER_RIGHT_COLOR), em, rem
-                    );
-                if (rightBorder == null) {
-                    cell.SetProperty(Property.BORDER_RIGHT, Border.NO_BORDER);
                 }
             }
         }

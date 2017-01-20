@@ -66,6 +66,8 @@ namespace iText.Html2pdf.Css {
 
         public const String BACKGROUND_SIZE = "background-size";
 
+        public const String BLEED = "bleed";
+
         public const String BORDER = "border";
 
         public const String BORDER_BOTTOM = "border-bottom";
@@ -113,6 +115,8 @@ namespace iText.Html2pdf.Css {
         public const String CAPTION_SIDE = "caption-side";
 
         public const String COLOR = "color";
+
+        public const String CONTENT = "content";
 
         public const String DIRECTION = "direction";
 
@@ -178,6 +182,8 @@ namespace iText.Html2pdf.Css {
 
         public const String LIST_STYLE_TYPE = "list-style-type";
 
+        public const String MARKS = "marks";
+
         public const String MARGIN = "margin";
 
         public const String MARGIN_BOTTOM = "margin-bottom";
@@ -217,6 +223,8 @@ namespace iText.Html2pdf.Css {
         public const String POSITION = "position";
 
         public const String QUOTES = "quotes";
+
+        public const String SIZE = "size";
 
         public const String STYLE = "style";
 
@@ -296,6 +304,10 @@ namespace iText.Html2pdf.Css {
 
         public const String COVER = "cover";
 
+        public const String CROP = "crop";
+
+        public const String CROSS = "cross";
+
         public const String DASHED = "dashed";
 
         public const String DECIMAL = "decimal";
@@ -337,6 +349,8 @@ namespace iText.Html2pdf.Css {
         public const String INVERT = "invert";
 
         public const String ITALIC = "italic";
+
+        public const String LANDSCAPE = "landscape";
 
         public const String LARGE = "large";
 
@@ -387,6 +401,8 @@ namespace iText.Html2pdf.Css {
         public const String OVERLINE = "overline";
 
         public const String PADDING_BOX = "padding-box";
+
+        public const String PORTRAIT = "portrait";
 
         public const String PRE = "pre";
 

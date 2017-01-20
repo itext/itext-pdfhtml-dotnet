@@ -96,21 +96,21 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (isAuto) {
                 return false;
             }
-            float? marginTopVal = ParseMarginValue(marginValue, em, rem);
-            if (marginTopVal != null) {
-                element.SetProperty(marginProperty, marginTopVal);
+            float? marginVal = ParseMarginValue(marginValue, em, rem);
+            if (marginVal != null) {
+                element.SetProperty(marginProperty, marginVal);
             }
             return true;
         }
 
         private static float? ParseMarginValue(String marginValString, float em, float rem) {
-            UnitValue marginTopUnitVal = CssUtils.ParseLengthValueToPt(marginValString, em, rem);
-            if (marginTopUnitVal != null) {
-                if (!marginTopUnitVal.IsPointValue()) {
+            UnitValue marginUnitVal = CssUtils.ParseLengthValueToPt(marginValString, em, rem);
+            if (marginUnitVal != null) {
+                if (!marginUnitVal.IsPointValue()) {
                     logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     return null;
                 }
-                return marginTopUnitVal.GetValue();
+                return marginUnitVal.GetValue();
             }
             else {
                 return null;

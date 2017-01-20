@@ -41,21 +41,25 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Html.Node;
+using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     public class HtmlTagWorker : ITagWorker {
-        private Document document;
+        private HtmlTagWorker.HtmlDocument document;
 
         private WaitingInlineElementsHelper inlineHelper;
 
         public HtmlTagWorker(IElementNode element, ProcessorContext context) {
-            document = new Document(context.GetPdfDocument());
+            document = new HtmlTagWorker.HtmlDocument(context.GetPdfDocument());
             document.SetProperty(Property.COLLAPSING_MARGINS, true);
             document.SetFontProvider(context.GetFontProvider());
             String fontFamily = element.GetStyles().Get(CssConstants.FONT_FAMILY);
@@ -97,6 +101,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return document;
         }
 
+        public virtual void ProcessPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
+            ((HtmlDocumentRenderer)document.GetRenderer()).ProcessPageRules(rootNode, cssResolver, context);
+        }
+
         private bool ProcessBlockChild(IPropertyContainer propertyContainer) {
             inlineHelper.FlushHangingLeaves(document);
             IPropertyContainer element = propertyContainer;
@@ -110,6 +118,19 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             return true;
+        }
+
+        private class HtmlDocument : Document {
+            public HtmlDocument(PdfDocument pdfDoc)
+                : base(pdfDoc) {
+            }
+
+            protected override RootRenderer EnsureRootRendererNotNull() {
+                if (rootRenderer == null) {
+                    rootRenderer = new HtmlDocumentRenderer(this, immediateFlush);
+                }
+                return rootRenderer;
+            }
         }
     }
 }

@@ -59,39 +59,41 @@ namespace iText.Html2pdf {
 
         public const String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
 
+        public const String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
+
         public const String NO_CONSUMER_FOUND_FOR_CONTENT = "No consumer found for content";
 
         public const String NO_CSS_APPLIER_FOUND_FOR_TAG = "No css applier found for tag {0}";
 
         public const String NO_WORKER_FOUND_FOR_TAG = "No worker found for tag {0}";
 
-        public const String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
-
         public const String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
+
+        public const String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
 
         public const String QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "The quote is not closed in css expression: {0}";
 
         public const String RULE_IS_NOT_SUPPORTED = "The rule @{0} is unsupported. All selectors in this rule will be ignored.";
 
-        public const String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
-
         public const String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
+
+        public const String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
 
         public const String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
 
-        public const String UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI = "Unable to retrieve image with given base URI ({0}) and image source path ({1})";
+        public const String UNABLE_TO_RESOLVE_FONT = "Unable to resolve font: {0}. The default one will be used instead";
 
         public const String UNABLE_TO_RETRIEVE_IMAGE_FROM_BASE64_SOURCE = "Unable to retrieve image from given base64 source string";
 
-        public const String UNABLE_TO_RESOLVE_FONT = "Unable to resolve font: {0}. The default one will be used instead";
+        public const String UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI = "Unable to retrieve image with given base URI ({0}) and image source path ({1})";
 
         public const String UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED = "Unknown absolute metric length parsed \"{0}\".";
 
         public const String WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES = "Was not able to define one of the background CSS shorthand properties: {0}";
 
-        public const String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
-
         public const String WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT = "Worker of type {0} unable to process it's text content";
+
+        public const String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
 
         private LogMessageConstant() {
         }
