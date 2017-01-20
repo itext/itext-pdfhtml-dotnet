@@ -10,7 +10,11 @@ namespace Org.Jsoup.Nodes {
     /// <summary>The base, abstract Node model.</summary>
     /// <remarks>The base, abstract Node model. Elements, Documents, Comments etc are all Node instances.</remarks>
     /// <author>Jonathan Hedley, jonathan@hedley.net</author>
-    public abstract class Node : ICloneable {
+    public abstract class Node
+#if !NETSTANDARD1_6
+ : ICloneable
+#endif
+ {
         private static readonly IList<Org.Jsoup.Nodes.Node> EMPTY_NODES = JavaCollectionsUtil.EmptyList<Org.Jsoup.Nodes.Node
             >();
 

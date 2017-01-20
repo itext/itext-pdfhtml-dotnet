@@ -405,7 +405,11 @@ namespace Org.Jsoup.Nodes {
     }
 
     /// <summary>A Document's output settings control the form of the text() and html() methods.</summary>
-    public class OutputSettings : ICloneable {
+    public class OutputSettings
+#if !NETSTANDARD1_6
+ : ICloneable
+#endif
+ {
         private Entities.EscapeMode escapeMode = Entities.EscapeMode.@base;
 
         private Encoding charset = System.Text.Encoding.GetEncoding("UTF-8");
