@@ -90,6 +90,8 @@ namespace iText.Html2pdf.Css {
 
         public const String BORDER_LEFT_WIDTH = "border-left-width";
 
+        public const String BORDER_RADIUS = "border-radius";
+
         public const String BORDER_RIGHT = "border-right";
 
         public const String BORDER_RIGHT_COLOR = "border-right-color";
@@ -111,6 +113,8 @@ namespace iText.Html2pdf.Css {
         public const String BORDER_TOP_WIDTH = "border-top-width";
 
         public const String BORDER_WIDTH = "border-width";
+
+        public const String BOX_SHADOW = "box-shadow";
 
         public const String CAPTION_SIDE = "caption-side";
 

@@ -63,6 +63,12 @@ namespace iText.Html2pdf.Css.Media {
 
         private float resolution;
 
+        /// <summary>
+        /// See
+        /// <see cref="MediaType"/>
+        /// class constants for possible values.
+        /// </summary>
+        /// <param name="type">a type of the media to use.</param>
         public MediaDeviceDescription(String type) {
             // in points
             // in points

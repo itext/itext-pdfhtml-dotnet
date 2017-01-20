@@ -76,6 +76,8 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues[CssConstants.BORDER_RIGHT_WIDTH] = CssConstants.MEDIUM;
             defaultValues[CssConstants.BORDER_TOP_WIDTH] = CssConstants.MEDIUM;
             defaultValues[CssConstants.BORDER_WIDTH] = CssConstants.MEDIUM;
+            defaultValues[CssConstants.BORDER_RADIUS] = "0";
+            defaultValues[CssConstants.BOX_SHADOW] = CssConstants.NONE;
             defaultValues[CssConstants.FLOAT] = CssConstants.NONE;
             defaultValues[CssConstants.FONT_WEIGHT] = CssConstants.NORMAL;
             defaultValues[CssConstants.FONT_SIZE] = CssConstants.MEDIUM;
@@ -90,6 +92,7 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues[CssConstants.MARGIN_LEFT] = "0";
             defaultValues[CssConstants.MARGIN_RIGHT] = "0";
             defaultValues[CssConstants.MARGIN_TOP] = "0";
+            defaultValues[CssConstants.MIN_HEIGHT] = "0";
             defaultValues[CssConstants.OUTLINE_COLOR] = CssConstants.INVERT;
             defaultValues[CssConstants.OUTLINE_STYLE] = CssConstants.NONE;
             defaultValues[CssConstants.OUTLINE_WIDTH] = CssConstants.MEDIUM;
@@ -103,6 +106,7 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues[CssConstants.TEXT_TRANSFORM] = CssConstants.NONE;
             defaultValues[CssConstants.TEXT_DECORATION] = CssConstants.NONE;
             defaultValues[CssConstants.WHITE_SPACE] = CssConstants.NORMAL;
+            defaultValues[CssConstants.WIDTH] = CssConstants.AUTO;
         }
 
         // TODO not complete
