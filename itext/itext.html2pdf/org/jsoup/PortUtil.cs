@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using System.Web;
 using System.Text;
 using System.Text.RegularExpressions;
+using iText.IO.Util;
 
 namespace Org.Jsoup {
     internal static class PortUtil {
@@ -36,7 +35,7 @@ namespace Org.Jsoup {
 
         public static bool CharsetIsSupported(string charset) {
             try {
-                var enc = Encoding.GetEncoding(charset);
+                var enc = EncodingUtil.GetEncoding(charset);
                 return true;
             } catch (ArgumentException) {
                 return false;

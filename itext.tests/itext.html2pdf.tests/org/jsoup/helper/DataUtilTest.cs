@@ -32,7 +32,7 @@ namespace Org.Jsoup.Helper {
         [NUnit.Framework.Test]
         public virtual void DiscardsSpuriousByteOrderMark() {
             String html = "\uFEFF<html><head><title>One</title></head><body>Two</body></html>";
-            ByteBuffer buffer = System.Text.Encoding.GetEncoding("UTF-8").Encode(html);
+            ByteBuffer buffer = iText.IO.Util.EncodingUtil.GetEncoding("UTF-8").Encode(html);
             Document doc = DataUtil.ParseByteData(buffer, "UTF-8", "http://foo.com/", Org.Jsoup.Parser.Parser.HtmlParser
                 ());
             NUnit.Framework.Assert.AreEqual("One", doc.Head().Text());
@@ -41,7 +41,7 @@ namespace Org.Jsoup.Helper {
         [NUnit.Framework.Test]
         public virtual void DiscardsSpuriousByteOrderMarkWhenNoCharsetSet() {
             String html = "\uFEFF<html><head><title>One</title></head><body>Two</body></html>";
-            ByteBuffer buffer = System.Text.Encoding.GetEncoding("UTF-8").Encode(html);
+            ByteBuffer buffer = iText.IO.Util.EncodingUtil.GetEncoding("UTF-8").Encode(html);
             Document doc = DataUtil.ParseByteData(buffer, null, "http://foo.com/", Org.Jsoup.Parser.Parser.HtmlParser(
                 ));
             NUnit.Framework.Assert.AreEqual("One", doc.Head().Text());

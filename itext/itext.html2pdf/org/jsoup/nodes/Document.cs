@@ -412,7 +412,7 @@ namespace Org.Jsoup.Nodes {
  {
         private Entities.EscapeMode escapeMode = Entities.EscapeMode.@base;
 
-        private Encoding charset = System.Text.Encoding.GetEncoding("UTF-8");
+        private Encoding charset = iText.IO.Util.EncodingUtil.GetEncoding("UTF-8");
 
         private Encoding charsetEncoder;
 
@@ -485,7 +485,7 @@ namespace Org.Jsoup.Nodes {
         /// <param name="charset">the new charset (by name) to use.</param>
         /// <returns>the document's output settings, for chaining</returns>
         public virtual Org.Jsoup.Nodes.OutputSettings Charset(String charset) {
-            Charset(System.Text.Encoding.GetEncoding(charset));
+            Charset(iText.IO.Util.EncodingUtil.GetEncoding(charset));
             return this;
         }
 
