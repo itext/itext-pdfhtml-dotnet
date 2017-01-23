@@ -42,11 +42,9 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Css.Selector;
 using iText.Html2pdf.Css.Util;
-using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Page {
     public class CssPageRule : CssNestedAtRule {
@@ -62,14 +60,6 @@ namespace iText.Html2pdf.Css.Page {
             foreach (String currentSelectorStr in selectors) {
                 pageSelectors.Add(new CssPageSelector(currentSelectorStr));
             }
-        }
-
-        public override IList<CssRuleSet> GetCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
-            IList<CssRuleSet> result = new List<CssRuleSet>();
-            foreach (CssStatement childStatement in body) {
-                result.AddAll(childStatement.GetCssRuleSets(node, deviceDescription));
-            }
-            return result;
         }
 
         public override void AddBodyCssDeclarations(IList<CssDeclaration> cssDeclarations) {

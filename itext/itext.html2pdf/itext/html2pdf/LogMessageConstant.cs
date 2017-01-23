@@ -69,6 +69,8 @@ namespace iText.Html2pdf {
 
         public const String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
 
+        public const String PAGE_MARGIN_BOX_CONTENT_INVALID = "Page-margin box content property \"{0}\" is either invalid or has unsupported value. At the moment, only <string> values are supported.";
+
         public const String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
 
         public const String QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "The quote is not closed in css expression: {0}";

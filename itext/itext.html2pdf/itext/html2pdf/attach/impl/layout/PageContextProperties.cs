@@ -41,10 +41,12 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
+using System.Text;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Log;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     internal class PageContextProperties {
@@ -84,7 +86,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             foreach (String pageMarginBoxName in pageMarginBoxNames) {
                 PageMarginBoxContextNode marginBoxNode = new PageMarginBoxContextNode(pageClassNode, pageMarginBoxName);
                 IDictionary<String, String> marginBoxStyles = cssResolver.ResolveStyles(marginBoxNode, context);
-                if (ShouldBeDisplayed(marginBoxStyles)) {
+                if (ResolveContent(marginBoxStyles)) {
                     marginBoxNode.SetStyles(marginBoxStyles);
                     resolvedMarginBoxes.Add(marginBoxNode);
                 }
@@ -92,8 +94,41 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return resolvedMarginBoxes;
         }
 
-        private static bool ShouldBeDisplayed(IDictionary<String, String> marginBoxStyles) {
-            return marginBoxStyles.ContainsKey(CssConstants.CONTENT);
+        private static bool ResolveContent(IDictionary<String, String> marginBoxStyles) {
+            String contentStr = marginBoxStyles.Get(CssConstants.CONTENT);
+            if (contentStr == null) {
+                return false;
+            }
+            StringBuilder content = new StringBuilder();
+            StringBuilder nonDirectContent = new StringBuilder();
+            bool insideQuotes = false;
+            for (int i = 0; i < contentStr.Length; ++i) {
+                if (contentStr[i] == '"') {
+                    if (!insideQuotes) {
+                        // TODO in future, try to resolve if counter() or smth like that encountered
+                        if (!String.IsNullOrEmpty(nonDirectContent.ToString().Trim())) {
+                            break;
+                        }
+                        nonDirectContent.Length = 0;
+                    }
+                    insideQuotes = !insideQuotes;
+                }
+                else {
+                    if (insideQuotes) {
+                        content.Append(contentStr[i]);
+                    }
+                    else {
+                        nonDirectContent.Append(contentStr[i]);
+                    }
+                }
+            }
+            if (!String.IsNullOrEmpty(nonDirectContent.ToString().Trim())) {
+                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProperties));
+                logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_INVALID, contentStr));
+                return false;
+            }
+            marginBoxStyles[CssConstants.CONTENT] = content.ToString();
+            return true;
         }
 
         private static PageContextNode GetResolvedPageClassNode(INode rootNode, ICssResolver cssResolver, CssContext

@@ -172,6 +172,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightWithCollapsingMarginsTest04() {
             String testName = "heightWithCollapsingMarginsTest04";
             String diffPrefix = "diffMargins04_";
+            // second paragraph should not be drawn in pdf, as it doesn't fit with it's margins
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
                  + testName + ".pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder

@@ -44,6 +44,7 @@ using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
+using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -70,6 +71,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         private Div pageBordersSimulation;
 
+        private Rectangle[] marginBoxRectangles;
+
+        private Div[] marginBoxElements;
+
         internal PageContextProcessor(PageContextProperties properties, ProcessorContext context, PageSize defaultPageSize
             ) {
             IDictionary<String, String> styles = properties.GetResolvedPageContextNode().GetStyles();
@@ -85,6 +90,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             ParseBorders(styles, em, rem);
             ParsePaddings(styles, em, rem);
             CreatePageSimulationElements(styles, context);
+            CreateMarginBoxesElements(properties.GetResolvedPageMarginBoxes(), context);
         }
 
         internal virtual PageSize GetPageSize() {
@@ -107,6 +113,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             SetBleed(page);
             DrawMarks(page);
             DrawPageBackgroundAndBorders(page);
+            DrawMarginBoxes(page);
         }
 
         private void SetBleed(PdfPage page) {
@@ -202,8 +209,21 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             iText.Layout.Canvas canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetDocument(), page.GetBleedBox
                 ());
             canvas.Add(pageBackgroundSimulation);
+            canvas.Close();
             canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetDocument(), page.GetTrimBox());
             canvas.Add(pageBordersSimulation);
+            canvas.Close();
+        }
+
+        private void DrawMarginBoxes(PdfPage page) {
+            for (int i = 0; i < 16; ++i) {
+                if (marginBoxElements[i] != null) {
+                    iText.Layout.Canvas canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetDocument(), marginBoxRectangles
+                        [i]);
+                    canvas.Add(marginBoxElements[i]);
+                    canvas.Close();
+                }
+            }
         }
 
         private static ICollection<String> ParseMarks(String marksStr) {
@@ -226,14 +246,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         private void ParseMargins(IDictionary<String, String> styles, float em, float rem) {
             float defaultMargin = 36;
-            margins = ParseBoxProps(styles, em, rem, defaultMargin, CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT
+            PageSize pageSize = GetPageSize();
+            margins = ParseBoxProps(styles, em, rem, defaultMargin, pageSize, CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT
                 , CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT);
         }
 
         private void ParsePaddings(IDictionary<String, String> styles, float em, float rem) {
             float defaultPadding = 0;
-            paddings = ParseBoxProps(styles, em, rem, defaultPadding, CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT
-                , CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
+            PageSize pageSize = GetPageSize();
+            paddings = ParseBoxProps(styles, em, rem, defaultPadding, pageSize, CssConstants.PADDING_TOP, CssConstants
+                .PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
         }
 
         private void ParseBorders(IDictionary<String, String> styles, float em, float rem) {
@@ -251,17 +273,169 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             pageBordersSimulation.SetBorderLeft(borders[3]);
         }
 
+        private void CreateMarginBoxesElements(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes, ProcessorContext
+             context) {
+            marginBoxRectangles = CalculateMarginBoxRectangles(resolvedPageMarginBoxes);
+            marginBoxElements = new Div[16];
+            foreach (PageMarginBoxContextNode marginBoxProps in resolvedPageMarginBoxes) {
+                int marginBoxInd = MapMarginBoxNameToIndex(marginBoxProps.GetMarginBoxName());
+                Div marginBox = new Div();
+                marginBoxElements[marginBoxInd] = marginBox;
+                IDictionary<String, String> boxStyles = marginBoxProps.GetStyles();
+                BackgroundApplierUtil.ApplyBackground(boxStyles, context, marginBox);
+                FontStyleApplierUtil.ApplyFontStyles(boxStyles, context, marginBox);
+                BorderStyleApplierUtil.ApplyBorders(boxStyles, context, marginBox);
+                VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForCells(boxStyles, context, marginBox);
+                float em = CssUtils.ParseAbsoluteLength(boxStyles.Get(CssConstants.FONT_SIZE));
+                float rem = context.GetCssContext().GetRootFontSize();
+                float[] boxMargins = ParseBoxProps(boxStyles, em, rem, 0, CalculateContainingBlockSizesForMarginBox(marginBoxInd
+                    ), CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT
+                    );
+                float[] boxPaddings = ParseBoxProps(boxStyles, em, rem, 0, CalculateContainingBlockSizesForMarginBox(marginBoxInd
+                    ), CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT
+                    );
+                marginBox.SetMargins(boxMargins[0], boxMargins[1], boxMargins[2], boxMargins[3]);
+                marginBox.SetPaddings(boxPaddings[0], boxPaddings[1], boxPaddings[2], boxPaddings[3]);
+                marginBox.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
+                marginBox.SetFillAvailableArea(true);
+                marginBox.Add(new Paragraph(boxStyles.Get(CssConstants.CONTENT)).SetMargin(0));
+            }
+        }
+
+        private Rectangle[] CalculateMarginBoxRectangles(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
+            // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes, 
+            //      also height and width properties should be taken into account.
+            float topMargin = margins[0];
+            float rightMargin = margins[1];
+            float bottomMargin = margins[2];
+            float leftMargin = margins[3];
+            Rectangle withoutMargins = ((PageSize)pageSize.Clone()).ApplyMargins<Rectangle>(topMargin, rightMargin, bottomMargin, 
+                leftMargin, false);
+            float topBottomMarginWidth = withoutMargins.GetWidth() / 3;
+            float leftRightMarginHeight = withoutMargins.GetHeight() / 3;
+            Rectangle[] hardcodedBoxRectangles = new Rectangle[] { new Rectangle(0, withoutMargins.GetTop(), leftMargin
+                , topMargin), new Rectangle(rightMargin, withoutMargins.GetTop(), topBottomMarginWidth, topMargin), new 
+                Rectangle(rightMargin + topBottomMarginWidth, withoutMargins.GetTop(), topBottomMarginWidth, topMargin
+                ), new Rectangle(withoutMargins.GetRight() - topBottomMarginWidth, withoutMargins.GetTop(), topBottomMarginWidth
+                , topMargin), new Rectangle(withoutMargins.GetRight(), withoutMargins.GetTop(), topBottomMarginWidth, 
+                topMargin), new Rectangle(withoutMargins.GetRight(), withoutMargins.GetTop() - leftRightMarginHeight, 
+                rightMargin, leftRightMarginHeight), new Rectangle(withoutMargins.GetRight(), withoutMargins.GetBottom
+                () + leftRightMarginHeight, rightMargin, leftRightMarginHeight), new Rectangle(withoutMargins.GetRight
+                (), withoutMargins.GetBottom(), rightMargin, leftRightMarginHeight), new Rectangle(withoutMargins.GetRight
+                (), 0, rightMargin, bottomMargin), new Rectangle(withoutMargins.GetRight() - topBottomMarginWidth, 0, 
+                topBottomMarginWidth, bottomMargin), new Rectangle(rightMargin + topBottomMarginWidth, 0, topBottomMarginWidth
+                , bottomMargin), new Rectangle(rightMargin, 0, topBottomMarginWidth, bottomMargin), new Rectangle(0, 0
+                , leftMargin, bottomMargin), new Rectangle(0, withoutMargins.GetBottom(), leftMargin, leftRightMarginHeight
+                ), new Rectangle(0, withoutMargins.GetBottom() + leftRightMarginHeight, leftMargin, leftRightMarginHeight
+                ), new Rectangle(0, withoutMargins.GetTop() - leftRightMarginHeight, leftMargin, leftRightMarginHeight
+                ) };
+            return hardcodedBoxRectangles;
+        }
+
+        private Rectangle CalculateContainingBlockSizesForMarginBox(int marginBoxInd) {
+            if (marginBoxInd == 0 || marginBoxInd == 4 || marginBoxInd == 8 || marginBoxInd == 12) {
+                return marginBoxRectangles[marginBoxInd];
+            }
+            Rectangle withoutMargins = ((PageSize)pageSize.Clone()).ApplyMargins<Rectangle>(margins[0], margins[1], margins[2], margins
+                [3], false);
+            if (marginBoxInd < 4) {
+                return new Rectangle(withoutMargins.GetWidth(), margins[0]);
+            }
+            else {
+                if (marginBoxInd < 8) {
+                    return new Rectangle(margins[1], withoutMargins.GetHeight());
+                }
+                else {
+                    if (marginBoxInd < 12) {
+                        return new Rectangle(withoutMargins.GetWidth(), margins[2]);
+                    }
+                    else {
+                        return new Rectangle(margins[3], withoutMargins.GetWidth());
+                    }
+                }
+            }
+        }
+
+        private int MapMarginBoxNameToIndex(String marginBoxName) {
+            switch (marginBoxName) {
+                case CssRuleName.TOP_LEFT_CORNER: {
+                    return 0;
+                }
+
+                case CssRuleName.TOP_LEFT: {
+                    return 1;
+                }
+
+                case CssRuleName.TOP_CENTER: {
+                    return 2;
+                }
+
+                case CssRuleName.TOP_RIGHT: {
+                    return 3;
+                }
+
+                case CssRuleName.TOP_RIGHT_CORNER: {
+                    return 4;
+                }
+
+                case CssRuleName.RIGHT_TOP: {
+                    return 5;
+                }
+
+                case CssRuleName.RIGHT_MIDDLE: {
+                    return 6;
+                }
+
+                case CssRuleName.RIGHT_BOTTOM: {
+                    return 7;
+                }
+
+                case CssRuleName.BOTTOM_RIGHT_CORNER: {
+                    return 8;
+                }
+
+                case CssRuleName.BOTTOM_RIGHT: {
+                    return 9;
+                }
+
+                case CssRuleName.BOTTOM_CENTER: {
+                    return 10;
+                }
+
+                case CssRuleName.BOTTOM_LEFT: {
+                    return 11;
+                }
+
+                case CssRuleName.BOTTOM_LEFT_CORNER: {
+                    return 12;
+                }
+
+                case CssRuleName.LEFT_BOTTOM: {
+                    return 13;
+                }
+
+                case CssRuleName.LEFT_MIDDLE: {
+                    return 14;
+                }
+
+                case CssRuleName.LEFT_TOP: {
+                    return 15;
+                }
+            }
+            return -1;
+        }
+
         private float[] ParseBoxProps(IDictionary<String, String> styles, float em, float rem, float defaultValue, 
-            String topPropName, String rightPropName, String bottomPropName, String leftPropName) {
+            Rectangle containingBlock, String topPropName, String rightPropName, String bottomPropName, String leftPropName
+            ) {
             String topStr = styles.Get(topPropName);
             String rightStr = styles.Get(rightPropName);
             String bottomStr = styles.Get(bottomPropName);
             String leftStr = styles.Get(leftPropName);
-            PageSize pageSize = GetPageSize();
-            float? top = ParseBoxValue(topStr, em, rem, pageSize.GetHeight());
-            float? right = ParseBoxValue(rightStr, em, rem, pageSize.GetWidth());
-            float? bottom = ParseBoxValue(bottomStr, em, rem, pageSize.GetHeight());
-            float? left = ParseBoxValue(leftStr, em, rem, pageSize.GetWidth());
+            float? top = ParseBoxValue(topStr, em, rem, containingBlock.GetHeight());
+            float? right = ParseBoxValue(rightStr, em, rem, containingBlock.GetWidth());
+            float? bottom = ParseBoxValue(bottomStr, em, rem, containingBlock.GetHeight());
+            float? left = ParseBoxValue(leftStr, em, rem, containingBlock.GetWidth());
             return new float[] { top != null ? (float)top : defaultValue, right != null ? (float)right : defaultValue, 
                 bottom != null ? (float)bottom : defaultValue, left != null ? (float)left : defaultValue };
         }

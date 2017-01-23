@@ -42,6 +42,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using iText.Html2pdf.Css.Media;
+using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css {
     public class CssNestedAtRule : CssAtRule {
@@ -68,6 +70,14 @@ namespace iText.Html2pdf.Css {
         }
 
         // ignore by default
+        public override IList<CssRuleSet> GetCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
+            IList<CssRuleSet> result = new List<CssRuleSet>();
+            foreach (CssStatement childStatement in body) {
+                result.AddAll(childStatement.GetCssRuleSets(node, deviceDescription));
+            }
+            return result;
+        }
+
         public override String ToString() {
             StringBuilder sb = new StringBuilder();
             sb.Append(String.Format("@{0} {1} ", ruleName, ruleParameters));
