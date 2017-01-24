@@ -39,10 +39,7 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-using System;
 using System.IO;
-using iText.Layout;
-using iText.Layout.Element;
 
 namespace iText.Html2pdf {
     public class PortUtil {
@@ -53,22 +50,5 @@ namespace iText.Html2pdf {
             return inputStreamReader;
         }
 
-        public static bool IsSubclassOfRawGeneric(Object obj, Type toCheck) {
-            Type generic = obj.GetType();
-            while (toCheck != null && toCheck != typeof(object))
-            {
-                var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
-                if (generic == cur)
-                {
-                    return true;
-                }
-                toCheck = toCheck.BaseType;
-            }
-            return false;
-        }
-
-        public static void AddBlockTo(IPropertyContainer parent, IPropertyContainer child) {
-            
-        }
     }
 }
