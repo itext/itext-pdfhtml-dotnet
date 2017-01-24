@@ -19,7 +19,7 @@ namespace Org.Jsoup.Select {
     /// </p>
     /// </summary>
     /// <author>Jonathan Hedley, jonathan@hedley.net</author>
-    public class Elements : List<Element>, ICloneable {
+    public class Elements : List<Element> {
         public Elements() {
         }
 

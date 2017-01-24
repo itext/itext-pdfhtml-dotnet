@@ -20,7 +20,7 @@ namespace Org.Jsoup.Nodes {
     /// </p>
     /// </remarks>
     /// <author>Jonathan Hedley, jonathan@hedley.net</author>
-    public class Attributes : IEnumerable<Org.Jsoup.Nodes.Attribute>, ICloneable {
+    public class Attributes : IEnumerable<Org.Jsoup.Nodes.Attribute> {
         protected internal const String dataPrefix = "data-";
 
         private LinkedDictionary<String, Org.Jsoup.Nodes.Attribute> attributes = null;
@@ -36,8 +36,7 @@ namespace Org.Jsoup.Nodes {
             if (attributes == null) {
                 return "";
             }
-            Org.Jsoup.Nodes.Attribute attr = attributes.Get(key.ToLower(System.Globalization.CultureInfo.InvariantCulture
-                ));
+            Org.Jsoup.Nodes.Attribute attr = attributes.Get(key.ToLowerInvariant());
             return attr != null ? attr.Value : "";
         }
 
@@ -78,15 +77,14 @@ namespace Org.Jsoup.Nodes {
             if (attributes == null) {
                 return;
             }
-            attributes.JRemove(key.ToLower(System.Globalization.CultureInfo.InvariantCulture));
+            attributes.JRemove(key.ToLowerInvariant());
         }
 
         /// <summary>Tests if these attributes contain an attribute with this key.</summary>
         /// <param name="key">key to check for</param>
         /// <returns>true if key exists, false otherwise</returns>
         public virtual bool HasKey(String key) {
-            return attributes != null && attributes.Contains(key.ToLower(System.Globalization.CultureInfo.InvariantCulture
-                ));
+            return attributes != null && attributes.Contains(key.ToLowerInvariant());
         }
 
         /// <summary>Get the number of attributes in this set.</summary>

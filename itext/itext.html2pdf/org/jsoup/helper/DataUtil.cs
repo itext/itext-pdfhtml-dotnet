@@ -212,7 +212,7 @@ namespace Org.Jsoup.Helper {
             if (PortUtil.CharsetIsSupported(cs)) {
                 return cs;
             }
-            cs = cs.ToUpper(System.Globalization.CultureInfo.InvariantCulture);
+            cs = cs.ToUpperInvariant();
             if (PortUtil.CharsetIsSupported(cs)) {
                 return cs;
             }

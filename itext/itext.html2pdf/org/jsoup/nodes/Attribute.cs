@@ -8,7 +8,7 @@ namespace Org.Jsoup.Nodes {
     /// <summary>A single key + value attribute.</summary>
     /// <remarks>A single key + value attribute. Keys are trimmed and normalised to lower-case.</remarks>
     /// <author>Jonathan Hedley, jonathan@hedley.net</author>
-    public class Attribute : ICloneable {
+    public class Attribute {
         private static readonly String[] booleanAttributes = new String[] { "allowfullscreen", "async", "autofocus"
             , "checked", "compact", "declare", "default", "defer", "disabled", "formnovalidate", "hidden", "inert"
             , "ismap", "itemscope", "multiple", "muted", "nohref", "noresize", "noshade", "novalidate", "nowrap", 
@@ -26,7 +26,7 @@ namespace Org.Jsoup.Nodes {
         public Attribute(String key, String value) {
             Validate.NotEmpty(key);
             Validate.NotNull(value);
-            this.key = key.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+            this.key = key.Trim().ToLowerInvariant();
             this.value = value;
         }
 
@@ -43,7 +43,7 @@ namespace Org.Jsoup.Nodes {
         /// <param name="key">the new key; must not be null</param>
         public virtual void SetKey(String key) {
             Validate.NotEmpty(key);
-            this.key = key.Trim().ToLower(System.Globalization.CultureInfo.InvariantCulture);
+            this.key = key.Trim().ToLowerInvariant();
         }
 
         /// <summary>Get the attribute value.</summary>
