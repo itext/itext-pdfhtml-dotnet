@@ -52,7 +52,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf {
     public class ResourceResolverTest : ExtendedITextTest {
-        public static readonly String sourceFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/ResourceResolverTest/";
+        public static readonly String sourceFolder = TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext.CurrentContext.TestDirectory) + "/resources/itext/html2pdf/ResourceResolverTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/ResourceResolverTest/";
@@ -108,7 +108,7 @@ namespace iText.Html2pdf {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ResourceResolverTest04() {
-            String invalidBaseUri = NUnit.Framework.TestContext.CurrentContext.TestDirectory + "/../../resources/itext/html2pdf/ResourceResolverTest/"
+            String invalidBaseUri = TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext.CurrentContext.TestDirectory) + "/resources/itext/html2pdf/ResourceResolverTest/"
                  + "res";
             String outPdf = destinationFolder + "resourceResolverTest04.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest04.pdf";
@@ -124,7 +124,7 @@ namespace iText.Html2pdf {
         public virtual void ResourceResolverTest05() {
             // It is important to put a trailing slash in the end: if you specify base URI via absolute URI string,
             // you need to follow URI standards, in which a path without trailing slash is referring to a file.
-            String baseUri = new Uri(NUnit.Framework.TestContext.CurrentContext.TestDirectory).ToExternalForm() + "/../../resources/itext/html2pdf/ResourceResolverTest/res/";
+            String baseUri = new Uri(TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext.CurrentContext.TestDirectory)).ToExternalForm() + "/resources/itext/html2pdf/ResourceResolverTest/res/";
             String outPdf = destinationFolder + "resourceResolverTest05.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest05.pdf";
             HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "resourceResolverTest03.html", FileMode.Open, FileAccess.Read
