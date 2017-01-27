@@ -63,9 +63,9 @@ namespace iText.Html2pdf.Attach {
 
         private String baseUri;
 
-        private CssContext cssContext;
-
         private State state;
+
+        private CssContext cssContext;
 
         private PdfDocument pdfDocument;
 
