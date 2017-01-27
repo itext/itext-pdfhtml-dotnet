@@ -170,6 +170,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 2)]
         public virtual void HeightWithCollapsingMarginsTest04() {
+            // TODO DEVSIX-1047
             String testName = "heightWithCollapsingMarginsTest04";
             String diffPrefix = "diffMargins04_";
             // second paragraph should not be drawn in pdf, as it doesn't fit with it's margins
