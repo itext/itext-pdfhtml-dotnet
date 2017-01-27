@@ -350,8 +350,8 @@ OUTER_break: ;
 
         internal bool ContainsIgnoreCase(String seq) {
             // used to check presence of </title>, </style>. only finds consistent case.
-            String loScan = seq.ToLower(System.Globalization.CultureInfo.InvariantCulture);
-            String hiScan = seq.ToUpper(System.Globalization.CultureInfo.InvariantCulture);
+            String loScan = seq.ToLowerInvariant();
+            String hiScan = seq.ToUpperInvariant();
             return (NextIndexOf(loScan) > -1) || (NextIndexOf(hiScan) > -1);
         }
 
