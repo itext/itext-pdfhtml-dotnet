@@ -50,11 +50,11 @@ using iText.IO.Log;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     internal class PageContextProperties {
-        private static IList<String> pageMarginBoxNames = iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName.TOP_LEFT_CORNER
-            , CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT, CssRuleName.TOP_RIGHT_CORNER, CssRuleName
-            .RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM, CssRuleName.BOTTOM_RIGHT_CORNER, CssRuleName
-            .BOTTOM_RIGHT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_LEFT, CssRuleName.BOTTOM_LEFT_CORNER, CssRuleName
-            .LEFT_BOTTOM, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_TOP);
+        private static readonly IList<String> pageMarginBoxNames = iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName
+            .TOP_LEFT_CORNER, CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT, CssRuleName.TOP_RIGHT_CORNER
+            , CssRuleName.RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM, CssRuleName.BOTTOM_RIGHT_CORNER
+            , CssRuleName.BOTTOM_RIGHT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_LEFT, CssRuleName.BOTTOM_LEFT_CORNER
+            , CssRuleName.LEFT_BOTTOM, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_TOP);
 
         private PageContextNode pageContextNode;
 

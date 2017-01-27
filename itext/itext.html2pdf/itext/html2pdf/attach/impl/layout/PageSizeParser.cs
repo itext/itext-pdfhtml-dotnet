@@ -49,7 +49,8 @@ using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     internal class PageSizeParser {
-        private static IDictionary<String, PageSize> pageSizeConstants = new Dictionary<String, PageSize>();
+        private static readonly IDictionary<String, PageSize> pageSizeConstants = new Dictionary<String, PageSize>
+            ();
 
         static PageSizeParser() {
             pageSizeConstants["a5"] = PageSize.A5;

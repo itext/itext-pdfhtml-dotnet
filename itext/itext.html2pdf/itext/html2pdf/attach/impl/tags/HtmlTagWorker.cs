@@ -50,16 +50,18 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
-using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     public class HtmlTagWorker : ITagWorker {
-        private HtmlTagWorker.HtmlDocument document;
+        private Document document;
 
         private WaitingInlineElementsHelper inlineHelper;
 
         public HtmlTagWorker(IElementNode element, ProcessorContext context) {
-            document = new HtmlTagWorker.HtmlDocument(context.GetPdfDocument());
+            bool immediateFlush = true;
+            PdfDocument pdfDocument = context.GetPdfDocument();
+            document = new Document(pdfDocument, pdfDocument.GetDefaultPageSize(), immediateFlush);
+            document.SetRenderer(new HtmlDocumentRenderer(document, immediateFlush));
             document.SetProperty(Property.COLLAPSING_MARGINS, true);
             document.SetFontProvider(context.GetFontProvider());
             String fontFamily = element.GetStyles().Get(CssConstants.FONT_FAMILY);
@@ -118,19 +120,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             return true;
-        }
-
-        private class HtmlDocument : Document {
-            public HtmlDocument(PdfDocument pdfDoc)
-                : base(pdfDoc) {
-            }
-
-            protected override RootRenderer EnsureRootRendererNotNull() {
-                if (rootRenderer == null) {
-                    rootRenderer = new HtmlDocumentRenderer(this, immediateFlush);
-                }
-                return rootRenderer;
-            }
         }
     }
 }
