@@ -47,6 +47,7 @@ using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Resolve;
+using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
@@ -213,6 +214,9 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
             }
             context.Reset(pdfDocument);
+            if (context.GetFontProvider().GetFontSet().GetFonts().Count == 0) {
+                throw new Html2PdfException("Font Provider contains zero fonts. At least one font should be present");
+            }
             // TODO store html version from document type in context if necessary
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context.GetDeviceDescription(), context.GetResourceResolver());
