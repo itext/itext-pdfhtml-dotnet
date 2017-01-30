@@ -46,6 +46,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     public class UlOlTagWorker : ITagWorker {
@@ -102,7 +103,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private void AddUnlabeledListItem(IBlockElement item) {
             ListItem li = new ListItem();
             li.Add(item);
-            li.SetListSymbol("");
+            li.SetProperty(Property.LIST_SYMBOL, null);
             list.Add(li);
         }
 
