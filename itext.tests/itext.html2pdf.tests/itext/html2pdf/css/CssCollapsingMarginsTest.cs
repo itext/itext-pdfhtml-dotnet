@@ -42,6 +42,7 @@
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.IO.Util;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
 using System.Reflection;
@@ -400,8 +401,8 @@ namespace iText.Html2pdf.Css {
             FileInfo srcFile = new FileInfo(sourceFolder + @in);
             FileInfo destFile = new FileInfo(outPdf);
             HtmlConverter.ConvertToPdf(srcFile, destFile);
-            CompareTool compareTool = new CompareTool();
-            NUnit.Framework.Assert.IsNull(compareTool.CompareByContent(outPdf, cmpPdf, destinationFolder, diff));
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(srcFile).AbsolutePath + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, diff));
         }
     }
 }
