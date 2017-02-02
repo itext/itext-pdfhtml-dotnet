@@ -155,5 +155,15 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "absolutePositionTest09.pdf"
                 , sourceFolder + "cmp_absolutePositionTest09.pdf", destinationFolder, "diff09_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePosition10Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "absolutePositionTest10.html"), new FileInfo(destinationFolder
+                 + "absolutePositionTest10.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "absolutePositionTest10.pdf"
+                , sourceFolder + "cmp_absolutePositionTest10.pdf", destinationFolder, "diff10_"));
+        }
     }
 }
