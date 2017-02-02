@@ -40,16 +40,38 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.Html2pdf.Css.W3c;
-using iText.Test.Attributes;
+using System.Collections.Generic;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Validate.Impl.Datatype;
+using iText.Html2pdf.Css.Validate.Impl.Declaration;
 
-namespace iText.Html2pdf.Css.W3c.Css_color_4 {
-    [LogMessage(iText.IO.LogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB)]
-    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
-    public class BorderTopColorTest : W3CCssTest {
-        // Color values as in this test are considered for now as invalid. E.g. Chrome does the same. 
-        protected internal override String GetHtmlFileName() {
-            return "border-top-color.xht";
+namespace iText.Html2pdf.Css.Validate {
+    public class CssDeclarationValidationMaster {
+        private static readonly IDictionary<String, ICssDeclarationValidator> DEFAULT_VALIDATORS;
+
+        static CssDeclarationValidationMaster() {
+            // TODO lazy initialization?
+            ICssDeclarationValidator colorCommonValidator = new MultiTypeDeclarationValidator(new CssEnumValidator(CssConstants
+                .TRANSPARENT, CssConstants.INITIAL, CssConstants.INHERIT), new CssColorValidator());
+            DEFAULT_VALIDATORS = new Dictionary<String, ICssDeclarationValidator>();
+            DEFAULT_VALIDATORS[CssConstants.BACKGROUND_COLOR] = colorCommonValidator;
+            DEFAULT_VALIDATORS[CssConstants.COLOR] = colorCommonValidator;
+            DEFAULT_VALIDATORS[CssConstants.BORDER_COLOR] = colorCommonValidator;
+            DEFAULT_VALIDATORS[CssConstants.BORDER_BOTTOM_COLOR] = colorCommonValidator;
+            DEFAULT_VALIDATORS[CssConstants.BORDER_TOP_COLOR] = colorCommonValidator;
+            DEFAULT_VALIDATORS[CssConstants.BORDER_LEFT_COLOR] = colorCommonValidator;
+            DEFAULT_VALIDATORS[CssConstants.BORDER_RIGHT_COLOR] = colorCommonValidator;
+            DEFAULT_VALIDATORS[CssConstants.FLOAT] = new SingleTypeDeclarationValidator(new CssEnumValidator(CssConstants
+                .LEFT, CssConstants.RIGHT, CssConstants.NONE, CssConstants.INHERIT, CssConstants.CENTER));
+        }
+
+        private CssDeclarationValidationMaster() {
+        }
+
+        /*center comes from legacy*/
+        public static bool CheckDeclaration(CssDeclaration declaration) {
+            ICssDeclarationValidator validator = DEFAULT_VALIDATORS.Get(declaration.GetProperty());
+            return validator == null || validator.IsValid(declaration);
         }
     }
 }

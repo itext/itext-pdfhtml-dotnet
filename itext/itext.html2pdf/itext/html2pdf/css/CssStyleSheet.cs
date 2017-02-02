@@ -43,8 +43,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using iText.Html2pdf.Css.Media;
+using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Css.Resolve.Shorthand;
+using iText.Html2pdf.Css.Validate;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css {
@@ -98,13 +101,13 @@ namespace iText.Html2pdf.Css {
                 IShorthandResolver shorthandResolver = ShorthandResolverFactory.GetShorthandResolver(declaration.GetProperty
                     ());
                 if (shorthandResolver == null) {
-                    map[declaration.GetProperty()] = declaration;
+                    PutDeclarationInMapIfValid(map, declaration);
                 }
                 else {
                     IList<CssDeclaration> resolvedShorthandProps = shorthandResolver.ResolveShorthand(declaration.GetExpression
                         ());
                     foreach (CssDeclaration resolvedProp in resolvedShorthandProps) {
-                        map[resolvedProp.GetProperty()] = resolvedProp;
+                        PutDeclarationInMapIfValid(map, resolvedProp);
                     }
                 }
             }
@@ -117,6 +120,18 @@ namespace iText.Html2pdf.Css {
             }
             JavaCollectionsUtil.Sort(ruleSets, new CssRuleSetComparator());
             return ruleSets;
+        }
+
+        private static void PutDeclarationInMapIfValid(IDictionary<String, CssDeclaration> stylesMap, CssDeclaration
+             cssDeclaration) {
+            if (CssDeclarationValidationMaster.CheckDeclaration(cssDeclaration)) {
+                stylesMap[cssDeclaration.GetProperty()] = cssDeclaration;
+            }
+            else {
+                ILogger logger = LoggerFactory.GetLogger(typeof(DefaultCssResolver));
+                logger.Warn(String.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, cssDeclaration
+                    ));
+            }
         }
     }
 }

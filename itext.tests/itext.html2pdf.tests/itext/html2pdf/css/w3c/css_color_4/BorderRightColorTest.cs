@@ -45,6 +45,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_4 {
     [LogMessage(iText.IO.LogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB)]
+    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
     public class BorderRightColorTest : W3CCssTest {
         // Color values as in this test are considered for now as invalid. E.g. Chrome does the same. 
         protected internal override String GetHtmlFileName() {

@@ -44,9 +44,9 @@ using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_4 {
-    [LogMessage(iText.IO.LogMessageConstant.COLOR_NOT_PARSED)]
+    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
     public class Rgba004Test : W3CCssTest {
-        // Color values as in this test are considered for now as invalid. E.g. Chrome does the same. 
+        // Color values as in this test are considered for now as invalid. E.g. Chrome does the same.
         protected internal override String GetHtmlFileName() {
             return "rgba-004.html";
         }

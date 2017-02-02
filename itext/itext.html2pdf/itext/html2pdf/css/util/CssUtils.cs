@@ -285,6 +285,11 @@ namespace iText.Html2pdf.Css.Util {
 
         public static float[] ParseRgbaColor(String colorValue) {
             float[] rgbaColor = WebColors.GetRGBAColor(colorValue);
+            if (rgbaColor == null) {
+                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Util.CssUtils));
+                logger.Error(String.Format(iText.IO.LogMessageConstant.COLOR_NOT_PARSED, colorValue));
+                rgbaColor = new float[] { 0, 0, 0, 1 };
+            }
             return rgbaColor;
         }
 

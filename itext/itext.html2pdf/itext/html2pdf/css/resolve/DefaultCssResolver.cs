@@ -50,6 +50,7 @@ using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.Html2pdf.Css.Util;
+using iText.Html2pdf.Css.Validate;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Resolver.Resource;
@@ -148,21 +149,34 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private IDictionary<String, String> CssDeclarationsToMap(IList<CssDeclaration> nodeCssDeclarations) {
             IDictionary<String, String> stylesMap = new Dictionary<String, String>();
-            foreach (CssDeclaration cssDeclaration in nodeCssDeclarations) {
+            for (int i = 0; i < nodeCssDeclarations.Count; i++) {
+                CssDeclaration cssDeclaration = nodeCssDeclarations[i];
                 IShorthandResolver shorthandResolver = ShorthandResolverFactory.GetShorthandResolver(cssDeclaration.GetProperty
                     ());
                 if (shorthandResolver == null) {
-                    stylesMap[cssDeclaration.GetProperty()] = cssDeclaration.GetExpression();
+                    PutDeclarationInMapIfValid(stylesMap, cssDeclaration);
                 }
                 else {
                     IList<CssDeclaration> resolvedShorthandProps = shorthandResolver.ResolveShorthand(cssDeclaration.GetExpression
                         ());
                     foreach (CssDeclaration resolvedProp in resolvedShorthandProps) {
-                        stylesMap[resolvedProp.GetProperty()] = resolvedProp.GetExpression();
+                        PutDeclarationInMapIfValid(stylesMap, resolvedProp);
                     }
                 }
             }
             return stylesMap;
+        }
+
+        private void PutDeclarationInMapIfValid(IDictionary<String, String> stylesMap, CssDeclaration cssDeclaration
+            ) {
+            if (CssDeclarationValidationMaster.CheckDeclaration(cssDeclaration)) {
+                stylesMap[cssDeclaration.GetProperty()] = cssDeclaration.GetExpression();
+            }
+            else {
+                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
+                logger.Warn(String.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, cssDeclaration
+                    ));
+            }
         }
 
         private INode CollectCssDeclarations(INode rootNode, ResourceResolver resourceResolver) {

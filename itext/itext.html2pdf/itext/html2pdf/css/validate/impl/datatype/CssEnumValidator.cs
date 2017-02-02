@@ -40,16 +40,19 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.Html2pdf.Css.W3c;
-using iText.Test.Attributes;
+using System.Collections.Generic;
+using iText.Html2pdf.Css.Validate;
 
-namespace iText.Html2pdf.Css.W3c.Css_color_4 {
-    [LogMessage(iText.IO.LogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB)]
-    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
-    public class BorderTopColorTest : W3CCssTest {
-        // Color values as in this test are considered for now as invalid. E.g. Chrome does the same. 
-        protected internal override String GetHtmlFileName() {
-            return "border-top-color.xht";
+namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
+    public class CssEnumValidator : ICssDataTypeValidator {
+        private IList<String> allowedValues;
+
+        public CssEnumValidator(params String[] allowedValues) {
+            this.allowedValues = iText.IO.Util.JavaUtil.ArraysAsList(allowedValues);
+        }
+
+        public virtual bool IsValid(String objectString) {
+            return allowedValues.Contains(objectString);
         }
     }
 }

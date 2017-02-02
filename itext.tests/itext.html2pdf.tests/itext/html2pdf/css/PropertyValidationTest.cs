@@ -40,16 +40,48 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.Html2pdf.Css.W3c;
+using System.IO;
+using iText.Html2pdf;
+using iText.Kernel.Utils;
+using System.Collections.Generic;
+using System.Reflection;
+using System.IO;
+using Versions.Attributes;
+using iText.Kernel;
+using iText.Test;
 using iText.Test.Attributes;
 
-namespace iText.Html2pdf.Css.W3c.Css_color_4 {
-    [LogMessage(iText.IO.LogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB)]
-    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
-    public class BorderTopColorTest : W3CCssTest {
-        // Color values as in this test are considered for now as invalid. E.g. Chrome does the same. 
-        protected internal override String GetHtmlFileName() {
-            return "border-top-color.xht";
+namespace iText.Html2pdf.Css {
+    public class PropertyValidationTest : ExtendedITextTest {
+        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/PropertyValidationTest/";
+
+        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+             + "/test/itext/html2pdf/css/PropertyValidationTest/";
+
+        [NUnit.Framework.OneTimeSetUp]
+        public static void BeforeClass() {
+            CreateDestinationFolder(destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        public virtual void Test01() {
+            RunTest("test01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String name) {
+            String htmlPath = sourceFolder + name + ".html";
+            String pdfPath = destinationFolder + name + ".pdf";
+            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+            String diffPrefix = "diff_" + name + "_";
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
+                ));
         }
     }
 }
