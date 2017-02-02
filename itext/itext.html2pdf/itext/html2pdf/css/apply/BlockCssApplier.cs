@@ -48,17 +48,18 @@ using iText.Layout;
 
 namespace iText.Html2pdf.Css.Apply {
     public class BlockCssApplier : ICssApplier {
-        public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-            IDictionary<String, String> cssProps = element.GetStyles();
+        public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
+            ) {
+            IDictionary<String, String> cssProps = stylesContainer.GetStyles();
             IPropertyContainer container = tagWorker.GetElementResult();
             if (container != null) {
                 WidthHeightApplierUtil.ApplyWidthHeight(cssProps, context, container);
                 BackgroundApplierUtil.ApplyBackground(cssProps, context, container);
                 MarginApplierUtil.ApplyMargins(cssProps, context, container);
                 PaddingApplierUtil.ApplyPaddings(cssProps, context, container);
-                FontStyleApplierUtil.ApplyFontStyles(cssProps, context, element, container);
+                FontStyleApplierUtil.ApplyFontStyles(cssProps, context, stylesContainer, container);
                 BorderStyleApplierUtil.ApplyBorders(cssProps, context, container);
-                HyphenationApplierUtil.ApplyHyphenation(cssProps, context, element, container);
+                HyphenationApplierUtil.ApplyHyphenation(cssProps, context, stylesContainer, container);
                 FloatApplierUtil.ApplyFloating(cssProps, context, container);
                 PositionApplierUtil.ApplyPosition(cssProps, context, container);
                 OpacityApplierUtil.ApplyOpacity(cssProps, context, container);

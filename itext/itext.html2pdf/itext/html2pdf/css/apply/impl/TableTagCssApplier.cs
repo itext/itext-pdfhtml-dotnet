@@ -49,11 +49,11 @@ using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     public class TableTagCssApplier : BlockCssApplier {
-        public override void Apply(ProcessorContext context, IElementNode element, ITagWorker worker) {
-            base.Apply(context, element, worker);
+        public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker worker) {
+            base.Apply(context, stylesContainer, worker);
             IPropertyContainer table = worker.GetElementResult();
             if (table != null) {
-                String tableLayout = element.GetStyles().Get(CssConstants.TABLE_LAYOUT);
+                String tableLayout = stylesContainer.GetStyles().Get(CssConstants.TABLE_LAYOUT);
                 if (tableLayout != null) {
                     table.SetProperty(Property.TABLE_LAYOUT, tableLayout);
                 }

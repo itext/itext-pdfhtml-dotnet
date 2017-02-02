@@ -59,8 +59,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         // TODO these are css properties actually, but it is not supported by the browsers currently
-        public static void ApplyHyphenation(IDictionary<String, String> cssProps, ProcessorContext context, IElementNode
-             elementNode, IPropertyContainer element) {
+        public static void ApplyHyphenation(IDictionary<String, String> cssProps, ProcessorContext context, IStylesContainer
+             stylesContainer, IPropertyContainer element) {
             String value = cssProps.Get(CssConstants.HYPHENS);
             if (value == null) {
                 value = CssDefaults.GetDefaultValue(CssConstants.HYPHENS);
@@ -73,8 +73,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(Property.HYPHENATION, new HyphenationConfig(HYPHENATE_BEFORE, HYPHENATE_AFTER));
                 }
                 else {
-                    if (CssConstants.AUTO.Equals(value)) {
-                        String lang = elementNode.GetLang();
+                    if (CssConstants.AUTO.Equals(value) && stylesContainer is IElementNode) {
+                        String lang = ((IElementNode)stylesContainer).GetLang();
                         if (lang != null && lang.Length > 0) {
                             element.SetProperty(Property.HYPHENATION, new HyphenationConfig(lang.JSubstring(0, 2), "", HYPHENATE_BEFORE
                                 , HYPHENATE_AFTER));

@@ -51,11 +51,12 @@ using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     public class UlOlTagCssApplier : BlockCssApplier {
-        public override void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
+        public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
+            ) {
             if (!(tagWorker.GetElementResult() is List)) {
                 return;
             }
-            IDictionary<String, String> css = element.GetStyles();
+            IDictionary<String, String> css = stylesContainer.GetStyles();
             List list = (List)tagWorker.GetElementResult();
             if (CssConstants.INSIDE.Equals(css.Get(CssConstants.LIST_STYLE_POSITION))) {
                 list.SetProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
@@ -63,9 +64,9 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             else {
                 list.SetProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.OUTSIDE);
             }
-            ListStyleApplierUtil.ApplyListStyleTypeProperty(element, css, context, list);
+            ListStyleApplierUtil.ApplyListStyleTypeProperty(stylesContainer, css, context, list);
             ListStyleApplierUtil.ApplyListStyleImageProperty(css, context, list);
-            base.Apply(context, element, tagWorker);
+            base.Apply(context, stylesContainer, tagWorker);
         }
     }
 }

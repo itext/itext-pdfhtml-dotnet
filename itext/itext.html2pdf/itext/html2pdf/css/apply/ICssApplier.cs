@@ -44,6 +44,6 @@ using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Apply {
     public interface ICssApplier {
-        void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker);
+        void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker);
     }
 }

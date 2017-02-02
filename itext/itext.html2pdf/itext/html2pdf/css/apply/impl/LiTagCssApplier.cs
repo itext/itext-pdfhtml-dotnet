@@ -50,20 +50,23 @@ using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     public class LiTagCssApplier : BlockCssApplier {
-        public override void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-            base.Apply(context, element, tagWorker);
+        public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
+            ) {
+            base.Apply(context, stylesContainer, tagWorker);
             IPropertyContainer propertyContainer = tagWorker.GetElementResult();
-            if (propertyContainer != null) {
-                bool parentIsDl = element.ParentNode() is IElementNode && TagConstants.DL.Equals(((IElementNode)element.ParentNode
-                    ()).Name());
-                if (CssConstants.INSIDE.Equals(element.GetStyles().Get(CssConstants.LIST_STYLE_POSITION)) || parentIsDl) {
+            if (propertyContainer != null && stylesContainer is INode) {
+                INode parent = ((INode)stylesContainer).ParentNode();
+                bool parentIsDl = parent is IElementNode && TagConstants.DL.Equals(((IElementNode)parent).Name());
+                if (CssConstants.INSIDE.Equals(stylesContainer.GetStyles().Get(CssConstants.LIST_STYLE_POSITION)) || parentIsDl
+                    ) {
                     propertyContainer.SetProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
                 }
                 else {
                     propertyContainer.SetProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.OUTSIDE);
                 }
-                ListStyleApplierUtil.ApplyListStyleTypeProperty(element, element.GetStyles(), context, propertyContainer);
-                ListStyleApplierUtil.ApplyListStyleImageProperty(element.GetStyles(), context, propertyContainer);
+                ListStyleApplierUtil.ApplyListStyleTypeProperty(stylesContainer, stylesContainer.GetStyles(), context, propertyContainer
+                    );
+                ListStyleApplierUtil.ApplyListStyleImageProperty(stylesContainer.GetStyles(), context, propertyContainer);
             }
         }
     }

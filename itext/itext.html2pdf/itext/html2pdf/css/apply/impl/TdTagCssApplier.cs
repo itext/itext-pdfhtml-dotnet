@@ -53,11 +53,11 @@ using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     public class TdTagCssApplier : BlockCssApplier {
-        public override void Apply(ProcessorContext context, IElementNode element, ITagWorker worker) {
-            base.Apply(context, element, worker);
+        public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker worker) {
+            base.Apply(context, stylesContainer, worker);
             IPropertyContainer cell = worker.GetElementResult();
             if (cell != null) {
-                IDictionary<String, String> cssProps = element.GetStyles();
+                IDictionary<String, String> cssProps = stylesContainer.GetStyles();
                 VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForCells(cssProps, context, cell);
                 float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
                 float rem = context.GetCssContext().GetRootFontSize();

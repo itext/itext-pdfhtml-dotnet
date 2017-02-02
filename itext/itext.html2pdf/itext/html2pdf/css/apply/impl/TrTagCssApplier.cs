@@ -45,7 +45,8 @@ using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     public class TrTagCssApplier : ICssApplier {
-        public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
+        public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
+            ) {
         }
         // TODO background inheritance to cells is done via default.css at the moment, because it was overwriting cell's properties.
         // TODO may be this applier will be removed in the future

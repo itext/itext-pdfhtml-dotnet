@@ -47,7 +47,8 @@ namespace iText.Html2pdf.Css.Apply.Impl {
     public class BodyTagCssApplier : ICssApplier {
         // TODO apply background property, margins. I am not sure if we should extend from BlockCssApplier
         // DEVSIX-940
-        public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
+        public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
+            ) {
         }
     }
 }

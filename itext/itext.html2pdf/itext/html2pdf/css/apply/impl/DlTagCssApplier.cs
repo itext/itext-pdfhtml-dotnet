@@ -47,11 +47,12 @@ using iText.Layout;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     public class DlTagCssApplier : BlockCssApplier {
-        public override void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-            base.Apply(context, element, tagWorker);
+        public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
+            ) {
+            base.Apply(context, stylesContainer, tagWorker);
             IPropertyContainer list = tagWorker.GetElementResult();
             if (list != null) {
-                ListStyleApplierUtil.ApplyListStyleImageProperty(element.GetStyles(), context, list);
+                ListStyleApplierUtil.ApplyListStyleImageProperty(stylesContainer.GetStyles(), context, list);
             }
         }
     }

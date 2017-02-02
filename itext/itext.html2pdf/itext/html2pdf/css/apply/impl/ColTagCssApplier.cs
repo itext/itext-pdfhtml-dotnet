@@ -49,8 +49,9 @@ using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     public class ColTagCssApplier : ICssApplier {
-        public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-            IDictionary<String, String> cssProps = element.GetStyles();
+        public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
+            ) {
+            IDictionary<String, String> cssProps = stylesContainer.GetStyles();
             if (cssProps != null && tagWorker is ColTagWorker) {
                 ((ColTagWorker)tagWorker).GetColumn().SetCellCssProps(SupportedColColgroupPropertiesUtil.GetCellProperties
                     (cssProps)).SetOwnCssProps(SupportedColColgroupPropertiesUtil.GetOwnProperties(cssProps)).SetWidth(SupportedColColgroupPropertiesUtil

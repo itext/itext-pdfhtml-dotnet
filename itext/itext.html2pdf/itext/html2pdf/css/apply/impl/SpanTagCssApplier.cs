@@ -53,14 +53,15 @@ using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     public class SpanTagCssApplier : ICssApplier {
-        public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
+        public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
+            ) {
             SpanTagWorker spanTagWorker = (SpanTagWorker)tagWorker;
-            IDictionary<String, String> cssStyles = element.GetStyles();
+            IDictionary<String, String> cssStyles = stylesContainer.GetStyles();
             foreach (IPropertyContainer child in spanTagWorker.GetOwnLeafElements()) {
-                ApplyChildElementStyles(child, cssStyles, context, element);
+                ApplyChildElementStyles(child, cssStyles, context, stylesContainer);
             }
-            VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForInlines(cssStyles, context, element, spanTagWorker.GetAllElements
-                ());
+            VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForInlines(cssStyles, context, stylesContainer, spanTagWorker
+                .GetAllElements());
             if (cssStyles.ContainsKey(CssConstants.OPACITY)) {
                 foreach (IPropertyContainer elem in spanTagWorker.GetAllElements()) {
                     if (elem is Text && !elem.HasProperty(Property.OPACITY)) {
@@ -71,13 +72,13 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         }
 
         private void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String> css, ProcessorContext
-             context, IElementNode elementNode) {
-            FontStyleApplierUtil.ApplyFontStyles(css, context, elementNode, element);
+             context, IStylesContainer stylesContainer) {
+            FontStyleApplierUtil.ApplyFontStyles(css, context, stylesContainer, element);
             //TODO: Background-applying currently doesn't work in html way for spans inside other spans.
             BackgroundApplierUtil.ApplyBackground(css, context, element);
             //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
             BorderStyleApplierUtil.ApplyBorders(css, context, element);
-            HyphenationApplierUtil.ApplyHyphenation(css, context, elementNode, element);
+            HyphenationApplierUtil.ApplyHyphenation(css, context, stylesContainer, element);
             //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
             MarginApplierUtil.ApplyMargins(css, context, element);
             PositionApplierUtil.ApplyPosition(css, context, element);

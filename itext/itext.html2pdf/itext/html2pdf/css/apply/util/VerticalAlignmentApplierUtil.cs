@@ -77,7 +77,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         public static void ApplyVerticalAlignmentForInlines(IDictionary<String, String> cssProps, ProcessorContext
-             context, IElementNode elementNode, IList<IPropertyContainer> childElements) {
+             context, IStylesContainer stylesContainer, IList<IPropertyContainer> childElements) {
             String vAlignVal = cssProps.Get(CssConstants.VERTICAL_ALIGN);
             if (vAlignVal != null) {
                 // TODO for inline images and tables (inline-blocks) v-align is not supported
@@ -88,19 +88,19 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 // 'middle', 'text-top', 'text-bottom' calculations are based on the approximate assumptions that x-height is 0.5 of the font size
                 // and descender and ascender heights are 0.2 and 0.8 of the font size accordingly.
                 if (CssConstants.SUB.Equals(vAlignVal) || CssConstants.SUPER.Equals(vAlignVal)) {
-                    textRise = CalcTextRiseForSupSub(elementNode, vAlignVal);
+                    textRise = CalcTextRiseForSupSub(stylesContainer, vAlignVal);
                 }
                 else {
                     if (CssConstants.MIDDLE.Equals(vAlignVal)) {
-                        textRise = CalcTextRiseForMiddle(elementNode);
+                        textRise = CalcTextRiseForMiddle(stylesContainer);
                     }
                     else {
                         if (CssConstants.TEXT_TOP.Equals(vAlignVal)) {
-                            textRise = CalcTextRiseForTextTop(elementNode, context.GetCssContext().GetRootFontSize());
+                            textRise = CalcTextRiseForTextTop(stylesContainer, context.GetCssContext().GetRootFontSize());
                         }
                         else {
                             if (CssConstants.TEXT_BOTTOM.Equals(vAlignVal)) {
-                                textRise = CalcTextRiseForTextBottom(elementNode, context.GetCssContext().GetRootFontSize());
+                                textRise = CalcTextRiseForTextBottom(stylesContainer, context.GetCssContext().GetRootFontSize());
                             }
                             else {
                                 if (CssUtils.IsMetricValue(vAlignVal)) {
@@ -108,7 +108,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                                 }
                                 else {
                                     if (vAlignVal.EndsWith(CssConstants.PERCENTAGE)) {
-                                        textRise = CalcTextRiseForPercentageValue(elementNode, context.GetCssContext().GetRootFontSize(), vAlignVal
+                                        textRise = CalcTextRiseForPercentageValue(stylesContainer, context.GetCssContext().GetRootFontSize(), vAlignVal
                                             );
                                     }
                                 }
@@ -138,18 +138,18 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        private static float CalcTextRiseForSupSub(IElementNode elementNode, String vAlignVal) {
-            float parentFontSize = GetParentFontSize(elementNode);
+        private static float CalcTextRiseForSupSub(IStylesContainer stylesContainer, String vAlignVal) {
+            float parentFontSize = GetParentFontSize(stylesContainer);
             String superscriptPosition = "33%";
             String subscriptPosition = "-20%";
             String relativeValue = CssConstants.SUPER.Equals(vAlignVal) ? superscriptPosition : subscriptPosition;
             return CssUtils.ParseRelativeValue(relativeValue, parentFontSize);
         }
 
-        private static float CalcTextRiseForMiddle(IElementNode elementNode) {
-            String ownFontSizeStr = elementNode.GetStyles().Get(CssConstants.FONT_SIZE);
+        private static float CalcTextRiseForMiddle(IStylesContainer stylesContainer) {
+            String ownFontSizeStr = stylesContainer.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssUtils.ParseAbsoluteLength(ownFontSizeStr);
-            float parentFontSize = GetParentFontSize(elementNode);
+            float parentFontSize = GetParentFontSize(stylesContainer);
             double fontMiddleCoefficient = 0.3;
             float elementMidPoint = (float)(fontSize * fontMiddleCoefficient);
             // shift to element mid point from the baseline
@@ -157,34 +157,34 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return xHeight - elementMidPoint;
         }
 
-        private static float CalcTextRiseForTextTop(IElementNode elementNode, float rootFontSize) {
-            String ownFontSizeStr = elementNode.GetStyles().Get(CssConstants.FONT_SIZE);
+        private static float CalcTextRiseForTextTop(IStylesContainer stylesContainer, float rootFontSize) {
+            String ownFontSizeStr = stylesContainer.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssUtils.ParseAbsoluteLength(ownFontSizeStr);
-            String lineHeightStr = elementNode.GetStyles().Get(CssConstants.LINE_HEIGHT);
+            String lineHeightStr = stylesContainer.GetStyles().Get(CssConstants.LINE_HEIGHT);
             float lineHeightActualValue = GetLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
-            float parentFontSize = GetParentFontSize(elementNode);
+            float parentFontSize = GetParentFontSize(stylesContainer);
             float elementTopEdge = (float)(fontSize * ASCENDER_COEFFICIENT + (lineHeightActualValue - fontSize) / 2);
             float parentTextTop = (float)(parentFontSize * ASCENDER_COEFFICIENT);
             return parentTextTop - elementTopEdge;
         }
 
-        private static float CalcTextRiseForTextBottom(IElementNode elementNode, float rootFontSize) {
-            String ownFontSizeStr = elementNode.GetStyles().Get(CssConstants.FONT_SIZE);
+        private static float CalcTextRiseForTextBottom(IStylesContainer stylesContainer, float rootFontSize) {
+            String ownFontSizeStr = stylesContainer.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssUtils.ParseAbsoluteLength(ownFontSizeStr);
-            String lineHeightStr = elementNode.GetStyles().Get(CssConstants.LINE_HEIGHT);
+            String lineHeightStr = stylesContainer.GetStyles().Get(CssConstants.LINE_HEIGHT);
             float lineHeightActualValue = GetLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
-            float parentFontSize = GetParentFontSize(elementNode);
+            float parentFontSize = GetParentFontSize(stylesContainer);
             float elementBottomEdge = (float)(fontSize * DESCENDER_COEFFICIENT + (lineHeightActualValue - fontSize) / 
                 2);
             float parentTextBottom = (float)(parentFontSize * DESCENDER_COEFFICIENT);
             return elementBottomEdge - parentTextBottom;
         }
 
-        private static float CalcTextRiseForPercentageValue(IElementNode elementNode, float rootFontSize, String vAlignVal
-            ) {
-            String ownFontSizeStr = elementNode.GetStyles().Get(CssConstants.FONT_SIZE);
+        private static float CalcTextRiseForPercentageValue(IStylesContainer stylesContainer, float rootFontSize, 
+            String vAlignVal) {
+            String ownFontSizeStr = stylesContainer.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssUtils.ParseAbsoluteLength(ownFontSizeStr);
-            String lineHeightStr = elementNode.GetStyles().Get(CssConstants.LINE_HEIGHT);
+            String lineHeightStr = stylesContainer.GetStyles().Get(CssConstants.LINE_HEIGHT);
             float lineHeightActualValue = GetLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
             return CssUtils.ParseRelativeValue(vAlignVal, lineHeightActualValue);
         }
@@ -211,16 +211,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return lineHeightActualValue;
         }
 
-        private static float GetParentFontSize(IElementNode elementNode) {
+        private static float GetParentFontSize(IStylesContainer stylesContainer) {
             float parentFontSize;
-            if (elementNode.ParentNode() is IElementNode) {
-                String parentFontSizeStr = ((IElementNode)elementNode.ParentNode()).GetStyles().Get(CssConstants.FONT_SIZE
-                    );
+            if (stylesContainer is INode && ((IElementNode)stylesContainer).ParentNode() is IStylesContainer) {
+                INode parent = ((IElementNode)stylesContainer).ParentNode();
+                String parentFontSizeStr = ((IStylesContainer)parent).GetStyles().Get(CssConstants.FONT_SIZE);
                 parentFontSize = CssUtils.ParseAbsoluteLength(parentFontSizeStr);
             }
             else {
                 // let's take own font size for this unlikely case
-                String ownFontSizeStr = elementNode.GetStyles().Get(CssConstants.FONT_SIZE);
+                String ownFontSizeStr = stylesContainer.GetStyles().Get(CssConstants.FONT_SIZE);
                 parentFontSize = CssUtils.ParseAbsoluteLength(ownFontSizeStr);
             }
             return parentFontSize;

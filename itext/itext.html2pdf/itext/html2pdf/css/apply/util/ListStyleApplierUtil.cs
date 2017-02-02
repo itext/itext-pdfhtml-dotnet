@@ -73,8 +73,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font DEVSIX-917
-        public static void ApplyListStyleTypeProperty(IElementNode node, IDictionary<String, String> cssProps, ProcessorContext
-             context, IPropertyContainer element) {
+        public static void ApplyListStyleTypeProperty(IStylesContainer stylesContainer, IDictionary<String, String
+            > cssProps, ProcessorContext context, IPropertyContainer element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             String style = cssProps.Get(CssConstants.LIST_STYLE_TYPE);
             if (CssConstants.DISC.Equals(style)) {
@@ -126,13 +126,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
                                                             logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
                                                         }
                                                         // Fallback style
-                                                        String elementName = node.Name();
-                                                        if (TagConstants.UL.Equals(elementName)) {
-                                                            SetDiscStyle(element, em);
-                                                        }
-                                                        else {
-                                                            if (TagConstants.OL.Equals(elementName)) {
-                                                                SetListSymbol(element, ListNumberingType.DECIMAL);
+                                                        if (stylesContainer is IElementNode) {
+                                                            String elementName = ((IElementNode)stylesContainer).Name();
+                                                            if (TagConstants.UL.Equals(elementName)) {
+                                                                SetDiscStyle(element, em);
+                                                            }
+                                                            else {
+                                                                if (TagConstants.OL.Equals(elementName)) {
+                                                                    SetListSymbol(element, ListNumberingType.DECIMAL);
+                                                                }
                                                             }
                                                         }
                                                     }
