@@ -125,7 +125,7 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             tableRowShift.UpdateCurrentPosition(cell.GetColspan(), cell.GetRowspan());
             IList<TableWrapper.CellWrapper> currentRow = table[table.Count - 1];
             currentRow.Add(new TableWrapper.CellWrapper(col, cell));
-            numberOfColumns = Math.Max(numberOfColumns, currentRow.Count);
+            numberOfColumns = Math.Max(numberOfColumns, col + cell.GetColspan());
         }
 
         public virtual Table ToTable(WaitingColgroupsHelper colgroupsHelper) {
@@ -168,13 +168,12 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             UnitValue[] colWidths = new UnitValue[numberOfColumns];
             if (colgroups == null) {
                 for (int i = 0; i < numberOfColumns; i++) {
-                    colWidths[i] = UnitValue.CreatePointValue(-1);
+                    colWidths[i] = null;
                 }
             }
             else {
                 for (int i = 0; i < numberOfColumns; i++) {
-                    colWidths[i] = colgroups.GetColWraper(i) != null ? colgroups.GetColWraper(i).GetWidth() : UnitValue.CreatePointValue
-                        (-1);
+                    colWidths[i] = colgroups.GetColWraper(i) != null ? colgroups.GetColWraper(i).GetWidth() : null;
                 }
             }
             return colWidths;
@@ -185,7 +184,7 @@ namespace iText.Html2pdf.Attach.Wrapelement {
 
             internal Cell cell;
 
-            public CellWrapper(int col, Cell cell) {
+            internal CellWrapper(int col, Cell cell) {
                 this.col = col;
                 this.cell = cell;
             }
