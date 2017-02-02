@@ -44,6 +44,7 @@ using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
+using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Canvas;
@@ -58,8 +59,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private FontStyleApplierUtil() {
         }
 
-        public static void ApplyFontStyles(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
-             element) {
+        public static void ApplyFontStyles(IDictionary<String, String> cssProps, ProcessorContext context, IStylesContainer
+             stylesContainer, IPropertyContainer element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
             if (em != 0) {
@@ -99,6 +100,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(Property.BASE_DIRECTION, BaseDirection.LEFT_TO_RIGHT);
                     element.SetProperty(Property.TEXT_ALIGNMENT, TextAlignment.LEFT);
                 }
+            }
+            if (stylesContainer is IElementNode && ((IElementNode)stylesContainer).ParentNode() is IElementNode && CssConstants
+                .RTL.Equals(((IElementNode)((IElementNode)stylesContainer).ParentNode()).GetStyles().Get(CssConstants.
+                DIRECTION))) {
+                // We should only apply horizontal alignment if parent has dir attribute or direction property
+                element.SetProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.RIGHT);
             }
             // Make sure to place that after direction applier
             String align = cssProps.Get(CssConstants.TEXT_ALIGN);

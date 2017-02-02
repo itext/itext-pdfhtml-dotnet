@@ -56,7 +56,7 @@ namespace iText.Html2pdf.Css.Apply {
                 BackgroundApplierUtil.ApplyBackground(cssProps, context, container);
                 MarginApplierUtil.ApplyMargins(cssProps, context, container);
                 PaddingApplierUtil.ApplyPaddings(cssProps, context, container);
-                FontStyleApplierUtil.ApplyFontStyles(cssProps, context, container);
+                FontStyleApplierUtil.ApplyFontStyles(cssProps, context, element, container);
                 BorderStyleApplierUtil.ApplyBorders(cssProps, context, container);
                 HyphenationApplierUtil.ApplyHyphenation(cssProps, context, element, container);
                 FloatApplierUtil.ApplyFloating(cssProps, context, container);

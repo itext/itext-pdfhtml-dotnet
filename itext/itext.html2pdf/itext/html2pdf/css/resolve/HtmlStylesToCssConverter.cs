@@ -290,9 +290,9 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private class WidthAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
             public virtual bool IsSupportedForElement(String elementName) {
-                return TagConstants.HR.Equals(elementName) || TagConstants.IMG.Equals(elementName) || TagConstants.TD.Equals
-                    (elementName) || TagConstants.TH.Equals(elementName) || TagConstants.COLGROUP.Equals(elementName) || TagConstants
-                    .COL.Equals(elementName);
+                return TagConstants.HR.Equals(elementName) || TagConstants.IMG.Equals(elementName) || TagConstants.TABLE.Equals
+                    (elementName) || TagConstants.TD.Equals(elementName) || TagConstants.TH.Equals(elementName) || TagConstants
+                    .COLGROUP.Equals(elementName) || TagConstants.COL.Equals(elementName);
             }
 
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {

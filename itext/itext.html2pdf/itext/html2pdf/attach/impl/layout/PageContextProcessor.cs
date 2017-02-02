@@ -283,7 +283,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 marginBoxElements[marginBoxInd] = marginBox;
                 IDictionary<String, String> boxStyles = marginBoxProps.GetStyles();
                 BackgroundApplierUtil.ApplyBackground(boxStyles, context, marginBox);
-                FontStyleApplierUtil.ApplyFontStyles(boxStyles, context, marginBox);
+                FontStyleApplierUtil.ApplyFontStyles(boxStyles, context, marginBoxProps, marginBox);
                 BorderStyleApplierUtil.ApplyBorders(boxStyles, context, marginBox);
                 VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForCells(boxStyles, context, marginBox);
                 float em = CssUtils.ParseAbsoluteLength(boxStyles.Get(CssConstants.FONT_SIZE));

@@ -59,6 +59,8 @@ namespace iText.Html2pdf.Attach.Wrapelement {
 
         private RowColHelper footerRowShift = new RowColHelper();
 
+        private int numberOfColumns = 0;
+
         public virtual int GetRowsSize() {
             return rows.Count;
         }
@@ -121,37 +123,40 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             ) {
             int col = tableRowShift.MoveToNextEmptyCol();
             tableRowShift.UpdateCurrentPosition(cell.GetColspan(), cell.GetRowspan());
-            table[table.Count - 1].Add(new TableWrapper.CellWrapper(this, col, cell));
+            IList<TableWrapper.CellWrapper> currentRow = table[table.Count - 1];
+            currentRow.Add(new TableWrapper.CellWrapper(col, cell));
+            numberOfColumns = Math.Max(numberOfColumns, col + cell.GetColspan());
         }
 
         public virtual Table ToTable(WaitingColgroupsHelper colgroupsHelper) {
-            UnitValue[] widths = RecalculateWidths(colgroupsHelper);
             Table table;
-            if (widths.Length > 0) {
-                table = new Table(widths);
+            if (numberOfColumns > 0) {
+                table = new Table(GetColWidths(colgroupsHelper));
             }
             else {
                 // if table is empty, create empty table with single column
                 table = new Table(1);
             }
+            //Workaround to remove default width:100%
+            table.DeleteOwnProperty(Property.WIDTH);
             if (headerRows != null) {
                 foreach (IList<TableWrapper.CellWrapper> headerRow in headerRows) {
                     foreach (TableWrapper.CellWrapper headerCell in headerRow) {
-                        table.AddHeaderCell((Cell)headerCell.cell);
+                        table.AddHeaderCell(headerCell.cell);
                     }
                 }
             }
             if (footerRows != null) {
                 foreach (IList<TableWrapper.CellWrapper> footerRow in footerRows) {
                     foreach (TableWrapper.CellWrapper footerCell in footerRow) {
-                        table.AddFooterCell((Cell)footerCell.cell);
+                        table.AddFooterCell(footerCell.cell);
                     }
                 }
             }
             if (rows != null) {
                 for (int i = 0; i < rows.Count; i++) {
                     for (int j = 0; j < rows[i].Count; j++) {
-                        table.AddCell((Cell)(rows[i][j].cell));
+                        table.AddCell(rows[i][j].cell);
                     }
                     if (i != rows.Count - 1) {
                         table.StartNewRow();
@@ -161,121 +166,19 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             return table;
         }
 
-        private UnitValue[] RecalculateWidths(WaitingColgroupsHelper colgroupsHelper) {
-            IList<UnitValue> maxAbsoluteWidths = new List<UnitValue>();
-            IList<UnitValue> maxPercentageWidths = new List<UnitValue>();
-            if (rows != null) {
-                CalculateMaxWidths(rows, maxAbsoluteWidths, maxPercentageWidths, colgroupsHelper);
-            }
-            if (headerRows != null) {
-                CalculateMaxWidths(headerRows, maxAbsoluteWidths, maxPercentageWidths, colgroupsHelper);
-            }
-            if (footerRows != null) {
-                CalculateMaxWidths(footerRows, maxAbsoluteWidths, maxPercentageWidths, colgroupsHelper);
-            }
-            UnitValue[] tableWidths = new UnitValue[maxAbsoluteWidths.Count];
-            float totalAbsoluteSum = 0;
-            float totalPercentSum = 0;
-            float maxTotalWidth = 0;
-            int nullWidth = 0;
-            UnitValue curAbsWidth;
-            UnitValue curPerWidth;
-            for (int i = 0; i < tableWidths.Length; ++i) {
-                if (maxPercentageWidths[i] != null) {
-                    curPerWidth = maxPercentageWidths[i];
-                    totalPercentSum += curPerWidth.GetValue();
-                    tableWidths[i] = maxPercentageWidths[i];
-                    if (maxAbsoluteWidths[i] != null) {
-                        curAbsWidth = maxAbsoluteWidths[i];
-                        maxTotalWidth = Math.Max(maxTotalWidth, 100 / curPerWidth.GetValue() * curAbsWidth.GetValue());
-                    }
-                }
-                else {
-                    if (maxAbsoluteWidths[i] != null) {
-                        curAbsWidth = maxAbsoluteWidths[i];
-                        totalAbsoluteSum += curAbsWidth.GetValue();
-                        tableWidths[i] = curAbsWidth;
-                    }
-                    else {
-                        ++nullWidth;
-                    }
-                }
-            }
-            if (totalPercentSum < 100) {
-                maxTotalWidth = Math.Max(maxTotalWidth, 100 / (100 - totalPercentSum) * totalAbsoluteSum);
-                // TODO: Layout based maxWidth calculations needed here. Currently unsupported.
-                for (int i = 0; i < tableWidths.Length; i++) {
-                    UnitValue width = tableWidths[i];
-                    if (width == null && nullWidth > 0) {
-                        tableWidths[i] = UnitValue.CreatePercentValue((100 - totalPercentSum) / nullWidth);
-                    }
+        private UnitValue[] GetColWidths(WaitingColgroupsHelper colgroups) {
+            UnitValue[] colWidths = new UnitValue[numberOfColumns];
+            if (colgroups == null) {
+                for (int i = 0; i < numberOfColumns; i++) {
+                    colWidths[i] = null;
                 }
             }
             else {
-                if (nullWidth != 0 && nullWidth < tableWidths.Length) {
-                    // TODO: In this case, the columns without percent width should be assigned to min-width. This is currently unsupported.
-                    // So we fall back to just division of the available place uniformly.
-                    for (int i = 0; i < tableWidths.Length; i++) {
-                        tableWidths[i] = UnitValue.CreatePercentValue(100 / tableWidths.Length);
-                    }
+                for (int i = 0; i < numberOfColumns; i++) {
+                    colWidths[i] = colgroups.GetColWraper(i) != null ? colgroups.GetColWraper(i).GetWidth() : null;
                 }
             }
-            return tableWidths;
-        }
-
-        private void CalculateMaxWidths(IList<IList<TableWrapper.CellWrapper>> rows, IList<UnitValue> absoluteMaxWidths
-            , IList<UnitValue> percentageMaxWidths, WaitingColgroupsHelper colgroupsHelper) {
-            foreach (IList<TableWrapper.CellWrapper> row in rows) {
-                foreach (TableWrapper.CellWrapper cellWrapper in row) {
-                    int colspan = cellWrapper.cell.GetColspan();
-                    UnitValue cellWidth = cellWrapper.cell.GetWidth();
-                    UnitValue collWidth = null;
-                    if (colspan > 1 && cellWidth != null) {
-                        cellWidth = new UnitValue(cellWidth.GetUnitType(), cellWidth.GetValue() / colspan);
-                    }
-                    if (colgroupsHelper != null && colgroupsHelper.GetColWraper(cellWrapper.col) != null) {
-                        collWidth = colgroupsHelper.GetColWraper(cellWrapper.col).GetWidth();
-                    }
-                    UnitValue absoluteWidth = GetMaxValue(UnitValue.POINT, cellWidth, collWidth);
-                    UnitValue percentageWidth = GetMaxValue(UnitValue.PERCENT, cellWidth, collWidth);
-                    ApplyNewWidth(absoluteMaxWidths, cellWrapper.col, cellWrapper.col + colspan, absoluteWidth);
-                    ApplyNewWidth(percentageMaxWidths, cellWrapper.col, cellWrapper.col + colspan, percentageWidth);
-                }
-            }
-        }
-
-        private void ApplyNewWidth(IList<UnitValue> maxWidths, int start, int end, UnitValue value) {
-            UnitValue old;
-            while (maxWidths.Count < start) {
-                maxWidths.Add(null);
-            }
-            int middle = Math.Min(maxWidths.Count, end);
-            for (int i = start; i < middle; ++i) {
-                maxWidths[i] = GetMaxValue(maxWidths[i], value);
-            }
-            while (maxWidths.Count < end) {
-                maxWidths.Add(value);
-            }
-        }
-
-        private UnitValue GetMaxValue(int unitType, UnitValue first, UnitValue second) {
-            if (first != null && first.GetUnitType() != unitType) {
-                first = null;
-            }
-            if (second != null && second.GetUnitType() != unitType) {
-                second = null;
-            }
-            return GetMaxValue(first, second);
-        }
-
-        private UnitValue GetMaxValue(UnitValue first, UnitValue second) {
-            if (first == null) {
-                return second;
-            }
-            if (second == null) {
-                return first;
-            }
-            return first.GetValue() < second.GetValue() ? second : first;
+            return colWidths;
         }
 
         private class CellWrapper {
@@ -283,13 +186,10 @@ namespace iText.Html2pdf.Attach.Wrapelement {
 
             internal Cell cell;
 
-            public CellWrapper(TableWrapper _enclosing, int col, Cell cell) {
-                this._enclosing = _enclosing;
+            internal CellWrapper(int col, Cell cell) {
                 this.col = col;
                 this.cell = cell;
             }
-
-            private readonly TableWrapper _enclosing;
         }
     }
 }
