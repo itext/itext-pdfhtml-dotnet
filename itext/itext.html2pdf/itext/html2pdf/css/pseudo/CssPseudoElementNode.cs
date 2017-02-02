@@ -40,6 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
@@ -102,8 +103,14 @@ namespace iText.Html2pdf.Css.Pseudo {
                 return 0;
             }
 
-            public virtual IEnumerator<IAttribute> Iterator() {
+            public IEnumerator<IAttribute> GetEnumerator()
+            {
                 return JavaCollectionsUtil.EmptyIterator<IAttribute>();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return GetEnumerator();
             }
 
             internal AttributesStub(CssPseudoElementNode _enclosing) {
