@@ -88,6 +88,20 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void HelloTableAuto2DocumentTest() {
+            RunTest("hello_table_auto2");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto3DocumentTest() {
+            RunTest("hello_table_auto3");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void HelloTableHeaderFooterDocumentTest() {
             RunTest("hello_table_header_footer");
         }
