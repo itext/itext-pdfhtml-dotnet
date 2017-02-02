@@ -40,29 +40,47 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.IO;
+using iText.Html2pdf;
+using iText.Kernel.Utils;
 using System.Collections.Generic;
-using iText.Html2pdf.Attach;
-using iText.Html2pdf.Css.Apply.Util;
-using iText.Html2pdf.Html.Node;
-using iText.Layout;
+using System.Reflection;
+using System.IO;
+using Versions.Attributes;
+using iText.Kernel;
+using iText.Test;
 
-namespace iText.Html2pdf.Css.Apply {
-    public class BlockCssApplier : ICssApplier {
-        public virtual void Apply(ProcessorContext context, IElementNode element, ITagWorker tagWorker) {
-            IDictionary<String, String> cssProps = element.GetStyles();
-            IPropertyContainer container = tagWorker.GetElementResult();
-            if (container != null) {
-                WidthHeightApplierUtil.ApplyWidthHeight(cssProps, context, container);
-                BackgroundApplierUtil.ApplyBackground(cssProps, context, container);
-                MarginApplierUtil.ApplyMargins(cssProps, context, container);
-                PaddingApplierUtil.ApplyPaddings(cssProps, context, container);
-                FontStyleApplierUtil.ApplyFontStyles(cssProps, context, element, container);
-                BorderStyleApplierUtil.ApplyBorders(cssProps, context, container);
-                HyphenationApplierUtil.ApplyHyphenation(cssProps, context, element, container);
-                FloatApplierUtil.ApplyFloating(cssProps, context, container);
-                PositionApplierUtil.ApplyPosition(cssProps, context, container);
-                OpacityApplierUtil.ApplyOpacity(cssProps, context, container);
-            }
+namespace iText.Html2pdf.Attribute {
+    public class DirAttributeTest : ExtendedITextTest {
+        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/attribute/DirAttributeTest/";
+
+        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+             + "/test/itext/html2pdf/attribute/DirAttributeTest/";
+
+        [NUnit.Framework.OneTimeSetUp]
+        public static void BeforeClass() {
+            CreateDestinationFolder(destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RtlDir01Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "rtlDirTest01.html"), new FileInfo(destinationFolder
+                 + "rtlDirTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "rtlDirTest01.pdf", sourceFolder
+                 + "cmp_rtlDirTest01.pdf", destinationFolder, "diff01_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RtlDir02Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "rtlDirTest02.html"), new FileInfo(destinationFolder
+                 + "rtlDirTest02.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "rtlDirTest02.pdf", sourceFolder
+                 + "cmp_rtlDirTest02.pdf", destinationFolder, "diff02_"));
         }
     }
 }

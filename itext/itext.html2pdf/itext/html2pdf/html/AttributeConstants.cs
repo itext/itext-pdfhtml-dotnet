@@ -111,9 +111,13 @@ namespace iText.Html2pdf.Html {
 
         public const String LEFT = "left";
 
+        public const String LTR = "ltr";
+
         public const String MIDDLE = "middle";
 
         public const String RIGHT = "right";
+
+        public const String RTL = "rtl";
 
         public const String STYLESHEET = "stylesheet";
 

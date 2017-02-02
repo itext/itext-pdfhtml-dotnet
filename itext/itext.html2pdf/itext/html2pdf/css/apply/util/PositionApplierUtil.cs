@@ -62,12 +62,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String position = cssProps.Get(CssConstants.POSITION);
             if (CssConstants.ABSOLUTE.Equals(position)) {
                 element.SetProperty(Property.POSITION, LayoutPosition.ABSOLUTE);
-                ApplyLeftRightTopBottom(cssProps, context, element);
+                ApplyLeftRightTopBottom(cssProps, context, element, position);
             }
             else {
                 if (CssConstants.RELATIVE.Equals(position)) {
                     element.SetProperty(Property.POSITION, LayoutPosition.RELATIVE);
-                    ApplyLeftRightTopBottom(cssProps, context, element);
+                    ApplyLeftRightTopBottom(cssProps, context, element, position);
                 }
                 else {
                     if (CssConstants.FIXED.Equals(position)) {
@@ -82,11 +82,26 @@ namespace iText.Html2pdf.Css.Apply.Util {
         //            applyTopProperty(cssProps, element, em, Property.Y);
         // TODO
         private static void ApplyLeftRightTopBottom(IDictionary<String, String> cssProps, ProcessorContext context
-            , IPropertyContainer element) {
+            , IPropertyContainer element, String position) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
-            ApplyLeftProperty(cssProps, element, em, rem, Property.LEFT);
-            ApplyRightProperty(cssProps, element, em, rem, Property.RIGHT);
+            if (CssConstants.RELATIVE.Equals(position) && cssProps.ContainsKey(CssConstants.LEFT) && cssProps.ContainsKey
+                (CssConstants.RIGHT)) {
+                // When both the right CSS property and the left CSS property are defined, the position of the element is overspecified.
+                // In that case, the left value has precedence when the container is left-to-right (that is that the right computed value is set to -left),
+                // and the right value has precedence when the container is right-to-left (that is that the left computed value is set to -right).
+                bool isRtl = CssConstants.RTL.Equals(cssProps.Get(CssConstants.DIRECTION));
+                if (isRtl) {
+                    ApplyRightProperty(cssProps, element, em, rem, Property.RIGHT);
+                }
+                else {
+                    ApplyLeftProperty(cssProps, element, em, rem, Property.LEFT);
+                }
+            }
+            else {
+                ApplyLeftProperty(cssProps, element, em, rem, Property.LEFT);
+                ApplyRightProperty(cssProps, element, em, rem, Property.RIGHT);
+            }
             ApplyTopProperty(cssProps, element, em, rem, Property.TOP);
             ApplyBottomProperty(cssProps, element, em, rem, Property.BOTTOM);
         }
