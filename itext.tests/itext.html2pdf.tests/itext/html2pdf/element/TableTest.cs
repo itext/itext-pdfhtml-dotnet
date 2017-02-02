@@ -50,6 +50,7 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class TableTest : ExtendedITextTest {
@@ -158,6 +159,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING, Count = 2)]
         public virtual void TextInTableAndRowTest() {
             RunTest("textInTableAndRow");
         }
