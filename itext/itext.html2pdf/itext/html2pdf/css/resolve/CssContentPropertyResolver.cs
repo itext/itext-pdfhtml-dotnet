@@ -81,6 +81,10 @@ namespace iText.Html2pdf.Css.Resolve {
             }
             if (!String.IsNullOrEmpty(nonDirectContent.ToString().Trim())) {
                 ILogger logger = LoggerFactory.GetLogger(typeof(CssContentPropertyResolver));
+                int logMessageParameterMaxLength = 100;
+                if (contentStr.Length > logMessageParameterMaxLength) {
+                    contentStr = contentStr.JSubstring(0, logMessageParameterMaxLength) + ".....";
+                }
                 logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
                 return null;
             }
