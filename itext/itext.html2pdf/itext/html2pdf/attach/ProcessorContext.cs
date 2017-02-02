@@ -41,7 +41,9 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
+using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Resolver.Font;

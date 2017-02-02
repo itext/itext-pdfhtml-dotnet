@@ -41,11 +41,12 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Util;
 
-namespace iText.Html2pdf.Css.Apply {
+namespace iText.Html2pdf.Css.Apply.Impl {
     public class DefaultCssApplierFactory : ICssApplierFactory {
         private TagProcessorMapping defaultMapping;
 

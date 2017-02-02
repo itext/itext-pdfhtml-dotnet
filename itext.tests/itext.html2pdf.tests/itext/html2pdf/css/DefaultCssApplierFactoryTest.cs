@@ -42,6 +42,7 @@
 using System;
 using Org.Jsoup.Nodes;
 using iText.Html2pdf.Css.Apply;
+using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using System.Collections.Generic;

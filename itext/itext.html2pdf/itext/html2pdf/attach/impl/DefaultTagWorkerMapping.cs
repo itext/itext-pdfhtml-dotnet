@@ -46,7 +46,7 @@ using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Util;
 
-namespace iText.Html2pdf.Attach {
+namespace iText.Html2pdf.Attach.Impl {
     internal class DefaultTagWorkerMapping {
         private DefaultTagWorkerMapping() {
         }

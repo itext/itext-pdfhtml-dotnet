@@ -44,6 +44,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Org.Jsoup.Nodes;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;

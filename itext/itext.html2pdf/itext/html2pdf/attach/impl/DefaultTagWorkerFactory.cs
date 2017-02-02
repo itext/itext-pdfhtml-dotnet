@@ -41,12 +41,13 @@
     address: sales@itextpdf.com */
 using System;
 using System.Reflection;
+using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Util;
 
-namespace iText.Html2pdf.Attach {
+namespace iText.Html2pdf.Attach.Impl {
     public class DefaultTagWorkerFactory : ITagWorkerFactory {
         private TagProcessorMapping defaultMapping;
 

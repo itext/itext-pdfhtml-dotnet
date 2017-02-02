@@ -42,11 +42,12 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
 
-namespace iText.Html2pdf.Css.Apply {
+namespace iText.Html2pdf.Css.Apply.Impl {
     public class BlockCssApplier : ICssApplier {
         public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
             ) {
