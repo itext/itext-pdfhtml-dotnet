@@ -164,10 +164,18 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             return table;
         }
 
-        private UnitValue[] GetColWidths(WaitingColgroupsHelper colgroupsHelper) {
+        private UnitValue[] GetColWidths(WaitingColgroupsHelper colgroups) {
             UnitValue[] colWidths = new UnitValue[numberOfColumns];
-            for (int i = 0; i < numberOfColumns; i++) {
-                colWidths[i] = colgroupsHelper.GetColWraper(i).GetWidth();
+            if (colgroups == null) {
+                for (int i = 0; i < numberOfColumns; i++) {
+                    colWidths[i] = UnitValue.CreatePointValue(-1);
+                }
+            }
+            else {
+                for (int i = 0; i < numberOfColumns; i++) {
+                    colWidths[i] = colgroups.GetColWraper(i) != null ? colgroups.GetColWraper(i).GetWidth() : UnitValue.CreatePointValue
+                        (-1);
+                }
             }
             return colWidths;
         }
