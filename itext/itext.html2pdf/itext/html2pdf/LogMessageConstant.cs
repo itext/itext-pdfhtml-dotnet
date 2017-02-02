@@ -43,6 +43,8 @@ using System;
 
 namespace iText.Html2pdf {
     public sealed class LogMessageConstant {
+        public const String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or has unsupported value. At the moment, only <string> values are supported.";
+
         public const String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
 
         public const String ERROR_LOADING_FONT = "Error while loading font";
@@ -68,8 +70,6 @@ namespace iText.Html2pdf {
         public const String NO_WORKER_FOUND_FOR_TAG = "No worker found for tag {0}";
 
         public const String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
-
-        public const String PAGE_MARGIN_BOX_CONTENT_INVALID = "Page-margin box content property \"{0}\" is either invalid or has unsupported value. At the moment, only <string> values are supported.";
 
         public const String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
 

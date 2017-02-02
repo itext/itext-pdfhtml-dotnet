@@ -40,15 +40,15 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector.Item {
     public class CssPseudoElementSelectorItem : ICssSelectorItem {
-        private String pseudoElement;
+        private String pseudoElementName;
 
-        public CssPseudoElementSelectorItem(String pseudoElement) {
-            // TODO now this is just a stub implementation
-            this.pseudoElement = pseudoElement;
+        public CssPseudoElementSelectorItem(String pseudoElementName) {
+            this.pseudoElementName = pseudoElementName;
         }
 
         public virtual int GetSpecificity() {
@@ -56,12 +56,12 @@ namespace iText.Html2pdf.Css.Selector.Item {
         }
 
         public virtual bool Matches(INode node) {
-            return false;
+            return node is CssPseudoElementNode && ((CssPseudoElementNode)node).GetPseudoElementName().Equals(pseudoElementName
+                );
         }
 
-        // TODO
         public override String ToString() {
-            return "::" + pseudoElement;
+            return "::" + pseudoElementName;
         }
     }
 }

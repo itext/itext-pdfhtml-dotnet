@@ -46,6 +46,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Util;
+using iText.Html2pdf.Html.Node;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
@@ -298,7 +299,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 marginBox.SetPaddings(boxPaddings[0], boxPaddings[1], boxPaddings[2], boxPaddings[3]);
                 marginBox.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
                 marginBox.SetFillAvailableArea(true);
-                marginBox.Add(new Paragraph(boxStyles.Get(CssConstants.CONTENT)).SetMargin(0));
+                if (marginBoxProps.ChildNodes().IsEmpty()) {
+                    // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
+                    throw new InvalidOperationException();
+                }
+                // TODO process possible images in future
+                if (marginBoxProps.ChildNodes()[0] is ITextNode) {
+                    String text = ((ITextNode)marginBoxProps.ChildNodes()[0]).WholeText();
+                    marginBox.Add(new Paragraph(text).SetMargin(0));
+                }
             }
         }
 

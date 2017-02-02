@@ -46,6 +46,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
+using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
@@ -247,9 +248,11 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (tagWorker is HtmlTagWorker) {
                     ((HtmlTagWorker)tagWorker).ProcessPageRules(node, cssResolver, context);
                 }
+                VisitPseudoElement(node, CssConstants.BEFORE);
                 foreach (INode childNode in element.ChildNodes()) {
                     Visit(childNode);
                 }
+                VisitPseudoElement(node, CssConstants.AFTER);
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
                     context.GetState().Pop();
@@ -297,6 +300,12 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
+        private void VisitPseudoElement(INode node, String pseudoElementName) {
+            if (!(node is CssPseudoElementNode)) {
+                Visit(new CssPseudoElementNode(node, pseudoElementName));
+            }
+        }
+
         private IElementNode FindElement(INode node, String tagName) {
             LinkedList<INode> q = new LinkedList<INode>();
             q.Add(node);
@@ -323,10 +332,21 @@ namespace iText.Html2pdf.Attach.Impl {
             return FindElement(node, TagConstants.BODY);
         }
 
-        private static bool IsDisplayable(IElementNode element) {
+        private bool IsDisplayable(IElementNode element) {
             if (element != null && element.GetStyles() != null && CssConstants.NONE.Equals(element.GetStyles().Get(CssConstants
                 .DISPLAY))) {
                 return false;
+            }
+            if (element is CssPseudoElementNode) {
+                if (element.ChildNodes().IsEmpty()) {
+                    return false;
+                }
+                bool hasStyles = element.GetStyles() != null;
+                String positionVal = hasStyles ? element.GetStyles().Get(CssConstants.POSITION) : null;
+                String displayVal = hasStyles ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
+                return element.ChildNodes()[0] is ITextNode && !String.IsNullOrEmpty(((ITextNode)element.ChildNodes()[0]).
+                    WholeText()) || CssConstants.ABSOLUTE.Equals(positionVal) || CssConstants.FIXED.Equals(positionVal) ||
+                     displayVal != null && !CssConstants.INLINE.Equals(displayVal);
             }
             return element != null;
         }

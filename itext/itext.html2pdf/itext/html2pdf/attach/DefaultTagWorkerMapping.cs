@@ -39,8 +39,10 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
+using System;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Util;
 
@@ -129,6 +131,13 @@ namespace iText.Html2pdf.Attach {
             workerMapping.PutMapping(TagConstants.DD, CssConstants.INLINE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.DT, CssConstants.INLINE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SPAN, CssConstants.BLOCK, typeof(DivTagWorker));
+            // pseudo elements mapping
+            String beforePseudoElemName = CssPseudoElementNode.CreatePseudoElementTagName(CssConstants.BEFORE);
+            String afterPseudoElemName = CssPseudoElementNode.CreatePseudoElementTagName(CssConstants.AFTER);
+            workerMapping.PutMapping(beforePseudoElemName, typeof(SpanTagWorker));
+            workerMapping.PutMapping(afterPseudoElemName, typeof(SpanTagWorker));
+            workerMapping.PutMapping(beforePseudoElemName, CssConstants.BLOCK, typeof(DivTagWorker));
+            workerMapping.PutMapping(afterPseudoElemName, CssConstants.BLOCK, typeof(DivTagWorker));
         }
 
         internal static TagProcessorMapping GetDefaultTagWorkerMapping() {

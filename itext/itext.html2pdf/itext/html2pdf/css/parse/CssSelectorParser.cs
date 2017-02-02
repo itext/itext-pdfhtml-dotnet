@@ -141,6 +141,7 @@ namespace iText.Html2pdf.Css.Parse {
         }
 
         private static ICssSelectorItem ResolvePseudoSelector(String pseudoSelector) {
+            pseudoSelector = pseudoSelector.ToLowerInvariant();
             /*
             This :: notation is introduced by the current document in order to establish a discrimination between
             pseudo-classes and pseudo-elements.

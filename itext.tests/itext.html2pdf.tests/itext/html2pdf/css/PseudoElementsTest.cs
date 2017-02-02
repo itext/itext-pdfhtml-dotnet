@@ -52,12 +52,12 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    public class PageRuleTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/PageRuleTest/";
-
+    public class PseudoElementsTest : ExtendedITextTest {
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/css/PageRuleTest/";
+             + "/test/itext/html2pdf/css/PseudoElementsTest/";
+
+        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/PseudoElementsTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
@@ -67,115 +67,183 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void MarksCropCrossPageRuleTest() {
-            RunTest("marksCropCrossPageRuleTest");
+        public virtual void BeforeAfterPseudoTest01() {
+            RunTest("beforeAfterPseudoTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void MarksCropPageRuleTest() {
-            RunTest("marksCropPageRuleTest");
+        public virtual void BeforeAfterPseudoTest02() {
+            RunTest("beforeAfterPseudoTest02");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void MarksCrossPageRuleTest() {
-            RunTest("marksCrossPageRuleTest");
+        public virtual void BeforeAfterPseudoTest03() {
+            RunTest("beforeAfterPseudoTest03");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void MarksInvalidPageRuleTest() {
-            RunTest("marksInvalidPageRuleTest");
+        public virtual void BeforeAfterPseudoTest04() {
+            RunTest("beforeAfterPseudoTest04");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void MarksNonePageRuleTest() {
-            RunTest("marksNonePageRuleTest");
+        public virtual void BeforeAfterPseudoTest05() {
+            RunTest("beforeAfterPseudoTest05");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void PaddingPageRuleTest() {
-            RunTest("paddingPageRuleTest");
+        public virtual void BeforeAfterPseudoTest06() {
+            RunTest("beforeAfterPseudoTest06");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void CompoundSizePageRuleTest() {
-            RunTest("compoundSizePageRuleTest");
+        public virtual void BeforeAfterPseudoTest07() {
+            RunTest("beforeAfterPseudoTest07");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void BleedPageRuleTest() {
-            RunTest("bleedPageRuleTest");
+        public virtual void BeforeAfterPseudoTest10() {
+            RunTest("beforeAfterPseudoTest10");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, Count = 3)]
-        public virtual void InvalidCompoundSizePageRuleTest() {
-            RunTest("invalidCompoundSizePageRuleTest");
+        public virtual void BeforeAfterPseudoTest11() {
+            RunTest("beforeAfterPseudoTest11");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void NotAllMarginsPageRuleTest() {
-            RunTest("notAllMarginsPageRuleTest");
+        public virtual void BeforeAfterPseudoTest12() {
+            RunTest("beforeAfterPseudoTest12");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void FirstLeftRightPageRuleTest() {
-            RunTest("firstLeftRightPageRuleTest");
+        public virtual void BeforeAfterPseudoTest13() {
+            RunTest("beforeAfterPseudoTest13");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void MarksBleedPageRuleTest() {
-            RunTest("marksBleedPageRuleTest");
+        public virtual void CollapsingMarginsBeforeAfterPseudo01() {
+            RunTest("collapsingMarginsBeforeAfterPseudo01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 6)]
-        public virtual void MarginBoxTest01() {
-            RunTest("marginBoxTest01");
+        public virtual void CollapsingMarginsBeforeAfterPseudo02() {
+            RunTest("collapsingMarginsBeforeAfterPseudo02");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void MarginBoxTest02() {
-            RunTest("marginBoxTest02");
+        [NUnit.Framework.Ignore("DEVSIX-1049")]
+        public virtual void CollapsingMarginsBeforeAfterPseudo03() {
+            RunTest("collapsingMarginsBeforeAfterPseudo03");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void MarginBoxTest03() {
-            RunTest("marginBoxTest03");
+        public virtual void CollapsingMarginsBeforeAfterPseudo04() {
+            RunTest("collapsingMarginsBeforeAfterPseudo04");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void MarginBoxTest04() {
-            RunTest("marginBoxTest04");
+        public virtual void CollapsingMarginsBeforeAfterPseudo05() {
+            RunTest("collapsingMarginsBeforeAfterPseudo05");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CollapsingMarginsBeforeAfterPseudo06() {
+            RunTest("collapsingMarginsBeforeAfterPseudo06");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void NonNormalizedAfterBeforeTest() {
+            RunTest("nonNormalizedAfterBeforeTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1049")]
+        public virtual void ImgPseudoTest01() {
+            // width and height properties doesn't affect image in pseudo element
+            RunTest("imgPseudoTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1049")]
+        public virtual void ImgPseudoTest02() {
+            RunTest("imgPseudoTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EmptyStillShownPseudoTest01() {
+            RunTest("emptyStillShownPseudoTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EmptyStillShownPseudoTest02() {
+            // TODO inline elements with absolute positioning are not supported at the moment
+            RunTest("emptyStillShownPseudoTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EmptyStillShownPseudoTest03() {
+            // TODO inline elements with absolute positioning are not supported at the moment
+            RunTest("emptyStillShownPseudoTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EmptyStillShownPseudoTest04() {
+            // TODO inline elements with absolute positioning are not supported at the moment
+            RunTest("emptyStillShownPseudoTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EmptyStillShownPseudoTest05() {
+            RunTest("emptyStillShownPseudoTest05");
         }
 
         /// <exception cref="System.IO.IOException"/>

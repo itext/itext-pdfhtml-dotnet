@@ -42,6 +42,7 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css.Parse;
+using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Selector.Item;
 using iText.Html2pdf.Html.Node;
 
@@ -66,7 +67,15 @@ namespace iText.Html2pdf.Css.Selector {
             if (lastSelectorItemInd < 0) {
                 return true;
             }
+            bool isPseudoElement = element is CssPseudoElementNode;
             for (int i = lastSelectorItemInd; i >= 0; i--) {
+                if (isPseudoElement && i < lastSelectorItemInd) {
+                    // Pseudo element and class selector item shall be at the end of the selector string 
+                    // and be single pseudo selector item in it. All other selector items are checked against 
+                    // pseudo element node parent.
+                    element = element.ParentNode();
+                    isPseudoElement = false;
+                }
                 ICssSelectorItem currentItem = selectorItems[i];
                 if (currentItem is CssSeparatorSelectorItem) {
                     char separator = ((CssSeparatorSelectorItem)currentItem).GetSeparator();

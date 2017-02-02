@@ -40,39 +40,77 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.IO;
-using iText.Html2pdf;
-using iText.Kernel.Utils;
 using System.Collections.Generic;
-using System.Reflection;
-using System.IO;
-using Versions.Attributes;
-using iText.Kernel;
-using iText.Test;
-using iText.Test.Attributes;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 
-namespace iText.Html2pdf.Element {
-    public class QTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/QTest/";
+namespace iText.Html2pdf.Css.Pseudo {
+    public class CssPseudoElementNode : CssContextNode, IElementNode {
+        private String pseudoElementName;
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/element/QTest/";
+        private String pseudoElementTagName;
 
-        [NUnit.Framework.OneTimeSetUp]
-        public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+        public CssPseudoElementNode(INode parentNode, String pseudoElementName)
+            : base(parentNode) {
+            this.pseudoElementName = pseudoElementName;
+            this.pseudoElementTagName = CreatePseudoElementTagName(pseudoElementName);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 2)]
-        public virtual void Q01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "qTest01.html"), new FileInfo(destinationFolder + "qTest01.pdf"
-                ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "qTest01.pdf", sourceFolder
-                 + "cmp_qTest01.pdf", destinationFolder, "diff01_"));
+        public static String CreatePseudoElementTagName(String pseudoElementName) {
+            return "pseudo-element::" + pseudoElementName;
+        }
+
+        public virtual String GetPseudoElementName() {
+            return pseudoElementName;
+        }
+
+        public virtual String Name() {
+            return pseudoElementTagName;
+        }
+
+        public virtual IAttributes GetAttributes() {
+            return new CssPseudoElementNode.AttributesStub(this);
+        }
+
+        public virtual String GetAttribute(String key) {
+            return null;
+        }
+
+        public virtual IList<IDictionary<String, String>> GetAdditionalHtmlStyles() {
+            return null;
+        }
+
+        public virtual void AddAdditionalHtmlStyles(IDictionary<String, String> styles) {
+            throw new NotSupportedException();
+        }
+
+        public virtual String GetLang() {
+            return null;
+        }
+
+        private class AttributesStub : IAttributes {
+            public virtual String GetAttribute(String key) {
+                return null;
+            }
+
+            public virtual void SetAttribute(String key, String value) {
+                throw new NotSupportedException();
+            }
+
+            public virtual int Size() {
+                return 0;
+            }
+
+            public virtual IEnumerator<IAttribute> Iterator() {
+                return JavaCollectionsUtil.EmptyIterator<IAttribute>();
+            }
+
+            internal AttributesStub(CssPseudoElementNode _enclosing) {
+                this._enclosing = _enclosing;
+            }
+
+            private readonly CssPseudoElementNode _enclosing;
         }
     }
 }

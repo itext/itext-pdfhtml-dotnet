@@ -39,8 +39,10 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
+using System;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Impl;
+using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Util;
 
@@ -127,6 +129,13 @@ namespace iText.Html2pdf.Css.Apply {
             mapping.PutMapping(TagConstants.DD, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.DT, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.SPAN, CssConstants.BLOCK, typeof(BlockCssApplier));
+            // pseudo elements mapping
+            String beforePseudoElemName = CssPseudoElementNode.CreatePseudoElementTagName(CssConstants.BEFORE);
+            String afterPseudoElemName = CssPseudoElementNode.CreatePseudoElementTagName(CssConstants.AFTER);
+            mapping.PutMapping(beforePseudoElemName, typeof(SpanTagCssApplier));
+            mapping.PutMapping(afterPseudoElemName, typeof(SpanTagCssApplier));
+            mapping.PutMapping(beforePseudoElemName, CssConstants.BLOCK, typeof(BlockCssApplier));
+            mapping.PutMapping(afterPseudoElemName, CssConstants.BLOCK, typeof(BlockCssApplier));
         }
 
         internal static TagProcessorMapping GetDefaultCssApplierMapping() {

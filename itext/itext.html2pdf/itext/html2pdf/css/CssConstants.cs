@@ -509,6 +509,10 @@ namespace iText.Html2pdf.Css {
             (CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE
             , CssConstants.X_LARGE, CssConstants.XX_LARGE));
 
+        public const String AFTER = "after";
+
+        public const String BEFORE = "before";
+
         public const String CM = "cm";
 
         public const String EM = "em";
@@ -539,6 +543,7 @@ namespace iText.Html2pdf.Css {
         // properties
         // property values
         // properties possible values
+        // pseudo-elements
         // units of measurement
         // units of resolution
     }

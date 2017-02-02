@@ -45,7 +45,9 @@ using System.IO;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Media;
+using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Parse;
+using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
@@ -131,7 +133,17 @@ namespace iText.Html2pdf.Css.Resolve {
             foreach (String key in keys) {
                 elementStyles[key] = CssDefaults.GetDefaultValue(key);
             }
+            ResolveContentProperty(elementStyles.Get(CssConstants.CONTENT), element, context);
             return elementStyles;
+        }
+
+        private void ResolveContentProperty(String contentVal, INode contentContainer, CssContext context) {
+            if (contentContainer is CssPseudoElementNode || contentContainer is PageMarginBoxContextNode) {
+                INode resolvedContent = CssContentPropertyResolver.ResolveContent(contentVal, contentContainer, context);
+                if (resolvedContent != null) {
+                    contentContainer.AddChild(resolvedContent);
+                }
+            }
         }
 
         private IDictionary<String, String> CssDeclarationsToMap(IList<CssDeclaration> nodeCssDeclarations) {
