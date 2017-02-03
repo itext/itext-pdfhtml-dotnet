@@ -42,7 +42,6 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Css.Selector;
 using iText.Html2pdf.Css.Util;
 

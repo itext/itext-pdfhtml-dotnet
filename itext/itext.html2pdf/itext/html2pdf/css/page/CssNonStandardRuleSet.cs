@@ -45,8 +45,8 @@ using System.Text;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Selector;
 
-namespace iText.Html2pdf.Css.Resolve {
-    public class CssNonStandardRuleSet : CssRuleSet {
+namespace iText.Html2pdf.Css.Page {
+    internal class CssNonStandardRuleSet : CssRuleSet {
         public CssNonStandardRuleSet(ICssSelector selector, IList<CssDeclaration> declarations)
             : base(selector, declarations) {
         }
