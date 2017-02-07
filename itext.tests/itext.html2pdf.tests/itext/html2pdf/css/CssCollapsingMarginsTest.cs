@@ -389,6 +389,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT)]
         public virtual void SelfCollapsingTest17() {
             Test("selfCollapsingTest17.html", "selfCollapsingTest17.pdf", "diff_");
         }
