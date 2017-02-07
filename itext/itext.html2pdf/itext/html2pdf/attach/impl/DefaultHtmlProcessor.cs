@@ -236,7 +236,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (!IsDisplayable(element)) {
                     return;
                 }
-                ITagWorker tagWorker = context.GetTagWorkerFactory().GetTagWorkerInstance(element, context);
+                ITagWorker tagWorker = context.GetTagWorkerFactory().GetTagWorker(element, context);
                 if (tagWorker == null) {
                     if (!ignoredTags.Contains(element.Name())) {
                         logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).Name()));

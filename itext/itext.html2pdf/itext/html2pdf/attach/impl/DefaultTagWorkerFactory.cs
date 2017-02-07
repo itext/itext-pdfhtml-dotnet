@@ -51,44 +51,33 @@ namespace iText.Html2pdf.Attach.Impl {
     public class DefaultTagWorkerFactory : ITagWorkerFactory {
         private TagProcessorMapping defaultMapping;
 
-        private TagProcessorMapping userMapping;
-
         public DefaultTagWorkerFactory() {
-            defaultMapping = DefaultTagWorkerMapping.GetDefaultTagWorkerMapping();
-            userMapping = new TagProcessorMapping();
+            this.defaultMapping = DefaultTagWorkerMapping.GetDefaultTagWorkerMapping();
         }
 
-        /// <exception cref="iText.Html2pdf.Exceptions.TagWorkerInitializationException"/>
-        public virtual ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context) {
-            Type tagWorkerClass = GetTagWorkerClass(userMapping, tag);
-            if (tagWorkerClass == null) {
-                tagWorkerClass = GetTagWorkerClass(defaultMapping, tag);
+        public ITagWorker GetTagWorker(IElementNode tag, ProcessorContext context) {
+            ITagWorker tagWorker = GetCustomTagWorker(tag, context);
+            if (tagWorker == null) {
+                Type tagWorkerClass = GetTagWorkerClass(this.defaultMapping, tag);
+                if (tagWorkerClass == null) {
+                    return null;
+                }
+                // Use reflection to create an instance
+                try {
+                    ConstructorInfo ctor = tagWorkerClass.GetConstructor(new Type[] { typeof(IElementNode), typeof(ProcessorContext
+                        ) });
+                    ITagWorker res = (ITagWorker)ctor.Invoke(new Object[] { tag, context });
+                    return res;
+                }
+                catch (Exception) {
+                    throw new TagWorkerInitializationException(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
+                        , tagWorkerClass.FullName, tag.Name());
+                }
             }
-            if (tagWorkerClass == null) {
-                return null;
-            }
-            // Use reflection to create an instance
-            try {
-                ConstructorInfo ctor = tagWorkerClass.GetConstructor(new Type[] { typeof(IElementNode), typeof(ProcessorContext
-                    ) });
-                ITagWorker res = (ITagWorker)ctor.Invoke(new Object[] { tag, context });
-                return res;
-            }
-            catch (Exception) {
-                throw new TagWorkerInitializationException(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
-                    , tagWorkerClass.FullName, tag.Name());
-            }
+            return tagWorker;
         }
 
-        public virtual void RegisterTagWorker(String tag, Type tagWorkerClass) {
-            userMapping.PutMapping(tag, tagWorkerClass);
-        }
-
-        public virtual void RegisterTagWorker(String tag, String display, Type tagWorkerClass) {
-            userMapping.PutMapping(tag, display, tagWorkerClass);
-        }
-
-        private static Type GetTagWorkerClass(TagProcessorMapping mapping, IElementNode tag) {
+        private Type GetTagWorkerClass(TagProcessorMapping mapping, IElementNode tag) {
             Type tagWorkerClass = null;
             String display = tag.GetStyles() != null ? tag.GetStyles().Get(CssConstants.DISPLAY) : null;
             if (display != null) {
@@ -98,6 +87,16 @@ namespace iText.Html2pdf.Attach.Impl {
                 tagWorkerClass = mapping.GetMapping(tag.Name());
             }
             return tagWorkerClass;
+        }
+
+        /// <summary>This is a hook method.</summary>
+        /// <remarks>This is a hook method. Users wanting to provide a custom mapping or introduce their own ITagWorkers should implement this method.
+        ///     </remarks>
+        /// <param name="tag"/>
+        /// <param name="context"/>
+        /// <returns/>
+        public virtual ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
+            return null;
         }
     }
 }

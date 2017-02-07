@@ -50,37 +50,29 @@ namespace iText.Html2pdf.Css.Apply.Impl {
     public class DefaultCssApplierFactory : ICssApplierFactory {
         private TagProcessorMapping defaultMapping;
 
-        private TagProcessorMapping userMapping;
-
         public DefaultCssApplierFactory() {
             defaultMapping = DefaultTagCssApplierMapping.GetDefaultCssApplierMapping();
-            userMapping = new TagProcessorMapping();
         }
 
-        public virtual ICssApplier GetCssApplier(IElementNode tag) {
-            Type cssApplierClass = GetCssApplierClass(userMapping, tag);
-            if (cssApplierClass == null) {
-                cssApplierClass = GetCssApplierClass(defaultMapping, tag);
+        public ICssApplier GetCssApplier(IElementNode tag) {
+            ICssApplier cssApplier = GetCustomCssApplier(tag);
+            if (cssApplier == null) {
+                Type cssApplierClass = GetCssApplierClass(defaultMapping, tag);
+                if (cssApplierClass != null) {
+                    try {
+                        return (ICssApplier)System.Activator.CreateInstance(cssApplierClass);
+                    }
+                    catch (Exception) {
+                        throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass
+                            .FullName, tag.Name());
+                    }
+                }
             }
-            if (cssApplierClass == null) {
-                return null;
-            }
-            // Use reflection to create an instance
-            try {
-                return (ICssApplier)System.Activator.CreateInstance(cssApplierClass);
-            }
-            catch (Exception) {
-                throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass
-                    .FullName, tag.Name());
-            }
+            return cssApplier;
         }
 
-        public virtual void RegisterCssApplier(String tag, Type classToRegister) {
-            userMapping.PutMapping(tag, classToRegister);
-        }
-
-        public virtual void RegisterCssApplier(String tag, String display, Type applierToUse) {
-            userMapping.PutMapping(tag, display, applierToUse);
+        public virtual ICssApplier GetCustomCssApplier(IElementNode tag) {
+            return null;
         }
 
         private static Type GetCssApplierClass(TagProcessorMapping mapping, IElementNode tag) {

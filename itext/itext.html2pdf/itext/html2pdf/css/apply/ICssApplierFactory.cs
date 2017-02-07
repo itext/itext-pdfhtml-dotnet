@@ -39,15 +39,10 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-using System;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Apply {
     public interface ICssApplierFactory {
         ICssApplier GetCssApplier(IElementNode tag);
-
-        void RegisterCssApplier(String tag, Type applierToUse);
-
-        void RegisterCssApplier(String tag, String display, Type applierToUse);
     }
 }

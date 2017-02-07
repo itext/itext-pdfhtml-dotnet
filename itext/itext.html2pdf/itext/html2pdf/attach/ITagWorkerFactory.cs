@@ -39,7 +39,6 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-using System;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Attach {
@@ -47,10 +46,6 @@ namespace iText.Html2pdf.Attach {
     public interface ITagWorkerFactory {
         /// <summary>Look up a TagProcessor for the given tag and returns an instance constructed with passed parameters.
         ///     </summary>
-        ITagWorker GetTagWorkerInstance(IElementNode tag, ProcessorContext context);
-
-        void RegisterTagWorker(String tag, Type tagWorkerClass);
-
-        void RegisterTagWorker(String tag, String display, Type tagWorkerClass);
+        ITagWorker GetTagWorker(IElementNode tag, ProcessorContext context);
     }
 }
