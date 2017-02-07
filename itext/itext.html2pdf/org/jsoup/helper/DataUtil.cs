@@ -212,7 +212,11 @@ namespace Org.Jsoup.Helper {
             if (PortUtil.CharsetIsSupported(cs)) {
                 return cs;
             }
-            cs = cs.ToUpper(System.Globalization.CultureInfo.InvariantCulture);
+            StringBuilder upperCase = new StringBuilder();
+            for (int i = 0; i < cs.Length; i++) {
+                upperCase.Append(char.ToUpper(cs[i]));
+            }
+            cs = upperCase.ToString();
             if (PortUtil.CharsetIsSupported(cs)) {
                 return cs;
             }
