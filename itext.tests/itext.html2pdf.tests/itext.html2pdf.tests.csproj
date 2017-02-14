@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AE4E5743-0665-4705-9A33-07EA57CDD269}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>
+    </RootNamespace>
+    <AssemblyName>itext.html2pdf.tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>itext.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)\packages\NUnit.3.4.1\lib\net40\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="org\jsoup\**\*.cs" />
+    <Compile Include="itext\html2pdf\**\*.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.forms\itext.forms.csproj">
+      <Project>{e2828ac4-3c63-4b2a-b5ad-5f98862775be}</Project>
+      <Name>itext.forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.hyph\itext.hyph.csproj">
+      <Project>{56137079-541A-425A-AB97-43AF63793C97}</Project>
+      <Name>itext.hyph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.io\itext.io.csproj">
+      <Project>{cee5e7e1-1bf0-4be1-9941-903262ce2f83}</Project>
+      <Name>itext.io</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj">
+      <Project>{4e7819e8-7555-4e2e-9a01-d8718a2cfdda}</Project>
+      <Name>itext.kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.layout\itext.layout.csproj">
+      <Project>{42173642-db52-44d3-9883-3e34c65c53bc}</Project>
+      <Name>itext.layout</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.csproj">
+      <Project>{9fc2f0b3-a8d2-46da-8724-72e00e67a8fa}</Project>
+      <Name>itext.pdfa</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj">
+      <Project>{f9880dc4-f015-4413-af86-66d0e9512774}</Project>
+      <Name>itext.pdftest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\itext\itext.html2pdf\itext.html2pdf.csproj">
+      <Project>{ff6ba09d-3655-466a-8c17-a7bfd3479ca1}</Project>
+      <Name>itext.html2pdf</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="itext.snk" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="itext\html2pdf\attach\impl" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
