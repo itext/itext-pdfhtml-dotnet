@@ -288,7 +288,7 @@ namespace Org.Jsoup.Nodes {
             // extended and overblown.
             fullByVal = ToCharacterKey(full);
             foreach (Object[] entity in xhtmlArray) {
-                char c = (char)((int?)entity[1]);
+                char c = (char)((int?)entity[1]).Value;
                 xhtmlByVal[c] = ((String)entity[0]);
             }
         }

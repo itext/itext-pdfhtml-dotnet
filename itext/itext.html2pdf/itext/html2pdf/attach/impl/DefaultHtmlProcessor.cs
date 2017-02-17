@@ -46,6 +46,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
+using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Exceptions;
@@ -267,7 +268,9 @@ namespace iText.Html2pdf.Attach.Impl {
                         cssApplier.Apply(context, element, tagWorker);
                     }
                     if (!context.GetState().Empty()) {
+                        PageBreakApplierUtil.AddPageBreakElementBefore(context, context.GetState().Top(), element, tagWorker);
                         bool childProcessed = context.GetState().Top().ProcessTagChild(tagWorker, context);
+                        PageBreakApplierUtil.AddPageBreakElementAfter(context, context.GetState().Top(), element, tagWorker);
                         if (!childProcessed) {
                             logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, context
                                 .GetState().Top().GetType().FullName, tagWorker.GetType().FullName));

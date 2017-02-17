@@ -64,6 +64,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 FloatApplierUtil.ApplyFloating(cssProps, context, container);
                 PositionApplierUtil.ApplyPosition(cssProps, context, container);
                 OpacityApplierUtil.ApplyOpacity(cssProps, context, container);
+                PageBreakApplierUtil.ApplyPageBreakProperties(cssProps, context, container);
             }
         }
     }

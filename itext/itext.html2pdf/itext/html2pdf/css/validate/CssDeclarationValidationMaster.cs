@@ -63,12 +63,16 @@ namespace iText.Html2pdf.Css.Validate {
             DEFAULT_VALIDATORS[CssConstants.BORDER_RIGHT_COLOR] = colorCommonValidator;
             DEFAULT_VALIDATORS[CssConstants.FLOAT] = new SingleTypeDeclarationValidator(new CssEnumValidator(CssConstants
                 .LEFT, CssConstants.RIGHT, CssConstants.NONE, CssConstants.INHERIT, CssConstants.CENTER));
+            /*center comes from legacy*/
+            DEFAULT_VALIDATORS[CssConstants.PAGE_BREAK_BEFORE] = new SingleTypeDeclarationValidator(new CssEnumValidator
+                (CssConstants.AUTO, CssConstants.ALWAYS, CssConstants.AVOID, CssConstants.LEFT, CssConstants.RIGHT));
+            DEFAULT_VALIDATORS[CssConstants.PAGE_BREAK_AFTER] = new SingleTypeDeclarationValidator(new CssEnumValidator
+                (CssConstants.AUTO, CssConstants.ALWAYS, CssConstants.AVOID, CssConstants.LEFT, CssConstants.RIGHT));
         }
 
         private CssDeclarationValidationMaster() {
         }
 
-        /*center comes from legacy*/
         public static bool CheckDeclaration(CssDeclaration declaration) {
             ICssDeclarationValidator validator = DEFAULT_VALIDATORS.Get(declaration.GetProperty());
             return validator == null || validator.IsValid(declaration);

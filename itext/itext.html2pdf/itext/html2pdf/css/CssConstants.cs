@@ -224,6 +224,12 @@ namespace iText.Html2pdf.Css {
 
         public const String PADDING_TOP = "padding-top";
 
+        public const String PAGE_BREAK_AFTER = "page-break-after";
+
+        public const String PAGE_BREAK_BEFORE = "page-break-before";
+
+        public const String PAGE_BREAK_INSIDE = "page-break-inside";
+
         public const String POSITION = "position";
 
         public const String QUOTES = "quotes";
@@ -278,7 +284,11 @@ namespace iText.Html2pdf.Css {
 
         public const String ABSOLUTE = "absolute";
 
+        public const String ALWAYS = "always";
+
         public const String ARMENIAN = "armenian";
+
+        public const String AVOID = "avoid";
 
         public const String AUTO = "auto";
 

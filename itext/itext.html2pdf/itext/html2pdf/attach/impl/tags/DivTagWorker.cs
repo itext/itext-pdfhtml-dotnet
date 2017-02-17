@@ -91,8 +91,15 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     processed = allChildrenProcessed;
                 }
                 else {
-                    if (element is IElement) {
-                        processed = AddBlockChild((IElement)element);
+                    if (element is AreaBreak) {
+                        PostProcessInlineGroup();
+                        div.Add((AreaBreak)element);
+                        processed = true;
+                    }
+                    else {
+                        if (element is IElement) {
+                            processed = AddBlockChild((IElement)element);
+                        }
                     }
                 }
             }
@@ -104,7 +111,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         private bool AddBlockChild(IElement element) {
-            inlineHelper.FlushHangingLeaves(div);
+            PostProcessInlineGroup();
             bool processed = false;
             if (element is IBlockElement) {
                 div.Add(((IBlockElement)element));
@@ -117,6 +124,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             return processed;
+        }
+
+        private void PostProcessInlineGroup() {
+            inlineHelper.FlushHangingLeaves(div);
         }
     }
 }

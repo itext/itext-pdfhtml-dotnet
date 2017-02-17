@@ -100,6 +100,9 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues[CssConstants.PADDING_LEFT] = "0";
             defaultValues[CssConstants.PADDING_RIGHT] = "0";
             defaultValues[CssConstants.PADDING_TOP] = "0";
+            defaultValues[CssConstants.PAGE_BREAK_AFTER] = CssConstants.AUTO;
+            defaultValues[CssConstants.PAGE_BREAK_BEFORE] = CssConstants.AUTO;
+            defaultValues[CssConstants.PAGE_BREAK_INSIDE] = CssConstants.AUTO;
             defaultValues[CssConstants.POSITION] = CssConstants.STATIC;
             defaultValues[CssConstants.TEXT_ALIGN] = CssConstants.START;
             defaultValues[CssConstants.TEXT_DECORATION] = CssConstants.NONE;

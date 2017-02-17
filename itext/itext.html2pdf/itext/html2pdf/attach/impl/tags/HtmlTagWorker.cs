@@ -94,7 +94,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 processed = allChildrenProcessed;
             }
             else {
-                return ProcessBlockChild(childTagWorker.GetElementResult());
+                if (childTagWorker.GetElementResult() is AreaBreak) {
+                    inlineHelper.FlushHangingLeaves(document);
+                    document.Add((AreaBreak)childTagWorker.GetElementResult());
+                    processed = true;
+                }
+                else {
+                    return ProcessBlockChild(childTagWorker.GetElementResult());
+                }
             }
             return processed;
         }
@@ -107,9 +114,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             ((HtmlDocumentRenderer)document.GetRenderer()).ProcessPageRules(rootNode, cssResolver, context);
         }
 
-        private bool ProcessBlockChild(IPropertyContainer propertyContainer) {
-            inlineHelper.FlushHangingLeaves(document);
-            IPropertyContainer element = propertyContainer;
+        private bool ProcessBlockChild(IPropertyContainer element) {
+            PostProcessInlineGroup();
             if (element is IBlockElement) {
                 document.Add((IBlockElement)element);
                 return true;
@@ -120,6 +126,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             return true;
+        }
+
+        private void PostProcessInlineGroup() {
+            inlineHelper.FlushHangingLeaves(document);
         }
     }
 }
