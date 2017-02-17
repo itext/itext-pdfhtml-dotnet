@@ -124,6 +124,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     }
                 }
                 // hack to change the "evenness" of the first page without adding an unnecessary blank page
+                anythingAddedToCurrentArea = anythingAddedToCurrentArea || overflowResult != null && overflowResult.GetStatus
+                    () == LayoutResult.PARTIAL;
                 if (HtmlPageBreakType.ALWAYS.Equals(htmlPageBreakType)) {
                     LayoutArea nextArea = currentArea;
                     if (anythingAddedToCurrentArea || currentArea == null) {
@@ -163,12 +165,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return base.UpdateCurrentArea(overflowResult);
         }
 
-        protected override void UpdateCurrentAreaAndProcessRenderer(IRenderer renderer, IList<IRenderer> resultRenderers
+        protected override void ShrinkCurrentAreaAndProcessRenderer(IRenderer renderer, IList<IRenderer> resultRenderers
             , LayoutResult result) {
             if (renderer != null) {
                 anythingAddedToCurrentArea = true;
             }
-            base.UpdateCurrentAreaAndProcessRenderer(renderer, resultRenderers, result);
+            base.ShrinkCurrentAreaAndProcessRenderer(renderer, resultRenderers, result);
         }
 
         protected override PageSize AddNewPage(PageSize customPageSize) {

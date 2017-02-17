@@ -95,7 +95,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             else {
                 if (childTagWorker.GetElementResult() is AreaBreak) {
-                    inlineHelper.FlushHangingLeaves(document);
+                    PostProcessInlineGroup();
                     document.Add((AreaBreak)childTagWorker.GetElementResult());
                     processed = true;
                 }
