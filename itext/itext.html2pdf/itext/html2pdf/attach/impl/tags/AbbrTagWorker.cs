@@ -56,6 +56,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             expansionText = tag.GetAttribute("title");
         }
 
+        public override bool ProcessContent(String content, ProcessorContext context) {
+            text = content;
+            return base.ProcessContent(content, context);
+        }
+
+        public override void ProcessEnd(IElementNode element, ProcessorContext context) {
+            base.ProcessEnd(element, context);
+            EnrichSpan(text);
+        }
+
         private void EnrichSpan(String text) {
             foreach (IPropertyContainer container in this.GetOwnLeafElements()) {
                 if (container is Text) {
@@ -67,16 +77,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     }
                 }
             }
-        }
-
-        public override bool ProcessContent(String content, ProcessorContext context) {
-            text = content;
-            return base.ProcessContent(content, context);
-        }
-
-        public override void ProcessEnd(IElementNode element, ProcessorContext context) {
-            base.ProcessEnd(element, context);
-            EnrichSpan(text);
         }
     }
 }
