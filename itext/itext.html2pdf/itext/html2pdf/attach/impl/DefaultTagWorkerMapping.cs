@@ -56,7 +56,7 @@ namespace iText.Html2pdf.Attach.Impl {
         static DefaultTagWorkerMapping() {
             workerMapping = new TagProcessorMapping();
             workerMapping.PutMapping(TagConstants.A, typeof(ATagWorker));
-            workerMapping.PutMapping(TagConstants.ABBR, typeof(ATagWorker));
+            workerMapping.PutMapping(TagConstants.ABBR, typeof(AbbrTagWorker));
             workerMapping.PutMapping(TagConstants.ADDRESS, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.ARTICLE, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.ASIDE, typeof(DivTagWorker));
