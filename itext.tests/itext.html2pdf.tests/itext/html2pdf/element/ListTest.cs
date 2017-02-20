@@ -43,6 +43,7 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Css.Media;
+using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
@@ -162,14 +163,28 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Conversion to Pdf/A for lists not supported. DEVSIX-917")]
+        public virtual void ListTest14() {
+            RunTest("listTest14");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ListTest15() {
+            RunTest("listTest15");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, Count = 32)]
         public virtual void ListToPdfaTest() {
             Stream @is = new FileStream(sourceFolder + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read);
             PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "listToPdfa.pdf"), PdfAConformanceLevel
                 .PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", @is));
             HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "listToPdfa.html", FileMode.Open, FileAccess.Read
                 ), pdfADocument, new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription(MediaType
-                .PRINT)));
+                .PRINT)).SetFontProvider(new DefaultFontProvider(false, true, false)));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "listToPdfa.pdf", sourceFolder
                  + "cmp_listToPdfa.pdf", destinationFolder, "diff99_"));
         }

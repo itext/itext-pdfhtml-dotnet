@@ -41,14 +41,13 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
+using System.Text;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Font;
 using iText.IO.Log;
-using iText.Kernel.Font;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Element;
@@ -56,6 +55,23 @@ using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     public sealed class ListStyleApplierUtil {
+        private const int GREEK_ALPHABET_LENGTH = 24;
+
+        private static readonly char[] GREEK_LOWERCASE = new char[GREEK_ALPHABET_LENGTH];
+
+        private const String DISC_SYMBOL = "\u2022";
+
+        private const String CIRCLE_SYMBOL = "\u25cb";
+
+        private const String SQUARE_SYMBOL = "\u25a0";
+
+        static ListStyleApplierUtil() {
+            //private static final String HTML_SYMBOL_FONT = "Sans-serif";
+            for (int i = 0; i < GREEK_ALPHABET_LENGTH; i++) {
+                GREEK_LOWERCASE[i] = (char)(945 + i + (i > 16 ? 1 : 0));
+            }
+        }
+
         private ListStyleApplierUtil() {
         }
 
@@ -72,7 +88,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        //TODO problems with Pdf/A conversion. Avoid ZapfDingBats, Symbol font DEVSIX-917
         public static void ApplyListStyleTypeProperty(IStylesContainer stylesContainer, IDictionary<String, String
             > cssProps, ProcessorContext context, IPropertyContainer element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
@@ -114,7 +129,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                                             }
                                             else {
                                                 if (CssConstants.LOWER_GREEK.Equals(style)) {
-                                                    SetListSymbol(element, ListNumberingType.GREEK_LOWER);
+                                                    element.SetProperty(Property.LIST_SYMBOL, new ListStyleApplierUtil.HtmlAlphabetSymbolFactory(GREEK_LOWERCASE
+                                                        ));
                                                 }
                                                 else {
                                                     if (CssConstants.NONE.Equals(style)) {
@@ -150,6 +166,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        public static void SetDiscStyle(IPropertyContainer element, float em) {
+            Text symbol = new Text(DISC_SYMBOL);
+            element.SetProperty(Property.LIST_SYMBOL, symbol);
+            SetListSymbolIndent(element, em);
+        }
+
         private static void SetListSymbol(IPropertyContainer container, Text text) {
             if (container is List) {
                 ((List)container).SetListSymbol(text);
@@ -172,26 +194,18 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        private static void SetDiscStyle(IPropertyContainer element, float em) {
-            Text symbol = new Text(((char)108).ToString()).SetFont(CreateZapfDingBatsSafe());
-            symbol.SetTextRise(1.5f);
-            symbol.SetFontSize(4.5f);
-            element.SetProperty(Property.LIST_SYMBOL, symbol);
-            SetListSymbolIndent(element, em);
-        }
-
         private static void SetSquareStyle(IPropertyContainer element, float em) {
-            Text symbol = new Text(((char)110).ToString()).SetFont(CreateZapfDingBatsSafe());
-            symbol.SetTextRise(1.5f);
-            symbol.SetFontSize(4.5f);
+            Text symbol = new Text(SQUARE_SYMBOL);
+            symbol.SetTextRise(1.5f * em / 12);
+            symbol.SetFontSize(4.5f * em / 12);
             element.SetProperty(Property.LIST_SYMBOL, symbol);
             SetListSymbolIndent(element, em);
         }
 
         private static void SetCircleStyle(IPropertyContainer element, float em) {
-            Text symbol = new Text(((char)109).ToString()).SetFont(CreateZapfDingBatsSafe());
-            symbol.SetTextRise(1.5f);
-            symbol.SetFontSize(4.5f);
+            Text symbol = new Text(CIRCLE_SYMBOL);
+            symbol.SetTextRise(1.5f * em / 12);
+            symbol.SetFontSize(4.5f * em / 12);
             element.SetProperty(Property.LIST_SYMBOL, symbol);
             SetListSymbolIndent(element, em);
         }
@@ -205,14 +219,35 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        private static PdfFont CreateZapfDingBatsSafe() {
-            try {
-                return PdfFontFactory.CreateFont(FontConstants.ZAPFDINGBATS);
+        private class HtmlAlphabetSymbolFactory : IListSymbolFactory {
+            private readonly char[] alphabet;
+
+            public HtmlAlphabetSymbolFactory(char[] alphabet) {
+                this.alphabet = alphabet;
             }
-            catch (System.IO.IOException exc) {
-                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.ListStyleApplierUtil));
-                logger.Error("Unable to create ZapfDingBats font", exc);
-                return null;
+
+            public virtual IElement CreateSymbol(int index, IPropertyContainer list, IPropertyContainer listItem) {
+                Object preValue = GetListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_PRE_TEXT);
+                Object postValue = GetListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_POST_TEXT);
+                --index;
+                Text result = new Text(preValue + GetUnicodeString(index, alphabet) + postValue);
+                return result;
+            }
+
+            private static String GetUnicodeString(int number, char[] alphabet) {
+                StringBuilder builder = new StringBuilder();
+                do {
+                    builder.Append(alphabet[(number % alphabet.Length)]);
+                    number /= alphabet.Length;
+                }
+                while (number > 0);
+                return ((StringBuilder)builder.Reverse()).ToString();
+            }
+
+            private static Object GetListItemOrListProperty(IPropertyContainer listItem, IPropertyContainer list, int 
+                propertyId) {
+                return listItem.HasProperty(propertyId) ? listItem.GetProperty<Object>(propertyId) : list.GetProperty<Object
+                    >(propertyId);
             }
         }
     }
