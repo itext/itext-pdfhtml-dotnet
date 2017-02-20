@@ -128,7 +128,7 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         private static string NormalizeFilePath(String baseUriString) {
             string path;
-            if (Directory.Exists(baseUriString)) {
+            if (Directory.Exists(baseUriString) && !baseUriString.EndsWith("/") && !baseUriString.EndsWith("\\")) {
                 path = baseUriString + "/";
             } else {
                 path = baseUriString;
