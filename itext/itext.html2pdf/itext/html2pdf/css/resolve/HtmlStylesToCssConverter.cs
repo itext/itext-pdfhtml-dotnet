@@ -306,7 +306,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private class HeightAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
             public virtual bool IsSupportedForElement(String elementName) {
-                return TagConstants.IMG.Equals(elementName);
+                return TagConstants.IMG.Equals(elementName) || TagConstants.TD.Equals(elementName);
             }
 
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {

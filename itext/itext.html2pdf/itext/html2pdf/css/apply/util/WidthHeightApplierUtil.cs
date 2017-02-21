@@ -46,6 +46,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.IO.Log;
 using iText.Layout;
+using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
@@ -65,13 +66,20 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 UnitValue width = CssUtils.ParseLengthValueToPt(widthVal, em, rem);
                 element.SetProperty(Property.WIDTH, width);
             }
+            // TODO consider display css property
+            bool applyToTable = element is Table;
+            UnitValue height = null;
             String heightVal = cssProps.Get(CssConstants.HEIGHT);
             if (heightVal != null) {
                 if (!CssConstants.AUTO.Equals(heightVal)) {
-                    UnitValue height = CssUtils.ParseLengthValueToPt(heightVal, em, rem);
+                    height = CssUtils.ParseLengthValueToPt(heightVal, em, rem);
                     if (height != null) {
                         if (height.IsPointValue()) {
-                            element.SetProperty(Property.HEIGHT, height.GetValue());
+                            // For tables, max height does not have any effect. The height value will be used when
+                            // calculating effective min height value below
+                            if (!applyToTable) {
+                                element.SetProperty(Property.HEIGHT, height.GetValue());
+                            }
                         }
                         else {
                             logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
@@ -80,28 +88,46 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             String maxHeightVal = cssProps.Get(CssConstants.MAX_HEIGHT);
+            float maxHeightToApply = 0;
             if (maxHeightVal != null) {
-                UnitValue height = CssUtils.ParseLengthValueToPt(maxHeightVal, em, rem);
-                if (height != null) {
-                    if (height.IsPointValue()) {
-                        element.SetProperty(Property.MAX_HEIGHT, height.GetValue());
+                UnitValue maxHeight = CssUtils.ParseLengthValueToPt(maxHeightVal, em, rem);
+                if (maxHeight != null) {
+                    if (maxHeight.IsPointValue()) {
+                        // For tables, max height does not have any effect. See also comments below when MIN_HEIGHT is applied.
+                        if (!applyToTable) {
+                            maxHeightToApply = maxHeight.GetValue();
+                        }
                     }
                     else {
                         logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     }
                 }
             }
+            if (maxHeightToApply > 0) {
+                element.SetProperty(Property.MAX_HEIGHT, maxHeightToApply);
+            }
             String minHeightVal = cssProps.Get(CssConstants.MIN_HEIGHT);
+            float minHeightToApply = 0;
             if (minHeightVal != null) {
-                UnitValue height = CssUtils.ParseLengthValueToPt(minHeightVal, em, rem);
-                if (height != null) {
-                    if (height.IsPointValue()) {
-                        element.SetProperty(Property.MIN_HEIGHT, height.GetValue());
+                UnitValue minHeight = CssUtils.ParseLengthValueToPt(minHeightVal, em, rem);
+                if (minHeight != null) {
+                    if (minHeight.IsPointValue()) {
+                        minHeightToApply = minHeight.GetValue();
                     }
                     else {
                         logger.Error(iText.Html2pdf.LogMessageConstant.HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     }
                 }
+            }
+            // The height of a table is given by the 'height' property for the 'table' or 'inline-table' element.
+            // A value of 'auto' means that the height is the sum of the row heights plus any cell spacing or borders.
+            // Any other value is treated as a minimum height. CSS 2.1 does not define how extra space is distributed when
+            // the 'height' property causes the table to be taller than it otherwise would be.
+            if (applyToTable && height != null && height.IsPointValue() && height.GetValue() > minHeightToApply) {
+                minHeightToApply = height.GetValue();
+            }
+            if (minHeightToApply > 0) {
+                element.SetProperty(Property.MIN_HEIGHT, minHeightToApply);
             }
         }
     }
