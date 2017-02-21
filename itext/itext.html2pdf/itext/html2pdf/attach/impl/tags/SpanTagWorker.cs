@@ -112,6 +112,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return null;
         }
 
+        public virtual WaitingInlineElementsHelper GetWaitingInlineElementsHelper() {
+            return inlineHelper;
+        }
+
         private void FlushInlineHelper() {
             spanWrapper.AddAll(inlineHelper.GetWaitingLeaves());
             ownLeafElements.AddAll(inlineHelper.GetWaitingLeaves());

@@ -47,33 +47,27 @@ using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     public class AbbrTagWorker : SpanTagWorker {
-        private String text;
-
-        private readonly String expansionText;
-
         public AbbrTagWorker(IElementNode tag, ProcessorContext context)
             : base(tag, context) {
-            expansionText = tag.GetAttribute("title");
         }
 
         public override bool ProcessContent(String content, ProcessorContext context) {
-            text = content;
             return base.ProcessContent(content, context);
         }
 
         public override void ProcessEnd(IElementNode element, ProcessorContext context) {
+            context.GetPdfDocument().SetTagged();
+            EnrichSpan(element.GetAttribute("title"));
             base.ProcessEnd(element, context);
-            EnrichSpan(text);
         }
 
-        private void EnrichSpan(String text) {
-            foreach (IPropertyContainer container in this.GetOwnLeafElements()) {
+        private void EnrichSpan(String expansionText) {
+            foreach (IPropertyContainer container in this.GetWaitingInlineElementsHelper().GetWaitingLeaves()) {
                 if (container is Text) {
                     Text txt = (Text)container;
-                    if (txt.GetText().Equals(text)) {
-                        if (expansionText != null) {
-                            txt.GetAccessibilityProperties().SetExpansion(expansionText);
-                        }
+                    if (expansionText != null) {
+                        txt.GetAccessibilityProperties().SetExpansion(expansionText);
+                        break;
                     }
                 }
             }
