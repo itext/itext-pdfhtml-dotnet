@@ -42,7 +42,18 @@
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Apply {
+    /// <summary>
+    /// <see cref="ICssApplierFactory"/>
+    /// interface is used for instantiating new
+    /// <see cref="ICssApplier"/>
+    /// objects.
+    /// </summary>
     public interface ICssApplierFactory {
+        /// <summary>
+        /// Returns a
+        /// <see cref="ICssApplier"/>
+        /// instance constructed based on the passed parameters.
+        /// </summary>
         ICssApplier GetCssApplier(IElementNode tag);
     }
 }

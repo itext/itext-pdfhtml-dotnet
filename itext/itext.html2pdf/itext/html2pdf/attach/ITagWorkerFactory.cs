@@ -42,10 +42,18 @@
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Attach {
-    /// <summary>TagProcessorFactory Interface</summary>
+    /// <summary>
+    /// <see cref="ITagWorkerFactory"/>
+    /// interface is used for instantiating new
+    /// <see cref="ITagWorker"/>
+    /// objects.
+    /// </summary>
     public interface ITagWorkerFactory {
-        /// <summary>Look up a TagProcessor for the given tag and returns an instance constructed with passed parameters.
-        ///     </summary>
+        /// <summary>
+        /// Returns a
+        /// <see cref="ITagWorker"/>
+        /// instance constructed based on the passed parameters.
+        /// </summary>
         ITagWorker GetTagWorker(IElementNode tag, ProcessorContext context);
     }
 }
