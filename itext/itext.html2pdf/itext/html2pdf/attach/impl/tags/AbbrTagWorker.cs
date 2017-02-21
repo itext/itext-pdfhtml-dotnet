@@ -56,7 +56,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         public override void ProcessEnd(IElementNode element, ProcessorContext context) {
-            context.GetPdfDocument().SetTagged();
             EnrichSpan(element.GetAttribute("title"));
             base.ProcessEnd(element, context);
         }
