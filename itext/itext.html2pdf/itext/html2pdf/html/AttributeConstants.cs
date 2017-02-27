@@ -105,6 +105,8 @@ namespace iText.Html2pdf.Html {
 
         public const String CENTER = "center";
 
+        public const String EMAIL = "email";
+
         public const String I = "I";
 
         public const String i = "i";
