@@ -50,7 +50,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public InputTagWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {
             String inputType = element.GetAttribute(AttributeConstants.TYPE);
-            if (AttributeConstants.TEXT.Equals(inputType) || AttributeConstants.EMAIL.Equals(inputType)) {
+            // Default input type is text
+            if (inputType == null || AttributeConstants.TEXT.Equals(inputType) || AttributeConstants.EMAIL.Equals(inputType
+                )) {
                 String value = element.GetAttribute(AttributeConstants.VALUE);
                 if (value != null) {
                     ProcessContent(value, context);
