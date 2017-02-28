@@ -52,12 +52,12 @@ using iText.Kernel;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class PaddingTest : ExtendedITextTest {
+    public class MarginTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/PaddingTest/";
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/MarginTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/css/PaddingTest/";
+             + "/test/itext/html2pdf/css/MarginTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
@@ -67,8 +67,15 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void ElementFixedWidthTest() {
-            RunTest("elementFixedWidthTest");
+        public virtual void MarginAutoImageInsideDiv01Test() {
+            RunTest("marginAutoImageInsideDiv01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginAutoImageInsideDiv02Test() {
+            RunTest("marginAutoImageInsideDiv02");
         }
 
         /// <exception cref="System.IO.IOException"/>

@@ -63,7 +63,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String marginBottom = cssProps.Get(CssConstants.MARGIN_BOTTOM);
             String marginLeft = cssProps.Get(CssConstants.MARGIN_LEFT);
             String marginRight = cssProps.Get(CssConstants.MARGIN_RIGHT);
-            bool isBlock = element is IBlockElement;
+            // The check for display is useful at least for images
+            bool isBlock = element is IBlockElement || CssConstants.BLOCK.Equals(cssProps.Get(CssConstants.DISPLAY));
             bool isImage = element is Image;
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
