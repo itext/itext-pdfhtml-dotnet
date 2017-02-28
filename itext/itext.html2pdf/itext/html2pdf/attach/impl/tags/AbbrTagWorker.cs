@@ -41,6 +41,7 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
@@ -56,12 +57,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         public override void ProcessEnd(IElementNode element, ProcessorContext context) {
-            EnrichSpan(element.GetAttribute("title"));
             base.ProcessEnd(element, context);
+            EnrichSpan(element.GetAttribute(AttributeConstants.TITLE));
         }
 
         private void EnrichSpan(String expansionText) {
-            foreach (IPropertyContainer container in this.GetWaitingInlineElementsHelper().GetWaitingLeaves()) {
+            foreach (IPropertyContainer container in GetAllElements()) {
                 if (container is Text) {
                     Text txt = (Text)container;
                     if (expansionText != null) {
