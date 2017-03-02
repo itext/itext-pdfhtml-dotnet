@@ -217,6 +217,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TableBorderAttributeTest06() {
+            // TODO DEVSIX-1125
             RunTest("tableBorderAttributeTest06");
         }
 
