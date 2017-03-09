@@ -56,14 +56,13 @@ namespace iText.Html2pdf.Attach {
         /// <returns>true, if child was successfully processed, otherwise false.</returns>
         bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context);
 
-        /// <summary>Shall return the same object on every call.</summary>
-        /// <remarks>
-        /// Shall return the same object on every call. Might return null either if result is not yet produced or if
-        /// this particular tag worker doesn't produce result in a form of
+        /// <returns>
+        /// the same object on every call.
+        /// Might return null either if result is not yet produced or if this particular
+        /// tag worker doesn't produce result in a form of
         /// <see cref="iText.Layout.IPropertyContainer"/>
         /// .
-        /// </remarks>
-        /// <returns/>
+        /// </returns>
         IPropertyContainer GetElementResult();
     }
 }

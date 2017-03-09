@@ -94,7 +94,6 @@ namespace iText.Html2pdf.Attach.Impl {
         ///     </remarks>
         /// <param name="tag"/>
         /// <param name="context"/>
-        /// <returns/>
         public virtual ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
             return null;
         }

@@ -229,9 +229,8 @@ namespace iText.Html2pdf.Css.Util {
             return null;
         }
 
-        /// <summary>Returns value in dpi (currently)</summary>
         /// <param name="resolutionStr"/>
-        /// <returns/>
+        /// <returns>value in dpi (currently)</returns>
         public static float ParseResolution(String resolutionStr) {
             // TODO change default units? If so, change MediaDeviceDescription#resolutoin as well
             int pos = DeterminePositionBetweenValueAndUnit(resolutionStr);
