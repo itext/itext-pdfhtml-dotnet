@@ -53,11 +53,11 @@ namespace iText.Html2pdf.Util {
         }
 
         public virtual void PutMapping(String tag, Type mappingClass) {
-            EnsureMappingExists(tag)[DEFAULT_DISPLAY_KEY] = mappingClass;
+            EnsureMappingExists(tag).Put(DEFAULT_DISPLAY_KEY, mappingClass);
         }
 
         public virtual void PutMapping(String tag, String display, Type mappingClass) {
-            EnsureMappingExists(tag)[display] = mappingClass;
+            EnsureMappingExists(tag).Put(display, mappingClass);
         }
 
         public virtual Type GetMapping(String tag) {
@@ -80,7 +80,7 @@ namespace iText.Html2pdf.Util {
             }
             else {
                 IDictionary<String, Type> tagMapping = new Dictionary<String, Type>();
-                mapping[tag] = tagMapping;
+                mapping.Put(tag, tagMapping);
                 return tagMapping;
             }
         }

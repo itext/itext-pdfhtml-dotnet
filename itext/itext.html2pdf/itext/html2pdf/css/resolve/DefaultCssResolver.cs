@@ -113,12 +113,12 @@ namespace iText.Html2pdf.Css.Resolve {
                     }
                 }
                 float absoluteFontSize = FontStyleApplierUtil.ParseRelativeFontSize(elementFontSize, baseFontSize);
-                elementStyles[CssConstants.FONT_SIZE] = System.Convert.ToString(absoluteFontSize, System.Globalization.CultureInfo.InvariantCulture
-                    ) + CssConstants.PT;
+                elementStyles.Put(CssConstants.FONT_SIZE, System.Convert.ToString(absoluteFontSize, System.Globalization.CultureInfo.InvariantCulture
+                    ) + CssConstants.PT);
             }
             else {
-                elementStyles[CssConstants.FONT_SIZE] = System.Convert.ToString(FontStyleApplierUtil.ParseAbsoluteFontSize
-                    (elementFontSize), System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT;
+                elementStyles.Put(CssConstants.FONT_SIZE, System.Convert.ToString(FontStyleApplierUtil.ParseAbsoluteFontSize
+                    (elementFontSize), System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT);
             }
             //Update root font size
             if (element is IElementNode && TagConstants.HTML.Equals(((IElementNode)element).Name())) {
@@ -132,7 +132,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
             }
             foreach (String key in keys) {
-                elementStyles[key] = CssDefaults.GetDefaultValue(key);
+                elementStyles.Put(key, CssDefaults.GetDefaultValue(key));
             }
             ResolveContentProperty(elementStyles.Get(CssConstants.CONTENT), element, context);
             return elementStyles;
@@ -170,7 +170,7 @@ namespace iText.Html2pdf.Css.Resolve {
         private void PutDeclarationInMapIfValid(IDictionary<String, String> stylesMap, CssDeclaration cssDeclaration
             ) {
             if (CssDeclarationValidationMaster.CheckDeclaration(cssDeclaration)) {
-                stylesMap[cssDeclaration.GetProperty()] = cssDeclaration.GetExpression();
+                stylesMap.Put(cssDeclaration.GetProperty(), cssDeclaration.GetExpression());
             }
             else {
                 ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
@@ -239,7 +239,7 @@ namespace iText.Html2pdf.Css.Resolve {
             String childPropValue = styles.Get(cssProperty);
             if ((childPropValue == null && CssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals(childPropValue
                 )) {
-                styles[cssProperty] = parentPropValue;
+                styles.Put(cssProperty, parentPropValue);
             }
             else {
                 if (CssConstants.TEXT_DECORATION.Equals(cssProperty)) {
@@ -249,7 +249,7 @@ namespace iText.Html2pdf.Css.Resolve {
                     // Also, when, for example, parent element has text-decoration:underline, and the child text-decoration:overline,
                     // then the text in the child will be both overline and underline. This is why the declarations are merged
                     // See TextDecorationTest#textDecoration01Test
-                    styles[cssProperty] = CssPropertyMerger.MergeTextDecoration(childPropValue, parentPropValue);
+                    styles.Put(cssProperty, CssPropertyMerger.MergeTextDecoration(childPropValue, parentPropValue));
                 }
             }
         }

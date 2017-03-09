@@ -53,16 +53,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             ();
 
         static PageSizeParser() {
-            pageSizeConstants["a5"] = PageSize.A5;
-            pageSizeConstants["a4"] = PageSize.A4;
-            pageSizeConstants["a3"] = PageSize.A3;
-            pageSizeConstants["b5"] = PageSize.B5;
-            pageSizeConstants["b4"] = PageSize.B4;
-            pageSizeConstants["jis-b5"] = new PageSize(516, 729);
-            pageSizeConstants["jis-b4"] = new PageSize(729, 1032);
-            pageSizeConstants["letter"] = PageSize.LETTER;
-            pageSizeConstants["legal"] = PageSize.LEGAL;
-            pageSizeConstants["ledger"] = PageSize.LEDGER;
+            pageSizeConstants.Put("a5", PageSize.A5);
+            pageSizeConstants.Put("a4", PageSize.A4);
+            pageSizeConstants.Put("a3", PageSize.A3);
+            pageSizeConstants.Put("b5", PageSize.B5);
+            pageSizeConstants.Put("b4", PageSize.B4);
+            pageSizeConstants.Put("jis-b5", new PageSize(516, 729));
+            pageSizeConstants.Put("jis-b4", new PageSize(729, 1032));
+            pageSizeConstants.Put("letter", PageSize.LETTER);
+            pageSizeConstants.Put("legal", PageSize.LEGAL);
+            pageSizeConstants.Put("ledger", PageSize.LEDGER);
         }
 
         // TODO may be use here TABLOID? based on w3c tests, ledger in html is interpreted as portrait-oriented page

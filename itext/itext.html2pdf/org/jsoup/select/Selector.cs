@@ -137,7 +137,7 @@ namespace Org.Jsoup.Select {
                 foreach (Element el in found) {
                     if (!seenElements.ContainsKey(el)) {
                         elements.Add(el);
-                        seenElements[el] = true;
+                        seenElements.Put(el, true);
                     }
                 }
             }

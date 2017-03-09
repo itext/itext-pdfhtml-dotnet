@@ -54,25 +54,29 @@ namespace iText.Html2pdf.Css.Resolve {
 
         static HtmlStylesToCssConverter() {
             htmlAttributeConverters = new Dictionary<String, HtmlStylesToCssConverter.IAttributeConverter>();
-            htmlAttributeConverters[AttributeConstants.ALIGN] = new HtmlStylesToCssConverter.AlignAttributeConverter();
-            htmlAttributeConverters[AttributeConstants.BORDER] = new HtmlStylesToCssConverter.BorderAttributeConverter
-                ();
-            htmlAttributeConverters[AttributeConstants.BGCOLOR] = new HtmlStylesToCssConverter.BgColorAttributeConverter
-                ();
-            htmlAttributeConverters[AttributeConstants.COLOR] = new HtmlStylesToCssConverter.FontColorAttributeConverter
-                ();
-            htmlAttributeConverters[AttributeConstants.DIR] = new HtmlStylesToCssConverter.DirAttributeConverter();
-            htmlAttributeConverters[AttributeConstants.SIZE] = new HtmlStylesToCssConverter.SizeAttributeConverter();
-            htmlAttributeConverters[AttributeConstants.FACE] = new HtmlStylesToCssConverter.FontFaceAttributeConverter
-                ();
-            htmlAttributeConverters[AttributeConstants.NOSHADE] = new HtmlStylesToCssConverter.NoShadeAttributeConverter
-                ();
-            htmlAttributeConverters[AttributeConstants.TYPE] = new HtmlStylesToCssConverter.TypeAttributeConverter();
-            htmlAttributeConverters[AttributeConstants.WIDTH] = new HtmlStylesToCssConverter.WidthAttributeConverter();
-            htmlAttributeConverters[AttributeConstants.HEIGHT] = new HtmlStylesToCssConverter.HeightAttributeConverter
-                ();
-            htmlAttributeConverters[AttributeConstants.VALIGN] = new HtmlStylesToCssConverter.VAlignAttributeConverter
-                ();
+            htmlAttributeConverters.Put(AttributeConstants.ALIGN, new HtmlStylesToCssConverter.AlignAttributeConverter
+                ());
+            htmlAttributeConverters.Put(AttributeConstants.BORDER, new HtmlStylesToCssConverter.BorderAttributeConverter
+                ());
+            htmlAttributeConverters.Put(AttributeConstants.BGCOLOR, new HtmlStylesToCssConverter.BgColorAttributeConverter
+                ());
+            htmlAttributeConverters.Put(AttributeConstants.COLOR, new HtmlStylesToCssConverter.FontColorAttributeConverter
+                ());
+            htmlAttributeConverters.Put(AttributeConstants.DIR, new HtmlStylesToCssConverter.DirAttributeConverter());
+            htmlAttributeConverters.Put(AttributeConstants.SIZE, new HtmlStylesToCssConverter.SizeAttributeConverter()
+                );
+            htmlAttributeConverters.Put(AttributeConstants.FACE, new HtmlStylesToCssConverter.FontFaceAttributeConverter
+                ());
+            htmlAttributeConverters.Put(AttributeConstants.NOSHADE, new HtmlStylesToCssConverter.NoShadeAttributeConverter
+                ());
+            htmlAttributeConverters.Put(AttributeConstants.TYPE, new HtmlStylesToCssConverter.TypeAttributeConverter()
+                );
+            htmlAttributeConverters.Put(AttributeConstants.WIDTH, new HtmlStylesToCssConverter.WidthAttributeConverter
+                ());
+            htmlAttributeConverters.Put(AttributeConstants.HEIGHT, new HtmlStylesToCssConverter.HeightAttributeConverter
+                ());
+            htmlAttributeConverters.Put(AttributeConstants.VALIGN, new HtmlStylesToCssConverter.VAlignAttributeConverter
+                ());
         }
 
         public static IList<CssDeclaration> Convert(IElementNode element) {
@@ -129,7 +133,7 @@ namespace iText.Html2pdf.Css.Resolve {
                         IList<CssDeclaration> declarations = new BorderShorthandResolver().ResolveShorthand("1px solid");
                         IDictionary<String, String> styles = new Dictionary<String, String>(declarations.Count);
                         foreach (CssDeclaration declaration in declarations) {
-                            styles[declaration.GetProperty()] = declaration.GetExpression();
+                            styles.Put(declaration.GetProperty(), declaration.GetExpression());
                         }
                         ApplyBordersToTableCells(element, styles);
                     }

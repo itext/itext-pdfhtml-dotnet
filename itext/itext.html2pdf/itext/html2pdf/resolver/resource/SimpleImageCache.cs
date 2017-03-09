@@ -68,16 +68,16 @@ namespace iText.Html2pdf.Resolver.Resource {
                 return;
             }
             EnsureCapacity();
-            cache[src] = imageXObject;
+            cache.Put(src, imageXObject);
         }
 
         internal virtual PdfImageXObject GetImage(String src) {
             int? frequency = imagesFrequency.Get(src);
             if (frequency != null) {
-                imagesFrequency[src] = frequency + 1;
+                imagesFrequency.Put(src, frequency + 1);
             }
             else {
-                imagesFrequency[src] = 1;
+                imagesFrequency.Put(src, 1);
             }
             return cache.Get(src);
         }

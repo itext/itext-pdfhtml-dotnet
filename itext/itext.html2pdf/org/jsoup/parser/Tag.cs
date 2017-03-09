@@ -289,7 +289,7 @@ namespace Org.Jsoup.Parser {
         }
 
         private static void Register(Org.Jsoup.Parser.Tag tag) {
-            tags[tag.tagName] = tag;
+            tags.Put(tag.tagName, tag);
         }
     }
 }

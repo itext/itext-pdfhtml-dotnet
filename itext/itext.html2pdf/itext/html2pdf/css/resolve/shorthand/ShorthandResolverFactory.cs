@@ -50,20 +50,20 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand {
 
         static ShorthandResolverFactory() {
             shorthandResolvers = new Dictionary<String, IShorthandResolver>();
-            shorthandResolvers[CssConstants.BACKGROUND] = new BackgroundShorthandResolver();
-            shorthandResolvers[CssConstants.BORDER] = new BorderShorthandResolver();
-            shorthandResolvers[CssConstants.BORDER_BOTTOM] = new BorderBottomShorthandResolver();
-            shorthandResolvers[CssConstants.BORDER_COLOR] = new BorderColorShorthandResolver();
-            shorthandResolvers[CssConstants.BORDER_LEFT] = new BorderLeftShorthandResolver();
-            shorthandResolvers[CssConstants.BORDER_RIGHT] = new BorderRightShorthandResolver();
-            shorthandResolvers[CssConstants.BORDER_STYLE] = new BorderStyleShorthandResolver();
-            shorthandResolvers[CssConstants.BORDER_TOP] = new BorderTopShorthandResolver();
-            shorthandResolvers[CssConstants.BORDER_WIDTH] = new BorderWidthShorthandResolver();
-            shorthandResolvers[CssConstants.FONT] = new FontShorthandResolver();
-            shorthandResolvers[CssConstants.LIST_STYLE] = new ListStyleShorthandResolver();
-            shorthandResolvers[CssConstants.MARGIN] = new MarginShorthandResolver();
-            shorthandResolvers[CssConstants.OUTLINE] = new OutlineShorthandResolver();
-            shorthandResolvers[CssConstants.PADDING] = new PaddingShorthandResolver();
+            shorthandResolvers.Put(CssConstants.BACKGROUND, new BackgroundShorthandResolver());
+            shorthandResolvers.Put(CssConstants.BORDER, new BorderShorthandResolver());
+            shorthandResolvers.Put(CssConstants.BORDER_BOTTOM, new BorderBottomShorthandResolver());
+            shorthandResolvers.Put(CssConstants.BORDER_COLOR, new BorderColorShorthandResolver());
+            shorthandResolvers.Put(CssConstants.BORDER_LEFT, new BorderLeftShorthandResolver());
+            shorthandResolvers.Put(CssConstants.BORDER_RIGHT, new BorderRightShorthandResolver());
+            shorthandResolvers.Put(CssConstants.BORDER_STYLE, new BorderStyleShorthandResolver());
+            shorthandResolvers.Put(CssConstants.BORDER_TOP, new BorderTopShorthandResolver());
+            shorthandResolvers.Put(CssConstants.BORDER_WIDTH, new BorderWidthShorthandResolver());
+            shorthandResolvers.Put(CssConstants.FONT, new FontShorthandResolver());
+            shorthandResolvers.Put(CssConstants.LIST_STYLE, new ListStyleShorthandResolver());
+            shorthandResolvers.Put(CssConstants.MARGIN, new MarginShorthandResolver());
+            shorthandResolvers.Put(CssConstants.OUTLINE, new OutlineShorthandResolver());
+            shorthandResolvers.Put(CssConstants.PADDING, new PaddingShorthandResolver());
         }
 
         // TODO text-decoration is a shorthand in CSS3, however it is not yet supported in any major browsers

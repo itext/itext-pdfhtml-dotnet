@@ -252,7 +252,7 @@ namespace Org.Jsoup.Safety {
                 currentSet.AddAll(attributeSet);
             }
             else {
-                attributes[tagName] = attributeSet;
+                attributes.Put(tagName, attributeSet);
             }
             return this;
         }
@@ -330,13 +330,13 @@ namespace Org.Jsoup.Safety {
             Whitelist.AttributeKey attrKey = Whitelist.AttributeKey.ValueOf(key);
             Whitelist.AttributeValue attrVal = Whitelist.AttributeValue.ValueOf(value);
             if (enforcedAttributes.ContainsKey(tagName)) {
-                enforcedAttributes.Get(tagName)[attrKey] = attrVal;
+                enforcedAttributes.Get(tagName).Put(attrKey, attrVal);
             }
             else {
                 IDictionary<Whitelist.AttributeKey, Whitelist.AttributeValue> attrMap = new Dictionary<Whitelist.AttributeKey
                     , Whitelist.AttributeValue>();
-                attrMap[attrKey] = attrVal;
-                enforcedAttributes[tagName] = attrMap;
+                attrMap.Put(attrKey, attrVal);
+                enforcedAttributes.Put(tagName, attrMap);
             }
             return this;
         }
@@ -427,14 +427,14 @@ namespace Org.Jsoup.Safety {
             }
             else {
                 attrMap = new Dictionary<Whitelist.AttributeKey, ICollection<Whitelist.Protocol>>();
-                this.protocols[tagName] = attrMap;
+                this.protocols.Put(tagName, attrMap);
             }
             if (attrMap.ContainsKey(attrKey)) {
                 protSet = attrMap.Get(attrKey);
             }
             else {
                 protSet = new HashSet<Whitelist.Protocol>();
-                attrMap[attrKey] = protSet;
+                attrMap.Put(attrKey, protSet);
             }
             foreach (String protocol in protocols) {
                 Validate.NotEmpty(protocol);

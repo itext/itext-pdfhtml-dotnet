@@ -125,7 +125,7 @@ namespace iText.Html2pdf.Css {
         private static void PutDeclarationInMapIfValid(IDictionary<String, CssDeclaration> stylesMap, CssDeclaration
              cssDeclaration) {
             if (CssDeclarationValidationMaster.CheckDeclaration(cssDeclaration)) {
-                stylesMap[cssDeclaration.GetProperty()] = cssDeclaration;
+                stylesMap.Put(cssDeclaration.GetProperty(), cssDeclaration);
             }
             else {
                 ILogger logger = LoggerFactory.GetLogger(typeof(DefaultCssResolver));

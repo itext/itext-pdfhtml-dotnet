@@ -90,7 +90,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 foreach (String key in supportedKeys) {
                     String value = map.Get(key);
                     if (value != null) {
-                        result[key] = value;
+                        result.Put(key, value);
                     }
                 }
             }
