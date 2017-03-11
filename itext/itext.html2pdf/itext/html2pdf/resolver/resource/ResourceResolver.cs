@@ -44,6 +44,7 @@ using System.IO;
 using iText.IO.Codec;
 using iText.IO.Image;
 using iText.IO.Log;
+using iText.IO.Util;
 using iText.Kernel.Pdf.Xobject;
 
 namespace iText.Html2pdf.Resolver.Resource {
@@ -97,6 +98,7 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
             try {
                 Uri url = uriResolver.ResolveAgainstBaseUri(src);
+                url = UrlUtil.GetFinalUrl(url);
                 String imageResolvedSrc = url.ToExternalForm();
                 PdfImageXObject imageXObject = imageCache.GetImage(imageResolvedSrc);
                 if (imageXObject == null) {
