@@ -41,13 +41,13 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
-using System.Text;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
+using iText.Kernel.Numbering;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Element;
@@ -229,19 +229,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             public virtual IElement CreateSymbol(int index, IPropertyContainer list, IPropertyContainer listItem) {
                 Object preValue = GetListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_PRE_TEXT);
                 Object postValue = GetListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_POST_TEXT);
-                --index;
-                Text result = new Text(preValue + GetUnicodeString(index, alphabet) + postValue);
+                Text result = new Text(preValue + AlphabetNumbering.ToAlphabetNumber(index, alphabet) + postValue);
                 return result;
-            }
-
-            private static String GetUnicodeString(int number, char[] alphabet) {
-                StringBuilder builder = new StringBuilder();
-                do {
-                    builder.Append(alphabet[(number % alphabet.Length)]);
-                    number /= alphabet.Length;
-                }
-                while (number > 0);
-                return ((StringBuilder)builder.Reverse()).ToString();
             }
 
             private static Object GetListItemOrListProperty(IPropertyContainer listItem, IPropertyContainer list, int 
