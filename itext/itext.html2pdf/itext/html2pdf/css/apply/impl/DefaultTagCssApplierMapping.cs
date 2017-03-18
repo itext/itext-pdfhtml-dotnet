@@ -127,13 +127,16 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.DD, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.DT, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.SPAN, CssConstants.BLOCK, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.A, CssConstants.BLOCK, typeof(BlockCssApplier));
             // pseudo elements mapping
-            String beforePseudoElemName = CssPseudoElementNode.CreatePseudoElementTagName(CssConstants.BEFORE);
-            String afterPseudoElemName = CssPseudoElementNode.CreatePseudoElementTagName(CssConstants.AFTER);
+            String beforePseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.BEFORE);
+            String afterPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.AFTER);
             mapping.PutMapping(beforePseudoElemName, typeof(SpanTagCssApplier));
             mapping.PutMapping(afterPseudoElemName, typeof(SpanTagCssApplier));
             mapping.PutMapping(beforePseudoElemName, CssConstants.BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(afterPseudoElemName, CssConstants.BLOCK, typeof(BlockCssApplier));
+            mapping.PutMapping(CssPseudoElementUtil.CreatePseudoElementTagName(TagConstants.IMG), typeof(BlockCssApplier
+                ));
         }
 
         internal static TagProcessorMapping GetDefaultCssApplierMapping() {

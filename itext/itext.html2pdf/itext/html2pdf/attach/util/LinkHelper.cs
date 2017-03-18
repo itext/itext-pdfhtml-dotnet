@@ -40,31 +40,29 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Util;
-using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Action;
+using iText.Kernel.Pdf.Annot;
 using iText.Layout;
 using iText.Layout.Properties;
 
-namespace iText.Html2pdf.Attach.Impl.Tags {
-    public class ATagWorker : SpanTagWorker {
-        public ATagWorker(IElementNode element, ProcessorContext context)
-            : base(element, context) {
-        }
-
-        public override void ProcessEnd(IElementNode element, ProcessorContext context) {
-            base.ProcessEnd(element, context);
-            String url = element.GetAttribute(AttributeConstants.HREF);
-            if (url != null) {
-                foreach (IPropertyContainer childElement in GetAllElements()) {
-                    LinkHelper.ApplyLinkAnnotation(childElement, url);
+namespace iText.Html2pdf.Attach.Util {
+    public class LinkHelper {
+        public static void ApplyLinkAnnotation(IPropertyContainer container, String url) {
+            if (container != null) {
+                PdfLinkAnnotation linkAnnotation;
+                if (url.StartsWith("#")) {
+                    String name = url.Substring(1);
+                    linkAnnotation = ((PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.
+                        CreateGoTo(name)));
                 }
-            }
-            if (!GetAllElements().IsEmpty()) {
-                String name = element.GetAttribute(AttributeConstants.NAME);
-                IPropertyContainer firstElement = GetAllElements()[0];
-                firstElement.SetProperty(Property.DESTINATION, name);
+                else {
+                    linkAnnotation = ((PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.
+                        CreateURI(url)));
+                }
+                linkAnnotation.SetBorder(new PdfArray(new float[] { 0, 0, 0 }));
+                container.SetProperty(Property.LINK_ANNOTATION, linkAnnotation);
             }
         }
     }

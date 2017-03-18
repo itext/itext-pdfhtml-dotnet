@@ -40,32 +40,21 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Util;
-using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
-using iText.Layout;
-using iText.Layout.Properties;
 
-namespace iText.Html2pdf.Attach.Impl.Tags {
-    public class ATagWorker : SpanTagWorker {
-        public ATagWorker(IElementNode element, ProcessorContext context)
-            : base(element, context) {
+namespace iText.Html2pdf.Css.Pseudo {
+    public class CssPseudoElementUtil {
+        private const String TAG_NAME_PREFIX = "pseudo-element::";
+
+        public static String CreatePseudoElementTagName(String pseudoElementName) {
+            return TAG_NAME_PREFIX + pseudoElementName;
         }
 
-        public override void ProcessEnd(IElementNode element, ProcessorContext context) {
-            base.ProcessEnd(element, context);
-            String url = element.GetAttribute(AttributeConstants.HREF);
-            if (url != null) {
-                foreach (IPropertyContainer childElement in GetAllElements()) {
-                    LinkHelper.ApplyLinkAnnotation(childElement, url);
-                }
+        public static bool HasBeforeAfterElements(IElementNode node) {
+            if (node == null || node is CssPseudoElementUtil || node.Name().StartsWith(TAG_NAME_PREFIX)) {
+                return false;
             }
-            if (!GetAllElements().IsEmpty()) {
-                String name = element.GetAttribute(AttributeConstants.NAME);
-                IPropertyContainer firstElement = GetAllElements()[0];
-                firstElement.SetProperty(Property.DESTINATION, name);
-            }
+            return true;
         }
     }
 }

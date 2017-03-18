@@ -42,35 +42,31 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Util;
 
-namespace iText.Html2pdf.Css.Pseudo {
-    public class CssPseudoElementNode : CssContextNode, IElementNode {
-        private String pseudoElementName;
+namespace iText.Html2pdf.Css.Resolve {
+    internal class CssContentElementNode : CssContextNode, IElementNode {
+        private CssContentElementNode.Attributes attributes;
 
-        private String pseudoElementTagName;
+        private String tagName;
 
-        public CssPseudoElementNode(INode parentNode, String pseudoElementName)
+        public CssContentElementNode(INode parentNode, String pseudoElementName, IDictionary<String, String> attributes)
             : base(parentNode) {
-            this.pseudoElementName = pseudoElementName;
-            this.pseudoElementTagName = CssPseudoElementUtil.CreatePseudoElementTagName(pseudoElementName);
-        }
-
-        public virtual String GetPseudoElementName() {
-            return pseudoElementName;
+            this.tagName = CssPseudoElementUtil.CreatePseudoElementTagName(pseudoElementName);
+            this.attributes = new CssContentElementNode.Attributes(attributes);
         }
 
         public virtual String Name() {
-            return pseudoElementTagName;
+            return tagName;
         }
 
         public virtual IAttributes GetAttributes() {
-            return new CssPseudoElementNode.AttributesStub(this);
+            return attributes;
         }
 
         public virtual String GetAttribute(String key) {
-            return null;
+            return attributes.GetAttribute(key);
         }
 
         public virtual IList<IDictionary<String, String>> GetAdditionalHtmlStyles() {
@@ -78,41 +74,83 @@ namespace iText.Html2pdf.Css.Pseudo {
         }
 
         public virtual void AddAdditionalHtmlStyles(IDictionary<String, String> styles) {
-            throw new NotSupportedException();
+            throw new NotSupportedException("addAdditionalHtmlStyles");
         }
 
         public virtual String GetLang() {
             return null;
         }
 
-        private class AttributesStub : IAttributes {
+        private class Attributes : IAttributes {
+            private IDictionary<String, String> attributes;
+
+            public Attributes(IDictionary<String, String> attributes) {
+                this.attributes = attributes;
+            }
+
             public virtual String GetAttribute(String key) {
-                return null;
+                return this.attributes.Get(key);
             }
 
             public virtual void SetAttribute(String key, String value) {
-                throw new NotSupportedException();
+                throw new NotSupportedException("setAttribute");
             }
 
             public virtual int Size() {
-                return 0;
+                return this.attributes.Count;
+            }
+            
+            public IEnumerator<IAttribute> GetEnumerator() {
+                return new CssContentElementNode.AttributeIterator(this.attributes.GetEnumerator());
             }
 
-            public IEnumerator<IAttribute> GetEnumerator()
-            {
-                return JavaCollectionsUtil.EmptyIterator<IAttribute>();
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
+            IEnumerator IEnumerable.GetEnumerator() {
                 return GetEnumerator();
             }
+        }
 
-            internal AttributesStub(CssPseudoElementNode _enclosing) {
-                this._enclosing = _enclosing;
+        private class Attribute : IAttribute {
+            private KeyValuePair<String, String> entry;
+
+            public Attribute(KeyValuePair<String, String> entry) {
+                this.entry = entry;
             }
 
-            private readonly CssPseudoElementNode _enclosing;
+            public virtual String GetKey() {
+                return this.entry.Key;
+            }
+
+            public virtual String GetValue() {
+                return this.entry.Value;
+            }
+        }
+
+        private class AttributeIterator : IEnumerator<IAttribute> {
+            private IEnumerator<KeyValuePair<String, String>> iterator;
+
+            public AttributeIterator(IEnumerator<KeyValuePair<String, String>> iterator) {
+                this.iterator = iterator;
+            }
+
+            public void Dispose() {
+                iterator.Dispose();
+            }
+            
+            public bool MoveNext() {
+                return iterator.MoveNext();
+            }
+            
+            public void Reset() {
+                iterator.Reset();
+            }
+
+            public IAttribute Current {
+                get { return new Attribute(iterator.Current); }
+            }
+
+            object IEnumerator.Current {
+                get { return Current; }
+            }
         }
     }
 }

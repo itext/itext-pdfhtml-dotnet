@@ -253,11 +253,11 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (tagWorker is HtmlTagWorker) {
                     ((HtmlTagWorker)tagWorker).ProcessPageRules(node, cssResolver, context);
                 }
-                VisitPseudoElement(node, CssConstants.BEFORE);
+                VisitPseudoElement(element, CssConstants.BEFORE);
                 foreach (INode childNode in element.ChildNodes()) {
                     Visit(childNode);
                 }
-                VisitPseudoElement(node, CssConstants.AFTER);
+                VisitPseudoElement(element, CssConstants.AFTER);
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
                     context.GetState().Pop();
@@ -386,8 +386,8 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
-        private void VisitPseudoElement(INode node, String pseudoElementName) {
-            if (!(node is CssPseudoElementNode)) {
+        private void VisitPseudoElement(IElementNode node, String pseudoElementName) {
+            if (CssPseudoElementUtil.HasBeforeAfterElements(node)) {
                 Visit(new CssPseudoElementNode(node, pseudoElementName));
             }
         }
@@ -427,13 +427,13 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (element.ChildNodes().IsEmpty()) {
                     return false;
                 }
-                bool hasStyles = element.GetStyles() != null;
-                String positionVal = hasStyles ? element.GetStyles().Get(CssConstants.POSITION) : null;
-                String displayVal = hasStyles ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
-                return element.ChildNodes()[0] is ITextNode && !String.IsNullOrEmpty(((ITextNode)element.ChildNodes()[0]).
-                    WholeText()) || CssConstants.ABSOLUTE.Equals(positionVal) || CssConstants.FIXED.Equals(positionVal) ||
-                     displayVal != null && !CssConstants.INLINE.Equals(displayVal);
             }
+            //            boolean hasStyles = element.getStyles() != null;
+            //            String positionVal = hasStyles ? element.getStyles().get(CssConstants.POSITION) : null;
+            //            String displayVal = hasStyles ? element.getStyles().get(CssConstants.DISPLAY) : null;
+            //            return element.childNodes().get(0) instanceof ITextNode && !((ITextNode) element.childNodes().get(0)).wholeText().isEmpty()
+            //                    || CssConstants.ABSOLUTE.equals(positionVal) || CssConstants.FIXED.equals(positionVal)
+            //                    || displayVal != null && !CssConstants.INLINE.equals(displayVal);
             return element != null;
         }
     }

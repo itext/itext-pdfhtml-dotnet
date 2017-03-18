@@ -131,13 +131,16 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.DD, CssConstants.INLINE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.DT, CssConstants.INLINE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SPAN, CssConstants.BLOCK, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.A, CssConstants.BLOCK, typeof(ABlockTagWorker));
             // pseudo elements mapping
-            String beforePseudoElemName = CssPseudoElementNode.CreatePseudoElementTagName(CssConstants.BEFORE);
-            String afterPseudoElemName = CssPseudoElementNode.CreatePseudoElementTagName(CssConstants.AFTER);
+            String beforePseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.BEFORE);
+            String afterPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.AFTER);
             workerMapping.PutMapping(beforePseudoElemName, typeof(SpanTagWorker));
             workerMapping.PutMapping(afterPseudoElemName, typeof(SpanTagWorker));
             workerMapping.PutMapping(beforePseudoElemName, CssConstants.BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(afterPseudoElemName, CssConstants.BLOCK, typeof(DivTagWorker));
+            workerMapping.PutMapping(CssPseudoElementUtil.CreatePseudoElementTagName(TagConstants.IMG), typeof(ImgTagWorker
+                ));
         }
 
         internal static TagProcessorMapping GetDefaultTagWorkerMapping() {

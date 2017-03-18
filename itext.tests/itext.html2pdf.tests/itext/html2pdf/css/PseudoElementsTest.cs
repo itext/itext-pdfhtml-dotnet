@@ -158,8 +158,8 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1049")]
         public virtual void CollapsingMarginsBeforeAfterPseudo03() {
+            //TODO: incorrect behaviour because of trimmed non-breakable space
             RunTest("collapsingMarginsBeforeAfterPseudo03");
         }
 
@@ -194,7 +194,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1049")]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void ImgPseudoTest01() {
             // width and height properties doesn't affect image in pseudo element
             RunTest("imgPseudoTest01");
@@ -203,9 +203,65 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1049")]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
         public virtual void ImgPseudoTest02() {
             RunTest("imgPseudoTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT)]
+        public virtual void ImgPseudoTest03() {
+            //TODO: not correct
+            RunTest("imgPseudoTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void ImgPseudoTest04() {
+            RunTest("imgPseudoTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
+        public virtual void ImgPseudoTest05() {
+            //img element created in the process of resolving content isn't affected by img selector in css.
+            RunTest("imgPseudoTest05");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EscapedStringTest01() {
+            RunTest("escapedStringTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EscapedStringTest02() {
+            RunTest("escapedStringTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EscapedStringTest03() {
+            RunTest("escapedStringTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 5)]
+        public virtual void AttrTest01() {
+            RunTest("attrTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>

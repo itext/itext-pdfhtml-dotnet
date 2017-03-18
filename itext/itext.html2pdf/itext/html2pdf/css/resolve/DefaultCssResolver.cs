@@ -147,9 +147,12 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private void ResolveContentProperty(String contentVal, INode contentContainer, CssContext context) {
             if (contentContainer is CssPseudoElementNode || contentContainer is PageMarginBoxContextNode) {
-                INode resolvedContent = CssContentPropertyResolver.ResolveContent(contentVal, contentContainer, context);
+                IList<INode> resolvedContent = CssContentPropertyResolver.ResolveContent(contentVal, contentContainer, context
+                    );
                 if (resolvedContent != null) {
-                    contentContainer.AddChild(resolvedContent);
+                    foreach (INode child in resolvedContent) {
+                        contentContainer.AddChild(child);
+                    }
                 }
             }
         }

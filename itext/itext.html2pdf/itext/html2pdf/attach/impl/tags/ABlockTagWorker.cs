@@ -44,12 +44,11 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
-using iText.Layout;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    public class ATagWorker : SpanTagWorker {
-        public ATagWorker(IElementNode element, ProcessorContext context)
+    public class ABlockTagWorker : DivTagWorker {
+        public ABlockTagWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {
         }
 
@@ -57,14 +56,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             base.ProcessEnd(element, context);
             String url = element.GetAttribute(AttributeConstants.HREF);
             if (url != null) {
-                foreach (IPropertyContainer childElement in GetAllElements()) {
-                    LinkHelper.ApplyLinkAnnotation(childElement, url);
-                }
+                LinkHelper.ApplyLinkAnnotation(GetElementResult(), url);
             }
-            if (!GetAllElements().IsEmpty()) {
+            if (GetElementResult() != null) {
                 String name = element.GetAttribute(AttributeConstants.NAME);
-                IPropertyContainer firstElement = GetAllElements()[0];
-                firstElement.SetProperty(Property.DESTINATION, name);
+                GetElementResult().SetProperty(Property.DESTINATION, name);
             }
         }
     }
