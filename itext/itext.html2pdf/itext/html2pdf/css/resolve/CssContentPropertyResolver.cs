@@ -52,14 +52,17 @@ using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
     internal class CssContentPropertyResolver {
-        internal static IList<INode> ResolveContent(String contentStr, INode contentContainer, CssContext context) {
+        internal static IList<INode> ResolveContent(IDictionary<String, String> styles, INode contentContainer, CssContext
+             context) {
+            String contentStr = styles.Get(CssConstants.CONTENT);
             List<INode> result = new List<INode>();
             if (contentStr == null || CssConstants.NONE.Equals(contentStr) || CssConstants.NORMAL.Equals(contentStr)) {
                 return null;
             }
-            CssContentPropertyResolver.ContentListTokenizer tokenizer = new CssContentPropertyResolver.ContentListTokenizer
-                (contentStr);
+            CssContentPropertyResolver.ContentTokenizer tokenizer = new CssContentPropertyResolver.ContentTokenizer(contentStr
+                );
             CssContentPropertyResolver.ContentToken token;
+            CssContentPropertyResolver.CssQuotes quotes = null;
             while ((token = tokenizer.GetNextValidToken()) != null) {
                 if (!token.IsString()) {
                     if (token.GetValue().StartsWith("url(")) {
@@ -78,12 +81,24 @@ namespace iText.Html2pdf.Css.Resolve {
                                     return ErrorFallback(contentStr);
                                 }
                                 IElementNode element = (IElementNode)contentContainer.ParentNode();
-                                result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, element.GetAttribute(attrName)
-                                    ));
+                                String value = element.GetAttribute(attrName);
+                                result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value == null ? "" : value));
                             }
                         }
                         else {
-                            return ErrorFallback(contentStr);
+                            if (token.GetValue().EndsWith("quote") && contentContainer is IStylesContainer) {
+                                if (quotes == null) {
+                                    quotes = new CssContentPropertyResolver.CssQuotes(styles.Get(CssConstants.QUOTES));
+                                }
+                                String value = quotes.ResolveQuote(token.GetValue(), context);
+                                if (value == null) {
+                                    return ErrorFallback(contentStr);
+                                }
+                                result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value));
+                            }
+                            else {
+                                return ErrorFallback(contentStr);
+                            }
                         }
                     }
                 }
@@ -131,7 +146,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
-        private class ContentListTokenizer {
+        private class ContentTokenizer {
             private String src;
 
             private int index;
@@ -140,7 +155,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
             private bool inString;
 
-            public ContentListTokenizer(String src) {
+            public ContentTokenizer(String src) {
                 this.src = src;
                 index = -1;
             }
@@ -261,6 +276,99 @@ namespace iText.Html2pdf.Css.Resolve {
 
             public override String ToString() {
                 return value;
+            }
+        }
+
+        private class CssQuotes {
+            private const String EMPTY_QUOTE = "";
+
+            private List<String> openQuotes = new List<String>();
+
+            private List<String> closeQuotes = new List<String>();
+
+            public CssQuotes(String quotes) {
+                if (quotes == null) {
+                    DefaultInit();
+                }
+                else {
+                    CssContentPropertyResolver.ContentTokenizer tokenizer = new CssContentPropertyResolver.ContentTokenizer(quotes
+                        );
+                    CssContentPropertyResolver.ContentToken token;
+                    List<String> quotesArray;
+                    for (int i = 0; ((token = tokenizer.GetNextValidToken()) != null); ++i) {
+                        quotesArray = i % 2 == 0 ? openQuotes : closeQuotes;
+                        if (token.IsString()) {
+                            quotesArray.Add(token.GetValue());
+                        }
+                        else {
+                            DefaultInit(quotes);
+                            break;
+                        }
+                    }
+                    if (openQuotes.Count != closeQuotes.Count || openQuotes.Count == 0) {
+                        DefaultInit(quotes);
+                    }
+                }
+            }
+
+            public virtual String ResolveQuote(String value, CssContext context) {
+                int depth = context.GetQuotesDepth();
+                if (CssConstants.OPEN_QUOTE.Equals(value)) {
+                    IncreaseDepth(context);
+                    return GetQuote(depth, openQuotes);
+                }
+                else {
+                    if (CssConstants.CLOSE_QUOTE.Equals(value)) {
+                        DecreaseDepth(context);
+                        return GetQuote(depth - 1, closeQuotes);
+                    }
+                    else {
+                        if (CssConstants.NO_OPEN_QUOTE.Equals(value)) {
+                            IncreaseDepth(context);
+                            return EMPTY_QUOTE;
+                        }
+                        else {
+                            if (CssConstants.NO_CLOSE_QUOTE.Equals(value)) {
+                                DecreaseDepth(context);
+                                return EMPTY_QUOTE;
+                            }
+                        }
+                    }
+                }
+                return null;
+            }
+
+            private void DefaultInit() {
+                openQuotes.Clear();
+                openQuotes.Add("\u00ab");
+                closeQuotes.Clear();
+                closeQuotes.Add("\u00bb");
+            }
+
+            private void DefaultInit(String errorValue) {
+                LoggerFactory.GetLogger(GetType()).Error(String.Format(iText.Html2pdf.LogMessageConstant.QUOTES_PROPERTY_INVALID
+                    , errorValue));
+                DefaultInit();
+            }
+
+            private void IncreaseDepth(CssContext context) {
+                context.SetQuotesDepth(context.GetQuotesDepth() + 1);
+            }
+
+            private void DecreaseDepth(CssContext context) {
+                if (context.GetQuotesDepth() > 0) {
+                    context.SetQuotesDepth(context.GetQuotesDepth() - 1);
+                }
+            }
+
+            private String GetQuote(int depth, List<String> quotes) {
+                if (depth >= quotes.Count) {
+                    return quotes[quotes.Count - 1];
+                }
+                if (depth < 0) {
+                    return EMPTY_QUOTE;
+                }
+                return quotes[depth];
             }
         }
     }

@@ -49,28 +49,68 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
+using iText.Test.Attributes;
 
-namespace iText.Html2pdf.Element {
-    public class QTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/QTest/";
-
+namespace iText.Html2pdf.Css {
+    public class QuotesTest : ExtendedITextTest {
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/element/QTest/";
+             + "/test/itext/html2pdf/css/QuotesTest/";
+
+        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/QuotesTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void Q01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "qTest01.html"), new FileInfo(destinationFolder + "qTest01.pdf"
+        public virtual void DepthTest01() {
+            RunTest("depthTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DepthTest02() {
+            RunTest("depthTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EscapedTest() {
+            RunTest("escapedTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void NoQuoteTest() {
+            RunTest("noQuoteTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.QUOTES_PROPERTY_INVALID, Count = 2)]
+        public virtual void ErrorTest() {
+            //TODO: in case of error we fallback to defaults while html fallbacks to previous correct value
+            RunTest("errorTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String name) {
+            String htmlPath = sourceFolder + name + ".html";
+            String pdfPath = destinationFolder + name + ".pdf";
+            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+            String diffPrefix = "diff_" + name + "_";
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
                 ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "qTest01.pdf", sourceFolder
-                 + "cmp_qTest01.pdf", destinationFolder, "diff01_"));
         }
     }
 }

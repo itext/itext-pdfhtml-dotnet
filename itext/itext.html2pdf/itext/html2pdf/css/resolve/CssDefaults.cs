@@ -104,6 +104,7 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues.Put(CssConstants.PAGE_BREAK_BEFORE, CssConstants.AUTO);
             defaultValues.Put(CssConstants.PAGE_BREAK_INSIDE, CssConstants.AUTO);
             defaultValues.Put(CssConstants.POSITION, CssConstants.STATIC);
+            defaultValues.Put(CssConstants.QUOTES, "\"\\00ab\" \"\\00bb\"");
             defaultValues.Put(CssConstants.TEXT_ALIGN, CssConstants.START);
             defaultValues.Put(CssConstants.TEXT_DECORATION, CssConstants.NONE);
             defaultValues.Put(CssConstants.TEXT_TRANSFORM, CssConstants.NONE);

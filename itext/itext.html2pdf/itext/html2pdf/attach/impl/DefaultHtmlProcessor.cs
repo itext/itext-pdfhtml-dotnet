@@ -252,6 +252,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
                 if (tagWorker is HtmlTagWorker) {
                     ((HtmlTagWorker)tagWorker).ProcessPageRules(node, cssResolver, context);
+                    context.GetCssContext().SetQuotesDepth(0);
                 }
                 VisitPseudoElement(element, CssConstants.BEFORE);
                 foreach (INode childNode in element.ChildNodes()) {

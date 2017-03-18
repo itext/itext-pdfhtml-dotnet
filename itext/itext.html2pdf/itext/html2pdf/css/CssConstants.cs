@@ -314,6 +314,8 @@ namespace iText.Html2pdf.Css {
 
         public const String CJK_IDEOGRAPHIC = "cjk-ideographic";
 
+        public const String CLOSE_QUOTE = "close-quote";
+
         public const String CONTAIN = "contain";
 
         public const String CONTENT_BOX = "content-box";
@@ -402,6 +404,10 @@ namespace iText.Html2pdf.Css {
 
         public const String MIDDLE = "middle";
 
+        public const String NO_OPEN_QUOTE = "no-open-quote";
+
+        public const String NO_CLOSE_QUOTE = "no-close-quote";
+
         public const String NO_REPEAT = "no-repeat";
 
         public const String NONE = "none";
@@ -409,6 +415,8 @@ namespace iText.Html2pdf.Css {
         public const String NORMAL = "normal";
 
         public const String OBLIQUE = "oblique";
+
+        public const String OPEN_QUOTE = "open-quote";
 
         public const String OUTSIDE = "outside";
 

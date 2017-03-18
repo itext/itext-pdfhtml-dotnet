@@ -51,7 +51,7 @@ namespace iText.Html2pdf.Css.Pseudo {
         }
 
         public static bool HasBeforeAfterElements(IElementNode node) {
-            if (node == null || node is CssPseudoElementUtil || node.Name().StartsWith(TAG_NAME_PREFIX)) {
+            if (node == null || node is CssPseudoElementNode || node.Name().StartsWith(TAG_NAME_PREFIX)) {
                 return false;
             }
             return true;

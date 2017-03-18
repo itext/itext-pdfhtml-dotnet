@@ -48,6 +48,8 @@ namespace iText.Html2pdf.Css.Resolve {
         private float rootFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants
             .FONT_SIZE));
 
+        private int quotesDepth = 0;
+
         //value in pt
         public virtual float GetRootFontSize() {
             return rootFontSize;
@@ -59,6 +61,14 @@ namespace iText.Html2pdf.Css.Resolve {
 
         public virtual void SetRootFontSize(String fontSizeStr) {
             this.rootFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(fontSizeStr);
+        }
+
+        public virtual int GetQuotesDepth() {
+            return quotesDepth;
+        }
+
+        public virtual void SetQuotesDepth(int quotesDepth) {
+            this.quotesDepth = quotesDepth;
         }
     }
 }

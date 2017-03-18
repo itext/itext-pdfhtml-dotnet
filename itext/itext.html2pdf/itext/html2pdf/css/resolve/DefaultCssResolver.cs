@@ -137,7 +137,7 @@ namespace iText.Html2pdf.Css.Resolve {
             foreach (String key in keys) {
                 elementStyles.Put(key, CssDefaults.GetDefaultValue(key));
             }
-            ResolveContentProperty(elementStyles.Get(CssConstants.CONTENT), element, context);
+            ResolveContentProperty(elementStyles, element, context);
             return elementStyles;
         }
 
@@ -145,9 +145,10 @@ namespace iText.Html2pdf.Css.Resolve {
             return fonts;
         }
 
-        private void ResolveContentProperty(String contentVal, INode contentContainer, CssContext context) {
+        private void ResolveContentProperty(IDictionary<String, String> styles, INode contentContainer, CssContext
+             context) {
             if (contentContainer is CssPseudoElementNode || contentContainer is PageMarginBoxContextNode) {
-                IList<INode> resolvedContent = CssContentPropertyResolver.ResolveContent(contentVal, contentContainer, context
+                IList<INode> resolvedContent = CssContentPropertyResolver.ResolveContent(styles, contentContainer, context
                     );
                 if (resolvedContent != null) {
                     foreach (INode child in resolvedContent) {
