@@ -57,6 +57,7 @@ using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Font;
 using iText.Layout.Properties;
 using System.Collections.Generic;
 using System.Reflection;
@@ -82,6 +83,8 @@ namespace iText.Html2pdf.Attach.Impl {
         private IList<IPropertyContainer> roots;
 
         private ICssResolver cssResolver;
+
+        private ICollection<FontInfo> temporaryFonts;
 
         public DefaultHtmlProcessor(ConverterProperties converterProperties) {
             // The tags that do not map into any workers and are deliberately excluded from the logging
@@ -121,6 +124,7 @@ namespace iText.Html2pdf.Attach.Impl {
             context.Reset();
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context.GetDeviceDescription(), context.GetResourceResolver());
+            AppendCssFonts();
             IElementNode html = FindHtmlNode(root);
             IElementNode body = FindBodyNode(root);
             // Force resolve styles to fetch default font size etc
@@ -145,6 +149,7 @@ namespace iText.Html2pdf.Attach.Impl {
                     elements.Add((IElement)propertyContainer);
                 }
             }
+            RevertCssFonts();
             cssResolver = null;
             roots = null;
             return elements;
@@ -222,9 +227,11 @@ namespace iText.Html2pdf.Attach.Impl {
             // TODO store html version from document type in context if necessary
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context.GetDeviceDescription(), context.GetResourceResolver());
+            AppendCssFonts();
             root = FindHtmlNode(root);
             Visit(root);
             Document doc = (Document)roots[0];
+            RevertCssFonts();
             cssResolver = null;
             roots = null;
             return doc;
@@ -299,6 +306,32 @@ namespace iText.Html2pdf.Attach.Impl {
                             logger.Error(iText.Html2pdf.LogMessageConstant.NO_CONSUMER_FOUND_FOR_CONTENT);
                         }
                     }
+                }
+            }
+        }
+
+        /// <summary>Adds @font-face fonts to the FontProvider.</summary>
+        protected internal virtual void AppendCssFonts() {
+            if (!(cssResolver is DefaultCssResolver)) {
+                return;
+            }
+            //TODO Shall we add getFonts() to ICssResolver?
+            foreach (CssFontFaceRule fontFace in ((DefaultCssResolver)cssResolver).GetFonts()) {
+            }
+        }
+
+        //TODO
+        // 1. Check required font-family (alias)
+        // 2. parse src
+        // 3. check local (e.g. already loaded to FontProvider fonts)
+        // 4. Create FontInfo, add alias
+        // 5. save to temporaryFonts.
+        /// <summary>Revert local @font-face fonts.</summary>
+        protected internal virtual void RevertCssFonts() {
+            if (temporaryFonts != null) {
+                FontSet fontSet = context.GetFontProvider().GetFontSet();
+                foreach (FontInfo fontInfo in temporaryFonts) {
+                    fontSet.Remove(fontInfo);
                 }
             }
         }

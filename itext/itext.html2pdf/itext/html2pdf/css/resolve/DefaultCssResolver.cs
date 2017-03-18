@@ -141,6 +141,10 @@ namespace iText.Html2pdf.Css.Resolve {
             return elementStyles;
         }
 
+        public virtual IList<CssFontFaceRule> GetFonts() {
+            return fonts;
+        }
+
         private void ResolveContentProperty(String contentVal, INode contentContainer, CssContext context) {
             if (contentContainer is CssPseudoElementNode || contentContainer is PageMarginBoxContextNode) {
                 INode resolvedContent = CssContentPropertyResolver.ResolveContent(contentVal, contentContainer, context);
