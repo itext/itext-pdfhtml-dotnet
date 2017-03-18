@@ -150,7 +150,7 @@ namespace iText.Html2pdf.Attach {
             this.state = new State();
             this.resourceResolver.ResetCache();
             this.cssContext = new CssContext();
-            ResetTemporaryFonts();
+            RemoveTemporaryFonts();
         }
 
         public virtual void Reset(PdfDocument pdfDocument) {
@@ -158,7 +158,7 @@ namespace iText.Html2pdf.Attach {
             this.pdfDocument = pdfDocument;
         }
 
-        private void ResetTemporaryFonts() {
+        private void RemoveTemporaryFonts() {
             foreach (FontInfo fi in tempFonts) {
                 fontProvider.GetFontSet().Remove(fi);
             }

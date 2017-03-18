@@ -81,6 +81,13 @@ namespace iText.Html2pdf.Resolver.Resource {
             this.imageCache = new SimpleImageCache();
         }
 
+        /// <summary>
+        /// Retrieve
+        /// <see cref="iText.Kernel.Pdf.Xobject.PdfImageXObject"/>
+        /// .
+        /// </summary>
+        /// <param name="src">either link to file or base64 encoded stream.</param>
+        /// <returns>PdfImageXObject on success, otherwise null.</returns>
         public virtual PdfImageXObject RetrieveImage(String src) {
             if (src.Contains("base64")) {
                 try {
@@ -118,6 +125,31 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// <exception cref="System.IO.IOException"/>
         public virtual Stream RetrieveStyleSheet(String uri) {
             return iText.IO.Util.UrlUtil.OpenStream(uriResolver.ResolveAgainstBaseUri(uri));
+        }
+
+        /// <summary>Retrieve bytes.</summary>
+        /// <param name="src">either link to file or base64 encoded stream.</param>
+        /// <returns>byte[] on success, otherwise null.</returns>
+        public virtual byte[] RetrieveStream(String src) {
+            if (src.Contains("base64")) {
+                try {
+                    String fixedSrc = iText.IO.Util.StringUtil.ReplaceAll(src, "\\s", "");
+                    fixedSrc = fixedSrc.Substring(fixedSrc.IndexOf("base64", StringComparison.Ordinal) + 7);
+                    return System.Convert.FromBase64String(fixedSrc);
+                }
+                catch (Exception) {
+                }
+            }
+            try {
+                return StreamUtil.InputStreamToArray(iText.IO.Util.UrlUtil.OpenStream(uriResolver.ResolveAgainstBaseUri(src
+                    )));
+            }
+            catch (Exception e) {
+                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Resolver.Resource.ResourceResolver));
+                logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+                    , uriResolver.GetBaseUri(), src), e);
+                return null;
+            }
         }
 
         public virtual void ResetCache() {

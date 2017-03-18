@@ -41,7 +41,6 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
-using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
@@ -338,11 +337,10 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             else {
                 try {
-                    //TODO DEVSIX-1059 update ResourceResolver
-                    Stream stream = context.GetResourceResolver().RetrieveStyleSheet(src.src);
                     // Cache at resource resolver level only, at font level we will create font in any case.
                     // The instance of fontProgram will be collected by GC if the is no need in it.
-                    FontProgram fp = FontProgramFactory.CreateFont(StreamUtil.InputStreamToArray(stream), false);
+                    byte[] bytes = context.GetResourceResolver().RetrieveStream(src.src);
+                    FontProgram fp = FontProgramFactory.CreateFont(bytes, false);
                     context.AddTemporaryFont(fontSet.Add(fp, PdfEncodings.IDENTITY_H, fontFamily));
                     return true;
                 }
