@@ -43,6 +43,7 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Css.Media;
+using iText.IO.Util;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
 using System.Reflection;
@@ -67,7 +68,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1059")]
         public virtual void DroidSerifWebFontTest() {
             RunTest("droidSerifWebFontTest");
         }
@@ -75,7 +75,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1059")]
         public virtual void DroidSerifLocalFontTest() {
             RunTest("droidSerifLocalFontTest");
         }
@@ -83,7 +82,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1059")]
         public virtual void DroidSerifLocalLocalFontTest() {
             RunTest("droidSerifLocalLocalFontTest");
         }
@@ -91,7 +89,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1059")]
         public virtual void DroidSerifLocalWithMediaFontTest() {
             RunTest("droidSerifLocalWithMediaFontTest");
         }
@@ -99,9 +96,15 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1059")]
         public virtual void DroidSerifLocalWithMediaRuleFontTest() {
             RunTest("droidSerifLocalWithMediaRuleFontTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DroidSerifLocalWithMediaRuleFontTest2() {
+            RunTest("droidSerifLocalWithMediaRuleFontTest2");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -111,6 +114,7 @@ namespace iText.Html2pdf.Css {
             String pdfPath = destinationFolder + name + ".pdf";
             String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
             String diffPrefix = "diff_" + name + "_";
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
             HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath), new ConverterProperties().SetMediaDeviceDescription
                 (new MediaDeviceDescription(MediaType.PRINT)));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix

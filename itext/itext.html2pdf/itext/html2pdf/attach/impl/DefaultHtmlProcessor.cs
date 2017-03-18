@@ -326,28 +326,59 @@ namespace iText.Html2pdf.Attach.Impl {
         }
 
         private bool CreateFont(String fontFamily, FontFace.FontFaceSrc src) {
-            FontSet fontSet = context.GetFontProvider().GetFontSet();
-            if (src.isLocal) {
-                // to method with lazy initialization
-                FontInfo fi = fontSet.Get(src.src);
-                if (fi != null) {
-                    context.AddTemporaryFont(fontSet.Add(fi, fontFamily));
-                    return true;
-                }
+            if (!SupportedFontFormat(src.format)) {
+                return false;
             }
             else {
-                try {
-                    // Cache at resource resolver level only, at font level we will create font in any case.
-                    // The instance of fontProgram will be collected by GC if the is no need in it.
-                    byte[] bytes = context.GetResourceResolver().RetrieveStream(src.src);
-                    FontProgram fp = FontProgramFactory.CreateFont(bytes, false);
-                    context.AddTemporaryFont(fontSet.Add(fp, PdfEncodings.IDENTITY_H, fontFamily));
-                    return true;
+                if (src.isLocal) {
+                    // to method with lazy initialization
+                    FontInfo fi = context.GetFontProvider().GetFontSet().Get(src.src);
+                    if (fi != null) {
+                        context.AddTemporaryFont(context.GetFontProvider().GetFontSet().Add(fi, fontFamily));
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
                 }
-                catch (System.IO.IOException) {
+                else {
+                    try {
+                        // Cache at resource resolver level only, at font level we will create font in any case.
+                        // The instance of fontProgram will be collected by GC if the is no need in it.
+                        byte[] bytes = context.GetResourceResolver().RetrieveStream(src.src);
+                        FontProgram fp = FontProgramFactory.CreateFont(bytes, false);
+                        context.AddTemporaryFont(context.GetFontProvider().GetFontSet().Add(fp, PdfEncodings.IDENTITY_H, fontFamily
+                            ));
+                        return true;
+                    }
+                    catch (Exception) {
+                        return false;
+                    }
                 }
             }
-            return false;
+        }
+
+        /// <summary>
+        /// Checks whether in general we support requested font format
+        /// Update after DEVSIX-1148
+        /// </summary>
+        /// <param name="format">
+        /// 
+        /// <see cref="FontFormat"/>
+        /// </param>
+        /// <returns>true, if supported or unrecognized.</returns>
+        private bool SupportedFontFormat(FontFace.FontFormat format) {
+            switch (format) {
+                case FontFace.FontFormat.None:
+                case FontFace.FontFormat.TrueType:
+                case FontFace.FontFormat.OpenType: {
+                    return true;
+                }
+
+                default: {
+                    return false;
+                }
+            }
         }
 
         private void VisitPseudoElement(INode node, String pseudoElementName) {
