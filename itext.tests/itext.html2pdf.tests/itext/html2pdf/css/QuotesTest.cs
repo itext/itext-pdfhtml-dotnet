@@ -95,7 +95,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.QUOTES_PROPERTY_INVALID, Count = 2)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.QUOTES_PROPERTY_INVALID, Count = 4)]
         public virtual void ErrorTest() {
             //TODO: in case of error we fallback to defaults while html fallbacks to previous correct value
             RunTest("errorTest");
