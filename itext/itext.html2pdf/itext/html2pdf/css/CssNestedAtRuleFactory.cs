@@ -80,6 +80,10 @@ namespace iText.Html2pdf.Css {
                     return new CssMarginRule(ruleName, ruleParameters);
                 }
 
+                case CssRuleName.FONT_FACE: {
+                    return new CssFontFaceRule(ruleParameters);
+                }
+
                 default: {
                     return new CssNestedAtRule(ruleName, ruleParameters);
                 }

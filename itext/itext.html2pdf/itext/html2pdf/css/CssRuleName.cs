@@ -81,5 +81,7 @@ namespace iText.Html2pdf.Css {
         public const String TOP_RIGHT = "top-right";
 
         public const String TOP_RIGHT_CORNER = "top-right-corner";
+
+        public const String FONT_FACE = "font-face";
     }
 }

@@ -46,6 +46,11 @@ using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css {
+    /// <summary>
+    /// From the spec:
+    /// Nested at-rules — A subset of nested statements, which can be used as a statement of a style sheet
+    /// as well as inside of conditional group rules.
+    /// </summary>
     public class CssNestedAtRule : CssAtRule {
         private String ruleParameters;
 
@@ -76,6 +81,10 @@ namespace iText.Html2pdf.Css {
                 result.AddAll(childStatement.GetCssRuleSets(node, deviceDescription));
             }
             return result;
+        }
+
+        public virtual IList<CssStatement> GetStatements() {
+            return body;
         }
 
         public override String ToString() {

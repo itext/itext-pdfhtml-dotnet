@@ -62,10 +62,13 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private MediaDeviceDescription deviceDescription;
 
+        private IList<CssFontFaceRule> fonts = new List<CssFontFaceRule>();
+
         public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver 
             resourceResolver) {
             this.deviceDescription = mediaDeviceDescription;
             CollectCssDeclarations(treeRoot, resourceResolver);
+            CollectFonts();
         }
 
         public virtual IDictionary<String, String> ResolveStyles(INode element, CssContext context) {
@@ -225,9 +228,8 @@ namespace iText.Html2pdf.Css.Resolve {
             ) {
             String mediaAttribute = headChildElement.GetAttribute(AttributeConstants.MEDIA);
             if (mediaAttribute != null && mediaAttribute.Length > 0) {
-                IList<CssStatement> statements = styleSheet.GetStatements();
                 CssMediaRule mediaRule = new CssMediaRule(mediaAttribute);
-                mediaRule.AddStatementsToBody(statements);
+                mediaRule.AddStatementsToBody(styleSheet.GetStatements());
                 styleSheet = new CssStyleSheet();
                 styleSheet.AddStatement(mediaRule);
             }
@@ -250,6 +252,25 @@ namespace iText.Html2pdf.Css.Resolve {
                     // then the text in the child will be both overline and underline. This is why the declarations are merged
                     // See TextDecorationTest#textDecoration01Test
                     styles.Put(cssProperty, CssPropertyMerger.MergeTextDecoration(childPropValue, parentPropValue));
+                }
+            }
+        }
+
+        private void CollectFonts() {
+            foreach (CssStatement cssStatement in cssStyleSheet.GetStatements()) {
+                CollectFonts(cssStatement);
+            }
+        }
+
+        private void CollectFonts(CssStatement cssStatement) {
+            if (cssStatement is CssFontFaceRule) {
+                fonts.Add((CssFontFaceRule)cssStatement);
+            }
+            else {
+                if (cssStatement is CssMediaRule && ((CssMediaRule)cssStatement).MatchMediaDevice(deviceDescription)) {
+                    foreach (CssStatement cssSubStatement in ((CssMediaRule)cssStatement).GetStatements()) {
+                        CollectFonts(cssSubStatement);
+                    }
                 }
             }
         }

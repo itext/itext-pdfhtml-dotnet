@@ -41,38 +41,32 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
-using iText.Html2pdf.Css;
-using iText.Html2pdf.Html.Node;
+using System.Text;
 
-namespace iText.Html2pdf.Css.Media {
-    public class CssMediaRule : CssNestedAtRule {
-        private IList<MediaQuery> mediaQueries;
+namespace iText.Html2pdf.Css {
+    public class CssFontFaceRule : CssNestedAtRule {
+        internal IList<CssDeclaration> fontProperties;
 
-        public CssMediaRule(String ruleParameters)
-            : base(CssRuleName.MEDIA, ruleParameters) {
-            mediaQueries = MediaQueryParser.ParseMediaQueries(ruleParameters);
+        protected internal CssFontFaceRule(String ruleParameters)
+            : base(CssRuleName.FONT_FACE, ruleParameters) {
         }
 
-        public override IList<CssRuleSet> GetCssRuleSets(INode element, MediaDeviceDescription deviceDescription) {
-            IList<CssRuleSet> result = new List<CssRuleSet>();
-            foreach (MediaQuery mediaQuery in mediaQueries) {
-                if (mediaQuery.Matches(deviceDescription)) {
-                    foreach (CssStatement childStatement in body) {
-                        result.AddAll(childStatement.GetCssRuleSets(element, deviceDescription));
-                    }
-                    break;
-                }
-            }
-            return result;
+        public override void AddBodyCssDeclarations(IList<CssDeclaration> cssDeclarations) {
+            fontProperties = cssDeclarations;
         }
 
-        public virtual bool MatchMediaDevice(MediaDeviceDescription deviceDescription) {
-            foreach (MediaQuery mediaQuery in mediaQueries) {
-                if (mediaQuery.Matches(deviceDescription)) {
-                    return true;
-                }
+        public override String ToString() {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(String.Format("@{0} ", ruleName));
+            sb.Append("{");
+            sb.Append("\n");
+            foreach (CssDeclaration declaration in fontProperties) {
+                sb.Append("\t");
+                sb.Append(declaration);
+                sb.Append("\n");
             }
-            return false;
+            sb.Append("}");
+            return sb.ToString();
         }
     }
 }
