@@ -41,6 +41,7 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
+using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
@@ -52,6 +53,7 @@ using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Font;
 using iText.IO.Log;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
@@ -83,8 +85,6 @@ namespace iText.Html2pdf.Attach.Impl {
         private IList<IPropertyContainer> roots;
 
         private ICssResolver cssResolver;
-
-        private ICollection<FontInfo> temporaryFonts;
 
         public DefaultHtmlProcessor(ConverterProperties converterProperties) {
             // The tags that do not map into any workers and are deliberately excluded from the logging
@@ -124,7 +124,7 @@ namespace iText.Html2pdf.Attach.Impl {
             context.Reset();
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context.GetDeviceDescription(), context.GetResourceResolver());
-            AppendCssFonts();
+            AddFontFaceFonts();
             IElementNode html = FindHtmlNode(root);
             IElementNode body = FindBodyNode(root);
             // Force resolve styles to fetch default font size etc
@@ -149,7 +149,6 @@ namespace iText.Html2pdf.Attach.Impl {
                     elements.Add((IElement)propertyContainer);
                 }
             }
-            RevertCssFonts();
             cssResolver = null;
             roots = null;
             return elements;
@@ -227,11 +226,10 @@ namespace iText.Html2pdf.Attach.Impl {
             // TODO store html version from document type in context if necessary
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context.GetDeviceDescription(), context.GetResourceResolver());
-            AppendCssFonts();
+            AddFontFaceFonts();
             root = FindHtmlNode(root);
             Visit(root);
             Document doc = (Document)roots[0];
-            RevertCssFonts();
             cssResolver = null;
             roots = null;
             return doc;
@@ -311,29 +309,47 @@ namespace iText.Html2pdf.Attach.Impl {
         }
 
         /// <summary>Adds @font-face fonts to the FontProvider.</summary>
-        protected internal virtual void AppendCssFonts() {
-            if (!(cssResolver is DefaultCssResolver)) {
-                return;
-            }
+        protected internal virtual void AddFontFaceFonts() {
             //TODO Shall we add getFonts() to ICssResolver?
-            foreach (CssFontFaceRule fontFace in ((DefaultCssResolver)cssResolver).GetFonts()) {
+            //TODO DEVSIX-1059 check font removing.
+            if (cssResolver is DefaultCssResolver) {
+                foreach (CssFontFaceRule fontFace in ((DefaultCssResolver)cssResolver).GetFonts()) {
+                    FontFace ff = FontFace.Create(fontFace.GetProperties());
+                    if (ff != null) {
+                        foreach (FontFace.FontFaceSrc src in ff.GetSources()) {
+                            if (CreateFont(ff.GetFontFamily(), src)) {
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        //TODO
-        // 1. Check required font-family (alias)
-        // 2. parse src
-        // 3. check local (e.g. already loaded to FontProvider fonts)
-        // 4. Create FontInfo, add alias
-        // 5. save to temporaryFonts.
-        /// <summary>Revert local @font-face fonts.</summary>
-        protected internal virtual void RevertCssFonts() {
-            if (temporaryFonts != null) {
-                FontSet fontSet = context.GetFontProvider().GetFontSet();
-                foreach (FontInfo fontInfo in temporaryFonts) {
-                    fontSet.Remove(fontInfo);
+        private bool CreateFont(String fontFamily, FontFace.FontFaceSrc src) {
+            FontSet fontSet = context.GetFontProvider().GetFontSet();
+            if (src.isLocal) {
+                // to method with lazy initialization
+                FontInfo fi = fontSet.Get(src.src);
+                if (fi != null) {
+                    context.AddTemporaryFont(fontSet.Add(fi, fontFamily));
+                    return true;
                 }
             }
+            else {
+                try {
+                    //TODO DEVSIX-1059 update ResourceResolver
+                    Stream stream = context.GetResourceResolver().RetrieveStyleSheet(src.src);
+                    // Cache at resource resolver level only, at font level we will create font in any case.
+                    // The instance of fontProgram will be collected by GC if the is no need in it.
+                    FontProgram fp = FontProgramFactory.CreateFont(StreamUtil.InputStreamToArray(stream), false);
+                    context.AddTemporaryFont(fontSet.Add(fp, PdfEncodings.IDENTITY_H, fontFamily));
+                    return true;
+                }
+                catch (System.IO.IOException) {
+                }
+            }
+            return false;
         }
 
         private void VisitPseudoElement(INode node, String pseudoElementName) {

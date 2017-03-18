@@ -45,14 +45,18 @@ using System.Text;
 
 namespace iText.Html2pdf.Css {
     public class CssFontFaceRule : CssNestedAtRule {
-        internal IList<CssDeclaration> fontProperties;
+        internal IList<CssDeclaration> properties;
 
         protected internal CssFontFaceRule(String ruleParameters)
             : base(CssRuleName.FONT_FACE, ruleParameters) {
         }
 
+        public virtual IList<CssDeclaration> GetProperties() {
+            return properties;
+        }
+
         public override void AddBodyCssDeclarations(IList<CssDeclaration> cssDeclarations) {
-            fontProperties = cssDeclarations;
+            properties = cssDeclarations;
         }
 
         public override String ToString() {
@@ -60,7 +64,7 @@ namespace iText.Html2pdf.Css {
             sb.Append(String.Format("@{0} ", ruleName));
             sb.Append("{");
             sb.Append("\n");
-            foreach (CssDeclaration declaration in fontProperties) {
+            foreach (CssDeclaration declaration in properties) {
                 sb.Append("\t");
                 sb.Append(declaration);
                 sb.Append("\n");

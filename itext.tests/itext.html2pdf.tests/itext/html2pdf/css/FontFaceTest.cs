@@ -84,6 +84,14 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1059")]
+        public virtual void DroidSerifLocalLocalFontTest() {
+            RunTest("droidSerifLocalLocalFontTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1059")]
         public virtual void DroidSerifLocalWithMediaFontTest() {
             RunTest("droidSerifLocalWithMediaFontTest");
         }

@@ -40,6 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.Collections.Generic;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
@@ -54,6 +55,8 @@ using iText.Layout.Font;
 namespace iText.Html2pdf.Attach {
     public class ProcessorContext {
         private FontProvider fontProvider;
+
+        private IList<FontInfo> tempFonts;
 
         private ResourceResolver resourceResolver;
 
@@ -85,6 +88,7 @@ namespace iText.Html2pdf.Attach {
             if (fontProvider == null) {
                 fontProvider = new DefaultFontProvider();
             }
+            tempFonts = new List<FontInfo>();
             tagWorkerFactory = converterProperties.GetTagWorkerFactory();
             if (tagWorkerFactory == null) {
                 tagWorkerFactory = new DefaultTagWorkerFactory();
@@ -137,16 +141,28 @@ namespace iText.Html2pdf.Attach {
             return cssContext;
         }
 
+        public virtual void AddTemporaryFont(FontInfo fontInfo) {
+            tempFonts.Add(fontInfo);
+        }
+
         public virtual void Reset() {
             this.pdfDocument = null;
             this.state = new State();
             this.resourceResolver.ResetCache();
             this.cssContext = new CssContext();
+            ResetTemporaryFonts();
         }
 
         public virtual void Reset(PdfDocument pdfDocument) {
             Reset();
             this.pdfDocument = pdfDocument;
+        }
+
+        private void ResetTemporaryFonts() {
+            foreach (FontInfo fi in tempFonts) {
+                fontProvider.GetFontSet().Remove(fi);
+            }
+            tempFonts.Clear();
         }
     }
 }
