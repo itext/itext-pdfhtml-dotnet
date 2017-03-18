@@ -94,6 +94,10 @@ namespace iText.Html2pdf.Attach.Impl {
             return sources;
         }
 
+        public virtual String GetAlias() {
+            return alias;
+        }
+
         private FontFace(String alias, IList<FontFace.FontFaceSrc> sources) {
             this.alias = alias;
             this.sources = sources;
@@ -116,6 +120,11 @@ namespace iText.Html2pdf.Attach.Impl {
             internal readonly bool isLocal;
 
             //region Nested types
+            public override String ToString() {
+                return String.Format("%s(%s)%s", isLocal ? "local" : "url", src, format != FontFace.FontFormat.None ? String
+                    .Format(" format(%s)", format) : "");
+            }
+
             internal static FontFace.FontFaceSrc Create(String src) {
                 Match m = iText.IO.Util.StringUtil.Match(UrlPattern, src);
                 if (!m.Success) {
@@ -123,12 +132,6 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
                 return new FontFace.FontFaceSrc(Unquote(iText.IO.Util.StringUtil.Group(m, UrlGroup)), "local".Equals(iText.IO.Util.StringUtil.Group
                     (m, TypeGroup)), ParseFormat(iText.IO.Util.StringUtil.Group(m, FormatGroup)));
-            }
-
-            private FontFaceSrc(String src, bool isLocal, FontFace.FontFormat format) {
-                this.format = format;
-                this.src = src;
-                this.isLocal = isLocal;
             }
 
             internal static FontFace.FontFormat ParseFormat(String formatStr) {
@@ -167,6 +170,12 @@ namespace iText.Html2pdf.Attach.Impl {
                     return quotedString.JSubstring(1, quotedString.Length - 1);
                 }
                 return quotedString;
+            }
+
+            private FontFaceSrc(String src, bool isLocal, FontFace.FontFormat format) {
+                this.format = format;
+                this.src = src;
+                this.isLocal = isLocal;
             }
         }
 

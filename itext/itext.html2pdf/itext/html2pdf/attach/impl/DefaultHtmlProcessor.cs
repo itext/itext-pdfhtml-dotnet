@@ -313,13 +313,18 @@ namespace iText.Html2pdf.Attach.Impl {
             //TODO DEVSIX-1059 check font removing.
             if (cssResolver is DefaultCssResolver) {
                 foreach (CssFontFaceRule fontFace in ((DefaultCssResolver)cssResolver).GetFonts()) {
+                    bool findSupportedSrc = false;
                     FontFace ff = FontFace.Create(fontFace.GetProperties());
                     if (ff != null) {
                         foreach (FontFace.FontFaceSrc src in ff.GetSources()) {
                             if (CreateFont(ff.GetFontFamily(), src)) {
+                                findSupportedSrc = true;
                                 break;
                             }
                         }
+                    }
+                    if (!findSupportedSrc) {
+                        logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
                     }
                 }
             }
