@@ -41,7 +41,6 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
-using System.Text;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Util;
@@ -59,12 +58,14 @@ namespace iText.Html2pdf.Css.Resolve {
             if (contentStr == null || CssConstants.NONE.Equals(contentStr) || CssConstants.NORMAL.Equals(contentStr)) {
                 return null;
             }
-            CssContentPropertyResolver.ContentTokenizer tokenizer = new CssContentPropertyResolver.ContentTokenizer(contentStr
-                );
-            CssContentPropertyResolver.ContentToken token;
-            CssContentPropertyResolver.CssQuotes quotes = null;
+            CssContentTokenizer tokenizer = new CssContentTokenizer(contentStr);
+            CssContentTokenizer.ContentToken token;
+            CssQuotes quotes = null;
             while ((token = tokenizer.GetNextValidToken()) != null) {
-                if (!token.IsString()) {
+                if (token.IsString()) {
+                    result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, token.GetValue()));
+                }
+                else {
                     if (token.GetValue().StartsWith("url(")) {
                         Dictionary<String, String> attributes = new Dictionary<String, String>();
                         attributes.Put(AttributeConstants.SRC, CssUtils.ExtractUrl(token.GetValue()));
@@ -88,7 +89,7 @@ namespace iText.Html2pdf.Css.Resolve {
                         else {
                             if (token.GetValue().EndsWith("quote") && contentContainer is IStylesContainer) {
                                 if (quotes == null) {
-                                    quotes = new CssContentPropertyResolver.CssQuotes(styles.Get(CssConstants.QUOTES));
+                                    quotes = CssQuotes.CreateQuotes(styles.Get(CssConstants.QUOTES), true);
                                 }
                                 String value = quotes.ResolveQuote(token.GetValue(), context);
                                 if (value == null) {
@@ -101,9 +102,6 @@ namespace iText.Html2pdf.Css.Resolve {
                             }
                         }
                     }
-                }
-                else {
-                    result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, token.GetValue()));
                 }
             }
             return result;
@@ -143,232 +141,6 @@ namespace iText.Html2pdf.Css.Resolve {
 
             public virtual String WholeText() {
                 return content;
-            }
-        }
-
-        private class ContentTokenizer {
-            private String src;
-
-            private int index;
-
-            private char stringQuote;
-
-            private bool inString;
-
-            public ContentTokenizer(String src) {
-                this.src = src;
-                index = -1;
-            }
-
-            public virtual CssContentPropertyResolver.ContentToken GetNextValidToken() {
-                CssContentPropertyResolver.ContentToken token = GetNextToken();
-                while (token != null && !token.IsString() && String.IsNullOrEmpty(token.GetValue().Trim())) {
-                    token = GetNextToken();
-                }
-                return token;
-            }
-
-            private CssContentPropertyResolver.ContentToken GetNextToken() {
-                StringBuilder buff = new StringBuilder();
-                char curChar;
-                if (index >= src.Length - 1) {
-                    return null;
-                }
-                if (!inString) {
-                    while (++index < src.Length) {
-                        curChar = src[index];
-                        if (curChar == '(') {
-                            int closeBracketIndex = src.IndexOf(')', index);
-                            if (closeBracketIndex == -1) {
-                                closeBracketIndex = src.Length - 1;
-                            }
-                            buff.Append(src.JSubstring(index, closeBracketIndex + 1));
-                            index = closeBracketIndex;
-                        }
-                        else {
-                            if (curChar == '"' || curChar == '\'') {
-                                stringQuote = curChar;
-                                inString = true;
-                                return new CssContentPropertyResolver.ContentToken(buff.ToString(), false);
-                            }
-                            else {
-                                if (iText.IO.Util.TextUtil.IsWhiteSpace(curChar)) {
-                                    return new CssContentPropertyResolver.ContentToken(buff.ToString(), false);
-                                }
-                                else {
-                                    buff.Append(curChar);
-                                }
-                            }
-                        }
-                    }
-                }
-                else {
-                    bool isEscaped = false;
-                    StringBuilder pendingUnicodeSequence = new StringBuilder();
-                    while (++index < src.Length) {
-                        curChar = src[index];
-                        if (isEscaped) {
-                            if (IsHexDigit(curChar) && pendingUnicodeSequence.Length < 6) {
-                                pendingUnicodeSequence.Append(curChar);
-                            }
-                            else {
-                                if (pendingUnicodeSequence.Length != 0) {
-                                    buff.AppendCodePoint(System.Convert.ToInt32(pendingUnicodeSequence.ToString(), 16));
-                                    pendingUnicodeSequence.Length = 0;
-                                    if (curChar == stringQuote) {
-                                        inString = false;
-                                        return new CssContentPropertyResolver.ContentToken(buff.ToString(), true);
-                                    }
-                                    else {
-                                        if (!iText.IO.Util.TextUtil.IsWhiteSpace(curChar)) {
-                                            buff.Append(curChar);
-                                        }
-                                    }
-                                    isEscaped = false;
-                                }
-                                else {
-                                    buff.Append(curChar);
-                                    isEscaped = false;
-                                }
-                            }
-                        }
-                        else {
-                            if (curChar == stringQuote) {
-                                inString = false;
-                                return new CssContentPropertyResolver.ContentToken(buff.ToString(), true);
-                            }
-                            else {
-                                if (curChar == '\\') {
-                                    isEscaped = true;
-                                }
-                                else {
-                                    buff.Append(curChar);
-                                }
-                            }
-                        }
-                    }
-                }
-                return new CssContentPropertyResolver.ContentToken(buff.ToString(), false);
-            }
-
-            private bool IsHexDigit(char c) {
-                return (47 < c && c < 58) || (64 < c && c < 71) || (96 < c && c < 103);
-            }
-        }
-
-        private class ContentToken {
-            private String value;
-
-            private bool isString;
-
-            public ContentToken(String value, bool isString) {
-                this.value = value;
-                this.isString = isString;
-            }
-
-            public virtual String GetValue() {
-                return value;
-            }
-
-            public virtual bool IsString() {
-                return isString;
-            }
-
-            public override String ToString() {
-                return value;
-            }
-        }
-
-        private class CssQuotes {
-            private const String EMPTY_QUOTE = "";
-
-            private List<String> openQuotes = new List<String>();
-
-            private List<String> closeQuotes = new List<String>();
-
-            public CssQuotes(String quotes) {
-                if (quotes == null) {
-                    DefaultInit();
-                }
-                else {
-                    CssContentPropertyResolver.ContentTokenizer tokenizer = new CssContentPropertyResolver.ContentTokenizer(quotes
-                        );
-                    CssContentPropertyResolver.ContentToken token;
-                    List<String> quotesArray;
-                    for (int i = 0; ((token = tokenizer.GetNextValidToken()) != null); ++i) {
-                        quotesArray = i % 2 == 0 ? openQuotes : closeQuotes;
-                        if (token.IsString()) {
-                            quotesArray.Add(token.GetValue());
-                        }
-                        else {
-                            DefaultInit(quotes);
-                            break;
-                        }
-                    }
-                    if (openQuotes.Count != closeQuotes.Count || openQuotes.Count == 0) {
-                        DefaultInit(quotes);
-                    }
-                }
-            }
-
-            public virtual String ResolveQuote(String value, CssContext context) {
-                int depth = context.GetQuotesDepth();
-                if (CssConstants.OPEN_QUOTE.Equals(value)) {
-                    IncreaseDepth(context);
-                    return GetQuote(depth, openQuotes);
-                }
-                else {
-                    if (CssConstants.CLOSE_QUOTE.Equals(value)) {
-                        DecreaseDepth(context);
-                        return GetQuote(depth - 1, closeQuotes);
-                    }
-                    else {
-                        if (CssConstants.NO_OPEN_QUOTE.Equals(value)) {
-                            IncreaseDepth(context);
-                            return EMPTY_QUOTE;
-                        }
-                        else {
-                            if (CssConstants.NO_CLOSE_QUOTE.Equals(value)) {
-                                DecreaseDepth(context);
-                                return EMPTY_QUOTE;
-                            }
-                        }
-                    }
-                }
-                return null;
-            }
-
-            private void DefaultInit() {
-                openQuotes.Clear();
-                openQuotes.Add("\u00ab");
-                closeQuotes.Clear();
-                closeQuotes.Add("\u00bb");
-            }
-
-            private void DefaultInit(String errorValue) {
-                LoggerFactory.GetLogger(GetType()).Error(String.Format(iText.Html2pdf.LogMessageConstant.QUOTES_PROPERTY_INVALID
-                    , errorValue));
-                DefaultInit();
-            }
-
-            private void IncreaseDepth(CssContext context) {
-                context.SetQuotesDepth(context.GetQuotesDepth() + 1);
-            }
-
-            private void DecreaseDepth(CssContext context) {
-                if (context.GetQuotesDepth() > 0) {
-                    context.SetQuotesDepth(context.GetQuotesDepth() - 1);
-                }
-            }
-
-            private String GetQuote(int depth, List<String> quotes) {
-                if (depth >= quotes.Count) {
-                    return quotes[quotes.Count - 1];
-                }
-                if (depth < 0) {
-                    return EMPTY_QUOTE;
-                }
-                return quotes[depth];
             }
         }
     }

@@ -68,6 +68,8 @@ namespace iText.Html2pdf.Css.Validate {
                 (CssConstants.AUTO, CssConstants.ALWAYS, CssConstants.AVOID, CssConstants.LEFT, CssConstants.RIGHT)));
             DEFAULT_VALIDATORS.Put(CssConstants.PAGE_BREAK_AFTER, new SingleTypeDeclarationValidator(new CssEnumValidator
                 (CssConstants.AUTO, CssConstants.ALWAYS, CssConstants.AVOID, CssConstants.LEFT, CssConstants.RIGHT)));
+            DEFAULT_VALIDATORS.Put(CssConstants.QUOTES, new MultiTypeDeclarationValidator(new CssEnumValidator(CssConstants
+                .INITIAL, CssConstants.INHERIT, CssConstants.NONE), new CssQuotesValidator()));
         }
 
         private CssDeclarationValidationMaster() {

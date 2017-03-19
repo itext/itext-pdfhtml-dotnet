@@ -43,7 +43,7 @@ using System;
 
 namespace iText.Html2pdf {
     public sealed class LogMessageConstant {
-        public const String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or has unsupported value. At the moment, only <string> values are supported.";
+        public const String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or has unsupported value. Supported values are <string>, <url>, <quote>, <attr> (<attr> is not supported in page margin box)";
 
         public const String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
 
