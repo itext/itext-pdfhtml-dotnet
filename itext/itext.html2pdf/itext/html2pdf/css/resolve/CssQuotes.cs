@@ -40,7 +40,6 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.IO.Log;
