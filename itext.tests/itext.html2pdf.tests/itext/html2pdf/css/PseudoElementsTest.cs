@@ -238,6 +238,20 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void ImgPseudoTest06() {
+            RunTest("imgPseudoTest06");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ImgPseudoTest07() {
+            RunTest("imgPseudoTest07");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void EscapedStringTest01() {
             RunTest("escapedStringTest01");
         }
@@ -262,6 +276,14 @@ namespace iText.Html2pdf.Css {
         [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 5)]
         public virtual void AttrTest01() {
             RunTest("attrTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 3)]
+        public virtual void AttrTest02() {
+            RunTest("attrTest02");
         }
 
         /// <exception cref="System.IO.IOException"/>

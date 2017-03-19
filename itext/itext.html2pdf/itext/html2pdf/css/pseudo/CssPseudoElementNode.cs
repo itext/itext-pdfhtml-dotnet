@@ -66,7 +66,7 @@ namespace iText.Html2pdf.Css.Pseudo {
         }
 
         public virtual IAttributes GetAttributes() {
-            return new CssPseudoElementNode.AttributesStub(this);
+            return new CssPseudoElementNode.AttributesStub();
         }
 
         public virtual String GetAttribute(String key) {
@@ -98,8 +98,7 @@ namespace iText.Html2pdf.Css.Pseudo {
                 return 0;
             }
 
-            public IEnumerator<IAttribute> GetEnumerator()
-            {
+            public IEnumerator<IAttribute> GetEnumerator() {
                 return JavaCollectionsUtil.EmptyIterator<IAttribute>();
             }
 
@@ -107,12 +106,6 @@ namespace iText.Html2pdf.Css.Pseudo {
             {
                 return GetEnumerator();
             }
-
-            internal AttributesStub(CssPseudoElementNode _enclosing) {
-                this._enclosing = _enclosing;
-            }
-
-            private readonly CssPseudoElementNode _enclosing;
         }
     }
 }

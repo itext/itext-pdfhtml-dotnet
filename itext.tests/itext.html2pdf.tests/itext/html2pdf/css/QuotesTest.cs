@@ -81,6 +81,13 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void DepthTest03() {
+            RunTest("depthTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void EscapedTest() {
             RunTest("escapedTest");
         }
@@ -90,6 +97,15 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void NoQuoteTest() {
             RunTest("noQuoteTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.QUOTES_PROPERTY_INVALID, Count = 2)]
+        public virtual void AttrTest() {
+            //attr() is not supported in quotes property in browsers
+            RunTest("attrTest");
         }
 
         /// <exception cref="System.IO.IOException"/>

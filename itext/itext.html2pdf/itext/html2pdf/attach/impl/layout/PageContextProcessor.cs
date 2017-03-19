@@ -42,14 +42,17 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Log;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
+using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -303,11 +306,37 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
                     throw new InvalidOperationException();
                 }
-                // TODO process possible images in future
-                if (marginBoxProps.ChildNodes()[0] is ITextNode) {
-                    String text = ((ITextNode)marginBoxProps.ChildNodes()[0]).WholeText();
-                    marginBox.Add(new Paragraph(text).SetMargin(0));
+                WaitingInlineElementsHelper inlineHelper = new WaitingInlineElementsHelper(boxStyles.Get(CssConstants.WHITE_SPACE
+                    ), boxStyles.Get(CssConstants.TEXT_TRANSFORM));
+                foreach (INode child in marginBoxProps.ChildNodes()) {
+                    if (child is IElementNode) {
+                        //TODO: support only for element node with no children
+                        IElementNode elementNode = (IElementNode)child;
+                        ITagWorker worker = context.GetTagWorkerFactory().GetTagWorker(elementNode, context);
+                        if (worker != null) {
+                            worker.ProcessEnd(elementNode, context);
+                            IPropertyContainer element = worker.GetElementResult();
+                            if (element is IBlockElement) {
+                                inlineHelper.FlushHangingLeaves(marginBox);
+                                marginBox.Add((IBlockElement)element);
+                            }
+                            else {
+                                if (element is ILeafElement) {
+                                    inlineHelper.Add((ILeafElement)element);
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        if (child is ITextNode) {
+                            inlineHelper.Add(((ITextNode)child).WholeText());
+                        }
+                        else {
+                            LoggerFactory.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
+                        }
+                    }
                 }
+                inlineHelper.FlushHangingLeaves(marginBox);
             }
         }
 

@@ -80,6 +80,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     marginBoxNode.SetStyles(marginBoxStyles);
                     resolvedMarginBoxes.Add(marginBoxNode);
                 }
+                context.SetQuotesDepth(0);
             }
             return resolvedMarginBoxes;
         }
