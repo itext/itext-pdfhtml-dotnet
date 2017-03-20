@@ -43,7 +43,7 @@ using System;
 
 namespace iText.Html2pdf {
     public class Html2PdfProductInfo {
-        public const String PRODUCT_NAME = "html2pdf";
+        public const String PRODUCT_NAME = "pdfHtml";
 
         public const int MAJOR_VERSION = 1;
 
