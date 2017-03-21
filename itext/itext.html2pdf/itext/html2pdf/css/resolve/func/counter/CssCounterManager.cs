@@ -95,21 +95,21 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                                 }
                                 else {
                                     if (CssConstants.UPPER_ALPHA.Equals(listSymbolType) || CssConstants.UPPER_LATIN.Equals(listSymbolType)) {
-                                        return EnglishAlphabetNumbering.ToLatinAlphabetNumberUpperCase(counterValue);
+                                        return EnglishAlphabetNumbering.ToLatinAlphabetNumberUpperCase((int)counterValue);
                                     }
                                     else {
                                         if (CssConstants.LOWER_ALPHA.Equals(listSymbolType) || CssConstants.LOWER_LATIN.Equals(listSymbolType)) {
-                                            return EnglishAlphabetNumbering.ToLatinAlphabetNumberLowerCase(counterValue);
+                                            return EnglishAlphabetNumbering.ToLatinAlphabetNumberLowerCase((int)counterValue);
                                         }
                                         else {
                                             if (CssConstants.LOWER_ROMAN.Equals(listSymbolType)) {
-                                                return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.ToRomanLowerCase(counterValue) : counterValue.ToString
-                                                    ();
+                                                return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.ToRomanLowerCase((int)counterValue) : counterValue
+                                                    .ToString();
                                             }
                                             else {
                                                 if (CssConstants.UPPER_ROMAN.Equals(listSymbolType)) {
-                                                    return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.ToRomanUpperCase(counterValue) : counterValue.ToString
-                                                        ();
+                                                    return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.ToRomanUpperCase((int)counterValue) : counterValue
+                                                        .ToString();
                                                 }
                                                 else {
                                                     if (CssConstants.DECIMAL_LEADING_ZERO.Equals(listSymbolType)) {
@@ -117,15 +117,15 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                                                     }
                                                     else {
                                                         if (CssConstants.LOWER_GREEK.Equals(listSymbolType)) {
-                                                            return GreekAlphabetNumbering.ToGreekAlphabetNumberLowerCase(counterValue);
+                                                            return GreekAlphabetNumbering.ToGreekAlphabetNumberLowerCase((int)counterValue);
                                                         }
                                                         else {
                                                             if (CssConstants.GEORGIAN.Equals(listSymbolType)) {
-                                                                return GeorgianNumbering.ToGeorgian(counterValue);
+                                                                return GeorgianNumbering.ToGeorgian((int)counterValue);
                                                             }
                                                             else {
                                                                 if (CssConstants.ARMENIAN.Equals(listSymbolType)) {
-                                                                    return ArmenianNumbering.ToArmenian(counterValue);
+                                                                    return ArmenianNumbering.ToArmenian((int)counterValue);
                                                                 }
                                                                 else {
                                                                     return counterValue.ToString();
@@ -190,7 +190,7 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 // If 'counter-increment' or 'content' on an element or pseudo-element refers to a counter that is not in the scope of any 'counter-reset',
                 // implementations should behave as though a 'counter-reset' had reset the counter to 0 on that element or pseudo-element.
                 curValue = DEFAULT_COUNTER_VALUE;
-                ResetCounter(counterName, curValue, scope);
+                ResetCounter(counterName, (int)curValue, scope);
                 scopeCounters = GetOrCreateScopeCounterMap(scope);
             }
             scopeCounters.Put(counterName, curValue + incrementValue);

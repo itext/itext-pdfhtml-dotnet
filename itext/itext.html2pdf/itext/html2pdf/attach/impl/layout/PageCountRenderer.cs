@@ -53,7 +53,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         public override LayoutResult Layout(LayoutContext layoutContext) {
-            PageCountType pageCountType = GetProperty(Html2PdfProperty.PAGE_COUNT_TYPE);
+            PageCountType pageCountType = (PageCountType)this.GetProperty<PageCountType?>(Html2PdfProperty.PAGE_COUNT_TYPE);
             if (pageCountType == PageCountType.CURRENT_PAGE_NUMBER) {
                 SetText(layoutContext.GetArea().GetPageNumber().ToString());
             }
@@ -80,7 +80,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         protected override bool ResolveFonts(IList<IRenderer> addTo) {
             IList<IRenderer> dummyList = new List<IRenderer>();
             base.ResolveFonts(dummyList);
-            SetProperty(Property.FONT, dummyList[0].GetProperty(Property.FONT));
+            SetProperty(Property.FONT, dummyList[0].GetProperty<Object>(Property.FONT));
             addTo.Add(this);
             return true;
         }

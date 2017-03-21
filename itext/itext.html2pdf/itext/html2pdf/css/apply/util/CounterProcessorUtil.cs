@@ -58,7 +58,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     String counterName = @params[i];
                     int? possibleCounterValue;
                     if (i + 1 < @params.Length && (possibleCounterValue = CssUtils.ParseInteger(@params[i + 1])) != null) {
-                        counterManager.ResetCounter(counterName, possibleCounterValue, scope);
+                        counterManager.ResetCounter(counterName, (int)possibleCounterValue, scope);
                         i++;
                     }
                     else {
@@ -74,7 +74,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     String counterName = @params[i];
                     int? possibleIncrementValue;
                     if (i + 1 < @params.Length && (possibleIncrementValue = CssUtils.ParseInteger(@params[i + 1])) != null) {
-                        counterManager.IncrementCounter(counterName, possibleIncrementValue, scope);
+                        counterManager.IncrementCounter(counterName, (int)possibleIncrementValue, scope);
                         i++;
                     }
                     else {
