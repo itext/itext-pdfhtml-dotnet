@@ -105,7 +105,7 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
             try {
                 Uri url = uriResolver.ResolveAgainstBaseUri(src);
-                url = UrlUtil.GetFinalUrl(url);
+                url = UrlUtil.GetFinalURL(url);
                 String imageResolvedSrc = url.ToExternalForm();
                 PdfImageXObject imageXObject = imageCache.GetImage(imageResolvedSrc);
                 if (imageXObject == null) {
