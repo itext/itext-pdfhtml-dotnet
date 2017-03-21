@@ -54,14 +54,14 @@ namespace iText.Html2pdf.Attach.Util {
 
         private bool collapseSpaces;
 
+        private IList<ILeafElement> waitingLeaves = new List<ILeafElement>();
+
         public WaitingInlineElementsHelper(String whiteSpace, String textTransform) {
             keepLineBreaks = CssConstants.PRE.Equals(whiteSpace) || CssConstants.PRE_WRAP.Equals(whiteSpace) || CssConstants
                 .PRE_LINE.Equals(whiteSpace);
             collapseSpaces = !(CssConstants.PRE.Equals(whiteSpace) || CssConstants.PRE_WRAP.Equals(whiteSpace));
             this.textTransform = textTransform;
         }
-
-        private IList<ILeafElement> waitingLeaves = new List<ILeafElement>();
 
         public virtual void Add(String text) {
             if (!keepLineBreaks && collapseSpaces) {
@@ -165,6 +165,15 @@ namespace iText.Html2pdf.Attach.Util {
 
         public virtual ICollection<ILeafElement> GetWaitingLeaves() {
             return waitingLeaves;
+        }
+
+        public virtual IList<ILeafElement> GetSanitizedWaitingLeaves() {
+            if (collapseSpaces) {
+                return TrimUtil.TrimLeafElementsAndSanitize(waitingLeaves);
+            }
+            else {
+                return waitingLeaves;
+            }
         }
 
         public virtual void ClearWaitingLeaves() {

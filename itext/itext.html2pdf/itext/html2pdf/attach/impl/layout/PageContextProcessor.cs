@@ -42,11 +42,13 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Util;
+using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Util;
+using iText.Html2pdf.Html;
+using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
 using iText.Kernel.Geom;
@@ -55,7 +57,9 @@ using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
+using iText.Layout.Layout;
 using iText.Layout.Properties;
+using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     internal class PageContextProcessor {
@@ -113,11 +117,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return layoutMargins;
         }
 
-        internal virtual void ProcessNewPage(PdfPage page) {
+        internal virtual void ProcessNewPage(PdfPage page, DocumentRenderer documentRenderer) {
             SetBleed(page);
             DrawMarks(page);
             DrawPageBackgroundAndBorders(page);
-            DrawMarginBoxes(page);
+            DrawMarginBoxes(page, documentRenderer);
         }
 
         private void SetBleed(PdfPage page) {
@@ -219,13 +223,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             canvas.Close();
         }
 
-        private void DrawMarginBoxes(PdfPage page) {
+        private void DrawMarginBoxes(PdfPage page, DocumentRenderer documentRenderer) {
             for (int i = 0; i < 16; ++i) {
                 if (marginBoxElements[i] != null) {
-                    iText.Layout.Canvas canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetDocument(), marginBoxRectangles
-                        [i]);
-                    canvas.Add(marginBoxElements[i]);
-                    canvas.Close();
+                    Div curBoxElement = marginBoxElements[i];
+                    IRenderer renderer = curBoxElement.CreateRendererSubTree();
+                    renderer.SetParent(documentRenderer);
+                    LayoutResult result = renderer.Layout(new LayoutContext(new LayoutArea(page.GetDocument().GetPageNumber(page
+                        ), marginBoxRectangles[i])));
+                    IRenderer rendererToDraw = result.GetStatus() == LayoutResult.FULL ? renderer : result.GetSplitRenderer();
+                    rendererToDraw.SetParent(documentRenderer).Draw(new DrawContext(page.GetDocument(), new PdfCanvas(page)));
                 }
             }
         }
@@ -281,13 +288,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
              context) {
             marginBoxRectangles = CalculateMarginBoxRectangles(resolvedPageMarginBoxes);
             marginBoxElements = new Div[16];
-            foreach (PageMarginBoxContextNode marginBoxProps in resolvedPageMarginBoxes) {
-                int marginBoxInd = MapMarginBoxNameToIndex(marginBoxProps.GetMarginBoxName());
+            foreach (PageMarginBoxContextNode marginBoxContentNode in resolvedPageMarginBoxes) {
+                int marginBoxInd = MapMarginBoxNameToIndex(marginBoxContentNode.GetMarginBoxName());
                 Div marginBox = new Div();
                 marginBoxElements[marginBoxInd] = marginBox;
-                IDictionary<String, String> boxStyles = marginBoxProps.GetStyles();
+                IDictionary<String, String> boxStyles = marginBoxContentNode.GetStyles();
                 BackgroundApplierUtil.ApplyBackground(boxStyles, context, marginBox);
-                FontStyleApplierUtil.ApplyFontStyles(boxStyles, context, marginBoxProps, marginBox);
+                FontStyleApplierUtil.ApplyFontStyles(boxStyles, context, marginBoxContentNode, marginBox);
                 BorderStyleApplierUtil.ApplyBorders(boxStyles, context, marginBox);
                 VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForCells(boxStyles, context, marginBox);
                 float em = CssUtils.ParseAbsoluteLength(boxStyles.Get(CssConstants.FONT_SIZE));
@@ -302,41 +309,47 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 marginBox.SetPaddings(boxPaddings[0], boxPaddings[1], boxPaddings[2], boxPaddings[3]);
                 marginBox.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
                 marginBox.SetFillAvailableArea(true);
-                if (marginBoxProps.ChildNodes().IsEmpty()) {
+                if (marginBoxContentNode.ChildNodes().IsEmpty()) {
                     // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
                     throw new InvalidOperationException();
                 }
-                WaitingInlineElementsHelper inlineHelper = new WaitingInlineElementsHelper(boxStyles.Get(CssConstants.WHITE_SPACE
-                    ), boxStyles.Get(CssConstants.TEXT_TRANSFORM));
-                foreach (INode child in marginBoxProps.ChildNodes()) {
-                    if (child is IElementNode) {
-                        //TODO: support only for element node with no children
-                        IElementNode elementNode = (IElementNode)child;
-                        ITagWorker worker = context.GetTagWorkerFactory().GetTagWorker(elementNode, context);
-                        if (worker != null) {
-                            worker.ProcessEnd(elementNode, context);
-                            IPropertyContainer element = worker.GetElementResult();
-                            if (element is IBlockElement) {
-                                inlineHelper.FlushHangingLeaves(marginBox);
-                                marginBox.Add((IBlockElement)element);
-                            }
-                            else {
-                                if (element is ILeafElement) {
-                                    inlineHelper.Add((ILeafElement)element);
-                                }
-                            }
-                        }
+                // TODO it would be great to reuse DefaultHtmlProcessor, but it seems there is no convenient way of doing so, and maybe it would be an overkill
+                IElementNode dummyMarginBoxNode = new JsoupElementNode(new Org.Jsoup.Nodes.Element(Org.Jsoup.Parser.Tag.ValueOf
+                    (TagConstants.DIV), ""));
+                DivTagWorker marginBoxWorker = new DivTagWorker(dummyMarginBoxNode, context);
+                for (int i = 0; i < marginBoxContentNode.ChildNodes().Count; i++) {
+                    INode childNode = marginBoxContentNode.ChildNodes()[i];
+                    if (childNode is ITextNode) {
+                        String text = ((ITextNode)marginBoxContentNode.ChildNodes()[i]).WholeText();
+                        marginBoxWorker.ProcessContent(text, context);
                     }
                     else {
-                        if (child is ITextNode) {
-                            inlineHelper.Add(((ITextNode)child).WholeText());
+                        if (childNode is IElementNode) {
+                            ITagWorker childTagWorker = context.GetTagWorkerFactory().GetTagWorker((IElementNode)childNode, context);
+                            if (childTagWorker != null) {
+                                childTagWorker.ProcessEnd((IElementNode)childNode, context);
+                                marginBoxWorker.ProcessTagChild(childTagWorker, context);
+                            }
                         }
                         else {
                             LoggerFactory.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
                         }
                     }
                 }
-                inlineHelper.FlushHangingLeaves(marginBox);
+                marginBoxWorker.ProcessEnd(dummyMarginBoxNode, context);
+                IPropertyContainer workerResult = marginBoxWorker.GetElementResult();
+                if (workerResult is Div) {
+                    foreach (IElement child in ((Div)workerResult).GetChildren()) {
+                        if (child is IBlockElement) {
+                            marginBox.Add((IBlockElement)child);
+                        }
+                        else {
+                            if (child is Image) {
+                                marginBox.Add((Image)child);
+                            }
+                        }
+                    }
+                }
             }
         }
 

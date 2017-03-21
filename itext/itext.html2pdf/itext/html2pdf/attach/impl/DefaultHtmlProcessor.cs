@@ -43,6 +43,7 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
@@ -122,7 +123,7 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             context.Reset();
             roots = new List<IPropertyContainer>();
-            cssResolver = new DefaultCssResolver(root, context.GetDeviceDescription(), context.GetResourceResolver());
+            cssResolver = new DefaultCssResolver(root, context);
             AddFontFaceFonts();
             IElementNode html = FindHtmlNode(root);
             IElementNode body = FindBodyNode(root);
@@ -224,11 +225,15 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             // TODO store html version from document type in context if necessary
             roots = new List<IPropertyContainer>();
-            cssResolver = new DefaultCssResolver(root, context.GetDeviceDescription(), context.GetResourceResolver());
+            cssResolver = new DefaultCssResolver(root, context);
             AddFontFaceFonts();
             root = FindHtmlNode(root);
             Visit(root);
             Document doc = (Document)roots[0];
+            // TODO more precise check if a counter was actually added to the document
+            if (context.GetCssContext().IsPagesCounterPresent() && doc.GetRenderer() is HtmlDocumentRenderer) {
+                doc.Relayout();
+            }
             cssResolver = null;
             roots = null;
             return doc;
@@ -427,13 +432,26 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (element.ChildNodes().IsEmpty()) {
                     return false;
                 }
+                bool hasStyles = element.GetStyles() != null;
+                String positionVal = hasStyles ? element.GetStyles().Get(CssConstants.POSITION) : null;
+                String displayVal = hasStyles ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
+                bool containsNonEmptyChildNode = false;
+                bool containsElementNode = false;
+                for (int i = 0; i < element.ChildNodes().Count; i++) {
+                    if (element.ChildNodes()[i] is ITextNode && !String.IsNullOrEmpty(((ITextNode)element.ChildNodes()[i]).WholeText
+                        ())) {
+                        containsNonEmptyChildNode = true;
+                        break;
+                    }
+                    else {
+                        if (element.ChildNodes()[i] is IElementNode) {
+                            containsElementNode = true;
+                        }
+                    }
+                }
+                return containsElementNode || containsNonEmptyChildNode || CssConstants.ABSOLUTE.Equals(positionVal) || CssConstants
+                    .FIXED.Equals(positionVal) || displayVal != null && !CssConstants.INLINE.Equals(displayVal);
             }
-            //            boolean hasStyles = element.getStyles() != null;
-            //            String positionVal = hasStyles ? element.getStyles().get(CssConstants.POSITION) : null;
-            //            String displayVal = hasStyles ? element.getStyles().get(CssConstants.DISPLAY) : null;
-            //            return element.childNodes().get(0) instanceof ITextNode && !((ITextNode) element.childNodes().get(0)).wholeText().isEmpty()
-            //                    || CssConstants.ABSOLUTE.equals(positionVal) || CssConstants.FIXED.equals(positionVal)
-            //                    || displayVal != null && !CssConstants.INLINE.equals(displayVal);
             return element != null;
         }
     }

@@ -47,6 +47,10 @@ namespace iText.Html2pdf.Exceptions {
             : base(String.Format(message, classNames, tag)) {
         }
 
+        public TagWorkerInitializationException(String message, String classNames, String tag, Exception cause)
+            : base(String.Format(message, classNames, tag), cause) {
+        }
+
         public const String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
     }
 }

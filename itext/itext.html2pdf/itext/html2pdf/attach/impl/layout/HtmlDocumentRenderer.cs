@@ -70,6 +70,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         private bool anythingAddedToCurrentArea = false;
 
+        private int estimatedNumberOfPages;
+
         public HtmlDocumentRenderer(Document document, bool immediateFlush)
             : base(document, immediateFlush) {
         }
@@ -103,6 +105,37 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 waitingElement = null;
             }
             waitingElement = renderer;
+        }
+
+        public override void Close() {
+            if (waitingElement != null) {
+                base.AddChild(waitingElement);
+            }
+            base.Close();
+            PdfDocument pdfDocument = document.GetPdfDocument();
+            if (pdfDocument.GetNumberOfPages() > 1) {
+                PdfPage lastPage = pdfDocument.GetLastPage();
+                if (lastPage.GetContentStreamCount() == 1 && lastPage.GetContentStream(0).GetOutputStream().GetCurrentPos(
+                    ) <= 0) {
+                    // Remove last empty page
+                    pdfDocument.RemovePage(pdfDocument.GetNumberOfPages());
+                }
+            }
+        }
+
+        public override IRenderer GetNextRenderer() {
+            // Process waiting element to get the correct number of pages
+            if (waitingElement != null) {
+                base.AddChild(waitingElement);
+                waitingElement = null;
+            }
+            iText.Html2pdf.Attach.Impl.Layout.HtmlDocumentRenderer relayoutRenderer = new iText.Html2pdf.Attach.Impl.Layout.HtmlDocumentRenderer
+                (document, immediateFlush);
+            relayoutRenderer.firstPageProc = firstPageProc;
+            relayoutRenderer.leftPageProc = leftPageProc;
+            relayoutRenderer.rightPageProc = rightPageProc;
+            relayoutRenderer.estimatedNumberOfPages = currentPageNumber;
+            return relayoutRenderer;
         }
 
         protected override LayoutArea UpdateCurrentArea(LayoutResult overflowResult) {
@@ -184,26 +217,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 addedPage = document.GetPdfDocument().AddNewPage(nextProcessor.GetPageSize());
             }
             currentPageEven = !currentPageEven;
-            nextProcessor.ProcessNewPage(addedPage);
+            nextProcessor.ProcessNewPage(addedPage, this);
             float[] margins = nextProcessor.ComputeLayoutMargins();
             document.SetMargins(margins[0], margins[1], margins[2], margins[3]);
             return new PageSize(addedPage.GetTrimBox());
         }
 
-        public override void Close() {
-            if (waitingElement != null) {
-                base.AddChild(waitingElement);
-            }
-            base.Close();
-            PdfDocument pdfDocument = document.GetPdfDocument();
-            if (pdfDocument.GetNumberOfPages() > 1) {
-                PdfPage lastPage = pdfDocument.GetLastPage();
-                if (lastPage.GetContentStreamCount() == 1 && lastPage.GetContentStream(0).GetOutputStream().GetCurrentPos(
-                    ) <= 0) {
-                    // Remove last empty page
-                    pdfDocument.RemovePage(pdfDocument.GetNumberOfPages());
-                }
-            }
+        internal virtual int GetEstimatedNumberOfPages() {
+            return estimatedNumberOfPages;
         }
 
         private PageContextProcessor GetNextPageProcessor(bool firstPage) {

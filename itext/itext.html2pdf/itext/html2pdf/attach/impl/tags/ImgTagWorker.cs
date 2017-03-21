@@ -41,6 +41,7 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.Kernel.Pdf.Xobject;
@@ -51,11 +52,19 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     public class ImgTagWorker : ITagWorker {
         private Image image;
 
+        private String display;
+
         public ImgTagWorker(IElementNode element, ProcessorContext context) {
             PdfImageXObject imageXObject = context.GetResourceResolver().RetrieveImage(element.GetAttribute(AttributeConstants
                 .SRC));
             if (imageXObject != null) {
                 image = new ImgTagWorker.HtmlImage(this, imageXObject);
+            }
+            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
+            // TODO this is a workaround for now to that image is not added as inline
+            if (element.GetStyles() != null && CssConstants.ABSOLUTE.Equals(element.GetStyles().Get(CssConstants.POSITION
+                ))) {
+                display = CssConstants.BLOCK;
             }
         }
 
@@ -72,6 +81,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public virtual IPropertyContainer GetElementResult() {
             return image;
+        }
+
+        internal virtual String GetDisplay() {
+            return display;
         }
 
         private class HtmlImage : Image {

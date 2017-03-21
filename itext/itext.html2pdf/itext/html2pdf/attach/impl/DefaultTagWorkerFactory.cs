@@ -69,9 +69,9 @@ namespace iText.Html2pdf.Attach.Impl {
                     ITagWorker res = (ITagWorker)ctor.Invoke(new Object[] { tag, context });
                     return res;
                 }
-                catch (Exception) {
+                catch (Exception e) {
                     throw new TagWorkerInitializationException(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
-                        , tagWorkerClass.FullName, tag.Name());
+                        , tagWorkerClass.FullName, tag.Name(), e);
                 }
             }
             return tagWorker;

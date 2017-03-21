@@ -42,6 +42,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Media;
@@ -55,6 +56,7 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Resolver.Resource;
 using iText.IO.Log;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
     public class DefaultCssResolver : ICssResolver {
@@ -62,12 +64,21 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private MediaDeviceDescription deviceDescription;
 
+        private ProcessorContext context;
+
         private IList<CssFontFaceRule> fonts = new List<CssFontFaceRule>();
 
         public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver 
             resourceResolver) {
             this.deviceDescription = mediaDeviceDescription;
             CollectCssDeclarations(treeRoot, resourceResolver);
+            CollectFonts();
+        }
+
+        public DefaultCssResolver(INode treeRoot, ProcessorContext context) {
+            this.deviceDescription = context.GetDeviceDescription();
+            this.context = context;
+            CollectCssDeclarations(treeRoot, context.GetResourceResolver());
             CollectFonts();
         }
 
@@ -123,7 +134,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 elementStyles.Put(CssConstants.FONT_SIZE, System.Convert.ToString(FontStyleApplierUtil.ParseAbsoluteFontSize
                     (elementFontSize), System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT);
             }
-            //Update root font size
+            // Update root font size
             if (element is IElementNode && TagConstants.HTML.Equals(((IElementNode)element).Name())) {
                 context.SetRootFontSize(elementStyles.Get(CssConstants.FONT_SIZE));
             }
@@ -137,6 +148,8 @@ namespace iText.Html2pdf.Css.Resolve {
             foreach (String key in keys) {
                 elementStyles.Put(key, CssDefaults.GetDefaultValue(key));
             }
+            // This is needed for correct resolving of content property, so doing it right here
+            CounterProcessorUtil.ProcessCounters(elementStyles, context, element);
             ResolveContentProperty(elementStyles, element, context);
             return elementStyles;
         }
@@ -202,6 +215,7 @@ namespace iText.Html2pdf.Css.Resolve {
                     if (headChildElement.Name().Equals(TagConstants.STYLE)) {
                         if (currentNode.ChildNodes().Count > 0 && currentNode.ChildNodes()[0] is IDataNode) {
                             String styleData = ((IDataNode)currentNode.ChildNodes()[0]).GetWholeData();
+                            CheckIfPagesCounterMentioned(styleData);
                             CssStyleSheet styleSheet = CssStyleSheetParser.Parse(styleData);
                             styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                             cssStyleSheet.AppendCssStyleSheet(styleSheet);
@@ -212,7 +226,9 @@ namespace iText.Html2pdf.Css.Resolve {
                             String styleSheetUri = headChildElement.GetAttribute(AttributeConstants.HREF);
                             try {
                                 Stream stream = resourceResolver.RetrieveStyleSheet(styleSheetUri);
-                                CssStyleSheet styleSheet = CssStyleSheetParser.Parse(stream);
+                                byte[] bytes = StreamUtil.InputStreamToArray(stream);
+                                CheckIfPagesCounterMentioned(iText.IO.Util.JavaUtil.GetStringForBytes(bytes));
+                                CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new MemoryStream(bytes));
                                 styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                                 cssStyleSheet.AppendCssStyleSheet(styleSheet);
                             }
@@ -230,6 +246,18 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
             }
             return null;
+        }
+
+        private void CheckIfPagesCounterMentioned(String cssContents) {
+            // TODO more efficient (avoid searching in text string) and precise (e.g. skip spaces) check during the parsing.
+            if (cssContents.Contains("counter(pages)") || cssContents.Contains("counters(pages")) {
+                if (context != null) {
+                    // The presence of counter(pages) means that theoretically relayout may be needed.
+                    // We don't know it yet because that selector might not even be used, but
+                    // when we know it for sure, it's too late because the Document is created right in the start.
+                    context.GetCssContext().SetPagesCounterPresent(true);
+                }
+            }
         }
 
         private CssStyleSheet WrapStyleSheetInMediaQueryIfNecessary(IElementNode headChildElement, CssStyleSheet styleSheet

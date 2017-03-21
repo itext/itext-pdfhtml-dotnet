@@ -40,6 +40,7 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
@@ -55,8 +56,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public DivTagWorker(IElementNode element, ProcessorContext context) {
             div = new Div();
-            inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
-                GetStyles().Get(CssConstants.TEXT_TRANSFORM));
+            IDictionary<String, String> styles = element.GetStyles();
+            inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.Get(CssConstants.WHITE_SPACE
+                ), styles == null ? null : styles.Get(CssConstants.TEXT_TRANSFORM));
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
@@ -72,6 +74,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             bool processed = false;
             IPropertyContainer element = childTagWorker.GetElementResult();
             if (childTagWorker is BrTagWorker) {
+                if (inlineHelper.GetSanitizedWaitingLeaves().Count == 1 && inlineHelper.GetSanitizedWaitingLeaves()[0] is 
+                    Image) {
+                    // TODO This is a workaround for case of single image to set leading to 1
+                    PostProcessInlineGroup();
+                }
                 inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
                 return true;
             }
@@ -97,8 +104,21 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         processed = true;
                     }
                     else {
-                        if (element is IElement) {
-                            processed = AddBlockChild((IElement)element);
+                        if (childTagWorker is ImgTagWorker) {
+                            if (CssConstants.BLOCK.Equals(((ImgTagWorker)childTagWorker).GetDisplay())) {
+                                processed = AddBlockChild((IElement)element);
+                            }
+                            else {
+                                if (childTagWorker.GetElementResult() is Image) {
+                                    inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
+                                    processed = true;
+                                }
+                            }
+                        }
+                        else {
+                            if (element is IElement) {
+                                processed = AddBlockChild((IElement)element);
+                            }
                         }
                     }
                 }

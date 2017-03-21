@@ -42,11 +42,16 @@
 using System;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
+using iText.Html2pdf.Css.Resolve.Func.Counter;
 
 namespace iText.Html2pdf.Css.Resolve {
     public class CssContext {
         private float rootFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants
             .FONT_SIZE));
+
+        private CssCounterManager counterManager = new CssCounterManager();
+
+        private bool pagesCounterPresent = false;
 
         private int quotesDepth = 0;
 
@@ -61,6 +66,18 @@ namespace iText.Html2pdf.Css.Resolve {
 
         public virtual void SetRootFontSize(String fontSizeStr) {
             this.rootFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(fontSizeStr);
+        }
+
+        public virtual CssCounterManager GetCounterManager() {
+            return counterManager;
+        }
+
+        public virtual void SetPagesCounterPresent(bool pagesCounterPresent) {
+            this.pagesCounterPresent = pagesCounterPresent;
+        }
+
+        public virtual bool IsPagesCounterPresent() {
+            return pagesCounterPresent;
         }
 
         public virtual int GetQuotesDepth() {

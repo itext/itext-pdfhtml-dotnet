@@ -43,6 +43,7 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Pseudo;
+using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
@@ -51,10 +52,12 @@ using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
     internal class CssContentPropertyResolver {
+        private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(CssContentPropertyResolver));
+
         internal static IList<INode> ResolveContent(IDictionary<String, String> styles, INode contentContainer, CssContext
              context) {
             String contentStr = styles.Get(CssConstants.CONTENT);
-            List<INode> result = new List<INode>();
+            IList<INode> result = new List<INode>();
             if (contentStr == null || CssConstants.NONE.Equals(contentStr) || CssConstants.NORMAL.Equals(contentStr)) {
                 return null;
             }
@@ -66,39 +69,106 @@ namespace iText.Html2pdf.Css.Resolve {
                     result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, token.GetValue()));
                 }
                 else {
-                    if (token.GetValue().StartsWith("url(")) {
-                        Dictionary<String, String> attributes = new Dictionary<String, String>();
-                        attributes.Put(AttributeConstants.SRC, CssUtils.ExtractUrl(token.GetValue()));
-                        //TODO: probably should add user agent styles on CssContentElementNode creation, not here.
-                        attributes.Put(AttributeConstants.STYLE, "display:inline-block;");
-                        result.Add(new CssContentElementNode(contentContainer, TagConstants.IMG, attributes));
+                    if (token.GetValue().StartsWith(CssConstants.COUNTERS + "(")) {
+                        String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTERS.Length + 1, token.GetValue().Length -
+                             1);
+                        String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
+                        if (@params.Length == 0) {
+                            return null;
+                        }
+                        // Counters are denoted by case-sensitive identifiers
+                        String counterName = @params[0].Trim();
+                        String counterSeparationStr = @params[1].Trim();
+                        counterSeparationStr = counterSeparationStr.JSubstring(1, counterSeparationStr.Length - 1);
+                        String listStyleType = @params.Length > 2 ? @params[2].Trim() : null;
+                        CssCounterManager counterManager = context.GetCounterManager();
+                        INode scope = contentContainer;
+                        if ("page".Equals(counterName)) {
+                            result.Add(new PageCountElementNode(false));
+                        }
+                        else {
+                            if ("pages".Equals(counterName)) {
+                                result.Add(new PageCountElementNode(true));
+                            }
+                            else {
+                                String resolvedCounter = counterManager.ResolveCounters(counterName, counterSeparationStr, listStyleType, 
+                                    scope);
+                                if (resolvedCounter == null) {
+                                    logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName));
+                                }
+                                else {
+                                    result.Add(new CssContentPropertyResolver.ContentTextNode(scope, resolvedCounter));
+                                }
+                            }
+                        }
                     }
                     else {
-                        if (token.GetValue().StartsWith("attr(") && contentContainer is CssPseudoElementNode) {
-                            int endBracket = token.GetValue().IndexOf(')');
-                            if (endBracket > 5) {
-                                String attrName = token.GetValue().JSubstring(5, endBracket);
-                                if (attrName.Contains("(") || attrName.Contains(" ") || attrName.Contains("'") || attrName.Contains("\"")) {
-                                    return ErrorFallback(contentStr);
+                        if (token.GetValue().StartsWith(CssConstants.COUNTER + "(")) {
+                            String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTER.Length + 1, token.GetValue().Length - 
+                                1);
+                            String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
+                            if (@params.Length == 0) {
+                                return null;
+                            }
+                            // Counters are denoted by case-sensitive identifiers
+                            String counterName = @params[0].Trim();
+                            String listStyleType = @params.Length > 1 ? @params[1].Trim() : null;
+                            CssCounterManager counterManager = context.GetCounterManager();
+                            INode scope = contentContainer;
+                            if ("page".Equals(counterName)) {
+                                result.Add(new PageCountElementNode(false));
+                            }
+                            else {
+                                if ("pages".Equals(counterName)) {
+                                    result.Add(new PageCountElementNode(true));
                                 }
-                                IElementNode element = (IElementNode)contentContainer.ParentNode();
-                                String value = element.GetAttribute(attrName);
-                                result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value == null ? "" : value));
+                                else {
+                                    String resolvedCounter = counterManager.ResolveCounter(counterName, listStyleType, scope);
+                                    if (resolvedCounter == null) {
+                                        logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName));
+                                    }
+                                    else {
+                                        result.Add(new CssContentPropertyResolver.ContentTextNode(scope, resolvedCounter));
+                                    }
+                                }
                             }
                         }
                         else {
-                            if (token.GetValue().EndsWith("quote") && contentContainer is IStylesContainer) {
-                                if (quotes == null) {
-                                    quotes = CssQuotes.CreateQuotes(styles.Get(CssConstants.QUOTES), true);
-                                }
-                                String value = quotes.ResolveQuote(token.GetValue(), context);
-                                if (value == null) {
-                                    return ErrorFallback(contentStr);
-                                }
-                                result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value));
+                            if (token.GetValue().StartsWith("url(")) {
+                                IDictionary<String, String> attributes = new Dictionary<String, String>();
+                                attributes.Put(AttributeConstants.SRC, CssUtils.ExtractUrl(token.GetValue()));
+                                //TODO: probably should add user agent styles on CssContentElementNode creation, not here.
+                                attributes.Put(AttributeConstants.STYLE, "display:inline-block;");
+                                result.Add(new CssContentElementNode(contentContainer, TagConstants.IMG, attributes));
                             }
                             else {
-                                return ErrorFallback(contentStr);
+                                if (token.GetValue().StartsWith("attr(") && contentContainer is CssPseudoElementNode) {
+                                    int endBracket = token.GetValue().IndexOf(')');
+                                    if (endBracket > 5) {
+                                        String attrName = token.GetValue().JSubstring(5, endBracket);
+                                        if (attrName.Contains("(") || attrName.Contains(" ") || attrName.Contains("'") || attrName.Contains("\"")) {
+                                            return ErrorFallback(contentStr);
+                                        }
+                                        IElementNode element = (IElementNode)contentContainer.ParentNode();
+                                        String value = element.GetAttribute(attrName);
+                                        result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value == null ? "" : value));
+                                    }
+                                }
+                                else {
+                                    if (token.GetValue().EndsWith("quote") && contentContainer is IStylesContainer) {
+                                        if (quotes == null) {
+                                            quotes = CssQuotes.CreateQuotes(styles.Get(CssConstants.QUOTES), true);
+                                        }
+                                        String value = quotes.ResolveQuote(token.GetValue(), context);
+                                        if (value == null) {
+                                            return ErrorFallback(contentStr);
+                                        }
+                                        result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value));
+                                    }
+                                    else {
+                                        return ErrorFallback(contentStr);
+                                    }
+                                }
                             }
                         }
                     }

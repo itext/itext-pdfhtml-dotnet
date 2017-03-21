@@ -122,6 +122,10 @@ namespace iText.Html2pdf.Css {
 
         public const String CONTENT = "content";
 
+        public const String COUNTER_INCREMENT = "counter-increment";
+
+        public const String COUNTER_RESET = "counter-reset";
+
         public const String DIRECTION = "direction";
 
         public const String DISPLAY = "display";
@@ -531,6 +535,10 @@ namespace iText.Html2pdf.Css {
 
         public const String BEFORE = "before";
 
+        public const String COUNTER = "counter";
+
+        public const String COUNTERS = "counters";
+
         public const String CM = "cm";
 
         public const String EM = "em";
@@ -562,6 +570,7 @@ namespace iText.Html2pdf.Css {
         // property values
         // properties possible values
         // pseudo-elements
+        // Functions
         // units of measurement
         // units of resolution
     }

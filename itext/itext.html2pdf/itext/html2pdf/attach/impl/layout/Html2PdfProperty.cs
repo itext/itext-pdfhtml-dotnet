@@ -44,6 +44,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private const int PROPERTY_START = (1 << 20);
 
         public const int KEEP_WITH_PREVIOUS = PROPERTY_START + 1;
+
+        public const int PAGE_COUNT_TYPE = PROPERTY_START + 2;
         /* Works only for top-level elements, i.e. ones that are added to the document directly */
     }
 }

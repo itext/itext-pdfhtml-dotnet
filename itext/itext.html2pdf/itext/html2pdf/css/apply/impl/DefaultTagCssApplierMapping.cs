@@ -42,6 +42,7 @@
 using System;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Pseudo;
+using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Util;
 
@@ -137,6 +138,8 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(afterPseudoElemName, CssConstants.BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(CssPseudoElementUtil.CreatePseudoElementTagName(TagConstants.IMG), typeof(BlockCssApplier
                 ));
+            // custom elements mapping, implementation-specific
+            mapping.PutMapping(PageCountElementNode.PAGE_COUNTER_TAG, typeof(SpanTagCssApplier));
         }
 
         internal static TagProcessorMapping GetDefaultCssApplierMapping() {

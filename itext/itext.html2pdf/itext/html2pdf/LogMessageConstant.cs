@@ -43,7 +43,7 @@ using System;
 
 namespace iText.Html2pdf {
     public sealed class LogMessageConstant {
-        public const String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or has unsupported value. Supported values are <string>, <url>, <quote>, <attr>. Note that <attr> is not supported in page margin box";
+        public const String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
 
         public const String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
 
@@ -84,6 +84,8 @@ namespace iText.Html2pdf {
         public const String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
 
         public const String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
+
+        public const String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";
 
         public const String UNABLE_TO_RESOLVE_FONT = "Unable to resolve font: {0}. The default one will be used instead";
 
