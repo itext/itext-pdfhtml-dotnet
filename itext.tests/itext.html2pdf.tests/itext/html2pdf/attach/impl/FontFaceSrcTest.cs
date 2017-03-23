@@ -61,6 +61,7 @@ namespace iText.Html2pdf.Attach.Impl {
 
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1179")]
         public virtual void SrcPropertyTest() {
             String fontSrc = "web-fonts/droid-serif-invalid.";
             CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(sourceFolder + "srcs.css", FileMode.Open
