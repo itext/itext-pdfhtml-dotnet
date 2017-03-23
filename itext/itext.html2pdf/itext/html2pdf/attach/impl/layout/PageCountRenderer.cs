@@ -53,7 +53,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         public override LayoutResult Layout(LayoutContext layoutContext) {
-            PageCountType pageCountType = (PageCountType)this.GetProperty<PageCountType?>(Html2PdfProperty.PAGE_COUNT_TYPE);
+            PageCountType pageCountType = (PageCountType)this.GetProperty<PageCountType?>(Html2PdfProperty.PAGE_COUNT_TYPE
+                );
             if (pageCountType == PageCountType.CURRENT_PAGE_NUMBER) {
                 SetText(layoutContext.GetArea().GetPageNumber().ToString());
             }
