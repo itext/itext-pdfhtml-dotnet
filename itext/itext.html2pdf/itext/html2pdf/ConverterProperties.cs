@@ -57,7 +57,7 @@ namespace iText.Html2pdf {
 
         private String baseUri;
 
-        private bool? flattenFormFields;
+        private bool createAcroForm = false;
 
         public ConverterProperties() {
         }
@@ -68,7 +68,7 @@ namespace iText.Html2pdf {
             this.tagWorkerFactory = other.tagWorkerFactory;
             this.cssApplierFactory = other.cssApplierFactory;
             this.baseUri = other.baseUri;
-            this.flattenFormFields = other.flattenFormFields;
+            this.createAcroForm = other.createAcroForm;
         }
 
         public virtual MediaDeviceDescription GetMediaDeviceDescription() {
@@ -118,12 +118,12 @@ namespace iText.Html2pdf {
             return this;
         }
 
-        public virtual bool? IsFlattenFormFields() {
-            return flattenFormFields;
+        public virtual bool? IsCreateAcroForm() {
+            return createAcroForm;
         }
 
-        public virtual iText.Html2pdf.ConverterProperties SetFlattenFormFields(bool flattenFormFields) {
-            this.flattenFormFields = flattenFormFields;
+        public virtual iText.Html2pdf.ConverterProperties SetCreateAcroForm(bool createAcroForm) {
+            this.createAcroForm = createAcroForm;
             return this;
         }
     }

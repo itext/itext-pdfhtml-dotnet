@@ -54,13 +54,6 @@ namespace iText.Html2pdf.Resolver.Form {
         public FormFieldNameResolver() {
         }
 
-        //    public FormFieldNameResolver(Iterable<String> occupiedNames) {
-        //        reset(occupiedNames);
-        //    }
-        //
-        //    public FormFieldNameResolver(PdfDocument document) {
-        //        reset(document);
-        //    }
         public virtual String ResolveFormName(String name) {
             name = NormalizeString(name);
             if (String.IsNullOrEmpty(name)) {
@@ -75,40 +68,6 @@ namespace iText.Html2pdf.Resolver.Form {
             names.Clear();
         }
 
-        //    public void reset(Iterable<String> occupiedNames) {
-        //        reset();
-        //        if (occupiedNames != null) {
-        //            String normalized;
-        //            for (String name : occupiedNames) {
-        //                normalized = normalizeString(name);
-        //                if (!normalized.isEmpty()) {
-        //                    resolveNormalisedFormName(normalized);
-        //                }
-        //            }
-        //        }
-        //    }
-        //
-        //    public void reset(PdfDocument document) {
-        //        if (document != null) {
-        //            PdfAcroForm acroForm = PdfAcroForm.getAcroForm(document, false);
-        //            if (acroForm != null) {
-        //                //We add all fields to acro form directly, so it is enough to check only direct kids names
-        //                PdfArray fieldsArray = acroForm.getPdfObject().getAsArray(PdfName.Fields);
-        //                if (fieldsArray != null) {
-        //                    ArrayList<String> fieldsNames = new ArrayList<>();
-        //                    for (PdfObject field : fieldsArray) {
-        //                        if (field.isDictionary()) {
-        //                            PdfString namePdfString = ((PdfDictionary) field).getAsString(PdfName.T);
-        //                            if (namePdfString != null) {
-        //                                fieldsNames.add(namePdfString.toUnicodeString());
-        //                            }
-        //                        }
-        //                    }
-        //                    reset(fieldsNames);
-        //                }
-        //            }
-        //        }
-        //    }
         private String NormalizeString(String s) {
             return s != null ? s.Trim().Replace(".", "") : "";
         }

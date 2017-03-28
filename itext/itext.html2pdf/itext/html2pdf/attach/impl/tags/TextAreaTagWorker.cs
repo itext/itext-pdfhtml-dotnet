@@ -65,7 +65,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             int? cols = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.COLS));
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
-            textArea.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, context.IsFlattenFontFields());
+            textArea.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {

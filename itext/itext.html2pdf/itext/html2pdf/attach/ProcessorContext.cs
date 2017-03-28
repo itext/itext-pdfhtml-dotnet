@@ -69,7 +69,7 @@ namespace iText.Html2pdf.Attach {
 
         private String baseUri;
 
-        private bool flattenFontFields;
+        private bool createAcroForm;
 
         private FormFieldNameResolver formFieldNameResolver;
 
@@ -108,10 +108,7 @@ namespace iText.Html2pdf.Attach {
             }
             resourceResolver = new ResourceResolver(baseUri);
             cssContext = new CssContext();
-            flattenFontFields = true;
-            if (converterProperties.IsFlattenFormFields() != null) {
-                flattenFontFields = (bool)converterProperties.IsFlattenFormFields();
-            }
+            createAcroForm = converterProperties.IsCreateAcroForm();
             formFieldNameResolver = new FormFieldNameResolver();
         }
 
@@ -151,8 +148,8 @@ namespace iText.Html2pdf.Attach {
             return cssContext;
         }
 
-        public virtual bool IsFlattenFontFields() {
-            return flattenFontFields;
+        public virtual bool IsCreateAcroForm() {
+            return createAcroForm;
         }
 
         public virtual FormFieldNameResolver GetFormFieldNameResolver() {

@@ -60,7 +60,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             name = context.GetFormFieldNameResolver().ResolveFormName(name);
             button = new Button(name);
-            button.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, context.IsFlattenFontFields());
+            button.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {

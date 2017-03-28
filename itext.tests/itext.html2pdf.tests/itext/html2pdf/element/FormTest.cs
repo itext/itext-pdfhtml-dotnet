@@ -150,7 +150,7 @@ namespace iText.Html2pdf.Element {
             String diff = "diff_" + name + "_";
             HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(outPdfPath));
             HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(outAcroPdfPath), new ConverterProperties()
-                .SetFlattenFormFields(false));
+                .SetCreateAcroForm(true));
             PdfDocument document = new PdfDocument(new PdfReader(outAcroPdfPath), new PdfWriter(outAcroFlattenPdfPath)
                 );
             PdfAcroForm acroForm = PdfAcroForm.GetAcroForm(document, false);

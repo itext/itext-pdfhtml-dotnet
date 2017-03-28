@@ -81,7 +81,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             if (formElement != null) {
-                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, context.IsFlattenFontFields());
+                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
             }
         }
 
