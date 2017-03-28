@@ -159,10 +159,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
 
         protected internal abstract IRenderer CreateFlatRenderer();
 
+        protected internal abstract void ApplyAcroField(DrawContext drawContext);
+
         protected internal virtual String GetModelId() {
             return ((IFormField)GetModelElement()).GetId();
         }
-        protected internal abstract void ApplyAcroField(DrawContext drawContext);
 
         protected internal virtual bool IsRendererFit(float availableWidth, float availableHeight) {
             if (occupiedArea == null) {
