@@ -118,7 +118,7 @@ namespace iText.Html2pdf {
             return this;
         }
 
-        public virtual bool? IsCreateAcroForm() {
+        public virtual bool IsCreateAcroForm() {
             return createAcroForm;
         }
 
