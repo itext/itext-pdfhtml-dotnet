@@ -48,6 +48,7 @@ using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.IO.Log;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
+using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
@@ -64,19 +65,26 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
 
         protected internal override void AdjustFieldLayout() {
             IList<LineRenderer> flatLines = ((ParagraphRenderer)flatRenderer).GetLines();
+            Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
             UpdatePdfFont((ParagraphRenderer)flatRenderer);
             if (!flatLines.IsEmpty() && font != null) {
                 if (flatLines.Count != 1) {
                     isSplit = true;
                 }
-                CropContentLines(flatLines);
+                CropContentLines(flatLines, flatBBox);
+                float? width = GetContentWidth();
+                if (width == null) {
+                    LineRenderer drawnLine = flatLines[0];
+                    drawnLine.Move(flatBBox.GetX() - drawnLine.GetOccupiedArea().GetBBox().GetX(), 0);
+                    flatBBox.SetWidth(drawnLine.GetOccupiedArea().GetBBox().GetWidth());
+                }
             }
             else {
                 LoggerFactory.GetLogger(GetType()).Error(String.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
                     , "button"));
                 SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
-                baseline = flatRenderer.GetOccupiedArea().GetBBox().GetTop();
-                flatRenderer.GetOccupiedArea().GetBBox().SetY(baseline).SetHeight(0);
+                baseline = flatBBox.GetTop();
+                flatBBox.SetY(baseline).SetHeight(0);
             }
         }
 
@@ -84,11 +92,21 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return CreateParagraphRenderer(GetDefaultValue());
         }
 
-        protected internal override void ApplyAcroField(PdfDocument doc, PdfPage page, String name, String value, 
-            float fontSize, Rectangle area) {
-            PdfFormField inputField = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSize);
-            ApplyDefaultFieldProperties(inputField);
-            PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
+        protected internal override void ApplyAcroField(DrawContext drawContext) {
+            String value = GetDefaultValue();
+            String name = GetModelId();
+            float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+            PdfDocument doc = drawContext.GetDocument();
+            Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
+            ApplyPaddings(area, true);
+            PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
+            PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSize);
+            ApplyDefaultFieldProperties(button);
+            Background background = this.GetProperty<Background>(Property.BACKGROUND);
+            if (background != null && background.GetColor() != null) {
+                button.SetBackgroundColor(background.GetColor());
+            }
+            PdfAcroForm.GetAcroForm(doc, true).AddField(button, page);
         }
 
         protected internal override bool IsRendererFit(float availableWidth, float availableHeight) {

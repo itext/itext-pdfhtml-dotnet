@@ -88,38 +88,36 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected internal override void AdjustFieldLayout() {
             IList<LineRenderer> flatLines = ((ParagraphRenderer)flatRenderer).GetLines();
             UpdatePdfFont((ParagraphRenderer)flatRenderer);
-            int rows = GetRows();
-            float actualHeight = 0;
             Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
             if (!flatLines.IsEmpty() && font != null) {
-                font.SetSubset(false);
-                float averageLineHeight = flatBBox.GetHeight() / flatLines.Count;
-                if (flatLines.Count > rows) {
-                    IList<LineRenderer> subList = new List<LineRenderer>(flatLines.SubList(0, rows));
-                    flatLines.Clear();
-                    flatLines.AddAll(subList);
-                }
-                actualHeight = averageLineHeight * rows;
+                int rows = GetRows();
+                AdjustNumberOfContentLines(flatLines, flatBBox, rows);
             }
             else {
                 LoggerFactory.GetLogger(GetType()).Error(String.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
                     , "text area"));
                 SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
+                flatBBox.SetHeight(0);
             }
-            flatBBox.MoveUp(flatBBox.GetHeight() - actualHeight);
-            flatBBox.SetHeight(actualHeight);
-            flatRenderer.GetOccupiedArea().GetBBox().SetWidth(GetContentWidth().Value);
+            flatBBox.SetWidth(GetContentWidth().Value);
         }
 
         protected internal override IRenderer CreateFlatRenderer() {
             return CreateParagraphRenderer(GetDefaultValue());
         }
 
-        protected internal override void ApplyAcroField(PdfDocument doc, PdfPage page, String name, String value, 
-            float fontSize, Rectangle area) {
+        protected internal override void ApplyAcroField(DrawContext drawContext) {
+            font.SetSubset(false);
+            String value = GetDefaultValue();
+            String name = GetModelId();
+            float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+            PdfDocument doc = drawContext.GetDocument();
+            Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
+            PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
             PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSize);
             ApplyDefaultFieldProperties(inputField);
             inputField.SetFieldFlag(PdfFormField.FF_MULTILINE, true);
+            inputField.SetDefaultValue(new PdfString(GetDefaultValue()));
             PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
         }
 

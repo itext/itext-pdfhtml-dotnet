@@ -44,6 +44,7 @@ using System.Collections.Generic;
 using iText.Forms.Fields;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Kernel.Font;
+using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -63,7 +64,27 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 // TODO: change to 'defaultValue = "\u00A0"' after trimming of non-breakable spaces is fixed;
                 defaultValue = "\u00B7";
             }
-            return new Paragraph(defaultValue).SetMultipliedLeading(1).SetMargin(0).CreateRendererSubTree();
+            Paragraph paragraph = new Paragraph(defaultValue).SetMargin(0);
+            Leading leading = this.GetProperty<Leading>(Property.LEADING);
+            if (leading != null) {
+                paragraph.SetProperty(Property.LEADING, leading);
+            }
+            return paragraph.CreateRendererSubTree();
+        }
+
+        protected internal virtual void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, int 
+            linesNumber) {
+            float averageLineHeight = bBox.GetHeight() / lines.Count;
+            if (lines.Count != linesNumber) {
+                float actualHeight = averageLineHeight * linesNumber;
+                bBox.MoveUp(bBox.GetHeight() - actualHeight);
+                bBox.SetHeight(actualHeight);
+            }
+            if (lines.Count > linesNumber) {
+                IList<LineRenderer> subList = new List<LineRenderer>(lines.SubList(0, linesNumber));
+                lines.Clear();
+                lines.AddAll(subList);
+            }
         }
 
         protected internal virtual void ApplyDefaultFieldProperties(PdfFormField inputField) {
@@ -73,7 +94,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             if (color != null) {
                 inputField.SetColor(color.GetColor());
             }
-            inputField.SetDefaultValue(new PdfString(GetDefaultValue()));
         }
 
         protected internal virtual void UpdatePdfFont(ParagraphRenderer renderer) {

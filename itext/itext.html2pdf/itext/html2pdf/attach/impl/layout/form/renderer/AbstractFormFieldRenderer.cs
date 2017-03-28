@@ -43,8 +43,6 @@ using System;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.IO.Log;
-using iText.Kernel.Geom;
-using iText.Kernel.Pdf;
 using iText.Layout.Layout;
 using iText.Layout.Minmaxwidth;
 using iText.Layout.Properties;
@@ -75,10 +73,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             flatRenderer = null;
             float parentWidth = layoutContext.GetArea().GetBBox().GetWidth();
             float parentHeight = layoutContext.GetArea().GetBBox().GetHeight();
-            bool restoreMaxHeight = HasOwnProperty(Property.MAX_HEIGHT);
-            bool restoreHeight = HasOwnProperty(Property.HEIGHT);
             float? maxHeight = RetrieveMaxHeight();
             float? height = RetrieveHeight();
+            bool restoreMaxHeight = HasOwnProperty(Property.MAX_HEIGHT);
+            bool restoreHeight = HasOwnProperty(Property.HEIGHT);
             SetProperty(Property.MAX_HEIGHT, null);
             SetProperty(Property.HEIGHT, null);
             IRenderer renderer = CreateFlatRenderer();
@@ -87,7 +85,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 renderer.SetProperty(Property.WIDTH, new UnitValue(UnitValue.POINT, (float)width));
             }
             AddChild(renderer);
+            layoutContext.GetArea().GetBBox().SetHeight(INF);
             LayoutResult result = base.Layout(layoutContext);
+            layoutContext.GetArea().GetBBox().SetHeight(parentHeight);
+            Move(0, parentHeight - INF);
             if (restoreMaxHeight) {
                 SetProperty(Property.MAX_HEIGHT, maxHeight);
             }
@@ -142,30 +143,26 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         }
 
         public override void DrawChildren(DrawContext drawContext) {
+            drawContext.GetCanvas().SaveState();
             bool flatten = IsFlatten();
             if (flatten) {
+                drawContext.GetCanvas().Rectangle(occupiedArea.GetBBox()).Clip().NewPath();
                 flatRenderer.Draw(drawContext);
             }
             else {
-                String value = GetDefaultValue();
-                String name = GetModelId();
-                float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
-                Rectangle fieldArea = flatRenderer.GetOccupiedArea().GetBBox().Clone();
-                PdfPage page = drawContext.GetDocument().GetPage(occupiedArea.GetPageNumber());
-                ApplyAcroField(drawContext.GetDocument(), page, name, value, fontSize, fieldArea);
+                ApplyAcroField(drawContext);
             }
+            drawContext.GetCanvas().RestoreState();
         }
 
         protected internal abstract void AdjustFieldLayout();
 
         protected internal abstract IRenderer CreateFlatRenderer();
 
-        protected internal abstract void ApplyAcroField(PdfDocument doc, PdfPage page, String name, String value, 
-            float fontSize, Rectangle area);
-
         protected internal virtual String GetModelId() {
             return ((IFormField)GetModelElement()).GetId();
         }
+        protected internal abstract void ApplyAcroField(DrawContext drawContext);
 
         protected internal virtual bool IsRendererFit(float availableWidth, float availableHeight) {
             if (occupiedArea == null) {

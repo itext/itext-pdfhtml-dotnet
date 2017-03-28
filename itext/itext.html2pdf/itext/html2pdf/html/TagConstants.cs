@@ -98,6 +98,8 @@ namespace iText.Html2pdf.Html {
 
         public const String EM = "em";
 
+        public const String FIELDSET = "fieldset";
+
         public const String FIGCAPTION = "figcaption";
 
         public const String FIGURE = "figure";
@@ -139,6 +141,8 @@ namespace iText.Html2pdf.Html {
         public const String KBD = "kbd";
 
         public const String LABEL = "label";
+
+        public const String LEGEND = "legend";
 
         public const String LI = "li";
 

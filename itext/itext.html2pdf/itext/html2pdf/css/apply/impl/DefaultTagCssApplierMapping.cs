@@ -65,6 +65,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.BDO, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.BLOCKQUOTE, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.BODY, typeof(BodyTagCssApplier));
+            mapping.PutMapping(TagConstants.BUTTON, typeof(BlockCssApplier));
             //mapping.putMapping(TagConstants.CAPTION, SpanTagCssApplier.class);
             mapping.PutMapping(TagConstants.CENTER, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.CITE, typeof(SpanTagCssApplier));
@@ -78,6 +79,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.DL, typeof(DlTagCssApplier));
             mapping.PutMapping(TagConstants.DT, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.EM, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.FIELDSET, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.FIGCAPTION, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.FIGURE, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.FONT, typeof(SpanTagCssApplier));
@@ -98,6 +100,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.INS, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.KBD, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.LABEL, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.LEGEND, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.LI, typeof(LiTagCssApplier));
             mapping.PutMapping(TagConstants.MAIN, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.MARK, typeof(SpanTagCssApplier));

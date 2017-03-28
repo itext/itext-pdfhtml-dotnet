@@ -67,6 +67,7 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.BLOCKQUOTE, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.BODY, typeof(BodyTagWorker));
             workerMapping.PutMapping(TagConstants.BR, typeof(BrTagWorker));
+            workerMapping.PutMapping(TagConstants.BUTTON, typeof(ButtonTagWorker));
             workerMapping.PutMapping(TagConstants.CENTER, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.CITE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.CODE, typeof(SpanTagWorker));
@@ -79,11 +80,12 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.DL, typeof(UlOlTagWorker));
             workerMapping.PutMapping(TagConstants.DT, typeof(LiTagWorker));
             workerMapping.PutMapping(TagConstants.EM, typeof(SpanTagWorker));
-            workerMapping.PutMapping(TagConstants.FORM, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.FIELDSET, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.FIGCAPTION, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.FIGURE, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.FONT, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.FOOTER, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.FORM, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.H1, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.H2, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.H3, typeof(DivTagWorker));
@@ -99,6 +101,7 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.INS, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.KBD, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.LABEL, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.LEGEND, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.LI, typeof(LiTagWorker));
             workerMapping.PutMapping(TagConstants.LINK, typeof(LinkTagWorker));
             workerMapping.PutMapping(TagConstants.MAIN, typeof(DivTagWorker));

@@ -60,14 +60,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return occupiedArea.GetBBox().GetBottom() - baseline;
         }
 
-        protected internal virtual void CropContentLines(IList<LineRenderer> lines) {
-            LineRenderer drawnLine = lines[0];
-            lines.Clear();
-            lines.Add(drawnLine);
-            Rectangle lineBBox = drawnLine.GetOccupiedAreaBBox();
-            flatRenderer.GetOccupiedArea().SetBBox(lineBBox.Clone());
+        protected internal virtual void CropContentLines(IList<LineRenderer> lines, Rectangle bBox) {
+            AdjustNumberOfContentLines(lines, bBox, 1);
             UpdateParagraphHeight();
-            baseline = drawnLine.GetYLine();
+            baseline = lines[0].GetYLine();
         }
 
         protected internal virtual void UpdateParagraphHeight() {
@@ -92,10 +88,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         }
 
         private void SetContentHeight(Rectangle bBox, float height) {
-            if (bBox.GetHeight() < height) {
-                float dy = (height - bBox.GetHeight()) / 2;
-                bBox.MoveDown(dy);
-            }
+            float dy = (height - bBox.GetHeight()) / 2;
+            bBox.MoveDown(dy);
             bBox.SetHeight(height);
         }
     }

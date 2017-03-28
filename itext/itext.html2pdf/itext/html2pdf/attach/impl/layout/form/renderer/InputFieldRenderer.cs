@@ -76,19 +76,19 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
 
         protected internal override void AdjustFieldLayout() {
             IList<LineRenderer> flatLines = ((ParagraphRenderer)flatRenderer).GetLines();
+            Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
             UpdatePdfFont((ParagraphRenderer)flatRenderer);
             if (!flatLines.IsEmpty() && font != null) {
-                font.SetSubset(false);
-                CropContentLines(flatLines);
+                CropContentLines(flatLines, flatBBox);
             }
             else {
                 LoggerFactory.GetLogger(GetType()).Error(String.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
                     , "text input"));
                 SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
-                baseline = flatRenderer.GetOccupiedArea().GetBBox().GetTop();
-                flatRenderer.GetOccupiedArea().GetBBox().SetY(baseline).SetHeight(0);
+                baseline = flatBBox.GetTop();
+                flatBBox.SetY(baseline).SetHeight(0);
             }
-            flatRenderer.GetOccupiedArea().GetBBox().SetWidth(GetContentWidth().Value);
+            flatBBox.SetWidth(GetContentWidth().Value);
         }
 
         protected internal override IRenderer CreateFlatRenderer() {
@@ -101,12 +101,25 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return CreateParagraphRenderer(defaultValue);
         }
 
-        protected internal override void ApplyAcroField(PdfDocument doc, PdfPage page, String name, String value, 
-            float fontSize, Rectangle area) {
+        protected internal override void ApplyAcroField(DrawContext drawContext) {
+            font.SetSubset(false);
+            String value = GetDefaultValue();
+            String name = GetModelId();
+            float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+            PdfDocument doc = drawContext.GetDocument();
+            Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
+            PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
+            bool password = IsPassword();
+            if (password) {
+                value = "";
+            }
             PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSize);
             ApplyDefaultFieldProperties(inputField);
-            if (IsPassword()) {
+            if (password) {
                 inputField.SetFieldFlag(PdfFormField.FF_PASSWORD, true);
+            }
+            else {
+                inputField.SetDefaultValue(new PdfString(value));
             }
             PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
         }
