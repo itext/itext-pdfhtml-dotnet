@@ -48,9 +48,14 @@ namespace iText.Html2pdf.Css.Resolve {
     public class CssQuotes {
         private const String EMPTY_QUOTE = "";
 
-        private List<String> openQuotes = new List<String>();
+        private List<String> openQuotes;
 
-        private List<String> closeQuotes = new List<String>();
+        private List<String> closeQuotes;
+
+        private CssQuotes(List<String> openQuotes, List<String> closeQuotes) {
+            this.openQuotes = openQuotes;
+            this.closeQuotes = closeQuotes;
+        }
 
         public static iText.Html2pdf.Css.Resolve.CssQuotes CreateQuotes(String quotesString, bool fallbackToDefault
             ) {
@@ -92,11 +97,6 @@ namespace iText.Html2pdf.Css.Resolve {
             openQuotes.Add("\u00ab");
             closeQuotes.Add("\u00bb");
             return new iText.Html2pdf.Css.Resolve.CssQuotes(openQuotes, closeQuotes);
-        }
-
-        public CssQuotes(List<String> openQuotes, List<String> closeQuotes) {
-            this.openQuotes = openQuotes;
-            this.closeQuotes = closeQuotes;
         }
 
         public virtual String ResolveQuote(String value, CssContext context) {

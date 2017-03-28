@@ -366,6 +366,8 @@ namespace iText.Html2pdf.Css {
 
         public const String INLINE = "inline";
 
+        public const String INLINE_BLOCK = "inline-block";
+
         public const String INSET = "inset";
 
         public const String INSIDE = "inside";

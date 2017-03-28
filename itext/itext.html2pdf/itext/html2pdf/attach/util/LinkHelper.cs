@@ -49,6 +49,9 @@ using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Util {
     public class LinkHelper {
+        private LinkHelper() {
+        }
+
         public static void ApplyLinkAnnotation(IPropertyContainer container, String url) {
             if (container != null) {
                 PdfLinkAnnotation linkAnnotation;

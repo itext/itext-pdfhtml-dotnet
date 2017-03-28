@@ -46,21 +46,36 @@ namespace iText.Html2pdf.Css.Resolve {
     internal class CssContentTokenizer {
         private String src;
 
-        private int index;
+        private int index = -1;
 
         private char stringQuote;
 
         private bool inString;
 
+        private int functionDepth = 0;
+
         public CssContentTokenizer(String src) {
             this.src = src;
-            index = -1;
         }
 
         public virtual CssContentTokenizer.ContentToken GetNextValidToken() {
             CssContentTokenizer.ContentToken token = GetNextToken();
             while (token != null && !token.IsString() && String.IsNullOrEmpty(token.GetValue().Trim())) {
                 token = GetNextToken();
+            }
+            if (token != null && functionDepth > 0) {
+                StringBuilder functionBuffer = new StringBuilder();
+                while (token != null && functionDepth > 0) {
+                    ProcessFunctionToken(token, functionBuffer);
+                    token = GetNextToken();
+                }
+                functionDepth = 0;
+                if (functionBuffer.Length != 0) {
+                    if (token != null) {
+                        ProcessFunctionToken(token, functionBuffer);
+                    }
+                    return new CssContentTokenizer.ContentToken(functionBuffer.ToString(), false);
+                }
             }
             return token;
         }
@@ -127,25 +142,30 @@ namespace iText.Html2pdf.Css.Resolve {
                 while (++index < src.Length) {
                     curChar = src[index];
                     if (curChar == '(') {
-                        int closeBracketIndex = src.IndexOf(')', index);
-                        if (closeBracketIndex == -1) {
-                            closeBracketIndex = src.Length - 1;
-                        }
-                        buff.Append(src.JSubstring(index, closeBracketIndex + 1));
-                        index = closeBracketIndex;
+                        ++functionDepth;
+                        buff.Append(curChar);
                     }
                     else {
-                        if (curChar == '"' || curChar == '\'') {
-                            stringQuote = curChar;
-                            inString = true;
-                            return new CssContentTokenizer.ContentToken(buff.ToString(), false);
+                        if (curChar == ')') {
+                            --functionDepth;
+                            buff.Append(curChar);
                         }
                         else {
-                            if (iText.IO.Util.TextUtil.IsWhiteSpace(curChar)) {
+                            if (curChar == '"' || curChar == '\'') {
+                                stringQuote = curChar;
+                                inString = true;
                                 return new CssContentTokenizer.ContentToken(buff.ToString(), false);
                             }
                             else {
-                                buff.Append(curChar);
+                                if (iText.IO.Util.TextUtil.IsWhiteSpace(curChar)) {
+                                    if (functionDepth > 0) {
+                                        buff.Append(curChar);
+                                    }
+                                    return new CssContentTokenizer.ContentToken(buff.ToString(), false);
+                                }
+                                else {
+                                    buff.Append(curChar);
+                                }
                             }
                         }
                     }
@@ -156,6 +176,17 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private bool IsHexDigit(char c) {
             return (47 < c && c < 58) || (64 < c && c < 71) || (96 < c && c < 103);
+        }
+
+        private void ProcessFunctionToken(CssContentTokenizer.ContentToken token, StringBuilder functionBuffer) {
+            if (token.IsString()) {
+                functionBuffer.Append(stringQuote);
+                functionBuffer.Append(token.GetValue());
+                functionBuffer.Append(stringQuote);
+            }
+            else {
+                functionBuffer.Append(token.GetValue());
+            }
         }
 
         internal class ContentToken {
