@@ -42,6 +42,7 @@
 using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
+using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve;
@@ -94,13 +95,19 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 processed = allChildrenProcessed;
             }
             else {
-                if (childTagWorker.GetElementResult() is AreaBreak) {
-                    PostProcessInlineGroup();
-                    document.Add((AreaBreak)childTagWorker.GetElementResult());
-                    processed = true;
+                if (childTagWorker.GetElementResult() is IFormField) {
+                    inlineHelper.Add((IFormField)childTagWorker.GetElementResult());
+                    return true;
                 }
                 else {
-                    return ProcessBlockChild(childTagWorker.GetElementResult());
+                    if (childTagWorker.GetElementResult() is AreaBreak) {
+                        PostProcessInlineGroup();
+                        document.Add((AreaBreak)childTagWorker.GetElementResult());
+                        processed = true;
+                    }
+                    else {
+                        return ProcessBlockChild(childTagWorker.GetElementResult());
+                    }
                 }
             }
             return processed;

@@ -53,6 +53,14 @@ namespace iText.Html2pdf {
 
         public const String ERROR_RESOLVING_PARENT_STYLES = "Element parent styles are not resolved. Styles for current element might be incorrect.";
 
+        public const String ERROR_WHILE_LAYOUT_OF_FORM_FIELD = "Cannot layout form field field. It won't be displayed";
+
+        public const String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE = "Error during layout of form filed with type {0}.";
+
+        public const String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
+
+        public const String INPUT_SUPPORT_ONLY_POINT_WIDTH = "Input field support only point width";
+
         public const String HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED = "Height value in percent not supported";
 
         public const String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";

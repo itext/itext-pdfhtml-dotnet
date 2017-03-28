@@ -70,6 +70,8 @@ namespace iText.Html2pdf.Html {
 
         public const String BR = "br";
 
+        public const String BUTTON = "button";
+
         public const String CAPTION = "caption";
 
         public const String CENTER = "center";
@@ -103,6 +105,8 @@ namespace iText.Html2pdf.Html {
         public const String FONT = "font";
 
         public const String FOOTER = "footer";
+
+        public const String FORM = "form";
 
         public const String H1 = "h1";
 
@@ -164,6 +168,8 @@ namespace iText.Html2pdf.Html {
 
         public const String SECTION = "section";
 
+        public const String SELECT = "select";
+
         public const String SMALL = "small";
 
         public const String SPAN = "span";
@@ -181,6 +187,8 @@ namespace iText.Html2pdf.Html {
         public const String TABLE = "table";
 
         public const String TBODY = "tbody";
+
+        public const String TEXTAREA = "textarea";
 
         public const String TD = "td";
 

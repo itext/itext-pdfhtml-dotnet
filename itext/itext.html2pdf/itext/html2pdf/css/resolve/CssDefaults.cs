@@ -76,6 +76,7 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues.Put(CssConstants.BORDER_RIGHT_WIDTH, CssConstants.MEDIUM);
             defaultValues.Put(CssConstants.BORDER_TOP_WIDTH, CssConstants.MEDIUM);
             defaultValues.Put(CssConstants.BORDER_WIDTH, CssConstants.MEDIUM);
+            defaultValues.Put(CssConstants.BORDER_IMAGE, CssConstants.NONE);
             defaultValues.Put(CssConstants.BORDER_RADIUS, "0");
             defaultValues.Put(CssConstants.BOX_SHADOW, CssConstants.NONE);
             defaultValues.Put(CssConstants.FLOAT, CssConstants.NONE);

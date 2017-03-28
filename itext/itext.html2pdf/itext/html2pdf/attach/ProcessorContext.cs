@@ -48,6 +48,7 @@ using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Resolver.Font;
+using iText.Html2pdf.Resolver.Form;
 using iText.Html2pdf.Resolver.Resource;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
@@ -67,6 +68,10 @@ namespace iText.Html2pdf.Attach {
         private ICssApplierFactory cssApplierFactory;
 
         private String baseUri;
+
+        private bool flattenFontFields;
+
+        private FormFieldNameResolver formFieldNameResolver;
 
         private State state;
 
@@ -103,6 +108,11 @@ namespace iText.Html2pdf.Attach {
             }
             resourceResolver = new ResourceResolver(baseUri);
             cssContext = new CssContext();
+            flattenFontFields = true;
+            if (converterProperties.IsFlattenFormFields() != null) {
+                flattenFontFields = (bool)converterProperties.IsFlattenFormFields();
+            }
+            formFieldNameResolver = new FormFieldNameResolver();
         }
 
         public virtual void SetFontProvider(FontProvider fontProvider) {
@@ -141,6 +151,14 @@ namespace iText.Html2pdf.Attach {
             return cssContext;
         }
 
+        public virtual bool IsFlattenFontFields() {
+            return flattenFontFields;
+        }
+
+        public virtual FormFieldNameResolver GetFormFieldNameResolver() {
+            return formFieldNameResolver;
+        }
+
         public virtual void AddTemporaryFont(FontInfo fontInfo) {
             tempFonts.Add(fontInfo);
         }
@@ -150,6 +168,7 @@ namespace iText.Html2pdf.Attach {
             this.state = new State();
             this.resourceResolver.ResetCache();
             this.cssContext = new CssContext();
+            this.formFieldNameResolver.Reset();
             RemoveTemporaryFonts();
         }
 

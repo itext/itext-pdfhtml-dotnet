@@ -79,6 +79,7 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.DL, typeof(UlOlTagWorker));
             workerMapping.PutMapping(TagConstants.DT, typeof(LiTagWorker));
             workerMapping.PutMapping(TagConstants.EM, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.FORM, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.FIGCAPTION, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.FIGURE, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.FONT, typeof(SpanTagWorker));
@@ -119,6 +120,7 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.SUP, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.TABLE, typeof(TableTagWorker));
             workerMapping.PutMapping(TagConstants.TD, typeof(TdTagWorker));
+            workerMapping.PutMapping(TagConstants.TEXTAREA, typeof(TextAreaTagWorker));
             workerMapping.PutMapping(TagConstants.TFOOT, typeof(TableFooterTagWorker));
             workerMapping.PutMapping(TagConstants.TH, typeof(TdTagWorker));
             workerMapping.PutMapping(TagConstants.THEAD, typeof(TableHeaderTagWorker));

@@ -41,27 +41,63 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Layout;
+using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
+using iText.Layout;
+using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    public class InputTagWorker : SpanTagWorker {
-        public InputTagWorker(IElementNode element, ProcessorContext context)
-            : base(element, context) {
+    public class InputTagWorker : ITagWorker {
+        internal IElement formElement;
+
+        public InputTagWorker(IElementNode element, ProcessorContext context) {
             String inputType = element.GetAttribute(AttributeConstants.TYPE);
+            String value = element.GetAttribute(AttributeConstants.VALUE);
+            String name = context.GetFormFieldNameResolver().ResolveFormName(element.GetAttribute(AttributeConstants.NAME
+                ));
             // Default input type is text
             if (inputType == null || AttributeConstants.TEXT.Equals(inputType) || AttributeConstants.EMAIL.Equals(inputType
-                )) {
-                String value = element.GetAttribute(AttributeConstants.VALUE);
-                if (value != null) {
-                    ProcessContent(value, context);
+                ) || AttributeConstants.PASSWORD.Equals(inputType)) {
+                int? size = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.SIZE));
+                formElement = new InputField(name);
+                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
+                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_SIZE, size);
+                if (AttributeConstants.PASSWORD.Equals(inputType)) {
+                    formElement.SetProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG, true);
                 }
             }
             else {
-                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
-                logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
+                if (AttributeConstants.SUBMIT.Equals(inputType) || AttributeConstants.BUTTON.Equals(inputType)) {
+                    formElement = new Button(name);
+                    formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
+                }
+                else {
+                    ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
+                    logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
+                }
             }
+            if (formElement != null) {
+                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, context.IsFlattenFontFields());
+            }
+        }
+
+        public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
+        }
+
+        public virtual bool ProcessContent(String content, ProcessorContext context) {
+            return false;
+        }
+
+        public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+            return false;
+        }
+
+        public virtual IPropertyContainer GetElementResult() {
+            return formElement;
         }
     }
 }

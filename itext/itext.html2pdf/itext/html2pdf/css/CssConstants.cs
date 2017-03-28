@@ -82,6 +82,8 @@ namespace iText.Html2pdf.Css {
 
         public const String BORDER_COLOR = "border-color";
 
+        public const String BORDER_IMAGE = "border-image";
+
         public const String BORDER_LEFT = "border-left";
 
         public const String BORDER_LEFT_COLOR = "border-left-color";

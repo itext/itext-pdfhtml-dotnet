@@ -82,6 +82,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.FIGURE, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.FONT, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.FOOTER, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.FORM, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.H1, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.H2, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.H3, typeof(BlockCssApplier));
@@ -93,7 +94,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.HTML, typeof(HtmlTagCssApplier));
             mapping.PutMapping(TagConstants.I, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.IMG, typeof(BlockCssApplier));
-            mapping.PutMapping(TagConstants.INPUT, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.INPUT, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.INS, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.KBD, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.LABEL, typeof(SpanTagCssApplier));
@@ -115,6 +116,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.SUB, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.SUP, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.TABLE, typeof(TableTagCssApplier));
+            mapping.PutMapping(TagConstants.TEXTAREA, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.TD, typeof(TdTagCssApplier));
             mapping.PutMapping(TagConstants.TFOOT, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.TH, typeof(TdTagCssApplier));

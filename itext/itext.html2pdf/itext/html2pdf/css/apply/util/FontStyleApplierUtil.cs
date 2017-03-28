@@ -169,7 +169,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             String letterSpacing = cssProps.Get(CssConstants.LETTER_SPACING);
-            if (letterSpacing != null) {
+            if (letterSpacing != null && !letterSpacing.Equals(CssConstants.NORMAL)) {
                 UnitValue letterSpacingValue = CssUtils.ParseLengthValueToPt(letterSpacing, em, rem);
                 if (letterSpacingValue.IsPointValue()) {
                     element.SetProperty(Property.CHARACTER_SPACING, letterSpacingValue.GetValue());

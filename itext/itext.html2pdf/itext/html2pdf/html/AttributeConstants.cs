@@ -53,6 +53,8 @@ namespace iText.Html2pdf.Html {
 
         public const String COLOR = "color";
 
+        public const String COLS = "cols";
+
         public const String COLSPAN = "colspan";
 
         public const String DIR = "dir";
@@ -74,6 +76,8 @@ namespace iText.Html2pdf.Html {
         public const String NOSHADE = "noshade";
 
         public const String REL = "rel";
+
+        public const String ROWS = "rows";
 
         public const String ROWSPAN = "rowspan";
 
@@ -103,7 +107,11 @@ namespace iText.Html2pdf.Html {
 
         public const String BOTTOM = "bottom";
 
+        public const String BUTTON = "button";
+
         public const String CENTER = "center";
+
+        public const String CHECKBOX = "checkbox";
 
         public const String EMAIL = "email";
 
@@ -117,11 +125,17 @@ namespace iText.Html2pdf.Html {
 
         public const String MIDDLE = "middle";
 
+        public const String PASSWORD = "password";
+
+        public const String RADIO = "radio";
+
         public const String RIGHT = "right";
 
         public const String RTL = "rtl";
 
         public const String STYLESHEET = "stylesheet";
+
+        public const String SUBMIT = "submit";
 
         public const String TEXT = "text";
 

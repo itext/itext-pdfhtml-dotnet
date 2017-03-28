@@ -46,6 +46,19 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         public const int KEEP_WITH_PREVIOUS = PROPERTY_START + 1;
 
         public const int PAGE_COUNT_TYPE = PROPERTY_START + 2;
+
+        public const int FORM_FIELD_FLATTEN = PROPERTY_START + 3;
+
+        public const int FORM_FIELD_SIZE = PROPERTY_START + 4;
+
+        public const int FORM_FIELD_VALUE = PROPERTY_START + 5;
+
+        public const int FORM_FIELD_PASSWORD_FLAG = PROPERTY_START + 6;
+
+        public const int FORM_FIELD_COLS = PROPERTY_START + 7;
+
+        public const int FORM_FIELD_ROWS = PROPERTY_START + 8;
         /* Works only for top-level elements, i.e. ones that are added to the document directly */
+        //Form related properties
     }
 }
