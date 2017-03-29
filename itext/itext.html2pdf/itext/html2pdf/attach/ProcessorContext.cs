@@ -156,8 +156,27 @@ namespace iText.Html2pdf.Attach {
             return formFieldNameResolver;
         }
 
+        /// <summary>Add temporary fonts from @font-face.</summary>
+        /// <param name="fontInfo">
+        /// 
+        /// <see cref="iText.Layout.Font.FontInfo"/>
+        /// of the just created font.
+        /// </param>
         public virtual void AddTemporaryFont(FontInfo fontInfo) {
             tempFonts.Add(fontInfo);
+        }
+
+        /// <summary>Remove previously added temporary fonts.</summary>
+        /// <remarks>
+        /// Remove previously added temporary fonts.
+        /// All temporary fonts shall be removed after document processing.
+        /// </remarks>
+        /// <seealso cref="AddTemporaryFont(iText.Layout.Font.FontInfo)"/>
+        public virtual void RemoveTemporaryFonts() {
+            foreach (FontInfo fi in tempFonts) {
+                fontProvider.GetFontSet().Remove(fi);
+            }
+            tempFonts.Clear();
         }
 
         public virtual void Reset() {
@@ -166,19 +185,11 @@ namespace iText.Html2pdf.Attach {
             this.resourceResolver.ResetCache();
             this.cssContext = new CssContext();
             this.formFieldNameResolver.Reset();
-            RemoveTemporaryFonts();
         }
 
         public virtual void Reset(PdfDocument pdfDocument) {
             Reset();
             this.pdfDocument = pdfDocument;
-        }
-
-        private void RemoveTemporaryFonts() {
-            foreach (FontInfo fi in tempFonts) {
-                fontProvider.GetFontSet().Remove(fi);
-            }
-            tempFonts.Clear();
         }
     }
 }

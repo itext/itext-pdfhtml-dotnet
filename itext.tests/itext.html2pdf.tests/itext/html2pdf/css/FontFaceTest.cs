@@ -43,6 +43,7 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Css.Media;
+using iText.Html2pdf.Resolver.Font;
 using iText.IO.Util;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
@@ -115,8 +116,11 @@ namespace iText.Html2pdf.Css {
             String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
             String diffPrefix = "diff_" + name + "_";
             System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath), new ConverterProperties().SetMediaDeviceDescription
-                (new MediaDeviceDescription(MediaType.PRINT)));
+            ConverterProperties converterProperties = new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription
+                (MediaType.PRINT)).SetFontProvider(new DefaultFontProvider());
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath), converterProperties);
+            NUnit.Framework.Assert.IsFalse(converterProperties.GetFontProvider().GetFontSet().Contains("droid serif"), 
+                "Temporary font was found.");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
                 ));
         }

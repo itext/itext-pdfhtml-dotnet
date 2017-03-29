@@ -149,6 +149,7 @@ namespace iText.Html2pdf.Attach.Impl {
                     elements.Add((IElement)propertyContainer);
                 }
             }
+            context.RemoveTemporaryFonts();
             cssResolver = null;
             roots = null;
             return elements;
@@ -315,7 +316,6 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>Adds @font-face fonts to the FontProvider.</summary>
         protected internal virtual void AddFontFaceFonts() {
             //TODO Shall we add getFonts() to ICssResolver?
-            //TODO DEVSIX-1059 check font removing.
             if (cssResolver is DefaultCssResolver) {
                 foreach (CssFontFaceRule fontFace in ((DefaultCssResolver)cssResolver).GetFonts()) {
                     bool findSupportedSrc = false;
