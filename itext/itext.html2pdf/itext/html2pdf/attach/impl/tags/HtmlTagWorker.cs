@@ -65,6 +65,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             document.SetRenderer(new HtmlDocumentRenderer(document, immediateFlush));
             document.SetProperty(Property.COLLAPSING_MARGINS, true);
             document.SetFontProvider(context.GetFontProvider());
+            if (context.GetTempFonts() != null) {
+                document.SetProperty(Property.FONT_SET, context.GetTempFonts());
+            }
             String fontFamily = element.GetStyles().Get(CssConstants.FONT_FAMILY);
             document.SetProperty(Property.FONT, fontFamily);
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.

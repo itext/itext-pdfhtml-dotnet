@@ -48,5 +48,7 @@ namespace iText.Html2pdf.Exceptions {
         }
 
         public const String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
+
+        public const String FontProviderContainsZeroFonts = "Font Provider contains zero fonts. At least one font shall be present";
     }
 }

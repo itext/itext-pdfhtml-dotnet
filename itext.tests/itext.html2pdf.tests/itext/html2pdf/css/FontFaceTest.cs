@@ -43,9 +43,11 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Css.Media;
+using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Resolver.Font;
 using iText.IO.Util;
 using iText.Kernel.Utils;
+using iText.Layout.Font;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
@@ -106,6 +108,26 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void DroidSerifLocalWithMediaRuleFontTest2() {
             RunTest("droidSerifLocalWithMediaRuleFontTest2");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DroidSerifLocalWithMediaRuleFontTest3() {
+            String name = "droidSerifLocalWithMediaRuleFontTest";
+            String htmlPath = sourceFolder + name + ".html";
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            ConverterProperties converterProperties = new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription
+                (MediaType.PRINT)).SetFontProvider(new FontProvider());
+            String exception = null;
+            try {
+                HtmlConverter.ConvertToPdf(htmlPath, new MemoryStream(), converterProperties);
+            }
+            catch (Exception e) {
+                exception = e.Message;
+            }
+            NUnit.Framework.Assert.AreEqual(Html2PdfException.FontProviderContainsZeroFonts, exception, "Font Provider with zero fonts shall fail"
+                );
         }
 
         /// <exception cref="System.IO.IOException"/>

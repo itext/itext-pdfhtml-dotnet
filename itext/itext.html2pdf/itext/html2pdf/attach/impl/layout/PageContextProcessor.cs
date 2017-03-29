@@ -308,6 +308,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 marginBox.SetMargins(boxMargins[0], boxMargins[1], boxMargins[2], boxMargins[3]);
                 marginBox.SetPaddings(boxPaddings[0], boxPaddings[1], boxPaddings[2], boxPaddings[3]);
                 marginBox.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
+                marginBox.SetProperty(Property.FONT_SET, context.GetTempFonts());
                 marginBox.SetFillAvailableArea(true);
                 if (marginBoxContentNode.ChildNodes().IsEmpty()) {
                     // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content

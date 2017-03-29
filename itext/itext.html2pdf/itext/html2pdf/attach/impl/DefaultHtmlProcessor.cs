@@ -146,10 +146,12 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (propertyContainer is IElement) {
                     propertyContainer.SetProperty(Property.COLLAPSING_MARGINS, true);
                     propertyContainer.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
+                    if (context.GetTempFonts() != null) {
+                        propertyContainer.SetProperty(Property.FONT_SET, context.GetTempFonts());
+                    }
                     elements.Add((IElement)propertyContainer);
                 }
             }
-            context.RemoveTemporaryFonts();
             cssResolver = null;
             roots = null;
             return elements;
@@ -221,8 +223,8 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
             }
             context.Reset(pdfDocument);
-            if (context.GetFontProvider().GetFontSet().GetFonts().Count == 0) {
-                throw new Html2PdfException("Font Provider contains zero fonts. At least one font should be present");
+            if (!context.HasFonts()) {
+                throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
             }
             // TODO store html version from document type in context if necessary
             roots = new List<IPropertyContainer>();
@@ -344,7 +346,7 @@ namespace iText.Html2pdf.Attach.Impl {
                     // to method with lazy initialization
                     FontInfo fi = context.GetFontProvider().GetFontSet().Get(src.src);
                     if (fi != null) {
-                        context.AddTemporaryFont(context.GetFontProvider().GetFontSet().Add(fi, fontFamily));
+                        context.AddTemporaryFont(fi, fontFamily);
                         return true;
                     }
                     else {
@@ -357,8 +359,7 @@ namespace iText.Html2pdf.Attach.Impl {
                         // The instance of fontProgram will be collected by GC if the is no need in it.
                         byte[] bytes = context.GetResourceResolver().RetrieveStream(src.src);
                         FontProgram fp = FontProgramFactory.CreateFont(bytes, false);
-                        context.AddTemporaryFont(context.GetFontProvider().GetFontSet().Add(fp, PdfEncodings.IDENTITY_H, fontFamily
-                            ));
+                        context.AddTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily);
                         return true;
                     }
                     catch (Exception) {

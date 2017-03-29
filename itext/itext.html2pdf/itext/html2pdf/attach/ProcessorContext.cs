@@ -40,7 +40,6 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using System.Collections.Generic;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
@@ -50,6 +49,7 @@ using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Resolver.Font;
 using iText.Html2pdf.Resolver.Form;
 using iText.Html2pdf.Resolver.Resource;
+using iText.IO.Font;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
 
@@ -57,7 +57,7 @@ namespace iText.Html2pdf.Attach {
     public class ProcessorContext {
         private FontProvider fontProvider;
 
-        private IList<FontInfo> tempFonts;
+        private FontSet tempFonts;
 
         private ResourceResolver resourceResolver;
 
@@ -93,7 +93,6 @@ namespace iText.Html2pdf.Attach {
             if (fontProvider == null) {
                 fontProvider = new DefaultFontProvider();
             }
-            tempFonts = new List<FontInfo>();
             tagWorkerFactory = converterProperties.GetTagWorkerFactory();
             if (tagWorkerFactory == null) {
                 tagWorkerFactory = new DefaultTagWorkerFactory();
@@ -128,6 +127,10 @@ namespace iText.Html2pdf.Attach {
             return fontProvider;
         }
 
+        public virtual FontSet GetTempFonts() {
+            return tempFonts;
+        }
+
         public virtual ResourceResolver GetResourceResolver() {
             return resourceResolver;
         }
@@ -156,27 +159,28 @@ namespace iText.Html2pdf.Attach {
             return formFieldNameResolver;
         }
 
-        /// <summary>Add temporary fonts from @font-face.</summary>
-        /// <param name="fontInfo">
-        /// 
-        /// <see cref="iText.Layout.Font.FontInfo"/>
-        /// of the just created font.
-        /// </param>
-        public virtual void AddTemporaryFont(FontInfo fontInfo) {
-            tempFonts.Add(fontInfo);
+        /// <summary>Add temporary font from @font-face.</summary>
+        public virtual void AddTemporaryFont(FontInfo fontInfo, String alias) {
+            if (tempFonts == null) {
+                tempFonts = new FontSet();
+            }
+            tempFonts.Add(fontInfo, alias);
         }
 
-        /// <summary>Remove previously added temporary fonts.</summary>
-        /// <remarks>
-        /// Remove previously added temporary fonts.
-        /// All temporary fonts shall be removed after document processing.
-        /// </remarks>
-        /// <seealso cref="AddTemporaryFont(iText.Layout.Font.FontInfo)"/>
-        public virtual void RemoveTemporaryFonts() {
-            foreach (FontInfo fi in tempFonts) {
-                fontProvider.GetFontSet().Remove(fi);
+        /// <summary>Add temporary font from @font-face.</summary>
+        public virtual void AddTemporaryFont(FontProgram fontProgram, String encoding, String alias) {
+            if (tempFonts == null) {
+                tempFonts = new FontSet();
             }
-            tempFonts.Clear();
+            tempFonts.Add(fontProgram, encoding, alias);
+        }
+
+        /// <summary>Check fonts in font provider and temporary font set.</summary>
+        /// <returns>true, if there is at least one font either in FontProvider or temporary FontSet.</returns>
+        /// <seealso cref="AddTemporaryFont(iText.Layout.Font.FontInfo, System.String)"/>
+        /// <seealso cref="AddTemporaryFont(iText.IO.Font.FontProgram, System.String, System.String)"/>
+        public virtual bool HasFonts() {
+            return !fontProvider.GetFontSet().IsEmpty() || (tempFonts != null && !tempFonts.IsEmpty());
         }
 
         public virtual void Reset() {
@@ -185,6 +189,9 @@ namespace iText.Html2pdf.Attach {
             this.resourceResolver.ResetCache();
             this.cssContext = new CssContext();
             this.formFieldNameResolver.Reset();
+            //Reset font provider. PdfFonts shall be reseted.
+            this.fontProvider = new FontProvider(this.fontProvider.GetFontSet());
+            this.tempFonts = null;
         }
 
         public virtual void Reset(PdfDocument pdfDocument) {
