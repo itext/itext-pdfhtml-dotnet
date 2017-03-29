@@ -65,7 +65,7 @@ namespace iText.Html2pdf.Css {
             sb.Append("{");
             sb.Append("\n");
             foreach (CssDeclaration declaration in properties) {
-                sb.Append("\t");
+                sb.Append("    ");
                 sb.Append(declaration);
                 sb.Append("\n");
             }

@@ -56,14 +56,14 @@ namespace iText.Html2pdf.Css.Parse {
 
         public static IList<CssDeclaration> ParsePropertyDeclarations(String propertiesStr) {
             IList<CssDeclaration> declarations = new List<CssDeclaration>();
-            int pos = GetSemicolonPosition(propertiesStr);
+            int pos = GetSemicolonPosition(propertiesStr, 0);
             while (pos != -1) {
                 String[] propertySplit = SplitCssProperty(propertiesStr.JSubstring(0, pos));
                 if (propertySplit != null) {
                     declarations.Add(new CssDeclaration(propertySplit[0], propertySplit[1]));
                 }
                 propertiesStr = propertiesStr.Substring(pos + 1);
-                pos = GetSemicolonPosition(propertiesStr);
+                pos = GetSemicolonPosition(propertiesStr, 0);
             }
             if (!String.IsNullOrEmpty(iText.IO.Util.StringUtil.ReplaceAll(propertiesStr, "[\\n\\r\\t ]", ""))) {
                 String[] propertySplit = SplitCssProperty(propertiesStr);
@@ -116,18 +116,20 @@ namespace iText.Html2pdf.Css.Parse {
             return result;
         }
 
-        private static int GetSemicolonPosition(String propertiesStr) {
-            int semiColonPos = propertiesStr.IndexOf(";", StringComparison.Ordinal);
-            int openedBracketPos = propertiesStr.IndexOf("(", StringComparison.Ordinal);
-            int closedBracketPos = propertiesStr.IndexOf(")", StringComparison.Ordinal);
+        private static int GetSemicolonPosition(String propertiesStr, int fromIndex) {
+            int semiColonPos = propertiesStr.IndexOf(";", fromIndex);
+            int closedBracketPos = propertiesStr.IndexOf(")", semiColonPos + 1);
+            int openedBracketPos = propertiesStr.IndexOf("(", fromIndex);
+            if (semiColonPos != -1 && openedBracketPos < semiColonPos && closedBracketPos > 0) {
+                int nextOpenedBracketPos = openedBracketPos;
+                do {
+                    openedBracketPos = nextOpenedBracketPos;
+                    nextOpenedBracketPos = propertiesStr.IndexOf("(", openedBracketPos + 1);
+                }
+                while (nextOpenedBracketPos < closedBracketPos && nextOpenedBracketPos > 0);
+            }
             if (semiColonPos != -1 && semiColonPos > openedBracketPos && semiColonPos < closedBracketPos) {
-                int pos = GetSemicolonPosition(propertiesStr.Substring(semiColonPos + 1)) + 1;
-                if (pos > 0) {
-                    semiColonPos += GetSemicolonPosition(propertiesStr.Substring(semiColonPos + 1)) + 1;
-                }
-                else {
-                    semiColonPos = -1;
-                }
+                return GetSemicolonPosition(propertiesStr, closedBracketPos + 1);
             }
             return semiColonPos;
         }
