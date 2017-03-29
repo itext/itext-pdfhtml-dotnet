@@ -59,7 +59,7 @@ namespace iText.Html2pdf {
 
         public const String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
 
-        public const String INPUT_SUPPORT_ONLY_POINT_WIDTH = "Input field support only point width";
+        public const String INPUT_SUPPORTS_ONLY_POINT_WIDTH = "Input field supports only point width";
 
         public const String HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED = "Height value in percent not supported";
 

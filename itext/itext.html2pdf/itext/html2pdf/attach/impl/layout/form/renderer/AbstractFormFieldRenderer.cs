@@ -180,7 +180,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                     return width.GetValue();
                 }
                 else {
-                    LoggerFactory.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_SUPPORT_ONLY_POINT_WIDTH);
+                    LoggerFactory.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_SUPPORTS_ONLY_POINT_WIDTH);
                 }
             }
             return null;
