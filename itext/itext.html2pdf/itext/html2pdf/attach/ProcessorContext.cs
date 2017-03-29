@@ -164,7 +164,7 @@ namespace iText.Html2pdf.Attach {
             if (tempFonts == null) {
                 tempFonts = new FontSet();
             }
-            tempFonts.Add(fontInfo, alias);
+            tempFonts.AddFont(fontInfo, alias);
         }
 
         /// <summary>Add temporary font from @font-face.</summary>
@@ -172,7 +172,7 @@ namespace iText.Html2pdf.Attach {
             if (tempFonts == null) {
                 tempFonts = new FontSet();
             }
-            tempFonts.Add(fontProgram, encoding, alias);
+            tempFonts.AddFont(fontProgram, encoding, alias);
         }
 
         /// <summary>Check fonts in font provider and temporary font set.</summary>

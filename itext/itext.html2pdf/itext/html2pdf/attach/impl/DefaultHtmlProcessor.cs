@@ -344,9 +344,11 @@ namespace iText.Html2pdf.Attach.Impl {
             else {
                 if (src.isLocal) {
                     // to method with lazy initialization
-                    FontInfo fi = context.GetFontProvider().GetFontSet().Get(src.src);
-                    if (fi != null) {
-                        context.AddTemporaryFont(fi, fontFamily);
+                    ICollection<FontInfo> fonts = context.GetFontProvider().GetFontSet().Get(src.src);
+                    if (fonts.Count > 0) {
+                        foreach (FontInfo fi in fonts) {
+                            context.AddTemporaryFont(fi, fontFamily);
+                        }
                         return true;
                     }
                     else {
