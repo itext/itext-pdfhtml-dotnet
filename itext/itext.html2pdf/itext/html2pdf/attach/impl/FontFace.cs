@@ -86,16 +86,13 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
+        /// <summary>Actually font-family is an alias.</summary>
         public virtual String GetFontFamily() {
             return alias;
         }
 
         public virtual IList<FontFace.FontFaceSrc> GetSources() {
             return sources;
-        }
-
-        public virtual String GetAlias() {
-            return alias;
         }
 
         private FontFace(String alias, IList<FontFace.FontFaceSrc> sources) {

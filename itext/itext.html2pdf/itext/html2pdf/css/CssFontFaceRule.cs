@@ -45,7 +45,7 @@ using System.Text;
 
 namespace iText.Html2pdf.Css {
     public class CssFontFaceRule : CssNestedAtRule {
-        internal IList<CssDeclaration> properties;
+        private IList<CssDeclaration> properties;
 
         protected internal CssFontFaceRule(String ruleParameters)
             : base(CssRuleName.FONT_FACE, ruleParameters) {
