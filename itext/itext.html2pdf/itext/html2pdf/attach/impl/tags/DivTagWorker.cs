@@ -100,7 +100,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
                 else {
                     if (element is IFormField) {
-                        inlineHelper.Add((IFormField)element);
+                        // TODO refactor and generalize
+                        if (childTagWorker is ButtonTagWorker && CssConstants.BLOCK.Equals(((ButtonTagWorker)childTagWorker).GetDisplay
+                            ())) {
+                            PostProcessInlineGroup();
+                            inlineHelper.Add((ILeafElement)element);
+                            PostProcessInlineGroup();
+                        }
+                        else {
+                            inlineHelper.Add((IFormField)element);
+                        }
                         return true;
                     }
                     else {

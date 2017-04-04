@@ -43,6 +43,7 @@ using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
@@ -51,7 +52,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     public class ButtonTagWorker : ITagWorker {
         private const String DEFAULT_BUTTON_NAME = "Button";
 
-        internal Button button;
+        private Button button;
+
+        private String display;
 
         public ButtonTagWorker(IElementNode element, ProcessorContext context) {
             String name = element.GetAttribute(AttributeConstants.ID);
@@ -61,9 +64,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             name = context.GetFormFieldNameResolver().ResolveFormName(name);
             button = new Button(name);
             button.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
+            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
+        }
+
+        internal virtual String GetDisplay() {
+            return display;
         }
 
         public virtual bool ProcessContent(String content, ProcessorContext context) {
