@@ -42,6 +42,7 @@
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
 using System.Reflection;
@@ -67,8 +68,10 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "linkTest01.html"), new FileInfo(destinationFolder 
-                + "linkTest01.pdf"));
+            PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest01.pdf"));
+            outDoc.SetTagged();
+            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "linkTest01.html", FileMode.Open, FileAccess.Read
+                ), outDoc);
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest01.pdf", sourceFolder
                  + "cmp_linkTest01.pdf", destinationFolder, "diff01_"));
         }
