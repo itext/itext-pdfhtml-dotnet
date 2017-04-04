@@ -159,6 +159,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             trimBox.MoveRight(horizontalIndent);
             page.SetTrimBox(trimBox);
             PdfCanvas canvas = new PdfCanvas(page);
+            if (page.GetDocument().IsTagged()) {
+                canvas.OpenTag(new CanvasArtifact());
+            }
             if (marks.Contains(CssConstants.CROP)) {
                 float cropLineLength = 24;
                 float verticalCropStartIndent = verticalIndent - cropLineLength;
@@ -193,6 +196,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 y = mediaBox.GetHeight() / 2;
                 DrawCross(canvas, x, y, false);
                 canvas.RestoreState();
+            }
+            if (page.GetDocument().IsTagged()) {
+                canvas.CloseTag();
             }
         }
 
@@ -351,11 +357,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                         }
                     }
                 }
+                marginBox.SetRole(PdfName.Artifact);
             }
         }
 
         private Rectangle[] CalculateMarginBoxRectangles(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
-            // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes, 
+            // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes,
             //      also height and width properties should be taken into account.
             float topMargin = margins[0];
             float rightMargin = margins[1];
