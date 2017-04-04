@@ -172,7 +172,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE, Count = 1)]
         public virtual void ElementTableTest() {
             // empty tables don't self-collapse in browsers
             Test("elementTableTest.html", "elementTableTest.pdf", "diff_");
