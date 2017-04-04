@@ -99,8 +99,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             else {
                 if (childTagWorker.GetElementResult() is IFormField) {
-                    inlineHelper.Add((IFormField)childTagWorker.GetElementResult());
-                    return true;
+                    if (childTagWorker is IDisplayAware && CssConstants.BLOCK.Equals(((IDisplayAware)childTagWorker).GetDisplay
+                        ())) {
+                        PostProcessInlineGroup();
+                        inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
+                        PostProcessInlineGroup();
+                    }
+                    else {
+                        inlineHelper.Add((IFormField)childTagWorker.GetElementResult());
+                    }
+                    processed = true;
                 }
                 else {
                     if (childTagWorker.GetElementResult() is AreaBreak) {

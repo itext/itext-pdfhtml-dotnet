@@ -102,6 +102,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     if (element is IFormField) {
                         if (childTagWorker is IDisplayAware && CssConstants.BLOCK.Equals(((IDisplayAware)childTagWorker).GetDisplay
                             ())) {
+                            // TODO make IFormField implement IBlockElement and add it directly to div without inline helper.
+                            // TODO Requires refactoring of AbstractOneLineTextFieldRenderer (calculate baselines properly)
                             PostProcessInlineGroup();
                             inlineHelper.Add((ILeafElement)element);
                             PostProcessInlineGroup();
@@ -109,7 +111,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         else {
                             inlineHelper.Add((IFormField)element);
                         }
-                        return true;
+                        processed = true;
                     }
                     else {
                         if (element is AreaBreak) {
