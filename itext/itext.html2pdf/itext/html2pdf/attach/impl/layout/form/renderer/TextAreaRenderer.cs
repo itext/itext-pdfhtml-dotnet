@@ -58,31 +58,19 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         }
 
         public virtual int GetCols() {
-            int? cols = this.GetPropertyAsInteger(Html2PdfProperty.FORM_FIELD_COLS);
+            int? cols = GetPropertyAsInteger(Html2PdfProperty.FORM_FIELD_COLS);
             if (cols != null && cols.Value > 0) {
                 return (int)cols;
             }
-            return (int)modelElement.GetDefaultProperty<int>(Html2PdfProperty.FORM_FIELD_COLS);
+            return cols != null ? (int)cols : (int)modelElement.GetDefaultProperty(Html2PdfProperty.FORM_FIELD_COLS);
         }
 
         public virtual int GetRows() {
-            int? rows = this.GetPropertyAsInteger(Html2PdfProperty.FORM_FIELD_ROWS);
+            int? rows = GetPropertyAsInteger(Html2PdfProperty.FORM_FIELD_ROWS);
             if (rows != null && rows.Value > 0) {
                 return (int)rows;
             }
-            return (int)modelElement.GetDefaultProperty<int>(Html2PdfProperty.FORM_FIELD_ROWS);
-        }
-
-        public override float GetAscent() {
-            return occupiedArea.GetBBox().GetHeight();
-        }
-
-        public override float GetDescent() {
-            return 0;
-        }
-
-        public override IRenderer GetNextRenderer() {
-            return new iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.TextAreaRenderer((TextArea)GetModelElement());
+            return (int)modelElement.GetDefaultProperty(Html2PdfProperty.FORM_FIELD_ROWS);
         }
 
         protected internal override void AdjustFieldLayout() {
@@ -110,7 +98,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             font.SetSubset(false);
             String value = GetDefaultValue();
             String name = GetModelId();
-            float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+            float fontSize = (float)GetPropertyAsFloat(Property.FONT_SIZE);
             PdfDocument doc = drawContext.GetDocument();
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
@@ -121,10 +109,22 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
         }
 
+        public override float GetAscent() {
+            return occupiedArea.GetBBox().GetHeight();
+        }
+
+        public override float GetDescent() {
+            return 0;
+        }
+
+        public override IRenderer GetNextRenderer() {
+            return new iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.TextAreaRenderer((TextArea)GetModelElement());
+        }
+
         protected internal override float? GetContentWidth() {
             float? width = base.GetContentWidth();
             if (width == null) {
-                float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+                float fontSize = (float)GetPropertyAsFloat(Property.FONT_SIZE);
                 int cols = GetCols();
                 return fontSize * (cols * 0.5f + 2) + 2;
             }

@@ -44,8 +44,8 @@ using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
-    public abstract class FormField<T> : AbstractElement<T>, IFormField
-        where T : IFormField {
+    public abstract class FormField<T> : AbstractElement<T>, ILeafElement
+        where T : IElement {
         private String id;
 
         protected internal FormField(String id) {
@@ -66,11 +66,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
                 }
 
                 case Html2PdfProperty.FORM_FIELD_VALUE: {
-                    return (T1)(Object)"";
+                    return (T1)"";
                 }
 
                 default: {
-                    return base.GetDefaultProperty<T1>(property);
+                    return base.GetDefaultProperty(property);
                 }
             }
         }

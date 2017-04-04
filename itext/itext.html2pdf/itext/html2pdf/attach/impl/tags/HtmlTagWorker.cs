@@ -95,8 +95,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 processed = allChildrenProcessed;
             }
             else {
-                if (childTagWorker.GetElementResult() is IFormField) {
-                    inlineHelper.Add((IFormField)childTagWorker.GetElementResult());
+                if (childTagWorker.GetElementResult() is FormField) {
+                    inlineHelper.Add((FormField)childTagWorker.GetElementResult());
                     return true;
                 }
                 else {

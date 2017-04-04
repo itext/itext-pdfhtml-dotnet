@@ -95,7 +95,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected internal override void ApplyAcroField(DrawContext drawContext) {
             String value = GetDefaultValue();
             String name = GetModelId();
-            float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+            float fontSize = (float)GetPropertyAsFloat(Property.FONT_SIZE);
             PdfDocument doc = drawContext.GetDocument();
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
             ApplyPaddings(area, true);

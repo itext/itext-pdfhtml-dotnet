@@ -48,7 +48,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     public abstract class AbstractOneLineTextFieldRenderer : AbstractTextFieldRenderer {
         protected internal float baseline;
 
-        protected internal AbstractOneLineTextFieldRenderer(IFormField modelElement)
+        protected internal AbstractOneLineTextFieldRenderer(FormField modelElement)
             : base(modelElement) {
         }
 

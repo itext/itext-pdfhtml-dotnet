@@ -54,7 +54,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     public abstract class AbstractTextFieldRenderer : AbstractFormFieldRenderer {
         protected internal PdfFont font;
 
-        protected internal AbstractTextFieldRenderer(IFormField modelElement)
+        protected internal AbstractTextFieldRenderer(FormField modelElement)
             : base(modelElement) {
         }
 
@@ -103,7 +103,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 if (lines != null) {
                     foreach (LineRenderer line in lines) {
                         foreach (IRenderer child in line.GetChildRenderers()) {
-                            retrievedFont = child.GetProperty<PdfFont>(Property.FONT);
+                            retrievedFont = child.GetProperty(Property.FONT);
                             if (retrievedFont is PdfFont) {
                                 font = (PdfFont)retrievedFont;
                                 return;
@@ -112,7 +112,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                     }
                 }
             }
-            retrievedFont = renderer.GetProperty<PdfFont>(Property.FONT);
+            retrievedFont = renderer.GetProperty(Property.FONT);
             if (retrievedFont is PdfFont) {
                 font = (PdfFont)retrievedFont;
             }

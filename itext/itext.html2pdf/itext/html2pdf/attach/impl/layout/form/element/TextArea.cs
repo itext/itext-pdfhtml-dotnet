@@ -61,7 +61,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
                 }
 
                 default: {
-                    return base.GetDefaultProperty<T1>(property);
+                    return base.GetDefaultProperty(property);
                 }
             }
         }

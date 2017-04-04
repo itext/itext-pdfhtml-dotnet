@@ -63,14 +63,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         }
 
         public virtual int GetSize() {
-            int? size = this.GetPropertyAsInteger(Html2PdfProperty.FORM_FIELD_SIZE);
-            return size != null ? (int)size : (int)modelElement.GetDefaultProperty<int>(Html2PdfProperty.FORM_FIELD_SIZE
-                );
+            int? size = GetPropertyAsInteger(Html2PdfProperty.FORM_FIELD_SIZE);
+            return size != null ? (int)size : (int)modelElement.GetDefaultProperty(Html2PdfProperty.FORM_FIELD_SIZE);
         }
 
         public virtual bool IsPassword() {
             bool? password = GetPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG);
-            return password != null ? (bool)password : (bool)modelElement.GetDefaultProperty<bool>(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG
+            return password != null ? (bool)password : (bool)modelElement.GetDefaultProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG
                 );
         }
 
@@ -105,7 +104,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             font.SetSubset(false);
             String value = GetDefaultValue();
             String name = GetModelId();
-            float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+            float fontSize = (float)GetPropertyAsFloat(Property.FONT_SIZE);
             PdfDocument doc = drawContext.GetDocument();
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
@@ -127,7 +126,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected internal override float? GetContentWidth() {
             float? width = base.GetContentWidth();
             if (width == null) {
-                float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+                float fontSize = (float)GetPropertyAsFloat(Property.FONT_SIZE);
                 int size = GetSize();
                 return fontSize * (size * 0.5f + 2) + 2;
             }
