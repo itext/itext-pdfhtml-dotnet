@@ -40,51 +40,9 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Layout;
-using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
-using iText.Html2pdf.Css;
-using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
-using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    public class ButtonTagWorker : ITagWorker, IDisplayAware {
-        private const String DEFAULT_BUTTON_NAME = "Button";
-
-        private Button button;
-
-        private String display;
-
-        public ButtonTagWorker(IElementNode element, ProcessorContext context) {
-            String name = element.GetAttribute(AttributeConstants.ID);
-            if (name == null) {
-                name = DEFAULT_BUTTON_NAME;
-            }
-            name = context.GetFormFieldNameResolver().ResolveFormName(name);
-            button = new Button(name);
-            button.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
-            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
-        }
-
-        public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
-        }
-
-        public virtual String GetDisplay() {
-            return display;
-        }
-
-        public virtual bool ProcessContent(String content, ProcessorContext context) {
-            button.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, content);
-            return true;
-        }
-
-        public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-            return false;
-        }
-
-        public virtual IPropertyContainer GetElementResult() {
-            return button;
-        }
+    public interface IDisplayAware {
+        String GetDisplay();
     }
 }

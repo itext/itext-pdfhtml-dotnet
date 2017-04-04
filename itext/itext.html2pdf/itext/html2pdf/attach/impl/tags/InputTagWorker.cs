@@ -43,6 +43,7 @@ using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
@@ -51,8 +52,10 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    public class InputTagWorker : ITagWorker {
-        internal IElement formElement;
+    public class InputTagWorker : ITagWorker, IDisplayAware {
+        private IElement formElement;
+
+        private String display;
 
         public InputTagWorker(IElementNode element, ProcessorContext context) {
             String inputType = element.GetAttribute(AttributeConstants.TYPE);
@@ -83,9 +86,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (formElement != null) {
                 formElement.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
             }
+            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
+        }
+
+        public virtual String GetDisplay() {
+            return display;
         }
 
         public virtual bool ProcessContent(String content, ProcessorContext context) {

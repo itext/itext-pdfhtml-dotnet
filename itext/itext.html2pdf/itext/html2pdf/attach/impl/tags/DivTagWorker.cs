@@ -100,8 +100,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
                 else {
                     if (element is IFormField) {
-                        // TODO refactor and generalize
-                        if (childTagWorker is ButtonTagWorker && CssConstants.BLOCK.Equals(((ButtonTagWorker)childTagWorker).GetDisplay
+                        if (childTagWorker is IDisplayAware && CssConstants.BLOCK.Equals(((IDisplayAware)childTagWorker).GetDisplay
                             ())) {
                             PostProcessInlineGroup();
                             inlineHelper.Add((ILeafElement)element);
