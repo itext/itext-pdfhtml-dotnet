@@ -353,5 +353,9 @@ namespace iText.Html2pdf.Css.Util {
             }
             return str;
         }
+
+        public static bool IsBase64Data(String data) {
+            return data.Matches("^data:([^\\s]*);base64,([^\\s]*)");
+        }
     }
 }

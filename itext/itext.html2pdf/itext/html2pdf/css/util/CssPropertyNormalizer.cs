@@ -73,7 +73,13 @@ namespace iText.Html2pdf.Css.Util {
                     if (sb.Length > 0 && !TrimSpaceAfter(sb[sb.Length - 1]) && !TrimSpaceBefore(part[0])) {
                         sb.Append(" ");
                     }
-                    sb.Append(part.ToLowerInvariant());
+                    // Do not make base64 data lowercase, function name only
+                    if (part.Matches("^[uU][rR][lL]\\(.+\\)") && CssUtils.IsBase64Data(part.JSubstring(4, part.Length - 1))) {
+                        sb.Append(part.JSubstring(0, 3).ToLowerInvariant()).Append(part.Substring(3));
+                    }
+                    else {
+                        sb.Append(part.ToLowerInvariant());
+                    }
                 }
             }
             buffer.Append(sb);
