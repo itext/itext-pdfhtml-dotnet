@@ -41,8 +41,10 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_3 {
+    [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 4)]
     public class T422RgbaOnscreenBTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "t422-rgba-onscreen-b.xht";
