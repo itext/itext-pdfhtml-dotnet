@@ -73,7 +73,7 @@ namespace iText.Html2pdf.Attach.Impl {
             // ttc collection are supported via url(Arial.ttc#1), url(Arial.ttc#2), etc.
             foreach (String src in iText.IO.Util.StringUtil.Split(srcs, ",")) {
                 //local|url("ideal-sans-serif.woff")( format("woff"))?
-                FontFace.FontFaceSrc source = FontFace.FontFaceSrc.Create(src);
+                FontFace.FontFaceSrc source = FontFace.FontFaceSrc.Create(src.Trim());
                 if (source != null) {
                     sources.Add(source);
                 }

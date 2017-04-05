@@ -54,6 +54,7 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class FontFaceTest : ExtendedITextTest {
@@ -108,6 +109,14 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void DroidSerifLocalWithMediaRuleFontTest2() {
             RunTest("droidSerifLocalWithMediaRuleFontTest2");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
+        public virtual void FontFaceGrammarTest() {
+            RunTest("fontFaceGrammarTest");
         }
 
         /// <exception cref="System.IO.IOException"/>
