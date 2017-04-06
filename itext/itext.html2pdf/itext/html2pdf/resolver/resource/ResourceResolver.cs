@@ -152,7 +152,7 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
         }
 
-        /// <exception cref="Java.Net.MalformedURLException"/>
+        /// <exception cref="System.UriFormatException"/>
         public virtual Uri ResolveAgainstBaseUri(String uri) {
             return uriResolver.ResolveAgainstBaseUri(uri);
         }
