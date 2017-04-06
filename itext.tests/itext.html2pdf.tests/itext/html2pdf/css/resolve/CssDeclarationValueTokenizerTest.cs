@@ -41,49 +41,59 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
+using iText.Html2pdf.Css.Parse;
 using iText.Test;
 
 namespace iText.Html2pdf.Css.Resolve {
-    public class CssContentTokenizerTest : ExtendedITextTest {
+    public class CssDeclarationValueTokenizerTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void FunctionTest01() {
             RunTest("func(param)", iText.IO.Util.JavaUtil.ArraysAsList("func(param)"), iText.IO.Util.JavaUtil.ArraysAsList
-                (false));
+                (CssDeclarationValueTokenizer.TokenType.FUNCTION));
         }
 
         [NUnit.Framework.Test]
         public virtual void FunctionTest02() {
             RunTest("func(param1, param2)", iText.IO.Util.JavaUtil.ArraysAsList("func(param1, param2)"), iText.IO.Util.JavaUtil.ArraysAsList
-                (false));
+                (CssDeclarationValueTokenizer.TokenType.FUNCTION));
         }
 
         [NUnit.Framework.Test]
         public virtual void FunctionTest03() {
             RunTest("func(param,'param)',\"param))\")", iText.IO.Util.JavaUtil.ArraysAsList("func(param,'param)',\"param))\")"
-                ), iText.IO.Util.JavaUtil.ArraysAsList(false));
+                ), iText.IO.Util.JavaUtil.ArraysAsList(CssDeclarationValueTokenizer.TokenType.FUNCTION));
         }
 
         [NUnit.Framework.Test]
         public virtual void FunctionTest04() {
             RunTest("func(param, innerFunc())", iText.IO.Util.JavaUtil.ArraysAsList("func(param, innerFunc())"), iText.IO.Util.JavaUtil.ArraysAsList
-                (false));
+                (CssDeclarationValueTokenizer.TokenType.FUNCTION));
         }
 
         [NUnit.Framework.Test]
         public virtual void FunctionTest05() {
             RunTest(") )) function()", iText.IO.Util.JavaUtil.ArraysAsList(")", "))", "function()"), iText.IO.Util.JavaUtil.ArraysAsList
-                (false, false, false));
+                (CssDeclarationValueTokenizer.TokenType.UNKNOWN, CssDeclarationValueTokenizer.TokenType.UNKNOWN, CssDeclarationValueTokenizer.TokenType
+                .FUNCTION));
         }
 
-        private void RunTest(String src, IList<String> tokenValues, IList<bool> isTokenStrings) {
-            CssContentTokenizer tokenizer = new CssContentTokenizer(src);
-            CssContentTokenizer.ContentToken token = null;
-            NUnit.Framework.Assert.IsTrue(tokenValues.Count == isTokenStrings.Count, "Value and type arrays size should be equal"
+        [NUnit.Framework.Test]
+        public virtual void FunctionTest06() {
+            RunTest("a('x'), b('x')", iText.IO.Util.JavaUtil.ArraysAsList("a('x')", ",", "b('x')"), iText.IO.Util.JavaUtil.ArraysAsList
+                (CssDeclarationValueTokenizer.TokenType.FUNCTION, CssDeclarationValueTokenizer.TokenType.COMMA, CssDeclarationValueTokenizer.TokenType
+                .FUNCTION));
+        }
+
+        private void RunTest(String src, IList<String> tokenValues, IList<CssDeclarationValueTokenizer.TokenType> 
+            tokenTypes) {
+            CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(src);
+            CssDeclarationValueTokenizer.Token token = null;
+            NUnit.Framework.Assert.IsTrue(tokenValues.Count == tokenTypes.Count, "Value and type arrays size should be equal"
                 );
             int index = 0;
             while ((token = tokenizer.GetNextValidToken()) != null) {
-                NUnit.Framework.Assert.AreEqual(token.GetValue(), tokenValues[index]);
-                NUnit.Framework.Assert.IsTrue(token.IsString() == isTokenStrings[index]);
+                NUnit.Framework.Assert.AreEqual(tokenValues[index], token.GetValue());
+                NUnit.Framework.Assert.AreEqual(tokenTypes[index], token.GetType());
                 ++index;
             }
             NUnit.Framework.Assert.IsTrue(index == tokenValues.Count);

@@ -42,6 +42,7 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Css.Util;
@@ -61,8 +62,8 @@ namespace iText.Html2pdf.Css.Resolve {
             if (contentStr == null || CssConstants.NONE.Equals(contentStr) || CssConstants.NORMAL.Equals(contentStr)) {
                 return null;
             }
-            CssContentTokenizer tokenizer = new CssContentTokenizer(contentStr);
-            CssContentTokenizer.ContentToken token;
+            CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(contentStr);
+            CssDeclarationValueTokenizer.Token token;
             CssQuotes quotes = null;
             while ((token = tokenizer.GetNextValidToken()) != null) {
                 if (token.IsString()) {

@@ -42,6 +42,7 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Parse;
 using iText.IO.Log;
 
 namespace iText.Html2pdf.Css.Resolve {
@@ -69,8 +70,8 @@ namespace iText.Html2pdf.Css.Resolve {
                     quotes[1].Add(EMPTY_QUOTE);
                     return new iText.Html2pdf.Css.Resolve.CssQuotes(quotes[0], quotes[1]);
                 }
-                CssContentTokenizer tokenizer = new CssContentTokenizer(quotesString);
-                CssContentTokenizer.ContentToken token;
+                CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(quotesString);
+                CssDeclarationValueTokenizer.Token token;
                 for (int i = 0; ((token = tokenizer.GetNextValidToken()) != null); ++i) {
                     if (token.IsString()) {
                         quotes[i % 2].Add(token.GetValue());

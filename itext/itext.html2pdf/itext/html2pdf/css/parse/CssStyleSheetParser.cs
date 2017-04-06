@@ -58,7 +58,7 @@ namespace iText.Html2pdf.Css.Parse {
 
         // TODO refactor into interface
         /// <exception cref="System.IO.IOException"/>
-        public static CssStyleSheet Parse(Stream stream) {
+        public static CssStyleSheet Parse(Stream stream, String baseUrl) {
 
             try 
             {
@@ -85,7 +85,7 @@ namespace iText.Html2pdf.Css.Parse {
                     throw;
                 }
             }
-            CssParserStateController controller = new CssParserStateController();
+            CssParserStateController controller = new CssParserStateController(baseUrl);
             TextReader br = PortUtil.WrapInBufferedReader(new StreamReader(stream));
             // TODO define charset
             char[] buffer = new char[8192];
@@ -136,15 +136,24 @@ namespace iText.Html2pdf.Css.Parse {
             return type;
         }
 
-        public static CssStyleSheet Parse(String data) {
+        /// <exception cref="System.IO.IOException"/>
+        public static CssStyleSheet Parse(Stream stream) {
+            return Parse(stream, null);
+        }
+
+        public static CssStyleSheet Parse(String data, String baseUrl) {
             // TODO charset? better to create parse logic based on string completely
             MemoryStream stream = new MemoryStream(data.GetBytes(Encoding.UTF8));
             try {
-                return Parse(stream);
+                return Parse(stream, baseUrl);
             }
             catch (System.IO.IOException) {
                 return null;
             }
+        }
+
+        public static CssStyleSheet Parse(String data) {
+            return Parse(data, null);
         }
     }
 }

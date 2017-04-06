@@ -152,6 +152,11 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
         }
 
+        /// <exception cref="Java.Net.MalformedURLException"/>
+        public virtual Uri ResolveAgainstBaseUri(String uri) {
+            return uriResolver.ResolveAgainstBaseUri(uri);
+        }
+
         public virtual void ResetCache() {
             imageCache.Reset();
         }

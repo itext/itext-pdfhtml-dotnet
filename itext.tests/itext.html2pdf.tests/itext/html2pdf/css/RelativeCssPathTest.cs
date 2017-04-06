@@ -40,33 +40,47 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.Html2pdf.Css.Util;
+using System.IO;
+using iText.Html2pdf;
+using iText.Kernel.Utils;
+using System.Collections.Generic;
+using System.Reflection;
+using System.IO;
+using Versions.Attributes;
+using iText.Kernel;
+using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class CssDeclaration {
-        private String property;
+    public class RelativeCssPathTest : ExtendedITextTest {
+        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+             + "/test/itext/html2pdf/css/RelativeCssPathTest/";
 
-        private String expression;
+        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/RelativeCssPathTest/";
 
-        public CssDeclaration(String property, String expression) {
-            this.property = CssUtils.NormalizeCssProperty(property);
-            this.expression = CssUtils.NormalizeCssProperty(expression);
+        [NUnit.Framework.OneTimeSetUp]
+        public static void BeforeClass() {
+            CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        public override String ToString() {
-            return String.Format("{0}: {1}", property, expression);
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RelativeCssPath01Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "css_relative.html"), new FileInfo(destinationFolder
+                 + "css_relative.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "css_relative.pdf", sourceFolder
+                 + "cmp_css_relative.pdf", destinationFolder, "diff01_"));
         }
 
-        public virtual String GetProperty() {
-            return property;
-        }
-
-        public virtual String GetExpression() {
-            return expression;
-        }
-
-        public virtual void SetExpression(String expression) {
-            this.expression = expression;
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RelativeCssPath02Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "css_relative_base64.html"), new FileInfo(destinationFolder
+                 + "css_relative_base64.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "css_relative_base64.pdf"
+                , sourceFolder + "cmp_css_relative_base64.pdf", destinationFolder, "diff02_"));
         }
     }
 }

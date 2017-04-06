@@ -44,6 +44,8 @@ using System.Collections.Generic;
 using System.Text;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Parse;
+using iText.Html2pdf.Css.Util;
+using iText.Html2pdf.Resolver.Resource;
 using iText.IO.Log;
 using iText.IO.Util;
 
@@ -91,9 +93,18 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
 
         private readonly IParserState atRuleBlockState;
 
-        public CssParserStateController() {
+        private UriResolver uriResolver;
+
+        public CssParserStateController()
+            : this("") {
+        }
+
+        public CssParserStateController(String baseUrl) {
             //Hashed value
             // Non-comment
+            if (baseUrl != null && baseUrl.Length > 0) {
+                this.uriResolver = new UriResolver(baseUrl);
+            }
             styleSheet = new CssStyleSheet();
             nestedAtRules = new Stack<CssNestedAtRule>();
             storedPropertiesWithoutSelector = new Stack<IList<CssDeclaration>>();
@@ -241,6 +252,10 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         private void ProcessProperties(String selector, String properties) {
             IList<CssRuleSet> ruleSets = CssRuleSetParser.ParseRuleSet(selector, properties);
             foreach (CssRuleSet ruleSet in ruleSets) {
+                NormalizeDeclarationURIs(ruleSet.GetNormalDeclarations());
+                NormalizeDeclarationURIs(ruleSet.GetImportantDeclarations());
+            }
+            foreach (CssRuleSet ruleSet in ruleSets) {
                 if (nestedAtRules.Count == 0) {
                     styleSheet.AddStatement(ruleSet);
                 }
@@ -253,7 +268,54 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         private void ProcessProperties(String properties) {
             if (storedPropertiesWithoutSelector.Count > 0) {
                 IList<CssDeclaration> cssDeclarations = CssRuleSetParser.ParsePropertyDeclarations(properties);
+                NormalizeDeclarationURIs(cssDeclarations);
                 storedPropertiesWithoutSelector.Peek().AddAll(cssDeclarations);
+            }
+        }
+
+        private void NormalizeDeclarationURIs(IList<CssDeclaration> declarations) {
+            // This is the case when css has no location and thus urls should not be resolved against base css location
+            if (this.uriResolver == null) {
+                return;
+            }
+            foreach (CssDeclaration declaration in declarations) {
+                if (declaration.GetExpression().Contains("url(")) {
+                    CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(declaration.GetExpression());
+                    CssDeclarationValueTokenizer.Token token;
+                    StringBuilder normalizedDeclaration = new StringBuilder();
+                    while ((token = tokenizer.GetNextValidToken()) != null) {
+                        String strToAppend;
+                        if (token.GetType() == CssDeclarationValueTokenizer.TokenType.FUNCTION && token.GetValue().StartsWith("url("
+                            )) {
+                            String url = token.GetValue().Trim();
+                            url = url.JSubstring(4, url.Length - 1).Trim();
+                            if (CssUtils.IsBase64Data(url)) {
+                                strToAppend = token.GetValue().Trim();
+                            }
+                            else {
+                                if (url.StartsWith("'") && url.EndsWith("'") || url.StartsWith("\"") && url.EndsWith("\"")) {
+                                    url = url.JSubstring(1, url.Length - 1);
+                                }
+                                url = url.Trim();
+                                String finalUrl = url;
+                                try {
+                                    finalUrl = uriResolver.ResolveAgainstBaseUri(url).ToExternalForm();
+                                }
+                                catch (UriFormatException) {
+                                }
+                                strToAppend = String.Format("url({0})", finalUrl);
+                            }
+                        }
+                        else {
+                            strToAppend = token.GetValue();
+                        }
+                        if (normalizedDeclaration.Length > 0) {
+                            normalizedDeclaration.Append(' ');
+                        }
+                        normalizedDeclaration.Append(strToAppend);
+                    }
+                    declaration.SetExpression(normalizedDeclaration.ToString());
+                }
             }
         }
 

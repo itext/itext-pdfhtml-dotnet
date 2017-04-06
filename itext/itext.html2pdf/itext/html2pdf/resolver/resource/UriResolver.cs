@@ -43,21 +43,21 @@ using System;
 using System.IO;
 
 namespace iText.Html2pdf.Resolver.Resource {
-    internal class UriResolver {
+    public class UriResolver {
         private Uri baseUrl;
 
         private bool isLocal;
 
-        internal UriResolver(String baseUri) {
+        public UriResolver(String baseUri) {
             ResolveBaseUrlOrPath(baseUri);
         }
 
-        internal virtual String GetBaseUri() {
+        public virtual String GetBaseUri() {
             return baseUrl.ToExternalForm();
         }
 
         /// <exception cref="Java.Net.MalformedURLException"/>
-        internal virtual Uri ResolveAgainstBaseUri(String uriString) {
+        public virtual Uri ResolveAgainstBaseUri(String uriString) {
             Uri resolvedUrl = null;
             if (isLocal) {
                 // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all

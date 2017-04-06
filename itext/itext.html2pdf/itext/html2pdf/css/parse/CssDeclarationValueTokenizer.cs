@@ -42,8 +42,8 @@
 using System;
 using System.Text;
 
-namespace iText.Html2pdf.Css.Resolve {
-    internal class CssContentTokenizer {
+namespace iText.Html2pdf.Css.Parse {
+    public class CssDeclarationValueTokenizer {
         private String src;
 
         private int index = -1;
@@ -54,12 +54,12 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private int functionDepth = 0;
 
-        public CssContentTokenizer(String src) {
-            this.src = src;
+        public CssDeclarationValueTokenizer(String propertyValue) {
+            this.src = propertyValue;
         }
 
-        public virtual CssContentTokenizer.ContentToken GetNextValidToken() {
-            CssContentTokenizer.ContentToken token = GetNextToken();
+        public virtual CssDeclarationValueTokenizer.Token GetNextValidToken() {
+            CssDeclarationValueTokenizer.Token token = GetNextToken();
             while (token != null && !token.IsString() && String.IsNullOrEmpty(token.GetValue().Trim())) {
                 token = GetNextToken();
             }
@@ -74,13 +74,14 @@ namespace iText.Html2pdf.Css.Resolve {
                     if (token != null) {
                         ProcessFunctionToken(token, functionBuffer);
                     }
-                    return new CssContentTokenizer.ContentToken(functionBuffer.ToString(), false);
+                    return new CssDeclarationValueTokenizer.Token(functionBuffer.ToString(), CssDeclarationValueTokenizer.TokenType
+                        .FUNCTION);
                 }
             }
             return token;
         }
 
-        private CssContentTokenizer.ContentToken GetNextToken() {
+        private CssDeclarationValueTokenizer.Token GetNextToken() {
             StringBuilder buff = new StringBuilder();
             char curChar;
             if (index >= src.Length - 1) {
@@ -107,7 +108,8 @@ namespace iText.Html2pdf.Css.Resolve {
                                 pendingUnicodeSequence.Length = 0;
                                 if (curChar == stringQuote) {
                                     inString = false;
-                                    return new CssContentTokenizer.ContentToken(buff.ToString(), true);
+                                    return new CssDeclarationValueTokenizer.Token(buff.ToString(), CssDeclarationValueTokenizer.TokenType.STRING
+                                        );
                                 }
                                 else {
                                     if (!iText.IO.Util.TextUtil.IsWhiteSpace(curChar)) {
@@ -125,7 +127,8 @@ namespace iText.Html2pdf.Css.Resolve {
                     else {
                         if (curChar == stringQuote) {
                             inString = false;
-                            return new CssContentTokenizer.ContentToken(buff.ToString(), true);
+                            return new CssDeclarationValueTokenizer.Token(buff.ToString(), CssDeclarationValueTokenizer.TokenType.STRING
+                                );
                         }
                         else {
                             if (curChar == '\\') {
@@ -149,36 +152,48 @@ namespace iText.Html2pdf.Css.Resolve {
                         if (curChar == ')') {
                             --functionDepth;
                             buff.Append(curChar);
+                            if (functionDepth == 0) {
+                                return new CssDeclarationValueTokenizer.Token(buff.ToString(), CssDeclarationValueTokenizer.TokenType.FUNCTION
+                                    );
+                            }
                         }
                         else {
                             if (curChar == '"' || curChar == '\'') {
                                 stringQuote = curChar;
                                 inString = true;
-                                return new CssContentTokenizer.ContentToken(buff.ToString(), false);
+                                return new CssDeclarationValueTokenizer.Token(buff.ToString(), CssDeclarationValueTokenizer.TokenType.FUNCTION
+                                    );
                             }
                             else {
-                                if (iText.IO.Util.TextUtil.IsWhiteSpace(curChar)) {
-                                    if (functionDepth > 0) {
-                                        buff.Append(curChar);
-                                    }
-                                    return new CssContentTokenizer.ContentToken(buff.ToString(), false);
+                                if (curChar == ',' && !inString && functionDepth == 0) {
+                                    return new CssDeclarationValueTokenizer.Token(",", CssDeclarationValueTokenizer.TokenType.COMMA);
                                 }
                                 else {
-                                    buff.Append(curChar);
+                                    if (iText.IO.Util.TextUtil.IsWhiteSpace(curChar)) {
+                                        if (functionDepth > 0) {
+                                            buff.Append(curChar);
+                                        }
+                                        return new CssDeclarationValueTokenizer.Token(buff.ToString(), functionDepth > 0 ? CssDeclarationValueTokenizer.TokenType
+                                            .FUNCTION : CssDeclarationValueTokenizer.TokenType.UNKNOWN);
+                                    }
+                                    else {
+                                        buff.Append(curChar);
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-            return new CssContentTokenizer.ContentToken(buff.ToString(), false);
+            return new CssDeclarationValueTokenizer.Token(buff.ToString(), CssDeclarationValueTokenizer.TokenType.FUNCTION
+                );
         }
 
         private bool IsHexDigit(char c) {
             return (47 < c && c < 58) || (64 < c && c < 71) || (96 < c && c < 103);
         }
 
-        private void ProcessFunctionToken(CssContentTokenizer.ContentToken token, StringBuilder functionBuffer) {
+        private void ProcessFunctionToken(CssDeclarationValueTokenizer.Token token, StringBuilder functionBuffer) {
             if (token.IsString()) {
                 functionBuffer.Append(stringQuote);
                 functionBuffer.Append(token.GetValue());
@@ -189,27 +204,38 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
-        internal class ContentToken {
+        public class Token {
             private String value;
 
-            private bool isString;
+            private CssDeclarationValueTokenizer.TokenType type;
 
-            public ContentToken(String value, bool isString) {
+            public Token(String value, CssDeclarationValueTokenizer.TokenType type) {
                 this.value = value;
-                this.isString = isString;
+                this.type = type;
             }
 
             public virtual String GetValue() {
                 return value;
             }
 
+            public virtual CssDeclarationValueTokenizer.TokenType GetType() {
+                return type;
+            }
+
             public virtual bool IsString() {
-                return isString;
+                return type == CssDeclarationValueTokenizer.TokenType.STRING;
             }
 
             public override String ToString() {
                 return value;
             }
+        }
+
+        public enum TokenType {
+            STRING,
+            FUNCTION,
+            COMMA,
+            UNKNOWN
         }
     }
 }
