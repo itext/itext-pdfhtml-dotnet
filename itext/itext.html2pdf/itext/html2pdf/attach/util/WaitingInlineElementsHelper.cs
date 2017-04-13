@@ -82,6 +82,22 @@ namespace iText.Html2pdf.Attach.Util {
                     }
                     text = sb.ToString();
                 }
+                else {
+                    // false == collapseSpaces
+                    // prohibit trimming first and last spaces
+                    StringBuilder sb = new StringBuilder(text.Length);
+                    sb.Append('\u200d');
+                    for (int i = 0; i < text.Length; i++) {
+                        sb.Append(text[i]);
+                        if ('\n' == text[i] || '\r' == text[i]) {
+                            sb.Append('\u200d');
+                        }
+                    }
+                    if ('\u200d' == sb[sb.Length - 1]) {
+                        iText.DeleteCharAt(sb, sb.Length - 1);
+                    }
+                    text = sb.ToString();
+                }
             }
             if (CssConstants.UPPERCASE.Equals(textTransform)) {
                 text = text.ToUpperInvariant();

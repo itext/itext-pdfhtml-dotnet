@@ -43,7 +43,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_3 {
-    [NUnit.Framework.Ignore("DEVSIX-925: trimFirst on layout level trims all the non-breakable spaces")]
     public class T41Html4KeywordsATest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "t41-html4-keywords-a.xht";
