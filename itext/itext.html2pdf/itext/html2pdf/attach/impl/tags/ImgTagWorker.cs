@@ -50,7 +50,7 @@ using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     public class ImgTagWorker : ITagWorker {
-        private Image image;
+        private ImgTagWorker.HtmlImage image;
 
         private String display;
 
@@ -59,6 +59,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 .SRC));
             if (imageXObject != null) {
                 image = new ImgTagWorker.HtmlImage(this, imageXObject);
+                String altText = element.GetAttribute(AttributeConstants.ALT);
+                if (altText != null) {
+                    image.SetAltText(altText);
+                }
             }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
             // TODO this is a workaround for now to that image is not added as inline
@@ -102,6 +106,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
             public override float GetImageHeight() {
                 return (float)(this.xObject.GetHeight() * this.pxToPt);
+            }
+
+            private void SetAltText(String altText) {
+                this.GetAccessibilityProperties().SetAlternateDescription(altText);
             }
 
             private readonly ImgTagWorker _enclosing;

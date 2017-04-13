@@ -45,6 +45,8 @@ namespace iText.Html2pdf.Html {
     public sealed class AttributeConstants {
         public const String ALIGN = "align";
 
+        public const String ALT = "alt";
+
         public const String BGCOLOR = "bgcolor";
 
         public const String BORDER = "border";
