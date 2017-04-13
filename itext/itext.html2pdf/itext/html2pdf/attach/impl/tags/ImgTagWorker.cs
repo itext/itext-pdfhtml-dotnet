@@ -108,7 +108,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 return (float)(this.xObject.GetHeight() * this.pxToPt);
             }
 
-            private void SetAltText(String altText) {
+            internal virtual void SetAltText(String altText) {
                 this.GetAccessibilityProperties().SetAlternateDescription(altText);
             }
 

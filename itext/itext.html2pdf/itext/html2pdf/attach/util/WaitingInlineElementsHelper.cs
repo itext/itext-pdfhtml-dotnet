@@ -94,7 +94,7 @@ namespace iText.Html2pdf.Attach.Util {
                         }
                     }
                     if ('\u200d' == sb[sb.Length - 1]) {
-                        iText.DeleteCharAt(sb, sb.Length - 1);
+                        sb.Delete(sb.Length - 1, sb.Length);
                     }
                     text = sb.ToString();
                 }
