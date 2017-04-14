@@ -49,9 +49,10 @@ using System.Reflection;
 using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
+using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl {
-    public class FontFaceSrcTest {
+    public class FontFaceSrcTest : ExtendedITextTest {
         private static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/attacher/impl/FontFaceSrcTest/";
 
@@ -61,7 +62,6 @@ namespace iText.Html2pdf.Attach.Impl {
 
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Some mystery in .NET. Conflict with DivInTable002Test")]
         public virtual void SrcPropertyTest() {
             String fontSrc = "web-fonts/droid-serif-invalid.";
             CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(sourceFolder + "srcs.css", FileMode.Open

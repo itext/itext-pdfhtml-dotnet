@@ -118,8 +118,8 @@ namespace iText.Html2pdf.Attach.Impl {
 
             //region Nested types
             public override String ToString() {
-                return String.Format("%s(%s)%s", isLocal ? "local" : "url", src, format != FontFace.FontFormat.None ? String
-                    .Format(" format(%s)", format) : "");
+                return String.Format("{0}({1}){2}", isLocal ? "local" : "url", src, format != FontFace.FontFormat.None ? String
+                    .Format(" format({0})", format) : "");
             }
 
             internal static FontFace.FontFaceSrc Create(String src) {
