@@ -101,14 +101,14 @@ namespace iText.Html2pdf.Attach.Impl {
         }
 
         internal class FontFaceSrc {
-            internal static Regex UrlPattern = iText.IO.Util.StringUtil.RegexCompile("^((local)|(url))\\(((\'[^\']*\')|(\"[^\"]*\")|([^\'\"\\)]*))\\)( format\\(((\'[^\']*\')|(\"[^\"]*\")|([^\'\"\\)]*))\\))?$"
+            internal static readonly Regex UrlPattern = iText.IO.Util.StringUtil.RegexCompile("^((local)|(url))\\(((\'[^\']*\')|(\"[^\"]*\")|([^\'\"\\)]*))\\)( format\\(((\'[^\']*\')|(\"[^\"]*\")|([^\'\"\\)]*))\\))?$"
                 );
 
-            internal static int TypeGroup = 1;
+            internal const int TypeGroup = 1;
 
-            internal static int UrlGroup = 4;
+            internal const int UrlGroup = 4;
 
-            internal static int FormatGroup = 9;
+            internal const int FormatGroup = 9;
 
             internal readonly FontFace.FontFormat format;
 
