@@ -64,21 +64,18 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private MediaDeviceDescription deviceDescription;
 
-        private ProcessorContext context;
-
         private IList<CssFontFaceRule> fonts = new List<CssFontFaceRule>();
 
         public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver 
             resourceResolver) {
             this.deviceDescription = mediaDeviceDescription;
-            CollectCssDeclarations(treeRoot, resourceResolver);
+            CollectCssDeclarations(treeRoot, resourceResolver, null);
             CollectFonts();
         }
 
         public DefaultCssResolver(INode treeRoot, ProcessorContext context) {
             this.deviceDescription = context.GetDeviceDescription();
-            this.context = context;
-            CollectCssDeclarations(treeRoot, context.GetResourceResolver());
+            CollectCssDeclarations(treeRoot, context.GetResourceResolver(), context.GetCssContext());
             CollectFonts();
         }
 
@@ -203,7 +200,8 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
-        private INode CollectCssDeclarations(INode rootNode, ResourceResolver resourceResolver) {
+        private INode CollectCssDeclarations(INode rootNode, ResourceResolver resourceResolver, CssContext cssContext
+            ) {
             cssStyleSheet = new CssStyleSheet();
             LinkedList<INode> q = new LinkedList<INode>();
             q.Add(rootNode);
@@ -215,7 +213,7 @@ namespace iText.Html2pdf.Css.Resolve {
                     if (headChildElement.Name().Equals(TagConstants.STYLE)) {
                         if (currentNode.ChildNodes().Count > 0 && currentNode.ChildNodes()[0] is IDataNode) {
                             String styleData = ((IDataNode)currentNode.ChildNodes()[0]).GetWholeData();
-                            CheckIfPagesCounterMentioned(styleData);
+                            CheckIfPagesCounterMentioned(styleData, cssContext);
                             CssStyleSheet styleSheet = CssStyleSheetParser.Parse(styleData);
                             styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                             cssStyleSheet.AppendCssStyleSheet(styleSheet);
@@ -227,7 +225,7 @@ namespace iText.Html2pdf.Css.Resolve {
                             try {
                                 Stream stream = resourceResolver.RetrieveStyleSheet(styleSheetUri);
                                 byte[] bytes = StreamUtil.InputStreamToArray(stream);
-                                CheckIfPagesCounterMentioned(iText.IO.Util.JavaUtil.GetStringForBytes(bytes));
+                                CheckIfPagesCounterMentioned(iText.IO.Util.JavaUtil.GetStringForBytes(bytes), cssContext);
                                 CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new MemoryStream(bytes), resourceResolver.ResolveAgainstBaseUri
                                     (styleSheetUri).ToString());
                                 styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
@@ -249,15 +247,13 @@ namespace iText.Html2pdf.Css.Resolve {
             return null;
         }
 
-        private void CheckIfPagesCounterMentioned(String cssContents) {
+        private void CheckIfPagesCounterMentioned(String cssContents, CssContext cssContext) {
             // TODO more efficient (avoid searching in text string) and precise (e.g. skip spaces) check during the parsing.
             if (cssContents.Contains("counter(pages)") || cssContents.Contains("counters(pages")) {
-                if (context != null) {
-                    // The presence of counter(pages) means that theoretically relayout may be needed.
-                    // We don't know it yet because that selector might not even be used, but
-                    // when we know it for sure, it's too late because the Document is created right in the start.
-                    context.GetCssContext().SetPagesCounterPresent(true);
-                }
+                // The presence of counter(pages) means that theoretically relayout may be needed.
+                // We don't know it yet because that selector might not even be used, but
+                // when we know it for sure, it's too late because the Document is created right in the start.
+                cssContext.SetPagesCounterPresent(true);
             }
         }
 
