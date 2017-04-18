@@ -89,7 +89,7 @@ namespace iText.Html2pdf.Attach.Util {
                     sb.Append('\u200d');
                     for (int i = 0; i < text.Length; i++) {
                         sb.Append(text[i]);
-                        if ('\n' == text[i] || '\r' == text[i]) {
+                        if ('\n' == text[i] || ('\r' == text[i] && i + 1 < text.Length && '\n' != text[i + 1])) {
                             sb.Append('\u200d');
                         }
                     }
