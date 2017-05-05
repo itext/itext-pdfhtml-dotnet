@@ -82,6 +82,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
             MarginApplierUtil.ApplyMargins(css, context, element);
             PositionApplierUtil.ApplyPosition(css, context, element);
+            FloatApplierUtil.ApplyFloating(css, context, element);
         }
     }
 }

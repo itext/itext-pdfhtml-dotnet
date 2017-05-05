@@ -44,7 +44,6 @@ using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Layout;
-using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
@@ -57,21 +56,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
             // TODO for now we only support alignment of floated elements, however we don't support text wrapping
             String floatValue = cssProps.Get(CssConstants.FLOAT);
             if (floatValue != null) {
-                FloatPropertyValue? value = null;
                 if (CssConstants.LEFT.Equals(floatValue)) {
-                    value = FloatPropertyValue.LEFT;
+                    element.SetProperty(Property.FLOAT, FloatPropertyValue.LEFT);
                 }
                 else {
                     if (CssConstants.RIGHT.Equals(floatValue)) {
-                        value = FloatPropertyValue.RIGHT;
-                    }
-                }
-                if (value != null) {
-                    element.SetProperty(Property.FLOAT, value);
-                    if (element is Div) {
-                        foreach (IElement child in ((Div)element).GetChildren()) {
-                            child.SetProperty(Property.FLOAT, value);
-                        }
+                        element.SetProperty(Property.FLOAT, FloatPropertyValue.RIGHT);
                     }
                 }
             }

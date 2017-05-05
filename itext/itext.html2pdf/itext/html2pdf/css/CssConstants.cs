@@ -116,9 +116,13 @@ namespace iText.Html2pdf.Css {
 
         public const String BORDER_WIDTH = "border-width";
 
+        public const String BOTH = "both";
+
         public const String BOX_SHADOW = "box-shadow";
 
         public const String CAPTION_SIDE = "caption-side";
+
+        public const String CLEAR = "clear";
 
         public const String COLOR = "color";
 
