@@ -50,15 +50,22 @@ namespace iText.Html2pdf.Css.Selector.Item {
 
         private String arguments;
 
+        private int nthChildA;
+
+        private int nthChildB;
+
         public CssPseudoClassSelectorItem(String pseudoClass) {
             int indexOfParentheses = pseudoClass.IndexOf('(');
             if (indexOfParentheses == -1) {
                 this.pseudoClass = pseudoClass;
-                this.arguments = null;
+                this.arguments = "";
             }
             else {
                 this.pseudoClass = pseudoClass.JSubstring(0, indexOfParentheses);
-                this.arguments = pseudoClass.JSubstring(indexOfParentheses + 1, pseudoClass.Length - 1).ToLowerInvariant();
+                this.arguments = pseudoClass.JSubstring(indexOfParentheses + 1, pseudoClass.Length - 1).Trim();
+                int[] nthChildArguments = GetNthChildArguments();
+                nthChildA = nthChildArguments[0];
+                nthChildB = nthChildArguments[1];
             }
         }
 
@@ -91,52 +98,88 @@ namespace iText.Html2pdf.Css.Selector.Item {
         }
 
         public override String ToString() {
-            return ":" + pseudoClass + (arguments != null ? new String("(" + arguments + ")") : "");
+            return ":" + pseudoClass + (!String.IsNullOrEmpty(arguments) ? new String("(" + arguments + ")") : "");
         }
 
         private IList<INode> GetAllChildren(INode child) {
             INode parentElement = child.ParentNode();
-            IList<INode> childrenUnmodifiable = parentElement.ChildNodes();
-            IList<INode> children = new List<INode>(childrenUnmodifiable.Count);
-            foreach (INode iNode in childrenUnmodifiable) {
-                if (iNode is IElementNode) {
-                    children.Add(iNode);
+            if (parentElement != null) {
+                IList<INode> childrenUnmodifiable = parentElement.ChildNodes();
+                IList<INode> children = new List<INode>(childrenUnmodifiable.Count);
+                foreach (INode iNode in childrenUnmodifiable) {
+                    if (iNode is IElementNode) {
+                        children.Add(iNode);
+                    }
                 }
+                return children;
             }
-            return children;
+            return new List<INode>();
         }
 
-        private bool ResolveNthChild(INode node, IList<INode> children) {
-            if (arguments.Matches("\\s*((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)\\s*")) {
-                int a;
-                int b;
-                bool bIsPositive = true;
-                if (arguments.Matches("\\s*(odd|even)\\s*")) {
-                    a = 2;
-                    b = arguments.Matches("\\s*odd\\s*") ? 1 : 0;
+        private int[] GetNthChildArguments() {
+            if (arguments.Matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
+                if (arguments.Equals("odd")) {
+                    this.nthChildA = 2;
+                    this.nthChildB = 1;
                 }
                 else {
-                    int indexOfN = arguments.IndexOf('n');
-                    if (indexOfN == -1) {
-                        a = children.Count;
-                        b = System.Convert.ToInt32(arguments);
+                    if (arguments.Equals("even")) {
+                        this.nthChildA = 2;
+                        this.nthChildB = 0;
                     }
                     else {
-                        a = System.Convert.ToInt32(arguments.JSubstring(0, indexOfN).Trim());
-                        String[] bParticle = iText.IO.Util.StringUtil.Split(arguments.Substring(indexOfN + 1).Trim(), "\\s+");
-                        bIsPositive = bParticle[0].Equals("+") ? true : false;
-                        b = System.Convert.ToInt32(bParticle[1]);
+                        int indexOfN = arguments.IndexOf('n');
+                        if (indexOfN == -1) {
+                            this.nthChildA = 0;
+                            this.nthChildB = System.Convert.ToInt32(arguments);
+                        }
+                        else {
+                            String aParticle = arguments.JSubstring(0, indexOfN).Trim();
+                            if (String.IsNullOrEmpty(aParticle)) {
+                                this.nthChildA = 0;
+                            }
+                            else {
+                                if (aParticle.Length == 1 && !char.IsDigit(aParticle[0])) {
+                                    this.nthChildA = aParticle.Equals("+") ? 1 : -1;
+                                }
+                                else {
+                                    this.nthChildA = System.Convert.ToInt32(arguments.JSubstring(0, indexOfN).Trim());
+                                }
+                            }
+                            String bParticle = arguments.Substring(indexOfN + 1).Trim();
+                            if (!String.IsNullOrEmpty(bParticle)) {
+                                this.nthChildB = System.Convert.ToInt32(bParticle[0] + bParticle.Substring(1).Trim());
+                            }
+                            else {
+                                this.nthChildB = 0;
+                            }
+                        }
                     }
-                }
-                if (bIsPositive) {
-                    return (children.IndexOf(node) + 1) % a == b;
-                }
-                else {
-                    return (children.IndexOf(node) + 1) % a == a - b;
                 }
             }
             else {
+                this.nthChildA = 0;
+                this.nthChildB = 0;
+            }
+            return new int[] { this.nthChildA, this.nthChildB };
+        }
+
+        private bool ResolveNthChild(INode node, IList<INode> children) {
+            if (!children.Contains(node)) {
                 return false;
+            }
+            if (this.nthChildA > 0) {
+                int temp = children.IndexOf(node) + 1 - this.nthChildB;
+                return temp >= 0 ? temp % this.nthChildA == 0 : false;
+            }
+            else {
+                if (this.nthChildA < 0) {
+                    int temp = children.IndexOf(node) + 1 - this.nthChildA;
+                    return temp <= 0 ? temp % this.nthChildA == 0 : false;
+                }
+                else {
+                    return (children.IndexOf(node) + 1) - this.nthChildB == 0;
+                }
             }
         }
     }
