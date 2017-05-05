@@ -51,12 +51,12 @@ using iText.Kernel;
 using iText.Test;
 
 namespace iText.Html2pdf.Css.Parse {
-    public class CssSelectorParserTest : ExtendedITextTest {
+    public class CssNthChildSelectorTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/CssSelectorParserTest/";
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssNthChildSelectorTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/CssSelectorParserTest/";
+             + "/test/itext/html2pdf/CssNthChildSelectorTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
