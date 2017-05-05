@@ -120,6 +120,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     if (CssConstants.CENTER.Equals(align)) {
                         element.SetProperty(Property.TEXT_ALIGNMENT, TextAlignment.CENTER);
                     }
+                    else {
+                        if (CssConstants.JUSTIFY.Equals(align)) {
+                            element.SetProperty(Property.TEXT_ALIGNMENT, TextAlignment.JUSTIFIED);
+                        }
+                    }
                 }
             }
             String textDecorationProp = cssProps.Get(CssConstants.TEXT_DECORATION);

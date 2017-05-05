@@ -384,6 +384,8 @@ namespace iText.Html2pdf.Css {
 
         public const String ITALIC = "italic";
 
+        public const String JUSTIFY = "justify";
+
         public const String LANDSCAPE = "landscape";
 
         public const String LARGE = "large";
