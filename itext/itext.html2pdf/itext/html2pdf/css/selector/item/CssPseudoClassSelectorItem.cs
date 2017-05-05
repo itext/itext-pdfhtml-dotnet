@@ -40,15 +40,26 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
+using System.Collections.Generic;
+using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector.Item {
     public class CssPseudoClassSelectorItem : ICssSelectorItem {
         private String pseudoClass;
 
+        private String arguments;
+
         public CssPseudoClassSelectorItem(String pseudoClass) {
-            // TODO now this is just a stub implementation
-            this.pseudoClass = pseudoClass;
+            int indexOfParentheses = pseudoClass.IndexOf('(');
+            if (indexOfParentheses == -1) {
+                this.pseudoClass = pseudoClass;
+                this.arguments = null;
+            }
+            else {
+                this.pseudoClass = pseudoClass.JSubstring(0, indexOfParentheses);
+                this.arguments = pseudoClass.JSubstring(indexOfParentheses + 1, pseudoClass.Length - 1).ToLowerInvariant();
+            }
         }
 
         public virtual int GetSpecificity() {
@@ -56,12 +67,77 @@ namespace iText.Html2pdf.Css.Selector.Item {
         }
 
         public virtual bool Matches(INode node) {
-            return false;
+            if (!(node is IElementNode) || node is CssPseudoElementNode) {
+                return false;
+            }
+            IList<INode> children = GetAllChildren(node);
+            switch (pseudoClass) {
+                case "first-child": {
+                    return children.IsEmpty() ? false : node.Equals(children[0]);
+                }
+
+                case "last-child": {
+                    return children.IsEmpty() ? false : node.Equals(children[children.Count - 1]);
+                }
+
+                case "nth-child": {
+                    return children.IsEmpty() ? false : ResolveNthChild(node, children);
+                }
+
+                default: {
+                    return false;
+                }
+            }
         }
 
-        // TODO
         public override String ToString() {
-            return ":" + pseudoClass;
+            return ":" + pseudoClass + (arguments != null ? new String("(" + arguments + ")") : "");
+        }
+
+        private IList<INode> GetAllChildren(INode child) {
+            INode parentElement = child.ParentNode();
+            IList<INode> childrenUnmodifiable = parentElement.ChildNodes();
+            IList<INode> children = new List<INode>(childrenUnmodifiable.Count);
+            foreach (INode iNode in childrenUnmodifiable) {
+                if (iNode is IElementNode) {
+                    children.Add(iNode);
+                }
+            }
+            return children;
+        }
+
+        private bool ResolveNthChild(INode node, IList<INode> children) {
+            if (arguments.Matches("\\s*((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)\\s*")) {
+                int a;
+                int b;
+                bool bIsPositive = true;
+                if (arguments.Matches("\\s*(odd|even)\\s*")) {
+                    a = 2;
+                    b = arguments.Matches("\\s*odd\\s*") ? 1 : 0;
+                }
+                else {
+                    int indexOfN = arguments.IndexOf('n');
+                    if (indexOfN == -1) {
+                        a = children.Count;
+                        b = System.Convert.ToInt32(arguments);
+                    }
+                    else {
+                        a = System.Convert.ToInt32(arguments.JSubstring(0, indexOfN).Trim());
+                        String[] bParticle = iText.IO.Util.StringUtil.Split(arguments.Substring(indexOfN + 1).Trim(), "\\s+");
+                        bIsPositive = bParticle[0].Equals("+") ? true : false;
+                        b = System.Convert.ToInt32(bParticle[1]);
+                    }
+                }
+                if (bIsPositive) {
+                    return (children.IndexOf(node) + 1) % a == b;
+                }
+                else {
+                    return (children.IndexOf(node) + 1) % a == a - b;
+                }
+            }
+            else {
+                return false;
+            }
         }
     }
 }
