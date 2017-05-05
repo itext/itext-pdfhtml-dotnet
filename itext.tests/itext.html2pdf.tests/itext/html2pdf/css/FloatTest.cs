@@ -132,5 +132,49 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "float07Test.pdf", sourceFolder
                  + "cmp_float07Test.pdf", destinationFolder, "diff07_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1122")]
+        public virtual void Float08Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "float08Test.html"), new FileInfo(destinationFolder
+                 + "float08Test.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "float08Test.pdf", sourceFolder
+                 + "cmp_float08Test.pdf", destinationFolder, "diff08_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1122")]
+        public virtual void Float09Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "float09Test.html"), new FileInfo(destinationFolder
+                 + "float09Test.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "float09Test.pdf", sourceFolder
+                 + "cmp_float09Test.pdf", destinationFolder, "diff09_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-973")]
+        public virtual void Float10Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "float10Test.html"), new FileInfo(destinationFolder
+                 + "float10Test.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "float10Test.pdf", sourceFolder
+                 + "cmp_float10Test.pdf", destinationFolder, "diff10_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-973")]
+        public virtual void Float11Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "float11Test.html"), new FileInfo(destinationFolder
+                 + "float11Test.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "float11Test.pdf", sourceFolder
+                 + "cmp_float11Test.pdf", destinationFolder, "diff11_"));
+        }
     }
 }
