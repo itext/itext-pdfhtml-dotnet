@@ -123,6 +123,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     else {
                         if (CssConstants.JUSTIFY.Equals(align)) {
                             element.SetProperty(Property.TEXT_ALIGNMENT, TextAlignment.JUSTIFIED);
+                            element.SetProperty(Property.SPACING_RATIO, 1f);
                         }
                     }
                 }
