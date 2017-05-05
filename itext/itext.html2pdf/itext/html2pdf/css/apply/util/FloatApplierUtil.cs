@@ -65,6 +65,22 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
             }
+            String clearValue = cssProps.Get(CssConstants.CLEAR);
+            if (clearValue != null) {
+                if (CssConstants.LEFT.Equals(clearValue)) {
+                    element.SetProperty(Property.CLEAR, ClearPropertyValue.LEFT);
+                }
+                else {
+                    if (CssConstants.RIGHT.Equals(clearValue)) {
+                        element.SetProperty(Property.CLEAR, ClearPropertyValue.RIGHT);
+                    }
+                    else {
+                        if (CssConstants.BOTH.Equals(clearValue)) {
+                            element.SetProperty(Property.CLEAR, ClearPropertyValue.BOTH);
+                        }
+                    }
+                }
+            }
         }
     }
 }
