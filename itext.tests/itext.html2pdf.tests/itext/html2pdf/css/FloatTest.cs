@@ -274,5 +274,55 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "float21Test.pdf", sourceFolder
                  + "cmp_float21Test.pdf", destinationFolder, "diff21_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Float22Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "float22Test.html"), new FileInfo(destinationFolder
+                 + "float22Test.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "float22Test.pdf", sourceFolder
+                 + "cmp_float22Test.pdf", destinationFolder, "diff22_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Float23Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "float23Test.html"), new FileInfo(destinationFolder
+                 + "float23Test.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "float23Test.pdf", sourceFolder
+                 + "cmp_float23Test.pdf", destinationFolder, "diff23_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Float24Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "float24Test.html"), new FileInfo(destinationFolder
+                 + "float24Test.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "float24Test.pdf", sourceFolder
+                 + "cmp_float24Test.pdf", destinationFolder, "diff24_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Float25Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "float25Test.html"), new FileInfo(destinationFolder
+                 + "float25Test.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "float25Test.pdf", sourceFolder
+                 + "cmp_float25Test.pdf", destinationFolder, "diff25_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Float26Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "float26Test.html"), new FileInfo(destinationFolder
+                 + "float26Test.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "float26Test.pdf", sourceFolder
+                 + "cmp_float26Test.pdf", destinationFolder, "diff26_"));
+        }
     }
 }
