@@ -48,18 +48,22 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    public class DivTagWorker : ITagWorker {
+    public class DivTagWorker : ITagWorker, IDisplayAware {
         private Div div;
 
         private WaitingInlineElementsHelper inlineHelper;
+
+        private String display;
 
         public DivTagWorker(IElementNode element, ProcessorContext context) {
             div = new Div();
             IDictionary<String, String> styles = element.GetStyles();
             inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.Get(CssConstants.WHITE_SPACE
                 ), styles == null ? null : styles.Get(CssConstants.TEXT_TRANSFORM));
+            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
@@ -147,8 +151,26 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return div;
         }
 
+        public virtual String GetDisplay() {
+            return display;
+        }
+
         private bool AddBlockChild(IElement element) {
-            PostProcessInlineGroup();
+            bool waitingLeavesContainsFloat = false;
+            foreach (ILeafElement waitingLeaf in inlineHelper.GetWaitingLeaves()) {
+                if (ElementIsFloated(waitingLeaf)) {
+                    waitingLeavesContainsFloat = true;
+                    break;
+                }
+            }
+            if (ElementIsFloated(element)) {
+                if (waitingLeavesContainsFloat) {
+                    PostProcessInlineGroup();
+                }
+            }
+            else {
+                PostProcessInlineGroup();
+            }
             bool processed = false;
             if (element is IBlockElement) {
                 div.Add(((IBlockElement)element));
@@ -161,6 +183,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             return processed;
+        }
+
+        private bool ElementIsFloated(IElement element) {
+            FloatPropertyValue? floatPropertyValue = element.GetProperty(Property.FLOAT);
+            return floatPropertyValue != null && !floatPropertyValue.Equals(FloatPropertyValue.NONE);
         }
 
         private void PostProcessInlineGroup() {

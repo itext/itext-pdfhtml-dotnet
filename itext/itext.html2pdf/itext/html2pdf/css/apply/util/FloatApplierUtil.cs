@@ -57,11 +57,27 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String floatValue = cssProps.Get(CssConstants.FLOAT);
             if (floatValue != null) {
                 if (CssConstants.LEFT.Equals(floatValue)) {
-                    element.SetProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.LEFT);
+                    element.SetProperty(Property.FLOAT, FloatPropertyValue.LEFT);
                 }
                 else {
                     if (CssConstants.RIGHT.Equals(floatValue)) {
-                        element.SetProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.RIGHT);
+                        element.SetProperty(Property.FLOAT, FloatPropertyValue.RIGHT);
+                    }
+                }
+            }
+            String clearValue = cssProps.Get(CssConstants.CLEAR);
+            if (clearValue != null) {
+                if (CssConstants.LEFT.Equals(clearValue)) {
+                    element.SetProperty(Property.CLEAR, ClearPropertyValue.LEFT);
+                }
+                else {
+                    if (CssConstants.RIGHT.Equals(clearValue)) {
+                        element.SetProperty(Property.CLEAR, ClearPropertyValue.RIGHT);
+                    }
+                    else {
+                        if (CssConstants.BOTH.Equals(clearValue)) {
+                            element.SetProperty(Property.CLEAR, ClearPropertyValue.BOTH);
+                        }
                     }
                 }
             }

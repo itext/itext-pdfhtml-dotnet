@@ -116,9 +116,13 @@ namespace iText.Html2pdf.Css {
 
         public const String BORDER_WIDTH = "border-width";
 
+        public const String BOTH = "both";
+
         public const String BOX_SHADOW = "box-shadow";
 
         public const String CAPTION_SIDE = "caption-side";
+
+        public const String CLEAR = "clear";
 
         public const String COLOR = "color";
 
@@ -246,6 +250,8 @@ namespace iText.Html2pdf.Css {
 
         public const String TAB_SIZE = "tab-size";
 
+        public const String TABLE_CELL = "table-cell";
+
         public const String TABLE_LAYOUT = "table-layout";
 
         public const String TEXT_ALIGN = "text-align";
@@ -368,6 +374,8 @@ namespace iText.Html2pdf.Css {
 
         public const String INLINE_BLOCK = "inline-block";
 
+        public const String INLINE_TABLE = "inline-table";
+
         public const String INSET = "inset";
 
         public const String INSIDE = "inside";
@@ -479,6 +487,8 @@ namespace iText.Html2pdf.Css {
         public const String SUB = "sub";
 
         public const String SUPER = "super";
+
+        public const String TABLE = "table";
 
         public const String TEXT_BOTTOM = "text-bottom";
 

@@ -138,6 +138,8 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.DT, CssConstants.INLINE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SPAN, CssConstants.BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.A, CssConstants.BLOCK, typeof(ABlockTagWorker));
+            workerMapping.PutMapping(TagConstants.DIV, CssConstants.TABLE, typeof(DisplayTableTagWorker));
+            workerMapping.PutMapping(TagConstants.DIV, CssConstants.INLINE_TABLE, typeof(DisplayTableTagWorker));
             // pseudo elements mapping
             String beforePseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.BEFORE);
             String afterPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.AFTER);
@@ -145,6 +147,9 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(afterPseudoElemName, typeof(SpanTagWorker));
             workerMapping.PutMapping(beforePseudoElemName, CssConstants.BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(afterPseudoElemName, CssConstants.BLOCK, typeof(DivTagWorker));
+            // For now behaving like display:block in display:table case is sufficient
+            workerMapping.PutMapping(beforePseudoElemName, CssConstants.TABLE, typeof(DivTagWorker));
+            workerMapping.PutMapping(afterPseudoElemName, CssConstants.TABLE, typeof(DivTagWorker));
             workerMapping.PutMapping(CssPseudoElementUtil.CreatePseudoElementTagName(TagConstants.IMG), typeof(ImgTagWorker
                 ));
             // custom elements mapping, implementation-specific

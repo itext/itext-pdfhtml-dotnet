@@ -105,6 +105,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 waitingElement = null;
             }
             waitingElement = renderer;
+            if (renderer.HasProperty(Property.FLOAT)) {
+                waitingElement = null;
+                base.AddChild(renderer);
+            }
         }
 
         public override void Close() {
