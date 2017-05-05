@@ -41,7 +41,6 @@
     address: sales@itextpdf.com */
 using System;
 using System.Collections.Generic;
-using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector.Item {
@@ -74,7 +73,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
         }
 
         public virtual bool Matches(INode node) {
-            if (!(node is IElementNode) || node is CssPseudoElementNode) {
+            if (!(node is IElementNode) || node is ICustomElementNode) {
                 return false;
             }
             IList<INode> children = GetAllChildren(node);

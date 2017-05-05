@@ -42,9 +42,10 @@
 using System;
 using Org.Jsoup.Nodes;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
+using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Resolve.Func.Counter {
-    public class PageCountElementNode : JsoupElementNode {
+    public class PageCountElementNode : JsoupElementNode, ICustomElementNode {
         public const String PAGE_COUNTER_TAG = "_e0d00a6_page-counter";
 
         private bool totalPageCount = false;

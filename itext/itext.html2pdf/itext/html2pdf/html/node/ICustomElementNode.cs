@@ -39,73 +39,8 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using iText.Html2pdf.Html.Node;
-using iText.IO.Util;
-
-namespace iText.Html2pdf.Css.Pseudo {
-    public class CssPseudoElementNode : CssContextNode, IElementNode, ICustomElementNode {
-        private String pseudoElementName;
-
-        private String pseudoElementTagName;
-
-        public CssPseudoElementNode(INode parentNode, String pseudoElementName)
-            : base(parentNode) {
-            this.pseudoElementName = pseudoElementName;
-            this.pseudoElementTagName = CssPseudoElementUtil.CreatePseudoElementTagName(pseudoElementName);
-        }
-
-        public virtual String GetPseudoElementName() {
-            return pseudoElementName;
-        }
-
-        public virtual String Name() {
-            return pseudoElementTagName;
-        }
-
-        public virtual IAttributes GetAttributes() {
-            return new CssPseudoElementNode.AttributesStub();
-        }
-
-        public virtual String GetAttribute(String key) {
-            return null;
-        }
-
-        public virtual IList<IDictionary<String, String>> GetAdditionalHtmlStyles() {
-            return null;
-        }
-
-        public virtual void AddAdditionalHtmlStyles(IDictionary<String, String> styles) {
-            throw new NotSupportedException();
-        }
-
-        public virtual String GetLang() {
-            return null;
-        }
-
-        private class AttributesStub : IAttributes {
-            public virtual String GetAttribute(String key) {
-                return null;
-            }
-
-            public virtual void SetAttribute(String key, String value) {
-                throw new NotSupportedException();
-            }
-
-            public virtual int Size() {
-                return 0;
-            }
-
-            public IEnumerator<IAttribute> GetEnumerator() {
-                return JavaCollectionsUtil.EmptyIterator<IAttribute>();
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return GetEnumerator();
-            }
-        }
+namespace iText.Html2pdf.Html.Node {
+    public interface ICustomElementNode : IElementNode {
+        // This interface serves as a marker that this particular IElementNode is something non-standard.
     }
 }
