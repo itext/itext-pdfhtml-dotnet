@@ -102,7 +102,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                         waitingElement.SetProperty(Property.KEEP_WITH_NEXT, true);
                     }
                     if (waitingElement.HasProperty(Property.FLOAT)) {
-                        waitingElement.SetProperty(Property.DRAW_AFTER_NEXT, true);
                         base.AddChild(waitingElement);
                         floatElementsWasMet = true;
                     }
