@@ -66,12 +66,31 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1070")]
-        public virtual void Clear01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear01Test.html"), new FileInfo(destinationFolder
-                 + "clear01Test.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear01Test.pdf", sourceFolder
-                 + "cmp_clear01Test.pdf", destinationFolder, "diff01_"));
+        public virtual void Clear02Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear02Test.html"), new FileInfo(destinationFolder
+                 + "clear02Test.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear02Test.pdf", sourceFolder
+                 + "cmp_clear02Test.pdf", destinationFolder, "diff02_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Clear03Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear03Test.html"), new FileInfo(destinationFolder
+                 + "clear03Test.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear03Test.pdf", sourceFolder
+                 + "cmp_clear03Test.pdf", destinationFolder, "diff03_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Clear04Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear04Test.html"), new FileInfo(destinationFolder
+                 + "clear04Test.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear04Test.pdf", sourceFolder
+                 + "cmp_clear04Test.pdf", destinationFolder, "diff04_"));
         }
     }
 }
