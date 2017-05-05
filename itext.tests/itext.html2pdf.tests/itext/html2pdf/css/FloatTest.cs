@@ -196,7 +196,8 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1132")]
+        [NUnit.Framework.Ignore("In this test css property overflow: hidden is ignored by iText. This leads to invalid results. Perhaps, one day it will be fixed"
+            )]
         public virtual void Float14Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "float14Test.html"), new FileInfo(destinationFolder
                  + "float14Test.pdf"));
