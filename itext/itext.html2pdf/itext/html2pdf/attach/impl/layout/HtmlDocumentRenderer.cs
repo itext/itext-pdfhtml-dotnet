@@ -64,7 +64,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         private bool currentPageEven = true;
 
-        private IList<IRenderer> waitingElements = new List<IRenderer>();
+        private IRenderer waitingElement;
 
         private bool shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = true;
 
@@ -95,44 +95,43 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         public override void AddChild(IRenderer renderer) {
-            if (waitingElements.Count > 0 && !renderer.HasProperty(Property.FLOAT)) {
-                bool floatElementsWasMet = false;
-                foreach (IRenderer waitingElement in waitingElements) {
-                    if (true.Equals(renderer.GetProperty<bool?>(Html2PdfProperty.KEEP_WITH_PREVIOUS))) {
-                        waitingElement.SetProperty(Property.KEEP_WITH_NEXT, true);
-                    }
-                    if (waitingElement.HasProperty(Property.FLOAT)) {
-                        base.AddChild(waitingElement);
-                        floatElementsWasMet = true;
-                    }
-                    else {
-                        base.AddChild(waitingElement);
-                    }
-                    // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
-                    shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
+            if (waitingElement != null) {
+                if (true.Equals(renderer.GetProperty<bool?>(Html2PdfProperty.KEEP_WITH_PREVIOUS))) {
+                    waitingElement.SetProperty(Property.KEEP_WITH_NEXT, true);
                 }
-                if (floatElementsWasMet) {
-                    base.AddChild(renderer);
-                    foreach (IRenderer waitingElement in waitingElements) {
-                        FlushSingleRenderer(waitingElement);
-                    }
-                }
-                waitingElements.Clear();
-                if (!floatElementsWasMet) {
-                    waitingElements.Add(renderer);
-                }
+                base.AddChild(waitingElement);
+                // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
+                shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
+                waitingElement = null;
             }
-            else {
-                waitingElements.Add(renderer);
+            waitingElement = renderer;
+            if (renderer.HasProperty(Property.FLOAT)) {
+                waitingElement = null;
+                base.AddChild(renderer);
+            }
+        }
+
+        public override void Close() {
+            if (waitingElement != null) {
+                base.AddChild(waitingElement);
+            }
+            base.Close();
+            PdfDocument pdfDocument = document.GetPdfDocument();
+            if (pdfDocument.GetNumberOfPages() > 1) {
+                PdfPage lastPage = pdfDocument.GetLastPage();
+                if (lastPage.GetContentStreamCount() == 1 && lastPage.GetContentStream(0).GetOutputStream().GetCurrentPos(
+                    ) <= 0) {
+                    // Remove last empty page
+                    pdfDocument.RemovePage(pdfDocument.GetNumberOfPages());
+                }
             }
         }
 
         public override IRenderer GetNextRenderer() {
             // Process waiting element to get the correct number of pages
-            if (waitingElements.Count > 0) {
-                foreach (IRenderer waitingElement in waitingElements) {
-                    base.AddChild(waitingElement);
-                }
+            if (waitingElement != null) {
+                base.AddChild(waitingElement);
+                waitingElement = null;
             }
             iText.Html2pdf.Attach.Impl.Layout.HtmlDocumentRenderer relayoutRenderer = new iText.Html2pdf.Attach.Impl.Layout.HtmlDocumentRenderer
                 (document, immediateFlush);
@@ -230,24 +229,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         internal virtual int GetEstimatedNumberOfPages() {
             return estimatedNumberOfPages;
-        }
-
-        public override void Close() {
-            if (waitingElements.Count > 0) {
-                foreach (IRenderer waitingElement in waitingElements) {
-                    base.AddChild(waitingElement);
-                }
-            }
-            base.Close();
-            PdfDocument pdfDocument = document.GetPdfDocument();
-            if (pdfDocument.GetNumberOfPages() > 1) {
-                PdfPage lastPage = pdfDocument.GetLastPage();
-                if (lastPage.GetContentStreamCount() == 1 && lastPage.GetContentStream(0).GetOutputStream().GetCurrentPos(
-                    ) <= 0) {
-                    // Remove last empty page
-                    pdfDocument.RemovePage(pdfDocument.GetNumberOfPages());
-                }
-            }
         }
 
         private PageContextProcessor GetNextPageProcessor(bool firstPage) {
