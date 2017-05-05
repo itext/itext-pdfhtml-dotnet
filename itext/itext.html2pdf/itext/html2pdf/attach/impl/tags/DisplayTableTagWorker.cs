@@ -98,37 +98,39 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-            if (childTagWorker.GetElementResult() is IBlockElement && childTagWorker is IDisplayAware && CssConstants.
-                TABLE_CELL.Equals(((IDisplayAware)childTagWorker).GetDisplay())) {
+            bool displayTableCell = childTagWorker is IDisplayAware && CssConstants.TABLE_CELL.Equals(((IDisplayAware)
+                childTagWorker).GetDisplay());
+            if (childTagWorker.GetElementResult() is IBlockElement) {
                 Cell curCell = CreateWrapperCell();
                 curCell.Add((IBlockElement)childTagWorker.GetElementResult());
-                ProcessCell(curCell, true);
+                ProcessCell(curCell, displayTableCell);
                 return true;
             }
             else {
-                if (childTagWorker.GetElementResult() is IBlockElement) {
-                    Cell curCell = CreateWrapperCell().Add((IBlockElement)childTagWorker.GetElementResult());
-                    ProcessCell(curCell, false);
+                if (childTagWorker.GetElementResult() is ILeafElement) {
+                    inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
                     return true;
                 }
                 else {
-                    if (childTagWorker.GetElementResult() is ILeafElement) {
-                        inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
-                        return true;
-                    }
-                    else {
-                        if (childTagWorker is SpanTagWorker) {
-                            bool allChildrenProcessed = true;
-                            foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
-                                if (propertyContainer is ILeafElement) {
-                                    inlineHelper.Add((ILeafElement)propertyContainer);
-                                }
-                                else {
-                                    allChildrenProcessed = false;
-                                }
-                            }
-                            return allChildrenProcessed;
+                    if (childTagWorker is SpanTagWorker) {
+                        if (displayTableCell) {
+                            FlushInlineElements();
                         }
+                        bool allChildrenProcessed = true;
+                        foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
+                            if (propertyContainer is ILeafElement) {
+                                inlineHelper.Add((ILeafElement)propertyContainer);
+                            }
+                            else {
+                                allChildrenProcessed = false;
+                            }
+                        }
+                        if (displayTableCell) {
+                            Cell cell = CreateWrapperCell();
+                            inlineHelper.FlushHangingLeaves(cell);
+                            ProcessCell(cell, displayTableCell);
+                        }
+                        return allChildrenProcessed;
                     }
                 }
             }

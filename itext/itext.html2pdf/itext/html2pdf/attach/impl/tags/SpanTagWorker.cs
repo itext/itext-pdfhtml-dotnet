@@ -50,7 +50,7 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    public class SpanTagWorker : ITagWorker {
+    public class SpanTagWorker : ITagWorker, IDisplayAware {
         internal SpanWrapper spanWrapper;
 
         private IList<IPropertyContainer> elements;
@@ -59,11 +59,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         private WaitingInlineElementsHelper inlineHelper;
 
+        private String display;
+
         public SpanTagWorker(IElementNode element, ProcessorContext context) {
             spanWrapper = new SpanWrapper();
             IDictionary<String, String> styles = element.GetStyles();
             inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.Get(CssConstants.WHITE_SPACE
                 ), styles == null ? null : styles.Get(CssConstants.TEXT_TRANSFORM));
+            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
@@ -111,6 +114,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public virtual IPropertyContainer GetElementResult() {
             return null;
+        }
+
+        public virtual String GetDisplay() {
+            return display;
         }
 
         private void FlushInlineHelper() {
