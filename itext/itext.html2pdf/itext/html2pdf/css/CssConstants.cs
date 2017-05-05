@@ -484,6 +484,8 @@ namespace iText.Html2pdf.Css {
 
         public const String SUPER = "super";
 
+        public const String TABLE = "table";
+
         public const String TEXT_BOTTOM = "text-bottom";
 
         public const String TEXT_TOP = "text-top";

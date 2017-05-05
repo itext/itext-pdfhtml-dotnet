@@ -145,6 +145,9 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(afterPseudoElemName, typeof(SpanTagWorker));
             workerMapping.PutMapping(beforePseudoElemName, CssConstants.BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(afterPseudoElemName, CssConstants.BLOCK, typeof(DivTagWorker));
+            // For now behaving like display:block in display:table case is sufficient
+            workerMapping.PutMapping(beforePseudoElemName, CssConstants.TABLE, typeof(DivTagWorker));
+            workerMapping.PutMapping(afterPseudoElemName, CssConstants.TABLE, typeof(DivTagWorker));
             workerMapping.PutMapping(CssPseudoElementUtil.CreatePseudoElementTagName(TagConstants.IMG), typeof(ImgTagWorker
                 ));
             // custom elements mapping, implementation-specific
