@@ -258,6 +258,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1240")]
         public virtual void Float20Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "float20Test.html"), new FileInfo(destinationFolder
                  + "float20Test.pdf"));
