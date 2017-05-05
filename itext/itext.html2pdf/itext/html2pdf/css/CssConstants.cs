@@ -250,6 +250,8 @@ namespace iText.Html2pdf.Css {
 
         public const String TAB_SIZE = "tab-size";
 
+        public const String TABLE_CELL = "table-cell";
+
         public const String TABLE_LAYOUT = "table-layout";
 
         public const String TEXT_ALIGN = "text-align";
@@ -371,6 +373,8 @@ namespace iText.Html2pdf.Css {
         public const String INLINE = "inline";
 
         public const String INLINE_BLOCK = "inline-block";
+
+        public const String INLINE_TABLE = "inline-table";
 
         public const String INSET = "inset";
 

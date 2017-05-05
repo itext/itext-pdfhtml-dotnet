@@ -51,16 +51,19 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    public class DivTagWorker : ITagWorker {
+    public class DivTagWorker : ITagWorker, IDisplayAware {
         private Div div;
 
         private WaitingInlineElementsHelper inlineHelper;
+
+        private String display;
 
         public DivTagWorker(IElementNode element, ProcessorContext context) {
             div = new Div();
             IDictionary<String, String> styles = element.GetStyles();
             inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.Get(CssConstants.WHITE_SPACE
                 ), styles == null ? null : styles.Get(CssConstants.TEXT_TRANSFORM));
+            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
@@ -146,6 +149,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public virtual IPropertyContainer GetElementResult() {
             return div;
+        }
+
+        public virtual String GetDisplay() {
+            return display;
         }
 
         private bool AddBlockChild(IElement element) {
