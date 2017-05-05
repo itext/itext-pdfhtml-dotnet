@@ -115,7 +115,16 @@ namespace iText.Html2pdf.Css.Selector {
                             INode parent = element.ParentNode();
                             if (parent != null) {
                                 int indexOfElement = parent.ChildNodes().IndexOf(element);
-                                return indexOfElement > 0 && Matches(parent.ChildNodes()[indexOfElement - 1], i - 1);
+                                INode previousElement = null;
+                                for (int j = indexOfElement - 1; j >= 0; j--) {
+                                    if (parent.ChildNodes()[j] is IElementNode) {
+                                        previousElement = parent.ChildNodes()[j];
+                                        break;
+                                    }
+                                }
+                                if (previousElement != null) {
+                                    return indexOfElement > 0 && Matches(previousElement, i - 1);
+                                }
                             }
                             return false;
                         }

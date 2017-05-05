@@ -43,7 +43,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Generated_content {
-    [NUnit.Framework.Ignore("DEVSIX-1100")]
     public class ContentCounters006Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "content-counters-006.xht";

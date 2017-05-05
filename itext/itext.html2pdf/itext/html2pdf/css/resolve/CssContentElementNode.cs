@@ -46,7 +46,7 @@ using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Resolve {
-    internal class CssContentElementNode : CssContextNode, IElementNode {
+    internal class CssContentElementNode : CssContextNode, IElementNode, ICustomElementNode {
         private CssContentElementNode.Attributes attributes;
 
         private String tagName;

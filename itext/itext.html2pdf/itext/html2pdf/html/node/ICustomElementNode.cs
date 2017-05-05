@@ -39,13 +39,8 @@
 
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
-using System;
-using iText.Html2pdf.Css.W3c;
-
-namespace iText.Html2pdf.Css.W3c.Css21.Generated_content {
-    public class ContentCounters007Test : W3CCssTest {
-        protected internal override String GetHtmlFileName() {
-            return "content-counters-007.xht";
-        }
+namespace iText.Html2pdf.Html.Node {
+    public interface ICustomElementNode : IElementNode {
+        // This interface serves as a marker that this particular IElementNode is something non-standard.
     }
 }

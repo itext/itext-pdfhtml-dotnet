@@ -46,7 +46,7 @@ using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Pseudo {
-    public class CssPseudoElementNode : CssContextNode, IElementNode {
+    public class CssPseudoElementNode : CssContextNode, IElementNode, ICustomElementNode {
         private String pseudoElementName;
 
         private String pseudoElementTagName;
