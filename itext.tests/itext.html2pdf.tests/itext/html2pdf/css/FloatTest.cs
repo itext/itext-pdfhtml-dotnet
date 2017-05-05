@@ -93,11 +93,9 @@ namespace iText.Html2pdf.Css {
                  + "cmp_float03Test.pdf", destinationFolder, "diff03_"));
         }
 
-        //TODO DIV element should pass float property to the paragraphs it creates by default (when div have only spans for example)
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("")]
         public virtual void Float04Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "float04Test.html"), new FileInfo(destinationFolder
                  + "float04Test.pdf"));
