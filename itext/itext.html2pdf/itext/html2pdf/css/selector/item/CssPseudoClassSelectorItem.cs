@@ -42,6 +42,7 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Selector.Item {
     public class CssPseudoClassSelectorItem : ICssSelectorItem {
@@ -62,9 +63,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
             else {
                 this.pseudoClass = pseudoClass.JSubstring(0, indexOfParentheses);
                 this.arguments = pseudoClass.JSubstring(indexOfParentheses + 1, pseudoClass.Length - 1).Trim();
-                int[] nthChildArguments = GetNthChildArguments();
-                nthChildA = nthChildArguments[0];
-                nthChildB = nthChildArguments[1];
+                GetNthChildArguments();
             }
         }
 
@@ -112,10 +111,10 @@ namespace iText.Html2pdf.Css.Selector.Item {
                 }
                 return children;
             }
-            return new List<INode>();
+            return JavaCollectionsUtil.EmptyList<INode>();
         }
 
-        private int[] GetNthChildArguments() {
+        private void GetNthChildArguments() {
             if (arguments.Matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
                 if (arguments.Equals("odd")) {
                     this.nthChildA = 2;
@@ -142,7 +141,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
                                     this.nthChildA = aParticle.Equals("+") ? 1 : -1;
                                 }
                                 else {
-                                    this.nthChildA = System.Convert.ToInt32(arguments.JSubstring(0, indexOfN).Trim());
+                                    this.nthChildA = System.Convert.ToInt32(aParticle);
                                 }
                             }
                             String bParticle = arguments.Substring(indexOfN + 1).Trim();
@@ -160,7 +159,6 @@ namespace iText.Html2pdf.Css.Selector.Item {
                 this.nthChildA = 0;
                 this.nthChildB = 0;
             }
-            return new int[] { this.nthChildA, this.nthChildB };
         }
 
         private bool ResolveNthChild(INode node, IList<INode> children) {
@@ -173,7 +171,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
             }
             else {
                 if (this.nthChildA < 0) {
-                    int temp = children.IndexOf(node) + 1 - this.nthChildA;
+                    int temp = children.IndexOf(node) + 1 - this.nthChildB;
                     return temp <= 0 ? temp % this.nthChildA == 0 : false;
                 }
                 else {
