@@ -102,6 +102,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                         waitingElement.SetProperty(Property.KEEP_WITH_NEXT, true);
                     }
                     if (waitingElement.HasProperty(Property.FLOAT)) {
+                        waitingElement.SetProperty(Property.DRAW_AFTER_NEXT, true);
                         base.AddChild(waitingElement);
                         floatElementsWasMet = true;
                     }
@@ -127,21 +128,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
-        public override void Close() {
-            base.Close();
-            PdfDocument pdfDocument = document.GetPdfDocument();
-            if (pdfDocument.GetNumberOfPages() > 1) {
-                PdfPage lastPage = pdfDocument.GetLastPage();
-                if (lastPage.GetContentStreamCount() == 1 && lastPage.GetContentStream(0).GetOutputStream().GetCurrentPos(
-                    ) <= 0) {
-                    // Remove last empty page
-                    pdfDocument.RemovePage(pdfDocument.GetNumberOfPages());
-                }
-            }
-        }
-
         public override IRenderer GetNextRenderer() {
             // Process waiting element to get the correct number of pages
+            if (waitingElements.Count > 0) {
+                foreach (IRenderer waitingElement in waitingElements) {
+                    base.AddChild(waitingElement);
+                }
+            }
             iText.Html2pdf.Attach.Impl.Layout.HtmlDocumentRenderer relayoutRenderer = new iText.Html2pdf.Attach.Impl.Layout.HtmlDocumentRenderer
                 (document, immediateFlush);
             relayoutRenderer.firstPageProc = firstPageProc;
@@ -238,6 +231,24 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         internal virtual int GetEstimatedNumberOfPages() {
             return estimatedNumberOfPages;
+        }
+
+        public override void Close() {
+            if (waitingElements.Count > 0) {
+                foreach (IRenderer waitingElement in waitingElements) {
+                    base.AddChild(waitingElement);
+                }
+            }
+            base.Close();
+            PdfDocument pdfDocument = document.GetPdfDocument();
+            if (pdfDocument.GetNumberOfPages() > 1) {
+                PdfPage lastPage = pdfDocument.GetLastPage();
+                if (lastPage.GetContentStreamCount() == 1 && lastPage.GetContentStream(0).GetOutputStream().GetCurrentPos(
+                    ) <= 0) {
+                    // Remove last empty page
+                    pdfDocument.RemovePage(pdfDocument.GetNumberOfPages());
+                }
+            }
         }
 
         private PageContextProcessor GetNextPageProcessor(bool firstPage) {

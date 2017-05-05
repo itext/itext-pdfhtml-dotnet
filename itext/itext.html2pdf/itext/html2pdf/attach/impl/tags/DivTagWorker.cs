@@ -55,9 +55,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         private WaitingInlineElementsHelper inlineHelper;
 
+        private String floatProperty;
+
         public DivTagWorker(IElementNode element, ProcessorContext context) {
             div = new Div();
             IDictionary<String, String> styles = element.GetStyles();
+            floatProperty = styles == null ? null : styles.Get(CssConstants.FLOAT);
             inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.Get(CssConstants.WHITE_SPACE
                 ), styles == null ? null : styles.Get(CssConstants.TEXT_TRANSFORM));
         }
@@ -164,7 +167,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         private void PostProcessInlineGroup() {
-            inlineHelper.FlushHangingLeaves(div);
+            if (floatProperty == null) {
+                inlineHelper.FlushHangingLeaves(div);
+            }
         }
     }
 }
