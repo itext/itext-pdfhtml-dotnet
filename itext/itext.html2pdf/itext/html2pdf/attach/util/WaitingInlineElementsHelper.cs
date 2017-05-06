@@ -167,11 +167,11 @@ namespace iText.Html2pdf.Attach.Util {
                 Paragraph p = CreateParagraphContainer();
                 foreach (ILeafElement leaf in waitingLeaves) {
                     p.Add(leaf);
-                    FloatPropertyValue? floatPropertyValue = leaf.GetProperty(Property.FLOAT);
+                    FloatPropertyValue? floatPropertyValue = leaf.GetProperty<FloatPropertyValue?>(Property.FLOAT);
                     if (floatPropertyValue != null && !(leaf is Image)) {
                         p.SetProperty(Property.FLOAT, floatPropertyValue);
                     }
-                    ClearPropertyValue? clearPropertyValue = leaf.GetProperty(Property.CLEAR);
+                    ClearPropertyValue? clearPropertyValue = leaf.GetProperty<ClearPropertyValue?>(Property.CLEAR);
                     if (clearPropertyValue != null && !(leaf is Image)) {
                         p.SetProperty(Property.CLEAR, clearPropertyValue);
                     }

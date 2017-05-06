@@ -186,7 +186,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         private bool ElementIsFloated(IElement element) {
-            FloatPropertyValue? floatPropertyValue = element.GetProperty(Property.FLOAT);
+            FloatPropertyValue? floatPropertyValue = element.GetProperty<FloatPropertyValue?>(Property.FLOAT);
             return floatPropertyValue != null && !floatPropertyValue.Equals(FloatPropertyValue.NONE);
         }
 
