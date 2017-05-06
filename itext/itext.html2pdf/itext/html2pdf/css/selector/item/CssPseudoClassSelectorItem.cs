@@ -96,7 +96,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
         }
 
         public override String ToString() {
-            return ":" + pseudoClass + (!String.IsNullOrEmpty(arguments) ? new String("(" + arguments + ")") : "");
+            return ":" + pseudoClass + (!String.IsNullOrEmpty(arguments) ? "(" + arguments + ")" : "");
         }
 
         private IList<INode> GetAllChildren(INode child) {
