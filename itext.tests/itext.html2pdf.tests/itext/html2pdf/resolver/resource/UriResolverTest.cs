@@ -256,5 +256,15 @@ namespace iText.Html2pdf.Resolver.Resource {
             NUnit.Framework.Assert.AreEqual(singleSlashRootPath + "test/folder/folder2/innerTest2", resolver.ResolveAgainstBaseUri
                 ("//folder2/innerTest2").ToExternalForm());
         }
+
+        /// <exception cref="Java.Net.MalformedURLException"/>
+        [NUnit.Framework.Test]
+        public virtual void UriResolverTest17()
+        {
+            String absolutePathRoot = "file:///" + Path.GetPathRoot((Directory.GetCurrentDirectory() + "/")).Replace
+                ('\\', '/').ReplaceFirst("^/", "");
+            String absoluteBaseUri = absolutePathRoot + "test/fol der/index.html";
+            UriResolver resolver = new UriResolver(absoluteBaseUri);
+        }
     }
 }

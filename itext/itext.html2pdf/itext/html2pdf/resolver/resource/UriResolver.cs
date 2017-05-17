@@ -97,7 +97,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         private Uri BaseUriAsUrl(String baseUriString) {
             Uri baseAsUrl = null;
             try {
-                Uri baseUri = new Uri(baseUriString);
+                Uri baseUri = new Uri(baseUriString.Replace(" ", "%20"));
                 if (Path.IsPathRooted(baseUri.AbsolutePath)) {
                     baseAsUrl = baseUri;
                     if ("file".Equals(baseUri.Scheme)) {
