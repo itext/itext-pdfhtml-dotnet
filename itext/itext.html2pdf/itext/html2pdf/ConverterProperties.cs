@@ -41,6 +41,7 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Media;
 using iText.Layout.Font;
@@ -54,6 +55,8 @@ namespace iText.Html2pdf {
         private ITagWorkerFactory tagWorkerFactory;
 
         private ICssApplierFactory cssApplierFactory;
+
+        private OutlinesHandler outlinesHandler;
 
         private String baseUri;
 
@@ -69,6 +72,7 @@ namespace iText.Html2pdf {
             this.cssApplierFactory = other.cssApplierFactory;
             this.baseUri = other.baseUri;
             this.createAcroForm = other.createAcroForm;
+            this.outlinesHandler = other.outlinesHandler;
         }
 
         public virtual MediaDeviceDescription GetMediaDeviceDescription() {
@@ -124,6 +128,15 @@ namespace iText.Html2pdf {
 
         public virtual iText.Html2pdf.ConverterProperties SetCreateAcroForm(bool createAcroForm) {
             this.createAcroForm = createAcroForm;
+            return this;
+        }
+
+        public virtual OutlinesHandler GetOutlinesHandler() {
+            return outlinesHandler;
+        }
+
+        public virtual iText.Html2pdf.ConverterProperties SetOutlinesHandler(OutlinesHandler outlinesHandler) {
+            this.outlinesHandler = outlinesHandler;
             return this;
         }
     }
