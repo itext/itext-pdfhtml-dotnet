@@ -50,8 +50,14 @@ using iText.Kernel.Pdf.Navigation;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl {
-    public class OutlinesHandler {
-        private const String DESTINATION_PREFIX = "pdfHTML-itext-outline-";
+    /// <summary>
+    /// A
+    /// <see cref="OutlineHandler"/>
+    /// handles creating outlines for tags.
+    /// This class is not reusable and a new instance shall be created for every new conversion process.
+    /// </summary>
+    public class OutlineHandler {
+        private const String DESTINATION_PREFIX = "pdfHTML-iText-outline-";
 
         private PdfOutline currentOutline;
 
@@ -63,8 +69,9 @@ namespace iText.Html2pdf.Attach.Impl {
 
         private IDictionary<String, int?> uniqueIDs = new Dictionary<String, int?>();
 
-        public static OutlinesHandler CreateDefault() {
-            OutlinesHandler handler = new OutlinesHandler();
+        /// <summary>Creates an OutlineHandler with standard predefined mappings.</summary>
+        public static OutlineHandler CreateStandardHandler() {
+            OutlineHandler handler = new OutlineHandler();
             handler.PutTagPriorityMapping("h1", 1);
             handler.PutTagPriorityMapping("h2", 2);
             handler.PutTagPriorityMapping("h3", 3);
@@ -74,12 +81,12 @@ namespace iText.Html2pdf.Attach.Impl {
             return handler;
         }
 
-        public virtual OutlinesHandler PutTagPriorityMapping(String tagName, int? priority) {
+        public virtual OutlineHandler PutTagPriorityMapping(String tagName, int? priority) {
             tagPrioritiesMapping.Put(tagName, priority);
             return this;
         }
 
-        public virtual OutlinesHandler PutAllTagPriorityMappings(IDictionary<String, int?> mappings) {
+        public virtual OutlineHandler PutAllTagPriorityMappings(IDictionary<String, int?> mappings) {
             tagPrioritiesMapping.AddAll(mappings);
             return this;
         }
@@ -92,7 +99,7 @@ namespace iText.Html2pdf.Attach.Impl {
             return tagPrioritiesMapping.ContainsKey(tagName);
         }
 
-        public virtual OutlinesHandler AddOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context
+        internal virtual OutlineHandler AddOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context
             ) {
             String tagName = element.Name();
             if (null != tagWorker && HasTagPriorityMapping(tagName)) {
@@ -119,15 +126,15 @@ namespace iText.Html2pdf.Attach.Impl {
             return this;
         }
 
-        public virtual OutlinesHandler AddDestination(ITagWorker tagWorker, IElementNode element) {
+        internal virtual OutlineHandler AddDestination(ITagWorker tagWorker, IElementNode element) {
             String tagName = element.Name();
             if (null != tagWorker && HasTagPriorityMapping(tagName)) {
                 String content = destinationsInProcess.JRemoveFirst();
-                if (null != tagWorker.GetElementResult()) {
+                if (tagWorker.GetElementResult() is ElementPropertyContainer) {
                     ((ElementPropertyContainer)tagWorker.GetElementResult()).SetDestination(content);
                 }
                 else {
-                    ILogger logger = LoggerFactory.GetLogger(typeof(OutlinesHandler));
+                    ILogger logger = LoggerFactory.GetLogger(typeof(OutlineHandler));
                     logger.Warn(String.Format(iText.Html2pdf.LogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG, tagName
                         ));
                 }

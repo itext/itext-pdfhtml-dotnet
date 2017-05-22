@@ -42,6 +42,7 @@
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Attach.Impl;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
 using System.Reflection;
@@ -68,7 +69,7 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void H1Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hTest01.html"), new FileInfo(destinationFolder + "hTest01.pdf"
-                ));
+                ), new ConverterProperties().SetOutlineHandler(OutlineHandler.CreateStandardHandler()));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hTest01.pdf", sourceFolder
                  + "cmp_hTest01.pdf", destinationFolder, "diff01_"));
         }
@@ -78,7 +79,7 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void H2Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hTest02.html"), new FileInfo(destinationFolder + "hTest02.pdf"
-                ));
+                ), new ConverterProperties().SetOutlineHandler(OutlineHandler.CreateStandardHandler()));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hTest02.pdf", sourceFolder
                  + "cmp_hTest02.pdf", destinationFolder, "diff02_"));
         }
@@ -88,7 +89,7 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void H3Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hTest03.html"), new FileInfo(destinationFolder + "hTest03.pdf"
-                ));
+                ), new ConverterProperties().SetOutlineHandler(OutlineHandler.CreateStandardHandler()));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hTest03.pdf", sourceFolder
                  + "cmp_hTest03.pdf", destinationFolder, "diff03_"));
         }
@@ -98,7 +99,7 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void H4Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hTest04.html"), new FileInfo(destinationFolder + "hTest04.pdf"
-                ));
+                ), new ConverterProperties().SetOutlineHandler(OutlineHandler.CreateStandardHandler()));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hTest04.pdf", sourceFolder
                  + "cmp_hTest04.pdf", destinationFolder, "diff04_"));
         }
@@ -108,7 +109,7 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void H5Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hTest05.html"), new FileInfo(destinationFolder + "hTest05.pdf"
-                ));
+                ), new ConverterProperties().SetOutlineHandler(OutlineHandler.CreateStandardHandler()));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hTest05.pdf", sourceFolder
                  + "cmp_hTest05.pdf", destinationFolder, "diff05_"));
         }

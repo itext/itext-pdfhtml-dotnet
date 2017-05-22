@@ -56,7 +56,7 @@ namespace iText.Html2pdf {
 
         private ICssApplierFactory cssApplierFactory;
 
-        private OutlinesHandler outlinesHandler;
+        private OutlineHandler outlineHandler;
 
         private String baseUri;
 
@@ -72,7 +72,7 @@ namespace iText.Html2pdf {
             this.cssApplierFactory = other.cssApplierFactory;
             this.baseUri = other.baseUri;
             this.createAcroForm = other.createAcroForm;
-            this.outlinesHandler = other.outlinesHandler;
+            this.outlineHandler = other.outlineHandler;
         }
 
         public virtual MediaDeviceDescription GetMediaDeviceDescription() {
@@ -131,12 +131,12 @@ namespace iText.Html2pdf {
             return this;
         }
 
-        public virtual OutlinesHandler GetOutlinesHandler() {
-            return outlinesHandler;
+        public virtual OutlineHandler GetOutlineHandler() {
+            return outlineHandler;
         }
 
-        public virtual iText.Html2pdf.ConverterProperties SetOutlinesHandler(OutlinesHandler outlinesHandler) {
-            this.outlinesHandler = outlinesHandler;
+        public virtual iText.Html2pdf.ConverterProperties SetOutlineHandler(OutlineHandler outlineHandler) {
+            this.outlineHandler = outlineHandler;
             return this;
         }
     }
