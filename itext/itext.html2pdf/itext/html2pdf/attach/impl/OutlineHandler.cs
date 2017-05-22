@@ -47,7 +47,8 @@ using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Navigation;
-using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>
@@ -103,12 +104,12 @@ namespace iText.Html2pdf.Attach.Impl {
             ) {
             String tagName = element.Name();
             if (null != tagWorker && HasTagPriorityMapping(tagName)) {
-                int level = GetTagPriorityMapping(tagName);
+                int level = (int)GetTagPriorityMapping(tagName);
                 if (null == currentOutline) {
                     currentOutline = context.GetPdfDocument().GetOutlines(false);
                 }
                 PdfOutline parent = currentOutline;
-                while (!levelsInProcess.IsEmpty() && level <= levelsInProcess.Peek()) {
+                while (!levelsInProcess.IsEmpty() && level <= levelsInProcess.JGetFirst()) {
                     parent = parent.GetParent();
                     levelsInProcess.JRemoveFirst();
                 }
@@ -130,8 +131,8 @@ namespace iText.Html2pdf.Attach.Impl {
             String tagName = element.Name();
             if (null != tagWorker && HasTagPriorityMapping(tagName)) {
                 String content = destinationsInProcess.JRemoveFirst();
-                if (tagWorker.GetElementResult() is ElementPropertyContainer) {
-                    ((ElementPropertyContainer)tagWorker.GetElementResult()).SetDestination(content);
+                if (tagWorker.GetElementResult() is IElement) {
+                    tagWorker.GetElementResult().SetProperty(Property.DESTINATION, content);
                 }
                 else {
                     ILogger logger = LoggerFactory.GetLogger(typeof(OutlineHandler));
@@ -146,7 +147,7 @@ namespace iText.Html2pdf.Attach.Impl {
             if (!uniqueIDs.ContainsKey(key)) {
                 uniqueIDs.Put(key, 1);
             }
-            int id = uniqueIDs.Get(key);
+            int id = (int)uniqueIDs.Get(key);
             uniqueIDs.Put(key, id + 1);
             return key + id;
         }
