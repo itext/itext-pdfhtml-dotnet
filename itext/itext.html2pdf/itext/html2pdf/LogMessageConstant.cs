@@ -71,6 +71,8 @@ namespace iText.Html2pdf {
 
         public const String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
 
+        public const String NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG = "Tag worker does not produce IPropertyContainer for \"{0}\" tag. An outline for \"{0}\" tag will not be created.";
+
         public const String NO_CONSUMER_FOUND_FOR_CONTENT = "No consumer found for content";
 
         public const String NO_CSS_APPLIER_FOUND_FOR_TAG = "No css applier found for tag {0}";

@@ -73,6 +73,8 @@ namespace iText.Html2pdf.Attach {
 
         private FormFieldNameResolver formFieldNameResolver;
 
+        private OutlineHandler outlineHandler;
+
         private State state;
 
         private CssContext cssContext;
@@ -104,6 +106,10 @@ namespace iText.Html2pdf.Attach {
             baseUri = converterProperties.GetBaseUri();
             if (baseUri == null) {
                 baseUri = "";
+            }
+            outlineHandler = converterProperties.GetOutlineHandler();
+            if (outlineHandler == null) {
+                outlineHandler = new OutlineHandler();
             }
             resourceResolver = new ResourceResolver(baseUri);
             cssContext = new CssContext();
@@ -157,6 +163,10 @@ namespace iText.Html2pdf.Attach {
 
         public virtual FormFieldNameResolver GetFormFieldNameResolver() {
             return formFieldNameResolver;
+        }
+
+        public virtual OutlineHandler GetOutlineHandler() {
+            return outlineHandler;
         }
 
         /// <summary>Add temporary font from @font-face.</summary>

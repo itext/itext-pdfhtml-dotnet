@@ -110,5 +110,9 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
                 return lang;
             }
         }
+
+        public virtual String Text() {
+            return element.Text();
+        }
     }
 }
