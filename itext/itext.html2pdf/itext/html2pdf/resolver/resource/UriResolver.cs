@@ -63,6 +63,9 @@ namespace iText.Html2pdf.Resolver.Resource {
                 // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
                 // resources around the file system even if on web page the path started with '\'
                 uriString = uriString.ReplaceFirst("/*\\\\*", "");
+                uriString.Trim();
+                // decode and then encode uri string in order to process unsafe characters correctly
+                uriString = EncodeUtil.Encode(DecodeUtil.Decode(uriString));
                 if (!uriString.StartsWith("file:")) {
                     try {
                         String path = System.IO.Path.Combine(uriString);
@@ -84,6 +87,8 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         private void ResolveBaseUrlOrPath(String @base) {
+            @base = @base.Trim();
+            @base = EncodeUtil.Encode(DecodeUtil.Decode(@base));
             baseUrl = BaseUriAsUrl(@base);
             if (baseUrl == null) {
                 baseUrl = UriAsFileUrl(@base);
@@ -97,7 +102,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         private Uri BaseUriAsUrl(String baseUriString) {
             Uri baseAsUrl = null;
             try {
-                Uri baseUri = new Uri(baseUriString.Replace(" ", "%20"));
+                Uri baseUri = new Uri(baseUriString);
                 if (Path.IsPathRooted(baseUri.AbsolutePath)) {
                     baseAsUrl = baseUri;
                     if ("file".Equals(baseUri.Scheme)) {
