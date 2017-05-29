@@ -144,6 +144,19 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff06_"
                 ));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ResourceResolverTest07()
+        {
+            String outPdf = destinationFolder + "resourceResolverTest07.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest07.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceResolverTest07.html"), new FileInfo(outPdf
+            ));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff07_"
+            ));
+        }
         // TODO test with absolute http links for resources?
         // TODO test with http base URI?
     }

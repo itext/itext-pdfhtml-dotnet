@@ -63,7 +63,7 @@ namespace iText.Html2pdf.Resolver.Resource {
                 // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
                 // resources around the file system even if on web page the path started with '\'
                 uriString = uriString.ReplaceFirst("/*\\\\*", "");
-                uriString.Trim();
+                uriString = uriString.Trim();
                 // decode and then encode uri string in order to process unsafe characters correctly
                 uriString = EncodeUtil.Encode(DecodeUtil.Decode(uriString));
                 if (!uriString.StartsWith("file:")) {

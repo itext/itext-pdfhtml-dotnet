@@ -100,10 +100,11 @@ namespace iText.Html2pdf.Resolver.Resource {
                     i++;
                 }
                 else {
-                    int numOfChars = 1;
+                    int numOfChars = 0;
                     do {
                         // convert to external encoding before hex conversion
                         charArrayWriter.Write((char)c);
+                        numOfChars++;
                         /*
                         * If this character represents the start of a Unicode
                         * surrogate pair, then pass in two characters. It's not
@@ -139,7 +140,6 @@ namespace iText.Html2pdf.Resolver.Resource {
                     }
                     while (i < s.Length && !dontNeedEncoding.Get((c = (int)s[i])));
                     BinaryReader binReader = new BinaryReader(charArrayWriter.BaseStream);
-                    binReader.BaseStream.Position = 0;
                     char[] chars = binReader.ReadChars(numOfChars);
                     String str = new String(chars);
                     byte[] ba = str.GetBytes(charset);
