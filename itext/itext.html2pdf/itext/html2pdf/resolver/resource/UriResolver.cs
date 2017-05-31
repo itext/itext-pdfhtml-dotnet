@@ -59,13 +59,13 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// <exception cref="Java.Net.MalformedURLException"/>
         public virtual Uri ResolveAgainstBaseUri(String uriString) {
             Uri resolvedUrl = null;
+            uriString = uriString.Trim();
+            // decode and then encode uri string in order to process unsafe characters correctly
+            uriString = EncodeUtil.Encode(DecodeUtil.Decode(uriString));
             if (isLocal) {
                 // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
                 // resources around the file system even if on web page the path started with '\'
                 uriString = uriString.ReplaceFirst("/*\\\\*", "");
-                uriString = uriString.Trim();
-                // decode and then encode uri string in order to process unsafe characters correctly
-                uriString = EncodeUtil.Encode(DecodeUtil.Decode(uriString));
                 if (!uriString.StartsWith("file:")) {
                     try {
                         String path = System.IO.Path.Combine(uriString);
@@ -73,7 +73,7 @@ namespace iText.Html2pdf.Resolver.Resource {
                         // What concerns unix paths, we already removed leading slashes,
                         // therefore we can't meet here an absolute path.
                         if (Path.IsPathRooted(path)) {
-                            resolvedUrl = new Uri(path);
+                            resolvedUrl = new Uri(path, true);
                         }
                     }
                     catch (Exception) {
@@ -81,7 +81,7 @@ namespace iText.Html2pdf.Resolver.Resource {
                 }
             }
             if (resolvedUrl == null) {
-                resolvedUrl = new Uri(baseUrl, uriString);
+                resolvedUrl = new Uri(baseUrl, uriString, true);
             }
             return resolvedUrl;
         }
@@ -102,11 +102,11 @@ namespace iText.Html2pdf.Resolver.Resource {
         private Uri BaseUriAsUrl(String baseUriString) {
             Uri baseAsUrl = null;
             try {
-                Uri baseUri = new Uri(baseUriString);
+                Uri baseUri = new Uri(baseUriString, true);
                 if (Path.IsPathRooted(baseUri.AbsolutePath)) {
                     baseAsUrl = baseUri;
                     if ("file".Equals(baseUri.Scheme)) {
-                        baseAsUrl = new Uri(NormalizeFilePath(baseAsUrl.AbsolutePath));
+                        baseAsUrl = new Uri(NormalizeFilePath(baseAsUrl.AbsolutePath), true);
                         isLocal = true;
                     }
                 }

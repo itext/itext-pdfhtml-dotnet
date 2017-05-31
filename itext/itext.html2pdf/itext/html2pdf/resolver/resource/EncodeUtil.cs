@@ -101,7 +101,9 @@ namespace iText.Html2pdf.Resolver.Resource {
                 }
                 else {
                     int numOfChars = 0;
-                    do {
+                    charArrayWriter.BaseStream.Position = 0;
+                    do
+                    {
                         // convert to external encoding before hex conversion
                         charArrayWriter.Write((char)c);
                         numOfChars++;
@@ -140,6 +142,7 @@ namespace iText.Html2pdf.Resolver.Resource {
                     }
                     while (i < s.Length && !dontNeedEncoding.Get((c = (int)s[i])));
                     BinaryReader binReader = new BinaryReader(charArrayWriter.BaseStream);
+                    binReader.BaseStream.Position = 0;
                     char[] chars = binReader.ReadChars(numOfChars);
                     String str = new String(chars);
                     byte[] ba = str.GetBytes(charset);
@@ -152,7 +155,7 @@ namespace iText.Html2pdf.Resolver.Resource {
                             ch -= (char)caseDiff;
                         }
                         @out.Append(ch);
-                        ch = Convert.ToInt32(((ba[j] >> 4) & 0xF).ToString(), 16);
+                        ch = Convert.ToInt32((ba[j] & 0xF).ToString(), 16);
                         if (char.IsLetter((char)ch)) {
                             ch -= (char)caseDiff;
                         }
