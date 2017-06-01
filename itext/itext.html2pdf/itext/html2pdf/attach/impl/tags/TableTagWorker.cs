@@ -97,7 +97,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         for (int i = 0; i < header.GetNumberOfRows(); i++) {
                             tableWrapper.NewHeaderRow();
                             for (int j = 0; j < header.GetNumberOfColumns(); j++) {
-                                tableWrapper.AddHeaderCell(header.GetCell(i, j));
+                                Cell headerCell = header.GetCell(i, j);
+                                if (headerCell != null) {
+                                    tableWrapper.AddHeaderCell(headerCell);
+                                }
                             }
                         }
                         return true;
@@ -109,7 +112,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                             for (int i = 0; i < footer.GetNumberOfRows(); i++) {
                                 tableWrapper.NewFooterRow();
                                 for (int j = 0; j < footer.GetNumberOfColumns(); j++) {
-                                    tableWrapper.AddFooterCell(footer.GetCell(i, j));
+                                    Cell footerCell = footer.GetCell(i, j);
+                                    if (footerCell != null) {
+                                        tableWrapper.AddFooterCell(footerCell);
+                                    }
                                 }
                             }
                             return true;
