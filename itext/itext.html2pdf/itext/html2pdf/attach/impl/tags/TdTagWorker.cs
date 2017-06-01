@@ -50,10 +50,12 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    public class TdTagWorker : ITagWorker {
+    public class TdTagWorker : ITagWorker, IDisplayAware {
         private Cell cell;
 
         private WaitingInlineElementsHelper inlineHelper;
+
+        private String display;
 
         public TdTagWorker(IElementNode element, ProcessorContext context) {
             int? colspan = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.COLSPAN));
@@ -61,8 +63,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             colspan = colspan != null ? colspan : 1;
             rowspan = rowspan != null ? rowspan : 1;
             cell = new Cell((int)rowspan, (int)colspan);
+            cell.SetPadding(0);
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
+            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
@@ -102,6 +106,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public virtual IPropertyContainer GetElementResult() {
             return cell;
+        }
+
+        public virtual String GetDisplay() {
+            return display;
         }
 
         private bool ProcessChild(IPropertyContainer propertyContainer) {

@@ -101,8 +101,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             bool displayTableCell = childTagWorker is IDisplayAware && CssConstants.TABLE_CELL.Equals(((IDisplayAware)
                 childTagWorker).GetDisplay());
             if (childTagWorker.GetElementResult() is IBlockElement) {
-                Cell curCell = CreateWrapperCell();
-                curCell.Add((IBlockElement)childTagWorker.GetElementResult());
+                IBlockElement childResult = (IBlockElement)childTagWorker.GetElementResult();
+                Cell curCell = childResult is Cell ? (Cell)childResult : CreateWrapperCell().Add(childResult);
                 ProcessCell(curCell, displayTableCell);
                 return true;
             }
