@@ -195,8 +195,22 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloTableAuto10DocumentTest() {
-            //TODO this test should be improved, incorrect widths
+            //TODO this test should be improved, incorrect widths. Each cell shall have its max width.
             RunTest("hello_table_auto10");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto11DocumentTest() {
+            RunTest("hello_table_auto11");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto12DocumentTest() {
+            RunTest("hello_table_auto12");
         }
 
         /// <exception cref="System.IO.IOException"/>
