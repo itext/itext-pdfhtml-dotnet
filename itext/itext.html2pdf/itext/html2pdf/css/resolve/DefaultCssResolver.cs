@@ -231,7 +231,7 @@ namespace iText.Html2pdf.Css.Resolve {
                                 styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                                 cssStyleSheet.AppendCssStyleSheet(styleSheet);
                             }
-                            catch (Exception exc) {
+                            catch (System.IO.IOException exc) {
                                 ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
                                 logger.Error(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, exc);
                             }
