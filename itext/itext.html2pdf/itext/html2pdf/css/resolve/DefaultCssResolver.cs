@@ -227,7 +227,7 @@ namespace iText.Html2pdf.Css.Resolve {
                                 byte[] bytes = StreamUtil.InputStreamToArray(stream);
                                 CheckIfPagesCounterMentioned(iText.IO.Util.JavaUtil.GetStringForBytes(bytes), cssContext);
                                 CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new MemoryStream(bytes), resourceResolver.ResolveAgainstBaseUri
-                                    (styleSheetUri).ToExternalForm());
+                                    (styleSheetUri).ToString());
                                 styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                                 cssStyleSheet.AppendCssStyleSheet(styleSheet);
                             }
