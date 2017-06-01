@@ -148,15 +148,15 @@ namespace iText.Html2pdf.Resolver.Resource {
                     byte[] ba = str.GetBytes(charset);
                     for (int j = 0; j < ba.Length; j++) {
                         @out.Append('%');
-                        int ch = Convert.ToInt32(((ba[j] >> 4) & 0xF).ToString(), 16);
+                        char ch = CharacterForDigit((ba[j] >> 4) & 0xF, 16);
                         // converting to use uppercase letter as part of
                         // the hex value if ch is a letter.
-                        if (char.IsLetter((char)ch)) {
+                        if (char.IsLetter(ch)) {
                             ch -= (char)caseDiff;
                         }
                         @out.Append(ch);
-                        ch = Convert.ToInt32((ba[j] & 0xF).ToString(), 16);
-                        if (char.IsLetter((char)ch)) {
+                        ch = CharacterForDigit(ba[j] & 0xF, 16);
+                        if (char.IsLetter(ch)) {
                             ch -= (char)caseDiff;
                         }
                         @out.Append(ch);
@@ -166,6 +166,22 @@ namespace iText.Html2pdf.Resolver.Resource {
                 }
             }
             return (needToChange ? @out.ToString() : s);
+        }
+
+        private static char CharacterForDigit(int digit, int radix) {
+            if ((digit >= radix) || (digit < 0))
+            {
+                return '\0';
+            }
+            if ((radix < 2) || (radix > 36))
+            {
+                return '\0';
+            }
+            if (digit < 10)
+            {
+                return (char)('0' + digit);
+            }
+            return (char)('a' - 10 + digit);
         }
     }
 }
