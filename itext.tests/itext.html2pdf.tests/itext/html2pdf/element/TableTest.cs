@@ -130,6 +130,14 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1252")]
+        public virtual void HelloTableAuto5DocumentTest() {
+            RunTest("hello_table_auto5");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void HelloTableHeaderFooterDocumentTest() {
             RunTest("hello_table_header_footer");
         }
