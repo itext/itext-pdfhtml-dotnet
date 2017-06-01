@@ -102,6 +102,34 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void HelloTableFixed5DocumentTest() {
+            RunTest("hello_table_fixed5");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixed6DocumentTest() {
+            RunTest("hello_table_fixed6");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixed7DocumentTest() {
+            RunTest("hello_table_fixed7");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixed8DocumentTest() {
+            RunTest("hello_table_fixed8");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void HelloTableAutoDocumentTest() {
             RunTest("hello_table_auto");
         }
@@ -130,9 +158,45 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1252")]
         public virtual void HelloTableAuto5DocumentTest() {
+            //TODO this test should be improved, incorrect widths
             RunTest("hello_table_auto5");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto6DocumentTest() {
+            RunTest("hello_table_auto6");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto7DocumentTest() {
+            RunTest("hello_table_auto7");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto8DocumentTest() {
+            RunTest("hello_table_auto8");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto9DocumentTest() {
+            RunTest("hello_table_auto9");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto10DocumentTest() {
+            //TODO this test should be improved, incorrect widths
+            RunTest("hello_table_auto10");
         }
 
         /// <exception cref="System.IO.IOException"/>
