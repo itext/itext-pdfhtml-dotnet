@@ -60,13 +60,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             String url = element.GetAttribute(AttributeConstants.HREF);
             if (url != null) {
                 for (int i = 0; i < GetAllElements().Count; i++) {
-                    LinkHelper.ApplyLinkAnnotation(GetAllElements()[i], url);
                     if (GetAllElements()[i] is IBlockElement) {
                         Div simulatedDiv = new Div();
                         simulatedDiv.SetRole(PdfName.Link);
                         simulatedDiv.Add((IBlockElement)GetAllElements()[i]);
                         GetAllElements()[i] = simulatedDiv;
                     }
+                    LinkHelper.ApplyLinkAnnotation(GetAllElements()[i], url);
                 }
             }
             if (!GetAllElements().IsEmpty()) {
