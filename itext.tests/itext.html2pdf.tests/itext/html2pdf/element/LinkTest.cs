@@ -129,5 +129,29 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest06.pdf", sourceFolder
                  + "cmp_linkTest06.pdf", destinationFolder, "diff06_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LinkTest07() {
+            PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest07.pdf"));
+            outDoc.SetTagged();
+            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "linkTest07.html", FileMode.Open, FileAccess.Read
+                ), outDoc);
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest07.pdf", sourceFolder
+                 + "cmp_linkTest07.pdf", destinationFolder, "diff07_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LinkTest08() {
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest08.pdf"));
+            pdfDocument.SetTagged();
+            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "linkTest08.html", FileMode.Open, FileAccess.Read
+                ), pdfDocument, new ConverterProperties().SetBaseUri(sourceFolder));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest08.pdf", sourceFolder
+                 + "cmp_linkTest08.pdf", destinationFolder, "diff08_"));
+        }
     }
 }

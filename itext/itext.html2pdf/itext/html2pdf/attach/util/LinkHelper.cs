@@ -44,7 +44,9 @@ using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Action;
 using iText.Kernel.Pdf.Annot;
+using iText.Kernel.Pdf.Tagutils;
 using iText.Layout;
+using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Util {
@@ -66,6 +68,9 @@ namespace iText.Html2pdf.Attach.Util {
                 }
                 linkAnnotation.SetBorder(new PdfArray(new float[] { 0, 0, 0 }));
                 container.SetProperty(Property.LINK_ANNOTATION, linkAnnotation);
+                if (container is ILeafElement && container is IAccessibleElement) {
+                    ((IAccessibleElement)container).SetRole(PdfName.Link);
+                }
             }
         }
     }

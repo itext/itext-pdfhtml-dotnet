@@ -44,7 +44,9 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
+using iText.Kernel.Pdf;
 using iText.Layout;
+using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
@@ -57,8 +59,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             base.ProcessEnd(element, context);
             String url = element.GetAttribute(AttributeConstants.HREF);
             if (url != null) {
-                foreach (IPropertyContainer childElement in GetAllElements()) {
-                    LinkHelper.ApplyLinkAnnotation(childElement, url);
+                for (int i = 0; i < GetAllElements().Count; i++) {
+                    LinkHelper.ApplyLinkAnnotation(GetAllElements()[i], url);
+                    if (GetAllElements()[i] is IBlockElement) {
+                        Div simulatedDiv = new Div();
+                        simulatedDiv.SetRole(PdfName.Link);
+                        simulatedDiv.Add((IBlockElement)GetAllElements()[i]);
+                        GetAllElements()[i] = simulatedDiv;
+                    }
                 }
             }
             if (!GetAllElements().IsEmpty()) {
