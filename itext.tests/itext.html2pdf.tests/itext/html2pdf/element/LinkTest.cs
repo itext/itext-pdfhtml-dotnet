@@ -42,6 +42,7 @@
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
@@ -68,6 +69,8 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest01() {
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "linkTest01.html").
+                AbsolutePath + "\n");
             PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest01.pdf"));
             outDoc.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "linkTest01.html", FileMode.Open, FileAccess.Read

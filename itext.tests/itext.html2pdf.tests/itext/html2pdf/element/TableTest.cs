@@ -50,6 +50,7 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class TableTest : ExtendedITextTest {
@@ -74,7 +75,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void HelloTableFixedDocumentTest() {
+        public virtual void HelloTableFixed1DocumentTest() {
             RunTest("hello_table_fixed1");
         }
 
@@ -109,7 +110,9 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void HelloTableFixed6DocumentTest() {
+            //TODO this test could be improved, somehow.
             RunTest("hello_table_fixed6");
         }
 
@@ -159,7 +162,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloTableAuto5DocumentTest() {
-            //TODO this test should be improved, incorrect widths
+            //TODO this test should be improved, incorrect widths. Each cell shall have its max width.
             RunTest("hello_table_auto5");
         }
 
@@ -195,7 +198,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloTableAuto10DocumentTest() {
-            //TODO this test should be improved, incorrect widths. Each cell shall have its max width.
+            //TODO this test should be improved, incorrect widths.
             RunTest("hello_table_auto10");
         }
 
