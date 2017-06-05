@@ -73,7 +73,7 @@ namespace iText.Html2pdf.Resolver.Resource {
                         // What concerns unix paths, we already removed leading slashes,
                         // therefore we can't meet here an absolute path.
                         if (Path.IsPathRooted(path)) {
-                            resolvedUrl = new Uri(path, true);
+                            resolvedUrl = new Uri(path);
                         }
                     }
                     catch (Exception) {
@@ -81,7 +81,7 @@ namespace iText.Html2pdf.Resolver.Resource {
                 }
             }
             if (resolvedUrl == null) {
-                resolvedUrl = new Uri(baseUrl, uriString, true);
+                resolvedUrl = new Uri(baseUrl, uriString);
             }
             return resolvedUrl;
         }
@@ -102,11 +102,11 @@ namespace iText.Html2pdf.Resolver.Resource {
         private Uri BaseUriAsUrl(String baseUriString) {
             Uri baseAsUrl = null;
             try {
-                Uri baseUri = new Uri(baseUriString, true);
+                Uri baseUri = new Uri(baseUriString);
                 if (Path.IsPathRooted(baseUri.AbsolutePath)) {
                     baseAsUrl = baseUri;
                     if ("file".Equals(baseUri.Scheme)) {
-                        baseAsUrl = new Uri(NormalizeFilePath(baseAsUrl.AbsolutePath), true);
+                        baseAsUrl = new Uri(NormalizeFilePath(baseAsUrl));
                         isLocal = true;
                     }
                 }
@@ -137,6 +137,16 @@ namespace iText.Html2pdf.Resolver.Resource {
                 path = baseUriString + "/";
             } else {
                 path = baseUriString;
+            }
+            return path;
+        }
+        
+        private static string NormalizeFilePath(Uri baseUri) {
+            string path;
+            if (Directory.Exists(baseUri.AbsolutePath) && !baseUri.AbsolutePath.EndsWith("/") && !baseUri.AbsolutePath.EndsWith("\\")) {
+                path = baseUri.AbsoluteUri + "/";
+            } else {
+                path = baseUri.AbsoluteUri;
             }
             return path;
         }
