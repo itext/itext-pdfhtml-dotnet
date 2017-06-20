@@ -48,24 +48,38 @@ using iText.Html2pdf.Css.Media;
 using iText.Layout.Font;
 
 namespace iText.Html2pdf {
+    /// <summary>Properties that will be used by the converter.</summary>
     public class ConverterProperties {
+        /// <summary>The media device description.</summary>
         private MediaDeviceDescription mediaDeviceDescription;
 
+        /// <summary>The font provider.</summary>
         private FontProvider fontProvider;
 
+        /// <summary>The tag worker factory.</summary>
         private ITagWorkerFactory tagWorkerFactory;
 
+        /// <summary>The CSS applier factory.</summary>
         private ICssApplierFactory cssApplierFactory;
 
+        /// <summary>The outline handler.</summary>
         private OutlineHandler outlineHandler;
 
+        /// <summary>The base URI.</summary>
         private String baseUri;
 
+        /// <summary>Indicates whether an AcroForm should be created.</summary>
         private bool createAcroForm = false;
 
+        /// <summary>Instantiates a new ConverterProperties instance.</summary>
         public ConverterProperties() {
         }
 
+        /// <summary>
+        /// Instantiates a new ConverterProperties instance based on another ConverterProperties instance
+        /// (copy constructor).
+        /// </summary>
+        /// <param name="other">the other ConverterProperties instance</param>
         public ConverterProperties(iText.Html2pdf.ConverterProperties other) {
             this.mediaDeviceDescription = other.mediaDeviceDescription;
             this.fontProvider = other.fontProvider;
@@ -76,66 +90,101 @@ namespace iText.Html2pdf {
             this.outlineHandler = other.outlineHandler;
         }
 
+        /// <summary>Gets the media device description.</summary>
+        /// <returns>the media device description</returns>
         public virtual MediaDeviceDescription GetMediaDeviceDescription() {
             return mediaDeviceDescription;
         }
 
+        /// <summary>Sets the media device description.</summary>
+        /// <param name="mediaDeviceDescription">the media device description</param>
+        /// <returns>the ConverterProperties instance</returns>
         public virtual iText.Html2pdf.ConverterProperties SetMediaDeviceDescription(MediaDeviceDescription mediaDeviceDescription
             ) {
             this.mediaDeviceDescription = mediaDeviceDescription;
             return this;
         }
 
+        /// <summary>Gets the font provider.</summary>
+        /// <returns>the font provider</returns>
         public virtual FontProvider GetFontProvider() {
             return fontProvider;
         }
 
+        /// <summary>Sets the font provider.</summary>
+        /// <param name="fontProvider">the font provider</param>
+        /// <returns>the ConverterProperties instance</returns>
         public virtual iText.Html2pdf.ConverterProperties SetFontProvider(FontProvider fontProvider) {
             this.fontProvider = fontProvider;
             return this;
         }
 
+        /// <summary>Gets the TagWorkerFactory instance.</summary>
+        /// <returns>the TagWorkerFactory</returns>
         public virtual ITagWorkerFactory GetTagWorkerFactory() {
             return tagWorkerFactory;
         }
 
+        /// <summary>Sets the TagWorkerFactory.</summary>
+        /// <param name="tagWorkerFactory">the TagWorkerFactory</param>
+        /// <returns>the ConverterProperties instance</returns>
         public virtual iText.Html2pdf.ConverterProperties SetTagWorkerFactory(ITagWorkerFactory tagWorkerFactory) {
             this.tagWorkerFactory = tagWorkerFactory;
             return this;
         }
 
+        /// <summary>Gets the CSS applier factory.</summary>
+        /// <returns>the CSS applier factory</returns>
         public virtual ICssApplierFactory GetCssApplierFactory() {
             return cssApplierFactory;
         }
 
+        /// <summary>Sets the CSS applier factory.</summary>
+        /// <param name="cssApplierFactory">the CSS applier factory</param>
+        /// <returns>the ConverterProperties instance</returns>
         public virtual iText.Html2pdf.ConverterProperties SetCssApplierFactory(ICssApplierFactory cssApplierFactory
             ) {
             this.cssApplierFactory = cssApplierFactory;
             return this;
         }
 
+        /// <summary>Gets the base URI.</summary>
+        /// <returns>the base URI</returns>
         public virtual String GetBaseUri() {
             return baseUri;
         }
 
+        /// <summary>Sets the base URI.</summary>
+        /// <param name="baseUri">the base URI</param>
+        /// <returns>the ConverterProperties instance</returns>
         public virtual iText.Html2pdf.ConverterProperties SetBaseUri(String baseUri) {
             this.baseUri = baseUri;
             return this;
         }
 
+        /// <summary>Checks if is an AcroForm needs to be created.</summary>
+        /// <returns>true, an AcroForm should be created</returns>
         public virtual bool IsCreateAcroForm() {
             return createAcroForm;
         }
 
+        /// <summary>Sets the createAcroForm value.</summary>
+        /// <param name="createAcroForm">true if an AcroForm needs to be created</param>
+        /// <returns>the ConverterProperties instance</returns>
         public virtual iText.Html2pdf.ConverterProperties SetCreateAcroForm(bool createAcroForm) {
             this.createAcroForm = createAcroForm;
             return this;
         }
 
+        /// <summary>Gets the outline handler.</summary>
+        /// <returns>the outline handler</returns>
         public virtual OutlineHandler GetOutlineHandler() {
             return outlineHandler;
         }
 
+        /// <summary>Sets the outline handler.</summary>
+        /// <param name="outlineHandler">the outline handler</param>
+        /// <returns>the ConverterProperties instance</returns>
         public virtual iText.Html2pdf.ConverterProperties SetOutlineHandler(OutlineHandler outlineHandler) {
             this.outlineHandler = outlineHandler;
             return this;
