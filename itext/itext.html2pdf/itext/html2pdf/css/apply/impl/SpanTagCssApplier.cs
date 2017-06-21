@@ -53,7 +53,14 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Apply.ICssApplier"/>
+    /// implementation for Span elements.
+    /// </summary>
     public class SpanTagCssApplier : ICssApplier {
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+        */
         public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
             ) {
             SpanTagWorker spanTagWorker = (SpanTagWorker)tagWorker;
@@ -72,6 +79,11 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             }
         }
 
+        /// <summary>Applies styles to child elements.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="css">the CSS mapping</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="stylesContainer">the styles container</param>
         private void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String> css, ProcessorContext
              context, IStylesContainer stylesContainer) {
             FontStyleApplierUtil.ApplyFontStyles(css, context, stylesContainer, element);

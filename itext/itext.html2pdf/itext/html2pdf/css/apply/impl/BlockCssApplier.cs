@@ -49,7 +49,14 @@ using iText.Html2pdf.Html.Node;
 using iText.Layout;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Apply.ICssApplier"/>
+    /// implementation for Block elements.
+    /// </summary>
     public class BlockCssApplier : ICssApplier {
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+        */
         public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
             ) {
             IDictionary<String, String> cssProps = stylesContainer.GetStyles();

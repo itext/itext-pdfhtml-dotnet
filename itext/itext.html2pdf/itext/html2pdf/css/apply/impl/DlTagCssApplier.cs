@@ -46,7 +46,14 @@ using iText.Html2pdf.Html.Node;
 using iText.Layout;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Apply.ICssApplier"/>
+    /// implementation for Dl elements.
+    /// </summary>
     public class DlTagCssApplier : BlockCssApplier {
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.apply.impl.BlockCssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+        */
         public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
             ) {
             base.Apply(context, stylesContainer, tagWorker);

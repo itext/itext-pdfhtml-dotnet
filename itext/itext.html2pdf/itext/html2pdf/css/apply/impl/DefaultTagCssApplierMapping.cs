@@ -48,10 +48,13 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Util;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
+    /// <summary>Class that contains the default mapping between CSS keys and CSS appliers.</summary>
     internal class DefaultTagCssApplierMapping {
+        /// <summary>Creates a new <code>DefaultTagCssApplierMapping</code> instance.</summary>
         private DefaultTagCssApplierMapping() {
         }
 
+        /// <summary>The default mapping.</summary>
         private static TagProcessorMapping mapping;
 
         static DefaultTagCssApplierMapping() {
@@ -152,6 +155,8 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(PageCountElementNode.PAGE_COUNTER_TAG, typeof(SpanTagCssApplier));
         }
 
+        /// <summary>Gets the default CSS applier mapping.</summary>
+        /// <returns>the default CSS applier mapping</returns>
         internal static TagProcessorMapping GetDefaultCssApplierMapping() {
             return mapping;
         }

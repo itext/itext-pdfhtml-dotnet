@@ -52,7 +52,14 @@ using iText.Layout.Borders;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Apply.ICssApplier"/>
+    /// implementation for Td elements.
+    /// </summary>
     public class TdTagCssApplier : BlockCssApplier {
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.apply.impl.BlockCssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+        */
         public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker worker) {
             base.Apply(context, stylesContainer, worker);
             IPropertyContainer cell = worker.GetElementResult();

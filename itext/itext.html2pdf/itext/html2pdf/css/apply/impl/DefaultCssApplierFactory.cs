@@ -48,13 +48,23 @@ using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Util;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
+    /// <summary>
+    /// A factory for creating
+    /// <see cref="iText.Html2pdf.Css.Apply.ICssApplier"/>
+    /// objects.
+    /// </summary>
     public class DefaultCssApplierFactory : ICssApplierFactory {
+        /// <summary>The default mapping of CSS keywords and CSS appliers.</summary>
         private TagProcessorMapping defaultMapping;
 
+        /// <summary>Creates a new <code>DefaultCssApplierFactory</code> instance.</summary>
         public DefaultCssApplierFactory() {
             defaultMapping = DefaultTagCssApplierMapping.GetDefaultCssApplierMapping();
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.apply.ICssApplierFactory#getCssApplier(com.itextpdf.html2pdf.html.node.IElementNode)
+        */
         public ICssApplier GetCssApplier(IElementNode tag) {
             ICssApplier cssApplier = GetCustomCssApplier(tag);
             if (cssApplier == null) {
@@ -72,10 +82,22 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             return cssApplier;
         }
 
+        /// <summary>Gets a custom CSS applier.</summary>
+        /// <remarks>
+        /// Gets a custom CSS applier.
+        /// This method needs to be overridden because the default CSS applier
+        /// factory will always return <code>null</code>.
+        /// </remarks>
+        /// <param name="tag">the key</param>
+        /// <returns>the custom CSS applier</returns>
         public virtual ICssApplier GetCustomCssApplier(IElementNode tag) {
             return null;
         }
 
+        /// <summary>Gets the css applier class.</summary>
+        /// <param name="mapping">the mapping</param>
+        /// <param name="tag">the tag</param>
+        /// <returns>the css applier class</returns>
         private static Type GetCssApplierClass(TagProcessorMapping mapping, IElementNode tag) {
             Type cssApplierClass = null;
             String display = tag.GetStyles() != null ? tag.GetStyles().Get(CssConstants.DISPLAY) : null;

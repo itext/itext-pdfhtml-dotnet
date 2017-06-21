@@ -49,7 +49,14 @@ using iText.Layout;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Apply.ICssApplier"/>
+    /// implementation for Li elements.
+    /// </summary>
     public class LiTagCssApplier : BlockCssApplier {
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.apply.impl.BlockCssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+        */
         public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
             ) {
             base.Apply(context, stylesContainer, tagWorker);

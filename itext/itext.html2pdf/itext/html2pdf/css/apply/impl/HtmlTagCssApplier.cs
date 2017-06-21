@@ -45,7 +45,14 @@ using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Apply.ICssApplier"/>
+    /// implementation for Html elements.
+    /// </summary>
     public class HtmlTagCssApplier : ICssApplier {
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
+        */
         // TODO apply borders. DEVSIX-941
         public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
             ) {
