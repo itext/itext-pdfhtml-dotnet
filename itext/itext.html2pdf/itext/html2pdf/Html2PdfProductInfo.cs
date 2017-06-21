@@ -43,11 +43,15 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf {
+    /// <summary>Product info about this iText add-on.</summary>
     public class Html2PdfProductInfo {
+        /// <summary>The product name.</summary>
         public const String PRODUCT_NAME = "pdfHtml";
 
+        /// <summary>The major version number.</summary>
         public const int MAJOR_VERSION = 1;
 
+        /// <summary>The minor version number.</summary>
         public const int MINOR_VERSION = 0;
         // TODO refactor? move to local fields in order to hide it?
     }

@@ -43,81 +43,120 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf {
+    /// <summary>Class that bundles all the error message templates as constants.</summary>
     public sealed class LogMessageConstant {
+        /// <summary>The Constant CONTENT_PROPERTY_INVALID.</summary>
         public const String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
 
+        /// <summary>The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED.</summary>
         public const String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
 
+        /// <summary>The Constant ERROR_LOADING_FONT.</summary>
         public const String ERROR_LOADING_FONT = "Error while loading font";
 
+        /// <summary>The Constant ERROR_PARSING_CSS_SELECTOR.</summary>
         public const String ERROR_PARSING_CSS_SELECTOR = "Error while parsing css selector";
 
+        /// <summary>The Constant ERROR_RESOLVING_PARENT_STYLES.</summary>
         public const String ERROR_RESOLVING_PARENT_STYLES = "Element parent styles are not resolved. Styles for current element might be incorrect.";
 
+        /// <summary>The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD.</summary>
         public const String ERROR_WHILE_LAYOUT_OF_FORM_FIELD = "Cannot layout form field field. It won't be displayed";
 
+        /// <summary>The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE.</summary>
         public const String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE = "Error during layout of form filed with type {0}.";
 
+        /// <summary>The Constant INPUT_FIELD_DOES_NOT_FIT.</summary>
         public const String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
 
+        /// <summary>The Constant INPUT_SUPPORTS_ONLY_POINT_WIDTH.</summary>
         public const String INPUT_SUPPORTS_ONLY_POINT_WIDTH = "Input field supports only point width";
 
+        /// <summary>The Constant HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED.</summary>
         public const String HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED = "Height value in percent not supported";
 
+        /// <summary>The Constant INPUT_TYPE_IS_NOT_SUPPORTED.</summary>
         public const String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";
 
+        /// <summary>The Constant INVALID_CSS_PROPERTY_DECLARATION.</summary>
         public const String INVALID_CSS_PROPERTY_DECLARATION = "Invalid css property declaration: {0}";
 
+        /// <summary>The Constant MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED.</summary>
         public const String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
 
+        /// <summary>The Constant NOT_SUPPORTED_LIST_STYLE_TYPE.</summary>
         public const String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
 
+        /// <summary>The Constant NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG.</summary>
         public const String NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG = "Tag worker does not produce IPropertyContainer for \"{0}\" tag. An outline for \"{0}\" tag will not be created.";
 
+        /// <summary>The Constant NO_CONSUMER_FOUND_FOR_CONTENT.</summary>
         public const String NO_CONSUMER_FOUND_FOR_CONTENT = "No consumer found for content";
 
+        /// <summary>The Constant NO_CSS_APPLIER_FOUND_FOR_TAG.</summary>
         public const String NO_CSS_APPLIER_FOUND_FOR_TAG = "No css applier found for tag {0}";
 
+        /// <summary>The Constant NO_WORKER_FOUND_FOR_TAG.</summary>
         public const String NO_WORKER_FOUND_FOR_TAG = "No worker found for tag {0}";
 
+        /// <summary>The Constant PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED.</summary>
         public const String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
 
+        /// <summary>The Constant PAGE_SIZE_VALUE_IS_INVALID.</summary>
         public const String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
 
+        /// <summary>The Constant QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION.</summary>
         public const String QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "The quote is not closed in css expression: {0}";
 
+        /// <summary>The Constant QUOTES_PROPERTY_INVALID.</summary>
         public const String QUOTES_PROPERTY_INVALID = "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
 
+        /// <summary>The Constant RULE_IS_NOT_SUPPORTED.</summary>
         public const String RULE_IS_NOT_SUPPORTED = "The rule @{0} is unsupported. All selectors in this rule will be ignored.";
 
+        /// <summary>The Constant TEXT_DECORATION_BLINK_NOT_SUPPORTED.</summary>
         public const String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
 
+        /// <summary>The Constant TEXT_WAS_NOT_PROCESSED.</summary>
         public const String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
 
+        /// <summary>The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE.</summary>
         public const String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
 
+        /// <summary>The Constant UNABLE_TO_RESOLVE_COUNTER.</summary>
         public const String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";
 
+        /// <summary>The Constant UNABLE_TO_RESOLVE_FONT.</summary>
         public const String UNABLE_TO_RESOLVE_FONT = "Unable to resolve font: {0}. The default one will be used instead";
 
+        /// <summary>The Constant UNABLE_TO_RETRIEVE_IMAGE_FROM_BASE64_SOURCE.</summary>
         public const String UNABLE_TO_RETRIEVE_IMAGE_FROM_BASE64_SOURCE = "Unable to retrieve image from given base64 source string";
 
+        /// <summary>The Constant UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI.</summary>
         public const String UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI = "Unable to retrieve image with given base URI ({0}) and image source path ({1})";
 
+        /// <summary>The Constant UNABLE_TO_RETRIEVE_FONT.</summary>
         public const String UNABLE_TO_RETRIEVE_FONT = "Unable to retrieve font:\n {0}";
 
+        /// <summary>The Constant UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI.</summary>
         public const String UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI = "Unable to retrieve stream with given base URI ({0}) and image source path ({1})";
 
+        /// <summary>The Constant UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED.</summary>
         public const String UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED = "Unknown absolute metric length parsed \"{0}\".";
 
+        /// <summary>The Constant UNKNOWN_MARGIN_BOX_CHILD.</summary>
         public const String UNKNOWN_MARGIN_BOX_CHILD = "Unknown margin box child";
 
+        /// <summary>The Constant WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES.</summary>
         public const String WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES = "Was not able to define one of the background CSS shorthand properties: {0}";
 
+        /// <summary>The Constant WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT.</summary>
         public const String WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT = "Worker of type {0} unable to process it's text content";
 
+        /// <summary>The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER.</summary>
         public const String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
 
+        /// <summary>Instantiates a new log message constant.</summary>
         private LogMessageConstant() {
         }
     }
