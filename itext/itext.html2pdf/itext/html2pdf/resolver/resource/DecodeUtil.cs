@@ -45,13 +45,31 @@ using System.Text;
 using iText.Html2pdf.Exceptions;
 
 namespace iText.Html2pdf.Resolver.Resource {
+    /// <summary>
+    /// Utilities class to decode HTML strings to a strings in a specific encoding.
+    /// </summary>
     public class DecodeUtil {
+
+        /// <summary>
+        /// The default encoding ("UTF-8").
+        /// </summary>
         internal static String dfltEncName = "UTF-8";
 
+        /// <summary>
+        /// Decode a <code>String</code> to a <code>String</code> using the default encoding.
+        /// </summary>
+        /// <param name="s">the string to decode</param>
+        /// <returns>the decoded string</returns>
         public static String Decode(String s) {
             return Decode(s, dfltEncName);
         }
 
+        /// <summary>
+        /// Decodes a <code>String</code> to a <code>String</code> using a specific encoding.
+        /// </summary>
+        /// <param name="s">the string to decode</param>
+        /// <param name="enc">the encoding</param>
+        /// <returns>the decoded string</returns>
         public static String Decode(String s, String enc) {
             bool needToChange = false;
             int numChars = s.Length;

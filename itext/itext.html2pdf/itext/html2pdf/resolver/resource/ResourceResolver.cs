@@ -49,9 +49,20 @@ using iText.IO.Util;
 using iText.Kernel.Pdf.Xobject;
 
 namespace iText.Html2pdf.Resolver.Resource {
+    /// <summary>Utilities class to resolve resources.</summary>
     public class ResourceResolver {
+        /// <summary>
+        /// The
+        /// <see cref="UriResolver"/>
+        /// instance.
+        /// </summary>
         private UriResolver uriResolver;
 
+        /// <summary>
+        /// The
+        /// <see cref="SimpleImageCache"/>
+        /// instance.
+        /// </summary>
         private SimpleImageCache imageCache;
 
         /// <summary>
@@ -123,12 +134,18 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
+        /// <summary>Open an <code>InputStream</code> to a style sheet URI.</summary>
+        /// <param name="uri">the URI</param>
+        /// <returns>the <code>InputStream</code></returns>
+        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public virtual Stream RetrieveStyleSheet(String uri) {
             return iText.IO.Util.UrlUtil.OpenStream(uriResolver.ResolveAgainstBaseUri(uri));
         }
 
-        /// <summary>Retrieve bytes.</summary>
+        /// <summary>
+        /// Retrieve a resource as a byte array from a source that
+        /// can either be a link to a file, or a base64 encoded <code>String</code>.
+        /// </summary>
         /// <param name="src">either link to file or base64 encoded stream.</param>
         /// <returns>byte[] on success, otherwise null.</returns>
         public virtual byte[] RetrieveStream(String src) {
@@ -153,11 +170,15 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
         }
 
-        /// <exception cref="System.UriFormatException"/>
+        /// <summary>Resolves a given URI against the base URI.</summary>
+        /// <param name="uri">the uri</param>
+        /// <returns>the url</returns>
+        /// <exception cref="System.UriFormatException">the malformed URL exception</exception>
         public virtual Uri ResolveAgainstBaseUri(String uri) {
             return uriResolver.ResolveAgainstBaseUri(uri);
         }
 
+        /// <summary>Resets the simple image cache.</summary>
         public virtual void ResetCache() {
             imageCache.Reset();
         }

@@ -46,17 +46,34 @@ using iText.IO.Util;
 using iText.Layout.Font;
 
 namespace iText.Html2pdf.Resolver.Font {
+    /// <summary>
+    /// The default
+    /// <see cref="iText.Layout.Font.FontProvider"/>
+    /// for pdfHTML, that, as opposed to
+    /// the font provider in iText 7, also includes a series of fonts that
+    /// are shipped with the add-on.
+    /// </summary>
     public class DefaultFontProvider : FontProvider {
+        /// <summary>The path to the shipped fonts.</summary>
         private const String SHIPPED_FONT_RESOURCE_PATH = "iText.Html2Pdf.font.";
 
+        /// <summary>The file names of the shipped fonts.</summary>
         private static readonly String[] SHIPPED_FONT_NAMES = new String[] { "FreeMono.ttf", "FreeMonoBold.ttf", "FreeMonoBoldOblique.ttf"
             , "FreeMonoOblique.ttf", "FreeSans.ttf", "FreeSansBold.ttf", "FreeSansBoldOblique.ttf", "FreeSansOblique.ttf"
             , "FreeSerif.ttf", "FreeSerifBold.ttf", "FreeSerifBoldItalic.ttf", "FreeSerifItalic.ttf" };
 
+        /// <summary>Creates a new <code>DefaultFontProvider</code> instance.</summary>
         public DefaultFontProvider()
             : this(true, true, false) {
         }
 
+        /// <summary>Creates a new <code>DefaultFontProvider</code> instance.</summary>
+        /// <param name="registerStandardPdfFonts">use true if you want to register the standard Type 1 fonts (can't be embedded)
+        ///     </param>
+        /// <param name="registerShippedFreeFonts">use true if you want to register the shipped fonts (can be embedded)
+        ///     </param>
+        /// <param name="registerSystemFonts">use true if you want to register the system fonts (can require quite some resources)
+        ///     </param>
         public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFreeFonts, bool registerSystemFonts
             )
             : base() {
@@ -71,6 +88,7 @@ namespace iText.Html2pdf.Resolver.Font {
             }
         }
 
+        /// <summary>Adds the shipped free fonts.</summary>
         private void AddShippedFreeFonts() {
             foreach (String fontName in SHIPPED_FONT_NAMES) {
                 Stream stream = ResourceUtil.GetResourceStream(SHIPPED_FONT_RESOURCE_PATH + fontName);

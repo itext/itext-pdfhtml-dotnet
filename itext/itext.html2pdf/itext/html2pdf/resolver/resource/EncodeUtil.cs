@@ -47,11 +47,24 @@ using System.Text;
 using iText.Html2pdf.Exceptions;
 
 namespace iText.Html2pdf.Resolver.Resource {
+    /// <summary>
+    /// Utilities class to encode strings in a specific encoding to HTML strings.
+    /// </summary>
     internal class EncodeUtil {
+
+        /// <summary>
+        /// Set of 256 characters with the bits that don't need encoding set to on.
+        /// </summary>
         internal static BitArray dontNeedEncoding;
 
+        /// <summary>
+        /// The difference between the value a character in lower cases and the upper case character value.
+        /// </summary>
         internal const int caseDiff = ('a' - 'A');
 
+        /// <summary>
+        /// The default encoding ("UTF-8").
+        /// </summary>
         internal static String dfltEncName = "UTF-8";
 
         static EncodeUtil() {
@@ -80,10 +93,21 @@ namespace iText.Html2pdf.Resolver.Resource {
             dontNeedEncoding.Set('\\', true);
         }
 
+        /// <summary>
+        /// Encodes a <code>String</code> in the default encoding to an HTML-encoded <code>String</code>.
+        /// </summary>
+        /// <param name="s">the original string</param>
+        /// <returns>the encoded string</returns>
         public static String Encode(String s) {
             return Encode(s, dfltEncName);
         }
 
+        /// <summary>
+        /// Encodes a <code>String</code> in a specific encoding to an HTML-encoded <code>String</code>.
+        /// </summary>
+        /// <param name="s">the original string</param>
+        /// <param name="enc">the encoding</param>
+        /// <returns>the encoded string</returns>
         public static String Encode(String s, String enc) {
             bool needToChange = false;
             StringBuilder @out = new StringBuilder(s.Length);

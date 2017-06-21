@@ -44,20 +44,42 @@ using System;
 using System.IO;
 
 namespace iText.Html2pdf.Resolver.Resource {
+    /// <summary>
+    /// Utilities class to resolve URIs.
+    /// </summary>
     public class UriResolver {
+        
+        /// <summary>
+        /// The base url.
+        /// </summary>
         private Uri baseUrl;
 
+        /// <summary>
+        /// Indicates if the Uri refers to a local resource.
+        /// </summary>
         private bool isLocal;
 
+        /// <summary>
+        /// Creates a new <code>UriResolver</code> instance.
+        /// </summary>
+        /// <param name="baseUri"> the base URI</param>
         public UriResolver(String baseUri) {
             ResolveBaseUrlOrPath(baseUri);
         }
 
+        /// <summary>
+        /// Gets the base URI.
+        /// </summary>
+        /// <returns>the base uri</returns>
         public virtual String GetBaseUri() {
             return baseUrl.ToExternalForm();
         }
 
-        /// <exception cref="Java.Net.MalformedURLException"/>
+        /// <summary>
+        /// Resolve a given URI against the base URI.
+        /// </summary>
+        /// <param name="uriString">the given URI</param>
+        /// <returns>the resolved URI</returns>
         public virtual Uri ResolveAgainstBaseUri(String uriString) {
             Uri resolvedUrl = null;
             uriString = uriString.Trim();
@@ -87,6 +109,10 @@ namespace iText.Html2pdf.Resolver.Resource {
             return resolvedUrl;
         }
 
+        /// <summary>
+        /// Resolves the base URI to an URL or path.
+        /// </summary>
+        /// <param name="base">the base URI</param>
         private void ResolveBaseUrlOrPath(String @base) {
             @base = @base.Trim();
             @base = EncodeUtil.Encode(DecodeUtil.Decode(@base));
@@ -100,6 +126,11 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
         }
 
+        /// <summary>
+        /// Resolves a base URI as an URL.
+        /// </summary>
+        /// <param name="baseUriString">the base URI</param>
+        /// <returns>the URL, or null if not successful</returns>
         private Uri BaseUriAsUrl(String baseUriString) {
             Uri baseAsUrl = null;
             try {
@@ -117,6 +148,11 @@ namespace iText.Html2pdf.Resolver.Resource {
             return baseAsUrl;
         }
 
+        /// <summary>
+        /// Resolves a base URI as a file URL.
+        /// </summary>
+        /// <param name="baseUriString">the base URI</param>
+        /// <returns>the file URL</returns>
         private Uri UriAsFileUrl(String baseUriString) {
             if (baseUriString.Length == 0) {
                 isLocal = true;

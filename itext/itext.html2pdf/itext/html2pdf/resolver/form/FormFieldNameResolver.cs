@@ -45,35 +45,50 @@ using System.Collections.Generic;
 using iText.Html2pdf.Css.Util;
 
 namespace iText.Html2pdf.Resolver.Form {
+    /// <summary>Utilities class that resolves form field names.</summary>
     public class FormFieldNameResolver {
+        /// <summary>The default base name of a field: "Field".</summary>
         private const String DEFAULT_NAME = "Field";
 
+        /// <summary>The separator between a field name and an index.</summary>
         private const String NAME_COUNT_SEPARATOR = "_";
 
+        /// <summary>A map containing all the base field names, mapped to the current index.</summary>
         private readonly IDictionary<String, int?> names = new Dictionary<String, int?>();
 
+        /// <summary>Creates a new <code>FormFieldNameResolver</code> instance.</summary>
         public FormFieldNameResolver() {
         }
 
+        /// <summary>Resolves a proposed field name to a valid field name.</summary>
+        /// <param name="name">the proposed name</param>
+        /// <returns>the valid name</returns>
         public virtual String ResolveFormName(String name) {
             name = NormalizeString(name);
             if (String.IsNullOrEmpty(name)) {
-                return ResolveNormalisedFormName(DEFAULT_NAME);
+                return ResolveNormalizedFormName(DEFAULT_NAME);
             }
             else {
-                return ResolveNormalisedFormName(name);
+                return ResolveNormalizedFormName(name);
             }
         }
 
+        /// <summary>Resets the map containing all the field names.</summary>
         public virtual void Reset() {
             names.Clear();
         }
 
+        /// <summary>Normalizes a field name.</summary>
+        /// <param name="s">the proposed field name</param>
+        /// <returns>the normalized name</returns>
         private String NormalizeString(String s) {
             return s != null ? s.Trim().Replace(".", "") : "";
         }
 
-        private String ResolveNormalisedFormName(String name) {
+        /// <summary>Resolves a normalized form name.</summary>
+        /// <param name="name">the proposed name</param>
+        /// <returns>the resolved name</returns>
+        private String ResolveNormalizedFormName(String name) {
             int separatorIndex = name.LastIndexOf(NAME_COUNT_SEPARATOR);
             int? nameIndex = null;
             if (separatorIndex != -1 && separatorIndex < name.Length) {

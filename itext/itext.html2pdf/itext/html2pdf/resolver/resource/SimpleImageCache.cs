@@ -46,17 +46,24 @@ using iText.IO.Util;
 using iText.Kernel.Pdf.Xobject;
 
 namespace iText.Html2pdf.Resolver.Resource {
+    /// <summary>Simple implementation of an image cache.</summary>
     internal class SimpleImageCache {
+        /// <summary>The cache mapping a source path to an Image XObject.</summary>
         private IDictionary<String, PdfImageXObject> cache = new LinkedDictionary<String, PdfImageXObject>();
 
+        /// <summary>Stores how many times each image is used.</summary>
         private IDictionary<String, int?> imagesFrequency = new LinkedDictionary<String, int?>();
 
+        /// <summary>The capacity of the cache.</summary>
         private int capacity;
 
+        /// <summary>Creates a new <code>SimpleImageCache</code> instance.</summary>
         internal SimpleImageCache() {
             this.capacity = 100;
         }
 
+        /// <summary>Creates a new <code>SimpleImageCache</code> instance.</summary>
+        /// <param name="capacity">the capacity</param>
         internal SimpleImageCache(int capacity) {
             if (capacity < 1) {
                 throw new ArgumentException("capacity");
@@ -64,6 +71,9 @@ namespace iText.Html2pdf.Resolver.Resource {
             this.capacity = capacity;
         }
 
+        /// <summary>Adds an image to the cache.</summary>
+        /// <param name="src">the source path</param>
+        /// <param name="imageXObject">the image XObject to be cached</param>
         internal virtual void PutImage(String src, PdfImageXObject imageXObject) {
             if (cache.ContainsKey(src)) {
                 return;
@@ -72,6 +82,9 @@ namespace iText.Html2pdf.Resolver.Resource {
             cache.Put(src, imageXObject);
         }
 
+        /// <summary>Gets an image from the cache.</summary>
+        /// <param name="src">the source path</param>
+        /// <returns>the image XObject</returns>
         internal virtual PdfImageXObject GetImage(String src) {
             int? frequency = imagesFrequency.Get(src);
             if (frequency != null) {
@@ -83,15 +96,22 @@ namespace iText.Html2pdf.Resolver.Resource {
             return cache.Get(src);
         }
 
+        /// <summary>Gets the size of the cache.</summary>
+        /// <returns>the cache size</returns>
         internal virtual int Size() {
             return cache.Count;
         }
 
+        /// <summary>Resets the cache.</summary>
         internal virtual void Reset() {
             cache.Clear();
             imagesFrequency.Clear();
         }
 
+        /// <summary>
+        /// Ensures the capacity of the cache by removing the least important images
+        /// (based on the number of times an image is used).
+        /// </summary>
         private void EnsureCapacity() {
             if (cache.Count >= capacity) {
                 String mostUnpopularImg = null;
