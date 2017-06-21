@@ -44,11 +44,20 @@ using System;
 using System.Collections.Generic;
 
 namespace iText.Html2pdf.Html.Node {
+    /// <summary>Interface for a series of HTML attributes.</summary>
     public interface IAttributes : IEnumerable<IAttribute> {
+        /// <summary>Gets the value of an attribute, given a key.</summary>
+        /// <param name="key">the key</param>
+        /// <returns>the attribute</returns>
         String GetAttribute(String key);
 
+        /// <summary>Adds a key and a value of an attributes.</summary>
+        /// <param name="key">the key</param>
+        /// <param name="value">the value</param>
         void SetAttribute(String key, String value);
 
+        /// <summary>Returns the number of attributes.</summary>
+        /// <returns>the number of attributes</returns>
         int Size();
     }
 }

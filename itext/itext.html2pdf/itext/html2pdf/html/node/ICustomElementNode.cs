@@ -41,7 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 namespace iText.Html2pdf.Html.Node {
+    /// <summary>
+    /// Interface that serves as a marker indicating that this particular
+    /// <code>IElementNode</code> is something non-standard.
+    /// </summary>
     public interface ICustomElementNode : IElementNode {
-        // This interface serves as a marker that this particular IElementNode is something non-standard.
     }
 }

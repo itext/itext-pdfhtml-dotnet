@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 namespace iText.Html2pdf.Html.Node {
+    /// <summary>Interface for the document type node.</summary>
     public interface IDocumentTypeNode : INode {
     }
 }

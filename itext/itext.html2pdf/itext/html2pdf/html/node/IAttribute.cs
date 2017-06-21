@@ -43,9 +43,14 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf.Html.Node {
+    /// <summary>Interface for HTML attributes.</summary>
     public interface IAttribute {
+        /// <summary>Gets the key.</summary>
+        /// <returns>the key</returns>
         String GetKey();
 
+        /// <summary>Gets the value.</summary>
+        /// <returns>the value</returns>
         String GetValue();
     }
 }

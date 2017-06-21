@@ -43,7 +43,10 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf.Html.Node {
+    /// <summary>Interface for text nodes.</summary>
     public interface ITextNode : INode {
+        /// <summary>Returns all the text.</summary>
+        /// <returns>the text</returns>
         String WholeText();
     }
 }
