@@ -52,13 +52,20 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for the <code>div</code> element.</summary>
     public class DivTagWorker : ITagWorker, IDisplayAware {
+        /// <summary>The div element.</summary>
         private Div div;
 
+        /// <summary>Helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
+        /// <summary>The display value.</summary>
         private String display;
 
+        /// <summary>Creates a new <code>DivTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public DivTagWorker(IElementNode element, ProcessorContext context) {
             div = new Div();
             IDictionary<String, String> styles = element.GetStyles();
@@ -67,15 +74,24 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             inlineHelper.FlushHangingLeaves(div);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             inlineHelper.Add(content);
             return true;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             bool processed = false;
             IPropertyContainer element = childTagWorker.GetElementResult();
@@ -148,14 +164,23 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return processed;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return div;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware#getDisplay()
+        */
         public virtual String GetDisplay() {
             return display;
         }
 
+        /// <summary>Adds a child element to the div block.</summary>
+        /// <param name="element">the element</param>
+        /// <returns>true, if successful</returns>
         private bool AddBlockChild(IElement element) {
             bool waitingLeavesContainsFloat = false;
             foreach (ILeafElement waitingLeaf in inlineHelper.GetWaitingLeaves()) {
@@ -186,11 +211,15 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return processed;
         }
 
+        /// <summary>Checks if the element has a float layout.</summary>
+        /// <param name="element">the element</param>
+        /// <returns>true, if the element has a float layout</returns>
         private bool ElementIsFloated(IElement element) {
             FloatPropertyValue? floatPropertyValue = element.GetProperty<FloatPropertyValue?>(Property.FLOAT);
             return floatPropertyValue != null && !floatPropertyValue.Equals(FloatPropertyValue.NONE);
         }
 
+        /// <summary>Post-processes the hanging leaves of the waiting inline elements.</summary>
         private void PostProcessInlineGroup() {
             inlineHelper.FlushHangingLeaves(div);
         }

@@ -43,7 +43,13 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>
+    /// Interface for those TagWorker implementations that deal
+    /// with tags that can have a display value.
+    /// </summary>
     public interface IDisplayAware {
+        /// <summary>Gets the display value.</summary>
+        /// <returns>the display value</returns>
         String GetDisplay();
     }
 }

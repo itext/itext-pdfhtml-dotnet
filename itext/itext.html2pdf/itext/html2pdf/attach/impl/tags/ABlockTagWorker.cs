@@ -50,11 +50,18 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for a link block.</summary>
     public class ABlockTagWorker : DivTagWorker {
+        /// <summary>Creates a new <code>ABlockTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public ABlockTagWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public override void ProcessEnd(IElementNode element, ProcessorContext context) {
             base.ProcessEnd(element, context);
             String url = element.GetAttribute(AttributeConstants.HREF);

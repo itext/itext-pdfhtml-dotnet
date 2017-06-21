@@ -46,16 +46,27 @@ using iText.Html2pdf.Html.Node;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for the <code>body</code> element.</summary>
     public class BodyTagWorker : ITagWorker {
+        /// <summary>The parent tag worker.</summary>
         private ITagWorker parentTagWorker;
 
+        /// <summary>Creates a new <code>BodyTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public BodyTagWorker(IElementNode element, ProcessorContext context) {
             parentTagWorker = context.GetState().Empty() ? null : context.GetState().Top();
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             if (parentTagWorker == null) {
                 return false;
@@ -65,6 +76,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             if (parentTagWorker == null) {
                 return false;
@@ -74,6 +88,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return null;
         }

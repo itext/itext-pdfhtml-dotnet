@@ -49,21 +49,35 @@ using iText.Html2pdf.Html.Node;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for a column group.</summary>
     public class ColgroupTagWorker : ITagWorker {
+        /// <summary>The column group.</summary>
         private ColgroupWrapper colgroup;
 
+        /// <summary>Creates a new <code>ColgroupTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public ColgroupTagWorker(IElementNode element, ProcessorContext context) {
             int? span = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.SPAN));
             colgroup = new ColgroupWrapper(span != null ? (int)span : 1);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             return content == null || String.IsNullOrEmpty(content.Trim());
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             if (childTagWorker is ColTagWorker) {
                 colgroup.GetColumns().Add(((ColTagWorker)childTagWorker).GetColumn());
@@ -72,10 +86,15 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return false;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return null;
         }
 
+        /// <summary>Gets the column group.</summary>
+        /// <returns>the column group</returns>
         public virtual ColgroupWrapper GetColgroup() {
             return colgroup;
         }

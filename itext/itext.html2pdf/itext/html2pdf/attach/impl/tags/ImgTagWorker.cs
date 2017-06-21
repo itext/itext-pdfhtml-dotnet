@@ -50,11 +50,17 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for the <code>img</code> element.</summary>
     public class ImgTagWorker : ITagWorker {
+        /// <summary>The image.</summary>
         private ImgTagWorker.HtmlImage image;
 
+        /// <summary>The display value.</summary>
         private String display;
 
+        /// <summary>Creates a new <code>ImgTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public ImgTagWorker(IElementNode element, ProcessorContext context) {
             PdfImageXObject imageXObject = context.GetResourceResolver().RetrieveImage(element.GetAttribute(AttributeConstants
                 .SRC));
@@ -73,42 +79,71 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             return false;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             return false;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return image;
         }
 
+        /// <summary>Gets the display value.</summary>
+        /// <returns>the display value</returns>
         internal virtual String GetDisplay() {
             return display;
         }
 
+        /// <summary>Implementation of the Image class when used in the context of HTML to PDF conversion.</summary>
         private class HtmlImage : Image {
+            /// <summary>
+            /// In iText, we use user unit for the image sizes (and by default
+            /// one user unit = one points), whereas images are usually measured
+            /// in pixels.
+            /// </summary>
             private double pxToPt = 0.75;
 
+            /// <summary>* Creates a new <code>HtmlImage</code> instance.</summary>
+            /// <param name="xObject">an Image XObject</param>
             public HtmlImage(ImgTagWorker _enclosing, PdfImageXObject xObject)
                 : base(xObject) {
                 this._enclosing = _enclosing;
             }
 
-            // In iText by default we set image sizes (in points) exactly of the image height and width in pixels.
+            /* (non-Javadoc)
+            * @see com.itextpdf.layout.element.Image#getImageWidth()
+            */
             public override float GetImageWidth() {
                 return (float)(this.xObject.GetWidth() * this.pxToPt);
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.layout.element.Image#getImageHeight()
+            */
             public override float GetImageHeight() {
                 return (float)(this.xObject.GetHeight() * this.pxToPt);
             }
 
+            /// <summary>Sets the alt text for the image.</summary>
+            /// <param name="altText">the new alt text</param>
             internal virtual void SetAltText(String altText) {
                 this.GetAccessibilityProperties().SetAlternateDescription(altText);
             }

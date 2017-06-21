@@ -45,13 +45,21 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for the <code>pre</code> element.</summary>
     public class PreTagWorker : DivTagWorker {
+        /// <summary>Keeps track to see if any content was processed.</summary>
         private bool anyContentProcessed = false;
 
+        /// <summary>Creates a new <code>PreTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public PreTagWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public override bool ProcessContent(String content, ProcessorContext context) {
             // It seems that browsers just skip first newline symbol, if any
             if (!anyContentProcessed && content.StartsWith("\n")) {
@@ -61,6 +69,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return base.ProcessContent(content, context);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.tags.DivTagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public override bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             anyContentProcessed = true;
             return base.ProcessTagChild(childTagWorker, context);

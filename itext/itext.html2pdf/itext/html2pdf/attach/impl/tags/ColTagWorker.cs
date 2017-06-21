@@ -49,29 +49,48 @@ using iText.Html2pdf.Html.Node;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for a column.</summary>
     public class ColTagWorker : ITagWorker {
+        /// <summary>The column.</summary>
         private ColWrapper col;
 
+        /// <summary>Creates a new <code>ColTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public ColTagWorker(IElementNode element, ProcessorContext context) {
             int? span = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.SPAN));
             col = new ColWrapper(span != null ? (int)span : 1);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             return content == null || String.IsNullOrEmpty(content.Trim());
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             return false;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return null;
         }
 
+        /// <summary>Gets the column.</summary>
+        /// <returns>the column</returns>
         public virtual ColWrapper GetColumn() {
             return col;
         }

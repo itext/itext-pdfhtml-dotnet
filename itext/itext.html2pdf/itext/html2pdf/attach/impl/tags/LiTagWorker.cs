@@ -53,13 +53,20 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for the <code>li</code> element.</summary>
     public class LiTagWorker : ITagWorker {
+        /// <summary>The list item.</summary>
         protected internal ListItem listItem;
 
+        /// <summary>The list.</summary>
         protected internal List list;
 
+        /// <summary>The inline helper.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
+        /// <summary>Creates a new <code>LiTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public LiTagWorker(IElementNode element, ProcessorContext context) {
             listItem = new ListItem();
             if (!(context.GetState().Top() is UlOlTagWorker)) {
@@ -78,15 +85,24 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             inlineHelper.FlushHangingLeaves(listItem);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             inlineHelper.Add(content);
             return true;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             if (childTagWorker is SpanTagWorker) {
                 bool allChildrenProcessed = true;
@@ -105,10 +121,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return list != null ? (IPropertyContainer)list : listItem;
         }
 
+        /// <summary>Processes a child.</summary>
+        /// <param name="propertyContainer">the property container</param>
+        /// <returns>true, if successful</returns>
         private bool ProcessChild(IPropertyContainer propertyContainer) {
             inlineHelper.FlushHangingLeaves(listItem);
             if (propertyContainer is Image) {

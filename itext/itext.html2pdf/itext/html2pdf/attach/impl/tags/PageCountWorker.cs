@@ -47,11 +47,18 @@ using iText.Html2pdf.Html.Node;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for the page count.</summary>
     public class PageCountWorker : SpanTagWorker {
+        /// <summary>Creates a new <code>PageCountTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public PageCountWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public override void ProcessEnd(IElementNode element, ProcessorContext context) {
             bool totalPageCount = element is PageCountElementNode && ((PageCountElementNode)element).IsTotalPageCount(
                 );

@@ -52,19 +52,29 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for a table element.</summary>
     public class DisplayTableTagWorker : ITagWorker {
+        /// <summary>Two-dimensional array of <code>Cell</code> objects.</summary>
         private IList<IList<Cell>> columns = new List<IList<Cell>>();
 
+        /// <summary>The table.</summary>
         private IPropertyContainer table;
 
+        /// <summary>The helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
+        /// <summary>Creates a new <code>DisplayTableTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public DisplayTableTagWorker(IElementNode element, ProcessorContext context) {
             columns.Add(new List<Cell>());
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             FlushInlineElements();
             int maxRowSize = 0;
@@ -93,11 +103,17 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             inlineHelper.Add(content);
             return true;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             bool displayTableCell = childTagWorker is IDisplayAware && CssConstants.TABLE_CELL.Equals(((IDisplayAware)
                 childTagWorker).GetDisplay());
@@ -138,10 +154,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return false;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return table;
         }
 
+        /// <summary>Processes a cell.</summary>
+        /// <param name="cell">the cell</param>
+        /// <param name="displayTableCell"/>
         private void ProcessCell(Cell cell, bool displayTableCell) {
             FlushInlineElements();
             if (displayTableCell) {
@@ -158,6 +180,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
         }
 
+        /// <summary>Flushes the waiting inline elements.</summary>
         private void FlushInlineElements() {
             if (inlineHelper.GetSanitizedWaitingLeaves().Count > 0) {
                 Cell waitingLavesCell = CreateWrapperCell();
@@ -166,6 +189,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
         }
 
+        /// <summary>Creates a wrapper cell.</summary>
+        /// <returns>the cell</returns>
         private Cell CreateWrapperCell() {
             return new Cell().SetBorder(Border.NO_BORDER).SetPadding(0);
         }

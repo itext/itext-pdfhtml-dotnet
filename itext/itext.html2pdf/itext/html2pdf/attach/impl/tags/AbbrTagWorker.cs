@@ -48,20 +48,32 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>Tag worker class for the <code>abbr</code> element.</summary>
     public class AbbrTagWorker : SpanTagWorker {
+        /// <summary>Creates a new <code>AbbrTagWorker</code> instance.</summary>
+        /// <param name="tag">the tag</param>
+        /// <param name="context">the context</param>
         public AbbrTagWorker(IElementNode tag, ProcessorContext context)
             : base(tag, context) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public override bool ProcessContent(String content, ProcessorContext context) {
             return base.ProcessContent(content, context);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public override void ProcessEnd(IElementNode element, ProcessorContext context) {
             base.ProcessEnd(element, context);
             EnrichSpan(element.GetAttribute(AttributeConstants.TITLE));
         }
 
+        /// <summary>Enrich the span with accessibility features, more specifically the expansion text.</summary>
+        /// <param name="expansionText">the expansion text</param>
         private void EnrichSpan(String expansionText) {
             foreach (IPropertyContainer container in GetAllElements()) {
                 if (container is Text) {

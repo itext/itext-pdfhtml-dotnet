@@ -50,14 +50,22 @@ using iText.Html2pdf.Html.Node;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for a button element.</summary>
     public class ButtonTagWorker : ITagWorker, IDisplayAware {
+        /// <summary>The Constant DEFAULT_BUTTON_NAME.</summary>
         private const String DEFAULT_BUTTON_NAME = "Button";
 
+        /// <summary>The button.</summary>
         private Button button;
 
+        /// <summary>The display value.</summary>
         private String display;
 
+        /// <summary>Creates a new <code>ButtonTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public ButtonTagWorker(IElementNode element, ProcessorContext context) {
+            // TODO: Auto-generated Javadoc
             String name = element.GetAttribute(AttributeConstants.ID);
             if (name == null) {
                 name = DEFAULT_BUTTON_NAME;
@@ -68,22 +76,37 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware#getDisplay()
+        */
         public virtual String GetDisplay() {
             return display;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             button.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, content);
             return true;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             return false;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return button;
         }

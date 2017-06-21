@@ -49,19 +49,29 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for the <code>table</code> element.</summary>
     public class TableTagWorker : ITagWorker {
+        /// <summary>The table wrapper.</summary>
         private TableWrapper tableWrapper;
 
+        /// <summary>The table.</summary>
         private Table table;
 
+        /// <summary>The footer.</summary>
         private bool footer;
 
+        /// <summary>The header.</summary>
         private bool header;
 
+        /// <summary>The parent tag worker.</summary>
         private ITagWorker parentTagWorker;
 
+        /// <summary>The colgroups helper.</summary>
         private WaitingColgroupsHelper colgroupsHelper;
 
+        /// <summary>Creates a new <code>TableTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public TableTagWorker(IElementNode element, ProcessorContext context) {
             tableWrapper = new TableWrapper();
             parentTagWorker = context.GetState().Empty() ? null : context.GetState().Top();
@@ -73,14 +83,23 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             table = tableWrapper.ToTable(colgroupsHelper);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             return parentTagWorker != null && parentTagWorker.ProcessContent(content, context);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             if (childTagWorker is TrTagWorker) {
                 TableRowWrapper wrapper = ((TrTagWorker)childTagWorker).GetTableRowWrapper();
@@ -135,18 +154,32 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return false;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return table;
         }
 
+        /// <summary>
+        /// Method to indicate that this is actually a
+        /// <see cref="TableFooterTagWorker"/>
+        /// instance.
+        /// </summary>
         public virtual void SetFooter() {
             footer = true;
         }
 
+        /// <summary>
+        /// Method to indicate that this is actually a
+        /// <see cref="TableHeaderTagWorker"/>
+        /// instance.
+        /// </summary>
         public virtual void SetHeader() {
             header = true;
         }
 
+        /// <summary>Applies the column styles.</summary>
         public virtual void ApplyColStyles() {
             if (colgroupsHelper != null) {
                 colgroupsHelper.ApplyColStyles();

@@ -51,11 +51,18 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for the <code>a</code> element.</summary>
     public class ATagWorker : SpanTagWorker {
+        /// <summary>Creates a new <code>ATagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public ATagWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public override void ProcessEnd(IElementNode element, ProcessorContext context) {
             base.ProcessEnd(element, context);
             String url = element.GetAttribute(AttributeConstants.HREF);

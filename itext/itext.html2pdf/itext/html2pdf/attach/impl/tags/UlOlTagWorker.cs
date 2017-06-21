@@ -50,26 +50,41 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for the <code>ul</code> and <code>ol</code> elements.</summary>
     public class UlOlTagWorker : ITagWorker {
+        /// <summary>The list object.</summary>
         private List list;
 
+        /// <summary>Helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
+        /// <summary>Creates a new <code>UlOlTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public UlOlTagWorker(IElementNode element, ProcessorContext context) {
             list = new List().SetListSymbol("");
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             ProcessUnlabeledListItem();
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             inlineHelper.Add(content);
             return true;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             IPropertyContainer child = childTagWorker.GetElementResult();
             if (childTagWorker is SpanTagWorker) {
@@ -89,10 +104,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return list;
         }
 
+        /// <summary>Processes an unlabeled list item.</summary>
         private void ProcessUnlabeledListItem() {
             Paragraph p = inlineHelper.CreateParagraphContainer();
             inlineHelper.FlushHangingLeaves(p);
@@ -101,6 +120,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
         }
 
+        /// <summary>Adds an unlabeled list item.</summary>
+        /// <param name="item">the item</param>
         private void AddUnlabeledListItem(IBlockElement item) {
             ListItem li = new ListItem();
             li.Add(item);
@@ -108,6 +129,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             list.Add(li);
         }
 
+        /// <summary>Adds a child.</summary>
+        /// <param name="child">the child</param>
+        /// <returns>true, if successful</returns>
         private bool AddBlockChild(IPropertyContainer child) {
             ProcessUnlabeledListItem();
             if (child is ListItem) {

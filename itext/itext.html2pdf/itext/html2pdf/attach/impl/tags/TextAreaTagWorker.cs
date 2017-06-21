@@ -50,11 +50,17 @@ using iText.Html2pdf.Html.Node;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for the <code>textarea</code> element.</summary>
     public class TextAreaTagWorker : ITagWorker {
+        /// <summary>The Constant DEFAULT_TEXTAREA_NAME.</summary>
         private const String DEFAULT_TEXTAREA_NAME = "TextArea";
 
+        /// <summary>The text area.</summary>
         private TextArea textArea;
 
+        /// <summary>Creates a new <code>TextAreaTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public TextAreaTagWorker(IElementNode element, ProcessorContext context) {
             String name = element.GetAttribute(AttributeConstants.ID);
             if (name == null) {
@@ -69,9 +75,15 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             if (content.StartsWith("\r\n")) {
                 content = content.Substring(2);
@@ -85,10 +97,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return true;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             return false;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return textArea;
         }

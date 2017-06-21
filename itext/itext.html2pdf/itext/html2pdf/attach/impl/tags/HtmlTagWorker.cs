@@ -54,11 +54,17 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for the <code>html</code> element.</summary>
     public class HtmlTagWorker : ITagWorker {
+        /// <summary>The iText document instance.</summary>
         private Document document;
 
+        /// <summary>Helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
+        /// <summary>Creates a new <code>HtmlTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public HtmlTagWorker(IElementNode element, ProcessorContext context) {
             bool immediateFlush = !context.GetCssContext().IsPagesCounterPresent();
             PdfDocument pdfDocument = context.GetPdfDocument();
@@ -75,15 +81,24 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             inlineHelper.FlushHangingLeaves(document);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             inlineHelper.Add(content);
             return true;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             bool processed;
             if (childTagWorker is SpanTagWorker) {
@@ -125,14 +140,24 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return processed;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return document;
         }
 
+        /// <summary>Processes the page rules.</summary>
+        /// <param name="rootNode">the root node</param>
+        /// <param name="cssResolver">the css resolver</param>
+        /// <param name="context">the context</param>
         public virtual void ProcessPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
             ((HtmlDocumentRenderer)document.GetRenderer()).ProcessPageRules(rootNode, cssResolver, context);
         }
 
+        /// <summary>Processes a block child.</summary>
+        /// <param name="element">the element</param>
+        /// <returns>true, if successful</returns>
         private bool ProcessBlockChild(IPropertyContainer element) {
             PostProcessInlineGroup();
             if (element is IBlockElement) {
@@ -147,6 +172,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return true;
         }
 
+        /// <summary>Post-processes the hanging leaves of the waiting inline elements.</summary>
         private void PostProcessInlineGroup() {
             inlineHelper.FlushHangingLeaves(document);
         }
