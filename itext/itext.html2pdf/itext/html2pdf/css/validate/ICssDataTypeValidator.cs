@@ -43,7 +43,12 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf.Css.Validate {
+    /// <summary>Interface for CSS data type validators.</summary>
     public interface ICssDataTypeValidator {
+        /// <summary>Checks if a value is a valid data type (e.g.</summary>
+        /// <remarks>Checks if a value is a valid data type (e.g. a color, an identifier,...).</remarks>
+        /// <param name="objectString">the value</param>
+        /// <returns>true, if the value is a valid data type</returns>
         bool IsValid(String objectString);
     }
 }

@@ -45,6 +45,10 @@ using System.Collections.Generic;
 using iText.Html2pdf.Css.Validate;
 
 namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Validate.ICssDataTypeValidator"/>
+    /// implementation for elements in an enumeration.
+    /// </summary>
     public class CssEnumValidator : ICssDataTypeValidator {
         private IList<String> allowedValues;
 

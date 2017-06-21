@@ -45,7 +45,14 @@ using iText.Html2pdf.Css.Validate;
 using iText.Kernel.Colors;
 
 namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Validate.ICssDataTypeValidator"/>
+    /// implementation for colors.
+    /// </summary>
     public class CssColorValidator : ICssDataTypeValidator {
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator#isValid(java.lang.String)
+        */
         public virtual bool IsValid(String objectString) {
             float[] rgbaColor = WebColors.GetRGBAColor(objectString);
             return rgbaColor != null;

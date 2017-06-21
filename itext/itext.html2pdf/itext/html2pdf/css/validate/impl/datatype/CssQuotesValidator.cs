@@ -45,7 +45,14 @@ using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Css.Validate;
 
 namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Validate.ICssDataTypeValidator"/>
+    /// implementation for values for the CSS quotes key.
+    /// </summary>
     public class CssQuotesValidator : ICssDataTypeValidator {
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator#isValid(java.lang.String)
+        */
         public virtual bool IsValid(String objectString) {
             CssQuotes quotes = CssQuotes.CreateQuotes(objectString, false);
             return quotes != null;

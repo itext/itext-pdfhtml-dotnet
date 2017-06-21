@@ -45,13 +45,23 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Validate;
 
 namespace iText.Html2pdf.Css.Validate.Impl.Declaration {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Validate.ICssDeclarationValidator"/>
+    /// implementation in case multiple types have to be checked.
+    /// </summary>
     public class MultiTypeDeclarationValidator : ICssDeclarationValidator {
+        /// <summary>The allowed data types.</summary>
         private IList<ICssDataTypeValidator> allowedTypes;
 
+        /// <summary>Creates a new <code>MultiTypeDeclarationValidator</code> instance.</summary>
+        /// <param name="allowedTypes">the allowed types</param>
         public MultiTypeDeclarationValidator(params ICssDataTypeValidator[] allowedTypes) {
             this.allowedTypes = iText.IO.Util.JavaUtil.ArraysAsList(allowedTypes);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.validate.ICssDeclarationValidator#isValid(com.itextpdf.html2pdf.css.CssDeclaration)
+        */
         public virtual bool IsValid(CssDeclaration cssDeclaration) {
             foreach (ICssDataTypeValidator dTypeValidator in allowedTypes) {
                 if (dTypeValidator.IsValid(cssDeclaration.GetExpression())) {

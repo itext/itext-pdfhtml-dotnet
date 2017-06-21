@@ -43,7 +43,11 @@ address: sales@itextpdf.com
 using iText.Html2pdf.Css;
 
 namespace iText.Html2pdf.Css.Validate {
+    /// <summary>Interface for CSS declaration validators.</summary>
     public interface ICssDeclarationValidator {
+        /// <summary>Checks if a value is a valid CSS declaration.</summary>
+        /// <param name="cssDeclaration">the CSS declaration</param>
+        /// <returns>true, if the value is a valid CSS declaration</returns>
         bool IsValid(CssDeclaration cssDeclaration);
     }
 }

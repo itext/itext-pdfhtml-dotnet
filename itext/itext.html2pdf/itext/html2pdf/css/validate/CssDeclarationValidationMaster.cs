@@ -47,7 +47,9 @@ using iText.Html2pdf.Css.Validate.Impl.Datatype;
 using iText.Html2pdf.Css.Validate.Impl.Declaration;
 
 namespace iText.Html2pdf.Css.Validate {
+    /// <summary>Class that bundles all the CSS declaration validators.</summary>
     public class CssDeclarationValidationMaster {
+        /// <summary>A map containing all the CSS declaration validators.</summary>
         private static readonly IDictionary<String, ICssDeclarationValidator> DEFAULT_VALIDATORS;
 
         static CssDeclarationValidationMaster() {
@@ -73,9 +75,13 @@ namespace iText.Html2pdf.Css.Validate {
                 .INITIAL, CssConstants.INHERIT, CssConstants.NONE), new CssQuotesValidator()));
         }
 
+        /// <summary>Creates a new <code>CssDeclarationValidationMaster</code> instance.</summary>
         private CssDeclarationValidationMaster() {
         }
 
+        /// <summary>Checks a CSS declaration.</summary>
+        /// <param name="declaration">the CSS declaration</param>
+        /// <returns>true, if the validation was successful</returns>
         public static bool CheckDeclaration(CssDeclaration declaration) {
             ICssDeclarationValidator validator = DEFAULT_VALIDATORS.Get(declaration.GetProperty());
             return validator == null || validator.IsValid(declaration);

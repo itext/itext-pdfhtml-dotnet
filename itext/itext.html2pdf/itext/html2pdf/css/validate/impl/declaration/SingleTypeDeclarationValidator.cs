@@ -44,13 +44,23 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Validate;
 
 namespace iText.Html2pdf.Css.Validate.Impl.Declaration {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Validate.ICssDeclarationValidator"/>
+    /// implementation to validate a single type.
+    /// </summary>
     public class SingleTypeDeclarationValidator : ICssDeclarationValidator {
+        /// <summary>The data type validator.</summary>
         private ICssDataTypeValidator dataTypeValidator;
 
+        /// <summary>Creates a new <code>SingleTypeDeclarationValidator</code> instance.</summary>
+        /// <param name="dataTypeValidator">the data type validator</param>
         public SingleTypeDeclarationValidator(ICssDataTypeValidator dataTypeValidator) {
             this.dataTypeValidator = dataTypeValidator;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.validate.ICssDeclarationValidator#isValid(com.itextpdf.html2pdf.css.CssDeclaration)
+        */
         public virtual bool IsValid(CssDeclaration cssDeclaration) {
             return dataTypeValidator.IsValid(cssDeclaration.GetExpression());
         }
