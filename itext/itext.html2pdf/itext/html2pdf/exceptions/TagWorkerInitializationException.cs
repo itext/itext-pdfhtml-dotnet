@@ -43,15 +43,26 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf.Exceptions {
+    /// <summary>Runtime exception that gets thrown if a tag worker can't be initialized.</summary>
     public class TagWorkerInitializationException : Exception {
+        /// <summary>Creates a <code>TagWorkerInitializationException</code> instance.</summary>
+        /// <param name="message">the message</param>
+        /// <param name="classNames">the class names</param>
+        /// <param name="tag">the tag</param>
         public TagWorkerInitializationException(String message, String classNames, String tag)
             : base(String.Format(message, classNames, tag)) {
         }
 
+        /// <summary>Creates a <code>TagWorkerInitializationException</code> instance.</summary>
+        /// <param name="message">the message</param>
+        /// <param name="classNames">the class names</param>
+        /// <param name="tag">the tag</param>
+        /// <param name="cause">the cause</param>
         public TagWorkerInitializationException(String message, String classNames, String tag, Exception cause)
             : base(String.Format(message, classNames, tag), cause) {
         }
 
+        /// <summary>Template for the error message in case a tag worker couldn't be instantiated.</summary>
         public const String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
     }
 }

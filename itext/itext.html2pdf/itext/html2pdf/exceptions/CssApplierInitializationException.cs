@@ -43,11 +43,17 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf.Exceptions {
+    /// <summary>Runtime exception in case a CSS applier can't be initialized.</summary>
     public class CssApplierInitializationException : Exception {
+        /// <summary>Creates a new <code>CssApplierInitializationException</code> instance.</summary>
+        /// <param name="message">the message</param>
+        /// <param name="className">the class name of the CSS applier</param>
+        /// <param name="tag">the key</param>
         public CssApplierInitializationException(String message, String className, String tag)
             : base(String.Format(message, className, tag)) {
         }
 
+        /// <summary>The message template in case reflection failed.</summary>
         public const String ReflectionFailed = "Could not instantiate CssApplier-class {0} for tag {1}.";
     }
 }

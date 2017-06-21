@@ -43,15 +43,21 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf.Exceptions {
+    /// <summary>Runtime exception that gets thrown if something goes wrong in the HTML to PDF conversion.</summary>
     public class Html2PdfException : Exception {
+        /// <summary>Creates a new <code>Html2PdfException</code> instance.</summary>
+        /// <param name="message">the message</param>
         public Html2PdfException(String message)
             : base(message) {
         }
 
+        /// <summary>Message in case one tries to write to a PDF document that isn't in writing mode.</summary>
         public const String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
 
+        /// <summary>Message in case the font provider doesn't know about any fonts.</summary>
         public const String FontProviderContainsZeroFonts = "Font Provider contains zero fonts. At least one font shall be present";
 
+        /// <summary>The Constant UnsupportedEncodingException.</summary>
         public const String UnsupportedEncodingException = "Unsupported encoding exception.";
     }
 }
