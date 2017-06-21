@@ -49,16 +49,37 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach {
+    /// <summary>
+    /// Helper class to add parsed HTML content to an existing iText document,
+    /// or to parse HTML to a list of iText elements.
+    /// </summary>
     public class Attacher {
+        /// <summary>Instantiates a new <code>Attacher</code> instance.</summary>
         private Attacher() {
         }
 
+        /// <summary>
+        /// Attaches the HTML content stored in a document node to
+        /// an existing PDF document, using specific converter properties,
+        /// and returning an iText <code>Document</code> object.
+        /// </summary>
+        /// <param name="documentNode">the document node with the HTML</param>
+        /// <param name="pdfDocument">the <code>PdfDocument</code> instance</param>
+        /// <param name="converterProperties">the <code>ConverterProperties</code> instance</param>
+        /// <returns>an iText <code>Document</code> object</returns>
         public static Document Attach(IDocumentNode documentNode, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
             IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);
             return processor.ProcessDocument(documentNode, pdfDocument);
         }
 
+        /// <summary>
+        /// Attaches the HTML content stored in a document node to
+        /// a list of <code>IElement</code> objects.
+        /// </summary>
+        /// <param name="documentNode">the document node with the HTML</param>
+        /// <param name="converterProperties">the <code>ConverterProperties</code> instance</param>
+        /// <returns>the list of <code>IElement</code> objects</returns>
         public static IList<IElement> Attach(IDocumentNode documentNode, ConverterProperties converterProperties) {
             IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);
             return processor.ProcessElements(documentNode);

@@ -47,9 +47,20 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach {
+    /// <summary>
+    /// Interface for classes that can process HTML to PDF in the form of a
+    /// <code>PdfDocument</code> or a list of <code>IElement</code> objects.
+    /// </summary>
     public interface IHtmlProcessor {
+        /// <summary>Parses HTML to add the content to a <code>PdfDocument</code>.</summary>
+        /// <param name="root">the root node of the HTML that needs to be parsed</param>
+        /// <param name="pdfDocument">the <code>PdfDocument</code> instance</param>
+        /// <returns>a <code>Document</code> instance</returns>
         Document ProcessDocument(INode root, PdfDocument pdfDocument);
 
+        /// <summary>Parses HTML to add the content to a list of <code>IElement</code> objects.</summary>
+        /// <param name="root">the root node of the HTML that needs to be parsed</param>
+        /// <returns>the resulting list</returns>
         IList<IElement> ProcessElements(INode root);
     }
 }

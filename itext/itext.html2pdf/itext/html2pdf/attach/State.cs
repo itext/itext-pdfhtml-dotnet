@@ -43,29 +43,59 @@ address: sales@itextpdf.com
 using System.Collections.Generic;
 
 namespace iText.Html2pdf.Attach {
+    /// <summary>State machine to push, pop, peek,...</summary>
+    /// <remarks>
+    /// State machine to push, pop, peek,...
+    /// <see cref="ITagWorker"/>
+    /// instances to and from the <code>Stack</code>.
+    /// </remarks>
     public class State {
+        /// <summary>The stack.</summary>
         private Stack<ITagWorker> stack;
 
+        /// <summary>Instantiates a new <code>State</code> instance.</summary>
         public State() {
             stack = new Stack<ITagWorker>();
         }
 
+        /// <summary>Gets the stack.</summary>
+        /// <returns>the stack</returns>
         public virtual Stack<ITagWorker> GetStack() {
             return stack;
         }
 
+        /// <summary>
+        /// Pushes a
+        /// <see cref="ITagWorker"/>
+        /// instance to the stack.
+        /// </summary>
+        /// <param name="tagWorker">the tag worker</param>
         public virtual void Push(ITagWorker tagWorker) {
             stack.Push(tagWorker);
         }
 
+        /// <summary>
+        /// Pops a
+        /// <see cref="ITagWorker"/>
+        /// from the stack.
+        /// </summary>
+        /// <returns>the tag worker</returns>
         public virtual ITagWorker Pop() {
             return stack.Pop();
         }
 
+        /// <summary>
+        /// Peeks at the
+        /// <see cref="ITagWorker"/>
+        /// at the top of the stack.
+        /// </summary>
+        /// <returns>the tag worker at the top</returns>
         public virtual ITagWorker Top() {
             return stack.Peek();
         }
 
+        /// <summary>Checks if the stack is empty.</summary>
+        /// <returns>true, if the stack is empty</returns>
         public virtual bool Empty() {
             return stack.Count == 0;
         }

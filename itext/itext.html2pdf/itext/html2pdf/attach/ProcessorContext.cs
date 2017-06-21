@@ -55,33 +55,49 @@ using iText.Kernel.Pdf;
 using iText.Layout.Font;
 
 namespace iText.Html2pdf.Attach {
+    /// <summary>Keeps track of the context of the processor.</summary>
     public class ProcessorContext {
+        /// <summary>The font provider.</summary>
         private FontProvider fontProvider;
 
+        /// <summary>Temporary set of fonts used in the PDF.</summary>
         private FontSet tempFonts;
 
+        /// <summary>The resource resolver.</summary>
         private ResourceResolver resourceResolver;
 
+        /// <summary>The device description.</summary>
         private MediaDeviceDescription deviceDescription;
 
+        /// <summary>The tag worker factory.</summary>
         private ITagWorkerFactory tagWorkerFactory;
 
+        /// <summary>The CSS applier factory.</summary>
         private ICssApplierFactory cssApplierFactory;
 
+        /// <summary>The base URI.</summary>
         private String baseUri;
 
+        /// <summary>Indicates whether an AcroForm needs to be created.</summary>
         private bool createAcroForm;
 
+        /// <summary>The form field name resolver.</summary>
         private FormFieldNameResolver formFieldNameResolver;
 
+        /// <summary>The outline handler.</summary>
         private OutlineHandler outlineHandler;
 
+        /// <summary>The state.</summary>
         private State state;
 
+        /// <summary>The CSS context.</summary>
         private CssContext cssContext;
 
+        /// <summary>The PDF document.</summary>
         private PdfDocument pdfDocument;
 
+        /// <summary>Instantiates a new <code>ProcessorContext</code> instance.</summary>
+        /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
         public ProcessorContext(ConverterProperties converterProperties) {
             // Variable fields
             if (converterProperties == null) {
@@ -118,59 +134,87 @@ namespace iText.Html2pdf.Attach {
             formFieldNameResolver = new FormFieldNameResolver();
         }
 
+        /// <summary>Sets the font provider.</summary>
+        /// <param name="fontProvider">the new font provider</param>
         public virtual void SetFontProvider(FontProvider fontProvider) {
             this.fontProvider = fontProvider;
         }
 
+        /// <summary>Gets the state.</summary>
+        /// <returns>the state</returns>
         public virtual State GetState() {
             return state;
         }
 
+        /// <summary>Gets the PDF document.</summary>
+        /// <returns>the PDF document</returns>
         public virtual PdfDocument GetPdfDocument() {
             return pdfDocument;
         }
 
+        /// <summary>Gets the font provider.</summary>
+        /// <returns>the font provider</returns>
         public virtual FontProvider GetFontProvider() {
             return fontProvider;
         }
 
+        /// <summary>Gets the temporary set of fonts.</summary>
+        /// <returns>the set of fonts</returns>
         public virtual FontSet GetTempFonts() {
             return tempFonts;
         }
 
+        /// <summary>Gets the resource resolver.</summary>
+        /// <returns>the resource resolver</returns>
         public virtual ResourceResolver GetResourceResolver() {
             return resourceResolver;
         }
 
+        /// <summary>Gets the device description.</summary>
+        /// <returns>the device description</returns>
         public virtual MediaDeviceDescription GetDeviceDescription() {
             return deviceDescription;
         }
 
+        /// <summary>Gets the tag worker factory.</summary>
+        /// <returns>the tag worker factory</returns>
         public virtual ITagWorkerFactory GetTagWorkerFactory() {
             return tagWorkerFactory;
         }
 
+        /// <summary>Gets the CSS applier factory.</summary>
+        /// <returns>the CSS applier factory</returns>
         public virtual ICssApplierFactory GetCssApplierFactory() {
             return cssApplierFactory;
         }
 
+        /// <summary>Gets the CSS context.</summary>
+        /// <returns>the CSS context</returns>
         public virtual CssContext GetCssContext() {
             return cssContext;
         }
 
+        /// <summary>Checks if is an AcroForm needs to be created.</summary>
+        /// <returns>true, an AcroForm should be created</returns>
         public virtual bool IsCreateAcroForm() {
             return createAcroForm;
         }
 
+        /// <summary>Gets the form field name resolver.</summary>
+        /// <returns>the form field name resolver</returns>
         public virtual FormFieldNameResolver GetFormFieldNameResolver() {
             return formFieldNameResolver;
         }
 
+        /// <summary>Gets the outline handler.</summary>
+        /// <returns>the outline handler</returns>
         public virtual OutlineHandler GetOutlineHandler() {
             return outlineHandler;
         }
 
         /// <summary>Add temporary font from @font-face.</summary>
+        /// <param name="fontInfo">the font info</param>
+        /// <param name="alias">the alias</param>
         public virtual void AddTemporaryFont(FontInfo fontInfo, String alias) {
             if (tempFonts == null) {
                 tempFonts = new FontSet();
@@ -179,6 +223,9 @@ namespace iText.Html2pdf.Attach {
         }
 
         /// <summary>Add temporary font from @font-face.</summary>
+        /// <param name="fontProgram">the font program</param>
+        /// <param name="encoding">the encoding</param>
+        /// <param name="alias">the alias</param>
         public virtual void AddTemporaryFont(FontProgram fontProgram, String encoding, String alias) {
             if (tempFonts == null) {
                 tempFonts = new FontSet();
@@ -194,6 +241,7 @@ namespace iText.Html2pdf.Attach {
             return !fontProvider.GetFontSet().IsEmpty() || (tempFonts != null && !tempFonts.IsEmpty());
         }
 
+        /// <summary>Resets the context.</summary>
         public virtual void Reset() {
             this.pdfDocument = null;
             this.state = new State();
@@ -205,6 +253,8 @@ namespace iText.Html2pdf.Attach {
             this.tempFonts = null;
         }
 
+        /// <summary>Resets the context, and assigns a new PDF document.</summary>
+        /// <param name="pdfDocument">the new PDF document for the context</param>
         public virtual void Reset(PdfDocument pdfDocument) {
             Reset();
             this.pdfDocument = pdfDocument;

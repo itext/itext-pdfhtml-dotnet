@@ -45,18 +45,26 @@ using iText.Html2pdf.Html.Node;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach {
+    /// <summary>Interface for all the tag worker implementations.</summary>
     public interface ITagWorker {
+        /// <summary>Placeholder for what needs to be done after the content of a tag has been processed.</summary>
+        /// <param name="element">the element node</param>
+        /// <param name="context">the processor context</param>
         void ProcessEnd(IElementNode element, ProcessorContext context);
 
-        /// <param name="content"/>
-        /// <param name="context"/>
+        /// <summary>Placeholder for what needs to be done while the content of a tag is being processed.</summary>
+        /// <param name="content">the content of a node</param>
+        /// <param name="context">the processor context</param>
         /// <returns>true, if content was successfully processed, otherwise false.</returns>
         bool ProcessContent(String content, ProcessorContext context);
 
-        /// <param name="childTagWorker"/>
+        /// <summary>Placeholder for what needs to be done when a child node is being processed.</summary>
+        /// <param name="childTagWorker">the tag worker of the child node</param>
+        /// <param name="context">the processor context</param>
         /// <returns>true, if child was successfully processed, otherwise false.</returns>
         bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context);
 
+        /// <summary>Gets a processed object if it can be expressed as an <code>IPropertyContainer</code> instance.</summary>
         /// <returns>
         /// the same object on every call.
         /// Might return null either if result is not yet produced or if this particular
