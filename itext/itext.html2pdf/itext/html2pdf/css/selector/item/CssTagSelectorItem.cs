@@ -44,20 +44,34 @@ using System;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector.Item {
+    /// <summary>
+    /// <see cref="ICssSelectorItem"/>
+    /// implementation for tag selectors.
+    /// </summary>
     public class CssTagSelectorItem : ICssSelectorItem {
+        /// <summary>The tag name.</summary>
         private String tagName;
 
+        /// <summary>Indicates if the selector is universally valid.</summary>
         private bool isUniversal;
 
+        /// <summary>Creates a new <code>CssTagSelectorItem<code> instance.</summary>
+        /// <param name="tagName">the tag name</param>
         public CssTagSelectorItem(String tagName) {
             this.tagName = tagName.ToLowerInvariant();
             this.isUniversal = "*".Equals(tagName);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+        */
         public virtual int GetSpecificity() {
             return isUniversal ? 0 : CssSpecificityConstants.ELEMENT_SPECIFICITY;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+        */
         public virtual bool Matches(INode node) {
             if (!(node is IElementNode)) {
                 return false;
@@ -66,6 +80,9 @@ namespace iText.Html2pdf.Css.Selector.Item {
             return isUniversal || tagName.Equals(element.Name());
         }
 
+        /* (non-Javadoc)
+        * @see java.lang.Object#toString()
+        */
         public override String ToString() {
             return tagName;
         }

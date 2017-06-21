@@ -45,21 +45,37 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector.Item {
+    /// <summary>
+    /// <see cref="ICssSelectorItem"/>
+    /// implementation for class selectors.
+    /// </summary>
     public class CssClassSelectorItem : ICssSelectorItem {
+        /// <summary>The class name.</summary>
         private String className;
 
+        /// <summary>Creates a new <code>CssClassSelectorItem<code> instance.</summary>
+        /// <param name="className">the class name</param>
         public CssClassSelectorItem(String className) {
             this.className = className;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+        */
         public virtual int GetSpecificity() {
             return CssSpecificityConstants.CLASS_SPECIFICITY;
         }
 
+        /* (non-Javadoc)
+        * @see java.lang.Object#toString()
+        */
         public override String ToString() {
             return "." + className;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+        */
         public virtual bool Matches(INode node) {
             if (!(node is IElementNode)) {
                 return false;

@@ -45,21 +45,35 @@ using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector.Item {
+    /// <summary>
+    /// <see cref="ICssSelectorItem"/>
+    /// implementation for page pseudo classes selectors.
+    /// </summary>
     public class CssPagePseudoClassSelectorItem : ICssSelectorItem {
+        /// <summary>Indicates if the page pseudo class is a spread pseudo class (left or right).</summary>
         private bool isSpreadPseudoClass;
 
+        /// <summary>The page pseudo class.</summary>
         private String pagePseudoClass;
 
+        /// <summary>Creates a new <code>CssPagePseudoClassSelectorItem<code> instance.</summary>
+        /// <param name="pagePseudoClass">the page pseudo class name</param>
         public CssPagePseudoClassSelectorItem(String pagePseudoClass) {
             this.isSpreadPseudoClass = pagePseudoClass.Equals(PageContextConstants.LEFT) || pagePseudoClass.Equals(PageContextConstants
                 .RIGHT);
             this.pagePseudoClass = pagePseudoClass;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+        */
         public virtual int GetSpecificity() {
             return isSpreadPseudoClass ? CssSpecificityConstants.ELEMENT_SPECIFICITY : CssSpecificityConstants.CLASS_SPECIFICITY;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+        */
         public virtual bool Matches(INode node) {
             if (!(node is PageContextNode)) {
                 return false;

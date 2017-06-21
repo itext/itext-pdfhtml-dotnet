@@ -46,15 +46,25 @@ using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Selector.Item {
+    /// <summary>
+    /// <see cref="ICssSelectorItem"/>
+    /// implementation for pseudo class selectors.
+    /// </summary>
     public class CssPseudoClassSelectorItem : ICssSelectorItem {
+        /// <summary>The pseudo class.</summary>
         private String pseudoClass;
 
+        /// <summary>The arguments.</summary>
         private String arguments;
 
+        /// <summary>The nth child A.</summary>
         private int nthChildA;
 
+        /// <summary>The nth child B.</summary>
         private int nthChildB;
 
+        /// <summary>Creates a new <code>CssPseudoClassSelectorItem<code> instance.</summary>
+        /// <param name="pseudoClass">the pseudo class name</param>
         public CssPseudoClassSelectorItem(String pseudoClass) {
             int indexOfParentheses = pseudoClass.IndexOf('(');
             if (indexOfParentheses == -1) {
@@ -68,10 +78,16 @@ namespace iText.Html2pdf.Css.Selector.Item {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+        */
         public virtual int GetSpecificity() {
             return CssSpecificityConstants.CLASS_SPECIFICITY;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+        */
         public virtual bool Matches(INode node) {
             if (!(node is IElementNode) || node is ICustomElementNode) {
                 return false;
@@ -96,10 +112,16 @@ namespace iText.Html2pdf.Css.Selector.Item {
             }
         }
 
+        /* (non-Javadoc)
+        * @see java.lang.Object#toString()
+        */
         public override String ToString() {
             return ":" + pseudoClass + (!String.IsNullOrEmpty(arguments) ? "(" + arguments + ")" : "");
         }
 
+        /// <summary>Gets the all the siblings of a child node.</summary>
+        /// <param name="child">the child node</param>
+        /// <returns>the sibling nodes</returns>
         private IList<INode> GetAllChildren(INode child) {
             INode parentElement = child.ParentNode();
             if (parentElement != null) {
@@ -115,6 +137,8 @@ namespace iText.Html2pdf.Css.Selector.Item {
             return JavaCollectionsUtil.EmptyList<INode>();
         }
 
+        /// <summary>Gets the nth child arguments.</summary>
+        /// <returns>the nth child arguments</returns>
         private void GetNthChildArguments() {
             if (arguments.Matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
                 if (arguments.Equals("odd")) {
@@ -162,6 +186,10 @@ namespace iText.Html2pdf.Css.Selector.Item {
             }
         }
 
+        /// <summary>Resolves the nth child.</summary>
+        /// <param name="node">a node</param>
+        /// <param name="children">the children</param>
+        /// <returns>true, if successful</returns>
         private bool ResolveNthChild(INode node, IList<INode> children) {
             if (!children.Contains(node)) {
                 return false;

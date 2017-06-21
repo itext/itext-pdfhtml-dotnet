@@ -45,17 +45,30 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector.Item {
+    /// <summary>
+    /// <see cref="ICssSelectorItem"/>
+    /// implementation for id selectors.
+    /// </summary>
     public class CssIdSelectorItem : ICssSelectorItem {
+        /// <summary>The id.</summary>
         private String id;
 
+        /// <summary>Creates a new <code>CssIdSelectorItem<code> instance.</summary>
+        /// <param name="id">the id</param>
         public CssIdSelectorItem(String id) {
             this.id = id;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+        */
         public virtual int GetSpecificity() {
             return CssSpecificityConstants.ID_SPECIFICITY;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+        */
         public virtual bool Matches(INode node) {
             if (!(node is IElementNode)) {
                 return false;
@@ -64,6 +77,9 @@ namespace iText.Html2pdf.Css.Selector.Item {
             return id.Equals(element.GetAttribute(AttributeConstants.ID));
         }
 
+        /* (non-Javadoc)
+        * @see java.lang.Object#toString()
+        */
         public override String ToString() {
             return "#" + id;
         }

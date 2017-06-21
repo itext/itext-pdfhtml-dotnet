@@ -45,22 +45,38 @@ using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector.Item {
+    /// <summary>
+    /// <see cref="ICssSelectorItem"/>
+    /// implementation for pseude element selectors.
+    /// </summary>
     public class CssPseudoElementSelectorItem : ICssSelectorItem {
+        /// <summary>The pseudo element name.</summary>
         private String pseudoElementName;
 
+        /// <summary>Creates a new <code>CssPseudoElementSelectorItem<code> instance.</summary>
+        /// <param name="pseudoElementName">the pseudo element name</param>
         public CssPseudoElementSelectorItem(String pseudoElementName) {
             this.pseudoElementName = pseudoElementName;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+        */
         public virtual int GetSpecificity() {
             return CssSpecificityConstants.ELEMENT_SPECIFICITY;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+        */
         public virtual bool Matches(INode node) {
             return node is CssPseudoElementNode && ((CssPseudoElementNode)node).GetPseudoElementName().Equals(pseudoElementName
                 );
         }
 
+        /* (non-Javadoc)
+        * @see java.lang.Object#toString()
+        */
         public override String ToString() {
             return "::" + pseudoElementName;
         }

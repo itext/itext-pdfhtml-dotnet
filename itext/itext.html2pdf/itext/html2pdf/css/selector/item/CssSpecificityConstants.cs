@@ -41,14 +41,19 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 namespace iText.Html2pdf.Css.Selector.Item {
+    /// <summary>Class that bundles some CSS specificity constants.</summary>
     internal sealed class CssSpecificityConstants {
+        /// <summary>Creates a new <code>CssSpecificityConstants</code> instance.</summary>
         private CssSpecificityConstants() {
         }
 
+        /// <summary>The Constant ID_SPECIFICITY.</summary>
         public const int ID_SPECIFICITY = 1 << 20;
 
+        /// <summary>The Constant CLASS_SPECIFICITY.</summary>
         public const int CLASS_SPECIFICITY = 1 << 10;
 
+        /// <summary>The Constant ELEMENT_SPECIFICITY.</summary>
         public const int ELEMENT_SPECIFICITY = 1;
     }
 }

@@ -45,14 +45,24 @@ using System.Text.RegularExpressions;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector.Item {
+    /// <summary>
+    /// <see cref="ICssSelectorItem"/>
+    /// implementation for attribute selectors.
+    /// </summary>
     public class CssAttributeSelectorItem : ICssSelectorItem {
+        /// <summary>The property.</summary>
         private String property;
 
+        /// <summary>The match symbol.</summary>
         private char matchSymbol = (char)0;
 
+        /// <summary>The value.</summary>
         private String value = null;
 
+        /// <summary>Creates a new <code>CssAttributeSelectorItem<code> instance.</summary>
+        /// <param name="attrSelector">the attribute</param>
         public CssAttributeSelectorItem(String attrSelector) {
+            // TODO: Auto-generated Javadoc
             int indexOfEqual = attrSelector.IndexOf('=');
             if (indexOfEqual == -1) {
                 property = attrSelector.JSubstring(1, attrSelector.Length - 1);
@@ -75,10 +85,16 @@ namespace iText.Html2pdf.Css.Selector.Item {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+        */
         public virtual int GetSpecificity() {
             return CssSpecificityConstants.CLASS_SPECIFICITY;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+        */
         public virtual bool Matches(INode node) {
             if (!(node is IElementNode)) {
                 return false;
@@ -126,6 +142,9 @@ namespace iText.Html2pdf.Css.Selector.Item {
             }
         }
 
+        /* (non-Javadoc)
+        * @see java.lang.Object#toString()
+        */
         public override String ToString() {
             if (value == null) {
                 return String.Format("[{0}]", property);

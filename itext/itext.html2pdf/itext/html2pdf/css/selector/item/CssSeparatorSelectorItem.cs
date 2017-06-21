@@ -44,25 +44,43 @@ using System;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector.Item {
+    /// <summary>
+    /// <see cref="ICssSelectorItem"/>
+    /// implementation for separator selectors.
+    /// </summary>
     public class CssSeparatorSelectorItem : ICssSelectorItem {
+        /// <summary>The separator character.</summary>
         private char separator;
 
+        /// <summary>Creates a new <code>CssSeparatorSelectorItem<code> instance.</summary>
+        /// <param name="separator">the separator character</param>
         public CssSeparatorSelectorItem(char separator) {
             this.separator = separator;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+        */
         public virtual int GetSpecificity() {
             return 0;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+        */
         public virtual bool Matches(INode node) {
             throw new InvalidOperationException("Separator item is not supposed to be matched against an element");
         }
 
+        /// <summary>Gets the separator character.</summary>
+        /// <returns>the separator character</returns>
         public virtual char GetSeparator() {
             return separator;
         }
 
+        /* (non-Javadoc)
+        * @see java.lang.Object#toString()
+        */
         public override String ToString() {
             return separator == ' ' ? " " : String.Format(" {0} ", separator);
         }

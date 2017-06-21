@@ -46,17 +46,30 @@ using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector.Item {
+    /// <summary>
+    /// <see cref="ICssSelectorItem"/>
+    /// implementation for page type selectors.
+    /// </summary>
     public class CssPageTypeSelectorItem : ICssSelectorItem {
+        /// <summary>The page type name.</summary>
         private String pageTypeName;
 
+        /// <summary>Creates a new <code>CssPageTypeSelectorItem<code> instance.</summary>
+        /// <param name="pageTypeName">the page type name</param>
         public CssPageTypeSelectorItem(String pageTypeName) {
             this.pageTypeName = pageTypeName;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#getSpecificity()
+        */
         public virtual int GetSpecificity() {
             return CssSpecificityConstants.ID_SPECIFICITY;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
+        */
         public virtual bool Matches(INode node) {
             if (!(node is PageContextNode)) {
                 return false;
