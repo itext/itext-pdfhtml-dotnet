@@ -53,11 +53,21 @@ using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
+    /// <summary>
+    /// The
+    /// <see cref="AbstractTextFieldRenderer"/>
+    /// implementation for text area fields.
+    /// </summary>
     public class TextAreaRenderer : AbstractTextFieldRenderer {
+        /// <summary>Creates a new <code>TextAreaRenderer</code> instance.</summary>
+        /// <param name="modelElement">the model element</param>
         public TextAreaRenderer(TextArea modelElement)
             : base(modelElement) {
         }
 
+        // TODO: Auto-generated Javadoc
+        /// <summary>Gets the number of columns.</summary>
+        /// <returns>the cols value of the text area field</returns>
         public virtual int GetCols() {
             int? cols = this.GetPropertyAsInteger(Html2PdfProperty.FORM_FIELD_COLS);
             if (cols != null && cols.Value > 0) {
@@ -66,6 +76,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return (int)modelElement.GetDefaultProperty<int>(Html2PdfProperty.FORM_FIELD_COLS);
         }
 
+        /// <summary>Gets the number of rows.</summary>
+        /// <returns>the rows value of the text area field</returns>
         public virtual int GetRows() {
             int? rows = this.GetPropertyAsInteger(Html2PdfProperty.FORM_FIELD_ROWS);
             if (rows != null && rows.Value > 0) {
@@ -74,18 +86,30 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return (int)modelElement.GetDefaultProperty<int>(Html2PdfProperty.FORM_FIELD_ROWS);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getAscent()
+        */
         public override float GetAscent() {
             return occupiedArea.GetBBox().GetHeight();
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getDescent()
+        */
         public override float GetDescent() {
             return 0;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.IRenderer#getNextRenderer()
+        */
         public override IRenderer GetNextRenderer() {
             return new iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.TextAreaRenderer((TextArea)GetModelElement());
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
+        */
         protected internal override void AdjustFieldLayout() {
             IList<LineRenderer> flatLines = ((ParagraphRenderer)flatRenderer).GetLines();
             UpdatePdfFont((ParagraphRenderer)flatRenderer);
@@ -103,10 +127,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             flatBBox.SetWidth(GetContentWidth().Value);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#createFlatRenderer()
+        */
         protected internal override IRenderer CreateFlatRenderer() {
             return CreateParagraphRenderer(GetDefaultValue());
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
+        */
         protected internal override void ApplyAcroField(DrawContext drawContext) {
             font.SetSubset(false);
             String value = GetDefaultValue();
@@ -122,6 +152,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#getContentWidth()
+        */
         protected internal override float? GetContentWidth() {
             float? width = base.GetContentWidth();
             if (width == null) {

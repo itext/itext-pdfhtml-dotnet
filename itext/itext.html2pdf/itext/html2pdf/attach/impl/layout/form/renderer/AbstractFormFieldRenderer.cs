@@ -50,19 +50,39 @@ using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
+    /// <summary>
+    ///  Abstract 
+    /// <see cref="iText.Layout.Renderer.BlockRenderer"/>
+    /// for form fields.
+    /// </summary>
     public abstract class AbstractFormFieldRenderer : BlockRenderer, ILeafElementRenderer {
+        /// <summary>
+        /// The flat renderer.
+        /// </summary>
         protected internal IRenderer flatRenderer;
 
+        /// <summary>
+        ///  Creates a new <code>AbstractFormFieldRenderer</code> instance.
+        /// </summary>
+        /// <param name="modelElement">the model element</param>
         protected internal AbstractFormFieldRenderer(IFormField modelElement)
             : base(modelElement) {
         }
 
+        /// <summary>
+        /// Checks if form fields need to be flattened.
+        /// </summary>
+        /// <returns>true, if fields need to be flattened</returns>
         public virtual bool IsFlatten() {
             bool? flatten = GetPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_FLATTEN);
             return flatten != null ? (bool)flatten : (bool)modelElement.GetDefaultProperty<bool>(Html2PdfProperty.FORM_FIELD_FLATTEN
                 );
         }
 
+        /// <summary>
+        ///  Gets the default value of the form field.
+        /// </summary>
+        /// <returns>the default value of the form field</returns>
         public virtual String GetDefaultValue() {
             String defaultValue = this.GetProperty<String>(Html2PdfProperty.FORM_FIELD_VALUE);
             return defaultValue != null ? defaultValue : modelElement.GetDefaultProperty<String>(Html2PdfProperty.FORM_FIELD_VALUE
@@ -166,6 +186,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return ((IFormField)GetModelElement()).GetId();
         }
 
+        /// <summary>
+        ///  Checks if the renderer fits a certain width and height.
+        /// </summary>
+        /// <param name="availableWidth">the available width</param>
+        /// <param name="availableHeight">the available height</param>
+        /// <returns>true, if the renderer fits</returns>
         protected internal virtual bool IsRendererFit(float availableWidth, float availableHeight) {
             if (occupiedArea == null) {
                 return false;
@@ -174,6 +200,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 ();
         }
 
+        /// <summary>
+        /// Gets the content width.
+        /// </summary>
+        /// <returns>the content width</returns>
         protected internal virtual float? GetContentWidth() {
             UnitValue width = this.GetProperty<UnitValue>(Property.WIDTH);
             if (width != null) {

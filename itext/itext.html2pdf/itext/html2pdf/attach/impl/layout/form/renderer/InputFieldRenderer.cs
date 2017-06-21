@@ -54,27 +54,44 @@ using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
+    /// <summary>
+    /// The
+    /// <see cref="AbstractOneLineTextFieldRenderer"/>
+    /// implementation for input fields.
+    /// </summary>
     public class InputFieldRenderer : AbstractOneLineTextFieldRenderer {
+        /// <summary>Creates a new <code>InputFieldRenderer</code> instance.</summary>
+        /// <param name="modelElement">the model element</param>
         public InputFieldRenderer(InputField modelElement)
             : base(modelElement) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.IRenderer#getNextRenderer()
+        */
         public override IRenderer GetNextRenderer() {
             return new iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.InputFieldRenderer((InputField)modelElement);
         }
 
+        /// <summary>Gets the size of the input field.</summary>
+        /// <returns>the input field size</returns>
         public virtual int GetSize() {
             int? size = this.GetPropertyAsInteger(Html2PdfProperty.FORM_FIELD_SIZE);
             return size != null ? (int)size : (int)modelElement.GetDefaultProperty<int>(Html2PdfProperty.FORM_FIELD_SIZE
                 );
         }
 
+        /// <summary>Checks if the input field is a password field.</summary>
+        /// <returns>true, if the input field is a password field</returns>
         public virtual bool IsPassword() {
             bool? password = GetPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG);
             return password != null ? (bool)password : (bool)modelElement.GetDefaultProperty<bool>(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG
                 );
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
+        */
         protected internal override void AdjustFieldLayout() {
             IList<LineRenderer> flatLines = ((ParagraphRenderer)flatRenderer).GetLines();
             Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
@@ -92,6 +109,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             flatBBox.SetWidth(GetContentWidth().Value);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#createFlatRenderer()
+        */
         protected internal override IRenderer CreateFlatRenderer() {
             String defaultValue = GetDefaultValue();
             bool flatten = IsFlatten();
@@ -102,6 +122,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return CreateParagraphRenderer(defaultValue);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
+        */
         protected internal override void ApplyAcroField(DrawContext drawContext) {
             font.SetSubset(false);
             String value = GetDefaultValue();
@@ -125,6 +148,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#getContentWidth()
+        */
         protected internal override float? GetContentWidth() {
             float? width = base.GetContentWidth();
             if (width == null) {
@@ -135,6 +161,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return width;
         }
 
+        /// <summary>Obfuscates the content of a password input field.</summary>
+        /// <param name="text">the password</param>
+        /// <returns>a string consisting of '*' characters.</returns>
         private String ObfuscatePassword(String text) {
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < text.Length; ++i) {

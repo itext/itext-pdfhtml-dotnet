@@ -52,14 +52,24 @@ using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
+    /// <summary>
+    /// Abstract
+    /// <see cref="iText.Layout.Renderer.BlockRenderer"/>
+    /// for form fields with text content.
+    /// </summary>
     public abstract class AbstractTextFieldRenderer : AbstractFormFieldRenderer {
+        /// <summary>The font to be used for the text.</summary>
         protected internal PdfFont font;
 
+        /// <summary>Creates a new <code>AbstractTextFieldRenderer</code> instance.</summary>
+        /// <param name="modelElement">the model element</param>
         protected internal AbstractTextFieldRenderer(IFormField modelElement)
             : base(modelElement) {
         }
 
-        //Class that represents form field based on text content.
+        /// <summary>Creates a paragraph renderer.</summary>
+        /// <param name="defaultValue">the default value</param>
+        /// <returns>the renderer</returns>
         protected internal virtual IRenderer CreateParagraphRenderer(String defaultValue) {
             if (String.IsNullOrEmpty(defaultValue.Trim())) {
                 // TODO: change to 'defaultValue = "\u00A0"' after trimming of non-breakable spaces is fixed;
@@ -73,6 +83,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return paragraph.CreateRendererSubTree();
         }
 
+        /// <summary>Adjust number of content lines.</summary>
+        /// <param name="lines">the lines that need to be rendered</param>
+        /// <param name="bBox">the bounding box</param>
+        /// <param name="linesNumber">the number of lines</param>
         protected internal virtual void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, int 
             linesNumber) {
             float averageLineHeight = bBox.GetHeight() / lines.Count;
@@ -88,6 +102,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
         }
 
+        /// <summary>Applies the default field properties.</summary>
+        /// <param name="inputField">the input field</param>
         protected internal virtual void ApplyDefaultFieldProperties(PdfFormField inputField) {
             inputField.GetWidgets()[0].SetHighlightMode(PdfName.N);
             inputField.SetBorderWidth(0);
@@ -97,6 +113,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
         }
 
+        /// <summary>Updates the font.</summary>
+        /// <param name="renderer">the renderer</param>
         protected internal virtual void UpdatePdfFont(ParagraphRenderer renderer) {
             Object retrievedFont;
             if (renderer != null) {

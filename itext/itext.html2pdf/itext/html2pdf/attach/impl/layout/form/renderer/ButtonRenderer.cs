@@ -53,17 +53,31 @@ using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
+    /// <summary>
+    /// The
+    /// <see cref="AbstractOneLineTextFieldRenderer"/>
+    /// implementation for buttons.
+    /// </summary>
     public class ButtonRenderer : AbstractOneLineTextFieldRenderer {
+        /// <summary>Indicates of the content was split.</summary>
         private bool isSplit = false;
 
+        /// <summary>Creates a new <code>ButtonRenderer</code> instance.</summary>
+        /// <param name="modelElement">the model element</param>
         public ButtonRenderer(Button modelElement)
             : base(modelElement) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.IRenderer#getNextRenderer()
+        */
         public override IRenderer GetNextRenderer() {
             return new iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.ButtonRenderer((Button)modelElement);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
+        */
         protected internal override void AdjustFieldLayout() {
             IList<LineRenderer> flatLines = ((ParagraphRenderer)flatRenderer).GetLines();
             Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
@@ -89,10 +103,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#createFlatRenderer()
+        */
         protected internal override IRenderer CreateFlatRenderer() {
             return CreateParagraphRenderer(GetDefaultValue());
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
+        */
         protected internal override void ApplyAcroField(DrawContext drawContext) {
             String value = GetDefaultValue();
             String name = GetModelId();
@@ -110,6 +130,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             PdfAcroForm.GetAcroForm(doc, true).AddField(button, page);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#isRendererFit(float, float)
+        */
         protected internal override bool IsRendererFit(float availableWidth, float availableHeight) {
             return !isSplit && base.IsRendererFit(availableWidth, availableHeight);
         }

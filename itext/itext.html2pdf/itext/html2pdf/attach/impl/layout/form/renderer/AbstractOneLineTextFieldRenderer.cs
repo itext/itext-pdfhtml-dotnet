@@ -46,27 +46,46 @@ using iText.Kernel.Geom;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
+    /// <summary>
+    /// Abstract
+    /// <see cref="iText.Layout.Renderer.BlockRenderer"/>
+    /// for a single line of text content in a form field.
+    /// </summary>
     public abstract class AbstractOneLineTextFieldRenderer : AbstractTextFieldRenderer {
+        /// <summary>The position of the base line of the text.</summary>
         protected internal float baseline;
 
+        /// <summary>Creates a new <code>AbstractOneLineTextFieldRenderer</code> instance.</summary>
+        /// <param name="modelElement">the model element</param>
         protected internal AbstractOneLineTextFieldRenderer(IFormField modelElement)
             : base(modelElement) {
         }
 
+        // TODO: Auto-generated Javadoc
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getAscent()
+        */
         public override float GetAscent() {
             return occupiedArea.GetBBox().GetTop() - baseline;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getDescent()
+        */
         public override float GetDescent() {
             return occupiedArea.GetBBox().GetBottom() - baseline;
         }
 
+        /// <summary>Crops the content lines.</summary>
+        /// <param name="lines">a list of lines</param>
+        /// <param name="bBox">the bounding box</param>
         protected internal virtual void CropContentLines(IList<LineRenderer> lines, Rectangle bBox) {
             AdjustNumberOfContentLines(lines, bBox, 1);
             UpdateParagraphHeight();
             baseline = lines[0].GetYLine();
         }
 
+        /// <summary>Updates the paragraph height.</summary>
         protected internal virtual void UpdateParagraphHeight() {
             OverrideHeightProperties();
             float? height = RetrieveHeight();
@@ -88,6 +107,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
         }
 
+        /// <summary>Sets the content height.</summary>
+        /// <param name="bBox">the bounding box</param>
+        /// <param name="height">the height</param>
         private void SetContentHeight(Rectangle bBox, float height) {
             float dy = (height - bBox.GetHeight()) / 2;
             bBox.MoveDown(dy);
