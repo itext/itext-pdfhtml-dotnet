@@ -44,23 +44,44 @@ using System;
 using System.Collections.Generic;
 
 namespace iText.Html2pdf.Html.Node {
+    /// <summary>
+    /// Interface for node classes that have a parent and children, and for which
+    /// styles can be defined; each of these nodes can also have a name and attributes.
+    /// </summary>
     public interface IElementNode : INode, IStylesContainer {
+        /// <summary>Gets the name of the element node.</summary>
+        /// <returns>the string</returns>
         String Name();
 
+        /// <summary>Gets the attributes.</summary>
+        /// <returns>the attributes</returns>
         IAttributes GetAttributes();
 
+        /// <summary>Gets an attribute.</summary>
+        /// <param name="key">the key of the attribute we want to get</param>
+        /// <returns>the value of the attribute</returns>
         String GetAttribute(String key);
 
-        /// <summary>Styles that affect element based on it's position in html DOM, e.g.</summary>
+        /// <summary>
+        /// Gets additional styles, more specifically styles that affect an element
+        /// based on its position in the HTML DOM, e.g.
+        /// </summary>
         /// <remarks>
-        /// Styles that affect element based on it's position in html DOM, e.g. cell borders that are set due to the parent
-        /// table "border" attribute, or styles from "col" tags that affect table elements, or blocks horizontal alignment
-        /// that is the result of parent's "align" attribute.
+        /// Gets additional styles, more specifically styles that affect an element
+        /// based on its position in the HTML DOM, e.g. cell borders that are set
+        /// due to the parent table "border" attribute, or styles from "col" tags
+        /// that affect table elements, or blocks horizontal alignment that is
+        /// the result of parent's "align" attribute.
         /// </remarks>
+        /// <returns>the additional html styles</returns>
         IList<IDictionary<String, String>> GetAdditionalHtmlStyles();
 
+        /// <summary>Adds additional HTML styles.</summary>
+        /// <param name="styles">the styles</param>
         void AddAdditionalHtmlStyles(IDictionary<String, String> styles);
 
+        /// <summary>Gets the language.</summary>
+        /// <returns>the language value</returns>
         String GetLang();
     }
 }

@@ -41,6 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 namespace iText.Html2pdf.Html.Node {
+    /// <summary>
+    /// Interface implemented by classes that are a top node,
+    /// and as such represent a Document.
+    /// </summary>
     public interface IDocumentNode : IElementNode {
     }
 }

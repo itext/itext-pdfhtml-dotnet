@@ -43,11 +43,18 @@ address: sales@itextpdf.com
 using System.Collections.Generic;
 
 namespace iText.Html2pdf.Html.Node {
+    /// <summary>Interface for classes that describe a Node with a parent and children.</summary>
     public interface INode {
+        /// <summary>Gets the child nodes.</summary>
+        /// <returns>a list of <code>INode</code> instances.</returns>
         IList<INode> ChildNodes();
 
+        /// <summary>Adds a child node.</summary>
+        /// <param name="node">a child node that will be added to the current node</param>
         void AddChild(INode node);
 
+        /// <summary>Gets the parent node.</summary>
+        /// <returns>the parent node</returns>
         INode ParentNode();
     }
 }
