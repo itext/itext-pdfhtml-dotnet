@@ -53,7 +53,7 @@ namespace iText.Html2pdf.Css.Apply {
         /// <summary>
         /// Returns a
         /// <see cref="ICssApplier"/>
-        /// instance constructed based on the passed parameters.
+        /// instance constructed based on the parameters of a node.
         /// </summary>
         ICssApplier GetCssApplier(IElementNode tag);
     }

@@ -45,10 +45,15 @@ using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Page;
 
 namespace iText.Html2pdf.Css {
+    /// <summary>A factory for creating <code>CssNestedAtRule</code> objects.</summary>
     public sealed class CssNestedAtRuleFactory {
+        /// <summary>Creates a new <code>CssNestedAtRuleFactory</code> instance.</summary>
         private CssNestedAtRuleFactory() {
         }
 
+        /// <summary>Creates a new <code>CssNestedAtRule</code> object.</summary>
+        /// <param name="ruleDeclaration">the rule declaration</param>
+        /// <returns>a <code>CssNestedAtRule</code> instance</returns>
         public static CssNestedAtRule CreateNestedRule(String ruleDeclaration) {
             ruleDeclaration = ruleDeclaration.Trim();
             String ruleName = ExtractRuleNameFromDeclaration(ruleDeclaration);
@@ -91,6 +96,9 @@ namespace iText.Html2pdf.Css {
             }
         }
 
+        /// <summary>Extracts the rule name from the CSS rule declaration.</summary>
+        /// <param name="ruleDeclaration">the rule declaration</param>
+        /// <returns>the rule name</returns>
         internal static String ExtractRuleNameFromDeclaration(String ruleDeclaration) {
             int spaceIndex = ruleDeclaration.IndexOf(' ');
             int colonIndex = ruleDeclaration.IndexOf(':');

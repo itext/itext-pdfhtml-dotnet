@@ -43,14 +43,21 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf.Css {
+    /// <summary>A <code>CssAtRule</code> implementation.</summary>
     public class CssSemicolonAtRule : CssAtRule {
+        /// <summary>The rule parameters.</summary>
         private String ruleParams;
 
+        /// <summary>Creates a new <code>CssSemicolonAtRule</code> instance.</summary>
+        /// <param name="ruleDeclaration">the rule declaration</param>
         public CssSemicolonAtRule(String ruleDeclaration)
             : base(CssNestedAtRuleFactory.ExtractRuleNameFromDeclaration(ruleDeclaration.Trim())) {
             this.ruleParams = ruleDeclaration.Trim().Substring(ruleName.Length).Trim();
         }
 
+        /* (non-Javadoc)
+        * @see java.lang.Object#toString()
+        */
         public override String ToString() {
             return String.Format("@{0} {1};", ruleName, ruleParams);
         }

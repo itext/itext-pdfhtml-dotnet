@@ -46,33 +46,54 @@ using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css {
+    /// <summary>The CSS context node.</summary>
     public abstract class CssContextNode : INode, IStylesContainer {
+        /// <summary>The child nodes.</summary>
         private IList<INode> childNodes = new List<INode>();
 
+        /// <summary>The parent node.</summary>
         private INode parentNode;
 
+        /// <summary>The styles.</summary>
         private IDictionary<String, String> styles;
 
+        /// <summary>Creates a new <code>CssContextNode</code> instance.</summary>
+        /// <param name="parentNode">the parent node</param>
         public CssContextNode(INode parentNode) {
             this.parentNode = parentNode;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.INode#childNodes()
+        */
         public virtual IList<INode> ChildNodes() {
             return JavaCollectionsUtil.UnmodifiableList(childNodes);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.INode#addChild(com.itextpdf.html2pdf.html.node.INode)
+        */
         public virtual void AddChild(INode node) {
             childNodes.Add(node);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.INode#parentNode()
+        */
         public virtual INode ParentNode() {
             return parentNode;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.IStylesContainer#setStyles(java.util.Map)
+        */
         public virtual void SetStyles(IDictionary<String, String> stringStringMap) {
             this.styles = stringStringMap;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.IStylesContainer#getStyles()
+        */
         public virtual IDictionary<String, String> GetStyles() {
             return this.styles;
         }

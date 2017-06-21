@@ -48,34 +48,51 @@ using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css {
     /// <summary>
-    /// From the spec:
-    /// Nested at-rules — A subset of nested statements, which can be used as a statement of a style sheet
-    /// as well as inside of conditional group rules.
+    /// Class to store a nested CSS at-rule
+    /// Nested at-rules are a subset of nested statements, which can be used
+    /// as a statement of a style sheet as well as inside of conditional group rules.
     /// </summary>
     public class CssNestedAtRule : CssAtRule {
+        /// <summary>The rule parameters.</summary>
         private String ruleParameters;
 
+        /// <summary>The body.</summary>
         protected internal IList<CssStatement> body;
 
+        /// <summary>
+        /// Creates a <code>CssNestedAtRule</code> instance
+        /// with an empty body.
+        /// </summary>
+        /// <param name="ruleName">the rule name</param>
+        /// <param name="ruleParameters">the rule parameters</param>
         public CssNestedAtRule(String ruleName, String ruleParameters)
             : base(ruleName) {
-            // without body
+            // TODO: Auto-generated Javadoc
             this.ruleParameters = ruleParameters;
             this.body = new List<CssStatement>();
         }
 
+        /// <summary>Adds a CSS statement to body.</summary>
+        /// <param name="statement">a CSS statement</param>
         public virtual void AddStatementToBody(CssStatement statement) {
             this.body.Add(statement);
         }
 
+        /// <summary>Adds CSS statements to the body.</summary>
+        /// <param name="statements">a list of CSS statements</param>
         public virtual void AddStatementsToBody(ICollection<CssStatement> statements) {
             this.body.AddAll(statements);
         }
 
+        /// <summary>Adds the body CSS declarations.</summary>
+        /// <param name="cssDeclarations">a list of CSS declarations</param>
         public virtual void AddBodyCssDeclarations(IList<CssDeclaration> cssDeclarations) {
         }
 
         // ignore by default
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.CssStatement#getCssRuleSets(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.media.MediaDeviceDescription)
+        */
         public override IList<CssRuleSet> GetCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
             IList<CssRuleSet> result = new List<CssRuleSet>();
             foreach (CssStatement childStatement in body) {
@@ -84,10 +101,15 @@ namespace iText.Html2pdf.Css {
             return result;
         }
 
+        /// <summary>Gets the list of CSS statements.</summary>
+        /// <returns>the list of CSS statements</returns>
         public virtual IList<CssStatement> GetStatements() {
             return body;
         }
 
+        /* (non-Javadoc)
+        * @see java.lang.Object#toString()
+        */
         public override String ToString() {
             StringBuilder sb = new StringBuilder();
             sb.Append(String.Format("@{0} {1} ", ruleName, ruleParameters));

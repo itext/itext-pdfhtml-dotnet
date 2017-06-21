@@ -44,28 +44,43 @@ using System;
 using iText.Html2pdf.Css.Util;
 
 namespace iText.Html2pdf.Css {
+    /// <summary>Class to store a CSS declaration.</summary>
     public class CssDeclaration {
+        /// <summary>The property.</summary>
         private String property;
 
+        /// <summary>The expression.</summary>
         private String expression;
 
+        /// <summary>Instantiates a new CSS declaration.</summary>
+        /// <param name="property">the property</param>
+        /// <param name="expression">the expression</param>
         public CssDeclaration(String property, String expression) {
             this.property = CssUtils.NormalizeCssProperty(property);
             this.expression = CssUtils.NormalizeCssProperty(expression);
         }
 
+        /* (non-Javadoc)
+        * @see java.lang.Object#toString()
+        */
         public override String ToString() {
             return String.Format("{0}: {1}", property, expression);
         }
 
+        /// <summary>Gets the property.</summary>
+        /// <returns>the property</returns>
         public virtual String GetProperty() {
             return property;
         }
 
+        /// <summary>Gets the expression.</summary>
+        /// <returns>the expression</returns>
         public virtual String GetExpression() {
             return expression;
         }
 
+        /// <summary>Sets the expression.</summary>
+        /// <param name="expression">the new expression</param>
         public virtual void SetExpression(String expression) {
             this.expression = expression;
         }

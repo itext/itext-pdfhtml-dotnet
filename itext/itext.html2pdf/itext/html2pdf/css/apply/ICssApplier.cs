@@ -44,7 +44,12 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Apply {
+    /// <summary>Interface to be implemented by all types of CSS appliers.</summary>
     public interface ICssApplier {
+        /// <summary>Applies styles to an element.</summary>
+        /// <param name="context">the processor context</param>
+        /// <param name="stylesContainer">the styles</param>
+        /// <param name="tagWorker">the tag worker for the element</param>
         void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker);
     }
 }

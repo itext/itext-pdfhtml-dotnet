@@ -44,9 +44,14 @@ using System.Collections.Generic;
 using iText.Html2pdf.Css.Selector;
 
 namespace iText.Html2pdf.Css {
+    /// <summary>Comparator class used to sort CSS rule set objects.</summary>
     public class CssRuleSetComparator : IComparer<CssRuleSet> {
+        /// <summary>The selector comparator.</summary>
         private CssSelectorComparator selectorComparator = new CssSelectorComparator();
 
+        /* (non-Javadoc)
+        * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+        */
         public virtual int Compare(CssRuleSet o1, CssRuleSet o2) {
             return selectorComparator.Compare(o1.GetSelector(), o2.GetSelector());
         }

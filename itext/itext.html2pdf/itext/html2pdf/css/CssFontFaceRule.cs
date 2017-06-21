@@ -45,21 +45,33 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace iText.Html2pdf.Css {
+    /// <summary>Class to store a CSS font face At rule.</summary>
     public class CssFontFaceRule : CssNestedAtRule {
+        /// <summary>Properties in the form of a list of CSS declarations.</summary>
         private IList<CssDeclaration> properties;
 
+        /// <summary>Instantiates a new CSS font face rule.</summary>
+        /// <param name="ruleParameters">the rule parameters</param>
         protected internal CssFontFaceRule(String ruleParameters)
             : base(CssRuleName.FONT_FACE, ruleParameters) {
         }
 
+        /// <summary>Gets the properties.</summary>
+        /// <returns>the properties</returns>
         public virtual IList<CssDeclaration> GetProperties() {
             return properties;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.CssNestedAtRule#addBodyCssDeclarations(java.util.List)
+        */
         public override void AddBodyCssDeclarations(IList<CssDeclaration> cssDeclarations) {
             properties = cssDeclarations;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.CssNestedAtRule#toString()
+        */
         public override String ToString() {
             StringBuilder sb = new StringBuilder();
             sb.Append(String.Format("@{0} ", ruleName));

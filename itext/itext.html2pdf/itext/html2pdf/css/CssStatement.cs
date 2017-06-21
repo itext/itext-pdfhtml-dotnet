@@ -46,7 +46,16 @@ using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css {
+    /// <summary>Abstract superclass for all kinds of CSS statements.</summary>
     public abstract class CssStatement {
+        /// <summary>
+        /// Gets a list of
+        /// <see cref="CSSRuleSet"/>
+        /// objects.
+        /// </summary>
+        /// <param name="node">a node</param>
+        /// <param name="deviceDescription">a media device description</param>
+        /// <returns>the css rule sets</returns>
         public virtual IList<CssRuleSet> GetCssRuleSets(INode node, MediaDeviceDescription deviceDescription) {
             return JavaCollectionsUtil.EmptyList<CssRuleSet>();
         }
