@@ -45,14 +45,27 @@ using Org.Jsoup.Nodes;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
+    /// <summary>
+    /// Implementation of the
+    /// <see cref="iText.Html2pdf.Html.Node.ITextNode"/>
+    /// interface; wrapper for the JSoup
+    /// <see cref="Org.Jsoup.Nodes.TextNode"/>
+    /// class.
+    /// </summary>
     public class JsoupTextNode : JsoupNode, ITextNode {
+        /// <summary>The text node.</summary>
         private TextNode textNode;
 
+        /// <summary>Creates a new <code>JsoupTextNode</code> instance.</summary>
+        /// <param name="textNode">the text node</param>
         public JsoupTextNode(TextNode textNode)
             : base(textNode) {
             this.textNode = textNode;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.ITextNode#wholeText()
+        */
         public virtual String WholeText() {
             return textNode.GetWholeText();
         }

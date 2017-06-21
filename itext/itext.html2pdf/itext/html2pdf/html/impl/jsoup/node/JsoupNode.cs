@@ -46,21 +46,39 @@ using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
+    /// <summary>
+    /// Implementation of the
+    /// <see cref="iText.Html2pdf.Html.Node.INode"/>
+    /// interface; wrapper for the JSoup
+    /// <see cref="Org.Jsoup.Nodes.Node"/>
+    /// class.
+    /// </summary>
     public class JsoupNode : INode {
+        /// <summary>The JSoup node instance.</summary>
         private Org.Jsoup.Nodes.Node node;
 
+        /// <summary>The child nodes.</summary>
         private IList<INode> childNodes = new List<INode>();
 
+        /// <summary>The parent node.</summary>
         internal INode parentNode;
 
+        /// <summary>Creates a new <code>JsoupNode</code> instance.</summary>
+        /// <param name="node">the node</param>
         public JsoupNode(Org.Jsoup.Nodes.Node node) {
             this.node = node;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.INode#childNodes()
+        */
         public virtual IList<INode> ChildNodes() {
             return JavaCollectionsUtil.UnmodifiableList(childNodes);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.INode#addChild(com.itextpdf.html2pdf.html.node.INode)
+        */
         public virtual void AddChild(INode node) {
             if (node is iText.Html2pdf.Html.Impl.Jsoup.Node.JsoupNode) {
                 childNodes.Add(node);
@@ -72,6 +90,9 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.INode#parentNode()
+        */
         public virtual INode ParentNode() {
             return parentNode;
         }

@@ -44,17 +44,37 @@ using System;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
+    /// <summary>
+    /// Implementation of the
+    /// <see cref="iText.Html2pdf.Html.Node.IAttribute"/>
+    /// interface; wrapper for the JSoup
+    /// <see cref="Org.Jsoup.Nodes.Attribute"/>
+    /// class.
+    /// </summary>
     public class JsoupAttribute : IAttribute {
+        /// <summary>
+        /// The JSoup
+        /// <see cref="Org.Jsoup.Nodes.Attribute"/>
+        /// instance.
+        /// </summary>
         private Org.Jsoup.Nodes.Attribute attribute;
 
+        /// <summary>Creates a new <code>JsoupAttribute</code> instance.</summary>
+        /// <param name="attribute">the attribute</param>
         public JsoupAttribute(Org.Jsoup.Nodes.Attribute attribute) {
             this.attribute = attribute;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.IAttribute#getKey()
+        */
         public virtual String GetKey() {
             return attribute.Key;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.IAttribute#getValue()
+        */
         public virtual String GetValue() {
             return attribute.Value;
         }

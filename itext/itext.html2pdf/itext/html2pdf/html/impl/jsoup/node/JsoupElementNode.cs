@@ -47,17 +47,31 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
+    /// <summary>
+    /// Implementation of the
+    /// <see cref="iText.Html2pdf.Html.Node.IElementNode"/>
+    /// interface; wrapper for the JSoup
+    /// <see cref="JsoupNode"/>
+    /// class.
+    /// </summary>
     public class JsoupElementNode : JsoupNode, IElementNode {
+        /// <summary>The JSoup element.</summary>
         private Element element;
 
+        /// <summary>The attributes.</summary>
         private IAttributes attributes;
 
+        /// <summary>The resolved styles.</summary>
         private IDictionary<String, String> elementResolvedStyles;
 
+        /// <summary>The custom default styles.</summary>
         private IList<IDictionary<String, String>> customDefaultStyles;
 
+        /// <summary>The language.</summary>
         private String lang = null;
 
+        /// <summary>Creates a new <code>JsoupElementNode</code> instance.</summary>
+        /// <param name="element">the element</param>
         public JsoupElementNode(Element element)
             : base(element) {
             this.element = element;
@@ -65,30 +79,51 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
             this.lang = GetAttribute(AttributeConstants.LANG);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.IElementNode#name()
+        */
         public virtual String Name() {
             return element.NodeName();
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.IElementNode#getAttributes()
+        */
         public virtual IAttributes GetAttributes() {
             return attributes;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.IElementNode#getAttribute(java.lang.String)
+        */
         public virtual String GetAttribute(String key) {
             return attributes.GetAttribute(key);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.IStylesContainer#setStyles(java.util.Map)
+        */
         public virtual void SetStyles(IDictionary<String, String> elementResolvedStyles) {
             this.elementResolvedStyles = elementResolvedStyles;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.IStylesContainer#getStyles()
+        */
         public virtual IDictionary<String, String> GetStyles() {
             return this.elementResolvedStyles;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.IElementNode#getAdditionalHtmlStyles()
+        */
         public virtual IList<IDictionary<String, String>> GetAdditionalHtmlStyles() {
             return customDefaultStyles;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.IElementNode#addAdditionalHtmlStyles(java.util.Map)
+        */
         public virtual void AddAdditionalHtmlStyles(IDictionary<String, String> styles) {
             if (customDefaultStyles == null) {
                 customDefaultStyles = new List<IDictionary<String, String>>();
@@ -96,6 +131,9 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
             customDefaultStyles.Add(styles);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.IElementNode#getLang()
+        */
         public virtual String GetLang() {
             if (lang != null) {
                 return lang;
@@ -112,6 +150,8 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
             }
         }
 
+        /// <summary>Returns the element text.</summary>
+        /// <returns>the text</returns>
         public virtual String Text() {
             return element.Text();
         }

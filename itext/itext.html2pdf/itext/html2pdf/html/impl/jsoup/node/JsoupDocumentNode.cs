@@ -44,14 +44,26 @@ using Org.Jsoup.Nodes;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
+    /// <summary>
+    /// Implementation of the
+    /// <see cref="iText.Html2pdf.Html.Node.IDocumentNode"/>
+    /// interface; wrapper for the JSoup
+    /// <see cref="Org.Jsoup.Nodes.Document"/>
+    /// class.
+    /// </summary>
     public class JsoupDocumentNode : JsoupElementNode, IDocumentNode {
+        /// <summary>The JSoup document instance.</summary>
         private Document document;
 
+        /// <summary>Creates a new <code>JsoupDocumentNode</code> instance.</summary>
+        /// <param name="document">the document</param>
         public JsoupDocumentNode(Document document)
             : base(document) {
             this.document = document;
         }
 
+        /// <summary>Gets the JSoup document.</summary>
+        /// <returns>the document</returns>
         public virtual Document GetDocument() {
             return document;
         }
