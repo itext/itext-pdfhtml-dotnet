@@ -45,13 +45,19 @@ using iText.IO.Util;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Wrapelement {
+    /// <summary>Wrapper for the <code>tr</code> element.</summary>
     public class TableRowWrapper : IWrapElement {
+        /// <summary>The cells in the row.</summary>
         private IList<Cell> cells = new List<Cell>();
 
+        /// <summary>Adds a cell to the row.</summary>
+        /// <param name="cell">the cell</param>
         public virtual void AddCell(Cell cell) {
             cells.Add(cell);
         }
 
+        /// <summary>Gets the cells of the row.</summary>
+        /// <returns>the cells</returns>
         public virtual IList<Cell> GetCells() {
             return JavaCollectionsUtil.UnmodifiableList(cells);
         }

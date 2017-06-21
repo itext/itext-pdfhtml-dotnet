@@ -47,25 +47,37 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Wrapelement {
+    /// <summary>Wrapper for the <code>table</code> element.</summary>
     public class TableWrapper : IWrapElement {
+        /// <summary>The body rows of the table.</summary>
         private IList<IList<TableWrapper.CellWrapper>> rows;
 
+        /// <summary>The header rows.</summary>
         private IList<IList<TableWrapper.CellWrapper>> headerRows;
 
+        /// <summary>The footer rows.</summary>
         private IList<IList<TableWrapper.CellWrapper>> footerRows;
 
+        /// <summary>The current position in the body of the table (row / column).</summary>
         private RowColHelper rowShift = new RowColHelper();
 
+        /// <summary>The current position in the header of the table (row / column).</summary>
         private RowColHelper headerRowShift = new RowColHelper();
 
+        /// <summary>The current position in the footer of the table (row / column).</summary>
         private RowColHelper footerRowShift = new RowColHelper();
 
+        /// <summary>The number of columns.</summary>
         private int numberOfColumns = 0;
 
+        // TODO: Auto-generated Javadoc
+        /// <summary>Gets the number of rows.</summary>
+        /// <returns>the number of rows</returns>
         public virtual int GetRowsSize() {
             return rows.Count;
         }
 
+        /// <summary>Adds a new body row.</summary>
         public virtual void NewRow() {
             if (rows == null) {
                 rows = new List<IList<TableWrapper.CellWrapper>>();
@@ -74,6 +86,7 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             rows.Add(new List<TableWrapper.CellWrapper>());
         }
 
+        /// <summary>Adds a new header row.</summary>
         public virtual void NewHeaderRow() {
             if (headerRows == null) {
                 headerRows = new List<IList<TableWrapper.CellWrapper>>();
@@ -82,6 +95,7 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             headerRows.Add(new List<TableWrapper.CellWrapper>());
         }
 
+        /// <summary>Adds a new footer row.</summary>
         public virtual void NewFooterRow() {
             if (footerRows == null) {
                 footerRows = new List<IList<TableWrapper.CellWrapper>>();
@@ -90,6 +104,8 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             footerRows.Add(new List<TableWrapper.CellWrapper>());
         }
 
+        /// <summary>Adds a new cell to the header rows.</summary>
+        /// <param name="cell">the cell</param>
         public virtual void AddHeaderCell(Cell cell) {
             if (headerRows == null) {
                 headerRows = new List<IList<TableWrapper.CellWrapper>>();
@@ -100,6 +116,8 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             AddCellToTable(cell, headerRows, headerRowShift);
         }
 
+        /// <summary>Adds a new cell to the footer rows.</summary>
+        /// <param name="cell">the cell</param>
         public virtual void AddFooterCell(Cell cell) {
             if (footerRows == null) {
                 footerRows = new List<IList<TableWrapper.CellWrapper>>();
@@ -110,6 +128,8 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             AddCellToTable(cell, footerRows, footerRowShift);
         }
 
+        /// <summary>Adds a new cell to the body rows.</summary>
+        /// <param name="cell">the cell</param>
         public virtual void AddCell(Cell cell) {
             if (rows == null) {
                 rows = new List<IList<TableWrapper.CellWrapper>>();
@@ -120,6 +140,10 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             AddCellToTable(cell, rows, rowShift);
         }
 
+        /// <summary>Adds a cell to a table.</summary>
+        /// <param name="cell">the cell</param>
+        /// <param name="table">the table</param>
+        /// <param name="tableRowShift">the applicable table row shift (current col / row position).</param>
         private void AddCellToTable(Cell cell, IList<IList<TableWrapper.CellWrapper>> table, RowColHelper tableRowShift
             ) {
             int col = tableRowShift.MoveToNextEmptyCol();
@@ -129,6 +153,13 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             numberOfColumns = Math.Max(numberOfColumns, col + cell.GetColspan());
         }
 
+        /// <summary>
+        /// Renders all the rows to a
+        /// <see cref="iText.Layout.Element.Table"/>
+        /// object.
+        /// </summary>
+        /// <param name="colgroupsHelper">the colgroups helper class</param>
+        /// <returns>the table</returns>
         public virtual Table ToTable(WaitingColgroupsHelper colgroupsHelper) {
             Table table;
             if (numberOfColumns > 0) {
@@ -167,6 +198,9 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             return table;
         }
 
+        /// <summary>Gets the column widths.</summary>
+        /// <param name="colgroups">the colgroups helper class</param>
+        /// <returns>the column widths</returns>
         private UnitValue[] GetColWidths(WaitingColgroupsHelper colgroups) {
             UnitValue[] colWidths = new UnitValue[numberOfColumns];
             if (colgroups == null) {
@@ -176,17 +210,23 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             }
             else {
                 for (int i = 0; i < numberOfColumns; i++) {
-                    colWidths[i] = colgroups.GetColWraper(i) != null ? colgroups.GetColWraper(i).GetWidth() : null;
+                    colWidths[i] = colgroups.GetColWrapper(i) != null ? colgroups.GetColWrapper(i).GetWidth() : null;
                 }
             }
             return colWidths;
         }
 
+        /// <summary>Wrapper for the <code>td</code>/<code>th</code> element.</summary>
         private class CellWrapper {
+            /// <summary>The column index.</summary>
             internal int col;
 
+            /// <summary>The cell.</summary>
             internal Cell cell;
 
+            /// <summary>Creates a new <code>CellWrapper</code> instance.</summary>
+            /// <param name="col">the column index</param>
+            /// <param name="cell">the cell</param>
             internal CellWrapper(int col, Cell cell) {
                 this.col = col;
                 this.cell = cell;

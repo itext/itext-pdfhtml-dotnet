@@ -51,17 +51,26 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>TagWorker class for the <code>span</code> tag.</summary>
     public class SpanTagWorker : ITagWorker, IDisplayAware {
+        /// <summary>The span wrapper.</summary>
         internal SpanWrapper spanWrapper;
 
+        /// <summary>A list of elements belonging to the span.</summary>
         private IList<IPropertyContainer> elements;
 
+        /// <summary>The own leaf elements.</summary>
         private IList<IPropertyContainer> ownLeafElements = new List<IPropertyContainer>();
 
+        /// <summary>The helper object for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
+        /// <summary>The display value.</summary>
         private String display;
 
+        /// <summary>Creates a new <code>SpanTagWorker</code> instance.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the processor context</param>
         public SpanTagWorker(IElementNode element, ProcessorContext context) {
             spanWrapper = new SpanWrapper();
             IDictionary<String, String> styles = element.GetStyles();
@@ -70,16 +79,25 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             FlushInlineHelper();
             elements = spanWrapper.GetElements();
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
             inlineHelper.Add(content);
             return true;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             IPropertyContainer element = childTagWorker.GetElementResult();
             if (element is ILeafElement) {
@@ -105,22 +123,33 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return false;
         }
 
+        /// <summary>Gets all the elements in the span.</summary>
+        /// <returns>a list of elements</returns>
         public virtual IList<IPropertyContainer> GetAllElements() {
             return elements;
         }
 
+        /// <summary>Gets the span's own leaf elements.</summary>
+        /// <returns>the own leaf elements</returns>
         public virtual IList<IPropertyContainer> GetOwnLeafElements() {
             return ownLeafElements;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
+        */
         public virtual IPropertyContainer GetElementResult() {
             return null;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware#getDisplay()
+        */
         public virtual String GetDisplay() {
             return display;
         }
 
+        /// <summary>Flushes the waiting leaf elements.</summary>
         private void FlushInlineHelper() {
             spanWrapper.AddAll(inlineHelper.GetWaitingLeaves());
             ownLeafElements.AddAll(inlineHelper.GetWaitingLeaves());

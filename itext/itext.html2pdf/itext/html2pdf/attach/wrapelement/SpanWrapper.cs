@@ -46,25 +46,37 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Wrapelement {
+    /// <summary>Wrapper for the <code>span</code> element.</summary>
     public class SpanWrapper : IWrapElement {
+        /// <summary>The children of the span element.</summary>
         private IList<Object> children = new List<Object>();
 
+        /// <summary>Adds a child span.</summary>
+        /// <param name="span">the span element to add</param>
         public virtual void Add(SpanWrapper span) {
             children.Add(span);
         }
 
+        /// <summary>Adds a child image.</summary>
+        /// <param name="img">the img element to add</param>
         public virtual void Add(ILeafElement img) {
             children.Add(img);
         }
 
+        /// <summary>Adds a child block element.</summary>
+        /// <param name="block">the block element to add</param>
         public virtual void Add(IBlockElement block) {
             children.Add(block);
         }
 
+        /// <summary>Adds a collection of lead elements as children.</summary>
+        /// <param name="collection">the collection to add</param>
         public virtual void AddAll(ICollection<ILeafElement> collection) {
             children.AddAll(collection);
         }
 
+        /// <summary>Gets a list of all the child elements.</summary>
+        /// <returns>the child elements</returns>
         public virtual IList<IPropertyContainer> GetElements() {
             IList<IPropertyContainer> leafs = new List<IPropertyContainer>();
             foreach (Object child in children) {

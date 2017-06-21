@@ -44,10 +44,15 @@ using System.Collections.Generic;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Util {
+    /// <summary>Utility class to trim content.</summary>
     public sealed class TrimUtil {
+        /// <summary>Creates a new <code>TrimUtil</code> instance.</summary>
         private TrimUtil() {
         }
 
+        /// <summary>Trim leaf elements, and sanitize.</summary>
+        /// <param name="leafElements">the leaf elements</param>
+        /// <returns>the trimmed and sanitized list</returns>
         public static IList<ILeafElement> TrimLeafElementsAndSanitize(IList<ILeafElement> leafElements) {
             List<ILeafElement> waitingLeaves = new List<ILeafElement>(leafElements);
             TrimSubList(waitingLeaves, 0, waitingLeaves.Count, false);
@@ -67,10 +72,18 @@ namespace iText.Html2pdf.Attach.Util {
             return waitingLeaves;
         }
 
+        /// <summary>Checks if a character is white space value that doesn't cause a newline.</summary>
+        /// <param name="ch">the character</param>
+        /// <returns>true, if the character is a white space character, but no newline</returns>
         internal static bool IsNonLineBreakSpace(char ch) {
             return iText.IO.Util.TextUtil.IsWhiteSpace(ch) && ch != '\n';
         }
 
+        /// <summary>Trims a sub list of leaf elements.</summary>
+        /// <param name="list">the list of leaf elements</param>
+        /// <param name="begin">the index where to begin</param>
+        /// <param name="end">the index where to end</param>
+        /// <param name="last">indicates where to start, if true, we start at the end</param>
         private static void TrimSubList(List<ILeafElement> list, int begin, int end, bool last) {
             while (end > begin) {
                 int pos = last ? end - 1 : begin;
@@ -88,6 +101,10 @@ namespace iText.Html2pdf.Attach.Util {
             }
         }
 
+        /// <summary>Trims a leaf element.</summary>
+        /// <param name="leafElement">the leaf element</param>
+        /// <param name="last">indicates where to start, if true, we start at the end</param>
+        /// <returns>the leaf element</returns>
         private static ILeafElement TrimLeafElement(ILeafElement leafElement, bool last) {
             if (leafElement is Text) {
                 Text text = (Text)leafElement;
@@ -98,6 +115,13 @@ namespace iText.Html2pdf.Attach.Util {
             return leafElement;
         }
 
+        /// <summary>Gets the index of first character that isn't white space in some text.</summary>
+        /// <remarks>
+        /// Gets the index of first character that isn't white space in some text.
+        /// Note: newline characters aren't counted as white space characters.
+        /// </remarks>
+        /// <param name="text">the text</param>
+        /// <returns>the index of first character that isn't white space</returns>
         private static int GetIndexOfFirstNonSpace(Text text) {
             int pos = 0;
             while (pos < text.GetText().Length && IsNonLineBreakSpace(text.GetText()[pos])) {
@@ -106,6 +130,13 @@ namespace iText.Html2pdf.Attach.Util {
             return pos;
         }
 
+        /// <summary>Gets the index of last character following a character that isn't white space in some text.</summary>
+        /// <remarks>
+        /// Gets the index of last character following a character that isn't white space in some text.
+        /// Note: newline characters aren't counted as white space characters.
+        /// </remarks>
+        /// <param name="text">the text</param>
+        /// <returns>the index following the last character that isn't white space</returns>
         private static int GetIndexAfterLastNonSpace(Text text) {
             int pos = text.GetText().Length;
             while (pos > 0 && IsNonLineBreakSpace(text.GetText()[pos - 1])) {

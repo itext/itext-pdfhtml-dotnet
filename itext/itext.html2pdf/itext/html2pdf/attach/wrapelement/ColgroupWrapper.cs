@@ -46,62 +46,99 @@ using iText.IO.Util;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Wrapelement {
+    /// <summary>Wrapper for the <code>colgroup</code> element.</summary>
     public class ColgroupWrapper : IWrapElement {
+        /// <summary>The span.</summary>
         private int span;
 
+        /// <summary>The width.</summary>
         private UnitValue width;
 
+        /// <summary>The index to column mapping.</summary>
         private int[] indexToColMapping;
 
+        /// <summary>The cell CSS properties.</summary>
+        /// <remarks>
+        /// The cell CSS properties.
+        /// These properties should be inherited from &lt;colgroup&gt; to &lt;col&gt;
+        /// and are eventually applied to &lt;td&gt; or &lt;th&gt;.
+        /// </remarks>
         private IDictionary<String, String> cellCssProps;
 
+        /// <summary>The own CSS properties.</summary>
+        /// <remarks>
+        /// The own CSS properties.
+        /// These properties shouldn't be applied to &lt;td&gt; or &lt;th&gt;.
+        /// </remarks>
         private IDictionary<String, String> ownCssProps;
 
+        /// <summary>A list of column wrappers.</summary>
         private IList<ColWrapper> columns = new List<ColWrapper>();
 
+        /// <summary>Creates a new <code>ColgroupWrapper</code> instance.</summary>
+        /// <param name="span">the span</param>
         public ColgroupWrapper(int span) {
-            //Those properties should be inherited from <colgroup> to <col> and are eventually applied to <td> or <th>
-            //Those properties shouldn't be applied to <td> or <th>private Map<String, String> ownCssProps;
             this.span = span;
         }
 
+        /// <summary>Gets the span.</summary>
+        /// <returns>the span</returns>
         public virtual int GetSpan() {
             return span;
         }
 
+        /// <summary>Gets the width.</summary>
+        /// <returns>the width</returns>
         public virtual UnitValue GetWidth() {
             return width;
         }
 
+        /// <summary>Sets the width.</summary>
+        /// <param name="width">the width</param>
+        /// <returns>this <code>ColgroupWrapper</code> instance</returns>
         public virtual iText.Html2pdf.Attach.Wrapelement.ColgroupWrapper SetWidth(UnitValue width) {
             this.width = width;
             return this;
         }
 
+        /// <summary>Gets the cell CSS properties.</summary>
+        /// <returns>the cell CSS properties</returns>
         public virtual IDictionary<String, String> GetCellCssProps() {
             return cellCssProps;
         }
 
+        /// <summary>Sets the cell CSS properties.</summary>
+        /// <param name="cellCssProps">the cell CSS properties</param>
+        /// <returns>this <code>ColgroupWrapper</code> instance</returns>
         public virtual iText.Html2pdf.Attach.Wrapelement.ColgroupWrapper SetCellCssProps(IDictionary<String, String
             > cellCssProps) {
             this.cellCssProps = cellCssProps;
             return this;
         }
 
+        /// <summary>Gets the own CSS properties.</summary>
+        /// <returns>the own CSS properties</returns>
         public virtual IDictionary<String, String> GetOwnCssProps() {
             return ownCssProps;
         }
 
+        /// <summary>Sets the own CSS properties.</summary>
+        /// <param name="ownCssProps">the own CSS properties</param>
+        /// <returns>this <code>ColgroupWrapper</code> instance</returns>
         public virtual iText.Html2pdf.Attach.Wrapelement.ColgroupWrapper SetOwnCssProps(IDictionary<String, String
             > ownCssProps) {
             this.ownCssProps = ownCssProps;
             return this;
         }
 
+        /// <summary>Gets the columns.</summary>
+        /// <returns>the columns</returns>
         public virtual IList<ColWrapper> GetColumns() {
             return columns;
         }
 
+        /// <summary>Finalize the columns.</summary>
+        /// <returns>this <code>ColgroupWrapper</code> instance</returns>
         public virtual iText.Html2pdf.Attach.Wrapelement.ColgroupWrapper FinalizeCols() {
             if (indexToColMapping != null) {
                 return this;
@@ -142,6 +179,9 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             return this;
         }
 
+        /// <summary>Gets the column by index.</summary>
+        /// <param name="index">the index</param>
+        /// <returns>the column corresponding with the index</returns>
         public virtual ColWrapper GetColumnByIndex(int index) {
             return columns[indexToColMapping[index]];
         }

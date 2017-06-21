@@ -47,25 +47,36 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Attach.Util {
+    /// <summary>Helper class for waiting column groups.</summary>
     public class WaitingColgroupsHelper {
+        /// <summary>The table element.</summary>
         private IElementNode tableElement;
 
+        /// <summary>The column groups.</summary>
         private List<ColgroupWrapper> colgroups = new List<ColgroupWrapper>();
 
+        /// <summary>The maximum value of the index.</summary>
         private int maxIndex = -1;
 
+        /// <summary>The index to column group mapping.</summary>
         private int[] indexToColgroupMapping;
 
+        /// <summary>The shift values for the columns.</summary>
         private int[] shiftCol;
 
+        /// <summary>Creates a new <code>WaitingColgroupsHelper</code> instance.</summary>
+        /// <param name="tableElement">the table element</param>
         public WaitingColgroupsHelper(IElementNode tableElement) {
             this.tableElement = tableElement;
         }
 
+        /// <summary>Adds a column group.</summary>
+        /// <param name="colgroup">the column group</param>
         public virtual void Add(ColgroupWrapper colgroup) {
             colgroups.Add(colgroup);
         }
 
+        /// <summary>Applies column styles.</summary>
         public virtual void ApplyColStyles() {
             if (colgroups.IsEmpty() || maxIndex != -1) {
                 return;
@@ -93,7 +104,10 @@ namespace iText.Html2pdf.Attach.Util {
             }
         }
 
-        public virtual ColWrapper GetColWraper(int index) {
+        /// <summary>Gets a specific column.</summary>
+        /// <param name="index">the index of the column</param>
+        /// <returns>the column</returns>
+        public virtual ColWrapper GetColWrapper(int index) {
             if (index > maxIndex) {
                 return null;
             }
@@ -101,6 +115,9 @@ namespace iText.Html2pdf.Attach.Util {
                 ]]);
         }
 
+        /// <summary>Applies column styles.</summary>
+        /// <param name="node">the node</param>
+        /// <param name="rowColHelper">the helper class to keep track of the position inside the table</param>
         private void ApplyColStyles(INode node, RowColHelper rowColHelper) {
             int col;
             IElementNode element;
@@ -118,8 +135,8 @@ namespace iText.Html2pdf.Attach.Util {
                             colspan = colspan != null ? colspan : 1;
                             rowspan = rowspan != null ? rowspan : 1;
                             col = rowColHelper.MoveToNextEmptyCol();
-                            if (GetColWraper(col) != null && GetColWraper(col).GetCellCssProps() != null) {
-                                element.AddAdditionalHtmlStyles(GetColWraper(col).GetCellCssProps());
+                            if (GetColWrapper(col) != null && GetColWrapper(col).GetCellCssProps() != null) {
+                                element.AddAdditionalHtmlStyles(GetColWrapper(col).GetCellCssProps());
                             }
                             rowColHelper.UpdateCurrentPosition((int)colspan, (int)rowspan);
                         }
@@ -131,6 +148,7 @@ namespace iText.Html2pdf.Attach.Util {
             }
         }
 
+        /// <summary>Finalizes the column groups.</summary>
         private void FinalizeColgroups() {
             int shift = 0;
             shiftCol = new int[colgroups.Count];

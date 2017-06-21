@@ -44,18 +44,26 @@ using System;
 using System.Collections.Generic;
 
 namespace iText.Html2pdf.Attach.Util {
+    /// <summary>Helper class to keep track of the current column / row position in a table.</summary>
     public class RowColHelper {
+        /// <summary>The last empty row.</summary>
         private List<int> lastEmptyRow = new List<int>();
 
+        /// <summary>The current row index.</summary>
         private int currRow = -1;
 
+        /// <summary>The current column index.</summary>
         private int currCol = 0;
 
+        /// <summary>Move to a new row.</summary>
         public virtual void NewRow() {
             ++currRow;
             currCol = 0;
         }
 
+        /// <summary>Update current position based on a colspan and a rowspan.</summary>
+        /// <param name="colspan">the colspan</param>
+        /// <param name="rowspan">the rowspan</param>
         public virtual void UpdateCurrentPosition(int colspan, int rowspan) {
             EnsureRowIsStarted();
             while (lastEmptyRow.Count < currCol) {
@@ -73,6 +81,8 @@ namespace iText.Html2pdf.Attach.Util {
             currCol = end;
         }
 
+        /// <summary>Move to next empty column.</summary>
+        /// <returns>the current column position</returns>
         public virtual int MoveToNextEmptyCol() {
             EnsureRowIsStarted();
             while (!CanPutCell(currCol)) {
@@ -81,6 +91,9 @@ namespace iText.Html2pdf.Attach.Util {
             return currCol;
         }
 
+        /// <summary>Checks if we can put a new cell in the column.</summary>
+        /// <param name="col">the column index</param>
+        /// <returns>true, if successful</returns>
         public virtual bool CanPutCell(int col) {
             EnsureRowIsStarted();
             if (col >= lastEmptyRow.Count) {
@@ -91,6 +104,7 @@ namespace iText.Html2pdf.Attach.Util {
             }
         }
 
+        /// <summary>Ensure that a row is started.</summary>
         private void EnsureRowIsStarted() {
             if (currRow == -1) {
                 NewRow();

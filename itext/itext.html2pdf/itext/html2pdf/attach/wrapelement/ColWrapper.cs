@@ -45,48 +45,79 @@ using System.Collections.Generic;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Wrapelement {
+    /// <summary>Wrapper for the <code>col</code> element.</summary>
     public class ColWrapper : IWrapElement {
+        /// <summary>The span.</summary>
         private int span;
 
+        /// <summary>The width.</summary>
         private UnitValue width;
 
+        /// <summary>The cell CSS properties.</summary>
+        /// <remarks>
+        /// The cell CSS properties.
+        /// These properties should be inherited from &lt;colgroup&gt; to &lt;col&gt;
+        /// and are eventually applied to &lt;td&gt; or &lt;th&gt;.
+        /// </remarks>
         private IDictionary<String, String> cellCssProps;
 
+        /// <summary>The own CSS properties.</summary>
+        /// <remarks>
+        /// The own CSS properties.
+        /// These properties shouldn't be applied to &lt;td&gt; or &lt;th&gt;.
+        /// </remarks>
         private IDictionary<String, String> ownCssProps;
 
+        /// <summary>Creates a new <code>ColWrapper</code> instance.</summary>
+        /// <param name="span">the span</param>
         public ColWrapper(int span) {
-            //Those properties should be inherited from <colgroup> to <col> and are eventually applied to <td> or <th>
-            //Those properties shouldn't be applied to <td> or <th>
             this.span = span;
         }
 
+        /// <summary>Gets the span.</summary>
+        /// <returns>the span</returns>
         public virtual int GetSpan() {
             return span;
         }
 
+        /// <summary>Gets the width.</summary>
+        /// <returns>the width</returns>
         public virtual UnitValue GetWidth() {
             return width;
         }
 
+        /// <summary>Sets the width.</summary>
+        /// <param name="width">the width</param>
+        /// <returns>this <code>ColWrapper</code> instance</returns>
         public virtual iText.Html2pdf.Attach.Wrapelement.ColWrapper SetWidth(UnitValue width) {
             this.width = width;
             return this;
         }
 
+        /// <summary>Gets the cell CSS properties.</summary>
+        /// <returns>the cell CSS properties</returns>
         public virtual IDictionary<String, String> GetCellCssProps() {
             return cellCssProps;
         }
 
+        /// <summary>Sets the cell CSS properties.</summary>
+        /// <param name="cellCssProps">the cell CSS properties</param>
+        /// <returns>this <code>ColWrapper</code> instance</returns>
         public virtual iText.Html2pdf.Attach.Wrapelement.ColWrapper SetCellCssProps(IDictionary<String, String> cellCssProps
             ) {
             this.cellCssProps = cellCssProps;
             return this;
         }
 
+        /// <summary>Gets the own CSS properties.</summary>
+        /// <returns>the own CSS properties</returns>
         public virtual IDictionary<String, String> GetOwnCssProps() {
             return ownCssProps;
         }
 
+        /// <summary>Sets the own CSS properties.</summary>
+        /// <param name="ownCssProps">the own CSS properties</param>
+        /// <returns>this <code>ColWrapper</code> instance</returns>
         public virtual iText.Html2pdf.Attach.Wrapelement.ColWrapper SetOwnCssProps(IDictionary<String, String> ownCssProps
             ) {
             this.ownCssProps = ownCssProps;

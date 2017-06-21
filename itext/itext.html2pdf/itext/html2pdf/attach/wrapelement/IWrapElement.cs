@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 namespace iText.Html2pdf.Attach.Wrapelement {
+    /// <summary>Interface for all the element wrapper classes (such as SpanWrapper, TableWrapper,...).</summary>
     public interface IWrapElement {
     }
 }

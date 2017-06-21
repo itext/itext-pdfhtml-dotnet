@@ -49,15 +49,23 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Util {
+    /// <summary>Helper class for waiting inline elements.</summary>
     public class WaitingInlineElementsHelper {
+        /// <summary>A value that defines how to transform text.</summary>
         private String textTransform;
 
+        /// <summary>Indicates whether line breaks need to be preserved.</summary>
         private bool keepLineBreaks;
 
+        /// <summary>Indicates whether white space characters need to be collapsed.</summary>
         private bool collapseSpaces;
 
+        /// <summary>List of waiting leaf elements.</summary>
         private IList<ILeafElement> waitingLeaves = new List<ILeafElement>();
 
+        /// <summary>Creates a new <code>WaitingInlineElementsHelper</code> instance.</summary>
+        /// <param name="whiteSpace">we'll check if this value equals "pre" or "pre-wrap"</param>
+        /// <param name="textTransform">will define the transformation that needs to be applied to the text</param>
         public WaitingInlineElementsHelper(String whiteSpace, String textTransform) {
             keepLineBreaks = CssConstants.PRE.Equals(whiteSpace) || CssConstants.PRE_WRAP.Equals(whiteSpace) || CssConstants
                 .PRE_LINE.Equals(whiteSpace);
@@ -65,6 +73,8 @@ namespace iText.Html2pdf.Attach.Util {
             this.textTransform = textTransform;
         }
 
+        /// <summary>Adds text to the waiting leaves.</summary>
+        /// <param name="text">the text</param>
         public virtual void Add(String text) {
             if (!keepLineBreaks && collapseSpaces) {
                 text = CollapseConsecutiveSpaces(text);
@@ -112,14 +122,20 @@ namespace iText.Html2pdf.Attach.Util {
             waitingLeaves.Add(new iText.Layout.Element.Text(text));
         }
 
+        /// <summary>Adds a leaf element to the waiting leaves.</summary>
+        /// <param name="element">the element</param>
         public virtual void Add(ILeafElement element) {
             waitingLeaves.Add(element);
         }
 
+        /// <summary>Adds a collecton of leaf elements to the waiting leaves.</summary>
+        /// <param name="collection">the collection</param>
         public virtual void AddAll(ICollection<ILeafElement> collection) {
             waitingLeaves.AddAll(collection);
         }
 
+        /// <summary>Flush hanging leaves.</summary>
+        /// <param name="container">a container element</param>
         public virtual void FlushHangingLeaves(IPropertyContainer container) {
             Paragraph p = CreateLeavesContainer();
             if (p != null) {
@@ -157,6 +173,8 @@ namespace iText.Html2pdf.Attach.Util {
             }
         }
 
+        /// <summary>Creates the leaves container.</summary>
+        /// <returns>a paragraph</returns>
         public virtual Paragraph CreateLeavesContainer() {
             if (collapseSpaces) {
                 waitingLeaves = TrimUtil.TrimLeafElementsAndSanitize(waitingLeaves);
@@ -189,10 +207,14 @@ namespace iText.Html2pdf.Attach.Util {
             }
         }
 
+        /// <summary>Gets the waiting leaves.</summary>
+        /// <returns>the waiting leaves</returns>
         public virtual ICollection<ILeafElement> GetWaitingLeaves() {
             return waitingLeaves;
         }
 
+        /// <summary>Gets the sanitized waiting leaves.</summary>
+        /// <returns>the sanitized waiting leaves</returns>
         public virtual IList<ILeafElement> GetSanitizedWaitingLeaves() {
             if (collapseSpaces) {
                 return TrimUtil.TrimLeafElementsAndSanitize(waitingLeaves);
@@ -202,14 +224,19 @@ namespace iText.Html2pdf.Attach.Util {
             }
         }
 
+        /// <summary>Clears the waiting leaves.</summary>
         public virtual void ClearWaitingLeaves() {
             waitingLeaves.Clear();
         }
 
+        /// <summary>Creates a paragraph container.</summary>
+        /// <returns>the paragraph container</returns>
         public virtual Paragraph CreateParagraphContainer() {
             return new Paragraph().SetMargin(0);
         }
 
+        /// <summary>Capitalizes a series of leaf elements.</summary>
+        /// <param name="leaves">a list of leaf elements</param>
         private static void Capitalize(IList<ILeafElement> leaves) {
             bool previousLetter = false;
             foreach (ILeafElement element in leaves) {
@@ -240,6 +267,9 @@ namespace iText.Html2pdf.Attach.Util {
             }
         }
 
+        /// <summary>Collapses consecutive spaces.</summary>
+        /// <param name="s">a string</param>
+        /// <returns>the string with the consecutive spaces collapsed</returns>
         private static String CollapseConsecutiveSpaces(String s) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < s.Length; i++) {

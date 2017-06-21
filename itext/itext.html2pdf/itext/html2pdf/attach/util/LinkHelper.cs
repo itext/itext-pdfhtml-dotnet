@@ -51,10 +51,15 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Util {
+    /// <summary>Helper class for links.</summary>
     public class LinkHelper {
+        /// <summary>Creates a new <code>LinkHelper</code> class.</summary>
         private LinkHelper() {
         }
 
+        /// <summary>Applies a link annotation.</summary>
+        /// <param name="container">the containing object</param>
+        /// <param name="url">the destination</param>
         public static void ApplyLinkAnnotation(IPropertyContainer container, String url) {
             if (container != null) {
                 PdfLinkAnnotation linkAnnotation;
