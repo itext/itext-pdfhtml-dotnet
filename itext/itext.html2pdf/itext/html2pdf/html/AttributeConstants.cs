@@ -43,111 +43,164 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf.Html {
+    /// <summary>Class that bundles a series of attribute constants.</summary>
     public sealed class AttributeConstants {
-        public const String ALIGN = "align";
-
-        public const String ALT = "alt";
-
-        public const String BGCOLOR = "bgcolor";
-
-        public const String BORDER = "border";
-
-        public const String CLASS = "class";
-
-        public const String COLOR = "color";
-
-        public const String COLS = "cols";
-
-        public const String COLSPAN = "colspan";
-
-        public const String DIR = "dir";
-
-        public const String FACE = "face";
-
-        public const String HEIGHT = "height";
-
-        public const String HREF = "href";
-
-        public const String ID = "id";
-
-        public const String LANG = "lang";
-
-        public const String MEDIA = "media";
-
-        public const String NAME = "name";
-
-        public const String NOSHADE = "noshade";
-
-        public const String REL = "rel";
-
-        public const String ROWS = "rows";
-
-        public const String ROWSPAN = "rowspan";
-
-        public const String SIZE = "size";
-
-        public const String SPAN = "span";
-
-        public const String SRC = "src";
-
-        public const String STYLE = "style";
-
-        public const String TYPE = "type";
-
-        public const String VALIGN = "valign";
-
-        public const String VALUE = "value";
-
-        public const String WIDTH = "width";
-
-        public const String TITLE = "title";
-
-        public const String _1 = "1";
-
-        public const String A = "A";
-
-        public const String a = "a";
-
-        public const String BOTTOM = "bottom";
-
-        public const String BUTTON = "button";
-
-        public const String CENTER = "center";
-
-        public const String CHECKBOX = "checkbox";
-
-        public const String EMAIL = "email";
-
-        public const String I = "I";
-
-        public const String i = "i";
-
-        public const String LEFT = "left";
-
-        public const String LTR = "ltr";
-
-        public const String MIDDLE = "middle";
-
-        public const String PASSWORD = "password";
-
-        public const String RADIO = "radio";
-
-        public const String RIGHT = "right";
-
-        public const String RTL = "rtl";
-
-        public const String STYLESHEET = "stylesheet";
-
-        public const String SUBMIT = "submit";
-
-        public const String TEXT = "text";
-
-        public const String TOP = "top";
-
-        public const String PARENT_TABLE_BORDER = "parenttableborder";
-
+        /// <summary>Creates a new <code>AttributeConstants</code> instance.</summary>
         private AttributeConstants() {
         }
+
+        /// <summary>The Constant ALIGN.</summary>
+        public const String ALIGN = "align";
+
+        /// <summary>The Constant ALT.</summary>
+        public const String ALT = "alt";
+
+        /// <summary>The Constant BGCOLOR.</summary>
+        public const String BGCOLOR = "bgcolor";
+
+        /// <summary>The Constant BORDER.</summary>
+        public const String BORDER = "border";
+
+        /// <summary>The Constant CLASS.</summary>
+        public const String CLASS = "class";
+
+        /// <summary>The Constant COLOR.</summary>
+        public const String COLOR = "color";
+
+        /// <summary>The Constant COLS.</summary>
+        public const String COLS = "cols";
+
+        /// <summary>The Constant COLSPAN.</summary>
+        public const String COLSPAN = "colspan";
+
+        /// <summary>The Constant DIR.</summary>
+        public const String DIR = "dir";
+
+        /// <summary>The Constant FACE.</summary>
+        public const String FACE = "face";
+
+        /// <summary>The Constant HEIGHT.</summary>
+        public const String HEIGHT = "height";
+
+        /// <summary>The Constant HREF.</summary>
+        public const String HREF = "href";
+
+        /// <summary>The Constant ID.</summary>
+        public const String ID = "id";
+
+        /// <summary>The Constant LANG.</summary>
+        public const String LANG = "lang";
+
+        /// <summary>The Constant MEDIA.</summary>
+        public const String MEDIA = "media";
+
+        /// <summary>The Constant NAME.</summary>
+        public const String NAME = "name";
+
+        /// <summary>The Constant NOSHADE.</summary>
+        public const String NOSHADE = "noshade";
+
+        /// <summary>The Constant REL.</summary>
+        public const String REL = "rel";
+
+        /// <summary>The Constant ROWS.</summary>
+        public const String ROWS = "rows";
+
+        /// <summary>The Constant ROWSPAN.</summary>
+        public const String ROWSPAN = "rowspan";
+
+        /// <summary>The Constant SIZE.</summary>
+        public const String SIZE = "size";
+
+        /// <summary>The Constant SPAN.</summary>
+        public const String SPAN = "span";
+
+        /// <summary>The Constant SRC.</summary>
+        public const String SRC = "src";
+
+        /// <summary>The Constant STYLE.</summary>
+        public const String STYLE = "style";
+
+        /// <summary>The Constant TYPE.</summary>
+        public const String TYPE = "type";
+
+        /// <summary>The Constant VALIGN.</summary>
+        public const String VALIGN = "valign";
+
+        /// <summary>The Constant VALUE.</summary>
+        public const String VALUE = "value";
+
+        /// <summary>The Constant WIDTH.</summary>
+        public const String WIDTH = "width";
+
+        /// <summary>The Constant TITLE.</summary>
+        public const String TITLE = "title";
+
+        /// <summary>The Constant _1.</summary>
+        public const String _1 = "1";
+
+        /// <summary>The Constant A.</summary>
+        public const String A = "A";
+
+        /// <summary>The Constant a.</summary>
+        public const String a = "a";
+
+        /// <summary>The Constant BOTTOM.</summary>
+        public const String BOTTOM = "bottom";
+
+        /// <summary>The Constant BUTTON.</summary>
+        public const String BUTTON = "button";
+
+        /// <summary>The Constant CENTER.</summary>
+        public const String CENTER = "center";
+
+        /// <summary>The Constant CHECKBOX.</summary>
+        public const String CHECKBOX = "checkbox";
+
+        /// <summary>The Constant EMAIL.</summary>
+        public const String EMAIL = "email";
+
+        /// <summary>The Constant I.</summary>
+        public const String I = "I";
+
+        /// <summary>The Constant i.</summary>
+        public const String i = "i";
+
+        /// <summary>The Constant LEFT.</summary>
+        public const String LEFT = "left";
+
+        /// <summary>The Constant LTR.</summary>
+        public const String LTR = "ltr";
+
+        /// <summary>The Constant MIDDLE.</summary>
+        public const String MIDDLE = "middle";
+
+        /// <summary>The Constant PASSWORD.</summary>
+        public const String PASSWORD = "password";
+
+        /// <summary>The Constant RADIO.</summary>
+        public const String RADIO = "radio";
+
+        /// <summary>The Constant RIGHT.</summary>
+        public const String RIGHT = "right";
+
+        /// <summary>The Constant RTL.</summary>
+        public const String RTL = "rtl";
+
+        /// <summary>The Constant STYLESHEET.</summary>
+        public const String STYLESHEET = "stylesheet";
+
+        /// <summary>The Constant SUBMIT.</summary>
+        public const String SUBMIT = "submit";
+
+        /// <summary>The Constant TEXT.</summary>
+        public const String TEXT = "text";
+
+        /// <summary>The Constant TOP.</summary>
+        public const String TOP = "top";
+
+        /// <summary>The Constant PARENT_TABLE_BORDER.</summary>
+        public const String PARENT_TABLE_BORDER = "parenttableborder";
         // attribute values
         // iText custom attributes
     }

@@ -49,9 +49,14 @@ using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup {
+    /// <summary>Class that uses JSoup to parse HTML.</summary>
     public class JsoupHtmlParser : IHtmlParser {
+        /// <summary>The logger.</summary>
         private static ILogger logger = LoggerFactory.GetLogger(typeof(JsoupHtmlParser));
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.IHtmlParser#parse(java.io.InputStream, java.lang.String)
+        */
         /// <exception cref="System.IO.IOException"/>
         public virtual IDocumentNode Parse(Stream htmlStream, String charset) {
             // Based on some brief investigations, it seems that Jsoup uses baseUri for resolving relative uri's into absolute
@@ -67,6 +72,9 @@ namespace iText.Html2pdf.Html.Impl.Jsoup {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.IHtmlParser#parse(java.lang.String)
+        */
         public virtual IDocumentNode Parse(String html) {
             Document doc = Org.Jsoup.Jsoup.Parse(html);
             INode result = WrapJsoupHierarchy(doc);
@@ -78,6 +86,17 @@ namespace iText.Html2pdf.Html.Impl.Jsoup {
             }
         }
 
+        /// <summary>
+        /// Wraps JSoup nodes into pdfHTML
+        /// <see cref="iText.Html2pdf.Html.Node.INode"/>
+        /// classes.
+        /// </summary>
+        /// <param name="jsoupNode">the JSoup node instance</param>
+        /// <returns>
+        /// the
+        /// <see cref="iText.Html2pdf.Html.Node.INode"/>
+        /// instance
+        /// </returns>
         private INode WrapJsoupHierarchy(Org.Jsoup.Nodes.Node jsoupNode) {
             INode resultNode = null;
             if (jsoupNode is Document) {

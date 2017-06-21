@@ -43,10 +43,19 @@ address: sales@itextpdf.com
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Html {
+    /// <summary>Utilities class with HTML-related functionality.</summary>
     public sealed class HtmlUtils {
+        /// <summary>Creates a new <code>HtmlUtils</code> instance.</summary>
         private HtmlUtils() {
         }
 
+        /// <summary>
+        /// Checks if an
+        /// <see cref="iText.Html2pdf.Html.Node.IElementNode"/>
+        /// represents a style sheet link.
+        /// </summary>
+        /// <param name="headChildElement">the head child element</param>
+        /// <returns>true, if the element node represents a style sheet link</returns>
         public static bool IsStyleSheetLink(IElementNode headChildElement) {
             return headChildElement.Name().Equals(TagConstants.LINK) && AttributeConstants.STYLESHEET.Equals(headChildElement
                 .GetAttribute(AttributeConstants.REL));
