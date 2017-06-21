@@ -45,10 +45,15 @@ using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
+    /// <summary>Implementation of the <code>AbstractElement</code> class for form fields.</summary>
+    /// 
     public abstract class FormField<T> : AbstractElement<T>, IFormField
         where T : IFormField {
+        /// <summary>The id.</summary>
         private String id;
 
+        /// <summary>Instantiates a new <code>FormField</code> instance.</summary>
+        /// <param name="id">the id</param>
         protected internal FormField(String id) {
             if (id == null || id.Contains(".")) {
                 throw new ArgumentException("id should not contain '.'");
@@ -56,10 +61,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
             this.id = id;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.element.IFormField#getId()
+        */
         public virtual String GetId() {
             return id;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.ElementPropertyContainer#getDefaultProperty(int)
+        */
         public override T1 GetDefaultProperty<T1>(int property) {
             switch (property) {
                 case Html2PdfProperty.FORM_FIELD_FLATTEN: {

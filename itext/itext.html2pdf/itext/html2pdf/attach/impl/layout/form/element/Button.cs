@@ -45,11 +45,24 @@ using iText.Html2pdf.Attach.Impl.Layout.Form.Renderer;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
+    /// <summary>
+    /// Extension of the
+    /// <see cref="FormField{T}"/>
+    /// class representing a button so that
+    /// a
+    /// <see cref="iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.ButtonRenderer"/>
+    /// is used instead.
+    /// </summary>
     public class Button : FormField<iText.Html2pdf.Attach.Impl.Layout.Form.Element.Button> {
+        /// <summary>Creates a new <code>Button</code> instance.</summary>
+        /// <param name="id">the id</param>
         public Button(String id)
             : base(id) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.element.AbstractElement#makeNewRenderer()
+        */
         protected override IRenderer MakeNewRenderer() {
             return new ButtonRenderer(this);
         }

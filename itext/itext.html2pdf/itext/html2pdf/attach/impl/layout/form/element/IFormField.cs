@@ -44,7 +44,14 @@ using System;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
+    /// <summary>
+    /// Interface extending the
+    /// <see cref="iText.Layout.Element.ILeafElement"/>
+    /// interface in the context of form fields.
+    /// </summary>
     public interface IFormField : ILeafElement {
+        /// <summary>Gets the id.</summary>
+        /// <returns>the id</returns>
         String GetId();
     }
 }

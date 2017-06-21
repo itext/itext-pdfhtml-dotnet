@@ -46,11 +46,24 @@ using iText.Html2pdf.Attach.Impl.Layout.Form.Renderer;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
+    /// <summary>
+    /// Extension of the
+    /// <see cref="FormField{T}"/>
+    /// class representing a button so that
+    /// a
+    /// <see cref="iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.InputFieldRenderer"/>
+    /// is used.
+    /// </summary>
     public class InputField : FormField<iText.Html2pdf.Attach.Impl.Layout.Form.Element.InputField> {
+        /// <summary>Creates a new input field.</summary>
+        /// <param name="id">the id</param>
         public InputField(String id)
             : base(id) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField#getDefaultProperty(int)
+        */
         public override T1 GetDefaultProperty<T1>(int property) {
             switch (property) {
                 case Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG: {
@@ -67,6 +80,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.element.AbstractElement#makeNewRenderer()
+        */
         protected override IRenderer MakeNewRenderer() {
             return new InputFieldRenderer(this);
         }
