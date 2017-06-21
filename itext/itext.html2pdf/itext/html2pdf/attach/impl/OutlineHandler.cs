@@ -59,19 +59,26 @@ namespace iText.Html2pdf.Attach.Impl {
     /// This class is not reusable and a new instance shall be created for every new conversion process.
     /// </summary>
     public class OutlineHandler {
+        /// <summary>The Constant DESTINATION_PREFIX.</summary>
         private const String DESTINATION_PREFIX = "pdfHTML-iText-outline-";
 
+        /// <summary>The current outline.</summary>
         private PdfOutline currentOutline;
 
+        /// <summary>The destinations in process.</summary>
         private LinkedList<String> destinationsInProcess = new LinkedList<String>();
 
+        /// <summary>The levels in process.</summary>
         private LinkedList<int> levelsInProcess = new LinkedList<int>();
 
+        /// <summary>The tag priorities mapping.</summary>
         private IDictionary<String, int?> tagPrioritiesMapping = new Dictionary<String, int?>();
 
+        /// <summary>The unique IDs.</summary>
         private IDictionary<String, int?> uniqueIDs = new Dictionary<String, int?>();
 
         /// <summary>Creates an OutlineHandler with standard predefined mappings.</summary>
+        /// <returns>the outline handler</returns>
         public static OutlineHandler CreateStandardHandler() {
             OutlineHandler handler = new OutlineHandler();
             handler.PutTagPriorityMapping("h1", 1);
@@ -83,24 +90,42 @@ namespace iText.Html2pdf.Attach.Impl {
             return handler;
         }
 
+        /// <summary>Put tag priority mapping.</summary>
+        /// <param name="tagName">the tag name</param>
+        /// <param name="priority">the priority</param>
+        /// <returns>the outline handler</returns>
         public virtual OutlineHandler PutTagPriorityMapping(String tagName, int? priority) {
             tagPrioritiesMapping.Put(tagName, priority);
             return this;
         }
 
+        /// <summary>Put all tag priority mappings.</summary>
+        /// <param name="mappings">the mappings</param>
+        /// <returns>the outline handler</returns>
         public virtual OutlineHandler PutAllTagPriorityMappings(IDictionary<String, int?> mappings) {
             tagPrioritiesMapping.AddAll(mappings);
             return this;
         }
 
+        /// <summary>Gets the tag priority mapping.</summary>
+        /// <param name="tagName">the tag name</param>
+        /// <returns>the tag priority mapping</returns>
         public virtual int? GetTagPriorityMapping(String tagName) {
             return tagPrioritiesMapping.Get(tagName);
         }
 
+        /// <summary>Checks for tag priority mapping.</summary>
+        /// <param name="tagName">the tag name</param>
+        /// <returns>true, if the tag name is listed in the tag priorities mapping</returns>
         public virtual bool HasTagPriorityMapping(String tagName) {
             return tagPrioritiesMapping.ContainsKey(tagName);
         }
 
+        /// <summary>Adds the outline.</summary>
+        /// <param name="tagWorker">the tag worker</param>
+        /// <param name="element">the element</param>
+        /// <param name="context">the processor context</param>
+        /// <returns>the outline handler</returns>
         internal virtual OutlineHandler AddOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context
             ) {
             String tagName = element.Name();
@@ -128,6 +153,10 @@ namespace iText.Html2pdf.Attach.Impl {
             return this;
         }
 
+        /// <summary>Adds the destination.</summary>
+        /// <param name="tagWorker">the tag worker</param>
+        /// <param name="element">the element</param>
+        /// <returns>the outline handler</returns>
         internal virtual OutlineHandler AddDestination(ITagWorker tagWorker, IElementNode element) {
             String tagName = element.Name();
             if (null != tagWorker && HasTagPriorityMapping(tagName)) {
@@ -144,6 +173,9 @@ namespace iText.Html2pdf.Attach.Impl {
             return this;
         }
 
+        /// <summary>Gets the unique ID.</summary>
+        /// <param name="key">the key</param>
+        /// <returns>the unique ID</returns>
         private String GetUniqueID(String key) {
             if (!uniqueIDs.ContainsKey(key)) {
                 uniqueIDs.Put(key, 1);

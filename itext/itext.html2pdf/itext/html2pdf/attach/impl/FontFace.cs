@@ -46,11 +46,24 @@ using System.Text.RegularExpressions;
 using iText.Html2pdf.Css;
 
 namespace iText.Html2pdf.Attach.Impl {
+    /// <summary>
+    /// Class that will examine the font as described in the CSS, and store it
+    /// in a form that the font provider will understand.
+    /// </summary>
     internal class FontFace {
+        /// <summary>Name that will be used as the alias of the font.</summary>
         private readonly String alias;
 
+        /// <summary>A list of font face sources.</summary>
         private readonly IList<FontFace.FontFaceSrc> sources;
 
+        // TODO: Auto-generated Javadoc
+        /// <summary>
+        /// Create a <code>FontFace</code> instance from a list of
+        /// CSS font attributes ("font-family" or "src").
+        /// </summary>
+        /// <param name="properties">the font properties</param>
+        /// <returns>the <code>FontFace</code> instance</returns>
         public static iText.Html2pdf.Attach.Impl.FontFace Create(IList<CssDeclaration> properties) {
             String fontFamily = null;
             String srcs = null;
@@ -87,42 +100,70 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
-        /// <summary>Actually font-family is an alias.</summary>
+        /// <summary>Gets the font-family.</summary>
+        /// <remarks>
+        /// Gets the font-family.
+        /// Actually font-family is an alias.
+        /// </remarks>
+        /// <returns>the font family (or alias)</returns>
         public virtual String GetFontFamily() {
             return alias;
         }
 
+        /// <summary>Gets the font face sources.</summary>
+        /// <returns>the sources</returns>
         public virtual IList<FontFace.FontFaceSrc> GetSources() {
             return sources;
         }
 
+        /// <summary>Instantiates a new font face.</summary>
+        /// <param name="alias">the font-family (or alias)</param>
+        /// <param name="sources">the sources</param>
         private FontFace(String alias, IList<FontFace.FontFaceSrc> sources) {
             this.alias = alias;
             this.sources = sources;
         }
 
+        /// <summary>Class that defines a font face source.</summary>
         internal class FontFaceSrc {
+            /// <summary>The UrlPattern used to compose a source path.</summary>
             internal static readonly Regex UrlPattern = iText.IO.Util.StringUtil.RegexCompile("^((local)|(url))\\(((\'[^\']*\')|(\"[^\"]*\")|([^\'\"\\)]*))\\)( format\\(((\'[^\']*\')|(\"[^\"]*\")|([^\'\"\\)]*))\\))?$"
                 );
 
+            /// <summary>The Constant TypeGroup.</summary>
             internal const int TypeGroup = 1;
 
+            /// <summary>The Constant UrlGroup.</summary>
             internal const int UrlGroup = 4;
 
+            /// <summary>The Constant FormatGroup.</summary>
             internal const int FormatGroup = 9;
 
+            /// <summary>The font format.</summary>
             internal readonly FontFace.FontFormat format;
 
+            /// <summary>The source path.</summary>
             internal readonly String src;
 
+            /// <summary>Indicates if the font is local.</summary>
             internal readonly bool isLocal;
 
             //region Nested types
+            /* (non-Javadoc)
+            * @see java.lang.Object#toString()
+            */
             public override String ToString() {
                 return String.Format("{0}({1}){2}", isLocal ? "local" : "url", src, format != FontFace.FontFormat.None ? String
                     .Format(" format({0})", format) : "");
             }
 
+            /// <summary>
+            /// Creates a <code>FontFace</code> object by parsing a <code>String</code>
+            /// trying to match patterns that reveal the font name, whether that font is local,
+            /// and which format the font is in.
+            /// </summary>
+            /// <param name="src">a string containing information about a font</param>
+            /// <returns>the font in the form of a <code>FontFace</code> object</returns>
             internal static FontFace.FontFaceSrc Create(String src) {
                 Match m = iText.IO.Util.StringUtil.Match(UrlPattern, src);
                 if (!m.Success) {
@@ -132,6 +173,9 @@ namespace iText.Html2pdf.Attach.Impl {
                     (m, TypeGroup)), ParseFormat(iText.IO.Util.StringUtil.Group(m, FormatGroup)));
             }
 
+            /// <summary>Parses a <code>String</code> to a font format.</summary>
+            /// <param name="formatStr">a string</param>
+            /// <returns>a font format</returns>
             internal static FontFace.FontFormat ParseFormat(String formatStr) {
                 if (formatStr != null && formatStr.Length > 0) {
                     switch (Unquote(formatStr).ToLowerInvariant()) {
@@ -163,6 +207,9 @@ namespace iText.Html2pdf.Attach.Impl {
                 return FontFace.FontFormat.None;
             }
 
+            /// <summary>Removes single and double quotes at the start and the end of a <code>String</code>.</summary>
+            /// <param name="quotedString">a <code>String</quote> that might be between quotes</param>
+            /// <returns>the <code>String</code> without the quotes</returns>
             internal static String Unquote(String quotedString) {
                 if (quotedString[0] == '\'' || quotedString[0] == '\"') {
                     return quotedString.JSubstring(1, quotedString.Length - 1);
@@ -170,6 +217,10 @@ namespace iText.Html2pdf.Attach.Impl {
                 return quotedString;
             }
 
+            /// <summary>Instantiates a new <code>FontFaceSrc</code> insance.</summary>
+            /// <param name="src">a source path</param>
+            /// <param name="isLocal">indicates if the font is local</param>
+            /// <param name="format">the font format (true type, open type, woff,...)</param>
             private FontFaceSrc(String src, bool isLocal, FontFace.FontFormat format) {
                 this.format = format;
                 this.src = src;
@@ -177,6 +228,7 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
+        /// <summary>The Enum FontFormat.</summary>
         internal enum FontFormat {
             None,
             TrueType,
@@ -186,12 +238,6 @@ namespace iText.Html2pdf.Attach.Impl {
             EOT,
             SVG
         }
-        // "truetype"
-        // "opentype"
-        // "woff"
-        // "woff2"
-        // "embedded-opentype"
-        // "svg"
         //endregion
     }
 }

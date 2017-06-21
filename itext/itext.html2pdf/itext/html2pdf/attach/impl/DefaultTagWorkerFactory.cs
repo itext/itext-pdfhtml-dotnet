@@ -49,13 +49,22 @@ using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Util;
 
 namespace iText.Html2pdf.Attach.Impl {
+    /// <summary>
+    /// The default implementation of a tag worker factory, mapping tags to
+    /// tag worker implementations.
+    /// </summary>
     public class DefaultTagWorkerFactory : ITagWorkerFactory {
+        /// <summary>The default mapping.</summary>
         private TagProcessorMapping defaultMapping;
 
+        /// <summary>Instantiates a new default tag worker factory.</summary>
         public DefaultTagWorkerFactory() {
             this.defaultMapping = DefaultTagWorkerMapping.GetDefaultTagWorkerMapping();
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.ITagWorkerFactory#getTagWorker(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
+        */
         public ITagWorker GetTagWorker(IElementNode tag, ProcessorContext context) {
             ITagWorker tagWorker = GetCustomTagWorker(tag, context);
             if (tagWorker == null) {
@@ -78,6 +87,10 @@ namespace iText.Html2pdf.Attach.Impl {
             return tagWorker;
         }
 
+        /// <summary>Gets the tag worker class for a specific element node.</summary>
+        /// <param name="mapping">the mapping</param>
+        /// <param name="tag">the element node</param>
+        /// <returns>the tag worker class</returns>
         private Type GetTagWorkerClass(TagProcessorMapping mapping, IElementNode tag) {
             Type tagWorkerClass = null;
             String display = tag.GetStyles() != null ? tag.GetStyles().Get(CssConstants.DISPLAY) : null;
@@ -91,10 +104,13 @@ namespace iText.Html2pdf.Attach.Impl {
         }
 
         /// <summary>This is a hook method.</summary>
-        /// <remarks>This is a hook method. Users wanting to provide a custom mapping or introduce their own ITagWorkers should implement this method.
-        ///     </remarks>
-        /// <param name="tag"/>
-        /// <param name="context"/>
+        /// <remarks>
+        /// This is a hook method. Users wanting to provide a custom mapping
+        /// or introduce their own ITagWorkers should implement this method.
+        /// </remarks>
+        /// <param name="tag">the tag</param>
+        /// <param name="context">the context</param>
+        /// <returns>the custom tag worker</returns>
         public virtual ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
             return null;
         }

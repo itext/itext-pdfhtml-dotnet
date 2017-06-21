@@ -49,10 +49,17 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Util;
 
 namespace iText.Html2pdf.Attach.Impl {
+    /// <summary>
+    /// Contains the actual mapping of the
+    /// <see cref="DefaultTagWorkerFactory"/>
+    /// .
+    /// </summary>
     internal class DefaultTagWorkerMapping {
+        /// <summary>Instantiates a new <code>DefaultTagWorkerMapping</code> instance.</summary>
         private DefaultTagWorkerMapping() {
         }
 
+        /// <summary>The worker mapping.</summary>
         private static TagProcessorMapping workerMapping;
 
         static DefaultTagWorkerMapping() {
@@ -158,6 +165,8 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(PageCountElementNode.PAGE_COUNTER_TAG, typeof(PageCountWorker));
         }
 
+        /// <summary>Gets the default tag worker mapping.</summary>
+        /// <returns>the default mapping</returns>
         internal static TagProcessorMapping GetDefaultTagWorkerMapping() {
             return workerMapping;
         }

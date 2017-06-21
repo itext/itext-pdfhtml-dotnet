@@ -69,32 +69,44 @@ using Versions.Attributes;
 using iText.Kernel;
 
 namespace iText.Html2pdf.Attach.Impl {
+    /// <summary>The default implementation to process HTML.</summary>
     public class DefaultHtmlProcessor : IHtmlProcessor {
+        /// <summary>The logger instance.</summary>
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Attach.Impl.DefaultHtmlProcessor
             ));
 
+        /// <summary>Set of tags that do not map to any tag worker and that are deliberately excluded from the logging.
+        ///     </summary>
         private static readonly ICollection<String> ignoredTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet<
             String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.HEAD, TagConstants.STYLE, TagConstants.TBODY)
             ));
 
+        /// <summary>Set of tags to which we do not want to apply CSS to and that are deliberately excluded from the logging
+        ///     </summary>
         private static readonly ICollection<String> ignoredCssTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet
             <String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.BR, TagConstants.LINK, TagConstants.META, TagConstants
             .TITLE, TagConstants.TR)));
 
+        /// <summary>The processor context.</summary>
         private ProcessorContext context;
 
+        /// <summary>A list of parent objects that result from parsing the HTML.</summary>
         private IList<IPropertyContainer> roots;
 
+        /// <summary>The CSS resolver.</summary>
         private ICssResolver cssResolver;
 
+        /// <summary>Instantiates a new default html processor.</summary>
+        /// <param name="converterProperties">the converter properties</param>
         public DefaultHtmlProcessor(ConverterProperties converterProperties) {
-            // The tags that do not map into any workers and are deliberately excluded from the logging
             // TODO <tbody> is not supported. Styles will be propagated anyway
-            // The tags we do not want to apply css to and therefore exclude from the logging
-            // Content from <tr> is thrown upwards to parent, in other cases css is inherited anyway
+            // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
             this.context = new ProcessorContext(converterProperties);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processElements(com.itextpdf.html2pdf.html.node.INode)
+        */
         public virtual IList<IElement> ProcessElements(INode root) {
 
             try 
@@ -196,6 +208,9 @@ namespace iText.Html2pdf.Attach.Impl {
             return type;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processDocument(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.kernel.pdf.PdfDocument)
+        */
         public virtual Document ProcessDocument(INode root, PdfDocument pdfDocument) {
 
             try 
@@ -243,6 +258,8 @@ namespace iText.Html2pdf.Attach.Impl {
             return doc;
         }
 
+        /// <summary>Recursively processes a node converting HTML into PDF using tag workers.</summary>
+        /// <param name="node">the node</param>
         private void Visit(INode node) {
             if (node is IElementNode) {
                 IElementNode element = (IElementNode)node;
@@ -340,6 +357,10 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
+        /// <summary>Creates a font and adds it to the context.</summary>
+        /// <param name="fontFamily">the font family</param>
+        /// <param name="src">the source of the font</param>
+        /// <returns>true, if successful</returns>
         private bool CreateFont(String fontFamily, FontFace.FontFaceSrc src) {
             if (!SupportedFontFormat(src.format)) {
                 return false;
@@ -374,10 +395,7 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
-        /// <summary>
-        /// Checks whether in general we support requested font format
-        /// Update after DEVSIX-1148
-        /// </summary>
+        /// <summary>Checks whether in general we support requested font format.</summary>
         /// <param name="format">
         /// 
         /// <see cref="FontFormat"/>
@@ -388,6 +406,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 case FontFace.FontFormat.None:
                 case FontFace.FontFormat.TrueType:
                 case FontFace.FontFormat.OpenType: {
+                    // TODO Update after DEVSIX-1148
                     return true;
                 }
 
@@ -397,12 +416,19 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
+        /// <summary>Processes a pseudo element (before and after CSS).</summary>
+        /// <param name="node">the node</param>
+        /// <param name="pseudoElementName">the pseudo element name</param>
         private void VisitPseudoElement(IElementNode node, String pseudoElementName) {
             if (CssPseudoElementUtil.HasBeforeAfterElements(node)) {
                 Visit(new CssPseudoElementNode(node, pseudoElementName));
             }
         }
 
+        /// <summary>Find an element in a node.</summary>
+        /// <param name="node">the node</param>
+        /// <param name="tagName">the tag name</param>
+        /// <returns>the element node</returns>
         private IElementNode FindElement(INode node, String tagName) {
             LinkedList<INode> q = new LinkedList<INode>();
             q.Add(node);
@@ -421,14 +447,23 @@ namespace iText.Html2pdf.Attach.Impl {
             return null;
         }
 
+        /// <summary>Find the HTML node.</summary>
+        /// <param name="node">the node</param>
+        /// <returns>the i element node</returns>
         private IElementNode FindHtmlNode(INode node) {
             return FindElement(node, TagConstants.HTML);
         }
 
+        /// <summary>Find the BODY node.</summary>
+        /// <param name="node">the node</param>
+        /// <returns>the i element node</returns>
         private IElementNode FindBodyNode(INode node) {
             return FindElement(node, TagConstants.BODY);
         }
 
+        /// <summary>Checks if an element should be displayed.</summary>
+        /// <param name="element">the element</param>
+        /// <returns>true, if the element should be displayed</returns>
         private bool IsDisplayable(IElementNode element) {
             if (element != null && element.GetStyles() != null && CssConstants.NONE.Equals(element.GetStyles().Get(CssConstants
                 .DISPLAY))) {
