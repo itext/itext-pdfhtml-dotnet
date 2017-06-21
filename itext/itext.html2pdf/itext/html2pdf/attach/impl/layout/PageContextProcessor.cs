@@ -63,27 +63,42 @@ using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    /// <summary>Context processor for specific types of pages: first, left, or right page.</summary>
     internal class PageContextProcessor {
+        /// <summary>The page size.</summary>
         private PageSize pageSize;
 
+        /// <summary>Marks for page boundaries.</summary>
         private ICollection<String> marks;
 
+        /// <summary>The bleed value for the margin.</summary>
         private float? bleed;
 
+        /// <summary>The margins.</summary>
         private float[] margins;
 
+        /// <summary>The borders.</summary>
         private Border[] borders;
 
+        /// <summary>The paddings.</summary>
         private float[] paddings;
 
+        /// <summary>Page background simulation.</summary>
         private Div pageBackgroundSimulation;
 
+        /// <summary>Page borders simulation.</summary>
         private Div pageBordersSimulation;
 
+        /// <summary>The margin box rectangles.</summary>
         private Rectangle[] marginBoxRectangles;
 
+        /// <summary>The margin box elements.</summary>
         private Div[] marginBoxElements;
 
+        /// <summary>Instantiates a new page context processor.</summary>
+        /// <param name="properties">the page contex properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="defaultPageSize">the default page size</param>
         internal PageContextProcessor(PageContextProperties properties, ProcessorContext context, PageSize defaultPageSize
             ) {
             IDictionary<String, String> styles = properties.GetResolvedPageContextNode().GetStyles();
@@ -102,10 +117,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             CreateMarginBoxesElements(properties.GetResolvedPageMarginBoxes(), context);
         }
 
+        /// <summary>Gets the page size.</summary>
+        /// <returns>the page size</returns>
         internal virtual PageSize GetPageSize() {
             return pageSize;
         }
 
+        /// <summary>Compute layout margins.</summary>
+        /// <returns>the float values of the margins</returns>
         internal virtual float[] ComputeLayoutMargins() {
             float[] layoutMargins = iText.IO.Util.JavaUtil.ArraysCopyOf(margins, margins.Length);
             for (int i = 0; i < borders.Length; ++i) {
@@ -118,6 +137,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return layoutMargins;
         }
 
+        /// <summary>
+        /// Processes a new page by setting the bleed value, adding marks, drawing
+        /// page backgrounds and borders, and margin boxes (if necessary).
+        /// </summary>
+        /// <param name="page">the page to process</param>
+        /// <param name="documentRenderer">the document renderer</param>
         internal virtual void ProcessNewPage(PdfPage page, DocumentRenderer documentRenderer) {
             SetBleed(page);
             DrawMarks(page);
@@ -125,6 +150,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             DrawMarginBoxes(page, documentRenderer);
         }
 
+        /// <summary>Sets the bleed value for a page.</summary>
+        /// <param name="page">the new bleed</param>
         private void SetBleed(PdfPage page) {
             if (bleed == null && !marks.IsEmpty()) {
                 bleed = 6f;
@@ -141,6 +168,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
+        /// <summary>
+        /// Sets the different page boundaries and draws printer marks on the page
+        /// (if necessary).
+        /// </summary>
+        /// <param name="page">the page</param>
         private void DrawMarks(PdfPage page) {
             if (marks.IsEmpty()) {
                 return;
@@ -203,6 +235,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
+        /// <summary>Draws a cross (used in the <code>drawMarks()</code> method).</summary>
+        /// <param name="canvas">the canvas to draw on</param>
+        /// <param name="x">the x value</param>
+        /// <param name="y">the y value</param>
+        /// <param name="horizontalCross">true if horizontal</param>
         private void DrawCross(PdfCanvas canvas, float x, float y, bool horizontalCross) {
             float xLineHalf;
             float yLineHalf;
@@ -220,6 +257,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             canvas.Stroke();
         }
 
+        /// <summary>Draws page background and borders.</summary>
+        /// <param name="page">the page</param>
         private void DrawPageBackgroundAndBorders(PdfPage page) {
             iText.Layout.Canvas canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetDocument(), page.GetBleedBox
                 ());
@@ -230,6 +269,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             canvas.Close();
         }
 
+        /// <summary>Draws margin boxes.</summary>
+        /// <param name="page">the page</param>
+        /// <param name="documentRenderer">the document renderer</param>
         private void DrawMarginBoxes(PdfPage page, DocumentRenderer documentRenderer) {
             for (int i = 0; i < 16; ++i) {
                 if (marginBoxElements[i] != null) {
@@ -244,6 +286,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
+        /// <summary>Parses the marks.</summary>
+        /// <param name="marksStr">a <code>String</code> value defining the marks</param>
+        /// <returns>a <code>Set</code> of mark values</returns>
         private static ICollection<String> ParseMarks(String marksStr) {
             ICollection<String> marks = new HashSet<String>();
             if (marksStr == null) {
@@ -262,6 +307,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return marks;
         }
 
+        /// <summary>Parses the margins.</summary>
+        /// <param name="styles">a <code>Map</code> containing the styles</param>
+        /// <param name="em">a measurement expressed in em</param>
+        /// <param name="rem">a measurement expressed in rem (root em)</param>
         private void ParseMargins(IDictionary<String, String> styles, float em, float rem) {
             float defaultMargin = 36;
             PageSize pageSize = GetPageSize();
@@ -269,6 +318,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 , CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT);
         }
 
+        /// <summary>Parses the paddings.</summary>
+        /// <param name="styles">a <code>Map</code> containing the styles</param>
+        /// <param name="em">a measurement expressed in em</param>
+        /// <param name="rem">a measurement expressed in rem (root em)</param>
         private void ParsePaddings(IDictionary<String, String> styles, float em, float rem) {
             float defaultPadding = 0;
             PageSize pageSize = GetPageSize();
@@ -276,10 +329,17 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 .PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
         }
 
+        /// <summary>Parses the borders.</summary>
+        /// <param name="styles">a <code>Map</code> containing the styles</param>
+        /// <param name="em">a measurement expressed in em</param>
+        /// <param name="rem">a measurement expressed in rem (root em)</param>
         private void ParseBorders(IDictionary<String, String> styles, float em, float rem) {
             borders = BorderStyleApplierUtil.GetBordersArray(styles, em, rem);
         }
 
+        /// <summary>Creates the page simulation elements.</summary>
+        /// <param name="styles">a <code>Map</code> containing the styles</param>
+        /// <param name="context">the processor context</param>
         private void CreatePageSimulationElements(IDictionary<String, String> styles, ProcessorContext context) {
             pageBackgroundSimulation = new Div().SetFillAvailableArea(true);
             BackgroundApplierUtil.ApplyBackground(styles, context, pageBackgroundSimulation);
@@ -291,6 +351,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             pageBordersSimulation.SetBorderLeft(borders[3]);
         }
 
+        /// <summary>Creates the margin boxes elements.</summary>
+        /// <param name="resolvedPageMarginBoxes">the resolved page margin boxes</param>
+        /// <param name="context">the processor context</param>
         private void CreateMarginBoxesElements(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes, ProcessorContext
              context) {
             marginBoxRectangles = CalculateMarginBoxRectangles(resolvedPageMarginBoxes);
@@ -362,6 +425,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
+        /// <summary>Calculate margin box rectangles.</summary>
+        /// <param name="resolvedPageMarginBoxes">the resolved page margin boxes</param>
+        /// <returns>an array of <code>Rectangle</code> values</returns>
         private Rectangle[] CalculateMarginBoxRectangles(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
             // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes,
             //      also height and width properties should be taken into account.
@@ -392,6 +458,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return hardcodedBoxRectangles;
         }
 
+        /// <summary>Calculate containing block sizes for margin box.</summary>
+        /// <param name="marginBoxInd">the margin box index</param>
+        /// <returns>the corresponding rectangle</returns>
         private Rectangle CalculateContainingBlockSizesForMarginBox(int marginBoxInd) {
             if (marginBoxInd == 0 || marginBoxInd == 4 || marginBoxInd == 8 || marginBoxInd == 12) {
                 return marginBoxRectangles[marginBoxInd];
@@ -416,6 +485,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
+        /// <summary>Maps a margin box name to an index.</summary>
+        /// <param name="marginBoxName">the margin box name</param>
+        /// <returns>the index corresponding with the margin box name</returns>
         private int MapMarginBoxNameToIndex(String marginBoxName) {
             switch (marginBoxName) {
                 case CssRuleName.TOP_LEFT_CORNER: {
@@ -485,6 +557,17 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return -1;
         }
 
+        /// <summary>Parses the box props.</summary>
+        /// <param name="styles">a <code>Map</code> containing the styles</param>
+        /// <param name="em">a measurement expressed in em</param>
+        /// <param name="rem">a measurement expressed in rem (root em)</param>
+        /// <param name="defaultValue">the default value</param>
+        /// <param name="containingBlock">the containing block</param>
+        /// <param name="topPropName">the top prop name</param>
+        /// <param name="rightPropName">the right prop name</param>
+        /// <param name="bottomPropName">the bottom prop name</param>
+        /// <param name="leftPropName">the left prop name</param>
+        /// <returns>an array with a top, right, bottom, and top float value</returns>
         private float[] ParseBoxProps(IDictionary<String, String> styles, float em, float rem, float defaultValue, 
             Rectangle containingBlock, String topPropName, String rightPropName, String bottomPropName, String leftPropName
             ) {
@@ -500,6 +583,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 bottom != null ? (float)bottom : defaultValue, left != null ? (float)left : defaultValue };
         }
 
+        /// <summary>Parses the box value.</summary>
+        /// <param name="styles">a <code>Map</code> containing the styles</param>
+        /// <param name="em">a measurement expressed in em</param>
+        /// <param name="rem">a measurement expressed in rem (root em)</param>
+        /// <param name="dimensionSize">the dimension size</param>
+        /// <returns>a float value</returns>
         private static float? ParseBoxValue(String valString, float em, float rem, float dimensionSize) {
             UnitValue marginUnitVal = CssUtils.ParseLengthValueToPt(valString, em, rem);
             if (marginUnitVal != null) {

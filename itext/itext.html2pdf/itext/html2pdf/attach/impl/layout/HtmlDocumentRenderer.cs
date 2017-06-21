@@ -54,33 +54,64 @@ using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    /// <summary>The DocumentRenderer class for HTML.</summary>
     public class HtmlDocumentRenderer : DocumentRenderer {
+        /// <summary>The Constant TRIM_LAST_BLANK_PAGE.</summary>
+        /// <remarks>
+        /// The Constant TRIM_LAST_BLANK_PAGE.
+        /// In a future version, we might want to expose this value to the users,
+        /// or make it a public setting of the HTML renderer.
+        /// </remarks>
         private const bool TRIM_LAST_BLANK_PAGE = true;
 
+        /// <summary>The page context processor for the first page.</summary>
         private PageContextProcessor firstPageProc;
 
+        /// <summary>The page context processor for all left pages.</summary>
         private PageContextProcessor leftPageProc;
 
+        /// <summary>The page context processor for all right pages.</summary>
         private PageContextProcessor rightPageProc;
 
+        /// <summary>Indicates if the current page is even.</summary>
+        /// <remarks>
+        /// Indicates if the current page is even.
+        /// Important: this number may differ from the result you get checking
+        /// if the number of pages in the document is even or not, because
+        /// the first page break-before might change right page to left (in ltr cases),
+        /// but a blank page will not be added.
+        /// </remarks>
         private bool currentPageEven = true;
 
+        /// <summary>
+        /// The waiting element, an child element is kept waiting for the
+        /// next element to process the "keep with previous" property.
+        /// </summary>
         private IRenderer waitingElement;
 
+        /// <summary>
+        /// Indicates if the first blank pages caused by a break-before-first
+        /// element should be trimmed.
+        /// </summary>
         private bool shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = true;
 
+        /// <summary>Indicates if anything was added to the current area.</summary>
         private bool anythingAddedToCurrentArea = false;
 
+        /// <summary>The estimated number of pages.</summary>
         private int estimatedNumberOfPages;
 
+        /// <summary>Instantiates a new <code>HtmlDocumentRenderer</code> instance.</summary>
+        /// <param name="document">an iText <code>Document</code> instance</param>
+        /// <param name="immediateFlush">the immediate flush indicator</param>
         public HtmlDocumentRenderer(Document document, bool immediateFlush)
             : base(document, immediateFlush) {
         }
 
-        // Maybe later we will want to expose this to the users or make it a public setting of this renderer
-        // NOTE! This number may differ from checking the number of pages in the document on whether it is an even number or not, because
-        // first page break-before might change right page to left (in ltr cases), but a blank page will not be added
-        // An child element is kept waiting for the next one to process "keep with previous" property
+        /// <summary>Processes the page rules.</summary>
+        /// <param name="rootNode">the root node</param>
+        /// <param name="cssResolver">the CSS resolver</param>
+        /// <param name="context">the processor context</param>
         public virtual void ProcessPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
             PageContextProperties firstPageProps = PageContextProperties.Resolve(rootNode, cssResolver, context.GetCssContext
                 (), PageContextConstants.FIRST, PageContextConstants.RIGHT);
@@ -95,6 +126,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             rightPageProc = new PageContextProcessor(rightPageProps, context, defaultPageSize);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.RootRenderer#addChild(com.itextpdf.layout.renderer.IRenderer)
+        */
         public override void AddChild(IRenderer renderer) {
             if (waitingElement != null) {
                 if (true.Equals(renderer.GetProperty<bool?>(Html2PdfProperty.KEEP_WITH_PREVIOUS))) {
@@ -112,6 +146,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.DocumentRenderer#close()
+        */
         public override void Close() {
             if (waitingElement != null) {
                 base.AddChild(waitingElement);
@@ -128,6 +165,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.DocumentRenderer#getNextRenderer()
+        */
         public override IRenderer GetNextRenderer() {
             // Process waiting element to get the correct number of pages
             if (waitingElement != null) {
@@ -143,6 +183,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return relayoutRenderer;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.DocumentRenderer#updateCurrentArea(com.itextpdf.layout.layout.LayoutResult)
+        */
         protected override LayoutArea UpdateCurrentArea(LayoutResult overflowResult) {
             AreaBreak areaBreak = overflowResult != null ? overflowResult.GetAreaBreak() : null;
             if (areaBreak is HtmlPageBreak) {
@@ -203,6 +246,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return base.UpdateCurrentArea(overflowResult);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.RootRenderer#shrinkCurrentAreaAndProcessRenderer(com.itextpdf.layout.renderer.IRenderer, java.util.List, com.itextpdf.layout.layout.LayoutResult)
+        */
         protected override void ShrinkCurrentAreaAndProcessRenderer(IRenderer renderer, IList<IRenderer> resultRenderers
             , LayoutResult result) {
             if (renderer != null) {
@@ -211,6 +257,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             base.ShrinkCurrentAreaAndProcessRenderer(renderer, resultRenderers, result);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.DocumentRenderer#addNewPage(com.itextpdf.kernel.geom.PageSize)
+        */
         protected override PageSize AddNewPage(PageSize customPageSize) {
             PdfPage addedPage;
             int numberOfPages = document.GetPdfDocument().GetNumberOfPages();
@@ -228,10 +277,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return new PageSize(addedPage.GetTrimBox());
         }
 
+        /// <summary>Gets the estimated number of pages.</summary>
+        /// <returns>the estimated number of pages</returns>
         internal virtual int GetEstimatedNumberOfPages() {
             return estimatedNumberOfPages;
         }
 
+        /// <summary>Gets the next page processor.</summary>
+        /// <param name="firstPage">the first page</param>
+        /// <returns>the next page processor</returns>
         private PageContextProcessor GetNextPageProcessor(bool firstPage) {
             // If first page, but break-before: left for ltr is present, we should use left page instead of first
             if (firstPage && currentPageEven) {
@@ -247,11 +301,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
+        /// <summary>Checks if the current page is a left page.</summary>
+        /// <returns>true, if is current page left</returns>
         private bool IsCurrentPageLeft() {
             // TODO rtl
             return currentPageEven;
         }
 
+        /// <summary>Checks if the current page is a right page.</summary>
+        /// <returns>true, if is current page right</returns>
         private bool IsCurrentPageRight() {
             return !IsCurrentPageLeft();
         }

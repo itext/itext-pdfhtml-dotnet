@@ -43,13 +43,31 @@ address: sales@itextpdf.com
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    /// <summary>
+    /// The HTML implementation of an
+    /// <see cref="iText.Layout.Element.AreaBreak"/>
+    /// .
+    /// </summary>
     public class HtmlPageBreak : AreaBreak {
+        /// <summary>
+        /// The
+        /// <see cref="HtmlPageBreakType"/>
+        /// .
+        /// </summary>
         internal HtmlPageBreakType breakType;
 
+        /// <summary>Instantiates a new html page break.</summary>
+        /// <param name="type">the page break type</param>
         public HtmlPageBreak(HtmlPageBreakType type) {
             this.breakType = type;
         }
 
+        /// <summary>
+        /// Gets the
+        /// <see cref="HtmlPageBreakType"/>
+        /// .
+        /// </summary>
+        /// <returns>the page break type</returns>
         public virtual HtmlPageBreakType GetBreakType() {
             return breakType;
         }

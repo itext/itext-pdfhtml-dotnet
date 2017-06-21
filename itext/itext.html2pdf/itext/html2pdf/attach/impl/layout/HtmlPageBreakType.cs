@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    /// <summary>Enumeration of the HTML page break types.</summary>
     public enum HtmlPageBreakType {
         ALWAYS,
         LEFT,

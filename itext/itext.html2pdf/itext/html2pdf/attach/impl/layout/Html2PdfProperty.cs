@@ -41,25 +41,35 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    /// <summary>Set of constants that will be used as keys to get and set properties.</summary>
     public class Html2PdfProperty {
+        /// <summary>The Constant PROPERTY_START.</summary>
         private const int PROPERTY_START = (1 << 20);
 
+        /// <summary>The Constant KEEP_WITH_PREVIOUS works only for top-level elements, i.e.</summary>
+        /// <remarks>The Constant KEEP_WITH_PREVIOUS works only for top-level elements, i.e. ones that are added to the document directly.
+        ///     </remarks>
         public const int KEEP_WITH_PREVIOUS = PROPERTY_START + 1;
 
+        /// <summary>The Constant PAGE_COUNT_TYPE.</summary>
         public const int PAGE_COUNT_TYPE = PROPERTY_START + 2;
 
+        /// <summary>The Constant FORM_FIELD_FLATTEN for form related properties.</summary>
         public const int FORM_FIELD_FLATTEN = PROPERTY_START + 3;
 
+        /// <summary>The Constant FORM_FIELD_SIZE.</summary>
         public const int FORM_FIELD_SIZE = PROPERTY_START + 4;
 
+        /// <summary>The Constant FORM_FIELD_VALUE.</summary>
         public const int FORM_FIELD_VALUE = PROPERTY_START + 5;
 
+        /// <summary>The Constant FORM_FIELD_PASSWORD_FLAG.</summary>
         public const int FORM_FIELD_PASSWORD_FLAG = PROPERTY_START + 6;
 
+        /// <summary>The Constant FORM_FIELD_COLS.</summary>
         public const int FORM_FIELD_COLS = PROPERTY_START + 7;
 
+        /// <summary>The Constant FORM_FIELD_ROWS.</summary>
         public const int FORM_FIELD_ROWS = PROPERTY_START + 8;
-        /* Works only for top-level elements, i.e. ones that are added to the document directly */
-        //Form related properties
     }
 }
