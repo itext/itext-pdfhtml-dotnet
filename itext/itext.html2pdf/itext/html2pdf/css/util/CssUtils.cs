@@ -48,14 +48,22 @@ using iText.Kernel.Colors;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Util {
+    /// <summary>Utilities class for CSS operations.</summary>
     public class CssUtils {
+        /// <summary>Creates a new <code>CssUtils</code> instance.</summary>
         private CssUtils() {
         }
 
+        /// <summary>Normalizes a CSS property.</summary>
+        /// <param name="str">the property</param>
+        /// <returns>the normalized property</returns>
         public static String NormalizeCssProperty(String str) {
             return str == null ? null : CssPropertyNormalizer.Normalize(str);
         }
 
+        /// <summary>Removes double spaces and trims a string.</summary>
+        /// <param name="str">the string</param>
+        /// <returns>the string without the unnecessary spaces</returns>
         public static String RemoveDoubleSpacesAndTrim(String str) {
             String[] parts = iText.IO.Util.StringUtil.Split(str, "\\s");
             StringBuilder sb = new StringBuilder();
@@ -70,6 +78,9 @@ namespace iText.Html2pdf.Css.Util {
             return sb.ToString();
         }
 
+        /// <summary>Parses an integer without throwing an exception if something goes wrong.</summary>
+        /// <param name="str">a string that might be an integer value</param>
+        /// <returns>the integer value, or null if something went wrong</returns>
         public static int? ParseInteger(String str) {
             if (str == null) {
                 return null;
@@ -82,6 +93,9 @@ namespace iText.Html2pdf.Css.Util {
             }
         }
 
+        /// <summary>Parses a float without throwing an exception if something goes wrong.</summary>
+        /// <param name="str">a string that might be a float value</param>
+        /// <returns>the float value, or null if something went wrong</returns>
         public static float? ParseFloat(String str) {
             if (str == null) {
                 return null;
@@ -94,6 +108,9 @@ namespace iText.Html2pdf.Css.Util {
             }
         }
 
+        /// <summary>Parses an aspect ratio into an array with two integers.</summary>
+        /// <param name="str">a string that might contain two integer values</param>
+        /// <returns>the aspect ratio as an array of two integer values</returns>
         public static int[] ParseAspectRatio(String str) {
             int indexOfSlash = str.IndexOf('/');
             try {
@@ -170,6 +187,9 @@ namespace iText.Html2pdf.Css.Util {
             return f;
         }
 
+        /// <summary>Parses the absolute length.</summary>
+        /// <param name="length">the length as a string</param>
+        /// <returns>the length as a float</returns>
         public static float ParseAbsoluteLength(String length) {
             return ParseAbsoluteLength(length, CssConstants.PX);
         }
@@ -207,6 +227,11 @@ namespace iText.Html2pdf.Css.Util {
             return (float)f;
         }
 
+        /// <summary>Parses the length value to pt.</summary>
+        /// <param name="value">the value</param>
+        /// <param name="emValue">the em value</param>
+        /// <param name="remValue">the root em value</param>
+        /// <returns>the unit value</returns>
         public static UnitValue ParseLengthValueToPt(String value, float emValue, float remValue) {
             if (IsMetricValue(value) || IsNumericValue(value)) {
                 return new UnitValue(UnitValue.POINT, ParseAbsoluteLength(value));
@@ -230,8 +255,9 @@ namespace iText.Html2pdf.Css.Util {
             return null;
         }
 
-        /// <param name="resolutionStr"/>
-        /// <returns>value in dpi (currently)</returns>
+        /// <summary>Parses the resolution.</summary>
+        /// <param name="resolutionStr">the resolution as a string</param>
+        /// <returns>a value in dpi (currently)</returns>
         public static float ParseResolution(String resolutionStr) {
             // TODO change default units? If so, change MediaDeviceDescription#resolutoin as well
             int pos = DeterminePositionBetweenValueAndUnit(resolutionStr);
@@ -278,11 +304,17 @@ namespace iText.Html2pdf.Css.Util {
             return pos;
         }
 
+        /// <summary>Checks if a value is a color property.</summary>
+        /// <param name="value">the value</param>
+        /// <returns>true, if the value contains a color property</returns>
         public static bool IsColorProperty(String value) {
             return value.Contains("rgb(") || value.Contains("rgba(") || value.Contains("#") || WebColors.NAMES.Contains
                 (value.ToLowerInvariant()) || CssConstants.TRANSPARENT.Equals(value);
         }
 
+        /// <summary>Parses the RGBA color.</summary>
+        /// <param name="colorValue">the color value</param>
+        /// <returns>an RGBA value expressed as an array with four float values</returns>
         public static float[] ParseRgbaColor(String colorValue) {
             float[] rgbaColor = WebColors.GetRGBAColor(colorValue);
             if (rgbaColor == null) {
@@ -355,6 +387,9 @@ namespace iText.Html2pdf.Css.Util {
             return str;
         }
 
+        /// <summary>Checks if a data is base 64 encoded.</summary>
+        /// <param name="data">the data</param>
+        /// <returns>true, if the data is base 64 encoded</returns>
         public static bool IsBase64Data(String data) {
             return data.Matches("^data:([^\\s]*);base64,([^\\s]*)");
         }

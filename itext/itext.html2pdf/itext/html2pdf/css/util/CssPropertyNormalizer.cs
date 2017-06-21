@@ -45,7 +45,11 @@ using System.Text;
 using iText.IO.Log;
 
 namespace iText.Html2pdf.Css.Util {
+    /// <summary>Utilities class with functionality to normalize CSS properties.</summary>
     internal class CssPropertyNormalizer {
+        /// <summary>Normalize a property.</summary>
+        /// <param name="str">the property</param>
+        /// <returns>the normalized property</returns>
         public static String Normalize(String str) {
             StringBuilder buffer = new StringBuilder();
             int segmentStart = 0;
@@ -66,6 +70,11 @@ namespace iText.Html2pdf.Css.Util {
             return buffer.ToString();
         }
 
+        /// <summary>Appends and formats a segment.</summary>
+        /// <param name="buffer">the current buffer</param>
+        /// <param name="source">a source</param>
+        /// <param name="start">where to start in the source</param>
+        /// <param name="end">where to end in the source</param>
         private static void AppendAndFormatSegment(StringBuilder buffer, String source, int start, int end) {
             String[] parts = iText.IO.Util.StringUtil.Split(source.JSubstring(start, end), "\\s");
             StringBuilder sb = new StringBuilder();
@@ -86,6 +95,12 @@ namespace iText.Html2pdf.Css.Util {
             buffer.Append(sb);
         }
 
+        /// <summary>Appends quoted content.</summary>
+        /// <param name="buffer">the current buffer</param>
+        /// <param name="source">a source</param>
+        /// <param name="start">where to start in the source</param>
+        /// <param name="endQuoteSymbol">the end quote symbol</param>
+        /// <returns>the new position in the source</returns>
         private static int AppendQuoteContent(StringBuilder buffer, String source, int start, char endQuoteSymbol) {
             int end = FindNextUnescapedChar(source, endQuoteSymbol, start);
             if (end == -1) {
@@ -97,6 +112,11 @@ namespace iText.Html2pdf.Css.Util {
             return end;
         }
 
+        /// <summary>Find the next unescaped character.</summary>
+        /// <param name="source">a source</param>
+        /// <param name="ch">the character to look for</param>
+        /// <param name="startIndex">where to start looking</param>
+        /// <returns>the position of the next unescaped character</returns>
         private static int FindNextUnescapedChar(String source, char ch, int startIndex) {
             int symbolPos = source.IndexOf(ch, startIndex);
             if (symbolPos == -1) {
@@ -110,10 +130,16 @@ namespace iText.Html2pdf.Css.Util {
                  + 1);
         }
 
+        /// <summary>Checks if spaces can be trimmed after a specific character.</summary>
+        /// <param name="ch">the character</param>
+        /// <returns>true, if spaces can be trimmed after the character</returns>
         private static bool TrimSpaceAfter(char ch) {
             return ch == ',' || ch == '(';
         }
 
+        /// <summary>Checks if spaces can be trimmed before a specific character.</summary>
+        /// <param name="ch">the character</param>
+        /// <returns>true, if spaces can be trimmed before the character</returns>
         private static bool TrimSpaceBefore(char ch) {
             return ch == ',' || ch == ')';
         }
