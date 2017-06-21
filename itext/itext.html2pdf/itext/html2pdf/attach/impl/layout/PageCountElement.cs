@@ -44,12 +44,20 @@ using iText.Layout.Element;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    /// <summary>
+    /// <see cref="iText.Layout.Element.Text"/>
+    /// implementation to be used for the page count.
+    /// </summary>
     public class PageCountElement : Text {
+        /// <summary>Instantiates a new <code>PageCountElement</code>.</summary>
         public PageCountElement()
             : base("1234567890") {
         }
 
         // Workaround to match correct font containing number glyphs
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.element.Text#makeNewRenderer()
+        */
         protected override IRenderer MakeNewRenderer() {
             return new PageCountRenderer(this);
         }

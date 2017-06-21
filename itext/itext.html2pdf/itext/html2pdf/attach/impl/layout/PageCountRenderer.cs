@@ -48,11 +48,20 @@ using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    /// <summary>
+    /// <see cref="iText.Layout.Renderer.TextRenderer"/>
+    /// implementation for the page count.
+    /// </summary>
     internal class PageCountRenderer : TextRenderer {
+        /// <summary>Instantiates a new page count renderer.</summary>
+        /// <param name="textElement">the text element</param>
         internal PageCountRenderer(PageCountElement textElement)
             : base(textElement) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.TextRenderer#layout(com.itextpdf.layout.layout.LayoutContext)
+        */
         public override LayoutResult Layout(LayoutContext layoutContext) {
             PageCountType pageCountType = (PageCountType)this.GetProperty<PageCountType?>(Html2PdfProperty.PAGE_COUNT_TYPE
                 );
@@ -79,6 +88,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return base.Layout(layoutContext);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.renderer.TextRenderer#resolveFonts(java.util.List)
+        */
         protected override bool ResolveFonts(IList<IRenderer> addTo) {
             IList<IRenderer> dummyList = new List<IRenderer>();
             base.ResolveFonts(dummyList);

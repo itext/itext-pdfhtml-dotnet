@@ -48,22 +48,39 @@ using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    /// <summary>
+    /// Properties class for the
+    /// <see cref="PageContextProcessor"/>
+    /// .
+    /// </summary>
     internal class PageContextProperties {
+        /// <summary>List containing possible names for page margin boxes.</summary>
         private static readonly IList<String> pageMarginBoxNames = iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName
             .TOP_LEFT_CORNER, CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT, CssRuleName.TOP_RIGHT_CORNER
             , CssRuleName.RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM, CssRuleName.BOTTOM_RIGHT_CORNER
             , CssRuleName.BOTTOM_RIGHT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_LEFT, CssRuleName.BOTTOM_LEFT_CORNER
             , CssRuleName.LEFT_BOTTOM, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_TOP);
 
+        /// <summary>The page context node.</summary>
         private PageContextNode pageContextNode;
 
+        /// <summary>The page margin boxes.</summary>
         private IList<PageMarginBoxContextNode> pageMarginBoxes;
 
+        /// <summary>Instantiates a new <code>PageContextProperties</code> instance.</summary>
+        /// <param name="pageProps">the page context node</param>
+        /// <param name="pagesMarginBoxes">the page margin boxes</param>
         private PageContextProperties(PageContextNode pageProps, IList<PageMarginBoxContextNode> pagesMarginBoxes) {
             this.pageContextNode = pageProps;
             this.pageMarginBoxes = pagesMarginBoxes;
         }
 
+        /// <summary>Resolves a node with a <code>PageContextProperties</code> instance as result.</summary>
+        /// <param name="rootNode">the root node to resolve</param>
+        /// <param name="cssResolver">the CSS resolver</param>
+        /// <param name="context">the CSS context</param>
+        /// <param name="pageClasses">the page classes</param>
+        /// <returns>the <code>PageContextProperties</code> for a specific node</returns>
         public static iText.Html2pdf.Attach.Impl.Layout.PageContextProperties Resolve(INode rootNode, ICssResolver
              cssResolver, CssContext context, params String[] pageClasses) {
             PageContextNode pageProps = GetResolvedPageClassNode(rootNode, cssResolver, context, pageClasses);
@@ -71,6 +88,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return new iText.Html2pdf.Attach.Impl.Layout.PageContextProperties(pageProps, pagesMarginBoxes);
         }
 
+        /// <summary>Gets the resolved margin boxes.</summary>
+        /// <param name="pageClassNode">the page contex node</param>
+        /// <param name="cssResolver">the CSS resolver</param>
+        /// <param name="context">the CSS context</param>
+        /// <returns>the resolved margin boxes</returns>
         private static IList<PageMarginBoxContextNode> GetResolvedMarginBoxes(PageContextNode pageClassNode, ICssResolver
              cssResolver, CssContext context) {
             IList<PageMarginBoxContextNode> resolvedMarginBoxes = new List<PageMarginBoxContextNode>();
@@ -86,6 +108,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return resolvedMarginBoxes;
         }
 
+        /// <summary>Gets the resolved page class node.</summary>
+        /// <param name="rootNode">the root node</param>
+        /// <param name="cssResolver">the CSS resolver</param>
+        /// <param name="context">the CSS context</param>
+        /// <param name="pageClasses">the page classes</param>
+        /// <returns>the resolved page class node</returns>
         private static PageContextNode GetResolvedPageClassNode(INode rootNode, ICssResolver cssResolver, CssContext
              context, params String[] pageClasses) {
             PageContextNode pagesClassNode = new PageContextNode(rootNode);
@@ -97,10 +125,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return pagesClassNode;
         }
 
+        /// <summary>Gets the resolved page context node.</summary>
+        /// <returns>the resolved page context node</returns>
         public virtual PageContextNode GetResolvedPageContextNode() {
             return pageContextNode;
         }
 
+        /// <summary>Gets the resolved page margin boxes.</summary>
+        /// <returns>the resolved page margin boxes</returns>
         public virtual IList<PageMarginBoxContextNode> GetResolvedPageMarginBoxes() {
             return pageMarginBoxes;
         }

@@ -49,7 +49,9 @@ using iText.Kernel.Geom;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    /// <summary>The Class PageSizeParser.</summary>
     internal class PageSizeParser {
+        /// <summary>A Map mapping page size names to page size values.</summary>
         private static readonly IDictionary<String, PageSize> pageSizeConstants = new Dictionary<String, PageSize>
             ();
 
@@ -67,6 +69,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         // TODO may be use here TABLOID? based on w3c tests, ledger in html is interpreted as portrait-oriented page
+        /// <summary>Fetch the page size.</summary>
+        /// <param name="pageSizeStr">the name of the page size ("a4", "letter",...)</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <param name="defaultPageSize">the default page size</param>
+        /// <returns>the page size</returns>
         internal static PageSize FetchPageSize(String pageSizeStr, float em, float rem, PageSize defaultPageSize) {
             PageSize pageSize = ((PageSize)defaultPageSize.Clone());
             if (pageSizeStr == null || CssConstants.AUTO.Equals(pageSizeStr)) {
@@ -121,6 +129,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return pageSize;
         }
 
+        /// <summary>Parses a page length value into a page size.</summary>
+        /// <param name="pageSizeChunks">array of string values that represent the page size</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <returns>the page size</returns>
         private static PageSize ParsePageLengthValue(String[] pageSizeChunks, float em, float rem) {
             float? width;
             float? height;
@@ -140,6 +153,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return new PageSize((float)width, (float)height);
         }
 
+        /// <summary>Try to parse a page length value.</summary>
+        /// <param name="valueChunk">a string containing a value</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <returns>the value as a float</returns>
         private static float? TryParsePageLengthValue(String valueChunk, float em, float rem) {
             UnitValue unitValue = CssUtils.ParseLengthValueToPt(valueChunk, em, rem);
             if (unitValue == null || unitValue.IsPercentValue()) {
@@ -148,10 +166,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return unitValue.GetValue();
         }
 
+        /// <summary>Checks if a string represents length value.</summary>
+        /// <param name="pageSizeChunk">the string that possibly represents a length value</param>
+        /// <returns>true, if the string represents a length value</returns>
         private static bool IsLengthValue(String pageSizeChunk) {
             return CssUtils.IsMetricValue(pageSizeChunk) || CssUtils.IsRelativeValue(pageSizeChunk);
         }
 
+        /// <summary>Checks if a string represents thae CSS value for landscape or portrait orientation.</summary>
+        /// <param name="pageSizeChunk">the string that possibly represents a landscape or portrait value</param>
+        /// <returns>true, if the string represents a landscape or portrait value</returns>
         private static bool IsLandscapePortraitValue(String pageSizeChunk) {
             return CssConstants.LANDSCAPE.Equals(pageSizeChunk) || CssConstants.PORTRAIT.Equals(pageSizeChunk);
         }
