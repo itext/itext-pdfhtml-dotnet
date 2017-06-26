@@ -53,13 +53,20 @@ using iText.Layout.Borders;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utilities class to apply border styles.</summary>
     public class BorderStyleApplierUtil {
+        /// <summary>The logger.</summary>
         private static readonly ILogger LOGGER = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.BorderStyleApplierUtil
             ));
 
+        /// <summary>Creates a new <code>BorderStyleApplierUtil</code> instance.</summary>
         private BorderStyleApplierUtil() {
         }
 
+        /// <summary>Applies borders to an element.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the Processor context</param>
+        /// <param name="element">the element</param>
         public static void ApplyBorders(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
@@ -79,6 +86,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>Gets the array that defines the borders.</summary>
+        /// <param name="styles">the styles mapping</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <returns>the borders array</returns>
         public static Border[] GetBordersArray(IDictionary<String, String> styles, float em, float rem) {
             Border[] borders = new Border[4];
             Border topBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_TOP_WIDTH), styles.Get(CssConstants.BORDER_TOP_STYLE
@@ -96,6 +108,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return borders;
         }
 
+        /// <summary>
+        /// Creates a
+        /// <see cref="iText.Layout.Borders.Border"/>
+        /// instance based on specific properties.
+        /// </summary>
+        /// <param name="borderWidth">the border width</param>
+        /// <param name="borderStyle">the border style</param>
+        /// <param name="borderColor">the border color</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <returns>the border</returns>
         public static Border GetCertainBorder(String borderWidth, String borderStyle, String borderColor, float em
             , float rem) {
             if (borderStyle == null || CssConstants.NONE.Equals(borderStyle)) {

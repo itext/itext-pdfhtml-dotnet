@@ -50,13 +50,20 @@ using iText.Layout;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utilities class to apply a padding.</summary>
     public sealed class PaddingApplierUtil {
+        /// <summary>The logger.</summary>
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.PaddingApplierUtil
             ));
 
+        /// <summary>Creates a new <code>PaddingApplierUtil</code> instance.</summary>
         private PaddingApplierUtil() {
         }
 
+        /// <summary>Applies paddings to an element.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element</param>
         public static void ApplyPaddings(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             String paddingTop = cssProps.Get(CssConstants.PADDING_TOP);

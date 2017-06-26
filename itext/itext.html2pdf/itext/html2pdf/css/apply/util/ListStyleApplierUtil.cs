@@ -55,15 +55,21 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utilities class to apply list styles to an element.</summary>
     public sealed class ListStyleApplierUtil {
+        /// <summary>The Constant GREEK_ALPHABET_LENGTH.</summary>
         private const int GREEK_ALPHABET_LENGTH = 24;
 
+        /// <summary>The Constant GREEK_LOWERCASE.</summary>
         private static readonly char[] GREEK_LOWERCASE = new char[GREEK_ALPHABET_LENGTH];
 
+        /// <summary>The Constant DISC_SYMBOL.</summary>
         private const String DISC_SYMBOL = "\u2022";
 
+        /// <summary>The Constant CIRCLE_SYMBOL.</summary>
         private const String CIRCLE_SYMBOL = "\u25cb";
 
+        /// <summary>The Constant SQUARE_SYMBOL.</summary>
         private const String SQUARE_SYMBOL = "\u25a0";
 
         static ListStyleApplierUtil() {
@@ -73,9 +79,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>Creates a new <code>ListStyleApplierUtil</code> instance.</summary>
         private ListStyleApplierUtil() {
         }
 
+        /// <summary>Applies an image list style to an element.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element</param>
         public static void ApplyListStyleImageProperty(IDictionary<String, String> cssProps, ProcessorContext context
             , IPropertyContainer element) {
             String listStyleImage = cssProps.Get(CssConstants.LIST_STYLE_IMAGE);
@@ -89,6 +100,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>Applies a list style to an element.</summary>
+        /// <param name="stylesContainer">the styles container</param>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element</param>
         public static void ApplyListStyleTypeProperty(IStylesContainer stylesContainer, IDictionary<String, String
             > cssProps, ProcessorContext context, IPropertyContainer element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
@@ -167,12 +183,30 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>Applies the "disc" list style to an element.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="em">the em value</param>
         public static void SetDiscStyle(IPropertyContainer element, float em) {
             Text symbol = new Text(DISC_SYMBOL);
             element.SetProperty(Property.LIST_SYMBOL, symbol);
             SetListSymbolIndent(element, em);
         }
 
+        /// <summary>
+        /// Sets the list symbol for a
+        /// <see cref="iText.Layout.Element.List"/>
+        /// or
+        /// <see cref="iText.Layout.Element.ListItem"/>
+        /// element.
+        /// </summary>
+        /// <param name="container">
+        /// the container element (
+        /// <see cref="iText.Layout.Element.List"/>
+        /// or
+        /// <see cref="iText.Layout.Element.ListItem"/>
+        /// )
+        /// </param>
+        /// <param name="text">the list symbol</param>
         private static void SetListSymbol(IPropertyContainer container, Text text) {
             if (container is List) {
                 ((List)container).SetListSymbol(text);
@@ -184,6 +218,21 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>
+        /// Sets the list symbol for a
+        /// <see cref="iText.Layout.Element.List"/>
+        /// or
+        /// <see cref="iText.Layout.Element.ListItem"/>
+        /// element.
+        /// </summary>
+        /// <param name="container">
+        /// the container element (
+        /// <see cref="iText.Layout.Element.List"/>
+        /// or
+        /// <see cref="iText.Layout.Element.ListItem"/>
+        /// )
+        /// </param>
+        /// <param name="listNumberingType">the list numbering type</param>
         private static void SetListSymbol(IPropertyContainer container, ListNumberingType listNumberingType) {
             if (container is List) {
                 ((List)container).SetListSymbol(listNumberingType);
@@ -195,6 +244,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>Applies the "square" list style to an element.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="em">the em value</param>
         private static void SetSquareStyle(IPropertyContainer element, float em) {
             Text symbol = new Text(SQUARE_SYMBOL);
             symbol.SetTextRise(1.5f * em / 12);
@@ -203,6 +255,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             SetListSymbolIndent(element, em);
         }
 
+        /// <summary>Applies the "circle" list style to an element.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="em">the em value</param>
         private static void SetCircleStyle(IPropertyContainer element, float em) {
             Text symbol = new Text(CIRCLE_SYMBOL);
             symbol.SetTextRise(1.5f * em / 12);
@@ -211,6 +266,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             SetListSymbolIndent(element, em);
         }
 
+        /// <summary>Sets the list symbol indentation.</summary>
+        /// <param name="element">the element</param>
+        /// <param name="em">the em value</param>
         private static void SetListSymbolIndent(IPropertyContainer element, float em) {
             if (ListSymbolPosition.INSIDE == element.GetProperty<ListSymbolPosition?>(Property.LIST_SYMBOL_POSITION)) {
                 element.SetProperty(Property.LIST_SYMBOL_INDENT, 1.5f * em);
@@ -220,13 +278,24 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>
+        /// A factory for creating
+        /// <see cref="HtmlAlphabetSymbol"/>
+        /// objects.
+        /// </summary>
         private class HtmlAlphabetSymbolFactory : IListSymbolFactory {
+            /// <summary>The alphabet.</summary>
             private readonly char[] alphabet;
 
+            /// <summary>Creates a new <code>HtmlAlphabetSymbolFactory</code> instance.</summary>
+            /// <param name="alphabet">the alphabet</param>
             public HtmlAlphabetSymbolFactory(char[] alphabet) {
                 this.alphabet = alphabet;
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.layout.property.IListSymbolFactory#createSymbol(int, com.itextpdf.layout.IPropertyContainer, com.itextpdf.layout.IPropertyContainer)
+            */
             public virtual IElement CreateSymbol(int index, IPropertyContainer list, IPropertyContainer listItem) {
                 Object preValue = GetListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_PRE_TEXT);
                 Object postValue = GetListItemOrListProperty(listItem, list, Property.LIST_SYMBOL_POST_TEXT);
@@ -234,6 +303,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return result;
             }
 
+            /// <summary>
+            /// Gets the a property from a
+            /// <see cref="iText.Layout.Element.ListItem"/>
+            /// , or from the
+            /// <see cref="iText.Layout.Element.List"/>
+            /// (if the property) isn't declared for the list item.
+            /// </summary>
+            /// <param name="listItem">the list item</param>
+            /// <param name="list">the list</param>
+            /// <param name="propertyId">the property id</param>
+            /// <returns>the property value</returns>
             private static Object GetListItemOrListProperty(IPropertyContainer listItem, IPropertyContainer list, int 
                 propertyId) {
                 return listItem.HasProperty(propertyId) ? listItem.GetProperty<Object>(propertyId) : list.GetProperty<Object

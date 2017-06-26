@@ -54,6 +54,9 @@ namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
     /// For instance, the identifier "B&W?" may be written as "B\&W\?" or "B\26 W\3F".
     /// </summary>
     public class CssIdentifierValidator : ICssDataTypeValidator {
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator#isValid(java.lang.String)
+        */
         public virtual bool IsValid(String objectString) {
             // TODO now the validation is very lenient. Make is more strict
             if (objectString.Length >= 2 && objectString.StartsWith("--")) {

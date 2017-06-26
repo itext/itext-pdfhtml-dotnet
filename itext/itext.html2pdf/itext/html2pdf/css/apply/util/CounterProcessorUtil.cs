@@ -49,7 +49,12 @@ using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utilities class to process counters.</summary>
     public class CounterProcessorUtil {
+        /// <summary>Processes counters.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="scope">the scope</param>
         public static void ProcessCounters(IDictionary<String, String> cssProps, CssContext context, INode scope) {
             String counterReset = cssProps.Get(CssConstants.COUNTER_RESET);
             if (counterReset != null) {

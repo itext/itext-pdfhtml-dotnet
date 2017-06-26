@@ -48,42 +48,62 @@ using iText.Html2pdf.Css.Util;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>
+    /// Utilities class to get widths and mapping related to columns and column groups
+    /// as stated in paragraph 17.3 of https://www.w3.org/TR/CSS21/tables.html#q4.
+    /// </summary>
     public class SupportedColColgroupPropertiesUtil {
+        /// <summary>
+        /// These inheritable properties should be transferred from &lt;colgroup&gt;
+        /// to &lt;col&gt; and then to &lt;td&gt; or &lt;th&gt;.
+        /// </summary>
         private static readonly ICollection<String> CELL_CSS_PROPERTIES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
             (CssConstants.BACKGROUND_COLOR, CssConstants.BACKGROUND_IMAGE, CssConstants.BACKGROUND_POSITION, CssConstants
             .BACKGROUND_SIZE, CssConstants.BACKGROUND_REPEAT, CssConstants.BACKGROUND_ORIGIN, CssConstants.BACKGROUND_CLIP
             , CssConstants.BACKGROUND_ATTACHMENT));
 
+        /// <summary>These properties don't need to be transferred from &lt;colgroup&gt; to &lt;col&gt;.</summary>
         private static readonly ICollection<String> OWN_CSS_PROPERTIES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
             (CssConstants.BORDER_BOTTOM_COLOR, CssConstants.BORDER_BOTTOM_STYLE, CssConstants.BORDER_BOTTOM_WIDTH, 
             CssConstants.BORDER_LEFT_COLOR, CssConstants.BORDER_LEFT_STYLE, CssConstants.BORDER_LEFT_WIDTH, CssConstants
             .BORDER_RIGHT_COLOR, CssConstants.BORDER_RIGHT_STYLE, CssConstants.BORDER_RIGHT_WIDTH, CssConstants.BORDER_TOP_COLOR
             , CssConstants.BORDER_TOP_STYLE, CssConstants.BORDER_TOP_WIDTH, CssConstants.VISIBILITY));
 
-        //As stated at paragraph 17.3 at https://www.w3.org/TR/CSS21/tables.html#q4
-        //Those uniheritable properties should be transferred from <colgroup> to <col> and then to <td> or <th>
-        //Those properties don't need to be transferred from <colgroup> to <col>
-        /*TODO Note: visibility don't work on "chrome" or "safari" and though it technically work on "firefox" and "edge" the results differ,
+        /*TODO Note: visibility doesn't work on "chrome" or "safari" and though it technically work on "firefox" and "edge" the results differ,
         with "edge" surprisingly giving the closest result to expected one.
         The supported values are 'collapse' and 'visible'. The expected behaviour for 'collapse' is not to render those cols
         (the table layout should change ann the width should be diminished), and to clip cells that are spaned to none-collapsed one.
         The state of the content in clipped cells is not specified*/
-        //The Width is a special case, casue it should be transferred from <colgroup> to <col> but it not applied to <td> or <th>
+        /// <summary>Gets the width.</summary>
+        /// <param name="resolvedCssProps">the resolved CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <returns>the width</returns>
         public static UnitValue GetWidth(IDictionary<String, String> resolvedCssProps, ProcessorContext context) {
+            //The Width is a special case, casue it should be transferred from <colgroup> to <col> but it not applied to <td> or <th>
             float em = CssUtils.ParseAbsoluteLength(resolvedCssProps.Get(CssConstants.FONT_SIZE));
             String width = resolvedCssProps.Get(CssConstants.WIDTH);
             return width != null ? CssUtils.ParseLengthValueToPt(width, em, context.GetCssContext().GetRootFontSize())
                  : null;
         }
 
+        /// <summary>Gets the cell properties.</summary>
+        /// <param name="resolvedCssProps">the resolved CSS properties</param>
+        /// <returns>the cell properties</returns>
         public static IDictionary<String, String> GetCellProperties(IDictionary<String, String> resolvedCssProps) {
             return GetFilteredMap(resolvedCssProps, CELL_CSS_PROPERTIES);
         }
 
+        /// <summary>Gets the own properties.</summary>
+        /// <param name="resolvedCssProps">the resolved css props</param>
+        /// <returns>the own properties</returns>
         public static IDictionary<String, String> GetOwnProperties(IDictionary<String, String> resolvedCssProps) {
             return GetFilteredMap(resolvedCssProps, OWN_CSS_PROPERTIES);
         }
 
+        /// <summary>Filters a given map so that it only contains supported keys.</summary>
+        /// <param name="map">the map</param>
+        /// <param name="supportedKeys">the supported keys</param>
+        /// <returns>the filtered map</returns>
         private static IDictionary<String, String> GetFilteredMap(IDictionary<String, String> map, ICollection<String
             > supportedKeys) {
             IDictionary<String, String> result = new Dictionary<String, String>();

@@ -51,13 +51,20 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utilities class to apply a width or a height to an element.</summary>
     public sealed class WidthHeightApplierUtil {
+        /// <summary>The logger.</summary>
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.WidthHeightApplierUtil
             ));
 
+        /// <summary>Creates a new <code>WidhtHeightApplierUtil</code> instance.</summary>
         private WidthHeightApplierUtil() {
         }
 
+        /// <summary>Applies a width or a height to an element.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element</param>
         public static void ApplyWidthHeight(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));

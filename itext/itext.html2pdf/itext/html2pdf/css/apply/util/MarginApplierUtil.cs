@@ -51,13 +51,20 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utilities class to apply margins.</summary>
     public sealed class MarginApplierUtil {
+        /// <summary>The logger.</summary>
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.MarginApplierUtil
             ));
 
+        /// <summary>Creates a <code>MarginApplierUtil</code> instance.</summary>
         private MarginApplierUtil() {
         }
 
+        /// <summary>Applies margins to an element.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element</param>
         public static void ApplyMargins(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             String marginTop = cssProps.Get(CssConstants.MARGIN_TOP);
@@ -92,6 +99,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>Tries set margin if the value isn't "auto".</summary>
+        /// <param name="marginProperty">the margin property</param>
+        /// <param name="marginValue">the margin value</param>
+        /// <param name="element">the element</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <returns>false if the margin value was "auto"</returns>
         private static bool TrySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element
             , float em, float rem) {
             bool isAuto = CssConstants.AUTO.Equals(marginValue);
@@ -105,6 +119,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return true;
         }
 
+        /// <summary>Parses the margin value.</summary>
+        /// <param name="marginValString">the margin value as a <code>String</code></param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <returns>the margin value as a <code>Float</code></returns>
         private static float? ParseMarginValue(String marginValString, float em, float rem) {
             UnitValue marginUnitVal = CssUtils.ParseLengthValueToPt(marginValString, em, rem);
             if (marginUnitVal != null) {

@@ -51,10 +51,16 @@ using iText.Layout;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utilities class to apply backgrounds.</summary>
     public sealed class BackgroundApplierUtil {
+        /// <summary>Creates a new <code>BackgroundApplierUtil</code> instance.</summary>
         private BackgroundApplierUtil() {
         }
 
+        /// <summary>Applies background to an element.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element</param>
         public static void ApplyBackground(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             String backgroundColorStr = cssProps.Get(CssConstants.BACKGROUND_COLOR);

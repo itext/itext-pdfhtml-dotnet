@@ -50,12 +50,18 @@ namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
     /// implementation for elements in an enumeration.
     /// </summary>
     public class CssEnumValidator : ICssDataTypeValidator {
+        /// <summary>The allowed values.</summary>
         private IList<String> allowedValues;
 
+        /// <summary>Creates a new <code>CssEnumValidator</code> instance.</summary>
+        /// <param name="allowedValues">the allowed values</param>
         public CssEnumValidator(params String[] allowedValues) {
             this.allowedValues = iText.IO.Util.JavaUtil.ArraysAsList(allowedValues);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator#isValid(java.lang.String)
+        */
         public virtual bool IsValid(String objectString) {
             return allowedValues.Contains(objectString);
         }

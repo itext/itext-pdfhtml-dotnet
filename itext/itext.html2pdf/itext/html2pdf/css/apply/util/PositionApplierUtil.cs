@@ -51,13 +51,20 @@ using iText.Layout.Layout;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utilities class to apply a position.</summary>
     public sealed class PositionApplierUtil {
+        /// <summary>The logger.</summary>
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.PositionApplierUtil
             ));
 
+        /// <summary>Creates a new <code>PositionApplierUtil</code> instance.</summary>
         private PositionApplierUtil() {
         }
 
+        /// <summary>Applies a position to an element.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the propertiescontext</param>
+        /// <param name="element">the element</param>
         public static void ApplyPosition(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             String position = cssProps.Get(CssConstants.POSITION);
@@ -82,6 +89,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
         //            applyLeftProperty(cssProps, element, em, Property.X);
         //            applyTopProperty(cssProps, element, em, Property.Y);
         // TODO
+        /// <summary>Applies left, right, top, and bottom properties.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element</param>
+        /// <param name="position">the position</param>
         private static void ApplyLeftRightTopBottom(IDictionary<String, String> cssProps, ProcessorContext context
             , IPropertyContainer element, String position) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
@@ -107,6 +119,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
             ApplyBottomProperty(cssProps, element, em, rem, Property.BOTTOM);
         }
 
+        /// <summary>Applies the "left" property.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="element">the element</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <param name="layoutPropertyMapping">the layout property mapping</param>
         private static void ApplyLeftProperty(IDictionary<String, String> cssProps, IPropertyContainer element, float
              em, float rem, int layoutPropertyMapping) {
             String left = cssProps.Get(CssConstants.LEFT);
@@ -122,6 +140,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>Applies the "right" property.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="element">the element</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <param name="layoutPropertyMapping">the layout property mapping</param>
         private static void ApplyRightProperty(IDictionary<String, String> cssProps, IPropertyContainer element, float
              em, float rem, int layoutPropertyMapping) {
             String right = cssProps.Get(CssConstants.RIGHT);
@@ -137,6 +161,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>Applies the "top" property.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="element">the element</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <param name="layoutPropertyMapping">the layout property mapping</param>
         private static void ApplyTopProperty(IDictionary<String, String> cssProps, IPropertyContainer element, float
              em, float rem, int layoutPropertyMapping) {
             String top = cssProps.Get(CssConstants.TOP);
@@ -152,6 +182,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>Applies the "bottom" property.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="element">the element</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <param name="layoutPropertyMapping">the layout property mapping</param>
         private static void ApplyBottomProperty(IDictionary<String, String> cssProps, IPropertyContainer element, 
             float em, float rem, int layoutPropertyMapping) {
             String bottom = cssProps.Get(CssConstants.BOTTOM);

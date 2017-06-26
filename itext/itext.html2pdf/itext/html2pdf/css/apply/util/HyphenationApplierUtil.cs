@@ -51,15 +51,25 @@ using iText.Layout.Hyphenation;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>The Class HyphenationApplierUtil.</summary>
     public sealed class HyphenationApplierUtil {
+        /// <summary>The Constant HYPHENATE_BEFORE.</summary>
         private const int HYPHENATE_BEFORE = 2;
 
+        /// <summary>The Constant HYPHENATE_AFTER.</summary>
         private const int HYPHENATE_AFTER = 3;
 
+        /// <summary>Creates a new <code>HyphenationApplierUtil</code> instance.</summary>
         private HyphenationApplierUtil() {
         }
 
+        // TODO: Auto-generated Javadoc
         // TODO these are css properties actually, but it is not supported by the browsers currently
+        /// <summary>Applies hyphenation to an element.</summary>
+        /// <param name="cssProps">the CSS props</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="stylesContainer">the styles container</param>
+        /// <param name="element">the element</param>
         public static void ApplyHyphenation(IDictionary<String, String> cssProps, ProcessorContext context, IStylesContainer
              stylesContainer, IPropertyContainer element) {
             String value = cssProps.Get(CssConstants.HYPHENS);

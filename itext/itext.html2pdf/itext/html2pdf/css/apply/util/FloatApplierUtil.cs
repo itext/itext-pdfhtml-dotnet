@@ -48,10 +48,16 @@ using iText.Layout;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utilities class to apply float values to elements.</summary>
     public class FloatApplierUtil {
+        /// <summary>Creates a new <code>FloatApplierUtil</code> instance.</summary>
         private FloatApplierUtil() {
         }
 
+        /// <summary>Applies a float value (left, right, or both) to an element.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element</param>
         public static void ApplyFloating(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             // TODO for now we only support alignment of floated elements, however we don't support text wrapping
