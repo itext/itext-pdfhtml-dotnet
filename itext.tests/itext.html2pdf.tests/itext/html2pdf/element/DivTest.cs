@@ -102,5 +102,15 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "divTest04.pdf", sourceFolder
                  + "cmp_divTest04.pdf", destinationFolder, "diff04_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DivInTablePercentTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "divInTablePercent.html"), new FileInfo(destinationFolder
+                 + "divInTablePercent.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "divInTablePercent.pdf"
+                , sourceFolder + "cmp_divInTablePercent.pdf", destinationFolder, "diff05_"));
+        }
     }
 }
