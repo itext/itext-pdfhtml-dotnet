@@ -44,15 +44,25 @@ using System;
 using System.Collections.Generic;
 
 namespace iText.Html2pdf.Css.Media {
+    /// <summary>Class that bundles all the media query properties.</summary>
     public class MediaQuery {
+        /// <summary>The logical "only" value.</summary>
         private bool only;
 
+        /// <summary>The logical "not" value.</summary>
         private bool not;
 
+        /// <summary>The type.</summary>
         private String type;
 
+        /// <summary>The expressions.</summary>
         private IList<MediaExpression> expressions;
 
+        /// <summary>Creates a new <code>MediaQuery</code> instance.</summary>
+        /// <param name="type">the type</param>
+        /// <param name="expressions">the expressions</param>
+        /// <param name="only">logical "only" value</param>
+        /// <param name="not">logical "not" value</param>
         public MediaQuery(String type, IList<MediaExpression> expressions, bool only, bool not) {
             this.type = type;
             this.expressions = expressions;
@@ -60,6 +70,9 @@ namespace iText.Html2pdf.Css.Media {
             this.not = not;
         }
 
+        /// <summary>Tries to match a device description with the media query.</summary>
+        /// <param name="deviceDescription">the device description</param>
+        /// <returns>true, if successful</returns>
         public virtual bool Matches(MediaDeviceDescription deviceDescription) {
             bool typeMatches = type == null || MediaType.ALL.Equals(type) || System.Object.Equals(type, deviceDescription
                 .GetType());

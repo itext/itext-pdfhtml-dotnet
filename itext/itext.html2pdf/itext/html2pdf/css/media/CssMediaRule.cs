@@ -46,14 +46,25 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Media {
+    /// <summary>
+    /// The
+    /// <see cref="iText.Html2pdf.Css.CssNestedAtRule"/>
+    /// implementation for media rules.
+    /// </summary>
     public class CssMediaRule : CssNestedAtRule {
+        /// <summary>The media queries.</summary>
         private IList<MediaQuery> mediaQueries;
 
+        /// <summary>Creates a <code>CssMediaRule</code>.</summary>
+        /// <param name="ruleParameters">the rule parameters</param>
         public CssMediaRule(String ruleParameters)
             : base(CssRuleName.MEDIA, ruleParameters) {
             mediaQueries = MediaQueryParser.ParseMediaQueries(ruleParameters);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.CssNestedAtRule#getCssRuleSets(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.media.MediaDeviceDescription)
+        */
         public override IList<CssRuleSet> GetCssRuleSets(INode element, MediaDeviceDescription deviceDescription) {
             IList<CssRuleSet> result = new List<CssRuleSet>();
             foreach (MediaQuery mediaQuery in mediaQueries) {
@@ -67,6 +78,9 @@ namespace iText.Html2pdf.Css.Media {
             return result;
         }
 
+        /// <summary>Tries to match a media device.</summary>
+        /// <param name="deviceDescription">the device description</param>
+        /// <returns>true, if successful</returns>
         public virtual bool MatchMediaDevice(MediaDeviceDescription deviceDescription) {
             foreach (MediaQuery mediaQuery in mediaQueries) {
                 if (mediaQuery.Matches(deviceDescription)) {

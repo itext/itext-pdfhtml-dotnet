@@ -43,18 +43,25 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf.Css.Media {
+    /// <summary>Class that bundles a series of media rule constants.</summary>
     public sealed class MediaRuleConstants {
+        /// <summary>Creates a new <code>MediaRuleConstants</code> instance.</summary>
         private MediaRuleConstants() {
         }
 
+        /// <summary>The Constant AND.</summary>
         public const String AND = "and";
 
+        /// <summary>The Constant MIN.</summary>
         public const String MIN = "min";
 
+        /// <summary>The Constant MAX.</summary>
         public const String MAX = "max";
 
+        /// <summary>The Constant NOT.</summary>
         public const String NOT = "not";
 
+        /// <summary>The Constant ONLY.</summary>
         public const String ONLY = "only";
     }
 }

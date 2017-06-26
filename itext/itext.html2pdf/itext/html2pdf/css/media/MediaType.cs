@@ -44,38 +44,59 @@ using System;
 using System.Collections.Generic;
 
 namespace iText.Html2pdf.Css.Media {
+    /// <summary>Class that bundles all the media types and allows you to registered valid media types in a <code>Set</code>.
+    ///     </summary>
     public sealed class MediaType {
+        /// <summary>The Constant registeredMediaTypes.</summary>
         private static readonly ICollection<String> registeredMediaTypes = new HashSet<String>();
 
+        /// <summary>The Constant ALL.</summary>
         public static readonly String ALL = RegisterMediaType("all");
 
+        /// <summary>The Constant AURAL.</summary>
         public static readonly String AURAL = RegisterMediaType("aural");
 
+        /// <summary>The Constant BRAILLE.</summary>
         public static readonly String BRAILLE = RegisterMediaType("braille");
 
+        /// <summary>The Constant EMBOSSED.</summary>
         public static readonly String EMBOSSED = RegisterMediaType("embossed");
 
+        /// <summary>The Constant HANDHELD.</summary>
         public static readonly String HANDHELD = RegisterMediaType("handheld");
 
+        /// <summary>The Constant PRINT.</summary>
         public static readonly String PRINT = RegisterMediaType("print");
 
+        /// <summary>The Constant PROJECTION.</summary>
         public static readonly String PROJECTION = RegisterMediaType("projection");
 
+        /// <summary>The Constant SCREEN.</summary>
         public static readonly String SCREEN = RegisterMediaType("screen");
 
+        /// <summary>The Constant SPEECH.</summary>
         public static readonly String SPEECH = RegisterMediaType("speech");
 
+        /// <summary>The Constant TTY.</summary>
         public static readonly String TTY = RegisterMediaType("tty");
 
+        /// <summary>The Constant TV.</summary>
         public static readonly String TV = RegisterMediaType("tv");
 
+        /// <summary>Creates a new <code>MediaType</code> instance.</summary>
         private MediaType() {
         }
 
+        /// <summary>Checks if a media type is registered as a valid media type.</summary>
+        /// <param name="mediaType">the media type</param>
+        /// <returns>true, if it's a valid media type</returns>
         public static bool IsValidMediaType(String mediaType) {
             return registeredMediaTypes.Contains(mediaType);
         }
 
+        /// <summary>Registers a media type.</summary>
+        /// <param name="mediaType">the media type</param>
+        /// <returns>the string</returns>
         private static String RegisterMediaType(String mediaType) {
             registeredMediaTypes.Add(mediaType);
             return mediaType;

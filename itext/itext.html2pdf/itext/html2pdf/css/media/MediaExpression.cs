@@ -44,17 +44,26 @@ using System;
 using iText.Html2pdf.Css.Util;
 
 namespace iText.Html2pdf.Css.Media {
+    /// <summary>Class that bundles all the media expression properties.</summary>
     public class MediaExpression {
+        /// <summary>The default font size.</summary>
         private const float DEFAULT_FONT_SIZE = 12;
 
+        /// <summary>Indicates if there's a "min-" prefix.</summary>
         private bool minPrefix;
 
+        /// <summary>Indicates if there's a "max-" prefix.</summary>
         private bool maxPrefix;
 
+        /// <summary>The feature.</summary>
         private String feature;
 
+        /// <summary>The value.</summary>
         private String value;
 
+        /// <summary>Creates a new <code>MediaExpression</code> instance.</summary>
+        /// <param name="feature">the feature</param>
+        /// <param name="value">the value</param>
         public MediaExpression(String feature, String value) {
             this.feature = feature.Trim().ToLowerInvariant();
             if (value != null) {
@@ -72,6 +81,13 @@ namespace iText.Html2pdf.Css.Media {
             }
         }
 
+        /// <summary>
+        /// Tries to match a
+        /// <see cref="MediaDeviceDescription"/>
+        /// .
+        /// </summary>
+        /// <param name="deviceDescription">the device description</param>
+        /// <returns>true, if successful</returns>
         public virtual bool Matches(MediaDeviceDescription deviceDescription) {
             switch (feature) {
                 case MediaFeature.COLOR: {
@@ -209,6 +225,9 @@ namespace iText.Html2pdf.Css.Media {
             }
         }
 
+        /// <summary>Parses an absolute length.</summary>
+        /// <param name="value">the absolute length as a <code>String</code> value</param>
+        /// <returns>the absolute length as a <code>float</code> value</returns>
         private static float ParseAbsoluteLength(String value) {
             if (CssUtils.IsRelativeValue(value)) {
                 // TODO here should be used default font size of the browser, it probably should be fetched from the more generic place than private class constant

@@ -44,10 +44,27 @@ using System;
 using System.Collections.Generic;
 
 namespace iText.Html2pdf.Css.Media {
+    /// <summary>
+    /// Utilities class that parses <code>String</code> values into
+    /// <see cref="MediaQuery"/>
+    /// or
+    /// <see cref="MediaExpression"/>
+    /// values.
+    /// </summary>
     public sealed class MediaQueryParser {
+        /// <summary>Creates a <code>MediaQueryParse</code> instance.</summary>
         private MediaQueryParser() {
         }
 
+        /// <summary>
+        /// Parses a <code>String</code> into a list of
+        /// <see>MediaQuery) values.</see>
+        /// </summary>
+        /// <param name="mediaQueriesStr">the media queries in the form of a <code>String</code></param>
+        /// <returns>
+        /// the resulting list of
+        /// <see>MediaQuery) values</see>
+        /// </returns>
         public static IList<MediaQuery> ParseMediaQueries(String mediaQueriesStr) {
             String[] mediaQueryStrs = iText.IO.Util.StringUtil.Split(mediaQueriesStr, ",");
             IList<MediaQuery> mediaQueries = new List<MediaQuery>();
@@ -60,6 +77,15 @@ namespace iText.Html2pdf.Css.Media {
             return mediaQueries;
         }
 
+        /// <summary>
+        /// Parses a <code>String</code> into a
+        /// <see>MediaQuery) value.</see>
+        /// </summary>
+        /// <param name="mediaQueryStr">the media query in the form of a <code>String</code></param>
+        /// <returns>
+        /// the resulting
+        /// <see>MediaQuery) value</see>
+        /// </returns>
         public static MediaQuery ParseMediaQuery(String mediaQueryStr) {
             mediaQueryStr = mediaQueryStr.Trim().ToLowerInvariant();
             bool only = false;
@@ -88,6 +114,16 @@ namespace iText.Html2pdf.Css.Media {
             return new MediaQuery(mediaType, mediaExpressions, only, not);
         }
 
+        /// <summary>
+        /// Parses a <code>String</code> into a list of
+        /// <see>MediaExpression) values.</see>
+        /// </summary>
+        /// <param name="mediaExpressionsStr">the media expressions in the form of a <code>String</code></param>
+        /// <param name="shallStartWithAnd">indicates if the media expression shall start with "and"</param>
+        /// <returns>
+        /// the resulting list of
+        /// <see>MediaExpression) values</see>
+        /// </returns>
         private static IList<MediaExpression> ParseMediaExpressions(String mediaExpressionsStr, bool shallStartWithAnd
             ) {
             mediaExpressionsStr = mediaExpressionsStr.Trim();
@@ -110,6 +146,15 @@ namespace iText.Html2pdf.Css.Media {
             return expressions;
         }
 
+        /// <summary>
+        /// Parses a <code>String</code> into a
+        /// <see>MediaExpression) value.</see>
+        /// </summary>
+        /// <param name="mediaExpressionStr">the media expression in the form of a <code>String</code></param>
+        /// <returns>
+        /// the resulting
+        /// <see>MediaExpression) value</see>
+        /// </returns>
         private static MediaExpression ParseMediaExpression(String mediaExpressionStr) {
             mediaExpressionStr = mediaExpressionStr.Trim();
             if (!mediaExpressionStr.StartsWith("(") || !mediaExpressionStr.EndsWith(")")) {
