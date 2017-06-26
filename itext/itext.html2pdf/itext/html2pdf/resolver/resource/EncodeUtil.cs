@@ -46,11 +46,13 @@ using System.IO;
 using System.Text;
 using iText.Html2pdf.Exceptions;
 
-namespace iText.Html2pdf.Resolver.Resource {
+namespace iText.Html2pdf.Resolver.Resource
+{
     /// <summary>
     /// Utilities class to encode strings in a specific encoding to HTML strings.
     /// </summary>
-    internal class EncodeUtil {
+    internal class EncodeUtil
+    {
 
         /// <summary>
         /// Set of 256 characters with the bits that don't need encoding set to on.
@@ -67,16 +69,25 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// </summary>
         internal static String dfltEncName = "UTF-8";
 
-        static EncodeUtil() {
+        /// <summary>
+        /// The default uri scheme ("file").
+        /// </summary>
+        internal static String dftUriScheme = "file";
+
+        static EncodeUtil()
+        {
             dontNeedEncoding = new BitArray(256);
             int i;
-            for (i = 'a'; i <= 'z'; i++) {
+            for (i = 'a'; i <= 'z'; i++)
+            {
                 dontNeedEncoding.Set(i, true);
             }
-            for (i = 'A'; i <= 'Z'; i++) {
+            for (i = 'A'; i <= 'Z'; i++)
+            {
                 dontNeedEncoding.Set(i, true);
             }
-            for (i = '0'; i <= '9'; i++) {
+            for (i = '0'; i <= '9'; i++)
+            {
                 dontNeedEncoding.Set(i, true);
             }
             dontNeedEncoding.Set('-', true);
@@ -94,37 +105,67 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         /// <summary>
-        /// Encodes a <code>String</code> in the default encoding to an HTML-encoded <code>String</code>.
+        /// Encodes a <code>String</code> in the default encoding and default uri scheme to an HTML-encoded <code>String</code>.
         /// </summary>
         /// <param name="s">the original string</param>
         /// <returns>the encoded string</returns>
-        public static String Encode(String s) {
-            return Encode(s, dfltEncName);
+        public static String Encode(String s)
+        {
+            return Encode(s, dftUriScheme);
         }
 
         /// <summary>
-        /// Encodes a <code>String</code> in a specific encoding to an HTML-encoded <code>String</code>.
+        /// Encodes a <code>String</code> in the specific uri scheme and default encoding to an HTML-encoded <code>String</code>.
         /// </summary>
         /// <param name="s">the original string</param>
+        /// <param name="scheme">the uri scheme</param>
+        /// <returns>the encoded string</returns>
+        public static String Encode(String s, String scheme)
+        {
+            return Encode(s, scheme, dfltEncName);
+        }
+
+        /// <summary>
+        /// Encodes a <code>String</code> in a specific encoding and specific uri scheme to an HTML-encoded <code>String</code>.
+        /// </summary>
+        /// <param name="s">the original string</param>
+        /// <param name="scheme">the uri scheme</param>
         /// <param name="enc">the encoding</param>
         /// <returns>the encoded string</returns>
-        public static String Encode(String s, String enc) {
+        public static String Encode(String s, String scheme, String enc)
+        {
             bool needToChange = false;
             StringBuilder @out = new StringBuilder(s.Length);
             Encoding charset;
             BinaryWriter charArrayWriter = new BinaryWriter(new MemoryStream());
-            if (enc == null) {
+            if (enc == null)
+            {
                 throw new Html2PdfException(Html2PdfException.UnsupportedEncodingException);
             }
             charset = iText.IO.Util.EncodingUtil.GetEncoding(enc);
-
-            for (int i = 0; i < s.Length; ) {
+            int i = 0;
+            int strLength = s.Length;
+            while (i < strLength)
+            {
                 int c = (int)s[i];
-                if (dontNeedEncoding.Get(c)) {
+                if (("http".Equals(scheme) || "https".Equals(scheme)) && '?'.Equals(s[i]))
+                {
+                    @out.Append((char)c);
+                    break;
+                }
+                else if (("http".Equals(scheme) || "https".Equals(scheme)) && '#'.Equals(s[i]) && i + 1 < strLength && '#'.Equals(s[i + 1]))
+                {
+                    @out.Append((char)c);
+                    needToChange = true;
+                    i += 2;
+                }
+                else if (dontNeedEncoding.Get(c))
+                {
                     @out.Append((char)c);
                     i++;
                 }
-                else {
+                else
+                {
                     int numOfChars = 0;
                     charArrayWriter.BaseStream.Position = 0;
                     do
@@ -140,18 +181,21 @@ namespace iText.Html2pdf.Resolver.Resource {
                         * surrogate pair. For now, just treat it as if it were
                         * any other character.
                         */
-                        if (c >= 0xD800 && c <= 0xDBFF) {
+                        if (c >= 0xD800 && c <= 0xDBFF)
+                        {
                             /*
                             System.out.println(Integer.toHexString(c)
                             + " is high surrogate");
                             */
-                            if ((i + 1) < s.Length) {
+                            if ((i + 1) < s.Length)
+                            {
                                 int d = (int)s[i + 1];
                                 /*
                                 System.out.println("\tExamining "
                                 + Integer.toHexString(d));
                                 */
-                                if (d >= 0xDC00 && d <= 0xDFFF) {
+                                if (d >= 0xDC00 && d <= 0xDFFF)
+                                {
                                     /*
                                     System.out.println("\t"
                                     + Integer.toHexString(d)
@@ -165,23 +209,26 @@ namespace iText.Html2pdf.Resolver.Resource {
                         }
                         i++;
                     }
-                    while (i < s.Length && !dontNeedEncoding.Get((c = (int)s[i])));
+                    while (i < strLength && !dontNeedEncoding.Get((c = (int)s[i])));
                     BinaryReader binReader = new BinaryReader(charArrayWriter.BaseStream);
                     binReader.BaseStream.Position = 0;
                     char[] chars = binReader.ReadChars(numOfChars);
                     String str = new String(chars);
                     byte[] ba = str.GetBytes(charset);
-                    for (int j = 0; j < ba.Length; j++) {
+                    for (int j = 0; j < ba.Length; j++)
+                    {
                         @out.Append('%');
                         char ch = CharacterForDigit((ba[j] >> 4) & 0xF, 16);
                         // converting to use uppercase letter as part of
                         // the hex value if ch is a letter.
-                        if (char.IsLetter(ch)) {
+                        if (char.IsLetter(ch))
+                        {
                             ch -= (char)caseDiff;
                         }
                         @out.Append(ch);
                         ch = CharacterForDigit(ba[j] & 0xF, 16);
-                        if (char.IsLetter(ch)) {
+                        if (char.IsLetter(ch))
+                        {
                             ch -= (char)caseDiff;
                         }
                         @out.Append(ch);
@@ -190,10 +237,16 @@ namespace iText.Html2pdf.Resolver.Resource {
                     needToChange = true;
                 }
             }
+
+            if (needToChange && i + 1 < strLength)
+            {
+                @out.Append(s.Substring(i + 1));
+            }
             return (needToChange ? @out.ToString() : s);
         }
 
-        private static char CharacterForDigit(int digit, int radix) {
+        private static char CharacterForDigit(int digit, int radix)
+        {
             if ((digit >= radix) || (digit < 0))
             {
                 return '\0';

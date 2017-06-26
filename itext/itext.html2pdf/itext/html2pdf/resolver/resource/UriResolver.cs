@@ -43,12 +43,14 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 
-namespace iText.Html2pdf.Resolver.Resource {
+namespace iText.Html2pdf.Resolver.Resource
+{
     /// <summary>
     /// Utilities class to resolve URIs.
     /// </summary>
-    public class UriResolver {
-        
+    public class UriResolver
+    {
+
         /// <summary>
         /// The base url.
         /// </summary>
@@ -63,7 +65,8 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// Creates a new <code>UriResolver</code> instance.
         /// </summary>
         /// <param name="baseUri"> the base URI</param>
-        public UriResolver(String baseUri) {
+        public UriResolver(String baseUri)
+        {
             ResolveBaseUrlOrPath(baseUri);
         }
 
@@ -71,7 +74,8 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// Gets the base URI.
         /// </summary>
         /// <returns>the base uri</returns>
-        public virtual String GetBaseUri() {
+        public virtual String GetBaseUri()
+        {
             return baseUrl.ToExternalForm();
         }
 
@@ -80,30 +84,38 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// </summary>
         /// <param name="uriString">the given URI</param>
         /// <returns>the resolved URI</returns>
-        public virtual Uri ResolveAgainstBaseUri(String uriString) {
+        public virtual Uri ResolveAgainstBaseUri(String uriString)
+        {
             Uri resolvedUrl = null;
             uriString = uriString.Trim();
             // decode and then encode uri string in order to process unsafe characters correctly
-            uriString = EncodeUtil.Encode(DecodeUtil.Decode(uriString));
-            if (isLocal) {
+            String scheme = GetScheme(uriString);
+            uriString = EncodeUtil.Encode(DecodeUtil.Decode(uriString, scheme), scheme);
+            if (isLocal)
+            {
                 // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
                 // resources around the file system even if on web page the path started with '\'
                 uriString = uriString.ReplaceFirst("/*\\\\*", "");
-                if (!uriString.StartsWith("file:")) {
-                    try {
+                if (!uriString.StartsWith("file:"))
+                {
+                    try
+                    {
                         String path = System.IO.Path.Combine(uriString);
                         // In general this check is for windows only, in order to handle paths like "c:/temp/img.jpg".
                         // What concerns unix paths, we already removed leading slashes,
                         // therefore we can't meet here an absolute path.
-                        if (Path.IsPathRooted(path)) {
+                        if (Path.IsPathRooted(path))
+                        {
                             resolvedUrl = new Uri(path);
                         }
                     }
-                    catch (Exception) {
+                    catch (Exception)
+                    {
                     }
                 }
             }
-            if (resolvedUrl == null) {
+            if (resolvedUrl == null)
+            {
                 resolvedUrl = new Uri(baseUrl, uriString);
             }
             return resolvedUrl;
@@ -113,14 +125,18 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// Resolves the base URI to an URL or path.
         /// </summary>
         /// <param name="base">the base URI</param>
-        private void ResolveBaseUrlOrPath(String @base) {
+        private void ResolveBaseUrlOrPath(String @base)
+        {
             @base = @base.Trim();
-            @base = EncodeUtil.Encode(DecodeUtil.Decode(@base));
+            String scheme = GetScheme(@base);
+            @base = EncodeUtil.Encode(DecodeUtil.Decode(@base, scheme), scheme);
             baseUrl = BaseUriAsUrl(@base);
-            if (baseUrl == null) {
+            if (baseUrl == null)
+            {
                 baseUrl = UriAsFileUrl(@base);
             }
-            if (baseUrl == null) {
+            if (baseUrl == null)
+            {
                 // TODO Html2PdfException?
                 throw new ArgumentException(String.Format("Invalid base URI: {0}", @base));
             }
@@ -131,19 +147,24 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// </summary>
         /// <param name="baseUriString">the base URI</param>
         /// <returns>the URL, or null if not successful</returns>
-        private Uri BaseUriAsUrl(String baseUriString) {
+        private Uri BaseUriAsUrl(String baseUriString)
+        {
             Uri baseAsUrl = null;
-            try {
+            try
+            {
                 Uri baseUri = new Uri(baseUriString);
-                if (Path.IsPathRooted(baseUri.AbsolutePath)) {
+                if (Path.IsPathRooted(baseUri.AbsolutePath))
+                {
                     baseAsUrl = baseUri;
-                    if ("file".Equals(baseUri.Scheme)) {
+                    if ("file".Equals(baseUri.Scheme))
+                    {
                         baseAsUrl = new Uri(NormalizeFilePath(baseAsUrl));
                         isLocal = true;
                     }
                 }
             }
-            catch (Exception) {
+            catch (Exception)
+            {
             }
             return baseAsUrl;
         }
@@ -153,39 +174,65 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// </summary>
         /// <param name="baseUriString">the base URI</param>
         /// <returns>the file URL</returns>
-        private Uri UriAsFileUrl(String baseUriString) {
-            if (baseUriString.Length == 0) {
+        private Uri UriAsFileUrl(String baseUriString)
+        {
+            if (baseUriString.Length == 0)
+            {
                 isLocal = true;
                 return new Uri(Directory.GetCurrentDirectory() + "/");
             }
             Uri baseAsFileUrl = null;
-            try {
+            try
+            {
                 baseAsFileUrl = new Uri(NormalizeFilePath(Path.GetFullPath(baseUriString)));
                 isLocal = true;
             }
-            catch (Exception) {
+            catch (Exception)
+            {
             }
             return baseAsFileUrl;
         }
 
-        private static string NormalizeFilePath(String baseUriString) {
+        private static string NormalizeFilePath(String baseUriString)
+        {
             string path;
-            if (Directory.Exists(baseUriString) && !baseUriString.EndsWith("/") && !baseUriString.EndsWith("\\")) {
+            if (Directory.Exists(baseUriString) && !baseUriString.EndsWith("/") && !baseUriString.EndsWith("\\"))
+            {
                 path = baseUriString + "/";
-            } else {
+            }
+            else
+            {
                 path = baseUriString;
             }
             return path;
         }
-        
-        private static string NormalizeFilePath(Uri baseUri) {
+
+        private static string NormalizeFilePath(Uri baseUri)
+        {
             string path;
-            if (Directory.Exists(baseUri.AbsolutePath) && !baseUri.AbsolutePath.EndsWith("/") && !baseUri.AbsolutePath.EndsWith("\\")) {
+            if (Directory.Exists(baseUri.AbsolutePath) && !baseUri.AbsolutePath.EndsWith("/") && !baseUri.AbsolutePath.EndsWith("\\"))
+            {
                 path = baseUri.AbsoluteUri + "/";
-            } else {
+            }
+            else
+            {
                 path = baseUri.AbsoluteUri;
             }
             return path;
+        }
+        private string GetScheme(String uriString)
+        {
+            String result = null;
+            char[] separators = new[] { ':' };
+            if (uriString.Contains(":"))
+            {
+                result = uriString.Split(separators)[0];
+            }
+            else if (null != baseUrl)
+            {
+                result = baseUrl.Scheme;
+            }
+            return result;
         }
     }
 }
