@@ -47,11 +47,20 @@ using iText.Html2pdf.Css.Selector.Item;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector {
+    /// <summary>
+    /// <see cref="ICssSelector"/>
+    /// implementation for CSS page selectors.
+    /// </summary>
     public class CssPageSelector : AbstractCssSelector {
+        /// <summary>Creates a new <code>CssPageSelector</code> instance.</summary>
+        /// <param name="pageSelectorStr">the page selector</param>
         public CssPageSelector(String pageSelectorStr)
             : base(CssPageSelectorParser.ParseSelectorItems(pageSelectorStr)) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.ICssSelector#matches(com.itextpdf.html2pdf.html.node.INode)
+        */
         public override bool Matches(INode node) {
             if (!(node is PageContextNode)) {
                 return false;

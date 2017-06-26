@@ -47,13 +47,20 @@ using iText.Html2pdf.Css.Selector.Item;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector {
+    /// <summary>Abstract superclass for CSS Selectors.</summary>
     public abstract class AbstractCssSelector : ICssSelector {
+        /// <summary>The selector items.</summary>
         protected internal IList<ICssSelectorItem> selectorItems;
 
+        /// <summary>Creates a new <code>AbstractCssSelector</code> instance.</summary>
+        /// <param name="selectorItems">the selector items</param>
         public AbstractCssSelector(IList<ICssSelectorItem> selectorItems) {
             this.selectorItems = selectorItems;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.ICssSelector#calculateSpecificity()
+        */
         public virtual int CalculateSpecificity() {
             int specificity = 0;
             foreach (ICssSelectorItem item in selectorItems) {
@@ -62,6 +69,9 @@ namespace iText.Html2pdf.Css.Selector {
             return specificity;
         }
 
+        /* (non-Javadoc)
+        * @see java.lang.Object#toString()
+        */
         public override String ToString() {
             StringBuilder sb = new StringBuilder();
             foreach (ICssSelectorItem item in selectorItems) {

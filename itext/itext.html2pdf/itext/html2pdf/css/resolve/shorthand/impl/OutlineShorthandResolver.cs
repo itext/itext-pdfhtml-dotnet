@@ -44,7 +44,14 @@ using System;
 using iText.Html2pdf.Css;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
+    /// <summary>
+    /// <see cref="AbstractBorderShorthandResolver"/>
+    /// implementation for outlines.
+    /// </summary>
     public class OutlineShorthandResolver : AbstractBorderShorthandResolver {
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBorderShorthandResolver#getPrefix()
+        */
         protected internal override String GetPrefix() {
             return CssConstants.OUTLINE;
         }

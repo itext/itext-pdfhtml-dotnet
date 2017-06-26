@@ -48,19 +48,34 @@ using iText.Html2pdf.Css.Selector.Item;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector {
+    /// <summary>
+    /// <see cref="ICssSelector"/>
+    /// implementation for CSS selectors.
+    /// </summary>
     public class CssSelector : AbstractCssSelector {
+        /// <summary>Creates a new <code>CssSelector</code> instance.</summary>
+        /// <param name="selectorItems">the selector items</param>
         public CssSelector(IList<ICssSelectorItem> selectorItems)
             : base(selectorItems) {
         }
 
+        /// <summary>Creates a new <code>CssSelector</code> instance.</summary>
+        /// <param name="selector">the selector</param>
         public CssSelector(String selector)
             : this(CssSelectorParser.ParseSelectorItems(selector)) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.selector.ICssSelector#matches(com.itextpdf.html2pdf.html.node.INode)
+        */
         public override bool Matches(INode element) {
             return Matches(element, selectorItems.Count - 1);
         }
 
+        /// <summary>Checks if a node matches the selector.</summary>
+        /// <param name="element">the node</param>
+        /// <param name="lastSelectorItemInd">the index of the last selector</param>
+        /// <returns>true, if there's a match</returns>
         private bool Matches(INode element, int lastSelectorItemInd) {
             if (!(element is IElementNode)) {
                 return false;

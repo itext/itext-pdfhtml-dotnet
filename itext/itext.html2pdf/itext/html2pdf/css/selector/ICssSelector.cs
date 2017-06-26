@@ -43,9 +43,15 @@ address: sales@itextpdf.com
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector {
+    /// <summary>Interface for CSS Selector classes.</summary>
     public interface ICssSelector {
+        /// <summary>Calculates the specificity.</summary>
+        /// <returns>the specificity</returns>
         int CalculateSpecificity();
 
+        /// <summary>Checks if a node matches the selector.</summary>
+        /// <param name="node">the node</param>
+        /// <returns>true, if the selector is a match for the node</returns>
         bool Matches(INode node);
     }
 }

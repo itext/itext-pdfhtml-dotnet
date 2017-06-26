@@ -46,19 +46,35 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
+    /// <summary>
+    /// Abstract
+    /// <see cref="iText.Html2pdf.Css.Resolve.Shorthand.IShorthandResolver"/>
+    /// implementation for box definitions.
+    /// </summary>
     public abstract class AbstractBoxShorthandResolver : IShorthandResolver {
+        /// <summary>The template for -left properties.</summary>
         private const String _0_LEFT_1 = "{0}-left{1}";
 
+        /// <summary>The template for -right properties.</summary>
         private const String _0_RIGHT_1 = "{0}-right{1}";
 
+        /// <summary>The template for -bottom properties.</summary>
         private const String _0_BOTTOM_1 = "{0}-bottom{1}";
 
+        /// <summary>The template for -top properties.</summary>
         private const String _0_TOP_1 = "{0}-top{1}";
 
+        /// <summary>Gets the prefix of a property.</summary>
+        /// <returns>the prefix</returns>
         protected internal abstract String GetPrefix();
 
+        /// <summary>Gets the postfix of a property.</summary>
+        /// <returns>the postfix</returns>
         protected internal abstract String GetPostfix();
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+        */
         public virtual IList<CssDeclaration> ResolveShorthand(String shorthandExpression) {
             String[] props = iText.IO.Util.StringUtil.Split(shorthandExpression, "\\s+");
             IList<CssDeclaration> resolvedDecl = new List<CssDeclaration>();

@@ -47,15 +47,28 @@ using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.Html2pdf.Css.Util;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
+    /// <summary>
+    /// Abstract
+    /// <see cref="iText.Html2pdf.Css.Resolve.Shorthand.IShorthandResolver"/>
+    /// implementation for borders.
+    /// </summary>
     public abstract class AbstractBorderShorthandResolver : IShorthandResolver {
+        /// <summary>The template for -width properties.</summary>
         private const String _0_WIDTH = "{0}-width";
 
+        /// <summary>The template for -style properties.</summary>
         private const String _0_STYLE = "{0}-style";
 
+        /// <summary>The template for -color properties.</summary>
         private const String _0_COLOR = "{0}-color";
 
+        /// <summary>Gets the prefix of a property.</summary>
+        /// <returns>the prefix</returns>
         protected internal abstract String GetPrefix();
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+        */
         public virtual IList<CssDeclaration> ResolveShorthand(String shorthandExpression) {
             String widthPropName = String.Format(_0_WIDTH, GetPrefix());
             String stylePropName = String.Format(_0_STYLE, GetPrefix());

@@ -45,7 +45,11 @@ using System.Collections.Generic;
 using iText.Html2pdf.Css;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand {
+    /// <summary>Interface for shorthand resolvers.</summary>
     public interface IShorthandResolver {
+        /// <summary>Resolves a shorthand expression.</summary>
+        /// <param name="shorthandExpression">the shorthand expression</param>
+        /// <returns>a list of CSS declaration</returns>
         IList<CssDeclaration> ResolveShorthand(String shorthandExpression);
     }
 }

@@ -44,11 +44,22 @@ using System;
 using iText.Html2pdf.Css;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
+    /// <summary>
+    /// <see cref="AbstractBoxShorthandResolver"/>
+    /// implementation for border styles.
+    /// </summary>
     public class BorderStyleShorthandResolver : AbstractBoxShorthandResolver {
+        // TODO: Auto-generated Javadoc
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBoxShorthandResolver#getPrefix()
+        */
         protected internal override String GetPrefix() {
             return CssConstants.BORDER;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBoxShorthandResolver#getPostfix()
+        */
         protected internal override String GetPostfix() {
             return "-style";
         }

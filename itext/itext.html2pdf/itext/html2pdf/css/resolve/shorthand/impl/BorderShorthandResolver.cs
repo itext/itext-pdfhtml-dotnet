@@ -47,11 +47,21 @@ using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.IO.Log;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
+    /// <summary>
+    /// <see cref="AbstractBorderShorthandResolver"/>
+    /// implementation for borders.
+    /// </summary>
     public class BorderShorthandResolver : AbstractBorderShorthandResolver {
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBorderShorthandResolver#getPrefix()
+        */
         protected internal override String GetPrefix() {
             return CssConstants.BORDER;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBorderShorthandResolver#resolveShorthand(java.lang.String)
+        */
         public override IList<CssDeclaration> ResolveShorthand(String shorthandExpression) {
             IList<CssDeclaration> preResolvedProps = base.ResolveShorthand(shorthandExpression);
             IList<CssDeclaration> resolvedProps = new List<CssDeclaration>();

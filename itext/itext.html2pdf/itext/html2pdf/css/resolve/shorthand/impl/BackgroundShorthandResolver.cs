@@ -48,23 +48,36 @@ using iText.Html2pdf.Css.Util;
 using iText.IO.Log;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Resolve.Shorthand.IShorthandResolver"/>
+    /// implementation for backgrounds.
+    /// </summary>
     public class BackgroundShorthandResolver : IShorthandResolver {
+        /// <summary>The Constant UNDEFINED_TYPE.</summary>
         private const int UNDEFINED_TYPE = -1;
 
+        /// <summary>The Constant BACKGROUND_COLOR_TYPE.</summary>
         private const int BACKGROUND_COLOR_TYPE = 0;
 
+        /// <summary>The Constant BACKGROUND_IMAGE_TYPE.</summary>
         private const int BACKGROUND_IMAGE_TYPE = 1;
 
+        /// <summary>The Constant BACKGROUND_POSITION_TYPE.</summary>
         private const int BACKGROUND_POSITION_TYPE = 2;
 
+        /// <summary>The Constant BACKGROUND_POSITION_OR_SIZE_TYPE.</summary>
         private const int BACKGROUND_POSITION_OR_SIZE_TYPE = 3;
 
+        /// <summary>The Constant BACKGROUND_REPEAT_TYPE.</summary>
         private const int BACKGROUND_REPEAT_TYPE = 4;
 
+        /// <summary>The Constant BACKGROUND_ORIGIN_OR_CLIP_TYPE.</summary>
         private const int BACKGROUND_ORIGIN_OR_CLIP_TYPE = 5;
 
+        /// <summary>The Constant BACKGROUND_CLIP_TYPE.</summary>
         private const int BACKGROUND_CLIP_TYPE = 6;
 
+        /// <summary>The Constant BACKGROUND_ATTACHMENT_TYPE.</summary>
         private const int BACKGROUND_ATTACHMENT_TYPE = 7;
 
         // might have the same type, but position always precedes size
@@ -72,6 +85,9 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
         // With CSS3, you can apply multiple backgrounds to elements. These are layered atop one another
         // with the first background you provide on top and the last background listed in the back. Only
         // the last background can include a background color.
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+        */
         public virtual IList<CssDeclaration> ResolveShorthand(String shorthandExpression) {
             if (CssConstants.INITIAL.Equals(shorthandExpression) || CssConstants.INHERIT.Equals(shorthandExpression)) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BACKGROUND_COLOR, shorthandExpression
@@ -116,6 +132,9 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             return cssDeclarations;
         }
 
+        /// <summary>Resolves the property type.</summary>
+        /// <param name="value">the value</param>
+        /// <returns>the property type value</returns>
         private int ResolvePropertyType(String value) {
             if (value.Contains("url(") || CssConstants.NONE.Equals(value)) {
                 return BACKGROUND_IMAGE_TYPE;
@@ -158,6 +177,11 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             return UNDEFINED_TYPE;
         }
 
+        /// <summary>Registers a property based on its type.</summary>
+        /// <param name="type">the property type</param>
+        /// <param name="value">the property value</param>
+        /// <param name="resolvedProps">the resolved properties</param>
+        /// <param name="slashEncountered">indicates whether a slash was encountered</param>
         private void PutPropertyBasedOnType(int type, String value, String[] resolvedProps, bool slashEncountered) {
             if (type == UNDEFINED_TYPE) {
                 ILogger logger = LoggerFactory.GetLogger(typeof(BackgroundShorthandResolver));
@@ -180,6 +204,9 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             }
         }
 
+        /// <summary>Splits multiple backgrounds.</summary>
+        /// <param name="shorthandExpression">the shorthand expression</param>
+        /// <returns>the list of backgrounds</returns>
         private IList<String> SplitMultipleBackgrounds(String shorthandExpression) {
             IList<String> commaSeparatedExpressions = new List<String>();
             bool isInsideParentheses = false;

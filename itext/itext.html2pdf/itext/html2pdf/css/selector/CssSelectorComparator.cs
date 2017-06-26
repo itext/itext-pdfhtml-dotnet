@@ -43,7 +43,11 @@ address: sales@itextpdf.com
 using System.Collections.Generic;
 
 namespace iText.Html2pdf.Css.Selector {
+    /// <summary>Comparator class for CSS Selectors.</summary>
     public class CssSelectorComparator : IComparer<ICssSelector> {
+        /* (non-Javadoc)
+        * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+        */
         public virtual int Compare(ICssSelector o1, ICssSelector o2) {
             return o1.CalculateSpecificity() - o2.CalculateSpecificity();
         }

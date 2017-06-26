@@ -46,7 +46,9 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand.Impl;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand {
+    /// <summary>A factory for creating ShorthandResolver objects.</summary>
     public class ShorthandResolverFactory {
+        /// <summary>The map of shorthand resolvers.</summary>
         private static readonly IDictionary<String, IShorthandResolver> shorthandResolvers;
 
         static ShorthandResolverFactory() {
@@ -68,6 +70,9 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand {
         }
 
         // TODO text-decoration is a shorthand in CSS3, however it is not yet supported in any major browsers
+        /// <summary>Gets a shorthand resolver.</summary>
+        /// <param name="shorthandProperty">the property</param>
+        /// <returns>the shorthand resolver</returns>
         public static IShorthandResolver GetShorthandResolver(String shorthandProperty) {
             return shorthandResolvers.Get(shorthandProperty);
         }

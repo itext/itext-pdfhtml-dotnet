@@ -46,7 +46,12 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Resolve.Shorthand.IShorthandResolver"/>
+    /// implementation for list styles.
+    /// </summary>
     public class ListStyleShorthandResolver : IShorthandResolver {
+        /// <summary>The list style types (disc, decimal,...).</summary>
         private static readonly ICollection<String> LIST_STYLE_TYPE_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
             (CssConstants.DISC, CssConstants.ARMENIAN, CssConstants.CIRCLE, CssConstants.CJK_IDEOGRAPHIC, CssConstants
             .DECIMAL, CssConstants.DECIMAL_LEADING_ZERO, CssConstants.GEORGIAN, CssConstants.HEBREW, CssConstants.
@@ -54,9 +59,13 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             .LOWER_LATIN, CssConstants.LOWER_ROMAN, CssConstants.NONE, CssConstants.SQUARE, CssConstants.UPPER_ALPHA
             , CssConstants.UPPER_LATIN, CssConstants.UPPER_ROMAN));
 
+        /// <summary>The list stype positions (inside, outside).</summary>
         private static readonly ICollection<String> LIST_STYLE_POSITION_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
             (CssConstants.INSIDE, CssConstants.OUTSIDE));
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+        */
         public virtual IList<CssDeclaration> ResolveShorthand(String shorthandExpression) {
             if (CssConstants.INITIAL.Equals(shorthandExpression) || CssConstants.INHERIT.Equals(shorthandExpression)) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.LIST_STYLE_TYPE, shorthandExpression

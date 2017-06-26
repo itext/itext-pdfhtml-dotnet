@@ -49,19 +49,29 @@ using iText.Html2pdf.Css.Util;
 using iText.IO.Log;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.Resolve.Shorthand.IShorthandResolver"/>
+    /// implementation for fonts.
+    /// </summary>
     public class FontShorthandResolver : IShorthandResolver {
+        /// <summary>Unsupported shorthand values.</summary>
         private static readonly ICollection<String> UNSUPPORTED_VALUES_OF_FONT_SHORTHAND = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
             (CssConstants.CAPTION, CssConstants.ICON, CssConstants.MENU, CssConstants.MESSAGE_BOX, CssConstants.SMALL_CAPTION
             , CssConstants.STATUS_BAR));
 
+        /// <summary>Font weight values.</summary>
         private static readonly ICollection<String> FONT_WEIGHT_NOT_DEFAULT_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
             (CssConstants.BOLD, CssConstants.BOLDER, CssConstants.LIGHTER, "100", "200", "300", "400", "500", "600"
             , "700", "800", "900"));
 
+        /// <summary>Font size values.</summary>
         private static readonly ICollection<String> FONT_SIZE_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
             (CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE
             , CssConstants.X_LARGE, CssConstants.XX_LARGE, CssConstants.SMALLER, CssConstants.LARGER));
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
+        */
         public virtual IList<CssDeclaration> ResolveShorthand(String shorthandExpression) {
             if (UNSUPPORTED_VALUES_OF_FONT_SHORTHAND.Contains(shorthandExpression)) {
                 ILogger logger = LoggerFactory.GetLogger(typeof(FontShorthandResolver));
@@ -124,6 +134,9 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             return cssDeclarations;
         }
 
+        /// <summary>Gets the font properties.</summary>
+        /// <param name="shorthandExpression">the shorthand expression</param>
+        /// <returns>the font properties</returns>
         private IList<String> GetFontProperties(String shorthandExpression) {
             bool doubleQuotesAreSpotted = false;
             bool singleQuoteIsSpotted = false;
