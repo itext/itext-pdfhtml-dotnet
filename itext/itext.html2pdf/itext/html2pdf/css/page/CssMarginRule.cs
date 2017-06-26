@@ -46,13 +46,24 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Selector;
 
 namespace iText.Html2pdf.Css.Page {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.CssNestedAtRule"/>
+    /// implementation for margins.
+    /// </summary>
     public class CssMarginRule : CssNestedAtRule {
+        /// <summary>The page selectors.</summary>
         private IList<ICssSelector> pageSelectors;
 
+        /// <summary>Creates a new <code>CssMarginRule</code> instance.</summary>
+        /// <param name="ruleName">the rule name</param>
+        /// <param name="ruleParameters">the rule parameters</param>
         public CssMarginRule(String ruleName, String ruleParameters)
             : base(ruleName, ruleParameters) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.CssNestedAtRule#addBodyCssDeclarations(java.util.List)
+        */
         public override void AddBodyCssDeclarations(IList<CssDeclaration> cssDeclarations) {
             foreach (ICssSelector pageSelector in pageSelectors) {
                 this.body.Add(new CssNonStandardRuleSet(new CssPageMarginBoxSelector(GetRuleName(), pageSelector), cssDeclarations
@@ -60,6 +71,8 @@ namespace iText.Html2pdf.Css.Page {
             }
         }
 
+        /// <summary>Sets the page selectors.</summary>
+        /// <param name="pageSelectors">the new page selectors</param>
         internal virtual void SetPageSelectors(IList<ICssSelector> pageSelectors) {
             this.pageSelectors = pageSelectors;
         }

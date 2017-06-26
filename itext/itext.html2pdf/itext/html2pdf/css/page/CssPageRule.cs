@@ -47,9 +47,16 @@ using iText.Html2pdf.Css.Selector;
 using iText.Html2pdf.Css.Util;
 
 namespace iText.Html2pdf.Css.Page {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.CssNestedAtRule"/>
+    /// implementation for page rules.
+    /// </summary>
     public class CssPageRule : CssNestedAtRule {
+        /// <summary>The page selectors.</summary>
         private IList<ICssSelector> pageSelectors;
 
+        /// <summary>Creates a new <code>CssPageRule</code> instance.</summary>
+        /// <param name="ruleParameters">the rule parameters</param>
         public CssPageRule(String ruleParameters)
             : base(CssRuleName.PAGE, ruleParameters) {
             pageSelectors = new List<ICssSelector>();
@@ -62,6 +69,9 @@ namespace iText.Html2pdf.Css.Page {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.CssNestedAtRule#addBodyCssDeclarations(java.util.List)
+        */
         public override void AddBodyCssDeclarations(IList<CssDeclaration> cssDeclarations) {
             // TODO Due to this for-loop, on toString method call for the CssPageRule instance
             //      all the body declarations will be duplicated for each pageSelector part.
@@ -79,6 +89,9 @@ namespace iText.Html2pdf.Css.Page {
             }
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.CssNestedAtRule#addStatementToBody(com.itextpdf.html2pdf.css.CssStatement)
+        */
         public override void AddStatementToBody(CssStatement statement) {
             if (statement is CssMarginRule) {
                 ((CssMarginRule)statement).SetPageSelectors(pageSelectors);
@@ -86,6 +99,9 @@ namespace iText.Html2pdf.Css.Page {
             this.body.Add(statement);
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.CssNestedAtRule#addStatementsToBody(java.util.Collection)
+        */
         public override void AddStatementsToBody(ICollection<CssStatement> statements) {
             foreach (CssStatement statement in statements) {
                 AddStatementToBody(statement);

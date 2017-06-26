@@ -48,25 +48,40 @@ using iText.Html2pdf.Html.Node;
 using iText.Kernel.Numbering;
 
 namespace iText.Html2pdf.Css.Resolve.Func.Counter {
+    /// <summary>Class that manages counters (e.g.</summary>
+    /// <remarks>Class that manages counters (e.g. for list symbols).</remarks>
     public class CssCounterManager {
+        /// <summary>The Constant DISC_SYMBOL.</summary>
         private const String DISC_SYMBOL = "\u2022";
 
+        /// <summary>The Constant CIRCLE_SYMBOL.</summary>
         private const String CIRCLE_SYMBOL = "\u25e6";
 
+        /// <summary>The Constant SQUARE_SYMBOL.</summary>
         private const String SQUARE_SYMBOL = "\u25a0";
 
+        /// <summary>The Constant DEFAULT_COUNTER_VALUE.</summary>
         private const int DEFAULT_COUNTER_VALUE = 0;
 
+        /// <summary>The Constant DEFAULT_INCREMENT_VALUE.</summary>
         private const int DEFAULT_INCREMENT_VALUE = 1;
 
+        /// <summary>The Constant MAX_ROMAN_NUMBER.</summary>
         private const int MAX_ROMAN_NUMBER = 3999;
 
+        /// <summary>The counters.</summary>
         private IDictionary<INode, IDictionary<String, int?>> counters = new Dictionary<INode, IDictionary<String, 
             int?>>();
 
+        /// <summary>Creates a new <code>CssCounterManager</code> instance.</summary>
         public CssCounterManager() {
         }
 
+        /// <summary>Resolves a counter.</summary>
+        /// <param name="counterName">the counter name</param>
+        /// <param name="listSymbolType">the list symbol type</param>
+        /// <param name="scope">the scope</param>
+        /// <returns>the counter value as a <code>String</code></returns>
         public virtual String ResolveCounter(String counterName, String listSymbolType, INode scope) {
             IDictionary<String, int?> scopeCounters = FindSuitableScopeMap(scope, counterName);
             int? counterValue = scopeCounters != null ? scopeCounters.Get(counterName) : null;
@@ -147,6 +162,12 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         }
 
         //TODO
+        /// <summary>Resolves counters.</summary>
+        /// <param name="counterName">the counter name</param>
+        /// <param name="counterSeparatorStr">the counter separator</param>
+        /// <param name="listSymbolType">the list symbol type</param>
+        /// <param name="scope">the scope</param>
+        /// <returns>the counters as a <code>String</code></returns>
         public virtual String ResolveCounters(String counterName, String counterSeparatorStr, String listSymbolType
             , INode scope) {
             INode currentScope = scope;
@@ -176,14 +197,25 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
             }
         }
 
+        /// <summary>Resets the counter.</summary>
+        /// <param name="counterName">the counter name</param>
+        /// <param name="scope">the scope</param>
         public virtual void ResetCounter(String counterName, INode scope) {
             ResetCounter(counterName, DEFAULT_COUNTER_VALUE, scope);
         }
 
+        /// <summary>Resets the counter.</summary>
+        /// <param name="counterName">the counter name</param>
+        /// <param name="value">the new value</param>
+        /// <param name="scope">the scope</param>
         public virtual void ResetCounter(String counterName, int value, INode scope) {
             GetOrCreateScopeCounterMap(scope).Put(counterName, value);
         }
 
+        /// <summary>Increments the counter.</summary>
+        /// <param name="counterName">the counter name</param>
+        /// <param name="incrementValue">the increment value</param>
+        /// <param name="scope">the scope</param>
         public virtual void IncrementCounter(String counterName, int incrementValue, INode scope) {
             IDictionary<String, int?> scopeCounters = FindSuitableScopeMap(scope, counterName);
             int? curValue = scopeCounters != null ? scopeCounters.Get(counterName) : null;
@@ -197,10 +229,16 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
             scopeCounters.Put(counterName, curValue + incrementValue);
         }
 
+        /// <summary>Increments the counter.</summary>
+        /// <param name="counterName">the counter name</param>
+        /// <param name="scope">the scope</param>
         public virtual void IncrementCounter(String counterName, INode scope) {
             IncrementCounter(counterName, DEFAULT_INCREMENT_VALUE, scope);
         }
 
+        /// <summary>Gets the scope counter map (or creates it if it doesn't exist).</summary>
+        /// <param name="scope">the scope</param>
+        /// <returns>the or create scope counter map</returns>
         private IDictionary<String, int?> GetOrCreateScopeCounterMap(INode scope) {
             IDictionary<String, int?> scopeCounters = counters.Get(scope);
             if (scopeCounters == null) {
@@ -210,11 +248,19 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
             return scopeCounters;
         }
 
+        /// <summary>Searches for the suitable scope map.</summary>
+        /// <param name="scope">the scope</param>
+        /// <param name="counterName">the counter name</param>
+        /// <returns>the map</returns>
         private IDictionary<String, int?> FindSuitableScopeMap(INode scope, String counterName) {
             INode ownerScope = FindCounterOwner(scope, counterName);
             return ownerScope == null ? null : counters.Get(ownerScope);
         }
 
+        /// <summary>Searches for the counter owner.</summary>
+        /// <param name="scope">the scope</param>
+        /// <param name="counterName">the counter name</param>
+        /// <returns>the owner node</returns>
         private INode FindCounterOwner(INode scope, String counterName) {
             while (scope != null && (!counters.ContainsKey(scope) || !counters.Get(scope).ContainsKey(counterName))) {
                 // First, search through previous siblings

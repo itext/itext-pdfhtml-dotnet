@@ -45,9 +45,17 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Page {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.CssContextNode"/>
+    /// implementation for page margin box contexts.
+    /// </summary>
     public class PageMarginBoxContextNode : CssContextNode {
+        /// <summary>The margin box name.</summary>
         private String marginBoxName;
 
+        /// <summary>Creates a new <code>PageMarginBoxContextNode</code> instance.</summary>
+        /// <param name="parentNode">the parent node</param>
+        /// <param name="marginBoxName">the margin box name</param>
         public PageMarginBoxContextNode(INode parentNode, String marginBoxName)
             : base(parentNode) {
             this.marginBoxName = marginBoxName;
@@ -56,6 +64,8 @@ namespace iText.Html2pdf.Css.Page {
             }
         }
 
+        /// <summary>Gets the margin box name.</summary>
+        /// <returns>the margin box name</returns>
         public virtual String GetMarginBoxName() {
             return marginBoxName;
         }

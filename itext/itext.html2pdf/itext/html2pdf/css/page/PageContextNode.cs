@@ -47,34 +47,53 @@ using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Page {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Css.CssContextNode"/>
+    /// implementation for page contexts.
+    /// </summary>
     public class PageContextNode : CssContextNode {
+        /// <summary>The page type name.</summary>
         private String pageTypeName;
 
+        /// <summary>The page classes.</summary>
         private IList<String> pageClasses;
 
+        /// <summary>Creates a new <code>PageContextNode</code> instance.</summary>
         public PageContextNode()
             : this(null) {
         }
 
+        /// <summary>Creates a new <code>PageContextNode</code> instance.</summary>
+        /// <param name="parentNode">the parent node</param>
         public PageContextNode(INode parentNode)
             : base(parentNode) {
             this.pageClasses = new List<String>();
         }
 
+        /// <summary>Adds a page class.</summary>
+        /// <param name="pageClass">the page class</param>
+        /// <returns>the page context node</returns>
         public virtual iText.Html2pdf.Css.Page.PageContextNode AddPageClass(String pageClass) {
             this.pageClasses.Add(pageClass.ToLowerInvariant());
             return this;
         }
 
+        /// <summary>Gets the page type name.</summary>
+        /// <returns>the page type name</returns>
         public virtual String GetPageTypeName() {
             return this.pageTypeName;
         }
 
+        /// <summary>Sets the page type name.</summary>
+        /// <param name="pageTypeName">the page type name</param>
+        /// <returns>the page context node</returns>
         public virtual iText.Html2pdf.Css.Page.PageContextNode SetPageTypeName(String pageTypeName) {
             this.pageTypeName = pageTypeName;
             return this;
         }
 
+        /// <summary>Gets the list of page classes.</summary>
+        /// <returns>the page classes</returns>
         public virtual IList<String> GetPageClasses() {
             return JavaCollectionsUtil.UnmodifiableList(pageClasses);
         }

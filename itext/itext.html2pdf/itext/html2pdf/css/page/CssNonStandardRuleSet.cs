@@ -47,11 +47,22 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Selector;
 
 namespace iText.Html2pdf.Css.Page {
+    /// <summary>
+    /// Class for a non standard
+    /// <see cref="iText.Html2pdf.Css.CssRuleSet"/>
+    /// .
+    /// </summary>
     internal class CssNonStandardRuleSet : CssRuleSet {
+        /// <summary>Creates a new <code>CssNonStandardRuleSet</code> instance.</summary>
+        /// <param name="selector">the selector</param>
+        /// <param name="declarations">the declarations</param>
         public CssNonStandardRuleSet(ICssSelector selector, IList<CssDeclaration> declarations)
             : base(selector, declarations) {
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.CssRuleSet#toString()
+        */
         public override String ToString() {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < GetNormalDeclarations().Count; i++) {

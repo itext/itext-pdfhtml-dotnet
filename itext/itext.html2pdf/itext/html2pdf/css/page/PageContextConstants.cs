@@ -43,13 +43,18 @@ address: sales@itextpdf.com
 using System;
 
 namespace iText.Html2pdf.Css.Page {
+    /// <summary>Class that bundles a series of page context constants.</summary>
     public class PageContextConstants {
+        /// <summary>The Constant BLANK.</summary>
         public const String BLANK = "blank";
 
+        /// <summary>The Constant FIRST.</summary>
         public const String FIRST = "first";
 
+        /// <summary>The Constant LEFT.</summary>
         public const String LEFT = "left";
 
+        /// <summary>The Constant RIGHT.</summary>
         public const String RIGHT = "right";
     }
 }

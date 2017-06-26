@@ -46,16 +46,26 @@ using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Resolve.Func.Counter {
+    /// <summary>
+    /// <see cref="iText.Html2pdf.Html.Node.ICustomElementNode"/>
+    /// implementation for a page count element node.
+    /// </summary>
     public class PageCountElementNode : JsoupElementNode, ICustomElementNode {
+        /// <summary>The Constant PAGE_COUNTER_TAG.</summary>
         public const String PAGE_COUNTER_TAG = "_e0d00a6_page-counter";
 
+        /// <summary>Indicates if the node represents the total page count.</summary>
         private bool totalPageCount = false;
 
+        /// <summary>Creates a new <code>PageCountElementNode</code> instance.</summary>
+        /// <param name="totalPageCount">indicates if the node represents the total page count</param>
         public PageCountElementNode(bool totalPageCount)
             : base(new Element(Org.Jsoup.Parser.Tag.ValueOf(PAGE_COUNTER_TAG), "")) {
             this.totalPageCount = totalPageCount;
         }
 
+        /// <summary>Checks if the node represents the total page count.</summary>
+        /// <returns>true, if the node represents the total page count</returns>
         public virtual bool IsTotalPageCount() {
             return totalPageCount;
         }
