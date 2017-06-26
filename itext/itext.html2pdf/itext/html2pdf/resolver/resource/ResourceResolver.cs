@@ -101,6 +101,9 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// <param name="src">either link to file or base64 encoded stream.</param>
         /// <returns>PdfImageXObject on success, otherwise null.</returns>
         public virtual PdfImageXObject RetrieveImage(String src) {
+            if (src == null) {
+                return null;
+            }
             if (src.Contains("base64")) {
                 try {
                     String fixedSrc = iText.IO.Util.StringUtil.ReplaceAll(src, "\\s", "");

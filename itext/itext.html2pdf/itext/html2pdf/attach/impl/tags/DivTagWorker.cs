@@ -141,7 +141,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                             processed = true;
                         }
                         else {
-                            if (childTagWorker is ImgTagWorker) {
+                            if (childTagWorker is ImgTagWorker && element is IElement) {
                                 if (CssConstants.BLOCK.Equals(((ImgTagWorker)childTagWorker).GetDisplay())) {
                                     processed = AddBlockChild((IElement)element);
                                 }
