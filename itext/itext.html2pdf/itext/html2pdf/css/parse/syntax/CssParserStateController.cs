@@ -51,23 +51,33 @@ using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Parse.Syntax {
+    /// <summary>State machine that will parse content into a style sheet.</summary>
     public sealed class CssParserStateController {
+        /// <summary>The current state.</summary>
         private IParserState currentState;
 
+        /// <summary>Indicates if the current rule is supported.</summary>
         private bool isCurrentRuleSupported = true;
 
+        /// <summary>The previous active state (excluding comments).</summary>
         private IParserState previousActiveState;
 
+        /// <summary>A buffer to store temporary results.</summary>
         private StringBuilder buffer = new StringBuilder();
 
+        /// <summary>The current selector.</summary>
         private String currentSelector;
 
+        /// <summary>The style sheet.</summary>
         private CssStyleSheet styleSheet;
 
+        /// <summary>The nested At-rules.</summary>
         private Stack<CssNestedAtRule> nestedAtRules;
 
+        /// <summary>The stored properties without selector.</summary>
         private Stack<IList<CssDeclaration>> storedPropertiesWithoutSelector;
 
+        /// <summary>Set of the supported rules.</summary>
         private static readonly ICollection<String> SUPPORTED_RULES = JavaCollectionsUtil.UnmodifiableSet(new HashSet
             <String>(iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName.MEDIA, CssRuleName.PAGE, CssRuleName.TOP_LEFT_CORNER
             , CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT, CssRuleName.TOP_RIGHT_CORNER, CssRuleName
@@ -75,34 +85,46 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             .BOTTOM_RIGHT_CORNER, CssRuleName.LEFT_TOP, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_BOTTOM, CssRuleName
             .RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM, CssRuleName.FONT_FACE)));
 
+        /// <summary>Set of conditional group rules.</summary>
         private static readonly ICollection<String> CONDITIONAL_GROUP_RULES = JavaCollectionsUtil.UnmodifiableSet(
             new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName.MEDIA)));
 
+        /// <summary>The comment start state.</summary>
         private readonly IParserState commentStartState;
 
+        /// <summary>The commend end state.</summary>
         private readonly IParserState commendEndState;
 
+        /// <summary>The commend inner state.</summary>
         private readonly IParserState commendInnerState;
 
+        /// <summary>The unknown state.</summary>
         private readonly IParserState unknownState;
 
+        /// <summary>The rule state.</summary>
         private readonly IParserState ruleState;
 
+        /// <summary>The properties state.</summary>
         private readonly IParserState propertiesState;
 
+        /// <summary>The conditional group at rule block state.</summary>
         private readonly IParserState conditionalGroupAtRuleBlockState;
 
+        /// <summary>The At-rule block state.</summary>
         private readonly IParserState atRuleBlockState;
 
+        /// <summary>The URI resolver.</summary>
         private UriResolver uriResolver;
 
+        /// <summary>Creates a new <code>CssParserStateController</code> instance.</summary>
         public CssParserStateController()
             : this("") {
         }
 
+        /// <summary>Creates a new <code>CssParserStateController</code> instance.</summary>
+        /// <param name="baseUrl">the base URL</param>
         public CssParserStateController(String baseUrl) {
             //Hashed value
-            // Non-comment
             if (baseUrl != null && baseUrl.Length > 0) {
                 this.uriResolver = new UriResolver(baseUrl);
             }
@@ -120,47 +142,62 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             currentState = unknownState;
         }
 
+        /// <summary>Process a character using the current state.</summary>
+        /// <param name="ch">the character</param>
         public void Process(char ch) {
             currentState.Process(ch);
         }
 
+        /// <summary>Gets the resulting style sheet.</summary>
+        /// <returns>the resulting style sheet</returns>
         public CssStyleSheet GetParsingResult() {
             return styleSheet;
         }
 
+        /// <summary>Appends a character to the buffer.</summary>
+        /// <param name="ch">the character</param>
         internal void AppendToBuffer(char ch) {
             buffer.Append(ch);
         }
 
+        /// <summary>Gets the contents of the buffer.</summary>
+        /// <returns>the buffer contents</returns>
         internal String GetBufferContents() {
             return buffer.ToString();
         }
 
+        /// <summary>Resets the buffer.</summary>
         internal void ResetBuffer() {
             buffer.Length = 0;
         }
 
+        /// <summary>Enter the previous active state.</summary>
         internal void EnterPreviousActiveState() {
             SetState(previousActiveState);
         }
 
+        /// <summary>Enter the comment start state.</summary>
         internal void EnterCommentStartState() {
             SaveActiveState();
             SetState(commentStartState);
         }
 
+        /// <summary>Enter the comment end state.</summary>
         internal void EnterCommentEndState() {
             SetState(commendEndState);
         }
 
+        /// <summary>Enter the comment inner state.</summary>
         internal void EnterCommentInnerState() {
             SetState(commendInnerState);
         }
 
+        /// <summary>Enter the rule state.</summary>
         internal void EnterRuleState() {
             SetState(ruleState);
         }
 
+        /// <summary>Enter the unknown state if nested blocks are finished.</summary>
         internal void EnterUnknownStateIfNestedBlocksFinished() {
             if (nestedAtRules.Count == 0) {
                 SetState(unknownState);
@@ -170,6 +207,7 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             }
         }
 
+        /// <summary>Enter the rule state, based on whether the current state is unsupported or conditional.</summary>
         internal void EnterRuleStateBasedOnItsType() {
             if (CurrentAtRuleIsConditionalGroupRule()) {
                 EnterConditionalGroupAtRuleBlockState();
@@ -179,27 +217,33 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             }
         }
 
+        /// <summary>Enter the unknown state.</summary>
         internal void EnterUnknownState() {
             SetState(unknownState);
         }
 
+        /// <summary>Enter the At-rule block state.</summary>
         internal void EnterAtRuleBlockState() {
             SetState(atRuleBlockState);
         }
 
+        /// <summary>Enter the conditional group At-rule block state.</summary>
         internal void EnterConditionalGroupAtRuleBlockState() {
             SetState(conditionalGroupAtRuleBlockState);
         }
 
+        /// <summary>Enter the properties state.</summary>
         internal void EnterPropertiesState() {
             SetState(propertiesState);
         }
 
+        /// <summary>Store the current selector.</summary>
         internal void StoreCurrentSelector() {
             currentSelector = buffer.ToString();
             buffer.Length = 0;
         }
 
+        /// <summary>Store the current properties.</summary>
         internal void StoreCurrentProperties() {
             if (isCurrentRuleSupported) {
                 ProcessProperties(currentSelector, buffer.ToString());
@@ -208,6 +252,7 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             buffer.Length = 0;
         }
 
+        /// <summary>Store the current properties without selector.</summary>
         internal void StoreCurrentPropertiesWithoutSelector() {
             if (isCurrentRuleSupported) {
                 ProcessProperties(buffer.ToString());
@@ -215,6 +260,7 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             buffer.Length = 0;
         }
 
+        /// <summary>Store the semicolon At-rule.</summary>
         internal void StoreSemicolonAtRule() {
             if (isCurrentRuleSupported) {
                 ProcessSemicolonAtRule(buffer.ToString());
@@ -222,6 +268,7 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             buffer.Length = 0;
         }
 
+        /// <summary>Finish the At-rule block.</summary>
         internal void FinishAtRuleBlock() {
             IList<CssDeclaration> storedProps = storedPropertiesWithoutSelector.Pop();
             CssNestedAtRule atRule = nestedAtRules.Pop();
@@ -235,6 +282,7 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             buffer.Length = 0;
         }
 
+        /// <summary>Push the block preceding At-rule.</summary>
         internal void PushBlockPrecedingAtRule() {
             nestedAtRules.Push(CssNestedAtRuleFactory.CreateNestedRule(buffer.ToString()));
             storedPropertiesWithoutSelector.Push(new List<CssDeclaration>());
@@ -242,14 +290,20 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             buffer.Length = 0;
         }
 
+        /// <summary>Save the active state.</summary>
         private void SaveActiveState() {
             previousActiveState = currentState;
         }
 
+        /// <summary>Sets the current state.</summary>
+        /// <param name="state">the new state</param>
         private void SetState(IParserState state) {
             currentState = state;
         }
 
+        /// <summary>Processes the properties.</summary>
+        /// <param name="selector">the selector</param>
+        /// <param name="properties">the properties</param>
         private void ProcessProperties(String selector, String properties) {
             IList<CssRuleSet> ruleSets = CssRuleSetParser.ParseRuleSet(selector, properties);
             foreach (CssRuleSet ruleSet in ruleSets) {
@@ -266,6 +320,8 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             }
         }
 
+        /// <summary>Processes the properties.</summary>
+        /// <param name="properties">the properties</param>
         private void ProcessProperties(String properties) {
             if (storedPropertiesWithoutSelector.Count > 0) {
                 IList<CssDeclaration> cssDeclarations = CssRuleSetParser.ParsePropertyDeclarations(properties);
@@ -274,6 +330,8 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             }
         }
 
+        /// <summary>Normalizes the declaration URIs.</summary>
+        /// <param name="declarations">the declarations</param>
         private void NormalizeDeclarationURIs(IList<CssDeclaration> declarations) {
             // This is the case when css has no location and thus urls should not be resolved against base css location
             if (this.uriResolver == null) {
@@ -320,11 +378,15 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             }
         }
 
+        /// <summary>Processes the semicolon At-rule.</summary>
+        /// <param name="ruleStr">the rule str</param>
         private void ProcessSemicolonAtRule(String ruleStr) {
             CssSemicolonAtRule atRule = new CssSemicolonAtRule(ruleStr);
             styleSheet.AddStatement(atRule);
         }
 
+        /// <summary>Processes the finished At-rule block.</summary>
+        /// <param name="atRule">the at rule</param>
         private void ProcessFinishedAtRuleBlock(CssNestedAtRule atRule) {
             if (nestedAtRules.Count != 0) {
                 nestedAtRules.Peek().AddStatementToBody(atRule);
@@ -334,6 +396,8 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             }
         }
 
+        /// <summary>Checks if is current rule is supported.</summary>
+        /// <returns>true, if the current rule is supported</returns>
         private bool IsCurrentRuleSupported() {
             bool isSupported = nestedAtRules.IsEmpty() || SUPPORTED_RULES.Contains(nestedAtRules.Peek().GetRuleName());
             if (!isSupported) {
@@ -343,6 +407,8 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
             return isSupported;
         }
 
+        /// <summary>Checks if the current At-rule is a conditional group rule (or if it's unsupported).</summary>
+        /// <returns>true, if the current At-rule is unsupported or conditional</returns>
         private bool CurrentAtRuleIsConditionalGroupRule() {
             return !isCurrentRuleSupported || (nestedAtRules.Count > 0 && CONDITIONAL_GROUP_RULES.Contains(nestedAtRules
                 .Peek().GetRuleName()));

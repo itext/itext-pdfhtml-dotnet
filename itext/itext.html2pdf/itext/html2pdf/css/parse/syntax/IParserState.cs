@@ -41,7 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 namespace iText.Html2pdf.Css.Parse.Syntax {
+    /// <summary>Interface for all parser state implementations.</summary>
     internal interface IParserState {
+        /// <summary>Process a character.</summary>
+        /// <param name="ch">the character</param>
         void Process(char ch);
     }
 }

@@ -41,14 +41,24 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 namespace iText.Html2pdf.Css.Parse.Syntax {
+    /// <summary>
+    /// <see cref="IParserState"/>
+    /// implementation for the block state.
+    /// </summary>
     internal class PropertiesState : IParserState {
+        /// <summary>The state machine that parses the CSS.</summary>
         private CssParserStateController controller;
 
+        /// <summary>Creates a new <code>PropertiesState</code> instance.</summary>
+        /// <param name="controller">the state machine that parses the CSS</param>
         public PropertiesState(CssParserStateController controller) {
             // TODO rename to BLOCK
             this.controller = controller;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.parse.syntax.IParserState#process(char)
+        */
         public virtual void Process(char ch) {
             if (ch == '}') {
                 controller.StoreCurrentProperties();
