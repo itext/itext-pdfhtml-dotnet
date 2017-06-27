@@ -69,7 +69,7 @@ namespace iText.Html2pdf.Css.Media {
         /// <summary>The orientation.</summary>
         private String orientation;
 
-        /// <summary>The monochrome value.</summary>
+        /// <summary>The the number of bits per pixel on a monochrome (greyscale) device.</summary>
         private int monochrome;
 
         /// <summary>The resolution in DPI.</summary>
@@ -206,14 +206,14 @@ namespace iText.Html2pdf.Css.Media {
             return this;
         }
 
-        /// <summary>Gets the monochrome value.</summary>
-        /// <returns>the monochrome value</returns>
+        /// <summary>Gets the number of bits per pixel on a monochrome (greyscale) device.</summary>
+        /// <returns>the number of bits per pixel on a monochrome (greyscale) device</returns>
         public virtual int GetMonochrome() {
             return monochrome;
         }
 
-        /// <summary>Sets the monochrome value.</summary>
-        /// <param name="monochrome">the monochrome value</param>
+        /// <summary>Sets the number of bits per pixel on a monochrome (greyscale) device.</summary>
+        /// <param name="monochrome">the number of bits per pixel on a monochrome (greyscale) device</param>
         /// <returns>the media device description</returns>
         public virtual iText.Html2pdf.Css.Media.MediaDeviceDescription SetMonochrome(int monochrome) {
             this.monochrome = monochrome;
