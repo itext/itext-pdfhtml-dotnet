@@ -62,7 +62,6 @@ namespace iText.Html2pdf.Css.Selector.Item {
         /// <summary>Creates a new <code>CssAttributeSelectorItem<code> instance.</summary>
         /// <param name="attrSelector">the attribute</param>
         public CssAttributeSelectorItem(String attrSelector) {
-            // TODO: Auto-generated Javadoc
             int indexOfEqual = attrSelector.IndexOf('=');
             if (indexOfEqual == -1) {
                 property = attrSelector.JSubstring(1, attrSelector.Length - 1);

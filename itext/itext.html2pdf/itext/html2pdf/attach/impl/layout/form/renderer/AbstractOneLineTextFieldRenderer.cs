@@ -61,7 +61,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             : base(modelElement) {
         }
 
-        // TODO: Auto-generated Javadoc
         /* (non-Javadoc)
         * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getAscent()
         */

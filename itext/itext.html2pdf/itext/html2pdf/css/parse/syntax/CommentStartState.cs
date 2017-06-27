@@ -52,7 +52,6 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         /// <summary>Creates a new <code>CommentStartState</code> instance.</summary>
         /// <param name="controller">the state machine that parses the CSS</param>
         public CommentStartState(CssParserStateController controller) {
-            // TODO: Auto-generated Javadoc
             this.controller = controller;
         }
 

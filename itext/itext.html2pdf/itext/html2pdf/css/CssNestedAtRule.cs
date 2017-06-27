@@ -67,7 +67,6 @@ namespace iText.Html2pdf.Css {
         /// <param name="ruleParameters">the rule parameters</param>
         public CssNestedAtRule(String ruleName, String ruleParameters)
             : base(ruleName) {
-            // TODO: Auto-generated Javadoc
             this.ruleParameters = ruleParameters;
             this.body = new List<CssStatement>();
         }

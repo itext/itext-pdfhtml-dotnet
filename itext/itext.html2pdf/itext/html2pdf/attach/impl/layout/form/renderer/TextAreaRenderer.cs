@@ -65,7 +65,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             : base(modelElement) {
         }
 
-        // TODO: Auto-generated Javadoc
         /// <summary>Gets the number of columns.</summary>
         /// <returns>the cols value of the text area field</returns>
         public virtual int GetCols() {

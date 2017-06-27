@@ -65,7 +65,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public ButtonTagWorker(IElementNode element, ProcessorContext context) {
-            // TODO: Auto-generated Javadoc
             String name = element.GetAttribute(AttributeConstants.ID);
             if (name == null) {
                 name = DEFAULT_BUTTON_NAME;

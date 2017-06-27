@@ -49,7 +49,6 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
     /// implementation for border widths.
     /// </summary>
     public class BorderWidthShorthandResolver : AbstractBoxShorthandResolver {
-        // TODO: Auto-generated Javadoc
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.css.resolve.shorthand.impl.AbstractBoxShorthandResolver#getPrefix()
         */

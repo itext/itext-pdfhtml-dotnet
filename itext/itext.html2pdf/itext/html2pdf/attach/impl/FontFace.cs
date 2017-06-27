@@ -57,7 +57,6 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>A list of font face sources.</summary>
         private readonly IList<FontFace.FontFaceSrc> sources;
 
-        // TODO: Auto-generated Javadoc
         /// <summary>
         /// Create a <code>FontFace</code> instance from a list of
         /// CSS font attributes ("font-family" or "src").

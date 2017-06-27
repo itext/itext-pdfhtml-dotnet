@@ -63,7 +63,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private HyphenationApplierUtil() {
         }
 
-        // TODO: Auto-generated Javadoc
         // TODO these are css properties actually, but it is not supported by the browsers currently
         /// <summary>Applies hyphenation to an element.</summary>
         /// <param name="cssProps">the CSS props</param>

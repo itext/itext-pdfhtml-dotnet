@@ -70,7 +70,6 @@ namespace iText.Html2pdf.Attach.Wrapelement {
         /// <summary>The number of columns.</summary>
         private int numberOfColumns = 0;
 
-        // TODO: Auto-generated Javadoc
         /// <summary>Gets the number of rows.</summary>
         /// <returns>the number of rows</returns>
         public virtual int GetRowsSize() {
