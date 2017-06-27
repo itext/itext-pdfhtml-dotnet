@@ -73,7 +73,6 @@ namespace iText.Html2pdf {
         private HtmlConverter() {
         }
 
-        // TODO: Auto-generated Javadoc
         // TODO add overloads with Charset provided
         // TODO add overloads without automatic elements flushing
         /// <summary>
@@ -195,7 +194,7 @@ namespace iText.Html2pdf {
         /// will be written to a <code>PdfWriter</code>.
         /// </summary>
         /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
-        /// <param name="pdfFile">the <code>File</code> containing the resulting PDF</param>
+        /// <param name="pdfWriter">the <code>PdfWriter</code> containing the resulting PDF</param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter) {
             ConvertToPdf(htmlStream, new PdfDocument(pdfWriter));
@@ -207,7 +206,7 @@ namespace iText.Html2pdf {
         /// <code>ConverterProperties</code>.
         /// </summary>
         /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
-        /// <param name="pdfFile">the <code>File</code> containing the resulting PDF</param>
+        /// <param name="pdfWriter">the <code>PdfWriter</code> containing the resulting PDF</param>
         /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
@@ -234,7 +233,7 @@ namespace iText.Html2pdf {
         /// will be written to a <code>PdfWriter</code>, returning a <code>Document</code> instance.
         /// </summary>
         /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
-        /// <param name="pdfFile">the <code>File</code> containing the resulting PDF</param>
+        /// <param name="pdfWriter">the <code>PdfWriter</code> containing the resulting PDF</param>
         /// <returns>a <code>Document</code> instance</returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static Document ConvertToDocument(Stream htmlStream, PdfWriter pdfWriter) {
