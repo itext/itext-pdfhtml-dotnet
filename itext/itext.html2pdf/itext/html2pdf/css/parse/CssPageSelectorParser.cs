@@ -45,13 +45,20 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using iText.Html2pdf.Css.Selector.Item;
 
-namespace iText.Html2pdf.Css.Parse {
+namespace iText.Html2pdf.Css.Parse
+{
+    /// <summary>Utilities class to parse CSS page selectors.</summary>
     public sealed class CssPageSelectorParser {
+        /// <summary>The pattern string for page selectors.</summary>
         private const String PAGE_SELECTOR_PATTERN_STR = "(^-?[_a-zA-Z][\\w-]*)|(:(?i)(left|right|first|blank))";
 
+        /// <summary>The pattern for page selectors.</summary>
         private static readonly Regex selectorPattern = iText.IO.Util.StringUtil.RegexCompile(PAGE_SELECTOR_PATTERN_STR
             );
 
+        /// <summary>Parses the selector items into a list of <see cref="ICssSelectorItem"/> instances.</summary>
+        /// <param name="selectorItemsStr">the selector items in the form of a <code>String</code></param>
+        /// <returns>the resulting list of <see cref="ICssSelectorItem"/> instances</returns>
         public static IList<ICssSelectorItem> ParseSelectorItems(String selectorItemsStr) {
             IList<ICssSelectorItem> selectorItems = new List<ICssSelectorItem>();
             Match itemMatcher = iText.IO.Util.StringUtil.Match(selectorPattern, selectorItemsStr);

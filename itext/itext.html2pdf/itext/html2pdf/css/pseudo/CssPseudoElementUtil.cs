@@ -44,13 +44,21 @@ using System;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Pseudo {
+    /// <summary>Utilities class for pseudo elements.</summary>
     public class CssPseudoElementUtil {
+        /// <summary>The prefix for pseudo elements.</summary>
         private const String TAG_NAME_PREFIX = "pseudo-element::";
 
+        /// <summary>Creates the pseudo element tag name.</summary>
+        /// <param name="pseudoElementName">the pseudo element name</param>
+        /// <returns>the tag name</returns>
         public static String CreatePseudoElementTagName(String pseudoElementName) {
             return TAG_NAME_PREFIX + pseudoElementName;
         }
 
+        /// <summary>Checks for before or after elements.</summary>
+        /// <param name="node">the node</param>
+        /// <returns>true, if successful</returns>
         public static bool HasBeforeAfterElements(IElementNode node) {
             if (node == null || node is CssPseudoElementNode || node.Name().StartsWith(TAG_NAME_PREFIX)) {
                 return false;

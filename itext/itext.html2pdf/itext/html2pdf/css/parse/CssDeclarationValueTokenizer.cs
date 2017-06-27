@@ -44,21 +44,31 @@ using System;
 using System.Text;
 
 namespace iText.Html2pdf.Css.Parse {
+    /// <summary>Tokenizer for CSS declaration values.</summary>
     public class CssDeclarationValueTokenizer {
+        /// <summary>The source string.</summary>
         private String src;
 
+        /// <summary>The current index.</summary>
         private int index = -1;
 
+        /// <summary>The quote string, either "'" or "\"".</summary>
         private char stringQuote;
 
+        /// <summary>Indicates if we're inside a string.</summary>
         private bool inString;
 
+        /// <summary>The depth.</summary>
         private int functionDepth = 0;
 
+        /// <summary>Creates a new <code>CssDeclarationValueTokenizer</code> instance.</summary>
+        /// <param name="propertyValue">the property value</param>
         public CssDeclarationValueTokenizer(String propertyValue) {
             this.src = propertyValue;
         }
 
+        /// <summary>Gets the next valid token.</summary>
+        /// <returns>the next valid token</returns>
         public virtual CssDeclarationValueTokenizer.Token GetNextValidToken() {
             CssDeclarationValueTokenizer.Token token = GetNextToken();
             while (token != null && !token.IsString() && String.IsNullOrEmpty(token.GetValue().Trim())) {
@@ -82,6 +92,8 @@ namespace iText.Html2pdf.Css.Parse {
             return token;
         }
 
+        /// <summary>Gets the next token.</summary>
+        /// <returns>the next token</returns>
         private CssDeclarationValueTokenizer.Token GetNextToken() {
             StringBuilder buff = new StringBuilder();
             char curChar;
@@ -190,10 +202,16 @@ namespace iText.Html2pdf.Css.Parse {
                 );
         }
 
+        /// <summary>Checks if a character is a hexadecimal digit.</summary>
+        /// <param name="c">the character</param>
+        /// <returns>true, if it's a hexadecimal digit</returns>
         private bool IsHexDigit(char c) {
             return (47 < c && c < 58) || (64 < c && c < 71) || (96 < c && c < 103);
         }
 
+        /// <summary>Processes a function token.</summary>
+        /// <param name="token">the token</param>
+        /// <param name="functionBuffer">the function buffer</param>
         private void ProcessFunctionToken(CssDeclarationValueTokenizer.Token token, StringBuilder functionBuffer) {
             if (token.IsString()) {
                 functionBuffer.Append(stringQuote);
@@ -205,33 +223,49 @@ namespace iText.Html2pdf.Css.Parse {
             }
         }
 
+        /// <summary>The Token class.</summary>
         public class Token {
+            /// <summary>The value.</summary>
             private String value;
 
+            /// <summary>The type.</summary>
             private CssDeclarationValueTokenizer.TokenType type;
 
+            /// <summary>Creates a new <code>Token</code> instance.</summary>
+            /// <param name="value">the value</param>
+            /// <param name="type">the type</param>
             public Token(String value, CssDeclarationValueTokenizer.TokenType type) {
                 this.value = value;
                 this.type = type;
             }
 
+            /// <summary>Gets the value.</summary>
+            /// <returns>the value</returns>
             public virtual String GetValue() {
                 return value;
             }
 
+            /// <summary>Gets the type.</summary>
+            /// <returns>the type</returns>
             public virtual CssDeclarationValueTokenizer.TokenType GetType() {
                 return type;
             }
 
+            /// <summary>Checks if the token is a string.</summary>
+            /// <returns>true, if is string</returns>
             public virtual bool IsString() {
                 return type == CssDeclarationValueTokenizer.TokenType.STRING;
             }
 
+            /* (non-Javadoc)
+            * @see java.lang.Object#toString()
+            */
             public override String ToString() {
                 return value;
             }
         }
 
+        /// <summary>Enumeration of the different token types.</summary>
         public enum TokenType {
             STRING,
             FUNCTION,

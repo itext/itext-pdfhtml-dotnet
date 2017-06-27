@@ -47,58 +47,77 @@ using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Pseudo {
+    /// <summary><see cref="IElementNode"/> implementation for pseudo elements.</summary>
     public class CssPseudoElementNode : CssContextNode, IElementNode, ICustomElementNode {
+        /// <summary>The pseudo element name.</summary>
         private String pseudoElementName;
 
+        /// <summary>The pseudo element tag name.</summary>
         private String pseudoElementTagName;
 
+        /// <summary>Creates a new <code>CssPseudoElementNode</code> instance.</summary>
+        /// <param name="parentNode">the parent node</param>
+        /// <param name="pseudoElementName">the pseudo element name</param>
         public CssPseudoElementNode(INode parentNode, String pseudoElementName)
             : base(parentNode) {
             this.pseudoElementName = pseudoElementName;
             this.pseudoElementTagName = CssPseudoElementUtil.CreatePseudoElementTagName(pseudoElementName);
         }
 
+        /// <summary>Gets the pseudo element name.</summary>
+        /// <returns>the pseudo element name</returns>
         public virtual String GetPseudoElementName() {
             return pseudoElementName;
         }
 
+        /// <summary><inheritDoc/></summary>
         public virtual String Name() {
             return pseudoElementTagName;
         }
 
+        /// <summary><inheritDoc/></summary>
         public virtual IAttributes GetAttributes() {
             return new CssPseudoElementNode.AttributesStub();
         }
 
+        /// <summary><inheritDoc/></summary>
         public virtual String GetAttribute(String key) {
             return null;
         }
 
+        /// <summary><inheritDoc/></summary>
         public virtual IList<IDictionary<String, String>> GetAdditionalHtmlStyles() {
             return null;
         }
 
+        /// <summary><inheritDoc/></summary>
         public virtual void AddAdditionalHtmlStyles(IDictionary<String, String> styles) {
             throw new NotSupportedException();
         }
 
+        /// <summary><inheritDoc/></summary>
         public virtual String GetLang() {
             return null;
         }
 
+        /// <summary>A simple <see cref="IAttributes"/> implementation.</summary>
         private class AttributesStub : IAttributes {
+            /// <summary><inheritDoc/></summary>
             public virtual String GetAttribute(String key) {
                 return null;
             }
 
+            /// <summary><inheritDoc/></summary>
             public virtual void SetAttribute(String key, String value) {
                 throw new NotSupportedException();
             }
 
+            /// <summary><inheritDoc/></summary>
             public virtual int Size() {
                 return 0;
             }
 
+            /// <summary><inheritDoc/></summary>
             public IEnumerator<IAttribute> GetEnumerator() {
                 return JavaCollectionsUtil.EmptyIterator<IAttribute>();
             }

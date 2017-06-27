@@ -48,13 +48,23 @@ using iText.Html2pdf.Css.Util;
 using iText.IO.Log;
 
 namespace iText.Html2pdf.Css.Parse {
+    /// <summary>Utilities class to parse CSS rule sets.</summary>
     public sealed class CssRuleSetParser {
+        /// <summary>The logger.</summary>
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Parse.CssRuleSetParser
             ));
 
+        /// <summary>Creates a new <code>CssRuleSetParser</code> instance.</summary>
         private CssRuleSetParser() {
         }
 
+        /// <summary>Parses property declarations.</summary>
+        /// <param name="propertiesStr">the property declarations in the form of a <code>String</code></param>
+        /// <returns>
+        /// the list of
+        /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+        /// instances
+        /// </returns>
         public static IList<CssDeclaration> ParsePropertyDeclarations(String propertiesStr) {
             IList<CssDeclaration> declarations = new List<CssDeclaration>();
             int pos = GetSemicolonPosition(propertiesStr, 0);
@@ -76,7 +86,20 @@ namespace iText.Html2pdf.Css.Parse {
             return declarations;
         }
 
-        // Returns List because selector can be compound, like "p, div, #navbar".
+        /// <summary>
+        /// Parses a rule set into a list of
+        /// <see cref="iText.Html2pdf.Css.CssRuleSet"/>
+        /// instances.
+        /// This method returns a <code>List</code> because a selector can
+        /// be compound, like "p, div, #navbar".
+        /// </summary>
+        /// <param name="selectorStr">the selector</param>
+        /// <param name="propertiesStr">the properties</param>
+        /// <returns>
+        /// the resulting list of
+        /// <see cref="iText.Html2pdf.Css.CssRuleSet"/>
+        /// instances
+        /// </returns>
         public static IList<CssRuleSet> ParseRuleSet(String selectorStr, String propertiesStr) {
             IList<CssDeclaration> declarations = ParsePropertyDeclarations(propertiesStr);
             IList<CssRuleSet> ruleSets = new List<CssRuleSet>();
@@ -104,6 +127,9 @@ namespace iText.Html2pdf.Css.Parse {
             return ruleSets;
         }
 
+        /// <summary>Splits CSS properties into an array of <code>String</code> values.</summary>
+        /// <param name="property">the properties</param>
+        /// <returns>the array of property values</returns>
         private static String[] SplitCssProperty(String property) {
             String[] result = new String[2];
             int position = property.IndexOf(":", StringComparison.Ordinal);
@@ -117,6 +143,10 @@ namespace iText.Html2pdf.Css.Parse {
             return result;
         }
 
+        /// <summary>Gets the semicolon position.</summary>
+        /// <param name="propertiesStr">the properties</param>
+        /// <param name="fromIndex">the from index</param>
+        /// <returns>the semicolon position</returns>
         private static int GetSemicolonPosition(String propertiesStr, int fromIndex) {
             int semiColonPos = propertiesStr.IndexOf(";", fromIndex);
             int closedBracketPos = propertiesStr.IndexOf(")", semiColonPos + 1);
