@@ -45,9 +45,13 @@ using System.Collections.Generic;
 using iText.Html2pdf.Css;
 
 namespace iText.Html2pdf.Css.Resolve {
+    /// <summary>Helper class that allows you to check if a property is inheritable.</summary>
     public class CssInheritance {
-        /// <summary>In accordance with "http://www.w3schools.com/cssref/" and "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference"
-        ///     </summary>
+        /// <summary>
+        /// Set of inheritable properties
+        /// in accordance with "http://www.w3schools.com/cssref/"
+        /// and "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference"
+        /// </summary>
         private static readonly ICollection<String> inheritableProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
             (CssConstants.COLOR, CssConstants.VISIBILITY, CssConstants.HANGING_PUNCTUATION, CssConstants.HYPHENS, 
             CssConstants.LETTER_SPACING, CssConstants.LINE_HEIGHT, CssConstants.OVERFLOW_WRAP, CssConstants.TAB_SIZE
@@ -73,6 +77,9 @@ namespace iText.Html2pdf.Css.Resolve {
         // Table Properties
         // Lists and Counters Properties
         // Generated Content for Paged Media
+        /// <summary>Checks if a property is inheritable.</summary>
+        /// <param name="cssProperty">the CSS property</param>
+        /// <returns>true, if the property is inheritable</returns>
         public static bool IsInheritable(String cssProperty) {
             return inheritableProperties.Contains(cssProperty);
         }

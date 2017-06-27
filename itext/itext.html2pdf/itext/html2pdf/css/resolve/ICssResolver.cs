@@ -45,7 +45,12 @@ using System.Collections.Generic;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Resolve {
+    /// <summary>Interface for CSS resolvers.</summary>
     public interface ICssResolver {
+        /// <summary>Resolves the styles of a node.</summary>
+        /// <param name="node">the node</param>
+        /// <param name="context">the CSS context</param>
+        /// <returns>the map</returns>
         IDictionary<String, String> ResolveStyles(INode node, CssContext context);
     }
 }

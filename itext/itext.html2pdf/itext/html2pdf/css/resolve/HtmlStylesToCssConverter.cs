@@ -50,7 +50,9 @@ using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
+    /// <summary>Utilities class that converts HTML styles to CSS.</summary>
     internal class HtmlStylesToCssConverter {
+        /// <summary>Maps HTML styles to a specific converter.</summary>
         private static readonly IDictionary<String, HtmlStylesToCssConverter.IAttributeConverter> htmlAttributeConverters;
 
         static HtmlStylesToCssConverter() {
@@ -80,6 +82,17 @@ namespace iText.Html2pdf.Css.Resolve {
                 ());
         }
 
+        /// <summary>
+        /// Converts a the HTML styles of an element to a list of
+        /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+        /// instances.
+        /// </summary>
+        /// <param name="element">the element</param>
+        /// <returns>
+        /// the resulting list of
+        /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+        /// instances.
+        /// </returns>
         public static IList<CssDeclaration> Convert(IElementNode element) {
             List<CssDeclaration> convertedHtmlStyles = new List<CssDeclaration>();
             if (element.GetAdditionalHtmlStyles() != null) {
@@ -101,13 +114,36 @@ namespace iText.Html2pdf.Css.Resolve {
             return convertedHtmlStyles;
         }
 
+        /// <summary>Interface for all the attribute converter classes.</summary>
         private interface IAttributeConverter {
+            /// <summary>Checks if the converter is supported for a specifc element.</summary>
+            /// <param name="elementName">the element name</param>
+            /// <returns>true, if the converter is supported</returns>
             bool IsSupportedForElement(String elementName);
 
+            /// <summary>
+            /// Converts a specific HTML style to a
+            /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+            /// .
+            /// </summary>
+            /// <param name="element">the element</param>
+            /// <param name="value">the value of the HTML style</param>
+            /// <returns>
+            /// a list of
+            /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+            /// instances
+            /// </returns>
             IList<CssDeclaration> Convert(IElementNode element, String value);
         }
 
+        /// <summary>
+        /// <IAttributeConverter/>
+        /// implementation for HTML border styles.
+        /// </summary>
         private class BorderAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /// <summary>Applies borders to the tables and cells.</summary>
+            /// <param name="node">the node</param>
+            /// <param name="borderStyles">the border styles</param>
             private static void ApplyBordersToTableCells(INode node, IDictionary<String, String> borderStyles) {
                 IList<INode> nodes = node.ChildNodes();
                 foreach (INode childNode in nodes) {
@@ -123,10 +159,16 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.IMG.Equals(elementName) || TagConstants.TABLE.Equals(elementName);
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 float? width = CssUtils.ParseFloat(value);
                 if (width != null) {
@@ -146,35 +188,66 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
+        /// <summary>
+        /// <IAttributeConverter/>
+        /// implementation for HTML background color styles.
+        /// </summary>
         private class BgColorAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /// <summary>The supported tags.</summary>
             private static ICollection<String> supportedTags = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
                 (TagConstants.BODY, TagConstants.COL, TagConstants.COLGROUP, TagConstants.MARQUEE, TagConstants.TABLE, 
                 TagConstants.TBODY, TagConstants.TFOOT, TagConstants.TD, TagConstants.TH, TagConstants.TR));
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
             public virtual bool IsSupportedForElement(String elementName) {
                 return supportedTags.Contains(elementName);
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BACKGROUND_COLOR, value));
             }
         }
 
+        /// <summary>
+        /// <IAttributeConverter/>
+        /// implementation for font color styles.
+        /// </summary>
         private class FontColorAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.FONT.Equals(elementName);
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.COLOR, value));
             }
         }
 
+        /// <summary>
+        /// <IAttributeConverter/>
+        /// implementation for size properties.
+        /// </summary>
         private class SizeAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.FONT.Equals(elementName) || TagConstants.HR.Equals(elementName);
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 String cssValueEquivalent = null;
                 String cssPropertyEquivalent = null;
@@ -235,21 +308,41 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
+        /// <summary>
+        /// <IAttributeConverter/>
+        /// implementation for HTML font face styles.
+        /// </summary>
         private class FontFaceAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.FONT.Equals(elementName);
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.FONT_FAMILY, value));
             }
         }
 
+        /// <summary>
+        /// <IAttributeConverter/>
+        /// implementation for HTML ordered list types.
+        /// </summary>
         private class TypeAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.OL.Equals(elementName);
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 String cssEquivalent = null;
                 switch (value) {
@@ -283,23 +376,43 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
+        /// <summary>
+        /// <IAttributeConverter/>
+        /// implementation for HTML direction styles (e.g. right to left direction).
+        /// </summary>
         private class DirAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
             public virtual bool IsSupportedForElement(String elementName) {
                 return true;
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.DIRECTION, value));
             }
         }
 
+        /// <summary>
+        /// <IAttributeConverter/>
+        /// implementation for HTML width values.
+        /// </summary>
         private class WidthAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.HR.Equals(elementName) || TagConstants.IMG.Equals(elementName) || TagConstants.TABLE.Equals
                     (elementName) || TagConstants.TD.Equals(elementName) || TagConstants.TH.Equals(elementName) || TagConstants
                     .COLGROUP.Equals(elementName) || TagConstants.COL.Equals(elementName);
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 String cssEquivalent = value;
                 if (!value.EndsWith(CssConstants.PERCENTAGE)) {
@@ -309,11 +422,21 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
+        /// <summary>
+        /// <IAttributeConverter/>
+        /// implementation for HTML height values.
+        /// </summary>
         private class HeightAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.IMG.Equals(elementName) || TagConstants.TD.Equals(elementName);
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 String cssEquivalent = value;
                 if (!value.EndsWith(CssConstants.PERCENTAGE)) {
@@ -323,13 +446,23 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
+        /// <summary>
+        /// <IAttributeConverter/>
+        /// implementation for HTML horizontal alignment styles.
+        /// </summary>
         private class AlignAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.HR.Equals(elementName) || TagConstants.TABLE.Equals(elementName) || TagConstants.IMG.Equals
                     (elementName) || TagConstants.TD.Equals(elementName) || TagConstants.DIV.Equals(elementName) || TagConstants
                     .P.Equals(elementName);
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 IList<CssDeclaration> result = new List<CssDeclaration>(2);
                 if (TagConstants.HR.Equals(element.Name()) || (TagConstants.TABLE.Equals(element.Name()) && AttributeConstants
@@ -381,23 +514,43 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
+        /// <summary>
+        /// <IAttributeConverter/>
+        /// implementation for HTML shade styles.
+        /// </summary>
         private class NoShadeAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.HR.Equals(elementName);
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, "2px"), new CssDeclaration
                     (CssConstants.BORDER_WIDTH, "0"), new CssDeclaration(CssConstants.BACKGROUND_COLOR, "gray"));
             }
         }
 
+        /// <summary>
+        /// <IAttributeConverter/>
+        /// implementation for HTML vertical alignment styles.
+        /// </summary>
         private class VAlignAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.TD.Equals(elementName) || TagConstants.TH.Equals(elementName) || TagConstants.TR.Equals
                     (elementName);
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
             }

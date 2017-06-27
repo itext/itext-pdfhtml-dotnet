@@ -53,9 +53,20 @@ using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
+    /// <summary>The Class CssContentPropertyResolver.</summary>
     internal class CssContentPropertyResolver {
+        /// <summary>The logger.</summary>
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(CssContentPropertyResolver));
 
+        /// <summary>Resolves content.</summary>
+        /// <param name="styles">the styles map</param>
+        /// <param name="contentContainer">the content container</param>
+        /// <param name="context">the CSS context</param>
+        /// <returns>
+        /// a list of
+        /// <see cref="iNode"/>
+        /// instances
+        /// </returns>
         internal static IList<INode> ResolveContent(IDictionary<String, String> styles, INode contentContainer, CssContext
              context) {
             String contentStr = styles.Get(CssConstants.CONTENT);
@@ -179,6 +190,13 @@ namespace iText.Html2pdf.Css.Resolve {
             return result;
         }
 
+        /// <summary>Resolves content in case of errors.</summary>
+        /// <param name="contentStr">the content</param>
+        /// <returns>
+        /// the resulting list of
+        /// <see cref="iNode"/>
+        /// instances
+        /// </returns>
         private static IList<INode> ErrorFallback(String contentStr) {
             ILogger logger = LoggerFactory.GetLogger(typeof(CssContentPropertyResolver));
             int logMessageParameterMaxLength = 100;
@@ -189,28 +207,49 @@ namespace iText.Html2pdf.Css.Resolve {
             return null;
         }
 
+        /// <summary>
+        /// <see cref="iTextNode"/>
+        /// implementation for content text.
+        /// </summary>
         private class ContentTextNode : ITextNode {
+            /// <summary>The parent.</summary>
             private readonly INode parent;
 
+            /// <summary>The content.</summary>
             private String content;
 
+            /// <summary>Creates a new <code>ContentTextNode</code> instance.</summary>
+            /// <param name="parent">the parent</param>
+            /// <param name="content">the content</param>
             public ContentTextNode(INode parent, String content) {
                 this.parent = parent;
                 this.content = content;
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.html.node.INode#childNodes()
+            */
             public virtual IList<INode> ChildNodes() {
                 return JavaCollectionsUtil.EmptyList<INode>();
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.html.node.INode#addChild(com.itextpdf.html2pdf.html.node.INode)
+            */
             public virtual void AddChild(INode node) {
                 throw new NotSupportedException();
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.html.node.INode#parentNode()
+            */
             public virtual INode ParentNode() {
                 return parent;
             }
 
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.html.node.ITextNode#wholeText()
+            */
             public virtual String WholeText() {
                 return content;
             }

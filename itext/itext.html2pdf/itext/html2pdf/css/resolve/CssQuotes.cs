@@ -47,18 +47,37 @@ using iText.Html2pdf.Css.Parse;
 using iText.IO.Log;
 
 namespace iText.Html2pdf.Css.Resolve {
+    /// <summary>Helper class to deal with quoted values in strings.</summary>
     public class CssQuotes {
+        /// <summary>The empty quote value.</summary>
         private const String EMPTY_QUOTE = "";
 
+        /// <summary>The open quotes.</summary>
         private List<String> openQuotes;
 
+        /// <summary>The close quotes.</summary>
         private List<String> closeQuotes;
 
+        /// <summary>Creates a new <code>CssQuotes</code> instance.</summary>
+        /// <param name="openQuotes">the open quotes</param>
+        /// <param name="closeQuotes">the close quotes</param>
         private CssQuotes(List<String> openQuotes, List<String> closeQuotes) {
             this.openQuotes = openQuotes;
             this.closeQuotes = closeQuotes;
         }
 
+        /// <summary>
+        /// Creates a
+        /// <see cref="CssQuotes"/>
+        /// instance.
+        /// </summary>
+        /// <param name="quotesString">the quotes string</param>
+        /// <param name="fallbackToDefault">indicates whether it's OK to fall back to the default</param>
+        /// <returns>
+        /// the resulting
+        /// <see cref="CssQuotes"/>
+        /// instance
+        /// </returns>
         public static iText.Html2pdf.Css.Resolve.CssQuotes CreateQuotes(String quotesString, bool fallbackToDefault
             ) {
             bool error = false;
@@ -93,6 +112,16 @@ namespace iText.Html2pdf.Css.Resolve {
             return fallbackToDefault ? CreateDefaultQuotes() : null;
         }
 
+        /// <summary>
+        /// Creates the default
+        /// <see cref="CssQuotes"/>
+        /// instance.
+        /// </summary>
+        /// <returns>
+        /// the
+        /// <see cref="CssQuotes"/>
+        /// instance
+        /// </returns>
         public static iText.Html2pdf.Css.Resolve.CssQuotes CreateDefaultQuotes() {
             List<String> openQuotes = new List<String>();
             List<String> closeQuotes = new List<String>();
@@ -101,6 +130,10 @@ namespace iText.Html2pdf.Css.Resolve {
             return new iText.Html2pdf.Css.Resolve.CssQuotes(openQuotes, closeQuotes);
         }
 
+        /// <summary>Resolves quotes.</summary>
+        /// <param name="value">the value</param>
+        /// <param name="context">the CSS context</param>
+        /// <returns>the quote string</returns>
         public virtual String ResolveQuote(String value, CssContext context) {
             int depth = context.GetQuotesDepth();
             if (CssConstants.OPEN_QUOTE.Equals(value)) {
@@ -128,16 +161,24 @@ namespace iText.Html2pdf.Css.Resolve {
             return null;
         }
 
+        /// <summary>Increases the quote depth.</summary>
+        /// <param name="context">the context</param>
         private void IncreaseDepth(CssContext context) {
             context.SetQuotesDepth(context.GetQuotesDepth() + 1);
         }
 
+        /// <summary>Decreases the quote depth.</summary>
+        /// <param name="context">the context</param>
         private void DecreaseDepth(CssContext context) {
             if (context.GetQuotesDepth() > 0) {
                 context.SetQuotesDepth(context.GetQuotesDepth() - 1);
             }
         }
 
+        /// <summary>Gets the quote.</summary>
+        /// <param name="depth">the depth</param>
+        /// <param name="quotes">the quotes</param>
+        /// <returns>the requested quote string</returns>
         private String GetQuote(int depth, List<String> quotes) {
             if (depth >= quotes.Count) {
                 return quotes[quotes.Count - 1];

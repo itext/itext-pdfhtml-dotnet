@@ -50,9 +50,16 @@ using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
+    /// <summary>Utilities class to get the styles of a node.</summary>
     internal class UserAgentCss {
+        /// <summary>The path to the default CSS file.</summary>
         private const String DEFAULT_CSS_PATH = "iText.Html2Pdf.default.css";
 
+        /// <summary>
+        /// The default
+        /// <see cref="iText.Html2pdf.Css.CssStyleSheet"/>
+        /// instance.
+        /// </summary>
         private static readonly CssStyleSheet defaultCss;
 
         static UserAgentCss() {
@@ -69,6 +76,13 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
+        /// <summary>Gets the styles of a node.</summary>
+        /// <param name="node">the node</param>
+        /// <returns>
+        /// a list of
+        /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+        /// values
+        /// </returns>
         public static IList<CssDeclaration> GetStyles(INode node) {
             return defaultCss.GetCssDeclarations(node, MediaDeviceDescription.CreateDefault());
         }

@@ -46,7 +46,9 @@ using iText.Html2pdf.Css;
 using iText.IO.Log;
 
 namespace iText.Html2pdf.Css.Resolve {
+    /// <summary>Helper class that allows you to get the default values of CSS properties.</summary>
     public class CssDefaults {
+        /// <summary>A map with properties and their default values.</summary>
         private static readonly IDictionary<String, String> defaultValues = new Dictionary<String, String>();
 
         static CssDefaults() {
@@ -116,6 +118,9 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         // TODO not complete
+        /// <summary>Gets the default value of a property.</summary>
+        /// <param name="property">the property</param>
+        /// <returns>the default value</returns>
         public static String GetDefaultValue(String property) {
             String defaultVal = defaultValues.Get(property);
             if (defaultVal == null) {

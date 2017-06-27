@@ -46,45 +46,65 @@ using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 
 namespace iText.Html2pdf.Css.Resolve {
+    /// <summary>Class that bundles all the CSS context properties.</summary>
     public class CssContext {
+        /// <summary>The root font size value in pt.</summary>
         private float rootFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants
             .FONT_SIZE));
 
+        /// <summary>The counter manager.</summary>
         private CssCounterManager counterManager = new CssCounterManager();
 
+        /// <summary>Indicates if a page counter is present.</summary>
         private bool pagesCounterPresent = false;
 
+        /// <summary>The quotes depth.</summary>
         private int quotesDepth = 0;
 
-        //value in pt
+        /// <summary>Gets the root font size.</summary>
+        /// <returns>the root font size in pt</returns>
         public virtual float GetRootFontSize() {
             return rootFontSize;
         }
 
+        /// <summary>Sets the root font size.</summary>
+        /// <param name="fontSize">the new root font size</param>
         public virtual void SetRootFontSize(float fontSize) {
             this.rootFontSize = fontSize;
         }
 
+        /// <summary>Sets the root font size.</summary>
+        /// <param name="fontSizeStr">the new root font size</param>
         public virtual void SetRootFontSize(String fontSizeStr) {
             this.rootFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(fontSizeStr);
         }
 
+        /// <summary>Gets the counter manager.</summary>
+        /// <returns>the counter manager</returns>
         public virtual CssCounterManager GetCounterManager() {
             return counterManager;
         }
 
+        /// <summary>Sets the presence of a page counter.</summary>
+        /// <param name="pagesCounterPresent">the new pages counter present</param>
         public virtual void SetPagesCounterPresent(bool pagesCounterPresent) {
             this.pagesCounterPresent = pagesCounterPresent;
         }
 
+        /// <summary>Checks if a pages counter is present.</summary>
+        /// <returns>true, if is pages counter present</returns>
         public virtual bool IsPagesCounterPresent() {
             return pagesCounterPresent;
         }
 
+        /// <summary>Gets the quotes depth.</summary>
+        /// <returns>the quotes depth</returns>
         public virtual int GetQuotesDepth() {
             return quotesDepth;
         }
 
+        /// <summary>Sets the quotes depth.</summary>
+        /// <param name="quotesDepth">the new quotes depth</param>
         public virtual void SetQuotesDepth(int quotesDepth) {
             this.quotesDepth = quotesDepth;
         }

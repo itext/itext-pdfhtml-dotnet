@@ -47,10 +47,16 @@ using iText.Html2pdf.Css;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
+    /// <summary>Utilities class to merge CSS properties.</summary>
     public sealed class CssPropertyMerger {
+        /// <summary>Creates a new <code>CssPropertyMerger</code> class.</summary>
         private CssPropertyMerger() {
         }
 
+        /// <summary>Merges text decoration.</summary>
+        /// <param name="firstValue">the first value</param>
+        /// <param name="secondValue">the second value</param>
+        /// <returns>the merged value</returns>
         public static String MergeTextDecoration(String firstValue, String secondValue) {
             if (firstValue == null) {
                 return secondValue;
@@ -72,6 +78,9 @@ namespace iText.Html2pdf.Css.Resolve {
             return sb.Length != 0 ? sb.ToString() : CssConstants.NONE;
         }
 
+        /// <summary>Normalizes text decoration values.</summary>
+        /// <param name="value">the text decoration value</param>
+        /// <returns>a set of normalized decoration values</returns>
         private static ICollection<String> NormalizeTextDecoration(String value) {
             String[] parts = iText.IO.Util.StringUtil.Split(value, "\\s+");
             // LinkedHashSet to make order invariant of JVM

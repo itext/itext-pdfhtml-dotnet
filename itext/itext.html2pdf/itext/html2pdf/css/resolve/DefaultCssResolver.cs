@@ -60,13 +60,25 @@ using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
+    /// <summary>
+    /// Default implementation of the
+    /// <see cref="ICssResolver"/>
+    /// interface.
+    /// </summary>
     public class DefaultCssResolver : ICssResolver {
+        /// <summary>The CSS style sheet.</summary>
         private CssStyleSheet cssStyleSheet;
 
+        /// <summary>The device description.</summary>
         private MediaDeviceDescription deviceDescription;
 
+        /// <summary>The list of fonts.</summary>
         private IList<CssFontFaceRule> fonts = new List<CssFontFaceRule>();
 
+        /// <summary>Creates a new <code>DefaultCssResolver</code> instance.</summary>
+        /// <param name="treeRoot">the root node</param>
+        /// <param name="mediaDeviceDescription">the media device description</param>
+        /// <param name="resourceResolver">the resource resolver</param>
         public DefaultCssResolver(INode treeRoot, MediaDeviceDescription mediaDeviceDescription, ResourceResolver 
             resourceResolver) {
             this.deviceDescription = mediaDeviceDescription;
@@ -74,12 +86,18 @@ namespace iText.Html2pdf.Css.Resolve {
             CollectFonts();
         }
 
+        /// <summary>Creates a new <code>DefaultCssResolver</code> instance.</summary>
+        /// <param name="treeRoot">the root node</param>
+        /// <param name="context">the processor context</param>
         public DefaultCssResolver(INode treeRoot, ProcessorContext context) {
             this.deviceDescription = context.GetDeviceDescription();
             CollectCssDeclarations(treeRoot, context.GetResourceResolver(), context.GetCssContext());
             CollectFonts();
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.css.resolve.ICssResolver#resolveStyles(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.resolve.CssContext)
+        */
         public virtual IDictionary<String, String> ResolveStyles(INode element, CssContext context) {
             IList<CssDeclaration> nodeCssDeclarations = UserAgentCss.GetStyles(element);
             if (element is IElementNode) {
@@ -152,10 +170,20 @@ namespace iText.Html2pdf.Css.Resolve {
             return elementStyles;
         }
 
+        /// <summary>Gets the list of fonts.</summary>
+        /// <returns>
+        /// the list of
+        /// <see cref="iText.Html2pdf.Css.CssFontFaceRule"/>
+        /// instances
+        /// </returns>
         public virtual IList<CssFontFaceRule> GetFonts() {
             return fonts;
         }
 
+        /// <summary>Resolves a content property.</summary>
+        /// <param name="styles">the styles map</param>
+        /// <param name="contentContainer">the content container</param>
+        /// <param name="context">the CSS context</param>
         private void ResolveContentProperty(IDictionary<String, String> styles, INode contentContainer, CssContext
              context) {
             if (contentContainer is CssPseudoElementNode || contentContainer is PageMarginBoxContextNode) {
@@ -169,6 +197,13 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
+        /// <summary>
+        /// Converts a list of
+        /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+        /// instances to a map consisting of <code>String</code> key-value pairs.
+        /// </summary>
+        /// <param name="nodeCssDeclarations">the node css declarations</param>
+        /// <returns>the map</returns>
         private IDictionary<String, String> CssDeclarationsToMap(IList<CssDeclaration> nodeCssDeclarations) {
             IDictionary<String, String> stylesMap = new Dictionary<String, String>();
             for (int i = 0; i < nodeCssDeclarations.Count; i++) {
@@ -189,6 +224,9 @@ namespace iText.Html2pdf.Css.Resolve {
             return stylesMap;
         }
 
+        /// <summary>Adds a CSS declaration to a styles map if the CSS declaration is valid.</summary>
+        /// <param name="stylesMap">the styles map</param>
+        /// <param name="cssDeclaration">the CSS declaration</param>
         private void PutDeclarationInMapIfValid(IDictionary<String, String> stylesMap, CssDeclaration cssDeclaration
             ) {
             if (CssDeclarationValidationMaster.CheckDeclaration(cssDeclaration)) {
@@ -201,6 +239,11 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
+        /// <summary>Collects CSS declarationss.</summary>
+        /// <param name="rootNode">the root node</param>
+        /// <param name="resourceResolver">the resource resolver</param>
+        /// <param name="cssContext">the CSS context</param>
+        /// <returns>the node (always null in this case)</returns>
         private INode CollectCssDeclarations(INode rootNode, ResourceResolver resourceResolver, CssContext cssContext
             ) {
             cssStyleSheet = new CssStyleSheet();
@@ -248,6 +291,9 @@ namespace iText.Html2pdf.Css.Resolve {
             return null;
         }
 
+        /// <summary>Check if a pages counter is mentioned.</summary>
+        /// <param name="cssContents">the CSS contents</param>
+        /// <param name="cssContext">the CSS context</param>
         private void CheckIfPagesCounterMentioned(String cssContents, CssContext cssContext) {
             // TODO more efficient (avoid searching in text string) and precise (e.g. skip spaces) check during the parsing.
             if (cssContents.Contains("counter(pages)") || cssContents.Contains("counters(pages")) {
@@ -258,6 +304,14 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
+        /// <summary>
+        /// Wraps a
+        /// <see cref="iText.Html2pdf.Css.Media.CssMediaRule"/>
+        /// into the style sheet if the head child element has a media attribute.
+        /// </summary>
+        /// <param name="headChildElement">the head child element</param>
+        /// <param name="styleSheet">the style sheet</param>
+        /// <returns>the css style sheet</returns>
         private CssStyleSheet WrapStyleSheetInMediaQueryIfNecessary(IElementNode headChildElement, CssStyleSheet styleSheet
             ) {
             String mediaAttribute = headChildElement.GetAttribute(AttributeConstants.MEDIA);
@@ -270,6 +324,10 @@ namespace iText.Html2pdf.Css.Resolve {
             return styleSheet;
         }
 
+        /// <summary>Merge parent CSS declarations.</summary>
+        /// <param name="styles">the styles map</param>
+        /// <param name="cssProperty">the CSS property</param>
+        /// <param name="parentPropValue">the parent properties value</param>
         private void MergeParentCssDeclaration(IDictionary<String, String> styles, String cssProperty, String parentPropValue
             ) {
             String childPropValue = styles.Get(cssProperty);
@@ -290,12 +348,19 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
+        /// <summary>Collects fonts from the style sheet.</summary>
         private void CollectFonts() {
             foreach (CssStatement cssStatement in cssStyleSheet.GetStatements()) {
                 CollectFonts(cssStatement);
             }
         }
 
+        /// <summary>
+        /// Collects fonts from a
+        /// <see cref="iText.Html2pdf.Css.CssStatement"/>
+        /// .
+        /// </summary>
+        /// <param name="cssStatement">the CSS statement</param>
         private void CollectFonts(CssStatement cssStatement) {
             if (cssStatement is CssFontFaceRule) {
                 fonts.Add((CssFontFaceRule)cssStatement);
