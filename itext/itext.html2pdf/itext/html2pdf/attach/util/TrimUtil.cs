@@ -42,6 +42,8 @@ address: sales@itextpdf.com
 */
 using System.Collections.Generic;
 using iText.Layout.Element;
+using iText.Layout.Layout;
+using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Util {
     /// <summary>Utility class to trim content.</summary>
@@ -61,10 +63,16 @@ namespace iText.Html2pdf.Attach.Util {
             while (pos < waitingLeaves.Count - 1) {
                 if (waitingLeaves[pos] is Text) {
                     Text first = (Text)waitingLeaves[pos];
-                    int firstEnd = GetIndexAfterLastNonSpace(first);
-                    if (firstEnd < first.GetText().Length) {
-                        TrimSubList(waitingLeaves, pos + 1, waitingLeaves.Count, false);
-                        first.SetText(first.GetText().JSubstring(0, firstEnd + 1));
+                    if (IsElementFloating(first)) {
+                        TrimTextElement(first, false);
+                        TrimTextElement(first, true);
+                    }
+                    else {
+                        int firstEnd = GetIndexAfterLastNonSpace(first);
+                        if (firstEnd < first.GetText().Length) {
+                            TrimSubList(waitingLeaves, pos + 1, waitingLeaves.Count, false);
+                            first.SetText(first.GetText().JSubstring(0, firstEnd + 1));
+                        }
                     }
                 }
                 pos++;
@@ -88,9 +96,18 @@ namespace iText.Html2pdf.Attach.Util {
             while (end > begin) {
                 int pos = last ? end - 1 : begin;
                 ILeafElement leaf = list[pos];
+                if (IsElementFloating(leaf)) {
+                    if (last) {
+                        --end;
+                    }
+                    else {
+                        ++begin;
+                    }
+                    continue;
+                }
                 if (leaf is Text) {
                     Text text = (Text)leaf;
-                    TrimLeafElement(text, last);
+                    TrimTextElement(text, last);
                     if (text.GetText().Length == 0) {
                         list.JRemoveAt(pos);
                         end--;
@@ -101,18 +118,13 @@ namespace iText.Html2pdf.Attach.Util {
             }
         }
 
-        /// <summary>Trims a leaf element.</summary>
-        /// <param name="leafElement">the leaf element</param>
+        /// <summary>Trims a text element.</summary>
+        /// <param name="text">the text element</param>
         /// <param name="last">indicates where to start, if true, we start at the end</param>
-        /// <returns>the leaf element</returns>
-        private static ILeafElement TrimLeafElement(ILeafElement leafElement, bool last) {
-            if (leafElement is Text) {
-                Text text = (Text)leafElement;
-                int begin = last ? 0 : GetIndexOfFirstNonSpace(text);
-                int end = last ? GetIndexAfterLastNonSpace(text) : text.GetText().Length;
-                text.SetText(text.GetText().JSubstring(begin, end));
-            }
-            return leafElement;
+        private static void TrimTextElement(Text text, bool last) {
+            int begin = last ? 0 : GetIndexOfFirstNonSpace(text);
+            int end = last ? GetIndexAfterLastNonSpace(text) : text.GetText().Length;
+            text.SetText(text.GetText().JSubstring(begin, end));
         }
 
         /// <summary>Gets the index of first character that isn't white space in some text.</summary>
@@ -143,6 +155,13 @@ namespace iText.Html2pdf.Attach.Util {
                 pos--;
             }
             return pos;
+        }
+
+        private static bool IsElementFloating(ILeafElement leafElement) {
+            FloatPropertyValue? floatPropertyValue = leafElement.GetProperty<FloatPropertyValue?>(Property.FLOAT);
+            int? position = leafElement.GetProperty<int?>(Property.POSITION);
+            return (position == null || position != LayoutPosition.ABSOLUTE) && floatPropertyValue != null && !floatPropertyValue
+                .Equals(FloatPropertyValue.NONE);
         }
     }
 }

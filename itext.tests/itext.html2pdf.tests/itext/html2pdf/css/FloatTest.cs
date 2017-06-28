@@ -595,6 +595,13 @@ namespace iText.Html2pdf.Css {
 		
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatInline17Test() {
+            RunTest("floatInline17Test", "diffImages17_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String testName, String diff) {
             String htmlName = sourceFolder + testName + ".html";
             String outFileName = destinationFolder + testName + ".pdf";
