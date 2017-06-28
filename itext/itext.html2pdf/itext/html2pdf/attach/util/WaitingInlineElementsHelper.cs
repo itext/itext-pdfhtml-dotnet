@@ -204,11 +204,6 @@ namespace iText.Html2pdf.Attach.Util {
                         }
                     }
                 }
-                // Default leading in html is 1.2 and it is an inherited value. However, if a paragraph only contains an image,
-                // the default leading should be 1. This is the case when we create a dummy paragraph, therefore we should emulate this behavior.
-                if (p.GetChildren().Count == 1 && p.GetChildren()[0] is Image) {
-                    p.SetMultipliedLeading(1);
-                }
                 return p;
             }
             else {
