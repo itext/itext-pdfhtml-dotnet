@@ -641,6 +641,9 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ResponsiveIText() {
+            // TODO results to be reviewed after floating elements splitting support (DEVSIX-1267)
+            // Split floating element parent has zero height (and therefore border is not drawn around it),
+            // even though :after { clear: both} feature is applied in html.
             PageSize[] pageSizes = new PageSize[] { null, new PageSize(PageSize.A3.GetHeight(), PageSize.A4.GetHeight(
                 )), new PageSize(760, PageSize.A4.GetHeight()), new PageSize(PageSize.A5.GetWidth(), PageSize.A4.GetHeight
                 ()) };
