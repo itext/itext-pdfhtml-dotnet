@@ -116,6 +116,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Clear08Test() {
             // TODO behaving differently from browser in some cases of selfcollapsing margins
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear08Test.html"), new FileInfo(destinationFolder
@@ -154,6 +155,17 @@ namespace iText.Html2pdf.Css {
                  + "clear11Test.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear11Test.pdf", sourceFolder
                  + "cmp_clear11Test.pdf", destinationFolder, "dif11_"));
+        }
+        
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String testName, String diff) {
+            String htmlName = sourceFolder + testName + ".html";
+            String outFileName = destinationFolder + testName + ".pdf";
+            String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlName), new FileInfo(outFileName));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, destinationFolder
+                , diff));
         }
     }
 }

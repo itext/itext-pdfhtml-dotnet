@@ -250,6 +250,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float28Test() {
             // TODO DEVSIX-1269
             RunTest("float28Test", "diff28_");
@@ -265,6 +266,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float30Test() {
             // TODO DEVSIX-1269 and DEVSIX-1270
             RunTest("float30Test", "diff30_");
@@ -273,6 +275,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float31Test() {
             // TODO DEVSIX-1269 and DEVSIX-1270
             RunTest("float31Test", "diff31_");
@@ -281,6 +284,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float32Test() {
             // TODO DEVSIX-1269
             RunTest("float32Test", "diff32_");
@@ -289,6 +293,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float33Test() {
             RunTest("float33Test", "diff33_");
         }
@@ -296,6 +301,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float34Test() {
             // TODO DEVSIX-1269
             RunTest("float34Test", "diff34_");
@@ -304,6 +310,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float35Test() {
             // TODO DEVSIX-1269
             RunTest("float35Test", "diff35_");
@@ -340,6 +347,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float40Test() {
             // TODO DEVSIX-1269
             RunTest("float40Test", "diff40_");
@@ -369,6 +377,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1268")]
         public virtual void Float44Test() {
             // TODO DEVSIX-1268
             RunTest("float44Test", "diff44_");
@@ -377,6 +386,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1268")]
         public virtual void Float45Test() {
             // TODO DEVSIX-1268
             RunTest("float45Test", "diff45_");
@@ -413,6 +423,21 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void Float50Test() {
+            // TODO at the moment we always wrap inline text in paragraphs, thus we process this test exactly like in float51Test
+            RunTest("float50Test", "diff50_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Float51Test() {
+            RunTest("float51Test", "diff51_");
+        }
+		
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void FloatAndTables01Test() {
             RunTest("floatAndTables01Test", "diffTables01_");
         }
@@ -445,6 +470,129 @@ namespace iText.Html2pdf.Css {
             RunTest("floatAndTables05Test", "diffTables05_");
         }
 
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatAndTables06Test() {
+            RunTest("floatAndTables06Test", "diffTables06_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatAndTables07Test() {
+            RunTest("floatAndTables07Test", "diffTables07_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatAndTables08Test() {
+            RunTest("floatAndTables08Test", "diffTables08_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatAndTables09Test() {
+            RunTest("floatAndTables09Test", "diffTables09_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatAndTables10Test() {
+            RunTest("floatAndTables10Test", "diffTables10_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatImage01Test() {
+            RunTest("floatImage01Test", "diffImages01_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatImage02Test() {
+            RunTest("floatImage02Test", "diffImages02_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatImage03Test() {
+            RunTest("floatImage03Test", "diffImages03_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatImage04Test() {
+            // TODO word splitting logic working not entirely correctly
+            RunTest("floatImage04Test", "diffImages04_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatImage05Test() {
+            RunTest("floatImage05Test", "diffImages05_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatImage06Test() {
+            RunTest("floatImage06Test", "diffImages06_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatImage07Test() {
+            // TODO word splitting logic working not entirely correctly
+            RunTest("floatImage07Test", "diffImages07_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatImage08Test() {
+            RunTest("floatImage08Test", "diffImages08_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatImage09Test() {
+            RunTest("floatImage09Test", "diffImages09_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatImage10Test() {
+            // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
+            RunTest("floatImage10Test", "diffImages10_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatImage11Test() {
+            RunTest("floatImage11Test", "diffImages11_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatImage12Test() {
+            // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
+            RunTest("floatImage12Test", "diffImages12_");
+        }
+		
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         private void RunTest(String testName, String diff) {
