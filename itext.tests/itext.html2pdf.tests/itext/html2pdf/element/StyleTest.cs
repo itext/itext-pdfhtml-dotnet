@@ -75,6 +75,7 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Ignore("DEVSIX-1374")]
         [NUnit.Framework.Test]
         public virtual void StyleTest02() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "styleTest02.html"), new FileInfo(destinationFolder
