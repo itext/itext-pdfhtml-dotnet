@@ -139,7 +139,7 @@ namespace iText.Html2pdf {
         public const String UNABLE_TO_RETRIEVE_FONT = "Unable to retrieve font:\n {0}";
 
         /// <summary>The Constant UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI.</summary>
-        public const String UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI = "Unable to retrieve stream with given base URI ({0}) and image source path ({1})";
+        public const String UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI = "Unable to retrieve stream with given base URI ({0}) and source path ({1})";
 
         /// <summary>The Constant UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED.</summary>
         public const String UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED = "Unknown absolute metric length parsed \"{0}\".";
