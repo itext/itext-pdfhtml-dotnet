@@ -610,6 +610,14 @@ namespace iText.Html2pdf.Css {
             // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
             RunTest("floatImage12Test", "diffImages12_");
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1316")]
+        public virtual void FloatImage14Test() {
+            RunTest("floatImage14Test", "diffImages14_");
+        }
 		
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
