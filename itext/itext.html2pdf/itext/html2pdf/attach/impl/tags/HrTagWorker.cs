@@ -40,51 +40,31 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html.Node;
 using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Tagutils;
 using iText.Layout;
-using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for the <code>hr</code> element.</summary>
-    public class HrTagWorker : ITagWorker {
-        /// <summary>The div element.</summary>
-        internal Div div = new Div();
-
+    public class HrTagWorker : DivTagWorker {
         /// <summary>Creates a new <code>HrTagWorker</code> instance.</summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
-        public HrTagWorker(IElementNode element, ProcessorContext context) {
-            div.SetRole(PdfName.Artifact);
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
-        */
-        public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
-        */
-        public virtual bool ProcessContent(String content, ProcessorContext context) {
-            return false;
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
-        */
-        public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-            return false;
+        public HrTagWorker(IElementNode element, ProcessorContext context)
+            : base(element, context) {
         }
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
         */
-        public virtual IPropertyContainer GetElementResult() {
-            return div;
+        public override IPropertyContainer GetElementResult() {
+            IPropertyContainer elementResult = base.GetElementResult();
+            if (elementResult is IAccessibleElement) {
+                ((IAccessibleElement)elementResult).SetRole(PdfName.Artifact);
+            }
+            return elementResult;
         }
     }
 }
