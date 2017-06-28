@@ -85,6 +85,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+            // TODO child might be inline, however still have display:block; it behaves like a block, however p includes it in own occupied area
             IPropertyContainer element = childTagWorker.GetElementResult();
             if (element is ILeafElement) {
                 inlineHelper.Add((ILeafElement)element);

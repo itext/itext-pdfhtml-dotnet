@@ -115,7 +115,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         public virtual void ProcessPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
             PageContextProperties firstPageProps = PageContextProperties.Resolve(rootNode, cssResolver, context.GetCssContext
                 (), PageContextConstants.FIRST, PageContextConstants.RIGHT);
-            // TODO in documents with set to rtl on root document, first page is considered as left 
+            // TODO in documents with set to rtl on root document, first page is considered as left
             PageContextProperties leftPageProps = PageContextProperties.Resolve(rootNode, cssResolver, context.GetCssContext
                 (), PageContextConstants.LEFT);
             PageContextProperties rightPageProps = PageContextProperties.Resolve(rootNode, cssResolver, context.GetCssContext
@@ -140,7 +140,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 waitingElement = null;
             }
             waitingElement = renderer;
-            if (renderer.HasProperty(Property.FLOAT)) {
+            FloatPropertyValue? floatPropertyValue = renderer.GetProperty<FloatPropertyValue?>(Property.FLOAT);
+            int? position = renderer.GetProperty<int?>(Property.POSITION);
+            if ((position != null && position == LayoutPosition.ABSOLUTE) || (floatPropertyValue != null && !floatPropertyValue
+                .Equals(FloatPropertyValue.NONE))) {
                 waitingElement = null;
                 base.AddChild(renderer);
             }

@@ -49,7 +49,6 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
-using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for the <code>div</code> element.</summary>
@@ -182,21 +181,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <returns>true, if successful</returns>
         private bool AddBlockChild(IElement element) {
-            bool waitingLeavesContainsFloat = false;
-            foreach (ILeafElement waitingLeaf in inlineHelper.GetWaitingLeaves()) {
-                if (ElementIsFloated(waitingLeaf)) {
-                    waitingLeavesContainsFloat = true;
-                    break;
-                }
-            }
-            if (ElementIsFloated(element)) {
-                if (waitingLeavesContainsFloat) {
-                    PostProcessInlineGroup();
-                }
-            }
-            else {
-                PostProcessInlineGroup();
-            }
+            PostProcessInlineGroup();
             bool processed = false;
             if (element is IBlockElement) {
                 div.Add(((IBlockElement)element));
@@ -209,14 +194,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             return processed;
-        }
-
-        /// <summary>Checks if the element has a float layout.</summary>
-        /// <param name="element">the element</param>
-        /// <returns>true, if the element has a float layout</returns>
-        private bool ElementIsFloated(IElement element) {
-            FloatPropertyValue? floatPropertyValue = element.GetProperty<FloatPropertyValue?>(Property.FLOAT);
-            return floatPropertyValue != null && !floatPropertyValue.Equals(FloatPropertyValue.NONE);
         }
 
         /// <summary>Post-processes the hanging leaves of the waiting inline elements.</summary>

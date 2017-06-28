@@ -44,6 +44,7 @@ using System;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.IO.Log;
+using iText.Kernel.Geom;
 using iText.Layout.Layout;
 using iText.Layout.Minmaxwidth;
 using iText.Layout.Properties;
@@ -106,10 +107,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 renderer.SetProperty(Property.WIDTH, new UnitValue(UnitValue.POINT, (float)width));
             }
             AddChild(renderer);
-            layoutContext.GetArea().GetBBox().SetHeight(INF);
+            Rectangle bBox = layoutContext.GetArea().GetBBox().Clone().MoveDown(INF - parentHeight).SetHeight(INF);
+            layoutContext.GetArea().SetBBox(bBox);
             LayoutResult result = base.Layout(layoutContext);
-            layoutContext.GetArea().GetBBox().SetHeight(parentHeight);
-            Move(0, parentHeight - INF);
             if (restoreMaxHeight) {
                 SetProperty(Property.MAX_HEIGHT, maxHeight);
             }
@@ -133,7 +133,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 childRenderers.Clear();
                 childRenderers.Add(flatRenderer);
                 AdjustFieldLayout();
-                occupiedArea.SetBBox(flatRenderer.GetOccupiedArea().GetBBox().Clone());
+                Rectangle fBox = flatRenderer.GetOccupiedArea().GetBBox();
+                occupiedArea.GetBBox().SetX(fBox.GetX()).SetY(fBox.GetY()).SetWidth(fBox.GetWidth()).SetHeight(fBox.GetHeight());
                 ApplyPaddings(occupiedArea.GetBBox(), true);
                 ApplyBorderBox(occupiedArea.GetBBox(), true);
                 ApplyMargins(occupiedArea.GetBBox(), true);
@@ -174,6 +175,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 ApplyAcroField(drawContext);
             }
             drawContext.GetCanvas().RestoreState();
+        }
+
+        protected override MinMaxWidth GetMinMaxWidth(float availableWidth) {
+            MinMaxWidthLayoutResult result = (MinMaxWidthLayoutResult)Layout(new LayoutContext(new LayoutArea(1, new Rectangle(availableWidth, AbstractRenderer.INF))));
+            return result.GetNotNullMinMaxWidth(availableWidth);
         }
 
         protected internal abstract void AdjustFieldLayout();

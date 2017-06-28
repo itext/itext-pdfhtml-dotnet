@@ -82,7 +82,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1223")]
         public virtual void AlignAttribute04() {
             // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
             RunTest("alignAttribute04");

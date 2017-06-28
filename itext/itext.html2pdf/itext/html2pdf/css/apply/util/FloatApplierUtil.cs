@@ -60,7 +60,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="element">the element</param>
         public static void ApplyFloating(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
-            // TODO for now we only support alignment of floated elements, however we don't support text wrapping
             String floatValue = cssProps.Get(CssConstants.FLOAT);
             if (floatValue != null) {
                 if (CssConstants.LEFT.Equals(floatValue)) {
