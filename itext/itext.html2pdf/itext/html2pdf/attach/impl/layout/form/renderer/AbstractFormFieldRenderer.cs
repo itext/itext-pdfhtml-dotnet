@@ -91,6 +91,79 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         }
 
         public override LayoutResult Layout(LayoutContext layoutContext) {
+            return Layout(layoutContext, false);
+        }
+
+        public override void Draw(DrawContext drawContext) {
+            if (flatRenderer != null) {
+                base.Draw(drawContext);
+            }
+        }
+
+        public override void DrawChildren(DrawContext drawContext) {
+            drawContext.GetCanvas().SaveState();
+            bool flatten = IsFlatten();
+            if (flatten) {
+                drawContext.GetCanvas().Rectangle(occupiedArea.GetBBox()).Clip().NewPath();
+                flatRenderer.Draw(drawContext);
+            }
+            else {
+                ApplyAcroField(drawContext);
+            }
+            drawContext.GetCanvas().RestoreState();
+        }
+
+        protected override MinMaxWidth GetMinMaxWidth(float availableWidth) {
+            MinMaxWidthLayoutResult result = (MinMaxWidthLayoutResult)Layout(new LayoutContext(new LayoutArea(1, new Rectangle(availableWidth, AbstractRenderer.INF))), true);
+            return result.GetNotNullMinMaxWidth(availableWidth);
+        }
+
+        protected internal abstract void AdjustFieldLayout();
+
+        protected internal abstract IRenderer CreateFlatRenderer();
+
+        protected internal abstract void ApplyAcroField(DrawContext drawContext);
+
+        protected internal virtual String GetModelId() {
+            return ((IFormField)GetModelElement()).GetId();
+        }
+
+        /// <summary>
+        ///  Checks if the renderer fits a certain width and height.
+        /// </summary>
+        /// <param name="availableWidth">the available width</param>
+        /// <param name="availableHeight">the available height</param>
+        /// <returns>true, if the renderer fits</returns>
+        protected internal virtual bool IsRendererFit(float availableWidth, float availableHeight) {
+            if (occupiedArea == null) {
+                return false;
+            }
+            return availableHeight >= occupiedArea.GetBBox().GetHeight() && availableWidth >= occupiedArea.GetBBox().GetWidth
+                ();
+        }
+
+        /// <summary>
+        /// Gets the content width.
+        /// </summary>
+        /// <returns>the content width</returns>
+        protected internal virtual float? GetContentWidth() {
+            UnitValue width = this.GetProperty<UnitValue>(Property.WIDTH);
+            if (width != null) {
+                if (width.IsPointValue()) {
+                    return width.GetValue();
+                }
+                else {
+                    LoggerFactory.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_SUPPORTS_ONLY_POINT_WIDTH);
+                }
+            }
+            return null;
+        }
+
+        public abstract float GetAscent();
+
+        public abstract float GetDescent();
+
+        private LayoutResult Layout(LayoutContext layoutContext, bool minMaxWidth) {
             childRenderers.Clear();
             flatRenderer = null;
             float parentWidth = layoutContext.GetArea().GetBBox().GetWidth();
@@ -141,15 +214,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
             else {
                 LoggerFactory.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD
-                    );
+                );
                 occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
             }
             if (!true.Equals(GetPropertyAsBoolean(Property.FORCED_PLACEMENT)) && !IsRendererFit(parentWidth, parentHeight
                 )) {
-                SetProperty(Property.FORCED_PLACEMENT, true);
-                occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
-                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new 
-                    MinMaxWidth(0, parentWidth));
+                if (!minMaxWidth) {
+                    SetProperty(Property.FORCED_PLACEMENT, true);
+                    occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
+                    return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new MinMaxWidth(0, parentWidth));
+                } else {
+                    return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new MinMaxWidth(occupiedArea.GetBBox().GetWidth(), occupiedArea.GetBBox().GetWidth()));
+                }
             }
             if (result.GetStatus() != LayoutResult.FULL || !IsRendererFit(parentWidth, parentHeight)) {
                 LoggerFactory.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
@@ -158,73 +234,5 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 (0, parentWidth, occupiedArea.GetBBox().GetWidth(), occupiedArea.GetBBox().GetWidth()));
         }
 
-        public override void Draw(DrawContext drawContext) {
-            if (flatRenderer != null) {
-                base.Draw(drawContext);
-            }
-        }
-
-        public override void DrawChildren(DrawContext drawContext) {
-            drawContext.GetCanvas().SaveState();
-            bool flatten = IsFlatten();
-            if (flatten) {
-                drawContext.GetCanvas().Rectangle(occupiedArea.GetBBox()).Clip().NewPath();
-                flatRenderer.Draw(drawContext);
-            }
-            else {
-                ApplyAcroField(drawContext);
-            }
-            drawContext.GetCanvas().RestoreState();
-        }
-
-        protected override MinMaxWidth GetMinMaxWidth(float availableWidth) {
-            MinMaxWidthLayoutResult result = (MinMaxWidthLayoutResult)Layout(new LayoutContext(new LayoutArea(1, new Rectangle(availableWidth, AbstractRenderer.INF))));
-            return result.GetNotNullMinMaxWidth(availableWidth);
-        }
-
-        protected internal abstract void AdjustFieldLayout();
-
-        protected internal abstract IRenderer CreateFlatRenderer();
-
-        protected internal abstract void ApplyAcroField(DrawContext drawContext);
-
-        protected internal virtual String GetModelId() {
-            return ((IFormField)GetModelElement()).GetId();
-        }
-
-        /// <summary>
-        ///  Checks if the renderer fits a certain width and height.
-        /// </summary>
-        /// <param name="availableWidth">the available width</param>
-        /// <param name="availableHeight">the available height</param>
-        /// <returns>true, if the renderer fits</returns>
-        protected internal virtual bool IsRendererFit(float availableWidth, float availableHeight) {
-            if (occupiedArea == null) {
-                return false;
-            }
-            return availableHeight >= occupiedArea.GetBBox().GetHeight() && availableWidth >= occupiedArea.GetBBox().GetWidth
-                ();
-        }
-
-        /// <summary>
-        /// Gets the content width.
-        /// </summary>
-        /// <returns>the content width</returns>
-        protected internal virtual float? GetContentWidth() {
-            UnitValue width = this.GetProperty<UnitValue>(Property.WIDTH);
-            if (width != null) {
-                if (width.IsPointValue()) {
-                    return width.GetValue();
-                }
-                else {
-                    LoggerFactory.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_SUPPORTS_ONLY_POINT_WIDTH);
-                }
-            }
-            return null;
-        }
-
-        public abstract float GetAscent();
-
-        public abstract float GetDescent();
     }
 }
