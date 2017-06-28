@@ -449,7 +449,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Wrong elements drawing order")]
         public virtual void Float54Test() {
             RunTest("float54Test", "diff54_");
         }
