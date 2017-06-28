@@ -42,6 +42,10 @@
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Css.Media;
+using iText.Html2pdf.Css.Util;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
 using System.Reflection;
@@ -616,6 +620,39 @@ namespace iText.Html2pdf.Css {
             HtmlConverter.ConvertToPdf(new FileInfo(htmlName), new FileInfo(outFileName));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, destinationFolder
                 , diff));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ResponsiveIText() {
+            PageSize[] pageSizes = new PageSize[] { null, new PageSize(PageSize.A3.GetHeight(), PageSize.A4.GetHeight(
+                )), new PageSize(760, PageSize.A4.GetHeight()), new PageSize(PageSize.A5.GetWidth(), PageSize.A4.GetHeight
+                ()) };
+            String htmlSource = sourceFolder + "responsiveIText.html";
+            foreach (PageSize pageSize in pageSizes) {
+                float? pxWidth = pageSize != null ? CssUtils.ParseAbsoluteLength(pageSize.GetWidth().ToString()) : null;
+                String outName = "responsiveIText" + (pxWidth != null ? "_" + pxWidth : "") + ".pdf";
+                PdfWriter writer = new PdfWriter(destinationFolder + outName);
+                PdfDocument pdfDoc = new PdfDocument(writer);
+                ConverterProperties converterProperties = new ConverterProperties();
+                if (pageSize != null) {
+                    pdfDoc.SetDefaultPageSize(pageSize);
+                    MediaDeviceDescription mediaDescription = new MediaDeviceDescription(MediaType.SCREEN);
+                    mediaDescription.SetWidth(pxWidth);
+                    converterProperties.SetMediaDeviceDescription(mediaDescription);
+                }
+                HtmlConverter.ConvertToPdf(new FileStream(htmlSource, FileMode.Open, FileAccess.Read), pdfDoc, converterProperties
+                    );
+                pdfDoc.Close();
+            }
+            foreach (PageSize pageSize in pageSizes) {
+                float? pxWidth = pageSize != null ? CssUtils.ParseAbsoluteLength(pageSize.GetWidth().ToString()) : null;
+                String outName = "responsiveIText" + (pxWidth != null ? "_" + pxWidth : "") + ".pdf";
+                String cmpName = "cmp_" + outName;
+                NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + outName, sourceFolder
+                     + cmpName, destinationFolder, "diffResponsive_"));
+            }
         }
     }
 }
