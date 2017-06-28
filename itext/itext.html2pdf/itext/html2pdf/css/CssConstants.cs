@@ -631,6 +631,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant NORMAL.</summary>
         public const String NORMAL = "normal";
 
+        /// <summary>The Constant NOWRAP.</summary>
+        public const String NOWRAP = "nowrap";
+
         /// <summary>The Constant OBLIQUE.</summary>
         public const String OBLIQUE = "oblique";
 
