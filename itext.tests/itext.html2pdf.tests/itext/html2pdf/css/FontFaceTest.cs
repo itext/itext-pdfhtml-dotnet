@@ -148,6 +148,15 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1368: font-face alias is not recognized correctly by font selector if it is specified in quotes"
+            )]
+        public virtual void FontFaceWoffTest02() {
+            RunTest("fontFaceWoffTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String name) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";
