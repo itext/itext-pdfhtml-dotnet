@@ -95,11 +95,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             bool processed = false;
             IPropertyContainer element = childTagWorker.GetElementResult();
             if (childTagWorker is BrTagWorker) {
-                if (inlineHelper.GetSanitizedWaitingLeaves().Count == 1 && inlineHelper.GetSanitizedWaitingLeaves()[0] is 
-                    Image) {
-                    // TODO This is a workaround for case of single image to set leading to 1
-                    PostProcessInlineGroup();
-                }
                 inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
                 return true;
             }
