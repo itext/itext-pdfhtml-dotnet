@@ -94,13 +94,26 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         inlineHelper.Add((ILeafElement)propertyContainer);
                     }
                     else {
-                        allChildrenProcessed = AddBlockChild(propertyContainer) && allChildrenProcessed;
+                        if (propertyContainer is IBlockElement && CssConstants.INLINE_BLOCK.Equals(((SpanTagWorker)childTagWorker)
+                            .GetElementDisplay(propertyContainer))) {
+                            inlineHelper.Add((IBlockElement)propertyContainer);
+                        }
+                        else {
+                            allChildrenProcessed = AddBlockChild(propertyContainer) && allChildrenProcessed;
+                        }
                     }
                 }
                 return allChildrenProcessed;
             }
             else {
-                return AddBlockChild(child);
+                if (childTagWorker is IDisplayAware && CssConstants.INLINE_BLOCK.Equals(((IDisplayAware)childTagWorker).GetDisplay
+                    ()) && childTagWorker.GetElementResult() is IBlockElement) {
+                    inlineHelper.Add((IBlockElement)childTagWorker.GetElementResult());
+                    return true;
+                }
+                else {
+                    return AddBlockChild(child);
+                }
             }
         }
 

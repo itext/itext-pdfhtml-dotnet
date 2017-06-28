@@ -104,56 +104,69 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 return true;
             }
             else {
-                if (childTagWorker is SpanTagWorker) {
-                    bool allChildrenProcessed = true;
-                    foreach (IPropertyContainer childElement in ((SpanTagWorker)childTagWorker).GetAllElements()) {
-                        if (childElement is ILeafElement) {
-                            inlineHelper.Add((ILeafElement)childElement);
-                        }
-                        else {
-                            if (childElement is IElement) {
-                                allChildrenProcessed = AddBlockChild((IElement)childElement) && allChildrenProcessed;
-                            }
-                        }
-                    }
-                    processed = allChildrenProcessed;
+                if (childTagWorker is IDisplayAware && CssConstants.INLINE_BLOCK.Equals(((IDisplayAware)childTagWorker).GetDisplay
+                    ()) && childTagWorker.GetElementResult() is IBlockElement) {
+                    inlineHelper.Add((IBlockElement)childTagWorker.GetElementResult());
+                    return true;
                 }
                 else {
-                    if (element is IFormField) {
-                        if (childTagWorker is IDisplayAware && CssConstants.BLOCK.Equals(((IDisplayAware)childTagWorker).GetDisplay
-                            ())) {
-                            // TODO make IFormField implement IBlockElement and add it directly to div without inline helper.
-                            // TODO Requires refactoring of AbstractOneLineTextFieldRenderer (calculate baselines properly)
-                            PostProcessInlineGroup();
-                            inlineHelper.Add((ILeafElement)element);
-                            PostProcessInlineGroup();
-                        }
-                        else {
-                            inlineHelper.Add((IFormField)element);
-                        }
-                        processed = true;
-                    }
-                    else {
-                        if (element is AreaBreak) {
-                            PostProcessInlineGroup();
-                            div.Add((AreaBreak)element);
-                            processed = true;
-                        }
-                        else {
-                            if (childTagWorker is ImgTagWorker && element is IElement) {
-                                if (CssConstants.BLOCK.Equals(((ImgTagWorker)childTagWorker).GetDisplay())) {
-                                    processed = AddBlockChild((IElement)element);
+                    if (childTagWorker is SpanTagWorker) {
+                        bool allChildrenProcessed = true;
+                        foreach (IPropertyContainer childElement in ((SpanTagWorker)childTagWorker).GetAllElements()) {
+                            if (childElement is ILeafElement) {
+                                inlineHelper.Add((ILeafElement)childElement);
+                            }
+                            else {
+                                if (childElement is IBlockElement && CssConstants.INLINE_BLOCK.Equals(((SpanTagWorker)childTagWorker).GetElementDisplay
+                                    (childElement))) {
+                                    inlineHelper.Add((IBlockElement)childElement);
                                 }
                                 else {
-                                    if (childTagWorker.GetElementResult() is Image) {
-                                        inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
-                                        processed = true;
+                                    if (childElement is IElement) {
+                                        allChildrenProcessed = AddBlockChild((IElement)childElement) && allChildrenProcessed;
                                     }
                                 }
                             }
+                        }
+                        processed = allChildrenProcessed;
+                    }
+                    else {
+                        if (element is IFormField) {
+                            if (childTagWorker is IDisplayAware && CssConstants.BLOCK.Equals(((IDisplayAware)childTagWorker).GetDisplay
+                                ())) {
+                                // TODO make IFormField implement IBlockElement and add it directly to div without inline helper.
+                                // TODO Requires refactoring of AbstractOneLineTextFieldRenderer (calculate baselines properly)
+                                PostProcessInlineGroup();
+                                inlineHelper.Add((IFormField)element);
+                                PostProcessInlineGroup();
+                            }
                             else {
-                                if (element is IElement) {
-                                    processed = AddBlockChild((IElement)element);
+                                inlineHelper.Add((IFormField)element);
+                            }
+                            processed = true;
+                        }
+                        else {
+                            if (element is AreaBreak) {
+                                PostProcessInlineGroup();
+                                div.Add((AreaBreak)element);
+                                processed = true;
+                            }
+                            else {
+                                if (childTagWorker is ImgTagWorker && element is IElement) {
+                                    if (CssConstants.BLOCK.Equals(((ImgTagWorker)childTagWorker).GetDisplay())) {
+                                        processed = AddBlockChild((IElement)element);
+                                    }
+                                    else {
+                                        if (childTagWorker.GetElementResult() is Image) {
+                                            inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
+                                            processed = true;
+                                        }
+                                    }
+                                }
+                                else {
+                                    if (element is IElement) {
+                                        processed = AddBlockChild((IElement)element);
+                                    }
                                 }
                             }
                         }

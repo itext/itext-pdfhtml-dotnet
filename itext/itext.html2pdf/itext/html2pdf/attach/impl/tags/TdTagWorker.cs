@@ -104,7 +104,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         inlineHelper.Add((ILeafElement)propertyContainer);
                     }
                     else {
-                        allChildrenProcesssed = ProcessChild(propertyContainer) && allChildrenProcesssed;
+                        if (propertyContainer is IBlockElement && CssConstants.INLINE_BLOCK.Equals(((SpanTagWorker)childTagWorker)
+                            .GetElementDisplay(propertyContainer))) {
+                            inlineHelper.Add((IBlockElement)propertyContainer);
+                        }
+                        else {
+                            allChildrenProcesssed = ProcessChild(propertyContainer) && allChildrenProcesssed;
+                        }
                     }
                 }
                 processed = allChildrenProcesssed;

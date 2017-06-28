@@ -42,8 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
+using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for the <code>body</code> element.</summary>
@@ -56,6 +59,15 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public BodyTagWorker(IElementNode element, ProcessorContext context) {
             parentTagWorker = context.GetState().Empty() ? null : context.GetState().Top();
+            if (parentTagWorker != null && parentTagWorker.GetElementResult() != null) {
+                // TODO this is not in css applier because css applier is called after the elements are added to the document
+                // We need to apply font styles here specifically to set font-size to the document because this is needed for
+                // inline-blocks with fixed height when the height is smaller than the defined font size
+                float em = CssUtils.ParseAbsoluteLength(element.GetStyles().Get(CssConstants.FONT_SIZE));
+                if (em != 0) {
+                    parentTagWorker.GetElementResult().SetProperty(Property.FONT_SIZE, em);
+                }
+            }
         }
 
         /* (non-Javadoc)

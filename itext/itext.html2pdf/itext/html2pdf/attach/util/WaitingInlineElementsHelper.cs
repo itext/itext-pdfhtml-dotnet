@@ -60,7 +60,7 @@ namespace iText.Html2pdf.Attach.Util {
         private bool collapseSpaces;
 
         /// <summary>List of waiting leaf elements.</summary>
-        private IList<ILeafElement> waitingLeaves = new List<ILeafElement>();
+        private IList<IElement> waitingLeaves = new List<IElement>();
 
         /// <summary>Creates a new <code>WaitingInlineElementsHelper</code> instance.</summary>
         /// <param name="whiteSpace">we'll check if this value equals "pre" or "pre-wrap"</param>
@@ -127,6 +127,10 @@ namespace iText.Html2pdf.Attach.Util {
             waitingLeaves.Add(element);
         }
 
+        public virtual void Add(IBlockElement element) {
+            waitingLeaves.Add(element);
+        }
+
         /// <summary>Adds a collecton of leaf elements to the waiting leaves.</summary>
         /// <param name="collection">the collection</param>
         public virtual void AddAll(ICollection<ILeafElement> collection) {
@@ -143,8 +147,15 @@ namespace iText.Html2pdf.Attach.Util {
                 }
                 else {
                     if (container is Paragraph) {
-                        foreach (ILeafElement leafElement in waitingLeaves) {
-                            ((Paragraph)container).Add(leafElement);
+                        foreach (IElement leafElement in waitingLeaves) {
+                            if (leafElement is ILeafElement) {
+                                ((Paragraph)container).Add((ILeafElement)leafElement);
+                            }
+                            else {
+                                if (leafElement is IBlockElement) {
+                                    ((Paragraph)container).Add((IBlockElement)leafElement);
+                                }
+                            }
                         }
                     }
                     else {
@@ -183,8 +194,15 @@ namespace iText.Html2pdf.Attach.Util {
             }
             if (waitingLeaves.Count > 0) {
                 Paragraph p = CreateParagraphContainer();
-                foreach (ILeafElement leaf in waitingLeaves) {
-                    p.Add(leaf);
+                foreach (IElement leaf in waitingLeaves) {
+                    if (leaf is ILeafElement) {
+                        p.Add((ILeafElement)leaf);
+                    }
+                    else {
+                        if (leaf is IBlockElement) {
+                            p.Add((IBlockElement)leaf);
+                        }
+                    }
                 }
                 // Default leading in html is 1.2 and it is an inherited value. However, if a paragraph only contains an image,
                 // the default leading should be 1. This is the case when we create a dummy paragraph, therefore we should emulate this behavior.
@@ -200,13 +218,13 @@ namespace iText.Html2pdf.Attach.Util {
 
         /// <summary>Gets the waiting leaves.</summary>
         /// <returns>the waiting leaves</returns>
-        public virtual ICollection<ILeafElement> GetWaitingLeaves() {
+        public virtual ICollection<IElement> GetWaitingLeaves() {
             return waitingLeaves;
         }
 
         /// <summary>Gets the sanitized waiting leaves.</summary>
         /// <returns>the sanitized waiting leaves</returns>
-        public virtual IList<ILeafElement> GetSanitizedWaitingLeaves() {
+        public virtual IList<IElement> GetSanitizedWaitingLeaves() {
             if (collapseSpaces) {
                 return TrimUtil.TrimLeafElementsAndSanitize(waitingLeaves);
             }
@@ -228,9 +246,9 @@ namespace iText.Html2pdf.Attach.Util {
 
         /// <summary>Capitalizes a series of leaf elements.</summary>
         /// <param name="leaves">a list of leaf elements</param>
-        private static void Capitalize(IList<ILeafElement> leaves) {
+        private static void Capitalize(IList<IElement> leaves) {
             bool previousLetter = false;
-            foreach (ILeafElement element in leaves) {
+            foreach (IElement element in leaves) {
                 if (element is iText.Layout.Element.Text) {
                     String text = ((iText.Layout.Element.Text)element).GetText();
                     StringBuilder sb = new StringBuilder();

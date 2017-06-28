@@ -50,12 +50,15 @@ using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for the <code>p</code> element.</summary>
-    public class PTagWorker : ITagWorker {
+    public class PTagWorker : ITagWorker, IDisplayAware {
         /// <summary>The paragraph object.</summary>
         private Paragraph paragraph;
 
         /// <summary>Helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
+
+        /// <summary>The display value.</summary>
+        private String display;
 
         /// <summary>Creates a new <code>PTagWorker</code> instance.</summary>
         /// <param name="element">the element</param>
@@ -64,6 +67,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             paragraph = new Paragraph();
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
+            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
         /* (non-Javadoc)
@@ -92,17 +96,30 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 return true;
             }
             else {
-                if (childTagWorker is SpanTagWorker) {
-                    bool allChildrenProcessed = true;
-                    foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
-                        if (propertyContainer is ILeafElement) {
-                            inlineHelper.Add((ILeafElement)propertyContainer);
+                if (element is IBlockElement && childTagWorker is IDisplayAware && CssConstants.INLINE_BLOCK.Equals(((IDisplayAware
+                    )childTagWorker).GetDisplay())) {
+                    inlineHelper.Add((IBlockElement)element);
+                    return true;
+                }
+                else {
+                    if (childTagWorker is SpanTagWorker) {
+                        bool allChildrenProcessed = true;
+                        foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
+                            if (propertyContainer is ILeafElement) {
+                                inlineHelper.Add((ILeafElement)propertyContainer);
+                            }
+                            else {
+                                if (propertyContainer is IBlockElement && CssConstants.INLINE_BLOCK.Equals(((SpanTagWorker)childTagWorker)
+                                    .GetElementDisplay(propertyContainer))) {
+                                    inlineHelper.Add((IBlockElement)propertyContainer);
+                                }
+                                else {
+                                    allChildrenProcessed = false;
+                                }
+                            }
                         }
-                        else {
-                            allChildrenProcessed = false;
-                        }
+                        return allChildrenProcessed;
                     }
-                    return allChildrenProcessed;
                 }
             }
             return false;
@@ -113,6 +130,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         */
         public virtual IPropertyContainer GetElementResult() {
             return paragraph;
+        }
+
+        public virtual String GetDisplay() {
+            return display;
         }
     }
 }
