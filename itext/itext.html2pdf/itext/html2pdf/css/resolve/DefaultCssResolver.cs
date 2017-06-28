@@ -336,7 +336,8 @@ namespace iText.Html2pdf.Css.Resolve {
                 styles.Put(cssProperty, parentPropValue);
             }
             else {
-                if (CssConstants.TEXT_DECORATION.Equals(cssProperty)) {
+                if (CssConstants.TEXT_DECORATION.Equals(cssProperty) && !CssConstants.INLINE_BLOCK.Equals(styles.Get(CssConstants
+                    .DISPLAY))) {
                     // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
                     /* Text decorations on inline boxes are drawn across the entire element,
                     going across any descendant elements without paying any attention to their presence. */

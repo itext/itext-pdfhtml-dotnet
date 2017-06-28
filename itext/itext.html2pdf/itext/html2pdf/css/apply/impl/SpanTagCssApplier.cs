@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
@@ -66,7 +67,11 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             SpanTagWorker spanTagWorker = (SpanTagWorker)tagWorker;
             IDictionary<String, String> cssStyles = stylesContainer.GetStyles();
             foreach (IPropertyContainer child in spanTagWorker.GetOwnLeafElements()) {
-                ApplyChildElementStyles(child, cssStyles, context, stylesContainer);
+                // Workaround for form fields so that SpanTagCssApplier does not apply its font-size to the child.
+                // Form fields have their own CSS applier // TODO remove when form fields are not leaf elements anymore
+                if (!(child is IFormField)) {
+                    ApplyChildElementStyles(child, cssStyles, context, stylesContainer);
+                }
             }
             VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForInlines(cssStyles, context, stylesContainer, spanTagWorker
                 .GetAllElements());

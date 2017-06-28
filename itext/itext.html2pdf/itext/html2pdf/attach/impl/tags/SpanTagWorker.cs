@@ -56,6 +56,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The span wrapper.</summary>
         internal SpanWrapper spanWrapper;
 
+        private IDictionary<IPropertyContainer, String> childrenDisplayMap = new Dictionary<IPropertyContainer, String
+            >();
+
         /// <summary>A list of elements belonging to the span.</summary>
         private IList<IPropertyContainer> elements;
 
@@ -72,6 +75,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the processor context</param>
         public SpanTagWorker(IElementNode element, ProcessorContext context) {
+            // TODO ideally, this should be refactored. For now, I don't see a beautiful way of passing this information to other workers.
+            // Also, we probably should wait a bit until the display support is more or less stable
             spanWrapper = new SpanWrapper();
             IDictionary<String, String> styles = element.GetStyles();
             inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.Get(CssConstants.WHITE_SPACE
@@ -110,10 +115,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 if (childTagWorker is iText.Html2pdf.Attach.Impl.Tags.SpanTagWorker) {
                     FlushInlineHelper();
                     spanWrapper.Add(((iText.Html2pdf.Attach.Impl.Tags.SpanTagWorker)childTagWorker).spanWrapper);
+                    childrenDisplayMap.AddAll(((iText.Html2pdf.Attach.Impl.Tags.SpanTagWorker)childTagWorker).childrenDisplayMap
+                        );
                     return true;
                 }
                 else {
                     if (childTagWorker.GetElementResult() is IBlockElement) {
+                        if (childTagWorker is IDisplayAware) {
+                            String display = ((IDisplayAware)childTagWorker).GetDisplay();
+                            childrenDisplayMap.Put(childTagWorker.GetElementResult(), display);
+                        }
                         FlushInlineHelper();
                         spanWrapper.Add((IBlockElement)childTagWorker.GetElementResult());
                         return true;
@@ -147,6 +158,15 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         */
         public virtual String GetDisplay() {
             return display;
+        }
+
+        /// <summary>
+        /// The child shall be one from
+        /// <see cref="GetAllElements()"/>
+        /// list.
+        /// </summary>
+        internal virtual String GetElementDisplay(IPropertyContainer child) {
+            return childrenDisplayMap.Get(child);
         }
 
         /// <summary>Flushes the waiting leaf elements.</summary>

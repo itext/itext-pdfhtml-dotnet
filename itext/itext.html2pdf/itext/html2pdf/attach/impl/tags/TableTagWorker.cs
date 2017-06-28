@@ -44,13 +44,14 @@ using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Attach.Wrapelement;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for the <code>table</code> element.</summary>
-    public class TableTagWorker : ITagWorker {
+    public class TableTagWorker : ITagWorker, IDisplayAware {
         /// <summary>The table wrapper.</summary>
         private TableWrapper tableWrapper;
 
@@ -69,6 +70,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The colgroups helper.</summary>
         private WaitingColgroupsHelper colgroupsHelper;
 
+        /// <summary>The display value.</summary>
+        private String display;
+
         /// <summary>Creates a new <code>TableTagWorker</code> instance.</summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
@@ -81,6 +85,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             else {
                 colgroupsHelper = new WaitingColgroupsHelper(element);
             }
+            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
         /* (non-Javadoc)
@@ -159,6 +164,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         */
         public virtual IPropertyContainer GetElementResult() {
             return table;
+        }
+
+        public virtual String GetDisplay() {
+            return display;
         }
 
         /// <summary>

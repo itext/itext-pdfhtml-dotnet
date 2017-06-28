@@ -131,6 +131,9 @@ namespace iText.Html2pdf.Css.Parse {
         /// <param name="property">the properties</param>
         /// <returns>the array of property values</returns>
         private static String[] SplitCssProperty(String property) {
+            if (String.IsNullOrEmpty(property.Trim())) {
+                return null;
+            }
             String[] result = new String[2];
             int position = property.IndexOf(":", StringComparison.Ordinal);
             if (position < 0) {

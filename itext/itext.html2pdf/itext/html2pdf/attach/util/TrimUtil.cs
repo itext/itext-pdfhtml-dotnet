@@ -55,8 +55,8 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Trim leaf elements, and sanitize.</summary>
         /// <param name="leafElements">the leaf elements</param>
         /// <returns>the trimmed and sanitized list</returns>
-        public static IList<ILeafElement> TrimLeafElementsAndSanitize(IList<ILeafElement> leafElements) {
-            List<ILeafElement> waitingLeaves = new List<ILeafElement>(leafElements);
+        public static IList<IElement> TrimLeafElementsAndSanitize(IList<IElement> leafElements) {
+            List<IElement> waitingLeaves = new List<IElement>(leafElements);
             TrimSubList(waitingLeaves, 0, waitingLeaves.Count, false);
             TrimSubList(waitingLeaves, 0, waitingLeaves.Count, true);
             int pos = 0;
@@ -92,10 +92,10 @@ namespace iText.Html2pdf.Attach.Util {
         /// <param name="begin">the index where to begin</param>
         /// <param name="end">the index where to end</param>
         /// <param name="last">indicates where to start, if true, we start at the end</param>
-        private static void TrimSubList(List<ILeafElement> list, int begin, int end, bool last) {
+        private static void TrimSubList(List<IElement> list, int begin, int end, bool last) {
             while (end > begin) {
                 int pos = last ? end - 1 : begin;
-                ILeafElement leaf = list[pos];
+                IElement leaf = list[pos];
                 if (IsElementFloating(leaf)) {
                     if (last) {
                         --end;
@@ -157,7 +157,7 @@ namespace iText.Html2pdf.Attach.Util {
             return pos;
         }
 
-        private static bool IsElementFloating(ILeafElement leafElement) {
+        private static bool IsElementFloating(IElement leafElement) {
             FloatPropertyValue? floatPropertyValue = leafElement.GetProperty<FloatPropertyValue?>(Property.FLOAT);
             int? position = leafElement.GetProperty<int?>(Property.POSITION);
             return (position == null || position != LayoutPosition.ABSOLUTE) && floatPropertyValue != null && !floatPropertyValue

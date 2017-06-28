@@ -71,7 +71,7 @@ namespace iText.Html2pdf.Attach.Wrapelement {
 
         /// <summary>Adds a collection of lead elements as children.</summary>
         /// <param name="collection">the collection to add</param>
-        public virtual void AddAll(ICollection<ILeafElement> collection) {
+        public virtual void AddAll(ICollection<IElement> collection) {
             children.AddAll(collection);
         }
 
