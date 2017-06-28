@@ -133,7 +133,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         processed = true;
                     }
                     else {
-                        return ProcessBlockChild(childTagWorker.GetElementResult());
+                        if (childTagWorker is BrTagWorker) {
+                            inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
+                            processed = true;
+                        }
+                        else {
+                            return ProcessBlockChild(childTagWorker.GetElementResult());
+                        }
                     }
                 }
             }
