@@ -203,11 +203,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
             // browsers ignore values in percents
             String lineHeight = cssProps.Get(CssConstants.LINE_HEIGHT);
             if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight)) {
-                UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em, rem);
                 if (CssUtils.IsNumericValue(lineHeight)) {
-                    element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.GetValue()));
+                    float? mult = CssUtils.ParseFloat(lineHeight);
+                    if (mult != null) {
+                        element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));
+                    }
                 }
                 else {
+                    UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em, rem);
                     if (lineHeightValue != null && lineHeightValue.IsPointValue()) {
                         element.SetProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.GetValue()));
                     }
