@@ -141,6 +141,13 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FontFaceWoffTest01() {
+            RunTest("fontFaceWoffTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String name) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";

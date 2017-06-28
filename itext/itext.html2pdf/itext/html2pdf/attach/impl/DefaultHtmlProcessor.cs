@@ -405,8 +405,9 @@ namespace iText.Html2pdf.Attach.Impl {
             switch (format) {
                 case FontFace.FontFormat.None:
                 case FontFace.FontFormat.TrueType:
-                case FontFace.FontFormat.OpenType: {
-                    // TODO Update after DEVSIX-1148
+                case FontFace.FontFormat.OpenType:
+                case FontFace.FontFormat.WOFF: {
+                    // TODO Update after DEVSIX-1314
                     return true;
                 }
 

@@ -111,7 +111,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     }
                 }
                 bool b1 = pageSizeChunks.Length == 1 && (namedPageSize != null || landscape != null);
-                // TODO rename propertly?
                 bool b2 = namedPageSize != null && landscape != null;
                 if (b1 || b2) {
                     if (namedPageSize != null) {
