@@ -94,16 +94,18 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static Border[] GetBordersArray(IDictionary<String, String> styles, float em, float rem) {
             Border[] borders = new Border[4];
             Border topBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_TOP_WIDTH), styles.Get(CssConstants.BORDER_TOP_STYLE
-                ), styles.Get(CssConstants.BORDER_TOP_COLOR), em, rem);
+                ), GetSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_TOP_COLOR), em, rem);
             borders[0] = topBorder;
             Border rightBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_RIGHT_WIDTH), styles.Get(CssConstants
-                .BORDER_RIGHT_STYLE), styles.Get(CssConstants.BORDER_RIGHT_COLOR), em, rem);
+                .BORDER_RIGHT_STYLE), GetSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_RIGHT_COLOR), em
+                , rem);
             borders[1] = rightBorder;
             Border bottomBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_BOTTOM_WIDTH), styles.Get(CssConstants
-                .BORDER_BOTTOM_STYLE), styles.Get(CssConstants.BORDER_BOTTOM_COLOR), em, rem);
+                .BORDER_BOTTOM_STYLE), GetSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_BOTTOM_COLOR), 
+                em, rem);
             borders[2] = bottomBorder;
             Border leftBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_LEFT_WIDTH), styles.Get(CssConstants.BORDER_LEFT_STYLE
-                ), styles.Get(CssConstants.BORDER_LEFT_COLOR), em, rem);
+                ), GetSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_LEFT_COLOR), em, rem);
             borders[3] = leftBorder;
             return borders;
         }
@@ -220,6 +222,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             return border;
+        }
+
+        private static String GetSpecificBorderColorOrDefaultColor(IDictionary<String, String> styles, String specificBorderColorProperty
+            ) {
+            String borderColor = styles.Get(specificBorderColorProperty);
+            if (borderColor == null) {
+                borderColor = styles.Get(CssConstants.COLOR);
+            }
+            return borderColor;
         }
     }
 }

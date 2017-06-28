@@ -91,7 +91,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                         borderStyleValue = value;
                     }
                     else {
-                        if (CssUtils.IsColorProperty(value)) {
+                        if (CssUtils.IsColorProperty(value) || CssConstants.INITIAL.Equals(value)) {
                             borderColorValue = value;
                         }
                     }
@@ -102,8 +102,9 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                 ));
             resolvedDecl.Add(new CssDeclaration(stylePropName, borderStyleValue == null ? CssConstants.INITIAL : borderStyleValue
                 ));
-            resolvedDecl.Add(new CssDeclaration(colorPropName, borderColorValue == null ? CssConstants.INITIAL : borderColorValue
-                ));
+            if (borderColorValue != null) {
+                resolvedDecl.Add(new CssDeclaration(colorPropName, borderColorValue));
+            }
             return resolvedDecl;
         }
     }

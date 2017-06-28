@@ -65,11 +65,10 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues.Put(CssConstants.BACKGROUND_CLIP, CssConstants.BORDER_BOX);
             defaultValues.Put(CssConstants.BACKGROUND_ORIGIN, CssConstants.PADDING_BOX);
             defaultValues.Put(CssConstants.BACKGROUND_SIZE, CssConstants.AUTO);
-            defaultValues.Put(CssConstants.BORDER_BOTTOM_COLOR, "black");
-            // TODO specified as " The current color of the element ", might be better to put null here?
-            defaultValues.Put(CssConstants.BORDER_LEFT_COLOR, "black");
-            defaultValues.Put(CssConstants.BORDER_RIGHT_COLOR, "black");
-            defaultValues.Put(CssConstants.BORDER_TOP_COLOR, "black");
+            defaultValues.Put(CssConstants.BORDER_BOTTOM_COLOR, CssConstants.TRANSPARENT);
+            defaultValues.Put(CssConstants.BORDER_LEFT_COLOR, CssConstants.TRANSPARENT);
+            defaultValues.Put(CssConstants.BORDER_RIGHT_COLOR, CssConstants.TRANSPARENT);
+            defaultValues.Put(CssConstants.BORDER_TOP_COLOR, CssConstants.TRANSPARENT);
             defaultValues.Put(CssConstants.BORDER_BOTTOM_STYLE, CssConstants.NONE);
             defaultValues.Put(CssConstants.BORDER_LEFT_STYLE, CssConstants.NONE);
             defaultValues.Put(CssConstants.BORDER_RIGHT_STYLE, CssConstants.NONE);
