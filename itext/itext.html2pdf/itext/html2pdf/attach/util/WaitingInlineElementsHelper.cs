@@ -46,7 +46,6 @@ using System.Text;
 using iText.Html2pdf.Css;
 using iText.Layout;
 using iText.Layout.Element;
-using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Util {
     /// <summary>Helper class for waiting inline elements.</summary>
@@ -186,14 +185,6 @@ namespace iText.Html2pdf.Attach.Util {
                 Paragraph p = CreateParagraphContainer();
                 foreach (ILeafElement leaf in waitingLeaves) {
                     p.Add(leaf);
-                    FloatPropertyValue? floatPropertyValue = leaf.GetProperty<FloatPropertyValue?>(Property.FLOAT);
-                    if (floatPropertyValue != null && !(leaf is Image)) {
-                        p.SetProperty(Property.FLOAT, floatPropertyValue);
-                    }
-                    ClearPropertyValue? clearPropertyValue = leaf.GetProperty<ClearPropertyValue?>(Property.CLEAR);
-                    if (clearPropertyValue != null && !(leaf is Image)) {
-                        p.SetProperty(Property.CLEAR, clearPropertyValue);
-                    }
                 }
                 // Default leading in html is 1.2 and it is an inherited value. However, if a paragraph only contains an image,
                 // the default leading should be 1. This is the case when we create a dummy paragraph, therefore we should emulate this behavior.
