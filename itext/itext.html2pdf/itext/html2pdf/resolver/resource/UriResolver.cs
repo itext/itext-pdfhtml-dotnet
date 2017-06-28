@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace iText.Html2pdf.Resolver.Resource
 {
@@ -223,10 +224,12 @@ namespace iText.Html2pdf.Resolver.Resource
         private string GetScheme(String uriString)
         {
             String result = null;
-            char[] separators = new[] { ':' };
-            if (uriString.Contains(":"))
-            {
-                result = uriString.Split(separators)[0];
+
+            string pattern = "^[^:]+";
+            Match match = Regex.Match(uriString, pattern);
+
+            if (match.Success) {
+                result = match.Value;
             }
             else if (null != baseUrl)
             {
