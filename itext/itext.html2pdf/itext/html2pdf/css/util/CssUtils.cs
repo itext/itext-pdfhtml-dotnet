@@ -50,6 +50,9 @@ using iText.Layout.Properties;
 namespace iText.Html2pdf.Css.Util {
     /// <summary>Utilities class for CSS operations.</summary>
     public class CssUtils {
+        private static readonly String[] RELATIVE_MEASUREMENTS = new String[] { CssConstants.PERCENTAGE, CssConstants
+            .EM, CssConstants.EX, CssConstants.REM };
+
         /// <summary>Creates a new <code>CssUtils</code> instance.</summary>
         private CssUtils() {
         }
@@ -246,7 +249,7 @@ namespace iText.Html2pdf.Css.Util {
                         return new UnitValue(UnitValue.POINT, ParseRelativeValue(value, remValue));
                     }
                     else {
-                        if (value != null && (value.EndsWith(CssConstants.EM) || value.EndsWith(CssConstants.EX))) {
+                        if (IsRelativeValue(value)) {
                             return new UnitValue(UnitValue.POINT, ParseRelativeValue(value, emValue));
                         }
                     }
@@ -339,15 +342,24 @@ namespace iText.Html2pdf.Css.Util {
         /// <param name="value">the string that needs to be checked.</param>
         /// <returns>boolean true if value contains an allowed metric value.</returns>
         public static bool IsRelativeValue(String value) {
-            return value != null && (value.EndsWith(CssConstants.PERCENTAGE) || value.EndsWith(CssConstants.EM) || value
-                .EndsWith(CssConstants.EX));
+            if (value == null) {
+                return false;
+            }
+            foreach (String relativePostfix in RELATIVE_MEASUREMENTS) {
+                if (value.EndsWith(relativePostfix) && IsNumericValue(value.JSubstring(0, value.Length - relativePostfix.Length
+                    ).Trim())) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>Checks whether a string contains an allowed value relative to previously set root value.</summary>
         /// <param name="value">the string that needs to be checked.</param>
         /// <returns>boolean true if value contains an allowed metric value.</returns>
         public static bool IsRemValue(String value) {
-            return value != null && (value.EndsWith(CssConstants.REM));
+            return value != null && value.EndsWith(CssConstants.REM) && IsNumericValue(value.JSubstring(0, value.Length
+                 - CssConstants.REM.Length).Trim());
         }
 
         /// <summary>Checks whether a string matches a numeric value (e.g.</summary>
