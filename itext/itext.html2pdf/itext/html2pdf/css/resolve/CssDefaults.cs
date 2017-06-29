@@ -124,7 +124,8 @@ namespace iText.Html2pdf.Css.Resolve {
             String defaultVal = defaultValues.Get(property);
             if (defaultVal == null) {
                 ILogger logger = LoggerFactory.GetLogger(typeof(CssDefaults));
-                logger.Error(String.Format("Default value of the css property \"{0}\" is unknown.", property));
+                logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN, property
+                    ));
             }
             return defaultVal;
         }

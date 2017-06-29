@@ -51,6 +51,8 @@ namespace iText.Html2pdf {
         /// <summary>The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED.</summary>
         public const String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
 
+        public const String DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN = "Default value of the css property \"{0}\" is unknown.";
+
         /// <summary>The Constant ERROR_LOADING_FONT.</summary>
         public const String ERROR_LOADING_FONT = "Error while loading font";
 
