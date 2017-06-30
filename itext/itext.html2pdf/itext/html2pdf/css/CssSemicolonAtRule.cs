@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css {
     /// <summary>A <code>CssAtRule</code> implementation.</summary>
@@ -59,7 +60,7 @@ namespace iText.Html2pdf.Css {
         * @see java.lang.Object#toString()
         */
         public override String ToString() {
-            return String.Format("@{0} {1};", ruleName, ruleParams);
+            return MessageFormatUtil.Format("@{0} {1};", ruleName, ruleParams);
         }
     }
 }

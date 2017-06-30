@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.IO.Log;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>Helper class that allows you to get the default values of CSS properties.</summary>
@@ -124,8 +125,8 @@ namespace iText.Html2pdf.Css.Resolve {
             String defaultVal = defaultValues.Get(property);
             if (defaultVal == null) {
                 ILogger logger = LoggerFactory.GetLogger(typeof(CssDefaults));
-                logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN, property
-                    ));
+                logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
+                    , property));
             }
             return defaultVal;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Org.Jsoup;
 using Org.Jsoup.Helper;
 using Org.Jsoup.Nodes;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Select {
     /// <summary>CSS-like element selector, that finds elements matching a query.</summary>
@@ -168,7 +169,7 @@ namespace Org.Jsoup.Select {
 
         public class SelectorParseException : InvalidOperationException {
             public SelectorParseException(String msg, params Object[] @params)
-                : base(String.Format(msg, @params)) {
+                : base(MessageFormatUtil.Format(msg, @params)) {
             }
         }
     }

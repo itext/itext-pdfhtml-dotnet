@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Org.Jsoup;
 using Org.Jsoup.Helper;
 using Org.Jsoup.Nodes;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Select {
     /// <summary>Evaluates that an element matches the selector.</summary>
@@ -33,7 +34,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("{0}", tagName);
+                return MessageFormatUtil.Format("{0}", tagName);
             }
         }
 
@@ -50,7 +51,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("#{0}", id);
+                return MessageFormatUtil.Format("#{0}", id);
             }
         }
 
@@ -67,7 +68,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(".{0}", className);
+                return MessageFormatUtil.Format(".{0}", className);
             }
         }
 
@@ -84,7 +85,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("[{0}]", key);
+                return MessageFormatUtil.Format("[{0}]", key);
             }
         }
 
@@ -107,7 +108,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("[^{0}]", keyPrefix);
+                return MessageFormatUtil.Format("[^{0}]", keyPrefix);
             }
         }
 
@@ -122,7 +123,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("[{0}={1}]", key, value);
+                return MessageFormatUtil.Format("[{0}={1}]", key, value);
             }
         }
 
@@ -137,7 +138,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("[{0}!={1}]", key, value);
+                return MessageFormatUtil.Format("[{0}!={1}]", key, value);
             }
         }
 
@@ -153,7 +154,7 @@ namespace Org.Jsoup.Select {
 
             // value is lower case already
             public override String ToString() {
-                return String.Format("[{0}^={1}]", key, value);
+                return MessageFormatUtil.Format("[{0}^={1}]", key, value);
             }
         }
 
@@ -169,7 +170,7 @@ namespace Org.Jsoup.Select {
 
             // value is lower case
             public override String ToString() {
-                return String.Format("[{0}$={1}]", key, value);
+                return MessageFormatUtil.Format("[{0}$={1}]", key, value);
             }
         }
 
@@ -185,7 +186,7 @@ namespace Org.Jsoup.Select {
 
             // value is lower case
             public override String ToString() {
-                return String.Format("[{0}*={1}]", key, value);
+                return MessageFormatUtil.Format("[{0}*={1}]", key, value);
             }
         }
 
@@ -205,7 +206,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format("[{0}~={1}]", key, pattern.ToString());
+                return MessageFormatUtil.Format("[{0}~={1}]", key, pattern.ToString());
             }
         }
 
@@ -252,7 +253,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":lt({0})", index);
+                return MessageFormatUtil.Format(":lt({0})", index);
             }
         }
 
@@ -271,7 +272,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":gt({0})", index);
+                return MessageFormatUtil.Format(":gt({0})", index);
             }
         }
 
@@ -286,7 +287,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":eq({0})", index);
+                return MessageFormatUtil.Format(":eq({0})", index);
             }
         }
 
@@ -350,12 +351,13 @@ namespace Org.Jsoup.Select {
 
             public override String ToString() {
                 if (a == 0) {
-                    return String.Format(":{0}({1})", GetPseudoClass(), b);
+                    return MessageFormatUtil.Format(":{0}({1})", GetPseudoClass(), b);
                 }
                 if (b == 0) {
-                    return String.Format(":{0}({1}n)", GetPseudoClass(), a);
+                    return MessageFormatUtil.Format(":{0}({1}n)", GetPseudoClass(), a);
                 }
-                return String.Format(":{0}({1}n{2" + PortUtil.SignedNumberFormat + "})", GetPseudoClass(), a, b);
+                return MessageFormatUtil.Format(":{0}({1}n{2" + PortUtil.SignedNumberFormat + "})", GetPseudoClass(), a, b
+                    );
             }
 
             protected internal abstract String GetPseudoClass();
@@ -537,7 +539,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":contains({0}", searchText);
+                return MessageFormatUtil.Format(":contains({0}", searchText);
             }
         }
 
@@ -554,7 +556,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":containsOwn({0}", searchText);
+                return MessageFormatUtil.Format(":containsOwn({0}", searchText);
             }
         }
 
@@ -571,7 +573,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":matchesOwn({0}", pattern);
+                return MessageFormatUtil.Format(":matchesOwn({0}", pattern);
             }
         }
     }
@@ -589,7 +591,7 @@ namespace Org.Jsoup.Select {
         }
 
         public override String ToString() {
-            return String.Format(":matches({0}", pattern);
+            return MessageFormatUtil.Format(":matches({0}", pattern);
         }
     }
 }

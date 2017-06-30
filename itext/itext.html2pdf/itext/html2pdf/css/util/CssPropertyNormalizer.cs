@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Text;
 using iText.IO.Log;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Util {
     /// <summary>Utilities class with functionality to normalize CSS properties.</summary>
@@ -105,7 +106,7 @@ namespace iText.Html2pdf.Css.Util {
             int end = FindNextUnescapedChar(source, endQuoteSymbol, start);
             if (end == -1) {
                 end = source.Length;
-                LoggerFactory.GetLogger(typeof(CssPropertyNormalizer)).Warn(String.Format(iText.Html2pdf.LogMessageConstant
+                LoggerFactory.GetLogger(typeof(CssPropertyNormalizer)).Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
                     .QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION, source));
             }
             buffer.JAppend(source, start, end);

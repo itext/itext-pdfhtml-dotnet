@@ -45,6 +45,7 @@ using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.IO.Log;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
     /// <summary>
@@ -72,7 +73,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                 }
                 else {
                     ILogger logger = LoggerFactory.GetLogger(typeof(BorderShorthandResolver));
-                    logger.Error(String.Format("Cannot find a shorthand resolver for the \"{0}\" property. " + "Expected border-width, border-style or border-color properties."
+                    logger.Error(MessageFormatUtil.Format("Cannot find a shorthand resolver for the \"{0}\" property. " + "Expected border-width, border-style or border-color properties."
                         , prop.GetProperty()));
                 }
             }

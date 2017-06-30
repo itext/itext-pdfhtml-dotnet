@@ -362,7 +362,7 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
                                 }
                                 catch (UriFormatException) {
                                 }
-                                strToAppend = String.Format("url({0})", finalUrl);
+                                strToAppend = MessageFormatUtil.Format("url({0})", finalUrl);
                             }
                         }
                         else {
@@ -401,7 +401,7 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         private bool IsCurrentRuleSupported() {
             bool isSupported = nestedAtRules.IsEmpty() || SUPPORTED_RULES.Contains(nestedAtRules.Peek().GetRuleName());
             if (!isSupported) {
-                LoggerFactory.GetLogger(GetType()).Error(String.Format(iText.Html2pdf.LogMessageConstant.RULE_IS_NOT_SUPPORTED
+                LoggerFactory.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.RULE_IS_NOT_SUPPORTED
                     , nestedAtRules.Peek().GetRuleName()));
             }
             return isSupported;

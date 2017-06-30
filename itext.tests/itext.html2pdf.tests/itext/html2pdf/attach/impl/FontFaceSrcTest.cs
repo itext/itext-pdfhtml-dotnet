@@ -44,6 +44,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Parse;
+using iText.IO.Util;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
@@ -75,9 +76,9 @@ namespace iText.Html2pdf.Attach.Impl {
                 Match m = iText.IO.Util.StringUtil.Match(FontFace.FontFaceSrc.UrlPattern, sources[i]);
                 NUnit.Framework.Assert.IsTrue(m.Success, "Expression doesn't match pattern: " + sources[i]);
                 String format = iText.IO.Util.StringUtil.Group(m, FontFace.FontFaceSrc.FormatGroup);
-                String source2 = String.Format("{0}({1}){2}", iText.IO.Util.StringUtil.Group(m, FontFace.FontFaceSrc.TypeGroup
-                    ), iText.IO.Util.StringUtil.Group(m, FontFace.FontFaceSrc.UrlGroup), format != null ? String.Format(" format({0})"
-                    , format) : "");
+                String source2 = MessageFormatUtil.Format("{0}({1}){2}", iText.IO.Util.StringUtil.Group(m, FontFace.FontFaceSrc
+                    .TypeGroup), iText.IO.Util.StringUtil.Group(m, FontFace.FontFaceSrc.UrlGroup), format != null ? MessageFormatUtil
+                    .Format(" format({0})", format) : "");
                 String url = FontFace.FontFaceSrc.Unquote(iText.IO.Util.StringUtil.Group(m, FontFace.FontFaceSrc.UrlGroup)
                     );
                 NUnit.Framework.Assert.IsTrue(url.StartsWith(fontSrc), "Invalid url: " + url);

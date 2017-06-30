@@ -46,6 +46,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.IO.Log;
+using iText.IO.Util;
 using iText.Layout;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
@@ -134,8 +135,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(layoutPropertyMapping, leftVal.GetValue());
                 }
                 else {
-                    logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
-                        .LEFT));
+                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                        , CssConstants.LEFT));
                 }
             }
         }
@@ -155,8 +156,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(layoutPropertyMapping, rightVal.GetValue());
                 }
                 else {
-                    logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
-                        .RIGHT));
+                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                        , CssConstants.RIGHT));
                 }
             }
         }
@@ -176,8 +177,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(layoutPropertyMapping, topVal.GetValue());
                 }
                 else {
-                    logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
-                        .TOP));
+                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                        , CssConstants.TOP));
                 }
             }
         }
@@ -197,8 +198,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(layoutPropertyMapping, bottomVal.GetValue());
                 }
                 else {
-                    logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
-                        .BOTTOM));
+                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                        , CssConstants.BOTTOM));
                 }
             }
         }

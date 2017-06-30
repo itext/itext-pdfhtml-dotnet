@@ -45,6 +45,7 @@ using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Parse;
 using iText.IO.Log;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>Helper class to deal with quoted values in strings.</summary>
@@ -105,7 +106,7 @@ namespace iText.Html2pdf.Css.Resolve {
                     return new iText.Html2pdf.Css.Resolve.CssQuotes(quotes[0], quotes[1]);
                 }
                 else {
-                    LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.CssQuotes)).Error(String.Format(iText.Html2pdf.LogMessageConstant
+                    LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.CssQuotes)).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
                         .QUOTES_PROPERTY_INVALID, quotesString));
                 }
             }

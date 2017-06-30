@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using iText.Html2pdf.Css.Selector.Item;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Parse {
     /// <summary>Utilities class to parse a CSS selector.</summary>
@@ -107,7 +108,7 @@ namespace iText.Html2pdf.Css.Parse {
                     case '>':
                     case '~': {
                         if (selectorItems.Count == 0) {
-                            throw new ArgumentException(String.Format("Invalid token detected in the start of the selector string: {0}"
+                            throw new ArgumentException(MessageFormatUtil.Format("Invalid token detected in the start of the selector string: {0}"
                                 , firstChar));
                         }
                         ICssSelectorItem lastItem = selectorItems[selectorItems.Count - 1];
@@ -121,7 +122,7 @@ namespace iText.Html2pdf.Css.Parse {
                                     selectorItems[selectorItems.Count - 1] = curItem;
                                 }
                                 else {
-                                    throw new ArgumentException(String.Format("Invalid selector description. Two consequent characters occurred: {0}, {1}"
+                                    throw new ArgumentException(MessageFormatUtil.Format("Invalid selector description. Two consequent characters occurred: {0}, {1}"
                                         , ((CssSeparatorSelectorItem)lastItem).GetSeparator(), curItem.GetSeparator()));
                                 }
                             }

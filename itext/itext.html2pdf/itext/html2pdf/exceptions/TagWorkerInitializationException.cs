@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Exceptions {
     /// <summary>Runtime exception that gets thrown if a tag worker can't be initialized.</summary>
@@ -50,7 +51,7 @@ namespace iText.Html2pdf.Exceptions {
         /// <param name="classNames">the class names</param>
         /// <param name="tag">the tag</param>
         public TagWorkerInitializationException(String message, String classNames, String tag)
-            : base(String.Format(message, classNames, tag)) {
+            : base(MessageFormatUtil.Format(message, classNames, tag)) {
         }
 
         /// <summary>Creates a <code>TagWorkerInitializationException</code> instance.</summary>
@@ -59,7 +60,7 @@ namespace iText.Html2pdf.Exceptions {
         /// <param name="tag">the tag</param>
         /// <param name="cause">the cause</param>
         public TagWorkerInitializationException(String message, String classNames, String tag, Exception cause)
-            : base(String.Format(message, classNames, tag), cause) {
+            : base(MessageFormatUtil.Format(message, classNames, tag), cause) {
         }
 
         /// <summary>Template for the error message in case a tag worker couldn't be instantiated.</summary>

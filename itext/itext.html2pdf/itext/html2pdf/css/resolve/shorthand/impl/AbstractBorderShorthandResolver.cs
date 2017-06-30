@@ -45,6 +45,7 @@ using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.Html2pdf.Css.Util;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
     /// <summary>
@@ -70,9 +71,9 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
         * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
         */
         public virtual IList<CssDeclaration> ResolveShorthand(String shorthandExpression) {
-            String widthPropName = String.Format(_0_WIDTH, GetPrefix());
-            String stylePropName = String.Format(_0_STYLE, GetPrefix());
-            String colorPropName = String.Format(_0_COLOR, GetPrefix());
+            String widthPropName = MessageFormatUtil.Format(_0_WIDTH, GetPrefix());
+            String stylePropName = MessageFormatUtil.Format(_0_STYLE, GetPrefix());
+            String colorPropName = MessageFormatUtil.Format(_0_COLOR, GetPrefix());
             if (CssConstants.INITIAL.Equals(shorthandExpression) || CssConstants.INHERIT.Equals(shorthandExpression)) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(widthPropName, shorthandExpression), new CssDeclaration
                     (stylePropName, shorthandExpression), new CssDeclaration(colorPropName, shorthandExpression));

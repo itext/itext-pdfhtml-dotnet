@@ -45,6 +45,7 @@ using System.Collections.Generic;
 using System.Text;
 using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css {
     /// <summary>
@@ -111,7 +112,7 @@ namespace iText.Html2pdf.Css {
         */
         public override String ToString() {
             StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("@{0} {1} ", ruleName, ruleParameters));
+            sb.Append(MessageFormatUtil.Format("@{0} {1} ", ruleName, ruleParameters));
             sb.Append("{");
             sb.Append("\n");
             for (int i = 0; i < body.Count; i++) {

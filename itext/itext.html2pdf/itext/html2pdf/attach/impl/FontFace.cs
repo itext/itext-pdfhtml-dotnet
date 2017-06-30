@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using iText.Html2pdf.Css;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>
@@ -152,8 +153,8 @@ namespace iText.Html2pdf.Attach.Impl {
             * @see java.lang.Object#toString()
             */
             public override String ToString() {
-                return String.Format("{0}({1}){2}", isLocal ? "local" : "url", src, format != FontFace.FontFormat.None ? String
-                    .Format(" format({0})", format) : "");
+                return MessageFormatUtil.Format("{0}({1}){2}", isLocal ? "local" : "url", src, format != FontFace.FontFormat
+                    .None ? MessageFormatUtil.Format(" format({0})", format) : "");
             }
 
             /// <summary>

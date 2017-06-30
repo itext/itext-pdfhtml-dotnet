@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.Text;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css {
     /// <summary>Class to store a CSS font face At rule.</summary>
@@ -74,7 +75,7 @@ namespace iText.Html2pdf.Css {
         */
         public override String ToString() {
             StringBuilder sb = new StringBuilder();
-            sb.Append(String.Format("@{0} ", ruleName));
+            sb.Append(MessageFormatUtil.Format("@{0} ", ruleName));
             sb.Append("{");
             sb.Append("\n");
             foreach (CssDeclaration declaration in properties) {

@@ -156,7 +156,7 @@ namespace iText.Html2pdf.Css {
             }
             else {
                 ILogger logger = LoggerFactory.GetLogger(typeof(DefaultCssResolver));
-                logger.Warn(String.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, cssDeclaration
+                logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, cssDeclaration
                     ));
             }
         }

@@ -49,6 +49,7 @@ using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
+using iText.IO.Util;
 using iText.Layout;
 using iText.Layout.Element;
 
@@ -87,7 +88,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
                 else {
                     ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
-                    logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
+                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType
+                        ));
                 }
             }
             if (formElement != null) {

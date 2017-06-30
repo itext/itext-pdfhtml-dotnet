@@ -42,6 +42,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     public class Html2PdfPropertyTest {
@@ -57,17 +58,17 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     maxFieldValue = Math.Max(maxFieldValue, value);
                     minFieldValue = Math.Min(minFieldValue, value);
                     if (fieldValues.Contains(value)) {
-                        NUnit.Framework.Assert.Fail(String.Format("Multiple fields with same value: {0}", value));
+                        NUnit.Framework.Assert.Fail(MessageFormatUtil.Format("Multiple fields with same value: {0}", value));
                     }
                     fieldValues.Add(value);
                 }
             }
             for (int i = minFieldValue; i <= maxFieldValue; i++) {
                 if (!fieldValues.Contains(i)) {
-                    NUnit.Framework.Assert.Fail(String.Format("Missing value: {0}", i));
+                    NUnit.Framework.Assert.Fail(MessageFormatUtil.Format("Missing value: {0}", i));
                 }
             }
-            System.Console.Out.WriteLine(String.Format("Max field value: {0}", maxFieldValue));
+            System.Console.Out.WriteLine(MessageFormatUtil.Format("Max field value: {0}", maxFieldValue));
         }
     }
 }

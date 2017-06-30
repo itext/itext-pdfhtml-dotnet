@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
     /// <summary>
@@ -78,10 +79,10 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
         public virtual IList<CssDeclaration> ResolveShorthand(String shorthandExpression) {
             String[] props = iText.IO.Util.StringUtil.Split(shorthandExpression, "\\s+");
             IList<CssDeclaration> resolvedDecl = new List<CssDeclaration>();
-            String topProperty = String.Format(_0_TOP_1, GetPrefix(), GetPostfix());
-            String rightProperty = String.Format(_0_RIGHT_1, GetPrefix(), GetPostfix());
-            String bottomProperty = String.Format(_0_BOTTOM_1, GetPrefix(), GetPostfix());
-            String leftProperty = String.Format(_0_LEFT_1, GetPrefix(), GetPostfix());
+            String topProperty = MessageFormatUtil.Format(_0_TOP_1, GetPrefix(), GetPostfix());
+            String rightProperty = MessageFormatUtil.Format(_0_RIGHT_1, GetPrefix(), GetPostfix());
+            String bottomProperty = MessageFormatUtil.Format(_0_BOTTOM_1, GetPrefix(), GetPostfix());
+            String leftProperty = MessageFormatUtil.Format(_0_LEFT_1, GetPrefix(), GetPostfix());
             if (props.Length == 1) {
                 resolvedDecl.Add(new CssDeclaration(topProperty, props[0]));
                 resolvedDecl.Add(new CssDeclaration(rightProperty, props[0]));

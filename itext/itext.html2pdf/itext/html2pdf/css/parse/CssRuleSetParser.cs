@@ -46,6 +46,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Selector;
 using iText.Html2pdf.Css.Util;
 using iText.IO.Log;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Parse {
     /// <summary>Utilities class to parse CSS rule sets.</summary>
@@ -137,8 +138,8 @@ namespace iText.Html2pdf.Css.Parse {
             String[] result = new String[2];
             int position = property.IndexOf(":", StringComparison.Ordinal);
             if (position < 0) {
-                logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, property.Trim
-                    ()));
+                logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+                    property.Trim()));
                 return null;
             }
             result[0] = property.JSubstring(0, position);

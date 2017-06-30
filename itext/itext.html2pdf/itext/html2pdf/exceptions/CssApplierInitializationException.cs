@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Exceptions {
     /// <summary>Runtime exception in case a CSS applier can't be initialized.</summary>
@@ -50,7 +51,7 @@ namespace iText.Html2pdf.Exceptions {
         /// <param name="className">the class name of the CSS applier</param>
         /// <param name="tag">the key</param>
         public CssApplierInitializationException(String message, String className, String tag)
-            : base(String.Format(message, className, tag)) {
+            : base(MessageFormatUtil.Format(message, className, tag)) {
         }
 
         /// <summary>The message template in case reflection failed.</summary>

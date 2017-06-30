@@ -47,6 +47,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
+using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
@@ -178,8 +179,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         element.SetProperty(Property.FIRST_LINE_INDENT, textIndentValue.GetValue());
                     }
                     else {
-                        logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
-                            .TEXT_INDENT));
+                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                            , CssConstants.TEXT_INDENT));
                     }
                 }
             }

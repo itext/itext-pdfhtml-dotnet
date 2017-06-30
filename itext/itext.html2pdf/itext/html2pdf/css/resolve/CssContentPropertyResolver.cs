@@ -107,7 +107,8 @@ namespace iText.Html2pdf.Css.Resolve {
                                 String resolvedCounter = counterManager.ResolveCounters(counterName, counterSeparationStr, listStyleType, 
                                     scope);
                                 if (resolvedCounter == null) {
-                                    logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName));
+                                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName
+                                        ));
                                 }
                                 else {
                                     result.Add(new CssContentPropertyResolver.ContentTextNode(scope, resolvedCounter));
@@ -138,7 +139,8 @@ namespace iText.Html2pdf.Css.Resolve {
                                 else {
                                     String resolvedCounter = counterManager.ResolveCounter(counterName, listStyleType, scope);
                                     if (resolvedCounter == null) {
-                                        logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName));
+                                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName
+                                            ));
                                     }
                                     else {
                                         result.Add(new CssContentPropertyResolver.ContentTextNode(scope, resolvedCounter));
@@ -203,7 +205,8 @@ namespace iText.Html2pdf.Css.Resolve {
             if (contentStr.Length > logMessageParameterMaxLength) {
                 contentStr = contentStr.JSubstring(0, logMessageParameterMaxLength) + ".....";
             }
-            logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
+            logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr
+                ));
             return null;
         }
 

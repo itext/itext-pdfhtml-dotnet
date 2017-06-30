@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Selector.Item {
     /// <summary>
@@ -82,7 +83,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
         * @see java.lang.Object#toString()
         */
         public override String ToString() {
-            return separator == ' ' ? " " : String.Format(" {0} ", separator);
+            return separator == ' ' ? " " : MessageFormatUtil.Format(" {0} ", separator);
         }
     }
 }

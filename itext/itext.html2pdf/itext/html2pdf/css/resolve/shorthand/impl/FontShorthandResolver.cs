@@ -47,6 +47,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.Html2pdf.Css.Util;
 using iText.IO.Log;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
     /// <summary>
@@ -75,8 +76,8 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
         public virtual IList<CssDeclaration> ResolveShorthand(String shorthandExpression) {
             if (UNSUPPORTED_VALUES_OF_FONT_SHORTHAND.Contains(shorthandExpression)) {
                 ILogger logger = LoggerFactory.GetLogger(typeof(FontShorthandResolver));
-                logger.Error(String.Format("The \"{0}\" value of CSS shorthand property \"font\" is not supported", shorthandExpression
-                    ));
+                logger.Error(MessageFormatUtil.Format("The \"{0}\" value of CSS shorthand property \"font\" is not supported"
+                    , shorthandExpression));
             }
             if (CssConstants.INITIAL.Equals(shorthandExpression) || CssConstants.INHERIT.Equals(shorthandExpression)) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.FONT_STYLE, shorthandExpression

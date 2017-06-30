@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Resolver.Resource
 {
@@ -139,7 +140,7 @@ namespace iText.Html2pdf.Resolver.Resource
             if (baseUrl == null)
             {
                 // TODO Html2PdfException?
-                throw new ArgumentException(String.Format("Invalid base URI: {0}", @base));
+                throw new ArgumentException(MessageFormatUtil.Format("Invalid base URI: {0}", @base));
             }
         }
 

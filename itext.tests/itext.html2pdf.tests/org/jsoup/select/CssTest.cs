@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Org.Jsoup.Nodes;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Select {
     public class CssTest {
@@ -13,15 +14,15 @@ namespace Org.Jsoup.Select {
             StringBuilder sb = new StringBuilder("<html><head></head><body>");
             sb.Append("<div id='pseudo'>");
             for (int i = 1; i <= 10; i++) {
-                sb.Append(String.Format("<p>{0}</p>", i));
+                sb.Append(MessageFormatUtil.Format("<p>{0}</p>", i));
             }
             sb.Append("</div>");
             sb.Append("<div id='type'>");
             for (int i = 1; i <= 10; i++) {
-                sb.Append(String.Format("<p>{0}</p>", i));
-                sb.Append(String.Format("<span>{0}</span>", i));
-                sb.Append(String.Format("<em>{0}</em>", i));
-                sb.Append(String.Format("<svg>{0}</svg>", i));
+                sb.Append(MessageFormatUtil.Format("<p>{0}</p>", i));
+                sb.Append(MessageFormatUtil.Format("<span>{0}</span>", i));
+                sb.Append(MessageFormatUtil.Format("<em>{0}</em>", i));
+                sb.Append(MessageFormatUtil.Format("<svg>{0}</svg>", i));
             }
             sb.Append("</div>");
             sb.Append("<span id='onlySpan'><br /></span>");
@@ -53,36 +54,36 @@ namespace Org.Jsoup.Select {
         [NUnit.Framework.Test]
         public virtual void NthChild_simple() {
             for (int i = 1; i <= 10; i++) {
-                Check(html.Select(String.Format("#pseudo :nth-child({0})", i)), i.ToString());
+                Check(html.Select(MessageFormatUtil.Format("#pseudo :nth-child({0})", i)), i.ToString());
             }
         }
 
         [NUnit.Framework.Test]
         public virtual void NthOfType_unknownTag() {
             for (int i = 1; i <= 10; i++) {
-                Check(html.Select(String.Format("#type svg:nth-of-type({0})", i)), i.ToString());
+                Check(html.Select(MessageFormatUtil.Format("#type svg:nth-of-type({0})", i)), i.ToString());
             }
         }
 
         [NUnit.Framework.Test]
         public virtual void NthLastChild_simple() {
             for (int i = 1; i <= 10; i++) {
-                Check(html.Select(String.Format("#pseudo :nth-last-child({0})", i)), (11 - i).ToString());
+                Check(html.Select(MessageFormatUtil.Format("#pseudo :nth-last-child({0})", i)), (11 - i).ToString());
             }
         }
 
         [NUnit.Framework.Test]
         public virtual void NthOfType_simple() {
             for (int i = 1; i <= 10; i++) {
-                Check(html.Select(String.Format("#type p:nth-of-type({0})", i)), i.ToString());
+                Check(html.Select(MessageFormatUtil.Format("#type p:nth-of-type({0})", i)), i.ToString());
             }
         }
 
         [NUnit.Framework.Test]
         public virtual void NthLastOfType_simple() {
             for (int i = 1; i <= 10; i++) {
-                Check(html.Select(String.Format("#type :nth-last-of-type({0})", i)), (11 - i).ToString(), (11 - i).ToString
-                    (), (11 - i).ToString(), (11 - i).ToString());
+                Check(html.Select(MessageFormatUtil.Format("#type :nth-last-of-type({0})", i)), (11 - i).ToString(), (11 -
+                     i).ToString(), (11 - i).ToString(), (11 - i).ToString());
             }
         }
 

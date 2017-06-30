@@ -47,6 +47,7 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup {
     /// <summary>Class that uses JSoup to parse HTML.</summary>
@@ -122,7 +123,7 @@ namespace iText.Html2pdf.Html.Impl.Jsoup {
                                 if (jsoupNode is Comment) {
                                 }
                                 else {
-                                    logger.Error(String.Format("Could not map node type: {0}", jsoupNode.GetType()));
+                                    logger.Error(MessageFormatUtil.Format("Could not map node type: {0}", jsoupNode.GetType()));
                                 }
                             }
                         }

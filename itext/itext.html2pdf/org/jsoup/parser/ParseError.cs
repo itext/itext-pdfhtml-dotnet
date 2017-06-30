@@ -1,4 +1,5 @@
 using System;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Parser {
     /// <summary>A Parse Error records an error in the input HTML that occurs in either the tokenisation or the tree building phase.
@@ -14,7 +15,7 @@ namespace Org.Jsoup.Parser {
         }
 
         internal ParseError(int pos, String errorFormat, params Object[] args) {
-            this.errorMsg = String.Format(errorFormat, args);
+            this.errorMsg = MessageFormatUtil.Format(errorFormat, args);
             this.pos = pos;
         }
 

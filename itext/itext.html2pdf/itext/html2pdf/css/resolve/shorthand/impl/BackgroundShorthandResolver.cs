@@ -46,6 +46,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.Html2pdf.Css.Util;
 using iText.IO.Log;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
     /// <summary>
@@ -185,7 +186,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
         private void PutPropertyBasedOnType(int type, String value, String[] resolvedProps, bool slashEncountered) {
             if (type == UNDEFINED_TYPE) {
                 ILogger logger = LoggerFactory.GetLogger(typeof(BackgroundShorthandResolver));
-                logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES
+                logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES
                     , value));
                 return;
             }

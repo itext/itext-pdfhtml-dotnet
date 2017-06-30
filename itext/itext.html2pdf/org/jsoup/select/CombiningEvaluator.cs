@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Org.Jsoup.Nodes;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Select {
     /// <summary>Base combining (and, or) evaluator.</summary>
@@ -94,7 +95,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":or{0}", evaluators);
+                return MessageFormatUtil.Format(":or{0}", evaluators);
             }
         }
     }

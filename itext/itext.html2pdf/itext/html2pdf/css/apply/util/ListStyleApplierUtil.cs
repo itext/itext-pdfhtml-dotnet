@@ -48,6 +48,7 @@ using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
+using iText.IO.Util;
 using iText.Kernel.Numbering;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
@@ -156,7 +157,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                                                     else {
                                                         if (style != null) {
                                                             ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.ListStyleApplierUtil));
-                                                            logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
+                                                            logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style
+                                                                ));
                                                         }
                                                         // Fallback style
                                                         if (stylesContainer is IElementNode) {

@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Css.Util;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css {
     /// <summary>Class to store a CSS declaration.</summary>
@@ -64,7 +65,7 @@ namespace iText.Html2pdf.Css {
         * @see java.lang.Object#toString()
         */
         public override String ToString() {
-            return String.Format("{0}: {1}", property, expression);
+            return MessageFormatUtil.Format("{0}: {1}", property, expression);
         }
 
         /// <summary>Gets the property.</summary>

@@ -149,8 +149,8 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
                 else {
                     if (node is ITextNode) {
-                        logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.TEXT_WAS_NOT_PROCESSED, ((ITextNode)node).WholeText
-                            ()));
+                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.TEXT_WAS_NOT_PROCESSED, ((ITextNode
+                            )node).WholeText()));
                     }
                 }
             }
@@ -270,7 +270,8 @@ namespace iText.Html2pdf.Attach.Impl {
                 ITagWorker tagWorker = context.GetTagWorkerFactory().GetTagWorker(element, context);
                 if (tagWorker == null) {
                     if (!ignoredTags.Contains(element.Name())) {
-                        logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element).Name()));
+                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element)
+                            .Name()));
                     }
                 }
                 else {
@@ -292,8 +293,8 @@ namespace iText.Html2pdf.Attach.Impl {
                     ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(element);
                     if (cssApplier == null) {
                         if (!ignoredCssTags.Contains(element.Name())) {
-                            logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.Name())
-                                );
+                            logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element
+                                .Name()));
                         }
                     }
                     else {
@@ -304,8 +305,8 @@ namespace iText.Html2pdf.Attach.Impl {
                         bool childProcessed = context.GetState().Top().ProcessTagChild(tagWorker, context);
                         PageBreakApplierUtil.AddPageBreakElementAfter(context, context.GetState().Top(), element, tagWorker);
                         if (!childProcessed) {
-                            logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, context
-                                .GetState().Top().GetType().FullName, tagWorker.GetType().FullName));
+                            logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER
+                                , context.GetState().Top().GetType().FullName, tagWorker.GetType().FullName));
                         }
                     }
                     else {
@@ -323,8 +324,8 @@ namespace iText.Html2pdf.Attach.Impl {
                         if (!context.GetState().Empty()) {
                             bool contentProcessed = context.GetState().Top().ProcessContent(content, context);
                             if (!contentProcessed) {
-                                logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT, context
-                                    .GetState().Top().GetType().FullName));
+                                logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT
+                                    , context.GetState().Top().GetType().FullName));
                             }
                         }
                         else {
@@ -351,7 +352,8 @@ namespace iText.Html2pdf.Attach.Impl {
                         }
                     }
                     if (!findSupportedSrc) {
-                        logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
+                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace)
+                            );
                     }
                 }
             }

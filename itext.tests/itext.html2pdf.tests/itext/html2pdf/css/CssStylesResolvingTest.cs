@@ -50,6 +50,7 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup;
 using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Resolver.Resource;
+using iText.IO.Util;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
@@ -255,7 +256,8 @@ namespace iText.Html2pdf.Css {
             ResolveStylesForTree(document, cssResolver, context);
             IElementNode element = FindElement(document, elementPath);
             if (element == null) {
-                NUnit.Framework.Assert.Fail(String.Format("Element at path \"{0}\" was not found.", elementPath));
+                NUnit.Framework.Assert.Fail(MessageFormatUtil.Format("Element at path \"{0}\" was not found.", elementPath
+                    ));
             }
             IDictionary<String, String> elementStyles = element.GetStyles();
             ICollection<String> expectedStylesSet = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList(expectedStyles

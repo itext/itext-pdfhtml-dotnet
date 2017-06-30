@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Text.RegularExpressions;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Selector.Item {
     /// <summary>
@@ -146,10 +147,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
         */
         public override String ToString() {
             if (value == null) {
-                return String.Format("[{0}]", property);
+                return MessageFormatUtil.Format("[{0}]", property);
             }
             else {
-                return String.Format("[{0}{1}=\"{2}\"]", property, matchSymbol == 0 ? "" : matchSymbol.ToString(), value);
+                return MessageFormatUtil.Format("[{0}{1}=\"{2}\"]", property, matchSymbol == 0 ? "" : matchSymbol.ToString
+                    (), value);
             }
         }
     }

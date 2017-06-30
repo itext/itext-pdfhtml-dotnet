@@ -47,6 +47,7 @@ using iText.Forms.Fields;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.IO.Log;
+using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Layout.Properties;
@@ -118,7 +119,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 AdjustNumberOfContentLines(flatLines, flatBBox, rows);
             }
             else {
-                LoggerFactory.GetLogger(GetType()).Error(String.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
+                LoggerFactory.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
                     , "text area"));
                 SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
                 flatBBox.SetHeight(0);
