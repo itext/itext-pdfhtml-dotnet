@@ -406,5 +406,23 @@ namespace iText.Html2pdf.Css.Util {
         public static bool IsBase64Data(String data) {
             return data.Matches("^data:([^\\s]*);base64,([^\\s]*)");
         }
+
+        /// <summary>Find the next unescaped character.</summary>
+        /// <param name="source">a source</param>
+        /// <param name="ch">the character to look for</param>
+        /// <param name="startIndex">where to start looking</param>
+        /// <returns>the position of the next unescaped character</returns>
+        public static int FindNextUnescapedChar(String source, char ch, int startIndex) {
+            int symbolPos = source.IndexOf(ch, startIndex);
+            if (symbolPos == -1) {
+                return -1;
+            }
+            int afterNoneEscapePos = symbolPos;
+            while (afterNoneEscapePos > 0 && source[afterNoneEscapePos - 1] == '\\') {
+                --afterNoneEscapePos;
+            }
+            return (symbolPos - afterNoneEscapePos) % 2 == 0 ? symbolPos : FindNextUnescapedChar(source, ch, symbolPos
+                 + 1);
+        }
     }
 }

@@ -103,7 +103,7 @@ namespace iText.Html2pdf.Css.Util {
         /// <param name="endQuoteSymbol">the end quote symbol</param>
         /// <returns>the new position in the source</returns>
         private static int AppendQuoteContent(StringBuilder buffer, String source, int start, char endQuoteSymbol) {
-            int end = FindNextUnescapedChar(source, endQuoteSymbol, start);
+            int end = CssUtils.FindNextUnescapedChar(source, endQuoteSymbol, start);
             if (end == -1) {
                 end = source.Length;
                 LoggerFactory.GetLogger(typeof(CssPropertyNormalizer)).Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
@@ -111,24 +111,6 @@ namespace iText.Html2pdf.Css.Util {
             }
             buffer.JAppend(source, start, end);
             return end;
-        }
-
-        /// <summary>Find the next unescaped character.</summary>
-        /// <param name="source">a source</param>
-        /// <param name="ch">the character to look for</param>
-        /// <param name="startIndex">where to start looking</param>
-        /// <returns>the position of the next unescaped character</returns>
-        private static int FindNextUnescapedChar(String source, char ch, int startIndex) {
-            int symbolPos = source.IndexOf(ch, startIndex);
-            if (symbolPos == -1) {
-                return -1;
-            }
-            int afterNoneEscapePos = symbolPos;
-            while (afterNoneEscapePos > 0 && source[afterNoneEscapePos - 1] == '\\') {
-                --afterNoneEscapePos;
-            }
-            return (symbolPos - afterNoneEscapePos) % 2 == 0 ? symbolPos : FindNextUnescapedChar(source, ch, symbolPos
-                 + 1);
         }
 
         /// <summary>Checks if spaces can be trimmed after a specific character.</summary>

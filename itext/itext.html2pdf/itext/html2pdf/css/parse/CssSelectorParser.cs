@@ -44,12 +44,12 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using iText.Html2pdf.Css.Selector.Item;
+using iText.Html2pdf.Css.Util;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Parse {
     /// <summary>Utilities class to parse a CSS selector.</summary>
     public sealed class CssSelectorParser {
-
         /// <summary>Set of legacy pseudo elements (first-line, first-letter, before, after).</summary>
         private static readonly ICollection<String> legacyPseudoElements = new HashSet<String>();
 
@@ -61,45 +61,50 @@ namespace iText.Html2pdf.Css.Parse {
         }
 
         /// <summary>The pattern string for selectors.</summary>
-        private const String SELECTOR_PATTERN_STR = "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^\"]+')))?\\])|(::?[a-zA-Z-]*(\\([ \t\\+\\.#\\w-]*\\))?)|( )|(\\+)|(>)|(~)";
+        private const String SELECTOR_PATTERN_STR = "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^\"]+')))?\\])|(::?[a-zA-Z-]*)|( )|(\\+)|(>)|(~)";
 
         /// <summary>The pattern for selectors.</summary>
         private static readonly Regex selectorPattern = iText.IO.Util.StringUtil.RegexCompile(SELECTOR_PATTERN_STR
             );
 
-        ///<summary>Creates a new <code>CssSelectorParser</code> instance.</summary>
+        /// <summary>Creates a new <code>CssSelectorParser</code> instance.</summary>
         private CssSelectorParser() {
         }
 
         /// <summary>Parses the selector items.</summary>
-        /// <param name="selector">selector the selectors in the form of a <code>String</code></param>
-        /// <returns>the resulting list of <see cref="ICssSelectorItem"/></returns>
+        /// <param name="selector">the selectors in the form of a <code>String</code></param>
+        /// <returns>
+        /// the resulting list of
+        /// <see cref="iText.Html2pdf.Css.Selector.Item.ICssSelectorItem"/>
+        /// </returns>
         public static IList<ICssSelectorItem> ParseSelectorItems(String selector) {
             IList<ICssSelectorItem> selectorItems = new List<ICssSelectorItem>();
-            Match itemMatcher = iText.IO.Util.StringUtil.Match(selectorPattern, selector);
+            CssSelectorParserMatch match = new CssSelectorParserMatch(selector, selectorPattern);
             bool tagSelectorDescription = false;
-            while (itemMatcher.Success) {
-                String selectorItem = iText.IO.Util.StringUtil.Group(itemMatcher, 0);
-                itemMatcher = itemMatcher.NextMatch();
+            while (match.Success()) {
+                String selectorItem = match.GetValue();
                 char firstChar = selectorItem[0];
                 switch (firstChar) {
                     case '#': {
+                        match.Next();
                         selectorItems.Add(new CssIdSelectorItem(selectorItem.Substring(1)));
                         break;
                     }
 
                     case '.': {
+                        match.Next();
                         selectorItems.Add(new CssClassSelectorItem(selectorItem.Substring(1)));
                         break;
                     }
 
                     case '[': {
+                        match.Next();
                         selectorItems.Add(new CssAttributeSelectorItem(selectorItem));
                         break;
                     }
 
                     case ':': {
-                        selectorItems.Add(ResolvePseudoSelector(selectorItem));
+                        AppendPseudoSelector(selectorItems, selectorItem, match);
                         break;
                     }
 
@@ -107,6 +112,7 @@ namespace iText.Html2pdf.Css.Parse {
                     case '+':
                     case '>':
                     case '~': {
+                        match.Next();
                         if (selectorItems.Count == 0) {
                             throw new ArgumentException(MessageFormatUtil.Format("Invalid token detected in the start of the selector string: {0}"
                                 , firstChar));
@@ -136,6 +142,7 @@ namespace iText.Html2pdf.Css.Parse {
 
                     default: {
                         //and case '*':
+                        match.Next();
                         if (tagSelectorDescription) {
                             throw new InvalidOperationException("Invalid selector string");
                         }
@@ -151,11 +158,53 @@ namespace iText.Html2pdf.Css.Parse {
             return selectorItems;
         }
 
-        /// <summary>Resolves a pseudo selector.</summary>
-        /// <param name="selector">pseudoSelector the pseudo selector</param>
-        /// <returns>the <see cref="ICssSelectorItem"/> item</returns>
-        private static ICssSelectorItem ResolvePseudoSelector(String pseudoSelector) {
+        /// <summary>
+        /// Resolves a pseudo selector, appends it to list and updates
+        /// <see cref="CssSelectorParserMatch"/>
+        /// in process.
+        /// </summary>
+        /// <param name="selectorItems">list of items to which new selector will be added to</param>
+        /// <param name="pseudoSelector">the pseudo selector</param>
+        /// <param name="match">
+        /// the corresponding
+        /// <see cref="CssSelectorParserMatch"/>
+        /// that will be updated.
+        /// </param>
+        private static void AppendPseudoSelector(IList<ICssSelectorItem> selectorItems, String pseudoSelector, CssSelectorParserMatch
+             match) {
             pseudoSelector = pseudoSelector.ToLowerInvariant();
+            int start = match.GetIndex() + pseudoSelector.Length;
+            String source = match.GetSource();
+            if (start < source.Length && source[start] == '(') {
+                int bracketDepth = 1;
+                int curr = start + 1;
+                while (bracketDepth > 0 && curr < source.Length) {
+                    if (source[curr] == '(') {
+                        ++bracketDepth;
+                    }
+                    else {
+                        if (source[curr] == ')') {
+                            --bracketDepth;
+                        }
+                        else {
+                            if (source[curr] == '"' || source[curr] == '\'') {
+                                curr = CssUtils.FindNextUnescapedChar(source, source[curr], curr + 1);
+                            }
+                        }
+                    }
+                    ++curr;
+                }
+                if (bracketDepth == 0) {
+                    match.Next(curr);
+                    pseudoSelector += source.JSubstring(start, curr);
+                }
+                else {
+                    match.Next();
+                }
+            }
+            else {
+                match.Next();
+            }
             /*
             This :: notation is introduced by the current document in order to establish a discrimination between
             pseudo-classes and pseudo-elements.
@@ -164,14 +213,14 @@ namespace iText.Html2pdf.Css.Parse {
             This compatibility is not allowed for the new pseudo-elements introduced in this specification.
             */
             if (pseudoSelector.StartsWith("::")) {
-                return new CssPseudoElementSelectorItem(pseudoSelector.Substring(2));
+                selectorItems.Add(new CssPseudoElementSelectorItem(pseudoSelector.Substring(2)));
             }
             else {
                 if (pseudoSelector.StartsWith(":") && legacyPseudoElements.Contains(pseudoSelector.Substring(1))) {
-                    return new CssPseudoElementSelectorItem(pseudoSelector.Substring(1));
+                    selectorItems.Add(new CssPseudoElementSelectorItem(pseudoSelector.Substring(1)));
                 }
                 else {
-                    return new CssPseudoClassSelectorItem(pseudoSelector.Substring(1));
+                    selectorItems.Add(new CssPseudoClassSelectorItem(pseudoSelector.Substring(1)));
                 }
             }
         }
