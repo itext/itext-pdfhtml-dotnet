@@ -45,6 +45,7 @@ using System.Collections.Generic;
 using System.Text;
 using iText.Html2pdf.Css.Selector.Item;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Selector {
     /// <summary>Abstract superclass for CSS Selectors.</summary>
@@ -56,6 +57,10 @@ namespace iText.Html2pdf.Css.Selector {
         /// <param name="selectorItems">the selector items</param>
         public AbstractCssSelector(IList<ICssSelectorItem> selectorItems) {
             this.selectorItems = selectorItems;
+        }
+
+        public virtual IList<ICssSelectorItem> GetSelectorItems() {
+            return JavaCollectionsUtil.UnmodifiableList(selectorItems);
         }
 
         /* (non-Javadoc)

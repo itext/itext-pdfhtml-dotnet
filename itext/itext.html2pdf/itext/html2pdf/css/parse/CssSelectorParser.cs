@@ -61,7 +61,7 @@ namespace iText.Html2pdf.Css.Parse {
         }
 
         /// <summary>The pattern string for selectors.</summary>
-        private const String SELECTOR_PATTERN_STR = "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^\"]+')))?\\])|(::?[a-zA-Z-]*)|( )|(\\+)|(>)|(~)";
+        private const String SELECTOR_PATTERN_STR = "(\\*)|([_a-zA-Z][\\w-]*)|(\\.[_a-zA-Z][\\w-]*)|(#[_a-z][\\w-]*)|(\\[[_a-zA-Z][\\w-]*(([~^$*|])?=((\"[^\"]+\")|([^\"]+)|('[^']+')|(\"\")|('')))?\\])|(::?[a-zA-Z-]*)|( )|(\\+)|(>)|(~)";
 
         /// <summary>The pattern for selectors.</summary>
         private static readonly Regex selectorPattern = iText.IO.Util.StringUtil.RegexCompile(SELECTOR_PATTERN_STR
@@ -220,7 +220,11 @@ namespace iText.Html2pdf.Css.Parse {
                     selectorItems.Add(new CssPseudoElementSelectorItem(pseudoSelector.Substring(1)));
                 }
                 else {
-                    selectorItems.Add(new CssPseudoClassSelectorItem(pseudoSelector.Substring(1)));
+                    ICssSelectorItem pseudoClassSelectorItem = CssPseudoClassSelectorItem.Create(pseudoSelector.Substring(1));
+                    if (pseudoClassSelectorItem == null) {
+                        throw new ArgumentException(MessageFormatUtil.Format("Invalid pseudo class selector: {0}", source));
+                    }
+                    selectorItems.Add(pseudoClassSelectorItem);
                 }
             }
         }

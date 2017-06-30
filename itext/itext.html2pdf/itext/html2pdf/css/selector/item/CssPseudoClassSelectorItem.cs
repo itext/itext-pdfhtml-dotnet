@@ -42,6 +42,8 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Selector;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 
@@ -52,29 +54,74 @@ namespace iText.Html2pdf.Css.Selector.Item {
     /// </summary>
     public class CssPseudoClassSelectorItem : ICssSelectorItem {
         /// <summary>The pseudo class.</summary>
-        private String pseudoClass;
+        protected internal String pseudoClass;
 
         /// <summary>The arguments.</summary>
-        private String arguments;
+        protected internal String arguments;
 
-        /// <summary>The nth child A.</summary>
-        private int nthChildA;
+        private static readonly CssPseudoClassSelectorItem.FirstChildSelectorItem firstChild = new CssPseudoClassSelectorItem.FirstChildSelectorItem
+            ();
 
-        /// <summary>The nth child B.</summary>
-        private int nthChildB;
+        private static readonly CssPseudoClassSelectorItem.LastChildSelectorItem lastChild = new CssPseudoClassSelectorItem.LastChildSelectorItem
+            ();
 
         /// <summary>Creates a new <code>CssPseudoClassSelectorItem<code> instance.</summary>
         /// <param name="pseudoClass">the pseudo class name</param>
-        public CssPseudoClassSelectorItem(String pseudoClass) {
-            int indexOfParentheses = pseudoClass.IndexOf('(');
+        [System.ObsoleteAttribute(@"not intended for public use Create(System.String) instead. This class will be abstract and this constructor will be protected in the next major release."
+            )]
+        public CssPseudoClassSelectorItem(String pseudoClass)
+            : this(pseudoClass, "") {
+        }
+
+        protected internal CssPseudoClassSelectorItem(String pseudoClass, String arguments) {
+            this.pseudoClass = pseudoClass;
+            this.arguments = arguments;
+        }
+
+        public static iText.Html2pdf.Css.Selector.Item.CssPseudoClassSelectorItem Create(String fullSelectorString
+            ) {
+            int indexOfParentheses = fullSelectorString.IndexOf('(');
+            String pseudoClass;
+            String arguments;
             if (indexOfParentheses == -1) {
-                this.pseudoClass = pseudoClass;
-                this.arguments = "";
+                pseudoClass = fullSelectorString;
+                arguments = "";
             }
             else {
-                this.pseudoClass = pseudoClass.JSubstring(0, indexOfParentheses);
-                this.arguments = pseudoClass.JSubstring(indexOfParentheses + 1, pseudoClass.Length - 1).Trim();
-                GetNthChildArguments();
+                pseudoClass = fullSelectorString.JSubstring(0, indexOfParentheses);
+                arguments = fullSelectorString.JSubstring(indexOfParentheses + 1, fullSelectorString.Length - 1).Trim();
+            }
+            return Create(pseudoClass, arguments);
+        }
+
+        public static iText.Html2pdf.Css.Selector.Item.CssPseudoClassSelectorItem Create(String pseudoClass, String
+             arguments) {
+            switch (pseudoClass) {
+                case CssConstants.FIRST_CHILD: {
+                    return firstChild;
+                }
+
+                case CssConstants.LAST_CHILD: {
+                    return lastChild;
+                }
+
+                case CssConstants.NTH_CHILD: {
+                    return new CssPseudoClassSelectorItem.NthChildSelectorItem(arguments);
+                }
+
+                case CssConstants.NOT: {
+                    CssSelector selector = new CssSelector(arguments);
+                    foreach (ICssSelectorItem item in selector.GetSelectorItems()) {
+                        if (item is CssPseudoClassSelectorItem.NotSelectorItem || item is CssPseudoElementSelectorItem) {
+                            return null;
+                        }
+                    }
+                    return new CssPseudoClassSelectorItem.NotSelectorItem(selector);
+                }
+
+                default: {
+                    return new iText.Html2pdf.Css.Selector.Item.CssPseudoClassSelectorItem(pseudoClass, arguments);
+                }
             }
         }
 
@@ -89,27 +136,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
         * @see com.itextpdf.html2pdf.css.selector.item.ICssSelectorItem#matches(com.itextpdf.html2pdf.html.node.INode)
         */
         public virtual bool Matches(INode node) {
-            if (!(node is IElementNode) || node is ICustomElementNode) {
-                return false;
-            }
-            IList<INode> children = GetAllChildren(node);
-            switch (pseudoClass) {
-                case "first-child": {
-                    return children.IsEmpty() ? false : node.Equals(children[0]);
-                }
-
-                case "last-child": {
-                    return children.IsEmpty() ? false : node.Equals(children[children.Count - 1]);
-                }
-
-                case "nth-child": {
-                    return children.IsEmpty() ? false : ResolveNthChild(node, children);
-                }
-
-                default: {
-                    return false;
-                }
-            }
+            return false;
         }
 
         /* (non-Javadoc)
@@ -119,93 +146,167 @@ namespace iText.Html2pdf.Css.Selector.Item {
             return ":" + pseudoClass + (!String.IsNullOrEmpty(arguments) ? "(" + arguments + ")" : "");
         }
 
-        /// <summary>Gets the all the siblings of a child node.</summary>
-        /// <param name="child">the child node</param>
-        /// <returns>the sibling nodes</returns>
-        private IList<INode> GetAllChildren(INode child) {
-            INode parentElement = child.ParentNode();
-            if (parentElement != null) {
-                IList<INode> childrenUnmodifiable = parentElement.ChildNodes();
-                IList<INode> children = new List<INode>(childrenUnmodifiable.Count);
-                foreach (INode iNode in childrenUnmodifiable) {
-                    if (iNode is IElementNode) {
-                        children.Add(iNode);
-                    }
-                }
-                return children;
+        private class ChildSelectorItem : CssPseudoClassSelectorItem {
+            /// <summary>Creates a new <code>CssPseudoClassSelectorItem<code> instance.</summary>
+            /// <param name="pseudoClass">the pseudo class name</param>
+            protected internal ChildSelectorItem(String pseudoClass)
+                : base(pseudoClass) {
             }
-            return JavaCollectionsUtil.EmptyList<INode>();
+
+            protected internal ChildSelectorItem(String pseudoClass, String arguments)
+                : base(pseudoClass, arguments) {
+            }
+
+            /// <summary>Gets the all the siblings of a child node.</summary>
+            /// <param name="node">the child node</param>
+            /// <returns>the sibling nodes</returns>
+            protected internal virtual IList<INode> GetAllSiblings(INode node) {
+                INode parentElement = node.ParentNode();
+                if (parentElement != null) {
+                    IList<INode> childrenUnmodifiable = parentElement.ChildNodes();
+                    IList<INode> children = new List<INode>(childrenUnmodifiable.Count);
+                    foreach (INode iNode in childrenUnmodifiable) {
+                        if (iNode is IElementNode) {
+                            children.Add(iNode);
+                        }
+                    }
+                    return children;
+                }
+                return JavaCollectionsUtil.EmptyList<INode>();
+            }
         }
 
-        /// <summary>Gets the nth child arguments.</summary>
-        /// <returns>the nth child arguments</returns>
-        private void GetNthChildArguments() {
-            if (arguments.Matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
-                if (arguments.Equals("odd")) {
-                    this.nthChildA = 2;
-                    this.nthChildB = 1;
+        private class FirstChildSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
+            public FirstChildSelectorItem()
+                : base(CssConstants.FIRST_CHILD) {
+            }
+
+            public override bool Matches(INode node) {
+                if (!(node is IElementNode) || node is ICustomElementNode) {
+                    return false;
                 }
-                else {
-                    if (arguments.Equals("even")) {
+                IList<INode> children = GetAllSiblings(node);
+                return children.IsEmpty() ? false : node.Equals(children[0]);
+            }
+        }
+
+        private class LastChildSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
+            public LastChildSelectorItem()
+                : base(CssConstants.LAST_CHILD) {
+            }
+
+            public override bool Matches(INode node) {
+                if (!(node is IElementNode) || node is ICustomElementNode) {
+                    return false;
+                }
+                IList<INode> children = GetAllSiblings(node);
+                return children.IsEmpty() ? false : node.Equals(children[children.Count - 1]);
+            }
+        }
+
+        private class NthChildSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
+            /// <summary>The nth child A.</summary>
+            private int nthChildA;
+
+            /// <summary>The nth child B.</summary>
+            private int nthChildB;
+
+            public NthChildSelectorItem(String arguments)
+                : base(CssConstants.NTH_CHILD, arguments) {
+                GetNthChildArguments();
+            }
+
+            public override bool Matches(INode node) {
+                if (!(node is IElementNode) || node is ICustomElementNode) {
+                    return false;
+                }
+                IList<INode> children = GetAllSiblings(node);
+                return children.IsEmpty() ? false : ResolveNthChild(node, children);
+            }
+
+            /// <summary>Gets the nth child arguments.</summary>
+            /// <returns>the nth child arguments</returns>
+            private void GetNthChildArguments() {
+                if (arguments.Matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
+                    if (arguments.Equals("odd")) {
                         this.nthChildA = 2;
-                        this.nthChildB = 0;
+                        this.nthChildB = 1;
                     }
                     else {
-                        int indexOfN = arguments.IndexOf('n');
-                        if (indexOfN == -1) {
-                            this.nthChildA = 0;
-                            this.nthChildB = System.Convert.ToInt32(arguments);
+                        if (arguments.Equals("even")) {
+                            this.nthChildA = 2;
+                            this.nthChildB = 0;
                         }
                         else {
-                            String aParticle = arguments.JSubstring(0, indexOfN).Trim();
-                            if (String.IsNullOrEmpty(aParticle)) {
+                            int indexOfN = arguments.IndexOf('n');
+                            if (indexOfN == -1) {
                                 this.nthChildA = 0;
+                                this.nthChildB = System.Convert.ToInt32(arguments);
                             }
                             else {
-                                if (aParticle.Length == 1 && !char.IsDigit(aParticle[0])) {
-                                    this.nthChildA = aParticle.Equals("+") ? 1 : -1;
+                                String aParticle = arguments.JSubstring(0, indexOfN).Trim();
+                                if (String.IsNullOrEmpty(aParticle)) {
+                                    this.nthChildA = 0;
                                 }
                                 else {
-                                    this.nthChildA = System.Convert.ToInt32(aParticle);
+                                    if (aParticle.Length == 1 && !char.IsDigit(aParticle[0])) {
+                                        this.nthChildA = aParticle.Equals("+") ? 1 : -1;
+                                    }
+                                    else {
+                                        this.nthChildA = System.Convert.ToInt32(aParticle);
+                                    }
                                 }
-                            }
-                            String bParticle = arguments.Substring(indexOfN + 1).Trim();
-                            if (!String.IsNullOrEmpty(bParticle)) {
-                                this.nthChildB = System.Convert.ToInt32(bParticle[0] + bParticle.Substring(1).Trim());
-                            }
-                            else {
-                                this.nthChildB = 0;
+                                String bParticle = arguments.Substring(indexOfN + 1).Trim();
+                                if (!String.IsNullOrEmpty(bParticle)) {
+                                    this.nthChildB = System.Convert.ToInt32(bParticle[0] + bParticle.Substring(1).Trim());
+                                }
+                                else {
+                                    this.nthChildB = 0;
+                                }
                             }
                         }
                     }
                 }
+                else {
+                    this.nthChildA = 0;
+                    this.nthChildB = 0;
+                }
             }
-            else {
-                this.nthChildA = 0;
-                this.nthChildB = 0;
+
+            /// <summary>Resolves the nth child.</summary>
+            /// <param name="node">a node</param>
+            /// <param name="children">the children</param>
+            /// <returns>true, if successful</returns>
+            private bool ResolveNthChild(INode node, IList<INode> children) {
+                if (!children.Contains(node)) {
+                    return false;
+                }
+                if (this.nthChildA > 0) {
+                    int temp = children.IndexOf(node) + 1 - this.nthChildB;
+                    return temp >= 0 ? temp % this.nthChildA == 0 : false;
+                }
+                else {
+                    if (this.nthChildA < 0) {
+                        int temp = children.IndexOf(node) + 1 - this.nthChildB;
+                        return temp <= 0 ? temp % this.nthChildA == 0 : false;
+                    }
+                    else {
+                        return (children.IndexOf(node) + 1) - this.nthChildB == 0;
+                    }
+                }
             }
         }
 
-        /// <summary>Resolves the nth child.</summary>
-        /// <param name="node">a node</param>
-        /// <param name="children">the children</param>
-        /// <returns>true, if successful</returns>
-        private bool ResolveNthChild(INode node, IList<INode> children) {
-            if (!children.Contains(node)) {
-                return false;
+        private class NotSelectorItem : CssPseudoClassSelectorItem {
+            private ICssSelector argumentsSelector;
+
+            public NotSelectorItem(ICssSelector argumentsSelector)
+                : base(CssConstants.NOT, argumentsSelector.ToString()) {
+                this.argumentsSelector = argumentsSelector;
             }
-            if (this.nthChildA > 0) {
-                int temp = children.IndexOf(node) + 1 - this.nthChildB;
-                return temp >= 0 ? temp % this.nthChildA == 0 : false;
-            }
-            else {
-                if (this.nthChildA < 0) {
-                    int temp = children.IndexOf(node) + 1 - this.nthChildB;
-                    return temp <= 0 ? temp % this.nthChildA == 0 : false;
-                }
-                else {
-                    return (children.IndexOf(node) + 1) - this.nthChildB == 0;
-                }
+
+            public override bool Matches(INode node) {
+                return !argumentsSelector.Matches(node);
             }
         }
     }

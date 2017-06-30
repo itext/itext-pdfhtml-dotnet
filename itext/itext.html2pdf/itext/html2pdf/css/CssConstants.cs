@@ -808,6 +808,14 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant BEFORE.</summary>
         public const String BEFORE = "before";
 
+        public const String FIRST_CHILD = "first-child";
+
+        public const String LAST_CHILD = "last-child";
+
+        public const String NTH_CHILD = "nth-child";
+
+        public const String NOT = "not";
+
         /// <summary>The Constant COUNTER.</summary>
         public const String COUNTER = "counter";
 
@@ -859,6 +867,7 @@ namespace iText.Html2pdf.Css {
         // property values
         // properties possible values
         // pseudo-elements
+        // pseudo-classes
         // Functions
         // units of measurement
         // units of resolution

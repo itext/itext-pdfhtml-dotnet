@@ -114,16 +114,16 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     }
 
                     case '|': {
-                        return attributeValue.StartsWith(value) && (attributeValue.Length == value.Length || attributeValue[value.
-                            Length] == '-');
+                        return value.Length > 0 && attributeValue.StartsWith(value) && (attributeValue.Length == value.Length || attributeValue
+                            [value.Length] == '-');
                     }
 
                     case '^': {
-                        return attributeValue.StartsWith(value);
+                        return value.Length > 0 && attributeValue.StartsWith(value);
                     }
 
                     case '$': {
-                        return attributeValue.EndsWith(value);
+                        return value.Length > 0 && attributeValue.EndsWith(value);
                     }
 
                     case '~': {
@@ -132,7 +132,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     }
 
                     case '*': {
-                        return attributeValue.Contains(value);
+                        return value.Length > 0 && attributeValue.Contains(value);
                     }
 
                     default: {
