@@ -191,10 +191,21 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1319")]
         public virtual void EnspEmspThinspTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "enspTest01.html"), new FileInfo(destinationFolder 
-                + "enspTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "enspTest01.pdf", sourceFolder
-                 + "cmp_enspTest01.pdf", destinationFolder, "diff13_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "enspEmspThinspTest01.html"), new FileInfo(destinationFolder
+                 + "enspEmspThinspTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "enspEmspThinspTest01.pdf"
+                , sourceFolder + "cmp_enspEmspThinspTest01.pdf", destinationFolder, "diff13_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1319")]
+        public virtual void EnspEmspThinspTest02() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "enspEmspThinspTest02.html"), new FileInfo(destinationFolder
+                 + "enspEmspThinspTest02.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "enspEmspThinspTest02.pdf"
+                , sourceFolder + "cmp_enspEmspThinspTest02.pdf", destinationFolder, "diff14_"));
         }
     }
 }
