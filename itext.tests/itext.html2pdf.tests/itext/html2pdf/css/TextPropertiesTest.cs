@@ -185,5 +185,16 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textAlignTest02.pdf"
                 , sourceFolder + "cmp_textAlignTest02.pdf", destinationFolder, "diff12_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1319")]
+        public virtual void EnspEmspThinspTest01() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "enspTest01.html"), new FileInfo(destinationFolder 
+                + "enspTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "enspTest01.pdf", sourceFolder
+                 + "cmp_enspTest01.pdf", destinationFolder, "diff13_"));
+        }
     }
 }
