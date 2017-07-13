@@ -54,7 +54,11 @@ using iText.Layout.Properties;
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for a table element.</summary>
     public class DisplayTableTagWorker : ITagWorker {
-        /// <summary>Two-dimensional array of <code>Cell</code> objects.</summary>
+        /// <summary>
+        /// Two-dimensional array of
+        /// <see cref="iText.Layout.Element.Cell"/>
+        /// objects.
+        /// </summary>
         private IList<IList<Cell>> columns = new List<IList<Cell>>();
 
         /// <summary>The table.</summary>
@@ -63,7 +67,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
-        /// <summary>Creates a new <code>DisplayTableTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="DisplayTableTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public DisplayTableTagWorker(IElementNode element, ProcessorContext context) {

@@ -45,7 +45,11 @@ using System.Collections.Generic;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Wrapelement {
-    /// <summary>Wrapper for the <code>col</code> element.</summary>
+    /// <summary>
+    /// Wrapper for the
+    /// <c>col</c>
+    /// element.
+    /// </summary>
     public class ColWrapper : IWrapElement {
         /// <summary>The span.</summary>
         private int span;
@@ -68,7 +72,11 @@ namespace iText.Html2pdf.Attach.Wrapelement {
         /// </remarks>
         private IDictionary<String, String> ownCssProps;
 
-        /// <summary>Creates a new <code>ColWrapper</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="ColWrapper"/>
+        /// instance.
+        /// </summary>
         /// <param name="span">the span</param>
         public ColWrapper(int span) {
             this.span = span;
@@ -88,7 +96,11 @@ namespace iText.Html2pdf.Attach.Wrapelement {
 
         /// <summary>Sets the width.</summary>
         /// <param name="width">the width</param>
-        /// <returns>this <code>ColWrapper</code> instance</returns>
+        /// <returns>
+        /// this
+        /// <see cref="ColWrapper"/>
+        /// instance
+        /// </returns>
         public virtual iText.Html2pdf.Attach.Wrapelement.ColWrapper SetWidth(UnitValue width) {
             this.width = width;
             return this;
@@ -102,7 +114,11 @@ namespace iText.Html2pdf.Attach.Wrapelement {
 
         /// <summary>Sets the cell CSS properties.</summary>
         /// <param name="cellCssProps">the cell CSS properties</param>
-        /// <returns>this <code>ColWrapper</code> instance</returns>
+        /// <returns>
+        /// this
+        /// <see cref="ColWrapper"/>
+        /// instance
+        /// </returns>
         public virtual iText.Html2pdf.Attach.Wrapelement.ColWrapper SetCellCssProps(IDictionary<String, String> cellCssProps
             ) {
             this.cellCssProps = cellCssProps;
@@ -117,7 +133,11 @@ namespace iText.Html2pdf.Attach.Wrapelement {
 
         /// <summary>Sets the own CSS properties.</summary>
         /// <param name="ownCssProps">the own CSS properties</param>
-        /// <returns>this <code>ColWrapper</code> instance</returns>
+        /// <returns>
+        /// this
+        /// <see cref="ColWrapper"/>
+        /// instance
+        /// </returns>
         public virtual iText.Html2pdf.Attach.Wrapelement.ColWrapper SetOwnCssProps(IDictionary<String, String> ownCssProps
             ) {
             this.ownCssProps = ownCssProps;

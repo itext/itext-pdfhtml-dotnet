@@ -49,7 +49,11 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>p</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>p</c>
+    /// element.
+    /// </summary>
     public class PTagWorker : ITagWorker, IDisplayAware {
         /// <summary>The paragraph object.</summary>
         private Paragraph paragraph;
@@ -60,7 +64,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The display value.</summary>
         private String display;
 
-        /// <summary>Creates a new <code>PTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="PTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public PTagWorker(IElementNode element, ProcessorContext context) {

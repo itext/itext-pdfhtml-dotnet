@@ -45,7 +45,11 @@ using iText.IO.Util;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Wrapelement {
-    /// <summary>Wrapper for the <code>tr</code> element.</summary>
+    /// <summary>
+    /// Wrapper for the
+    /// <c>tr</c>
+    /// element.
+    /// </summary>
     public class TableRowWrapper : IWrapElement {
         /// <summary>The cells in the row.</summary>
         private IList<Cell> cells = new List<Cell>();

@@ -45,14 +45,22 @@ using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
-    /// <summary>Implementation of the <code>AbstractElement</code> class for form fields.</summary>
+    /// <summary>
+    /// Implementation of the
+    /// <see cref="iText.Layout.Element.AbstractElement{T}"/>
+    /// class for form fields.
+    /// </summary>
     /// 
     public abstract class FormField<T> : AbstractElement<T>, IFormField
         where T : IFormField {
         /// <summary>The id.</summary>
         private String id;
 
-        /// <summary>Instantiates a new <code>FormField</code> instance.</summary>
+        /// <summary>
+        /// Instantiates a new
+        /// <see cref="FormField{T}"/>
+        /// instance.
+        /// </summary>
         /// <param name="id">the id</param>
         protected internal FormField(String id) {
             if (id == null || id.Contains(".")) {

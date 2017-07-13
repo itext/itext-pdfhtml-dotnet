@@ -55,7 +55,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
         /// <summary>Indicates if the selector is universally valid.</summary>
         private bool isUniversal;
 
-        /// <summary>Creates a new <code>CssTagSelectorItem<code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssTagSelectorItem"/>
+        /// instance.
+        /// </summary>
         /// <param name="tagName">the tag name</param>
         public CssTagSelectorItem(String tagName) {
             this.tagName = tagName.ToLowerInvariant();

@@ -57,7 +57,11 @@ namespace iText.Html2pdf.Css {
         /// <summary>The styles.</summary>
         private IDictionary<String, String> styles;
 
-        /// <summary>Creates a new <code>CssContextNode</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssContextNode"/>
+        /// instance.
+        /// </summary>
         /// <param name="parentNode">the parent node</param>
         public CssContextNode(INode parentNode) {
             this.parentNode = parentNode;

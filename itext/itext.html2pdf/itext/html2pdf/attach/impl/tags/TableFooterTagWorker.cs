@@ -46,7 +46,11 @@ using iText.Html2pdf.Html.Node;
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for the footer of a table.</summary>
     public class TableFooterTagWorker : TableTagWorker {
-        /// <summary>Creates a new <code>TableFooterTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="TableFooterTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public TableFooterTagWorker(IElementNode element, ProcessorContext context)

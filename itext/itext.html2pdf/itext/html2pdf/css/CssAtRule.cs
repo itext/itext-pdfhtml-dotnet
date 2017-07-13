@@ -48,7 +48,11 @@ namespace iText.Html2pdf.Css {
         /// <summary>The rule name.</summary>
         protected internal String ruleName;
 
-        /// <summary>Creates a new <code>CssAtRule</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssAtRule"/>
+        /// instance.
+        /// </summary>
         /// <param name="ruleName">the rule name</param>
         protected internal CssAtRule(String ruleName) {
             this.ruleName = ruleName;

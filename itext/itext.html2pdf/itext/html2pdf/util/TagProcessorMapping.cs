@@ -55,7 +55,11 @@ namespace iText.Html2pdf.Util {
         /// <summary>The actual mapping.</summary>
         private IDictionary<String, IDictionary<String, Type>> mapping;
 
-        /// <summary>Creates a new <code>TagProcessorMapping</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="TagProcessorMapping"/>
+        /// instance.
+        /// </summary>
         public TagProcessorMapping() {
             mapping = new Dictionary<String, IDictionary<String, Type>>();
         }

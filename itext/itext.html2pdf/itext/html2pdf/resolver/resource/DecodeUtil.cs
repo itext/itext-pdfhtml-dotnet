@@ -63,7 +63,7 @@ namespace iText.Html2pdf.Resolver.Resource
         internal static String dftUriScheme = "file";
 
         /// <summary>
-        /// Decode a <code>String</code> to a <code>String</code> using the default uri scheme
+        /// Decode a <see cref="String"/> to a <see cref="String"/> using the default uri scheme
         /// and default encoding.
         /// </summary>
         /// <param name="s">the string to decode</param>
@@ -74,7 +74,7 @@ namespace iText.Html2pdf.Resolver.Resource
         }
 
         /// <summary>
-        /// Decode a <code>String</code> to a <code>String</code> using the provided scheme
+        /// Decode a <see cref="String"/> to a <see cref="String"/> using the provided scheme
         /// and the default encoding.
         /// </summary>
         /// <param name="s">the string to decode</param>
@@ -86,7 +86,7 @@ namespace iText.Html2pdf.Resolver.Resource
         }
 
         /// <summary>
-        /// Decodes a <code>String</code> to a <code>String</code> using a specific encoding.
+        /// Decodes a <see cref="String"/> to a <see cref="String"/> using a specific encoding.
         /// </summary>
         /// <param name="s">the string to decode</param>
         /// <param name="scheme">the uri scheme</param>

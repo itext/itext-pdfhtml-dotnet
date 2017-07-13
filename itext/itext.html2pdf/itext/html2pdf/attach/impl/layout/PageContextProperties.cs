@@ -67,7 +67,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary>The page margin boxes.</summary>
         private IList<PageMarginBoxContextNode> pageMarginBoxes;
 
-        /// <summary>Instantiates a new <code>PageContextProperties</code> instance.</summary>
+        /// <summary>
+        /// Instantiates a new
+        /// <see cref="PageContextProperties"/>
+        /// instance.
+        /// </summary>
         /// <param name="pageProps">the page context node</param>
         /// <param name="pagesMarginBoxes">the page margin boxes</param>
         private PageContextProperties(PageContextNode pageProps, IList<PageMarginBoxContextNode> pagesMarginBoxes) {
@@ -75,12 +79,20 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             this.pageMarginBoxes = pagesMarginBoxes;
         }
 
-        /// <summary>Resolves a node with a <code>PageContextProperties</code> instance as result.</summary>
+        /// <summary>
+        /// Resolves a node with a
+        /// <see cref="PageContextProperties"/>
+        /// instance as result.
+        /// </summary>
         /// <param name="rootNode">the root node to resolve</param>
         /// <param name="cssResolver">the CSS resolver</param>
         /// <param name="context">the CSS context</param>
         /// <param name="pageClasses">the page classes</param>
-        /// <returns>the <code>PageContextProperties</code> for a specific node</returns>
+        /// <returns>
+        /// the
+        /// <see cref="PageContextProperties"/>
+        /// for a specific node
+        /// </returns>
         public static iText.Html2pdf.Attach.Impl.Layout.PageContextProperties Resolve(INode rootNode, ICssResolver
              cssResolver, CssContext context, params String[] pageClasses) {
             PageContextNode pageProps = GetResolvedPageClassNode(rootNode, cssResolver, context, pageClasses);

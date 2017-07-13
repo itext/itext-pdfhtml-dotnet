@@ -55,7 +55,7 @@ namespace iText.Html2pdf.Css.Pseudo {
         /// <summary>The pseudo element tag name.</summary>
         private String pseudoElementTagName;
 
-        /// <summary>Creates a new <code>CssPseudoElementNode</code> instance.</summary>
+        /// <summary>Creates a new <see cref="CssPseudoElementNode"/> instance.</summary>
         /// <param name="parentNode">the parent node</param>
         /// <param name="pseudoElementName">the pseudo element name</param>
         public CssPseudoElementNode(INode parentNode, String pseudoElementName)

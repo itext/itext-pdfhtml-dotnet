@@ -47,7 +47,11 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Wrapelement {
-    /// <summary>Wrapper for the <code>table</code> element.</summary>
+    /// <summary>
+    /// Wrapper for the
+    /// <c>table</c>
+    /// element.
+    /// </summary>
     public class TableWrapper : IWrapElement {
         /// <summary>The body rows of the table.</summary>
         private IList<IList<TableWrapper.CellWrapper>> rows;
@@ -215,7 +219,13 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             return colWidths;
         }
 
-        /// <summary>Wrapper for the <code>td</code>/<code>th</code> element.</summary>
+        /// <summary>
+        /// Wrapper for the
+        /// <c>td</c>
+        /// /
+        /// <c>th</c>
+        /// element.
+        /// </summary>
         private class CellWrapper {
             /// <summary>The column index.</summary>
             internal int col;
@@ -223,7 +233,11 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             /// <summary>The cell.</summary>
             internal Cell cell;
 
-            /// <summary>Creates a new <code>CellWrapper</code> instance.</summary>
+            /// <summary>
+            /// Creates a new
+            /// <see cref="CellWrapper"/>
+            /// instance.
+            /// </summary>
             /// <param name="col">the column index</param>
             /// <param name="cell">the cell</param>
             internal CellWrapper(int col, Cell cell) {

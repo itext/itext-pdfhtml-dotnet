@@ -53,13 +53,21 @@ namespace iText.Html2pdf.Css.Selector {
     /// implementation for CSS selectors.
     /// </summary>
     public class CssSelector : AbstractCssSelector {
-        /// <summary>Creates a new <code>CssSelector</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssSelector"/>
+        /// instance.
+        /// </summary>
         /// <param name="selectorItems">the selector items</param>
         public CssSelector(IList<ICssSelectorItem> selectorItems)
             : base(selectorItems) {
         }
 
-        /// <summary>Creates a new <code>CssSelector</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssSelector"/>
+        /// instance.
+        /// </summary>
         /// <param name="selector">the selector</param>
         public CssSelector(String selector)
             : this(CssSelectorParser.ParseSelectorItems(selector)) {

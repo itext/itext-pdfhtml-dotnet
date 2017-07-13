@@ -59,7 +59,11 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>The close quotes.</summary>
         private List<String> closeQuotes;
 
-        /// <summary>Creates a new <code>CssQuotes</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssQuotes"/>
+        /// instance.
+        /// </summary>
         /// <param name="openQuotes">the open quotes</param>
         /// <param name="closeQuotes">the close quotes</param>
         private CssQuotes(List<String> openQuotes, List<String> closeQuotes) {

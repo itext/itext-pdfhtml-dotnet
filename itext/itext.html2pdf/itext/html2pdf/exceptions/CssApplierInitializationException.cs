@@ -46,7 +46,11 @@ using iText.IO.Util;
 namespace iText.Html2pdf.Exceptions {
     /// <summary>Runtime exception in case a CSS applier can't be initialized.</summary>
     public class CssApplierInitializationException : Exception {
-        /// <summary>Creates a new <code>CssApplierInitializationException</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssApplierInitializationException"/>
+        /// instance.
+        /// </summary>
         /// <param name="message">the message</param>
         /// <param name="className">the class name of the CSS applier</param>
         /// <param name="tag">the key</param>

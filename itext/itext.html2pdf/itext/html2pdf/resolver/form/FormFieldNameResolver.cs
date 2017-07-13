@@ -56,7 +56,11 @@ namespace iText.Html2pdf.Resolver.Form {
         /// <summary>A map containing all the base field names, mapped to the current index.</summary>
         private readonly IDictionary<String, int?> names = new Dictionary<String, int?>();
 
-        /// <summary>Creates a new <code>FormFieldNameResolver</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="FormFieldNameResolver"/>
+        /// instance.
+        /// </summary>
         public FormFieldNameResolver() {
         }
 

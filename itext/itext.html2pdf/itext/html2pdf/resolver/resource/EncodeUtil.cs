@@ -105,7 +105,7 @@ namespace iText.Html2pdf.Resolver.Resource
         }
 
         /// <summary>
-        /// Encodes a <code>String</code> in the default encoding and default uri scheme to an HTML-encoded <code>String</code>.
+        /// Encodes a <see cref="String"/> in the default encoding and default uri scheme to an HTML-encoded <see cref="String"/>.
         /// </summary>
         /// <param name="s">the original string</param>
         /// <returns>the encoded string</returns>
@@ -115,7 +115,7 @@ namespace iText.Html2pdf.Resolver.Resource
         }
 
         /// <summary>
-        /// Encodes a <code>String</code> in the specific uri scheme and default encoding to an HTML-encoded <code>String</code>.
+        /// Encodes a <see cref="String"/> in the specific uri scheme and default encoding to an HTML-encoded <see cref="String"/>.
         /// </summary>
         /// <param name="s">the original string</param>
         /// <param name="scheme">the uri scheme</param>
@@ -126,7 +126,7 @@ namespace iText.Html2pdf.Resolver.Resource
         }
 
         /// <summary>
-        /// Encodes a <code>String</code> in a specific encoding and specific uri scheme to an HTML-encoded <code>String</code>.
+        /// Encodes a <see cref="String"/> in a specific encoding and specific uri scheme to an HTML-encoded <see cref="String"/>.
         /// </summary>
         /// <param name="s">the original string</param>
         /// <param name="scheme">the uri scheme</param>

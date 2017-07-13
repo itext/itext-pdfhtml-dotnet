@@ -55,21 +55,25 @@ using iText.Kernel;
 namespace iText.Html2pdf.Css.Parse {
     /// <summary>Utilities class to parse a CSS style sheet.</summary>
     public sealed class CssStyleSheetParser {
-        /// <summary>Creates a new <code>CssStyleSheetParser</code>.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssStyleSheetParser"/>
+        /// .
+        /// </summary>
         private CssStyleSheetParser() {
         }
 
         // TODO refactor into interface
         /// <summary>
         /// Parses a stream into a
-        /// <CssStyleSheet/>
+        /// <see cref="iText.Html2pdf.Css.CssStyleSheet"/>
         /// .
         /// </summary>
         /// <param name="stream">the stream</param>
         /// <param name="baseUrl">the base url</param>
         /// <returns>
         /// the resulting
-        /// <CssStyleSheet/>
+        /// <see cref="iText.Html2pdf.Css.CssStyleSheet"/>
         /// </returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static CssStyleSheet Parse(Stream stream, String baseUrl) {
@@ -152,13 +156,13 @@ namespace iText.Html2pdf.Css.Parse {
 
         /// <summary>
         /// Parses a stream into a
-        /// <CssStyleSheet/>
+        /// <see cref="iText.Html2pdf.Css.CssStyleSheet"/>
         /// .
         /// </summary>
         /// <param name="stream">the stream</param>
         /// <returns>
         /// the resulting
-        /// <CssStyleSheet/>
+        /// <see cref="iText.Html2pdf.Css.CssStyleSheet"/>
         /// </returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static CssStyleSheet Parse(Stream stream) {
@@ -167,14 +171,14 @@ namespace iText.Html2pdf.Css.Parse {
 
         /// <summary>
         /// Parses a string into a
-        /// <CssStyleSheet/>
+        /// <see cref="iText.Html2pdf.Css.CssStyleSheet"/>
         /// .
         /// </summary>
         /// <param name="data">the style sheet data</param>
         /// <param name="baseUrl">the base url</param>
         /// <returns>
         /// the resulting
-        /// <CssStyleSheet/>
+        /// <see cref="iText.Html2pdf.Css.CssStyleSheet"/>
         /// </returns>
         public static CssStyleSheet Parse(String data, String baseUrl) {
             // TODO charset? better to create parse logic based on string completely
@@ -189,13 +193,13 @@ namespace iText.Html2pdf.Css.Parse {
 
         /// <summary>
         /// Parses a string into a
-        /// <CssStyleSheet/>
+        /// <see cref="iText.Html2pdf.Css.CssStyleSheet"/>
         /// .
         /// </summary>
         /// <param name="data">the data</param>
         /// <returns>
         /// the resulting
-        /// <CssStyleSheet/>
+        /// <see cref="iText.Html2pdf.Css.CssStyleSheet"/>
         /// </returns>
         public static CssStyleSheet Parse(String data) {
             return Parse(data, null);

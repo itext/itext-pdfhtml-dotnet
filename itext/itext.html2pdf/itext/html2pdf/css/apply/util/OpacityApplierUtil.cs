@@ -51,7 +51,11 @@ using iText.Layout.Properties;
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply opacity.</summary>
     public class OpacityApplierUtil {
-        /// <summary>Creates a new <code>OpacityApplierUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="OpacityApplierUtil"/>
+        /// instance.
+        /// </summary>
         private OpacityApplierUtil() {
         }
 

@@ -56,7 +56,11 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
         /// <summary>The text node.</summary>
         private TextNode textNode;
 
-        /// <summary>Creates a new <code>JsoupTextNode</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="JsoupTextNode"/>
+        /// instance.
+        /// </summary>
         /// <param name="textNode">the text node</param>
         public JsoupTextNode(TextNode textNode)
             : base(textNode) {

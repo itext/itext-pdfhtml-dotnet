@@ -51,9 +51,17 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>a</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>a</c>
+    /// element.
+    /// </summary>
     public class ATagWorker : SpanTagWorker {
-        /// <summary>Creates a new <code>ATagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="ATagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public ATagWorker(IElementNode element, ProcessorContext context)

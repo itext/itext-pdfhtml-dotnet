@@ -64,7 +64,7 @@ namespace iText.Html2pdf.Resolver.Resource
         private bool isLocal;
 
         /// <summary>
-        /// Creates a new <code>UriResolver</code> instance.
+        /// Creates a new <see cref="UriResolver"/> instance.
         /// </summary>
         /// <param name="baseUri"> the base URI</param>
         public UriResolver(String baseUri)

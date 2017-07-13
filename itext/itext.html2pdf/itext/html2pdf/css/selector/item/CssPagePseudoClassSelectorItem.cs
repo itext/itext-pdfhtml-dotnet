@@ -56,7 +56,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
         /// <summary>The page pseudo class.</summary>
         private String pagePseudoClass;
 
-        /// <summary>Creates a new <code>CssPagePseudoClassSelectorItem<code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssPagePseudoClassSelectorItem"/>
+        /// instance.
+        /// </summary>
         /// <param name="pagePseudoClass">the page pseudo class name</param>
         public CssPagePseudoClassSelectorItem(String pagePseudoClass) {
             this.isSpreadPseudoClass = pagePseudoClass.Equals(PageContextConstants.LEFT) || pagePseudoClass.Equals(PageContextConstants

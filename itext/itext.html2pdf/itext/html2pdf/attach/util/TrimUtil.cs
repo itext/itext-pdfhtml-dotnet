@@ -48,7 +48,11 @@ using iText.Layout.Properties;
 namespace iText.Html2pdf.Attach.Util {
     /// <summary>Utility class to trim content.</summary>
     public sealed class TrimUtil {
-        /// <summary>Creates a new <code>TrimUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="TrimUtil"/>
+        /// instance.
+        /// </summary>
         private TrimUtil() {
         }
 

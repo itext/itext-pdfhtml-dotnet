@@ -53,7 +53,11 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>li</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>li</c>
+    /// element.
+    /// </summary>
     public class LiTagWorker : ITagWorker {
         /// <summary>The list item.</summary>
         protected internal ListItem listItem;
@@ -64,7 +68,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The inline helper.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
-        /// <summary>Creates a new <code>LiTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="LiTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public LiTagWorker(IElementNode element, ProcessorContext context) {

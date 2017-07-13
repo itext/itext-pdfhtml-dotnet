@@ -55,7 +55,11 @@ namespace iText.Html2pdf.Attach.Impl {
     /// .
     /// </summary>
     internal class DefaultTagWorkerMapping {
-        /// <summary>Instantiates a new <code>DefaultTagWorkerMapping</code> instance.</summary>
+        /// <summary>
+        /// Instantiates a new
+        /// <see cref="DefaultTagWorkerMapping"/>
+        /// instance.
+        /// </summary>
         private DefaultTagWorkerMapping() {
         }
 

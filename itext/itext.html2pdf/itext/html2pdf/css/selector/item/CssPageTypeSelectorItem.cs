@@ -54,7 +54,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
         /// <summary>The page type name.</summary>
         private String pageTypeName;
 
-        /// <summary>Creates a new <code>CssPageTypeSelectorItem<code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssPageTypeSelectorItem"/>
+        /// instance.
+        /// </summary>
         /// <param name="pageTypeName">the page type name</param>
         public CssPageTypeSelectorItem(String pageTypeName) {
             this.pageTypeName = pageTypeName;

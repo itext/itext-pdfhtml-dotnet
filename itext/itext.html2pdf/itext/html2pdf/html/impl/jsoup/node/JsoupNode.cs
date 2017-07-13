@@ -63,7 +63,11 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
         /// <summary>The parent node.</summary>
         internal INode parentNode;
 
-        /// <summary>Creates a new <code>JsoupNode</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="JsoupNode"/>
+        /// instance.
+        /// </summary>
         /// <param name="node">the node</param>
         public JsoupNode(Org.Jsoup.Nodes.Node node) {
             this.node = node;

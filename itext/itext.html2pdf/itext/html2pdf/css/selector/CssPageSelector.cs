@@ -52,7 +52,11 @@ namespace iText.Html2pdf.Css.Selector {
     /// implementation for CSS page selectors.
     /// </summary>
     public class CssPageSelector : AbstractCssSelector {
-        /// <summary>Creates a new <code>CssPageSelector</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssPageSelector"/>
+        /// instance.
+        /// </summary>
         /// <param name="pageSelectorStr">the page selector</param>
         public CssPageSelector(String pageSelectorStr)
             : base(CssPageSelectorParser.ParseSelectorItems(pageSelectorStr)) {

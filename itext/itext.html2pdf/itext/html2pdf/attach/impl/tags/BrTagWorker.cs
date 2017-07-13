@@ -47,12 +47,20 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>br</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>br</c>
+    /// element.
+    /// </summary>
     public class BrTagWorker : ITagWorker {
         /// <summary>A new line Text element.</summary>
         private Text newLine = new Text("\n");
 
-        /// <summary>Creates a new <code>BrTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="BrTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public BrTagWorker(IElementNode element, ProcessorContext context) {

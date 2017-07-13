@@ -64,7 +64,11 @@ namespace iText.Html2pdf.Attach {
         /// <returns>true, if child was successfully processed, otherwise false.</returns>
         bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context);
 
-        /// <summary>Gets a processed object if it can be expressed as an <code>IPropertyContainer</code> instance.</summary>
+        /// <summary>
+        /// Gets a processed object if it can be expressed as an
+        /// <see cref="iText.Layout.IPropertyContainer"/>
+        /// instance.
+        /// </summary>
         /// <returns>
         /// the same object on every call.
         /// Might return null either if result is not yet produced or if this particular

@@ -45,7 +45,11 @@ using System;
 namespace iText.Html2pdf.Css.Media {
     /// <summary>Class that bundles all the media feature values.</summary>
     public sealed class MediaFeature {
-        /// <summary>Creates a new <code>MediaFeature</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="MediaFeature"/>
+        /// instance.
+        /// </summary>
         private MediaFeature() {
         }
 

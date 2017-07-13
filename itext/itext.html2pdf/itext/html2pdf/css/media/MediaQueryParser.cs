@@ -45,25 +45,42 @@ using System.Collections.Generic;
 
 namespace iText.Html2pdf.Css.Media {
     /// <summary>
-    /// Utilities class that parses <code>String</code> values into
+    /// Utilities class that parses
+    /// <see cref="System.String"/>
+    /// values into
     /// <see cref="MediaQuery"/>
     /// or
     /// <see cref="MediaExpression"/>
     /// values.
     /// </summary>
     public sealed class MediaQueryParser {
-        /// <summary>Creates a <code>MediaQueryParse</code> instance.</summary>
+        /// <summary>
+        /// Creates a
+        /// <see cref="MediaQueryParser"/>
+        /// instance.
+        /// </summary>
         private MediaQueryParser() {
         }
 
         /// <summary>
-        /// Parses a <code>String</code> into a list of
-        /// <see>MediaQuery) values.</see>
+        /// Parses a
+        /// <see cref="System.String"/>
+        /// into a
+        /// <see cref="System.Collections.IList{E}"/>
+        /// of
+        /// <see cref="MediaQuery"/>
+        /// values.
         /// </summary>
-        /// <param name="mediaQueriesStr">the media queries in the form of a <code>String</code></param>
+        /// <param name="mediaQueriesStr">
+        /// the media queries in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
         /// <returns>
-        /// the resulting list of
-        /// <see>MediaQuery) values</see>
+        /// the resulting
+        /// <see cref="System.Collections.IList{E}"/>
+        /// of
+        /// <see cref="MediaQuery"/>
+        /// values
         /// </returns>
         public static IList<MediaQuery> ParseMediaQueries(String mediaQueriesStr) {
             String[] mediaQueryStrs = iText.IO.Util.StringUtil.Split(mediaQueriesStr, ",");
@@ -78,13 +95,20 @@ namespace iText.Html2pdf.Css.Media {
         }
 
         /// <summary>
-        /// Parses a <code>String</code> into a
-        /// <see>MediaQuery) value.</see>
+        /// Parses a
+        /// <see cref="System.String"/>
+        /// into a
+        /// <see cref="MediaQuery"/>
+        /// value.
         /// </summary>
-        /// <param name="mediaQueryStr">the media query in the form of a <code>String</code></param>
+        /// <param name="mediaQueryStr">
+        /// the media query in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
         /// <returns>
         /// the resulting
-        /// <see>MediaQuery) value</see>
+        /// <see cref="MediaQuery"/>
+        /// value
         /// </returns>
         public static MediaQuery ParseMediaQuery(String mediaQueryStr) {
             mediaQueryStr = mediaQueryStr.Trim().ToLowerInvariant();
@@ -115,14 +139,21 @@ namespace iText.Html2pdf.Css.Media {
         }
 
         /// <summary>
-        /// Parses a <code>String</code> into a list of
-        /// <see>MediaExpression) values.</see>
+        /// Parses a
+        /// <see cref="System.String"/>
+        /// into a list of
+        /// <see cref="MediaExpression"/>
+        /// values.
         /// </summary>
-        /// <param name="mediaExpressionsStr">the media expressions in the form of a <code>String</code></param>
+        /// <param name="mediaExpressionsStr">
+        /// the media expressions in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
         /// <param name="shallStartWithAnd">indicates if the media expression shall start with "and"</param>
         /// <returns>
         /// the resulting list of
-        /// <see>MediaExpression) values</see>
+        /// <see cref="MediaExpression"/>
+        /// values
         /// </returns>
         private static IList<MediaExpression> ParseMediaExpressions(String mediaExpressionsStr, bool shallStartWithAnd
             ) {
@@ -147,13 +178,20 @@ namespace iText.Html2pdf.Css.Media {
         }
 
         /// <summary>
-        /// Parses a <code>String</code> into a
-        /// <see>MediaExpression) value.</see>
+        /// Parses a
+        /// <see cref="System.String"/>
+        /// into a
+        /// <see cref="MediaExpression"/>
+        /// value.
         /// </summary>
-        /// <param name="mediaExpressionStr">the media expression in the form of a <code>String</code></param>
+        /// <param name="mediaExpressionStr">
+        /// the media expression in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
         /// <returns>
         /// the resulting
-        /// <see>MediaExpression) value</see>
+        /// <see cref="MediaExpression"/>
+        /// value
         /// </returns>
         private static MediaExpression ParseMediaExpression(String mediaExpressionStr) {
             mediaExpressionStr = mediaExpressionStr.Trim();

@@ -50,7 +50,7 @@ namespace iText.Html2pdf.Css {
     public abstract class CssStatement {
         /// <summary>
         /// Gets a list of
-        /// <see cref="CSSRuleSet"/>
+        /// <see cref="CssRuleSet"/>
         /// objects.
         /// </summary>
         /// <param name="node">a node</param>

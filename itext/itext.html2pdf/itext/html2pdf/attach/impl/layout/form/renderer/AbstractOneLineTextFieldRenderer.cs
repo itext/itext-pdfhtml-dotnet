@@ -55,7 +55,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <summary>The position of the base line of the text.</summary>
         protected internal float baseline;
 
-        /// <summary>Creates a new <code>AbstractOneLineTextFieldRenderer</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="AbstractOneLineTextFieldRenderer"/>
+        /// instance.
+        /// </summary>
         /// <param name="modelElement">the model element</param>
         protected internal AbstractOneLineTextFieldRenderer(IFormField modelElement)
             : base(modelElement) {

@@ -52,7 +52,11 @@ using iText.Layout.Properties;
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for a link block.</summary>
     public class ABlockTagWorker : DivTagWorker {
-        /// <summary>Creates a new <code>ABlockTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="ABlockTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public ABlockTagWorker(IElementNode element, ProcessorContext context)

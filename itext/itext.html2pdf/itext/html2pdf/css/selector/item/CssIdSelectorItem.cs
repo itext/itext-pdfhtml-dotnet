@@ -53,7 +53,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
         /// <summary>The id.</summary>
         private String id;
 
-        /// <summary>Creates a new <code>CssIdSelectorItem<code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssIdSelectorItem"/>
+        /// instance.
+        /// </summary>
         /// <param name="id">the id</param>
         public CssIdSelectorItem(String id) {
             this.id = id;

@@ -43,7 +43,11 @@ address: sales@itextpdf.com
 namespace iText.Html2pdf.Css.Selector.Item {
     /// <summary>Class that bundles some CSS specificity constants.</summary>
     internal sealed class CssSpecificityConstants {
-        /// <summary>Creates a new <code>CssSpecificityConstants</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssSpecificityConstants"/>
+        /// instance.
+        /// </summary>
         private CssSpecificityConstants() {
         }
 

@@ -49,7 +49,11 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         /// <summary>The state machine that parses the CSS.</summary>
         private CssParserStateController controller;
 
-        /// <summary>Creates a new <code>ConditionalGroupAtRuleBlockState</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="ConditionalGroupAtRuleBlockState"/>
+        /// instance.
+        /// </summary>
         /// <param name="controller">the state machine that parses the CSS</param>
         public ConditionalGroupAtRuleBlockState(CssParserStateController controller) {
             this.controller = controller;

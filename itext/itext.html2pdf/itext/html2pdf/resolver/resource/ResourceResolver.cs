@@ -137,9 +137,16 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
         }
 
-        /// <summary>Open an <code>InputStream</code> to a style sheet URI.</summary>
+        /// <summary>
+        /// Open an
+        /// <see cref="System.IO.Stream"/>
+        /// to a style sheet URI.
+        /// </summary>
         /// <param name="uri">the URI</param>
-        /// <returns>the <code>InputStream</code></returns>
+        /// <returns>
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// </returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public virtual Stream RetrieveStyleSheet(String uri) {
             return iText.IO.Util.UrlUtil.OpenStream(uriResolver.ResolveAgainstBaseUri(uri));
@@ -147,7 +154,9 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         /// <summary>
         /// Retrieve a resource as a byte array from a source that
-        /// can either be a link to a file, or a base64 encoded <code>String</code>.
+        /// can either be a link to a file, or a base64 encoded
+        /// <see cref="System.String"/>
+        /// .
         /// </summary>
         /// <param name="src">either link to file or base64 encoded stream.</param>
         /// <returns>byte[] on success, otherwise null.</returns>

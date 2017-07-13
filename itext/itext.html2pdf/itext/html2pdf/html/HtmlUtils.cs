@@ -45,7 +45,11 @@ using iText.Html2pdf.Html.Node;
 namespace iText.Html2pdf.Html {
     /// <summary>Utilities class with HTML-related functionality.</summary>
     public sealed class HtmlUtils {
-        /// <summary>Creates a new <code>HtmlUtils</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="HtmlUtils"/>
+        /// instance.
+        /// </summary>
         private HtmlUtils() {
         }
 

@@ -70,7 +70,11 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
         /// <summary>The language.</summary>
         private String lang = null;
 
-        /// <summary>Creates a new <code>JsoupElementNode</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="JsoupElementNode"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         public JsoupElementNode(Element element)
             : base(element) {

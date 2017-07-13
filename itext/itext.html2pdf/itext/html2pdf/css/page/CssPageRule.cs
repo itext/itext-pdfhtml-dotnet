@@ -55,7 +55,11 @@ namespace iText.Html2pdf.Css.Page {
         /// <summary>The page selectors.</summary>
         private IList<ICssSelector> pageSelectors;
 
-        /// <summary>Creates a new <code>CssPageRule</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssPageRule"/>
+        /// instance.
+        /// </summary>
         /// <param name="ruleParameters">the rule parameters</param>
         public CssPageRule(String ruleParameters)
             : base(CssRuleName.PAGE, ruleParameters) {

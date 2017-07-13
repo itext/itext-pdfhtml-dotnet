@@ -57,7 +57,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.MarginApplierUtil
             ));
 
-        /// <summary>Creates a <code>MarginApplierUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a
+        /// <see cref="MarginApplierUtil"/>
+        /// instance.
+        /// </summary>
         private MarginApplierUtil() {
         }
 
@@ -120,10 +124,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         /// <summary>Parses the margin value.</summary>
-        /// <param name="marginValString">the margin value as a <code>String</code></param>
+        /// <param name="marginValString">
+        /// the margin value as a
+        /// <see cref="System.String"/>
+        /// </param>
         /// <param name="em">the em value</param>
         /// <param name="rem">the root em value</param>
-        /// <returns>the margin value as a <code>Float</code></returns>
+        /// <returns>
+        /// the margin value as a
+        /// <see cref="float?"/>
+        /// </returns>
         private static float? ParseMarginValue(String marginValString, float em, float rem) {
             UnitValue marginUnitVal = CssUtils.ParseLengthValueToPt(marginValString, em, rem);
             if (marginUnitVal != null) {

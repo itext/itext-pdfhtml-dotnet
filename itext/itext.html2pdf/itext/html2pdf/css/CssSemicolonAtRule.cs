@@ -44,12 +44,20 @@ using System;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css {
-    /// <summary>A <code>CssAtRule</code> implementation.</summary>
+    /// <summary>
+    /// A
+    /// <see cref="CssAtRule"/>
+    /// implementation.
+    /// </summary>
     public class CssSemicolonAtRule : CssAtRule {
         /// <summary>The rule parameters.</summary>
         private String ruleParams;
 
-        /// <summary>Creates a new <code>CssSemicolonAtRule</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssSemicolonAtRule"/>
+        /// instance.
+        /// </summary>
         /// <param name="ruleDeclaration">the rule declaration</param>
         public CssSemicolonAtRule(String ruleDeclaration)
             : base(CssNestedAtRuleFactory.ExtractRuleNameFromDeclaration(ruleDeclaration.Trim())) {

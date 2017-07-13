@@ -67,12 +67,19 @@ namespace iText.Html2pdf.Css.Parse {
         private static readonly Regex selectorPattern = iText.IO.Util.StringUtil.RegexCompile(SELECTOR_PATTERN_STR
             );
 
-        /// <summary>Creates a new <code>CssSelectorParser</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssSelectorParser"/>
+        /// instance.
+        /// </summary>
         private CssSelectorParser() {
         }
 
         /// <summary>Parses the selector items.</summary>
-        /// <param name="selector">the selectors in the form of a <code>String</code></param>
+        /// <param name="selector">
+        /// the selectors in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
         /// <returns>
         /// the resulting list of
         /// <see cref="iText.Html2pdf.Css.Selector.Item.ICssSelectorItem"/>

@@ -53,7 +53,11 @@ namespace iText.Html2pdf.Css.Page {
     /// .
     /// </summary>
     internal class CssNonStandardRuleSet : CssRuleSet {
-        /// <summary>Creates a new <code>CssNonStandardRuleSet</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssNonStandardRuleSet"/>
+        /// instance.
+        /// </summary>
         /// <param name="selector">the selector</param>
         /// <param name="declarations">the declarations</param>
         public CssNonStandardRuleSet(ICssSelector selector, IList<CssDeclaration> declarations)

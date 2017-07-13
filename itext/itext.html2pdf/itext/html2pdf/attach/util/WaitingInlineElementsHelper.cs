@@ -62,7 +62,11 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>List of waiting leaf elements.</summary>
         private IList<IElement> waitingLeaves = new List<IElement>();
 
-        /// <summary>Creates a new <code>WaitingInlineElementsHelper</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="WaitingInlineElementsHelper"/>
+        /// instance.
+        /// </summary>
         /// <param name="whiteSpace">we'll check if this value equals "pre" or "pre-wrap"</param>
         /// <param name="textTransform">will define the transformation that needs to be applied to the text</param>
         public WaitingInlineElementsHelper(String whiteSpace, String textTransform) {

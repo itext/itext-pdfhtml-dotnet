@@ -57,7 +57,11 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         /// <summary>The default mapping of CSS keywords and CSS appliers.</summary>
         private TagProcessorMapping defaultMapping;
 
-        /// <summary>Creates a new <code>DefaultCssApplierFactory</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="DefaultCssApplierFactory"/>
+        /// instance.
+        /// </summary>
         public DefaultCssApplierFactory() {
             defaultMapping = DefaultTagCssApplierMapping.GetDefaultCssApplierMapping();
         }
@@ -86,7 +90,9 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         /// <remarks>
         /// Gets a custom CSS applier.
         /// This method needs to be overridden because the default CSS applier
-        /// factory will always return <code>null</code>.
+        /// factory will always return
+        /// <see langword="null"/>
+        /// .
         /// </remarks>
         /// <param name="tag">the key</param>
         /// <returns>the custom CSS applier</returns>

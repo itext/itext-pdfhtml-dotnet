@@ -47,13 +47,17 @@ using iText.Html2pdf.Html.Node;
 namespace iText.Html2pdf.Css.Selector.Item {
     /// <summary>
     /// <see cref="ICssSelectorItem"/>
-    /// implementation for pseude element selectors.
+    /// implementation for pseudo element selectors.
     /// </summary>
     public class CssPseudoElementSelectorItem : ICssSelectorItem {
         /// <summary>The pseudo element name.</summary>
         private String pseudoElementName;
 
-        /// <summary>Creates a new <code>CssPseudoElementSelectorItem<code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssPseudoElementSelectorItem"/>
+        /// instance.
+        /// </summary>
         /// <param name="pseudoElementName">the pseudo element name</param>
         public CssPseudoElementSelectorItem(String pseudoElementName) {
             this.pseudoElementName = pseudoElementName;

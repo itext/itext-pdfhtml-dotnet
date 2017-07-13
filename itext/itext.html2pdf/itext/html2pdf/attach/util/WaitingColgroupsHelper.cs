@@ -64,7 +64,11 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>The shift values for the columns.</summary>
         private int[] shiftCol;
 
-        /// <summary>Creates a new <code>WaitingColgroupsHelper</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="WaitingColgroupsHelper"/>
+        /// instance.
+        /// </summary>
         /// <param name="tableElement">the table element</param>
         public WaitingColgroupsHelper(IElementNode tableElement) {
             this.tableElement = tableElement;

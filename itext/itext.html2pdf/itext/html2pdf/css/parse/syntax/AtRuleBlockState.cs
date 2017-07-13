@@ -49,7 +49,11 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         /// <summary>The state machine that parses the CSS.</summary>
         private CssParserStateController controller;
 
-        /// <summary>Creates a new <code>AtRuleBlockState</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="AtRuleBlockState"/>
+        /// instance.
+        /// </summary>
         /// <param name="controller">the state machine that parses the CSS</param>
         public AtRuleBlockState(CssParserStateController controller) {
             this.controller = controller;

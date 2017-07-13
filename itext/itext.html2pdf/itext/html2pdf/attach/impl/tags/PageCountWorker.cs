@@ -49,7 +49,11 @@ using iText.Layout.Element;
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for the page count.</summary>
     public class PageCountWorker : SpanTagWorker {
-        /// <summary>Creates a new <code>PageCountTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="PageCountWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public PageCountWorker(IElementNode element, ProcessorContext context)

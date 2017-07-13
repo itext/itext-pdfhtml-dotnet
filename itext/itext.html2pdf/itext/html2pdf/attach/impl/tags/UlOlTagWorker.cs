@@ -50,7 +50,13 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>ul</code> and <code>ol</code> elements.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>ul</c>
+    /// and
+    /// <c>ol</c>
+    /// elements.
+    /// </summary>
     public class UlOlTagWorker : ITagWorker {
         /// <summary>The list object.</summary>
         private List list;
@@ -58,7 +64,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>Helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
-        /// <summary>Creates a new <code>UlOlTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="UlOlTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public UlOlTagWorker(IElementNode element, ProcessorContext context) {

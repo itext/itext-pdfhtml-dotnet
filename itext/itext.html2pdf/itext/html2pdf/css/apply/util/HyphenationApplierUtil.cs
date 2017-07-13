@@ -59,7 +59,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <summary>The Constant HYPHENATE_AFTER.</summary>
         private const int HYPHENATE_AFTER = 3;
 
-        /// <summary>Creates a new <code>HyphenationApplierUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="HyphenationApplierUtil"/>
+        /// instance.
+        /// </summary>
         private HyphenationApplierUtil() {
         }
 

@@ -46,7 +46,11 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Wrapelement {
-    /// <summary>Wrapper for the <code>span</code> element.</summary>
+    /// <summary>
+    /// Wrapper for the
+    /// <c>span</c>
+    /// element.
+    /// </summary>
     public class SpanWrapper : IWrapElement {
         /// <summary>The children of the span element.</summary>
         private IList<Object> children = new List<Object>();

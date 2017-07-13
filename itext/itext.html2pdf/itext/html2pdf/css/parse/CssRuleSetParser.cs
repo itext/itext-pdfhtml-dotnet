@@ -55,12 +55,19 @@ namespace iText.Html2pdf.Css.Parse {
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Parse.CssRuleSetParser
             ));
 
-        /// <summary>Creates a new <code>CssRuleSetParser</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssRuleSetParser"/>
+        /// instance.
+        /// </summary>
         private CssRuleSetParser() {
         }
 
         /// <summary>Parses property declarations.</summary>
-        /// <param name="propertiesStr">the property declarations in the form of a <code>String</code></param>
+        /// <param name="propertiesStr">
+        /// the property declarations in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
         /// <returns>
         /// the list of
         /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
@@ -91,7 +98,9 @@ namespace iText.Html2pdf.Css.Parse {
         /// Parses a rule set into a list of
         /// <see cref="iText.Html2pdf.Css.CssRuleSet"/>
         /// instances.
-        /// This method returns a <code>List</code> because a selector can
+        /// This method returns a
+        /// <see cref="System.Collections.IList{E}"/>
+        /// because a selector can
         /// be compound, like "p, div, #navbar".
         /// </summary>
         /// <param name="selectorStr">the selector</param>
@@ -128,7 +137,11 @@ namespace iText.Html2pdf.Css.Parse {
             return ruleSets;
         }
 
-        /// <summary>Splits CSS properties into an array of <code>String</code> values.</summary>
+        /// <summary>
+        /// Splits CSS properties into an array of
+        /// <see cref="System.String"/>
+        /// values.
+        /// </summary>
         /// <param name="property">the properties</param>
         /// <returns>the array of property values</returns>
         private static String[] SplitCssProperty(String property) {

@@ -56,7 +56,11 @@ namespace iText.Html2pdf.Css.Selector {
         /// <summary>The page selector.</summary>
         private ICssSelector pageSelector;
 
-        /// <summary>Creates a new <code>CssPageMarginBoxSelector</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssPageMarginBoxSelector"/>
+        /// instance.
+        /// </summary>
         /// <param name="pageMarginBoxName">the page margin box name</param>
         /// <param name="pageSelector">the page selector</param>
         public CssPageMarginBoxSelector(String pageMarginBoxName, ICssSelector pageSelector) {

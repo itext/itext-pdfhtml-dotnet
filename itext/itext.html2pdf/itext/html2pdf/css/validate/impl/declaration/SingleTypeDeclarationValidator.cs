@@ -52,7 +52,11 @@ namespace iText.Html2pdf.Css.Validate.Impl.Declaration {
         /// <summary>The data type validator.</summary>
         private ICssDataTypeValidator dataTypeValidator;
 
-        /// <summary>Creates a new <code>SingleTypeDeclarationValidator</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="SingleTypeDeclarationValidator"/>
+        /// instance.
+        /// </summary>
         /// <param name="dataTypeValidator">the data type validator</param>
         public SingleTypeDeclarationValidator(ICssDataTypeValidator dataTypeValidator) {
             this.dataTypeValidator = dataTypeValidator;

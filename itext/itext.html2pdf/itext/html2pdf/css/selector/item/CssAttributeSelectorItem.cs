@@ -60,7 +60,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
         /// <summary>The value.</summary>
         private String value = null;
 
-        /// <summary>Creates a new <code>CssAttributeSelectorItem<code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssAttributeSelectorItem"/>
+        /// instance.
+        /// </summary>
         /// <param name="attrSelector">the attribute</param>
         public CssAttributeSelectorItem(String attrSelector) {
             int indexOfEqual = attrSelector.IndexOf('=');

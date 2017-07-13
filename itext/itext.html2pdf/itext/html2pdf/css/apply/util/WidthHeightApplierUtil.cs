@@ -57,7 +57,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.WidthHeightApplierUtil
             ));
 
-        /// <summary>Creates a new <code>WidhtHeightApplierUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="WidthHeightApplierUtil"/>
+        /// instance.
+        /// </summary>
         private WidthHeightApplierUtil() {
         }
 

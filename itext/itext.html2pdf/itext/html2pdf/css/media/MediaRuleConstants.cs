@@ -45,7 +45,11 @@ using System;
 namespace iText.Html2pdf.Css.Media {
     /// <summary>Class that bundles a series of media rule constants.</summary>
     public sealed class MediaRuleConstants {
-        /// <summary>Creates a new <code>MediaRuleConstants</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="MediaRuleConstants"/>
+        /// instance.
+        /// </summary>
         private MediaRuleConstants() {
         }
 

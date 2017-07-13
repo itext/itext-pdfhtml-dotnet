@@ -57,12 +57,20 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// <summary>The capacity of the cache.</summary>
         private int capacity;
 
-        /// <summary>Creates a new <code>SimpleImageCache</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="SimpleImageCache"/>
+        /// instance.
+        /// </summary>
         internal SimpleImageCache() {
             this.capacity = 100;
         }
 
-        /// <summary>Creates a new <code>SimpleImageCache</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="SimpleImageCache"/>
+        /// instance.
+        /// </summary>
         /// <param name="capacity">the capacity</param>
         internal SimpleImageCache(int capacity) {
             if (capacity < 1) {

@@ -53,7 +53,11 @@ namespace iText.Html2pdf.Css.Validate.Impl.Declaration {
         /// <summary>The allowed data types.</summary>
         private IList<ICssDataTypeValidator> allowedTypes;
 
-        /// <summary>Creates a new <code>MultiTypeDeclarationValidator</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="MultiTypeDeclarationValidator"/>
+        /// instance.
+        /// </summary>
         /// <param name="allowedTypes">the allowed types</param>
         public MultiTypeDeclarationValidator(params ICssDataTypeValidator[] allowedTypes) {
             this.allowedTypes = iText.IO.Util.JavaUtil.ArraysAsList(allowedTypes);

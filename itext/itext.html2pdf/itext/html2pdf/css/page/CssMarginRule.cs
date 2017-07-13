@@ -54,7 +54,11 @@ namespace iText.Html2pdf.Css.Page {
         /// <summary>The page selectors.</summary>
         private IList<ICssSelector> pageSelectors;
 
-        /// <summary>Creates a new <code>CssMarginRule</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssMarginRule"/>
+        /// instance.
+        /// </summary>
         /// <param name="ruleName">the rule name</param>
         /// <param name="ruleParameters">the rule parameters</param>
         public CssMarginRule(String ruleName, String ruleParameters)

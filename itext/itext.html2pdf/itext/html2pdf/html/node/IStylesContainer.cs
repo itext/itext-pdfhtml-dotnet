@@ -47,7 +47,11 @@ namespace iText.Html2pdf.Html.Node {
     /// <summary>Interface for classes that can get and set styles.</summary>
     public interface IStylesContainer {
         /// <summary>Sets the styles.</summary>
-        /// <param name="stringStringMap">a <code>Map</code> with style keys and values.</param>
+        /// <param name="stringStringMap">
+        /// a
+        /// <see cref="System.Collections.IDictionary{K, V}"/>
+        /// with style keys and values.
+        /// </param>
         void SetStyles(IDictionary<String, String> stringStringMap);
 
         /// <summary>Gets the styles.</summary>

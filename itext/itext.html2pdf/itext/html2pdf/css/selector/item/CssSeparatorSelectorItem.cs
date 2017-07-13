@@ -53,7 +53,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
         /// <summary>The separator character.</summary>
         private char separator;
 
-        /// <summary>Creates a new <code>CssSeparatorSelectorItem<code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssSeparatorSelectorItem"/>
+        /// instance.
+        /// </summary>
         /// <param name="separator">the separator character</param>
         public CssSeparatorSelectorItem(char separator) {
             this.separator = separator;

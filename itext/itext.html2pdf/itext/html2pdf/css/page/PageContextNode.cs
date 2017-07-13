@@ -58,12 +58,20 @@ namespace iText.Html2pdf.Css.Page {
         /// <summary>The page classes.</summary>
         private IList<String> pageClasses;
 
-        /// <summary>Creates a new <code>PageContextNode</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="PageContextNode"/>
+        /// instance.
+        /// </summary>
         public PageContextNode()
             : this(null) {
         }
 
-        /// <summary>Creates a new <code>PageContextNode</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="PageContextNode"/>
+        /// instance.
+        /// </summary>
         /// <param name="parentNode">the parent node</param>
         public PageContextNode(INode parentNode)
             : base(parentNode) {

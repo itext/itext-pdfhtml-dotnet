@@ -61,7 +61,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <summary>The font to be used for the text.</summary>
         protected internal PdfFont font;
 
-        /// <summary>Creates a new <code>AbstractTextFieldRenderer</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="AbstractTextFieldRenderer"/>
+        /// instance.
+        /// </summary>
         /// <param name="modelElement">the model element</param>
         protected internal AbstractTextFieldRenderer(IFormField modelElement)
             : base(modelElement) {

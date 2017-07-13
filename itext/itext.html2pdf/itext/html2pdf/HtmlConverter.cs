@@ -62,11 +62,23 @@ namespace iText.Html2pdf {
     /// <summary>The HtmlConverter is the class you will use most when converting HTML to PDF.</summary>
     /// <remarks>
     /// The HtmlConverter is the class you will use most when converting HTML to PDF.
-    /// It contains a series of static methods that accept HTML as a <code>String</code>,
-    /// <code>File</code>, or <code>InputStream</code>, and convert it to PDF in the
-    /// form of an <code>OutputStream</code>, <code>File</code>, or a series of
-    /// iText elements. It's also possible to write to a <code>PdfWriter</code> or
-    /// <code>PdfDocument</code> instance.
+    /// It contains a series of static methods that accept HTML as a
+    /// <see cref="System.String"/>
+    /// ,
+    /// <see cref="System.IO.FileInfo"/>
+    /// , or
+    /// <see cref="System.IO.Stream"/>
+    /// , and convert it to PDF in the
+    /// form of an
+    /// <see cref="System.IO.Stream"/>
+    /// ,
+    /// <see cref="System.IO.FileInfo"/>
+    /// , or a series of
+    /// iText elements. It's also possible to write to a
+    /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+    /// or
+    /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+    /// instance.
     /// </remarks>
     public class HtmlConverter {
         /// <summary>Instantiates a new HtmlConverter instance.</summary>
@@ -76,67 +88,151 @@ namespace iText.Html2pdf {
         // TODO add overloads with Charset provided
         // TODO add overloads without automatic elements flushing
         /// <summary>
-        /// Converts a <code>String</code> containing HTML to an <code>OutputStream</code>
+        /// Converts a
+        /// <see cref="System.String"/>
+        /// containing HTML to an
+        /// <see cref="System.IO.Stream"/>
         /// containing PDF.
         /// </summary>
-        /// <param name="html">the html in the form of a <code>String</code></param>
-        /// <param name="pdfStream">the PDF as an <code>OutputStream</code></param>
+        /// <param name="html">
+        /// the html in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <param name="pdfStream">
+        /// the PDF as an
+        /// <see cref="System.IO.Stream"/>
+        /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(String html, Stream pdfStream) {
             ConvertToPdf(html, pdfStream, null);
         }
 
         /// <summary>
-        /// Converts a <code>String</code> containing HTML to an <code>OutputStream</code>
-        /// containing PDF, using specific <code>ConverterProperties</code>.
+        /// Converts a
+        /// <see cref="System.String"/>
+        /// containing HTML to an
+        /// <see cref="System.IO.Stream"/>
+        /// containing PDF, using specific
+        /// <see cref="ConverterProperties"/>
+        /// .
         /// </summary>
-        /// <param name="html">the html in the form of a <code>String</code></param>
-        /// <param name="pdfStream">the PDF as an <code>OutputStream</code></param>
-        /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
+        /// <param name="html">
+        /// the html in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <param name="pdfStream">
+        /// the PDF as an
+        /// <see cref="System.IO.Stream"/>
+        /// </param>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(String html, Stream pdfStream, ConverterProperties converterProperties) {
             ConvertToPdf(html, new PdfWriter(pdfStream), converterProperties);
         }
 
         /// <summary>
-        /// Converts a <code>String</code> containing HTML to PDF by writing PDF content
-        /// to a <code>PdfWriter</code> instance.
+        /// Converts a
+        /// <see cref="System.String"/>
+        /// containing HTML to PDF by writing PDF content
+        /// to a
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// instance.
         /// </summary>
-        /// <param name="html">the html in the form of a <code>String</code></param>
-        /// <param name="pdfWriter">the <code>PdfWriter</code> instance</param>
+        /// <param name="html">
+        /// the html in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <param name="pdfWriter">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// instance
+        /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(String html, PdfWriter pdfWriter) {
             ConvertToPdf(html, pdfWriter, null);
         }
 
         /// <summary>
-        /// Converts a <code>String</code> containing HTML to PDF by writing PDF content
-        /// to a <code>PdfWriter</code> instance, using specific <code>ConverterProperties</code>.
+        /// Converts a
+        /// <see cref="System.String"/>
+        /// containing HTML to PDF by writing PDF content
+        /// to a
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// instance, using specific
+        /// <see cref="ConverterProperties"/>
+        /// .
         /// </summary>
-        /// <param name="html">the html in the form of a <code>String</code></param>
-        /// <param name="pdfWriter">the <code>PdfWriter</code> instance</param>
-        /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
+        /// <param name="html">
+        /// the html in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <param name="pdfWriter">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// instance
+        /// </param>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
             Stream stream = new MemoryStream(html.GetBytes());
             ConvertToPdf(stream, pdfWriter, converterProperties);
         }
 
-        /// <summary>Converts HTML stored in a <code>File</code> to a PDF <code>File</code>.</summary>
-        /// <param name="htmlFile">the <code>File</code> containing the source HTML</param>
-        /// <param name="pdfFile">the <code>File</code> containing the resulting PDF</param>
+        /// <summary>
+        /// Converts HTML stored in a
+        /// <see cref="System.IO.FileInfo"/>
+        /// to a PDF
+        /// <see cref="System.IO.FileInfo"/>
+        /// .
+        /// </summary>
+        /// <param name="htmlFile">
+        /// the
+        /// <see cref="System.IO.FileInfo"/>
+        /// containing the source HTML
+        /// </param>
+        /// <param name="pdfFile">
+        /// the
+        /// <see cref="System.IO.FileInfo"/>
+        /// containing the resulting PDF
+        /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(FileInfo htmlFile, FileInfo pdfFile) {
             ConvertToPdf(htmlFile, pdfFile, null);
         }
 
         /// <summary>
-        /// Converts HTML stored in a <code>File</code> to a PDF <code>File</code>,
-        /// using specific <code>ConverterProperties</code>.
+        /// Converts HTML stored in a
+        /// <see cref="System.IO.FileInfo"/>
+        /// to a PDF
+        /// <see cref="System.IO.FileInfo"/>
+        /// ,
+        /// using specific
+        /// <see cref="ConverterProperties"/>
+        /// .
         /// </summary>
-        /// <param name="htmlFile">the <code>File</code> containing the source HTML</param>
-        /// <param name="pdfFile">the <code>File</code> containing the resulting PDF</param>
-        /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
+        /// <param name="htmlFile">
+        /// the
+        /// <see cref="System.IO.FileInfo"/>
+        /// containing the source HTML
+        /// </param>
+        /// <param name="pdfFile">
+        /// the
+        /// <see cref="System.IO.FileInfo"/>
+        /// containing the resulting PDF
+        /// </param>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(FileInfo htmlFile, FileInfo pdfFile, ConverterProperties converterProperties
             ) {
@@ -155,23 +251,51 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts HTML obtained from an <code>InputStream</code> to a PDF written to
-        /// an <code>OutputStream</code>.
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to a PDF written to
+        /// an
+        /// <see cref="System.IO.Stream"/>
+        /// .
         /// </summary>
-        /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
-        /// <param name="pdfStream">the <code>OutputStream</code> for the resulting PDF</param>
+        /// <param name="htmlStream">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// with the source HTML
+        /// </param>
+        /// <param name="pdfStream">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// for the resulting PDF
+        /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(Stream htmlStream, Stream pdfStream) {
             ConvertToPdf(htmlStream, pdfStream, null);
         }
 
         /// <summary>
-        /// Converts HTML obtained from an <code>InputStream</code> to a PDF written to
-        /// an <code>OutputStream</code>.
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to a PDF written to
+        /// an
+        /// <see cref="System.IO.Stream"/>
+        /// .
         /// </summary>
-        /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
-        /// <param name="pdfStream">the <code>OutputStream</code> for the resulting PDF</param>
-        /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
+        /// <param name="htmlStream">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// with the source HTML
+        /// </param>
+        /// <param name="pdfStream">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// for the resulting PDF
+        /// </param>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(Stream htmlStream, Stream pdfStream, ConverterProperties converterProperties
             ) {
@@ -179,35 +303,76 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts HTML obtained from an <code>InputStream</code> to objects that
-        /// will be added to a <code>PdfDocument</code>.
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to objects that
+        /// will be added to a
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// .
         /// </summary>
-        /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
-        /// <param name="pdfDocument">the <code>PdfDocument</code> instance</param>
+        /// <param name="htmlStream">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// with the source HTML
+        /// </param>
+        /// <param name="pdfDocument">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// instance
+        /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(Stream htmlStream, PdfDocument pdfDocument) {
             ConvertToPdf(htmlStream, pdfDocument, null);
         }
 
         /// <summary>
-        /// Converts HTML obtained from an <code>InputStream</code> to content that
-        /// will be written to a <code>PdfWriter</code>.
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to content that
+        /// will be written to a
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// .
         /// </summary>
-        /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
-        /// <param name="pdfWriter">the <code>PdfWriter</code> containing the resulting PDF</param>
+        /// <param name="htmlStream">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// with the source HTML
+        /// </param>
+        /// <param name="pdfWriter">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// containing the resulting PDF
+        /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter) {
             ConvertToPdf(htmlStream, new PdfDocument(pdfWriter));
         }
 
         /// <summary>
-        /// Converts HTML obtained from an <code>InputStream</code> to content that
-        /// will be written to a <code>PdfWriter</code>, using specific
-        /// <code>ConverterProperties</code>.
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to content that
+        /// will be written to a
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// , using specific
+        /// <see cref="ConverterProperties"/>
+        /// .
         /// </summary>
-        /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
-        /// <param name="pdfWriter">the <code>PdfWriter</code> containing the resulting PDF</param>
-        /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
+        /// <param name="htmlStream">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// with the source HTML
+        /// </param>
+        /// <param name="pdfWriter">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// containing the resulting PDF
+        /// </param>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
             ) {
@@ -215,12 +380,30 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts HTML obtained from an <code>InputStream</code> to objects that
-        /// will be added to a <code>PdfDocument</code>, using specific <code>ConverterProperties</code>.
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to objects that
+        /// will be added to a
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// , using specific
+        /// <see cref="ConverterProperties"/>
+        /// .
         /// </summary>
-        /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
-        /// <param name="pdfDocument">the <code>PdfDocument</code> instance</param>
-        /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
+        /// <param name="htmlStream">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// with the source HTML
+        /// </param>
+        /// <param name="pdfDocument">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// instance
+        /// </param>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(Stream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
@@ -229,26 +412,59 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts HTML obtained from an <code>InputStream</code> to content that
-        /// will be written to a <code>PdfWriter</code>, returning a <code>Document</code> instance.
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to content that
+        /// will be written to a
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// , returning a
+        /// <see cref="iText.Layout.Document"/>
+        /// instance.
         /// </summary>
-        /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
-        /// <param name="pdfWriter">the <code>PdfWriter</code> containing the resulting PDF</param>
-        /// <returns>a <code>Document</code> instance</returns>
+        /// <param name="htmlStream">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// with the source HTML
+        /// </param>
+        /// <param name="pdfWriter">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// containing the resulting PDF
+        /// </param>
+        /// <returns>
+        /// a
+        /// <see cref="iText.Layout.Document"/>
+        /// instance
+        /// </returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static Document ConvertToDocument(Stream htmlStream, PdfWriter pdfWriter) {
             return ConvertToDocument(htmlStream, pdfWriter, null);
         }
 
         /// <summary>
-        /// Converts HTML obtained from an <code>InputStream</code> to content that
-        /// will be written to a <code>PdfWriter</code>, using specific
-        /// <code>ConverterProperties</code>, returning a <code>Document</code> instance.
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to content that
+        /// will be written to a
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// , using specific
+        /// <see cref="ConverterProperties"/>
+        /// , returning a
+        /// <see cref="iText.Layout.Document"/>
+        /// instance.
         /// </summary>
         /// <param name="htmlStream">the html stream</param>
         /// <param name="pdfWriter">the pdf writer</param>
-        /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
-        /// <returns>a <code>Document</code> instance</returns>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
+        /// <returns>
+        /// a
+        /// <see cref="iText.Layout.Document"/>
+        /// instance
+        /// </returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static Document ConvertToDocument(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
             ) {
@@ -256,14 +472,38 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts HTML obtained from an <code>InputStream</code> to objects that
-        /// will be added to a <code>PdfDocument</code>, using specific <code>ConverterProperties</code>,
-        /// returning a <code>Document</code> instance.
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to objects that
+        /// will be added to a
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// , using specific
+        /// <see cref="ConverterProperties"/>
+        /// ,
+        /// returning a
+        /// <see cref="iText.Layout.Document"/>
+        /// instance.
         /// </summary>
-        /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
-        /// <param name="pdfDocument">the <code>PdfDocument</code> instance</param>
-        /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
-        /// <returns>a <code>Document</code> instance</returns>
+        /// <param name="htmlStream">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// with the source HTML
+        /// </param>
+        /// <param name="pdfDocument">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// instance
+        /// </param>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
+        /// <returns>
+        /// a
+        /// <see cref="iText.Layout.Document"/>
+        /// instance
+        /// </returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static Document ConvertToDocument(Stream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
@@ -341,10 +581,19 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts a <code>String</code> containing HTML to a <code>List</code> of
-        /// iText objects (<code>IElement</code> instances).
+        /// Converts a
+        /// <see cref="System.String"/>
+        /// containing HTML to a
+        /// <see cref="System.Collections.IList{E}"/>
+        /// of
+        /// iText objects (
+        /// <see cref="iText.Layout.Element.IElement"/>
+        /// instances).
         /// </summary>
-        /// <param name="html">the html in the form of a <code>String</code></param>
+        /// <param name="html">
+        /// the html in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
         /// <returns>a list of iText building blocks</returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static IList<IElement> ConvertToElements(String html) {
@@ -353,10 +602,20 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts HTML obtained from an <code>InputStream</code> to a <code>List</code> of
-        /// iText objects (<code>IElement</code> instances).
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to a
+        /// <see cref="System.Collections.IList{E}"/>
+        /// of
+        /// iText objects (
+        /// <see cref="iText.Layout.Element.IElement"/>
+        /// instances).
         /// </summary>
-        /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
+        /// <param name="htmlStream">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// with the source HTML
+        /// </param>
         /// <returns>a list of iText building blocks</returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static IList<IElement> ConvertToElements(Stream htmlStream) {
@@ -364,12 +623,26 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts a <code>String</code> containing HTML to a <code>List</code> of
-        /// iText objects (<code>IElement</code> instances), using specific
-        /// <code>ConverterProperties</code>.
+        /// Converts a
+        /// <see cref="System.String"/>
+        /// containing HTML to a
+        /// <see cref="System.Collections.IList{E}"/>
+        /// of
+        /// iText objects (
+        /// <see cref="iText.Layout.Element.IElement"/>
+        /// instances), using specific
+        /// <see cref="ConverterProperties"/>
+        /// .
         /// </summary>
-        /// <param name="html">the html in the form of a <code>String</code></param>
-        /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
+        /// <param name="html">
+        /// the html in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
         /// <returns>a list of iText building blocks</returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static IList<IElement> ConvertToElements(String html, ConverterProperties converterProperties) {
@@ -378,12 +651,27 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts HTML obtained from an <code>InputStream</code> to a <code>List</code> of
-        /// iText objects (<code>IElement</code> instances), using specific
-        /// <code>ConverterProperties</code>.
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to a
+        /// <see cref="System.Collections.IList{E}"/>
+        /// of
+        /// iText objects (
+        /// <see cref="iText.Layout.Element.IElement"/>
+        /// instances), using specific
+        /// <see cref="ConverterProperties"/>
+        /// .
         /// </summary>
-        /// <param name="htmlStream">the <code>InputStream</code> with the source HTML</param>
-        /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
+        /// <param name="htmlStream">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// with the source HTML
+        /// </param>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
         /// <returns>a list of iText building blocks</returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static IList<IElement> ConvertToElements(Stream htmlStream, ConverterProperties converterProperties
@@ -419,8 +707,15 @@ namespace iText.Html2pdf {
             return Attacher.Attach(doc, converterProperties);
         }
 
-        /// <summary>Detects encoding of a specific <code>InputStream</code>.</summary>
-        /// <param name="in">the <code>InputStream</code></param>
+        /// <summary>
+        /// Detects encoding of a specific
+        /// <see cref="System.IO.Stream"/>
+        /// .
+        /// </summary>
+        /// <param name="in">
+        /// the
+        /// <see cref="System.IO.Stream"/>
+        /// </param>
         /// <returns>the encoding; currently always returns "UTF-8".</returns>
         private static String DetectEncoding(Stream @in) {
             // TODO

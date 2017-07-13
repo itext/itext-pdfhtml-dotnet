@@ -51,7 +51,11 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>span</code> tag.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>span</c>
+    /// tag.
+    /// </summary>
     public class SpanTagWorker : ITagWorker, IDisplayAware {
         /// <summary>The span wrapper.</summary>
         internal SpanWrapper spanWrapper;
@@ -71,7 +75,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The display value.</summary>
         private String display;
 
-        /// <summary>Creates a new <code>SpanTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="SpanTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the processor context</param>
         public SpanTagWorker(IElementNode element, ProcessorContext context) {

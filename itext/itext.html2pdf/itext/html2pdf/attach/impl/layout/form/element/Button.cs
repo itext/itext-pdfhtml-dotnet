@@ -54,7 +54,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
     /// is used instead.
     /// </summary>
     public class Button : FormField<iText.Html2pdf.Attach.Impl.Layout.Form.Element.Button> {
-        /// <summary>Creates a new <code>Button</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="Button"/>
+        /// instance.
+        /// </summary>
         /// <param name="id">the id</param>
         public Button(String id)
             : base(id) {

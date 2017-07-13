@@ -59,7 +59,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <summary>The Constant DESCENDER_COEFFICIENT.</summary>
         private const double DESCENDER_COEFFICIENT = 0.2;
 
-        /// <summary>Creates a new <code>VerticalAlignmentApplierUtil</code>.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="VerticalAlignmentApplierUtil"/>
+        /// .
+        /// </summary>
         private VerticalAlignmentApplierUtil() {
         }
 
@@ -226,8 +230,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <summary>Gets the actual value of the line height.</summary>
         /// <param name="fontSize">the font size</param>
         /// <param name="rootFontSize">the root font size</param>
-        /// <param name="lineHeightStr">the line height as a <code>String</code></param>
-        /// <returns>the actual line height as a <code>float</code></returns>
+        /// <param name="lineHeightStr">
+        /// the line height as a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <returns>
+        /// the actual line height as a
+        /// <c>float</c>
+        /// </returns>
         private static float GetLineHeightActualValue(float fontSize, float rootFontSize, String lineHeightStr) {
             float lineHeightActualValue;
             if (lineHeightStr != null) {

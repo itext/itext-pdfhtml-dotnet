@@ -51,7 +51,11 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>td</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>td</c>
+    /// element.
+    /// </summary>
     public class TdTagWorker : ITagWorker, IDisplayAware {
         /// <summary>The cell.</summary>
         private Cell cell;
@@ -62,7 +66,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The display.</summary>
         private String display;
 
-        /// <summary>Creates a new <code>TdTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="TdTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public TdTagWorker(IElementNode element, ProcessorContext context) {

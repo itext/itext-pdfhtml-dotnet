@@ -75,7 +75,11 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>The list of fonts.</summary>
         private IList<CssFontFaceRule> fonts = new List<CssFontFaceRule>();
 
-        /// <summary>Creates a new <code>DefaultCssResolver</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="DefaultCssResolver"/>
+        /// instance.
+        /// </summary>
         /// <param name="treeRoot">the root node</param>
         /// <param name="mediaDeviceDescription">the media device description</param>
         /// <param name="resourceResolver">the resource resolver</param>
@@ -86,7 +90,11 @@ namespace iText.Html2pdf.Css.Resolve {
             CollectFonts();
         }
 
-        /// <summary>Creates a new <code>DefaultCssResolver</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="DefaultCssResolver"/>
+        /// instance.
+        /// </summary>
         /// <param name="treeRoot">the root node</param>
         /// <param name="context">the processor context</param>
         public DefaultCssResolver(INode treeRoot, ProcessorContext context) {
@@ -200,7 +208,9 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>
         /// Converts a list of
         /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
-        /// instances to a map consisting of <code>String</code> key-value pairs.
+        /// instances to a map consisting of
+        /// <see cref="System.String"/>
+        /// key-value pairs.
         /// </summary>
         /// <param name="nodeCssDeclarations">the node css declarations</param>
         /// <returns>the map</returns>

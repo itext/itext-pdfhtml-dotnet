@@ -45,7 +45,11 @@ using System;
 namespace iText.Html2pdf.Html {
     /// <summary>Class that bundles a series of attribute constants.</summary>
     public sealed class AttributeConstants {
-        /// <summary>Creates a new <code>AttributeConstants</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="AttributeConstants"/>
+        /// instance.
+        /// </summary>
         private AttributeConstants() {
         }
 

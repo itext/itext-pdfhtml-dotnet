@@ -53,7 +53,11 @@ using iText.Layout.Properties;
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply backgrounds.</summary>
     public sealed class BackgroundApplierUtil {
-        /// <summary>Creates a new <code>BackgroundApplierUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="BackgroundApplierUtil"/>
+        /// instance.
+        /// </summary>
         private BackgroundApplierUtil() {
         }
 

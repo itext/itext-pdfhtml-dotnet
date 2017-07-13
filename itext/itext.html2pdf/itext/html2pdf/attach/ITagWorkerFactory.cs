@@ -50,11 +50,13 @@ namespace iText.Html2pdf.Attach {
     /// objects.
     /// </summary>
     public interface ITagWorkerFactory {
-        /// <summary>
-        /// Returns a
+        /// <param name="tag">IElementNode</param>
+        /// <param name="context">ProcessorContext</param>
+        /// <returns>
+        /// a
         /// <see cref="ITagWorker"/>
         /// instance constructed based on the passed parameters.
-        /// </summary>
+        /// </returns>
         ITagWorker GetTagWorker(IElementNode tag, ProcessorContext context);
     }
 }

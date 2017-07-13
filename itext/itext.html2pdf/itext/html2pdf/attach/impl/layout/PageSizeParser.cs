@@ -175,7 +175,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return CssUtils.IsMetricValue(pageSizeChunk) || CssUtils.IsRelativeValue(pageSizeChunk);
         }
 
-        /// <summary>Checks if a string represents thae CSS value for landscape or portrait orientation.</summary>
+        /// <summary>Checks if a string represents the CSS value for landscape or portrait orientation.</summary>
         /// <param name="pageSizeChunk">the string that possibly represents a landscape or portrait value</param>
         /// <returns>true, if the string represents a landscape or portrait value</returns>
         private static bool IsLandscapePortraitValue(String pageSizeChunk) {

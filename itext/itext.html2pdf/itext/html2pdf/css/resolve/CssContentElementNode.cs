@@ -55,7 +55,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>The tag name</summary>
         private String tagName;
 
-        /// <summary>Creates a new <code>CssContentElementNode</code> instance.</summary>
+        /// <summary>Creates a new <see cref="CssContentElementNode"/> instance.</summary>
         /// <param name="parentNode">the parent node</param>
         /// <param name="pseudoElementName">the pseudo element name</param>
         /// <param name="attributes">the attributes</param>
@@ -100,7 +100,7 @@ namespace iText.Html2pdf.Css.Resolve {
             /// <summary>The attributes.</summary>
             private IDictionary<String, String> attributes;
 
-            /// <summary>Creates a new <code>Attributes</code> instance.</summary>
+            /// <summary>Creates a new <see cref="Attributes"/> instance.</summary>
             /// <param name="attributes">the attributes</param>
             public Attributes(IDictionary<String, String> attributes) {
                 this.attributes = attributes;
@@ -137,7 +137,7 @@ namespace iText.Html2pdf.Css.Resolve {
             /// <summary>The entry.</summary>
             private KeyValuePair<String, String> entry;
 
-            /// <summary>Creates a new <code>Attribute</code> instance.</summary>
+            /// <summary>Creates a new <see cref="Attribute"/> instance.</summary>
             /// <param name="entry">the entry</param>
             public Attribute(KeyValuePair<String, String> entry) {
                 this.entry = entry;
@@ -159,7 +159,7 @@ namespace iText.Html2pdf.Css.Resolve {
             /// <summary>The iterator.</summary>
             private IEnumerator<KeyValuePair<String, String>> iterator;
 
-            /// <summary>Creates a new <code>AttributeIterator</code> instance.</summary>
+            /// <summary>Creates a new <see cref="AttributeIterator"/> instance.</summary>
             /// <param name="iterator">the iterator</param>
             public AttributeIterator(IEnumerator<KeyValuePair<String, String>> iterator) {
                 this.iterator = iterator;

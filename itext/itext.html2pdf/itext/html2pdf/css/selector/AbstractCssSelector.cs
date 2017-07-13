@@ -53,7 +53,11 @@ namespace iText.Html2pdf.Css.Selector {
         /// <summary>The selector items.</summary>
         protected internal IList<ICssSelectorItem> selectorItems;
 
-        /// <summary>Creates a new <code>AbstractCssSelector</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="AbstractCssSelector"/>
+        /// instance.
+        /// </summary>
         /// <param name="selectorItems">the selector items</param>
         public AbstractCssSelector(IList<ICssSelectorItem> selectorItems) {
             this.selectorItems = selectorItems;

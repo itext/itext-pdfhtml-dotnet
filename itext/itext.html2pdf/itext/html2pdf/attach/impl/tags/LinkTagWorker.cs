@@ -46,9 +46,17 @@ using iText.Html2pdf.Html.Node;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>link</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>link</c>
+    /// element.
+    /// </summary>
     public class LinkTagWorker : ITagWorker {
-        /// <summary>Creates a new <code>LinkTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="LinkTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public LinkTagWorker(IElementNode element, ProcessorContext context) {

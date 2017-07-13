@@ -44,8 +44,11 @@ using System;
 using System.Collections.Generic;
 
 namespace iText.Html2pdf.Css.Media {
-    /// <summary>Class that bundles all the media types and allows you to registered valid media types in a <code>Set</code>.
-    ///     </summary>
+    /// <summary>
+    /// Class that bundles all the media types and allows you to registered valid media types in a
+    /// <see cref="Java.Util.Set{E}"/>
+    /// .
+    /// </summary>
     public sealed class MediaType {
         /// <summary>The Constant registeredMediaTypes.</summary>
         private static readonly ICollection<String> registeredMediaTypes = new HashSet<String>();
@@ -83,7 +86,11 @@ namespace iText.Html2pdf.Css.Media {
         /// <summary>The Constant TV.</summary>
         public static readonly String TV = RegisterMediaType("tv");
 
-        /// <summary>Creates a new <code>MediaType</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="MediaType"/>
+        /// instance.
+        /// </summary>
         private MediaType() {
         }
 

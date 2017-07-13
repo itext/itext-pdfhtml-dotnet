@@ -54,7 +54,11 @@ namespace iText.Html2pdf.Css.Util {
         private static readonly String[] RELATIVE_MEASUREMENTS = new String[] { CssConstants.PERCENTAGE, CssConstants
             .EM, CssConstants.EX, CssConstants.REM };
 
-        /// <summary>Creates a new <code>CssUtils</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssUtils"/>
+        /// instance.
+        /// </summary>
         private CssUtils() {
         }
 
@@ -198,10 +202,12 @@ namespace iText.Html2pdf.Css.Util {
             return ParseAbsoluteLength(length, CssConstants.PX);
         }
 
-        /// <summary>Parses an relative value based on the base value that was given, in the metric unit of the base value.
-        ///     </summary>
+        /// <summary>
+        /// Parses an relative value based on the base value that was given, in the metric unit of the base value.<br />
+        /// (e.g.
+        /// </summary>
         /// <remarks>
-        /// Parses an relative value based on the base value that was given, in the metric unit of the base value. <br />
+        /// Parses an relative value based on the base value that was given, in the metric unit of the base value.<br />
         /// (e.g. margin=10% should be based on the page width, so if an A4 is used, the margin = 0.10*595.0 = 59.5f)
         /// </remarks>
         /// <param name="relativeValue">in %, em or ex.</param>
@@ -373,7 +379,13 @@ namespace iText.Html2pdf.Css.Util {
                 ("^-?\\.\\d\\d*$"));
         }
 
-        /// <summary>Parses <code>url("file.jpg")</code> to <code>file.jpg</code>.</summary>
+        /// <summary>
+        /// Parses
+        /// <c>url("file.jpg")</c>
+        /// to
+        /// <c>file.jpg</c>
+        /// .
+        /// </summary>
         /// <param name="url">the url attribute to parse</param>
         /// <returns>the parsed url. Or original url if not wrappend in url()</returns>
         public static String ExtractUrl(String url) {

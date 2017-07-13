@@ -58,7 +58,11 @@ namespace iText.Html2pdf.Css.Media {
         /// <summary>The expressions.</summary>
         private IList<MediaExpression> expressions;
 
-        /// <summary>Creates a new <code>MediaQuery</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="MediaQuery"/>
+        /// instance.
+        /// </summary>
         /// <param name="type">the type</param>
         /// <param name="expressions">the expressions</param>
         /// <param name="only">logical "only" value</param>

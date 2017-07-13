@@ -63,7 +63,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <summary>Indicates of the content was split.</summary>
         private bool isSplit = false;
 
-        /// <summary>Creates a new <code>ButtonRenderer</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="ButtonRenderer"/>
+        /// instance.
+        /// </summary>
         /// <param name="modelElement">the model element</param>
         public ButtonRenderer(Button modelElement)
             : base(modelElement) {

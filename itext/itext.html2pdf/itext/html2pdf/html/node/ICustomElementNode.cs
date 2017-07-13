@@ -43,7 +43,8 @@ address: sales@itextpdf.com
 namespace iText.Html2pdf.Html.Node {
     /// <summary>
     /// Interface that serves as a marker indicating that this particular
-    /// <code>IElementNode</code> is something non-standard.
+    /// <see cref="IElementNode"/>
+    /// is something non-standard.
     /// </summary>
     public interface ICustomElementNode : IElementNode {
     }

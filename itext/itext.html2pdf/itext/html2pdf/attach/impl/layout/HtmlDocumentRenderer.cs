@@ -101,8 +101,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary>The estimated number of pages.</summary>
         private int estimatedNumberOfPages;
 
-        /// <summary>Instantiates a new <code>HtmlDocumentRenderer</code> instance.</summary>
-        /// <param name="document">an iText <code>Document</code> instance</param>
+        /// <summary>
+        /// Instantiates a new
+        /// <see cref="HtmlDocumentRenderer"/>
+        /// instance.
+        /// </summary>
+        /// <param name="document">
+        /// an iText
+        /// <see cref="iText.Layout.Document"/>
+        /// instance
+        /// </param>
         /// <param name="immediateFlush">the immediate flush indicator</param>
         public HtmlDocumentRenderer(Document document, bool immediateFlush)
             : base(document, immediateFlush) {

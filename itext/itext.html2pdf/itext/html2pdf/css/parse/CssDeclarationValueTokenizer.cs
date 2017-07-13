@@ -61,7 +61,11 @@ namespace iText.Html2pdf.Css.Parse {
         /// <summary>The depth.</summary>
         private int functionDepth = 0;
 
-        /// <summary>Creates a new <code>CssDeclarationValueTokenizer</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssDeclarationValueTokenizer"/>
+        /// instance.
+        /// </summary>
         /// <param name="propertyValue">the property value</param>
         public CssDeclarationValueTokenizer(String propertyValue) {
             this.src = propertyValue;
@@ -231,7 +235,11 @@ namespace iText.Html2pdf.Css.Parse {
             /// <summary>The type.</summary>
             private CssDeclarationValueTokenizer.TokenType type;
 
-            /// <summary>Creates a new <code>Token</code> instance.</summary>
+            /// <summary>
+            /// Creates a new
+            /// <see cref="Token"/>
+            /// instance.
+            /// </summary>
             /// <param name="value">the value</param>
             /// <param name="type">the type</param>
             public Token(String value, CssDeclarationValueTokenizer.TokenType type) {

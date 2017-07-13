@@ -54,7 +54,11 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>html</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>html</c>
+    /// element.
+    /// </summary>
     public class HtmlTagWorker : ITagWorker {
         /// <summary>The iText document instance.</summary>
         private Document document;
@@ -62,7 +66,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>Helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
-        /// <summary>Creates a new <code>HtmlTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="HtmlTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public HtmlTagWorker(IElementNode element, ProcessorContext context) {

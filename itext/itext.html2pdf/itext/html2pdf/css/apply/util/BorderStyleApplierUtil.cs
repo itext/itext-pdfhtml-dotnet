@@ -59,7 +59,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static readonly ILogger LOGGER = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.BorderStyleApplierUtil
             ));
 
-        /// <summary>Creates a new <code>BorderStyleApplierUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="BorderStyleApplierUtil"/>
+        /// instance.
+        /// </summary>
         private BorderStyleApplierUtil() {
         }
 

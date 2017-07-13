@@ -54,7 +54,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The column.</summary>
         private ColWrapper col;
 
-        /// <summary>Creates a new <code>ColTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="ColTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public ColTagWorker(IElementNode element, ProcessorContext context) {

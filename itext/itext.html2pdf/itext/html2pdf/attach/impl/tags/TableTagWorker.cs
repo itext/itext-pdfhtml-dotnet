@@ -50,7 +50,11 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>table</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>table</c>
+    /// element.
+    /// </summary>
     public class TableTagWorker : ITagWorker, IDisplayAware {
         /// <summary>The table wrapper.</summary>
         private TableWrapper tableWrapper;
@@ -73,7 +77,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The display value.</summary>
         private String display;
 
-        /// <summary>Creates a new <code>TableTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="TableTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public TableTagWorker(IElementNode element, ProcessorContext context) {

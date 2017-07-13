@@ -50,7 +50,11 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>img</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>img</c>
+    /// element.
+    /// </summary>
     public class ImgTagWorker : ITagWorker {
         /// <summary>The image.</summary>
         private ImgTagWorker.HtmlImage image;
@@ -58,7 +62,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The display value.</summary>
         private String display;
 
-        /// <summary>Creates a new <code>ImgTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="ImgTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public ImgTagWorker(IElementNode element, ProcessorContext context) {
@@ -121,7 +129,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             /// </summary>
             private double pxToPt = 0.75;
 
-            /// <summary>* Creates a new <code>HtmlImage</code> instance.</summary>
+            /// <summary>
+            /// * Creates a new
+            /// <see cref="HtmlImage"/>
+            /// instance.
+            /// </summary>
             /// <param name="xObject">an Image XObject</param>
             public HtmlImage(ImgTagWorker _enclosing, PdfImageXObject xObject)
                 : base(xObject) {

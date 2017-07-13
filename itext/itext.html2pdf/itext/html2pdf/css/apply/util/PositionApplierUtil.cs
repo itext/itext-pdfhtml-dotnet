@@ -58,7 +58,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.PositionApplierUtil
             ));
 
-        /// <summary>Creates a new <code>PositionApplierUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="PositionApplierUtil"/>
+        /// instance.
+        /// </summary>
         private PositionApplierUtil() {
         }
 

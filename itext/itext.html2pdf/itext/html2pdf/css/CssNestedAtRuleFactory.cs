@@ -45,15 +45,31 @@ using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Page;
 
 namespace iText.Html2pdf.Css {
-    /// <summary>A factory for creating <code>CssNestedAtRule</code> objects.</summary>
+    /// <summary>
+    /// A factory for creating
+    /// <see cref="CssNestedAtRule"/>
+    /// objects.
+    /// </summary>
     public sealed class CssNestedAtRuleFactory {
-        /// <summary>Creates a new <code>CssNestedAtRuleFactory</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssNestedAtRuleFactory"/>
+        /// instance.
+        /// </summary>
         private CssNestedAtRuleFactory() {
         }
 
-        /// <summary>Creates a new <code>CssNestedAtRule</code> object.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssNestedAtRule"/>
+        /// object.
+        /// </summary>
         /// <param name="ruleDeclaration">the rule declaration</param>
-        /// <returns>a <code>CssNestedAtRule</code> instance</returns>
+        /// <returns>
+        /// a
+        /// <see cref="CssNestedAtRule"/>
+        /// instance
+        /// </returns>
         public static CssNestedAtRule CreateNestedRule(String ruleDeclaration) {
             ruleDeclaration = ruleDeclaration.Trim();
             String ruleName = ExtractRuleNameFromDeclaration(ruleDeclaration);

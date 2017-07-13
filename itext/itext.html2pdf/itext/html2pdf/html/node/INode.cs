@@ -46,7 +46,11 @@ namespace iText.Html2pdf.Html.Node {
     /// <summary>Interface for classes that describe a Node with a parent and children.</summary>
     public interface INode {
         /// <summary>Gets the child nodes.</summary>
-        /// <returns>a list of <code>INode</code> instances.</returns>
+        /// <returns>
+        /// a list of
+        /// <see cref="INode"/>
+        /// instances.
+        /// </returns>
         IList<INode> ChildNodes();
 
         /// <summary>Adds a child node.</summary>

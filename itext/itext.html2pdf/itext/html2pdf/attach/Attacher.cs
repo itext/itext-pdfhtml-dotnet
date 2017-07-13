@@ -54,19 +54,37 @@ namespace iText.Html2pdf.Attach {
     /// or to parse HTML to a list of iText elements.
     /// </summary>
     public class Attacher {
-        /// <summary>Instantiates a new <code>Attacher</code> instance.</summary>
+        /// <summary>
+        /// Instantiates a new
+        /// <see cref="Attacher"/>
+        /// instance.
+        /// </summary>
         private Attacher() {
         }
 
         /// <summary>
         /// Attaches the HTML content stored in a document node to
         /// an existing PDF document, using specific converter properties,
-        /// and returning an iText <code>Document</code> object.
+        /// and returning an iText
+        /// <see cref="iText.Layout.Document"/>
+        /// object.
         /// </summary>
         /// <param name="documentNode">the document node with the HTML</param>
-        /// <param name="pdfDocument">the <code>PdfDocument</code> instance</param>
-        /// <param name="converterProperties">the <code>ConverterProperties</code> instance</param>
-        /// <returns>an iText <code>Document</code> object</returns>
+        /// <param name="pdfDocument">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// instance
+        /// </param>
+        /// <param name="converterProperties">
+        /// the
+        /// <see cref="iText.Html2pdf.ConverterProperties"/>
+        /// instance
+        /// </param>
+        /// <returns>
+        /// an iText
+        /// <see cref="iText.Layout.Document"/>
+        /// object
+        /// </returns>
         public static Document Attach(IDocumentNode documentNode, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
             IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);
@@ -75,11 +93,21 @@ namespace iText.Html2pdf.Attach {
 
         /// <summary>
         /// Attaches the HTML content stored in a document node to
-        /// a list of <code>IElement</code> objects.
+        /// a list of
+        /// <see cref="iText.Layout.Element.IElement"/>
+        /// objects.
         /// </summary>
         /// <param name="documentNode">the document node with the HTML</param>
-        /// <param name="converterProperties">the <code>ConverterProperties</code> instance</param>
-        /// <returns>the list of <code>IElement</code> objects</returns>
+        /// <param name="converterProperties">
+        /// the
+        /// <see cref="iText.Html2pdf.ConverterProperties"/>
+        /// instance
+        /// </param>
+        /// <returns>
+        /// the list of
+        /// <see cref="iText.Layout.Element.IElement"/>
+        /// objects
+        /// </returns>
         public static IList<IElement> Attach(IDocumentNode documentNode, ConverterProperties converterProperties) {
             IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);
             return processor.ProcessElements(documentNode);

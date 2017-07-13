@@ -46,7 +46,11 @@ using iText.IO.Util;
 namespace iText.Html2pdf.Exceptions {
     /// <summary>Runtime exception that gets thrown if a tag worker can't be initialized.</summary>
     public class TagWorkerInitializationException : Exception {
-        /// <summary>Creates a <code>TagWorkerInitializationException</code> instance.</summary>
+        /// <summary>
+        /// Creates a
+        /// <see cref="TagWorkerInitializationException"/>
+        /// instance.
+        /// </summary>
         /// <param name="message">the message</param>
         /// <param name="classNames">the class names</param>
         /// <param name="tag">the tag</param>
@@ -54,7 +58,11 @@ namespace iText.Html2pdf.Exceptions {
             : base(MessageFormatUtil.Format(message, classNames, tag)) {
         }
 
-        /// <summary>Creates a <code>TagWorkerInitializationException</code> instance.</summary>
+        /// <summary>
+        /// Creates a
+        /// <see cref="TagWorkerInitializationException"/>
+        /// instance.
+        /// </summary>
         /// <param name="message">the message</param>
         /// <param name="classNames">the class names</param>
         /// <param name="tag">the tag</param>

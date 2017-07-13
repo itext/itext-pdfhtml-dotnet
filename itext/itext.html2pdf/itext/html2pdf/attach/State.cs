@@ -47,13 +47,19 @@ namespace iText.Html2pdf.Attach {
     /// <remarks>
     /// State machine to push, pop, peek,...
     /// <see cref="ITagWorker"/>
-    /// instances to and from the <code>Stack</code>.
+    /// instances to and from the
+    /// <see cref="System.Collections.Stack{E}"/>
+    /// .
     /// </remarks>
     public class State {
         /// <summary>The stack.</summary>
         private Stack<ITagWorker> stack;
 
-        /// <summary>Instantiates a new <code>State</code> instance.</summary>
+        /// <summary>
+        /// Instantiates a new
+        /// <see cref="State"/>
+        /// instance.
+        /// </summary>
         public State() {
             stack = new Stack<ITagWorker>();
         }

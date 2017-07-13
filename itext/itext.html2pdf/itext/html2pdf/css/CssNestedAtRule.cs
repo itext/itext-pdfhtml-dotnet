@@ -61,7 +61,9 @@ namespace iText.Html2pdf.Css {
         protected internal IList<CssStatement> body;
 
         /// <summary>
-        /// Creates a <code>CssNestedAtRule</code> instance
+        /// Creates a
+        /// <see cref="CssNestedAtRule"/>
+        /// instance
         /// with an empty body.
         /// </summary>
         /// <param name="ruleName">the rule name</param>

@@ -45,7 +45,11 @@ using System;
 namespace iText.Html2pdf.Exceptions {
     /// <summary>Runtime exception that gets thrown if something goes wrong in the HTML to PDF conversion.</summary>
     public class Html2PdfException : Exception {
-        /// <summary>Creates a new <code>Html2PdfException</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="Html2PdfException"/>
+        /// instance.
+        /// </summary>
         /// <param name="message">the message</param>
         public Html2PdfException(String message)
             : base(message) {

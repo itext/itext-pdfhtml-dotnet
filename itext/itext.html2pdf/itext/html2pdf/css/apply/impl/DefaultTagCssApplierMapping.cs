@@ -50,7 +50,11 @@ using iText.Html2pdf.Util;
 namespace iText.Html2pdf.Css.Apply.Impl {
     /// <summary>Class that contains the default mapping between CSS keys and CSS appliers.</summary>
     internal class DefaultTagCssApplierMapping {
-        /// <summary>Creates a new <code>DefaultTagCssApplierMapping</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="DefaultTagCssApplierMapping"/>
+        /// instance.
+        /// </summary>
         private DefaultTagCssApplierMapping() {
         }
 

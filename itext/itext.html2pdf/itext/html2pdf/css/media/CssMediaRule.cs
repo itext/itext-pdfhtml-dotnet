@@ -55,7 +55,11 @@ namespace iText.Html2pdf.Css.Media {
         /// <summary>The media queries.</summary>
         private IList<MediaQuery> mediaQueries;
 
-        /// <summary>Creates a <code>CssMediaRule</code>.</summary>
+        /// <summary>
+        /// Creates a
+        /// <see cref="CssMediaRule"/>
+        /// .
+        /// </summary>
         /// <param name="ruleParameters">the rule parameters</param>
         public CssMediaRule(String ruleParameters)
             : base(CssRuleName.MEDIA, ruleParameters) {

@@ -116,7 +116,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>Interface for all the attribute converter classes.</summary>
         private interface IAttributeConverter {
-            /// <summary>Checks if the converter is supported for a specifc element.</summary>
+            /// <summary>Checks if the converter is supported for a specific element.</summary>
             /// <param name="elementName">the element name</param>
             /// <returns>true, if the converter is supported</returns>
             bool IsSupportedForElement(String elementName);
@@ -137,7 +137,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <IAttributeConverter/>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for HTML border styles.
         /// </summary>
         private class BorderAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
@@ -189,7 +189,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <IAttributeConverter/>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for HTML background color styles.
         /// </summary>
         private class BgColorAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
@@ -214,7 +214,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <IAttributeConverter/>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for font color styles.
         /// </summary>
         private class FontColorAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
@@ -234,7 +234,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <IAttributeConverter/>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for size properties.
         /// </summary>
         private class SizeAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
@@ -309,7 +309,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <IAttributeConverter/>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for HTML font face styles.
         /// </summary>
         private class FontFaceAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
@@ -329,7 +329,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <IAttributeConverter/>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for HTML ordered list types.
         /// </summary>
         private class TypeAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
@@ -377,7 +377,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <IAttributeConverter/>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for HTML direction styles (e.g. right to left direction).
         /// </summary>
         private class DirAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
@@ -397,7 +397,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <IAttributeConverter/>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for HTML width values.
         /// </summary>
         private class WidthAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
@@ -423,7 +423,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <IAttributeConverter/>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for HTML height values.
         /// </summary>
         private class HeightAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
@@ -447,7 +447,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <IAttributeConverter/>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for HTML horizontal alignment styles.
         /// </summary>
         private class AlignAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
@@ -515,7 +515,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <IAttributeConverter/>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for HTML shade styles.
         /// </summary>
         private class NoShadeAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
@@ -536,7 +536,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <IAttributeConverter/>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for HTML vertical alignment styles.
         /// </summary>
         private class VAlignAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {

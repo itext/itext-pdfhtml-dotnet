@@ -73,7 +73,11 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         private IDictionary<INode, IDictionary<String, int?>> counters = new Dictionary<INode, IDictionary<String, 
             int?>>();
 
-        /// <summary>Creates a new <code>CssCounterManager</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssCounterManager"/>
+        /// instance.
+        /// </summary>
         public CssCounterManager() {
         }
 
@@ -81,7 +85,10 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// <param name="counterName">the counter name</param>
         /// <param name="listSymbolType">the list symbol type</param>
         /// <param name="scope">the scope</param>
-        /// <returns>the counter value as a <code>String</code></returns>
+        /// <returns>
+        /// the counter value as a
+        /// <see cref="System.String"/>
+        /// </returns>
         public virtual String ResolveCounter(String counterName, String listSymbolType, INode scope) {
             IDictionary<String, int?> scopeCounters = FindSuitableScopeMap(scope, counterName);
             int? counterValue = scopeCounters != null ? scopeCounters.Get(counterName) : null;
@@ -167,7 +174,10 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// <param name="counterSeparatorStr">the counter separator</param>
         /// <param name="listSymbolType">the list symbol type</param>
         /// <param name="scope">the scope</param>
-        /// <returns>the counters as a <code>String</code></returns>
+        /// <returns>
+        /// the counters as a
+        /// <see cref="System.String"/>
+        /// </returns>
         public virtual String ResolveCounters(String counterName, String counterSeparatorStr, String listSymbolType
             , INode scope) {
             INode currentScope = scope;

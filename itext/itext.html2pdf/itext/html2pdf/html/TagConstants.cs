@@ -45,7 +45,11 @@ using System;
 namespace iText.Html2pdf.Html {
     /// <summary>Class that bundles a series of tag constants.</summary>
     public sealed class TagConstants {
-        /// <summary>Creates a new <code>TagConstants</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="TagConstants"/>
+        /// instance.
+        /// </summary>
         private TagConstants() {
         }
 

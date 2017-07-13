@@ -45,7 +45,11 @@ using System;
 namespace iText.Html2pdf.Css {
     /// <summary>Class containing possible CSS rule names.</summary>
     public sealed class CssRuleName {
-        /// <summary>Creates a new <code>CssRuleName</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssRuleName"/>
+        /// instance.
+        /// </summary>
         private CssRuleName() {
         }
 

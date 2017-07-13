@@ -54,7 +54,11 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>input</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>input</c>
+    /// element.
+    /// </summary>
     public class InputTagWorker : ITagWorker, IDisplayAware {
         /// <summary>The form element.</summary>
         private IElement formElement;
@@ -62,7 +66,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The display.</summary>
         private String display;
 
-        /// <summary>Creates a new <code>InputTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="InputTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public InputTagWorker(IElementNode element, ProcessorContext context) {

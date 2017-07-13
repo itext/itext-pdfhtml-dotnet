@@ -47,14 +47,22 @@ using iText.Html2pdf.Html.Node;
 namespace iText.Html2pdf.Html {
     /// <summary>Interface for the HTML parsing operations that accept HTML and return a document node.</summary>
     public interface IHtmlParser {
-        /// <summary>Parses HTML provided as an <code>InputStream</code> and an encoding.</summary>
+        /// <summary>
+        /// Parses HTML provided as an
+        /// <c>InputStream</c>
+        /// and an encoding.
+        /// </summary>
         /// <param name="htmlStream">the html stream</param>
         /// <param name="charset">the character set</param>
         /// <returns>a document node</returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         IDocumentNode Parse(Stream htmlStream, String charset);
 
-        /// <summary>Parses HTML provided as a <code>String</code>.</summary>
+        /// <summary>
+        /// Parses HTML provided as a
+        /// <c>String</c>
+        /// .
+        /// </summary>
         /// <param name="html">the html string</param>
         /// <returns>a document node</returns>
         IDocumentNode Parse(String html);

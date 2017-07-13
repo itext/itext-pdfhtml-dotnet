@@ -41,7 +41,6 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.IO.Log;
 using iText.Kernel.Geom;
@@ -63,7 +62,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected internal IRenderer flatRenderer;
 
         /// <summary>
-        ///  Creates a new <code>AbstractFormFieldRenderer</code> instance.
+        ///  Creates a new <see cref="AbstractFormFieldRenderer"/> instance.
         /// </summary>
         /// <param name="modelElement">the model element</param>
         protected internal AbstractFormFieldRenderer(IFormField modelElement)

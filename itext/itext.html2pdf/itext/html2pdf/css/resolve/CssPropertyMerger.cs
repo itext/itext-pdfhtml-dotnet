@@ -49,7 +49,11 @@ using iText.IO.Util;
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>Utilities class to merge CSS properties.</summary>
     public sealed class CssPropertyMerger {
-        /// <summary>Creates a new <code>CssPropertyMerger</code> class.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssPropertyMerger"/>
+        /// class.
+        /// </summary>
         private CssPropertyMerger() {
         }
 

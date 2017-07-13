@@ -50,7 +50,11 @@ using iText.Html2pdf.Html.Node;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>textarea</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>textarea</c>
+    /// element.
+    /// </summary>
     public class TextAreaTagWorker : ITagWorker {
         /// <summary>The Constant DEFAULT_TEXTAREA_NAME.</summary>
         private const String DEFAULT_TEXTAREA_NAME = "TextArea";
@@ -58,7 +62,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The text area.</summary>
         private TextArea textArea;
 
-        /// <summary>Creates a new <code>TextAreaTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="TextAreaTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public TextAreaTagWorker(IElementNode element, ProcessorContext context) {

@@ -53,7 +53,11 @@ using iText.Layout.Properties;
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply page breaks.</summary>
     public class PageBreakApplierUtil {
-        /// <summary>Creates a new <code>PageBreakApplierUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="PageBreakApplierUtil"/>
+        /// instance.
+        /// </summary>
         private PageBreakApplierUtil() {
         }
 
@@ -167,7 +171,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         /// <summary>
         /// A
-        /// <see cref="TagWorker"/>
+        /// <c>TagWorker</c>
         /// class for HTML page breaks.
         /// </summary>
         private class HtmlPageBreakWorker : ITagWorker {

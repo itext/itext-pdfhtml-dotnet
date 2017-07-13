@@ -80,7 +80,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        /// <summary>Creates a new <code>ListStyleApplierUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="ListStyleApplierUtil"/>
+        /// instance.
+        /// </summary>
         private ListStyleApplierUtil() {
         }
 
@@ -282,14 +286,18 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         /// <summary>
         /// A factory for creating
-        /// <see cref="HtmlAlphabetSymbol"/>
+        /// <c>HtmlAlphabetSymbol</c>
         /// objects.
         /// </summary>
         private class HtmlAlphabetSymbolFactory : IListSymbolFactory {
             /// <summary>The alphabet.</summary>
             private readonly char[] alphabet;
 
-            /// <summary>Creates a new <code>HtmlAlphabetSymbolFactory</code> instance.</summary>
+            /// <summary>
+            /// Creates a new
+            /// <see cref="HtmlAlphabetSymbolFactory"/>
+            /// instance.
+            /// </summary>
             /// <param name="alphabet">the alphabet</param>
             public HtmlAlphabetSymbolFactory(char[] alphabet) {
                 this.alphabet = alphabet;

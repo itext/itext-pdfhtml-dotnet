@@ -45,12 +45,20 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>pre</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>pre</c>
+    /// element.
+    /// </summary>
     public class PreTagWorker : DivTagWorker {
         /// <summary>Keeps track to see if any content was processed.</summary>
         private bool anyContentProcessed = false;
 
-        /// <summary>Creates a new <code>PreTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="PreTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public PreTagWorker(IElementNode element, ProcessorContext context)

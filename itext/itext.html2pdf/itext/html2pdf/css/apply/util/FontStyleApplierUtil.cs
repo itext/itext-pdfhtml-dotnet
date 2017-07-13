@@ -60,7 +60,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.FontStyleApplierUtil
             ));
 
-        /// <summary>Creates a <code>FontStyleApplierUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a
+        /// <see cref="FontStyleApplierUtil"/>
+        /// instance.
+        /// </summary>
         private FontStyleApplierUtil() {
         }
 
@@ -228,8 +232,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         /// <summary>Parses the absolute font size.</summary>
-        /// <param name="fontSizeValue">the font size value as a <code>string</code></param>
-        /// <returns>the font size value as a <code>float</code></returns>
+        /// <param name="fontSizeValue">
+        /// the font size value as a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <returns>
+        /// the font size value as a
+        /// <c>float</c>
+        /// </returns>
         public static float ParseAbsoluteFontSize(String fontSizeValue) {
             if (CssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS.Contains(fontSizeValue)) {
                 switch (fontSizeValue) {
@@ -278,9 +288,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         /// <summary>Parses the relative font size.</summary>
-        /// <param name="relativeFontSizeValue">the relative font size value as a <code>String</code></param>
+        /// <param name="relativeFontSizeValue">
+        /// the relative font size value as a
+        /// <see cref="System.String"/>
+        /// </param>
         /// <param name="baseValue">the base value</param>
-        /// <returns>the relative font size value as a <code>float</code></returns>
+        /// <returns>
+        /// the relative font size value as a
+        /// <see>float</see>
+        /// </returns>
         public static float ParseRelativeFontSize(String relativeFontSizeValue, float baseValue) {
             if (CssConstants.SMALLER.Equals(relativeFontSizeValue)) {
                 return (float)(baseValue / 1.2);

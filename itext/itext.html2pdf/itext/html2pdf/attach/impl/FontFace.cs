@@ -59,11 +59,17 @@ namespace iText.Html2pdf.Attach.Impl {
         private readonly IList<FontFace.FontFaceSrc> sources;
 
         /// <summary>
-        /// Create a <code>FontFace</code> instance from a list of
+        /// Create a
+        /// <see cref="FontFace"/>
+        /// instance from a list of
         /// CSS font attributes ("font-family" or "src").
         /// </summary>
         /// <param name="properties">the font properties</param>
-        /// <returns>the <code>FontFace</code> instance</returns>
+        /// <returns>
+        /// the
+        /// <see cref="FontFace"/>
+        /// instance
+        /// </returns>
         public static iText.Html2pdf.Attach.Impl.FontFace Create(IList<CssDeclaration> properties) {
             String fontFamily = null;
             String srcs = null;
@@ -158,12 +164,19 @@ namespace iText.Html2pdf.Attach.Impl {
             }
 
             /// <summary>
-            /// Creates a <code>FontFace</code> object by parsing a <code>String</code>
+            /// Creates a
+            /// <see cref="FontFace"/>
+            /// object by parsing a
+            /// <see cref="System.String"/>
             /// trying to match patterns that reveal the font name, whether that font is local,
             /// and which format the font is in.
             /// </summary>
             /// <param name="src">a string containing information about a font</param>
-            /// <returns>the font in the form of a <code>FontFace</code> object</returns>
+            /// <returns>
+            /// the font in the form of a
+            /// <see cref="FontFace"/>
+            /// object
+            /// </returns>
             internal static FontFace.FontFaceSrc Create(String src) {
                 Match m = iText.IO.Util.StringUtil.Match(UrlPattern, src);
                 if (!m.Success) {
@@ -173,7 +186,11 @@ namespace iText.Html2pdf.Attach.Impl {
                     (m, TypeGroup)), ParseFormat(iText.IO.Util.StringUtil.Group(m, FormatGroup)));
             }
 
-            /// <summary>Parses a <code>String</code> to a font format.</summary>
+            /// <summary>
+            /// Parses a
+            /// <see cref="System.String"/>
+            /// to a font format.
+            /// </summary>
             /// <param name="formatStr">a string</param>
             /// <returns>a font format</returns>
             internal static FontFace.FontFormat ParseFormat(String formatStr) {
@@ -207,9 +224,21 @@ namespace iText.Html2pdf.Attach.Impl {
                 return FontFace.FontFormat.None;
             }
 
-            /// <summary>Removes single and double quotes at the start and the end of a <code>String</code>.</summary>
-            /// <param name="quotedString">a <code>String</quote> that might be between quotes</param>
-            /// <returns>the <code>String</code> without the quotes</returns>
+            /// <summary>
+            /// Removes single and double quotes at the start and the end of a
+            /// <see cref="System.String"/>
+            /// .
+            /// </summary>
+            /// <param name="quotedString">
+            /// a
+            /// <see cref="System.String"/>
+            /// that might be between quotes
+            /// </param>
+            /// <returns>
+            /// the
+            /// <see cref="System.String"/>
+            /// without the quotes
+            /// </returns>
             internal static String Unquote(String quotedString) {
                 if (quotedString[0] == '\'' || quotedString[0] == '\"') {
                     return quotedString.JSubstring(1, quotedString.Length - 1);
@@ -217,7 +246,11 @@ namespace iText.Html2pdf.Attach.Impl {
                 return quotedString;
             }
 
-            /// <summary>Instantiates a new <code>FontFaceSrc</code> insance.</summary>
+            /// <summary>
+            /// Instantiates a new
+            /// <see cref="FontFaceSrc"/>
+            /// insance.
+            /// </summary>
             /// <param name="src">a source path</param>
             /// <param name="isLocal">indicates if the font is local</param>
             /// <param name="format">the font format (true type, open type, woff,...)</param>

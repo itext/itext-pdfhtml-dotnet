@@ -57,7 +57,11 @@ namespace iText.Html2pdf.Css {
         /// <summary>The list of CSS statements.</summary>
         private IList<CssStatement> statements;
 
-        /// <summary>Creates a new <code>CssStyleSheet</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssStyleSheet"/>
+        /// instance.
+        /// </summary>
         public CssStyleSheet() {
             statements = new List<CssStatement>();
         }

@@ -49,12 +49,20 @@ using iText.Layout;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>body</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>body</c>
+    /// element.
+    /// </summary>
     public class BodyTagWorker : ITagWorker {
         /// <summary>The parent tag worker.</summary>
         private ITagWorker parentTagWorker;
 
-        /// <summary>Creates a new <code>BodyTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="BodyTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public BodyTagWorker(IElementNode element, ProcessorContext context) {

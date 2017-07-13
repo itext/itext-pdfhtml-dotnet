@@ -96,8 +96,16 @@ namespace iText.Html2pdf.Attach {
         /// <summary>The PDF document.</summary>
         private PdfDocument pdfDocument;
 
-        /// <summary>Instantiates a new <code>ProcessorContext</code> instance.</summary>
-        /// <param name="converterProperties">a <code>ConverterProperties</code> instance</param>
+        /// <summary>
+        /// Instantiates a new
+        /// <see cref="ProcessorContext"/>
+        /// instance.
+        /// </summary>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="iText.Html2pdf.ConverterProperties"/>
+        /// instance
+        /// </param>
         public ProcessorContext(ConverterProperties converterProperties) {
             // Variable fields
             if (converterProperties == null) {

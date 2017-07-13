@@ -61,7 +61,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// implementation for input fields.
     /// </summary>
     public class InputFieldRenderer : AbstractOneLineTextFieldRenderer {
-        /// <summary>Creates a new <code>InputFieldRenderer</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="InputFieldRenderer"/>
+        /// instance.
+        /// </summary>
         /// <param name="modelElement">the model element</param>
         public InputFieldRenderer(InputField modelElement)
             : base(modelElement) {

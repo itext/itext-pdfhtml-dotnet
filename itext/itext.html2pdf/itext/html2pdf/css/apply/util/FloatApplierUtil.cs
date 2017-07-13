@@ -50,7 +50,11 @@ using iText.Layout.Properties;
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply float values to elements.</summary>
     public class FloatApplierUtil {
-        /// <summary>Creates a new <code>FloatApplierUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="FloatApplierUtil"/>
+        /// instance.
+        /// </summary>
         private FloatApplierUtil() {
         }
 

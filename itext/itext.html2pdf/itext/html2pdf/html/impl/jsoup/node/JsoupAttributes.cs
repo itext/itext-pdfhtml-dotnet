@@ -48,7 +48,7 @@ using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
     /// <summary>
-    /// Implementation of the {@link IAttributes} interface; wrapper for the JSoup {@link Attributes} class.
+    /// Implementation of the <see cref="IAttributes"/> interface; wrapper for the JSoup <see cref="Attributes"/> class.
     /// </summary>
     public class JsoupAttributes : IAttributes {
         private Attributes attributes;

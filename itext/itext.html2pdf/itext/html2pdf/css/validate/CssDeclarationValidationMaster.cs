@@ -75,7 +75,11 @@ namespace iText.Html2pdf.Css.Validate {
                 .INITIAL, CssConstants.INHERIT, CssConstants.NONE), new CssQuotesValidator()));
         }
 
-        /// <summary>Creates a new <code>CssDeclarationValidationMaster</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <c>CssDeclarationValidationMaster</c>
+        /// instance.
+        /// </summary>
         private CssDeclarationValidationMaster() {
         }
 

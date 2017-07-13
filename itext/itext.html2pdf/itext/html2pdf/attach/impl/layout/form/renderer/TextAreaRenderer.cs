@@ -60,7 +60,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// implementation for text area fields.
     /// </summary>
     public class TextAreaRenderer : AbstractTextFieldRenderer {
-        /// <summary>Creates a new <code>TextAreaRenderer</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="TextAreaRenderer"/>
+        /// instance.
+        /// </summary>
         /// <param name="modelElement">the model element</param>
         public TextAreaRenderer(TextArea modelElement)
             : base(modelElement) {

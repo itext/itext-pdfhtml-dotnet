@@ -53,7 +53,11 @@ namespace iText.Html2pdf.Css.Page {
         /// <summary>The margin box name.</summary>
         private String marginBoxName;
 
-        /// <summary>Creates a new <code>PageMarginBoxContextNode</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="PageMarginBoxContextNode"/>
+        /// instance.
+        /// </summary>
         /// <param name="parentNode">the parent node</param>
         /// <param name="marginBoxName">the margin box name</param>
         public PageMarginBoxContextNode(INode parentNode, String marginBoxName)

@@ -53,7 +53,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
         /// <summary>The class name.</summary>
         private String className;
 
-        /// <summary>Creates a new <code>CssClassSelectorItem<code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssClassSelectorItem"/>
+        /// instance.
+        /// </summary>
         /// <param name="className">the class name</param>
         public CssClassSelectorItem(String className) {
             this.className = className;

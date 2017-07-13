@@ -52,7 +52,11 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
     /// class.
     /// </summary>
     public class JsoupDocumentTypeNode : JsoupNode, IDocumentTypeNode {
-        /// <summary>Creates a new <code>JsoupDocumentTypeNode</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="JsoupDocumentTypeNode"/>
+        /// instance.
+        /// </summary>
         /// <param name="node">the node</param>
         public JsoupDocumentTypeNode(DocumentType node)
             : base(node) {

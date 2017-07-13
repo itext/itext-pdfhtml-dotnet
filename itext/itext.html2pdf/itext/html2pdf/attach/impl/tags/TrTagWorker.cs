@@ -48,7 +48,11 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>tr</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>tr</c>
+    /// element.
+    /// </summary>
     public class TrTagWorker : ITagWorker {
         /// <summary>The row wrapper.</summary>
         private TableRowWrapper rowWrapper;
@@ -56,7 +60,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The parent tag worker.</summary>
         private ITagWorker parentTagWorker;
 
-        /// <summary>Creates a new <code>TrTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="TrTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public TrTagWorker(IElementNode element, ProcessorContext context) {

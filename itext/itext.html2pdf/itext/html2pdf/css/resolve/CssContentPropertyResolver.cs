@@ -64,7 +64,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="context">the CSS context</param>
         /// <returns>
         /// a list of
-        /// <see cref="iNode"/>
+        /// <see cref="iText.Html2pdf.Html.Node.INode"/>
         /// instances
         /// </returns>
         internal static IList<INode> ResolveContent(IDictionary<String, String> styles, INode contentContainer, CssContext
@@ -196,7 +196,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="contentStr">the content</param>
         /// <returns>
         /// the resulting list of
-        /// <see cref="iNode"/>
+        /// <see cref="iText.Html2pdf.Html.Node.INode"/>
         /// instances
         /// </returns>
         private static IList<INode> ErrorFallback(String contentStr) {
@@ -211,7 +211,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <see cref="iTextNode"/>
+        /// <see cref="iText.Html2pdf.Html.Node.ITextNode"/>
         /// implementation for content text.
         /// </summary>
         private class ContentTextNode : ITextNode {
@@ -221,7 +221,11 @@ namespace iText.Html2pdf.Css.Resolve {
             /// <summary>The content.</summary>
             private String content;
 
-            /// <summary>Creates a new <code>ContentTextNode</code> instance.</summary>
+            /// <summary>
+            /// Creates a new
+            /// <see cref="ContentTextNode"/>
+            /// instance.
+            /// </summary>
             /// <param name="parent">the parent</param>
             /// <param name="content">the content</param>
             public ContentTextNode(INode parent, String content) {

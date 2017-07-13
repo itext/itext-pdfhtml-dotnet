@@ -62,12 +62,20 @@ namespace iText.Html2pdf.Resolver.Font {
             , "FreeMonoOblique.ttf", "FreeSans.ttf", "FreeSansBold.ttf", "FreeSansBoldOblique.ttf", "FreeSansOblique.ttf"
             , "FreeSerif.ttf", "FreeSerifBold.ttf", "FreeSerifBoldItalic.ttf", "FreeSerifItalic.ttf" };
 
-        /// <summary>Creates a new <code>DefaultFontProvider</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="DefaultFontProvider"/>
+        /// instance.
+        /// </summary>
         public DefaultFontProvider()
             : this(true, true, false) {
         }
 
-        /// <summary>Creates a new <code>DefaultFontProvider</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="DefaultFontProvider"/>
+        /// instance.
+        /// </summary>
         /// <param name="registerStandardPdfFonts">use true if you want to register the standard Type 1 fonts (can't be embedded)
         ///     </param>
         /// <param name="registerShippedFreeFonts">use true if you want to register the shipped fonts (can be embedded)

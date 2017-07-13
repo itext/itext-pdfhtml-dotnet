@@ -86,7 +86,11 @@ namespace iText.Html2pdf.Css.Media {
             this.type = type;
         }
 
-        /// <summary>Creates a new <code>MediaDeviceDescription</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="MediaDeviceDescription"/>
+        /// instance.
+        /// </summary>
         /// <param name="type">the type</param>
         /// <param name="width">the width</param>
         /// <param name="height">the height</param>
@@ -96,7 +100,11 @@ namespace iText.Html2pdf.Css.Media {
             this.height = height;
         }
 
-        /// <summary>Creates the default <code>MediaDeviceDescription</code>.</summary>
+        /// <summary>
+        /// Creates the default
+        /// <see cref="MediaDeviceDescription"/>
+        /// .
+        /// </summary>
         /// <returns>the media device description</returns>
         public static iText.Html2pdf.Css.Media.MediaDeviceDescription CreateDefault() {
             return new iText.Html2pdf.Css.Media.MediaDeviceDescription(MediaType.ALL);

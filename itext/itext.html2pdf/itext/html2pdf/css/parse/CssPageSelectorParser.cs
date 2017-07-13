@@ -57,7 +57,7 @@ namespace iText.Html2pdf.Css.Parse
             );
 
         /// <summary>Parses the selector items into a list of <see cref="ICssSelectorItem"/> instances.</summary>
-        /// <param name="selectorItemsStr">the selector items in the form of a <code>String</code></param>
+        /// <param name="selectorItemsStr">the selector items in the form of a <see cref="String"/></param>
         /// <returns>the resulting list of <see cref="ICssSelectorItem"/> instances</returns>
         public static IList<ICssSelectorItem> ParseSelectorItems(String selectorItemsStr) {
             IList<ICssSelectorItem> selectorItems = new List<ICssSelectorItem>();

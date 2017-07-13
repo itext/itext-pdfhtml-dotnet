@@ -116,12 +116,20 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         /// <summary>The URI resolver.</summary>
         private UriResolver uriResolver;
 
-        /// <summary>Creates a new <code>CssParserStateController</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssParserStateController"/>
+        /// instance.
+        /// </summary>
         public CssParserStateController()
             : this("") {
         }
 
-        /// <summary>Creates a new <code>CssParserStateController</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssParserStateController"/>
+        /// instance.
+        /// </summary>
         /// <param name="baseUrl">the base URL</param>
         public CssParserStateController(String baseUrl) {
             //Hashed value

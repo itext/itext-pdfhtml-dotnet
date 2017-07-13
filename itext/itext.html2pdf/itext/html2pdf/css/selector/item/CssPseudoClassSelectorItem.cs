@@ -65,7 +65,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
         private static readonly CssPseudoClassSelectorItem.LastChildSelectorItem lastChild = new CssPseudoClassSelectorItem.LastChildSelectorItem
             ();
 
-        /// <summary>Creates a new <code>CssPseudoClassSelectorItem<code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssPseudoClassSelectorItem"/>
+        /// instance.
+        /// </summary>
         /// <param name="pseudoClass">the pseudo class name</param>
         [System.ObsoleteAttribute(@"not intended for public use Create(System.String) instead. This class will be abstract and this constructor will be protected in the next major release."
             )]
@@ -147,7 +151,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
         }
 
         private class ChildSelectorItem : CssPseudoClassSelectorItem {
-            /// <summary>Creates a new <code>CssPseudoClassSelectorItem<code> instance.</summary>
+            /// <summary>
+            /// Creates a new
+            /// <see cref="CssPseudoClassSelectorItem"/>
+            /// instance.
+            /// </summary>
             /// <param name="pseudoClass">the pseudo class name</param>
             protected internal ChildSelectorItem(String pseudoClass)
                 : base(pseudoClass) {
@@ -225,7 +233,6 @@ namespace iText.Html2pdf.Css.Selector.Item {
             }
 
             /// <summary>Gets the nth child arguments.</summary>
-            /// <returns>the nth child arguments</returns>
             private void GetNthChildArguments() {
                 if (arguments.Matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
                     if (arguments.Equals("odd")) {

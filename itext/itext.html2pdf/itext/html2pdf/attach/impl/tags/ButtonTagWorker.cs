@@ -61,7 +61,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The display value.</summary>
         private String display;
 
-        /// <summary>Creates a new <code>ButtonTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="ButtonTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public ButtonTagWorker(IElementNode element, ProcessorContext context) {

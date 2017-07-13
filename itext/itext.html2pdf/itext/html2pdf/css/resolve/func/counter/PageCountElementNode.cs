@@ -57,7 +57,11 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// <summary>Indicates if the node represents the total page count.</summary>
         private bool totalPageCount = false;
 
-        /// <summary>Creates a new <code>PageCountElementNode</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="PageCountElementNode"/>
+        /// instance.
+        /// </summary>
         /// <param name="totalPageCount">indicates if the node represents the total page count</param>
         public PageCountElementNode(bool totalPageCount)
             : base(new Element(Org.Jsoup.Parser.Tag.ValueOf(PAGE_COUNTER_TAG), "")) {

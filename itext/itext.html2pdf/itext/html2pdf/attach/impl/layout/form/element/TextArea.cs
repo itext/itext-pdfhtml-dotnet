@@ -55,7 +55,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
     /// is used instead of the default renderer for fields.
     /// </summary>
     public class TextArea : FormField<iText.Html2pdf.Attach.Impl.Layout.Form.Element.TextArea> {
-        /// <summary>Creates a new <code>TextArea</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="TextArea"/>
+        /// instance.
+        /// </summary>
         /// <param name="id">the id</param>
         public TextArea(String id)
             : base(id) {

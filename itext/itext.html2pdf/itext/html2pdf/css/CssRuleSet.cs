@@ -65,7 +65,11 @@ namespace iText.Html2pdf.Css {
         /// <summary>The important CSS declarations.</summary>
         private IList<CssDeclaration> importantDeclarations;
 
-        /// <summary>Creates a new <code>CssRuleSet</code>.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssRuleSet"/>
+        /// .
+        /// </summary>
         /// <param name="selector">the CSS selector</param>
         /// <param name="declarations">the CSS declarations</param>
         public CssRuleSet(ICssSelector selector, IList<CssDeclaration> declarations) {

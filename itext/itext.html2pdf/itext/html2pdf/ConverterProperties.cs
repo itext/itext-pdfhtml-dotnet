@@ -71,15 +71,27 @@ namespace iText.Html2pdf {
         /// <summary>Indicates whether an AcroForm should be created.</summary>
         private bool createAcroForm = false;
 
-        /// <summary>Instantiates a new ConverterProperties instance.</summary>
+        /// <summary>
+        /// Instantiates a new
+        /// <see cref="ConverterProperties"/>
+        /// instance.
+        /// </summary>
         public ConverterProperties() {
         }
 
         /// <summary>
-        /// Instantiates a new ConverterProperties instance based on another ConverterProperties instance
+        /// Instantiates a new
+        /// <see cref="ConverterProperties"/>
+        /// instance based on another
+        /// <see cref="ConverterProperties"/>
+        /// instance
         /// (copy constructor).
         /// </summary>
-        /// <param name="other">the other ConverterProperties instance</param>
+        /// <param name="other">
+        /// the other
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
         public ConverterProperties(iText.Html2pdf.ConverterProperties other) {
             this.mediaDeviceDescription = other.mediaDeviceDescription;
             this.fontProvider = other.fontProvider;

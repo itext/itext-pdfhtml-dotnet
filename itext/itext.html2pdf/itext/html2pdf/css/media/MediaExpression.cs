@@ -61,7 +61,11 @@ namespace iText.Html2pdf.Css.Media {
         /// <summary>The value.</summary>
         private String value;
 
-        /// <summary>Creates a new <code>MediaExpression</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="MediaExpression"/>
+        /// instance.
+        /// </summary>
         /// <param name="feature">the feature</param>
         /// <param name="value">the value</param>
         public MediaExpression(String feature, String value) {
@@ -226,8 +230,16 @@ namespace iText.Html2pdf.Css.Media {
         }
 
         /// <summary>Parses an absolute length.</summary>
-        /// <param name="value">the absolute length as a <code>String</code> value</param>
-        /// <returns>the absolute length as a <code>float</code> value</returns>
+        /// <param name="value">
+        /// the absolute length as a
+        /// <see cref="System.String"/>
+        /// value
+        /// </param>
+        /// <returns>
+        /// the absolute length as a
+        /// <c>float</c>
+        /// value
+        /// </returns>
         private static float ParseAbsoluteLength(String value) {
             if (CssUtils.IsRelativeValue(value)) {
                 // TODO here should be used default font size of the browser, it probably should be fetched from the more generic place than private class constant

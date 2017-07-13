@@ -47,9 +47,17 @@ using iText.Kernel.Pdf.Tagutils;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>hr</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>hr</c>
+    /// element.
+    /// </summary>
     public class HrTagWorker : DivTagWorker {
-        /// <summary>Creates a new <code>HrTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="HrTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public HrTagWorker(IElementNode element, ProcessorContext context)

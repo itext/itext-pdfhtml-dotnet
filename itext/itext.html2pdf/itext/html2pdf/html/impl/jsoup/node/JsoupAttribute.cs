@@ -59,7 +59,11 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
         /// </summary>
         private Org.Jsoup.Nodes.Attribute attribute;
 
-        /// <summary>Creates a new <code>JsoupAttribute</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="JsoupAttribute"/>
+        /// instance.
+        /// </summary>
         /// <param name="attribute">the attribute</param>
         public JsoupAttribute(Org.Jsoup.Nodes.Attribute attribute) {
             this.attribute = attribute;

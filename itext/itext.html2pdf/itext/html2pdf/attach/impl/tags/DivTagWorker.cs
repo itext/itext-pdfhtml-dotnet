@@ -51,7 +51,11 @@ using iText.Layout;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for the <code>div</code> element.</summary>
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>div</c>
+    /// element.
+    /// </summary>
     public class DivTagWorker : ITagWorker, IDisplayAware {
         /// <summary>The div element.</summary>
         private Div div;
@@ -62,7 +66,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The display value.</summary>
         private String display;
 
-        /// <summary>Creates a new <code>DivTagWorker</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="DivTagWorker"/>
+        /// instance.
+        /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public DivTagWorker(IElementNode element, ProcessorContext context) {

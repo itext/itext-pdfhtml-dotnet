@@ -96,7 +96,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private Div[] marginBoxElements;
 
         /// <summary>Instantiates a new page context processor.</summary>
-        /// <param name="properties">the page contex properties</param>
+        /// <param name="properties">the page context properties</param>
         /// <param name="context">the processor context</param>
         /// <param name="defaultPageSize">the default page size</param>
         internal PageContextProcessor(PageContextProperties properties, ProcessorContext context, PageSize defaultPageSize
@@ -235,7 +235,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
-        /// <summary>Draws a cross (used in the <code>drawMarks()</code> method).</summary>
+        /// <summary>
+        /// Draws a cross (used in the
+        /// <see cref="DrawMarks(iText.Kernel.Pdf.PdfPage)"/>
+        /// method).
+        /// </summary>
         /// <param name="canvas">the canvas to draw on</param>
         /// <param name="x">the x value</param>
         /// <param name="y">the y value</param>
@@ -287,8 +291,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         /// <summary>Parses the marks.</summary>
-        /// <param name="marksStr">a <code>String</code> value defining the marks</param>
-        /// <returns>a <code>Set</code> of mark values</returns>
+        /// <param name="marksStr">
+        /// a
+        /// <see cref="System.String"/>
+        /// value defining the marks
+        /// </param>
+        /// <returns>
+        /// a
+        /// <see cref="Java.Util.Set{E}"/>
+        /// of mark values
+        /// </returns>
         private static ICollection<String> ParseMarks(String marksStr) {
             ICollection<String> marks = new HashSet<String>();
             if (marksStr == null) {
@@ -308,7 +320,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         /// <summary>Parses the margins.</summary>
-        /// <param name="styles">a <code>Map</code> containing the styles</param>
+        /// <param name="styles">
+        /// a
+        /// <see cref="System.Collections.IDictionary{K, V}"/>
+        /// containing the styles
+        /// </param>
         /// <param name="em">a measurement expressed in em</param>
         /// <param name="rem">a measurement expressed in rem (root em)</param>
         private void ParseMargins(IDictionary<String, String> styles, float em, float rem) {
@@ -319,7 +335,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         /// <summary>Parses the paddings.</summary>
-        /// <param name="styles">a <code>Map</code> containing the styles</param>
+        /// <param name="styles">
+        /// a
+        /// <see cref="System.Collections.IDictionary{K, V}"/>
+        /// containing the styles
+        /// </param>
         /// <param name="em">a measurement expressed in em</param>
         /// <param name="rem">a measurement expressed in rem (root em)</param>
         private void ParsePaddings(IDictionary<String, String> styles, float em, float rem) {
@@ -330,7 +350,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         /// <summary>Parses the borders.</summary>
-        /// <param name="styles">a <code>Map</code> containing the styles</param>
+        /// <param name="styles">
+        /// a
+        /// <see cref="System.Collections.IDictionary{K, V}"/>
+        /// containing the styles
+        /// </param>
         /// <param name="em">a measurement expressed in em</param>
         /// <param name="rem">a measurement expressed in rem (root em)</param>
         private void ParseBorders(IDictionary<String, String> styles, float em, float rem) {
@@ -338,7 +362,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         /// <summary>Creates the page simulation elements.</summary>
-        /// <param name="styles">a <code>Map</code> containing the styles</param>
+        /// <param name="styles">
+        /// a
+        /// <see cref="System.Collections.IDictionary{K, V}"/>
+        /// containing the styles
+        /// </param>
         /// <param name="context">the processor context</param>
         private void CreatePageSimulationElements(IDictionary<String, String> styles, ProcessorContext context) {
             pageBackgroundSimulation = new Div().SetFillAvailableArea(true);
@@ -427,7 +455,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>Calculate margin box rectangles.</summary>
         /// <param name="resolvedPageMarginBoxes">the resolved page margin boxes</param>
-        /// <returns>an array of <code>Rectangle</code> values</returns>
+        /// <returns>
+        /// an array of
+        /// <see cref="iText.Kernel.Geom.Rectangle"/>
+        /// values
+        /// </returns>
         private Rectangle[] CalculateMarginBoxRectangles(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
             // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes,
             //      also height and width properties should be taken into account.
@@ -558,7 +590,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         /// <summary>Parses the box props.</summary>
-        /// <param name="styles">a <code>Map</code> containing the styles</param>
+        /// <param name="styles">
+        /// a
+        /// <see cref="System.Collections.IDictionary{K, V}"/>
+        /// containing the styles
+        /// </param>
         /// <param name="em">a measurement expressed in em</param>
         /// <param name="rem">a measurement expressed in rem (root em)</param>
         /// <param name="defaultValue">the default value</param>
@@ -584,7 +620,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         /// <summary>Parses the box value.</summary>
-        /// <param name="styles">a <code>Map</code> containing the styles</param>
         /// <param name="em">a measurement expressed in em</param>
         /// <param name="rem">a measurement expressed in rem (root em)</param>
         /// <param name="dimensionSize">the dimension size</param>
