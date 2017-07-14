@@ -88,6 +88,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (bordersArray[3] != null) {
                 element.SetProperty(Property.BORDER_LEFT, bordersArray[3]);
             }
+            UnitValue radius = GetBorderRadius(cssProps, em, rem);
+            if (null != radius) {
+                element.SetProperty(Property.BORDER_RADIUS, radius);
+            }
         }
 
         /// <summary>Gets the array that defines the borders.</summary>
@@ -226,6 +230,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             return border;
+        }
+
+        /// <summary>Gets the array that defines the borders.</summary>
+        /// <param name="styles">the styles mapping</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <returns>the borders array</returns>
+        public static UnitValue GetBorderRadius(IDictionary<String, String> styles, float em, float rem) {
+            String borderRadius = styles.Get(CssConstants.BORDER_RADIUS);
+            return CssUtils.ParseLengthValueToPt(borderRadius, em, rem);
         }
 
         private static String GetSpecificBorderColorOrDefaultColor(IDictionary<String, String> styles, String specificBorderColorProperty
