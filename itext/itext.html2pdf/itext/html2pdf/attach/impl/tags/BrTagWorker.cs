@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
@@ -64,6 +65,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public BrTagWorker(IElementNode element, ProcessorContext context) {
+            String fontFamily = element.GetStyles().Get(CssConstants.FONT_FAMILY);
+            newLine.SetFont(fontFamily);
         }
 
         /* (non-Javadoc)
