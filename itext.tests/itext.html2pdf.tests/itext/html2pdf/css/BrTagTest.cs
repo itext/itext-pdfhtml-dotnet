@@ -49,6 +49,7 @@ using System.Reflection;
 using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
+using iText.Test;
 
 namespace iText.Html2pdf.Css {
     /// <summary>
@@ -60,7 +61,7 @@ namespace iText.Html2pdf.Css {
     /// The underlying problem turns out to be that the inserted Text IElement has no font, and uses the default (Helvetica) font.
     /// The font does not get embedded, and as such, it breaks the compliancy.
     /// </remarks>
-    public class BrTagTest {
+    public class BrTagTest : ExtendedITextTest {
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
         }
@@ -69,8 +70,8 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BrTagTest() {
-            String input = "<html>\n" + "<head><title>Test</title></head>\n" + "<body style=\"font-family: FreeSans;\">\n"
-                 + "<h1>Test</h1>\n" + "<br />\n" + "<p>Hello World</p>\n" + "</body>\n" + "</html>";
+            String input = "<html>\n" + "<head><title>Test</title></head>" + "<body style=\"font-family: FreeSans;\">"
+                 + "<h1>Test</h1>" + "<br />" + "<p>Hello World</p>" + "</body>" + "</html>";
             IDictionary<String, int?> fontFrequency = new Dictionary<String, int?>();
             foreach (IElement e in HtmlConverter.ConvertToElements(input)) {
                 if (e is ElementPropertyContainer) {
