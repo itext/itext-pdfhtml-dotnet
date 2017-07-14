@@ -42,8 +42,8 @@
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf;
-using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
@@ -69,24 +69,25 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void BrTagTest() {
+        public virtual void Test() {
             String input = "<html>\n" + "<head><title>Test</title></head>" + "<body style=\"font-family: FreeSans;\">"
                  + "<h1>Test</h1>" + "<br />" + "<p>Hello World</p>" + "</body>" + "</html>";
             IDictionary<String, int?> fontFrequency = new Dictionary<String, int?>();
             foreach (IElement e in HtmlConverter.ConvertToElements(input)) {
-                if (e is ElementPropertyContainer) {
-                    String fontName = ((ElementPropertyContainer)e).GetProperty(20).ToString();
-                    if (!fontFrequency.ContainsKey(fontName)) {
-                        fontFrequency.Put(fontName, 0);
-                    }
-                    fontFrequency.Put(fontName, fontFrequency.Get(fontName) + 1);
+                String fontName = e.GetProperty<String>(Property.FONT);
+                if (!fontFrequency.ContainsKey(fontName)) {
+                    fontFrequency.Put(fontName, 0);
                 }
+                fontFrequency.Put(fontName, fontFrequency.Get(fontName) + 1);
             }
             // only 1 font should be used
             NUnit.Framework.Assert.IsTrue(fontFrequency.Count == 1);
             // the font should be freesans
-            String usedFont = fontFrequency.Keys.Iterator().Next();
-            NUnit.Framework.Assert.IsTrue(usedFont.Equals("freesans"));
+            String usedFont = null;
+            foreach (String key in fontFrequency.Keys) {
+                NUnit.Framework.Assert.IsTrue(usedFont.Equals("freesans"));
+                usedFont = key;
+            }
             // it should have been used for 3 elements
             NUnit.Framework.Assert.IsTrue(fontFrequency.Get(usedFont) == 3);
         }
