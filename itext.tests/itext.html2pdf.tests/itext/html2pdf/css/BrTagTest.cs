@@ -85,7 +85,7 @@ namespace iText.Html2pdf.Css {
             // the font should be freesans
             String usedFont = null;
             foreach (String key in fontFrequency.Keys) {
-                NUnit.Framework.Assert.IsTrue(usedFont.Equals("freesans"));
+                NUnit.Framework.Assert.IsTrue(key.Equals("freesans"));
                 usedFont = key;
             }
             // it should have been used for 3 elements
