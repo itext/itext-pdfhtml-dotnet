@@ -147,23 +147,24 @@ namespace iText.Html2pdf.Attach.Util {
         public virtual void FlushHangingLeaves(IPropertyContainer container) {
             Paragraph p = CreateLeavesContainer();
             if (p != null) {
-                if (container is Paragraph) {
-                    foreach (IElement leafElement in waitingLeaves) {
-                        if (leafElement is ILeafElement) {
-                            ((Paragraph)container).Add((ILeafElement)leafElement);
-                        }
-                        else {
-                            if (leafElement is IBlockElement) {
-                                ((Paragraph)container).Add((IBlockElement)leafElement);
-                            }
-                        }
-                    }
+                IDictionary<String, String> map = new Dictionary<String, String>();
+                map.Put(CssConstants.OVERFLOW, CssConstants.VISIBLE);
+                OverflowApplierUtil.ApplyOverflow(map, p);
+                if (container is Document) {
+                    ((Document)container).Add(p);
                 }
                 else {
-                    // iText do not apply overflow on leaves during children visits
-                    OverflowApplierUtil.ApplyOverflow(container, p);
-                    if (container is Document) {
-                        ((Document)container).Add(p);
+                    if (container is Paragraph) {
+                        foreach (IElement leafElement in waitingLeaves) {
+                            if (leafElement is ILeafElement) {
+                                ((Paragraph)container).Add((ILeafElement)leafElement);
+                            }
+                            else {
+                                if (leafElement is IBlockElement) {
+                                    ((Paragraph)container).Add((IBlockElement)leafElement);
+                                }
+                            }
+                        }
                     }
                     else {
                         if (container is Div) {

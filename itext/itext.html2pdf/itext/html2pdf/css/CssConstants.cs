@@ -469,6 +469,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant BOTTOM.</summary>
         public const String BOTTOM = "bottom";
 
+        /// <summary>The Constant BREAK_WORD.</summary>
+        public const String BREAK_WORD = "break-word";
+
         /// <summary>The Constant CAPITALIZE.</summary>
         public const String CAPITALIZE = "capitalize";
 
@@ -813,6 +816,10 @@ namespace iText.Html2pdf.Css {
         public static readonly ICollection<String> FONT_ABSOLUTE_SIZE_KEYWORDS = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
             (CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE
             , CssConstants.X_LARGE, CssConstants.XX_LARGE));
+
+        /// <summary>The Constant OVERFLOW_VALUES.</summary>
+        public static readonly ICollection<String> OVERFLOW_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+            (new String[] { VISIBLE, HIDDEN }));
 
         /// <summary>The Constant AFTER.</summary>
         public const String AFTER = "after";

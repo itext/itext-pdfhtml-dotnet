@@ -57,43 +57,36 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="cssProps">the CSS properties</param>
         /// <param name="element">the element</param>
         public static void ApplyOverflow(IDictionary<String, String> cssProps, IPropertyContainer element) {
-            String overflow = null != cssProps ? cssProps.Get(CssConstants.OVERFLOW) : null;
-            String overflowX = null != cssProps ? cssProps.Get(CssConstants.OVERFLOW_X) : overflow;
+            String overflow = null != cssProps && CssConstants.OVERFLOW_VALUES.Contains(cssProps.Get(CssConstants.OVERFLOW
+                )) ? cssProps.Get(CssConstants.OVERFLOW) : null;
+            bool breakWord = (null != cssProps && cssProps.ContainsKey(CssConstants.WORDWRAP) && CssConstants.BREAK_WORD
+                .Equals(cssProps.Get(CssConstants.WORDWRAP)));
+            String overflowX = null != cssProps && CssConstants.OVERFLOW_VALUES.Contains(cssProps.Get(CssConstants.OVERFLOW_X
+                )) ? cssProps.Get(CssConstants.OVERFLOW_X) : overflow;
             if (CssConstants.HIDDEN.Equals(overflowX)) {
                 element.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.HIDDEN);
             }
             else {
-                element.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
+                if (!breakWord) {
+                    element.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
+                }
+                else {
+                    element.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.FIT);
+                }
             }
-            String overflowY = null != cssProps ? cssProps.Get(CssConstants.OVERFLOW_Y) : overflow;
+            String overflowY = null != cssProps && CssConstants.OVERFLOW_VALUES.Contains(cssProps.Get(CssConstants.OVERFLOW_Y
+                )) ? cssProps.Get(CssConstants.OVERFLOW_Y) : overflow;
             if (CssConstants.HIDDEN.Equals(overflowY)) {
                 element.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.HIDDEN);
             }
             else {
-                element.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
-            }
-        }
-
-        /// <summary>Applies oveflow to an element.</summary>
-        /// <param name="container">the  container</param>
-        /// <param name="element">the element</param>
-        public static void ApplyOverflow(IPropertyContainer container, IPropertyContainer element) {
-            OverflowPropertyValue? xValue = null;
-            if (null != container) {
-                xValue = container.GetProperty<OverflowPropertyValue?>(Property.OVERFLOW_X);
-                if (null == xValue) {
-                    xValue = container.GetProperty<OverflowPropertyValue?>(Property.OVERFLOW);
+                if (!breakWord) {
+                    element.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
+                }
+                else {
+                    element.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.FIT);
                 }
             }
-            element.SetProperty(Property.OVERFLOW_X, null == xValue ? OverflowPropertyValue.VISIBLE : xValue);
-            OverflowPropertyValue? yValue = null;
-            if (null != container) {
-                yValue = container.GetProperty<OverflowPropertyValue?>(Property.OVERFLOW_Y);
-                if (null == yValue) {
-                    yValue = container.GetProperty<OverflowPropertyValue?>(Property.OVERFLOW);
-                }
-            }
-            element.SetProperty(Property.OVERFLOW_Y, null == yValue ? OverflowPropertyValue.VISIBLE : yValue);
         }
     }
 }
