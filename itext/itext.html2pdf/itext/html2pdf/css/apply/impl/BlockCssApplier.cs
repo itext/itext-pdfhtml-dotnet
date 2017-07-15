@@ -43,7 +43,6 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Html.Node;
@@ -74,11 +73,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 PositionApplierUtil.ApplyPosition(cssProps, context, container);
                 OpacityApplierUtil.ApplyOpacity(cssProps, context, container);
                 PageBreakApplierUtil.ApplyPageBreakProperties(cssProps, context, container);
-                // we've already applied overflow on block containers (divs, articles, ...).
-                // as for images, iText do not consider its overflow property value but its container's value
-                if (!(tagWorker is ImgTagWorker || tagWorker is DivTagWorker)) {
-                    OverflowApplierUtil.ApplyOverflow(cssProps, container);
-                }
+                OverflowApplierUtil.ApplyOverflow(cssProps, container);
             }
         }
     }

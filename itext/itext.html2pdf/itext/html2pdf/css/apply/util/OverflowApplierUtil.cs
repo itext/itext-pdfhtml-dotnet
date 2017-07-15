@@ -59,20 +59,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static void ApplyOverflow(IDictionary<String, String> cssProps, IPropertyContainer element) {
             String overflow = null != cssProps && CssConstants.OVERFLOW_VALUES.Contains(cssProps.Get(CssConstants.OVERFLOW
                 )) ? cssProps.Get(CssConstants.OVERFLOW) : null;
-            bool breakWord = (null != cssProps && cssProps.ContainsKey(CssConstants.WORDWRAP) && CssConstants.BREAK_WORD
-                .Equals(cssProps.Get(CssConstants.WORDWRAP)));
             String overflowX = null != cssProps && CssConstants.OVERFLOW_VALUES.Contains(cssProps.Get(CssConstants.OVERFLOW_X
                 )) ? cssProps.Get(CssConstants.OVERFLOW_X) : overflow;
             if (CssConstants.HIDDEN.Equals(overflowX)) {
                 element.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.HIDDEN);
             }
             else {
-                if (!breakWord) {
-                    element.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
-                }
-                else {
-                    element.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.FIT);
-                }
+                element.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
             }
             String overflowY = null != cssProps && CssConstants.OVERFLOW_VALUES.Contains(cssProps.Get(CssConstants.OVERFLOW_Y
                 )) ? cssProps.Get(CssConstants.OVERFLOW_Y) : overflow;
@@ -80,12 +73,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 element.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.HIDDEN);
             }
             else {
-                if (!breakWord) {
-                    element.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
-                }
-                else {
-                    element.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.FIT);
-                }
+                element.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
             }
         }
     }

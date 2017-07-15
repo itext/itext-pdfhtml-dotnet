@@ -137,6 +137,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest08() {
+            // TODO DEVSIX-1438
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest08.html"), new FileInfo(destinationFolder 
                 + "spanTest08.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest08.pdf", sourceFolder

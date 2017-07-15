@@ -46,7 +46,6 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
@@ -80,7 +79,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.Get(CssConstants.WHITE_SPACE
                 ), styles == null ? null : styles.Get(CssConstants.TEXT_TRANSFORM));
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
-            OverflowApplierUtil.ApplyOverflow(styles, div);
         }
 
         /* (non-Javadoc)
