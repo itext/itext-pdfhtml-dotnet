@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Apply.Util;
 using iText.Layout;
 using iText.Layout.Element;
 
@@ -146,21 +147,23 @@ namespace iText.Html2pdf.Attach.Util {
         public virtual void FlushHangingLeaves(IPropertyContainer container) {
             Paragraph p = CreateLeavesContainer();
             if (p != null) {
-                if (container is Document) {
-                    ((Document)container).Add(p);
-                }
-                else {
-                    if (container is Paragraph) {
-                        foreach (IElement leafElement in waitingLeaves) {
-                            if (leafElement is ILeafElement) {
-                                ((Paragraph)container).Add((ILeafElement)leafElement);
-                            }
-                            else {
-                                if (leafElement is IBlockElement) {
-                                    ((Paragraph)container).Add((IBlockElement)leafElement);
-                                }
+                if (container is Paragraph) {
+                    foreach (IElement leafElement in waitingLeaves) {
+                        if (leafElement is ILeafElement) {
+                            ((Paragraph)container).Add((ILeafElement)leafElement);
+                        }
+                        else {
+                            if (leafElement is IBlockElement) {
+                                ((Paragraph)container).Add((IBlockElement)leafElement);
                             }
                         }
+                    }
+                }
+                else {
+                    // iText do not apply overflow on leaves during children visits
+                    OverflowApplierUtil.ApplyOverflow(container, p);
+                    if (container is Document) {
+                        ((Document)container).Add(p);
                     }
                     else {
                         if (container is Div) {

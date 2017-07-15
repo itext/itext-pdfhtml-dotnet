@@ -316,8 +316,17 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant OUTLINE_WIDTH.</summary>
         public const String OUTLINE_WIDTH = "outline-width";
 
+        /// <summary>The Constant OVERFLOW.</summary>
+        public const String OVERFLOW = "overflow";
+
         /// <summary>The Constant OVERFLOW_WRAP.</summary>
         public const String OVERFLOW_WRAP = "overflow-wrap";
+
+        /// <summary>The Constant OVERFLOW_X.</summary>
+        public const String OVERFLOW_X = "overflow-x";
+
+        /// <summary>The Constant OVERFLOW_Y.</summary>
+        public const String OVERFLOW_Y = "overflow-y";
 
         /// <summary>The Constant PADDING.</summary>
         public const String PADDING = "padding";
@@ -399,6 +408,9 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant VERTICAL_ALIGN.</summary>
         public const String VERTICAL_ALIGN = "vertical-align";
+
+        /// <summary>The Constant VISIBILITY.</summary>
+        public const String VISIBLE = "visible";
 
         /// <summary>The Constant VISIBILITY.</summary>
         public const String VISIBILITY = "visibility";
