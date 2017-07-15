@@ -149,6 +149,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 1)]
         public virtual void AbsolutePosition09Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "absolutePositionTest09.html"), new FileInfo(destinationFolder
                  + "absolutePositionTest09.pdf"));
