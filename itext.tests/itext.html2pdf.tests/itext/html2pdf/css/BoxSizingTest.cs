@@ -159,7 +159,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 1)]
         public virtual void BoxSizingDiv04Test() {
             // TODO inner div still doesn't fit, because it's height is increased every time page split occurs by margins borders padding
             // Thus, if parent height was manually fixed to include child with fixed height and if page split occurs - child might not fit.
