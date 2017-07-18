@@ -244,5 +244,15 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_inline-block16.pdf"
                 , sourceFolder + "cmp_display_inline-block16.pdf", destinationFolder, "diff18_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlock17Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_inline-block17.html"), new FileInfo(destinationFolder
+                 + "display_inline-block17.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_inline-block17.pdf"
+                , sourceFolder + "cmp_display_inline-block17.pdf", destinationFolder, "diff19_"));
+        }
     }
 }

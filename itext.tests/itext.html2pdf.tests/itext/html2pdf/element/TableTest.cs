@@ -239,6 +239,20 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void HelloTableAuto16DocumentTest() {
+            RunTest("hello_table_auto16");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto17DocumentTest() {
+            RunTest("hello_table_auto17");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void HelloTableHeaderFooterDocumentTest() {
             RunTest("hello_table_header_footer");
         }
@@ -380,6 +394,14 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void TableCellHeightsExpansionTest03() {
+            // Cells max-height property should not affect layout, just like in browsers.
+            RunTest("tableCellHeightsExpansion03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void TableMaxHeightTest01() {
             RunTest("tableMaxHeight01");
         }
@@ -394,7 +416,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-994, DEVSIX-1174")]
+        [NUnit.Framework.Ignore("DEVSIX-994")]
         public virtual void TableCollapseColCellBoxSizingWidthDifference() {
             RunTest("table_collapse_col_cell_box_sizing_width_difference");
         }

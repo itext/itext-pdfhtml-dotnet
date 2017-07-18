@@ -163,6 +163,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant BOX_SHADOW.</summary>
         public const String BOX_SHADOW = "box-shadow";
 
+        /// <summary>The Constant BOX_SIZING.</summary>
+        public const String BOX_SIZING = "box-sizing";
+
         /// <summary>The Constant CAPTION_SIDE.</summary>
         public const String CAPTION_SIDE = "caption-side";
 

@@ -149,7 +149,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             UnitValue width = this.GetProperty<UnitValue>(Property.WIDTH);
             if (width != null) {
                 if (width.IsPointValue()) {
-                    return width.GetValue();
+                    return RetrieveWidth(0);
                 }
                 else {
                     LoggerFactory.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_SUPPORTS_ONLY_POINT_WIDTH);
@@ -167,8 +167,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             flatRenderer = null;
             float parentWidth = layoutContext.GetArea().GetBBox().GetWidth();
             float parentHeight = layoutContext.GetArea().GetBBox().GetHeight();
-            float? maxHeight = RetrieveMaxHeight();
-            float? height = RetrieveHeight();
+            float? maxHeight = this.GetProperty<float?>(Property.MAX_HEIGHT);
+            float? height = this.GetProperty<float?>(Property.HEIGHT);
             bool restoreMaxHeight = HasOwnProperty(Property.MAX_HEIGHT);
             bool restoreHeight = HasOwnProperty(Property.HEIGHT);
             SetProperty(Property.MAX_HEIGHT, null);
