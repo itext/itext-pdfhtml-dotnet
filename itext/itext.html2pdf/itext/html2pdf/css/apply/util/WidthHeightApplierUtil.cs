@@ -147,6 +147,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (minHeightToApply > 0) {
                 element.SetProperty(Property.MIN_HEIGHT, minHeightToApply);
             }
+            if (CssConstants.BORDER_BOX.Equals(cssProps.Get(CssConstants.BOX_SIZING))) {
+                element.SetProperty(Property.BOX_SIZING, BoxSizingPropertyValue.BORDER_BOX);
+            }
         }
     }
 }
