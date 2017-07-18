@@ -82,7 +82,9 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingCellTest01() {
-            // TODO height issues?
+            // TODO Result of processing of this html is different from what browsers show.
+            // Height of cells is always border-box-like at least if DOCTYPE "html" is not specified.
+            // See also boxSizingCellTest03.
             RunTest("boxSizingCellTest01");
         }
 
@@ -91,6 +93,18 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void BoxSizingCellTest02() {
             RunTest("boxSizingCellTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BoxSizingCellTest03() {
+            // This test is exactly the same as boxSizingCellTest01, except DOCTYPE "html" is used:
+            // cells height is different in browsers depending on box-sizing.
+            // TODO: we don't include half of the borders in height calculation when border-box is set
+            // because we apply borders on table level. However, this seems to be not very important for heights,
+            // height will only be bigger and it's not that crucial in comparison to width calculations.
+            RunTest("boxSizingCellTest03");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -186,8 +200,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingTable04Test() {
-            // TODO table max-height is wrong when table is split (regardless of border-box)
-            // table height is nearly 270pt in result, however max-height is set to 250pt
             RunTest("boxSizingTable04Test");
         }
 

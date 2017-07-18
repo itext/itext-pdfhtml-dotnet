@@ -396,6 +396,14 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void TableCellHeightsExpansionTest03() {
+            // Cells max-height property should not affect layout, just like in browsers.
+            RunTest("tableCellHeightsExpansion03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void TableMaxHeightTest01() {
             RunTest("tableMaxHeight01");
         }
