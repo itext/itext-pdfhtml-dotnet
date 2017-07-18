@@ -123,6 +123,18 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     return new CssPseudoClassSelectorItem.NotSelectorItem(selector);
                 }
 
+                case CssConstants.LINK: {
+                    return new CssPseudoClassSelectorItem.AlwaysApplySelectorItem(pseudoClass, arguments);
+                }
+
+                case CssConstants.ACTIVE:
+                case CssConstants.FOCUS:
+                case CssConstants.HOVER:
+                case CssConstants.TARGET:
+                case CssConstants.VISITED: {
+                    return new CssPseudoClassSelectorItem.AlwaysNotApplySelectorItem(pseudoClass, arguments);
+                }
+
                 default: {
                     return new iText.Html2pdf.Css.Selector.Item.CssPseudoClassSelectorItem(pseudoClass, arguments);
                 }
@@ -314,6 +326,26 @@ namespace iText.Html2pdf.Css.Selector.Item {
 
             public override bool Matches(INode node) {
                 return !argumentsSelector.Matches(node);
+            }
+        }
+
+        private class AlwaysApplySelectorItem : CssPseudoClassSelectorItem {
+            protected internal AlwaysApplySelectorItem(String pseudoClass, String arguments)
+                : base(pseudoClass, arguments) {
+            }
+
+            public override bool Matches(INode node) {
+                return true;
+            }
+        }
+
+        private class AlwaysNotApplySelectorItem : CssPseudoClassSelectorItem {
+            protected internal AlwaysNotApplySelectorItem(String pseudoClass, String arguments)
+                : base(pseudoClass, arguments) {
+            }
+
+            public override bool Matches(INode node) {
+                return false;
             }
         }
     }

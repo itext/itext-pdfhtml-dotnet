@@ -830,13 +830,67 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant BEFORE.</summary>
         public const String BEFORE = "before";
 
+        public const String ACTIVE = "active";
+
+        public const String CHECKED = "checked";
+
+        public const String DISABLED = "disabled";
+
+        public const String EMPTY = "empty";
+
+        public const String ENABLED = "enabled";
+
         public const String FIRST_CHILD = "first-child";
 
+        public const String FIRST_OF_TYPE = "first-of-type";
+
+        public const String FOCUS = "focus";
+
+        public const String HOVER = "hover";
+
+        public const String IN_RANGE = "in-range";
+
+        public const String INVALID = "invalid";
+
+        public const String LANG = "lang";
+
         public const String LAST_CHILD = "last-child";
+
+        public const String LAST_OF_TYPE = "last-of-type";
+
+        public const String LINK = "link";
 
         public const String NTH_CHILD = "nth-child";
 
         public const String NOT = "not";
+
+        public const String NTH_LAST_CHILD = "nth-last-child";
+
+        public const String NTH_LAST_OF_TYPE = "nth-last-of-type";
+
+        public const String NTH_OF_TYPE = "nth-of-type";
+
+        public const String ONLY_OF_TYPE = "only-of-type";
+
+        public const String ONLY_CHILD = "only-child";
+
+        public const String OPTIONAL = "optional";
+
+        public const String OUT_OF_RANGE = "out-of-range";
+
+        public const String READ_ONLY = "read-only";
+
+        public const String READ_WRITE = "read-write";
+
+        public const String REQUIRED = "required";
+
+        public const String ROOT = "root";
+
+        public const String TARGET = "target";
+
+        public const String VALID = "valid";
+
+        public const String VISITED = "visited";
 
         /// <summary>The Constant COUNTER.</summary>
         public const String COUNTER = "counter";
