@@ -61,7 +61,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -140,6 +140,57 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void EnspEmspThinspTest02() {
             RunTest("enspEmspThinspTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EnspEmspThinspTest03() {
+            RunTest("enspEmspThinspTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EnspEmspThinspTest04() {
+            RunTest("enspEmspThinspTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EnspEmspThinspTest05() {
+            RunTest("enspEmspThinspTest05");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EnspEmspThinspTest06() {
+            RunTest("enspEmspThinspTest06");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EnspEmspThinspTest07() {
+            RunTest("enspEmspThinspTest07");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EnspEmspThinspTest08() {
+            // TODO DEVSIX-1442
+            RunTest("enspEmspThinspTest08");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1442")]
+        public virtual void EnspEmspThinspTest09() {
+            RunTest("enspEmspThinspTest09");
         }
 
         /// <exception cref="System.IO.IOException"/>

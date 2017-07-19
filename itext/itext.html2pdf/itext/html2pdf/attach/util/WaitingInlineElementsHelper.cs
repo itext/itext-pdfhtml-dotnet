@@ -285,8 +285,8 @@ namespace iText.Html2pdf.Attach.Util {
         private static String CollapseConsecutiveSpaces(String s) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < s.Length; i++) {
-                if (iText.IO.Util.TextUtil.IsWhiteSpace(s[i])) {
-                    if (sb.Length == 0 || !iText.IO.Util.TextUtil.IsWhiteSpace(sb[sb.Length - 1])) {
+                if (TrimUtil.IsNonEmSpace(s[i])) {
+                    if (sb.Length == 0 || !TrimUtil.IsNonEmSpace(sb[sb.Length - 1])) {
                         sb.Append(" ");
                     }
                 }
