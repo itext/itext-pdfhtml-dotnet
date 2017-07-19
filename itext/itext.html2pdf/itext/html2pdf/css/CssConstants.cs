@@ -830,6 +830,12 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant BEFORE.</summary>
         public const String BEFORE = "before";
 
+        public const String FIRST_LETTER = "first-letter";
+
+        public const String FIRST_LINE = "first-line";
+
+        public const String SELECTION = "selection";
+
         public const String ACTIVE = "active";
 
         public const String CHECKED = "checked";

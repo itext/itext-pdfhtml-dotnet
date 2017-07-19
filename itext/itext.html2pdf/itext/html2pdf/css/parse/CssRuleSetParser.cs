@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Selector;
+using iText.Html2pdf.Css.Selector.Item;
 using iText.Html2pdf.Css.Util;
 using iText.IO.Log;
 using iText.IO.Util;
@@ -54,6 +55,14 @@ namespace iText.Html2pdf.Css.Parse {
         /// <summary>The logger.</summary>
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Parse.CssRuleSetParser
             ));
+
+        private static readonly ICollection<String> unsupportedPseudoClasses = JavaCollectionsUtil.UnmodifiableSet
+            (new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList(CssConstants.CHECKED, CssConstants.DISABLED, 
+            CssConstants.EMPTY, CssConstants.ENABLED, CssConstants.FIRST_OF_TYPE, CssConstants.IN_RANGE, CssConstants
+            .INVALID, CssConstants.LANG, CssConstants.LAST_OF_TYPE, CssConstants.NTH_LAST_CHILD, CssConstants.NTH_LAST_OF_TYPE
+            , CssConstants.NTH_OF_TYPE, CssConstants.ONLY_OF_TYPE, CssConstants.ONLY_CHILD, CssConstants.OPTIONAL, 
+            CssConstants.OUT_OF_RANGE, CssConstants.READ_ONLY, CssConstants.READ_WRITE, CssConstants.REQUIRED, CssConstants
+            .ROOT, CssConstants.VALID)));
 
         /// <summary>
         /// Creates a new
@@ -123,8 +132,13 @@ namespace iText.Html2pdf.Css.Parse {
             }
             foreach (String currentSelectorStr in selectors) {
                 try {
-                    CssSelector selector = new CssSelector(currentSelectorStr);
-                    ruleSets.Add(new CssRuleSet(selector, declarations));
+                    //@TODO These changes were made because we need to detect if selector contains unsupported pseudo classes
+                    //revert the changes when the task DEVSIX-1440 is done
+                    IList<ICssSelectorItem> selectorItems = CssSelectorParser.ParseSelectorItems(currentSelectorStr);
+                    if (!SelectorItemsContainsUnsupportedPseudoClasses(selectorItems)) {
+                        CssSelector selector = new CssSelector(selectorItems);
+                        ruleSets.Add(new CssRuleSet(selector, declarations));
+                    }
                 }
                 catch (Exception exc) {
                     logger.Error(iText.Html2pdf.LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, exc);
@@ -180,6 +194,21 @@ namespace iText.Html2pdf.Css.Parse {
                 return GetSemicolonPosition(propertiesStr, closedBracketPos + 1);
             }
             return semiColonPos;
+        }
+
+        private static bool SelectorItemsContainsUnsupportedPseudoClasses(IList<ICssSelectorItem> selectorItems) {
+            foreach (ICssSelectorItem selectorItem in selectorItems) {
+                if (selectorItem is CssPseudoClassSelectorItem) {
+                    if (unsupportedPseudoClasses.Contains(((CssPseudoClassSelectorItem)selectorItem).GetPseudoClass())) {
+                        return true;
+                    }
+                    if (selectorItem is CssPseudoClassSelectorItem.NotSelectorItem) {
+                        return SelectorItemsContainsUnsupportedPseudoClasses(((CssPseudoClassSelectorItem.NotSelectorItem)selectorItem
+                            ).GetArgumentsSelector());
+                    }
+                }
+            }
+            return false;
         }
     }
 }

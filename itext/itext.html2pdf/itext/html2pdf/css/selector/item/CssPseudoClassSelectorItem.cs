@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Css.Selector;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
@@ -154,6 +155,10 @@ namespace iText.Html2pdf.Css.Selector.Item {
         */
         public override String ToString() {
             return ":" + pseudoClass + (!String.IsNullOrEmpty(arguments) ? "(" + arguments + ")" : "");
+        }
+
+        public virtual String GetPseudoClass() {
+            return pseudoClass;
         }
 
         private class ChildSelectorItem : CssPseudoClassSelectorItem {
@@ -324,12 +329,18 @@ namespace iText.Html2pdf.Css.Selector.Item {
             }
         }
 
-        private class NotSelectorItem : CssPseudoClassSelectorItem {
+        public class NotSelectorItem : CssPseudoClassSelectorItem {
             private ICssSelector argumentsSelector;
 
             public NotSelectorItem(ICssSelector argumentsSelector)
                 : base(CssConstants.NOT, argumentsSelector.ToString()) {
+                //@TODO This class was made public because we need to detect to arguments contains unsupported pseudo classes
+                //revert the changes when the task DEVSIX-1440 is done
                 this.argumentsSelector = argumentsSelector;
+            }
+
+            public virtual IList<ICssSelectorItem> GetArgumentsSelector() {
+                return CssSelectorParser.ParseSelectorItems(arguments);
             }
 
             public override bool Matches(INode node) {
