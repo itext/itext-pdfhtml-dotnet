@@ -67,145 +67,88 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void TextAlign01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textAlignTest01.html"), new FileInfo(destinationFolder
-                 + "textAlignTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textAlignTest01.pdf"
-                , sourceFolder + "cmp_textAlignTest01.pdf", destinationFolder, "diff01_"));
+        public virtual void TextAlignTest01() {
+            RunTest("textAlignTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED)]
-        public virtual void TextDecoration01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textDecorationTest01.html"), new FileInfo(destinationFolder
-                 + "textDecorationTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textDecorationTest01.pdf"
-                , sourceFolder + "cmp_textDecorationTest01.pdf", destinationFolder, "diff02_"));
+        public virtual void TextDecorationTest01() {
+            RunTest("textDecorationTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED)]
-        public virtual void TextIndent01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textIndentTest01.html"), new FileInfo(destinationFolder
-                 + "textIndentTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textIndentTest01.pdf"
-                , sourceFolder + "cmp_textIndentTest01.pdf", destinationFolder, "diff03_"));
+        public virtual void LetterSpacingTest01() {
+            RunTest("letterSpacingTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void LetterSpacing01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "letterSpacingTest01.html"), new FileInfo(destinationFolder
-                 + "letterSpacingTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "letterSpacingTest01.pdf"
-                , sourceFolder + "cmp_letterSpacingTest01.pdf", destinationFolder, "diff04_"));
+        public virtual void WordSpacingTest01() {
+            RunTest("wordSpacingTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void WordSpacing01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "wordSpacingTest01.html"), new FileInfo(destinationFolder
-                 + "wordSpacingTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "wordSpacingTest01.pdf"
-                , sourceFolder + "cmp_wordSpacingTest01.pdf", destinationFolder, "diff05_"));
+        public virtual void LineHeightTest01() {
+            RunTest("lineHeightTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void LineHeight01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "lineHeightTest01.html"), new FileInfo(destinationFolder
-                 + "lineHeightTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "lineHeightTest01.pdf"
-                , sourceFolder + "cmp_lineHeightTest01.pdf", destinationFolder, "diff06_"));
+        public virtual void WhiteSpaceTest01() {
+            RunTest("whiteSpaceTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void Direction01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "directionTest01.html"), new FileInfo(destinationFolder
-                 + "directionTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "directionTest01.pdf"
-                , sourceFolder + "cmp_directionTest01.pdf", destinationFolder, "diff07_"));
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void WhiteSpace01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "whiteSpaceTest01.html"), new FileInfo(destinationFolder
-                 + "whiteSpaceTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "whiteSpaceTest01.pdf"
-                , sourceFolder + "cmp_whiteSpaceTest01.pdf", destinationFolder, "diff08_"));
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void TextTransform01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textTransformTest01.html"), new FileInfo(destinationFolder
-                 + "textTransformTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textTransformTest01.pdf"
-                , sourceFolder + "cmp_textTransformTest01.pdf", destinationFolder, "diff09_"));
+        public virtual void TextTransformTest01() {
+            RunTest("textTransformTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TextTransform02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textTransformTest02.html"), new FileInfo(destinationFolder
-                 + "textTransformTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textTransformTest02.pdf"
-                , sourceFolder + "cmp_textTransformTest02.pdf", destinationFolder, "diff10_"));
+            RunTest("textTransformTest02");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void WhiteSpace02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "whiteSpaceTest02.html"), new FileInfo(destinationFolder
-                 + "whiteSpaceTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "whiteSpaceTest02.pdf"
-                , sourceFolder + "cmp_whiteSpaceTest02.pdf", destinationFolder, "diff11_"));
+        public virtual void WhiteSpaceTest02() {
+            RunTest("whiteSpaceTest02");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void TextAlign02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textAlignTest02.html"), new FileInfo(destinationFolder
-                 + "textAlignTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textAlignTest02.pdf"
-                , sourceFolder + "cmp_textAlignTest02.pdf", destinationFolder, "diff12_"));
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1319")]
         public virtual void EnspEmspThinspTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "enspEmspThinspTest01.html"), new FileInfo(destinationFolder
-                 + "enspEmspThinspTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "enspEmspThinspTest01.pdf"
-                , sourceFolder + "cmp_enspEmspThinspTest01.pdf", destinationFolder, "diff13_"));
+            RunTest("enspEmspThinspTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1319")]
         public virtual void EnspEmspThinspTest02() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "enspEmspThinspTest02.html"), new FileInfo(destinationFolder
-                 + "enspEmspThinspTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "enspEmspThinspTest02.pdf"
-                , sourceFolder + "cmp_enspEmspThinspTest02.pdf", destinationFolder, "diff14_"));
+            RunTest("enspEmspThinspTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String testName) {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
         }
     }
 }
