@@ -59,12 +59,6 @@ namespace iText.Html2pdf.Css.Selector.Item {
         /// <summary>The arguments.</summary>
         protected internal String arguments;
 
-        private static readonly CssPseudoClassSelectorItem.FirstChildSelectorItem firstChild = new CssPseudoClassSelectorItem.FirstChildSelectorItem
-            ();
-
-        private static readonly CssPseudoClassSelectorItem.LastChildSelectorItem lastChild = new CssPseudoClassSelectorItem.LastChildSelectorItem
-            ();
-
         /// <summary>
         /// Creates a new
         /// <see cref="CssPseudoClassSelectorItem"/>
@@ -102,11 +96,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
              arguments) {
             switch (pseudoClass) {
                 case CssConstants.FIRST_CHILD: {
-                    return firstChild;
+                    return CssPseudoClassSelectorItem.FirstChildSelectorItem.GetInstance();
                 }
 
                 case CssConstants.LAST_CHILD: {
-                    return lastChild;
+                    return CssPseudoClassSelectorItem.LastChildSelectorItem.GetInstance();
                 }
 
                 case CssConstants.NTH_CHILD: {
@@ -197,8 +191,15 @@ namespace iText.Html2pdf.Css.Selector.Item {
         }
 
         private class FirstChildSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
-            public FirstChildSelectorItem()
+            private static readonly CssPseudoClassSelectorItem.FirstChildSelectorItem instance = new CssPseudoClassSelectorItem.FirstChildSelectorItem
+                ();
+
+            private FirstChildSelectorItem()
                 : base(CssConstants.FIRST_CHILD) {
+            }
+
+            public static CssPseudoClassSelectorItem.FirstChildSelectorItem GetInstance() {
+                return instance;
             }
 
             public override bool Matches(INode node) {
@@ -206,13 +207,20 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     return false;
                 }
                 IList<INode> children = GetAllSiblings(node);
-                return children.IsEmpty() ? false : node.Equals(children[0]);
+                return !children.IsEmpty() && node.Equals(children[0]);
             }
         }
 
         private class LastChildSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
-            public LastChildSelectorItem()
+            private static readonly CssPseudoClassSelectorItem.LastChildSelectorItem instance = new CssPseudoClassSelectorItem.LastChildSelectorItem
+                ();
+
+            private LastChildSelectorItem()
                 : base(CssConstants.LAST_CHILD) {
+            }
+
+            public static CssPseudoClassSelectorItem.LastChildSelectorItem GetInstance() {
+                return instance;
             }
 
             public override bool Matches(INode node) {
@@ -220,7 +228,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     return false;
                 }
                 IList<INode> children = GetAllSiblings(node);
-                return children.IsEmpty() ? false : node.Equals(children[children.Count - 1]);
+                return !children.IsEmpty() && node.Equals(children[children.Count - 1]);
             }
         }
 
@@ -241,7 +249,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     return false;
                 }
                 IList<INode> children = GetAllSiblings(node);
-                return children.IsEmpty() ? false : ResolveNthChild(node, children);
+                return !children.IsEmpty() && ResolveNthChild(node, children);
             }
 
             /// <summary>Gets the nth child arguments.</summary>
@@ -302,12 +310,12 @@ namespace iText.Html2pdf.Css.Selector.Item {
                 }
                 if (this.nthChildA > 0) {
                     int temp = children.IndexOf(node) + 1 - this.nthChildB;
-                    return temp >= 0 ? temp % this.nthChildA == 0 : false;
+                    return temp >= 0 && temp % this.nthChildA == 0;
                 }
                 else {
                     if (this.nthChildA < 0) {
                         int temp = children.IndexOf(node) + 1 - this.nthChildB;
-                        return temp <= 0 ? temp % this.nthChildA == 0 : false;
+                        return temp <= 0 && temp % this.nthChildA == 0;
                     }
                     else {
                         return (children.IndexOf(node) + 1) - this.nthChildB == 0;
