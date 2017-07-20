@@ -54,7 +54,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <c>body</c>
     /// element.
     /// </summary>
-    public class BodyTagWorker : ITagWorker {
+    public class BodyTagWorker : DivTagWorker {
         /// <summary>The parent tag worker.</summary>
         private ITagWorker parentTagWorker;
 
@@ -65,7 +65,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
-        public BodyTagWorker(IElementNode element, ProcessorContext context) {
+        public BodyTagWorker(IElementNode element, ProcessorContext context)
+            : base(element, context) {
             parentTagWorker = context.GetState().Empty() ? null : context.GetState().Top();
             if (parentTagWorker != null && parentTagWorker.GetElementResult() != null) {
                 // TODO this is not in css applier because css applier is called after the elements are added to the document
@@ -81,15 +82,18 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
-        public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
+        public override void ProcessEnd(IElementNode element, ProcessorContext context) {
+            if (parentTagWorker == null) {
+                base.ProcessEnd(element, context);
+            }
         }
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
-        public virtual bool ProcessContent(String content, ProcessorContext context) {
+        public override bool ProcessContent(String content, ProcessorContext context) {
             if (parentTagWorker == null) {
-                return false;
+                return base.ProcessContent(content, context);
             }
             else {
                 return parentTagWorker.ProcessContent(content, context);
@@ -99,9 +103,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
-        public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+        public override bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             if (parentTagWorker == null) {
-                return false;
+                return base.ProcessTagChild(childTagWorker, context);
             }
             else {
                 return parentTagWorker.ProcessTagChild(childTagWorker, context);
@@ -111,8 +115,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
         */
-        public virtual IPropertyContainer GetElementResult() {
-            return null;
+        public override IPropertyContainer GetElementResult() {
+            return parentTagWorker == null ? base.GetElementResult() : null;
         }
     }
 }
