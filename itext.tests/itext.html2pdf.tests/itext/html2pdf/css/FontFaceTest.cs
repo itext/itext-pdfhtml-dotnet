@@ -180,6 +180,70 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void W3cProblemTest01() {
+            //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+            RunTest("w3cProblemTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void W3cProblemTest02() {
+            //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
+            RunTest("w3cProblemTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void W3cProblemTest03() {
+            //TODO: silently omitted, decompression should fail.
+            RunTest("w3cProblemTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void W3cProblemTest04() {
+            //TODO: silently omitted, decompression should fail. Browser loads font but don't draw glyph.
+            RunTest("w3cProblemTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void W3cProblemTest05() {
+            //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+            RunTest("w3cProblemTest05");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void W3cProblemTest06() {
+            //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+            RunTest("w3cProblemTest06");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void W3cProblemTest07() {
+            //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
+            RunTest("w3cProblemTest07");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void IncorrectFontNameTest() {
+            //TODO: browser can load font with @font-face family name different form family name stored in font metadata, but iText should have them equal in order to work.
+            RunTest("incorrectFontNameTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String name) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";
