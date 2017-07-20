@@ -142,7 +142,6 @@ namespace iText.Html2pdf.Attach.Impl {
             IElementNode body = FindBodyNode(root);
             // Force resolve styles to fetch default font size etc
             html.SetStyles(cssResolver.ResolveStyles(html, context.GetCssContext()));
-            //body.setStyles(cssResolver.resolveStyles(body, context.getCssContext()));
             // visit body
             Visit(body);
             Div bodyDiv = (Div)roots[0];
@@ -293,9 +292,6 @@ namespace iText.Html2pdf.Attach.Impl {
                         cssApplier.Apply(context, element, tagWorker);
                     }
                     if (!context.GetState().Empty()) {
-                        if (context.GetState().Top() is DivTagWorker) {
-                            context.GetState().Top().ProcessEnd(element, context);
-                        }
                         PageBreakApplierUtil.AddPageBreakElementBefore(context, context.GetState().Top(), element, tagWorker);
                         bool childProcessed = context.GetState().Top().ProcessTagChild(tagWorker, context);
                         PageBreakApplierUtil.AddPageBreakElementAfter(context, context.GetState().Top(), element, tagWorker);
