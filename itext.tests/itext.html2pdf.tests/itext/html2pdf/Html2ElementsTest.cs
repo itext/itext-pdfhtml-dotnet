@@ -138,7 +138,7 @@ namespace iText.Html2pdf {
         public virtual void HtmlElementsTest07() {
             String html = "<html>Lorem<span>Dolor</span><p>Ipsum</p><p>Sit</p></html>";
             IList<IElement> lst = HtmlConverter.ConvertToElements(html);
-            NUnit.Framework.Assert.IsTrue(lst.Count == 4);
+            NUnit.Framework.Assert.IsTrue(lst.Count == 3);
             for (int i = 0; i < lst.Count; i++) {
                 NUnit.Framework.Assert.IsTrue(lst[i] is Paragraph);
             }
