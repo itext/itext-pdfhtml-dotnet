@@ -142,20 +142,12 @@ namespace iText.Html2pdf.Attach.Impl {
             IElementNode body = FindBodyNode(root);
             // Force resolve styles to fetch default font size etc
             html.SetStyles(cssResolver.ResolveStyles(html, context.GetCssContext()));
-            body.SetStyles(cssResolver.ResolveStyles(body, context.GetCssContext()));
-            foreach (INode node in body.ChildNodes()) {
-                if (node is IElementNode) {
-                    Visit(node);
-                }
-                else {
-                    if (node is ITextNode) {
-                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.TEXT_WAS_NOT_PROCESSED, ((ITextNode
-                            )node).WholeText()));
-                    }
-                }
-            }
+            //body.setStyles(cssResolver.resolveStyles(body, context.getCssContext()));
+            // visit body
+            Visit(body);
+            Div bodyDiv = (Div)roots[0];
             IList<IElement> elements = new List<IElement>();
-            foreach (IPropertyContainer propertyContainer in roots) {
+            foreach (IPropertyContainer propertyContainer in bodyDiv.GetChildren()) {
                 if (propertyContainer is IElement) {
                     propertyContainer.SetProperty(Property.COLLAPSING_MARGINS, true);
                     propertyContainer.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
@@ -301,6 +293,9 @@ namespace iText.Html2pdf.Attach.Impl {
                         cssApplier.Apply(context, element, tagWorker);
                     }
                     if (!context.GetState().Empty()) {
+                        if (context.GetState().Top() is DivTagWorker) {
+                            context.GetState().Top().ProcessEnd(element, context);
+                        }
                         PageBreakApplierUtil.AddPageBreakElementBefore(context, context.GetState().Top(), element, tagWorker);
                         bool childProcessed = context.GetState().Top().ProcessTagChild(tagWorker, context);
                         PageBreakApplierUtil.AddPageBreakElementAfter(context, context.GetState().Top(), element, tagWorker);
