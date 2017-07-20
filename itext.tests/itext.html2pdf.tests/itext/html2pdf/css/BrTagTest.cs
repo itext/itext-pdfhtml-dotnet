@@ -72,24 +72,12 @@ namespace iText.Html2pdf.Css {
         public virtual void Test() {
             String input = "<html>\n" + "<head><title>Test</title></head>" + "<body style=\"font-family: FreeSans;\">"
                  + "<h1>Test</h1>" + "<br />" + "<p>Hello World</p>" + "</body>" + "</html>";
-            IDictionary<String, int?> fontFrequency = new Dictionary<String, int?>();
-            foreach (IElement e in HtmlConverter.ConvertToElements(input)) {
-                String fontName = e.GetProperty<String>(Property.FONT);
-                if (!fontFrequency.ContainsKey(fontName)) {
-                    fontFrequency.Put(fontName, 0);
-                }
-                fontFrequency.Put(fontName, fontFrequency.Get(fontName) + 1);
-            }
-            // only 1 font should be used
-            NUnit.Framework.Assert.IsTrue(fontFrequency.Count == 1);
-            // the font should be freesans
-            String usedFont = null;
-            foreach (String key in fontFrequency.Keys) {
-                NUnit.Framework.Assert.IsTrue(key.Equals("freesans"));
-                usedFont = key;
-            }
-            // it should have been used for 3 elements
-            NUnit.Framework.Assert.IsTrue(fontFrequency.Get(usedFont) == 3);
+            IList<IElement> elements = HtmlConverter.ConvertToElements(input);
+            NUnit.Framework.Assert.AreEqual(3, elements.Count);
+            NUnit.Framework.Assert.IsTrue(elements[1] is Paragraph);
+            NUnit.Framework.Assert.AreEqual(1, ((Paragraph)elements[1]).GetChildren().Count);
+            IElement iElement = ((Paragraph)elements[1]).GetChildren()[0];
+            NUnit.Framework.Assert.AreEqual("freesans", iElement.GetProperty<String>(Property.FONT));
         }
     }
 }
