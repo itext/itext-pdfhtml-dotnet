@@ -239,6 +239,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant SAMP.</summary>
         public const String SAMP = "samp";
 
+        /// <summary>The Constant SCRIPT.</summary>
+        public const String SCRIPT = "script";
+
         /// <summary>The Constant SECTION.</summary>
         public const String SECTION = "section";
 

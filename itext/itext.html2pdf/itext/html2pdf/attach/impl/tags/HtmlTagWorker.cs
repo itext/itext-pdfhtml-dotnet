@@ -108,7 +108,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-            bool processed;
+            bool processed = false;
             if (childTagWorker is SpanTagWorker) {
                 bool allChildrenProcessed = true;
                 foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
@@ -158,7 +158,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                                 processed = true;
                             }
                             else {
-                                return ProcessBlockChild(childTagWorker.GetElementResult());
+                                if (childTagWorker.GetElementResult() != null) {
+                                    processed = ProcessBlockChild(childTagWorker.GetElementResult());
+                                }
                             }
                         }
                     }
@@ -191,12 +193,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 document.Add((IBlockElement)element);
                 return true;
             }
-            else {
-                if (element is Image) {
-                    document.Add((Image)element);
-                }
+            if (element is Image) {
+                document.Add((Image)element);
+                return true;
             }
-            return true;
+            return false;
         }
 
         /// <summary>Post-processes the hanging leaves of the waiting inline elements.</summary>

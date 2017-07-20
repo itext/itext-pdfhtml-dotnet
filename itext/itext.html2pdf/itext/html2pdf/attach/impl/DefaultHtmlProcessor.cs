@@ -87,6 +87,12 @@ namespace iText.Html2pdf.Attach.Impl {
             <String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.BR, TagConstants.LINK, TagConstants.META, TagConstants
             .TITLE, TagConstants.TR)));
 
+        /// <summary>Set of tags that might be not processed by some tag workers and that are deliberately excluded from the logging.
+        ///     </summary>
+        private static readonly ICollection<String> ignoredChildTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet
+            <String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.BODY, TagConstants.LINK, TagConstants.META, 
+            TagConstants.SCRIPT, TagConstants.TITLE)));
+
         /// <summary>The processor context.</summary>
         private ProcessorContext context;
 
@@ -101,6 +107,7 @@ namespace iText.Html2pdf.Attach.Impl {
         public DefaultHtmlProcessor(ConverterProperties converterProperties) {
             // TODO <tbody> is not supported. Styles will be propagated anyway
             // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
+            // TODO implement
             this.context = new ProcessorContext(converterProperties);
         }
 
@@ -295,7 +302,7 @@ namespace iText.Html2pdf.Attach.Impl {
                         PageBreakApplierUtil.AddPageBreakElementBefore(context, context.GetState().Top(), element, tagWorker);
                         bool childProcessed = context.GetState().Top().ProcessTagChild(tagWorker, context);
                         PageBreakApplierUtil.AddPageBreakElementAfter(context, context.GetState().Top(), element, tagWorker);
-                        if (!childProcessed) {
+                        if (!childProcessed && !ignoredChildTags.Contains(element.Name())) {
                             logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER
                                 , context.GetState().Top().GetType().FullName, tagWorker.GetType().FullName));
                         }

@@ -81,6 +81,7 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
         public virtual void ResourceResolverTest02() {
             String baseUri = "/folderInDiskRoot";
             String outPdf = destinationFolder + "resourceResolverTest02.pdf";
