@@ -386,13 +386,15 @@ namespace iText.Html2pdf.Attach.Impl {
                         // Cache at resource resolver level only, at font level we will create font in any case.
                         // The instance of fontProgram will be collected by GC if the is no need in it.
                         byte[] bytes = context.GetResourceResolver().RetrieveStream(src.src);
-                        FontProgram fp = FontProgramFactory.CreateFont(bytes, false);
-                        context.AddTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily);
-                        return true;
+                        if (bytes != null) {
+                            FontProgram fp = FontProgramFactory.CreateFont(bytes, false);
+                            context.AddTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily);
+                            return true;
+                        }
                     }
                     catch (Exception) {
-                        return false;
                     }
+                    return false;
                 }
             }
         }
@@ -410,7 +412,6 @@ namespace iText.Html2pdf.Attach.Impl {
                 case FontFace.FontFormat.OpenType:
                 case FontFace.FontFormat.WOFF:
                 case FontFace.FontFormat.WOFF2: {
-                    // TODO Update after DEVSIX-1314
                     return true;
                 }
 
