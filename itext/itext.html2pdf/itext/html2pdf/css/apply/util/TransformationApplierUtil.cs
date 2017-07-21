@@ -107,130 +107,110 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     return FloatArrayToStringArray(matrix);
                 }
             }
-            else {
-                if (CssConstants.TRANSLATE.Equals(function)) {
-                    String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
-                    String xStr = null;
-                    String yStr = null;
-                    float x = 0;
-                    float y = 0;
-                    if (arg[0].IndexOf('%') > 0) {
-                        xStr = arg[0];
-                    }
-                    else {
-                        x = CssUtils.ParseAbsoluteLength(arg[0].Trim());
-                    }
-                    if (arg.Length == 2) {
-                        if (arg[1].IndexOf('%') > 0) {
-                            yStr = System.Convert.ToString(-1 * float.Parse(arg[1].JSubstring(0, arg[1].IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture
-                                ), System.Globalization.CultureInfo.InvariantCulture) + '%';
-                        }
-                        else {
-                            y = -1 * CssUtils.ParseAbsoluteLength(arg[1].Trim());
-                        }
-                    }
-                    String[] transform = FloatArrayToStringArray(new float[] { 1, 0, 0, 1, x, y });
-                    if (xStr != null) {
-                        transform[4] = xStr;
-                    }
-                    if (yStr != null) {
-                        transform[5] = yStr;
-                    }
-                    return transform;
+            if (CssConstants.TRANSLATE.Equals(function)) {
+                String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
+                String xStr = null;
+                String yStr = null;
+                float x = 0;
+                float y = 0;
+                if (arg[0].IndexOf('%') > 0) {
+                    xStr = arg[0];
                 }
                 else {
-                    if (CssConstants.TRANSLATE_X.Equals(function)) {
-                        String xStr = null;
-                        float x = 0;
-                        if (args.IndexOf('%') > 0) {
-                            xStr = args;
-                        }
-                        else {
-                            x = CssUtils.ParseAbsoluteLength(args.Trim());
-                        }
-                        String[] transform = FloatArrayToStringArray(new float[] { 1, 0, 0, 1, x, 0 });
-                        if (xStr != null) {
-                            transform[4] = xStr;
-                        }
-                        return transform;
+                    x = CssUtils.ParseAbsoluteLength(arg[0].Trim());
+                }
+                if (arg.Length == 2) {
+                    if (arg[1].IndexOf('%') > 0) {
+                        yStr = System.Convert.ToString(-1 * float.Parse(arg[1].JSubstring(0, arg[1].IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture
+                            ), System.Globalization.CultureInfo.InvariantCulture) + '%';
                     }
                     else {
-                        if (CssConstants.TRANSLATE_Y.Equals(function)) {
-                            String yStr = null;
-                            float y = 0;
-                            if (args.IndexOf('%') > 0) {
-                                yStr = System.Convert.ToString(-1 * float.Parse(args.JSubstring(0, args.IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture
-                                    ), System.Globalization.CultureInfo.InvariantCulture) + '%';
-                            }
-                            else {
-                                y = -1 * CssUtils.ParseAbsoluteLength(args.Trim());
-                            }
-                            String[] transform = FloatArrayToStringArray(new float[] { 1, 0, 0, 1, 0, y });
-                            if (yStr != null) {
-                                transform[4] = yStr;
-                            }
-                            return transform;
-                        }
-                        else {
-                            if (CssConstants.ROTATE.Equals(function)) {
-                                double angleInRad = ParseAngleToRadians(args);
-                                float cos = (float)Math.Cos(angleInRad);
-                                float sin = (float)Math.Sin(angleInRad);
-                                return FloatArrayToStringArray(new float[] { cos, sin, -1 * sin, cos, 0, 0 });
-                            }
-                            else {
-                                if (CssConstants.SKEW.Equals(function)) {
-                                    String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
-                                    double xAngleInRad = ParseAngleToRadians(arg[0]);
-                                    double yAngleInRad = arg.Length == 2 ? ParseAngleToRadians(arg[1]) : 0.0;
-                                    float tanX = (float)Math.Tan(xAngleInRad);
-                                    float tanY = (float)Math.Tan(yAngleInRad);
-                                    return FloatArrayToStringArray(new float[] { 1, tanY, tanX, 1, 0, 0 });
-                                }
-                                else {
-                                    if (CssConstants.SKEW_X.Equals(function)) {
-                                        float tanX = (float)Math.Tan(ParseAngleToRadians(args));
-                                        return FloatArrayToStringArray(new float[] { 1, 0, tanX, 1, 0, 0 });
-                                    }
-                                    else {
-                                        if (CssConstants.SKEW_Y.Equals(function)) {
-                                            float tanY = (float)Math.Tan(ParseAngleToRadians(args));
-                                            return FloatArrayToStringArray(new float[] { 1, tanY, 0, 1, 0, 0 });
-                                        }
-                                        else {
-                                            if (CssConstants.SCALE.Equals(function)) {
-                                                String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
-                                                float x;
-                                                float y;
-                                                if (arg.Length == 2) {
-                                                    x = float.Parse(arg[0].Trim(), System.Globalization.CultureInfo.InvariantCulture);
-                                                    y = float.Parse(arg[1].Trim(), System.Globalization.CultureInfo.InvariantCulture);
-                                                }
-                                                else {
-                                                    x = float.Parse(arg[0].Trim(), System.Globalization.CultureInfo.InvariantCulture);
-                                                    y = x;
-                                                }
-                                                return FloatArrayToStringArray(new float[] { x, 0, 0, y, 0, 0 });
-                                            }
-                                            else {
-                                                if (CssConstants.SCALE_X.Equals(function)) {
-                                                    float x = float.Parse(args.Trim(), System.Globalization.CultureInfo.InvariantCulture);
-                                                    return FloatArrayToStringArray(new float[] { x, 0, 0, 1, 0, 0 });
-                                                }
-                                                else {
-                                                    if (CssConstants.SCALE_Y.Equals(function)) {
-                                                        float y = float.Parse(args.Trim(), System.Globalization.CultureInfo.InvariantCulture);
-                                                        return FloatArrayToStringArray(new float[] { 1, 0, 0, y, 0, 0 });
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        y = -1 * CssUtils.ParseAbsoluteLength(arg[1].Trim());
                     }
                 }
+                String[] transform = FloatArrayToStringArray(new float[] { 1, 0, 0, 1, x, y });
+                if (xStr != null) {
+                    transform[4] = xStr;
+                }
+                if (yStr != null) {
+                    transform[5] = yStr;
+                }
+                return transform;
+            }
+            if (CssConstants.TRANSLATE_X.Equals(function)) {
+                String xStr = null;
+                float x = 0;
+                if (args.IndexOf('%') > 0) {
+                    xStr = args;
+                }
+                else {
+                    x = CssUtils.ParseAbsoluteLength(args.Trim());
+                }
+                String[] transform = FloatArrayToStringArray(new float[] { 1, 0, 0, 1, x, 0 });
+                if (xStr != null) {
+                    transform[4] = xStr;
+                }
+                return transform;
+            }
+            if (CssConstants.TRANSLATE_Y.Equals(function)) {
+                String yStr = null;
+                float y = 0;
+                if (args.IndexOf('%') > 0) {
+                    yStr = System.Convert.ToString(-1 * float.Parse(args.JSubstring(0, args.IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture
+                        ), System.Globalization.CultureInfo.InvariantCulture) + '%';
+                }
+                else {
+                    y = -1 * CssUtils.ParseAbsoluteLength(args.Trim());
+                }
+                String[] transform = FloatArrayToStringArray(new float[] { 1, 0, 0, 1, 0, y });
+                if (yStr != null) {
+                    transform[4] = yStr;
+                }
+                return transform;
+            }
+            if (CssConstants.ROTATE.Equals(function)) {
+                double angleInRad = ParseAngleToRadians(args);
+                float cos = (float)Math.Cos(angleInRad);
+                float sin = (float)Math.Sin(angleInRad);
+                return FloatArrayToStringArray(new float[] { cos, sin, -1 * sin, cos, 0, 0 });
+            }
+            if (CssConstants.SKEW.Equals(function)) {
+                String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
+                double xAngleInRad = ParseAngleToRadians(arg[0]);
+                double yAngleInRad = arg.Length == 2 ? ParseAngleToRadians(arg[1]) : 0.0;
+                float tanX = (float)Math.Tan(xAngleInRad);
+                float tanY = (float)Math.Tan(yAngleInRad);
+                return FloatArrayToStringArray(new float[] { 1, tanY, tanX, 1, 0, 0 });
+            }
+            if (CssConstants.SKEW_X.Equals(function)) {
+                float tanX = (float)Math.Tan(ParseAngleToRadians(args));
+                return FloatArrayToStringArray(new float[] { 1, 0, tanX, 1, 0, 0 });
+            }
+            if (CssConstants.SKEW_Y.Equals(function)) {
+                float tanY = (float)Math.Tan(ParseAngleToRadians(args));
+                return FloatArrayToStringArray(new float[] { 1, tanY, 0, 1, 0, 0 });
+            }
+            if (CssConstants.SCALE.Equals(function)) {
+                String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
+                float x;
+                float y;
+                if (arg.Length == 2) {
+                    x = float.Parse(arg[0].Trim(), System.Globalization.CultureInfo.InvariantCulture);
+                    y = float.Parse(arg[1].Trim(), System.Globalization.CultureInfo.InvariantCulture);
+                }
+                else {
+                    x = float.Parse(arg[0].Trim(), System.Globalization.CultureInfo.InvariantCulture);
+                    y = x;
+                }
+                return FloatArrayToStringArray(new float[] { x, 0, 0, y, 0, 0 });
+            }
+            if (CssConstants.SCALE_X.Equals(function)) {
+                float x = float.Parse(args.Trim(), System.Globalization.CultureInfo.InvariantCulture);
+                return FloatArrayToStringArray(new float[] { x, 0, 0, 1, 0, 0 });
+            }
+            if (CssConstants.SCALE_Y.Equals(function)) {
+                float y = float.Parse(args.Trim(), System.Globalization.CultureInfo.InvariantCulture);
+                return FloatArrayToStringArray(new float[] { 1, 0, 0, y, 0, 0 });
             }
             return new String[6];
         }
