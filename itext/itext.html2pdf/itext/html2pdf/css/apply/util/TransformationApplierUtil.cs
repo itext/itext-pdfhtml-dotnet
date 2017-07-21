@@ -71,14 +71,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return;
             }
             String[] components = iText.IO.Util.StringUtil.Split(transformationFunction, "\\)");
-            IList<String[]> multipleFunction = new List<String[]>(components.Length);
+            Transform multipleFunction = new Transform(components.Length);
             foreach (String component in components) {
-                multipleFunction.Add(ParseSingleFunction(component));
+                multipleFunction.AddSingleTransform(ParseSingleFunction(component));
             }
             element.SetProperty(Property.TRANSFORM, multipleFunction);
         }
 
-        private static String[] ParseSingleFunction(String transformationFunction) {
+        private static Transform.SingleTransform ParseSingleFunction(String transformationFunction) {
             String function;
             String args;
             if (!CssConstants.NONE.Equals(transformationFunction)) {
@@ -86,7 +86,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 args = transformationFunction.Substring(transformationFunction.IndexOf('(') + 1);
             }
             else {
-                return FloatArrayToStringArray(new float[] { 1, 0, 0, 1, 0, 0 });
+                return GetSingleTransform(1, 0, 0, 1, 0, 0);
             }
             if (CssConstants.MATRIX.Equals(function)) {
                 String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
@@ -104,75 +104,42 @@ namespace iText.Html2pdf.Css.Apply.Util {
                             matrix[i] *= -1;
                         }
                     }
-                    return FloatArrayToStringArray(matrix);
+                    return GetSingleTransform(matrix);
                 }
             }
             if (CssConstants.TRANSLATE.Equals(function)) {
                 String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
-                String xStr = null;
-                String yStr = null;
-                float x = 0;
+                bool xPoint;
+                bool yPoint = true;
+                float x;
                 float y = 0;
-                if (arg[0].IndexOf('%') > 0) {
-                    xStr = arg[0];
-                }
-                else {
-                    x = CssUtils.ParseAbsoluteLength(arg[0].Trim());
-                }
+                xPoint = arg[0].IndexOf('%') < 0;
+                x = xPoint ? CssUtils.ParseAbsoluteLength(arg[0].Trim()) : float.Parse(arg[0].Trim().JSubstring(0, arg[0].
+                    IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture);
                 if (arg.Length == 2) {
-                    if (arg[1].IndexOf('%') > 0) {
-                        yStr = System.Convert.ToString(-1 * float.Parse(arg[1].JSubstring(0, arg[1].IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture
-                            ), System.Globalization.CultureInfo.InvariantCulture) + '%';
-                    }
-                    else {
-                        y = -1 * CssUtils.ParseAbsoluteLength(arg[1].Trim());
-                    }
+                    yPoint = arg[1].IndexOf('%') < 0;
+                    y = -1 * (yPoint ? CssUtils.ParseAbsoluteLength(arg[1].Trim()) : float.Parse(arg[1].Trim().JSubstring(0, arg
+                        [1].IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture));
                 }
-                String[] transform = FloatArrayToStringArray(new float[] { 1, 0, 0, 1, x, y });
-                if (xStr != null) {
-                    transform[4] = xStr;
-                }
-                if (yStr != null) {
-                    transform[5] = yStr;
-                }
-                return transform;
+                return GetSingleTransformTranslate(1, 0, 0, 1, x, y, xPoint, yPoint);
             }
             if (CssConstants.TRANSLATE_X.Equals(function)) {
-                String xStr = null;
-                float x = 0;
-                if (args.IndexOf('%') > 0) {
-                    xStr = args;
-                }
-                else {
-                    x = CssUtils.ParseAbsoluteLength(args.Trim());
-                }
-                String[] transform = FloatArrayToStringArray(new float[] { 1, 0, 0, 1, x, 0 });
-                if (xStr != null) {
-                    transform[4] = xStr;
-                }
-                return transform;
+                bool xPoint = args.IndexOf('%') < 0;
+                float x = xPoint ? CssUtils.ParseAbsoluteLength(args.Trim()) : float.Parse(args.Trim().JSubstring(0, args.
+                    IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture);
+                return GetSingleTransformTranslate(1, 0, 0, 1, x, 0, xPoint, true);
             }
             if (CssConstants.TRANSLATE_Y.Equals(function)) {
-                String yStr = null;
-                float y = 0;
-                if (args.IndexOf('%') > 0) {
-                    yStr = System.Convert.ToString(-1 * float.Parse(args.JSubstring(0, args.IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture
-                        ), System.Globalization.CultureInfo.InvariantCulture) + '%';
-                }
-                else {
-                    y = -1 * CssUtils.ParseAbsoluteLength(args.Trim());
-                }
-                String[] transform = FloatArrayToStringArray(new float[] { 1, 0, 0, 1, 0, y });
-                if (yStr != null) {
-                    transform[4] = yStr;
-                }
-                return transform;
+                bool yPoint = args.IndexOf('%') < 0;
+                float y = -1 * (yPoint ? CssUtils.ParseAbsoluteLength(args.Trim()) : float.Parse(args.Trim().JSubstring(0, 
+                    args.IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture));
+                return GetSingleTransformTranslate(1, 0, 0, 1, 0, y, true, yPoint);
             }
             if (CssConstants.ROTATE.Equals(function)) {
                 double angleInRad = ParseAngleToRadians(args);
                 float cos = (float)Math.Cos(angleInRad);
                 float sin = (float)Math.Sin(angleInRad);
-                return FloatArrayToStringArray(new float[] { cos, sin, -1 * sin, cos, 0, 0 });
+                return GetSingleTransform(cos, sin, -1 * sin, cos, 0, 0);
             }
             if (CssConstants.SKEW.Equals(function)) {
                 String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
@@ -180,15 +147,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 double yAngleInRad = arg.Length == 2 ? ParseAngleToRadians(arg[1]) : 0.0;
                 float tanX = (float)Math.Tan(xAngleInRad);
                 float tanY = (float)Math.Tan(yAngleInRad);
-                return FloatArrayToStringArray(new float[] { 1, tanY, tanX, 1, 0, 0 });
+                return GetSingleTransform(1, tanY, tanX, 1, 0, 0);
             }
             if (CssConstants.SKEW_X.Equals(function)) {
                 float tanX = (float)Math.Tan(ParseAngleToRadians(args));
-                return FloatArrayToStringArray(new float[] { 1, 0, tanX, 1, 0, 0 });
+                return GetSingleTransform(1, 0, tanX, 1, 0, 0);
             }
             if (CssConstants.SKEW_Y.Equals(function)) {
                 float tanY = (float)Math.Tan(ParseAngleToRadians(args));
-                return FloatArrayToStringArray(new float[] { 1, tanY, 0, 1, 0, 0 });
+                return GetSingleTransform(1, tanY, 0, 1, 0, 0);
             }
             if (CssConstants.SCALE.Equals(function)) {
                 String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
@@ -202,17 +169,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     x = float.Parse(arg[0].Trim(), System.Globalization.CultureInfo.InvariantCulture);
                     y = x;
                 }
-                return FloatArrayToStringArray(new float[] { x, 0, 0, y, 0, 0 });
+                return GetSingleTransform(x, 0, 0, y, 0, 0);
             }
             if (CssConstants.SCALE_X.Equals(function)) {
                 float x = float.Parse(args.Trim(), System.Globalization.CultureInfo.InvariantCulture);
-                return FloatArrayToStringArray(new float[] { x, 0, 0, 1, 0, 0 });
+                return GetSingleTransform(x, 0, 0, 1, 0, 0);
             }
             if (CssConstants.SCALE_Y.Equals(function)) {
                 float y = float.Parse(args.Trim(), System.Globalization.CultureInfo.InvariantCulture);
-                return FloatArrayToStringArray(new float[] { 1, 0, 0, y, 0, 0 });
+                return GetSingleTransform(1, 0, 0, y, 0, 0);
             }
-            return new String[6];
+            return new Transform.SingleTransform();
         }
 
         private static double ParseAngleToRadians(String value) {
@@ -227,12 +194,21 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 'd')), System.Globalization.CultureInfo.InvariantCulture));
         }
 
-        private static String[] FloatArrayToStringArray(float[] floats) {
-            String[] strings = new String[floats.Length];
-            for (int i = 0; i < floats.Length; i++) {
-                strings[i] = System.Convert.ToString(floats[i], System.Globalization.CultureInfo.InvariantCulture);
-            }
-            return strings;
+        private static Transform.SingleTransform GetSingleTransformTranslate(float a, float b, float c, float d, float
+             tx, float ty, bool xPoint, bool yPoint) {
+            return new Transform.SingleTransform(a, b, c, d, new UnitValue(xPoint ? UnitValue.POINT : UnitValue.PERCENT
+                , tx), new UnitValue(yPoint ? UnitValue.POINT : UnitValue.PERCENT, ty));
+        }
+
+        private static Transform.SingleTransform GetSingleTransform(float a, float b, float c, float d, float tx, 
+            float ty) {
+            return new Transform.SingleTransform(a, b, c, d, new UnitValue(UnitValue.POINT, tx), new UnitValue(UnitValue
+                .POINT, ty));
+        }
+
+        private static Transform.SingleTransform GetSingleTransform(float[] floats) {
+            return new Transform.SingleTransform(floats[0], floats[1], floats[2], floats[3], new UnitValue(UnitValue.POINT
+                , floats[4]), new UnitValue(UnitValue.POINT, floats[5]));
         }
     }
 }

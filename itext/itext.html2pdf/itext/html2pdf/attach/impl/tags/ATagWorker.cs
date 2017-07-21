@@ -41,7 +41,6 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
@@ -80,7 +79,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     if (GetAllElements()[i] is IBlockElement) {
                         Div simulatedDiv = new Div();
                         simulatedDiv.SetRole(PdfName.Link);
-                        IList<String[]> cssTransform = GetAllElements()[i].GetProperty<IList<String[]>>(Property.TRANSFORM);
+                        Transform cssTransform = GetAllElements()[i].GetProperty<Transform>(Property.TRANSFORM);
                         if (cssTransform != null) {
                             GetAllElements()[i].DeleteOwnProperty(Property.TRANSFORM);
                             simulatedDiv.SetProperty(Property.TRANSFORM, cssTransform);
