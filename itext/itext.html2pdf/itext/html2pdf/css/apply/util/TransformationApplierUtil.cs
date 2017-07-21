@@ -49,7 +49,11 @@ using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     public class TransformationApplierUtil {
-        /// <summary>Creates a new <code>TransformationApplierUtil</code> instance.</summary>
+        /// <summary>
+        /// Creates a new
+        /// <see cref="TransformationApplierUtil"/>
+        /// instance.
+        /// </summary>
         private TransformationApplierUtil() {
         }
 
