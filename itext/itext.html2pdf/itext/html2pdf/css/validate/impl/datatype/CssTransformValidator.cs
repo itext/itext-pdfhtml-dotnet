@@ -46,7 +46,7 @@ using iText.Html2pdf.Css.Validate;
 namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
     /// <summary>
     /// <see cref="iText.Html2pdf.Css.Validate.ICssDataTypeValidator"/>
-    /// implementation for .
+    /// implementation for css transform property .
     /// </summary>
     public class CssTransformValidator : ICssDataTypeValidator {
         /* (non-Javadoc)
@@ -68,7 +68,7 @@ namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
         private bool IsValidComponent(String objectString) {
             String function;
             String args;
-            if (!CssConstants.NONE.Equals(objectString)) {
+            if (!CssConstants.NONE.Equals(objectString) && objectString.IndexOf('(') > 0) {
                 function = objectString.JSubstring(0, objectString.IndexOf('(')).Trim();
                 args = objectString.Substring(objectString.IndexOf('(') + 1);
             }
