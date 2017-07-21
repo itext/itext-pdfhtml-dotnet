@@ -406,6 +406,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant TEXT_UNDERLINE_POSITION.</summary>
         public const String TEXT_UNDERLINE_POSITION = "text-underline-position";
 
+        /// <summary>The Constant TRANSFORM.</summary>
+        public const String TRANSFORM = "transform";
+
         /// <summary>The Constant UNICODE_BIDI.</summary>
         public const String UNICODE_BIDI = "unicode-bidi";
 
@@ -622,6 +625,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant MANUAL.</summary>
         public const String MANUAL = "manual";
 
+        /// <summary>The Constant MATRIX.</summary>
+        public const String MATRIX = "matrix";
+
         /// <summary>The Constant MEDIUM.</summary>
         public const String MEDIUM = "medium";
 
@@ -700,11 +706,32 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant RIGHT.</summary>
         public const String RIGHT = "right";
 
+        /// <summary>The Constant ROTATE.</summary>
+        public const String ROTATE = "rotate";
+
         /// <summary>The Constant RTL.</summary>
         public const String RTL = "rtl";
 
+        /// <summary>The Constant SCALE.</summary>
+        public const String SCALE = "scale";
+
+        /// <summary>The Constant SCALE_X.</summary>
+        public const String SCALE_X = "scalex";
+
+        /// <summary>The Constant SCALE_Y.</summary>
+        public const String SCALE_Y = "scaley";
+
         /// <summary>The Constant SCROLL.</summary>
         public const String SCROLL = "scroll";
+
+        /// <summary>The Constant SKEW.</summary>
+        public const String SKEW = "skew";
+
+        /// <summary>The Constant SKEW_X.</summary>
+        public const String SKEW_X = "skewx";
+
+        /// <summary>The Constant SKEW_Y.</summary>
+        public const String SKEW_Y = "skewy";
 
         /// <summary>The Constant SMALL.</summary>
         public const String SMALL = "small";
@@ -756,6 +783,15 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant TOP.</summary>
         public const String TOP = "top";
+
+        /// <summary>The Constant TRANSLATE.</summary>
+        public const String TRANSLATE = "translate";
+
+        /// <summary>The Constant TRANSLATE_X.</summary>
+        public const String TRANSLATE_X = "translatex";
+
+        /// <summary>The Constant TRANSLATE_Y.</summary>
+        public const String TRANSLATE_Y = "translatey";
 
         /// <summary>The Constant TRANSPARENT.</summary>
         public const String TRANSPARENT = "transparent";
