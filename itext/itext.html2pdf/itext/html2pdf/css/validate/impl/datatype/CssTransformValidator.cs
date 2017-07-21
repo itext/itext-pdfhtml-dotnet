@@ -100,10 +100,20 @@ namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
                 }
                 else {
                     if (CssConstants.ROTATE.Equals(function)) {
-                        int i = args.IndexOf('d');
-                        if (i > 0 && args.Substring(i).Equals("deg")) {
+                        try {
+                            float value = float.Parse(args, System.Globalization.CultureInfo.InvariantCulture);
+                            if (value == 0.0f) {
+                                return true;
+                            }
+                        }
+                        catch (FormatException) {
+                        }
+                        int deg = args.IndexOf('d');
+                        int rad = args.IndexOf('r');
+                        if (deg > 0 && args.Substring(deg).Equals("deg") || rad > 0 && args.Substring(rad).Equals("rad")) {
                             try {
-                                System.Double.Parse(args.JSubstring(0, i), System.Globalization.CultureInfo.InvariantCulture);
+                                System.Double.Parse(args.JSubstring(0, deg > 0 ? deg : rad), System.Globalization.CultureInfo.InvariantCulture
+                                    );
                             }
                             catch (FormatException) {
                                 return false;
@@ -119,12 +129,26 @@ namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
                             if ((arg.Length == 1 || arg.Length == 2 && CssConstants.SKEW.Equals(function)) || (arg.Length == 1 && (CssConstants
                                 .SKEW_X.Equals(function) || CssConstants.SKEW_Y.Equals(function)))) {
                                 for (int k = 0; k < arg.Length; k++) {
-                                    int i = arg[k].IndexOf('d');
-                                    if (i < 0 || !arg[k].Substring(i).Equals("deg")) {
+                                    try {
+                                        float value = float.Parse(arg[k], System.Globalization.CultureInfo.InvariantCulture);
+                                        if (value != 0.0f) {
+                                            return false;
+                                        }
+                                    }
+                                    catch (FormatException) {
+                                    }
+                                    int deg = arg[k].IndexOf('d');
+                                    int rad = arg[k].IndexOf('r');
+                                    if (deg < 0 && rad < 0) {
+                                        return false;
+                                    }
+                                    if (deg > 0 && !arg[k].Substring(deg).Equals("deg") && rad < 0 || (rad > 0 && !arg[k].Substring(rad).Equals
+                                        ("rad"))) {
                                         return false;
                                     }
                                     try {
-                                        float.Parse(arg[k].Trim().JSubstring(0, i), System.Globalization.CultureInfo.InvariantCulture);
+                                        float.Parse(arg[k].Trim().JSubstring(0, rad > 0 ? rad : deg), System.Globalization.CultureInfo.InvariantCulture
+                                            );
                                     }
                                     catch (FormatException) {
                                         return false;
@@ -160,10 +184,11 @@ namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
                 catch (FormatException) {
                     return false;
                 }
-                return (@string.Substring(pos).Equals(CssConstants.PT) || @string.Substring(pos).Equals(CssConstants.IN) ||
+                return (float.Parse(@string.JSubstring(0, pos), System.Globalization.CultureInfo.InvariantCulture) == 0.0f
+                     || @string.Substring(pos).Equals(CssConstants.PT) || @string.Substring(pos).Equals(CssConstants.IN) ||
                      @string.Substring(pos).Equals(CssConstants.CM) || @string.Substring(pos).Equals(CssConstants.Q) || @string
                     .Substring(pos).Equals(CssConstants.MM) || @string.Substring(pos).Equals(CssConstants.PC) || @string.Substring
-                    (pos).Equals(CssConstants.PX));
+                    (pos).Equals(CssConstants.PX) || @string.Substring(pos).Equals(CssConstants.PERCENTAGE));
             }
             return false;
         }

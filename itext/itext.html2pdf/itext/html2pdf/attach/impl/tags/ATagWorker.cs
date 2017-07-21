@@ -79,7 +79,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     if (GetAllElements()[i] is IBlockElement) {
                         Div simulatedDiv = new Div();
                         simulatedDiv.SetRole(PdfName.Link);
-                        float[] cssTransform = (float[])GetAllElements()[i].GetProperty(Property.TRANSFORM);
+                        String[] cssTransform = GetAllElements()[i].GetProperty<String[]>(Property.TRANSFORM);
                         if (cssTransform != null) {
                             GetAllElements()[i].DeleteOwnProperty(Property.TRANSFORM);
                             simulatedDiv.SetProperty(Property.TRANSFORM, cssTransform);

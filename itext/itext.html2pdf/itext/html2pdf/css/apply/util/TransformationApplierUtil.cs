@@ -59,22 +59,22 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="element">the element</param>
         public static void ApplyTransformation(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
-            String tranformationFunction;
+            String transformationFunction;
             String function;
             String args;
             if (cssProps.Get(CssConstants.TRANSFORM) != null) {
-                tranformationFunction = cssProps.Get(CssConstants.TRANSFORM).ToLowerInvariant();
+                transformationFunction = cssProps.Get(CssConstants.TRANSFORM).ToLowerInvariant();
             }
             else {
-                tranformationFunction = "none";
+                transformationFunction = "none";
             }
-            if (!CssConstants.NONE.Equals(tranformationFunction)) {
-                function = tranformationFunction.JSubstring(0, tranformationFunction.IndexOf('('));
-                args = tranformationFunction.JSubstring(tranformationFunction.IndexOf('(') + 1, tranformationFunction.Length
+            if (!CssConstants.NONE.Equals(transformationFunction)) {
+                function = transformationFunction.JSubstring(0, transformationFunction.IndexOf('('));
+                args = transformationFunction.JSubstring(transformationFunction.IndexOf('(') + 1, transformationFunction.Length
                      - 1);
             }
             else {
-                function = tranformationFunction;
+                function = transformationFunction;
                 args = "0";
             }
             if (CssConstants.MATRIX.Equals(function)) {
@@ -93,74 +93,99 @@ namespace iText.Html2pdf.Css.Apply.Util {
                             matrix[i] *= -1;
                         }
                     }
-                    element.SetProperty(Property.TRANSFORM, matrix);
+                    element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(matrix));
                 }
             }
             else {
                 if (CssConstants.TRANSLATE.Equals(function)) {
                     String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
+                    String xStr = null;
+                    String yStr = null;
                     float x = 0;
                     float y = 0;
-                    if (arg.Length == 2) {
-                        x = CssUtils.ParseAbsoluteLength(arg[0].Trim());
-                        y = -1 * CssUtils.ParseAbsoluteLength(arg[1].Trim());
+                    if (arg[0].IndexOf('%') > 0) {
+                        xStr = arg[0];
                     }
                     else {
-                        if (arg.Length == 1) {
-                            x = CssUtils.ParseAbsoluteLength(arg[0].Trim());
+                        x = CssUtils.ParseAbsoluteLength(arg[0].Trim());
+                    }
+                    if (arg.Length == 2) {
+                        if (arg[1].IndexOf('%') > 0) {
+                            yStr = System.Convert.ToString(-1 * float.Parse(arg[1].JSubstring(0, arg[1].IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture
+                                ), System.Globalization.CultureInfo.InvariantCulture) + '%';
+                        }
+                        else {
+                            y = -1 * CssUtils.ParseAbsoluteLength(arg[1].Trim());
                         }
                     }
-                    element.SetProperty(Property.TRANSFORM, new float[] { 1, 0, 0, 1, x, y });
+                    String[] transform = FloatArrayToStringArray(new float[] { 1, 0, 0, 1, x, y });
+                    if (xStr != null) {
+                        transform[4] = xStr;
+                    }
+                    if (yStr != null) {
+                        transform[5] = yStr;
+                    }
+                    element.SetProperty(Property.TRANSFORM, transform);
                 }
                 else {
                     if (CssConstants.TRANSLATE_X.Equals(function)) {
-                        float x = CssUtils.ParseAbsoluteLength(args.Trim());
-                        element.SetProperty(Property.TRANSFORM, new float[] { 1, 0, 0, 1, x, 0 });
+                        String xStr = null;
+                        float x = 0;
+                        if (args.IndexOf('%') > 0) {
+                            xStr = args;
+                        }
+                        else {
+                            x = CssUtils.ParseAbsoluteLength(args.Trim());
+                        }
+                        String[] transform = FloatArrayToStringArray(new float[] { 1, 0, 0, 1, x, 0 });
+                        if (xStr != null) {
+                            transform[4] = xStr;
+                        }
+                        element.SetProperty(Property.TRANSFORM, transform);
                     }
                     else {
                         if (CssConstants.TRANSLATE_Y.Equals(function)) {
-                            float y = -1 * CssUtils.ParseAbsoluteLength(args.Trim());
-                            element.SetProperty(Property.TRANSFORM, new float[] { 1, 0, 0, 1, 0, y });
+                            String yStr = null;
+                            float y = 0;
+                            if (args.IndexOf('%') > 0) {
+                                yStr = System.Convert.ToString(-1 * float.Parse(args.JSubstring(0, args.IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture
+                                    ), System.Globalization.CultureInfo.InvariantCulture) + '%';
+                            }
+                            else {
+                                y = -1 * CssUtils.ParseAbsoluteLength(args.Trim());
+                            }
+                            String[] transform = FloatArrayToStringArray(new float[] { 1, 0, 0, 1, 0, y });
+                            if (yStr != null) {
+                                transform[4] = yStr;
+                            }
+                            element.SetProperty(Property.TRANSFORM, transform);
                         }
                         else {
                             if (CssConstants.ROTATE.Equals(function)) {
-                                float cos = (float)Math.Cos(iText.IO.Util.MathUtil.ToRadians(-1 * System.Double.Parse(args.JSubstring(0, args
-                                    .IndexOf('d')), System.Globalization.CultureInfo.InvariantCulture)));
-                                float sin = (float)Math.Sin(iText.IO.Util.MathUtil.ToRadians(-1 * System.Double.Parse(args.JSubstring(0, args
-                                    .IndexOf('d')), System.Globalization.CultureInfo.InvariantCulture)));
-                                element.SetProperty(Property.TRANSFORM, new float[] { cos, sin, -1 * sin, cos, 0, 0 });
+                                double angleInRad = ParseAngleToRadians(args);
+                                float cos = (float)Math.Cos(angleInRad);
+                                float sin = (float)Math.Sin(angleInRad);
+                                element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { cos, sin, -1 * sin, cos, 0, 
+                                    0 }));
                             }
                             else {
                                 if (CssConstants.SKEW.Equals(function)) {
                                     String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
-                                    float x = 0;
-                                    float y = 0;
-                                    int i1 = arg[0].IndexOf('d');
-                                    if (arg.Length == 2) {
-                                        int i2 = arg[1].IndexOf('d');
-                                        x = -1 * float.Parse(arg[0].Trim().JSubstring(0, i1), System.Globalization.CultureInfo.InvariantCulture);
-                                        y = -1 * float.Parse(arg[1].Trim().JSubstring(0, i2), System.Globalization.CultureInfo.InvariantCulture);
-                                    }
-                                    else {
-                                        x = -1 * float.Parse(arg[0].Trim().JSubstring(0, i1), System.Globalization.CultureInfo.InvariantCulture);
-                                    }
-                                    float tanX = (float)Math.Tan(iText.IO.Util.MathUtil.ToRadians(x));
-                                    float tanY = (float)Math.Tan(iText.IO.Util.MathUtil.ToRadians(y));
-                                    element.SetProperty(Property.TRANSFORM, new float[] { 1, tanY, tanX, 1, 0, 0 });
+                                    double xAngleInRad = ParseAngleToRadians(arg[0]);
+                                    double yAngleInRad = arg.Length == 2 ? ParseAngleToRadians(arg[1]) : 0.0;
+                                    float tanX = (float)Math.Tan(xAngleInRad);
+                                    float tanY = (float)Math.Tan(yAngleInRad);
+                                    element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { 1, tanY, tanX, 1, 0, 0 }));
                                 }
                                 else {
                                     if (CssConstants.SKEW_X.Equals(function)) {
-                                        float x = -1 * float.Parse(args.Trim().JSubstring(0, args.IndexOf('d')), System.Globalization.CultureInfo.InvariantCulture
-                                            );
-                                        float tanX = (float)Math.Tan(iText.IO.Util.MathUtil.ToRadians(x));
-                                        element.SetProperty(Property.TRANSFORM, new float[] { 1, 0, tanX, 1, 0, 0 });
+                                        float tanX = (float)Math.Tan(ParseAngleToRadians(args));
+                                        element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { 1, 0, tanX, 1, 0, 0 }));
                                     }
                                     else {
                                         if (CssConstants.SKEW_Y.Equals(function)) {
-                                            float y = -1 * float.Parse(args.Trim().JSubstring(0, args.IndexOf('d')), System.Globalization.CultureInfo.InvariantCulture
-                                                );
-                                            float tanY = (float)Math.Tan(iText.IO.Util.MathUtil.ToRadians(y));
-                                            element.SetProperty(Property.TRANSFORM, new float[] { 1, tanY, 0, 1, 0, 0 });
+                                            float tanY = (float)Math.Tan(ParseAngleToRadians(args));
+                                            element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { 1, tanY, 0, 1, 0, 0 }));
                                         }
                                         else {
                                             if (CssConstants.SCALE.Equals(function)) {
@@ -175,17 +200,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
                                                     x = float.Parse(arg[0].Trim(), System.Globalization.CultureInfo.InvariantCulture);
                                                     y = x;
                                                 }
-                                                element.SetProperty(Property.TRANSFORM, new float[] { x, 0, 0, y, 0, 0 });
+                                                element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { x, 0, 0, y, 0, 0 }));
                                             }
                                             else {
                                                 if (CssConstants.SCALE_X.Equals(function)) {
                                                     float x = float.Parse(args.Trim(), System.Globalization.CultureInfo.InvariantCulture);
-                                                    element.SetProperty(Property.TRANSFORM, new float[] { x, 0, 0, 1, 0, 0 });
+                                                    element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { x, 0, 0, 1, 0, 0 }));
                                                 }
                                                 else {
                                                     if (CssConstants.SCALE_Y.Equals(function)) {
                                                         float y = float.Parse(args.Trim(), System.Globalization.CultureInfo.InvariantCulture);
-                                                        element.SetProperty(Property.TRANSFORM, new float[] { 1, 0, 0, y, 0, 0 });
+                                                        element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { 1, 0, 0, y, 0, 0 }));
                                                     }
                                                 }
                                             }
@@ -197,6 +222,26 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
             }
+        }
+
+        private static double ParseAngleToRadians(String value) {
+            if (value.IndexOf('d') < 0) {
+                return 0.0;
+            }
+            if (value.IndexOf('r') > 0) {
+                return -1 * System.Double.Parse(value.Trim().JSubstring(0, value.IndexOf('r')), System.Globalization.CultureInfo.InvariantCulture
+                    );
+            }
+            return iText.IO.Util.MathUtil.ToRadians(-1 * System.Double.Parse(value.Trim().JSubstring(0, value.IndexOf(
+                'd')), System.Globalization.CultureInfo.InvariantCulture));
+        }
+
+        private static String[] FloatArrayToStringArray(float[] floats) {
+            String[] strings = new String[floats.Length];
+            for (int i = 0; i < floats.Length; i++) {
+                strings[i] = System.Convert.ToString(floats[i], System.Globalization.CultureInfo.InvariantCulture);
+            }
+            return strings;
         }
     }
 }
