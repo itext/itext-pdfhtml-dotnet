@@ -53,14 +53,27 @@ namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
         * @see com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator#isValid(java.lang.String)
         */
         public virtual bool IsValid(String objectString) {
+            if (CssConstants.NONE.Equals(objectString)) {
+                return true;
+            }
+            String[] components = iText.IO.Util.StringUtil.Split(objectString, "\\)");
+            foreach (String component in components) {
+                if (!IsValidComponent(component)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool IsValidComponent(String objectString) {
             String function;
             String args;
             if (!CssConstants.NONE.Equals(objectString)) {
-                function = objectString.JSubstring(0, objectString.IndexOf('('));
-                args = objectString.JSubstring(objectString.IndexOf('(') + 1, objectString.Length - 1);
+                function = objectString.JSubstring(0, objectString.IndexOf('(')).Trim();
+                args = objectString.Substring(objectString.IndexOf('(') + 1);
             }
             else {
-                return true;
+                return false;
             }
             if (CssConstants.MATRIX.Equals(function) || CssConstants.SCALE.Equals(function) || CssConstants.SCALE_X.Equals
                 (function) || CssConstants.SCALE_Y.Equals(function)) {

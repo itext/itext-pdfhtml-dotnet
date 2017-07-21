@@ -60,22 +60,29 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static void ApplyTransformation(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             String transformationFunction;
-            String function;
-            String args;
             if (cssProps.Get(CssConstants.TRANSFORM) != null) {
                 transformationFunction = cssProps.Get(CssConstants.TRANSFORM).ToLowerInvariant();
             }
             else {
-                transformationFunction = "none";
+                return;
             }
+            String[] components = iText.IO.Util.StringUtil.Split(transformationFunction, "\\)");
+            IList<String[]> multipleFunction = new List<String[]>(components.Length);
+            foreach (String component in components) {
+                multipleFunction.Add(ParseSingleFunction(component));
+            }
+            element.SetProperty(Property.TRANSFORM, multipleFunction);
+        }
+
+        private static String[] ParseSingleFunction(String transformationFunction) {
+            String function;
+            String args;
             if (!CssConstants.NONE.Equals(transformationFunction)) {
-                function = transformationFunction.JSubstring(0, transformationFunction.IndexOf('('));
-                args = transformationFunction.JSubstring(transformationFunction.IndexOf('(') + 1, transformationFunction.Length
-                     - 1);
+                function = transformationFunction.JSubstring(0, transformationFunction.IndexOf('(')).Trim();
+                args = transformationFunction.Substring(transformationFunction.IndexOf('(') + 1);
             }
             else {
-                function = transformationFunction;
-                args = "0";
+                return FloatArrayToStringArray(new float[] { 1, 0, 0, 1, 0, 0 });
             }
             if (CssConstants.MATRIX.Equals(function)) {
                 String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
@@ -93,7 +100,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                             matrix[i] *= -1;
                         }
                     }
-                    element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(matrix));
+                    return FloatArrayToStringArray(matrix);
                 }
             }
             else {
@@ -125,7 +132,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     if (yStr != null) {
                         transform[5] = yStr;
                     }
-                    element.SetProperty(Property.TRANSFORM, transform);
+                    return transform;
                 }
                 else {
                     if (CssConstants.TRANSLATE_X.Equals(function)) {
@@ -141,7 +148,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         if (xStr != null) {
                             transform[4] = xStr;
                         }
-                        element.SetProperty(Property.TRANSFORM, transform);
+                        return transform;
                     }
                     else {
                         if (CssConstants.TRANSLATE_Y.Equals(function)) {
@@ -158,15 +165,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
                             if (yStr != null) {
                                 transform[4] = yStr;
                             }
-                            element.SetProperty(Property.TRANSFORM, transform);
+                            return transform;
                         }
                         else {
                             if (CssConstants.ROTATE.Equals(function)) {
                                 double angleInRad = ParseAngleToRadians(args);
                                 float cos = (float)Math.Cos(angleInRad);
                                 float sin = (float)Math.Sin(angleInRad);
-                                element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { cos, sin, -1 * sin, cos, 0, 
-                                    0 }));
+                                return FloatArrayToStringArray(new float[] { cos, sin, -1 * sin, cos, 0, 0 });
                             }
                             else {
                                 if (CssConstants.SKEW.Equals(function)) {
@@ -175,17 +181,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
                                     double yAngleInRad = arg.Length == 2 ? ParseAngleToRadians(arg[1]) : 0.0;
                                     float tanX = (float)Math.Tan(xAngleInRad);
                                     float tanY = (float)Math.Tan(yAngleInRad);
-                                    element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { 1, tanY, tanX, 1, 0, 0 }));
+                                    return FloatArrayToStringArray(new float[] { 1, tanY, tanX, 1, 0, 0 });
                                 }
                                 else {
                                     if (CssConstants.SKEW_X.Equals(function)) {
                                         float tanX = (float)Math.Tan(ParseAngleToRadians(args));
-                                        element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { 1, 0, tanX, 1, 0, 0 }));
+                                        return FloatArrayToStringArray(new float[] { 1, 0, tanX, 1, 0, 0 });
                                     }
                                     else {
                                         if (CssConstants.SKEW_Y.Equals(function)) {
                                             float tanY = (float)Math.Tan(ParseAngleToRadians(args));
-                                            element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { 1, tanY, 0, 1, 0, 0 }));
+                                            return FloatArrayToStringArray(new float[] { 1, tanY, 0, 1, 0, 0 });
                                         }
                                         else {
                                             if (CssConstants.SCALE.Equals(function)) {
@@ -200,17 +206,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
                                                     x = float.Parse(arg[0].Trim(), System.Globalization.CultureInfo.InvariantCulture);
                                                     y = x;
                                                 }
-                                                element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { x, 0, 0, y, 0, 0 }));
+                                                return FloatArrayToStringArray(new float[] { x, 0, 0, y, 0, 0 });
                                             }
                                             else {
                                                 if (CssConstants.SCALE_X.Equals(function)) {
                                                     float x = float.Parse(args.Trim(), System.Globalization.CultureInfo.InvariantCulture);
-                                                    element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { x, 0, 0, 1, 0, 0 }));
+                                                    return FloatArrayToStringArray(new float[] { x, 0, 0, 1, 0, 0 });
                                                 }
                                                 else {
                                                     if (CssConstants.SCALE_Y.Equals(function)) {
                                                         float y = float.Parse(args.Trim(), System.Globalization.CultureInfo.InvariantCulture);
-                                                        element.SetProperty(Property.TRANSFORM, FloatArrayToStringArray(new float[] { 1, 0, 0, y, 0, 0 }));
+                                                        return FloatArrayToStringArray(new float[] { 1, 0, 0, y, 0, 0 });
                                                     }
                                                 }
                                             }
@@ -222,6 +228,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
             }
+            return new String[6];
         }
 
         private static double ParseAngleToRadians(String value) {
