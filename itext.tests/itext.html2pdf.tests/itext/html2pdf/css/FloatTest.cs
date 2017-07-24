@@ -53,6 +53,7 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class FloatTest : ExtendedITextTest {
@@ -456,6 +457,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1437")]
         public virtual void Float55Test() {
             RunTest("float55Test", "diff55_");
         }
@@ -473,6 +475,14 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Ignore("DEVSIX-1372")]
         public virtual void Float58Test() {
             RunTest("float58Test", "diff58_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 1)]
+        public virtual void Float60Test() {
+            RunTest("float60Test", "diff60_");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -574,6 +584,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1437")]
         public virtual void ResponsiveIText() {
             PageSize[] pageSizes = new PageSize[] { null, new PageSize(PageSize.A3.GetHeight(), PageSize.A4.GetHeight(
                 )), new PageSize(760, PageSize.A4.GetHeight()), new PageSize(PageSize.A5.GetWidth(), PageSize.A4.GetHeight
