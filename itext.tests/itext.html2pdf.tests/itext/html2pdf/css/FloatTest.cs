@@ -548,96 +548,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void FloatImage01Test() {
-            RunTest("floatImage01Test", "diffImages01_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void FloatImage02Test() {
-            RunTest("floatImage02Test", "diffImages02_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void FloatImage03Test() {
-            RunTest("floatImage03Test", "diffImages03_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("")]
-        public virtual void FloatImage04Test() {
-            // TODO word splitting logic working not entirely correctly
-            RunTest("floatImage04Test", "diffImages04_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void FloatImage05Test() {
-            RunTest("floatImage05Test", "diffImages05_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void FloatImage06Test() {
-            RunTest("floatImage06Test", "diffImages06_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void FloatImage07Test() {
-            // TODO word splitting logic working not entirely correctly
-            RunTest("floatImage07Test", "diffImages07_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void FloatImage08Test() {
-            RunTest("floatImage08Test", "diffImages08_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void FloatImage09Test() {
-            RunTest("floatImage09Test", "diffImages09_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void FloatImage10Test() {
-            // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
-            RunTest("floatImage10Test", "diffImages10_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void FloatImage11Test() {
-            RunTest("floatImage11Test", "diffImages11_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("")]
-        public virtual void FloatImage12Test() {
-            // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
-            RunTest("floatImage12Test", "diffImages12_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1316")]
         public virtual void FloatImage14Test() {
             RunTest("floatImage14Test", "diffImages14_");
@@ -665,9 +575,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ResponsiveIText() {
-            // TODO results to be reviewed after floating elements splitting support (DEVSIX-1267)
-            // Split floating element parent has zero height (and therefore border is not drawn around it),
-            // even though :after { clear: both} feature is applied in html.
             PageSize[] pageSizes = new PageSize[] { null, new PageSize(PageSize.A3.GetHeight(), PageSize.A4.GetHeight(
                 )), new PageSize(760, PageSize.A4.GetHeight()), new PageSize(PageSize.A5.GetWidth(), PageSize.A4.GetHeight
                 ()) };
