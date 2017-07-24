@@ -196,7 +196,21 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
             if (!true.Equals(GetPropertyAsBoolean(Property.FORCED_PLACEMENT)) && (result.GetStatus() != LayoutResult.FULL
                 )) {
-                SetProperty(Property.FORCED_PLACEMENT, true);
+                //@TODO investigate this tricky code a little more.
+                FloatPropertyValue? floatPropertyValue = this.GetProperty<FloatPropertyValue?>(Property.FLOAT);
+                if (floatPropertyValue == null || floatPropertyValue == FloatPropertyValue.NONE) {
+                    SetProperty(Property.FORCED_PLACEMENT, true);
+                } else {
+                    flatRenderer = childRenderers[0];
+                    childRenderers.Clear();
+                    LayoutArea flatRendererOccupiedArea = flatRenderer.GetOccupiedArea();
+                    ApplyPaddings(flatRendererOccupiedArea.GetBBox(), true);
+                    ApplyBorderBox(flatRendererOccupiedArea.GetBBox(), true);
+                    ApplyMargins(flatRendererOccupiedArea.GetBBox(), true);
+                    childRenderers.Add(flatRenderer);
+                    AdjustFieldLayout();
+                    occupiedArea.SetBBox(flatRenderer.GetOccupiedArea().GetBBox().Clone());
+                }
                 return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new 
                     MinMaxWidth(0, parentWidth));
             }
