@@ -49,7 +49,6 @@ using iText.IO.Util;
 namespace iText.Html2pdf.Css.Parse {
     /// <summary>Utilities class to parse a CSS selector.</summary>
     public sealed class CssSelectorParser {
-
         /// <summary>Set of legacy pseudo elements (first-line, first-letter, before, after).</summary>
         private static readonly ICollection<String> legacyPseudoElements = new HashSet<String>();
 
@@ -67,20 +66,22 @@ namespace iText.Html2pdf.Css.Parse {
         private static readonly Regex selectorPattern = iText.IO.Util.StringUtil.RegexCompile(SELECTOR_PATTERN_STR
             );
 
-        ///<summary>Creates a new <code>CssSelectorParser</code> instance.</summary>
+        /// <summary>Creates a new <code>CssSelectorParser</code> instance.</summary>
         private CssSelectorParser() {
         }
 
         /// <summary>Parses the selector items.</summary>
-        /// <param name="selector">selector the selectors in the form of a <code>String</code></param>
-        /// <returns>the resulting list of <see cref="ICssSelectorItem"/></returns>
+        /// <param name="selector">the selectors in the form of a <code>String</code></param>
+        /// <returns>
+        /// the resulting list of
+        /// <see cref="iText.Html2pdf.Css.Selector.Item.ICssSelectorItem"/>
+        /// </returns>
         public static IList<ICssSelectorItem> ParseSelectorItems(String selector) {
             IList<ICssSelectorItem> selectorItems = new List<ICssSelectorItem>();
             Match itemMatcher = iText.IO.Util.StringUtil.Match(selectorPattern, selector);
             bool tagSelectorDescription = false;
-            while (itemMatcher.Success) {
+            while (itemMatcher.Find()) {
                 String selectorItem = iText.IO.Util.StringUtil.Group(itemMatcher, 0);
-                itemMatcher = itemMatcher.NextMatch();
                 char firstChar = selectorItem[0];
                 switch (firstChar) {
                     case '#': {
@@ -152,8 +153,12 @@ namespace iText.Html2pdf.Css.Parse {
         }
 
         /// <summary>Resolves a pseudo selector.</summary>
-        /// <param name="selector">pseudoSelector the pseudo selector</param>
-        /// <returns>the <see cref="ICssSelectorItem"/> item</returns>
+        /// <param name="pseudoSelector">the pseudo selector</param>
+        /// <returns>
+        /// the
+        /// <see cref="iText.Html2pdf.Css.Selector.Item.ICssSelectorItem"/>
+        /// item
+        /// </returns>
         private static ICssSelectorItem ResolvePseudoSelector(String pseudoSelector) {
             pseudoSelector = pseudoSelector.ToLowerInvariant();
             /*

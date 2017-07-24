@@ -456,6 +456,28 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void Float55Test() {
+            RunTest("float55Test", "diff55_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Float57Test() {
+            RunTest("float57Test", "diff57_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1372")]
+        public virtual void Float58Test() {
+            RunTest("float58Test", "diff58_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void FloatAndTables01Test() {
             RunTest("floatAndTables01Test", "diffTables01_");
         }
@@ -547,6 +569,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("")]
         public virtual void FloatImage04Test() {
             // TODO word splitting logic working not entirely correctly
             RunTest("floatImage04Test", "diffImages04_");
@@ -606,6 +629,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("")]
         public virtual void FloatImage12Test() {
             // TODO we don't apply leading on floats, this somewhat noticeable when huge line-height in html is used
             RunTest("floatImage12Test", "diffImages12_");
