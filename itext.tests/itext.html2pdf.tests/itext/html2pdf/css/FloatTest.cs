@@ -457,7 +457,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1437")]
         public virtual void Float55Test() {
             RunTest("float55Test", "diff55_");
         }
@@ -584,7 +583,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1437")]
         public virtual void ResponsiveIText() {
             PageSize[] pageSizes = new PageSize[] { null, new PageSize(PageSize.A3.GetHeight(), PageSize.A4.GetHeight(
                 )), new PageSize(760, PageSize.A4.GetHeight()), new PageSize(PageSize.A5.GetWidth(), PageSize.A4.GetHeight

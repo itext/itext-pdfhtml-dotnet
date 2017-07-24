@@ -154,7 +154,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         */
         public override void Close() {
             if (waitingElement != null) {
-                base.AddChild(waitingElement);
+                IRenderer r = this.waitingElement;
+                waitingElement = null;
+                base.AddChild(r);
             }
             base.Close();
             PdfDocument pdfDocument = document.GetPdfDocument();
