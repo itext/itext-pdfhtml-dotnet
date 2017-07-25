@@ -41,8 +41,10 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Normal_flow {
+    [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 2)]
     public class WidthAppliesTo006Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "width-applies-to-006.xht";

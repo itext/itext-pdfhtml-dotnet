@@ -43,6 +43,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Normal_flow {
+    [NUnit.Framework.Ignore("")]
     public class WidthReplacedElement001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "width-replaced-element-001.xht";
