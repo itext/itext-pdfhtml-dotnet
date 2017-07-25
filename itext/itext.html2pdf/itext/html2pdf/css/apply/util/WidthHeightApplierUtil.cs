@@ -78,6 +78,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 UnitValue width = CssUtils.ParseLengthValueToPt(widthVal, em, rem);
                 element.SetProperty(Property.WIDTH, width);
             }
+            String minWidthVal = cssProps.Get(CssConstants.MIN_WIDTH);
+            if (!CssConstants.AUTO.Equals(minWidthVal) && minWidthVal != null) {
+                UnitValue minWidth = CssUtils.ParseLengthValueToPt(minWidthVal, em, rem);
+                element.SetProperty(Property.MIN_WIDTH, minWidth);
+            }
+            String maxWidthVal = cssProps.Get(CssConstants.MAX_WIDTH);
+            if (!CssConstants.AUTO.Equals(maxWidthVal) && maxWidthVal != null) {
+                UnitValue maxWidth = CssUtils.ParseLengthValueToPt(maxWidthVal, em, rem);
+                element.SetProperty(Property.MAX_WIDTH, maxWidth);
+            }
             // TODO consider display css property
             bool applyToTable = element is Table;
             bool applyToCell = element is Cell;
