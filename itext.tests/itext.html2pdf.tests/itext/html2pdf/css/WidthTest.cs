@@ -73,6 +73,20 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void MaxWidthTest01() {
+            RunTest("maxWidthTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MinWidthTest01() {
+            RunTest("minWidthTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void PercentMarginTest() {
             //Todo: the width for table currently set incorrect.
             RunTest("percentMarginTest");

@@ -80,8 +80,8 @@ namespace iText.Html2pdf.Css.W3c {
             String htmlFilePath = sourceFolder + GetHtmlFileName();
             String outFilePath = destinationFolder + GetOutPdfFileName();
             String cmpFilePath = sourceFolder + GetOutPdfFileName();
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlFilePath), new FileInfo(outFilePath));
             System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlFilePath).AbsolutePath + "\n");
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlFilePath), new FileInfo(outFilePath));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFilePath, cmpFilePath, destinationFolder
                 , "diff_"));
         }

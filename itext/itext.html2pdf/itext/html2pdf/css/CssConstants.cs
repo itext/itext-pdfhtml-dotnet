@@ -430,6 +430,12 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant WIDTH.</summary>
         public const String WIDTH = "width";
 
+        /// <summary>The Constant MAX_WIDTH.</summary>
+        public const String MAX_WIDTH = "max-width";
+
+        /// <summary>The Constant MIN_WIDTH.</summary>
+        public const String MIN_WIDTH = "min-width";
+
         /// <summary>The Constant WORDWRAP.</summary>
         public const String WORDWRAP = "word-wrap";
 
