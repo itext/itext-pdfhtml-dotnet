@@ -104,8 +104,8 @@ namespace iText.Html2pdf.Css.Parse {
                 }
             }
             CssParserStateController controller = new CssParserStateController(baseUrl);
-            TextReader br = PortUtil.WrapInBufferedReader(new StreamReader(stream));
-            // TODO define charset
+            TextReader br = PortUtil.WrapInBufferedReader(new StreamReader(stream, Encoding.UTF8));
+            // TODO determine charset correctly DEVSIX-1458
             char[] buffer = new char[8192];
             int length;
             while ((length = br.Read(buffer, 0, buffer.Length)) > 0) {
