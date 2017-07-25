@@ -610,8 +610,9 @@ namespace iText.Html2pdf.Css {
                     mediaDescription.SetWidth((float)pxWidth);
                     converterProperties.SetMediaDeviceDescription(mediaDescription);
                 }
-                HtmlConverter.ConvertToPdf(new FileStream(htmlSource, FileMode.Open, FileAccess.Read), pdfDoc, converterProperties
-                    );
+                using (FileStream fileInputStream = new FileStream(htmlSource, FileMode.Open, FileAccess.Read)) {
+                    HtmlConverter.ConvertToPdf(fileInputStream, pdfDoc, converterProperties);
+                }
                 pdfDoc.Close();
             }
             foreach (PageSize pageSize in pageSizes) {

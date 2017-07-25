@@ -59,37 +59,7 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-                );
             CreateOrClearDestinationFolder(destinationFolder);
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void ResourceResolverTest01() {
-            String baseUri = sourceFolder + "resourceResolverTest01.html";
-            String outPdf = destinationFolder + "resourceResolverTest01.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceResolverTest01.pdf";
-            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "resourceResolverTest01.html", FileMode.Open, FileAccess.Read
-                ), new FileStream(outPdf, FileMode.Create), new ConverterProperties().SetBaseUri(baseUri));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff01_"
-                ));
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
-        public virtual void ResourceResolverTest02() {
-            String baseUri = "/folderInDiskRoot";
-            String outPdf = destinationFolder + "resourceResolverTest02.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceResolverTest02.pdf";
-            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "resourceResolverTest01.html", FileMode.Open, FileAccess.Read
-                ), new FileStream(outPdf, FileMode.Create), new ConverterProperties().SetBaseUri(baseUri));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff02_"
-                ));
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -99,53 +69,15 @@ namespace iText.Html2pdf {
             String baseUri = sourceFolder + "res";
             String outPdf = destinationFolder + "resourceResolverTest03.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest03.pdf";
-            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "resourceResolverTest03.html", FileMode.Open, FileAccess.Read
-                ), new FileStream(outPdf, FileMode.Create), new ConverterProperties().SetBaseUri(baseUri));
+
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest03.html", FileMode.Open, FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create)) {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().SetBaseUri(baseUri));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff03_"
                 ));
+            }
         }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void ResourceResolverTest04() {
-            String invalidBaseUri = TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext.CurrentContext.TestDirectory) + "/resources/itext/html2pdf/ResourceResolverTest/"
-                 + "res";
-            String outPdf = destinationFolder + "resourceResolverTest04.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceResolverTest04.pdf";
-            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "resourceResolverTest03.html", FileMode.Open, FileAccess.Read
-                ), new FileStream(outPdf, FileMode.Create), new ConverterProperties().SetBaseUri(invalidBaseUri));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff04_"
-                ));
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void ResourceResolverTest05() {
-            // It is important to put a trailing slash in the end: if you specify base URI via absolute URI string,
-            // you need to follow URI standards, in which a path without trailing slash is referring to a file.
-            String baseUri = new Uri(TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext.CurrentContext.TestDirectory)).ToExternalForm() + "/resources/itext/html2pdf/ResourceResolverTest/res/";
-            String outPdf = destinationFolder + "resourceResolverTest05.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceResolverTest05.pdf";
-            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "resourceResolverTest03.html", FileMode.Open, FileAccess.Read
-                ), new FileStream(outPdf, FileMode.Create), new ConverterProperties().SetBaseUri(baseUri));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff05_"
-                ));
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void ResourceResolverTest06() {
-            String outPdf = destinationFolder + "resourceResolverTest06.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceResolverTest06.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceResolverTest01.html"), new FileInfo(outPdf
-                ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff06_"
-                ));
-        }
-
+        
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]

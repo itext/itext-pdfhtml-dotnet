@@ -196,9 +196,12 @@ namespace iText.Html2pdf.Element {
             Stream @is = new FileStream(sourceFolder + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read);
             PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "listToPdfa.pdf"), PdfAConformanceLevel
                 .PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", @is));
-            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "listToPdfa.html", FileMode.Open, FileAccess.Read
-                ), pdfADocument, new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription(MediaType
-                .PRINT)).SetFontProvider(new DefaultFontProvider(false, true, false)));
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "listToPdfa.html", FileMode.Open, FileAccess.Read
+                )) {
+                HtmlConverter.ConvertToPdf(fileInputStream, pdfADocument, new ConverterProperties().SetMediaDeviceDescription
+                    (new MediaDeviceDescription(MediaType.PRINT)).SetFontProvider(new DefaultFontProvider(false, true, false
+                    )));
+            }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "listToPdfa.pdf", sourceFolder
                  + "cmp_listToPdfa.pdf", destinationFolder, "diff99_"));
         }

@@ -104,8 +104,10 @@ namespace iText.Html2pdf.Element {
         private void RunAbbrTest(String testName) {
             PdfDocument document = new PdfDocument(new PdfWriter(destinationFolder + testName + ".pdf"));
             document.SetTagged();
-            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + testName + ".html", FileMode.Open, FileAccess.Read
-                ), document);
+            using (FileStream fileInputStream = new FileStream(sourceFolder + testName + ".html", FileMode.Open, FileAccess.Read
+                )) {
+                HtmlConverter.ConvertToPdf(fileInputStream, document);
+            }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
                  + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
         }

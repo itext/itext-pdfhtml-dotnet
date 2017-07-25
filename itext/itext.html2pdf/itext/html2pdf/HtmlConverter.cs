@@ -246,8 +246,11 @@ namespace iText.Html2pdf {
                         htmlFile.FullName) + System.IO.Path.DirectorySeparatorChar);
                 }
             }
-            ConvertToPdf(new FileStream(htmlFile.FullName, FileMode.Open, FileAccess.Read), new FileStream(pdfFile.FullName
-                , FileMode.Create), converterProperties);
+            using (FileStream fileInputStream = new FileStream(htmlFile.FullName, FileMode.Open, FileAccess.Read)) {
+                using (FileStream fileOutputStream = new FileStream(pdfFile.FullName, FileMode.Create)) {
+                    ConvertToPdf(fileInputStream, fileOutputStream, converterProperties);
+                }
+            }
         }
 
         /// <summary>
