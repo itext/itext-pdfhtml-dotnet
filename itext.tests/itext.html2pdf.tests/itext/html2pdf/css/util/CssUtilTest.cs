@@ -95,5 +95,18 @@ namespace iText.Html2pdf.Css.Util {
             NUnit.Framework.Assert.AreEqual("rgba(255,255,255,0.2)", CssUtils.NormalizeCssProperty("rgba(  255,  255 ,  255 ,0.2   )"
                 ));
         }
+
+        [NUnit.Framework.Test]
+        public virtual void NormalizeUrlTest() {
+            NUnit.Framework.Assert.AreEqual("url(data:application/font-woff;base64,2CBPCRXmgywtV1t4oWwjBju0kqkvfhPs0cYdMgFtDSY5uL7MIGT5wiGs078HrvBHekp0Yf=)"
+                , CssUtils.NormalizeCssProperty("url(data:application/font-woff;base64,2CBPCRXmgywtV1t4oWwjBju0kqkvfhPs0cYdMgFtDSY5uL7MIGT5wiGs078HrvBHekp0Yf=)"
+                ));
+            NUnit.Framework.Assert.AreEqual("url(\"quoted  Url\")", CssUtils.NormalizeCssProperty("  url(  \"quoted  Url\")"
+                ));
+            NUnit.Framework.Assert.AreEqual("url('quoted  Url')", CssUtils.NormalizeCssProperty("  url(  'quoted  Url')"
+                ));
+            NUnit.Framework.Assert.AreEqual("url(haveEscapedEndBracket\\))", CssUtils.NormalizeCssProperty("url(  haveEscapedEndBracket\\) )"
+                ));
+        }
     }
 }

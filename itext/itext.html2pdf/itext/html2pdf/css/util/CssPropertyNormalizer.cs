@@ -52,65 +52,103 @@ namespace iText.Html2pdf.Css.Util {
         /// <param name="str">the property</param>
         /// <returns>the normalized property</returns>
         public static String Normalize(String str) {
-            StringBuilder buffer = new StringBuilder();
-            int segmentStart = 0;
-            for (int i = 0; i < str.Length; ++i) {
+            StringBuilder sb = new StringBuilder();
+            bool isWhitespace = false;
+            int i = 0;
+            while (i < str.Length) {
                 if (str[i] == '\\') {
+                    sb.Append(str[i]);
                     ++i;
+                    if (i < str.Length) {
+                        sb.Append(str[i]);
+                        ++i;
+                    }
                 }
                 else {
-                    if (str[i] == '\'' || str[i] == '"') {
-                        AppendAndFormatSegment(buffer, str, segmentStart, i + 1);
-                        segmentStart = i = AppendQuoteContent(buffer, str, i + 1, str[i]);
-                    }
-                }
-            }
-            if (segmentStart < str.Length) {
-                AppendAndFormatSegment(buffer, str, segmentStart, str.Length);
-            }
-            return buffer.ToString();
-        }
-
-        /// <summary>Appends and formats a segment.</summary>
-        /// <param name="buffer">the current buffer</param>
-        /// <param name="source">a source</param>
-        /// <param name="start">where to start in the source</param>
-        /// <param name="end">where to end in the source</param>
-        private static void AppendAndFormatSegment(StringBuilder buffer, String source, int start, int end) {
-            String[] parts = iText.IO.Util.StringUtil.Split(source.JSubstring(start, end), "\\s");
-            StringBuilder sb = new StringBuilder();
-            foreach (String part in parts) {
-                if (part.Length > 0) {
-                    if (sb.Length > 0 && !TrimSpaceAfter(sb[sb.Length - 1]) && !TrimSpaceBefore(part[0])) {
-                        sb.Append(" ");
-                    }
-                    // Do not make base64 data lowercase, function name only
-                    if (part.Matches("^[uU][rR][lL]\\(.+\\)") && CssUtils.IsBase64Data(part.JSubstring(4, part.Length - 1))) {
-                        sb.Append(part.JSubstring(0, 3).ToLowerInvariant()).Append(part.Substring(3));
+                    if (iText.IO.Util.TextUtil.IsWhiteSpace(str[i])) {
+                        isWhitespace = true;
+                        ++i;
                     }
                     else {
-                        sb.Append(part.ToLowerInvariant());
+                        if (isWhitespace) {
+                            if (sb.Length > 0 && !TrimSpaceAfter(sb[sb.Length - 1]) && !TrimSpaceBefore(str[i])) {
+                                sb.Append(" ");
+                            }
+                            isWhitespace = false;
+                        }
+                        if (str[i] == '\'' || str[i] == '"') {
+                            i = AppendQuotedString(sb, str, i);
+                        }
+                        else {
+                            if ((str[i] == 'u' || str[i] == 'U') && str.Substring(i).Matches("^[uU][rR][lL]\\(.*?")) {
+                                sb.Append(str.JSubstring(i, i + 4).ToLowerInvariant());
+                                i = AppendUrlContent(sb, str, i + 4);
+                            }
+                            else {
+                                sb.Append(char.ToLower(str[i]));
+                                ++i;
+                            }
+                        }
                     }
                 }
             }
-            buffer.Append(sb);
+            return sb.ToString();
         }
 
-        /// <summary>Appends quoted content.</summary>
+        /// <summary>Appends quoted string.</summary>
         /// <param name="buffer">the current buffer</param>
         /// <param name="source">a source</param>
-        /// <param name="start">where to start in the source</param>
-        /// <param name="endQuoteSymbol">the end quote symbol</param>
+        /// <param name="start">where to start in the source. Should point at quote symbol.</param>
         /// <returns>the new position in the source</returns>
-        private static int AppendQuoteContent(StringBuilder buffer, String source, int start, char endQuoteSymbol) {
-            int end = CssUtils.FindNextUnescapedChar(source, endQuoteSymbol, start);
+        private static int AppendQuotedString(StringBuilder buffer, String source, int start) {
+            char endQuoteSymbol = source[start];
+            int end = CssUtils.FindNextUnescapedChar(source, endQuoteSymbol, start + 1);
             if (end == -1) {
                 end = source.Length;
                 LoggerFactory.GetLogger(typeof(CssPropertyNormalizer)).Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
                     .QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION, source));
             }
+            else {
+                ++end;
+            }
             buffer.JAppend(source, start, end);
             return end;
+        }
+
+        /// <summary>Appends url content and end parenthesis if url is correct.</summary>
+        /// <param name="buffer">the current buffer</param>
+        /// <param name="source">a source</param>
+        /// <param name="start">where to start in the source. Should point at first symbol after "url(".</param>
+        /// <returns>the new position in the source</returns>
+        private static int AppendUrlContent(StringBuilder buffer, String source, int start) {
+            while (iText.IO.Util.TextUtil.IsWhiteSpace(source[start]) && start < source.Length) {
+                ++start;
+            }
+            if (start < source.Length) {
+                int curr = start;
+                if (source[curr] == '"' || source[curr] == '\'') {
+                    curr = AppendQuotedString(buffer, source, curr);
+                    return curr;
+                }
+                else {
+                    curr = CssUtils.FindNextUnescapedChar(source, ')', curr);
+                    if (curr == -1) {
+                        LoggerFactory.GetLogger(typeof(CssPropertyNormalizer)).Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
+                            .URL_IS_NOT_CLOSED_IN_CSS_EXPRESSION, source));
+                        return source.Length;
+                    }
+                    else {
+                        buffer.Append(source.JSubstring(start, curr).Trim());
+                        buffer.Append(')');
+                        return curr + 1;
+                    }
+                }
+            }
+            else {
+                LoggerFactory.GetLogger(typeof(CssPropertyNormalizer)).Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
+                    .URL_IS_EMPTY_IN_CSS_EXPRESSION, source));
+                return source.Length;
+            }
         }
 
         /// <summary>Checks if spaces can be trimmed after a specific character.</summary>
