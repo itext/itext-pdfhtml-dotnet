@@ -42,6 +42,8 @@
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.IO.Util;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
 using System.Reflection;
@@ -67,8 +69,14 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "linkTest01.html"), new FileInfo(destinationFolder 
-                + "linkTest01.pdf"));
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "linkTest01.html").
+                AbsolutePath + "\n");
+            PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest01.pdf"));
+            outDoc.SetTagged();
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "linkTest01.html", FileMode.Open, FileAccess.Read
+                )) {
+                HtmlConverter.ConvertToPdf(fileInputStream, outDoc);
+            }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest01.pdf", sourceFolder
                  + "cmp_linkTest01.pdf", destinationFolder, "diff01_"));
         }
@@ -122,6 +130,35 @@ namespace iText.Html2pdf.Element {
                 + "linkTest06.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest06.pdf", sourceFolder
                  + "cmp_linkTest06.pdf", destinationFolder, "diff06_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LinkTest07() {
+            PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest07.pdf"));
+            outDoc.SetTagged();
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "linkTest07.html", FileMode.Open, FileAccess.Read
+                )) {
+                HtmlConverter.ConvertToPdf(fileInputStream, outDoc);
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest07.pdf", sourceFolder
+                 + "cmp_linkTest07.pdf", destinationFolder, "diff07_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LinkTest09() {
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest09.pdf"));
+            pdfDocument.SetTagged();
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "linkTest09.html", FileMode.Open, FileAccess.Read
+                )) {
+                HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, new ConverterProperties().SetBaseUri(sourceFolder
+                    ));
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest09.pdf", sourceFolder
+                 + "cmp_linkTest09.pdf", destinationFolder, "diff09_"));
         }
     }
 }

@@ -50,7 +50,6 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class TableTest : ExtendedITextTest {
@@ -75,8 +74,58 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void HelloTableFixedDocumentTest() {
-            RunTest("hello_table_fixed");
+        public virtual void HelloTableFixed1DocumentTest() {
+            RunTest("hello_table_fixed1");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixed2DocumentTest() {
+            RunTest("hello_table_fixed2");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixed3DocumentTest() {
+            RunTest("hello_table_fixed3");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixed4DocumentTest() {
+            RunTest("hello_table_fixed4");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixed5DocumentTest() {
+            RunTest("hello_table_fixed5");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixed6DocumentTest() {
+            //TODO this test could be improved, somehow.
+            RunTest("hello_table_fixed6");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixed7DocumentTest() {
+            RunTest("hello_table_fixed7");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixed8DocumentTest() {
+            RunTest("hello_table_fixed8");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -98,6 +147,107 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void HelloTableAuto3DocumentTest() {
             RunTest("hello_table_auto3");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto4DocumentTest() {
+            RunTest("hello_table_auto4");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto5DocumentTest() {
+            //TODO this test should be improved, incorrect widths. Each cell shall have its max width.
+            RunTest("hello_table_auto5");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto6DocumentTest() {
+            RunTest("hello_table_auto6");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto7DocumentTest() {
+            RunTest("hello_table_auto7");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto8DocumentTest() {
+            RunTest("hello_table_auto8");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto9DocumentTest() {
+            RunTest("hello_table_auto9");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto10DocumentTest() {
+            //TODO this test should be improved, incorrect widths.
+            RunTest("hello_table_auto10");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto11DocumentTest() {
+            RunTest("hello_table_auto11");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto12DocumentTest() {
+            RunTest("hello_table_auto12");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1370")]
+        public virtual void HelloTableAuto13DocumentTest() {
+            RunTest("hello_table_auto13");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto14DocumentTest() {
+            RunTest("hello_table_auto14");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto15DocumentTest() {
+            RunTest("hello_table_auto15");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto16DocumentTest() {
+            RunTest("hello_table_auto16");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableAuto17DocumentTest() {
+            RunTest("hello_table_auto17");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -159,7 +309,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING, Count = 2)]
         public virtual void TextInTableAndRowTest() {
             RunTest("textInTableAndRow");
         }
@@ -218,6 +367,65 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void TableBorderAttributeTest06() {
             RunTest("tableBorderAttributeTest06");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TableCellHeightsExpansionTest01() {
+            // TODO this test currently does not work like in browsers. Cell heights are treated in a very special way in browsers,
+            // but they are considered when deciding whether to expand the table.
+            // Due to the mechanism layout currently works, we do not pass heights from html to layout for cells because otherwise
+            // the content would be clipped if it does not fit, whereas the cell height should be expanted in html in this case.
+            // This is the reason why we do not know on layout level if a height was set to an html cell.
+            // There is a possibility to work around this problem by extending from TableRenderer for case of thml tables.
+            // but this problem seems really not that important and a very narrow use case for now.
+            // For related ticket, see DEVSIX-1072
+            RunTest("tableCellHeightsExpansion01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TableCellHeightsExpansionTest02() {
+            RunTest("tableCellHeightsExpansion02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TableCellHeightsExpansionTest03() {
+            // Cells max-height property should not affect layout, just like in browsers.
+            RunTest("tableCellHeightsExpansion03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TableMaxHeightTest01() {
+            RunTest("tableMaxHeight01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TableMaxHeightTest02() {
+            RunTest("tableMaxHeight02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-994")]
+        public virtual void TableCollapseColCellBoxSizingWidthDifference() {
+            RunTest("table_collapse_col_cell_box_sizing_width_difference");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ColspanInHeaderFooterTest() {
+            RunTest("table_header_footer_colspan");
         }
 
         /// <exception cref="System.IO.IOException"/>

@@ -43,7 +43,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_3 {
-    [NUnit.Framework.Ignore("DEVSIX-925: trimFirst on layout level trims all the non-breakable spaces")]
     public class T422RgbaValuesMeaningBTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "t422-rgba-values-meaning-b.xht";

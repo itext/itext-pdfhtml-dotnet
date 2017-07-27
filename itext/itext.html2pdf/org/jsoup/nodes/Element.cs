@@ -554,7 +554,7 @@ namespace Org.Jsoup.Nodes {
             }
             selector.Insert(0, " > ");
             if (((Org.Jsoup.Nodes.Element)Parent()).Select(selector.ToString()).Count > 1) {
-                selector.Append(String.Format(":nth-child({0})", ElementSiblingIndex() + 1));
+                selector.Append(MessageFormatUtil.Format(":nth-child({0})", ElementSiblingIndex() + 1));
             }
             return ((Org.Jsoup.Nodes.Element)Parent()).CssSelector() + selector.ToString();
         }

@@ -1,44 +1,45 @@
 /*
-    This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+This file is part of the iText (R) project.
+Copyright (c) 1998-2017 iText Group NV
+Authors: Bruno Lowagie, Paulo Soares, et al.
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License version 3
-    as published by the Free Software Foundation with the addition of the
-    following permission added to Section 15 as permitted in Section 7(a):
-    FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
-    ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
-    OF THIRD PARTY RIGHTS
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3
+as published by the Free Software Foundation with the addition of the
+following permission added to Section 15 as permitted in Section 7(a):
+FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
+ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
+OF THIRD PARTY RIGHTS
 
-    This program is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-    or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-    You should have received a copy of the GNU Affero General Public License
-    along with this program; if not, see http://www.gnu.org/licenses or write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA, 02110-1301 USA, or download the license from the following URL:
-    http://itextpdf.com/terms-of-use/
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program; if not, see http://www.gnu.org/licenses or write to
+the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA, 02110-1301 USA, or download the license from the following URL:
+http://itextpdf.com/terms-of-use/
 
-    The interactive user interfaces in modified source and object code versions
-    of this program must display Appropriate Legal Notices, as required under
-    Section 5 of the GNU Affero General Public License.
+The interactive user interfaces in modified source and object code versions
+of this program must display Appropriate Legal Notices, as required under
+Section 5 of the GNU Affero General Public License.
 
-    In accordance with Section 7(b) of the GNU Affero General Public License,
-    a covered work must retain the producer line in every PDF that is created
-    or manipulated using iText.
+In accordance with Section 7(b) of the GNU Affero General Public License,
+a covered work must retain the producer line in every PDF that is created
+or manipulated using iText.
 
-    You can be released from the requirements of the license by purchasing
-    a commercial license. Buying such a license is mandatory as soon as you
-    develop commercial activities involving the iText software without
-    disclosing the source code of your own applications.
-    These activities include: offering paid services to customers as an ASP,
-    serving PDFs on the fly in a web application, shipping iText with a closed
-    source product.
+You can be released from the requirements of the license by purchasing
+a commercial license. Buying such a license is mandatory as soon as you
+develop commercial activities involving the iText software without
+disclosing the source code of your own applications.
+These activities include: offering paid services to customers as an ASP,
+serving PDFs on the fly in a web application, shipping iText with a closed
+source product.
 
-    For more information, please contact iText Software Corp. at this
-    address: sales@itextpdf.com */
+For more information, please contact iText Software Corp. at this
+address: sales@itextpdf.com
+*/
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
@@ -52,13 +53,24 @@ using iText.Layout.Borders;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utilities class to apply border styles.</summary>
     public class BorderStyleApplierUtil {
+        /// <summary>The logger.</summary>
         private static readonly ILogger LOGGER = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.BorderStyleApplierUtil
             ));
 
+        /// <summary>
+        /// Creates a new
+        /// <see cref="BorderStyleApplierUtil"/>
+        /// instance.
+        /// </summary>
         private BorderStyleApplierUtil() {
         }
 
+        /// <summary>Applies borders to an element.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the Processor context</param>
+        /// <param name="element">the element</param>
         public static void ApplyBorders(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
@@ -76,25 +88,47 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (bordersArray[3] != null) {
                 element.SetProperty(Property.BORDER_LEFT, bordersArray[3]);
             }
+            UnitValue radius = GetBorderRadius(cssProps, em, rem);
+            if (null != radius) {
+                element.SetProperty(Property.BORDER_RADIUS, radius);
+            }
         }
 
+        /// <summary>Gets the array that defines the borders.</summary>
+        /// <param name="styles">the styles mapping</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <returns>the borders array</returns>
         public static Border[] GetBordersArray(IDictionary<String, String> styles, float em, float rem) {
             Border[] borders = new Border[4];
             Border topBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_TOP_WIDTH), styles.Get(CssConstants.BORDER_TOP_STYLE
-                ), styles.Get(CssConstants.BORDER_TOP_COLOR), em, rem);
+                ), GetSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_TOP_COLOR), em, rem);
             borders[0] = topBorder;
             Border rightBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_RIGHT_WIDTH), styles.Get(CssConstants
-                .BORDER_RIGHT_STYLE), styles.Get(CssConstants.BORDER_RIGHT_COLOR), em, rem);
+                .BORDER_RIGHT_STYLE), GetSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_RIGHT_COLOR), em
+                , rem);
             borders[1] = rightBorder;
             Border bottomBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_BOTTOM_WIDTH), styles.Get(CssConstants
-                .BORDER_BOTTOM_STYLE), styles.Get(CssConstants.BORDER_BOTTOM_COLOR), em, rem);
+                .BORDER_BOTTOM_STYLE), GetSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_BOTTOM_COLOR), 
+                em, rem);
             borders[2] = bottomBorder;
             Border leftBorder = GetCertainBorder(styles.Get(CssConstants.BORDER_LEFT_WIDTH), styles.Get(CssConstants.BORDER_LEFT_STYLE
-                ), styles.Get(CssConstants.BORDER_LEFT_COLOR), em, rem);
+                ), GetSpecificBorderColorOrDefaultColor(styles, CssConstants.BORDER_LEFT_COLOR), em, rem);
             borders[3] = leftBorder;
             return borders;
         }
 
+        /// <summary>
+        /// Creates a
+        /// <see cref="iText.Layout.Borders.Border"/>
+        /// instance based on specific properties.
+        /// </summary>
+        /// <param name="borderWidth">the border width</param>
+        /// <param name="borderStyle">the border style</param>
+        /// <param name="borderColor">the border color</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <returns>the border</returns>
         public static Border GetCertainBorder(String borderWidth, String borderStyle, String borderColor, float em
             , float rem) {
             if (borderStyle == null || CssConstants.NONE.Equals(borderStyle)) {
@@ -196,6 +230,25 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             return border;
+        }
+
+        /// <summary>Gets the array that defines the borders.</summary>
+        /// <param name="styles">the styles mapping</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <returns>the borders array</returns>
+        public static UnitValue GetBorderRadius(IDictionary<String, String> styles, float em, float rem) {
+            String borderRadius = styles.Get(CssConstants.BORDER_RADIUS);
+            return CssUtils.ParseLengthValueToPt(borderRadius, em, rem);
+        }
+
+        private static String GetSpecificBorderColorOrDefaultColor(IDictionary<String, String> styles, String specificBorderColorProperty
+            ) {
+            String borderColor = styles.Get(specificBorderColorProperty);
+            if (borderColor == null) {
+                borderColor = styles.Get(CssConstants.COLOR);
+            }
+            return borderColor;
         }
     }
 }

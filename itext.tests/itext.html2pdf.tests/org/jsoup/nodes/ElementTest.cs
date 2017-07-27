@@ -518,8 +518,8 @@ namespace Org.Jsoup.Nodes {
             NUnit.Framework.Assert.AreEqual(2, dataset.Count);
             NUnit.Framework.Assert.AreEqual("jsoup", dataset.Get("name"));
             NUnit.Framework.Assert.AreEqual("jar", dataset.Get("package"));
-            dataset["name"] = "jsoup updated";
-            dataset["language"] = "java";
+            dataset.Put("name", "jsoup updated");
+            dataset.Put("language", "java");
             dataset.JRemove("package");
             NUnit.Framework.Assert.AreEqual(2, dataset.Count);
             NUnit.Framework.Assert.AreEqual(4, attributes.Size());

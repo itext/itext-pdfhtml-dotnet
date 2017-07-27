@@ -1,60 +1,77 @@
 /*
-    This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+This file is part of the iText (R) project.
+Copyright (c) 1998-2017 iText Group NV
+Authors: Bruno Lowagie, Paulo Soares, et al.
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License version 3
-    as published by the Free Software Foundation with the addition of the
-    following permission added to Section 15 as permitted in Section 7(a):
-    FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
-    ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
-    OF THIRD PARTY RIGHTS
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3
+as published by the Free Software Foundation with the addition of the
+following permission added to Section 15 as permitted in Section 7(a):
+FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
+ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
+OF THIRD PARTY RIGHTS
 
-    This program is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-    or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-    You should have received a copy of the GNU Affero General Public License
-    along with this program; if not, see http://www.gnu.org/licenses or write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA, 02110-1301 USA, or download the license from the following URL:
-    http://itextpdf.com/terms-of-use/
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program; if not, see http://www.gnu.org/licenses or write to
+the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA, 02110-1301 USA, or download the license from the following URL:
+http://itextpdf.com/terms-of-use/
 
-    The interactive user interfaces in modified source and object code versions
-    of this program must display Appropriate Legal Notices, as required under
-    Section 5 of the GNU Affero General Public License.
+The interactive user interfaces in modified source and object code versions
+of this program must display Appropriate Legal Notices, as required under
+Section 5 of the GNU Affero General Public License.
 
-    In accordance with Section 7(b) of the GNU Affero General Public License,
-    a covered work must retain the producer line in every PDF that is created
-    or manipulated using iText.
+In accordance with Section 7(b) of the GNU Affero General Public License,
+a covered work must retain the producer line in every PDF that is created
+or manipulated using iText.
 
-    You can be released from the requirements of the license by purchasing
-    a commercial license. Buying such a license is mandatory as soon as you
-    develop commercial activities involving the iText software without
-    disclosing the source code of your own applications.
-    These activities include: offering paid services to customers as an ASP,
-    serving PDFs on the fly in a web application, shipping iText with a closed
-    source product.
+You can be released from the requirements of the license by purchasing
+a commercial license. Buying such a license is mandatory as soon as you
+develop commercial activities involving the iText software without
+disclosing the source code of your own applications.
+These activities include: offering paid services to customers as an ASP,
+serving PDFs on the fly in a web application, shipping iText with a closed
+source product.
 
-    For more information, please contact iText Software Corp. at this
-    address: sales@itextpdf.com */
+For more information, please contact iText Software Corp. at this
+address: sales@itextpdf.com
+*/
 using System;
 using System.Text;
 using iText.Html2pdf.Css;
 using iText.IO.Log;
+using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Util {
+    /// <summary>Utilities class for CSS operations.</summary>
     public class CssUtils {
+        private static readonly String[] RELATIVE_MEASUREMENTS = new String[] { CssConstants.PERCENTAGE, CssConstants
+            .EM, CssConstants.EX, CssConstants.REM };
+
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CssUtils"/>
+        /// instance.
+        /// </summary>
         private CssUtils() {
         }
 
+        /// <summary>Normalizes a CSS property.</summary>
+        /// <param name="str">the property</param>
+        /// <returns>the normalized property</returns>
         public static String NormalizeCssProperty(String str) {
             return str == null ? null : CssPropertyNormalizer.Normalize(str);
         }
 
+        /// <summary>Removes double spaces and trims a string.</summary>
+        /// <param name="str">the string</param>
+        /// <returns>the string without the unnecessary spaces</returns>
         public static String RemoveDoubleSpacesAndTrim(String str) {
             String[] parts = iText.IO.Util.StringUtil.Split(str, "\\s");
             StringBuilder sb = new StringBuilder();
@@ -69,6 +86,9 @@ namespace iText.Html2pdf.Css.Util {
             return sb.ToString();
         }
 
+        /// <summary>Parses an integer without throwing an exception if something goes wrong.</summary>
+        /// <param name="str">a string that might be an integer value</param>
+        /// <returns>the integer value, or null if something went wrong</returns>
         public static int? ParseInteger(String str) {
             if (str == null) {
                 return null;
@@ -81,6 +101,9 @@ namespace iText.Html2pdf.Css.Util {
             }
         }
 
+        /// <summary>Parses a float without throwing an exception if something goes wrong.</summary>
+        /// <param name="str">a string that might be a float value</param>
+        /// <returns>the float value, or null if something went wrong</returns>
         public static float? ParseFloat(String str) {
             if (str == null) {
                 return null;
@@ -93,6 +116,9 @@ namespace iText.Html2pdf.Css.Util {
             }
         }
 
+        /// <summary>Parses an aspect ratio into an array with two integers.</summary>
+        /// <param name="str">a string that might contain two integer values</param>
+        /// <returns>the aspect ratio as an array of two integer values</returns>
         public static int[] ParseAspectRatio(String str) {
             int indexOfSlash = str.IndexOf('/');
             try {
@@ -164,19 +190,24 @@ namespace iText.Html2pdf.Css.Util {
                 }
             }
             ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Util.CssUtils));
-            logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, unit.Equals
-                ("") ? defaultMetric : unit));
+            logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED
+                , unit.Equals("") ? defaultMetric : unit));
             return f;
         }
 
+        /// <summary>Parses the absolute length.</summary>
+        /// <param name="length">the length as a string</param>
+        /// <returns>the length as a float</returns>
         public static float ParseAbsoluteLength(String length) {
             return ParseAbsoluteLength(length, CssConstants.PX);
         }
 
-        /// <summary>Parses an relative value based on the base value that was given, in the metric unit of the base value.
-        ///     </summary>
+        /// <summary>
+        /// Parses an relative value based on the base value that was given, in the metric unit of the base value.<br />
+        /// (e.g.
+        /// </summary>
         /// <remarks>
-        /// Parses an relative value based on the base value that was given, in the metric unit of the base value. <br />
+        /// Parses an relative value based on the base value that was given, in the metric unit of the base value.<br />
         /// (e.g. margin=10% should be based on the page width, so if an A4 is used, the margin = 0.10*595.0 = 59.5f)
         /// </remarks>
         /// <param name="relativeValue">in %, em or ex.</param>
@@ -206,6 +237,11 @@ namespace iText.Html2pdf.Css.Util {
             return (float)f;
         }
 
+        /// <summary>Parses the length value to pt.</summary>
+        /// <param name="value">the value</param>
+        /// <param name="emValue">the em value</param>
+        /// <param name="remValue">the root em value</param>
+        /// <returns>the unit value</returns>
         public static UnitValue ParseLengthValueToPt(String value, float emValue, float remValue) {
             if (IsMetricValue(value) || IsNumericValue(value)) {
                 return new UnitValue(UnitValue.POINT, ParseAbsoluteLength(value));
@@ -220,7 +256,7 @@ namespace iText.Html2pdf.Css.Util {
                         return new UnitValue(UnitValue.POINT, ParseRelativeValue(value, remValue));
                     }
                     else {
-                        if (value != null && (value.EndsWith(CssConstants.EM) || value.EndsWith(CssConstants.EX))) {
+                        if (IsRelativeValue(value)) {
                             return new UnitValue(UnitValue.POINT, ParseRelativeValue(value, emValue));
                         }
                     }
@@ -229,9 +265,9 @@ namespace iText.Html2pdf.Css.Util {
             return null;
         }
 
-        /// <summary>Returns value in dpi (currently)</summary>
-        /// <param name="resolutionStr"/>
-        /// <returns/>
+        /// <summary>Parses the resolution.</summary>
+        /// <param name="resolutionStr">the resolution as a string</param>
+        /// <returns>a value in dpi (currently)</returns>
         public static float ParseResolution(String resolutionStr) {
             // TODO change default units? If so, change MediaDeviceDescription#resolutoin as well
             int pos = DeterminePositionBetweenValueAndUnit(resolutionStr);
@@ -278,16 +314,22 @@ namespace iText.Html2pdf.Css.Util {
             return pos;
         }
 
+        /// <summary>Checks if a value is a color property.</summary>
+        /// <param name="value">the value</param>
+        /// <returns>true, if the value contains a color property</returns>
         public static bool IsColorProperty(String value) {
             return value.Contains("rgb(") || value.Contains("rgba(") || value.Contains("#") || WebColors.NAMES.Contains
                 (value.ToLowerInvariant()) || CssConstants.TRANSPARENT.Equals(value);
         }
 
+        /// <summary>Parses the RGBA color.</summary>
+        /// <param name="colorValue">the color value</param>
+        /// <returns>an RGBA value expressed as an array with four float values</returns>
         public static float[] ParseRgbaColor(String colorValue) {
             float[] rgbaColor = WebColors.GetRGBAColor(colorValue);
             if (rgbaColor == null) {
                 ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Util.CssUtils));
-                logger.Error(String.Format(iText.IO.LogMessageConstant.COLOR_NOT_PARSED, colorValue));
+                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.COLOR_NOT_PARSED, colorValue));
                 rgbaColor = new float[] { 0, 0, 0, 1 };
             }
             return rgbaColor;
@@ -307,15 +349,24 @@ namespace iText.Html2pdf.Css.Util {
         /// <param name="value">the string that needs to be checked.</param>
         /// <returns>boolean true if value contains an allowed metric value.</returns>
         public static bool IsRelativeValue(String value) {
-            return value != null && (value.EndsWith(CssConstants.PERCENTAGE) || value.EndsWith(CssConstants.EM) || value
-                .EndsWith(CssConstants.EX));
+            if (value == null) {
+                return false;
+            }
+            foreach (String relativePostfix in RELATIVE_MEASUREMENTS) {
+                if (value.EndsWith(relativePostfix) && IsNumericValue(value.JSubstring(0, value.Length - relativePostfix.Length
+                    ).Trim())) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>Checks whether a string contains an allowed value relative to previously set root value.</summary>
         /// <param name="value">the string that needs to be checked.</param>
         /// <returns>boolean true if value contains an allowed metric value.</returns>
         public static bool IsRemValue(String value) {
-            return value != null && (value.EndsWith(CssConstants.REM));
+            return value != null && value.EndsWith(CssConstants.REM) && IsNumericValue(value.JSubstring(0, value.Length
+                 - CssConstants.REM.Length).Trim());
         }
 
         /// <summary>Checks whether a string matches a numeric value (e.g.</summary>
@@ -328,7 +379,13 @@ namespace iText.Html2pdf.Css.Util {
                 ("^-?\\.\\d\\d*$"));
         }
 
-        /// <summary>Parses <code>url("file.jpg")</code> to <code>file.jpg</code>.</summary>
+        /// <summary>
+        /// Parses
+        /// <c>url("file.jpg")</c>
+        /// to
+        /// <c>file.jpg</c>
+        /// .
+        /// </summary>
         /// <param name="url">the url attribute to parse</param>
         /// <returns>the parsed url. Or original url if not wrappend in url()</returns>
         public static String ExtractUrl(String url) {
@@ -353,6 +410,31 @@ namespace iText.Html2pdf.Css.Util {
                 str = url;
             }
             return str;
+        }
+
+        /// <summary>Checks if a data is base 64 encoded.</summary>
+        /// <param name="data">the data</param>
+        /// <returns>true, if the data is base 64 encoded</returns>
+        public static bool IsBase64Data(String data) {
+            return data.Matches("^data:([^\\s]*);base64,([^\\s]*)");
+        }
+
+        /// <summary>Find the next unescaped character.</summary>
+        /// <param name="source">a source</param>
+        /// <param name="ch">the character to look for</param>
+        /// <param name="startIndex">where to start looking</param>
+        /// <returns>the position of the next unescaped character</returns>
+        public static int FindNextUnescapedChar(String source, char ch, int startIndex) {
+            int symbolPos = source.IndexOf(ch, startIndex);
+            if (symbolPos == -1) {
+                return -1;
+            }
+            int afterNoneEscapePos = symbolPos;
+            while (afterNoneEscapePos > 0 && source[afterNoneEscapePos - 1] == '\\') {
+                --afterNoneEscapePos;
+            }
+            return (symbolPos - afterNoneEscapePos) % 2 == 0 ? symbolPos : FindNextUnescapedChar(source, ch, symbolPos
+                 + 1);
         }
     }
 }

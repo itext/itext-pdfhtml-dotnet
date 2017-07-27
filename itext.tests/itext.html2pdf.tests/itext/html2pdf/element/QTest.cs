@@ -49,7 +49,6 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class QTest : ExtendedITextTest {
@@ -67,7 +66,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 2)]
         public virtual void Q01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "qTest01.html"), new FileInfo(destinationFolder + "qTest01.pdf"
                 ));

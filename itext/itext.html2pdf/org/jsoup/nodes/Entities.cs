@@ -31,9 +31,9 @@ namespace Org.Jsoup.Nodes {
             }
 
             static EscapeMode() {
-                nameValueMap[xhtml.name] = xhtml;
-                nameValueMap[@base.name] = @base;
-                nameValueMap[extended.name] = extended;
+                nameValueMap.Put(xhtml.name, xhtml);
+                nameValueMap.Put(@base.name, @base);
+                nameValueMap.Put(extended.name, extended);
             }
 
             private IDictionary<char, String> map;
@@ -288,8 +288,8 @@ namespace Org.Jsoup.Nodes {
             // extended and overblown.
             fullByVal = ToCharacterKey(full);
             foreach (Object[] entity in xhtmlArray) {
-                char c = (char)((int?)entity[1]);
-                xhtmlByVal[c] = ((String)entity[0]);
+                char c = (char)((int?)entity[1]).Value;
+                xhtmlByVal.Put(c, ((String)entity[0]));
             }
         }
 
@@ -306,7 +306,7 @@ namespace Org.Jsoup.Nodes {
             }
             foreach (Object name in properties.Keys) {
                 char? val = (char)System.Convert.ToInt32(properties.GetProperty((String)name), 16);
-                entities[(String)name] = val;
+                entities.Put((String)name, val);
             }
             return entities;
         }
@@ -319,11 +319,11 @@ namespace Org.Jsoup.Nodes {
                 if (outMap.ContainsKey(character)) {
                     // dupe, prefer the lower case version
                     if (name.ToLowerInvariant().Equals(name)) {
-                        outMap[character] = name;
+                        outMap.Put(character, name);
                     }
                 }
                 else {
-                    outMap[character] = name;
+                    outMap.Put(character, name);
                 }
             }
             return outMap;

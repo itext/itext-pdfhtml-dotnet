@@ -3,6 +3,7 @@ using System.Text;
 using Org.Jsoup;
 using Org.Jsoup.Helper;
 using Org.Jsoup.Nodes;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Parser {
     /// <summary>Readers the input stream into tokens.</summary>
@@ -218,8 +219,8 @@ namespace Org.Jsoup.Parser {
                     reader.RewindToMark();
                     if (looksLegit) {
                         // named with semicolon
-                        CharacterReferenceError(String.Format("invalid named referenece " + PortUtil.EscapedSingleBracket + "{0}" 
-                            + PortUtil.EscapedSingleBracket, nameRef));
+                        CharacterReferenceError(MessageFormatUtil.Format("invalid named referenece " + PortUtil.EscapedSingleBracket
+                             + "{0}" + PortUtil.EscapedSingleBracket, nameRef));
                     }
                     return null;
                 }

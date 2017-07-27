@@ -58,7 +58,6 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Media {
     public class MediaRuleTest : ExtendedITextTest {
@@ -196,7 +195,6 @@ namespace iText.Html2pdf.Css.Media {
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.TEXT_WAS_NOT_PROCESSED, Count = 10)]
         public virtual void Test07() {
             String htmlFileName = sourceFolder + "html07.html";
             byte[] bytes = StreamUtil.InputStreamToArray(new FileStream(htmlFileName, FileMode.Open, FileAccess.Read));

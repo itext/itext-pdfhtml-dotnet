@@ -1,5 +1,6 @@
 using System;
 using Org.Jsoup.Nodes;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Select {
     /// <summary>Base structural evaluator.</summary>
@@ -27,7 +28,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":has({0})", evaluator);
+                return MessageFormatUtil.Format(":has({0})", evaluator);
             }
         }
 
@@ -41,7 +42,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":not{0}", evaluator);
+                return MessageFormatUtil.Format(":not{0}", evaluator);
             }
         }
 
@@ -68,7 +69,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":parent{0}", evaluator);
+                return MessageFormatUtil.Format(":parent{0}", evaluator);
             }
         }
 
@@ -86,7 +87,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":ImmediateParent{0}", evaluator);
+                return MessageFormatUtil.Format(":ImmediateParent{0}", evaluator);
             }
         }
 
@@ -110,7 +111,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":prev*{0}", evaluator);
+                return MessageFormatUtil.Format(":prev*{0}", evaluator);
             }
         }
 
@@ -128,7 +129,7 @@ namespace Org.Jsoup.Select {
             }
 
             public override String ToString() {
-                return String.Format(":prev{0}", evaluator);
+                return MessageFormatUtil.Format(":prev{0}", evaluator);
             }
         }
     }

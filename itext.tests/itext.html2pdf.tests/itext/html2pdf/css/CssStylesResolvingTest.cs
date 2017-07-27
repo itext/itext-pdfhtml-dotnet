@@ -50,6 +50,7 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup;
 using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Resolver.Resource;
+using iText.IO.Util;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
@@ -184,8 +185,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HtmlStylesConvertingTest05() {
             Test("htmlStylesConvertingTest05.html", "html body table", "border-bottom-style: solid", "border-left-style: solid"
                 , "border-right-style: solid", "border-top-style: solid", "border-bottom-width: 2px", "border-left-width: 2px"
-                , "border-right-width: 2px", "border-top-width: 2px", "border-bottom-color: black", "border-left-color: black"
-                , "border-right-color: black", "border-top-color: black", "font-size: 12pt", "margin-bottom: 0", "margin-left: 0"
+                , "border-right-width: 2px", "border-top-width: 2px", "font-size: 12.0pt", "margin-bottom: 0", "margin-left: 0"
                 , "margin-right: 0", "margin-top: 0", "text-indent: 0", "display: table", "font-family: helvetica");
         }
 
@@ -256,7 +256,8 @@ namespace iText.Html2pdf.Css {
             ResolveStylesForTree(document, cssResolver, context);
             IElementNode element = FindElement(document, elementPath);
             if (element == null) {
-                NUnit.Framework.Assert.Fail(String.Format("Element at path \"{0}\" was not found.", elementPath));
+                NUnit.Framework.Assert.Fail(MessageFormatUtil.Format("Element at path \"{0}\" was not found.", elementPath
+                    ));
             }
             IDictionary<String, String> elementStyles = element.GetStyles();
             ICollection<String> expectedStylesSet = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList(expectedStyles

@@ -158,8 +158,8 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1049")]
         public virtual void CollapsingMarginsBeforeAfterPseudo03() {
+            //TODO: incorrect behaviour because of trimmed non-breakable space
             RunTest("collapsingMarginsBeforeAfterPseudo03");
         }
 
@@ -187,25 +187,45 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void NonNormalizedAfterBeforeTest() {
-            RunTest("nonNormalizedAfterBeforeTest");
+        public virtual void EscapedStringTest01() {
+            RunTest("escapedStringTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1049")]
-        public virtual void ImgPseudoTest01() {
-            // width and height properties doesn't affect image in pseudo element
-            RunTest("imgPseudoTest01");
+        public virtual void EscapedStringTest02() {
+            RunTest("escapedStringTest02");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1049")]
-        public virtual void ImgPseudoTest02() {
-            RunTest("imgPseudoTest02");
+        public virtual void EscapedStringTest03() {
+            RunTest("escapedStringTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EscapedStringTest04() {
+            RunTest("escapedStringTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 5)]
+        public virtual void AttrTest01() {
+            RunTest("attrTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 3)]
+        public virtual void AttrTest02() {
+            RunTest("attrTest02");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -244,6 +264,20 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest05() {
             RunTest("emptyStillShownPseudoTest05");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void PseudoDisplayTable01Test() {
+            RunTest("pseudoDisplayTable01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void PseudoDisplayTable02Test() {
+            RunTest("pseudoDisplayTable02");
         }
 
         /// <exception cref="System.IO.IOException"/>

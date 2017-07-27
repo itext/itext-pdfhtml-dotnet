@@ -68,8 +68,21 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ElementFixedWidthTest() {
-            //Todo: The cell width is incorrect because of missing table autolayout.
             RunTest("elementFixedWidthTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CellPaddingTest01() {
+            RunTest("cellPaddingTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CellPaddingTest02() {
+            RunTest("cellPaddingTest02");
         }
 
         /// <exception cref="System.IO.IOException"/>

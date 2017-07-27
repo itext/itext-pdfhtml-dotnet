@@ -1,44 +1,45 @@
 /*
-    This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+This file is part of the iText (R) project.
+Copyright (c) 1998-2017 iText Group NV
+Authors: Bruno Lowagie, Paulo Soares, et al.
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License version 3
-    as published by the Free Software Foundation with the addition of the
-    following permission added to Section 15 as permitted in Section 7(a):
-    FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
-    ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
-    OF THIRD PARTY RIGHTS
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3
+as published by the Free Software Foundation with the addition of the
+following permission added to Section 15 as permitted in Section 7(a):
+FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
+ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
+OF THIRD PARTY RIGHTS
 
-    This program is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-    or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-    You should have received a copy of the GNU Affero General Public License
-    along with this program; if not, see http://www.gnu.org/licenses or write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA, 02110-1301 USA, or download the license from the following URL:
-    http://itextpdf.com/terms-of-use/
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program; if not, see http://www.gnu.org/licenses or write to
+the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA, 02110-1301 USA, or download the license from the following URL:
+http://itextpdf.com/terms-of-use/
 
-    The interactive user interfaces in modified source and object code versions
-    of this program must display Appropriate Legal Notices, as required under
-    Section 5 of the GNU Affero General Public License.
+The interactive user interfaces in modified source and object code versions
+of this program must display Appropriate Legal Notices, as required under
+Section 5 of the GNU Affero General Public License.
 
-    In accordance with Section 7(b) of the GNU Affero General Public License,
-    a covered work must retain the producer line in every PDF that is created
-    or manipulated using iText.
+In accordance with Section 7(b) of the GNU Affero General Public License,
+a covered work must retain the producer line in every PDF that is created
+or manipulated using iText.
 
-    You can be released from the requirements of the license by purchasing
-    a commercial license. Buying such a license is mandatory as soon as you
-    develop commercial activities involving the iText software without
-    disclosing the source code of your own applications.
-    These activities include: offering paid services to customers as an ASP,
-    serving PDFs on the fly in a web application, shipping iText with a closed
-    source product.
+You can be released from the requirements of the license by purchasing
+a commercial license. Buying such a license is mandatory as soon as you
+develop commercial activities involving the iText software without
+disclosing the source code of your own applications.
+These activities include: offering paid services to customers as an ASP,
+serving PDFs on the fly in a web application, shipping iText with a closed
+source product.
 
-    For more information, please contact iText Software Corp. at this
-    address: sales@itextpdf.com */
+For more information, please contact iText Software Corp. at this
+address: sales@itextpdf.com
+*/
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
@@ -50,14 +51,26 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utilities class to apply vertical alignment values.</summary>
     public class VerticalAlignmentApplierUtil {
+        /// <summary>The Constant ASCENDER_COEFFICIENT.</summary>
         private const double ASCENDER_COEFFICIENT = 0.8;
 
+        /// <summary>The Constant DESCENDER_COEFFICIENT.</summary>
         private const double DESCENDER_COEFFICIENT = 0.2;
 
+        /// <summary>
+        /// Creates a new
+        /// <see cref="VerticalAlignmentApplierUtil"/>
+        /// .
+        /// </summary>
         private VerticalAlignmentApplierUtil() {
         }
 
+        /// <summary>Applies vertical alignment to cells.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element</param>
         public static void ApplyVerticalAlignmentForCells(IDictionary<String, String> cssProps, ProcessorContext context
             , IPropertyContainer element) {
             String vAlignVal = cssProps.Get(CssConstants.VERTICAL_ALIGN);
@@ -76,6 +89,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>Apply vertical alignment to inline elements.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="stylesContainer">the styles container</param>
+        /// <param name="childElements">the child elements</param>
         public static void ApplyVerticalAlignmentForInlines(IDictionary<String, String> cssProps, ProcessorContext
              context, IStylesContainer stylesContainer, IList<IPropertyContainer> childElements) {
             String vAlignVal = cssProps.Get(CssConstants.VERTICAL_ALIGN);
@@ -138,6 +156,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>Calculates the text rise value for &lt;sup&gt; and &lt;sub&gt; tags.</summary>
+        /// <param name="stylesContainer">the styles container</param>
+        /// <param name="vAlignVal">the vertical alignment value</param>
+        /// <returns>the calculated text rise</returns>
         private static float CalcTextRiseForSupSub(IStylesContainer stylesContainer, String vAlignVal) {
             float parentFontSize = GetParentFontSize(stylesContainer);
             String superscriptPosition = "33%";
@@ -146,6 +168,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return CssUtils.ParseRelativeValue(relativeValue, parentFontSize);
         }
 
+        /// <summary>Calculates the text rise for middle alignment.</summary>
+        /// <param name="stylesContainer">the styles container</param>
+        /// <returns>the calculated text rise</returns>
         private static float CalcTextRiseForMiddle(IStylesContainer stylesContainer) {
             String ownFontSizeStr = stylesContainer.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssUtils.ParseAbsoluteLength(ownFontSizeStr);
@@ -157,6 +182,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return xHeight - elementMidPoint;
         }
 
+        /// <summary>Calculates the text rise for top alignment.</summary>
+        /// <param name="stylesContainer">the styles container</param>
+        /// <param name="rootFontSize">the root font size</param>
+        /// <returns>the calculated text rise</returns>
         private static float CalcTextRiseForTextTop(IStylesContainer stylesContainer, float rootFontSize) {
             String ownFontSizeStr = stylesContainer.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssUtils.ParseAbsoluteLength(ownFontSizeStr);
@@ -168,6 +197,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return parentTextTop - elementTopEdge;
         }
 
+        /// <summary>Calculates the text rise for bottom alignment.</summary>
+        /// <param name="stylesContainer">the styles container</param>
+        /// <param name="rootFontSize">the root font size</param>
+        /// <returns>the calculated text rise</returns>
         private static float CalcTextRiseForTextBottom(IStylesContainer stylesContainer, float rootFontSize) {
             String ownFontSizeStr = stylesContainer.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssUtils.ParseAbsoluteLength(ownFontSizeStr);
@@ -180,6 +213,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return elementBottomEdge - parentTextBottom;
         }
 
+        /// <summary>Calculates text rise for percentage value text rise.</summary>
+        /// <param name="stylesContainer">the styles container</param>
+        /// <param name="rootFontSize">the root font size</param>
+        /// <param name="vAlignVal">the vertical alignment value</param>
+        /// <returns>the calculated text rise</returns>
         private static float CalcTextRiseForPercentageValue(IStylesContainer stylesContainer, float rootFontSize, 
             String vAlignVal) {
             String ownFontSizeStr = stylesContainer.GetStyles().Get(CssConstants.FONT_SIZE);
@@ -189,6 +227,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return CssUtils.ParseRelativeValue(vAlignVal, lineHeightActualValue);
         }
 
+        /// <summary>Gets the actual value of the line height.</summary>
+        /// <param name="fontSize">the font size</param>
+        /// <param name="rootFontSize">the root font size</param>
+        /// <param name="lineHeightStr">
+        /// the line height as a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <returns>
+        /// the actual line height as a
+        /// <c>float</c>
+        /// </returns>
         private static float GetLineHeightActualValue(float fontSize, float rootFontSize, String lineHeightStr) {
             float lineHeightActualValue;
             if (lineHeightStr != null) {
@@ -211,6 +260,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return lineHeightActualValue;
         }
 
+        /// <summary>Gets the parent font size.</summary>
+        /// <param name="stylesContainer">the styles container</param>
+        /// <returns>the parent font size</returns>
         private static float GetParentFontSize(IStylesContainer stylesContainer) {
             float parentFontSize;
             if (stylesContainer is INode && ((IElementNode)stylesContainer).ParentNode() is IStylesContainer) {

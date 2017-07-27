@@ -49,7 +49,6 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf {
     public class Html2ElementsTest : ExtendedITextTest {
@@ -117,11 +116,32 @@ namespace iText.Html2pdf {
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.TEXT_WAS_NOT_PROCESSED)]
         public virtual void HtmlToElementsTest05() {
             String html = "123";
             IList<IElement> lst = HtmlConverter.ConvertToElements(html);
-            NUnit.Framework.Assert.IsTrue(lst.Count == 0);
+            NUnit.Framework.Assert.IsTrue(lst.Count == 1);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        [NUnit.Framework.Test]
+        public virtual void HtmlElementsTest06() {
+            String html = "<html>Lorem<p>Ipsum</p>Dolor<p>Sit</p></html>";
+            IList<IElement> lst = HtmlConverter.ConvertToElements(html);
+            NUnit.Framework.Assert.IsTrue(lst.Count == 4);
+            for (int i = 0; i < lst.Count; i++) {
+                NUnit.Framework.Assert.IsTrue(lst[i] is Paragraph);
+            }
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        [NUnit.Framework.Test]
+        public virtual void HtmlElementsTest07() {
+            String html = "<html>Lorem<span>Dolor</span><p>Ipsum</p><p>Sit</p></html>";
+            IList<IElement> lst = HtmlConverter.ConvertToElements(html);
+            NUnit.Framework.Assert.IsTrue(lst.Count == 3);
+            for (int i = 0; i < lst.Count; i++) {
+                NUnit.Framework.Assert.IsTrue(lst[i] is Paragraph);
+            }
         }
     }
 }

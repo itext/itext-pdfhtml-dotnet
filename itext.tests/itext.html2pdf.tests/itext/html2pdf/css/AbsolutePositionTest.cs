@@ -149,6 +149,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 1)]
         public virtual void AbsolutePosition09Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "absolutePositionTest09.html"), new FileInfo(destinationFolder
                  + "absolutePositionTest09.pdf"));
@@ -164,6 +165,46 @@ namespace iText.Html2pdf.Css {
                  + "absolutePositionTest10.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "absolutePositionTest10.pdf"
                 , sourceFolder + "cmp_absolutePositionTest10.pdf", destinationFolder, "diff10_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePosition11Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "absolutePositionTest11.html"), new FileInfo(destinationFolder
+                 + "absolutePositionTest11.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "absolutePositionTest11.pdf"
+                , sourceFolder + "cmp_absolutePositionTest11.pdf", destinationFolder, "diff11_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePosition12Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "absolutePositionTest12.html"), new FileInfo(destinationFolder
+                 + "absolutePositionTest12.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "absolutePositionTest12.pdf"
+                , sourceFolder + "cmp_absolutePositionTest12.pdf", destinationFolder, "diff12_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePosition13Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "absolutePositionTest13.html"), new FileInfo(destinationFolder
+                 + "absolutePositionTest13.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "absolutePositionTest13.pdf"
+                , sourceFolder + "cmp_absolutePositionTest13.pdf", destinationFolder, "diff13_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePosition14Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "absolutePositionTest14.html"), new FileInfo(destinationFolder
+                 + "absolutePositionTest14.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "absolutePositionTest14.pdf"
+                , sourceFolder + "cmp_absolutePositionTest14.pdf", destinationFolder, "diff14_"));
         }
     }
 }

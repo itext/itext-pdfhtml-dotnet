@@ -142,5 +142,15 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithNonBreakableSpaceTest03.pdf"
                 , sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest03.pdf", destinationFolder, "diff08_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ParagraphInTablePercentTest01() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphInTablePercentTest01.html"), new FileInfo
+                (destinationFolder + "paragraphInTablePercentTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphInTablePercentTest01.pdf"
+                , sourceFolder + "cmp_paragraphInTablePercentTest01.pdf", destinationFolder, "diff09_"));
+        }
     }
 }

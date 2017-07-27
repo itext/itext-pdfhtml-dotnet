@@ -41,9 +41,11 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_3 {
-    [NUnit.Framework.Ignore("DEVSIX-925: trimFirst on layout level trims all the non-breakable spaces")]
+    [LogMessage(iText.Html2pdf.LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES, 
+        Count = 6)]
     public class T43SvgKeywordsATest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "t43-svg-keywords-a.xht";

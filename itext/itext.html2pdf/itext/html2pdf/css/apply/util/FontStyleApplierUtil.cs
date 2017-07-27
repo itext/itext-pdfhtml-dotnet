@@ -1,44 +1,45 @@
 /*
-    This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+This file is part of the iText (R) project.
+Copyright (c) 1998-2017 iText Group NV
+Authors: Bruno Lowagie, Paulo Soares, et al.
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License version 3
-    as published by the Free Software Foundation with the addition of the
-    following permission added to Section 15 as permitted in Section 7(a):
-    FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
-    ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
-    OF THIRD PARTY RIGHTS
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3
+as published by the Free Software Foundation with the addition of the
+following permission added to Section 15 as permitted in Section 7(a):
+FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
+ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
+OF THIRD PARTY RIGHTS
 
-    This program is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-    or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-    You should have received a copy of the GNU Affero General Public License
-    along with this program; if not, see http://www.gnu.org/licenses or write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA, 02110-1301 USA, or download the license from the following URL:
-    http://itextpdf.com/terms-of-use/
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program; if not, see http://www.gnu.org/licenses or write to
+the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA, 02110-1301 USA, or download the license from the following URL:
+http://itextpdf.com/terms-of-use/
 
-    The interactive user interfaces in modified source and object code versions
-    of this program must display Appropriate Legal Notices, as required under
-    Section 5 of the GNU Affero General Public License.
+The interactive user interfaces in modified source and object code versions
+of this program must display Appropriate Legal Notices, as required under
+Section 5 of the GNU Affero General Public License.
 
-    In accordance with Section 7(b) of the GNU Affero General Public License,
-    a covered work must retain the producer line in every PDF that is created
-    or manipulated using iText.
+In accordance with Section 7(b) of the GNU Affero General Public License,
+a covered work must retain the producer line in every PDF that is created
+or manipulated using iText.
 
-    You can be released from the requirements of the license by purchasing
-    a commercial license. Buying such a license is mandatory as soon as you
-    develop commercial activities involving the iText software without
-    disclosing the source code of your own applications.
-    These activities include: offering paid services to customers as an ASP,
-    serving PDFs on the fly in a web application, shipping iText with a closed
-    source product.
+You can be released from the requirements of the license by purchasing
+a commercial license. Buying such a license is mandatory as soon as you
+develop commercial activities involving the iText software without
+disclosing the source code of your own applications.
+These activities include: offering paid services to customers as an ASP,
+serving PDFs on the fly in a web application, shipping iText with a closed
+source product.
 
-    For more information, please contact iText Software Corp. at this
-    address: sales@itextpdf.com */
+For more information, please contact iText Software Corp. at this
+address: sales@itextpdf.com
+*/
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
@@ -46,19 +47,32 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
+using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utilities class to apply font styles.</summary>
     public sealed class FontStyleApplierUtil {
+        /// <summary>The logger.</summary>
         private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.FontStyleApplierUtil
             ));
 
+        /// <summary>
+        /// Creates a
+        /// <see cref="FontStyleApplierUtil"/>
+        /// instance.
+        /// </summary>
         private FontStyleApplierUtil() {
         }
 
+        /// <summary>Applies font styles to an element.</summary>
+        /// <param name="cssProps">the CSS props</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="stylesContainer">the styles container</param>
+        /// <param name="element">the element</param>
         public static void ApplyFontStyles(IDictionary<String, String> cssProps, ProcessorContext context, IStylesContainer
              stylesContainer, IPropertyContainer element) {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
@@ -120,6 +134,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     if (CssConstants.CENTER.Equals(align)) {
                         element.SetProperty(Property.TEXT_ALIGNMENT, TextAlignment.CENTER);
                     }
+                    else {
+                        if (CssConstants.JUSTIFY.Equals(align)) {
+                            element.SetProperty(Property.TEXT_ALIGNMENT, TextAlignment.JUSTIFIED);
+                            element.SetProperty(Property.SPACING_RATIO, 1f);
+                        }
+                    }
                 }
             }
             String textDecorationProp = cssProps.Get(CssConstants.TEXT_DECORATION);
@@ -163,13 +183,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         element.SetProperty(Property.FIRST_LINE_INDENT, textIndentValue.GetValue());
                     }
                     else {
-                        logger.Error(String.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
-                            .TEXT_INDENT));
+                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                            , CssConstants.TEXT_INDENT));
                     }
                 }
             }
             String letterSpacing = cssProps.Get(CssConstants.LETTER_SPACING);
-            if (letterSpacing != null) {
+            if (letterSpacing != null && !letterSpacing.Equals(CssConstants.NORMAL)) {
                 UnitValue letterSpacingValue = CssUtils.ParseLengthValueToPt(letterSpacing, em, rem);
                 if (letterSpacingValue.IsPointValue()) {
                     element.SetProperty(Property.CHARACTER_SPACING, letterSpacingValue.GetValue());
@@ -188,11 +208,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
             // browsers ignore values in percents
             String lineHeight = cssProps.Get(CssConstants.LINE_HEIGHT);
             if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight)) {
-                UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em, rem);
                 if (CssUtils.IsNumericValue(lineHeight)) {
-                    element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.GetValue()));
+                    float? mult = CssUtils.ParseFloat(lineHeight);
+                    if (mult != null) {
+                        element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));
+                    }
                 }
                 else {
+                    UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em, rem);
                     if (lineHeightValue != null && lineHeightValue.IsPointValue()) {
                         element.SetProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.GetValue()));
                     }
@@ -208,6 +231,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        /// <summary>Parses the absolute font size.</summary>
+        /// <param name="fontSizeValue">
+        /// the font size value as a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <returns>
+        /// the font size value as a
+        /// <c>float</c>
+        /// </returns>
         public static float ParseAbsoluteFontSize(String fontSizeValue) {
             if (CssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS.Contains(fontSizeValue)) {
                 switch (fontSizeValue) {
@@ -255,6 +287,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return CssUtils.ParseAbsoluteLength(fontSizeValue);
         }
 
+        /// <summary>Parses the relative font size.</summary>
+        /// <param name="relativeFontSizeValue">
+        /// the relative font size value as a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <param name="baseValue">the base value</param>
+        /// <returns>
+        /// the relative font size value as a
+        /// <see>float</see>
+        /// </returns>
         public static float ParseRelativeFontSize(String relativeFontSizeValue, float baseValue) {
             if (CssConstants.SMALLER.Equals(relativeFontSizeValue)) {
                 return (float)(baseValue / 1.2);

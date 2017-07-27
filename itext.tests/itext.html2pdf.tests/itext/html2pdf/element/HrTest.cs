@@ -122,7 +122,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains 'after' in css")]
         public virtual void HrTest08() {
             RunHrTest("08");
         }
@@ -174,7 +173,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains 'after' in css")]
         public virtual void HrTest15() {
             RunHrTest("15");
         }
@@ -182,7 +180,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains 'after' in css")]
         public virtual void HrTest16() {
             RunHrTest("16");
         }
@@ -190,7 +187,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains 'after' in css")]
         public virtual void HrTest17() {
             RunHrTest("17");
         }
@@ -198,7 +194,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains 'before' in css")]
         public virtual void HrTest18() {
             RunHrTest("18");
         }
@@ -215,6 +210,13 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void HrTest20() {
             RunHrTest("20");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HrTest21() {
+            RunHrTest("21");
         }
 
         /// <exception cref="System.IO.IOException"/>
