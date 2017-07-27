@@ -17,8 +17,8 @@
     <language>en-US</language>
     <tags>itext itext7 itextsharp c# .net csharp pdf html pdfhtml</tags>
 	<dependencies>
-      <dependency id="itext7" version="7.0.4.0" />
-      <dependency id="itext7.licensekey" version="2.0.4.0" />
+      <dependency id="itext7" version="7.0.4" />
+      <dependency id="itext7.licensekey" version="2.0.4" />
     </dependencies>
   </metadata>
   <files>
