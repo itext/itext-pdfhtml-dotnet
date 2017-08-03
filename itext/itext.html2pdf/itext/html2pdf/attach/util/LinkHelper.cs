@@ -41,6 +41,9 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Html2pdf.Attach;
+using iText.Html2pdf.Html;
+using iText.Html2pdf.Html.Node;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Action;
@@ -81,6 +84,28 @@ namespace iText.Html2pdf.Attach.Util {
                 if (container is ILeafElement && container is IAccessibleElement) {
                     ((IAccessibleElement)container).SetRole(PdfName.Link);
                 }
+            }
+        }
+
+        /// <summary>Creates a destination</summary>
+        /// <param name="tagWorker">the tagworker that is building the (iText) element</param>
+        /// <param name="element">the (HTML) element being converted</param>
+        public static void CreateDestination(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
+            if (element.GetAttribute(AttributeConstants.ID) == null) {
+                return;
+            }
+            if (tagWorker == null) {
+                return;
+            }
+            IPropertyContainer propertyContainer = tagWorker.GetElementResult();
+            if (propertyContainer == null) {
+                return;
+            }
+            // get id
+            String id = element.GetAttribute(AttributeConstants.ID);
+            // set property
+            if (context.GetLinkContext().IsUsedLinkDestination(id)) {
+                propertyContainer.SetProperty(Property.DESTINATION, id);
             }
         }
     }

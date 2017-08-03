@@ -93,6 +93,9 @@ namespace iText.Html2pdf.Attach {
         /// <summary>The CSS context.</summary>
         private CssContext cssContext;
 
+        /// <summary>The link context</summary>
+        private LinkContext linkContext;
+
         /// <summary>The PDF document.</summary>
         private PdfDocument pdfDocument;
 
@@ -138,6 +141,7 @@ namespace iText.Html2pdf.Attach {
             }
             resourceResolver = new ResourceResolver(baseUri);
             cssContext = new CssContext();
+            linkContext = new LinkContext();
             createAcroForm = converterProperties.IsCreateAcroForm();
             formFieldNameResolver = new FormFieldNameResolver();
         }
@@ -202,6 +206,12 @@ namespace iText.Html2pdf.Attach {
             return cssContext;
         }
 
+        /// <summary>Gets the link context.</summary>
+        /// <returns>the link context</returns>
+        public virtual LinkContext GetLinkContext() {
+            return linkContext;
+        }
+
         /// <summary>Checks if is an AcroForm needs to be created.</summary>
         /// <returns>true, an AcroForm should be created</returns>
         public virtual bool IsCreateAcroForm() {
@@ -255,6 +265,7 @@ namespace iText.Html2pdf.Attach {
             this.state = new State();
             this.resourceResolver.ResetCache();
             this.cssContext = new CssContext();
+            this.linkContext = new LinkContext();
             this.formFieldNameResolver.Reset();
             //Reset font provider. PdfFonts shall be reseted.
             this.fontProvider = new FontProvider(this.fontProvider.GetFontSet());
