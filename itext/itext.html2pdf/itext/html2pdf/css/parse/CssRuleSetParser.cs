@@ -84,21 +84,32 @@ namespace iText.Html2pdf.Css.Parse {
         /// </returns>
         public static IList<CssDeclaration> ParsePropertyDeclarations(String propertiesStr) {
             IList<CssDeclaration> declarations = new List<CssDeclaration>();
-            int pos = GetSemicolonPosition(propertiesStr, 0);
-            while (pos != -1) {
-                String[] propertySplit = SplitCssProperty(propertiesStr.JSubstring(0, pos));
-                if (propertySplit != null) {
-                    declarations.Add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+            int openedCommentPos = propertiesStr.IndexOf("/*", 0);
+            if (openedCommentPos != -1) {
+                declarations.AddAll(ParsePropertyDeclarations(propertiesStr.JSubstring(0, openedCommentPos)));
+                int closedCommentPos = propertiesStr.IndexOf("*/", openedCommentPos);
+                if (closedCommentPos != -1) {
+                    declarations.AddAll(ParsePropertyDeclarations(propertiesStr.JSubstring(closedCommentPos + 2, propertiesStr
+                        .Length)));
                 }
-                propertiesStr = propertiesStr.Substring(pos + 1);
-                pos = GetSemicolonPosition(propertiesStr, 0);
             }
-            if (!String.IsNullOrEmpty(iText.IO.Util.StringUtil.ReplaceAll(propertiesStr, "[\\n\\r\\t ]", ""))) {
-                String[] propertySplit = SplitCssProperty(propertiesStr);
-                if (propertySplit != null) {
-                    declarations.Add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+            else {
+                int pos = GetSemicolonPosition(propertiesStr, 0);
+                while (pos != -1) {
+                    String[] propertySplit = SplitCssProperty(propertiesStr.JSubstring(0, pos));
+                    if (propertySplit != null) {
+                        declarations.Add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+                    }
+                    propertiesStr = propertiesStr.Substring(pos + 1);
+                    pos = GetSemicolonPosition(propertiesStr, 0);
                 }
-                return declarations;
+                if (!String.IsNullOrEmpty(iText.IO.Util.StringUtil.ReplaceAll(propertiesStr, "[\\n\\r\\t ]", ""))) {
+                    String[] propertySplit = SplitCssProperty(propertiesStr);
+                    if (propertySplit != null) {
+                        declarations.Add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+                    }
+                    return declarations;
+                }
             }
             return declarations;
         }

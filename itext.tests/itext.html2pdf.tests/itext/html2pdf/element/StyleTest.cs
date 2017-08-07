@@ -75,13 +75,22 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Ignore("DEVSIX-1374")]
         [NUnit.Framework.Test]
         public virtual void StyleTest02() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "styleTest02.html"), new FileInfo(destinationFolder
                  + "styleTest02.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "styleTest02.pdf", sourceFolder
                  + "cmp_styleTest02.pdf", destinationFolder, "diff02_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void StyleTest03() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "styleTest03.html"), new FileInfo(destinationFolder
+                 + "styleTest03.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "styleTest03.pdf", sourceFolder
+                 + "cmp_styleTest03.pdf", destinationFolder, "diff03_"));
         }
     }
 }
