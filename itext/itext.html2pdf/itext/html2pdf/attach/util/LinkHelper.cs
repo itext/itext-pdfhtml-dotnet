@@ -90,6 +90,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Creates a destination</summary>
         /// <param name="tagWorker">the tagworker that is building the (iText) element</param>
         /// <param name="element">the (HTML) element being converted</param>
+        /// <param name="context">the Processor context</param>
         public static void CreateDestination(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
             if (element.GetAttribute(AttributeConstants.ID) == null) {
                 return;

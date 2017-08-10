@@ -51,17 +51,20 @@ namespace iText.Html2pdf.Attach.Impl {
     /// Doing so enables us to drastically trim the amount of PdfDestinations that will end up being included in the document.
     /// For performance reasons it was decided to scan the DOM tree only once and store the result in a separate object
     /// (this object) in the ProcessorContext.
+    /// <p>
+    /// This class is not reusable and a new instance shall be created for every new conversion process.
     /// </remarks>
     public class LinkContext {
         /// <summary>the ids currently in use as valid link destinations</summary>
         private ICollection<String> linkDestinations = new HashSet<String>();
 
+        /// <summary>Construct an (empty) LinkContext</summary>
         public LinkContext() {
         }
 
         /// <summary>Scan the DOM tree for all (internal) link targets</summary>
         /// <param name="root">the DOM tree root node</param>
-        /// <returns/>
+        /// <returns>this LinkContext</returns>
         public virtual iText.Html2pdf.Attach.Impl.LinkContext ScanForIds(INode root) {
             // clear previous
             linkDestinations.Clear();
@@ -84,14 +87,13 @@ namespace iText.Html2pdf.Attach.Impl {
                     stk.AddAll(n.ChildNodes());
                 }
             }
-            // return
             return this;
         }
 
         /// <summary>Returns whether a given (internal) link destination is used by at least one href element in the document
         ///     </summary>
-        /// <param name="linkDestination"/>
-        /// <returns/>
+        /// <param name="linkDestination">link destination</param>
+        /// <returns>whether a given (internal) link destination is used by at least one href element in the document</returns>
         public virtual bool IsUsedLinkDestination(String linkDestination) {
             return linkDestinations.Contains(linkDestination);
         }

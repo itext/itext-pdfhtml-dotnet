@@ -68,7 +68,7 @@ namespace iText.Html2pdf.Css.Media {
         /// </summary>
         /// <param name="feature">the feature</param>
         /// <param name="value">the value</param>
-        public MediaExpression(String feature, String value) {
+        internal MediaExpression(String feature, String value) {
             this.feature = feature.Trim().ToLowerInvariant();
             if (value != null) {
                 this.value = value.Trim().ToLowerInvariant();

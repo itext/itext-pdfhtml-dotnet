@@ -182,6 +182,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return new Transform.SingleTransform();
         }
 
+        /// <summary>Convert an angle (presented as radians or degrees) to radians</summary>
+        /// <param name="value">the angle (as a CSS string)</param>
+        /// <returns/>
         private static double ParseAngleToRadians(String value) {
             if (value.IndexOf('d') < 0) {
                 return 0.0;
@@ -194,18 +197,39 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 'd')), System.Globalization.CultureInfo.InvariantCulture));
         }
 
+        /// <summary>Apply a linear transformation, using a transformation matrix</summary>
+        /// <param name="a">element [0,0] of the transformation matrix</param>
+        /// <param name="b">element [0,1] of the transformation matrix</param>
+        /// <param name="c">element [1,0] of the transformation matrix</param>
+        /// <param name="d">element [1,1] of the transformation matrix</param>
+        /// <param name="tx">translation on x-axis</param>
+        /// <param name="ty">translation on y-axis</param>
+        /// <param name="xPoint"/>
+        /// <param name="yPoint"/>
+        /// <returns/>
         private static Transform.SingleTransform GetSingleTransformTranslate(float a, float b, float c, float d, float
              tx, float ty, bool xPoint, bool yPoint) {
             return new Transform.SingleTransform(a, b, c, d, new UnitValue(xPoint ? UnitValue.POINT : UnitValue.PERCENT
                 , tx), new UnitValue(yPoint ? UnitValue.POINT : UnitValue.PERCENT, ty));
         }
 
+        /// <summary>Apply a linear transformation using a transformation matrix</summary>
+        /// <param name="a">element [0,0] of the transformation matrix</param>
+        /// <param name="b">element [0,1] of the transformation matrix</param>
+        /// <param name="c">element [1,0] of the transformation matrix</param>
+        /// <param name="d">element [1,1] of the transformation matrix</param>
+        /// <param name="tx">translation on x-axis</param>
+        /// <param name="ty">translation on y-axis</param>
+        /// <returns/>
         private static Transform.SingleTransform GetSingleTransform(float a, float b, float c, float d, float tx, 
             float ty) {
             return new Transform.SingleTransform(a, b, c, d, new UnitValue(UnitValue.POINT, tx), new UnitValue(UnitValue
                 .POINT, ty));
         }
 
+        /// <summary>Apply a linear transformation using a transformation matrix</summary>
+        /// <param name="floats">the transformation matrix (flattened) as array</param>
+        /// <returns/>
         private static Transform.SingleTransform GetSingleTransform(float[] floats) {
             return new Transform.SingleTransform(floats[0], floats[1], floats[2], floats[3], new UnitValue(UnitValue.POINT
                 , floats[4]), new UnitValue(UnitValue.POINT, floats[5]));

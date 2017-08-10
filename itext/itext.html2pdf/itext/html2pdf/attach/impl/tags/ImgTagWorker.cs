@@ -124,7 +124,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private class HtmlImage : Image {
             /// <summary>
             /// In iText, we use user unit for the image sizes (and by default
-            /// one user unit = one points), whereas images are usually measured
+            /// one user unit = one point), whereas images are usually measured
             /// in pixels.
             /// </summary>
             private double pxToPt = 0.75;

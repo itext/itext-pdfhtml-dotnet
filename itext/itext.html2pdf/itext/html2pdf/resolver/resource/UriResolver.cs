@@ -222,6 +222,12 @@ namespace iText.Html2pdf.Resolver.Resource
             }
             return path;
         }
+
+        /// <summary>
+        /// Get the scheme component of this URI.
+        /// </summary>
+        /// <param name="uriString">the base URI</param>
+        /// <returns>the scheme component of this URI</returns>
         private string GetScheme(String uriString)
         {
             String result = null;

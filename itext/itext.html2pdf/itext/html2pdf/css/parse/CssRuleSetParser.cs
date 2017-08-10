@@ -207,6 +207,9 @@ namespace iText.Html2pdf.Css.Parse {
             return semiColonPos;
         }
 
+        /// <summary>Return whether or not the selector items contain unsupported pseudoclasses</summary>
+        /// <param name="selectorItems"/>
+        /// <returns/>
         private static bool SelectorItemsContainsUnsupportedPseudoClasses(IList<ICssSelectorItem> selectorItems) {
             foreach (ICssSelectorItem selectorItem in selectorItems) {
                 if (selectorItem is CssPseudoClassSelectorItem) {

@@ -339,7 +339,7 @@ namespace iText.Html2pdf.Attach.Impl {
         }
 
         /// <summary>Adds @font-face fonts to the FontProvider.</summary>
-        protected internal virtual void AddFontFaceFonts() {
+        private void AddFontFaceFonts() {
             //TODO Shall we add getFonts() to ICssResolver?
             if (cssResolver is DefaultCssResolver) {
                 foreach (CssFontFaceRule fontFace in ((DefaultCssResolver)cssResolver).GetFonts()) {

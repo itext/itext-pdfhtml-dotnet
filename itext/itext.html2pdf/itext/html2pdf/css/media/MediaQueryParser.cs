@@ -82,7 +82,7 @@ namespace iText.Html2pdf.Css.Media {
         /// <see cref="MediaQuery"/>
         /// values
         /// </returns>
-        public static IList<MediaQuery> ParseMediaQueries(String mediaQueriesStr) {
+        internal static IList<MediaQuery> ParseMediaQueries(String mediaQueriesStr) {
             String[] mediaQueryStrs = iText.IO.Util.StringUtil.Split(mediaQueriesStr, ",");
             IList<MediaQuery> mediaQueries = new List<MediaQuery>();
             foreach (String mediaQueryStr in mediaQueryStrs) {
@@ -110,7 +110,7 @@ namespace iText.Html2pdf.Css.Media {
         /// <see cref="MediaQuery"/>
         /// value
         /// </returns>
-        public static MediaQuery ParseMediaQuery(String mediaQueryStr) {
+        internal static MediaQuery ParseMediaQuery(String mediaQueryStr) {
             mediaQueryStr = mediaQueryStr.Trim().ToLowerInvariant();
             bool only = false;
             bool not = false;

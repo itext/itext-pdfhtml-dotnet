@@ -55,7 +55,7 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         /// instance.
         /// </summary>
         /// <param name="controller">the state machine that parses the CSS</param>
-        public PropertiesState(CssParserStateController controller) {
+        internal PropertiesState(CssParserStateController controller) {
             // TODO rename to BLOCK
             this.controller = controller;
         }

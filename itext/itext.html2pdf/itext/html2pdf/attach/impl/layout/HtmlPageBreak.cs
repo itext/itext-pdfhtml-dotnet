@@ -68,7 +68,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// .
         /// </summary>
         /// <returns>the page break type</returns>
-        public virtual HtmlPageBreakType GetBreakType() {
+        internal virtual HtmlPageBreakType GetBreakType() {
             return breakType;
         }
     }

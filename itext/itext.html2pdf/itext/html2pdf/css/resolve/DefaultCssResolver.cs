@@ -216,8 +216,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <returns>the map</returns>
         private IDictionary<String, String> CssDeclarationsToMap(IList<CssDeclaration> nodeCssDeclarations) {
             IDictionary<String, String> stylesMap = new Dictionary<String, String>();
-            for (int i = 0; i < nodeCssDeclarations.Count; i++) {
-                CssDeclaration cssDeclaration = nodeCssDeclarations[i];
+            foreach (CssDeclaration cssDeclaration in nodeCssDeclarations) {
                 IShorthandResolver shorthandResolver = ShorthandResolverFactory.GetShorthandResolver(cssDeclaration.GetProperty
                     ());
                 if (shorthandResolver == null) {

@@ -67,7 +67,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Trim leaf elements, and sanitize.</summary>
         /// <param name="leafElements">the leaf elements</param>
         /// <returns>the trimmed and sanitized list</returns>
-        public static IList<IElement> TrimLeafElementsAndSanitize(IList<IElement> leafElements) {
+        internal static IList<IElement> TrimLeafElementsAndSanitize(IList<IElement> leafElements) {
             List<IElement> waitingLeaves = new List<IElement>(leafElements);
             TrimSubList(waitingLeaves, 0, waitingLeaves.Count, false);
             TrimSubList(waitingLeaves, 0, waitingLeaves.Count, true);

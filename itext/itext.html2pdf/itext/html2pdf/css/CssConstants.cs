@@ -872,72 +872,106 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant BEFORE.</summary>
         public const String BEFORE = "before";
 
+        /// <summary>The Constant FIRST_LETTER.</summary>
         public const String FIRST_LETTER = "first-letter";
 
+        /// <summary>The Constant FIRST_LINE.</summary>
         public const String FIRST_LINE = "first-line";
 
+        /// <summary>The Constant SELECTION.</summary>
         public const String SELECTION = "selection";
 
+        /// <summary>The Constant ACTIVE.</summary>
         public const String ACTIVE = "active";
 
+        /// <summary>The Constant CHECKED.</summary>
         public const String CHECKED = "checked";
 
+        /// <summary>The Constant DISABLED.</summary>
         public const String DISABLED = "disabled";
 
+        /// <summary>The Constant EMPTY.</summary>
         public const String EMPTY = "empty";
 
+        /// <summary>The Constant ENABLED.</summary>
         public const String ENABLED = "enabled";
 
+        /// <summary>The Constant FIRST_CHILD.</summary>
         public const String FIRST_CHILD = "first-child";
 
+        /// <summary>The Constant FIRST_OF_TYPE.</summary>
         public const String FIRST_OF_TYPE = "first-of-type";
 
+        /// <summary>The Constant FOCUS.</summary>
         public const String FOCUS = "focus";
 
+        /// <summary>The Constant HOVER.</summary>
         public const String HOVER = "hover";
 
+        /// <summary>The Constant IN_RANGE.</summary>
         public const String IN_RANGE = "in-range";
 
+        /// <summary>The Constant INVALID.</summary>
         public const String INVALID = "invalid";
 
+        /// <summary>The Constant LANG.</summary>
         public const String LANG = "lang";
 
+        /// <summary>The Constant LAST_CHILD.</summary>
         public const String LAST_CHILD = "last-child";
 
+        /// <summary>The Constant LAST_OF_TYPE.</summary>
         public const String LAST_OF_TYPE = "last-of-type";
 
+        /// <summary>The Constant LINK.</summary>
         public const String LINK = "link";
 
+        /// <summary>The Constant NTH_CHILD.</summary>
         public const String NTH_CHILD = "nth-child";
 
+        /// <summary>The Constant NOT.</summary>
         public const String NOT = "not";
 
+        /// <summary>The Constant NTH_LAST_CHILD.</summary>
         public const String NTH_LAST_CHILD = "nth-last-child";
 
+        /// <summary>The Constant NTH_LAST_OF_TYPE.</summary>
         public const String NTH_LAST_OF_TYPE = "nth-last-of-type";
 
+        /// <summary>The Constant NTH_OF_TYPE.</summary>
         public const String NTH_OF_TYPE = "nth-of-type";
 
+        /// <summary>The Constant ONLY_OF_TYPE.</summary>
         public const String ONLY_OF_TYPE = "only-of-type";
 
+        /// <summary>The Constant ONLY_CHILD.</summary>
         public const String ONLY_CHILD = "only-child";
 
+        /// <summary>The Constant OPTIONAL.</summary>
         public const String OPTIONAL = "optional";
 
+        /// <summary>The Constant OUT_OF_RANGE.</summary>
         public const String OUT_OF_RANGE = "out-of-range";
 
+        /// <summary>The Constant READ_ONLY.</summary>
         public const String READ_ONLY = "read-only";
 
+        /// <summary>The Constant READ_WRITE.</summary>
         public const String READ_WRITE = "read-write";
 
+        /// <summary>The Constant REQUIRED.</summary>
         public const String REQUIRED = "required";
 
+        /// <summary>The Constant ROOT.</summary>
         public const String ROOT = "root";
 
+        /// <summary>The Constant TARGET.</summary>
         public const String TARGET = "target";
 
+        /// <summary>The Constant VALID.</summary>
         public const String VALID = "valid";
 
+        /// <summary>The Constant VISITED.</summary>
         public const String VISITED = "visited";
 
         /// <summary>The Constant COUNTER.</summary>
