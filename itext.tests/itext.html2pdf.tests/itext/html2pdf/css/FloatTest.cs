@@ -494,6 +494,14 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1470")]
+        public virtual void Float62Test() {
+            RunTest("float62Test", "diff62_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void FloatAndTables01Test() {
             RunTest("floatAndTables01Test", "diffTables01_");
         }
