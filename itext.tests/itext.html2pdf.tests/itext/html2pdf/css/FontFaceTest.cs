@@ -239,9 +239,25 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void IncorrectFontNameTest() {
-            //TODO: browser can load font with @font-face family name different form family name stored in font metadata, but iText should have them equal in order to work.
-            RunTest("incorrectFontNameTest");
+        public virtual void IncorrectFontNameTest01() {
+            //TODO: DEVSIX-1519
+            RunTest("incorrectFontNameTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void IncorrectFontNameTest02() {
+            //TODO: DEVSIX-1519
+            RunTest("incorrectFontNameTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void IncorrectFontNameTest03() {
+            //Checks that font used in previous two files is correct
+            RunTest("incorrectFontNameTest03");
         }
 
         /// <exception cref="System.IO.IOException"/>
