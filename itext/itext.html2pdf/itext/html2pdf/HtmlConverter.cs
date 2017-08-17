@@ -85,7 +85,6 @@ namespace iText.Html2pdf {
         private HtmlConverter() {
         }
 
-        // TODO add overloads with Charset provided
         // TODO add overloads without automatic elements flushing
         /// <summary>
         /// Converts a
@@ -182,8 +181,38 @@ namespace iText.Html2pdf {
         /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
-            Stream stream = new MemoryStream(html.GetBytes());
-            ConvertToPdf(stream, pdfWriter, converterProperties);
+            ConvertToPdf(html, new PdfDocument(pdfWriter), converterProperties);
+        }
+
+        /// <summary>
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to objects that
+        /// will be added to a
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// , using specific
+        /// <see cref="ConverterProperties"/>
+        /// .
+        /// </summary>
+        /// <param name="html">
+        /// the html in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <param name="pdfDocument">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// instance
+        /// </param>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
+        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
+        public static void ConvertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties
+            ) {
+            Document document = ConvertToDocument(html, pdfDocument, converterProperties);
+            document.Close();
         }
 
         /// <summary>
@@ -424,6 +453,35 @@ namespace iText.Html2pdf {
         /// <see cref="iText.Layout.Document"/>
         /// instance.
         /// </summary>
+        /// <param name="html">
+        /// the html in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <param name="pdfWriter">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// containing the resulting PDF
+        /// </param>
+        /// <returns>
+        /// a
+        /// <see cref="iText.Layout.Document"/>
+        /// instance
+        /// </returns>
+        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
+        public static Document ConvertToDocument(String html, PdfWriter pdfWriter) {
+            return ConvertToDocument(html, pdfWriter, null);
+        }
+
+        /// <summary>
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to content that
+        /// will be written to a
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// , returning a
+        /// <see cref="iText.Layout.Document"/>
+        /// instance.
+        /// </summary>
         /// <param name="htmlStream">
         /// the
         /// <see cref="System.IO.Stream"/>
@@ -456,6 +514,39 @@ namespace iText.Html2pdf {
         /// <see cref="iText.Layout.Document"/>
         /// instance.
         /// </summary>
+        /// <param name="html">
+        /// the html in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <param name="pdfWriter">the pdf writer</param>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
+        /// <returns>
+        /// a
+        /// <see cref="iText.Layout.Document"/>
+        /// instance
+        /// </returns>
+        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
+        public static Document ConvertToDocument(String html, PdfWriter pdfWriter, ConverterProperties converterProperties
+            ) {
+            return ConvertToDocument(html, new PdfDocument(pdfWriter), converterProperties);
+        }
+
+        /// <summary>
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to content that
+        /// will be written to a
+        /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
+        /// , using specific
+        /// <see cref="ConverterProperties"/>
+        /// , returning a
+        /// <see cref="iText.Layout.Document"/>
+        /// instance.
+        /// </summary>
         /// <param name="htmlStream">the html stream</param>
         /// <param name="pdfWriter">the pdf writer</param>
         /// <param name="converterProperties">
@@ -472,6 +563,113 @@ namespace iText.Html2pdf {
         public static Document ConvertToDocument(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
             ) {
             return ConvertToDocument(htmlStream, new PdfDocument(pdfWriter), converterProperties);
+        }
+
+        /// <summary>
+        /// Converts HTML obtained from an
+        /// <see cref="System.IO.Stream"/>
+        /// to objects that
+        /// will be added to a
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// , using specific
+        /// <see cref="ConverterProperties"/>
+        /// ,
+        /// returning a
+        /// <see cref="iText.Layout.Document"/>
+        /// instance.
+        /// </summary>
+        /// <param name="html">
+        /// the html in the form of a
+        /// <see cref="System.String"/>
+        /// </param>
+        /// <param name="pdfDocument">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// instance
+        /// </param>
+        /// <param name="converterProperties">
+        /// a
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </param>
+        /// <returns>
+        /// a
+        /// <see cref="iText.Layout.Document"/>
+        /// instance
+        /// </returns>
+        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
+        public static Document ConvertToDocument(String html, PdfDocument pdfDocument, ConverterProperties converterProperties
+            ) {
+
+            try 
+            {
+                String licenseKeyClassName = "iText.License.LicenseKey, itext.licensekey";
+                String licenseKeyProductClassName = "iText.License.LicenseKeyProduct, itext.licensekey";
+                String licenseKeyFeatureClassName = "iText.License.LicenseKeyProductFeature, itext.licensekey";
+                String checkLicenseKeyMethodName = "ScheduledCheck";
+                Type licenseKeyClass = GetClass(licenseKeyClassName);
+                if ( licenseKeyClass != null ) 
+                {                
+                    Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
+                    Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
+                    Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
+                    object[] objects = new object[] { "pdfHtml", 1, 0, array };
+                    Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
+                    MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
+                    m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
+                }   
+            } 
+            catch ( Exception e ) 
+            {
+                if ( !Kernel.Version.IsAGPLVersion() )
+                {
+                    throw;
+                }
+            }
+            if (pdfDocument.GetReader() != null) {
+                throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
+            }
+            IHtmlParser parser = new JsoupHtmlParser();
+            IDocumentNode doc = parser.Parse(html);
+            return Attacher.Attach(doc, pdfDocument, converterProperties);
+        }
+
+        private static Type GetClass(string className)
+        {
+            String licenseKeyClassFullName = null;
+            Assembly assembly = typeof(HtmlConverter).Assembly;
+            Attribute keyVersionAttr = assembly.GetCustomAttribute(typeof(KeyVersionAttribute));
+            if (keyVersionAttr is KeyVersionAttribute)
+            {
+                String keyVersion = ((KeyVersionAttribute)keyVersionAttr).KeyVersion;
+                String format = "{0}, Version={1}, Culture=neutral, PublicKeyToken=8354ae6d2174ddca";
+                licenseKeyClassFullName = String.Format(format, className, keyVersion);
+            }
+            Type type = null;
+            if (licenseKeyClassFullName != null)
+            {
+                String fileLoadExceptionMessage = null;
+                try
+                {
+                    type = System.Type.GetType(licenseKeyClassFullName);
+                }
+                catch (FileLoadException fileLoadException)
+                {
+                    fileLoadExceptionMessage = fileLoadException.Message;
+                }
+                if (fileLoadExceptionMessage != null)
+                {
+                    try
+                    {
+                        type = System.Type.GetType(className);
+                    }
+                    catch
+                    {
+                        // empty
+                    }
+                }
+            }
+            return type;
         }
 
         /// <summary>
@@ -540,47 +738,9 @@ namespace iText.Html2pdf {
                 throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
             }
             IHtmlParser parser = new JsoupHtmlParser();
-            String detectedCharset = DetectEncoding(htmlStream);
-            IDocumentNode doc = parser.Parse(htmlStream, detectedCharset);
+            IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
+                ) : null);
             return Attacher.Attach(doc, pdfDocument, converterProperties);
-        }
-
-        private static Type GetClass(string className)
-        {
-            String licenseKeyClassFullName = null;
-            Assembly assembly = typeof(HtmlConverter).Assembly;
-            Attribute keyVersionAttr = assembly.GetCustomAttribute(typeof(KeyVersionAttribute));
-            if (keyVersionAttr is KeyVersionAttribute)
-            {
-                String keyVersion = ((KeyVersionAttribute)keyVersionAttr).KeyVersion;
-                String format = "{0}, Version={1}, Culture=neutral, PublicKeyToken=8354ae6d2174ddca";
-                licenseKeyClassFullName = String.Format(format, className, keyVersion);
-            }
-            Type type = null;
-            if (licenseKeyClassFullName != null)
-            {
-                String fileLoadExceptionMessage = null;
-                try
-                {
-                    type = System.Type.GetType(licenseKeyClassFullName);
-                }
-                catch (FileLoadException fileLoadException)
-                {
-                    fileLoadExceptionMessage = fileLoadException.Message;
-                }
-                if (fileLoadExceptionMessage != null)
-                {
-                    try
-                    {
-                        type = System.Type.GetType(className);
-                    }
-                    catch
-                    {
-                        // empty
-                    }
-                }
-            }
-            return type;
         }
 
         /// <summary>
@@ -600,8 +760,7 @@ namespace iText.Html2pdf {
         /// <returns>a list of iText building blocks</returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static IList<IElement> ConvertToElements(String html) {
-            Stream stream = new MemoryStream(html.GetBytes());
-            return ConvertToElements(stream, null);
+            return ConvertToElements(html, null);
         }
 
         /// <summary>
@@ -649,8 +808,35 @@ namespace iText.Html2pdf {
         /// <returns>a list of iText building blocks</returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static IList<IElement> ConvertToElements(String html, ConverterProperties converterProperties) {
-            MemoryStream stream = new MemoryStream(html.GetBytes());
-            return ConvertToElements(stream, converterProperties);
+
+            try 
+            {
+                String licenseKeyClassName = "iText.License.LicenseKey, itext.licensekey";
+                String licenseKeyProductClassName = "iText.License.LicenseKeyProduct, itext.licensekey";
+                String licenseKeyFeatureClassName = "iText.License.LicenseKeyProductFeature, itext.licensekey";
+                String checkLicenseKeyMethodName = "ScheduledCheck";
+                Type licenseKeyClass = GetClass(licenseKeyClassName);
+                if ( licenseKeyClass != null ) 
+                {                
+                    Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
+                    Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
+                    Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
+                    object[] objects = new object[] { "pdfHtml", 1, 0, array };
+                    Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
+                    MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
+                    m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
+                }   
+            } 
+            catch ( Exception e ) 
+            {
+                if ( !Kernel.Version.IsAGPLVersion() )
+                {
+                    throw;
+                }
+            }
+            IHtmlParser parser = new JsoupHtmlParser();
+            IDocumentNode doc = parser.Parse(html);
+            return Attacher.Attach(doc, converterProperties);
         }
 
         /// <summary>
@@ -706,23 +892,9 @@ namespace iText.Html2pdf {
                 }
             }
             IHtmlParser parser = new JsoupHtmlParser();
-            IDocumentNode doc = parser.Parse(htmlStream, DetectEncoding(htmlStream));
+            IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
+                ) : null);
             return Attacher.Attach(doc, converterProperties);
-        }
-
-        /// <summary>
-        /// Detects encoding of a specific
-        /// <see cref="System.IO.Stream"/>
-        /// .
-        /// </summary>
-        /// <param name="in">
-        /// the
-        /// <see cref="System.IO.Stream"/>
-        /// </param>
-        /// <returns>the encoding; currently always returns "UTF-8".</returns>
-        private static String DetectEncoding(Stream @in) {
-            // TODO
-            return "UTF-8";
         }
     }
 }
