@@ -42,7 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
+using iText.Kernel.Pdf;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
@@ -66,6 +68,29 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
+            String name = element.GetAttribute(AttributeConstants.NAME);
+            String content = element.GetAttribute(AttributeConstants.CONTENT);
+            if (name != null && content != null) {
+                PdfDocumentInfo info = context.GetPdfDocument().GetDocumentInfo();
+                if (name.EqualsIgnoreCase(PdfName.Author.GetValue())) {
+                    info.SetAuthor(content);
+                }
+                else {
+                    if (name.EqualsIgnoreCase(PdfName.Keywords.GetValue())) {
+                        info.SetKeywords(content);
+                    }
+                    else {
+                        if (name.EqualsIgnoreCase("description")) {
+                            info.SetSubject(content);
+                        }
+                        else {
+                            if (name.EqualsIgnoreCase("application-name")) {
+                                info.SetCreator(content);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         /* (non-Javadoc)

@@ -80,6 +80,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant COLSPAN.</summary>
         public const String COLSPAN = "colspan";
 
+        /// <summary>The Constant CONTENT.</summary>
+        public const String CONTENT = "content";
+
         /// <summary>The Constant DIR.</summary>
         public const String DIR = "dir";
 
