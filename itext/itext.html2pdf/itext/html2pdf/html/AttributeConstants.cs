@@ -59,6 +59,12 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant ALT.</summary>
         public const String ALT = "alt";
 
+        /// <summary>The Constant APPLICATION_NAME.</summary>
+        public const String APPLICATION_NAME = "application-name";
+
+        /// <summary>The Constant AUTHOR.</summary>
+        public const String AUTHOR = "author";
+
         /// <summary>The Constant BGCOLOR.</summary>
         public const String BGCOLOR = "bgcolor";
 
@@ -83,6 +89,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant CONTENT.</summary>
         public const String CONTENT = "content";
 
+        /// <summary>The Constant DESCRIPTION.</summary>
+        public const String DESCRIPTION = "description";
+
         /// <summary>The Constant DIR.</summary>
         public const String DIR = "dir";
 
@@ -97,6 +106,9 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant ID.</summary>
         public const String ID = "id";
+
+        /// <summary>The Constant KEYWORDS.</summary>
+        public const String KEYWORDS = "keywords";
 
         /// <summary>The Constant LANG.</summary>
         public const String LANG = "lang";

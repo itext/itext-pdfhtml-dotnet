@@ -68,24 +68,30 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
+            // Note that charset and http-equiv attributes are processed on DataUtil#parseByteData(ByteBuffer, String, String, Parser) level.
             String name = element.GetAttribute(AttributeConstants.NAME);
-            String content = element.GetAttribute(AttributeConstants.CONTENT);
-            if (name != null && content != null) {
-                PdfDocumentInfo info = context.GetPdfDocument().GetDocumentInfo();
-                if (name.EqualsIgnoreCase(PdfName.Author.GetValue())) {
-                    info.SetAuthor(content);
-                }
-                else {
-                    if (name.EqualsIgnoreCase(PdfName.Keywords.GetValue())) {
-                        info.SetKeywords(content);
+            if (null != name) {
+                String content = element.GetAttribute(AttributeConstants.CONTENT);
+                if (null != content) {
+                    PdfDocumentInfo info = context.GetPdfDocument().GetDocumentInfo();
+                    if (AttributeConstants.AUTHOR.Equals(name)) {
+                        info.SetAuthor(content);
                     }
                     else {
-                        if (name.EqualsIgnoreCase("description")) {
-                            info.SetSubject(content);
+                        if (AttributeConstants.APPLICATION_NAME.Equals(name)) {
+                            info.SetCreator(content);
                         }
                         else {
-                            if (name.EqualsIgnoreCase("application-name")) {
-                                info.SetCreator(content);
+                            if (AttributeConstants.KEYWORDS.Equals(name)) {
+                                info.SetKeywords(content);
+                            }
+                            else {
+                                if (AttributeConstants.DESCRIPTION.Equals(name)) {
+                                    info.SetSubject(content);
+                                }
+                                else {
+                                    info.SetMoreInfo(name, content);
+                                }
                             }
                         }
                     }
@@ -97,7 +103,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
-            //TODO add keywords to document.
             return false;
         }
 

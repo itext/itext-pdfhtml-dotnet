@@ -42,6 +42,7 @@
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
 using System.Reflection;
@@ -69,9 +70,34 @@ namespace iText.Html2pdf.Element {
         public virtual void Meta01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "metaTest01.html"), new FileInfo(destinationFolder 
                 + "metaTest01.pdf"));
+            PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(destinationFolder + "metaTest01.pdf")).GetDocumentInfo
+                ();
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "metaTest01.pdf", sourceFolder
                  + "cmp_metaTest01.pdf", destinationFolder, "diff01_"));
+            NUnit.Framework.Assert.IsTrue(pdfDocInfo.GetPdfObject().ContainsKey(new PdfName("test")));
         }
-        //TODO add checks for meta tag.
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Meta02Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "metaTest02.html"), new FileInfo(destinationFolder 
+                + "metaTest02.pdf"));
+            PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(destinationFolder + "metaTest02.pdf")).GetDocumentInfo
+                ();
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "metaTest02.pdf", sourceFolder
+                 + "cmp_metaTest02.pdf", destinationFolder, "diff02_"));
+            NUnit.Framework.Assert.IsTrue(pdfDocInfo.GetPdfObject().Size() == 8);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Meta03Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "metaTest03.html"), new FileInfo(destinationFolder 
+                + "metaTest03.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "metaTest03.pdf", sourceFolder
+                 + "cmp_metaTest03.pdf", destinationFolder, "diff03_"));
+        }
     }
 }
