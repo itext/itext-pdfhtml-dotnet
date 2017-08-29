@@ -72,7 +72,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             String name = element.GetAttribute(AttributeConstants.NAME);
             if (null != name) {
                 String content = element.GetAttribute(AttributeConstants.CONTENT);
-                if (null != content) {
+                // although iText do not visit head during processing html to elements
+                // meta tag can by accident be presented in body section and that shouldn't cause NPE
+                if (null != content && null != context.GetPdfDocument()) {
                     PdfDocumentInfo info = context.GetPdfDocument().GetDocumentInfo();
                     if (AttributeConstants.AUTHOR.Equals(name)) {
                         info.SetAuthor(content);
