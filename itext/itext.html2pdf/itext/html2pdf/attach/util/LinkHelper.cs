@@ -72,12 +72,12 @@ namespace iText.Html2pdf.Attach.Util {
                 PdfLinkAnnotation linkAnnotation;
                 if (url.StartsWith("#")) {
                     String name = url.Substring(1);
-                    linkAnnotation = ((PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.
-                        CreateGoTo(name)));
+                    linkAnnotation = (PdfLinkAnnotation)((PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction
+                        (PdfAction.CreateGoTo(name))).SetFlags(PdfAnnotation.PRINT);
                 }
                 else {
-                    linkAnnotation = ((PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.
-                        CreateURI(url)));
+                    linkAnnotation = (PdfLinkAnnotation)((PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction
+                        (PdfAction.CreateURI(url))).SetFlags(PdfAnnotation.PRINT);
                 }
                 linkAnnotation.SetBorder(new PdfArray(new float[] { 0, 0, 0 }));
                 container.SetProperty(Property.LINK_ANNOTATION, linkAnnotation);
