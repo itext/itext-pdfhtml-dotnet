@@ -81,13 +81,15 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Meta02Test() {
+            // In this test we also check that it's not possible to override description name content
+            // (which iText converts to pdf's Subject content) with Subject name content
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "metaTest02.html"), new FileInfo(destinationFolder 
                 + "metaTest02.pdf"));
             PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(destinationFolder + "metaTest02.pdf")).GetDocumentInfo
                 ();
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "metaTest02.pdf", sourceFolder
                  + "cmp_metaTest02.pdf", destinationFolder, "diff02_"));
-            NUnit.Framework.Assert.IsTrue(pdfDocInfo.GetPdfObject().Size() == 8);
+            NUnit.Framework.Assert.IsTrue(pdfDocInfo.GetPdfObject().Size() == 9);
         }
 
         /// <exception cref="System.IO.IOException"/>

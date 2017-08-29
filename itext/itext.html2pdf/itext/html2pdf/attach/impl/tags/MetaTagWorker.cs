@@ -71,6 +71,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             // Note that charset and http-equiv attributes are processed on DataUtil#parseByteData(ByteBuffer, String, String, Parser) level.
             String name = element.GetAttribute(AttributeConstants.NAME);
             if (null != name) {
+                name = name.ToLowerInvariant();
                 String content = element.GetAttribute(AttributeConstants.CONTENT);
                 // although iText do not visit head during processing html to elements
                 // meta tag can by accident be presented in body section and that shouldn't cause NPE
