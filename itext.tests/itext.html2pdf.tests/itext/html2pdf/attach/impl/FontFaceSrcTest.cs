@@ -51,6 +51,7 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Attach.Impl {
     public class FontFaceSrcTest : ExtendedITextTest {
@@ -117,6 +118,28 @@ namespace iText.Html2pdf.Attach.Impl {
                         break;
                     }
                 }
+            }
+        }
+
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION)]
+        public virtual void ParseBase64SrcTest() {
+            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(sourceFolder + "srcs2.css", FileMode.Open
+                , FileAccess.Read));
+            CssFontFaceRule fontFaceRule = (CssFontFaceRule)styleSheet.GetStatements()[0];
+            CssDeclaration src = fontFaceRule.GetProperties()[0];
+            NUnit.Framework.Assert.AreEqual("src", src.GetProperty(), "src expected");
+            String[] sources = FontFace.SplitSourcesSequence(src.GetExpression());
+            NUnit.Framework.Assert.AreEqual(8, sources.Length, "8 sources expected");
+            for (int i = 0; i < 6; i++) {
+                Match m = iText.IO.Util.StringUtil.Match(FontFace.FontFaceSrc.UrlPattern, sources[i]);
+                NUnit.Framework.Assert.IsTrue(m.Success, "Expression doesn't match pattern: " + sources[i]);
+            }
+            for (int i = 6; i < sources.Length; i++) {
+                Match m = iText.IO.Util.StringUtil.Match(FontFace.FontFaceSrc.UrlPattern, sources[i]);
+                NUnit.Framework.Assert.IsFalse(m.Success, "Expression matches pattern (though it shouldn't!): " + sources[
+                    i]);
             }
         }
     }
