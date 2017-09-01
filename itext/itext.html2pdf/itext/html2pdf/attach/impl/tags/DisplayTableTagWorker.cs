@@ -174,11 +174,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (displayTableCell) {
                 if (waitingCell != cell) {
                     FlushWaitingCell();
-                }
-                if (!cell.IsEmpty()) {
                     tableWrapper.AddCell(cell);
                 }
-                waitingCell = null;
+                else {
+                    if (!cell.IsEmpty()) {
+                        tableWrapper.AddCell(cell);
+                        waitingCell = null;
+                    }
+                }
             }
             else {
                 FlushInlineElementsToWaitingCell();

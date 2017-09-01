@@ -148,6 +148,16 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void DisplayTable08Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table08.html"), new FileInfo(destinationFolder
+                 + "display_table08.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table08.pdf"
+                , sourceFolder + "cmp_display_table08.pdf", destinationFolder, "diff25_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void DisplayInline01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_inline01.html"), new FileInfo(destinationFolder
                  + "display_inline01.pdf"));
