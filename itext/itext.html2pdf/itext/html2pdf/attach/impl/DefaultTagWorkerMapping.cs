@@ -152,7 +152,6 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.DT, CssConstants.INLINE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SPAN, CssConstants.BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.SPAN, CssConstants.INLINE_BLOCK, typeof(DivTagWorker));
-            workerMapping.PutMapping(TagConstants.SPAN, CssConstants.TABLE_CELL, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.A, CssConstants.BLOCK, typeof(ABlockTagWorker));
             workerMapping.PutMapping(TagConstants.A, CssConstants.TABLE_CELL, typeof(ABlockTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.TABLE, typeof(DisplayTableTagWorker));

@@ -84,9 +84,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
-            if (null != waitingCell) {
-                ProcessCell(waitingCell, true);
-            }
+            FlushWaitingCell();
             table = tableWrapper.ToTable(null);
         }
 
