@@ -373,6 +373,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant TABLE_CELL.</summary>
         public const String TABLE_CELL = "table-cell";
 
+        /// <summary>The Constant TABLE_ROW.</summary>
+        public const String TABLE_ROW = "table-row";
+
         /// <summary>The Constant TABLE_LAYOUT.</summary>
         public const String TABLE_LAYOUT = "table-layout";
 

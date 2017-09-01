@@ -42,6 +42,8 @@
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
 using System.Reflection;
@@ -77,12 +79,80 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1522")]
+        [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         public virtual void DisplayTable02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table02.html"), new FileInfo(destinationFolder
-                 + "display_table02.pdf"));
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + "display_table02.pdf"));
+            pdfDoc.SetDefaultPageSize(new PageSize(1500, 842));
+            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "display_table02.html", FileMode.Open, FileAccess.Read
+                ), pdfDoc);
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table02.pdf"
-                , sourceFolder + "cmp_display_table02.pdf", destinationFolder, "diff02_"));
+                , sourceFolder + "cmp_display_table02.pdf", destinationFolder, "diff20_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayTable03Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table03.html"), new FileInfo(destinationFolder
+                 + "display_table03.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table03.pdf"
+                , sourceFolder + "cmp_display_table03.pdf", destinationFolder, "diff21_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayTable04Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table04.html"), new FileInfo(destinationFolder
+                 + "display_table04.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table04.pdf"
+                , sourceFolder + "cmp_display_table04.pdf", destinationFolder, "diff22_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        public virtual void DisplayTable05Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table05.html"), new FileInfo(destinationFolder
+                 + "display_table05.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table05.pdf"
+                , sourceFolder + "cmp_display_table05.pdf", destinationFolder, "diff23_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayTable06Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table06.html"), new FileInfo(destinationFolder
+                 + "display_table06.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table06.pdf"
+                , sourceFolder + "cmp_display_table06.pdf", destinationFolder, "diff24_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
+        public virtual void DisplayTable07Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table07.html"), new FileInfo(destinationFolder
+                 + "display_table07.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table07.pdf"
+                , sourceFolder + "cmp_display_table07.pdf", destinationFolder, "diff24_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayTable08Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table08.html"), new FileInfo(destinationFolder
+                 + "display_table08.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table08.pdf"
+                , sourceFolder + "cmp_display_table08.pdf", destinationFolder, "diff25_"));
         }
 
         /// <exception cref="System.IO.IOException"/>
