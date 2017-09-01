@@ -43,6 +43,7 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
 using System.Reflection;
@@ -112,6 +113,18 @@ namespace iText.Html2pdf.Element {
                 ), new ConverterProperties().SetOutlineHandler(OutlineHandler.CreateStandardHandler()));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hTest05.pdf", sourceFolder
                  + "cmp_hTest05.pdf", destinationFolder, "diff05_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HTagRoleTest() {
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "hTest06.pdf"));
+            pdfDocument.SetTagged();
+            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "hTest06.html", FileMode.Open, FileAccess.Read), 
+                pdfDocument, new ConverterProperties());
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hTest06.pdf", sourceFolder
+                 + "cmp_hTest06.pdf", destinationFolder, "diff06_"));
         }
     }
 }
