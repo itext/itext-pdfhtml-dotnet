@@ -51,22 +51,16 @@ using iText.Layout.Borders;
 using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    /// <summary>TagWorker class for a table element.</summary>
-    public class DisplayTableTagWorker : ITagWorker {
-        /// <summary>The table.</summary>
-        private IPropertyContainer table;
-
-        /// <summary>The table wrapper.</summary>
-        private TableWrapper tableWrapper = new TableWrapper();
+    /// <summary>TagWorker class for a table row element.</summary>
+    public class DisplayTableRowTagWorker : ITagWorker {
+        /// <summary>The row wrapper.</summary>
+        private TableRowWrapper rowWrapper = new TableRowWrapper();
 
         /// <summary>The helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
         /// <summary>The cell waiting for flushing.</summary>
         private Cell waitingCell = null;
-
-        /// <summary>The flag which indicates whether.</summary>
-        private bool currentRowIsFinished = true;
 
         /// <summary>
         /// Creates a new
@@ -75,7 +69,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
-        public DisplayTableTagWorker(IElementNode element, ProcessorContext context) {
+        public DisplayTableRowTagWorker(IElementNode element, ProcessorContext context) {
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
         }
@@ -87,7 +81,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (null != waitingCell) {
                 ProcessCell(waitingCell, true);
             }
-            table = tableWrapper.ToTable(null);
         }
 
         /* (non-Javadoc)
@@ -104,56 +97,37 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             bool displayTableCell = childTagWorker is IDisplayAware && CssConstants.TABLE_CELL.Equals(((IDisplayAware)
                 childTagWorker).GetDisplay());
-            if (currentRowIsFinished) {
-                tableWrapper.NewRow();
-            }
-            if (childTagWorker is DisplayTableRowTagWorker) {
-                FlushWaitingCell(false);
-                if (!currentRowIsFinished) {
-                    tableWrapper.NewRow();
-                }
-                TableRowWrapper wrapper = ((DisplayTableRowTagWorker)childTagWorker).GetTableRowWrapper();
-                foreach (Cell cell in wrapper.GetCells()) {
-                    tableWrapper.AddCell(cell);
-                }
-                currentRowIsFinished = true;
+            if (childTagWorker.GetElementResult() is IBlockElement) {
+                IBlockElement childResult = (IBlockElement)childTagWorker.GetElementResult();
+                Cell curCell = childResult is Cell ? (Cell)childResult : CreateWrapperCell().Add(childResult);
+                ProcessCell(curCell, displayTableCell);
                 return true;
             }
             else {
-                if (childTagWorker.GetElementResult() is IBlockElement) {
-                    IBlockElement childResult = (IBlockElement)childTagWorker.GetElementResult();
-                    Cell curCell = childResult is Cell ? (Cell)childResult : CreateWrapperCell().Add(childResult);
-                    ProcessCell(curCell, displayTableCell);
-                    currentRowIsFinished = false;
+                if (childTagWorker.GetElementResult() is ILeafElement) {
+                    inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
                     return true;
                 }
                 else {
-                    if (childTagWorker.GetElementResult() is ILeafElement) {
-                        inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
-                        currentRowIsFinished = false;
-                        return true;
-                    }
-                    else {
-                        if (childTagWorker is SpanTagWorker) {
-                            if (displayTableCell) {
-                                FlushInlineElements();
-                            }
-                            bool allChildrenProcessed = true;
-                            foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
-                                if (propertyContainer is ILeafElement) {
-                                    inlineHelper.Add((ILeafElement)propertyContainer);
-                                }
-                                else {
-                                    allChildrenProcessed = false;
-                                }
-                            }
-                            if (displayTableCell) {
-                                FlushWaitingCell(true);
-                            }
-                            currentRowIsFinished = false;
-                            // TODO
-                            return allChildrenProcessed;
+                    if (childTagWorker is SpanTagWorker) {
+                        if (displayTableCell) {
+                            FlushInlineElements();
                         }
+                        bool allChildrenProcessed = true;
+                        foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
+                            if (propertyContainer is ILeafElement) {
+                                inlineHelper.Add((ILeafElement)propertyContainer);
+                            }
+                            else {
+                                allChildrenProcessed = false;
+                            }
+                        }
+                        if (displayTableCell) {
+                            Cell cell = CreateWrapperCell();
+                            inlineHelper.FlushHangingLeaves(cell);
+                            ProcessCell(cell, true);
+                        }
+                        return allChildrenProcessed;
                     }
                 }
             }
@@ -164,7 +138,17 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
         */
         public virtual IPropertyContainer GetElementResult() {
-            return table;
+            TableWrapper tableWrapper = new TableWrapper();
+            foreach (Cell cell in rowWrapper.GetCells()) {
+                tableWrapper.AddCell(cell);
+            }
+            return tableWrapper.ToTable(null);
+        }
+
+        /// <summary>Gets the table row wrapper.</summary>
+        /// <returns>the table row wrapper</returns>
+        public virtual TableRowWrapper GetTableRowWrapper() {
+            return rowWrapper;
         }
 
         /// <summary>Processes a cell.</summary>
@@ -175,7 +159,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 if (waitingCell != cell) {
                     FlushWaitingCell();
                 }
-                tableWrapper.AddCell(cell);
+                rowWrapper.AddCell(cell);
                 waitingCell = null;
             }
             else {
@@ -183,13 +167,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     waitingCell = CreateWrapperCell();
                 }
                 waitingCell.Add(cell);
-            }
-        }
-
-        /// <summary>Flushes the waiting inline elements.</summary>
-        private void FlushInlineElements() {
-            if (inlineHelper.GetSanitizedWaitingLeaves().Count > 0) {
-                FlushWaitingCell(true);
             }
         }
 
@@ -208,6 +185,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (null != waitingCell) {
                 inlineHelper.FlushHangingLeaves(waitingCell);
                 ProcessCell(waitingCell, true);
+            }
+        }
+
+        /// <summary>Flushes the waiting inline elements.</summary>
+        private void FlushInlineElements() {
+            if (inlineHelper.GetSanitizedWaitingLeaves().Count > 0) {
+                FlushWaitingCell(true);
             }
         }
 
