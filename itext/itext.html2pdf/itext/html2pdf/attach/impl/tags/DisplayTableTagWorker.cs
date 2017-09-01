@@ -66,7 +66,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private Cell waitingCell = null;
 
         /// <summary>The flag which indicates whether.</summary>
-        private bool currentRowIsFinished = true;
+        private bool currentRowIsFinished = false;
 
         /// <summary>
         /// Creates a new
@@ -108,7 +108,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 tableWrapper.NewRow();
             }
             if (childTagWorker is DisplayTableRowTagWorker) {
-                FlushWaitingCell(false);
+                FlushWaitingCell();
                 if (!currentRowIsFinished) {
                     tableWrapper.NewRow();
                 }
@@ -135,8 +135,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     }
                     else {
                         if (childTagWorker is SpanTagWorker) {
+                            // the previous one
                             if (displayTableCell) {
-                                FlushInlineElements();
+                                FlushWaitingCell();
                             }
                             bool allChildrenProcessed = true;
                             foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
@@ -147,11 +148,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                                     allChildrenProcessed = false;
                                 }
                             }
+                            // the current one
                             if (displayTableCell) {
-                                FlushWaitingCell(true);
+                                FlushWaitingCell();
                             }
                             currentRowIsFinished = false;
-                            // TODO
                             return allChildrenProcessed;
                         }
                     }
@@ -170,43 +171,33 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>Processes a cell.</summary>
         /// <param name="cell">the cell</param>
         private void ProcessCell(Cell cell, bool displayTableCell) {
-            FlushInlineElements();
             if (displayTableCell) {
                 if (waitingCell != cell) {
                     FlushWaitingCell();
                 }
-                tableWrapper.AddCell(cell);
+                if (!cell.IsEmpty()) {
+                    tableWrapper.AddCell(cell);
+                }
                 waitingCell = null;
             }
             else {
-                if (null == waitingCell) {
-                    waitingCell = CreateWrapperCell();
-                }
+                FlushInlineElementsToWaitingCell();
                 waitingCell.Add(cell);
             }
         }
 
-        /// <summary>Flushes the waiting inline elements.</summary>
-        private void FlushInlineElements() {
-            if (inlineHelper.GetSanitizedWaitingLeaves().Count > 0) {
-                FlushWaitingCell(true);
+        /// <summary>Flushes inline elements to the waiting cell.</summary>
+        private void FlushInlineElementsToWaitingCell() {
+            if (null == waitingCell) {
+                waitingCell = CreateWrapperCell();
             }
+            inlineHelper.FlushHangingLeaves(waitingCell);
         }
 
         /// <summary>Flushes the waiting cell.</summary>
         private void FlushWaitingCell() {
-            FlushWaitingCell(false);
-        }
-
-        /// <summary>Flushes the waiting cell.</summary>
-        /// <param name="createCellIfNotExist">the flag which indicates whether new cell wrapper should be created or not
-        ///     </param>
-        private void FlushWaitingCell(bool createCellIfNotExist) {
-            if (null == waitingCell && createCellIfNotExist) {
-                waitingCell = CreateWrapperCell();
-            }
+            FlushInlineElementsToWaitingCell();
             if (null != waitingCell) {
-                inlineHelper.FlushHangingLeaves(waitingCell);
                 ProcessCell(waitingCell, true);
             }
         }

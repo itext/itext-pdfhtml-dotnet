@@ -79,6 +79,8 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         public virtual void DisplayTable02Test() {
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + "display_table02.pdf"));
             pdfDoc.SetDefaultPageSize(new PageSize(1500, 842));
@@ -111,6 +113,8 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         public virtual void DisplayTable05Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table05.html"), new FileInfo(destinationFolder
                  + "display_table05.pdf"));
@@ -126,6 +130,19 @@ namespace iText.Html2pdf.Css {
                  + "display_table06.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table06.pdf"
                 , sourceFolder + "cmp_display_table06.pdf", destinationFolder, "diff24_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
+        public virtual void DisplayTable07Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table07.html"), new FileInfo(destinationFolder
+                 + "display_table07.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table07.pdf"
+                , sourceFolder + "cmp_display_table07.pdf", destinationFolder, "diff24_"));
         }
 
         /// <exception cref="System.IO.IOException"/>

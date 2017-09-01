@@ -78,6 +78,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
+            FlushInlineElementsToWaitingCell();
             if (null != waitingCell) {
                 ProcessCell(waitingCell, true);
             }
@@ -91,7 +92,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return true;
         }
 
-        /* (non-Javadoc)
+        /* (non-JavadDioc)
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
@@ -111,7 +112,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 else {
                     if (childTagWorker is SpanTagWorker) {
                         if (displayTableCell) {
-                            FlushInlineElements();
+                            FlushWaitingCell();
                         }
                         bool allChildrenProcessed = true;
                         foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
@@ -123,9 +124,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                             }
                         }
                         if (displayTableCell) {
-                            Cell cell = CreateWrapperCell();
-                            inlineHelper.FlushHangingLeaves(cell);
-                            ProcessCell(cell, true);
+                            FlushWaitingCell();
                         }
                         return allChildrenProcessed;
                     }
@@ -154,44 +153,34 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>Processes a cell.</summary>
         /// <param name="cell">the cell</param>
         private void ProcessCell(Cell cell, bool displayTableCell) {
-            FlushInlineElements();
             if (displayTableCell) {
                 if (waitingCell != cell) {
                     FlushWaitingCell();
                 }
-                rowWrapper.AddCell(cell);
+                if (!cell.IsEmpty()) {
+                    rowWrapper.AddCell(cell);
+                }
                 waitingCell = null;
             }
             else {
-                if (null == waitingCell) {
-                    waitingCell = CreateWrapperCell();
-                }
+                FlushInlineElementsToWaitingCell();
                 waitingCell.Add(cell);
             }
         }
 
-        /// <summary>Flushes the waiting cell.</summary>
-        private void FlushWaitingCell() {
-            FlushWaitingCell(false);
-        }
-
-        /// <summary>Flushes the waiting cell.</summary>
-        /// <param name="createCellIfNotExist">the flag which indicates whether new cell wrapper should be created or not
-        ///     </param>
-        private void FlushWaitingCell(bool createCellIfNotExist) {
-            if (null == waitingCell && createCellIfNotExist) {
+        /// <summary>Flushes inline elements to the waiting cell.</summary>
+        private void FlushInlineElementsToWaitingCell() {
+            if (null == waitingCell) {
                 waitingCell = CreateWrapperCell();
             }
-            if (null != waitingCell) {
-                inlineHelper.FlushHangingLeaves(waitingCell);
-                ProcessCell(waitingCell, true);
-            }
+            inlineHelper.FlushHangingLeaves(waitingCell);
         }
 
-        /// <summary>Flushes the waiting inline elements.</summary>
-        private void FlushInlineElements() {
-            if (inlineHelper.GetSanitizedWaitingLeaves().Count > 0) {
-                FlushWaitingCell(true);
+        /// <summary>Flushes the waiting cell.</summary>
+        private void FlushWaitingCell() {
+            FlushInlineElementsToWaitingCell();
+            if (null != waitingCell) {
+                ProcessCell(waitingCell, true);
             }
         }
 
