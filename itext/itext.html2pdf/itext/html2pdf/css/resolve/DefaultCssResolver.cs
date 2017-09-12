@@ -151,8 +151,9 @@ namespace iText.Html2pdf.Css.Resolve {
                     }
                 }
                 float absoluteFontSize = FontStyleApplierUtil.ParseRelativeFontSize(elementFontSize, baseFontSize);
-                elementStyles.Put(CssConstants.FONT_SIZE, System.Convert.ToString(absoluteFontSize, System.Globalization.CultureInfo.InvariantCulture
-                    ) + CssConstants.PT);
+                // Format to 4 decimal places to prevent differences between Java and C#
+                elementStyles.Put(CssConstants.FONT_SIZE, DecimalFormatUtil.FormatNumber(absoluteFontSize, "0.####") + CssConstants
+                    .PT);
             }
             else {
                 elementStyles.Put(CssConstants.FONT_SIZE, System.Convert.ToString(FontStyleApplierUtil.ParseAbsoluteFontSize
