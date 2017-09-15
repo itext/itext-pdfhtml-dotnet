@@ -117,7 +117,7 @@ namespace iText.Html2pdf.Attach {
             state = new State();
             deviceDescription = converterProperties.GetMediaDeviceDescription();
             if (deviceDescription == null) {
-                deviceDescription = MediaDeviceDescription.CreateDefault();
+                deviceDescription = MediaDeviceDescription.GetDefault();
             }
             fontProvider = converterProperties.GetFontProvider();
             if (fontProvider == null) {
@@ -125,11 +125,11 @@ namespace iText.Html2pdf.Attach {
             }
             tagWorkerFactory = converterProperties.GetTagWorkerFactory();
             if (tagWorkerFactory == null) {
-                tagWorkerFactory = new DefaultTagWorkerFactory();
+                tagWorkerFactory = DefaultTagWorkerFactory.GetInstance();
             }
             cssApplierFactory = converterProperties.GetCssApplierFactory();
             if (cssApplierFactory == null) {
-                cssApplierFactory = new DefaultCssApplierFactory();
+                cssApplierFactory = DefaultCssApplierFactory.GetInstance();
             }
             baseUri = converterProperties.GetBaseUri();
             if (baseUri == null) {

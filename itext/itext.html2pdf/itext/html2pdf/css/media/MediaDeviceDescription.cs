@@ -45,6 +45,8 @@ using System;
 namespace iText.Html2pdf.Css.Media {
     /// <summary>Class that bundles all the values of a media device description.</summary>
     public class MediaDeviceDescription {
+        private static readonly iText.Html2pdf.Css.Media.MediaDeviceDescription DEFAULT = CreateDefault();
+
         /// <summary>The type.</summary>
         private String type;
 
@@ -108,6 +110,20 @@ namespace iText.Html2pdf.Css.Media {
         /// <returns>the media device description</returns>
         public static iText.Html2pdf.Css.Media.MediaDeviceDescription CreateDefault() {
             return new iText.Html2pdf.Css.Media.MediaDeviceDescription(MediaType.ALL);
+        }
+
+        /// <summary>
+        /// Gets default
+        /// <see cref="MediaDeviceDescription"/>
+        /// instance.
+        /// Do not modify any fields of the returned media device description because it may lead
+        /// to unpredictable results. Use
+        /// <see cref="CreateDefault()"/>
+        /// if you want to modify device description.
+        /// </summary>
+        /// <returns>the default media device description</returns>
+        public static iText.Html2pdf.Css.Media.MediaDeviceDescription GetDefault() {
+            return DEFAULT;
         }
 
         /// <summary>Gets the type.</summary>
