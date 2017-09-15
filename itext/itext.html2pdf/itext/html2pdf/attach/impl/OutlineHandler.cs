@@ -123,6 +123,18 @@ namespace iText.Html2pdf.Attach.Impl {
             return tagPrioritiesMapping.ContainsKey(tagName);
         }
 
+        /// <summary>
+        /// Resets the current state so that this
+        /// <see cref="OutlineHandler"/>
+        /// is ready to process new document
+        /// </summary>
+        public virtual void Reset() {
+            currentOutline = null;
+            destinationsInProcess.Clear();
+            levelsInProcess.Clear();
+            uniqueIDs.Clear();
+        }
+
         /// <summary>Adds the outline.</summary>
         /// <param name="tagWorker">the tag worker</param>
         /// <param name="element">the element</param>

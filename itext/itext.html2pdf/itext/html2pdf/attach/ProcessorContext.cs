@@ -270,6 +270,7 @@ namespace iText.Html2pdf.Attach {
             //Reset font provider. PdfFonts shall be reseted.
             this.fontProvider = new FontProvider(this.fontProvider.GetFontSet());
             this.tempFonts = null;
+            this.outlineHandler.Reset();
         }
 
         /// <summary>Resets the context, and assigns a new PDF document.</summary>
