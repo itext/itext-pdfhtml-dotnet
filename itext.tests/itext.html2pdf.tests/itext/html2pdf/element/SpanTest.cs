@@ -143,5 +143,35 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest08.pdf", sourceFolder
                  + "cmp_spanTest08.pdf", destinationFolder, "diff08_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SpanTest09() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest09.html"), new FileInfo(destinationFolder 
+                + "spanTest09.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest09.pdf", sourceFolder
+                 + "cmp_spanTest09.pdf", destinationFolder, "diff09_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SpanTest10() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest10.html"), new FileInfo(destinationFolder 
+                + "spanTest10.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest10.pdf", sourceFolder
+                 + "cmp_spanTest10.pdf", destinationFolder, "diff10_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SpanTest11() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest11.html"), new FileInfo(destinationFolder 
+                + "spanTest11.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest11.pdf", sourceFolder
+                 + "cmp_spanTest11.pdf", destinationFolder, "diff11_"));
+        }
     }
 }

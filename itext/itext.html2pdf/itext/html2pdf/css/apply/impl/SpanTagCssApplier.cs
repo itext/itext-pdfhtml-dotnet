@@ -111,6 +111,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             MarginApplierUtil.ApplyMargins(css, context, element);
             PositionApplierUtil.ApplyPosition(css, context, element);
             FloatApplierUtil.ApplyFloating(css, context, element);
+            PaddingApplierUtil.ApplyPaddings(css, context, element);
         }
     }
 }

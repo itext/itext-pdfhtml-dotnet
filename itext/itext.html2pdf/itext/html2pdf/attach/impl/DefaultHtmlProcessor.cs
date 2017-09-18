@@ -486,8 +486,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 bool containsNonEmptyChildNode = false;
                 bool containsElementNode = false;
                 for (int i = 0; i < element.ChildNodes().Count; i++) {
-                    if (element.ChildNodes()[i] is ITextNode && !String.IsNullOrEmpty(((ITextNode)element.ChildNodes()[i]).WholeText
-                        ())) {
+                    if (element.ChildNodes()[i] is ITextNode) {
                         containsNonEmptyChildNode = true;
                         break;
                     }
