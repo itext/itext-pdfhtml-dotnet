@@ -152,7 +152,8 @@ namespace iText.Html2pdf.Css.Parse {
                     }
                 }
                 catch (Exception exc) {
-                    logger.Error(iText.Html2pdf.LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, exc);
+                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, currentSelectorStr
+                        ), exc);
                     //if any separated selector has errors, all others become invalid.
                     //in this case we just clear map, it is the easies way to support this.
                     declarations.Clear();

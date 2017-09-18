@@ -57,7 +57,7 @@ namespace iText.Html2pdf {
         public const String ERROR_LOADING_FONT = "Error while loading font";
 
         /// <summary>The Constant ERROR_PARSING_CSS_SELECTOR.</summary>
-        public const String ERROR_PARSING_CSS_SELECTOR = "Error while parsing css selector";
+        public const String ERROR_PARSING_CSS_SELECTOR = "Error while parsing css selector: {0}";
 
         /// <summary>The Constant ERROR_RESOLVING_PARENT_STYLES.</summary>
         public const String ERROR_RESOLVING_PARENT_STYLES = "Element parent styles are not resolved. Styles for current element might be incorrect.";
