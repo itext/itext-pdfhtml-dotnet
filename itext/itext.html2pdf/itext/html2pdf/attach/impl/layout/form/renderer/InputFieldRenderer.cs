@@ -143,13 +143,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 value = "";
             }
             PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSize);
-            ApplyDefaultFieldProperties(inputField);
             if (password) {
                 inputField.SetFieldFlag(PdfFormField.FF_PASSWORD, true);
             }
             else {
                 inputField.SetDefaultValue(new PdfString(value));
             }
+            ApplyDefaultFieldProperties(inputField);
             PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
         }
 
