@@ -46,7 +46,7 @@ namespace iText.Html2pdf.Css {
     /// <summary>Abstract superclass for all CSS at-rules (rules in CSS that start with an @ sign).</summary>
     public abstract class CssAtRule : CssStatement {
         /// <summary>The rule name.</summary>
-        protected internal String ruleName;
+        internal String ruleName;
 
         /// <summary>
         /// Creates a new
@@ -54,7 +54,7 @@ namespace iText.Html2pdf.Css {
         /// instance.
         /// </summary>
         /// <param name="ruleName">the rule name</param>
-        protected internal CssAtRule(String ruleName) {
+        internal CssAtRule(String ruleName) {
             this.ruleName = ruleName;
         }
 

@@ -61,7 +61,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="firstValue">the first value</param>
         /// <param name="secondValue">the second value</param>
         /// <returns>the merged value</returns>
-        public static String MergeTextDecoration(String firstValue, String secondValue) {
+        internal static String MergeTextDecoration(String firstValue, String secondValue) {
             if (firstValue == null) {
                 return secondValue;
             }

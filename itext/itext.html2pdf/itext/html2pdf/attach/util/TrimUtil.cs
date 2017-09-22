@@ -40,7 +40,10 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
+using System;
 using System.Collections.Generic;
+using iText.IO.Util;
+using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
@@ -67,7 +70,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Trim leaf elements, and sanitize.</summary>
         /// <param name="leafElements">the leaf elements</param>
         /// <returns>the trimmed and sanitized list</returns>
-        public static IList<IElement> TrimLeafElementsAndSanitize(IList<IElement> leafElements) {
+        internal static IList<IElement> TrimLeafElementsAndSanitize(IList<IElement> leafElements) {
             List<IElement> waitingLeaves = new List<IElement>(leafElements);
             TrimSubList(waitingLeaves, 0, waitingLeaves.Count, false);
             TrimSubList(waitingLeaves, 0, waitingLeaves.Count, true);
@@ -129,7 +132,9 @@ namespace iText.Html2pdf.Attach.Util {
                     Text text = (Text)leaf;
                     TrimTextElement(text, last);
                     if (text.GetText().Length == 0) {
-                        list.JRemoveAt(pos);
+                        if (HasZeroWidth(text)) {
+                            list.JRemoveAt(pos);
+                        }
                         end--;
                         continue;
                     }
@@ -182,6 +187,18 @@ namespace iText.Html2pdf.Attach.Util {
             int? position = leafElement.GetProperty<int?>(Property.POSITION);
             return (position == null || position != LayoutPosition.ABSOLUTE) && floatPropertyValue != null && !floatPropertyValue
                 .Equals(FloatPropertyValue.NONE);
+        }
+
+        private static bool HasZeroWidth(IElement leafElement) {
+            return (null == leafElement.GetProperty<Border>(Property.BORDER_RIGHT) || 0 == ((Border)leafElement.GetProperty
+                <Border>(Property.BORDER_RIGHT)).GetWidth()) && (null == leafElement.GetProperty<Border>(Property.BORDER_LEFT
+                ) || 0 == ((Border)leafElement.GetProperty<Border>(Property.BORDER_LEFT)).GetWidth()) && (null == leafElement
+                .GetProperty<Object>(Property.PADDING_RIGHT) || 0 == (float)NumberUtil.AsFloat(leafElement.GetProperty
+                <Object>(Property.PADDING_RIGHT))) && (null == leafElement.GetProperty<Object>(Property.PADDING_LEFT) 
+                || 0 == (float)NumberUtil.AsFloat(leafElement.GetProperty<Object>(Property.PADDING_LEFT))) && (null ==
+                 leafElement.GetProperty<Object>(Property.MARGIN_RIGHT) || 0 == (float)NumberUtil.AsFloat(leafElement.
+                GetProperty<Object>(Property.MARGIN_RIGHT))) && (null == leafElement.GetProperty<Object>(Property.MARGIN_LEFT
+                ) || 0 == (float)NumberUtil.AsFloat(leafElement.GetProperty<Object>(Property.MARGIN_LEFT)));
         }
     }
 }

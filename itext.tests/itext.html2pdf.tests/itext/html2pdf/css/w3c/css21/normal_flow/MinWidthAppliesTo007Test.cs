@@ -41,9 +41,13 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Normal_flow {
+    [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
     public class MinWidthAppliesTo007Test : W3CCssTest {
+        // NOTE iText sets cellWidth on cell renderer after cell layout.
+        // It causes applied min-width to be overwritten and thus results are wrong.
         protected internal override String GetHtmlFileName() {
             return "min-width-applies-to-007.xht";
         }

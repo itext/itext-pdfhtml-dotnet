@@ -490,6 +490,20 @@ namespace iText.Html2pdf.Css {
         public virtual void Float61Test() {
             RunTest("float61Test", "diff61_");
         }
+		
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Float66Test() {
+            RunTest("float66Test", "diff66_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Float67Test() {
+            RunTest("float67Test", "diff67_");
+        }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>

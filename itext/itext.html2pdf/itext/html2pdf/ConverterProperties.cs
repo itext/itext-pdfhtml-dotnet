@@ -71,6 +71,9 @@ namespace iText.Html2pdf {
         /// <summary>Indicates whether an AcroForm should be created.</summary>
         private bool createAcroForm = false;
 
+        /// <summary>Character set used in conversion of input streams</summary>
+        private String charset;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="ConverterProperties"/>
@@ -100,6 +103,7 @@ namespace iText.Html2pdf {
             this.baseUri = other.baseUri;
             this.createAcroForm = other.createAcroForm;
             this.outlineHandler = other.outlineHandler;
+            this.charset = other.charset;
         }
 
         /// <summary>Gets the media device description.</summary>
@@ -124,6 +128,15 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>Sets the font provider.</summary>
+        /// <remarks>
+        /// Sets the font provider. Please note that
+        /// <see cref="iText.Layout.Font.FontProvider"/>
+        /// instances cannot be reused across several documents
+        /// and thus as soon as you set this property, this
+        /// <see cref="ConverterProperties"/>
+        /// instance becomes only useful for a single
+        /// HTML conversion.
+        /// </remarks>
         /// <param name="fontProvider">the font provider</param>
         /// <returns>the ConverterProperties instance</returns>
         public virtual iText.Html2pdf.ConverterProperties SetFontProvider(FontProvider fontProvider) {
@@ -195,10 +208,33 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>Sets the outline handler.</summary>
+        /// <remarks>
+        /// Sets the outline handler. Please note that
+        /// <see cref="iText.Html2pdf.Attach.Impl.OutlineHandler"/>
+        /// is not thread safe, thus
+        /// as soon as you have set this property, this
+        /// <see cref="ConverterProperties"/>
+        /// instance cannot be used in converting multiple
+        /// HTMLs simultaneously.
+        /// </remarks>
         /// <param name="outlineHandler">the outline handler</param>
         /// <returns>the ConverterProperties instance</returns>
         public virtual iText.Html2pdf.ConverterProperties SetOutlineHandler(OutlineHandler outlineHandler) {
             this.outlineHandler = outlineHandler;
+            return this;
+        }
+
+        /// <summary>Gets the encoding charset.</summary>
+        /// <returns>the charset</returns>
+        public virtual String GetCharset() {
+            return charset;
+        }
+
+        /// <summary>Sets the encoding charset.</summary>
+        /// <param name="charset">the charset</param>
+        /// <returns>the ConverterProperties instance</returns>
+        public virtual iText.Html2pdf.ConverterProperties SetCharset(String charset) {
+            this.charset = charset;
             return this;
         }
     }

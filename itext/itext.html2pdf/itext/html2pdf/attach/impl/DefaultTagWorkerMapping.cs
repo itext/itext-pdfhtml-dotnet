@@ -98,12 +98,12 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.FONT, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.FOOTER, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.FORM, typeof(DivTagWorker));
-            workerMapping.PutMapping(TagConstants.H1, typeof(DivTagWorker));
-            workerMapping.PutMapping(TagConstants.H2, typeof(DivTagWorker));
-            workerMapping.PutMapping(TagConstants.H3, typeof(DivTagWorker));
-            workerMapping.PutMapping(TagConstants.H4, typeof(DivTagWorker));
-            workerMapping.PutMapping(TagConstants.H5, typeof(DivTagWorker));
-            workerMapping.PutMapping(TagConstants.H6, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.H1, typeof(HTagWorker));
+            workerMapping.PutMapping(TagConstants.H2, typeof(HTagWorker));
+            workerMapping.PutMapping(TagConstants.H3, typeof(HTagWorker));
+            workerMapping.PutMapping(TagConstants.H4, typeof(HTagWorker));
+            workerMapping.PutMapping(TagConstants.H5, typeof(HTagWorker));
+            workerMapping.PutMapping(TagConstants.H6, typeof(HTagWorker));
             workerMapping.PutMapping(TagConstants.HEADER, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.HR, typeof(HrTagWorker));
             workerMapping.PutMapping(TagConstants.HTML, typeof(HtmlTagWorker));
@@ -137,7 +137,7 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.TD, typeof(TdTagWorker));
             workerMapping.PutMapping(TagConstants.TEXTAREA, typeof(TextAreaTagWorker));
             workerMapping.PutMapping(TagConstants.TFOOT, typeof(TableFooterTagWorker));
-            workerMapping.PutMapping(TagConstants.TH, typeof(TdTagWorker));
+            workerMapping.PutMapping(TagConstants.TH, typeof(ThTagWorker));
             workerMapping.PutMapping(TagConstants.THEAD, typeof(TableHeaderTagWorker));
             workerMapping.PutMapping(TagConstants.TIME, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.TITLE, typeof(TitleTagWorker));
@@ -153,7 +153,9 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.SPAN, CssConstants.BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.SPAN, CssConstants.INLINE_BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.A, CssConstants.BLOCK, typeof(ABlockTagWorker));
+            workerMapping.PutMapping(TagConstants.A, CssConstants.TABLE_CELL, typeof(ABlockTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.TABLE, typeof(DisplayTableTagWorker));
+            workerMapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_ROW, typeof(DisplayTableRowTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.INLINE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.INLINE_TABLE, typeof(DisplayTableTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_CELL, typeof(TdTagWorker));

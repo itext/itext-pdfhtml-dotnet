@@ -54,6 +54,9 @@ namespace iText.Html2pdf.Css.Apply.Impl {
     /// objects.
     /// </summary>
     public class DefaultCssApplierFactory : ICssApplierFactory {
+        private static readonly ICssApplierFactory INSTANCE = new iText.Html2pdf.Css.Apply.Impl.DefaultCssApplierFactory
+            ();
+
         /// <summary>The default mapping of CSS keywords and CSS appliers.</summary>
         private TagProcessorMapping defaultMapping;
 
@@ -64,6 +67,16 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         /// </summary>
         public DefaultCssApplierFactory() {
             defaultMapping = DefaultTagCssApplierMapping.GetDefaultCssApplierMapping();
+        }
+
+        /// <summary>
+        /// Gets
+        /// <see cref="DefaultCssApplierFactory"/>
+        /// instance.
+        /// </summary>
+        /// <returns>default instance that is used if custom css appliers are not configured</returns>
+        public static ICssApplierFactory GetInstance() {
+            return INSTANCE;
         }
 
         /* (non-Javadoc)

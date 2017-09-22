@@ -42,6 +42,7 @@
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
 using System.Reflection;
@@ -69,9 +70,50 @@ namespace iText.Html2pdf.Element {
         public virtual void Meta01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "metaTest01.html"), new FileInfo(destinationFolder 
                 + "metaTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "metaTest01.pdf", sourceFolder
+            PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(destinationFolder + "metaTest01.pdf")).GetDocumentInfo
+                ();
+            CompareTool compareTool = new CompareTool();
+            NUnit.Framework.Assert.IsNull(compareTool.CompareDocumentInfo(destinationFolder + "metaTest01.pdf", sourceFolder
+                 + "cmp_metaTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(compareTool.CompareByContent(destinationFolder + "metaTest01.pdf", sourceFolder
                  + "cmp_metaTest01.pdf", destinationFolder, "diff01_"));
+            NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetMoreInfo("test"), "the test content");
         }
-        //TODO add checks for meta tag.
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Meta02Test() {
+            // In this test we also check that it's not possible to override description name content
+            // (which iText converts to pdf's Subject content) with Subject name content
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "metaTest02.html"), new FileInfo(destinationFolder 
+                + "metaTest02.pdf"));
+            PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(destinationFolder + "metaTest02.pdf")).GetDocumentInfo
+                ();
+            CompareTool compareTool = new CompareTool();
+            NUnit.Framework.Assert.IsNull(compareTool.CompareDocumentInfo(destinationFolder + "metaTest02.pdf", sourceFolder
+                 + "cmp_metaTest02.pdf"));
+            NUnit.Framework.Assert.IsNull(compareTool.CompareByContent(destinationFolder + "metaTest02.pdf", sourceFolder
+                 + "cmp_metaTest02.pdf", destinationFolder, "diff02_"));
+            NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetAuthor(), "Bruno Lowagie");
+            NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetKeywords(), "metadata, keywords, test");
+            NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetSubject(), "This is the description of the page");
+            NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetMoreInfo("generator"), "Eugenerator Onegenerator");
+            NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetMoreInfo("subject"), "Trying to break iText and write pdf's Subject with subject instead of description name"
+                );
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Meta03Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "metaTest03.html"), new FileInfo(destinationFolder 
+                + "metaTest03.pdf"));
+            CompareTool compareTool = new CompareTool();
+            NUnit.Framework.Assert.IsNull(compareTool.CompareDocumentInfo(destinationFolder + "metaTest03.pdf", sourceFolder
+                 + "cmp_metaTest03.pdf"));
+            NUnit.Framework.Assert.IsNull(compareTool.CompareByContent(destinationFolder + "metaTest03.pdf", sourceFolder
+                 + "cmp_metaTest03.pdf", destinationFolder, "diff03_"));
+        }
     }
 }

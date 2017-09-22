@@ -42,6 +42,8 @@
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
 using System.Reflection;
@@ -49,6 +51,7 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class OverflowTest : ExtendedITextTest {
@@ -61,38 +64,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateDestinationFolder(destinationFolder);
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Ignore("")]
-        [NUnit.Framework.Test]
-        public virtual void OverflowTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "overflowTest01.html"), new FileInfo(destinationFolder
-                 + "overflowTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "overflowTest01.pdf", 
-                sourceFolder + "cmp_overflowTest01.pdf", destinationFolder, "diff01_"));
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void OverflowTest02() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "overflowTest02.html"), new FileInfo(destinationFolder
-                 + "overflowTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "overflowTest02.pdf", 
-                sourceFolder + "cmp_overflowTest02.pdf", destinationFolder, "diff02_"));
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void OverflowTest03() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "overflowTest03.html"), new FileInfo(destinationFolder
-                 + "overflowTest03.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "overflowTest03.pdf", 
-                sourceFolder + "cmp_overflowTest03.pdf", destinationFolder, "diff03_"));
-        }
+        }        
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>

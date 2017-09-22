@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Css.Selector.Item {
@@ -81,7 +82,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
                 return false;
             }
             IElementNode element = (IElementNode)node;
-            return isUniversal || tagName.Equals(element.Name());
+            return isUniversal && !(node is CssPseudoElementNode) || tagName.Equals(element.Name());
         }
 
         /* (non-Javadoc)

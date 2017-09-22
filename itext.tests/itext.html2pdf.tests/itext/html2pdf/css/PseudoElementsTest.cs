@@ -269,6 +269,36 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void EmptyStillShownPseudoTest06() {
+            RunTest("emptyStillShownPseudoTest06");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
+        public virtual void EmptyStillShownPseudoTest07() {
+            RunTest("emptyStillShownPseudoTest07");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
+        public virtual void EmptyStillShownPseudoTest08() {
+            RunTest("emptyStillShownPseudoTest08");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EmptyStillShownPseudoTest09() {
+            RunTest("emptyStillShownPseudoTest09");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void PseudoDisplayTable01Test() {
             RunTest("pseudoDisplayTable01");
         }

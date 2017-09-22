@@ -46,17 +46,17 @@ namespace iText.Html2pdf.Css.Util {
     public class CssUtilTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void ValidateMetricValue() {
-            NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("px"));
-            NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("in"));
-            NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("cm"));
-            NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("mm"));
-            NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("pc"));
-            NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("em"));
-            NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("rem"));
-            NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("ex"));
-            NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("pt"));
-            NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("inch"));
-            NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("m"));
+            NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("1px"));
+            NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("1in"));
+            NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("1cm"));
+            NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("1mm"));
+            NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("1pc"));
+            NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("1em"));
+            NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("1rem"));
+            NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("1ex"));
+            NUnit.Framework.Assert.AreEqual(true, CssUtils.IsMetricValue("1pt"));
+            NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("1inch"));
+            NUnit.Framework.Assert.AreEqual(false, CssUtils.IsMetricValue("+1m"));
         }
 
         [NUnit.Framework.Test]

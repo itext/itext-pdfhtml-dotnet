@@ -54,12 +54,25 @@ namespace iText.Html2pdf.Attach.Impl {
     /// tag worker implementations.
     /// </summary>
     public class DefaultTagWorkerFactory : ITagWorkerFactory {
+        private static readonly ITagWorkerFactory INSTANCE = new iText.Html2pdf.Attach.Impl.DefaultTagWorkerFactory
+            ();
+
         /// <summary>The default mapping.</summary>
         private TagProcessorMapping defaultMapping;
 
         /// <summary>Instantiates a new default tag worker factory.</summary>
         public DefaultTagWorkerFactory() {
             this.defaultMapping = DefaultTagWorkerMapping.GetDefaultTagWorkerMapping();
+        }
+
+        /// <summary>
+        /// Gets
+        /// <see cref="iText.Html2pdf.Attach.ITagWorkerFactory"/>
+        /// instance.
+        /// </summary>
+        /// <returns>default instance that is used if custom tag workers are not configured</returns>
+        public static ITagWorkerFactory GetInstance() {
+            return INSTANCE;
         }
 
         /* (non-Javadoc)

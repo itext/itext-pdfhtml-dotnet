@@ -50,7 +50,9 @@ using System.Reflection;
 using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
+using iText.Pdfa;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class LinkTest : ExtendedITextTest {
@@ -158,6 +160,23 @@ namespace iText.Html2pdf.Element {
             }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest09.pdf", sourceFolder
                  + "cmp_linkTest09.pdf", destinationFolder, "diff09_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(PdfAConformanceException.CatalogShallContainLangEntry)]
+        public virtual void LinkTest10ToPdfa() {
+            Stream @is = new FileStream(sourceFolder + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read);
+            PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "linkTest10.pdf"), PdfAConformanceLevel
+                .PDF_A_2A, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", @is));
+            pdfADocument.SetTagged();
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "linkTest10.html", FileMode.Open, FileAccess.Read
+                )) {
+                HtmlConverter.ConvertToPdf(fileInputStream, pdfADocument);
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest10.pdf", sourceFolder
+                 + "cmp_linkTest10.pdf", destinationFolder, "diff10_"));
         }
     }
 }

@@ -139,13 +139,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>Gets the resolved page context node.</summary>
         /// <returns>the resolved page context node</returns>
-        public virtual PageContextNode GetResolvedPageContextNode() {
+        internal virtual PageContextNode GetResolvedPageContextNode() {
             return pageContextNode;
         }
 
         /// <summary>Gets the resolved page margin boxes.</summary>
         /// <returns>the resolved page margin boxes</returns>
-        public virtual IList<PageMarginBoxContextNode> GetResolvedPageMarginBoxes() {
+        internal virtual IList<PageMarginBoxContextNode> GetResolvedPageMarginBoxes() {
             return pageMarginBoxes;
         }
     }

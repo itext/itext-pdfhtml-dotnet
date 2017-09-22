@@ -45,6 +45,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Normal_flow {
     [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
+    [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 2)]
     public class MaxWidthAppliesTo001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "max-width-applies-to-001.xht";

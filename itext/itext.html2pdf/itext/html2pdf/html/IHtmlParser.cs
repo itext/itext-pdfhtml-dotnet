@@ -53,7 +53,11 @@ namespace iText.Html2pdf.Html {
         /// and an encoding.
         /// </summary>
         /// <param name="htmlStream">the html stream</param>
-        /// <param name="charset">the character set</param>
+        /// <param name="charset">
+        /// the character set. If
+        /// <see langword="null"/>
+        /// then parser should detect encoding from stream.
+        /// </param>
         /// <returns>a document node</returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         IDocumentNode Parse(Stream htmlStream, String charset);

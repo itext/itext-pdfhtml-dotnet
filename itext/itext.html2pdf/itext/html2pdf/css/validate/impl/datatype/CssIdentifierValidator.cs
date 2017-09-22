@@ -58,7 +58,7 @@ namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
         * @see com.itextpdf.html2pdf.css.validate.ICssDataTypeValidator#isValid(java.lang.String)
         */
         public virtual bool IsValid(String objectString) {
-            // TODO now the validation is very lenient. Make is more strict
+            // TODO now the validation is very lenient. Make it more strict
             if (objectString.Length >= 2 && objectString.StartsWith("--")) {
                 return false;
             }

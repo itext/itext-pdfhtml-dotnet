@@ -51,6 +51,9 @@ using iText.Layout.Properties;
 namespace iText.Html2pdf.Css.Util {
     /// <summary>Utilities class for CSS operations.</summary>
     public class CssUtils {
+        private static readonly String[] METRIC_MEASUREMENTS = new String[] { CssConstants.PX, CssConstants.IN, CssConstants
+            .CM, CssConstants.MM, CssConstants.PC, CssConstants.PT };
+
         private static readonly String[] RELATIVE_MEASUREMENTS = new String[] { CssConstants.PERCENTAGE, CssConstants
             .EM, CssConstants.EX, CssConstants.REM };
 
@@ -339,10 +342,16 @@ namespace iText.Html2pdf.Css.Util {
         /// <param name="value">the string that needs to be checked.</param>
         /// <returns>boolean true if value contains an allowed metric value.</returns>
         public static bool IsMetricValue(String value) {
-            // TODO make it check if it is a number + metric ending
-            return value != null && (value.EndsWith(CssConstants.PX) || value.EndsWith(CssConstants.IN) || value.EndsWith
-                (CssConstants.CM) || value.EndsWith(CssConstants.MM) || value.EndsWith(CssConstants.PC) || value.EndsWith
-                (CssConstants.PT));
+            if (value == null) {
+                return false;
+            }
+            foreach (String metricPostfix in METRIC_MEASUREMENTS) {
+                if (value.EndsWith(metricPostfix) && IsNumericValue(value.JSubstring(0, value.Length - metricPostfix.Length
+                    ).Trim())) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>Checks whether a string contains an allowed value relative to previously set value.</summary>
@@ -375,8 +384,8 @@ namespace iText.Html2pdf.Css.Util {
         /// <param name="value">the string that needs to be checked.</param>
         /// <returns>boolean true if value contains an allowed metric value.</returns>
         public static bool IsNumericValue(String value) {
-            return value != null && (value.Matches("^-?\\d\\d*\\.\\d*$") || value.Matches("^-?\\d\\d*$") || value.Matches
-                ("^-?\\.\\d\\d*$"));
+            return value != null && (value.Matches("^[-+]?\\d\\d*\\.\\d*$") || value.Matches("^[-+]?\\d\\d*$") || value
+                .Matches("^[-+]?\\.\\d\\d*$"));
         }
 
         /// <summary>

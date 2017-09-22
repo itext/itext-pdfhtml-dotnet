@@ -206,5 +206,35 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "absolutePositionTest14.pdf"
                 , sourceFolder + "cmp_absolutePositionTest14.pdf", destinationFolder, "diff14_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePosition15Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "absolutePositionTest15.html"), new FileInfo(destinationFolder
+                 + "absolutePositionTest15.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "absolutePositionTest15.pdf"
+                , sourceFolder + "cmp_absolutePositionTest15.pdf", destinationFolder, "diff15_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePositionTest16() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "absolutePositionTest16.html"), new FileInfo(destinationFolder
+                 + "absolutePositionTest16.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "absolutePositionTest16.pdf"
+                , sourceFolder + "cmp_absolutePositionTest16.pdf", destinationFolder, "diff16_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePositionTest17() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "absolutePositionTest17.html"), new FileInfo(destinationFolder
+                 + "absolutePositionTest17.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "absolutePositionTest17.pdf"
+                , sourceFolder + "cmp_absolutePositionTest17.pdf", destinationFolder, "diff17_"));
+        }
     }
 }

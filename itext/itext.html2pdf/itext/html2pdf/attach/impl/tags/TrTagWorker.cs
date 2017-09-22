@@ -109,7 +109,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         /// <summary>Gets the table row wrapper.</summary>
         /// <returns>the table row wrapper</returns>
-        public virtual TableRowWrapper GetTableRowWrapper() {
+        internal virtual TableRowWrapper GetTableRowWrapper() {
             return rowWrapper;
         }
     }

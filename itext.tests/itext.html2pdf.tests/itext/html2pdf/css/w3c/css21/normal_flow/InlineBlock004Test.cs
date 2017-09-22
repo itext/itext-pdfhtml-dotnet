@@ -41,8 +41,10 @@
     address: sales@itextpdf.com */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Normal_flow {
+    [LogMessage(iText.IO.LogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED)]
     public class InlineBlock004Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "inline-block-004.xht";

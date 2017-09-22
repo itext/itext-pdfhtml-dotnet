@@ -174,6 +174,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return table;
         }
 
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware#getDisplay()
+        */
         public virtual String GetDisplay() {
             return display;
         }

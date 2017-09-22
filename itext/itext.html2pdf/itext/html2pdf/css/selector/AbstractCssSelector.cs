@@ -51,7 +51,7 @@ namespace iText.Html2pdf.Css.Selector {
     /// <summary>Abstract superclass for CSS Selectors.</summary>
     public abstract class AbstractCssSelector : ICssSelector {
         /// <summary>The selector items.</summary>
-        protected internal IList<ICssSelectorItem> selectorItems;
+        internal IList<ICssSelectorItem> selectorItems;
 
         /// <summary>
         /// Creates a new
