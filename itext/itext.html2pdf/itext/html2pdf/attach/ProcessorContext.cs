@@ -279,5 +279,9 @@ namespace iText.Html2pdf.Attach {
             Reset();
             this.pdfDocument = pdfDocument;
         }
+
+        public virtual String GetBaseUri() {
+            return baseUri;
+        }
     }
 }

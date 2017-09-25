@@ -45,6 +45,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
+using iText.Html2pdf.Resolver.Resource;
 using iText.Kernel.Pdf;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -70,6 +71,17 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             base.ProcessEnd(element, context);
             String url = element.GetAttribute(AttributeConstants.HREF);
             if (url != null) {
+                if (context.GetBaseUri() != null && !url.StartsWith("#")) {
+                    String @base = context.GetBaseUri();
+                    try {
+                        if (!new UriResolver(@base).ResolveAgainstBaseUri(url).ToString().StartsWith("file:") && !url.StartsWith(new 
+                            UriResolver(@base).ResolveAgainstBaseUri(url).Scheme)) {
+                            url = new UriResolver(@base).ResolveAgainstBaseUri(url).ToString();
+                        }
+                    }
+                    catch (UriFormatException) {
+                    }
+                }
                 ((Div)GetElementResult()).SetRole(PdfName.Link);
                 LinkHelper.ApplyLinkAnnotation(GetElementResult(), url);
             }
