@@ -232,11 +232,11 @@ namespace iText.Html2pdf.Resolver.Resource
         {
             String result = null;
 
-            string pattern = "^[^:]+";
+            string pattern = "^[a-zA-Z]([a-zA-Z]|\\d|\\+|-|\\.)*:";
             Match match = Regex.Match(uriString, pattern);
 
             if (match.Success) {
-                result = match.Value;
+                result = match.Value.Substring(0, match.Value.IndexOf(':'));
             }
             else if (null != baseUrl)
             {
