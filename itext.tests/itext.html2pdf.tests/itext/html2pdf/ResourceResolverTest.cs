@@ -104,6 +104,21 @@ namespace iText.Html2pdf {
             ));
         }
 
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ResourceResolverTest10()
+        {
+            String outPdf = destinationFolder + "resourceResolverTest10.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest10.pdf";
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest10.html", FileMode.Open, FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create)) {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().SetBaseUri("%homepath%"));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff10_"));
+            } 
+        }
+
 
 
         // TODO test with absolute http links for resources?
