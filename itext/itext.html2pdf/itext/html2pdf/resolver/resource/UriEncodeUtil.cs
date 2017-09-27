@@ -66,11 +66,6 @@ namespace iText.Html2pdf.Resolver.Resource
         /// </summary>
         internal static String dfltEncName = "UTF-8";
 
-        /// <summary>
-        /// The default uri scheme ("file").
-        /// </summary>
-        internal static String dftUriScheme = "file";
-
         static UriEncodeUtil()
         {
             unreservedAndReserved = new BitArray(256);
@@ -121,28 +116,16 @@ namespace iText.Html2pdf.Resolver.Resource
         /// <returns>the encoded string</returns>
         public static String Encode(String s)
         {
-            return Encode(s, dftUriScheme);
-        }
-
-        /// <summary>
-        /// Encodes a <see cref="String"/> in the specific uri scheme and default encoding to an HTML-encoded <see cref="String"/>.
-        /// </summary>
-        /// <param name="s">the original string</param>
-        /// <param name="scheme">the uri scheme</param>
-        /// <returns>the encoded string</returns>
-        public static String Encode(String s, String scheme)
-        {
-            return Encode(s, scheme, dfltEncName);
+            return Encode(s, dfltEncName);
         }
 
         /// <summary>
         /// Encodes a <see cref="String"/> in a specific encoding and specific uri scheme to an HTML-encoded <see cref="String"/>.
         /// </summary>
         /// <param name="s">the original string</param>
-        /// <param name="scheme">the uri scheme</param>
         /// <param name="enc">the encoding</param>
         /// <returns>the encoded string</returns>
-        public static String Encode(String s, String scheme, String enc)
+        public static String Encode(String s, String enc)
         {
             bool needToChange = false;
             StringBuilder @out = new StringBuilder(s.Length);
@@ -177,7 +160,7 @@ namespace iText.Html2pdf.Resolver.Resource
                         {
                             v = -1;
                         }
-                        if (v != -1)
+                        if (v >= 0)
                             @out.Append((char)c);
                     }
                     if (v < 0)
@@ -266,10 +249,6 @@ namespace iText.Html2pdf.Resolver.Resource
                 }
             }
 
-            if (needToChange && i + 1 < strLength)
-            {
-                @out.Append(s.Substring(i + 1));
-            }
             return (needToChange ? @out.ToString() : s);
         }
 
