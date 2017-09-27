@@ -92,7 +92,7 @@ namespace iText.Html2pdf.Resolver.Resource
             uriString = uriString.Trim();
             // decode and then encode uri string in order to process unsafe characters correctly
             String scheme = GetScheme(uriString);
-            uriString = EncodeUtil.Encode(DecodeUtil.Decode(uriString, scheme), scheme);
+            uriString = UriEncodeUtil.Encode(uriString, scheme);
             if (isLocal)
             {
                 // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
@@ -131,7 +131,7 @@ namespace iText.Html2pdf.Resolver.Resource
         {
             @base = @base.Trim();
             String scheme = GetScheme(@base);
-            @base = EncodeUtil.Encode(DecodeUtil.Decode(@base, scheme), scheme);
+            @base = UriEncodeUtil.Encode(@base, scheme);
             baseUrl = BaseUriAsUrl(@base);
             if (baseUrl == null)
             {

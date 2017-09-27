@@ -49,6 +49,7 @@ namespace iText.Html2pdf.Resolver.Resource
     /// <summary>
     /// Utilities class to decode HTML strings to a strings in a specific encoding.
     /// </summary>
+    [System.ObsoleteAttribute(@"Will be removed in iText 7.1")]
     public class DecodeUtil
     {
 

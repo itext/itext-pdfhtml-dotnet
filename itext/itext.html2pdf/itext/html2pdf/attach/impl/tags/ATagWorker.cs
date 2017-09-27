@@ -79,9 +79,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 if (context.GetBaseUri() != null && !url.StartsWith("#")) {
                     String @base = context.GetBaseUri();
                     try {
-                        if (!new UriResolver(@base).ResolveAgainstBaseUri(url).ToString().StartsWith("file:") && !url.StartsWith(new 
-                            UriResolver(@base).ResolveAgainstBaseUri(url).Scheme)) {
-                            url = new UriResolver(@base).ResolveAgainstBaseUri(url).ToString();
+                        String resolvedUri = new UriResolver(@base).ResolveAgainstBaseUri(url).ToExternalForm();
+                        if (!url.EndsWith("/") && resolvedUri.EndsWith("/"))
+                            resolvedUri = resolvedUri.Substring(0, resolvedUri.Length - 1);
+                        if (!resolvedUri.StartsWith("file:")) {
+                            url = resolvedUri;
                         }
                     }
                     catch (UriFormatException) {

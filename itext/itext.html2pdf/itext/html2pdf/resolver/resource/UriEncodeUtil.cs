@@ -1,45 +1,44 @@
 /*
-This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
-Authors: Bruno Lowagie, Paulo Soares, et al.
+    This file is part of the iText (R) project.
+    Copyright (c) 1998-2017 iText Group NV
+    Authors: iText Software.
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License version 3
-as published by the Free Software Foundation with the addition of the
-following permission added to Section 15 as permitted in Section 7(a):
-FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
-ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
-OF THIRD PARTY RIGHTS
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License version 3
+    as published by the Free Software Foundation with the addition of the
+    following permission added to Section 15 as permitted in Section 7(a):
+    FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
+    ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
+    OF THIRD PARTY RIGHTS
 
-This program is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU Affero General Public License for more details.
-You should have received a copy of the GNU Affero General Public License
-along with this program; if not, see http://www.gnu.org/licenses or write to
-the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-Boston, MA, 02110-1301 USA, or download the license from the following URL:
-http://itextpdf.com/terms-of-use/
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+    or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU Affero General Public License for more details.
+    You should have received a copy of the GNU Affero General Public License
+    along with this program; if not, see http://www.gnu.org/licenses or write to
+    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+    Boston, MA, 02110-1301 USA, or download the license from the following URL:
+    http://itextpdf.com/terms-of-use/
 
-The interactive user interfaces in modified source and object code versions
-of this program must display Appropriate Legal Notices, as required under
-Section 5 of the GNU Affero General Public License.
+    The interactive user interfaces in modified source and object code versions
+    of this program must display Appropriate Legal Notices, as required under
+    Section 5 of the GNU Affero General Public License.
 
-In accordance with Section 7(b) of the GNU Affero General Public License,
-a covered work must retain the producer line in every PDF that is created
-or manipulated using iText.
+    In accordance with Section 7(b) of the GNU Affero General Public License,
+    a covered work must retain the producer line in every PDF that is created
+    or manipulated using iText.
 
-You can be released from the requirements of the license by purchasing
-a commercial license. Buying such a license is mandatory as soon as you
-develop commercial activities involving the iText software without
-disclosing the source code of your own applications.
-These activities include: offering paid services to customers as an ASP,
-serving PDFs on the fly in a web application, shipping iText with a closed
-source product.
+    You can be released from the requirements of the license by purchasing
+    a commercial license. Buying such a license is mandatory as soon as you
+    develop commercial activities involving the iText software without
+    disclosing the source code of your own applications.
+    These activities include: offering paid services to customers as an ASP,
+    serving PDFs on the fly in a web application, shipping iText with a closed
+    source product.
 
-For more information, please contact iText Software Corp. at this
-address: sales@itextpdf.com
-*/
+    For more information, please contact iText Software Corp. at this
+    address: sales@itextpdf.com */
 using System;
 using System.Collections;
 using System.IO;
@@ -48,16 +47,14 @@ using iText.Html2pdf.Exceptions;
 
 namespace iText.Html2pdf.Resolver.Resource
 {
-    /// <summary>
-    /// Utilities class to encode strings in a specific encoding to HTML strings.
-    /// </summary>
-    internal class EncodeUtil
+    public class UriEncodeUtil
     {
 
         /// <summary>
         /// Set of 256 characters with the bits that don't need encoding set to on.
         /// </summary>
-        internal static BitArray dontNeedEncoding;
+        internal static BitArray unreservedAndReserved;
+
 
         /// <summary>
         /// The difference between the value a character in lower cases and the upper case character value.
@@ -74,34 +71,47 @@ namespace iText.Html2pdf.Resolver.Resource
         /// </summary>
         internal static String dftUriScheme = "file";
 
-        static EncodeUtil()
+        static UriEncodeUtil()
         {
-            dontNeedEncoding = new BitArray(256);
+            unreservedAndReserved = new BitArray(256);
             int i;
             for (i = 'a'; i <= 'z'; i++)
             {
-                dontNeedEncoding.Set(i, true);
+                unreservedAndReserved.Set(i, true);
             }
             for (i = 'A'; i <= 'Z'; i++)
             {
-                dontNeedEncoding.Set(i, true);
+                unreservedAndReserved.Set(i, true);
             }
             for (i = '0'; i <= '9'; i++)
             {
-                dontNeedEncoding.Set(i, true);
+                unreservedAndReserved.Set(i, true);
             }
-            dontNeedEncoding.Set('-', true);
-            dontNeedEncoding.Set('_', true);
-            dontNeedEncoding.Set('.', true);
-            dontNeedEncoding.Set(':', true);
-            dontNeedEncoding.Set('*', true);
-            dontNeedEncoding.Set('/', true);
-            dontNeedEncoding.Set('?', true);
-            dontNeedEncoding.Set('"', true);
-            dontNeedEncoding.Set('<', true);
-            dontNeedEncoding.Set('>', true);
-            dontNeedEncoding.Set('|', true);
-            dontNeedEncoding.Set('\\', true);
+            unreservedAndReserved.Set('-', true);
+            unreservedAndReserved.Set('_', true);
+            unreservedAndReserved.Set('.', true);
+            unreservedAndReserved.Set('~', true);
+
+            unreservedAndReserved.Set(':', true);
+            unreservedAndReserved.Set('/', true);
+            unreservedAndReserved.Set('?', true);
+            unreservedAndReserved.Set('#', true);
+            unreservedAndReserved.Set('[', true);
+            unreservedAndReserved.Set(']', true);
+            unreservedAndReserved.Set('@', true);
+            unreservedAndReserved.Set('!', true);
+            unreservedAndReserved.Set('$', true);
+            unreservedAndReserved.Set('&', true);
+            unreservedAndReserved.Set('\'', true);
+            unreservedAndReserved.Set('\\', true);
+            unreservedAndReserved.Set('(', true);
+            unreservedAndReserved.Set(')', true);
+            unreservedAndReserved.Set('*', true);
+            unreservedAndReserved.Set('+', true);
+            unreservedAndReserved.Set(',', true);
+            unreservedAndReserved.Set(';', true);
+            unreservedAndReserved.Set('=', true);
+
         }
 
         /// <summary>
@@ -148,18 +158,36 @@ namespace iText.Html2pdf.Resolver.Resource
             while (i < strLength)
             {
                 int c = (int)s[i];
-                if (("http".Equals(scheme) || "https".Equals(scheme)) && '?'.Equals(s[i]))
+                if ('\\' == c)
                 {
-                    @out.Append((char)c);
-                    break;
-                }
-                else if (("http".Equals(scheme) || "https".Equals(scheme)) && '#'.Equals(s[i]) && i + 1 < strLength && '#'.Equals(s[i + 1]))
-                {
-                    @out.Append((char)c);
+                    @out.Append('/');
                     needToChange = true;
-                    i += 2;
+                    i++;
                 }
-                else if (dontNeedEncoding.Get(c))
+                else if ('%' == c)
+                {
+                    int v = -1;
+                    if (i + 2 < s.Length)
+                    {
+                        try
+                        {
+                            v = System.Convert.ToInt32(s.Substring(i + 1, 2), 16);
+                        }
+                        catch (FormatException)
+                        {
+                            v = -1;
+                        }
+                        if (v != -1)
+                            @out.Append((char)c);
+                    }
+                    if (v < 0)
+                    {
+                        needToChange = true;
+                        @out.Append("%25");
+                    }
+                    i++;
+                }       
+                else if (c < unreservedAndReserved.Length && unreservedAndReserved.Get(c))
                 {
                     @out.Append((char)c);
                     i++;
@@ -209,7 +237,7 @@ namespace iText.Html2pdf.Resolver.Resource
                         }
                         i++;
                     }
-                    while (i < strLength && !dontNeedEncoding.Get((c = (int)s[i])));
+                    while (i < strLength && ((c = (int)s[i]) >= unreservedAndReserved.Length || !unreservedAndReserved.Get(c)));
                     BinaryReader binReader = new BinaryReader(charArrayWriter.BaseStream);
                     binReader.BaseStream.Position = 0;
                     char[] chars = binReader.ReadChars(numOfChars);
