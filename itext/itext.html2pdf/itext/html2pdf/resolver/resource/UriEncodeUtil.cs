@@ -47,7 +47,7 @@ using iText.Html2pdf.Exceptions;
 
 namespace iText.Html2pdf.Resolver.Resource
 {
-    public class UriEncodeUtil
+    internal class UriEncodeUtil
     {
 
         /// <summary>
