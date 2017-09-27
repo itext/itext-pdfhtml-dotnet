@@ -280,6 +280,9 @@ namespace iText.Html2pdf.Attach {
             this.pdfDocument = pdfDocument;
         }
 
+        /// <summary>Gets the baseURI: the URI which has been set manually or the directory of the html file in case when baseURI hasn't been set manually.
+        ///     </summary>
+        /// <returns>the baseUri</returns>
         public virtual String GetBaseUri() {
             return baseUri;
         }
