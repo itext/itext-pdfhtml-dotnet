@@ -61,7 +61,7 @@ namespace iText.Html2pdf.Resolver.Resource
         /// <summary>
         /// Indicates if the Uri refers to a local resource.
         /// </summary>
-        private bool isLocal;
+        private bool isLocalBaseUri;
 
         /// <summary>
         /// Creates a new <see cref="UriResolver"/> instance.
@@ -93,7 +93,7 @@ namespace iText.Html2pdf.Resolver.Resource
             // decode and then encode uri string in order to process unsafe characters correctly
             String scheme = GetScheme(uriString);
             uriString = UriEncodeUtil.Encode(uriString, scheme);
-            if (isLocal)
+            if (isLocalBaseUri)
             {
                 // remove leading slashes in order to always concatenate such resource URIs: we don't want to scatter all
                 // resources around the file system even if on web page the path started with '\'
@@ -161,7 +161,7 @@ namespace iText.Html2pdf.Resolver.Resource
                     if ("file".Equals(baseUri.Scheme))
                     {
                         baseAsUrl = new Uri(NormalizeFilePath(baseAsUrl));
-                        isLocal = true;
+                        isLocalBaseUri = true;
                     }
                 }
             }
@@ -180,14 +180,14 @@ namespace iText.Html2pdf.Resolver.Resource
         {
             if (baseUriString.Length == 0)
             {
-                isLocal = true;
+                isLocalBaseUri = true;
                 return new Uri(Directory.GetCurrentDirectory() + "/");
             }
             Uri baseAsFileUrl = null;
             try
             {
                 baseAsFileUrl = new Uri(NormalizeFilePath(Path.GetFullPath(baseUriString)));
-                isLocal = true;
+                isLocalBaseUri = true;
             }
             catch (Exception)
             {
