@@ -76,17 +76,20 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             base.ProcessEnd(element, context);
             String url = element.GetAttribute(AttributeConstants.HREF);
             if (url != null) {
-                if (context.GetBaseUri() != null && !url.StartsWith("#")) {
-                    String @base = context.GetBaseUri();
-                    try {
-                        String resolvedUri = new UriResolver(@base).ResolveAgainstBaseUri(url).ToExternalForm();
-                        if (!url.EndsWith("/") && resolvedUri.EndsWith("/"))
-                            resolvedUri = resolvedUri.Substring(0, resolvedUri.Length - 1);
-                        if (!resolvedUri.StartsWith("file:")) {
-                            url = resolvedUri;
+                String @base = context.GetBaseUri();
+                if (@base != null) {
+                    UriResolver uriResolver = new UriResolver(@base);
+                    if (!(url.StartsWith("#") && uriResolver.IsLocalBaseUri())) {
+                        try {
+                            String resolvedUri = new UriResolver(@base).ResolveAgainstBaseUri(url).ToExternalForm();
+                            if (!url.EndsWith("/") && resolvedUri.EndsWith("/"))
+                                resolvedUri = resolvedUri.Substring(0, resolvedUri.Length - 1);
+                            if (!resolvedUri.StartsWith("file:")) {
+                                url = resolvedUri;
+                            }
                         }
-                    }
-                    catch (UriFormatException) {
+                        catch (UriFormatException) {
+                        }
                     }
                 }
                 for (int i = 0; i < GetAllElements().Count; i++) {

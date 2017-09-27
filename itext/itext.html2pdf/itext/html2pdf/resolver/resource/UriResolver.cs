@@ -244,5 +244,14 @@ namespace iText.Html2pdf.Resolver.Resource
             }
             return result;
         }
+
+        /// <summary>
+        /// Check if baseURI is local
+        /// </summary>
+        /// <returns>true if baseURI is local, otherwise false</returns>
+        public bool IsLocalBaseUri()
+        {
+            return isLocalBaseUri;
+        }
     }
 }
