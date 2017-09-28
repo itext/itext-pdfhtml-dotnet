@@ -165,6 +165,8 @@ namespace iText.Html2pdf.Resolver.Resource
                     }
                     if (v < 0)
                     {
+                        // here we assume percent sign to be used not for encoding of other characters, i.e. not for its reserved purpose
+                        // which means percent sign should be encoded itself. %25 code stands for percent sign.
                         needToChange = true;
                         @out.Append("%25");
                     }
