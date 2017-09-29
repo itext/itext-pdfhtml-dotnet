@@ -149,7 +149,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
 
         [NUnit.Framework.Test]
         public virtual void Test19() {
-            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.CLASS_SPECIFICITY * 2, GetSpecificity(".class_name:lang(it)"
+            NUnit.Framework.Assert.AreEqual(CssSpecificityConstants.CLASS_SPECIFICITY * 2, GetSpecificity(".class_name:hover"
                 ));
         }
 

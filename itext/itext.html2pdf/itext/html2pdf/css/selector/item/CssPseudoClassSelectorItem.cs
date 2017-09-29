@@ -53,7 +53,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
     /// <see cref="ICssSelectorItem"/>
     /// implementation for pseudo class selectors.
     /// </summary>
-    public class CssPseudoClassSelectorItem : ICssSelectorItem {
+    public abstract class CssPseudoClassSelectorItem : ICssSelectorItem {
         /// <summary>The pseudo class.</summary>
         private String pseudoClass;
 
@@ -66,9 +66,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
         /// instance.
         /// </summary>
         /// <param name="pseudoClass">the pseudo class name</param>
-        [System.ObsoleteAttribute(@"not intended for public use Create(System.String) instead. This class will be abstract and this constructor will be protected in the next major release."
-            )]
-        public CssPseudoClassSelectorItem(String pseudoClass)
+        protected internal CssPseudoClassSelectorItem(String pseudoClass)
             : this(pseudoClass, "") {
         }
 
@@ -131,7 +129,29 @@ namespace iText.Html2pdf.Css.Selector.Item {
                 }
 
                 default: {
-                    return new iText.Html2pdf.Css.Selector.Item.CssPseudoClassSelectorItem(pseudoClass, arguments);
+                    //Still unsupported, should be addressed in DEVSIX-1440
+                    //case CssConstants.CHECKED:
+                    //case CssConstants.DISABLED:
+                    //case CssConstants.EMPTY:
+                    //case CssConstants.ENABLED:
+                    //case CssConstants.FIRST_OF_TYPE:
+                    //case CssConstants.IN_RANGE:
+                    //case CssConstants.INVALID:
+                    //case CssConstants.LANG:
+                    //case CssConstants.LAST_OF_TYPE:
+                    //case CssConstants.NTH_LAST_CHILD:
+                    //case CssConstants.NTH_LAST_OF_TYPE:
+                    //case CssConstants.NTH_OF_TYPE:
+                    //case CssConstants.ONLY_OF_TYPE:
+                    //case CssConstants.ONLY_CHILD:
+                    //case CssConstants.OPTIONAL:
+                    //case CssConstants.OUT_OF_RANGE:
+                    //case CssConstants.READ_ONLY:
+                    //case CssConstants.READ_WRITE:
+                    //case CssConstants.REQUIRED:
+                    //case CssConstants.ROOT:
+                    //case CssConstants.VALID:
+                    return null;
                 }
             }
         }
@@ -329,13 +349,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
             }
         }
 
-        public class NotSelectorItem : CssPseudoClassSelectorItem {
+        private class NotSelectorItem : CssPseudoClassSelectorItem {
             private ICssSelector argumentsSelector;
 
             internal NotSelectorItem(ICssSelector argumentsSelector)
                 : base(CssConstants.NOT, argumentsSelector.ToString()) {
-                //@TODO This class was made public because we need to detect to arguments contains unsupported pseudo classes
-                //revert the changes when the task DEVSIX-1440 is done
                 this.argumentsSelector = argumentsSelector;
             }
 

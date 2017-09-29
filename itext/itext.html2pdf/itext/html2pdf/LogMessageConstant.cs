@@ -149,6 +149,8 @@ namespace iText.Html2pdf {
         /// <summary>The Constant UNKNOWN_MARGIN_BOX_CHILD.</summary>
         public const String UNKNOWN_MARGIN_BOX_CHILD = "Unknown margin box child";
 
+        public const String UNSUPPORTED_PSEUDO_CSS_SELECTOR = "Unsupported pseudo css selector: {0}";
+
         public const String URL_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "url function is not properly closed in expression:{0}";
 
         public const String URL_IS_EMPTY_IN_CSS_EXPRESSION = "url function is empty in expression:{0}";

@@ -229,7 +229,8 @@ namespace iText.Html2pdf.Css.Parse {
                 else {
                     ICssSelectorItem pseudoClassSelectorItem = CssPseudoClassSelectorItem.Create(pseudoSelector.Substring(1));
                     if (pseudoClassSelectorItem == null) {
-                        throw new ArgumentException(MessageFormatUtil.Format("Invalid pseudo class selector: {0}", source));
+                        throw new ArgumentException(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNSUPPORTED_PSEUDO_CSS_SELECTOR
+                            , pseudoSelector));
                     }
                     selectorItems.Add(pseudoClassSelectorItem);
                 }
