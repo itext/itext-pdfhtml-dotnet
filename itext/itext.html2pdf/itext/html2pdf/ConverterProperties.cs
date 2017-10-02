@@ -247,7 +247,19 @@ namespace iText.Html2pdf {
             return immediateFlush;
         }
 
-        /// <summary>set the immediate flush property of the layout document</summary>
+        /// <summary>
+        /// set the immediate flush property of the layout document
+        /// This is used for convertToDocument methods and will be overwritten to
+        /// false if a page-counter declaration is present in the CSS of the HTML being
+        /// converted.
+        /// </summary>
+        /// <remarks>
+        /// set the immediate flush property of the layout document
+        /// This is used for convertToDocument methods and will be overwritten to
+        /// false if a page-counter declaration is present in the CSS of the HTML being
+        /// converted.
+        /// Has no effect when used in conjunction with convertToPdf or convertToElements
+        /// </remarks>
         /// <param name="immediateFlush">the immediate flush value</param>
         /// <returns>the ConverterProperties</returns>
         public virtual iText.Html2pdf.ConverterProperties SetImmediateFlush(bool immediateFlush) {
