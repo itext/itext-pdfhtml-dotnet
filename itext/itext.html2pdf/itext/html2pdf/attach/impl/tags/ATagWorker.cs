@@ -81,7 +81,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     UriResolver uriResolver = new UriResolver(@base);
                     if (!(url.StartsWith("#") && uriResolver.IsLocalBaseUri())) {
                         try {
-                            String resolvedUri = uriResolver.ResolveAgainstBaseUri(url).ToString();
+                            String resolvedUri = uriResolver.ResolveAgainstBaseUri(url).ToExternalForm();
+                            if (!url.EndsWith("/") && resolvedUri.EndsWith("/")) {
+                                resolvedUri = resolvedUri.JSubstring(0, resolvedUri.Length - 1);
+                            }
                             if (!resolvedUri.StartsWith("file:")) {
                                 url = resolvedUri;
                             }
