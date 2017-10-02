@@ -74,7 +74,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public HtmlTagWorker(IElementNode element, ProcessorContext context) {
-            bool immediateFlush = !context.GetCssContext().IsPagesCounterPresent();
+            bool immediateFlush = context.IsImmediateFlush() && !context.GetCssContext().IsPagesCounterPresent();
             PdfDocument pdfDocument = context.GetPdfDocument();
             document = new Document(pdfDocument, pdfDocument.GetDefaultPageSize(), immediateFlush);
             document.SetRenderer(new HtmlDocumentRenderer(document, immediateFlush));

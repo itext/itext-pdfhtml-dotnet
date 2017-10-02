@@ -87,6 +87,9 @@ namespace iText.Html2pdf.Attach {
         /// <summary>The outline handler.</summary>
         private OutlineHandler outlineHandler;
 
+        /// <summary>Indicates whether the document should be opened in immediate flush or not</summary>
+        private bool immediateFlush;
+
         /// <summary>The state.</summary>
         private State state;
 
@@ -144,6 +147,7 @@ namespace iText.Html2pdf.Attach {
             linkContext = new LinkContext();
             createAcroForm = converterProperties.IsCreateAcroForm();
             formFieldNameResolver = new FormFieldNameResolver();
+            immediateFlush = converterProperties.IsImmediateFlush();
         }
 
         /// <summary>Sets the font provider.</summary>
@@ -285,6 +289,12 @@ namespace iText.Html2pdf.Attach {
         /// <returns>the baseUri</returns>
         public virtual String GetBaseUri() {
             return baseUri;
+        }
+
+        /// <summary>Checks if immediateFlush is set</summary>
+        /// <returns>true if immediateFlush is set, false if not.</returns>
+        public virtual bool IsImmediateFlush() {
+            return immediateFlush;
         }
     }
 }
