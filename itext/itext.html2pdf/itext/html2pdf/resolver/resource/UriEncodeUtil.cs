@@ -137,6 +137,7 @@ namespace iText.Html2pdf.Resolver.Resource
             }
             charset = iText.IO.Util.EncodingUtil.GetEncoding(enc);
             int i = 0;
+            bool firstHash = true;
             int strLength = s.Length;
             while (i < strLength)
             {
@@ -171,7 +172,23 @@ namespace iText.Html2pdf.Resolver.Resource
                         @out.Append("%25");
                     }
                     i++;
-                }       
+                }
+                else if ('#' == c)
+                {
+                    // we want only the first hash to be left without percent encoding because C# encodes this way
+                    if (firstHash)
+                    {
+                        @out.Append((char)c);
+                        firstHash = false;
+                    }
+                    else
+                    {
+                        @out.Append("%23");
+                        needToChange = true;
+                    }
+                    i++;
+
+                }
                 else if (c < unreservedAndReserved.Length && unreservedAndReserved.Get(c))
                 {
                     @out.Append((char)c);
