@@ -88,7 +88,8 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                     borderWidthValue = value;
                 }
                 else {
-                    if (CssConstants.BORDER_STYLE_VALUES.Contains(value) || value.Equals("auto")) {
+                    if (CssConstants.BORDER_STYLE_VALUES.Contains(value) || value.Equals(CssConstants.AUTO)) {
+                        // AUTO property value is needed for outline property only
                         borderStyleValue = value;
                     }
                     else {
