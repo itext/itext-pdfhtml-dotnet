@@ -313,6 +313,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant OUTLINE_COLOR.</summary>
         public const String OUTLINE_COLOR = "outline-color";
 
+        /// <summary>The Constant OUTLINE_OFFSET.</summary>
+        public const String OUTLINE_OFFSET = "outline-offset";
+
         /// <summary>The Constant OUTLINE_STYLE.</summary>
         public const String OUTLINE_STYLE = "outline-style";
 
