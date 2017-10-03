@@ -40,13 +40,41 @@
     For more information, please contact iText Software Corp. at this
     address: sales@itextpdf.com */
 using System;
-using iText.Html2pdf.Css.W3c;
+using System.IO;
+using iText.Html2pdf;
+using iText.IO.Util;
+using iText.Kernel.Utils;
+using System.Collections.Generic;
+using System.Reflection;
+using System.IO;
+using Versions.Attributes;
+using iText.Kernel;
+using iText.Test;
 
-namespace iText.Html2pdf.Css.W3c.Css_ui_3 {
-    [NUnit.Framework.Ignore("DEVSIX-1578")]
-    public class Outline008Test : W3CCssTest {
-        protected internal override String GetHtmlFileName() {
-            return "outline-008.html";
+namespace iText.Html2pdf.Css {
+    public class CssInheritanceTest : ExtendedITextTest {
+        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssInheritanceTest/";
+
+        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+             + "/test/itext/html2pdf/css/CssInheritanceTest/";
+
+        [NUnit.Framework.OneTimeSetUp]
+        public static void BeforeClass() {
+            CreateDestinationFolder(destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Ignore("DEVSIX-1578")]
+        [NUnit.Framework.Test]
+        public virtual void CssInheritanceTest01() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance01.html"), new FileInfo(destinationFolder
+                 + "cssInheritance01.pdf"));
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssInheritance01.html"
+                ).AbsolutePath + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance01.pdf"
+                , sourceFolder + "cmp_cssInheritance01.pdf", destinationFolder, "diff01_"));
         }
     }
 }
