@@ -116,5 +116,17 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssOutline04.pdf", sourceFolder
                  + "cmp_cssOutline04.pdf", destinationFolder, "diff04_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CssOutlineTest05() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssOutline05.html"), new FileInfo(destinationFolder
+                 + "cssOutline05.pdf"));
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssOutline05.html"
+                ).AbsolutePath + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssOutline05.pdf", sourceFolder
+                 + "cmp_cssOutline05.pdf", destinationFolder, "diff05_"));
+        }
     }
 }
