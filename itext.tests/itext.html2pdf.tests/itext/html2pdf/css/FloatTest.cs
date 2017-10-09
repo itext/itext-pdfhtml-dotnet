@@ -162,9 +162,9 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("In this test css property overflow: hidden is ignored by iText. This leads to invalid results. Perhaps, one day it will be fixed"
-            )]
         public virtual void Float14Test() {
+            //NOTE: in this test overflow property creates new block-context and element is floating in this block context
+            //the block-context based floating is unsupported in iText
             RunTest("float14Test", "diff14_");
         }
 

@@ -157,16 +157,16 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains 'box-shadow' in css")]
         public virtual void HrTest13() {
+            //box-shadow property is not supported in iText
             RunHrTest("13");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains 'gradient' in css in 'background-image'")]
         public virtual void HrTest14() {
+            //gradient function is not supported in iText
             RunHrTest("14");
         }
 

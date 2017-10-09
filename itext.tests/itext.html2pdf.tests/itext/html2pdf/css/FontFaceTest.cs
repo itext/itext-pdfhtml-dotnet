@@ -158,7 +158,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains ttc font")]
         public virtual void FontFaceTtcTest() {
             RunTest("fontFaceTtcTest");
         }
@@ -173,7 +172,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains ttc font")]
         public virtual void FontFaceWoff2TtcTest() {
             RunTest("fontFaceWoff2TtcTest");
         }
@@ -183,15 +181,17 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest01() {
             //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+            //See BlocksMetadataPadding001Test in io for decompression details
             RunTest("w3cProblemTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1520")]
+        [NUnit.Framework.Ignore("DEVSIX-1520, DEVSIX-1612")]
         public virtual void W3cProblemTest02() {
             //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
+            //See DirectoryTableOrder002Test in io for decompression details
             RunTest("w3cProblemTest02");
         }
 
@@ -200,6 +200,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest03() {
             //TODO: silently omitted, decompression should fail.
+            //See HeaderFlavor001Test in io for decompression details
             RunTest("w3cProblemTest03");
         }
 
@@ -208,6 +209,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest04() {
             //TODO: silently omitted, decompression should fail. Browser loads font but don't draw glyph.
+            //See HeaderFlavor002Test in io for decompression details
             RunTest("w3cProblemTest04");
         }
 
@@ -216,6 +218,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest05() {
             //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+            //See HeaderReserved001Test in io for decompression details
             RunTest("w3cProblemTest05");
         }
 
@@ -224,15 +227,17 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest06() {
             //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+            //See TabledataHmtxTransform003Test in io for decompression details
             RunTest("w3cProblemTest06");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1520")]
+        [NUnit.Framework.Ignore("DEVSIX-1520, DEVSIX-1612")]
         public virtual void W3cProblemTest07() {
             //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
+            //See ValidationOff012Test in io for decompression details
             RunTest("w3cProblemTest07");
         }
 

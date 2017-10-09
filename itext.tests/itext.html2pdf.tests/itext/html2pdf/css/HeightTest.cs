@@ -114,7 +114,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("little fixed parent height of kid with lots of content results in empty page")]
         public virtual void HeightTest05() {
             String testName = "heightTest05";
             String diffPrefix = "diff05_";
