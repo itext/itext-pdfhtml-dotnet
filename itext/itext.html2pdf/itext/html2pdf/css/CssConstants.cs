@@ -257,6 +257,8 @@ namespace iText.Html2pdf.Css {
         public const String HEIGHT = "height";
 
         /// <summary>The Constant HSPACE.</summary>
+        [System.ObsoleteAttribute(@"Use iText.Html2pdf.Html.AttributeConstants.HSPACE instead. Will be removed in 7.1."
+            )]
         public const String HSPACE = "hspace";
 
         /// <summary>The Constant HYPHENS.</summary>
@@ -428,6 +430,8 @@ namespace iText.Html2pdf.Css {
         public const String VISIBILITY = "visibility";
 
         /// <summary>The Constant VSPACE.</summary>
+        [System.ObsoleteAttribute(@"Use iText.Html2pdf.Html.AttributeConstants.VSPACE instead. Will be removed in 7.1."
+            )]
         public const String VSPACE = "vspace";
 
         /// <summary>The Constant WHITE_SPACE.</summary>
