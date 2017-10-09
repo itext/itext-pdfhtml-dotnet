@@ -50,6 +50,8 @@ namespace iText.Html2pdf.Css {
     /// </summary>
     public class CssConstants {
         /// <summary>The Constant ALIGN.</summary>
+        [System.ObsoleteAttribute(@"Use iText.Html2pdf.Html.AttributeConstants.ALIGN instead. Will be removed in 7.1."
+            )]
         public const String ALIGN = "align";
 
         /// <summary>The Constant BACKGROUND.</summary>
@@ -374,12 +376,6 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant TAB_SIZE.</summary>
         public const String TAB_SIZE = "tab-size";
-
-        /// <summary>The Constant TABLE_CELL.</summary>
-        public const String TABLE_CELL = "table-cell";
-
-        /// <summary>The Constant TABLE_ROW.</summary>
-        public const String TABLE_ROW = "table-row";
 
         /// <summary>The Constant TABLE_LAYOUT.</summary>
         public const String TABLE_LAYOUT = "table-layout";
@@ -784,6 +780,12 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant TABLE.</summary>
         public const String TABLE = "table";
+
+        /// <summary>The Constant TABLE_CELL.</summary>
+        public const String TABLE_CELL = "table-cell";
+
+        /// <summary>The Constant TABLE_ROW.</summary>
+        public const String TABLE_ROW = "table-row";
 
         /// <summary>The Constant TEXT_BOTTOM.</summary>
         public const String TEXT_BOTTOM = "text-bottom";
