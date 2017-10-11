@@ -82,6 +82,8 @@ namespace iText.Html2pdf.Css.Resolve {
                 ());
             htmlAttributeConverters.Put(AttributeConstants.VALIGN, new HtmlStylesToCssConverter.VAlignAttributeConverter
                 ());
+            htmlAttributeConverters.Put(AttributeConstants.START, new HtmlStylesToCssConverter.StartAttributeConverter
+                ());
         }
 
         /// <summary>
@@ -603,6 +605,26 @@ namespace iText.Html2pdf.Css.Resolve {
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
+            }
+        }
+
+        /// <summary>
+        /// <see cref="IAttributeConverter"/>
+        /// implementation for HTML ordered list start attirbute.
+        /// </summary>
+        private class StartAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
+            public virtual bool IsSupportedForElement(String elementName) {
+                return TagConstants.OL.Equals(elementName);
+            }
+
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
+                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.START, value));
             }
         }
     }

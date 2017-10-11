@@ -227,6 +227,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant TOP.</summary>
         public const String TOP = "top";
 
+        /// <summary>The Constant start</summary>
+        public const String START = "start";
+
         /// <summary>The Constant PARENT_TABLE_BORDER.</summary>
         public const String PARENT_TABLE_BORDER = "parenttableborder";
         // attribute values

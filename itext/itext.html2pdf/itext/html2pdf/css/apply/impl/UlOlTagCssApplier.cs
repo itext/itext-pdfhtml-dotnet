@@ -73,6 +73,11 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             }
             ListStyleApplierUtil.ApplyListStyleTypeProperty(stylesContainer, css, context, list);
             ListStyleApplierUtil.ApplyListStyleImageProperty(css, context, list);
+            //For an ordered list, check and potentially retrieve the start property
+            if (css.Get(CssConstants.START) != null) {
+                int startValue = System.Convert.ToInt32(css.Get(CssConstants.START));
+                list.SetItemStartIndex(startValue);
+            }
             base.Apply(context, stylesContainer, tagWorker);
         }
     }
