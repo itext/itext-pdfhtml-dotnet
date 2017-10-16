@@ -45,6 +45,7 @@ using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
+using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html.Node;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -75,8 +76,10 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             ListStyleApplierUtil.ApplyListStyleImageProperty(css, context, list);
             //For an ordered list, check and potentially retrieve the start property
             if (css.Get(CssConstants.START) != null) {
-                int startValue = System.Convert.ToInt32(css.Get(CssConstants.START));
-                list.SetItemStartIndex(startValue);
+                int? startValue = CssUtils.ParseInteger(css.Get(CssConstants.START));
+                if (startValue != null) {
+                    list.SetItemStartIndex((int)startValue);
+                }
             }
             base.Apply(context, stylesContainer, tagWorker);
         }
