@@ -111,7 +111,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 baseline = flatBBox.GetTop();
                 flatBBox.SetY(baseline).SetHeight(0);
             }
-            flatBBox.SetWidth(GetContentWidth().Value);
+            flatBBox.SetWidth((float)GetContentWidth());
         }
 
         /* (non-Javadoc)

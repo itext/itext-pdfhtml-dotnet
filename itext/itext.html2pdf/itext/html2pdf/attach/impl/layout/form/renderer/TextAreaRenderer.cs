@@ -128,7 +128,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
                 flatBBox.SetHeight(0);
             }
-            flatBBox.SetWidth(GetContentWidth().Value);
+            flatBBox.SetWidth((float)GetContentWidth());
         }
 
         /* (non-Javadoc)
