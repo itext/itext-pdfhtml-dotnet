@@ -140,7 +140,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             outlineWidthValue = unitValue.GetValue();
             Border outline = null;
             if (outlineWidthValue > 0) {
-                DeviceRgb color = (DeviceRgb)Color.BLACK;
+                DeviceRgb color = (DeviceRgb)ColorConstants.BLACK;
                 float opacity = 1f;
                 if (outlineColor != null) {
                     if (!CssConstants.TRANSPARENT.Equals(outlineColor)) {

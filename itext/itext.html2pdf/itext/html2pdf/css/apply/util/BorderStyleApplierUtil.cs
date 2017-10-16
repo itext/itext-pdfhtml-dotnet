@@ -164,7 +164,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             borderWidthValue = unitValue.GetValue();
             Border border = null;
             if (borderWidthValue > 0) {
-                DeviceRgb color = (DeviceRgb)Color.BLACK;
+                DeviceRgb color = (DeviceRgb)ColorConstants.BLACK;
                 float opacity = 1f;
                 if (borderColor != null) {
                     if (!CssConstants.TRANSPARENT.Equals(borderColor)) {
