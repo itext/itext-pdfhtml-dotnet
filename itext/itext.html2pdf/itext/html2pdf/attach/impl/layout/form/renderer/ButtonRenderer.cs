@@ -127,11 +127,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             ApplyPaddings(area, true);
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
             PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSize);
-            ApplyDefaultFieldProperties(button);
             Background background = this.GetProperty<Background>(Property.BACKGROUND);
             if (background != null && background.GetColor() != null) {
                 button.SetBackgroundColor(background.GetColor());
             }
+            ApplyDefaultFieldProperties(button);
             PdfAcroForm.GetAcroForm(doc, true).AddField(button, page);
         }
 

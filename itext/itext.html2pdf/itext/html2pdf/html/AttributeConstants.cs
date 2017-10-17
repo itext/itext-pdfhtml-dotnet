@@ -104,6 +104,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant HREF.</summary>
         public const String HREF = "href";
 
+        /// <summary>The Constant HSPACE.</summary>
+        public const String HSPACE = "hspace";
+
         /// <summary>The Constant ID.</summary>
         public const String ID = "id";
 
@@ -151,6 +154,9 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant VALUE.</summary>
         public const String VALUE = "value";
+
+        /// <summary>The Constant VSPACE.</summary>
+        public const String VSPACE = "vspace";
 
         /// <summary>The Constant WIDTH.</summary>
         public const String WIDTH = "width";
@@ -220,6 +226,9 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant TOP.</summary>
         public const String TOP = "top";
+
+        /// <summary>The Constant start</summary>
+        public const String START = "start";
 
         /// <summary>The Constant PARENT_TABLE_BORDER.</summary>
         public const String PARENT_TABLE_BORDER = "parenttableborder";

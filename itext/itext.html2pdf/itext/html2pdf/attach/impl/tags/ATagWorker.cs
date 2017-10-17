@@ -45,6 +45,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
+using iText.Html2pdf.Resolver.Resource;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
@@ -75,6 +76,23 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             base.ProcessEnd(element, context);
             String url = element.GetAttribute(AttributeConstants.HREF);
             if (url != null) {
+                String @base = context.GetBaseUri();
+                if (@base != null) {
+                    UriResolver uriResolver = new UriResolver(@base);
+                    if (!(url.StartsWith("#") && uriResolver.IsLocalBaseUri())) {
+                        try {
+                            String resolvedUri = uriResolver.ResolveAgainstBaseUri(url).ToExternalForm();
+                            if (!url.EndsWith("/") && resolvedUri.EndsWith("/")) {
+                                resolvedUri = resolvedUri.JSubstring(0, resolvedUri.Length - 1);
+                            }
+                            if (!resolvedUri.StartsWith("file:")) {
+                                url = resolvedUri;
+                            }
+                        }
+                        catch (UriFormatException) {
+                        }
+                    }
+                }
                 for (int i = 0; i < GetAllElements().Count; i++) {
                     if (GetAllElements()[i] is IBlockElement) {
                         Div simulatedDiv = new Div();

@@ -77,7 +77,8 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Absolute position for elements that break across pages is not supported")]
+        [NUnit.Framework.Ignore("DEVSIX-1616: Absolute position for elements that break across pages is not supported"
+            )]
         public virtual void AbsolutePosition02Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "absolutePositionTest02.html"), new FileInfo(destinationFolder
                  + "absolutePositionTest02.pdf"));

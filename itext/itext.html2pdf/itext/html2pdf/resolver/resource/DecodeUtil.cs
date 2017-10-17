@@ -49,6 +49,7 @@ namespace iText.Html2pdf.Resolver.Resource
     /// <summary>
     /// Utilities class to decode HTML strings to a strings in a specific encoding.
     /// </summary>
+    [System.ObsoleteAttribute(@"Will be removed in iText 7.1")]
     public class DecodeUtil
     {
 
@@ -116,6 +117,8 @@ namespace iText.Html2pdf.Resolver.Resource
                         bytes = new byte[(numChars - i) / 3];
                     }
                     int pos = 0;
+                    bool incrementLater = !(i + 2 < numChars);
+
                     while (((i + 2) < numChars) && (c == '%'))
                     {
                         int v;
@@ -146,6 +149,8 @@ namespace iText.Html2pdf.Resolver.Resource
                     {
                         bytes[pos++] = (byte)c;
                     }
+                    if (incrementLater)
+                        i++;
                     try
                     {
                         sb.Append(iText.IO.Util.JavaUtil.GetStringForBytes(bytes, 0, pos, enc));

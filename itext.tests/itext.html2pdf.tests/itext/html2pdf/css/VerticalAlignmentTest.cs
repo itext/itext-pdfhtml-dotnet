@@ -89,14 +89,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Vertical alignment for inline images is not supported yet.")]
-        public virtual void VerticalAlignmentTest04() {
-            RunTest("verticalAlignmentTest04");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest05() {
             RunTest("verticalAlignmentTest05");
         }

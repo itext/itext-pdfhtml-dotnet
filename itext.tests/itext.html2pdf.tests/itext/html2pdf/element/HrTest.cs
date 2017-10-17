@@ -49,6 +49,7 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class HrTest : ExtendedITextTest {
@@ -157,16 +158,17 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains 'box-shadow' in css")]
         public virtual void HrTest13() {
+            //box-shadow property is not supported in iText
             RunHrTest("13");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains 'gradient' in css in 'background-image'")]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
         public virtual void HrTest14() {
+            //gradient function is not supported in iText
             RunHrTest("14");
         }
 

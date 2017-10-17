@@ -94,15 +94,48 @@ namespace iText.Html2pdf {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void ResourceResolverTest08() {
-            String outPdf = destinationFolder + "resourceResolverTest08.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceResolverTest08.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceResolverTest08.html"), new FileInfo(outPdf
+        public virtual void ResourceResolverTest09()
+        {
+            String outPdf = destinationFolder + "resourceResolverTest09.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest09.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceResolverTest09.html"), new FileInfo(outPdf
             ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff08_"
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff09_"
             ));
         }
-        
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ResourceResolverTest10()
+        {
+            String outPdf = destinationFolder + "resourceResolverTest10.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest10.pdf";
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest10.html", FileMode.Open, FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create)) {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().SetBaseUri("%homepath%"));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff10_"));
+            } 
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ResourceResolverTest11()
+        {
+            String outPdf = destinationFolder + "resourceResolverTest11.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest11.pdf";
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest11.html", FileMode.Open, FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().SetBaseUri("https://en.wikipedia.org/wiki/Welsh_Corgi"));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff11_"));
+            }
+        }
+
+
         // TODO test with absolute http links for resources?
         // TODO test with http base URI?
     }

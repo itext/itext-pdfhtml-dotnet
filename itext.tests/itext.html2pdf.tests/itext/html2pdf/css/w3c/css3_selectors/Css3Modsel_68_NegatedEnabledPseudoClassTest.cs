@@ -43,7 +43,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css3_selectors {
-    [NUnit.Framework.Ignore("DEVSIX-1388")]
+    [NUnit.Framework.Ignore("DEVSIX-1440")]
     public class Css3Modsel_68_NegatedEnabledPseudoClassTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "css3-modsel-68.html";

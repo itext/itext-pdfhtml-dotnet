@@ -75,6 +75,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 PageBreakApplierUtil.ApplyPageBreakProperties(cssProps, context, container);
                 OverflowApplierUtil.ApplyOverflow(cssProps, container);
                 TransformationApplierUtil.ApplyTransformation(cssProps, context, container);
+                OutlineApplierUtil.ApplyOutlines(cssProps, context, container);
             }
         }
     }

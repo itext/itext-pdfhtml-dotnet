@@ -46,7 +46,7 @@ using iText.Forms.Fields;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Kernel.Font;
 using iText.Kernel.Geom;
-using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Annot;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
@@ -76,7 +76,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <returns>the renderer</returns>
         internal virtual IRenderer CreateParagraphRenderer(String defaultValue) {
             if (String.IsNullOrEmpty(defaultValue.Trim())) {
-                // TODO: change to 'defaultValue = "\u00A0"' after trimming of non-breakable spaces is fixed;
+                // TODO DEVSIX-1491: change to 'defaultValue = "\u00A0"' after trimming of non-breakable spaces is fixed;
                 defaultValue = "\u00B7";
             }
             Paragraph paragraph = new Paragraph(defaultValue).SetMargin(0);
@@ -109,7 +109,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <summary>Applies the default field properties.</summary>
         /// <param name="inputField">the input field</param>
         internal virtual void ApplyDefaultFieldProperties(PdfFormField inputField) {
-            inputField.GetWidgets()[0].SetHighlightMode(PdfName.N);
+            inputField.GetWidgets()[0].SetHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
             inputField.SetBorderWidth(0);
             TransparentColor color = GetPropertyAsTransparentColor(Property.FONT_COLOR);
             if (color != null) {

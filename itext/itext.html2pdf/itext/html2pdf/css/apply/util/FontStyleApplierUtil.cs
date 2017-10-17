@@ -99,7 +99,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     transparentColor = new TransparentColor(color, opacity);
                 }
                 else {
-                    transparentColor = new TransparentColor(Color.BLACK, 0f);
+                    transparentColor = new TransparentColor(ColorConstants.BLACK, 0f);
                 }
                 element.SetProperty(Property.FONT_COLOR, transparentColor);
             }
