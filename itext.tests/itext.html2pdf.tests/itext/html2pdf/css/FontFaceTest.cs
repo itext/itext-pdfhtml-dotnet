@@ -188,7 +188,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1520, DEVSIX-1612")]
+        [NUnit.Framework.Ignore("DEVSIX-1612")]
         public virtual void W3cProblemTest02() {
             //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
             //See DirectoryTableOrder002Test in io for decompression details
@@ -236,7 +236,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1520, DEVSIX-1612")]
+        [NUnit.Framework.Ignore("DEVSIX-1612")]
         public virtual void W3cProblemTest07() {
             //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
             //See ValidationOff012Test in io for decompression details
