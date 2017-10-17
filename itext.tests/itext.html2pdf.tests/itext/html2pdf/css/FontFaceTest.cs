@@ -149,8 +149,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1368: font-face alias is not recognized correctly by font selector if it is specified in quotes"
-            )]
         public virtual void FontFaceWoffTest02() {
             RunTest("fontFaceWoffTest02");
         }
@@ -209,9 +207,11 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void W3cProblemTest04() {
             //TODO: silently omitted, decompression should fail. Browser loads font but don't draw glyph.
             //See HeaderFlavor002Test in io for decompression details
+            //NOTE, iText fails on subsetting as expected.
             RunTest("w3cProblemTest04");
         }
 
