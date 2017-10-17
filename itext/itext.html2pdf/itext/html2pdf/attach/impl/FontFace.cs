@@ -46,6 +46,7 @@ using System.Text.RegularExpressions;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.IO.Util;
+using iText.Layout.Font;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>
@@ -76,7 +77,7 @@ namespace iText.Html2pdf.Attach.Impl {
             String srcs = null;
             foreach (CssDeclaration descriptor in properties) {
                 if ("font-family".Equals(descriptor.GetProperty())) {
-                    fontFamily = descriptor.GetExpression();
+                    fontFamily = FontFamilySplitter.RemoveQuotes(descriptor.GetExpression());
                 }
                 else {
                     if ("src".Equals(descriptor.GetProperty())) {

@@ -95,16 +95,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             float? minHeight = RetrieveMinHeight();
             float? maxHeight = RetrieveMaxHeight();
             Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
-            if (height != null && height.Value > 0) {
-                SetContentHeight(flatBBox, height.Value);
+            if (height != null && (float)height > 0) {
+                SetContentHeight(flatBBox, (float)height);
             }
             else {
-                if (minHeight != null && minHeight.Value > flatBBox.GetHeight()) {
-                    SetContentHeight(flatBBox, minHeight.Value);
+                if (minHeight != null && (float)minHeight > flatBBox.GetHeight()) {
+                    SetContentHeight(flatBBox, (float)minHeight);
                 }
                 else {
-                    if (maxHeight != null && maxHeight.Value > 0 && maxHeight.Value < flatBBox.GetHeight()) {
-                        SetContentHeight(flatBBox, maxHeight.Value);
+                    if (maxHeight != null && (float)maxHeight > 0 && (float)maxHeight < flatBBox.GetHeight()) {
+                        SetContentHeight(flatBBox, (float)maxHeight);
                     }
                 }
             }

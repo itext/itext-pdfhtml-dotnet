@@ -149,8 +149,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1368: font-face alias is not recognized correctly by font selector if it is specified in quotes"
-            )]
         public virtual void FontFaceWoffTest02() {
             RunTest("fontFaceWoffTest02");
         }
@@ -190,7 +188,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1520, DEVSIX-1612")]
+        [NUnit.Framework.Ignore("DEVSIX-1612")]
         public virtual void W3cProblemTest02() {
             //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
             //See DirectoryTableOrder002Test in io for decompression details
@@ -209,9 +207,11 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void W3cProblemTest04() {
             //TODO: silently omitted, decompression should fail. Browser loads font but don't draw glyph.
             //See HeaderFlavor002Test in io for decompression details
+            //NOTE, iText fails on subsetting as expected.
             RunTest("w3cProblemTest04");
         }
 
@@ -236,7 +236,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1520, DEVSIX-1612")]
+        [NUnit.Framework.Ignore("DEVSIX-1612")]
         public virtual void W3cProblemTest07() {
             //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
             //See ValidationOff012Test in io for decompression details
