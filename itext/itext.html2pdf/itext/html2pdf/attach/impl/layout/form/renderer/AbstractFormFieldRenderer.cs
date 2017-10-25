@@ -41,8 +41,8 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using Common.Logging;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
-using iText.IO.Log;
 using iText.Kernel.Geom;
 using iText.Layout.Layout;
 using iText.Layout.Minmaxwidth;
@@ -152,7 +152,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                     return RetrieveWidth(0);
                 }
                 else {
-                    LoggerFactory.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_SUPPORTS_ONLY_POINT_WIDTH);
+                    LogManager.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_SUPPORTS_ONLY_POINT_WIDTH);
                 }
             }
             return null;
@@ -226,7 +226,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 ApplyMargins(occupiedArea.GetBBox(), true);
             }
             else {
-                LoggerFactory.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD
+                LogManager.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD
                 );
                 occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
             }
@@ -241,7 +241,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 }
             }
             if (result.GetStatus() != LayoutResult.FULL || !IsRendererFit(parentWidth, parentHeight)) {
-                LoggerFactory.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
+                LogManager.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
             }
             return new MinMaxWidthLayoutResult(LayoutResult.FULL, occupiedArea, this, null).SetMinMaxWidth(new MinMaxWidth
                 (0, parentWidth, occupiedArea.GetBBox().GetWidth(), occupiedArea.GetBBox().GetWidth()));

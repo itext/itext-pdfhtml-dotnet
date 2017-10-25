@@ -42,10 +42,10 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.Html2pdf.Css.Util;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
@@ -185,7 +185,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
         /// <param name="slashEncountered">indicates whether a slash was encountered</param>
         private void PutPropertyBasedOnType(int type, String value, String[] resolvedProps, bool slashEncountered) {
             if (type == UNDEFINED_TYPE) {
-                ILogger logger = LoggerFactory.GetLogger(typeof(BackgroundShorthandResolver));
+                ILog logger = LogManager.GetLogger(typeof(BackgroundShorthandResolver));
                 logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES
                     , value));
                 return;

@@ -42,17 +42,17 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Selector;
 using iText.Html2pdf.Css.Util;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Parse {
     /// <summary>Utilities class to parse CSS rule sets.</summary>
     public sealed class CssRuleSetParser {
         /// <summary>The logger.</summary>
-        private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Parse.CssRuleSetParser
+        private static readonly ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Parse.CssRuleSetParser
             ));
 
         /// <summary>

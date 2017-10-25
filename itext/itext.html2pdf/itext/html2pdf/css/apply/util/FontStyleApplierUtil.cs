@@ -42,11 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Log;
 using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Canvas;
@@ -57,7 +57,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply font styles.</summary>
     public sealed class FontStyleApplierUtil {
         /// <summary>The logger.</summary>
-        private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.FontStyleApplierUtil
+        private static readonly ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.FontStyleApplierUtil
             ));
 
         /// <summary>

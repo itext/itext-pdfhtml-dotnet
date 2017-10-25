@@ -42,18 +42,18 @@ address: sales@itextpdf.com
 */
 using System;
 using System.IO;
+using Common.Logging;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Jsoup.Nodes;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup {
     /// <summary>Class that uses JSoup to parse HTML.</summary>
     public class JsoupHtmlParser : IHtmlParser {
         /// <summary>The logger.</summary>
-        private static ILogger logger = LoggerFactory.GetLogger(typeof(JsoupHtmlParser));
+        private static ILog logger = LogManager.GetLogger(typeof(JsoupHtmlParser));
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.html.IHtmlParser#parse(java.io.InputStream, java.lang.String)

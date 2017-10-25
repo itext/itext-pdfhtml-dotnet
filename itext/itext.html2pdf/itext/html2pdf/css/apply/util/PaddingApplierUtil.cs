@@ -42,10 +42,10 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
-using iText.IO.Log;
 using iText.Layout;
 using iText.Layout.Properties;
 
@@ -53,7 +53,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply a padding.</summary>
     public sealed class PaddingApplierUtil {
         /// <summary>The logger.</summary>
-        private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.PaddingApplierUtil
+        private static readonly ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.PaddingApplierUtil
             ));
 
         /// <summary>

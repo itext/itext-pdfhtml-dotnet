@@ -42,8 +42,8 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Text;
+using Common.Logging;
 using iText.Html2pdf.Css;
-using iText.IO.Log;
 using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Layout.Properties;
@@ -192,7 +192,7 @@ namespace iText.Html2pdf.Css.Util {
                     }
                 }
             }
-            ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Util.CssUtils));
+            ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Util.CssUtils));
             logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED
                 , unit.Equals("") ? defaultMetric : unit));
             return f;
@@ -331,7 +331,7 @@ namespace iText.Html2pdf.Css.Util {
         public static float[] ParseRgbaColor(String colorValue) {
             float[] rgbaColor = WebColors.GetRGBAColor(colorValue);
             if (rgbaColor == null) {
-                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Util.CssUtils));
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Util.CssUtils));
                 logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.COLOR_NOT_PARSED, colorValue));
                 rgbaColor = new float[] { 0, 0, 0, 1 };
             }

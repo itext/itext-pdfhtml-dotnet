@@ -18,6 +18,7 @@
     <tags>itext itext7 itextsharp c# .net csharp pdf html pdfhtml</tags>
     <dependencies>
       <dependency id="itext7" version="7.1.0-SNAPSHOT" />
+      <dependency id="Common.Logging" version="3.4.1" />
     </dependencies>
   </metadata>
   <files>

@@ -41,8 +41,8 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
@@ -89,7 +89,7 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
                 ((iText.Html2pdf.Html.Impl.Jsoup.Node.JsoupNode)node).parentNode = this;
             }
             else {
-                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Html.Impl.Jsoup.Node.JsoupNode));
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Html.Impl.Jsoup.Node.JsoupNode));
                 logger.Error("Error adding child node");
             }
         }

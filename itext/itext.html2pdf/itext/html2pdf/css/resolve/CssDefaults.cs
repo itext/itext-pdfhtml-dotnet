@@ -42,8 +42,8 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Css;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
@@ -124,7 +124,7 @@ namespace iText.Html2pdf.Css.Resolve {
         public static String GetDefaultValue(String property) {
             String defaultVal = defaultValues.Get(property);
             if (defaultVal == null) {
-                ILogger logger = LoggerFactory.GetLogger(typeof(CssDefaults));
+                ILog logger = LogManager.GetLogger(typeof(CssDefaults));
                 logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
                     , property));
             }

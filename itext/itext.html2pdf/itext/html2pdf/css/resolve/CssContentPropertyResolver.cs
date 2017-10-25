@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Css.Pseudo;
@@ -49,14 +50,13 @@ using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>The Class CssContentPropertyResolver.</summary>
     internal class CssContentPropertyResolver {
         /// <summary>The logger.</summary>
-        private static readonly ILogger logger = LoggerFactory.GetLogger(typeof(CssContentPropertyResolver));
+        private static readonly ILog logger = LogManager.GetLogger(typeof(CssContentPropertyResolver));
 
         /// <summary>Resolves content.</summary>
         /// <param name="styles">the styles map</param>
@@ -200,7 +200,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// instances
         /// </returns>
         private static IList<INode> ErrorFallback(String contentStr) {
-            ILogger logger = LoggerFactory.GetLogger(typeof(CssContentPropertyResolver));
+            ILog logger = LogManager.GetLogger(typeof(CssContentPropertyResolver));
             int logMessageParameterMaxLength = 100;
             if (contentStr.Length > logMessageParameterMaxLength) {
                 contentStr = contentStr.JSubstring(0, logMessageParameterMaxLength) + ".....";
