@@ -90,7 +90,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
 
         /// <summary>Updates the paragraph height.</summary>
         private void UpdateParagraphHeight() {
-            OverrideHeightProperties();
             float? height = RetrieveHeight();
             float? minHeight = RetrieveMinHeight();
             float? maxHeight = RetrieveMaxHeight();

@@ -150,8 +150,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             if (width != null) {
                 if (width.IsPointValue()) {
                     return RetrieveWidth(0);
-                }
-                else {
+                } else {
                     LoggerFactory.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_SUPPORTS_ONLY_POINT_WIDTH);
                 }
             }
@@ -167,8 +166,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             flatRenderer = null;
             float parentWidth = layoutContext.GetArea().GetBBox().GetWidth();
             float parentHeight = layoutContext.GetArea().GetBBox().GetHeight();
-            float? maxHeight = this.GetProperty<float?>(Property.MAX_HEIGHT);
-            float? height = this.GetProperty<float?>(Property.HEIGHT);
+            UnitValue maxHeight = this.GetProperty<UnitValue>(Property.MAX_HEIGHT);
+            UnitValue height = this.GetProperty<UnitValue>(Property.HEIGHT);
             bool restoreMaxHeight = HasOwnProperty(Property.MAX_HEIGHT);
             bool restoreHeight = HasOwnProperty(Property.HEIGHT);
             SetProperty(Property.MAX_HEIGHT, null);
@@ -184,14 +183,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             LayoutResult result = base.Layout(layoutContext);
             if (restoreMaxHeight) {
                 SetProperty(Property.MAX_HEIGHT, maxHeight);
-            }
-            else {
+            } else {
                 DeleteOwnProperty(Property.MAX_HEIGHT);
             }
             if (restoreHeight) {
                 SetProperty(Property.HEIGHT, height);
-            }
-            else {
+            } else {
                 DeleteOwnProperty(Property.HEIGHT);
             }
             if (!true.Equals(GetPropertyAsBoolean(Property.FORCED_PLACEMENT)) && (result.GetStatus() != LayoutResult.FULL
@@ -224,8 +221,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 ApplyPaddings(occupiedArea.GetBBox(), true);
                 ApplyBorderBox(occupiedArea.GetBBox(), true);
                 ApplyMargins(occupiedArea.GetBBox(), true);
-            }
-            else {
+            } else {
                 LoggerFactory.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD
                 );
                 occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
