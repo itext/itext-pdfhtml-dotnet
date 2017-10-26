@@ -281,7 +281,7 @@ namespace iText.Html2pdf.Jsoup.Parser {
         }
 
         internal Token.Tag CreateTagPending(bool start) {
-            tagPending = start ? ((Token.Tag)startPending.Reset()) : ((Token.Tag)endPending.Reset());
+            tagPending = (Token.Tag)(start ? startPending.Reset() : endPending.Reset());
             return tagPending;
         }
 

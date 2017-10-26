@@ -856,8 +856,8 @@ namespace iText.Html2pdf.Jsoup.Parser {
             iText.Html2pdf.Jsoup.Nodes.Element lastTable = GetFromStack("table");
             bool isLastTableParent = false;
             if (lastTable != null) {
-                if (((iText.Html2pdf.Jsoup.Nodes.Element)lastTable.Parent()) != null) {
-                    fosterParent = ((iText.Html2pdf.Jsoup.Nodes.Element)lastTable.Parent());
+                if (lastTable.Parent() != null) {
+                    fosterParent = (iText.Html2pdf.Jsoup.Nodes.Element)lastTable.Parent();
                     isLastTableParent = true;
                 }
                 else {

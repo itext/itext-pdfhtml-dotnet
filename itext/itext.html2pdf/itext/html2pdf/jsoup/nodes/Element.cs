@@ -1,3 +1,45 @@
+/*
+This file is part of the iText (R) project.
+Copyright (c) 1998-2017 iText Group NV
+Authors: iText Software.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3
+as published by the Free Software Foundation with the addition of the
+following permission added to Section 15 as permitted in Section 7(a):
+FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
+ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
+OF THIRD PARTY RIGHTS
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program; if not, see http://www.gnu.org/licenses or write to
+the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA, 02110-1301 USA, or download the license from the following URL:
+http://itextpdf.com/terms-of-use/
+
+The interactive user interfaces in modified source and object code versions
+of this program must display Appropriate Legal Notices, as required under
+Section 5 of the GNU Affero General Public License.
+
+In accordance with Section 7(b) of the GNU Affero General Public License,
+a covered work must retain the producer line in every PDF that is created
+or manipulated using iText.
+
+You can be released from the requirements of the license by purchasing
+a commercial license. Buying such a license is mandatory as soon as you
+develop commercial activities involving the iText software without
+disclosing the source code of your own applications.
+These activities include: offering paid services to customers as an ASP,
+serving PDFs on the fly in a web application, shipping iText with a closed
+source product.
+
+For more information, please contact iText Software Corp. at this
+address: sales@itextpdf.com
+*/
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -160,7 +202,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         }
 
         public sealed override Node Parent() {
-            return (iText.Html2pdf.Jsoup.Nodes.Element)parentNode;
+            return parentNode;
         }
 
         /// <summary>Get this element's parent and ancestors, up to the document root.</summary>
@@ -172,7 +214,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         }
 
         private static void AccumulateParents(iText.Html2pdf.Jsoup.Nodes.Element el, Elements parents) {
-            iText.Html2pdf.Jsoup.Nodes.Element parent = ((iText.Html2pdf.Jsoup.Nodes.Element)el.Parent());
+            iText.Html2pdf.Jsoup.Nodes.Element parent = (iText.Html2pdf.Jsoup.Nodes.Element)el.Parent();
             if (parent != null && !parent.TagName().Equals("#root")) {
                 parents.Add(parent);
                 AccumulateParents(parent, parents);
@@ -213,7 +255,8 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <seealso cref="Node.ChildNodes()"/>
         public virtual Elements Children() {
             // create on the fly rather than maintaining two lists. if gets slow, memoize, and mark dirty on change
-            IList<iText.Html2pdf.Jsoup.Nodes.Element> elements = new List<iText.Html2pdf.Jsoup.Nodes.Element>(childNodes.Count);
+            IList<iText.Html2pdf.Jsoup.Nodes.Element> elements = new List<iText.Html2pdf.Jsoup.Nodes.Element>(childNodes
+                .Count);
             foreach (Node node in childNodes) {
                 if (node is iText.Html2pdf.Jsoup.Nodes.Element) {
                     elements.Add((iText.Html2pdf.Jsoup.Nodes.Element)node);
@@ -337,7 +380,8 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// </param>
         /// <returns>elements that match the query (empty if none match)</returns>
         /// <seealso cref="iText.Html2pdf.Jsoup.Select.Selector"/>
-        /// <exception cref="iText.Html2pdf.Jsoup.Select.Selector.SelectorParseException">(unchecked) on an invalid CSS query.</exception>
+        /// <exception cref="iText.Html2pdf.Jsoup.Select.Selector.SelectorParseException">(unchecked) on an invalid CSS query.
+        ///     </exception>
         public virtual Elements Select(String cssQuery) {
             return Selector.Select(cssQuery, this);
         }
@@ -379,7 +423,8 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// </param>
         /// <param name="children">child nodes to insert</param>
         /// <returns>this element, for chaining.</returns>
-        public virtual iText.Html2pdf.Jsoup.Nodes.Element InsertChildren<_T0>(int index, ICollection<_T0> children)
+        public virtual iText.Html2pdf.Jsoup.Nodes.Element InsertChildren<_T0>(int index, ICollection<_T0> children
+            )
             where _T0 : Node {
             Validate.NotNull(children, "Children collection to be inserted must not be null.");
             int currentSize = ChildNodeSize();
@@ -405,8 +450,8 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <c>parent.appendElement("h1").attr("id", "header").text("Welcome");</c>
         /// </returns>
         public virtual iText.Html2pdf.Jsoup.Nodes.Element AppendElement(String tagName) {
-            iText.Html2pdf.Jsoup.Nodes.Element child = new iText.Html2pdf.Jsoup.Nodes.Element(iText.Html2pdf.Jsoup.Parser.Tag.ValueOf(tagName), BaseUri
-                ());
+            iText.Html2pdf.Jsoup.Nodes.Element child = new iText.Html2pdf.Jsoup.Nodes.Element(iText.Html2pdf.Jsoup.Parser.Tag
+                .ValueOf(tagName), BaseUri());
             AppendChild(child);
             return child;
         }
@@ -422,8 +467,8 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <c>parent.prependElement("h1").attr("id", "header").text("Welcome");</c>
         /// </returns>
         public virtual iText.Html2pdf.Jsoup.Nodes.Element PrependElement(String tagName) {
-            iText.Html2pdf.Jsoup.Nodes.Element child = new iText.Html2pdf.Jsoup.Nodes.Element(iText.Html2pdf.Jsoup.Parser.Tag.ValueOf(tagName), BaseUri
-                ());
+            iText.Html2pdf.Jsoup.Nodes.Element child = new iText.Html2pdf.Jsoup.Nodes.Element(iText.Html2pdf.Jsoup.Parser.Tag
+                .ValueOf(tagName), BaseUri());
             PrependChild(child);
             return child;
         }
@@ -479,7 +524,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <returns>this element, for chaining</returns>
         /// <seealso cref="After(System.String)"/>
         public override Node Before(String html) {
-            return (iText.Html2pdf.Jsoup.Nodes.Element)base.Before(html);
+            return base.Before(html);
         }
 
         /// <summary>Insert the specified node into the DOM before this node (as a preceding sibling).</summary>
@@ -487,7 +532,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <returns>this Element, for chaining</returns>
         /// <seealso cref="After(Node)"/>
         public override Node Before(Node node) {
-            return (iText.Html2pdf.Jsoup.Nodes.Element)base.Before(node);
+            return base.Before(node);
         }
 
         /// <summary>Insert the specified HTML into the DOM after this element (as a following sibling).</summary>
@@ -522,7 +567,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// </param>
         /// <returns>this element, for chaining.</returns>
         public override Node Wrap(String html) {
-            return (iText.Html2pdf.Jsoup.Nodes.Element)base.Wrap(html);
+            return base.Wrap(html);
         }
 
         /// <summary>Get a CSS selector that will uniquely select this element.</summary>
@@ -548,7 +593,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             if (classes.Length > 0) {
                 selector.Append('.').Append(classes);
             }
-            if (((iText.Html2pdf.Jsoup.Nodes.Element)Parent()) == null || ((iText.Html2pdf.Jsoup.Nodes.Element)Parent()) is Document) {
+            if (Parent() == null || Parent() is Document) {
                 // don't add Document to selector, as will always have a html node
                 return selector.ToString();
             }
@@ -569,7 +614,8 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             if (parentNode == null) {
                 return new Elements(0);
             }
-            IList<iText.Html2pdf.Jsoup.Nodes.Element> elements = ((iText.Html2pdf.Jsoup.Nodes.Element)Parent()).Children();
+            IList<iText.Html2pdf.Jsoup.Nodes.Element> elements = ((iText.Html2pdf.Jsoup.Nodes.Element)Parent()).Children
+                ();
             Elements siblings = new Elements(elements.Count - 1);
             foreach (iText.Html2pdf.Jsoup.Nodes.Element el in elements) {
                 if (el != this) {
@@ -605,7 +651,8 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             if (parentNode == null) {
                 return null;
             }
-            IList<iText.Html2pdf.Jsoup.Nodes.Element> siblings = ((iText.Html2pdf.Jsoup.Nodes.Element)Parent()).Children();
+            IList<iText.Html2pdf.Jsoup.Nodes.Element> siblings = ((iText.Html2pdf.Jsoup.Nodes.Element)Parent()).Children
+                ();
             int index = IndexInList(this, siblings);
             Validate.IsTrue(index >= 0);
             //Validate.notNull(index);
@@ -624,7 +671,8 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             if (parentNode == null) {
                 return null;
             }
-            IList<iText.Html2pdf.Jsoup.Nodes.Element> siblings = ((iText.Html2pdf.Jsoup.Nodes.Element)Parent()).Children();
+            IList<iText.Html2pdf.Jsoup.Nodes.Element> siblings = ((iText.Html2pdf.Jsoup.Nodes.Element)Parent()).Children
+                ();
             int index = IndexInList(this, siblings);
             Validate.IsTrue(index >= 0);
             if (index > 0) {
@@ -639,7 +687,8 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <returns>the first sibling that is an element (aka the parent's first element child)</returns>
         public virtual iText.Html2pdf.Jsoup.Nodes.Element FirstElementSibling() {
             // todo: should firstSibling() exclude this?
-            IList<iText.Html2pdf.Jsoup.Nodes.Element> siblings = ((iText.Html2pdf.Jsoup.Nodes.Element)Parent()).Children();
+            IList<iText.Html2pdf.Jsoup.Nodes.Element> siblings = ((iText.Html2pdf.Jsoup.Nodes.Element)Parent()).Children
+                ();
             return siblings.Count > 1 ? siblings[0] : null;
         }
 
@@ -650,7 +699,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// </remarks>
         /// <returns>position in element sibling list</returns>
         public virtual int ElementSiblingIndex() {
-            if (((iText.Html2pdf.Jsoup.Nodes.Element)Parent()) == null) {
+            if (Parent() == null) {
                 return 0;
             }
             return IndexInList(this, ((iText.Html2pdf.Jsoup.Nodes.Element)Parent()).Children());
@@ -659,7 +708,8 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <summary>Gets the last element sibling of this element</summary>
         /// <returns>the last sibling that is an element (aka the parent's last element child)</returns>
         public virtual iText.Html2pdf.Jsoup.Nodes.Element LastElementSibling() {
-            IList<iText.Html2pdf.Jsoup.Nodes.Element> siblings = ((iText.Html2pdf.Jsoup.Nodes.Element)Parent()).Children();
+            IList<iText.Html2pdf.Jsoup.Nodes.Element> siblings = ((iText.Html2pdf.Jsoup.Nodes.Element)Parent()).Children
+                ();
             return siblings.Count > 1 ? siblings[siblings.Count - 1] : null;
         }
 
@@ -945,12 +995,12 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <seealso cref="TextNodes()"/>
         public virtual String Text() {
             StringBuilder accum = new StringBuilder();
-            new NodeTraversor(new _NodeVisitor_894(accum)).Traverse(this);
+            new NodeTraversor(new _NodeVisitor_936(accum)).Traverse(this);
             return accum.ToString().Trim();
         }
 
-        private sealed class _NodeVisitor_894 : NodeVisitor {
-            public _NodeVisitor_894(StringBuilder accum) {
+        private sealed class _NodeVisitor_936 : NodeVisitor {
+            public _NodeVisitor_936(StringBuilder accum) {
                 this.accum = accum;
             }
 
@@ -1027,7 +1077,8 @@ namespace iText.Html2pdf.Jsoup.Nodes {
                 accum.Append(text);
             }
             else {
-                iText.Html2pdf.Jsoup.Helper.StringUtil.AppendNormalisedWhitespace(accum, text, TextNode.LastCharIsWhitespace(accum));
+                iText.Html2pdf.Jsoup.Helper.StringUtil.AppendNormalisedWhitespace(accum, text, TextNode.LastCharIsWhitespace
+                    (accum));
             }
         }
 
@@ -1041,7 +1092,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             // looks only at this element and one level up, to prevent recursion & needless stack searches
             if (node != null && node is iText.Html2pdf.Jsoup.Nodes.Element) {
                 iText.Html2pdf.Jsoup.Nodes.Element element = (iText.Html2pdf.Jsoup.Nodes.Element)node;
-                return element.tag.PreserveWhitespace() || ((iText.Html2pdf.Jsoup.Nodes.Element)element.Parent()) != null && ((iText.Html2pdf.Jsoup.Nodes.Element
+                return element.tag.PreserveWhitespace() || element.Parent() != null && ((iText.Html2pdf.Jsoup.Nodes.Element
                     )element.Parent()).tag.PreserveWhitespace();
             }
             return false;
@@ -1258,7 +1309,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
 
         /// <exception cref="System.IO.IOException"/>
         internal override void OuterHtmlHead(StringBuilder accum, int depth, OutputSettings @out) {
-            if (@out.PrettyPrint() && (tag.FormatAsBlock() || (((iText.Html2pdf.Jsoup.Nodes.Element)Parent()) != null && ((iText.Html2pdf.Jsoup.Nodes.Element
+            if (@out.PrettyPrint() && (tag.FormatAsBlock() || (Parent() != null && ((iText.Html2pdf.Jsoup.Nodes.Element
                 )Parent()).Tag().FormatAsBlock()) || @out.Outline())) {
                 if (accum is StringBuilder) {
                     if (((StringBuilder)accum).Length > 0) {

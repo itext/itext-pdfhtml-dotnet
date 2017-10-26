@@ -625,7 +625,7 @@ namespace iText.Html2pdf.Jsoup.Parser {
                                                                 else {
                                                                     // ignore frameset
                                                                     iText.Html2pdf.Jsoup.Nodes.Element second = stack[1];
-                                                                    if (((iText.Html2pdf.Jsoup.Nodes.Element)second.Parent()) != null) {
+                                                                    if (second.Parent() != null) {
                                                                         second.Remove();
                                                                     }
                                                                     // pop up to html element
@@ -1014,7 +1014,7 @@ namespace iText.Html2pdf.Jsoup.Parser {
                                     }
                                     // todo: move the aforementioned bookmark to be immediately after the new node in the list of active formatting elements.
                                     // not getting how this bookmark both straddles the element above, but is inbetween here...
-                                    if (((iText.Html2pdf.Jsoup.Nodes.Element)lastNode.Parent()) != null) {
+                                    if (lastNode.Parent() != null) {
                                         lastNode.Remove();
                                     }
                                     node.AppendChild(lastNode);
@@ -1022,13 +1022,13 @@ namespace iText.Html2pdf.Jsoup.Parser {
                                 }
                                 if (iText.Html2pdf.Jsoup.Helper.StringUtil.InSorted(commonAncestor.NodeName(), HtmlTreeBuilderState.Constants
                                     .InBodyEndTableFosters)) {
-                                    if (((iText.Html2pdf.Jsoup.Nodes.Element)lastNode.Parent()) != null) {
+                                    if (lastNode.Parent() != null) {
                                         lastNode.Remove();
                                     }
                                     tb.InsertInFosterParent(lastNode);
                                 }
                                 else {
-                                    if (((iText.Html2pdf.Jsoup.Nodes.Element)lastNode.Parent()) != null) {
+                                    if (lastNode.Parent() != null) {
                                         lastNode.Remove();
                                     }
                                     commonAncestor.AppendChild(lastNode);

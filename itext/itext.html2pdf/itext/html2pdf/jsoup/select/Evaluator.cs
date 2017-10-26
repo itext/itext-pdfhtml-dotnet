@@ -353,7 +353,7 @@ namespace iText.Html2pdf.Jsoup.Select {
         public sealed class IsLastChild : Evaluator {
             public override bool Matches(iText.Html2pdf.Jsoup.Nodes.Element root, iText.Html2pdf.Jsoup.Nodes.Element element
                 ) {
-                iText.Html2pdf.Jsoup.Nodes.Element p = ((iText.Html2pdf.Jsoup.Nodes.Element)element.Parent());
+                iText.Html2pdf.Jsoup.Nodes.Element p = (iText.Html2pdf.Jsoup.Nodes.Element)element.Parent();
                 return p != null && !(p is Document) && element.ElementSiblingIndex() == p.Children().Count - 1;
             }
 
@@ -398,7 +398,7 @@ namespace iText.Html2pdf.Jsoup.Select {
 
             public override bool Matches(iText.Html2pdf.Jsoup.Nodes.Element root, iText.Html2pdf.Jsoup.Nodes.Element element
                 ) {
-                iText.Html2pdf.Jsoup.Nodes.Element p = ((iText.Html2pdf.Jsoup.Nodes.Element)element.Parent());
+                iText.Html2pdf.Jsoup.Nodes.Element p = (iText.Html2pdf.Jsoup.Nodes.Element)element.Parent();
                 if (p == null || (p is Document)) {
                     return false;
                 }
@@ -513,7 +513,7 @@ namespace iText.Html2pdf.Jsoup.Select {
         public sealed class IsFirstChild : Evaluator {
             public override bool Matches(iText.Html2pdf.Jsoup.Nodes.Element root, iText.Html2pdf.Jsoup.Nodes.Element element
                 ) {
-                iText.Html2pdf.Jsoup.Nodes.Element p = ((iText.Html2pdf.Jsoup.Nodes.Element)element.Parent());
+                iText.Html2pdf.Jsoup.Nodes.Element p = (iText.Html2pdf.Jsoup.Nodes.Element)element.Parent();
                 return p != null && !(p is Document) && element.ElementSiblingIndex() == 0;
             }
 
@@ -539,7 +539,7 @@ namespace iText.Html2pdf.Jsoup.Select {
         public sealed class IsOnlyChild : Evaluator {
             public override bool Matches(iText.Html2pdf.Jsoup.Nodes.Element root, iText.Html2pdf.Jsoup.Nodes.Element element
                 ) {
-                iText.Html2pdf.Jsoup.Nodes.Element p = ((iText.Html2pdf.Jsoup.Nodes.Element)element.Parent());
+                iText.Html2pdf.Jsoup.Nodes.Element p = (iText.Html2pdf.Jsoup.Nodes.Element)element.Parent();
                 return p != null && !(p is Document) && element.SiblingElements().Count == 0;
             }
 
@@ -551,7 +551,7 @@ namespace iText.Html2pdf.Jsoup.Select {
         public sealed class IsOnlyOfType : Evaluator {
             public override bool Matches(iText.Html2pdf.Jsoup.Nodes.Element root, iText.Html2pdf.Jsoup.Nodes.Element element
                 ) {
-                iText.Html2pdf.Jsoup.Nodes.Element p = ((iText.Html2pdf.Jsoup.Nodes.Element)element.Parent());
+                iText.Html2pdf.Jsoup.Nodes.Element p = (iText.Html2pdf.Jsoup.Nodes.Element)element.Parent();
                 if (p == null || p is Document) {
                     return false;
                 }

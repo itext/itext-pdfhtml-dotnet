@@ -502,8 +502,8 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             p.Wrap("<div class='head'></div>");
             NUnit.Framework.Assert.AreEqual("<div><div class=\"head\"><p>Hello</p></div><p>There</p></div>", TextUtil.
                 StripNewlines(doc.Body().Html()));
-            iText.Html2pdf.Jsoup.Nodes.Element ret = ((iText.Html2pdf.Jsoup.Nodes.Element)p.Wrap("<div><div class=foo></div><p>What?</p></div>"
-                ));
+            iText.Html2pdf.Jsoup.Nodes.Element ret = (iText.Html2pdf.Jsoup.Nodes.Element)p.Wrap("<div><div class=foo></div><p>What?</p></div>"
+                );
             NUnit.Framework.Assert.AreEqual("<div><div class=\"head\"><div><div class=\"foo\"><p>Hello</p></div><p>What?</p></div></div><p>There</p></div>"
                 , TextUtil.StripNewlines(doc.Body().Html()));
             NUnit.Framework.Assert.AreEqual(ret, p);
@@ -597,11 +597,11 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             Document doc = iText.Html2pdf.Jsoup.Jsoup.Parse("<div><p>One<p><span>Two</div>");
             iText.Html2pdf.Jsoup.Nodes.Element p = doc.Select("p")[1];
             iText.Html2pdf.Jsoup.Nodes.Element clone = (iText.Html2pdf.Jsoup.Nodes.Element)p.Clone();
-            NUnit.Framework.Assert.IsNull(((iText.Html2pdf.Jsoup.Nodes.Element)clone.Parent()));
+            NUnit.Framework.Assert.IsNull(clone.Parent());
             // should be orphaned
             NUnit.Framework.Assert.AreEqual(0, clone.siblingIndex);
             NUnit.Framework.Assert.AreEqual(1, p.siblingIndex);
-            NUnit.Framework.Assert.IsNotNull(((iText.Html2pdf.Jsoup.Nodes.Element)p.Parent()));
+            NUnit.Framework.Assert.IsNotNull(p.Parent());
             clone.Append("<span>Three");
             NUnit.Framework.Assert.AreEqual("<p><span>Two</span><span>Three</span></p>", TextUtil.StripNewlines(clone.
                 OuterHtml()));
@@ -610,7 +610,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             // not modified
             doc.Body().AppendChild(clone);
             // adopt
-            NUnit.Framework.Assert.IsNotNull(((iText.Html2pdf.Jsoup.Nodes.Element)clone.Parent()));
+            NUnit.Framework.Assert.IsNotNull(clone.Parent());
             NUnit.Framework.Assert.AreEqual("<div><p>One</p><p><span>Two</span></p></div><p><span>Two</span><span>Three</span></p>"
                 , TextUtil.StripNewlines(doc.Body().Html()));
         }
@@ -777,9 +777,9 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             els.Add(el1);
             els.Add(el2);
             els.Add(tn1);
-            NUnit.Framework.Assert.IsNull(((iText.Html2pdf.Jsoup.Nodes.Element)el1.Parent()));
+            NUnit.Framework.Assert.IsNull(el1.Parent());
             div2.InsertChildren(-2, els);
-            NUnit.Framework.Assert.AreEqual(div2, ((iText.Html2pdf.Jsoup.Nodes.Element)el1.Parent()));
+            NUnit.Framework.Assert.AreEqual(div2, el1.Parent());
             NUnit.Framework.Assert.AreEqual(7, div2.ChildNodeSize());
             NUnit.Framework.Assert.AreEqual(3, el1.SiblingIndex());
             NUnit.Framework.Assert.AreEqual(4, el2.SiblingIndex());

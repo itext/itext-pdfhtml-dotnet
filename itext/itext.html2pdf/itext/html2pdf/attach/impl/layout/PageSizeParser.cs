@@ -77,7 +77,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="defaultPageSize">the default page size</param>
         /// <returns>the page size</returns>
         internal static PageSize FetchPageSize(String pageSizeStr, float em, float rem, PageSize defaultPageSize) {
-            PageSize pageSize = ((PageSize)defaultPageSize.Clone());
+            PageSize pageSize = (PageSize)defaultPageSize.Clone();
             if (pageSizeStr == null || CssConstants.AUTO.Equals(pageSizeStr)) {
                 return pageSize;
             }

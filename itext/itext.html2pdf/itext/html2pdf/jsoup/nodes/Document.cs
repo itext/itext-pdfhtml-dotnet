@@ -1,3 +1,45 @@
+/*
+This file is part of the iText (R) project.
+Copyright (c) 1998-2017 iText Group NV
+Authors: iText Software.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3
+as published by the Free Software Foundation with the addition of the
+following permission added to Section 15 as permitted in Section 7(a):
+FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
+ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
+OF THIRD PARTY RIGHTS
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program; if not, see http://www.gnu.org/licenses or write to
+the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA, 02110-1301 USA, or download the license from the following URL:
+http://itextpdf.com/terms-of-use/
+
+The interactive user interfaces in modified source and object code versions
+of this program must display Appropriate Legal Notices, as required under
+Section 5 of the GNU Affero General Public License.
+
+In accordance with Section 7(b) of the GNU Affero General Public License,
+a covered work must retain the producer line in every PDF that is created
+or manipulated using iText.
+
+You can be released from the requirements of the license by purchasing
+a commercial license. Buying such a license is mandatory as soon as you
+develop commercial activities involving the iText software without
+disclosing the source code of your own applications.
+These activities include: offering paid services to customers as an ASP,
+serving PDFs on the fly in a web application, shipping iText with a closed
+source product.
+
+For more information, please contact iText Software Corp. at this
+address: sales@itextpdf.com
+*/
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,8 +49,9 @@ using iText.Html2pdf.Jsoup.Select;
 namespace iText.Html2pdf.Jsoup.Nodes {
     /// <summary>A HTML Document.</summary>
     /// <author>Jonathan Hedley, jonathan@hedley.net</author>
-    public class Document : Element {
-        private iText.Html2pdf.Jsoup.Nodes.OutputSettings outputSettings = new iText.Html2pdf.Jsoup.Nodes.OutputSettings();
+    public class Document : iText.Html2pdf.Jsoup.Nodes.Element {
+        private iText.Html2pdf.Jsoup.Nodes.OutputSettings outputSettings = new iText.Html2pdf.Jsoup.Nodes.OutputSettings
+            ();
 
         private iText.Html2pdf.Jsoup.Nodes.QuirksMode quirksMode = iText.Html2pdf.Jsoup.Nodes.QuirksMode.noQuirks;
 
@@ -31,7 +74,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         public static iText.Html2pdf.Jsoup.Nodes.Document CreateShell(String baseUri) {
             Validate.NotNull(baseUri);
             iText.Html2pdf.Jsoup.Nodes.Document doc = new iText.Html2pdf.Jsoup.Nodes.Document(baseUri);
-            Element html = doc.AppendElement("html");
+            iText.Html2pdf.Jsoup.Nodes.Element html = doc.AppendElement("html");
             html.AppendElement("head");
             html.AppendElement("body");
             return doc;
@@ -56,7 +99,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// 
         /// <c>head</c>
         /// </returns>
-        public virtual Element Head() {
+        public virtual iText.Html2pdf.Jsoup.Nodes.Element Head() {
             return FindFirstElementByTagName("head", this);
         }
 
@@ -69,7 +112,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// 
         /// <c>body</c>
         /// </returns>
-        public virtual Element Body() {
+        public virtual iText.Html2pdf.Jsoup.Nodes.Element Body() {
             return FindFirstElementByTagName("body", this);
         }
 
@@ -81,8 +124,9 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <returns>Trimmed title, or empty string if none set.</returns>
         public virtual String Title() {
             // title is a preserve whitespace tag (for document output), but normalised here
-            Element titleEl = GetElementsByTag("title").First();
-            return titleEl != null ? iText.Html2pdf.Jsoup.Helper.StringUtil.NormaliseWhitespace(titleEl.Text()).Trim() : "";
+            iText.Html2pdf.Jsoup.Nodes.Element titleEl = GetElementsByTag("title").First();
+            return titleEl != null ? iText.Html2pdf.Jsoup.Helper.StringUtil.NormaliseWhitespace(titleEl.Text()).Trim()
+                 : "";
         }
 
         /// <summary>
@@ -98,7 +142,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <param name="title">string to set as title</param>
         public virtual void Title(String title) {
             Validate.NotNull(title);
-            Element titleEl = GetElementsByTag("title").First();
+            iText.Html2pdf.Jsoup.Nodes.Element titleEl = GetElementsByTag("title").First();
             if (titleEl == null) {
                 // add to head
                 Head().AppendElement("title").Text(title);
@@ -117,8 +161,9 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// )
         /// </param>
         /// <returns>new element</returns>
-        public virtual Element CreateElement(String tagName) {
-            return new Element(iText.Html2pdf.Jsoup.Parser.Tag.ValueOf(tagName), this.BaseUri());
+        public virtual iText.Html2pdf.Jsoup.Nodes.Element CreateElement(String tagName) {
+            return new iText.Html2pdf.Jsoup.Nodes.Element(iText.Html2pdf.Jsoup.Parser.Tag.ValueOf(tagName), this.BaseUri
+                ());
         }
 
         /// <summary>Normalise the document.</summary>
@@ -128,7 +173,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// </remarks>
         /// <returns>this document after normalisation</returns>
         public virtual iText.Html2pdf.Jsoup.Nodes.Document Normalise() {
-            Element htmlEl = FindFirstElementByTagName("html", this);
+            iText.Html2pdf.Jsoup.Nodes.Element htmlEl = FindFirstElementByTagName("html", this);
             if (htmlEl == null) {
                 htmlEl = AppendElement("html");
             }
@@ -150,7 +195,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         }
 
         // does not recurse.
-        private void NormaliseTextNodes(Element element) {
+        private void NormaliseTextNodes(iText.Html2pdf.Jsoup.Nodes.Element element) {
             IList<Node> toMove = new List<Node>();
             foreach (Node node in element.childNodes) {
                 if (node is TextNode) {
@@ -169,9 +214,9 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         }
 
         // merge multiple <head> or <body> contents into one, delete the remainder, and ensure they are owned by <html>
-        private void NormaliseStructure(String tag, Element htmlEl) {
+        private void NormaliseStructure(String tag, iText.Html2pdf.Jsoup.Nodes.Element htmlEl) {
             Elements elements = this.GetElementsByTag(tag);
-            Element master = elements.First();
+            iText.Html2pdf.Jsoup.Nodes.Element master = elements.First();
             // will always be available as created above if not existent
             if (elements.Count > 1) {
                 // dupes, move contents to master
@@ -188,20 +233,20 @@ namespace iText.Html2pdf.Jsoup.Nodes {
                 }
             }
             // ensure parented by <html>
-            if (!((Element)master.Parent()).Equals(htmlEl)) {
+            if (!master.Parent().Equals(htmlEl)) {
                 htmlEl.AppendChild(master);
             }
         }
 
         // includes remove()            
         // fast method to get first by tag name, used for html, head, body finders
-        private Element FindFirstElementByTagName(String tag, Node node) {
+        private iText.Html2pdf.Jsoup.Nodes.Element FindFirstElementByTagName(String tag, Node node) {
             if (node.NodeName().Equals(tag)) {
-                return (Element)node;
+                return (iText.Html2pdf.Jsoup.Nodes.Element)node;
             }
             else {
                 foreach (Node child in node.childNodes) {
-                    Element found = FindFirstElementByTagName(tag, child);
+                    iText.Html2pdf.Jsoup.Nodes.Element found = FindFirstElementByTagName(tag, child);
                     if (found != null) {
                         return found;
                     }
@@ -222,7 +267,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// </summary>
         /// <param name="text">unencoded text</param>
         /// <returns>this document</returns>
-        public override Element Text(String text) {
+        public override iText.Html2pdf.Jsoup.Nodes.Element Text(String text) {
             Body().Text(text);
             // overridden to not nuke doc structure
             return this;
@@ -334,12 +379,12 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             if (updateMetaCharset) {
                 Syntax syntax = OutputSettings().Syntax();
                 if (syntax == Syntax.html) {
-                    Element metaCharset = Select("meta[charset]").First();
+                    iText.Html2pdf.Jsoup.Nodes.Element metaCharset = Select("meta[charset]").First();
                     if (metaCharset != null) {
                         metaCharset.Attr("charset", Charset().DisplayName());
                     }
                     else {
-                        Element head = Head();
+                        iText.Html2pdf.Jsoup.Nodes.Element head = Head();
                         if (head != null) {
                             head.AppendElement("meta").Attr("charset", Charset().DisplayName());
                         }

@@ -111,7 +111,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         [NUnit.Framework.Test]
         public virtual void TestClone() {
             Document doc = iText.Html2pdf.Jsoup.Jsoup.Parse("<title>Hello</title> <p>One<p>Two");
-            Document clone = ((Document)doc.Clone());
+            Document clone = (Document)doc.Clone();
             NUnit.Framework.Assert.AreEqual("<html><head><title>Hello</title> </head><body><p>One</p><p>Two</p></body></html>"
                 , TextUtil.StripNewlines(clone.Html()));
             clone.Title("Hello there");
@@ -125,7 +125,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         [NUnit.Framework.Test]
         public virtual void TestClonesDeclarations() {
             Document doc = iText.Html2pdf.Jsoup.Jsoup.Parse("<!DOCTYPE html><html><head><title>Doctype test");
-            Document clone = ((Document)doc.Clone());
+            Document clone = (Document)doc.Clone();
             NUnit.Framework.Assert.AreEqual(doc.Html(), clone.Html());
             NUnit.Framework.Assert.AreEqual("<!doctype html><html><head><title>Doctype test</title></head><body></body></html>"
                 , TextUtil.StripNewlines(clone.Html()));
@@ -359,8 +359,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         private Document CreateHtmlDocument(String charset) {
             Document doc = Document.CreateShell("");
             doc.Head().AppendElement("meta").Attr("charset", charset);
-            ((iText.Html2pdf.Jsoup.Nodes.Element)doc.Head().AppendElement("meta").Attr("name", "charset")).Attr("content"
-                , charset);
+            doc.Head().AppendElement("meta").Attr("name", "charset").Attr("content", charset);
             return doc;
         }
 

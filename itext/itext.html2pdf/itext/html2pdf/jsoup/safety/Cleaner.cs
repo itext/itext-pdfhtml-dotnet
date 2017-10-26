@@ -172,7 +172,7 @@ namespace iText.Html2pdf.Jsoup.Safety {
             public void Tail(Node source, int depth) {
                 if (source is iText.Html2pdf.Jsoup.Nodes.Element && this._enclosing.whitelist.IsSafeTag(source.NodeName())
                     ) {
-                    this.destination = ((iText.Html2pdf.Jsoup.Nodes.Element)this.destination.Parent());
+                    this.destination = (iText.Html2pdf.Jsoup.Nodes.Element)this.destination.Parent();
                 }
             }
 

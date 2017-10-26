@@ -100,7 +100,7 @@ namespace iText.Html2pdf.Jsoup.Select {
                 if (root == element) {
                     return false;
                 }
-                iText.Html2pdf.Jsoup.Nodes.Element parent = ((iText.Html2pdf.Jsoup.Nodes.Element)element.Parent());
+                iText.Html2pdf.Jsoup.Nodes.Element parent = (iText.Html2pdf.Jsoup.Nodes.Element)element.Parent();
                 while (true) {
                     if (evaluator.Matches(root, parent)) {
                         return true;
@@ -108,7 +108,7 @@ namespace iText.Html2pdf.Jsoup.Select {
                     if (parent == root) {
                         break;
                     }
-                    parent = ((iText.Html2pdf.Jsoup.Nodes.Element)parent.Parent());
+                    parent = (iText.Html2pdf.Jsoup.Nodes.Element)parent.Parent();
                 }
                 return false;
             }
@@ -128,7 +128,7 @@ namespace iText.Html2pdf.Jsoup.Select {
                 if (root == element) {
                     return false;
                 }
-                iText.Html2pdf.Jsoup.Nodes.Element parent = ((iText.Html2pdf.Jsoup.Nodes.Element)element.Parent());
+                iText.Html2pdf.Jsoup.Nodes.Element parent = (iText.Html2pdf.Jsoup.Nodes.Element)element.Parent();
                 return parent != null && evaluator.Matches(root, parent);
             }
 

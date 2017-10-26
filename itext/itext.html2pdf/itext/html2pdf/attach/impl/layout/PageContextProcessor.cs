@@ -467,8 +467,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             float rightMargin = margins[1];
             float bottomMargin = margins[2];
             float leftMargin = margins[3];
-            Rectangle withoutMargins = ((PageSize)pageSize.Clone()).ApplyMargins(topMargin, rightMargin, bottomMargin, 
-                leftMargin, false);
+            Rectangle withoutMargins = pageSize.Clone().ApplyMargins(topMargin, rightMargin, bottomMargin, leftMargin, 
+                false);
             float topBottomMarginWidth = withoutMargins.GetWidth() / 3;
             float leftRightMarginHeight = withoutMargins.GetHeight() / 3;
             Rectangle[] hardcodedBoxRectangles = new Rectangle[] { new Rectangle(0, withoutMargins.GetTop(), leftMargin
@@ -497,8 +497,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             if (marginBoxInd == 0 || marginBoxInd == 4 || marginBoxInd == 8 || marginBoxInd == 12) {
                 return marginBoxRectangles[marginBoxInd];
             }
-            Rectangle withoutMargins = ((PageSize)pageSize.Clone()).ApplyMargins(margins[0], margins[1], margins[2], margins
-                [3], false);
+            Rectangle withoutMargins = pageSize.Clone().ApplyMargins(margins[0], margins[1], margins[2], margins[3], false
+                );
             if (marginBoxInd < 4) {
                 return new Rectangle(withoutMargins.GetWidth(), margins[0]);
             }

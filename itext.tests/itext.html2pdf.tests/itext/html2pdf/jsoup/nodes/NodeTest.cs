@@ -195,7 +195,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             iText.Html2pdf.Jsoup.Nodes.Element p = doc.Select("p").First();
             NUnit.Framework.Assert.IsTrue(p.OwnerDocument() == doc);
             NUnit.Framework.Assert.IsTrue(doc.OwnerDocument() == doc);
-            NUnit.Framework.Assert.IsNull(((iText.Html2pdf.Jsoup.Nodes.Element)doc.Parent()));
+            NUnit.Framework.Assert.IsNull(doc.Parent());
         }
 
         [NUnit.Framework.Test]
