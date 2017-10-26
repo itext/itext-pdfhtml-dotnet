@@ -16,13 +16,12 @@
     <copyright>Copyright (c) 1998-2017 iText Group NV</copyright>
     <language>en-US</language>
     <tags>itext itext7 itextsharp c# .net csharp pdf html pdfhtml</tags>
-	<dependencies>
+    <dependencies>
       <dependency id="itext7" version="7.1.0-SNAPSHOT" />
-      <dependency id="itext7.licensekey" version="2.0.4" />
     </dependencies>
   </metadata>
   <files>
-	<file src="itext\itext.html2pdf\bin\Release\itext.html2pdf.dll" target="lib\net40" />
-	<file src="itext\itext.html2pdf\bin\Release\itext.html2pdf.xml" target="lib\net40" />
+    <file src="itext\itext.html2pdf\bin\Release\itext.html2pdf.dll" target="lib\net40" />
+    <file src="itext\itext.html2pdf\bin\Release\itext.html2pdf.xml" target="lib\net40" />
   </files>
 </package>
