@@ -134,6 +134,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.THEAD, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.TIME, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.TR, typeof(TrTagCssApplier));
+            mapping.PutMapping(TagConstants.TT, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.U, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.UL, typeof(UlOlTagCssApplier));
             mapping.PutMapping(TagConstants.VAR, typeof(SpanTagCssApplier));

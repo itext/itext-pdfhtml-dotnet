@@ -299,6 +299,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant TR.</summary>
         public const String TR = "tr";
 
+        /// <summary>The Constant TT.</summary>
+        public const String TT = "tt";
+
         /// <summary>The Constant U.</summary>
         public const String U = "u";
 
