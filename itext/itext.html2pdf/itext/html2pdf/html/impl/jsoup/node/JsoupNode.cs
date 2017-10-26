@@ -50,12 +50,12 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
     /// Implementation of the
     /// <see cref="iText.Html2pdf.Html.Node.INode"/>
     /// interface; wrapper for the JSoup
-    /// <see cref="Org.Jsoup.Nodes.Node"/>
+    /// <see cref="iText.Html2pdf.Jsoup.Nodes.Node"/>
     /// class.
     /// </summary>
     public class JsoupNode : INode {
         /// <summary>The JSoup node instance.</summary>
-        private Org.Jsoup.Nodes.Node node;
+        private iText.Html2pdf.Jsoup.Nodes.Node node;
 
         /// <summary>The child nodes.</summary>
         private IList<INode> childNodes = new List<INode>();
@@ -69,7 +69,7 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
         /// instance.
         /// </summary>
         /// <param name="node">the node</param>
-        public JsoupNode(Org.Jsoup.Nodes.Node node) {
+        public JsoupNode(iText.Html2pdf.Jsoup.Nodes.Node node) {
             this.node = node;
         }
 

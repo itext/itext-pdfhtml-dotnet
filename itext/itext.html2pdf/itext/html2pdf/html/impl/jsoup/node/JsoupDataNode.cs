@@ -41,15 +41,15 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using Org.Jsoup.Nodes;
 using iText.Html2pdf.Html.Node;
+using iText.Html2pdf.Jsoup.Nodes;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
     /// <summary>
     /// Implementation of the
     /// <see cref="iText.Html2pdf.Html.Node.IDataNode"/>
     /// interface; wrapper for the JSoup
-    /// <see cref="Org.Jsoup.Nodes.DataNode"/>
+    /// <see cref="iText.Html2pdf.Jsoup.Nodes.DataNode"/>
     /// class.
     /// </summary>
     public class JsoupDataNode : JsoupNode, IDataNode {

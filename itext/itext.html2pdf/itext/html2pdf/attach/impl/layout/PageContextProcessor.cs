@@ -413,8 +413,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     throw new InvalidOperationException();
                 }
                 // TODO it would be great to reuse DefaultHtmlProcessor, but it seems there is no convenient way of doing so, and maybe it would be an overkill
-                IElementNode dummyMarginBoxNode = new JsoupElementNode(new Org.Jsoup.Nodes.Element(Org.Jsoup.Parser.Tag.ValueOf
-                    (TagConstants.DIV), ""));
+                IElementNode dummyMarginBoxNode = new JsoupElementNode(new iText.Html2pdf.Jsoup.Nodes.Element(iText.Html2pdf.Jsoup.Parser.Tag
+                    .ValueOf(TagConstants.DIV), ""));
                 DivTagWorker marginBoxWorker = new DivTagWorker(dummyMarginBoxNode, context);
                 for (int i = 0; i < marginBoxContentNode.ChildNodes().Count; i++) {
                     INode childNode = marginBoxContentNode.ChildNodes()[i];
