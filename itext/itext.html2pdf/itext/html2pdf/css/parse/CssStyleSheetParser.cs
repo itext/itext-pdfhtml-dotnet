@@ -119,7 +119,7 @@ namespace iText.Html2pdf.Css.Parse {
         private static Type GetClass(string className)
         {
             String licenseKeyClassFullName = null;
-            Assembly assembly = typeof(CssStyleSheetParser).Assembly;
+            Assembly assembly = typeof(CssStyleSheetParser).GetAssembly();
             Attribute keyVersionAttr = assembly.GetCustomAttribute(typeof(KeyVersionAttribute));
             if (keyVersionAttr is KeyVersionAttribute)
             {
