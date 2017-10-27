@@ -637,7 +637,7 @@ namespace iText.Html2pdf {
         private static Type GetClass(string className)
         {
             String licenseKeyClassFullName = null;
-            Assembly assembly = typeof(HtmlConverter).Assembly;
+            Assembly assembly = typeof(HtmlConverter).GetAssembly();
             Attribute keyVersionAttr = assembly.GetCustomAttribute(typeof(KeyVersionAttribute));
             if (keyVersionAttr is KeyVersionAttribute)
             {

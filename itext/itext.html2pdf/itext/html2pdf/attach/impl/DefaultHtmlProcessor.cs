@@ -173,7 +173,7 @@ namespace iText.Html2pdf.Attach.Impl {
         private static Type GetClass(string className)
         {
             String licenseKeyClassFullName = null;
-            Assembly assembly = typeof(DefaultHtmlProcessor).Assembly;
+            Assembly assembly = typeof(DefaultHtmlProcessor).GetAssembly();
             Attribute keyVersionAttr = assembly.GetCustomAttribute(typeof(KeyVersionAttribute));
             if (keyVersionAttr is KeyVersionAttribute)
             {
