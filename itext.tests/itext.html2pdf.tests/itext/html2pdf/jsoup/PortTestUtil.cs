@@ -8,7 +8,7 @@ namespace iText.Html2pdf.Jsoup {
             "/";
 
         public static FileInfo GetFile(String filename) {
-            return new FileInfo(sourceFolder + "resources/org/jsoup" + filename);
+            return new FileInfo(sourceFolder + "resources/itext/html2pdf/jsoup" + filename);
         }
     }
 }
