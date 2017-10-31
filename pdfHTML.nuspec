@@ -18,10 +18,10 @@
     <tags>itext itext7 itextsharp c# .net csharp pdf html pdfhtml</tags>
     <dependencies>
         <group targetFramework="net40">
-          <dependency id="itext7" version="7.0.5-SNAPSHOT" />
+          <dependency id="itext7" version="7.0.5" />
         </group>  
         <group targetFramework="netstandard1.6">
-          <dependency id="itext7" version="7.0.5-SNAPSHOT" />
+          <dependency id="itext7" version="7.0.5" />
           <dependency id="NETStandard.Library" version="1.6.1" />
         </group>
     </dependencies>
