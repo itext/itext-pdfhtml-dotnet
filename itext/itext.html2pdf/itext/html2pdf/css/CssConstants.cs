@@ -50,6 +50,8 @@ namespace iText.Html2pdf.Css {
     /// </summary>
     public class CssConstants {
         /// <summary>The Constant ALIGN.</summary>
+        [System.ObsoleteAttribute(@"Use iText.Html2pdf.Html.AttributeConstants.ALIGN instead. Will be removed in 7.1."
+            )]
         public const String ALIGN = "align";
 
         /// <summary>The Constant BACKGROUND.</summary>
@@ -257,6 +259,8 @@ namespace iText.Html2pdf.Css {
         public const String HEIGHT = "height";
 
         /// <summary>The Constant HSPACE.</summary>
+        [System.ObsoleteAttribute(@"Use iText.Html2pdf.Html.AttributeConstants.HSPACE instead. Will be removed in 7.1."
+            )]
         public const String HSPACE = "hspace";
 
         /// <summary>The Constant HYPHENS.</summary>
@@ -312,6 +316,9 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant OUTLINE_COLOR.</summary>
         public const String OUTLINE_COLOR = "outline-color";
+
+        /// <summary>The Constant OUTLINE_OFFSET.</summary>
+        public const String OUTLINE_OFFSET = "outline-offset";
 
         /// <summary>The Constant OUTLINE_STYLE.</summary>
         public const String OUTLINE_STYLE = "outline-style";
@@ -370,9 +377,6 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant TAB_SIZE.</summary>
         public const String TAB_SIZE = "tab-size";
 
-        /// <summary>The Constant TABLE_CELL.</summary>
-        public const String TABLE_CELL = "table-cell";
-
         /// <summary>The Constant TABLE_LAYOUT.</summary>
         public const String TABLE_LAYOUT = "table-layout";
 
@@ -422,6 +426,8 @@ namespace iText.Html2pdf.Css {
         public const String VISIBILITY = "visibility";
 
         /// <summary>The Constant VSPACE.</summary>
+        [System.ObsoleteAttribute(@"Use iText.Html2pdf.Html.AttributeConstants.VSPACE instead. Will be removed in 7.1."
+            )]
         public const String VSPACE = "vspace";
 
         /// <summary>The Constant WHITE_SPACE.</summary>
@@ -775,6 +781,12 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant TABLE.</summary>
         public const String TABLE = "table";
 
+        /// <summary>The Constant TABLE_CELL.</summary>
+        public const String TABLE_CELL = "table-cell";
+
+        /// <summary>The Constant TABLE_ROW.</summary>
+        public const String TABLE_ROW = "table-row";
+
         /// <summary>The Constant TEXT_BOTTOM.</summary>
         public const String TEXT_BOTTOM = "text-bottom";
 
@@ -872,72 +884,106 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant BEFORE.</summary>
         public const String BEFORE = "before";
 
+        /// <summary>The Constant FIRST_LETTER.</summary>
         public const String FIRST_LETTER = "first-letter";
 
+        /// <summary>The Constant FIRST_LINE.</summary>
         public const String FIRST_LINE = "first-line";
 
+        /// <summary>The Constant SELECTION.</summary>
         public const String SELECTION = "selection";
 
+        /// <summary>The Constant ACTIVE.</summary>
         public const String ACTIVE = "active";
 
+        /// <summary>The Constant CHECKED.</summary>
         public const String CHECKED = "checked";
 
+        /// <summary>The Constant DISABLED.</summary>
         public const String DISABLED = "disabled";
 
+        /// <summary>The Constant EMPTY.</summary>
         public const String EMPTY = "empty";
 
+        /// <summary>The Constant ENABLED.</summary>
         public const String ENABLED = "enabled";
 
+        /// <summary>The Constant FIRST_CHILD.</summary>
         public const String FIRST_CHILD = "first-child";
 
+        /// <summary>The Constant FIRST_OF_TYPE.</summary>
         public const String FIRST_OF_TYPE = "first-of-type";
 
+        /// <summary>The Constant FOCUS.</summary>
         public const String FOCUS = "focus";
 
+        /// <summary>The Constant HOVER.</summary>
         public const String HOVER = "hover";
 
+        /// <summary>The Constant IN_RANGE.</summary>
         public const String IN_RANGE = "in-range";
 
+        /// <summary>The Constant INVALID.</summary>
         public const String INVALID = "invalid";
 
+        /// <summary>The Constant LANG.</summary>
         public const String LANG = "lang";
 
+        /// <summary>The Constant LAST_CHILD.</summary>
         public const String LAST_CHILD = "last-child";
 
+        /// <summary>The Constant LAST_OF_TYPE.</summary>
         public const String LAST_OF_TYPE = "last-of-type";
 
+        /// <summary>The Constant LINK.</summary>
         public const String LINK = "link";
 
+        /// <summary>The Constant NTH_CHILD.</summary>
         public const String NTH_CHILD = "nth-child";
 
+        /// <summary>The Constant NOT.</summary>
         public const String NOT = "not";
 
+        /// <summary>The Constant NTH_LAST_CHILD.</summary>
         public const String NTH_LAST_CHILD = "nth-last-child";
 
+        /// <summary>The Constant NTH_LAST_OF_TYPE.</summary>
         public const String NTH_LAST_OF_TYPE = "nth-last-of-type";
 
+        /// <summary>The Constant NTH_OF_TYPE.</summary>
         public const String NTH_OF_TYPE = "nth-of-type";
 
+        /// <summary>The Constant ONLY_OF_TYPE.</summary>
         public const String ONLY_OF_TYPE = "only-of-type";
 
+        /// <summary>The Constant ONLY_CHILD.</summary>
         public const String ONLY_CHILD = "only-child";
 
+        /// <summary>The Constant OPTIONAL.</summary>
         public const String OPTIONAL = "optional";
 
+        /// <summary>The Constant OUT_OF_RANGE.</summary>
         public const String OUT_OF_RANGE = "out-of-range";
 
+        /// <summary>The Constant READ_ONLY.</summary>
         public const String READ_ONLY = "read-only";
 
+        /// <summary>The Constant READ_WRITE.</summary>
         public const String READ_WRITE = "read-write";
 
+        /// <summary>The Constant REQUIRED.</summary>
         public const String REQUIRED = "required";
 
+        /// <summary>The Constant ROOT.</summary>
         public const String ROOT = "root";
 
+        /// <summary>The Constant TARGET.</summary>
         public const String TARGET = "target";
 
+        /// <summary>The Constant VALID.</summary>
         public const String VALID = "valid";
 
+        /// <summary>The Constant VISITED.</summary>
         public const String VISITED = "visited";
 
         /// <summary>The Constant COUNTER.</summary>

@@ -139,7 +139,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="value">the value</param>
         /// <param name="context">the CSS context</param>
         /// <returns>the quote string</returns>
-        public virtual String ResolveQuote(String value, CssContext context) {
+        internal virtual String ResolveQuote(String value, CssContext context) {
             int depth = context.GetQuotesDepth();
             if (CssConstants.OPEN_QUOTE.Equals(value)) {
                 IncreaseDepth(context);

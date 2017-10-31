@@ -53,7 +53,7 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>Instantiates a new CSS font face rule.</summary>
         /// <param name="ruleParameters">the rule parameters</param>
-        protected internal CssFontFaceRule(String ruleParameters)
+        public CssFontFaceRule(String ruleParameters)
             : base(CssRuleName.FONT_FACE, ruleParameters) {
         }
 

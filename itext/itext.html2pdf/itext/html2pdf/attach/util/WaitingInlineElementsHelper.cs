@@ -193,7 +193,7 @@ namespace iText.Html2pdf.Attach.Util {
 
         /// <summary>Creates the leaves container.</summary>
         /// <returns>a paragraph</returns>
-        public virtual Paragraph CreateLeavesContainer() {
+        private Paragraph CreateLeavesContainer() {
             if (collapseSpaces) {
                 waitingLeaves = TrimUtil.TrimLeafElementsAndSanitize(waitingLeaves);
             }

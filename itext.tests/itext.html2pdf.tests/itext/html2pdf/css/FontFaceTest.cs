@@ -1,44 +1,45 @@
 /*
-    This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
-    Authors: iText Software.
+This file is part of the iText (R) project.
+Copyright (c) 1998-2017 iText Group NV
+Authors: iText Software.
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License version 3
-    as published by the Free Software Foundation with the addition of the
-    following permission added to Section 15 as permitted in Section 7(a):
-    FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
-    ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
-    OF THIRD PARTY RIGHTS
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3
+as published by the Free Software Foundation with the addition of the
+following permission added to Section 15 as permitted in Section 7(a):
+FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
+ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
+OF THIRD PARTY RIGHTS
 
-    This program is distributed in the hope that it will be useful, but
-    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-    or FITNESS FOR A PARTICULAR PURPOSE.
-    See the GNU Affero General Public License for more details.
-    You should have received a copy of the GNU Affero General Public License
-    along with this program; if not, see http://www.gnu.org/licenses or write to
-    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA, 02110-1301 USA, or download the license from the following URL:
-    http://itextpdf.com/terms-of-use/
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program; if not, see http://www.gnu.org/licenses or write to
+the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA, 02110-1301 USA, or download the license from the following URL:
+http://itextpdf.com/terms-of-use/
 
-    The interactive user interfaces in modified source and object code versions
-    of this program must display Appropriate Legal Notices, as required under
-    Section 5 of the GNU Affero General Public License.
+The interactive user interfaces in modified source and object code versions
+of this program must display Appropriate Legal Notices, as required under
+Section 5 of the GNU Affero General Public License.
 
-    In accordance with Section 7(b) of the GNU Affero General Public License,
-    a covered work must retain the producer line in every PDF that is created
-    or manipulated using iText.
+In accordance with Section 7(b) of the GNU Affero General Public License,
+a covered work must retain the producer line in every PDF that is created
+or manipulated using iText.
 
-    You can be released from the requirements of the license by purchasing
-    a commercial license. Buying such a license is mandatory as soon as you
-    develop commercial activities involving the iText software without
-    disclosing the source code of your own applications.
-    These activities include: offering paid services to customers as an ASP,
-    serving PDFs on the fly in a web application, shipping iText with a closed
-    source product.
+You can be released from the requirements of the license by purchasing
+a commercial license. Buying such a license is mandatory as soon as you
+develop commercial activities involving the iText software without
+disclosing the source code of your own applications.
+These activities include: offering paid services to customers as an ASP,
+serving PDFs on the fly in a web application, shipping iText with a closed
+source product.
 
-    For more information, please contact iText Software Corp. at this
-    address: sales@itextpdf.com */
+For more information, please contact iText Software Corp. at this
+address: sales@itextpdf.com
+*/
 using System;
 using System.IO;
 using iText.Html2pdf;
@@ -48,11 +49,6 @@ using iText.Html2pdf.Resolver.Font;
 using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Layout.Font;
-using System.Collections.Generic;
-using System.Reflection;
-using System.IO;
-using Versions.Attributes;
-using iText.Kernel;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -149,8 +145,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1368: font-face alias is not recognized correctly by font selector if it is specified in quotes"
-            )]
         public virtual void FontFaceWoffTest02() {
             RunTest("fontFaceWoffTest02");
         }
@@ -158,7 +152,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains ttc font")]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
         public virtual void FontFaceTtcTest() {
             RunTest("fontFaceTtcTest");
         }
@@ -173,7 +167,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("contains ttc font")]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
         public virtual void FontFaceWoff2TtcTest() {
             RunTest("fontFaceWoff2TtcTest");
         }
@@ -183,15 +177,17 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest01() {
             //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+            //See BlocksMetadataPadding001Test in io for decompression details
             RunTest("w3cProblemTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-444")]
+        [NUnit.Framework.Ignore("DEVSIX-1612")]
         public virtual void W3cProblemTest02() {
             //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
+            //See DirectoryTableOrder002Test in io for decompression details
             RunTest("w3cProblemTest02");
         }
 
@@ -200,14 +196,18 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest03() {
             //TODO: silently omitted, decompression should fail.
+            //See HeaderFlavor001Test in io for decompression details
             RunTest("w3cProblemTest03");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void W3cProblemTest04() {
             //TODO: silently omitted, decompression should fail. Browser loads font but don't draw glyph.
+            //See HeaderFlavor002Test in io for decompression details
+            //NOTE, iText fails on subsetting as expected.
             RunTest("w3cProblemTest04");
         }
 
@@ -216,6 +216,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest05() {
             //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+            //See HeaderReserved001Test in io for decompression details
             RunTest("w3cProblemTest05");
         }
 
@@ -224,24 +225,42 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest06() {
             //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+            //See TabledataHmtxTransform003Test in io for decompression details
             RunTest("w3cProblemTest06");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-444")]
+        [NUnit.Framework.Ignore("DEVSIX-1612")]
         public virtual void W3cProblemTest07() {
             //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
+            //See ValidationOff012Test in io for decompression details
             RunTest("w3cProblemTest07");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void IncorrectFontNameTest() {
-            //TODO: browser can load font with @font-face family name different form family name stored in font metadata, but iText should have them equal in order to work.
-            RunTest("incorrectFontNameTest");
+        public virtual void IncorrectFontNameTest01() {
+            //TODO: DEVSIX-1519
+            RunTest("incorrectFontNameTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void IncorrectFontNameTest02() {
+            //TODO: DEVSIX-1519
+            RunTest("incorrectFontNameTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void IncorrectFontNameTest03() {
+            //Checks that font used in previous two files is correct
+            RunTest("incorrectFontNameTest03");
         }
 
         /// <exception cref="System.IO.IOException"/>

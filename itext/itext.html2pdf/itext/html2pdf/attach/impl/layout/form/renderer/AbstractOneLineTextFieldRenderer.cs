@@ -61,7 +61,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// instance.
         /// </summary>
         /// <param name="modelElement">the model element</param>
-        protected internal AbstractOneLineTextFieldRenderer(IFormField modelElement)
+        internal AbstractOneLineTextFieldRenderer(IFormField modelElement)
             : base(modelElement) {
         }
 
@@ -82,29 +82,28 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <summary>Crops the content lines.</summary>
         /// <param name="lines">a list of lines</param>
         /// <param name="bBox">the bounding box</param>
-        protected internal virtual void CropContentLines(IList<LineRenderer> lines, Rectangle bBox) {
+        internal virtual void CropContentLines(IList<LineRenderer> lines, Rectangle bBox) {
             AdjustNumberOfContentLines(lines, bBox, 1);
             UpdateParagraphHeight();
             baseline = lines[0].GetYLine();
         }
 
         /// <summary>Updates the paragraph height.</summary>
-        protected internal virtual void UpdateParagraphHeight() {
-            OverrideHeightProperties();
+        private void UpdateParagraphHeight() {
             float? height = RetrieveHeight();
             float? minHeight = RetrieveMinHeight();
             float? maxHeight = RetrieveMaxHeight();
             Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
-            if (height != null && height.Value > 0) {
-                SetContentHeight(flatBBox, height.Value);
+            if (height != null && (float)height > 0) {
+                SetContentHeight(flatBBox, (float)height);
             }
             else {
-                if (minHeight != null && minHeight.Value > flatBBox.GetHeight()) {
-                    SetContentHeight(flatBBox, minHeight.Value);
+                if (minHeight != null && (float)minHeight > flatBBox.GetHeight()) {
+                    SetContentHeight(flatBBox, (float)minHeight);
                 }
                 else {
-                    if (maxHeight != null && maxHeight.Value > 0 && maxHeight.Value < flatBBox.GetHeight()) {
-                        SetContentHeight(flatBBox, maxHeight.Value);
+                    if (maxHeight != null && (float)maxHeight > 0 && (float)maxHeight < flatBBox.GetHeight()) {
+                        SetContentHeight(flatBBox, (float)maxHeight);
                     }
                 }
             }

@@ -94,7 +94,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Checks if we can put a new cell in the column.</summary>
         /// <param name="col">the column index</param>
         /// <returns>true, if successful</returns>
-        public virtual bool CanPutCell(int col) {
+        private bool CanPutCell(int col) {
             EnsureRowIsStarted();
             if (col >= lastEmptyRow.Count) {
                 return true;

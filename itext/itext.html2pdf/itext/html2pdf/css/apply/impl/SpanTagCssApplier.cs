@@ -106,11 +106,13 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             BackgroundApplierUtil.ApplyBackground(css, context, element);
             //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
             BorderStyleApplierUtil.ApplyBorders(css, context, element);
+            OutlineApplierUtil.ApplyOutlines(css, context, element);
             HyphenationApplierUtil.ApplyHyphenation(css, context, stylesContainer, element);
             //TODO: Margins-applying currently doesn't work in html way for spans inside other spans. (see SpanTest#spanTest07)
             MarginApplierUtil.ApplyMargins(css, context, element);
             PositionApplierUtil.ApplyPosition(css, context, element);
             FloatApplierUtil.ApplyFloating(css, context, element);
+            PaddingApplierUtil.ApplyPaddings(css, context, element);
         }
     }
 }

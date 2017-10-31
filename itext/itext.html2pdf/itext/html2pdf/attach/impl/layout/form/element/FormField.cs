@@ -62,7 +62,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
         /// instance.
         /// </summary>
         /// <param name="id">the id</param>
-        protected internal FormField(String id) {
+        internal FormField(String id) {
             if (id == null || id.Contains(".")) {
                 throw new ArgumentException("id should not contain '.'");
             }

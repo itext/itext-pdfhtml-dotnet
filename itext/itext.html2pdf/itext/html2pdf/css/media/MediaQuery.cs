@@ -67,7 +67,7 @@ namespace iText.Html2pdf.Css.Media {
         /// <param name="expressions">the expressions</param>
         /// <param name="only">logical "only" value</param>
         /// <param name="not">logical "not" value</param>
-        public MediaQuery(String type, IList<MediaExpression> expressions, bool only, bool not) {
+        internal MediaQuery(String type, IList<MediaExpression> expressions, bool only, bool not) {
             this.type = type;
             this.expressions = expressions;
             this.only = only;

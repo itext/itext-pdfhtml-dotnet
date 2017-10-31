@@ -87,11 +87,17 @@ namespace iText.Html2pdf.Attach {
         /// <summary>The outline handler.</summary>
         private OutlineHandler outlineHandler;
 
+        /// <summary>Indicates whether the document should be opened in immediate flush or not</summary>
+        private bool immediateFlush;
+
         /// <summary>The state.</summary>
         private State state;
 
         /// <summary>The CSS context.</summary>
         private CssContext cssContext;
+
+        /// <summary>The link context</summary>
+        private LinkContext linkContext;
 
         /// <summary>The PDF document.</summary>
         private PdfDocument pdfDocument;
@@ -114,7 +120,7 @@ namespace iText.Html2pdf.Attach {
             state = new State();
             deviceDescription = converterProperties.GetMediaDeviceDescription();
             if (deviceDescription == null) {
-                deviceDescription = MediaDeviceDescription.CreateDefault();
+                deviceDescription = MediaDeviceDescription.GetDefault();
             }
             fontProvider = converterProperties.GetFontProvider();
             if (fontProvider == null) {
@@ -122,11 +128,11 @@ namespace iText.Html2pdf.Attach {
             }
             tagWorkerFactory = converterProperties.GetTagWorkerFactory();
             if (tagWorkerFactory == null) {
-                tagWorkerFactory = new DefaultTagWorkerFactory();
+                tagWorkerFactory = DefaultTagWorkerFactory.GetInstance();
             }
             cssApplierFactory = converterProperties.GetCssApplierFactory();
             if (cssApplierFactory == null) {
-                cssApplierFactory = new DefaultCssApplierFactory();
+                cssApplierFactory = DefaultCssApplierFactory.GetInstance();
             }
             baseUri = converterProperties.GetBaseUri();
             if (baseUri == null) {
@@ -138,8 +144,10 @@ namespace iText.Html2pdf.Attach {
             }
             resourceResolver = new ResourceResolver(baseUri);
             cssContext = new CssContext();
+            linkContext = new LinkContext();
             createAcroForm = converterProperties.IsCreateAcroForm();
             formFieldNameResolver = new FormFieldNameResolver();
+            immediateFlush = converterProperties.IsImmediateFlush();
         }
 
         /// <summary>Sets the font provider.</summary>
@@ -202,6 +210,12 @@ namespace iText.Html2pdf.Attach {
             return cssContext;
         }
 
+        /// <summary>Gets the link context.</summary>
+        /// <returns>the link context</returns>
+        public virtual LinkContext GetLinkContext() {
+            return linkContext;
+        }
+
         /// <summary>Checks if is an AcroForm needs to be created.</summary>
         /// <returns>true, an AcroForm should be created</returns>
         public virtual bool IsCreateAcroForm() {
@@ -255,10 +269,12 @@ namespace iText.Html2pdf.Attach {
             this.state = new State();
             this.resourceResolver.ResetCache();
             this.cssContext = new CssContext();
+            this.linkContext = new LinkContext();
             this.formFieldNameResolver.Reset();
             //Reset font provider. PdfFonts shall be reseted.
             this.fontProvider = new FontProvider(this.fontProvider.GetFontSet());
             this.tempFonts = null;
+            this.outlineHandler.Reset();
         }
 
         /// <summary>Resets the context, and assigns a new PDF document.</summary>
@@ -266,6 +282,19 @@ namespace iText.Html2pdf.Attach {
         public virtual void Reset(PdfDocument pdfDocument) {
             Reset();
             this.pdfDocument = pdfDocument;
+        }
+
+        /// <summary>Gets the baseURI: the URI which has been set manually or the directory of the html file in case when baseURI hasn't been set manually.
+        ///     </summary>
+        /// <returns>the baseUri</returns>
+        public virtual String GetBaseUri() {
+            return baseUri;
+        }
+
+        /// <summary>Checks if immediateFlush is set</summary>
+        /// <returns>true if immediateFlush is set, false if not.</returns>
+        public virtual bool IsImmediateFlush() {
+            return immediateFlush;
         }
     }
 }

@@ -51,7 +51,7 @@ namespace iText.Html2pdf.Css.Util {
         /// <summary>Normalize a property.</summary>
         /// <param name="str">the property</param>
         /// <returns>the normalized property</returns>
-        public static String Normalize(String str) {
+        internal static String Normalize(String str) {
             StringBuilder sb = new StringBuilder();
             bool isWhitespace = false;
             int i = 0;

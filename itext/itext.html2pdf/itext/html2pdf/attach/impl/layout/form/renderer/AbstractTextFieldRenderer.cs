@@ -46,7 +46,7 @@ using iText.Forms.Fields;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Kernel.Font;
 using iText.Kernel.Geom;
-using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Annot;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
@@ -67,16 +67,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// instance.
         /// </summary>
         /// <param name="modelElement">the model element</param>
-        protected internal AbstractTextFieldRenderer(IFormField modelElement)
+        internal AbstractTextFieldRenderer(IFormField modelElement)
             : base(modelElement) {
         }
 
         /// <summary>Creates a paragraph renderer.</summary>
         /// <param name="defaultValue">the default value</param>
         /// <returns>the renderer</returns>
-        protected internal virtual IRenderer CreateParagraphRenderer(String defaultValue) {
+        internal virtual IRenderer CreateParagraphRenderer(String defaultValue) {
             if (String.IsNullOrEmpty(defaultValue.Trim())) {
-                // TODO: change to 'defaultValue = "\u00A0"' after trimming of non-breakable spaces is fixed;
+                // TODO DEVSIX-1491: change to 'defaultValue = "\u00A0"' after trimming of non-breakable spaces is fixed;
                 defaultValue = "\u00B7";
             }
             Paragraph paragraph = new Paragraph(defaultValue).SetMargin(0);
@@ -91,8 +91,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <param name="lines">the lines that need to be rendered</param>
         /// <param name="bBox">the bounding box</param>
         /// <param name="linesNumber">the number of lines</param>
-        protected internal virtual void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, int 
-            linesNumber) {
+        internal virtual void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, int linesNumber
+            ) {
             float averageLineHeight = bBox.GetHeight() / lines.Count;
             if (lines.Count != linesNumber) {
                 float actualHeight = averageLineHeight * linesNumber;
@@ -108,8 +108,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
 
         /// <summary>Applies the default field properties.</summary>
         /// <param name="inputField">the input field</param>
-        protected internal virtual void ApplyDefaultFieldProperties(PdfFormField inputField) {
-            inputField.GetWidgets()[0].SetHighlightMode(PdfName.N);
+        internal virtual void ApplyDefaultFieldProperties(PdfFormField inputField) {
+            inputField.GetWidgets()[0].SetHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
             inputField.SetBorderWidth(0);
             TransparentColor color = GetPropertyAsTransparentColor(Property.FONT_COLOR);
             if (color != null) {
@@ -119,7 +119,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
 
         /// <summary>Updates the font.</summary>
         /// <param name="renderer">the renderer</param>
-        protected internal virtual void UpdatePdfFont(ParagraphRenderer renderer) {
+        internal virtual void UpdatePdfFont(ParagraphRenderer renderer) {
             Object retrievedFont;
             if (renderer != null) {
                 IList<LineRenderer> lines = renderer.GetLines();

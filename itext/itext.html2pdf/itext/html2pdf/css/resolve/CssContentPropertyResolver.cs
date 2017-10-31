@@ -228,7 +228,7 @@ namespace iText.Html2pdf.Css.Resolve {
             /// </summary>
             /// <param name="parent">the parent</param>
             /// <param name="content">the content</param>
-            public ContentTextNode(INode parent, String content) {
+            internal ContentTextNode(INode parent, String content) {
                 this.parent = parent;
                 this.content = content;
             }

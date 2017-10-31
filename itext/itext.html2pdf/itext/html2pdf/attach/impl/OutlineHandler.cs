@@ -57,6 +57,7 @@ namespace iText.Html2pdf.Attach.Impl {
     /// A
     /// <see cref="OutlineHandler"/>
     /// handles creating outlines for tags.
+    /// <p>
     /// This class is not reusable and a new instance shall be created for every new conversion process.
     /// </summary>
     public class OutlineHandler {
@@ -120,6 +121,18 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <returns>true, if the tag name is listed in the tag priorities mapping</returns>
         public virtual bool HasTagPriorityMapping(String tagName) {
             return tagPrioritiesMapping.ContainsKey(tagName);
+        }
+
+        /// <summary>
+        /// Resets the current state so that this
+        /// <see cref="OutlineHandler"/>
+        /// is ready to process new document
+        /// </summary>
+        public virtual void Reset() {
+            currentOutline = null;
+            destinationsInProcess.Clear();
+            levelsInProcess.Clear();
+            uniqueIDs.Clear();
         }
 
         /// <summary>Adds the outline.</summary>

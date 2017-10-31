@@ -99,7 +99,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     transparentColor = new TransparentColor(color, opacity);
                 }
                 else {
-                    transparentColor = new TransparentColor(Color.BLACK, 0f);
+                    transparentColor = new TransparentColor(ColorConstants.BLACK, 0f);
                 }
                 element.SetProperty(Property.FONT_COLOR, transparentColor);
             }
@@ -295,7 +295,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="baseValue">the base value</param>
         /// <returns>
         /// the relative font size value as a
-        /// <see>float</see>
+        /// <c>float</c>
         /// </returns>
         public static float ParseRelativeFontSize(String relativeFontSizeValue, float baseValue) {
             if (CssConstants.SMALLER.Equals(relativeFontSizeValue)) {

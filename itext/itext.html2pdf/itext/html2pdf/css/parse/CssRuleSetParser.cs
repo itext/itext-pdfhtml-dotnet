@@ -84,21 +84,32 @@ namespace iText.Html2pdf.Css.Parse {
         /// </returns>
         public static IList<CssDeclaration> ParsePropertyDeclarations(String propertiesStr) {
             IList<CssDeclaration> declarations = new List<CssDeclaration>();
-            int pos = GetSemicolonPosition(propertiesStr, 0);
-            while (pos != -1) {
-                String[] propertySplit = SplitCssProperty(propertiesStr.JSubstring(0, pos));
-                if (propertySplit != null) {
-                    declarations.Add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+            int openedCommentPos = propertiesStr.IndexOf("/*", 0);
+            if (openedCommentPos != -1) {
+                declarations.AddAll(ParsePropertyDeclarations(propertiesStr.JSubstring(0, openedCommentPos)));
+                int closedCommentPos = propertiesStr.IndexOf("*/", openedCommentPos);
+                if (closedCommentPos != -1) {
+                    declarations.AddAll(ParsePropertyDeclarations(propertiesStr.JSubstring(closedCommentPos + 2, propertiesStr
+                        .Length)));
                 }
-                propertiesStr = propertiesStr.Substring(pos + 1);
-                pos = GetSemicolonPosition(propertiesStr, 0);
             }
-            if (!String.IsNullOrEmpty(iText.IO.Util.StringUtil.ReplaceAll(propertiesStr, "[\\n\\r\\t ]", ""))) {
-                String[] propertySplit = SplitCssProperty(propertiesStr);
-                if (propertySplit != null) {
-                    declarations.Add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+            else {
+                int pos = GetSemicolonPosition(propertiesStr, 0);
+                while (pos != -1) {
+                    String[] propertySplit = SplitCssProperty(propertiesStr.JSubstring(0, pos));
+                    if (propertySplit != null) {
+                        declarations.Add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+                    }
+                    propertiesStr = propertiesStr.Substring(pos + 1);
+                    pos = GetSemicolonPosition(propertiesStr, 0);
                 }
-                return declarations;
+                if (!String.IsNullOrEmpty(iText.IO.Util.StringUtil.ReplaceAll(propertiesStr, "[\\n\\r\\t ]", ""))) {
+                    String[] propertySplit = SplitCssProperty(propertiesStr);
+                    if (propertySplit != null) {
+                        declarations.Add(new CssDeclaration(propertySplit[0], propertySplit[1]));
+                    }
+                    return declarations;
+                }
             }
             return declarations;
         }
@@ -141,7 +152,8 @@ namespace iText.Html2pdf.Css.Parse {
                     }
                 }
                 catch (Exception exc) {
-                    logger.Error(iText.Html2pdf.LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, exc);
+                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, currentSelectorStr
+                        ), exc);
                     //if any separated selector has errors, all others become invalid.
                     //in this case we just clear map, it is the easies way to support this.
                     declarations.Clear();
@@ -196,6 +208,9 @@ namespace iText.Html2pdf.Css.Parse {
             return semiColonPos;
         }
 
+        /// <summary>Return whether or not the selector items contain unsupported pseudoclasses</summary>
+        /// <param name="selectorItems"/>
+        /// <returns/>
         private static bool SelectorItemsContainsUnsupportedPseudoClasses(IList<ICssSelectorItem> selectorItems) {
             foreach (ICssSelectorItem selectorItem in selectorItems) {
                 if (selectorItem is CssPseudoClassSelectorItem) {

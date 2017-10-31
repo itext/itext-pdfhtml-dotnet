@@ -59,6 +59,12 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant ALT.</summary>
         public const String ALT = "alt";
 
+        /// <summary>The Constant APPLICATION_NAME.</summary>
+        public const String APPLICATION_NAME = "application-name";
+
+        /// <summary>The Constant AUTHOR.</summary>
+        public const String AUTHOR = "author";
+
         /// <summary>The Constant BGCOLOR.</summary>
         public const String BGCOLOR = "bgcolor";
 
@@ -80,6 +86,12 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant COLSPAN.</summary>
         public const String COLSPAN = "colspan";
 
+        /// <summary>The Constant CONTENT.</summary>
+        public const String CONTENT = "content";
+
+        /// <summary>The Constant DESCRIPTION.</summary>
+        public const String DESCRIPTION = "description";
+
         /// <summary>The Constant DIR.</summary>
         public const String DIR = "dir";
 
@@ -92,8 +104,14 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant HREF.</summary>
         public const String HREF = "href";
 
+        /// <summary>The Constant HSPACE.</summary>
+        public const String HSPACE = "hspace";
+
         /// <summary>The Constant ID.</summary>
         public const String ID = "id";
+
+        /// <summary>The Constant KEYWORDS.</summary>
+        public const String KEYWORDS = "keywords";
 
         /// <summary>The Constant LANG.</summary>
         public const String LANG = "lang";
@@ -136,6 +154,9 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant VALUE.</summary>
         public const String VALUE = "value";
+
+        /// <summary>The Constant VSPACE.</summary>
+        public const String VSPACE = "vspace";
 
         /// <summary>The Constant WIDTH.</summary>
         public const String WIDTH = "width";
@@ -205,6 +226,9 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant TOP.</summary>
         public const String TOP = "top";
+
+        /// <summary>The Constant start</summary>
+        public const String START = "start";
 
         /// <summary>The Constant PARENT_TABLE_BORDER.</summary>
         public const String PARENT_TABLE_BORDER = "parenttableborder";

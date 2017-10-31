@@ -131,7 +131,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     }
 
                     case '~': {
-                        String pattern = String.Format("(^%s\\s+)|(\\s+%s\\s+)|(\\s+%s$)", value, value, value);
+                        String pattern = MessageFormatUtil.Format("(^{0}\\s+)|(\\s+{1}\\s+)|(\\s+{2}$)", value, value, value);
                         return iText.IO.Util.StringUtil.Match(iText.IO.Util.StringUtil.RegexCompile(pattern), attributeValue).Success;
                     }
 

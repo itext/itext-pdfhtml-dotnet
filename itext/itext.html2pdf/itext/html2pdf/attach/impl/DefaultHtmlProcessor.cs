@@ -46,6 +46,7 @@ using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Tags;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
@@ -144,6 +145,7 @@ namespace iText.Html2pdf.Attach.Impl {
             context.Reset();
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context);
+            context.GetLinkContext().ScanForIds(root);
             AddFontFaceFonts();
             IElementNode html = FindHtmlNode(root);
             IElementNode body = FindBodyNode(root);
@@ -171,7 +173,7 @@ namespace iText.Html2pdf.Attach.Impl {
         private static Type GetClass(string className)
         {
             String licenseKeyClassFullName = null;
-            Assembly assembly = typeof(DefaultHtmlProcessor).Assembly;
+            Assembly assembly = typeof(DefaultHtmlProcessor).GetAssembly();
             Attribute keyVersionAttr = assembly.GetCustomAttribute(typeof(KeyVersionAttribute));
             if (keyVersionAttr is KeyVersionAttribute)
             {
@@ -243,6 +245,7 @@ namespace iText.Html2pdf.Attach.Impl {
             // TODO store html version from document type in context if necessary
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context);
+            context.GetLinkContext().ScanForIds(root);
             AddFontFaceFonts();
             root = FindHtmlNode(root);
             Visit(root);
@@ -286,6 +289,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 VisitPseudoElement(element, CssConstants.AFTER);
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
+                    LinkHelper.CreateDestination(tagWorker, element, context);
                     context.GetOutlineHandler().AddDestination(tagWorker, element);
                     context.GetState().Pop();
                     ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(element);
@@ -335,7 +339,7 @@ namespace iText.Html2pdf.Attach.Impl {
         }
 
         /// <summary>Adds @font-face fonts to the FontProvider.</summary>
-        protected internal virtual void AddFontFaceFonts() {
+        private void AddFontFaceFonts() {
             //TODO Shall we add getFonts() to ICssResolver?
             if (cssResolver is DefaultCssResolver) {
                 foreach (CssFontFaceRule fontFace in ((DefaultCssResolver)cssResolver).GetFonts()) {
@@ -482,8 +486,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 bool containsNonEmptyChildNode = false;
                 bool containsElementNode = false;
                 for (int i = 0; i < element.ChildNodes().Count; i++) {
-                    if (element.ChildNodes()[i] is ITextNode && !String.IsNullOrEmpty(((ITextNode)element.ChildNodes()[i]).WholeText
-                        ())) {
+                    if (element.ChildNodes()[i] is ITextNode) {
                         containsNonEmptyChildNode = true;
                         break;
                     }

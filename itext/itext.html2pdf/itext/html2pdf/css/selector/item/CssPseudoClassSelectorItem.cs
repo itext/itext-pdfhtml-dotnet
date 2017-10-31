@@ -55,7 +55,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
     /// </summary>
     public class CssPseudoClassSelectorItem : ICssSelectorItem {
         /// <summary>The pseudo class.</summary>
-        protected internal String pseudoClass;
+        private String pseudoClass;
 
         /// <summary>The arguments.</summary>
         protected internal String arguments;
@@ -168,18 +168,18 @@ namespace iText.Html2pdf.Css.Selector.Item {
             /// instance.
             /// </summary>
             /// <param name="pseudoClass">the pseudo class name</param>
-            protected internal ChildSelectorItem(String pseudoClass)
+            internal ChildSelectorItem(String pseudoClass)
                 : base(pseudoClass) {
             }
 
-            protected internal ChildSelectorItem(String pseudoClass, String arguments)
+            internal ChildSelectorItem(String pseudoClass, String arguments)
                 : base(pseudoClass, arguments) {
             }
 
             /// <summary>Gets the all the siblings of a child node.</summary>
             /// <param name="node">the child node</param>
             /// <returns>the sibling nodes</returns>
-            protected internal virtual IList<INode> GetAllSiblings(INode node) {
+            internal virtual IList<INode> GetAllSiblings(INode node) {
                 INode parentElement = node.ParentNode();
                 if (parentElement != null) {
                     IList<INode> childrenUnmodifiable = parentElement.ChildNodes();
@@ -244,7 +244,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
             /// <summary>The nth child B.</summary>
             private int nthChildB;
 
-            public NthChildSelectorItem(String arguments)
+            internal NthChildSelectorItem(String arguments)
                 : base(CssConstants.NTH_CHILD, arguments) {
                 GetNthChildArguments();
             }
@@ -332,7 +332,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
         public class NotSelectorItem : CssPseudoClassSelectorItem {
             private ICssSelector argumentsSelector;
 
-            public NotSelectorItem(ICssSelector argumentsSelector)
+            internal NotSelectorItem(ICssSelector argumentsSelector)
                 : base(CssConstants.NOT, argumentsSelector.ToString()) {
                 //@TODO This class was made public because we need to detect to arguments contains unsupported pseudo classes
                 //revert the changes when the task DEVSIX-1440 is done
@@ -349,7 +349,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
         }
 
         private class AlwaysApplySelectorItem : CssPseudoClassSelectorItem {
-            protected internal AlwaysApplySelectorItem(String pseudoClass, String arguments)
+            internal AlwaysApplySelectorItem(String pseudoClass, String arguments)
                 : base(pseudoClass, arguments) {
             }
 
@@ -359,7 +359,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
         }
 
         private class AlwaysNotApplySelectorItem : CssPseudoClassSelectorItem {
-            protected internal AlwaysNotApplySelectorItem(String pseudoClass, String arguments)
+            internal AlwaysNotApplySelectorItem(String pseudoClass, String arguments)
                 : base(pseudoClass, arguments) {
             }
 

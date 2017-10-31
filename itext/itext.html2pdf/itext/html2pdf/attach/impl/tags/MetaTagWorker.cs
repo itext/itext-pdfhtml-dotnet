@@ -42,7 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
+using iText.Kernel.Pdf;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
@@ -66,13 +68,44 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
+            // Note that charset and http-equiv attributes are processed on DataUtil#parseByteData(ByteBuffer, String, String, Parser) level.
+            String name = element.GetAttribute(AttributeConstants.NAME);
+            if (null != name) {
+                name = name.ToLowerInvariant();
+                String content = element.GetAttribute(AttributeConstants.CONTENT);
+                // although iText do not visit head during processing html to elements
+                // meta tag can by accident be presented in body section and that shouldn't cause NPE
+                if (null != content && null != context.GetPdfDocument()) {
+                    PdfDocumentInfo info = context.GetPdfDocument().GetDocumentInfo();
+                    if (AttributeConstants.AUTHOR.Equals(name)) {
+                        info.SetAuthor(content);
+                    }
+                    else {
+                        if (AttributeConstants.APPLICATION_NAME.Equals(name)) {
+                            info.SetCreator(content);
+                        }
+                        else {
+                            if (AttributeConstants.KEYWORDS.Equals(name)) {
+                                info.SetKeywords(content);
+                            }
+                            else {
+                                if (AttributeConstants.DESCRIPTION.Equals(name)) {
+                                    info.SetSubject(content);
+                                }
+                                else {
+                                    info.SetMoreInfo(name, content);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual bool ProcessContent(String content, ProcessorContext context) {
-            //TODO add keywords to document.
             return false;
         }
 

@@ -111,7 +111,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 baseline = flatBBox.GetTop();
                 flatBBox.SetY(baseline).SetHeight(0);
             }
-            flatBBox.SetWidth(GetContentWidth().Value);
+            flatBBox.SetWidth((float)GetContentWidth());
         }
 
         /* (non-Javadoc)
@@ -143,13 +143,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 value = "";
             }
             PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSize);
-            ApplyDefaultFieldProperties(inputField);
             if (password) {
                 inputField.SetFieldFlag(PdfFormField.FF_PASSWORD, true);
             }
             else {
                 inputField.SetDefaultValue(new PdfString(value));
             }
+            ApplyDefaultFieldProperties(inputField);
             PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
         }
 

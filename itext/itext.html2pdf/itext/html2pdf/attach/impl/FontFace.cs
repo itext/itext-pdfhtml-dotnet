@@ -44,7 +44,9 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Util;
 using iText.IO.Util;
+using iText.Layout.Font;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>
@@ -75,7 +77,7 @@ namespace iText.Html2pdf.Attach.Impl {
             String srcs = null;
             foreach (CssDeclaration descriptor in properties) {
                 if ("font-family".Equals(descriptor.GetProperty())) {
-                    fontFamily = descriptor.GetExpression();
+                    fontFamily = FontFamilySplitter.RemoveQuotes(descriptor.GetExpression());
                 }
                 else {
                     if ("src".Equals(descriptor.GetProperty())) {
@@ -91,7 +93,7 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             IList<FontFace.FontFaceSrc> sources = new List<FontFace.FontFaceSrc>();
             // ttc collection are supported via url(Arial.ttc#1), url(Arial.ttc#2), etc.
-            foreach (String src in iText.IO.Util.StringUtil.Split(srcs, ",")) {
+            foreach (String src in SplitSourcesSequence(srcs)) {
                 //local|url("ideal-sans-serif.woff")( format("woff"))?
                 FontFace.FontFaceSrc source = FontFace.FontFaceSrc.Create(src.Trim());
                 if (source != null) {
@@ -104,6 +106,39 @@ namespace iText.Html2pdf.Attach.Impl {
             else {
                 return null;
             }
+        }
+
+        // NOTE: If src property is written in incorrect format (for example, contains token url(<url_content>)<some_nonsense>),
+        // then browser ignores it altogether and doesn't load font at all, even if there are valid tokens.
+        // iText will still process all split tokens and can possibly load this font in case it contains some correct urls.
+        public static String[] SplitSourcesSequence(String src) {
+            IList<String> list = new List<String>();
+            int indexToStart = 0;
+            while (indexToStart < src.Length) {
+                int indexToCut;
+                int indexUnescapedOpeningQuoteMark = Math.Min(CssUtils.FindNextUnescapedChar(src, '\'', indexToStart) >= 0
+                     ? CssUtils.FindNextUnescapedChar(src, '\'', indexToStart) : int.MaxValue, CssUtils.FindNextUnescapedChar
+                    (src, '"', indexToStart) >= 0 ? CssUtils.FindNextUnescapedChar(src, '"', indexToStart) : int.MaxValue);
+                int indexUnescapedBracket = CssUtils.FindNextUnescapedChar(src, ')', indexToStart);
+                if (indexUnescapedOpeningQuoteMark < indexUnescapedBracket) {
+                    indexToCut = CssUtils.FindNextUnescapedChar(src, src[indexUnescapedOpeningQuoteMark], indexUnescapedOpeningQuoteMark
+                         + 1);
+                    if (indexToCut == -1) {
+                        indexToCut = src.Length;
+                    }
+                }
+                else {
+                    indexToCut = indexUnescapedBracket;
+                }
+                while (indexToCut < src.Length && src[indexToCut] != ',') {
+                    indexToCut++;
+                }
+                list.Add(src.JSubstring(indexToStart, indexToCut).Trim());
+                indexToStart = ++indexToCut;
+            }
+            String[] result = new String[list.Count];
+            list.ToArray(result);
+            return result;
         }
 
         /// <summary>Gets the font-family.</summary>
@@ -249,7 +284,7 @@ namespace iText.Html2pdf.Attach.Impl {
             /// <summary>
             /// Instantiates a new
             /// <see cref="FontFaceSrc"/>
-            /// insance.
+            /// instance.
             /// </summary>
             /// <param name="src">a source path</param>
             /// <param name="isLocal">indicates if the font is local</param>
