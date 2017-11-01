@@ -167,8 +167,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             flatRenderer = null;
             float parentWidth = layoutContext.GetArea().GetBBox().GetWidth();
             float parentHeight = layoutContext.GetArea().GetBBox().GetHeight();
-            float? maxHeight = this.GetProperty<float?>(Property.MAX_HEIGHT);
-            float? height = this.GetProperty<float?>(Property.HEIGHT);
+            UnitValue maxHeight = this.GetProperty<UnitValue>(Property.MAX_HEIGHT);
+            UnitValue height = this.GetProperty<UnitValue>(Property.HEIGHT);
             bool restoreMaxHeight = HasOwnProperty(Property.MAX_HEIGHT);
             bool restoreHeight = HasOwnProperty(Property.HEIGHT);
             SetProperty(Property.MAX_HEIGHT, null);
