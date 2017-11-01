@@ -142,6 +142,7 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.TIME, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.TITLE, typeof(TitleTagWorker));
             workerMapping.PutMapping(TagConstants.TR, typeof(TrTagWorker));
+            workerMapping.PutMapping(TagConstants.TT, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.U, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.UL, typeof(UlOlTagWorker));
             workerMapping.PutMapping(TagConstants.VAR, typeof(SpanTagWorker));
