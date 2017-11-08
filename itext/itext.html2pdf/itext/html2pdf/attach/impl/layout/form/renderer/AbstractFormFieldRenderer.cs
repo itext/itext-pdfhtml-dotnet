@@ -112,9 +112,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             drawContext.GetCanvas().RestoreState();
         }
 
-        protected override MinMaxWidth GetMinMaxWidth(float availableWidth) {
-            MinMaxWidthLayoutResult result = (MinMaxWidthLayoutResult)Layout(new LayoutContext(new LayoutArea(1, new Rectangle(availableWidth, AbstractRenderer.INF))), true);
-            return result.GetNotNullMinMaxWidth(availableWidth);
+        protected override MinMaxWidth GetMinMaxWidth() {
+            MinMaxWidthLayoutResult result = (MinMaxWidthLayoutResult)Layout(new LayoutContext(new LayoutArea(1, new Rectangle(MinMaxWidthUtils.GetInfWidth(), AbstractRenderer.INF))), true);
+            return result.GetMinMaxWidth();
         }
 
         protected internal abstract void AdjustFieldLayout();
@@ -211,8 +211,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                     AdjustFieldLayout();
                     occupiedArea.SetBBox(flatRenderer.GetOccupiedArea().GetBBox().Clone());
                 }
-                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new 
-                    MinMaxWidth(0, parentWidth));
+                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new MinMaxWidth());
             }
             if (!childRenderers.IsEmpty()) {
                 flatRenderer = childRenderers[0];
@@ -235,16 +234,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 if (!minMaxWidth) {
                     SetProperty(Property.FORCED_PLACEMENT, true);
                     occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
-                    return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new MinMaxWidth(0, parentWidth));
+                    return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new MinMaxWidth());
                 } else {
-                    return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new MinMaxWidth(occupiedArea.GetBBox().GetWidth(), occupiedArea.GetBBox().GetWidth()));
+                    return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new MinMaxWidth(occupiedArea.GetBBox().GetWidth(), occupiedArea.GetBBox().GetWidth(), 0));
                 }
             }
             if (result.GetStatus() != LayoutResult.FULL || !IsRendererFit(parentWidth, parentHeight)) {
                 LogManager.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
             }
-            return new MinMaxWidthLayoutResult(LayoutResult.FULL, occupiedArea, this, null).SetMinMaxWidth(new MinMaxWidth
-                (0, parentWidth, occupiedArea.GetBBox().GetWidth(), occupiedArea.GetBBox().GetWidth()));
+            return new MinMaxWidthLayoutResult(LayoutResult.FULL, occupiedArea, this, null).SetMinMaxWidth(new MinMaxWidth(occupiedArea.GetBBox().GetWidth(), occupiedArea.GetBBox().GetWidth(), 0));
         }
 
     }
