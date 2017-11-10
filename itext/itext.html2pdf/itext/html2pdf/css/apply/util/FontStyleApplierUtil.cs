@@ -78,7 +78,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
             if (em != 0) {
-                element.SetProperty(Property.FONT_SIZE, em);
+                element.SetProperty(Property.FONT_SIZE, UnitValue.CreatePointValue(em));
             }
             if (cssProps.Get(CssConstants.FONT_FAMILY) != null) {
                 element.SetProperty(Property.FONT, cssProps.Get(CssConstants.FONT_FAMILY));

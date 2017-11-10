@@ -145,11 +145,17 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             font.SetSubset(false);
             String value = GetDefaultValue();
             String name = GetModelId();
-            float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+            UnitValue fontSize = (UnitValue)this.GetPropertyAsUnitValue(Property.FONT_SIZE);
+            if (!fontSize.IsPointValue()) {
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.TextAreaRenderer
+                    ));
+                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property
+                    .FONT_SIZE));
+            }
             PdfDocument doc = drawContext.GetDocument();
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
-            PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSize);
+            PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSize.GetValue());
             inputField.SetFieldFlag(PdfFormField.FF_MULTILINE, true);
             inputField.SetDefaultValue(new PdfString(GetDefaultValue()));
             ApplyDefaultFieldProperties(inputField);
@@ -162,9 +168,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected internal override float? GetContentWidth() {
             float? width = base.GetContentWidth();
             if (width == null) {
-                float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+                UnitValue fontSize = (UnitValue)this.GetPropertyAsUnitValue(Property.FONT_SIZE);
+                if (!fontSize.IsPointValue()) {
+                    ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.TextAreaRenderer
+                        ));
+                    logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property
+                        .FONT_SIZE));
+                }
                 int cols = GetCols();
-                return fontSize * (cols * 0.5f + 2) + 2;
+                return fontSize.GetValue() * (cols * 0.5f + 2) + 2;
             }
             return width;
         }

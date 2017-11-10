@@ -65,7 +65,7 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.IsTrue(lst[0] is Paragraph);
             Paragraph p = (Paragraph)lst[0];
             NUnit.Framework.Assert.AreEqual("Hello world!", ((Text)p.GetChildren()[0]).GetText());
-            NUnit.Framework.Assert.AreEqual(12f, (float)(Object)p.GetProperty<float?>(Property.FONT_SIZE), 1e-10);
+            NUnit.Framework.Assert.AreEqual(12f, p.GetProperty<UnitValue>(Property.FONT_SIZE).GetValue(), 1e-10);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -79,7 +79,7 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.AreEqual(2, t.GetNumberOfRows());
             NUnit.Framework.Assert.AreEqual("123", ((Text)(((Paragraph)t.GetCell(0, 0).GetChildren()[0]).GetChildren()
                 [0])).GetText());
-            NUnit.Framework.Assert.AreEqual(24f, (float)(Object)t.GetProperty<float?>(Property.FONT_SIZE), 1e-10);
+            NUnit.Framework.Assert.AreEqual(24f, t.GetProperty<UnitValue>(Property.FONT_SIZE).GetValue(), 1e-10);
         }
 
         /// <exception cref="System.IO.IOException"/>

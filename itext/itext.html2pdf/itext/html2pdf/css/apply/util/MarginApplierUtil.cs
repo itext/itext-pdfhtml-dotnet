@@ -118,7 +118,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             float? marginVal = ParseMarginValue(marginValue, em, rem);
             if (marginVal != null) {
-                element.SetProperty(marginProperty, marginVal);
+                element.SetProperty(marginProperty, UnitValue.CreatePointValue((float)marginVal));
             }
             return true;
         }

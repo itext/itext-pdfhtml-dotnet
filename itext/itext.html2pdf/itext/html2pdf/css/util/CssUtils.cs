@@ -240,7 +240,14 @@ namespace iText.Html2pdf.Css.Util {
             return (float)f;
         }
 
-        /// <summary>Parses the length value to pt.</summary>
+        /// <summary>Convenience method for parsing a value to pt.</summary>
+        /// <remarks>
+        /// Convenience method for parsing a value to pt. Possible values are: <ul>
+        /// <li>a numeric value in pixels (e.g. 123, 1.23, .123),</li>
+        /// <li>a value with a metric unit (px, in, cm, mm, pc or pt) attached to it,</li>
+        /// <li>or a value with a relative value (%, em, ex).</li>
+        /// </ul>
+        /// </remarks>
         /// <param name="value">the value</param>
         /// <param name="emValue">the em value</param>
         /// <param name="remValue">the root em value</param>

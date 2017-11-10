@@ -121,12 +121,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected internal override void ApplyAcroField(DrawContext drawContext) {
             String value = GetDefaultValue();
             String name = GetModelId();
-            float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+            UnitValue fontSize = (UnitValue)this.GetPropertyAsUnitValue(Property.FONT_SIZE);
+            if (!fontSize.IsPointValue()) {
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.ButtonRenderer));
+                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property
+                    .FONT_SIZE));
+            }
             PdfDocument doc = drawContext.GetDocument();
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
             ApplyPaddings(area, true);
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
-            PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSize);
+            PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSize.GetValue(
+                ));
             Background background = this.GetProperty<Background>(Property.BACKGROUND);
             if (background != null && background.GetColor() != null) {
                 button.SetBackgroundColor(background.GetColor());
