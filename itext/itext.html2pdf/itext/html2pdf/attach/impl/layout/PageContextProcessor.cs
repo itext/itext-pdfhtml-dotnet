@@ -55,6 +55,7 @@ using iText.Html2pdf.Html.Node;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
@@ -449,7 +450,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                         }
                     }
                 }
-                marginBox.SetRole(PdfName.Artifact);
+                marginBox.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
             }
         }
 

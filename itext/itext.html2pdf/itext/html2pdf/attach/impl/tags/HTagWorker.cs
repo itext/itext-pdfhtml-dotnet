@@ -43,9 +43,8 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html.Node;
-using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Tagutils;
 using iText.Layout;
+using iText.Layout.Tagging;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     public class HTagWorker : DivTagWorker {
@@ -67,7 +66,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             base.ProcessEnd(element, context);
             IPropertyContainer elementResult = base.GetElementResult();
             if (elementResult is IAccessibleElement) {
-                ((IAccessibleElement)elementResult).SetRole(new PdfName(role));
+                ((IAccessibleElement)elementResult).GetAccessibilityProperties().SetRole(role);
             }
         }
     }
