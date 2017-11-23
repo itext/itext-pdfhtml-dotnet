@@ -45,7 +45,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using iText.IO.Util;
-using Org.Jsoup.Helper;
+using iText.Html2pdf.Jsoup.Helper;
 using System.Reflection;
 
 internal static class Html2PdfExtensions {

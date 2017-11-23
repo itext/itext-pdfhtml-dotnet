@@ -43,7 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Org.Jsoup.Nodes;
+using iText.Html2pdf.Jsoup.Nodes;
 using iText.Html2pdf.Html.Node;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
@@ -73,9 +73,9 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
         }
 
         private class AttributeIterator : IEnumerator<IAttribute> {
-            private IEnumerator<Org.Jsoup.Nodes.Attribute> iterator;
+            private IEnumerator<iText.Html2pdf.Jsoup.Nodes.Attribute> iterator;
 
-            public AttributeIterator(IEnumerator<Org.Jsoup.Nodes.Attribute> iterator) {
+            public AttributeIterator(IEnumerator<iText.Html2pdf.Jsoup.Nodes.Attribute> iterator) {
                 this.iterator = iterator;
             }
 

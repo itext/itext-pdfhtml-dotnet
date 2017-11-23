@@ -40,15 +40,15 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-using Org.Jsoup.Nodes;
 using iText.Html2pdf.Html.Node;
+using iText.Html2pdf.Jsoup.Nodes;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
     /// <summary>
     /// Implementation of the
     /// <see cref="iText.Html2pdf.Html.Node.IDocumentTypeNode"/>
     /// interface; wrapper for the JSoup
-    /// <see cref="Org.Jsoup.Nodes.DocumentType"/>
+    /// <see cref="iText.Html2pdf.Jsoup.Nodes.DocumentType"/>
     /// class.
     /// </summary>
     public class JsoupDocumentTypeNode : JsoupNode, IDocumentTypeNode {

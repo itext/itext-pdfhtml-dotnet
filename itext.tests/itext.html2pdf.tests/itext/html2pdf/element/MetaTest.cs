@@ -68,9 +68,12 @@ namespace iText.Html2pdf.Element {
                 + "metaTest01.pdf"));
             PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(destinationFolder + "metaTest01.pdf")).GetDocumentInfo
                 ();
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "metaTest01.pdf", sourceFolder
+            CompareTool compareTool = new CompareTool();
+            NUnit.Framework.Assert.IsNull(compareTool.CompareDocumentInfo(destinationFolder + "metaTest01.pdf", sourceFolder
+                 + "cmp_metaTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(compareTool.CompareByContent(destinationFolder + "metaTest01.pdf", sourceFolder
                  + "cmp_metaTest01.pdf", destinationFolder, "diff01_"));
-            NUnit.Framework.Assert.IsTrue(pdfDocInfo.GetPdfObject().ContainsKey(new PdfName("test")));
+            NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetMoreInfo("test"), "the test content");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -83,9 +86,17 @@ namespace iText.Html2pdf.Element {
                 + "metaTest02.pdf"));
             PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(destinationFolder + "metaTest02.pdf")).GetDocumentInfo
                 ();
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "metaTest02.pdf", sourceFolder
+            CompareTool compareTool = new CompareTool();
+            NUnit.Framework.Assert.IsNull(compareTool.CompareDocumentInfo(destinationFolder + "metaTest02.pdf", sourceFolder
+                 + "cmp_metaTest02.pdf"));
+            NUnit.Framework.Assert.IsNull(compareTool.CompareByContent(destinationFolder + "metaTest02.pdf", sourceFolder
                  + "cmp_metaTest02.pdf", destinationFolder, "diff02_"));
-            NUnit.Framework.Assert.IsTrue(pdfDocInfo.GetPdfObject().Size() == 9);
+            NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetAuthor(), "Bruno Lowagie");
+            NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetKeywords(), "metadata, keywords, test");
+            NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetSubject(), "This is the description of the page");
+            NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetMoreInfo("generator"), "Eugenerator Onegenerator");
+            NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetMoreInfo("subject"), "Trying to break iText and write pdf's Subject with subject instead of description name"
+                );
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -94,7 +105,10 @@ namespace iText.Html2pdf.Element {
         public virtual void Meta03Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "metaTest03.html"), new FileInfo(destinationFolder 
                 + "metaTest03.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "metaTest03.pdf", sourceFolder
+            CompareTool compareTool = new CompareTool();
+            NUnit.Framework.Assert.IsNull(compareTool.CompareDocumentInfo(destinationFolder + "metaTest03.pdf", sourceFolder
+                 + "cmp_metaTest03.pdf"));
+            NUnit.Framework.Assert.IsNull(compareTool.CompareByContent(destinationFolder + "metaTest03.pdf", sourceFolder
                  + "cmp_metaTest03.pdf", destinationFolder, "diff03_"));
         }
     }

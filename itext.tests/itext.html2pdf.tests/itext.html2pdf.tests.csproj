@@ -41,7 +41,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="org\jsoup\**\*.cs" />
     <Compile Include="itext\html2pdf\**\*.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

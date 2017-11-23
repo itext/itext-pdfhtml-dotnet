@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
@@ -51,10 +52,10 @@ using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Log;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
@@ -413,8 +414,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     throw new InvalidOperationException();
                 }
                 // TODO it would be great to reuse DefaultHtmlProcessor, but it seems there is no convenient way of doing so, and maybe it would be an overkill
-                IElementNode dummyMarginBoxNode = new JsoupElementNode(new Org.Jsoup.Nodes.Element(Org.Jsoup.Parser.Tag.ValueOf
-                    (TagConstants.DIV), ""));
+                IElementNode dummyMarginBoxNode = new JsoupElementNode(new iText.Html2pdf.Jsoup.Nodes.Element(iText.Html2pdf.Jsoup.Parser.Tag
+                    .ValueOf(TagConstants.DIV), ""));
                 DivTagWorker marginBoxWorker = new DivTagWorker(dummyMarginBoxNode, context);
                 for (int i = 0; i < marginBoxContentNode.ChildNodes().Count; i++) {
                     INode childNode = marginBoxContentNode.ChildNodes()[i];
@@ -431,7 +432,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                             }
                         }
                         else {
-                            LoggerFactory.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
+                            LogManager.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
                         }
                     }
                 }
@@ -449,7 +450,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                         }
                     }
                 }
-                marginBox.SetRole(PdfName.Artifact);
+                marginBox.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
             }
         }
 
@@ -467,8 +468,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             float rightMargin = margins[1];
             float bottomMargin = margins[2];
             float leftMargin = margins[3];
-            Rectangle withoutMargins = ((PageSize)pageSize.Clone()).ApplyMargins<Rectangle>(topMargin, rightMargin, bottomMargin
-                , leftMargin, false);
+            Rectangle withoutMargins = pageSize.Clone().ApplyMargins(topMargin, rightMargin, bottomMargin, leftMargin, 
+                false);
             float topBottomMarginWidth = withoutMargins.GetWidth() / 3;
             float leftRightMarginHeight = withoutMargins.GetHeight() / 3;
             Rectangle[] hardcodedBoxRectangles = new Rectangle[] { new Rectangle(0, withoutMargins.GetTop(), leftMargin
@@ -497,8 +498,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             if (marginBoxInd == 0 || marginBoxInd == 4 || marginBoxInd == 8 || marginBoxInd == 12) {
                 return marginBoxRectangles[marginBoxInd];
             }
-            Rectangle withoutMargins = ((PageSize)pageSize.Clone()).ApplyMargins<Rectangle>(margins[0], margins[1], margins
-                [2], margins[3], false);
+            Rectangle withoutMargins = pageSize.Clone().ApplyMargins(margins[0], margins[1], margins[2], margins[3], false
+                );
             if (marginBoxInd < 4) {
                 return new Rectangle(withoutMargins.GetWidth(), margins[0]);
             }

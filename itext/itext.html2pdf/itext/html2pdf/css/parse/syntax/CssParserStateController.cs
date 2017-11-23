@@ -43,11 +43,11 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Common.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Resolver.Resource;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Parse.Syntax {
@@ -409,7 +409,7 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
         private bool IsCurrentRuleSupported() {
             bool isSupported = nestedAtRules.IsEmpty() || SUPPORTED_RULES.Contains(nestedAtRules.Peek().GetRuleName());
             if (!isSupported) {
-                LoggerFactory.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.RULE_IS_NOT_SUPPORTED
+                LogManager.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.RULE_IS_NOT_SUPPORTED
                     , nestedAtRules.Peek().GetRuleName()));
             }
             return isSupported;

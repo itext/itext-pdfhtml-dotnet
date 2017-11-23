@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Parse;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
@@ -110,7 +110,7 @@ namespace iText.Html2pdf.Css.Resolve {
                     return new iText.Html2pdf.Css.Resolve.CssQuotes(quotes[0], quotes[1]);
                 }
                 else {
-                    LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.CssQuotes)).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
+                    LogManager.GetLogger(typeof(iText.Html2pdf.Css.Resolve.CssQuotes)).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
                         .QUOTES_PROPERTY_INVALID, quotesString));
                 }
             }

@@ -43,12 +43,12 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Common.Logging;
 using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.Html2pdf.Css.Validate;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css {
@@ -159,7 +159,7 @@ namespace iText.Html2pdf.Css {
                 stylesMap.Put(cssDeclaration.GetProperty(), cssDeclaration);
             }
             else {
-                ILogger logger = LoggerFactory.GetLogger(typeof(DefaultCssResolver));
+                ILog logger = LogManager.GetLogger(typeof(DefaultCssResolver));
                 logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, cssDeclaration
                     ));
             }

@@ -201,10 +201,10 @@ namespace iText.Html2pdf.Css.Media {
                 (printDevice).SetBaseUri(sourceFolder));
             IList<IElement> screenElements = HtmlConverter.ConvertToElements(html, new ConverterProperties().SetMediaDeviceDescription
                 (screenDevice).SetBaseUri(sourceFolder));
-            NUnit.Framework.Assert.AreEqual(12f, (float?)printElements[0].GetProperty<float?>(Property.FONT_SIZE), 1e-10f
-                );
-            NUnit.Framework.Assert.AreEqual(20f, (float?)screenElements[0].GetProperty<float?>(Property.FONT_SIZE), 1e-10f
-                );
+            NUnit.Framework.Assert.AreEqual(12f, printElements[0].GetProperty<UnitValue>(Property.FONT_SIZE).GetValue(
+                ), 1e-10f);
+            NUnit.Framework.Assert.AreEqual(20f, screenElements[0].GetProperty<UnitValue>(Property.FONT_SIZE).GetValue
+                (), 1e-10f);
         }
     }
 }

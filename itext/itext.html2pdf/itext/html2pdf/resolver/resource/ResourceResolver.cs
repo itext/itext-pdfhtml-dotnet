@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using System.IO;
+using Common.Logging;
 using iText.IO.Codec;
 using iText.IO.Image;
-using iText.IO.Log;
 using iText.IO.Util;
 using iText.Kernel.Pdf.Xobject;
 
@@ -130,7 +130,7 @@ namespace iText.Html2pdf.Resolver.Resource {
                 return imageXObject;
             }
             catch (Exception e) {
-                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Resolver.Resource.ResourceResolver));
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Resolver.Resource.ResourceResolver));
                 logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
                     , uriResolver.GetBaseUri(), src), e);
                 return null;
@@ -175,7 +175,7 @@ namespace iText.Html2pdf.Resolver.Resource {
                     )));
             }
             catch (Exception e) {
-                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Resolver.Resource.ResourceResolver));
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Resolver.Resource.ResourceResolver));
                 logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
                     , uriResolver.GetBaseUri(), src), e);
                 return null;

@@ -74,7 +74,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 // inline-blocks with fixed height when the height is smaller than the defined font size
                 float em = CssUtils.ParseAbsoluteLength(element.GetStyles().Get(CssConstants.FONT_SIZE));
                 if (em != 0) {
-                    parentTagWorker.GetElementResult().SetProperty(Property.FONT_SIZE, em);
+                    parentTagWorker.GetElementResult().SetProperty(Property.FONT_SIZE, UnitValue.CreatePointValue(em));
                 }
             }
         }

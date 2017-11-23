@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
@@ -56,7 +57,6 @@ using iText.Html2pdf.Css.Validate;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Resolver.Resource;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
@@ -124,7 +124,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 IStylesContainer parentNode = (IStylesContainer)element.ParentNode();
                 IDictionary<String, String> parentStyles = parentNode.GetStyles();
                 if (parentStyles == null && !(element.ParentNode() is IDocumentNode)) {
-                    ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
+                    ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
                     logger.Error(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
                 }
                 if (parentStyles != null) {
@@ -243,7 +243,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 stylesMap.Put(cssDeclaration.GetProperty(), cssDeclaration.GetExpression());
             }
             else {
-                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
                 logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, cssDeclaration
                     ));
             }
@@ -286,7 +286,7 @@ namespace iText.Html2pdf.Css.Resolve {
                                 cssStyleSheet.AppendCssStyleSheet(styleSheet);
                             }
                             catch (Exception exc) {
-                                ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
+                                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
                                 logger.Error(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, exc);
                             }
                         }

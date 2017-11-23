@@ -42,7 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Text;
-using iText.IO.Log;
+using Common.Logging;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Util {
@@ -105,7 +105,7 @@ namespace iText.Html2pdf.Css.Util {
             int end = CssUtils.FindNextUnescapedChar(source, endQuoteSymbol, start + 1);
             if (end == -1) {
                 end = source.Length;
-                LoggerFactory.GetLogger(typeof(CssPropertyNormalizer)).Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
+                LogManager.GetLogger(typeof(CssPropertyNormalizer)).Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
                     .QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION, source));
             }
             else {
@@ -133,7 +133,7 @@ namespace iText.Html2pdf.Css.Util {
                 else {
                     curr = CssUtils.FindNextUnescapedChar(source, ')', curr);
                     if (curr == -1) {
-                        LoggerFactory.GetLogger(typeof(CssPropertyNormalizer)).Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
+                        LogManager.GetLogger(typeof(CssPropertyNormalizer)).Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
                             .URL_IS_NOT_CLOSED_IN_CSS_EXPRESSION, source));
                         return source.Length;
                     }
@@ -145,7 +145,7 @@ namespace iText.Html2pdf.Css.Util {
                 }
             }
             else {
-                LoggerFactory.GetLogger(typeof(CssPropertyNormalizer)).Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
+                LogManager.GetLogger(typeof(CssPropertyNormalizer)).Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant
                     .URL_IS_EMPTY_IN_CSS_EXPRESSION, source));
                 return source.Length;
             }

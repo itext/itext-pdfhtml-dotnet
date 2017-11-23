@@ -42,18 +42,18 @@ address: sales@itextpdf.com
 */
 using System;
 using System.IO;
-using Org.Jsoup.Nodes;
+using Common.Logging;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Log;
+using iText.Html2pdf.Jsoup.Nodes;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Html.Impl.Jsoup {
     /// <summary>Class that uses JSoup to parse HTML.</summary>
     public class JsoupHtmlParser : IHtmlParser {
         /// <summary>The logger.</summary>
-        private static ILogger logger = LoggerFactory.GetLogger(typeof(JsoupHtmlParser));
+        private static ILog logger = LogManager.GetLogger(typeof(JsoupHtmlParser));
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.html.IHtmlParser#parse(java.io.InputStream, java.lang.String)
@@ -63,7 +63,7 @@ namespace iText.Html2pdf.Html.Impl.Jsoup {
             // Based on some brief investigations, it seems that Jsoup uses baseUri for resolving relative uri's into absolute
             // on user demand. We perform such resolving in ResourceResolver class, therefore it is not needed here.
             String baseUri = "";
-            Document doc = Org.Jsoup.Jsoup.Parse(htmlStream, charset, baseUri);
+            Document doc = iText.Html2pdf.Jsoup.Jsoup.Parse(htmlStream, charset, baseUri);
             INode result = WrapJsoupHierarchy(doc);
             if (result is IDocumentNode) {
                 return (IDocumentNode)result;
@@ -77,7 +77,7 @@ namespace iText.Html2pdf.Html.Impl.Jsoup {
         * @see com.itextpdf.html2pdf.html.IHtmlParser#parse(java.lang.String)
         */
         public virtual IDocumentNode Parse(String html) {
-            Document doc = Org.Jsoup.Jsoup.Parse(html);
+            Document doc = iText.Html2pdf.Jsoup.Jsoup.Parse(html);
             INode result = WrapJsoupHierarchy(doc);
             if (result is IDocumentNode) {
                 return (IDocumentNode)result;
@@ -98,7 +98,7 @@ namespace iText.Html2pdf.Html.Impl.Jsoup {
         /// <see cref="iText.Html2pdf.Html.Node.INode"/>
         /// instance
         /// </returns>
-        private INode WrapJsoupHierarchy(Org.Jsoup.Nodes.Node jsoupNode) {
+        private INode WrapJsoupHierarchy(iText.Html2pdf.Jsoup.Nodes.Node jsoupNode) {
             INode resultNode = null;
             if (jsoupNode is Document) {
                 resultNode = new JsoupDocumentNode((Document)jsoupNode);
@@ -108,8 +108,8 @@ namespace iText.Html2pdf.Html.Impl.Jsoup {
                     resultNode = new JsoupTextNode((TextNode)jsoupNode);
                 }
                 else {
-                    if (jsoupNode is Element) {
-                        resultNode = new JsoupElementNode((Element)jsoupNode);
+                    if (jsoupNode is iText.Html2pdf.Jsoup.Nodes.Element) {
+                        resultNode = new JsoupElementNode((iText.Html2pdf.Jsoup.Nodes.Element)jsoupNode);
                     }
                     else {
                         if (jsoupNode is DataNode) {
@@ -130,7 +130,7 @@ namespace iText.Html2pdf.Html.Impl.Jsoup {
                     }
                 }
             }
-            foreach (Org.Jsoup.Nodes.Node node in jsoupNode.ChildNodes()) {
+            foreach (iText.Html2pdf.Jsoup.Nodes.Node node in jsoupNode.ChildNodes()) {
                 INode childNode = WrapJsoupHierarchy(node);
                 if (childNode != null) {
                     resultNode.AddChild(childNode);

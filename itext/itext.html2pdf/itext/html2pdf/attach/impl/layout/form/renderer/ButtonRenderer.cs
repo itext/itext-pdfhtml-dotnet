@@ -42,11 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Forms;
 using iText.Forms.Fields;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
-using iText.IO.Log;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -100,7 +100,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 }
             }
             else {
-                LoggerFactory.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
+                LogManager.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
                     , "button"));
                 SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
                 baseline = flatBBox.GetTop();
@@ -121,12 +121,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected internal override void ApplyAcroField(DrawContext drawContext) {
             String value = GetDefaultValue();
             String name = GetModelId();
-            float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+            UnitValue fontSize = (UnitValue)this.GetPropertyAsUnitValue(Property.FONT_SIZE);
+            if (!fontSize.IsPointValue()) {
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.ButtonRenderer));
+                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property
+                    .FONT_SIZE));
+            }
             PdfDocument doc = drawContext.GetDocument();
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
             ApplyPaddings(area, true);
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
-            PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSize);
+            PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSize.GetValue(
+                ));
             Background background = this.GetProperty<Background>(Property.BACKGROUND);
             if (background != null && background.GetColor() != null) {
                 button.SetBackgroundColor(background.GetColor());

@@ -172,8 +172,6 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                 // if table is empty, create empty table with single column
                 table = new Table(1);
             }
-            //Workaround to remove default width:100%
-            table.DeleteOwnProperty(Property.WIDTH);
             if (headerRows != null) {
                 foreach (IList<TableWrapper.CellWrapper> headerRow in headerRows) {
                     foreach (TableWrapper.CellWrapper headerCell in headerRow) {

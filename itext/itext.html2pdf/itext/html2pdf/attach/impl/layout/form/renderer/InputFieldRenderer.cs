@@ -43,11 +43,11 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Common.Logging;
 using iText.Forms;
 using iText.Forms.Fields;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
-using iText.IO.Log;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -105,7 +105,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 CropContentLines(flatLines, flatBBox);
             }
             else {
-                LoggerFactory.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
+                LogManager.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
                     , "text input"));
                 SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
                 baseline = flatBBox.GetTop();
@@ -134,7 +134,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             font.SetSubset(false);
             String value = GetDefaultValue();
             String name = GetModelId();
-            float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+            UnitValue fontSize = (UnitValue)this.GetPropertyAsUnitValue(Property.FONT_SIZE);
+            if (!fontSize.IsPointValue()) {
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.InputFieldRenderer
+                    ));
+                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property
+                    .FONT_SIZE));
+            }
             PdfDocument doc = drawContext.GetDocument();
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
@@ -142,7 +148,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             if (password) {
                 value = "";
             }
-            PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSize);
+            PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSize.GetValue());
             if (password) {
                 inputField.SetFieldFlag(PdfFormField.FF_PASSWORD, true);
             }
@@ -159,9 +165,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected internal override float? GetContentWidth() {
             float? width = base.GetContentWidth();
             if (width == null) {
-                float fontSize = (float)this.GetPropertyAsFloat(Property.FONT_SIZE);
+                UnitValue fontSize = (UnitValue)this.GetPropertyAsUnitValue(Property.FONT_SIZE);
+                if (!fontSize.IsPointValue()) {
+                    ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.InputFieldRenderer
+                        ));
+                    logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property
+                        .FONT_SIZE));
+                }
                 int size = GetSize();
-                return fontSize * (size * 0.5f + 2) + 2;
+                return fontSize.GetValue() * (size * 0.5f + 2) + 2;
             }
             return width;
         }
