@@ -68,7 +68,13 @@ namespace iText.Html2pdf.Css {
         /// <summary>
         /// Creates a new
         /// <see cref="CssRuleSet"/>
-        /// .
+        /// from selector and raw list of declarations.
+        /// The declarations are split into normal and important under the hood.
+        /// To construct the
+        /// <see cref="CssRuleSet"/>
+        /// instance from normal and important declarations, see
+        /// <see cref="CssRuleSet(iText.Html2pdf.Css.Selector.ICssSelector, System.Collections.Generic.IList{E}, System.Collections.Generic.IList{E})
+        ///     "/>
         /// </summary>
         /// <param name="selector">the CSS selector</param>
         /// <param name="declarations">the CSS declarations</param>
@@ -76,7 +82,14 @@ namespace iText.Html2pdf.Css {
             this.selector = selector;
             this.normalDeclarations = new List<CssDeclaration>();
             this.importantDeclarations = new List<CssDeclaration>();
-            SplitDeclarationsIntoNormalAndImportant(declarations);
+            SplitDeclarationsIntoNormalAndImportant(declarations, normalDeclarations, importantDeclarations);
+        }
+
+        public CssRuleSet(ICssSelector selector, IList<CssDeclaration> normalDeclarations, IList<CssDeclaration> importantDeclarations
+            ) {
+            this.selector = selector;
+            this.normalDeclarations = normalDeclarations;
+            this.importantDeclarations = importantDeclarations;
         }
 
         /* (non-Javadoc)
@@ -137,7 +150,8 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>Split CSS declarations into normal and important CSS declarations.</summary>
         /// <param name="declarations">the declarations</param>
-        private void SplitDeclarationsIntoNormalAndImportant(IList<CssDeclaration> declarations) {
+        private static void SplitDeclarationsIntoNormalAndImportant(IList<CssDeclaration> declarations, IList<CssDeclaration
+            > normalDeclarations, IList<CssDeclaration> importantDeclarations) {
             foreach (CssDeclaration declaration in declarations) {
                 int exclIndex = declaration.GetExpression().IndexOf('!');
                 if (exclIndex > 0 && iText.IO.Util.StringUtil.Match(importantMatcher, declaration.GetExpression()).Success

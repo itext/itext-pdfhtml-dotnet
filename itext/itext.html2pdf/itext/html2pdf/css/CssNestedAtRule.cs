@@ -127,5 +127,9 @@ namespace iText.Html2pdf.Css {
             sb.Append("\n}");
             return sb.ToString();
         }
+
+        public virtual String GetRuleParameters() {
+            return ruleParameters;
+        }
     }
 }
