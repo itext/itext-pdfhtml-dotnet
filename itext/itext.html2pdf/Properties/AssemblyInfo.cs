@@ -24,3 +24,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.3.0")]
 [assembly: AssemblyFileVersion("1.0.3.0")]
 [assembly: AssemblyInformationalVersion("1.0.3-SNAPSHOT")]
+
+[assembly: Versions.Attributes.KeyVersion("3.0.0.0")]
