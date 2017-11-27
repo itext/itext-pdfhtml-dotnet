@@ -143,7 +143,7 @@ namespace iText.Html2pdf.Attach.Impl {
         internal virtual OutlineHandler AddOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context
             ) {
             String tagName = element.Name();
-            if (null != tagWorker && HasTagPriorityMapping(tagName)) {
+            if (null != tagWorker && HasTagPriorityMapping(tagName) && context.GetPdfDocument() != null) {
                 int level = (int)GetTagPriorityMapping(tagName);
                 if (null == currentOutline) {
                     currentOutline = context.GetPdfDocument().GetOutlines(false);
@@ -173,7 +173,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <returns>the outline handler</returns>
         internal virtual OutlineHandler AddDestination(ITagWorker tagWorker, IElementNode element) {
             String tagName = element.Name();
-            if (null != tagWorker && HasTagPriorityMapping(tagName)) {
+            if (null != tagWorker && HasTagPriorityMapping(tagName) && destinationsInProcess.Count > 0) {
                 String content = destinationsInProcess.JRemoveFirst();
                 if (tagWorker.GetElementResult() is IElement) {
                     tagWorker.GetElementResult().SetProperty(Property.DESTINATION, content);
