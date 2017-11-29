@@ -49,7 +49,7 @@ namespace iText.Html2pdf {
         public const String PRODUCT_NAME = "pdfHtml";
 
         /// <summary>The major version number.</summary>
-        public const int MAJOR_VERSION = 1;
+        public const int MAJOR_VERSION = 2;
 
         /// <summary>The minor version number.</summary>
         public const int MINOR_VERSION = 0;
