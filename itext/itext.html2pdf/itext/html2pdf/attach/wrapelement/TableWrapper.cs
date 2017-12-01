@@ -172,19 +172,23 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                 // if table is empty, create empty table with single column
                 table = new Table(1);
             }
-            //Workaround to remove default width:100%
-            table.DeleteOwnProperty(Property.WIDTH);
             if (headerRows != null) {
-                foreach (IList<TableWrapper.CellWrapper> headerRow in headerRows) {
-                    foreach (TableWrapper.CellWrapper headerCell in headerRow) {
-                        table.AddHeaderCell(headerCell.cell);
+                for (int i = 0; i < headerRows.Count; i++) {
+                    for (int j = 0; j < headerRows[i].Count; j++) {
+                        table.AddHeaderCell(headerRows[i][j].cell);
+                    }
+                    if (i != headerRows.Count - 1) {
+                        table.GetHeader().StartNewRow();
                     }
                 }
             }
             if (footerRows != null) {
-                foreach (IList<TableWrapper.CellWrapper> footerRow in footerRows) {
-                    foreach (TableWrapper.CellWrapper footerCell in footerRow) {
-                        table.AddFooterCell(footerCell.cell);
+                for (int i = 0; i < footerRows.Count; i++) {
+                    for (int j = 0; j < footerRows[i].Count; j++) {
+                        table.AddFooterCell(footerRows[i][j].cell);
+                    }
+                    if (i != footerRows.Count - 1) {
+                        table.GetFooter().StartNewRow();
                     }
                 }
             }

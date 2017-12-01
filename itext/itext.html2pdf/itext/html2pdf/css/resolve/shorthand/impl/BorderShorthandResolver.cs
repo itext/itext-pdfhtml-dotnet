@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
@@ -72,7 +72,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                     resolvedProps.AddAll(shorthandResolver.ResolveShorthand(prop.GetExpression()));
                 }
                 else {
-                    ILogger logger = LoggerFactory.GetLogger(typeof(BorderShorthandResolver));
+                    ILog logger = LogManager.GetLogger(typeof(BorderShorthandResolver));
                     logger.Error(MessageFormatUtil.Format("Cannot find a shorthand resolver for the \"{0}\" property. " + "Expected border-width, border-style or border-color properties."
                         , prop.GetProperty()));
                 }

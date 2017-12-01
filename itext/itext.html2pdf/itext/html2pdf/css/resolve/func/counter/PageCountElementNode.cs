@@ -41,7 +41,6 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using Org.Jsoup.Nodes;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
 
@@ -64,7 +63,8 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// </summary>
         /// <param name="totalPageCount">indicates if the node represents the total page count</param>
         public PageCountElementNode(bool totalPageCount)
-            : base(new Element(Org.Jsoup.Parser.Tag.ValueOf(PAGE_COUNTER_TAG), "")) {
+            : base(new iText.Html2pdf.Jsoup.Nodes.Element(iText.Html2pdf.Jsoup.Parser.Tag.ValueOf(PAGE_COUNTER_TAG), ""
+                )) {
             this.totalPageCount = totalPageCount;
         }
 

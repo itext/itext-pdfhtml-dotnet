@@ -42,11 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Css.Util;
-using iText.IO.Log;
 using iText.Kernel.Colors;
 using iText.Layout;
 using iText.Layout.Borders;
@@ -56,7 +56,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply border styles.</summary>
     public class BorderStyleApplierUtil {
         /// <summary>The logger.</summary>
-        private static readonly ILogger LOGGER = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.BorderStyleApplierUtil
+        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.BorderStyleApplierUtil
             ));
 
         /// <summary>

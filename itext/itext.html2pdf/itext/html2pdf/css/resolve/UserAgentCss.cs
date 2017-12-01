@@ -42,11 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Log;
 using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
@@ -68,7 +68,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 parsedStylesheet = CssStyleSheetParser.Parse(ResourceUtil.GetResourceStream(DEFAULT_CSS_PATH));
             }
             catch (Exception exc) {
-                ILogger logger = LoggerFactory.GetLogger(typeof(UserAgentCss));
+                ILog logger = LogManager.GetLogger(typeof(UserAgentCss));
                 logger.Error("Error parsing default.css", exc);
             }
             finally {

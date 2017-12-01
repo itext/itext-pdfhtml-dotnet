@@ -42,10 +42,10 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Log;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Navigation;
@@ -143,7 +143,7 @@ namespace iText.Html2pdf.Attach.Impl {
         internal virtual OutlineHandler AddOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context
             ) {
             String tagName = element.Name();
-            if (null != tagWorker && HasTagPriorityMapping(tagName)) {
+            if (null != tagWorker && HasTagPriorityMapping(tagName) && context.GetPdfDocument() != null) {
                 int level = (int)GetTagPriorityMapping(tagName);
                 if (null == currentOutline) {
                     currentOutline = context.GetPdfDocument().GetOutlines(false);
@@ -173,13 +173,13 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <returns>the outline handler</returns>
         internal virtual OutlineHandler AddDestination(ITagWorker tagWorker, IElementNode element) {
             String tagName = element.Name();
-            if (null != tagWorker && HasTagPriorityMapping(tagName)) {
+            if (null != tagWorker && HasTagPriorityMapping(tagName) && destinationsInProcess.Count > 0) {
                 String content = destinationsInProcess.JRemoveFirst();
                 if (tagWorker.GetElementResult() is IElement) {
                     tagWorker.GetElementResult().SetProperty(Property.DESTINATION, content);
                 }
                 else {
-                    ILogger logger = LoggerFactory.GetLogger(typeof(OutlineHandler));
+                    ILog logger = LogManager.GetLogger(typeof(OutlineHandler));
                     logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG
                         , tagName));
                 }

@@ -48,16 +48,16 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
     /// Implementation of the
     /// <see cref="iText.Html2pdf.Html.Node.IAttribute"/>
     /// interface; wrapper for the JSoup
-    /// <see cref="Org.Jsoup.Nodes.Attribute"/>
+    /// <see cref="iText.Html2pdf.Jsoup.Nodes.Attribute"/>
     /// class.
     /// </summary>
     public class JsoupAttribute : IAttribute {
         /// <summary>
         /// The JSoup
-        /// <see cref="Org.Jsoup.Nodes.Attribute"/>
+        /// <see cref="iText.Html2pdf.Jsoup.Nodes.Attribute"/>
         /// instance.
         /// </summary>
-        private Org.Jsoup.Nodes.Attribute attribute;
+        private iText.Html2pdf.Jsoup.Nodes.Attribute attribute;
 
         /// <summary>
         /// Creates a new
@@ -65,7 +65,7 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
         /// instance.
         /// </summary>
         /// <param name="attribute">the attribute</param>
-        public JsoupAttribute(Org.Jsoup.Nodes.Attribute attribute) {
+        public JsoupAttribute(iText.Html2pdf.Jsoup.Nodes.Attribute attribute) {
             this.attribute = attribute;
         }
 

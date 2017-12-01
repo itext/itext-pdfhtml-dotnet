@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
-using iText.IO.Log;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Layout.Properties;
@@ -77,7 +77,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="defaultPageSize">the default page size</param>
         /// <returns>the page size</returns>
         internal static PageSize FetchPageSize(String pageSizeStr, float em, float rem, PageSize defaultPageSize) {
-            PageSize pageSize = ((PageSize)defaultPageSize.Clone());
+            PageSize pageSize = (PageSize)defaultPageSize.Clone();
             if (pageSizeStr == null || CssConstants.AUTO.Equals(pageSizeStr)) {
                 return pageSize;
             }
@@ -89,7 +89,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     pageSize = pageSizeBasedOnLength;
                 }
                 else {
-                    ILogger logger = LoggerFactory.GetLogger(typeof(PageSizeParser));
+                    ILog logger = LogManager.GetLogger(typeof(PageSizeParser));
                     logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr
                         ));
                 }
@@ -123,7 +123,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     }
                 }
                 else {
-                    ILogger logger = LoggerFactory.GetLogger(typeof(PageSizeParser));
+                    ILog logger = LogManager.GetLogger(typeof(PageSizeParser));
                     logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr
                         ));
                 }

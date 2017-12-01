@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using iText.Html2pdf.Attach.Impl;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Test;
@@ -65,7 +66,7 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.IsTrue(lst[0] is Paragraph);
             Paragraph p = (Paragraph)lst[0];
             NUnit.Framework.Assert.AreEqual("Hello world!", ((Text)p.GetChildren()[0]).GetText());
-            NUnit.Framework.Assert.AreEqual(12f, (float)(Object)p.GetProperty<float?>(Property.FONT_SIZE), 1e-10);
+            NUnit.Framework.Assert.AreEqual(12f, p.GetProperty<UnitValue>(Property.FONT_SIZE).GetValue(), 1e-10);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -79,7 +80,7 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.AreEqual(2, t.GetNumberOfRows());
             NUnit.Framework.Assert.AreEqual("123", ((Text)(((Paragraph)t.GetCell(0, 0).GetChildren()[0]).GetChildren()
                 [0])).GetText());
-            NUnit.Framework.Assert.AreEqual(24f, (float)(Object)t.GetProperty<float?>(Property.FONT_SIZE), 1e-10);
+            NUnit.Framework.Assert.AreEqual(24f, t.GetProperty<UnitValue>(Property.FONT_SIZE).GetValue(), 1e-10);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -145,6 +146,26 @@ namespace iText.Html2pdf {
         public virtual void HtmlToElementsTest08() {
             // this test checks whether iText fails to process meta tag inside body section or not
             String html = "<html><p>Hello world!</p><meta name=\"author\" content=\"Bruno\"><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p></html>";
+            HtmlConverter.ConvertToElements(html);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        [NUnit.Framework.Test]
+        public virtual void HtmlToElementsTest09() {
+            //Test OutlineHandler exception throwing
+            /*
+            Outlines require a PdfDocument, and OutlineHandler is based around its availability
+            Any convert to elements workflow of course doesn't have a PdfDocument.
+            Instead of throwing an NPE when trying it, the OutlineHandler will check for the existence of a pdfDocument
+            If no PdfDocument is found, the handler will do nothing silently
+            */
+            String html = "<html><p>Hello world!</p><meta name=\"author\" content=\"Bruno\"><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p></html>";
+            ConverterProperties props = new ConverterProperties();
+            OutlineHandler outlineHandler = new OutlineHandler();
+            outlineHandler.PutTagPriorityMapping("h1", 1);
+            outlineHandler.PutTagPriorityMapping("h3", 2);
+            outlineHandler.PutTagPriorityMapping("p", 3);
+            props.SetOutlineHandler(outlineHandler);
             HtmlConverter.ConvertToElements(html);
         }
     }

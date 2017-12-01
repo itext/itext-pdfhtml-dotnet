@@ -42,7 +42,6 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Org.Jsoup.Nodes;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 
@@ -56,7 +55,7 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
     /// </summary>
     public class JsoupElementNode : JsoupNode, IElementNode {
         /// <summary>The JSoup element.</summary>
-        private Element element;
+        private iText.Html2pdf.Jsoup.Nodes.Element element;
 
         /// <summary>The attributes.</summary>
         private IAttributes attributes;
@@ -76,7 +75,7 @@ namespace iText.Html2pdf.Html.Impl.Jsoup.Node {
         /// instance.
         /// </summary>
         /// <param name="element">the element</param>
-        public JsoupElementNode(Element element)
+        public JsoupElementNode(iText.Html2pdf.Jsoup.Nodes.Element element)
             : base(element) {
             this.element = element;
             this.attributes = new JsoupAttributes(element.Attributes());

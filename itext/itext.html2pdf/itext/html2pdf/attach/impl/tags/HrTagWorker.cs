@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html.Node;
-using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Tagutils;
+using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
+using iText.Layout.Tagging;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -70,7 +70,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public override IPropertyContainer GetElementResult() {
             IPropertyContainer elementResult = base.GetElementResult();
             if (elementResult is IAccessibleElement) {
-                ((IAccessibleElement)elementResult).SetRole(PdfName.Artifact);
+                ((IAccessibleElement)elementResult).GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
             }
             return elementResult;
         }

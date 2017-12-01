@@ -40,9 +40,7 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-using System;
 using System.Collections.Generic;
-using iText.IO.Util;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Layout;
@@ -193,12 +191,13 @@ namespace iText.Html2pdf.Attach.Util {
             return (null == leafElement.GetProperty<Border>(Property.BORDER_RIGHT) || 0 == ((Border)leafElement.GetProperty
                 <Border>(Property.BORDER_RIGHT)).GetWidth()) && (null == leafElement.GetProperty<Border>(Property.BORDER_LEFT
                 ) || 0 == ((Border)leafElement.GetProperty<Border>(Property.BORDER_LEFT)).GetWidth()) && (null == leafElement
-                .GetProperty<Object>(Property.PADDING_RIGHT) || 0 == (float)NumberUtil.AsFloat(leafElement.GetProperty
-                <Object>(Property.PADDING_RIGHT))) && (null == leafElement.GetProperty<Object>(Property.PADDING_LEFT) 
-                || 0 == (float)NumberUtil.AsFloat(leafElement.GetProperty<Object>(Property.PADDING_LEFT))) && (null ==
-                 leafElement.GetProperty<Object>(Property.MARGIN_RIGHT) || 0 == (float)NumberUtil.AsFloat(leafElement.
-                GetProperty<Object>(Property.MARGIN_RIGHT))) && (null == leafElement.GetProperty<Object>(Property.MARGIN_LEFT
-                ) || 0 == (float)NumberUtil.AsFloat(leafElement.GetProperty<Object>(Property.MARGIN_LEFT)));
+                .GetProperty<UnitValue>(Property.PADDING_RIGHT) || 0 == leafElement.GetProperty<UnitValue>(Property.PADDING_RIGHT
+                ).GetValue()) && (null == leafElement.GetProperty<UnitValue>(Property.PADDING_LEFT) || 0 == leafElement
+                .GetProperty<UnitValue>(Property.PADDING_LEFT).GetValue()) && (null == leafElement.GetProperty<UnitValue
+                >(Property.MARGIN_RIGHT) || 0 == leafElement.GetProperty<UnitValue>(Property.MARGIN_RIGHT).GetValue())
+                 && (null == leafElement.GetProperty<UnitValue>(Property.MARGIN_LEFT) || 0 == leafElement.GetProperty<
+                UnitValue>(Property.MARGIN_LEFT).GetValue());
         }
+        // Note that iText parses padding and float values to points so the next unit values are always point values
     }
 }

@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
@@ -48,7 +49,6 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Log;
 using iText.IO.Util;
 using iText.Layout;
 using iText.Layout.Element;
@@ -95,7 +95,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
                 }
                 else {
-                    ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
+                    ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
                     logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType
                         ));
                 }
