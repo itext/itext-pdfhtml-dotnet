@@ -413,7 +413,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void MultipleRowsInHeade01() {
+        public virtual void MultipleRowsInHeader01() {
             RunTest("multipleRowsInHeader01");
         }
 
