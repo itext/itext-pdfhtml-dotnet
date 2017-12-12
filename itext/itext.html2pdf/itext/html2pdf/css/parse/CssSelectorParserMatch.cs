@@ -61,26 +61,33 @@ namespace iText.Html2pdf.Css.Parse {
             this.offset = 0;
         }
 
+        /// <summary>Get the index at which the last match started</summary>
         public virtual int GetIndex() {
             return offset + matcher.Index;
         }
 
+        /// <summary>Get the text of the last match</summary>
         public virtual String GetValue() {
             return iText.IO.Util.StringUtil.Group(matcher, 0);
         }
 
+        /// <summary>Get the source text being matched</summary>
         public virtual String GetSource() {
             return source;
         }
 
+        /// <summary>Return whether or not the match was successful</summary>
         public virtual bool Success() {
             return matcher.Success;
         }
 
+        /// <summary>Attempt to match the pattern against the next piece of the source text</summary>
         public virtual void Next() {
             this.matcher = matcher.NextMatch();
         }
 
+        /// <summary>Get the index at which the next match of the pattern takes place</summary>
+        /// <param name="startIndex">the index at which to start matching the pattern</param>
         public virtual void Next(int startIndex) {
             offset = startIndex;
             this.matcher = iText.IO.Util.StringUtil.Match(pattern, source.Substring(startIndex));
