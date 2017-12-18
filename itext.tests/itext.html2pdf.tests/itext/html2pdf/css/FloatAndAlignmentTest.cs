@@ -27,7 +27,7 @@ namespace iText.Html2pdf.Css {
             */
             //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
             //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
-            RunTest("SingleBlockSingleParagraphRight", "diffRight01_");
+            RunTest("singleBlockSingleParagraphRight", "diffRight01_");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -37,7 +37,7 @@ namespace iText.Html2pdf.Css {
         public virtual void SingleBlockSingleParagraphLeft() {
             //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
             //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
-            RunTest("SingleBlockSingleParagraphLeft", "diffLeft01_");
+            RunTest("singleBlockSingleParagraphLeft", "diffLeft01_");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -47,7 +47,7 @@ namespace iText.Html2pdf.Css {
         public virtual void SingleBlockSingleParagraphJustify() {
             //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
             //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
-            RunTest("SingleBlockSingleParagraphJustify", "diffJust01_");
+            RunTest("singleBlockSingleParagraphJustify", "diffJust01_");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -57,7 +57,7 @@ namespace iText.Html2pdf.Css {
         public virtual void SingleBlockSingleParagraphCenter() {
             //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
             //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
-            RunTest("SingleBlockSingleParagraphCenter", "diffCent01_");
+            RunTest("singleBlockSingleParagraphCenter", "diffCent01_");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -67,7 +67,7 @@ namespace iText.Html2pdf.Css {
             /* this test shows different combinations of 3 float values blocks and 1 paragraph aligns within div container
             */
             //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
-            RunTest("SeveralBlocksSingleParagraph", "diffSev01_");
+            RunTest("severalBlocksSingleParagraph", "diffSev01_");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -79,7 +79,7 @@ namespace iText.Html2pdf.Css {
             */
             //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
             //TODO: update after DEVSIX-1437 fix (Fix edge cases for floats splitting)
-            RunTest("BlocksInsideParagraph", "diffInside01_");
+            RunTest("blocksInsideParagraph", "diffInside01_");
         }
 
         /// <exception cref="System.IO.IOException"/>
