@@ -345,12 +345,10 @@ namespace iText.Html2pdf.Css.Resolve {
                 )) {
                 IList<String> fontSizeDependentPercentage = new List<String>(3);
                 fontSizeDependentPercentage.Add(CssConstants.FONT_SIZE);
-                fontSizeDependentPercentage.Add(CssConstants.VERTICAL_ALIGN);
                 fontSizeDependentPercentage.Add(CssConstants.LINE_HEIGHT);
                 if (ValueIsOfMeasurement(parentPropValue, CssConstants.EM) || ValueIsOfMeasurement(parentPropValue, CssConstants
                     .EX) || ValueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.
                     Contains(cssProperty)) {
-                    // todo existing solution requires correct resolving of VERTICAL_ALIGN
                     float absoluteParentFontSize = CssUtils.ParseAbsoluteLength(parentStyles.Get(CssConstants.FONT_SIZE));
                     // Format to 4 decimal places to prevent differences between Java and C#
                     styles.Put(cssProperty, DecimalFormatUtil.FormatNumber(CssUtils.ParseRelativeValue(parentPropValue, absoluteParentFontSize
