@@ -75,6 +75,13 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>The list of fonts.</summary>
         private IList<CssFontFaceRule> fonts = new List<CssFontFaceRule>();
 
+        private static readonly IList<String> fontSizeDependentPercentage = new List<String>(2);
+
+        static DefaultCssResolver() {
+            fontSizeDependentPercentage.Add(CssConstants.FONT_SIZE);
+            fontSizeDependentPercentage.Add(CssConstants.LINE_HEIGHT);
+        }
+
         /// <summary>
         /// Creates a new
         /// <see cref="DefaultCssResolver"/>
@@ -343,9 +350,6 @@ namespace iText.Html2pdf.Css.Resolve {
             String childPropValue = styles.Get(cssProperty);
             if ((childPropValue == null && CssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals(childPropValue
                 )) {
-                IList<String> fontSizeDependentPercentage = new List<String>(3);
-                fontSizeDependentPercentage.Add(CssConstants.FONT_SIZE);
-                fontSizeDependentPercentage.Add(CssConstants.LINE_HEIGHT);
                 if (ValueIsOfMeasurement(parentPropValue, CssConstants.EM) || ValueIsOfMeasurement(parentPropValue, CssConstants
                     .EX) || ValueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.
                     Contains(cssProperty)) {
