@@ -232,12 +232,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             else {
                 element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, 1.2f));
-                // the following rewriting of LINE_HEIGHT property of the element
-                // is required for further calculations of VERTICAL_ALIGN property (if applied) in {@link VerticalAlignmentApplierUtil}
-                float absoluteParentFontSize = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
-                // Format to 4 decimal places to prevent differences between Java and C#
-                cssProps.Put(CssConstants.LINE_HEIGHT, DecimalFormatUtil.FormatNumber(CssUtils.ParseRelativeValue("1.2em", 
-                    absoluteParentFontSize), "0.####") + CssConstants.PT);
             }
         }
 
