@@ -129,7 +129,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
                 if (parentStyles != null) {
                     foreach (KeyValuePair<String, String> entry in parentStyles) {
-                        MergeParentCssDeclaration(elementStyles, entry.Key, entry.Value, parentStyles.Get(CssConstants.FONT_SIZE));
+                        MergeParentCssDeclaration(elementStyles, entry.Key, entry.Value, parentStyles);
                     }
                     parentFontSizeStr = parentStyles.Get(CssConstants.FONT_SIZE);
                 }
@@ -339,17 +339,26 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="cssProperty">the CSS property</param>
         /// <param name="parentPropValue">the parent properties value</param>
         private void MergeParentCssDeclaration(IDictionary<String, String> styles, String cssProperty, String parentPropValue
-            , String parentFontSize) {
+            , IDictionary<String, String> parentStyles) {
             String childPropValue = styles.Get(cssProperty);
             if ((childPropValue == null && CssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals(childPropValue
                 )) {
                 if (CssUtils.IsRelativeValue(parentPropValue) && !CssUtils.IsRemValue(parentPropValue)) {
-                    int pos = CssUtils.DeterminePositionBetweenValueAndUnit(parentFontSize);
-                    float fontSize = float.Parse(parentFontSize.JSubstring(0, pos), System.Globalization.CultureInfo.InvariantCulture
-                        );
-                    float resolvedRelativeValue = CssUtils.ParseRelativeValue(parentPropValue, fontSize);
-                    styles.Put(cssProperty, resolvedRelativeValue.ToString() + parentFontSize.JSubstring(pos, parentFontSize.Length
-                        ));
+                    if (parentPropValue != null && (!parentPropValue.EndsWith(CssConstants.PERCENTAGE) || parentPropValue.EndsWith
+                        (CssConstants.PERCENTAGE) && (CssConstants.FONT_SIZE.Equals(cssProperty) || CssConstants.VERTICAL_ALIGN
+                        .Equals(cssProperty) || CssConstants.LINE_HEIGHT.Equals(cssProperty)))) {
+                        // todo existing solution requires correct resolving of VERTICAL_ALIGN
+                        String parentFontSize = parentStyles.Get(CssConstants.FONT_SIZE);
+                        int pos = CssUtils.DeterminePositionBetweenValueAndUnit(parentFontSize);
+                        float fontSize = float.Parse(parentFontSize.JSubstring(0, pos), System.Globalization.CultureInfo.InvariantCulture
+                            );
+                        float resolvedRelativeValue = CssUtils.ParseRelativeValue(parentPropValue, fontSize);
+                        styles.Put(cssProperty, resolvedRelativeValue.ToString() + parentFontSize.JSubstring(pos, parentFontSize.Length
+                            ));
+                    }
+                    else {
+                        styles.Put(cssProperty, parentPropValue);
+                    }
                 }
                 else {
                     styles.Put(cssProperty, parentPropValue);
