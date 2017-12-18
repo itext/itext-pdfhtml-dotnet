@@ -307,7 +307,7 @@ namespace iText.Html2pdf.Css.Util {
         /// <param name="string">containing a numeric value with a metric unit</param>
         /// <returns>int position between the numeric value and unit or 0 if string is null or string started with a non-numeric value.
         ///     </returns>
-        private static int DeterminePositionBetweenValueAndUnit(String @string) {
+        public static int DeterminePositionBetweenValueAndUnit(String @string) {
             if (@string == null) {
                 return 0;
             }

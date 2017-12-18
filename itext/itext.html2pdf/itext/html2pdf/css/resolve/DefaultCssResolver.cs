@@ -129,7 +129,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
                 if (parentStyles != null) {
                     foreach (KeyValuePair<String, String> entry in parentStyles) {
-                        MergeParentCssDeclaration(elementStyles, entry.Key, entry.Value);
+                        MergeParentCssDeclaration(elementStyles, entry.Key, entry.Value, parentStyles.Get(CssConstants.FONT_SIZE));
                     }
                     parentFontSizeStr = parentStyles.Get(CssConstants.FONT_SIZE);
                 }
@@ -339,11 +339,21 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="cssProperty">the CSS property</param>
         /// <param name="parentPropValue">the parent properties value</param>
         private void MergeParentCssDeclaration(IDictionary<String, String> styles, String cssProperty, String parentPropValue
-            ) {
+            , String parentFontSize) {
             String childPropValue = styles.Get(cssProperty);
             if ((childPropValue == null && CssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals(childPropValue
                 )) {
-                styles.Put(cssProperty, parentPropValue);
+                if (CssUtils.IsRelativeValue(parentPropValue) && !CssUtils.IsRemValue(parentPropValue)) {
+                    int pos = CssUtils.DeterminePositionBetweenValueAndUnit(parentFontSize);
+                    float fontSize = float.Parse(parentFontSize.JSubstring(0, pos), System.Globalization.CultureInfo.InvariantCulture
+                        );
+                    float resolvedRelativeValue = CssUtils.ParseRelativeValue(parentPropValue, fontSize);
+                    styles.Put(cssProperty, resolvedRelativeValue.ToString() + parentFontSize.JSubstring(pos, parentFontSize.Length
+                        ));
+                }
+                else {
+                    styles.Put(cssProperty, parentPropValue);
+                }
             }
             else {
                 if (CssConstants.TEXT_DECORATION.Equals(cssProperty) && !CssConstants.INLINE_BLOCK.Equals(styles.Get(CssConstants
