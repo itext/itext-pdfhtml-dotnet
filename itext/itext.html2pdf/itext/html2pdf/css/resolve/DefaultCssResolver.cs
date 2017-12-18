@@ -343,22 +343,18 @@ namespace iText.Html2pdf.Css.Resolve {
             String childPropValue = styles.Get(cssProperty);
             if ((childPropValue == null && CssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals(childPropValue
                 )) {
-                if (CssUtils.IsRelativeValue(parentPropValue) && !CssUtils.IsRemValue(parentPropValue)) {
-                    if (parentPropValue != null && (!parentPropValue.EndsWith(CssConstants.PERCENTAGE) || parentPropValue.EndsWith
-                        (CssConstants.PERCENTAGE) && (CssConstants.FONT_SIZE.Equals(cssProperty) || CssConstants.VERTICAL_ALIGN
-                        .Equals(cssProperty) || CssConstants.LINE_HEIGHT.Equals(cssProperty)))) {
-                        // todo existing solution requires correct resolving of VERTICAL_ALIGN
-                        String parentFontSize = parentStyles.Get(CssConstants.FONT_SIZE);
-                        int pos = CssUtils.DeterminePositionBetweenValueAndUnit(parentFontSize);
-                        float fontSize = float.Parse(parentFontSize.JSubstring(0, pos), System.Globalization.CultureInfo.InvariantCulture
-                            );
-                        float resolvedRelativeValue = CssUtils.ParseRelativeValue(parentPropValue, fontSize);
-                        styles.Put(cssProperty, resolvedRelativeValue.ToString() + parentFontSize.JSubstring(pos, parentFontSize.Length
-                            ));
-                    }
-                    else {
-                        styles.Put(cssProperty, parentPropValue);
-                    }
+                IList<String> fontSizeDependentPercentage = new List<String>(3);
+                fontSizeDependentPercentage.Add(CssConstants.FONT_SIZE);
+                fontSizeDependentPercentage.Add(CssConstants.VERTICAL_ALIGN);
+                fontSizeDependentPercentage.Add(CssConstants.LINE_HEIGHT);
+                if (ValueIsOfMeasurement(parentPropValue, CssConstants.EM) || ValueIsOfMeasurement(parentPropValue, CssConstants
+                    .EX) || ValueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.
+                    Contains(cssProperty)) {
+                    // todo existing solution requires correct resolving of VERTICAL_ALIGN
+                    float absoluteParentFontSize = CssUtils.ParseAbsoluteLength(parentStyles.Get(CssConstants.FONT_SIZE));
+                    // Format to 4 decimal places to prevent differences between Java and C#
+                    styles.Put(cssProperty, DecimalFormatUtil.FormatNumber(CssUtils.ParseRelativeValue(parentPropValue, absoluteParentFontSize
+                        ), "0.####") + CssConstants.PT);
                 }
                 else {
                     styles.Put(cssProperty, parentPropValue);
@@ -376,6 +372,17 @@ namespace iText.Html2pdf.Css.Resolve {
                     styles.Put(cssProperty, CssPropertyMerger.MergeTextDecoration(childPropValue, parentPropValue));
                 }
             }
+        }
+
+        private static bool ValueIsOfMeasurement(String value, String measurement) {
+            if (value == null) {
+                return false;
+            }
+            if (value.EndsWith(measurement) && CssUtils.IsNumericValue(value.JSubstring(0, value.Length - measurement.
+                Length).Trim())) {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>Collects fonts from the style sheet.</summary>
