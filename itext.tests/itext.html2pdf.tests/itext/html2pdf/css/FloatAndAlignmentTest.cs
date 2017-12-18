@@ -84,6 +84,32 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1732")]
+        public virtual void InlineBlocksInsideParagraph() {
+            RunTest("inlineBlocksInsideParagraph", "diffInlineInside01_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1732: floating element shall not be moved along with text when text alignment is applied."
+            )]
+        public virtual void InlineFloatsWithTextAlignmentTest01() {
+            RunTest("inlineFloatsWithTextAlignmentTest01", "diffInlineFloat01_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1732: justification is broken when floating element is inline along with text."
+            )]
+        public virtual void InlineFloatsWithTextAlignmentTest02() {
+            RunTest("inlineFloatsWithTextAlignmentTest02", "diffInlineFloat02_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String testName, String diff) {
             String htmlName = sourceFolder + testName + ".html";
             String outFileName = destinationFolder + testName + ".pdf";
