@@ -54,11 +54,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
     /// implementation for pseudo class selectors.
     /// </summary>
     public abstract class CssPseudoClassSelectorItem : ICssSelectorItem {
-        /// <summary>The pseudo class.</summary>
-        private String pseudoClass;
-
         /// <summary>The arguments.</summary>
         protected internal String arguments;
+
+        /// <summary>The pseudo class.</summary>
+        private String pseudoClass;
 
         /// <summary>
         /// Creates a new

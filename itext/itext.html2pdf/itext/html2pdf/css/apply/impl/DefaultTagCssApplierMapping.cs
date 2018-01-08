@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
@@ -163,6 +164,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 ));
             // custom elements mapping, implementation-specific
             mapping.PutMapping(PageCountElementNode.PAGE_COUNTER_TAG, typeof(SpanTagCssApplier));
+            mapping.PutMapping(PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG, typeof(PageMarginBoxCssApplier));
         }
 
         /// <summary>Gets the default CSS applier mapping.</summary>

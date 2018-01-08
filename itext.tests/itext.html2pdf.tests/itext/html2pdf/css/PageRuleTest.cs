@@ -41,9 +41,18 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl;
+using iText.Html2pdf.Attach.Impl.Tags;
+using iText.Html2pdf.Css.Apply;
+using iText.Html2pdf.Css.Apply.Impl;
+using iText.Html2pdf.Css.Page;
+using iText.Html2pdf.Html.Node;
 using iText.Kernel.Utils;
+using iText.Layout.Element;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -191,6 +200,37 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void BigImageOnPageMarginTest03() {
+            RunTest("bigImageOnPageMarginTest03", new PageRuleTest.PageMarginBoxImagesTagWorkerFactory(), null);
+        }
+
+        private class PageMarginBoxImagesTagWorkerFactory : DefaultTagWorkerFactory {
+            public override ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
+                if (tag.Name().Equals(PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG)) {
+                    return new PageRuleTest.PageMarginBoxImagesWorker(tag, context);
+                }
+                return base.GetCustomTagWorker(tag, context);
+            }
+        }
+
+        private class PageMarginBoxImagesWorker : PageMarginBoxWorker {
+            public PageMarginBoxImagesWorker(IElementNode element, ProcessorContext context)
+                : base(element, context) {
+            }
+
+            public override bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+                if (childTagWorker.GetElementResult() is Image) {
+                    // TODO Since iText 7.2 release it is ("it will be" for now, see PageMarginBoxDummyElement class) possible
+                    // to get current page margin box name and dimensions from the "element" IElementNode passed to the constructor of this tag worker.
+                    ((Image)childTagWorker.GetElementResult()).SetAutoScale(true);
+                }
+                return base.ProcessTagChild(childTagWorker, context);
+            }
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void BigTextOnPageMarginTest01() {
             RunTest("bigTextOnPageMarginTest01");
         }
@@ -212,6 +252,33 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void MarginBoxOverflowPropertyTest02() {
+            RunTest("marginBoxOverflowPropertyTest02", null, new PageRuleTest.PageMarginsOverflowCssApplierFactory());
+        }
+
+        private class PageMarginsOverflowCssApplierFactory : DefaultCssApplierFactory {
+            public override ICssApplier GetCustomCssApplier(IElementNode tag) {
+                if (PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG.Equals(tag.Name())) {
+                    return new PageRuleTest.CustomOverflowPageMarginBoxCssApplier();
+                }
+                return base.GetCustomCssApplier(tag);
+            }
+        }
+
+        private class CustomOverflowPageMarginBoxCssApplier : PageMarginBoxCssApplier {
+            public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
+                ) {
+                IDictionary<String, String> styles = stylesContainer.GetStyles();
+                if (styles.Get(CssConstants.OVERFLOW) == null) {
+                    styles.Put(CssConstants.OVERFLOW, CssConstants.VISIBLE);
+                }
+                base.Apply(context, stylesContainer, tagWorker);
+            }
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void MarginBoxOutlinePropertyTest01() {
             // TODO Outlines are currently not supported for page margin boxes, because of the outlines handling specificity (they are handled on renderer's parent level).
             //      See com.itextpdf.html2pdf.attach.impl.layout.PageContextProcessor.
@@ -221,11 +288,25 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         private void RunTest(String name) {
+            RunTest(name, null, null);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String name, ITagWorkerFactory customTagWorkerFactory, ICssApplierFactory customCssApplierFactory
+            ) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";
             String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
             String diffPrefix = "diff_" + name + "_";
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath));
+            ConverterProperties converterProperties = new ConverterProperties();
+            if (customTagWorkerFactory != null) {
+                converterProperties.SetTagWorkerFactory(customTagWorkerFactory);
+            }
+            if (customCssApplierFactory != null) {
+                converterProperties.SetCssApplierFactory(customCssApplierFactory);
+            }
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath), converterProperties);
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
                 ));
         }

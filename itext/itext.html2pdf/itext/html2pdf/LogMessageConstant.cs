@@ -106,6 +106,8 @@ namespace iText.Html2pdf {
 
         public const String PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN = "Page margin box {0} content cannot be drawn.";
 
+        public const String PAGE_MARGIN_BOX_SOME_PROPERTIES_NOT_PROCESSED = "Page margin box margin, padding, height and width properties are not processed. Passed styles container shall be of PageMarginBoxContextNode type.";
+
         /// <summary>The Constant PAGE_SIZE_VALUE_IS_INVALID.</summary>
         public const String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
 
