@@ -110,6 +110,13 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void FontSelectorTest01() {
+            RunTest("fontSelectorTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
         public virtual void FontFaceGrammarTest() {
             RunTest("fontFaceGrammarTest");
@@ -243,7 +250,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void IncorrectFontNameTest01() {
-            //TODO: DEVSIX-1519
             RunTest("incorrectFontNameTest01");
         }
 
@@ -251,7 +257,9 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void IncorrectFontNameTest02() {
-            //TODO: DEVSIX-1519
+            // The result of te test is FAIL. However we consider it to be correct.
+            // Although the font-family specified by the paragraph's class doesn't match the one of fontface,
+            // font's full name contains specified font-family and iText takes it into account.
             RunTest("incorrectFontNameTest02");
         }
 
@@ -261,6 +269,13 @@ namespace iText.Html2pdf.Css {
         public virtual void IncorrectFontNameTest03() {
             //Checks that font used in previous two files is correct
             RunTest("incorrectFontNameTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void IncorrectFontNameTest04() {
+            RunTest("incorrectFontNameTest04");
         }
 
         /// <exception cref="System.IO.IOException"/>
