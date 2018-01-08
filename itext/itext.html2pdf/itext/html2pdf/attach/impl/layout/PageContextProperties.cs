@@ -55,7 +55,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     /// </summary>
     internal class PageContextProperties {
         /// <summary>List containing possible names for page margin boxes.</summary>
-        private static readonly IList<String> pageMarginBoxNames = iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName
+        internal static readonly IList<String> pageMarginBoxNames = iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName
             .TOP_LEFT_CORNER, CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT, CssRuleName.TOP_RIGHT_CORNER
             , CssRuleName.RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM, CssRuleName.BOTTOM_RIGHT_CORNER
             , CssRuleName.BOTTOM_RIGHT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_LEFT, CssRuleName.BOTTOM_LEFT_CORNER

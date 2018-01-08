@@ -63,40 +63,44 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OverflowTest04() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "overflowTest04.html"), new FileInfo(destinationFolder
-                 + "overflowTest04.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "overflowTest04.pdf", 
-                sourceFolder + "cmp_overflowTest04.pdf", destinationFolder, "diff04_"));
+            RunTest("overflowTest04", "diff04_");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OverflowTest06() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "overflowTest06.html"), new FileInfo(destinationFolder
-                 + "overflowTest06.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "overflowTest06.pdf", 
-                sourceFolder + "cmp_overflowTest06.pdf", destinationFolder, "diff06_"));
+            RunTest("overflowTest06", "diff06_");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OverflowTest07() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "overflowTest07.html"), new FileInfo(destinationFolder
-                 + "overflowTest07.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "overflowTest07.pdf", 
-                sourceFolder + "cmp_overflowTest07.pdf", destinationFolder, "diff07_"));
+            RunTest("overflowTest07", "diff07_");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void OverflowTest08() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "overflowTest08.html"), new FileInfo(destinationFolder
-                 + "overflowTest08.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "overflowTest08.pdf", 
-                sourceFolder + "cmp_overflowTest08.pdf", destinationFolder, "diff08_"));
+        public virtual void OverflowAndAlignment01() {
+            RunTest("overflowAndAlignment01", "diffAlign01_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void OverflowAndAlignment02() {
+            RunTest("overflowAndAlignment02", "diffAlign02_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        public virtual void RunTest(String testName, String diff) {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + "cmp_" + testName + ".pdf", destinationFolder, diff));
         }
     }
 }

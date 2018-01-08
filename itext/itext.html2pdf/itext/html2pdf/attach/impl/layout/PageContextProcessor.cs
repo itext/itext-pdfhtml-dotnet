@@ -52,6 +52,7 @@ using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
@@ -286,7 +287,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     LayoutResult result = renderer.Layout(new LayoutContext(new LayoutArea(page.GetDocument().GetPageNumber(page
                         ), marginBoxRectangles[i])));
                     IRenderer rendererToDraw = result.GetStatus() == LayoutResult.FULL ? renderer : result.GetSplitRenderer();
-                    rendererToDraw.SetParent(documentRenderer).Draw(new DrawContext(page.GetDocument(), new PdfCanvas(page)));
+                    if (rendererToDraw != null) {
+                        rendererToDraw.SetParent(documentRenderer).Draw(new DrawContext(page.GetDocument(), new PdfCanvas(page)));
+                    }
+                    else {
+                        // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
+                        // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
+                        ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor));
+                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN
+                            , PageContextProperties.pageMarginBoxNames[i]));
+                    }
                 }
             }
         }
@@ -396,6 +406,27 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 FontStyleApplierUtil.ApplyFontStyles(boxStyles, context, marginBoxContentNode, marginBox);
                 BorderStyleApplierUtil.ApplyBorders(boxStyles, context, marginBox);
                 VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForCells(boxStyles, context, marginBox);
+                // Set overflow to HIDDEN if it's not explicitly set in css in order to avoid overlapping with page content.
+                String overflow = CssConstants.OVERFLOW_VALUES.Contains(boxStyles.Get(CssConstants.OVERFLOW)) ? boxStyles.
+                    Get(CssConstants.OVERFLOW) : null;
+                String overflowX = CssConstants.OVERFLOW_VALUES.Contains(boxStyles.Get(CssConstants.OVERFLOW_X)) ? boxStyles
+                    .Get(CssConstants.OVERFLOW_X) : overflow;
+                if (overflowX == null || CssConstants.HIDDEN.Equals(overflowX)) {
+                    marginBox.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.HIDDEN);
+                }
+                else {
+                    marginBox.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
+                }
+                String overflowY = CssConstants.OVERFLOW_VALUES.Contains(boxStyles.Get(CssConstants.OVERFLOW_Y)) ? boxStyles
+                    .Get(CssConstants.OVERFLOW_Y) : overflow;
+                if (overflowY == null || CssConstants.HIDDEN.Equals(overflowY)) {
+                    marginBox.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.HIDDEN);
+                }
+                else {
+                    marginBox.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
+                }
+                // TODO outlines are currently not supported for page margin boxes, because of the outlines handling specificity (they are handled on renderer's parent level)
+                OutlineApplierUtil.ApplyOutlines(boxStyles, context, marginBox);
                 float em = CssUtils.ParseAbsoluteLength(boxStyles.Get(CssConstants.FONT_SIZE));
                 float rem = context.GetCssContext().GetRootFontSize();
                 float[] boxMargins = ParseBoxProps(boxStyles, em, rem, 0, CalculateContainingBlockSizesForMarginBox(marginBoxInd
@@ -408,7 +439,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 marginBox.SetPaddings(boxPaddings[0], boxPaddings[1], boxPaddings[2], boxPaddings[3]);
                 marginBox.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
                 marginBox.SetProperty(Property.FONT_SET, context.GetTempFonts());
-                marginBox.SetFillAvailableArea(true);
+                float[] boxBorders = GetBordersWidth(marginBox);
+                float marginBorderPaddingWidth = boxMargins[1] + boxMargins[3] + boxBorders[1] + boxBorders[3] + boxPaddings
+                    [1] + boxPaddings[3];
+                float marginBorderPaddingHeight = boxMargins[0] + boxMargins[2] + boxBorders[0] + boxBorders[2] + boxPaddings
+                    [0] + boxPaddings[2];
+                // TODO DEVSIX-1050: improve width/height calculation according to "5.3. Computing Page-margin Box Dimensions", take into account height and width properties
+                marginBox.SetWidth(marginBoxRectangles[marginBoxInd].GetWidth() - marginBorderPaddingWidth);
+                marginBox.SetHeight(marginBoxRectangles[marginBoxInd].GetHeight() - marginBorderPaddingHeight);
                 if (marginBoxContentNode.ChildNodes().IsEmpty()) {
                     // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
                     throw new InvalidOperationException();
@@ -636,6 +674,30 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 }
             }
             return null;
+        }
+
+        private static float[] GetBordersWidth(IPropertyContainer container) {
+            Border border = container.GetProperty<Border>(Property.BORDER);
+            Border topBorder = container.GetProperty<Border>(Property.BORDER_TOP);
+            Border rightBorder = container.GetProperty<Border>(Property.BORDER_RIGHT);
+            Border bottomBorder = container.GetProperty<Border>(Property.BORDER_BOTTOM);
+            Border leftBorder = container.GetProperty<Border>(Property.BORDER_LEFT);
+            Border[] borders = new Border[] { topBorder, rightBorder, bottomBorder, leftBorder };
+            if (!container.HasProperty(Property.BORDER_TOP)) {
+                borders[0] = border;
+            }
+            if (!container.HasProperty(Property.BORDER_RIGHT)) {
+                borders[1] = border;
+            }
+            if (!container.HasProperty(Property.BORDER_BOTTOM)) {
+                borders[2] = border;
+            }
+            if (!container.HasProperty(Property.BORDER_LEFT)) {
+                borders[3] = border;
+            }
+            return new float[] { borders[0] != null ? borders[0].GetWidth() : 0, borders[1] != null ? borders[1].GetWidth
+                () : 0, borders[2] != null ? borders[2].GetWidth() : 0, borders[3] != null ? borders[3].GetWidth() : 0
+                 };
         }
     }
 }
