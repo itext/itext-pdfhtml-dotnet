@@ -344,7 +344,8 @@ namespace iText.Html2pdf.Css {
             // properties
             ConverterProperties props = new ConverterProperties();
             props.SetBaseUri(sourceFolder);
-            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "inlineBlockInsideTableCellTest.html", FileMode.Open, FileAccess.Read), pdfDocument, props);
+            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "inlineBlockInsideTableCellTest.html", FileMode.Open
+                , FileAccess.Read), pdfDocument, props);
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "inlineBlockInsideTableCellTest.pdf"
                 , sourceFolder + "cmp_inlineBlockInsideTableCell.pdf", destinationFolder, "diffinlineBlockInsideTableCellTest_"
                 ));
