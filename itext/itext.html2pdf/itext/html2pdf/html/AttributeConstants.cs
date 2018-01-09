@@ -125,6 +125,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant NOSHADE.</summary>
         public const String NOSHADE = "noshade";
 
+        /// <summary>The Constant NUMBER.</summary>
+        public const String NUMBER = "number";
+
         /// <summary>The Constant REL.</summary>
         public const String REL = "rel";
 
