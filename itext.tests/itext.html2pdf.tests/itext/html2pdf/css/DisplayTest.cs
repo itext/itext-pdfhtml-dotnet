@@ -331,5 +331,23 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_inline-block17.pdf"
                 , sourceFolder + "cmp_display_inline-block17.pdf", destinationFolder, "diff19_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 7)]
+        public virtual void InlineBlockInsideTableCellTest() {
+            // IO setup
+            PdfWriter writer = new PdfWriter(new FileInfo(destinationFolder + "inlineBlockInsideTableCellTest.pdf"));
+            PdfDocument pdfDocument = new PdfDocument(writer);
+            pdfDocument.SetDefaultPageSize(new PageSize(1000f, 1450f));
+            // properties
+            ConverterProperties props = new ConverterProperties();
+            props.SetBaseUri(sourceFolder);
+            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "inlineBlockInsideTableCellTest.html", FileMode.Open, FileAccess.Read), pdfDocument, props);
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "inlineBlockInsideTableCellTest.pdf"
+                , sourceFolder + "cmp_inlineBlockInsideTableCell.pdf", destinationFolder, "diffinlineBlockInsideTableCellTest_"
+                ));
+        }
     }
 }
