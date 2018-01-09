@@ -280,6 +280,14 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1759")]
+        public virtual void FontFamilyTest01() {
+            RunTest("fontFamilyTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String name) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";
