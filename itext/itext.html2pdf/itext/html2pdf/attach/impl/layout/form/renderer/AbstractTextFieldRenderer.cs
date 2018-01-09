@@ -76,8 +76,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <returns>the renderer</returns>
         internal virtual IRenderer CreateParagraphRenderer(String defaultValue) {
             if (String.IsNullOrEmpty(defaultValue.Trim())) {
-                // TODO DEVSIX-1491: change to 'defaultValue = "\u00A0"' after trimming of non-breakable spaces is fixed;
-                defaultValue = "\u00B7";
+                defaultValue = "\u00A0";
             }
             Paragraph paragraph = new Paragraph(defaultValue).SetMargin(0);
             Leading leading = this.GetProperty<Leading>(Property.LEADING);
