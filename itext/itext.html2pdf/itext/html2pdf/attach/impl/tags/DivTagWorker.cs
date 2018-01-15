@@ -140,11 +140,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                                 // TODO make IFormField implement IBlockElement and add it directly to div without inline helper.
                                 // TODO Requires refactoring of AbstractOneLineTextFieldRenderer (calculate baselines properly)
                                 PostProcessInlineGroup();
-                                inlineHelper.Add((IFormField)element);
+                                inlineHelper.Add((ILeafElement)element);
                                 PostProcessInlineGroup();
                             }
                             else {
-                                inlineHelper.Add((IFormField)element);
+                                inlineHelper.Add((ILeafElement)element);
                             }
                             processed = true;
                         }

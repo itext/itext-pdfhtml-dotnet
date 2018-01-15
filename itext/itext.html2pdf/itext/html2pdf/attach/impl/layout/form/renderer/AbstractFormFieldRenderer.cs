@@ -201,13 +201,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 } else {
                     flatRenderer = childRenderers[0];
                     childRenderers.Clear();
-                    LayoutArea flatRendererOccupiedArea = flatRenderer.GetOccupiedArea();
-                    ApplyPaddings(flatRendererOccupiedArea.GetBBox(), true);
-                    ApplyBorderBox(flatRendererOccupiedArea.GetBBox(), true);
-                    ApplyMargins(flatRendererOccupiedArea.GetBBox(), true);
                     childRenderers.Add(flatRenderer);
                     AdjustFieldLayout();
-                    occupiedArea.SetBBox(flatRenderer.GetOccupiedArea().GetBBox().Clone());
+                    Rectangle fBox = flatRenderer.GetOccupiedArea().GetBBox();
+                    occupiedArea.GetBBox().SetX(fBox.GetX()).SetY(fBox.GetY()).SetWidth(fBox.GetWidth()).SetHeight(fBox.GetHeight());
+                    ApplyPaddings(occupiedArea.GetBBox(), true);
+                    ApplyBorderBox(occupiedArea.GetBBox(), true);
+                    ApplyMargins(occupiedArea.GetBBox(), true);
                 }
                 return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new MinMaxWidth());
             }

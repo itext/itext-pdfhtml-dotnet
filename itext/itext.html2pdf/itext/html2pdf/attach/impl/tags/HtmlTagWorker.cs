@@ -136,7 +136,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         PostProcessInlineGroup();
                     }
                     else {
-                        inlineHelper.Add((IFormField)childTagWorker.GetElementResult());
+                        inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
                     }
                     processed = true;
                 }

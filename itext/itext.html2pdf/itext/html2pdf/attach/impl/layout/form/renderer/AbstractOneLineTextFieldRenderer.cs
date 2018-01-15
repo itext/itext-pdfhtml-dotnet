@@ -53,6 +53,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// </summary>
     public abstract class AbstractOneLineTextFieldRenderer : AbstractTextFieldRenderer {
         /// <summary>The position of the base line of the text.</summary>
+        [System.ObsoleteAttribute(@"will be private in 7.2")]
         protected internal float baseline;
 
         /// <summary>
@@ -63,6 +64,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <param name="modelElement">the model element</param>
         internal AbstractOneLineTextFieldRenderer(IFormField modelElement)
             : base(modelElement) {
+        }
+
+        public override void Move(float dxRight, float dyUp) {
+            base.Move(dxRight, dyUp);
+            baseline += dyUp;
         }
 
         /* (non-Javadoc)
@@ -79,13 +85,17 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return occupiedArea.GetBBox().GetBottom() - baseline;
         }
 
+        internal virtual void SetBaseline(float baseline) {
+            this.baseline = baseline;
+        }
+
         /// <summary>Crops the content lines.</summary>
         /// <param name="lines">a list of lines</param>
         /// <param name="bBox">the bounding box</param>
         internal virtual void CropContentLines(IList<LineRenderer> lines, Rectangle bBox) {
             AdjustNumberOfContentLines(lines, bBox, 1);
             UpdateParagraphHeight();
-            baseline = lines[0].GetYLine();
+            SetBaseline(lines[0].GetYLine());
         }
 
         /// <summary>Updates the paragraph height.</summary>
@@ -93,29 +103,31 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             float? height = RetrieveHeight();
             float? minHeight = RetrieveMinHeight();
             float? maxHeight = RetrieveMaxHeight();
-            Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
+            float originalHeight = flatRenderer.GetOccupiedArea().GetBBox().GetHeight();
             if (height != null && (float)height > 0) {
-                SetContentHeight(flatBBox, (float)height);
+                SetContentHeight(flatRenderer, (float)height);
             }
             else {
-                if (minHeight != null && (float)minHeight > flatBBox.GetHeight()) {
-                    SetContentHeight(flatBBox, (float)minHeight);
+                if (minHeight != null && (float)minHeight > originalHeight) {
+                    SetContentHeight(flatRenderer, (float)minHeight);
                 }
                 else {
-                    if (maxHeight != null && (float)maxHeight > 0 && (float)maxHeight < flatBBox.GetHeight()) {
-                        SetContentHeight(flatBBox, (float)maxHeight);
+                    if (maxHeight != null && (float)maxHeight > 0 && (float)maxHeight < originalHeight) {
+                        SetContentHeight(flatRenderer, (float)maxHeight);
                     }
                 }
             }
         }
 
         /// <summary>Sets the content height.</summary>
-        /// <param name="bBox">the bounding box</param>
+        /// <param name="flatRenderer">the flat renderer</param>
         /// <param name="height">the height</param>
-        private void SetContentHeight(Rectangle bBox, float height) {
+        private void SetContentHeight(IRenderer flatRenderer, float height) {
+            Rectangle bBox = flatRenderer.GetOccupiedArea().GetBBox();
             float dy = (height - bBox.GetHeight()) / 2;
             bBox.MoveDown(dy);
             bBox.SetHeight(height);
+            flatRenderer.Move(0, -dy);
         }
     }
 }

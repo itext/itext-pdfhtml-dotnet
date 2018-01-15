@@ -103,8 +103,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 LogManager.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
                     , "button"));
                 SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
-                baseline = flatBBox.GetTop();
-                flatBBox.SetY(baseline).SetHeight(0);
+                SetBaseline(flatBBox.GetTop());
+                flatBBox.SetY(flatBBox.GetTop()).SetHeight(0);
             }
         }
 
