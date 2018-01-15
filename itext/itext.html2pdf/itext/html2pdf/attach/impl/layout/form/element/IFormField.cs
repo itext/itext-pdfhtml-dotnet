@@ -49,7 +49,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
     /// <see cref="iText.Layout.Element.ILeafElement"/>
     /// interface in the context of form fields.
     /// </summary>
-    public interface IFormField : ILeafElement {
+    public interface IFormField : ILeafElement, IBlockElement {
         /// <summary>Gets the id.</summary>
         /// <returns>the id</returns>
         String GetId();

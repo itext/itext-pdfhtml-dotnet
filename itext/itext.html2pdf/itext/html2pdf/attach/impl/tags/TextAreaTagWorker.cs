@@ -44,6 +44,7 @@ using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
@@ -55,12 +56,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <c>textarea</c>
     /// element.
     /// </summary>
-    public class TextAreaTagWorker : ITagWorker {
+    public class TextAreaTagWorker : ITagWorker, IDisplayAware {
         /// <summary>The Constant DEFAULT_TEXTAREA_NAME.</summary>
         private const String DEFAULT_TEXTAREA_NAME = "TextArea";
 
         /// <summary>The text area.</summary>
         private TextArea textArea;
+
+        private String display;
 
         /// <summary>
         /// Creates a new
@@ -81,6 +84,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
+            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
         /* (non-Javadoc)
@@ -117,6 +121,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         */
         public virtual IPropertyContainer GetElementResult() {
             return textArea;
+        }
+
+        public virtual String GetDisplay() {
+            return display;
         }
     }
 }
