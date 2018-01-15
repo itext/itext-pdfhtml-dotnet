@@ -90,18 +90,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return (int)modelElement.GetDefaultProperty<int>(Html2PdfProperty.FORM_FIELD_ROWS);
         }
 
-        /* (non-Javadoc)
-        * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getAscent()
-        */
-        public override float GetAscent() {
-            return occupiedArea.GetBBox().GetHeight();
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getDescent()
-        */
-        public override float GetDescent() {
-            return 0;
+        protected override float? GetLastYLineRecursively() {
+            if (occupiedArea != null && occupiedArea.GetBBox() != null) {
+                return occupiedArea.GetBBox().GetBottom();
+            }
+            return null;
         }
 
         /* (non-Javadoc)

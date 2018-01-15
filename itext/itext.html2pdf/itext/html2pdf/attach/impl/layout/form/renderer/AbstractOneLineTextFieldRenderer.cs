@@ -53,7 +53,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// </summary>
     public abstract class AbstractOneLineTextFieldRenderer : AbstractTextFieldRenderer {
         /// <summary>The position of the base line of the text.</summary>
-        [System.ObsoleteAttribute(@"will be private in 7.2")]
+        [System.ObsoleteAttribute(@"use iText.Layout.Renderer.AbstractRenderer.GetLastYLineRecursively() instead. Will be removed in 7.2"
+            )]
         protected internal float baseline;
 
         /// <summary>
@@ -71,31 +72,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             baseline += dyUp;
         }
 
-        /* (non-Javadoc)
-        * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getAscent()
-        */
-        public override float GetAscent() {
-            return occupiedArea.GetBBox().GetTop() - baseline;
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getDescent()
-        */
-        public override float GetDescent() {
-            return occupiedArea.GetBBox().GetBottom() - baseline;
-        }
-
-        internal virtual void SetBaseline(float baseline) {
-            this.baseline = baseline;
-        }
-
         /// <summary>Crops the content lines.</summary>
         /// <param name="lines">a list of lines</param>
         /// <param name="bBox">the bounding box</param>
         internal virtual void CropContentLines(IList<LineRenderer> lines, Rectangle bBox) {
             AdjustNumberOfContentLines(lines, bBox, 1);
             UpdateParagraphHeight();
-            SetBaseline(lines[0].GetYLine());
+            this.baseline = lines[0].GetYLine();
         }
 
         /// <summary>Updates the paragraph height.</summary>
