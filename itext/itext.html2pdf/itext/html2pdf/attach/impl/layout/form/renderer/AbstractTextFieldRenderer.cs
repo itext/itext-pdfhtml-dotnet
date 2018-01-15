@@ -89,20 +89,22 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <summary>Adjust number of content lines.</summary>
         /// <param name="lines">the lines that need to be rendered</param>
         /// <param name="bBox">the bounding box</param>
-        /// <param name="linesNumber">the number of lines</param>
-        internal virtual void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, int linesNumber
-            ) {
+        /// <param name="rows">the desired number of lines</param>
+        internal virtual void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, int rows) {
+            if (lines.Count != rows) {
+                float rowsHeight = GetHeightRowsBased(lines, bBox, rows);
+                AdjustNumberOfContentLines(lines, bBox, rows, rowsHeight);
+            }
+        }
+
+        /// <summary>Adjust number of content lines.</summary>
+        /// <param name="lines">the lines that need to be rendered</param>
+        /// <param name="bBox">the bounding box</param>
+        /// <param name="height">the desired height of content</param>
+        internal virtual void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, float height) {
             float averageLineHeight = bBox.GetHeight() / lines.Count;
-            if (lines.Count != linesNumber) {
-                float actualHeight = averageLineHeight * linesNumber;
-                bBox.MoveUp(bBox.GetHeight() - actualHeight);
-                bBox.SetHeight(actualHeight);
-            }
-            if (lines.Count > linesNumber) {
-                IList<LineRenderer> subList = new List<LineRenderer>(lines.SubList(0, linesNumber));
-                lines.Clear();
-                lines.AddAll(subList);
-            }
+            int visibleLinesNumber = (int)System.Math.Ceiling(height / averageLineHeight);
+            AdjustNumberOfContentLines(lines, bBox, visibleLinesNumber, height);
         }
 
         /// <summary>Applies the default field properties.</summary>
@@ -114,6 +116,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             if (color != null) {
                 inputField.SetColor(color.GetColor());
             }
+        }
+
+        internal virtual float GetHeightRowsBased(IList<LineRenderer> lines, Rectangle bBox, int rows) {
+            float averageLineHeight = bBox.GetHeight() / lines.Count;
+            return averageLineHeight * rows;
         }
 
         /// <summary>Updates the font.</summary>
@@ -137,6 +144,17 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             retrievedFont = renderer.GetProperty<PdfFont>(Property.FONT);
             if (retrievedFont is PdfFont) {
                 font = (PdfFont)retrievedFont;
+            }
+        }
+
+        private static void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, int linesNumber, 
+            float height) {
+            bBox.MoveUp(bBox.GetHeight() - height);
+            bBox.SetHeight(height);
+            if (lines.Count > linesNumber) {
+                IList<LineRenderer> subList = new List<LineRenderer>(lines.SubList(0, linesNumber));
+                lines.Clear();
+                lines.AddAll(subList);
             }
         }
     }

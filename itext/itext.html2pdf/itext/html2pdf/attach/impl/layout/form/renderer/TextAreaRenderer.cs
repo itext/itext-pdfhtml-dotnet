@@ -112,8 +112,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             UpdatePdfFont((ParagraphRenderer)flatRenderer);
             Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
             if (!flatLines.IsEmpty() && font != null) {
-                int rows = GetRows();
-                AdjustNumberOfContentLines(flatLines, flatBBox, rows);
+                CropContentLines(flatLines, flatBBox);
             }
             else {
                 LogManager.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
@@ -172,6 +171,30 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 return fontSize.GetValue() * (cols * 0.5f + 2) + 2;
             }
             return width;
+        }
+
+        private void CropContentLines(IList<LineRenderer> lines, Rectangle bBox) {
+            float? height = RetrieveHeight();
+            float? minHeight = RetrieveMinHeight();
+            float? maxHeight = RetrieveMaxHeight();
+            int rowsAttribute = GetRows();
+            float rowsHeight = GetHeightRowsBased(lines, bBox, rowsAttribute);
+            if (height != null && (float)height > 0) {
+                AdjustNumberOfContentLines(lines, bBox, (float)height);
+            }
+            else {
+                if (minHeight != null && (float)minHeight > rowsHeight) {
+                    AdjustNumberOfContentLines(lines, bBox, (float)minHeight);
+                }
+                else {
+                    if (maxHeight != null && (float)maxHeight > 0 && (float)maxHeight < rowsHeight) {
+                        AdjustNumberOfContentLines(lines, bBox, (float)maxHeight);
+                    }
+                    else {
+                        AdjustNumberOfContentLines(lines, bBox, rowsAttribute);
+                    }
+                }
+            }
         }
     }
 }

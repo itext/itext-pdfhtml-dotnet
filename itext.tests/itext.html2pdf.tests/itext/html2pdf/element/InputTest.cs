@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Test;
 
@@ -89,11 +90,28 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
-        private void RunTest(String testName) {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+        public virtual void TextareaRowsHeightTest() {
+            RunTest("textareaRowsHeight");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BlockHeightTest() {
+            RunTest("blockHeightTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String name) {
+            String htmlPath = sourceFolder + name + ".html";
+            String outPdfPath = destinationFolder + name + ".pdf";
+            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+            String diff = "diff_" + name + "_";
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(outPdfPath));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
+                , diff));
         }
     }
 }
