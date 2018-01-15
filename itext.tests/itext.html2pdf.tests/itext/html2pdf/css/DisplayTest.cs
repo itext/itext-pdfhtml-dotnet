@@ -154,6 +154,39 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        [LogMessage(iText.IO.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100)]
+        public virtual void DisplayTable09Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table09.html"), new FileInfo(destinationFolder
+                 + "display_table09.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table09.pdf"
+                , sourceFolder + "cmp_display_table09.pdf", destinationFolder, "diff26_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayTable10Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table10.html"), new FileInfo(destinationFolder
+                 + "display_table10.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table10.pdf"
+                , sourceFolder + "cmp_display_table10.pdf", destinationFolder, "diff27_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        [NUnit.Framework.Test]
+        public virtual void DisplayTable11Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table11.html"), new FileInfo(destinationFolder
+                 + "display_table11.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table11.pdf"
+                , sourceFolder + "cmp_display_table11.pdf", destinationFolder, "diff28_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void DisplayInline01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_inline01.html"), new FileInfo(destinationFolder
                  + "display_inline01.pdf"));

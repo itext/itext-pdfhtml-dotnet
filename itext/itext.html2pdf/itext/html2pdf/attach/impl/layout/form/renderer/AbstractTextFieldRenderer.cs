@@ -147,6 +147,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
         }
 
+        //The width based on cols of textarea and size of input doesn't affected by box sizing, so we emulate it here
+        internal virtual float UpdateHtmlColsSizeBasedWidth(float width) {
+            if (BoxSizingPropertyValue.BORDER_BOX.Equals(this.GetProperty<BoxSizingPropertyValue?>(Property.BOX_SIZING
+                ))) {
+                Rectangle dummy = new Rectangle(width, 0);
+                ApplyBorderBox(dummy, true);
+                ApplyPaddings(dummy, true);
+                return dummy.GetWidth();
+            }
+            return width;
+        }
+
         private static void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, int linesNumber, 
             float height) {
             bBox.MoveUp(bBox.GetHeight() - height);

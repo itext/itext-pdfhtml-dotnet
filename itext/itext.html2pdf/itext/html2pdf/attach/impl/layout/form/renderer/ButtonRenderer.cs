@@ -50,6 +50,7 @@ using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
+using iText.Layout.Layout;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
@@ -80,10 +81,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return new iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.ButtonRenderer((Button)modelElement);
         }
 
+        protected internal override void AdjustFieldLayout() {
+            throw new Exception("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead"
+                );
+        }
+
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
         */
-        protected internal override void AdjustFieldLayout() {
+        protected internal override void AdjustFieldLayout(LayoutContext layoutContext) {
             IList<LineRenderer> flatLines = ((ParagraphRenderer)flatRenderer).GetLines();
             Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
             UpdatePdfFont((ParagraphRenderer)flatRenderer);
@@ -92,7 +98,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                     isSplit = true;
                 }
                 CropContentLines(flatLines, flatBBox);
-                float? width = GetContentWidth();
+                float? width = RetrieveWidth(layoutContext.GetArea().GetBBox().GetWidth());
                 if (width == null) {
                     LineRenderer drawnLine = flatLines[0];
                     drawnLine.Move(flatBBox.GetX() - drawnLine.GetOccupiedArea().GetBBox().GetX(), 0);
