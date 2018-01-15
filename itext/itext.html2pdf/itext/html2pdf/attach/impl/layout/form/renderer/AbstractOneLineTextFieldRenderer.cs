@@ -53,7 +53,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// </summary>
     public abstract class AbstractOneLineTextFieldRenderer : AbstractTextFieldRenderer {
         /// <summary>The position of the base line of the text.</summary>
-        [System.ObsoleteAttribute(@"use iText.Layout.Renderer.AbstractRenderer.GetLastYLineRecursively() instead. Will be removed in 7.2"
+        [System.ObsoleteAttribute(@"use iText.Layout.Renderer.AbstractRenderer.GetLastYLineRecursively() instead. Will be removed in 3.0.0"
             )]
         protected internal float baseline;
 
