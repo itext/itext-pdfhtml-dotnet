@@ -175,7 +175,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Float16Test() {
-            // TODO at the moment we always wrap inline text in paragraphs, thus when we process next floating element it's always on next line
+            // TODO DEVSIX-1730: at the moment we always wrap inline text in paragraphs, thus when we process next floating element it's always on next line
             // see also float50Test and float51Test
             // TODO as a possible solution in future we might consider adding floats blocks as inlines-blocks in inline helper
             RunTest("float16Test", "diff16_");
@@ -234,7 +234,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Float25Test() {
-            // TODO at the moment we always wrap inline text in paragraphs, thus when we process next floating element it's always on next line
+            // TODO DEVSIX-1730: at the moment we always wrap inline text in paragraphs, thus when we process next floating element it's always on next line
             // see also float50Test and float51Test
             RunTest("float25Test", "diff25_");
         }
@@ -326,7 +326,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Float36Test() {
-            // TODO at the moment we always wrap inline text in paragraphs, thus when we process next floating element it's always on next line
+            // TODO DEVSIX-1730: at the moment we always wrap inline text in paragraphs, thus when we process next floating element it's always on next line
             // see also float50Test and float51Test
             RunTest("float36Test", "diff36_");
         }
@@ -432,7 +432,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Float50Test() {
-            // TODO at the moment we always wrap inline text in paragraphs, thus we process this test exactly like in float51Test
+            // TODO DEVSIX-1730: at the moment we always wrap inline text in paragraphs, thus we process this test exactly like in float51Test
             RunTest("float50Test", "diff50_");
         }
 

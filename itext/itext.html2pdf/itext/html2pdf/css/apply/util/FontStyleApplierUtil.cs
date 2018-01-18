@@ -207,7 +207,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             // browsers ignore values in percents
             String lineHeight = cssProps.Get(CssConstants.LINE_HEIGHT);
-            if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight)) {
+            // specification does not give auto as a possible lineHeight value
+            // nevertheless some browsers compute it as normal so we apply the same behaviour.
+            // What's more, it's basically the same thing as if lineHeight is not set in the first place
+            if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight) && !CssConstants.AUTO.Equals(lineHeight)
+                ) {
                 if (CssUtils.IsNumericValue(lineHeight)) {
                     float? mult = CssUtils.ParseFloat(lineHeight);
                     if (mult != null) {

@@ -63,30 +63,37 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Input01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "inputTest01.html"), new FileInfo(destinationFolder
-                 + "inputTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "inputTest01.pdf", sourceFolder
-                 + "cmp_inputTest01.pdf", destinationFolder, "diff01_"));
+            RunTest("inputTest01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Input02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "inputTest02.html"), new FileInfo(destinationFolder
-                 + "inputTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "inputTest02.pdf", sourceFolder
-                 + "cmp_inputTest02.pdf", destinationFolder, "diff02_"));
+            RunTest("inputTest02");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Input03Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "inputTest03.html"), new FileInfo(destinationFolder
-                 + "inputTest03.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "inputTest03.pdf", sourceFolder
-                 + "cmp_inputTest03.pdf", destinationFolder, "diff03_"));
+            RunTest("inputTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Input04Test() {
+            RunTest("inputTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String testName) {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
         }
     }
 }

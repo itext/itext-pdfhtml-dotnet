@@ -241,16 +241,21 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static float GetLineHeightActualValue(float fontSize, float rootFontSize, String lineHeightStr) {
             float lineHeightActualValue;
             if (lineHeightStr != null) {
-                UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeightStr, fontSize, rootFontSize);
-                if (CssUtils.IsNumericValue(lineHeightStr)) {
-                    lineHeightActualValue = fontSize * lineHeightValue.GetValue();
+                if (CssConstants.NORMAL.Equals(lineHeightStr) || CssConstants.AUTO.Equals(lineHeightStr)) {
+                    lineHeightActualValue = (float)(fontSize * 1.2);
                 }
                 else {
-                    if (lineHeightValue.IsPointValue()) {
-                        lineHeightActualValue = lineHeightValue.GetValue();
+                    UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeightStr, fontSize, rootFontSize);
+                    if (CssUtils.IsNumericValue(lineHeightStr)) {
+                        lineHeightActualValue = fontSize * lineHeightValue.GetValue();
                     }
                     else {
-                        lineHeightActualValue = fontSize * lineHeightValue.GetValue() / 100;
+                        if (lineHeightValue.IsPointValue()) {
+                            lineHeightActualValue = lineHeightValue.GetValue();
+                        }
+                        else {
+                            lineHeightActualValue = fontSize * lineHeightValue.GetValue() / 100;
+                        }
                     }
                 }
             }

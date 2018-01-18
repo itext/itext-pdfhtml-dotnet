@@ -105,31 +105,38 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             bool processed = false;
-            if (childTagWorker is SpanTagWorker) {
-                bool allChildrenProcesssed = true;
-                foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
-                    if (propertyContainer is ILeafElement) {
-                        inlineHelper.Add((ILeafElement)propertyContainer);
-                    }
-                    else {
-                        if (propertyContainer is IBlockElement && CssConstants.INLINE_BLOCK.Equals(((SpanTagWorker)childTagWorker)
-                            .GetElementDisplay(propertyContainer))) {
-                            inlineHelper.Add((IBlockElement)propertyContainer);
-                        }
-                        else {
-                            allChildrenProcesssed = ProcessChild(propertyContainer) && allChildrenProcesssed;
-                        }
-                    }
-                }
-                processed = allChildrenProcesssed;
+            if (childTagWorker is IDisplayAware && CssConstants.INLINE_BLOCK.Equals(((IDisplayAware)childTagWorker).GetDisplay
+                ()) && childTagWorker.GetElementResult() is IBlockElement) {
+                inlineHelper.Add((IBlockElement)childTagWorker.GetElementResult());
+                processed = true;
             }
             else {
-                if (childTagWorker.GetElementResult() is ILeafElement) {
-                    inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
-                    processed = true;
+                if (childTagWorker is SpanTagWorker) {
+                    bool allChildrenProcesssed = true;
+                    foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
+                        if (propertyContainer is ILeafElement) {
+                            inlineHelper.Add((ILeafElement)propertyContainer);
+                        }
+                        else {
+                            if (propertyContainer is IBlockElement && CssConstants.INLINE_BLOCK.Equals(((SpanTagWorker)childTagWorker)
+                                .GetElementDisplay(propertyContainer))) {
+                                inlineHelper.Add((IBlockElement)propertyContainer);
+                            }
+                            else {
+                                allChildrenProcesssed = ProcessChild(propertyContainer) && allChildrenProcesssed;
+                            }
+                        }
+                    }
+                    processed = allChildrenProcesssed;
                 }
                 else {
-                    processed = ProcessChild(childTagWorker.GetElementResult());
+                    if (childTagWorker.GetElementResult() is ILeafElement) {
+                        inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
+                        processed = true;
+                    }
+                    else {
+                        processed = ProcessChild(childTagWorker.GetElementResult());
+                    }
                 }
             }
             return processed;

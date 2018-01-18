@@ -80,10 +80,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 ));
             // Default input type is text
             if (inputType == null || AttributeConstants.TEXT.Equals(inputType) || AttributeConstants.EMAIL.Equals(inputType
-                ) || AttributeConstants.PASSWORD.Equals(inputType)) {
+                ) || AttributeConstants.PASSWORD.Equals(inputType) || AttributeConstants.NUMBER.Equals(inputType)) {
                 int? size = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.SIZE));
                 formElement = new InputField(name);
-                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
+                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, PreprocessInputValue(value, inputType));
                 formElement.SetProperty(Html2PdfProperty.FORM_FIELD_SIZE, size);
                 if (AttributeConstants.PASSWORD.Equals(inputType)) {
                     formElement.SetProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG, true);
@@ -138,6 +138,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         */
         public virtual IPropertyContainer GetElementResult() {
             return formElement;
+        }
+
+        private static String PreprocessInputValue(String value, String inputType) {
+            if (AttributeConstants.NUMBER.Equals(inputType) && value != null && !value.Matches("[0-9.]*")) {
+                value = "";
+            }
+            return value;
         }
     }
 }

@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
+using iText.Kernel.Geom;
 
 namespace iText.Html2pdf.Css.Page {
     /// <summary>
@@ -50,8 +51,15 @@ namespace iText.Html2pdf.Css.Page {
     /// implementation for page margin box contexts.
     /// </summary>
     public class PageMarginBoxContextNode : CssContextNode {
+        /// <summary>The Constant PAGE_MARGIN_BOX_TAG.</summary>
+        public const String PAGE_MARGIN_BOX_TAG = "_064ef03_page-margin-box";
+
         /// <summary>The margin box name.</summary>
         private String marginBoxName;
+
+        private Rectangle pageMarginBoxRectangle;
+
+        private Rectangle containingBlockForMarginBox;
 
         /// <summary>
         /// Creates a new
@@ -72,6 +80,50 @@ namespace iText.Html2pdf.Css.Page {
         /// <returns>the margin box name</returns>
         public virtual String GetMarginBoxName() {
             return marginBoxName;
+        }
+
+        /// <summary>Sets the rectangle in which page margin box contents are shown.</summary>
+        /// <param name="pageMarginBoxRectangle">
+        /// the
+        /// <see cref="iText.Kernel.Geom.Rectangle"/>
+        /// defining position and dimensions of the margin box content area
+        /// </param>
+        public virtual void SetPageMarginBoxRectangle(Rectangle pageMarginBoxRectangle) {
+            this.pageMarginBoxRectangle = pageMarginBoxRectangle;
+        }
+
+        /// <summary>Gets the rectangle in which page margin box contents should be shown.</summary>
+        /// <returns>
+        /// the
+        /// <see cref="iText.Kernel.Geom.Rectangle"/>
+        /// defining position and dimensions of the margin box content area
+        /// </returns>
+        public virtual Rectangle GetPageMarginBoxRectangle() {
+            return pageMarginBoxRectangle;
+        }
+
+        /// <summary>
+        /// Sets the containing block rectangle for the margin box, which is used for calculating
+        /// some of the margin box properties relative values.
+        /// </summary>
+        /// <param name="containingBlockForMarginBox">
+        /// the
+        /// <see cref="iText.Kernel.Geom.Rectangle"/>
+        /// which is used as a reference for some
+        /// margin box relative properties calculations.
+        /// </param>
+        public virtual void SetContainingBlockForMarginBox(Rectangle containingBlockForMarginBox) {
+            this.containingBlockForMarginBox = containingBlockForMarginBox;
+        }
+
+        /// <returns>
+        /// the
+        /// <see cref="iText.Kernel.Geom.Rectangle"/>
+        /// which is used as a reference for some
+        /// margin box relative properties calculations.
+        /// </returns>
+        public virtual Rectangle GetContainingBlockForMarginBox() {
+            return containingBlockForMarginBox;
         }
     }
 }

@@ -44,19 +44,17 @@ using System;
 using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Apply;
+using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Util;
-using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
-using iText.Kernel.Pdf.Tagging;
-using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Layout;
@@ -94,7 +92,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private Rectangle[] marginBoxRectangles;
 
         /// <summary>The margin box elements.</summary>
-        private Div[] marginBoxElements;
+        private IElement[] marginBoxElements;
 
         /// <summary>Instantiates a new page context processor.</summary>
         /// <param name="properties">the page context properties</param>
@@ -280,13 +278,22 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private void DrawMarginBoxes(PdfPage page, DocumentRenderer documentRenderer) {
             for (int i = 0; i < 16; ++i) {
                 if (marginBoxElements[i] != null) {
-                    Div curBoxElement = marginBoxElements[i];
+                    IElement curBoxElement = marginBoxElements[i];
                     IRenderer renderer = curBoxElement.CreateRendererSubTree();
                     renderer.SetParent(documentRenderer);
                     LayoutResult result = renderer.Layout(new LayoutContext(new LayoutArea(page.GetDocument().GetPageNumber(page
                         ), marginBoxRectangles[i])));
                     IRenderer rendererToDraw = result.GetStatus() == LayoutResult.FULL ? renderer : result.GetSplitRenderer();
-                    rendererToDraw.SetParent(documentRenderer).Draw(new DrawContext(page.GetDocument(), new PdfCanvas(page)));
+                    if (rendererToDraw != null) {
+                        rendererToDraw.SetParent(documentRenderer).Draw(new DrawContext(page.GetDocument(), new PdfCanvas(page)));
+                    }
+                    else {
+                        // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
+                        // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
+                        ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor));
+                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN
+                            , PageContextProperties.pageMarginBoxNames[i]));
+                    }
                 }
             }
         }
@@ -331,8 +338,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private void ParseMargins(IDictionary<String, String> styles, float em, float rem) {
             float defaultMargin = 36;
             PageSize pageSize = GetPageSize();
-            margins = ParseBoxProps(styles, em, rem, defaultMargin, pageSize, CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT
-                , CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT);
+            margins = PageMarginBoxCssApplier.ParseBoxProps(styles, em, rem, defaultMargin, pageSize, CssConstants.MARGIN_TOP
+                , CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT);
         }
 
         /// <summary>Parses the paddings.</summary>
@@ -346,8 +353,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private void ParsePaddings(IDictionary<String, String> styles, float em, float rem) {
             float defaultPadding = 0;
             PageSize pageSize = GetPageSize();
-            paddings = ParseBoxProps(styles, em, rem, defaultPadding, pageSize, CssConstants.PADDING_TOP, CssConstants
-                .PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
+            paddings = PageMarginBoxCssApplier.ParseBoxProps(styles, em, rem, defaultPadding, pageSize, CssConstants.PADDING_TOP
+                , CssConstants.PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
         }
 
         /// <summary>Parses the borders.</summary>
@@ -385,38 +392,20 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="context">the processor context</param>
         private void CreateMarginBoxesElements(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes, ProcessorContext
              context) {
+            marginBoxElements = new IElement[16];
             marginBoxRectangles = CalculateMarginBoxRectangles(resolvedPageMarginBoxes);
-            marginBoxElements = new Div[16];
             foreach (PageMarginBoxContextNode marginBoxContentNode in resolvedPageMarginBoxes) {
-                int marginBoxInd = MapMarginBoxNameToIndex(marginBoxContentNode.GetMarginBoxName());
-                Div marginBox = new Div();
-                marginBoxElements[marginBoxInd] = marginBox;
-                IDictionary<String, String> boxStyles = marginBoxContentNode.GetStyles();
-                BackgroundApplierUtil.ApplyBackground(boxStyles, context, marginBox);
-                FontStyleApplierUtil.ApplyFontStyles(boxStyles, context, marginBoxContentNode, marginBox);
-                BorderStyleApplierUtil.ApplyBorders(boxStyles, context, marginBox);
-                VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForCells(boxStyles, context, marginBox);
-                float em = CssUtils.ParseAbsoluteLength(boxStyles.Get(CssConstants.FONT_SIZE));
-                float rem = context.GetCssContext().GetRootFontSize();
-                float[] boxMargins = ParseBoxProps(boxStyles, em, rem, 0, CalculateContainingBlockSizesForMarginBox(marginBoxInd
-                    ), CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT
-                    );
-                float[] boxPaddings = ParseBoxProps(boxStyles, em, rem, 0, CalculateContainingBlockSizesForMarginBox(marginBoxInd
-                    ), CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT
-                    );
-                marginBox.SetMargins(boxMargins[0], boxMargins[1], boxMargins[2], boxMargins[3]);
-                marginBox.SetPaddings(boxPaddings[0], boxPaddings[1], boxPaddings[2], boxPaddings[3]);
-                marginBox.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
-                marginBox.SetProperty(Property.FONT_SET, context.GetTempFonts());
-                marginBox.SetFillAvailableArea(true);
                 if (marginBoxContentNode.ChildNodes().IsEmpty()) {
                     // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
                     throw new InvalidOperationException();
                 }
+                int marginBoxInd = MapMarginBoxNameToIndex(marginBoxContentNode.GetMarginBoxName());
+                marginBoxContentNode.SetPageMarginBoxRectangle(marginBoxRectangles[marginBoxInd]);
+                marginBoxContentNode.SetContainingBlockForMarginBox(CalculateContainingBlockSizesForMarginBox(marginBoxInd
+                    , marginBoxRectangles[marginBoxInd]));
+                IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
+                ITagWorker marginBoxWorker = context.GetTagWorkerFactory().GetTagWorker(dummyMarginBoxNode, context);
                 // TODO it would be great to reuse DefaultHtmlProcessor, but it seems there is no convenient way of doing so, and maybe it would be an overkill
-                IElementNode dummyMarginBoxNode = new JsoupElementNode(new iText.Html2pdf.Jsoup.Nodes.Element(iText.Html2pdf.Jsoup.Parser.Tag
-                    .ValueOf(TagConstants.DIV), ""));
-                DivTagWorker marginBoxWorker = new DivTagWorker(dummyMarginBoxNode, context);
                 for (int i = 0; i < marginBoxContentNode.ChildNodes().Count; i++) {
                     INode childNode = marginBoxContentNode.ChildNodes()[i];
                     if (childNode is ITextNode) {
@@ -437,20 +426,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     }
                 }
                 marginBoxWorker.ProcessEnd(dummyMarginBoxNode, context);
-                IPropertyContainer workerResult = marginBoxWorker.GetElementResult();
-                if (workerResult is Div) {
-                    foreach (IElement child in ((Div)workerResult).GetChildren()) {
-                        if (child is IBlockElement) {
-                            marginBox.Add((IBlockElement)child);
-                        }
-                        else {
-                            if (child is Image) {
-                                marginBox.Add((Image)child);
-                            }
-                        }
-                    }
+                if (!(marginBoxWorker.GetElementResult() is IElement)) {
+                    throw new InvalidOperationException("Custom tag worker implementation for margin boxes shall return IElement for #getElementResult() call."
+                        );
                 }
-                marginBox.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
+                ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(dummyMarginBoxNode);
+                cssApplier.Apply(context, marginBoxContentNode, marginBoxWorker);
+                marginBoxElements[marginBoxInd] = (IElement)marginBoxWorker.GetElementResult();
             }
         }
 
@@ -493,10 +475,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>Calculate containing block sizes for margin box.</summary>
         /// <param name="marginBoxInd">the margin box index</param>
+        /// <param name="pageMarginBoxRectangle">
+        /// a
+        /// <see cref="iText.Kernel.Geom.Rectangle"/>
+        /// defining dimensions of the page margin box corresponding to the given index
+        /// </param>
         /// <returns>the corresponding rectangle</returns>
-        private Rectangle CalculateContainingBlockSizesForMarginBox(int marginBoxInd) {
+        private Rectangle CalculateContainingBlockSizesForMarginBox(int marginBoxInd, Rectangle pageMarginBoxRectangle
+            ) {
             if (marginBoxInd == 0 || marginBoxInd == 4 || marginBoxInd == 8 || marginBoxInd == 12) {
-                return marginBoxRectangles[marginBoxInd];
+                return pageMarginBoxRectangle;
             }
             Rectangle withoutMargins = pageSize.Clone().ApplyMargins(margins[0], margins[1], margins[2], margins[3], false
                 );
@@ -588,54 +576,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 }
             }
             return -1;
-        }
-
-        /// <summary>Parses the box props.</summary>
-        /// <param name="styles">
-        /// a
-        /// <see cref="System.Collections.IDictionary{K, V}"/>
-        /// containing the styles
-        /// </param>
-        /// <param name="em">a measurement expressed in em</param>
-        /// <param name="rem">a measurement expressed in rem (root em)</param>
-        /// <param name="defaultValue">the default value</param>
-        /// <param name="containingBlock">the containing block</param>
-        /// <param name="topPropName">the top prop name</param>
-        /// <param name="rightPropName">the right prop name</param>
-        /// <param name="bottomPropName">the bottom prop name</param>
-        /// <param name="leftPropName">the left prop name</param>
-        /// <returns>an array with a top, right, bottom, and top float value</returns>
-        private float[] ParseBoxProps(IDictionary<String, String> styles, float em, float rem, float defaultValue, 
-            Rectangle containingBlock, String topPropName, String rightPropName, String bottomPropName, String leftPropName
-            ) {
-            String topStr = styles.Get(topPropName);
-            String rightStr = styles.Get(rightPropName);
-            String bottomStr = styles.Get(bottomPropName);
-            String leftStr = styles.Get(leftPropName);
-            float? top = ParseBoxValue(topStr, em, rem, containingBlock.GetHeight());
-            float? right = ParseBoxValue(rightStr, em, rem, containingBlock.GetWidth());
-            float? bottom = ParseBoxValue(bottomStr, em, rem, containingBlock.GetHeight());
-            float? left = ParseBoxValue(leftStr, em, rem, containingBlock.GetWidth());
-            return new float[] { top != null ? (float)top : defaultValue, right != null ? (float)right : defaultValue, 
-                bottom != null ? (float)bottom : defaultValue, left != null ? (float)left : defaultValue };
-        }
-
-        /// <summary>Parses the box value.</summary>
-        /// <param name="em">a measurement expressed in em</param>
-        /// <param name="rem">a measurement expressed in rem (root em)</param>
-        /// <param name="dimensionSize">the dimension size</param>
-        /// <returns>a float value</returns>
-        private static float? ParseBoxValue(String valString, float em, float rem, float dimensionSize) {
-            UnitValue marginUnitVal = CssUtils.ParseLengthValueToPt(valString, em, rem);
-            if (marginUnitVal != null) {
-                if (marginUnitVal.IsPointValue()) {
-                    return marginUnitVal.GetValue();
-                }
-                if (marginUnitVal.IsPercentValue()) {
-                    return marginUnitVal.GetValue() * dimensionSize / 100;
-                }
-            }
-            return null;
         }
     }
 }

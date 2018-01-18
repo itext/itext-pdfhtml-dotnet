@@ -46,6 +46,7 @@ using iText.Html2pdf;
 using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class CssInheritanceTest : ExtendedITextTest {
@@ -60,9 +61,9 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
+        //em value inherited
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Ignore("DEVSIX-1578")]
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance01.html"), new FileInfo(destinationFolder
@@ -71,6 +72,72 @@ namespace iText.Html2pdf.Css {
                 ).AbsolutePath + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance01.pdf"
                 , sourceFolder + "cmp_cssInheritance01.pdf", destinationFolder, "diff01_"));
+        }
+
+        //ex value inherited
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [LogMessage(iText.Html2pdf.LogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN)]
+        [NUnit.Framework.Test]
+        public virtual void CssInheritanceTest02() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance02.html"), new FileInfo(destinationFolder
+                 + "cssInheritance02.pdf"));
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssInheritance02.html"
+                ).AbsolutePath + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance02.pdf"
+                , sourceFolder + "cmp_cssInheritance02.pdf", destinationFolder, "diff02_"));
+        }
+
+        //rem value inherited, shorthand
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CssInheritanceTest03() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance03.html"), new FileInfo(destinationFolder
+                 + "cssInheritance03.pdf"));
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssInheritance03.html"
+                ).AbsolutePath + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance03.pdf"
+                , sourceFolder + "cmp_cssInheritance03.pdf", destinationFolder, "diff03_"));
+        }
+
+        //% value inherited, font-size dependent
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CssInheritanceTest04() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance04.html"), new FileInfo(destinationFolder
+                 + "cssInheritance04.pdf"));
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssInheritance04.html"
+                ).AbsolutePath + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance04.pdf"
+                , sourceFolder + "cmp_cssInheritance04.pdf", destinationFolder, "diff04_"));
+        }
+
+        //% value inherited, layout dependent
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CssInheritanceTest05() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance05.html"), new FileInfo(destinationFolder
+                 + "cssInheritance05.pdf"));
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssInheritance05.html"
+                ).AbsolutePath + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance05.pdf"
+                , sourceFolder + "cmp_cssInheritance05.pdf", destinationFolder, "diff05_"));
+        }
+
+        //smaller value inherited
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CssInheritanceTest06() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance06.html"), new FileInfo(destinationFolder
+                 + "cssInheritance06.pdf"));
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssInheritance06.html"
+                ).AbsolutePath + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance06.pdf"
+                , sourceFolder + "cmp_cssInheritance06.pdf", destinationFolder, "diff06_"));
         }
     }
 }

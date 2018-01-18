@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
@@ -174,6 +175,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 ));
             // custom elements mapping, implementation-specific
             workerMapping.PutMapping(PageCountElementNode.PAGE_COUNTER_TAG, typeof(PageCountWorker));
+            workerMapping.PutMapping(PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG, typeof(PageMarginBoxWorker));
         }
 
         /// <summary>Gets the default tag worker mapping.</summary>

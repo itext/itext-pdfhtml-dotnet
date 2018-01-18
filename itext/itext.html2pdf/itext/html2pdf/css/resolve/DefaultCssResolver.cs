@@ -75,6 +75,13 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>The list of fonts.</summary>
         private IList<CssFontFaceRule> fonts = new List<CssFontFaceRule>();
 
+        private static readonly IList<String> fontSizeDependentPercentage = new List<String>(2);
+
+        static DefaultCssResolver() {
+            fontSizeDependentPercentage.Add(CssConstants.FONT_SIZE);
+            fontSizeDependentPercentage.Add(CssConstants.LINE_HEIGHT);
+        }
+
         /// <summary>
         /// Creates a new
         /// <see cref="DefaultCssResolver"/>
@@ -129,7 +136,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
                 if (parentStyles != null) {
                     foreach (KeyValuePair<String, String> entry in parentStyles) {
-                        MergeParentCssDeclaration(elementStyles, entry.Key, entry.Value);
+                        MergeParentCssDeclaration(elementStyles, entry.Key, entry.Value, parentStyles);
                     }
                     parentFontSizeStr = parentStyles.Get(CssConstants.FONT_SIZE);
                 }
@@ -339,11 +346,21 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="cssProperty">the CSS property</param>
         /// <param name="parentPropValue">the parent properties value</param>
         private void MergeParentCssDeclaration(IDictionary<String, String> styles, String cssProperty, String parentPropValue
-            ) {
+            , IDictionary<String, String> parentStyles) {
             String childPropValue = styles.Get(cssProperty);
             if ((childPropValue == null && CssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals(childPropValue
                 )) {
-                styles.Put(cssProperty, parentPropValue);
+                if (ValueIsOfMeasurement(parentPropValue, CssConstants.EM) || ValueIsOfMeasurement(parentPropValue, CssConstants
+                    .EX) || ValueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.
+                    Contains(cssProperty)) {
+                    float absoluteParentFontSize = CssUtils.ParseAbsoluteLength(parentStyles.Get(CssConstants.FONT_SIZE));
+                    // Format to 4 decimal places to prevent differences between Java and C#
+                    styles.Put(cssProperty, DecimalFormatUtil.FormatNumber(CssUtils.ParseRelativeValue(parentPropValue, absoluteParentFontSize
+                        ), "0.####") + CssConstants.PT);
+                }
+                else {
+                    styles.Put(cssProperty, parentPropValue);
+                }
             }
             else {
                 if (CssConstants.TEXT_DECORATION.Equals(cssProperty) && !CssConstants.INLINE_BLOCK.Equals(styles.Get(CssConstants
@@ -357,6 +374,17 @@ namespace iText.Html2pdf.Css.Resolve {
                     styles.Put(cssProperty, CssPropertyMerger.MergeTextDecoration(childPropValue, parentPropValue));
                 }
             }
+        }
+
+        private static bool ValueIsOfMeasurement(String value, String measurement) {
+            if (value == null) {
+                return false;
+            }
+            if (value.EndsWith(measurement) && CssUtils.IsNumericValue(value.JSubstring(0, value.Length - measurement.
+                Length).Trim())) {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>Collects fonts from the style sheet.</summary>
