@@ -338,6 +338,27 @@ namespace iText.Html2pdf.Css.Util {
             return rgbaColor;
         }
 
+        /// <summary>Parses the border radius of specific corner.</summary>
+        /// <param name="specificBorderRadius">string that defines the border radius of specific corner.</param>
+        /// <param name="emValue">the em value</param>
+        /// <param name="remValue">the root em value</param>
+        /// <returns>
+        /// an array of
+        /// <see cref="iText.Layout.Properties.UnitValue">UnitValues</see>
+        /// that define horizontal and vertical border radius values
+        /// </returns>
+        public static UnitValue[] ParseSpecificCornerBorderRadius(String specificBorderRadius, float emValue, float
+             remValue) {
+            if (null == specificBorderRadius) {
+                return null;
+            }
+            UnitValue[] cornerRadii = new UnitValue[2];
+            String[] props = iText.IO.Util.StringUtil.Split(specificBorderRadius, "\\s+");
+            cornerRadii[0] = ParseLengthValueToPt(props[0], emValue, remValue);
+            cornerRadii[1] = 2 == props.Length ? ParseLengthValueToPt(props[1], emValue, remValue) : cornerRadii[0];
+            return cornerRadii;
+        }
+
         /// <summary>Checks whether a string contains an allowed metric unit in HTML/CSS; px, in, cm, mm, pc or pt.</summary>
         /// <param name="value">the string that needs to be checked.</param>
         /// <returns>boolean true if value contains an allowed metric value.</returns>

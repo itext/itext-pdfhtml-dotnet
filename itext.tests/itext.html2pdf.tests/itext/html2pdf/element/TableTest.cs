@@ -413,6 +413,13 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void MultipleRowsInHeader01() {
+            RunTest("multipleRowsInHeader01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-994")]
         public virtual void TableCollapseColCellBoxSizingWidthDifference() {
             RunTest("table_collapse_col_cell_box_sizing_width_difference");

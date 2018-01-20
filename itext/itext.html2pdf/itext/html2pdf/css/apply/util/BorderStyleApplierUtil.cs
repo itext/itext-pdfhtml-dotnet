@@ -88,9 +88,18 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (bordersArray[3] != null) {
                 element.SetProperty(Property.BORDER_LEFT, bordersArray[3]);
             }
-            UnitValue radius = GetBorderRadius(cssProps, em, rem);
-            if (null != radius) {
-                element.SetProperty(Property.BORDER_RADIUS, radius);
+            BorderRadius[] borderRadii = GetBorderRadiiArray(cssProps, em, rem);
+            if (borderRadii[0] != null) {
+                element.SetProperty(Property.BORDER_TOP_LEFT_RADIUS, borderRadii[0]);
+            }
+            if (borderRadii[1] != null) {
+                element.SetProperty(Property.BORDER_TOP_RIGHT_RADIUS, borderRadii[1]);
+            }
+            if (borderRadii[2] != null) {
+                element.SetProperty(Property.BORDER_BOTTOM_RIGHT_RADIUS, borderRadii[2]);
+            }
+            if (borderRadii[3] != null) {
+                element.SetProperty(Property.BORDER_BOTTOM_LEFT_RADIUS, borderRadii[3]);
             }
         }
 
@@ -237,6 +246,39 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="em">the em value</param>
         /// <param name="rem">the root em value</param>
         /// <returns>the borders array</returns>
+        public static BorderRadius[] GetBorderRadiiArray(IDictionary<String, String> styles, float em, float rem) {
+            BorderRadius[] borderRadii = new BorderRadius[4];
+            BorderRadius borderRadius = null;
+            UnitValue borderRadiusUV = CssUtils.ParseLengthValueToPt(styles.Get(CssConstants.BORDER_RADIUS), em, rem);
+            if (null != borderRadiusUV) {
+                borderRadius = new BorderRadius(borderRadiusUV);
+            }
+            UnitValue[] borderTopLeftRadiusUV = CssUtils.ParseSpecificCornerBorderRadius(styles.Get(CssConstants.BORDER_TOP_LEFT_RADIUS
+                ), em, rem);
+            borderRadii[0] = null == borderTopLeftRadiusUV ? borderRadius : new BorderRadius(borderTopLeftRadiusUV[0], 
+                borderTopLeftRadiusUV[1]);
+            UnitValue[] borderTopRightRadiusUV = CssUtils.ParseSpecificCornerBorderRadius(styles.Get(CssConstants.BORDER_TOP_RIGHT_RADIUS
+                ), em, rem);
+            borderRadii[1] = null == borderTopRightRadiusUV ? borderRadius : new BorderRadius(borderTopRightRadiusUV[0
+                ], borderTopRightRadiusUV[1]);
+            UnitValue[] borderBottomRightRadiusUV = CssUtils.ParseSpecificCornerBorderRadius(styles.Get(CssConstants.BORDER_BOTTOM_RIGHT_RADIUS
+                ), em, rem);
+            borderRadii[2] = null == borderBottomRightRadiusUV ? borderRadius : new BorderRadius(borderBottomRightRadiusUV
+                [0], borderBottomRightRadiusUV[1]);
+            UnitValue[] borderBottomLeftRadiusUV = CssUtils.ParseSpecificCornerBorderRadius(styles.Get(CssConstants.BORDER_BOTTOM_LEFT_RADIUS
+                ), em, rem);
+            borderRadii[3] = null == borderBottomLeftRadiusUV ? borderRadius : new BorderRadius(borderBottomLeftRadiusUV
+                [0], borderBottomLeftRadiusUV[1]);
+            return borderRadii;
+        }
+
+        /// <summary>Gets the array that defines the borders.</summary>
+        /// <param name="styles">the styles mapping</param>
+        /// <param name="em">the em value</param>
+        /// <param name="rem">the root em value</param>
+        /// <returns>the borders array</returns>
+        [System.ObsoleteAttribute(@"use GetBorderRadiiArray(System.Collections.Generic.IDictionary{K, V}, float, float) instead"
+            )]
         public static UnitValue GetBorderRadius(IDictionary<String, String> styles, float em, float rem) {
             String borderRadius = styles.Get(CssConstants.BORDER_RADIUS);
             return CssUtils.ParseLengthValueToPt(borderRadius, em, rem);

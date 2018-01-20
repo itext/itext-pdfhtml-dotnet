@@ -96,6 +96,12 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant BORDER_BOTTOM_COLOR.</summary>
         public const String BORDER_BOTTOM_COLOR = "border-bottom-color";
 
+        /// <summary>The Constant BORDER_BOTTOM_LEFT_RADIUS.</summary>
+        public const String BORDER_BOTTOM_LEFT_RADIUS = "border-bottom-left-radius";
+
+        /// <summary>The Constant BORDER_BOTTOM_RIGHT_RADIUS.</summary>
+        public const String BORDER_BOTTOM_RIGHT_RADIUS = "border-bottom-right-radius";
+
         /// <summary>The Constant BORDER_BOTTOM_STYLE.</summary>
         public const String BORDER_BOTTOM_STYLE = "border-bottom-style";
 
@@ -149,6 +155,12 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant BORDER_TOP_COLOR.</summary>
         public const String BORDER_TOP_COLOR = "border-top-color";
+
+        /// <summary>The Constant BORDER_TOP_LEFT_RADIUS.</summary>
+        public const String BORDER_TOP_LEFT_RADIUS = "border-top-left-radius";
+
+        /// <summary>The Constant BORDER_TOP_RIGHT_RADIUS.</summary>
+        public const String BORDER_TOP_RIGHT_RADIUS = "border-top-right-radius";
 
         /// <summary>The Constant BORDER_TOP_STYLE.</summary>
         public const String BORDER_TOP_STYLE = "border-top-style";

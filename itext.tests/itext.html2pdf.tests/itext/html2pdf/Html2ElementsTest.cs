@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using iText.Html2pdf.Attach.Impl;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Test;
@@ -145,6 +146,26 @@ namespace iText.Html2pdf {
         public virtual void HtmlToElementsTest08() {
             // this test checks whether iText fails to process meta tag inside body section or not
             String html = "<html><p>Hello world!</p><meta name=\"author\" content=\"Bruno\"><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p></html>";
+            HtmlConverter.ConvertToElements(html);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        [NUnit.Framework.Test]
+        public virtual void HtmlToElementsTest09() {
+            //Test OutlineHandler exception throwing
+            /*
+            Outlines require a PdfDocument, and OutlineHandler is based around its availability
+            Any convert to elements workflow of course doesn't have a PdfDocument.
+            Instead of throwing an NPE when trying it, the OutlineHandler will check for the existence of a pdfDocument
+            If no PdfDocument is found, the handler will do nothing silently
+            */
+            String html = "<html><p>Hello world!</p><meta name=\"author\" content=\"Bruno\"><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p></html>";
+            ConverterProperties props = new ConverterProperties();
+            OutlineHandler outlineHandler = new OutlineHandler();
+            outlineHandler.PutTagPriorityMapping("h1", 1);
+            outlineHandler.PutTagPriorityMapping("h3", 2);
+            outlineHandler.PutTagPriorityMapping("p", 3);
+            props.SetOutlineHandler(outlineHandler);
             HtmlConverter.ConvertToElements(html);
         }
     }

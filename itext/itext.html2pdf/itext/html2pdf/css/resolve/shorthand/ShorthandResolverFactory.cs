@@ -58,6 +58,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand {
             shorthandResolvers.Put(CssConstants.BORDER_BOTTOM, new BorderBottomShorthandResolver());
             shorthandResolvers.Put(CssConstants.BORDER_COLOR, new BorderColorShorthandResolver());
             shorthandResolvers.Put(CssConstants.BORDER_LEFT, new BorderLeftShorthandResolver());
+            shorthandResolvers.Put(CssConstants.BORDER_RADIUS, new BorderRadiusShorthandResolver());
             shorthandResolvers.Put(CssConstants.BORDER_RIGHT, new BorderRightShorthandResolver());
             shorthandResolvers.Put(CssConstants.BORDER_STYLE, new BorderStyleShorthandResolver());
             shorthandResolvers.Put(CssConstants.BORDER_TOP, new BorderTopShorthandResolver());
