@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("iText Group NV")]
 [assembly: AssemblyProduct("iText")]
-[assembly: AssemblyCopyright("Copyright (c) 1998-2017 iText Group NV")]
+[assembly: AssemblyCopyright("Copyright (c) 1998-2018 iText Group NV")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion("1.0.3.0")]
 [assembly: AssemblyFileVersion("1.0.3.0")]
-[assembly: AssemblyInformationalVersion("1.0.3-SNAPSHOT")]
+[assembly: AssemblyInformationalVersion("1.0.3")]
 
 #if !NETSTANDARD1_6
 [assembly: NUnit.Framework.Timeout(300000)]
