@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>itext7.pdfhtml</id>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
     <title>iText 7 pdfHTML</title>
     <authors>iText Software</authors>
     <owners>iText Software</owners>
@@ -13,15 +13,15 @@
     <description>pdfHTML is an iText 7 add-on that lets you to parse (X)HTML snippets and the associated CSS and converts them to PDF.</description>
     <summary></summary>
     <releaseNotes>http://itextpdf.com/itext7release</releaseNotes>
-    <copyright>Copyright (c) 1998-2017 iText Group NV</copyright>
+    <copyright>Copyright (c) 1998-2018 iText Group NV</copyright>
     <language>en-US</language>
     <tags>itext itext7 itextsharp c# .net csharp pdf html pdfhtml</tags>
     <dependencies>
         <group targetFramework="net40">
-          <dependency id="itext7" version="7.0.6-SNAPSHOT" />
+          <dependency id="itext7" version="7.0.7-SNAPSHOT" />
         </group>  
         <group targetFramework="netstandard1.6">
-          <dependency id="itext7" version="7.0.6-SNAPSHOT" />
+          <dependency id="itext7" version="7.0.7-SNAPSHOT" />
           <dependency id="NETStandard.Library" version="1.6.1" />
         </group>
     </dependencies>
