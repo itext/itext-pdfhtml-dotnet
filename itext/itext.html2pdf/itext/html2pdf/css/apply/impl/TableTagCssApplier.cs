@@ -65,7 +65,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                     table.SetProperty(Property.TABLE_LAYOUT, tableLayout);
                 }
                 String borderCollapse = stylesContainer.GetStyles().Get(CssConstants.BORDER_COLLAPSE);
-                // BorderCollapsePropertyValue.COLLAPSE is default in iText
+                // BorderCollapsePropertyValue.COLLAPSE is default in iText layout
                 if (null == borderCollapse || CssConstants.SEPARATE.Equals(borderCollapse)) {
                     table.SetBorderCollapse(BorderCollapsePropertyValue.SEPARATE);
                 }

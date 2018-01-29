@@ -203,7 +203,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
 
                     case CssConstants.DOTTED: {
-                        border = new DottedBorder(color, borderWidthValue, opacity);
+                        border = new RoundDotsBorder(color, borderWidthValue, opacity);
                         break;
                     }
 
