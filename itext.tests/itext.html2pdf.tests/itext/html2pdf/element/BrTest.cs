@@ -43,6 +43,8 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Test;
 
@@ -77,6 +79,19 @@ namespace iText.Html2pdf.Element {
                 "brTest02.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "brTest02.pdf", sourceFolder
                  + "cmp_brTest02.pdf", destinationFolder, "diff02_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1655")]
+        public virtual void Br03Test() {
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + "brTest03.pdf"));
+            pdfDoc.SetDefaultPageSize(new PageSize(72, 72));
+            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "brTest03.html", FileMode.Open, FileAccess.Read), 
+                pdfDoc, new ConverterProperties());
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "brTest03.pdf", sourceFolder
+                 + "cmp_brTest03.pdf", destinationFolder, "diff03_"));
         }
     }
 }
