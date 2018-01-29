@@ -77,6 +77,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant CLASS.</summary>
         public const String CELLPADDING = "cellpadding";
 
+        /// <summary>The Constant CLASS.</summary>
+        public const String CELLSPACING = "cellspacing";
+
         /// <summary>The Constant COLOR.</summary>
         public const String COLOR = "color";
 

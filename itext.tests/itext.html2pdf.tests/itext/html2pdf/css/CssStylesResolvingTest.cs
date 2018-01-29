@@ -184,14 +184,16 @@ namespace iText.Html2pdf.Css {
             Test("htmlStylesConvertingTest05.html", "html body table", "border-bottom-style: solid", "border-left-style: solid"
                 , "border-right-style: solid", "border-top-style: solid", "border-bottom-width: 2px", "border-left-width: 2px"
                 , "border-right-width: 2px", "border-top-width: 2px", "font-size: 12.0pt", "margin-bottom: 0", "margin-left: 0"
-                , "margin-right: 0", "margin-top: 0", "text-indent: 0", "display: table", "font-family: times-roman");
+                , "margin-right: 0", "margin-top: 0", "text-indent: 0", "display: table", "border-spacing: 2px", "font-family: times-roman"
+                );
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest06() {
             Test("htmlStylesConvertingTest05.html", "html body table tbody tr", "background-color: yellow", "font-size: 12.0pt"
-                , "text-indent: 0", "vertical-align: middle", "display: table-row", "font-family: times-roman");
+                , "text-indent: 0", "vertical-align: middle", "display: table-row", "border-spacing: 2px", "font-family: times-roman"
+                );
         }
 
         /// <exception cref="System.IO.IOException"/>

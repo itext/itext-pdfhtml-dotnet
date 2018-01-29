@@ -65,6 +65,8 @@ namespace iText.Html2pdf.Css.Resolve {
                 ());
             htmlAttributeConverters.Put(AttributeConstants.CELLPADDING, new HtmlStylesToCssConverter.CellPaddingAttributeConverter
                 ());
+            htmlAttributeConverters.Put(AttributeConstants.CELLSPACING, new HtmlStylesToCssConverter.CellSpacingAttributeConverter
+                ());
             htmlAttributeConverters.Put(AttributeConstants.COLOR, new HtmlStylesToCssConverter.FontColorAttributeConverter
                 ());
             htmlAttributeConverters.Put(AttributeConstants.DIR, new HtmlStylesToCssConverter.DirAttributeConverter());
@@ -233,6 +235,26 @@ namespace iText.Html2pdf.Css.Resolve {
                     }
                 }
                 return JavaCollectionsUtil.EmptyList<CssDeclaration>();
+            }
+        }
+
+        /// <summary>
+        /// <see cref="IAttributeConverter"/>
+        /// implementation for table's cellspacing.
+        /// </summary>
+        private class CellSpacingAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
+            public virtual bool IsSupportedForElement(String elementName) {
+                return TagConstants.TABLE.Equals(elementName);
+            }
+
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
+                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BORDER_SPACING, value));
             }
         }
 
