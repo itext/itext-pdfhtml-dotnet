@@ -505,6 +505,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant CLOSE_QUOTE.</summary>
         public const String CLOSE_QUOTE = "close-quote";
 
+        /// <summary>The Constant COLLAPSE.</summary>
+        public const String COLLAPSE = "collapse";
+
         /// <summary>The Constant CONTAIN.</summary>
         public const String CONTAIN = "contain";
 
@@ -732,6 +735,9 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant SCROLL.</summary>
         public const String SCROLL = "scroll";
+
+        /// <summary>The Constant SEPARATE.</summary>
+        public const String SEPARATE = "separate";
 
         /// <summary>The Constant SKEW.</summary>
         public const String SKEW = "skew";

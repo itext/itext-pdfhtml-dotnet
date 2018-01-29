@@ -420,7 +420,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-994")]
         public virtual void TableCollapseColCellBoxSizingWidthDifference() {
             RunTest("table_collapse_col_cell_box_sizing_width_difference");
         }
@@ -430,6 +429,13 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void ColspanInHeaderFooterTest() {
             RunTest("table_header_footer_colspan");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SeparateBorder01() {
+            RunTest("separateBorder01");
         }
 
         /// <exception cref="System.IO.IOException"/>

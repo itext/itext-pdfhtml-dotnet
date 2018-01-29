@@ -44,7 +44,7 @@ using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
-using iText.Layout;
+using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
@@ -58,11 +58,16 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         */
         public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker worker) {
             base.Apply(context, stylesContainer, worker);
-            IPropertyContainer table = worker.GetElementResult();
+            Table table = (Table)worker.GetElementResult();
             if (table != null) {
                 String tableLayout = stylesContainer.GetStyles().Get(CssConstants.TABLE_LAYOUT);
                 if (tableLayout != null) {
                     table.SetProperty(Property.TABLE_LAYOUT, tableLayout);
+                }
+                String borderCollapse = stylesContainer.GetStyles().Get(CssConstants.BORDER_COLLAPSE);
+                // BorderCollapsePropertyValue.COLLAPSE is default in iText
+                if (null == borderCollapse || CssConstants.SEPARATE.Equals(borderCollapse)) {
+                    table.SetBorderCollapse(BorderCollapsePropertyValue.SEPARATE);
                 }
             }
         }
