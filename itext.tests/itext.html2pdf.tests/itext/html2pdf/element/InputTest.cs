@@ -44,8 +44,11 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.IO.Util;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class InputTest : ExtendedITextTest {
@@ -97,6 +100,24 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Count = 4, Ignore = true)]
+        public virtual void Input06Test() {
+            String htmlPath = sourceFolder + "inputTest06.html";
+            String outPdfPath = destinationFolder + "inputTest06.pdf";
+            String cmpPdfPath = sourceFolder + "cmp_" + "inputTest06.pdf";
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outPdfPath));
+            pdfDoc.SetDefaultPageSize(PageSize.A8);
+            HtmlConverter.ConvertToPdf(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), pdfDoc, new ConverterProperties
+                ().SetCreateAcroForm(true));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
+                , "diff_inputTest06_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void TextareaRowsHeightTest() {
             RunTest("textareaRowsHeight");
         }
