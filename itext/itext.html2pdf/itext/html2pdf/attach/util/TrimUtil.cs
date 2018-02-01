@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System.Collections.Generic;
+using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Layout;
@@ -117,7 +118,7 @@ namespace iText.Html2pdf.Attach.Util {
             while (end > begin) {
                 int pos = last ? end - 1 : begin;
                 IElement leaf = list[pos];
-                if (IsElementFloating(leaf)) {
+                if (IsElementFloating(leaf) || leaf is RunningElement) {
                     if (last) {
                         --end;
                     }

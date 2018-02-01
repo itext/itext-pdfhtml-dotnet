@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Attach.Impl.Tags;
@@ -343,6 +344,13 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void MarginBoxRunningTest08() {
+            RunTest("marginBoxRunningTest08");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void MarginBoxRunningOverrideTest01() {
             RunTest("marginBoxRunningOverrideTest01");
         }
@@ -462,7 +470,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("")]
         public virtual void MarginBoxRunningParent02() {
             RunTest("marginBoxRunningParent02");
         }
@@ -498,7 +505,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("")]
         public virtual void MarginBoxRunningParent07() {
             RunTest("marginBoxRunningParent07");
         }
@@ -507,7 +513,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningParent08() {
-            // TODO try make running element not separate content on two lines. make running dummy inline block?
             RunTest("marginBoxRunningParent08");
         }
 

@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
@@ -94,6 +95,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     }
                 }
                 for (int i = 0; i < GetAllElements().Count; i++) {
+                    if (GetAllElements()[i] is RunningElement) {
+                        continue;
+                    }
+                    // TODO floating elements will in the same way be wrapped and therefore not trimmed correctly: test it
                     if (GetAllElements()[i] is IBlockElement) {
                         Div simulatedDiv = new Div();
                         simulatedDiv.GetAccessibilityProperties().SetRole(StandardRoles.LINK);

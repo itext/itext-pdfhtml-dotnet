@@ -149,7 +149,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     waitingElement.SetProperty(Property.KEEP_WITH_NEXT, true);
                 }
                 base.AddChild(waitingElement);
-                if (!(waitingElement is RunningElement.RunningElementRenderer)) {
+                if (!IsRunningElementsOnly(waitingElement)) {
                     // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
                     shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
                 }
@@ -347,6 +347,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <returns>true, if is current page right</returns>
         private bool IsPageRight(int pageNum) {
             return !IsPageLeft(pageNum);
+        }
+
+        private static bool IsRunningElementsOnly(IRenderer waitingElement) {
+            bool res;
+            if (res = waitingElement is ParagraphRenderer && !waitingElement.GetChildRenderers().IsEmpty()) {
+                IList<IRenderer> childRenderers = waitingElement.GetChildRenderers();
+                int i = 0;
+                while (res && i < childRenderers.Count) {
+                    res = childRenderers[i++] is RunningElement.RunningElementRenderer;
+                }
+            }
+            return res;
         }
 
         private class PageMarginBoxesDrawingHandler : IEventHandler {

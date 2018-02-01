@@ -1,12 +1,13 @@
 using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for the running elements taken out of the normal flow.</summary>
-    public class RunningElementTagWorker : ITagWorker {
+    public class RunningElementTagWorker : ITagWorker, IDisplayAware {
         private RunningElement runningElement;
 
         public RunningElementTagWorker(RunningElementContainer runningElementContainer) {
@@ -26,6 +27,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public virtual IPropertyContainer GetElementResult() {
             return runningElement;
+        }
+
+        public virtual String GetDisplay() {
+            return CssConstants.INLINE_BLOCK;
         }
     }
 }
