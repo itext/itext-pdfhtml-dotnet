@@ -98,12 +98,24 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     return CssPseudoClassSelectorItem.FirstChildSelectorItem.GetInstance();
                 }
 
+                case CssConstants.FIRST_OF_TYPE: {
+                    return CssPseudoClassSelectorItem.FirstOfTypeSelectorItem.GetInstance();
+                }
+
                 case CssConstants.LAST_CHILD: {
                     return CssPseudoClassSelectorItem.LastChildSelectorItem.GetInstance();
                 }
 
+                case CssConstants.LAST_OF_TYPE: {
+                    return CssPseudoClassSelectorItem.LastOfTypeSelectorItem.GetInstance();
+                }
+
                 case CssConstants.NTH_CHILD: {
                     return new CssPseudoClassSelectorItem.NthChildSelectorItem(arguments);
+                }
+
+                case CssConstants.NTH_OF_TYPE: {
+                    return new CssPseudoClassSelectorItem.NthOfTypeSelectorItem(arguments);
                 }
 
                 case CssConstants.NOT: {
@@ -134,14 +146,11 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     //case CssConstants.DISABLED:
                     //case CssConstants.EMPTY:
                     //case CssConstants.ENABLED:
-                    //case CssConstants.FIRST_OF_TYPE:
                     //case CssConstants.IN_RANGE:
                     //case CssConstants.INVALID:
                     //case CssConstants.LANG:
-                    //case CssConstants.LAST_OF_TYPE:
                     //case CssConstants.NTH_LAST_CHILD:
                     //case CssConstants.NTH_LAST_OF_TYPE:
-                    //case CssConstants.NTH_OF_TYPE:
                     //case CssConstants.ONLY_OF_TYPE:
                     //case CssConstants.ONLY_CHILD:
                     //case CssConstants.OPTIONAL:
@@ -213,6 +222,24 @@ namespace iText.Html2pdf.Css.Selector.Item {
                 }
                 return JavaCollectionsUtil.EmptyList<INode>();
             }
+
+            /// <summary>Gets all siblings of a child node with the type of a child node.</summary>
+            /// <param name="node">the child node</param>
+            /// <returns>the sibling nodes with the type of a child node</returns>
+            internal virtual IList<INode> GetAllSiblingsOfNodeType(INode node) {
+                INode parentElement = node.ParentNode();
+                if (parentElement != null) {
+                    IList<INode> childrenUnmodifiable = parentElement.ChildNodes();
+                    IList<INode> children = new List<INode>(childrenUnmodifiable.Count);
+                    foreach (INode iNode in childrenUnmodifiable) {
+                        if (iNode is IElementNode && ((IElementNode)iNode).Name().Equals(((IElementNode)node).Name())) {
+                            children.Add(iNode);
+                        }
+                    }
+                    return children;
+                }
+                return JavaCollectionsUtil.EmptyList<INode>();
+            }
         }
 
         private class FirstChildSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
@@ -232,6 +259,27 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     return false;
                 }
                 IList<INode> children = GetAllSiblings(node);
+                return !children.IsEmpty() && node.Equals(children[0]);
+            }
+        }
+
+        private class FirstOfTypeSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
+            private static readonly CssPseudoClassSelectorItem.FirstOfTypeSelectorItem instance = new CssPseudoClassSelectorItem.FirstOfTypeSelectorItem
+                ();
+
+            private FirstOfTypeSelectorItem()
+                : base(CssConstants.FIRST_OF_TYPE) {
+            }
+
+            public static CssPseudoClassSelectorItem.FirstOfTypeSelectorItem GetInstance() {
+                return instance;
+            }
+
+            public override bool Matches(INode node) {
+                if (!(node is IElementNode) || node is ICustomElementNode) {
+                    return false;
+                }
+                IList<INode> children = GetAllSiblingsOfNodeType(node);
                 return !children.IsEmpty() && node.Equals(children[0]);
             }
         }
@@ -257,16 +305,37 @@ namespace iText.Html2pdf.Css.Selector.Item {
             }
         }
 
-        private class NthChildSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
-            /// <summary>The nth child A.</summary>
-            private int nthChildA;
+        private class LastOfTypeSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
+            private static readonly CssPseudoClassSelectorItem.LastOfTypeSelectorItem instance = new CssPseudoClassSelectorItem.LastOfTypeSelectorItem
+                ();
 
-            /// <summary>The nth child B.</summary>
-            private int nthChildB;
+            private LastOfTypeSelectorItem()
+                : base(CssConstants.LAST_OF_TYPE) {
+            }
 
-            internal NthChildSelectorItem(String arguments)
-                : base(CssConstants.NTH_CHILD, arguments) {
-                GetNthChildArguments();
+            public static CssPseudoClassSelectorItem.LastOfTypeSelectorItem GetInstance() {
+                return instance;
+            }
+
+            public override bool Matches(INode node) {
+                if (!(node is IElementNode) || node is ICustomElementNode) {
+                    return false;
+                }
+                IList<INode> children = GetAllSiblingsOfNodeType(node);
+                return !children.IsEmpty() && node.Equals(children[children.Count - 1]);
+            }
+        }
+
+        private class NthSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
+            /// <summary>The nth A.</summary>
+            private int nthA;
+
+            /// <summary>The nth B.</summary>
+            private int nthB;
+
+            internal NthSelectorItem(String pseudoClass, String arguments)
+                : base(pseudoClass, arguments) {
+                GetNthArguments();
             }
 
             public override bool Matches(INode node) {
@@ -274,78 +343,98 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     return false;
                 }
                 IList<INode> children = GetAllSiblings(node);
-                return !children.IsEmpty() && ResolveNthChild(node, children);
+                return !children.IsEmpty() && ResolveNth(node, children);
             }
 
-            /// <summary>Gets the nth child arguments.</summary>
-            private void GetNthChildArguments() {
+            /// <summary>Gets the nth arguments.</summary>
+            protected internal virtual void GetNthArguments() {
                 if (arguments.Matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
                     if (arguments.Equals("odd")) {
-                        this.nthChildA = 2;
-                        this.nthChildB = 1;
+                        this.nthA = 2;
+                        this.nthB = 1;
                     }
                     else {
                         if (arguments.Equals("even")) {
-                            this.nthChildA = 2;
-                            this.nthChildB = 0;
+                            this.nthA = 2;
+                            this.nthB = 0;
                         }
                         else {
                             int indexOfN = arguments.IndexOf('n');
                             if (indexOfN == -1) {
-                                this.nthChildA = 0;
-                                this.nthChildB = System.Convert.ToInt32(arguments);
+                                this.nthA = 0;
+                                this.nthB = System.Convert.ToInt32(arguments);
                             }
                             else {
                                 String aParticle = arguments.JSubstring(0, indexOfN).Trim();
                                 if (String.IsNullOrEmpty(aParticle)) {
-                                    this.nthChildA = 0;
+                                    this.nthA = 0;
                                 }
                                 else {
                                     if (aParticle.Length == 1 && !char.IsDigit(aParticle[0])) {
-                                        this.nthChildA = aParticle.Equals("+") ? 1 : -1;
+                                        this.nthA = aParticle.Equals("+") ? 1 : -1;
                                     }
                                     else {
-                                        this.nthChildA = System.Convert.ToInt32(aParticle);
+                                        this.nthA = System.Convert.ToInt32(aParticle);
                                     }
                                 }
                                 String bParticle = arguments.Substring(indexOfN + 1).Trim();
                                 if (!String.IsNullOrEmpty(bParticle)) {
-                                    this.nthChildB = System.Convert.ToInt32(bParticle[0] + bParticle.Substring(1).Trim());
+                                    this.nthB = System.Convert.ToInt32(bParticle[0] + bParticle.Substring(1).Trim());
                                 }
                                 else {
-                                    this.nthChildB = 0;
+                                    this.nthB = 0;
                                 }
                             }
                         }
                     }
                 }
                 else {
-                    this.nthChildA = 0;
-                    this.nthChildB = 0;
+                    this.nthA = 0;
+                    this.nthB = 0;
                 }
             }
 
-            /// <summary>Resolves the nth child.</summary>
+            /// <summary>Resolves the nth.</summary>
             /// <param name="node">a node</param>
             /// <param name="children">the children</param>
             /// <returns>true, if successful</returns>
-            private bool ResolveNthChild(INode node, IList<INode> children) {
+            protected internal virtual bool ResolveNth(INode node, IList<INode> children) {
                 if (!children.Contains(node)) {
                     return false;
                 }
-                if (this.nthChildA > 0) {
-                    int temp = children.IndexOf(node) + 1 - this.nthChildB;
-                    return temp >= 0 && temp % this.nthChildA == 0;
+                if (this.nthA > 0) {
+                    int temp = children.IndexOf(node) + 1 - this.nthB;
+                    return temp >= 0 && temp % this.nthA == 0;
                 }
                 else {
-                    if (this.nthChildA < 0) {
-                        int temp = children.IndexOf(node) + 1 - this.nthChildB;
-                        return temp <= 0 && temp % this.nthChildA == 0;
+                    if (this.nthA < 0) {
+                        int temp = children.IndexOf(node) + 1 - this.nthB;
+                        return temp <= 0 && temp % this.nthA == 0;
                     }
                     else {
-                        return (children.IndexOf(node) + 1) - this.nthChildB == 0;
+                        return (children.IndexOf(node) + 1) - this.nthB == 0;
                     }
                 }
+            }
+        }
+
+        private class NthChildSelectorItem : CssPseudoClassSelectorItem.NthSelectorItem {
+            internal NthChildSelectorItem(String arguments)
+                : base(CssConstants.NTH_CHILD, arguments) {
+            }
+        }
+
+        private class NthOfTypeSelectorItem : CssPseudoClassSelectorItem.NthSelectorItem {
+            public NthOfTypeSelectorItem(String arguments)
+                : base(CssConstants.NTH_OF_TYPE, arguments) {
+            }
+
+            public override bool Matches(INode node) {
+                if (!(node is IElementNode) || node is ICustomElementNode) {
+                    return false;
+                }
+                IList<INode> children = GetAllSiblingsOfNodeType(node);
+                return !children.IsEmpty() && ResolveNth(node, children);
             }
         }
 
