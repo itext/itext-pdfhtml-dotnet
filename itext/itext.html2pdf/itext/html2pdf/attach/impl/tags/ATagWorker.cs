@@ -103,6 +103,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                             simulatedDiv.SetProperty(Property.TRANSFORM, cssTransform);
                         }
                         simulatedDiv.Add((IBlockElement)GetAllElements()[i]);
+                        String display = childrenDisplayMap.JRemove(GetAllElements()[i]);
+                        if (display != null) {
+                            childrenDisplayMap.Put(simulatedDiv, display);
+                        }
                         GetAllElements()[i] = simulatedDiv;
                     }
                     LinkHelper.ApplyLinkAnnotation(GetAllElements()[i], url);

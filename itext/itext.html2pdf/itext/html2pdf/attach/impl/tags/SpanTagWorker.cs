@@ -60,7 +60,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The span wrapper.</summary>
         internal SpanWrapper spanWrapper;
 
-        private IDictionary<IPropertyContainer, String> childrenDisplayMap = new Dictionary<IPropertyContainer, String
+        internal IDictionary<IPropertyContainer, String> childrenDisplayMap = new Dictionary<IPropertyContainer, String
             >();
 
         /// <summary>A list of elements belonging to the span.</summary>
