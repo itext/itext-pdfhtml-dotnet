@@ -98,7 +98,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     if (GetAllElements()[i] is RunningElement) {
                         continue;
                     }
-                    // TODO floating elements will in the same way be wrapped and therefore not trimmed correctly: test it
                     if (GetAllElements()[i] is IBlockElement) {
                         Div simulatedDiv = new Div();
                         simulatedDiv.GetAccessibilityProperties().SetRole(StandardRoles.LINK);
@@ -106,6 +105,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         if (cssTransform != null) {
                             GetAllElements()[i].DeleteOwnProperty(Property.TRANSFORM);
                             simulatedDiv.SetProperty(Property.TRANSFORM, cssTransform);
+                        }
+                        FloatPropertyValue? floatPropVal = GetAllElements()[i].GetProperty<FloatPropertyValue?>(Property.FLOAT);
+                        if (floatPropVal != null) {
+                            GetAllElements()[i].DeleteOwnProperty(Property.FLOAT);
+                            simulatedDiv.SetProperty(Property.FLOAT, floatPropVal);
                         }
                         simulatedDiv.Add((IBlockElement)GetAllElements()[i]);
                         String display = childrenDisplayMap.JRemove(GetAllElements()[i]);

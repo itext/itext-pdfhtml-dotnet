@@ -136,6 +136,34 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Border3DTest01() {
+            RunTest("border3DTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Border3DTest02() {
+            RunTest("border3DTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BorderTransparencyTest01() {
+            RunTest("borderTransparencyTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BorderTransparencyTest02() {
+            RunTest("borderTransparencyTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String name) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";
