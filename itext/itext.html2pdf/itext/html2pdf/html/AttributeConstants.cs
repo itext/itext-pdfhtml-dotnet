@@ -191,6 +191,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant CHECKBOX.</summary>
         public const String CHECKBOX = "checkbox";
 
+        /// <summary>The Constant CHECKED.</summary>
+        public const String CHECKED = "checked";
+
         /// <summary>The Constant EMAIL.</summary>
         public const String EMAIL = "email";
 

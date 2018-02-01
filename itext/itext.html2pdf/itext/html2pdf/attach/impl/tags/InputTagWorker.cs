@@ -95,9 +95,19 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
                 }
                 else {
-                    ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
-                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType
-                        ));
+                    if (AttributeConstants.CHECKBOX.Equals(inputType)) {
+                        formElement = new CheckBox(name);
+                        String @checked = element.GetAttribute(AttributeConstants.CHECKED);
+                        if (null != @checked) {
+                            formElement.SetProperty(Html2PdfProperty.FORM_FIELD_CHECKED, @checked);
+                        }
+                    }
+                    else {
+                        // has attribute == is checked
+                        ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
+                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType
+                            ));
+                    }
                 }
             }
             if (formElement != null) {

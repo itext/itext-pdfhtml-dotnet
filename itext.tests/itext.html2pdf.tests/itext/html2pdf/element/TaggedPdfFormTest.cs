@@ -50,7 +50,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("InputTagWorker ERROR Input type checkbox is not supported")]
         public virtual void SimpleCheckboxTagged() {
             RunTest("simpleCheckboxTagged");
         }

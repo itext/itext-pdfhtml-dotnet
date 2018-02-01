@@ -90,6 +90,13 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Input05Test() {
+            RunTest("inputTest05");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         public virtual void TextareaRowsHeightTest() {
             RunTest("textareaRowsHeight");
         }

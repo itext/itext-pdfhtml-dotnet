@@ -40,39 +40,35 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-namespace iText.Html2pdf.Attach.Impl.Layout {
-    /// <summary>Set of constants that will be used as keys to get and set properties.</summary>
-    public class Html2PdfProperty {
-        /// <summary>The Constant PROPERTY_START.</summary>
-        private const int PROPERTY_START = (1 << 20);
+using System;
+using iText.Html2pdf.Attach.Impl.Layout.Form.Renderer;
+using iText.Layout.Renderer;
 
-        /// <summary>The Constant KEEP_WITH_PREVIOUS works only for top-level elements, i.e.</summary>
-        /// <remarks>The Constant KEEP_WITH_PREVIOUS works only for top-level elements, i.e. ones that are added to the document directly.
-        ///     </remarks>
-        public const int KEEP_WITH_PREVIOUS = PROPERTY_START + 1;
+namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
+    /// <summary>
+    /// Extension of the
+    /// <see cref="FormField{T}"/>
+    /// class representing a checkbox so that
+    /// a
+    /// <see cref="iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.CheckBoxRenderer"/>
+    /// is used instead of the default renderer for fields.
+    /// </summary>
+    public class CheckBox : FormField<TextArea> {
+        /// <summary>
+        /// Creates a new
+        /// <see cref="CheckBox"/>
+        /// instance.
+        /// </summary>
+        /// <param name="id">the id</param>
+        public CheckBox(String id)
+            : base(id) {
+        }
 
-        /// <summary>The Constant PAGE_COUNT_TYPE.</summary>
-        public const int PAGE_COUNT_TYPE = PROPERTY_START + 2;
-
-        /// <summary>The Constant FORM_FIELD_FLATTEN for form related properties.</summary>
-        public const int FORM_FIELD_FLATTEN = PROPERTY_START + 3;
-
-        /// <summary>The Constant FORM_FIELD_SIZE.</summary>
-        public const int FORM_FIELD_SIZE = PROPERTY_START + 4;
-
-        /// <summary>The Constant FORM_FIELD_VALUE.</summary>
-        public const int FORM_FIELD_VALUE = PROPERTY_START + 5;
-
-        /// <summary>The Constant FORM_FIELD_PASSWORD_FLAG.</summary>
-        public const int FORM_FIELD_PASSWORD_FLAG = PROPERTY_START + 6;
-
-        /// <summary>The Constant FORM_FIELD_COLS.</summary>
-        public const int FORM_FIELD_COLS = PROPERTY_START + 7;
-
-        /// <summary>The Constant FORM_FIELD_ROWS.</summary>
-        public const int FORM_FIELD_ROWS = PROPERTY_START + 8;
-
-        /// <summary>The Constant FORM_FIELD_CHECKED.</summary>
-        public const int FORM_FIELD_CHECKED = PROPERTY_START + 9;
+        /* (non-Javadoc)
+        * @see com.itextpdf.layout.element.AbstractElement#makeNewRenderer()
+        */
+        protected override IRenderer MakeNewRenderer() {
+            return new CheckBoxRenderer(this);
+        }
     }
 }
