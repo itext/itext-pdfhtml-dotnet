@@ -126,6 +126,11 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
             }
             IDictionary<String, String> elementStyles = CssDeclarationsToMap(nodeCssDeclarations);
+            if (CssConstants.CURRENTCOLOR.Equals(elementStyles.Get(CssConstants.COLOR))) {
+                // css-color-3/#currentcolor:
+                // If the ‘currentColor’ keyword is set on the ‘color’ property itself, it is treated as ‘color: inherit’.
+                elementStyles.Put(CssConstants.COLOR, CssConstants.INHERIT);
+            }
             String parentFontSizeStr = null;
             if (element.ParentNode() is IStylesContainer) {
                 IStylesContainer parentNode = (IStylesContainer)element.ParentNode();

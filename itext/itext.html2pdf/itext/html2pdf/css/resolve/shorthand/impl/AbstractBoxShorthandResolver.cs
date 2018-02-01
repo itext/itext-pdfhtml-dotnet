@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.IO.Util;
@@ -90,6 +91,14 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                 resolvedDecl.Add(new CssDeclaration(leftProperty, props[0]));
             }
             else {
+                foreach (String prop in props) {
+                    if (CssConstants.INHERIT.Equals(prop) || CssConstants.INITIAL.Equals(prop)) {
+                        ILog logger = LogManager.GetLogger(typeof(AbstractBoxShorthandResolver));
+                        logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, shorthandExpression
+                            ));
+                        return JavaCollectionsUtil.EmptyList<CssDeclaration>();
+                    }
+                }
                 if (props.Length == 2) {
                     resolvedDecl.Add(new CssDeclaration(topProperty, props[0]));
                     resolvedDecl.Add(new CssDeclaration(rightProperty, props[1]));

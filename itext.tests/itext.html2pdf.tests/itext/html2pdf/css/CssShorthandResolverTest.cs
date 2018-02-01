@@ -191,7 +191,8 @@ namespace iText.Html2pdf.Css {
             String shorthandExpression = "groove";
             ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("border-top-width: initial"
                 , "border-right-width: initial", "border-bottom-width: initial", "border-left-width: initial", "border-top-style: groove"
-                , "border-right-style: groove", "border-bottom-style: groove", "border-left-style: groove"));
+                , "border-right-style: groove", "border-bottom-style: groove", "border-left-style: groove", "border-bottom-color: initial"
+                , "border-left-color: initial", "border-right-color: initial", "border-top-color: initial"));
             IShorthandResolver resolver = ShorthandResolverFactory.GetShorthandResolver(CssConstants.BORDER);
             NUnit.Framework.Assert.IsNotNull(resolver);
             IList<CssDeclaration> resolvedShorthandProps = resolver.ResolveShorthand(shorthandExpression);
@@ -216,7 +217,8 @@ namespace iText.Html2pdf.Css {
             String shorthandExpression = "dashed";
             ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("border-top-width: initial"
                 , "border-right-width: initial", "border-bottom-width: initial", "border-left-width: initial", "border-top-style: dashed"
-                , "border-right-style: dashed", "border-bottom-style: dashed", "border-left-style: dashed"));
+                , "border-right-style: dashed", "border-bottom-style: dashed", "border-left-style: dashed", "border-bottom-color: initial"
+                , "border-left-color: initial", "border-right-color: initial", "border-top-color: initial"));
             IShorthandResolver resolver = ShorthandResolverFactory.GetShorthandResolver(CssConstants.BORDER);
             NUnit.Framework.Assert.IsNotNull(resolver);
             IList<CssDeclaration> resolvedShorthandProps = resolver.ResolveShorthand(shorthandExpression);
@@ -241,7 +243,8 @@ namespace iText.Html2pdf.Css {
             String shorthandExpression = "1px dashed";
             ICollection<String> expectedResolvedProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList("border-top-width: 1px"
                 , "border-right-width: 1px", "border-bottom-width: 1px", "border-left-width: 1px", "border-top-style: dashed"
-                , "border-right-style: dashed", "border-bottom-style: dashed", "border-left-style: dashed"));
+                , "border-right-style: dashed", "border-bottom-style: dashed", "border-left-style: dashed", "border-bottom-color: initial"
+                , "border-left-color: initial", "border-right-color: initial", "border-top-color: initial"));
             IShorthandResolver resolver = ShorthandResolverFactory.GetShorthandResolver(CssConstants.BORDER);
             NUnit.Framework.Assert.IsNotNull(resolver);
             IList<CssDeclaration> resolvedShorthandProps = resolver.ResolveShorthand(shorthandExpression);

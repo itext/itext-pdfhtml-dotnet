@@ -185,7 +185,8 @@ namespace iText.Html2pdf.Css {
                 , "border-right-style: solid", "border-top-style: solid", "border-bottom-width: 2px", "border-left-width: 2px"
                 , "border-right-width: 2px", "border-top-width: 2px", "font-size: 12.0pt", "margin-bottom: 0", "margin-left: 0"
                 , "margin-right: 0", "margin-top: 0", "text-indent: 0", "display: table", "border-spacing: 2px", "font-family: times-roman"
-                );
+                , "border-bottom-color: currentcolor", "border-left-color: currentcolor", "border-right-color: currentcolor"
+                , "border-top-color: currentcolor");
         }
 
         /// <exception cref="System.IO.IOException"/>

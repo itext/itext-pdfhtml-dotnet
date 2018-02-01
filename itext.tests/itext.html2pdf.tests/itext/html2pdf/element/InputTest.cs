@@ -118,6 +118,16 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void Input07Test() {
+            // TODO DEVSIX-1777: if not explicitly specified, <input> border default value should be different from the one
+            // specified in user agent css. Also user agent css should not specify default color
+            // and should use 'initial' instead.
+            RunTest("inputTest07");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void TextareaRowsHeightTest() {
             RunTest("textareaRowsHeight");
         }

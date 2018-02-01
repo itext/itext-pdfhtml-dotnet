@@ -523,6 +523,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant CROSS.</summary>
         public const String CROSS = "cross";
 
+        /// <summary>The Constant CURRENTCOLOR.</summary>
+        public const String CURRENTCOLOR = "currentcolor";
+
         /// <summary>The Constant DASHED.</summary>
         public const String DASHED = "dashed";
 

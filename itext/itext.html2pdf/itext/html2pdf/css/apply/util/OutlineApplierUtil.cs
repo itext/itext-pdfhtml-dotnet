@@ -213,7 +213,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static String GetSpecificOutlineColorOrDefaultColor(IDictionary<String, String> styles, String specificOutlineColorProperty
             ) {
             String outlineColor = styles.Get(specificOutlineColorProperty);
-            if (outlineColor == null || outlineColor.Equals("currentcolor")) {
+            if (outlineColor == null || CssConstants.CURRENTCOLOR.Equals(outlineColor)) {
                 outlineColor = styles.Get(CssConstants.COLOR);
             }
             else {

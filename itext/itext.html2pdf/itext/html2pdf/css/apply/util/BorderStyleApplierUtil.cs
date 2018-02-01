@@ -287,7 +287,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static String GetSpecificBorderColorOrDefaultColor(IDictionary<String, String> styles, String specificBorderColorProperty
             ) {
             String borderColor = styles.Get(specificBorderColorProperty);
-            if (borderColor == null) {
+            if (borderColor == null || CssConstants.CURRENTCOLOR.Equals(borderColor)) {
                 borderColor = styles.Get(CssConstants.COLOR);
             }
             return borderColor;
