@@ -55,11 +55,14 @@ using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Tagging;
+using iText.Kernel.Pdf.Tagutils;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
+using iText.Layout.Tagging;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>Context processor for specific types of pages: first, left, or right page.</summary>
@@ -298,9 +301,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private void DrawPageBackgroundAndBorders(PdfPage page) {
             iText.Layout.Canvas canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetDocument(), page.GetBleedBox
                 ());
+            canvas.EnableAutoTagging(page);
             canvas.Add(pageBackgroundSimulation);
             canvas.Close();
             canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetDocument(), page.GetTrimBox());
+            canvas.EnableAutoTagging(page);
             canvas.Add(pageBordersSimulation);
             canvas.Close();
         }
@@ -323,11 +328,31 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 IRenderer renderer = curBoxElement.CreateRendererSubTree();
                 RemoveAreaBreaks(renderer);
                 renderer.SetParent(documentRenderer);
+                bool isTagged = pdfDocument.IsTagged();
+                if (isTagged) {
+                    LayoutTaggingHelper taggingHelper = renderer.GetProperty<LayoutTaggingHelper>(Property.TAGGING_HELPER);
+                    LayoutTaggingHelper.AddTreeHints(taggingHelper, renderer);
+                }
                 LayoutResult result = renderer.Layout(new LayoutContext(new LayoutArea(pageNumber, marginBoxContentNode.GetPageMarginBoxRectangle
                     ())));
                 IRenderer rendererToDraw = result.GetStatus() == LayoutResult.FULL ? renderer : result.GetSplitRenderer();
                 if (rendererToDraw != null) {
-                    rendererToDraw.SetParent(documentRenderer).Draw(new DrawContext(page.GetDocument(), new PdfCanvas(page)));
+                    TagTreePointer tagPointer = null;
+                    TagTreePointer backupPointer = null;
+                    PdfPage backupPage = null;
+                    if (isTagged) {
+                        tagPointer = pdfDocument.GetTagStructureContext().GetAutoTaggingPointer();
+                        backupPage = tagPointer.GetCurrentPage();
+                        backupPointer = new TagTreePointer(tagPointer);
+                        tagPointer.MoveToRoot();
+                        tagPointer.SetPageForTagging(page);
+                    }
+                    rendererToDraw.SetParent(documentRenderer).Draw(new DrawContext(page.GetDocument(), new PdfCanvas(page), isTagged
+                        ));
+                    if (isTagged) {
+                        tagPointer.SetPageForTagging(backupPage);
+                        tagPointer.MoveToPointer(backupPointer);
+                    }
                 }
                 else {
                     // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
@@ -421,12 +446,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private void CreatePageSimulationElements(IDictionary<String, String> styles, ProcessorContext context) {
             pageBackgroundSimulation = new Div().SetFillAvailableArea(true);
             BackgroundApplierUtil.ApplyBackground(styles, context, pageBackgroundSimulation);
+            pageBackgroundSimulation.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
             pageBordersSimulation = new Div().SetFillAvailableArea(true);
             pageBordersSimulation.SetMargins(margins[0], margins[1], margins[2], margins[3]);
             pageBordersSimulation.SetBorderTop(borders[0]);
             pageBordersSimulation.SetBorderRight(borders[1]);
             pageBordersSimulation.SetBorderBottom(borders[2]);
             pageBordersSimulation.SetBorderLeft(borders[3]);
+            pageBordersSimulation.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
         }
 
         /// <summary>Creates the margin boxes elements.</summary>

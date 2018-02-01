@@ -55,9 +55,11 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Tagging;
 using iText.Kernel.Utils;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Tagging;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -609,6 +611,66 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        /// <exception cref="Javax.Xml.Parsers.ParserConfigurationException"/>
+        /// <exception cref="Org.Xml.Sax.SAXException"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxTaggedTest01() {
+            RunTest("marginBoxTaggedTest01", null, true);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        /// <exception cref="Javax.Xml.Parsers.ParserConfigurationException"/>
+        /// <exception cref="Org.Xml.Sax.SAXException"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxTaggedTest02() {
+            RunTest("marginBoxTaggedTest02", null, true);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        /// <exception cref="Javax.Xml.Parsers.ParserConfigurationException"/>
+        /// <exception cref="Org.Xml.Sax.SAXException"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxTaggedTest03() {
+            RunTest("marginBoxTaggedTest03", new ConverterProperties().SetTagWorkerFactory(new PageRuleTest.TaggedPageMarginBoxTagWorkerFactory
+                ()), true);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        /// <exception cref="Javax.Xml.Parsers.ParserConfigurationException"/>
+        /// <exception cref="Org.Xml.Sax.SAXException"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxTaggedTest04() {
+            RunTest("marginBoxTaggedTest04", new ConverterProperties().SetTagWorkerFactory(new PageRuleTest.TaggedPageMarginBoxTagWorkerFactory
+                ()), true);
+        }
+
+        private class TaggedPageMarginBoxTagWorkerFactory : DefaultTagWorkerFactory {
+            public override ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
+                if (tag.Name().Equals(PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG)) {
+                    return new PageRuleTest.TaggedPageMarginBoxWorker(tag, context);
+                }
+                return base.GetCustomTagWorker(tag, context);
+            }
+        }
+
+        private class TaggedPageMarginBoxWorker : PageMarginBoxWorker {
+            public TaggedPageMarginBoxWorker(IElementNode element, ProcessorContext context)
+                : base(element, context) {
+            }
+
+            public override void ProcessEnd(IElementNode element, ProcessorContext context) {
+                base.ProcessEnd(element, context);
+                if (GetElementResult() is IAccessibleElement) {
+                    ((IAccessibleElement)GetElementResult()).GetAccessibilityProperties().SetRole(StandardRoles.DIV);
+                }
+            }
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningNoImmediateFlush01() {
             String name = "marginBoxRunningNoImmediateFlush01";
@@ -734,16 +796,42 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         private void RunTest(String name, ConverterProperties converterProperties) {
+            try {
+                RunTest(name, converterProperties, false);
+            }
+            catch (Exception e) {
+                throw new Exception(e.Message, e);
+            }
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        /// <exception cref="Javax.Xml.Parsers.ParserConfigurationException"/>
+        /// <exception cref="Org.Xml.Sax.SAXException"/>
+        private void RunTest(String name, ConverterProperties converterProperties, bool isTagged) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";
             String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
             String diffPrefix = "diff_" + name + "_";
+            FileInfo outFile = new FileInfo(pdfPath);
             System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
             if (converterProperties == null) {
                 converterProperties = new ConverterProperties();
             }
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath), converterProperties);
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
+            if (converterProperties.GetBaseUri() == null) {
+                converterProperties.SetBaseUri(new FileInfo(htmlPath).FullName);
+            }
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
+            if (isTagged) {
+                pdfDocument.SetTagged();
+            }
+            HtmlConverter.ConvertToPdf(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
+                );
+            CompareTool compareTool = new CompareTool();
+            if (isTagged) {
+                compareTool.CompareTagStructures(pdfPath, cmpPdfPath);
+            }
+            NUnit.Framework.Assert.IsNull(compareTool.CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
                 ));
         }
 

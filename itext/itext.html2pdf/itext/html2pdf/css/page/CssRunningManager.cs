@@ -47,14 +47,14 @@ namespace iText.Html2pdf.Css.Page {
         public virtual RunningElementContainer GetRunningElement(String runningElemName, String occurrenceOption, 
             int pageNum) {
             LinkedHashSet<RunningElementContainer> runningElementContainers = runningElements.Get(runningElemName);
-            if (runningElementContainers == null) {
+            if (runningElementContainers == null || runningElementContainers.IsEmpty()) {
                 return null;
             }
+            bool isLast = CssConstants.LAST.Equals(occurrenceOption);
+            bool isFirstExcept = CssConstants.FIRST_EXCEPT.Equals(occurrenceOption);
+            bool isStart = CssConstants.START.Equals(occurrenceOption);
             RunningElementContainer runningElementContainer = null;
             foreach (RunningElementContainer container in runningElementContainers) {
-                bool isLast = CssConstants.LAST.Equals(occurrenceOption);
-                bool isFirstExcept = CssConstants.FIRST_EXCEPT.Equals(occurrenceOption);
-                bool isStart = CssConstants.START.Equals(occurrenceOption);
                 if (container.GetOccurrencePage() == 0 || container.GetOccurrencePage() > pageNum) {
                     // Imagine that floating element is before some normal element, but is drawn on the next page,
                     // while this normal element is drawn on previous page.

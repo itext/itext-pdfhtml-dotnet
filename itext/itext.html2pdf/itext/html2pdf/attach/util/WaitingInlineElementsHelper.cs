@@ -43,8 +43,10 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.Text;
+using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
+using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Element;
 
@@ -202,15 +204,24 @@ namespace iText.Html2pdf.Attach.Util {
             }
             if (waitingLeaves.Count > 0) {
                 Paragraph p = CreateParagraphContainer();
+                bool runningElementsOnly = true;
                 foreach (IElement leaf in waitingLeaves) {
                     if (leaf is ILeafElement) {
+                        runningElementsOnly = false;
                         p.Add((ILeafElement)leaf);
                     }
                     else {
                         if (leaf is IBlockElement) {
+                            runningElementsOnly = runningElementsOnly && leaf is RunningElement;
                             p.Add((IBlockElement)leaf);
                         }
                     }
+                }
+                if (runningElementsOnly) {
+                    // TODO this might be avoided in future if we will come up with removing of completely empty
+                    // (both in terms of content and possible properties like background and borders) tags from
+                    // logical structure of resultant PDF documents
+                    p.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
                 }
                 return p;
             }
