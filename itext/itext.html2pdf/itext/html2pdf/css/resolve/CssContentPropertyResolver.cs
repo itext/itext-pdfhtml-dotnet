@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
@@ -87,7 +88,7 @@ namespace iText.Html2pdf.Css.Resolve {
                              1);
                         String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
                         if (@params.Length == 0) {
-                            return null;
+                            return ErrorFallback(contentStr);
                         }
                         // Counters are denoted by case-sensitive identifiers
                         String counterName = @params[0].Trim();
@@ -122,7 +123,7 @@ namespace iText.Html2pdf.Css.Resolve {
                                 1);
                             String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
                             if (@params.Length == 0) {
-                                return null;
+                                return ErrorFallback(contentStr);
                             }
                             // Counters are denoted by case-sensitive identifiers
                             String counterName = @params[0].Trim();
@@ -181,7 +182,24 @@ namespace iText.Html2pdf.Css.Resolve {
                                         result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value));
                                     }
                                     else {
-                                        return ErrorFallback(contentStr);
+                                        if (token.GetValue().StartsWith(CssConstants.ELEMENT + "(") && contentContainer is PageMarginBoxContextNode
+                                            ) {
+                                            String paramsStr = token.GetValue().JSubstring(CssConstants.ELEMENT.Length + 1, token.GetValue().Length - 
+                                                1);
+                                            String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
+                                            if (@params.Length == 0) {
+                                                return ErrorFallback(contentStr);
+                                            }
+                                            String name = @params[0].Trim();
+                                            String runningElementOccurrence = null;
+                                            if (@params.Length > 1) {
+                                                runningElementOccurrence = @params[1].Trim();
+                                            }
+                                            result.Add(new PageMarginRunningElementNode(name, runningElementOccurrence));
+                                        }
+                                        else {
+                                            return ErrorFallback(contentStr);
+                                        }
                                     }
                                 }
                             }

@@ -544,6 +544,12 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant DOUBLE.</summary>
         public const String DOUBLE = "double";
 
+        /// <summary>The Constant FIRST.</summary>
+        public const String FIRST = "first";
+
+        /// <summary>The Constant FIRST_EXCEPT.</summary>
+        public const String FIRST_EXCEPT = "first-except";
+
         /// <summary>The Constant FIXED.</summary>
         public const String FIXED = "fixed";
 
@@ -606,6 +612,9 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant LARGER.</summary>
         public const String LARGER = "larger";
+
+        /// <summary>The Constant LAST.</summary>
+        public const String LAST = "last";
 
         /// <summary>The Constant LEFT.</summary>
         public const String LEFT = "left";
@@ -997,6 +1006,12 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant COUNTERS.</summary>
         public const String COUNTERS = "counters";
+
+        /// <summary>The Constant RUNNING.</summary>
+        public const String ELEMENT = "element";
+
+        /// <summary>The Constant RUNNING.</summary>
+        public const String RUNNING = "running";
 
         /// <summary>The Constant CM.</summary>
         public const String CM = "cm";

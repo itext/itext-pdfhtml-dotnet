@@ -88,18 +88,39 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary>Page borders simulation.</summary>
         private Div pageBordersSimulation;
 
-        /// <summary>The margin box rectangles.</summary>
-        private Rectangle[] marginBoxRectangles;
+        private PageContextProperties properties;
 
-        /// <summary>The margin box elements.</summary>
-        private IElement[] marginBoxElements;
+        private ProcessorContext context;
 
         /// <summary>Instantiates a new page context processor.</summary>
         /// <param name="properties">the page context properties</param>
         /// <param name="context">the processor context</param>
         /// <param name="defaultPageSize">the default page size</param>
+        /// <param name="defaultPageMargins">the default page margins</param>
         internal PageContextProcessor(PageContextProperties properties, ProcessorContext context, PageSize defaultPageSize
-            ) {
+            , float[] defaultPageMargins) {
+            this.properties = properties;
+            this.context = context;
+            Reset(defaultPageSize, defaultPageMargins);
+        }
+
+        /// <summary>
+        /// Re-initializes page context processor based on default current page size and page margins
+        /// and on properties from css page at-rules.
+        /// </summary>
+        /// <remarks>
+        /// Re-initializes page context processor based on default current page size and page margins
+        /// and on properties from css page at-rules. Css properties priority is higher than default document values.
+        /// </remarks>
+        /// <param name="defaultPageSize">current default page size to be used if it is not defined in css</param>
+        /// <param name="defaultPageMargins">current default page margins to be used if they are not defined in css</param>
+        /// <returns>
+        /// this
+        /// <see cref="PageContextProcessor"/>
+        /// instance
+        /// </returns>
+        internal virtual iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor Reset(PageSize defaultPageSize, float
+            [] defaultPageMargins) {
             IDictionary<String, String> styles = properties.GetResolvedPageContextNode().GetStyles();
             float em = CssUtils.ParseAbsoluteLength(styles.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
@@ -109,11 +130,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 bleed = bleedValue.GetValue();
             }
             marks = ParseMarks(styles.Get(CssConstants.MARKS));
-            ParseMargins(styles, em, rem);
+            ParseMargins(styles, em, rem, defaultPageMargins);
             ParseBorders(styles, em, rem);
             ParsePaddings(styles, em, rem);
             CreatePageSimulationElements(styles, context);
-            CreateMarginBoxesElements(properties.GetResolvedPageMarginBoxes(), context);
+            PrepareMarginBoxesSizing(properties.GetResolvedPageMarginBoxes());
+            return this;
         }
 
         /// <summary>Gets the page size.</summary>
@@ -136,17 +158,28 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return layoutMargins;
         }
 
+        /// <summary>Finalizes page processing by drawing margins if necessary.</summary>
+        /// <param name="pageNum">the page to process</param>
+        /// <param name="pdfDocument">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// to which content is written
+        /// </param>
+        /// <param name="documentRenderer">the document renderer</param>
+        internal virtual void ProcessPageEnd(int pageNum, PdfDocument pdfDocument, DocumentRenderer documentRenderer
+            ) {
+            DrawMarginBoxes(pageNum, pdfDocument, documentRenderer);
+        }
+
         /// <summary>
         /// Processes a new page by setting the bleed value, adding marks, drawing
-        /// page backgrounds and borders, and margin boxes (if necessary).
+        /// page backgrounds and borders.
         /// </summary>
         /// <param name="page">the page to process</param>
-        /// <param name="documentRenderer">the document renderer</param>
-        internal virtual void ProcessNewPage(PdfPage page, DocumentRenderer documentRenderer) {
+        internal virtual void ProcessNewPage(PdfPage page) {
             SetBleed(page);
             DrawMarks(page);
             DrawPageBackgroundAndBorders(page);
-            DrawMarginBoxes(page, documentRenderer);
         }
 
         /// <summary>Sets the bleed value for a page.</summary>
@@ -273,27 +306,35 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         /// <summary>Draws margin boxes.</summary>
-        /// <param name="page">the page</param>
+        /// <param name="pageNumber">the page</param>
+        /// <param name="pdfDocument">
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
+        /// to which content is written
+        /// </param>
         /// <param name="documentRenderer">the document renderer</param>
-        private void DrawMarginBoxes(PdfPage page, DocumentRenderer documentRenderer) {
-            for (int i = 0; i < 16; ++i) {
-                if (marginBoxElements[i] != null) {
-                    IElement curBoxElement = marginBoxElements[i];
-                    IRenderer renderer = curBoxElement.CreateRendererSubTree();
-                    renderer.SetParent(documentRenderer);
-                    LayoutResult result = renderer.Layout(new LayoutContext(new LayoutArea(page.GetDocument().GetPageNumber(page
-                        ), marginBoxRectangles[i])));
-                    IRenderer rendererToDraw = result.GetStatus() == LayoutResult.FULL ? renderer : result.GetSplitRenderer();
-                    if (rendererToDraw != null) {
-                        rendererToDraw.SetParent(documentRenderer).Draw(new DrawContext(page.GetDocument(), new PdfCanvas(page)));
-                    }
-                    else {
-                        // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
-                        // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
-                        ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor));
-                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN
-                            , PageContextProperties.pageMarginBoxNames[i]));
-                    }
+        private void DrawMarginBoxes(int pageNumber, PdfDocument pdfDocument, DocumentRenderer documentRenderer) {
+            if (properties.GetResolvedPageMarginBoxes().IsEmpty()) {
+                return;
+            }
+            PdfPage page = pdfDocument.GetPage(pageNumber);
+            foreach (PageMarginBoxContextNode marginBoxContentNode in properties.GetResolvedPageMarginBoxes()) {
+                IElement curBoxElement = ProcessMarginBoxContent(marginBoxContentNode, pageNumber, context);
+                IRenderer renderer = curBoxElement.CreateRendererSubTree();
+                RemoveAreaBreaks(renderer);
+                renderer.SetParent(documentRenderer);
+                LayoutResult result = renderer.Layout(new LayoutContext(new LayoutArea(pageNumber, marginBoxContentNode.GetPageMarginBoxRectangle
+                    ())));
+                IRenderer rendererToDraw = result.GetStatus() == LayoutResult.FULL ? renderer : result.GetSplitRenderer();
+                if (rendererToDraw != null) {
+                    rendererToDraw.SetParent(documentRenderer).Draw(new DrawContext(page.GetDocument(), new PdfCanvas(page)));
+                }
+                else {
+                    // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
+                    // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
+                    ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor));
+                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN
+                        , marginBoxContentNode.GetMarginBoxName()));
                 }
             }
         }
@@ -335,11 +376,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// </param>
         /// <param name="em">a measurement expressed in em</param>
         /// <param name="rem">a measurement expressed in rem (root em)</param>
-        private void ParseMargins(IDictionary<String, String> styles, float em, float rem) {
-            float defaultMargin = 36;
+        private void ParseMargins(IDictionary<String, String> styles, float em, float rem, float[] defaultMarginValues
+            ) {
             PageSize pageSize = GetPageSize();
-            margins = PageMarginBoxCssApplier.ParseBoxProps(styles, em, rem, defaultMargin, pageSize, CssConstants.MARGIN_TOP
-                , CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT);
+            margins = PageMarginBoxCssApplier.ParseBoxProps(styles, em, rem, defaultMarginValues, pageSize, CssConstants
+                .MARGIN_TOP, CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT);
         }
 
         /// <summary>Parses the paddings.</summary>
@@ -353,8 +394,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private void ParsePaddings(IDictionary<String, String> styles, float em, float rem) {
             float defaultPadding = 0;
             PageSize pageSize = GetPageSize();
-            paddings = PageMarginBoxCssApplier.ParseBoxProps(styles, em, rem, defaultPadding, pageSize, CssConstants.PADDING_TOP
-                , CssConstants.PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT);
+            paddings = PageMarginBoxCssApplier.ParseBoxProps(styles, em, rem, new float[] { defaultPadding, defaultPadding
+                , defaultPadding, defaultPadding }, pageSize, CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT, CssConstants
+                .PADDING_BOTTOM, CssConstants.PADDING_LEFT);
         }
 
         /// <summary>Parses the borders.</summary>
@@ -389,11 +431,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>Creates the margin boxes elements.</summary>
         /// <param name="resolvedPageMarginBoxes">the resolved page margin boxes</param>
-        /// <param name="context">the processor context</param>
-        private void CreateMarginBoxesElements(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes, ProcessorContext
-             context) {
-            marginBoxElements = new IElement[16];
-            marginBoxRectangles = CalculateMarginBoxRectangles(resolvedPageMarginBoxes);
+        private void PrepareMarginBoxesSizing(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
+            Rectangle[] marginBoxRectangles = CalculateMarginBoxRectangles(resolvedPageMarginBoxes);
             foreach (PageMarginBoxContextNode marginBoxContentNode in resolvedPageMarginBoxes) {
                 if (marginBoxContentNode.ChildNodes().IsEmpty()) {
                     // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
@@ -403,21 +442,34 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 marginBoxContentNode.SetPageMarginBoxRectangle(marginBoxRectangles[marginBoxInd]);
                 marginBoxContentNode.SetContainingBlockForMarginBox(CalculateContainingBlockSizesForMarginBox(marginBoxInd
                     , marginBoxRectangles[marginBoxInd]));
-                IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
-                ITagWorker marginBoxWorker = context.GetTagWorkerFactory().GetTagWorker(dummyMarginBoxNode, context);
-                // TODO it would be great to reuse DefaultHtmlProcessor, but it seems there is no convenient way of doing so, and maybe it would be an overkill
-                for (int i = 0; i < marginBoxContentNode.ChildNodes().Count; i++) {
-                    INode childNode = marginBoxContentNode.ChildNodes()[i];
-                    if (childNode is ITextNode) {
-                        String text = ((ITextNode)marginBoxContentNode.ChildNodes()[i]).WholeText();
-                        marginBoxWorker.ProcessContent(text, context);
+            }
+        }
+
+        private IElement ProcessMarginBoxContent(PageMarginBoxContextNode marginBoxContentNode, int pageNumber, ProcessorContext
+             context) {
+            IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
+            ITagWorker marginBoxWorker = context.GetTagWorkerFactory().GetTagWorker(dummyMarginBoxNode, context);
+            for (int i = 0; i < marginBoxContentNode.ChildNodes().Count; i++) {
+                INode childNode = marginBoxContentNode.ChildNodes()[i];
+                if (childNode is ITextNode) {
+                    String text = ((ITextNode)marginBoxContentNode.ChildNodes()[i]).WholeText();
+                    marginBoxWorker.ProcessContent(text, context);
+                }
+                else {
+                    if (childNode is IElementNode) {
+                        ITagWorker childTagWorker = context.GetTagWorkerFactory().GetTagWorker((IElementNode)childNode, context);
+                        if (childTagWorker != null) {
+                            childTagWorker.ProcessEnd((IElementNode)childNode, context);
+                            marginBoxWorker.ProcessTagChild(childTagWorker, context);
+                        }
                     }
                     else {
-                        if (childNode is IElementNode) {
-                            ITagWorker childTagWorker = context.GetTagWorkerFactory().GetTagWorker((IElementNode)childNode, context);
-                            if (childTagWorker != null) {
-                                childTagWorker.ProcessEnd((IElementNode)childNode, context);
-                                marginBoxWorker.ProcessTagChild(childTagWorker, context);
+                        if (childNode is PageMarginRunningElementNode) {
+                            PageMarginRunningElementNode runningElementNode = (PageMarginRunningElementNode)childNode;
+                            RunningElementContainer runningElement = context.GetCssContext().GetRunningManager().GetRunningElement(runningElementNode
+                                .GetRunningElementName(), runningElementNode.GetRunningElementOccurrence(), pageNumber);
+                            if (runningElement != null) {
+                                marginBoxWorker.ProcessTagChild(runningElement.GetProcessedElementWorker(), context);
                             }
                         }
                         else {
@@ -425,15 +477,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                         }
                     }
                 }
-                marginBoxWorker.ProcessEnd(dummyMarginBoxNode, context);
-                if (!(marginBoxWorker.GetElementResult() is IElement)) {
-                    throw new InvalidOperationException("Custom tag worker implementation for margin boxes shall return IElement for #getElementResult() call."
-                        );
-                }
-                ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(dummyMarginBoxNode);
-                cssApplier.Apply(context, marginBoxContentNode, marginBoxWorker);
-                marginBoxElements[marginBoxInd] = (IElement)marginBoxWorker.GetElementResult();
             }
+            marginBoxWorker.ProcessEnd(dummyMarginBoxNode, context);
+            if (!(marginBoxWorker.GetElementResult() is IElement)) {
+                throw new InvalidOperationException("Custom tag worker implementation for margin boxes shall return IElement for #getElementResult() call."
+                    );
+            }
+            ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(dummyMarginBoxNode);
+            cssApplier.Apply(context, marginBoxContentNode, marginBoxWorker);
+            return (IElement)marginBoxWorker.GetElementResult();
         }
 
         /// <summary>Calculate margin box rectangles.</summary>
@@ -576,6 +628,27 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 }
             }
             return -1;
+        }
+
+        /// <summary>Gets rid of all page breaks that might have occurred inside page margin boxes because of the running elements.
+        ///     </summary>
+        /// <param name="renderer">root renderer of renderers subtree</param>
+        private static void RemoveAreaBreaks(IRenderer renderer) {
+            IList<IRenderer> areaBreaks = null;
+            foreach (IRenderer child in renderer.GetChildRenderers()) {
+                if (child is AreaBreakRenderer) {
+                    if (areaBreaks == null) {
+                        areaBreaks = new List<IRenderer>();
+                    }
+                    areaBreaks.Add(child);
+                }
+                else {
+                    RemoveAreaBreaks(child);
+                }
+            }
+            if (areaBreaks != null) {
+                renderer.GetChildRenderers().RemoveAll(areaBreaks);
+            }
         }
     }
 }
