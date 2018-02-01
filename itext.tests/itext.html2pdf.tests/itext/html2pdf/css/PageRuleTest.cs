@@ -49,9 +49,11 @@ using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Impl;
+using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
@@ -591,6 +593,23 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void MediaAppliedToRunningElementsProperties() {
+            MediaDeviceDescription printMediaDevice = new MediaDeviceDescription("print");
+            ConverterProperties converterProperties = new ConverterProperties().SetMediaDeviceDescription(printMediaDevice
+                );
+            RunTest("mediaAppliedToRunningElementsProperties", converterProperties);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MediaNotAppliedToRunningElementsProperties() {
+            RunTest("mediaNotAppliedToRunningElementsProperties");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void MarginBoxRunningNoImmediateFlush01() {
             String name = "marginBoxRunningNoImmediateFlush01";
             String htmlPath = sourceFolder + name + ".html";
@@ -719,6 +738,7 @@ namespace iText.Html2pdf.Css {
             String pdfPath = destinationFolder + name + ".pdf";
             String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
             String diffPrefix = "diff_" + name + "_";
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
             if (converterProperties == null) {
                 converterProperties = new ConverterProperties();
             }
