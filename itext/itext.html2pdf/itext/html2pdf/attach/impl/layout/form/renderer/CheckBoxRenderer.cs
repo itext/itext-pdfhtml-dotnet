@@ -118,7 +118,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <summary>Defines whether the box is checked or not.</summary>
         /// <returns>the default value of the checkbox field</returns>
         public virtual bool IsBoxChecked() {
-            return null != GetProperty(Html2PdfProperty.FORM_FIELD_CHECKED);
+            return null != this.GetProperty<Object>(Html2PdfProperty.FORM_FIELD_CHECKED);
         }
 
         /* (non-Javadoc)
