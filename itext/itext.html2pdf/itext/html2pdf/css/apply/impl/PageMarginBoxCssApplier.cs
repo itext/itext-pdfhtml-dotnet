@@ -27,7 +27,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         /// </param>
         /// <param name="em">a measurement expressed in em</param>
         /// <param name="rem">a measurement expressed in rem (root em)</param>
-        /// <param name="defaultValue">the default value</param>
+        /// <param name="defaultValues">the default values</param>
         /// <param name="containingBlock">the containing block</param>
         /// <param name="topPropName">the top prop name</param>
         /// <param name="rightPropName">the right prop name</param>
