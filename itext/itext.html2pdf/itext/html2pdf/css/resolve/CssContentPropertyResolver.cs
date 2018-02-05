@@ -97,12 +97,12 @@ namespace iText.Html2pdf.Css.Resolve {
                         String listStyleType = @params.Length > 2 ? @params[2].Trim() : null;
                         CssCounterManager counterManager = context.GetCounterManager();
                         INode scope = contentContainer;
-                        if ("page".Equals(counterName)) {
-                            result.Add(new PageCountElementNode(false));
+                        if (CssConstants.PAGE.Equals(counterName)) {
+                            result.Add(new PageCountElementNode(false, contentContainer));
                         }
                         else {
-                            if ("pages".Equals(counterName)) {
-                                result.Add(new PageCountElementNode(true));
+                            if (CssConstants.PAGES.Equals(counterName)) {
+                                result.Add(new PageCountElementNode(true, contentContainer));
                             }
                             else {
                                 String resolvedCounter = counterManager.ResolveCounters(counterName, counterSeparationStr, listStyleType, 
@@ -130,12 +130,12 @@ namespace iText.Html2pdf.Css.Resolve {
                             String listStyleType = @params.Length > 1 ? @params[1].Trim() : null;
                             CssCounterManager counterManager = context.GetCounterManager();
                             INode scope = contentContainer;
-                            if ("page".Equals(counterName)) {
-                                result.Add(new PageCountElementNode(false));
+                            if (CssConstants.PAGE.Equals(counterName)) {
+                                result.Add(new PageCountElementNode(false, contentContainer));
                             }
                             else {
-                                if ("pages".Equals(counterName)) {
-                                    result.Add(new PageCountElementNode(true));
+                                if (CssConstants.PAGES.Equals(counterName)) {
+                                    result.Add(new PageCountElementNode(true, contentContainer));
                                 }
                                 else {
                                     String resolvedCounter = counterManager.ResolveCounter(counterName, listStyleType, scope);

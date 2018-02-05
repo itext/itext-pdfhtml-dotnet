@@ -700,6 +700,12 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant PADDING_BOX.</summary>
         public const String PADDING_BOX = "padding-box";
 
+        /// <summary>The Constant PAGE.</summary>
+        public const String PAGE = "page";
+
+        /// <summary>The Constant PAGES.</summary>
+        public const String PAGES = "pages";
+
         /// <summary>The Constant PORTRAIT.</summary>
         public const String PORTRAIT = "portrait";
 
