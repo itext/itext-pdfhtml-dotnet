@@ -98,5 +98,35 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hyphenateTest05.pdf"
                 , sourceFolder + "cmp_hyphenateTest05.pdf", destinationFolder, "diff05_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Test06() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest06.html"), new FileInfo(destinationFolder
+                 + "hyphenateTest06.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hyphenateTest06.pdf"
+                , sourceFolder + "cmp_hyphenateTest06.pdf", destinationFolder, "diff06_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Test07Ru() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest07Ru.html"), new FileInfo(destinationFolder
+                 + "hyphenateTest07Ru.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hyphenateTest07Ru.pdf"
+                , sourceFolder + "cmp_hyphenateTest07Ru.pdf", destinationFolder, "diff07Ru_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Test08De() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest08De.html"), new FileInfo(destinationFolder
+                 + "hyphenateTest08De.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hyphenateTest08De.pdf"
+                , sourceFolder + "cmp_hyphenateTest08De.pdf", destinationFolder, "diff08De_"));
+        }
     }
 }
