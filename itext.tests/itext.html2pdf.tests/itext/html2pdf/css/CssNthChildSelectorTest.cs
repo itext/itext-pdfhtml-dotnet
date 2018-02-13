@@ -130,5 +130,17 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffLastChild_"
                 ));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void NotExpressionChildTest() {
+            String outPdf = destinationFolder + "resourceNotExpressionChildTest.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceNotExpressionChildTest.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceNotExpressionChildTest.html"), new FileInfo
+                (outPdf));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffNotExpChild_"
+                ));
+        }
     }
 }

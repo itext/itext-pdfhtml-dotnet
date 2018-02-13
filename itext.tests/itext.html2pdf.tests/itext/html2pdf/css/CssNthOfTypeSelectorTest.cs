@@ -130,5 +130,17 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffLastOfType_"
                 ));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void NotLastOfTypeTest() {
+            String outPdf = destinationFolder + "resourceNotLastOfTypeTest.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceNotLastOfTypeTest.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceNotLastOfTypeTest.html"), new FileInfo(outPdf
+                ));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffNotLastOfType_"
+                ));
+        }
     }
 }
