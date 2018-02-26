@@ -50,7 +50,7 @@ using iText.Html2pdf.Jsoup.Parser;
 
 namespace iText.Html2pdf.Jsoup.Select {
     /// <summary>Parses a CSS selector into an Evaluator tree.</summary>
-    internal class QueryParser {
+    public class QueryParser {
         private static readonly String[] combinators = new String[] { ",", ">", "+", "~", " " };
 
         private static readonly String[] AttributeEvals = new String[] { "=", "!=", "^=", "$=", "*=", "~=" };
