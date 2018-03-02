@@ -56,19 +56,19 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
     /// </summary>
     public class FontShorthandResolver : IShorthandResolver {
         /// <summary>Unsupported shorthand values.</summary>
-        private static readonly ICollection<String> UNSUPPORTED_VALUES_OF_FONT_SHORTHAND = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        private static readonly ICollection<String> UNSUPPORTED_VALUES_OF_FONT_SHORTHAND = new HashSet<String>(JavaUtil.ArraysAsList
             (CssConstants.CAPTION, CssConstants.ICON, CssConstants.MENU, CssConstants.MESSAGE_BOX, CssConstants.SMALL_CAPTION
             , CssConstants.STATUS_BAR));
 
         /// <summary>Font weight values.</summary>
-        private static readonly ICollection<String> FONT_WEIGHT_NOT_DEFAULT_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        private static readonly ICollection<String> FONT_WEIGHT_NOT_DEFAULT_VALUES = new HashSet<String>(JavaUtil.ArraysAsList
             (CssConstants.BOLD, CssConstants.BOLDER, CssConstants.LIGHTER, "100", "200", "300", "400", "500", "600"
             , "700", "800", "900"));
 
         /// <summary>Font size values.</summary>
-        private static readonly ICollection<String> FONT_SIZE_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
-            (CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE
-            , CssConstants.X_LARGE, CssConstants.XX_LARGE, CssConstants.SMALLER, CssConstants.LARGER));
+        private static readonly ICollection<String> FONT_SIZE_VALUES = new HashSet<String>(JavaUtil.ArraysAsList(CssConstants
+            .MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE, CssConstants
+            .X_LARGE, CssConstants.XX_LARGE, CssConstants.SMALLER, CssConstants.LARGER));
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.css.resolve.shorthand.IShorthandResolver#resolveShorthand(java.lang.String)
@@ -80,11 +80,10 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                     , shorthandExpression));
             }
             if (CssConstants.INITIAL.Equals(shorthandExpression) || CssConstants.INHERIT.Equals(shorthandExpression)) {
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.FONT_STYLE, shorthandExpression
-                    ), new CssDeclaration(CssConstants.FONT_VARIANT, shorthandExpression), new CssDeclaration(CssConstants
-                    .FONT_WEIGHT, shorthandExpression), new CssDeclaration(CssConstants.FONT_SIZE, shorthandExpression), new 
-                    CssDeclaration(CssConstants.LINE_HEIGHT, shorthandExpression), new CssDeclaration(CssConstants.FONT_FAMILY
-                    , shorthandExpression));
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.FONT_STYLE, shorthandExpression), new CssDeclaration
+                    (CssConstants.FONT_VARIANT, shorthandExpression), new CssDeclaration(CssConstants.FONT_WEIGHT, shorthandExpression
+                    ), new CssDeclaration(CssConstants.FONT_SIZE, shorthandExpression), new CssDeclaration(CssConstants.LINE_HEIGHT
+                    , shorthandExpression), new CssDeclaration(CssConstants.FONT_FAMILY, shorthandExpression));
             }
             String fontStyleValue = null;
             String fontVariantValue = null;
@@ -125,13 +124,13 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                     }
                 }
             }
-            IList<CssDeclaration> cssDeclarations = iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants
-                .FONT_STYLE, fontStyleValue == null ? CssConstants.INITIAL : fontStyleValue), new CssDeclaration(CssConstants
-                .FONT_VARIANT, fontVariantValue == null ? CssConstants.INITIAL : fontVariantValue), new CssDeclaration
-                (CssConstants.FONT_WEIGHT, fontWeightValue == null ? CssConstants.INITIAL : fontWeightValue), new CssDeclaration
-                (CssConstants.FONT_SIZE, fontSizeValue == null ? CssConstants.INITIAL : fontSizeValue), new CssDeclaration
-                (CssConstants.LINE_HEIGHT, lineHeightValue == null ? CssConstants.INITIAL : lineHeightValue), new CssDeclaration
-                (CssConstants.FONT_FAMILY, fontFamilyValue == null ? CssConstants.INITIAL : fontFamilyValue));
+            IList<CssDeclaration> cssDeclarations = JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.FONT_STYLE, 
+                fontStyleValue == null ? CssConstants.INITIAL : fontStyleValue), new CssDeclaration(CssConstants.FONT_VARIANT
+                , fontVariantValue == null ? CssConstants.INITIAL : fontVariantValue), new CssDeclaration(CssConstants
+                .FONT_WEIGHT, fontWeightValue == null ? CssConstants.INITIAL : fontWeightValue), new CssDeclaration(CssConstants
+                .FONT_SIZE, fontSizeValue == null ? CssConstants.INITIAL : fontSizeValue), new CssDeclaration(CssConstants
+                .LINE_HEIGHT, lineHeightValue == null ? CssConstants.INITIAL : lineHeightValue), new CssDeclaration(CssConstants
+                .FONT_FAMILY, fontFamilyValue == null ? CssConstants.INITIAL : fontFamilyValue));
             return cssDeclarations;
         }
 
@@ -155,7 +154,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                         sb.Append(currentChar);
                     }
                     else {
-                        if (!doubleQuotesAreSpotted && !singleQuoteIsSpotted && iText.IO.Util.TextUtil.IsWhiteSpace(currentChar)) {
+                        if (!doubleQuotesAreSpotted && !singleQuoteIsSpotted && TextUtil.IsWhiteSpace(currentChar)) {
                             if (sb.Length > 0) {
                                 properties.Add(sb.ToString());
                                 sb = new StringBuilder();

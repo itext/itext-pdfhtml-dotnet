@@ -103,7 +103,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <param name="height">the desired height of content</param>
         internal virtual void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, float height) {
             float averageLineHeight = bBox.GetHeight() / lines.Count;
-            int visibleLinesNumber = (int)System.Math.Ceiling(height / averageLineHeight);
+            int visibleLinesNumber = (int)Math.Ceiling(height / averageLineHeight);
             AdjustNumberOfContentLines(lines, bBox, visibleLinesNumber, height);
         }
 

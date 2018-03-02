@@ -91,12 +91,12 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
         */
         public virtual IList<CssDeclaration> ResolveShorthand(String shorthandExpression) {
             if (CssConstants.INITIAL.Equals(shorthandExpression) || CssConstants.INHERIT.Equals(shorthandExpression)) {
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BACKGROUND_COLOR, shorthandExpression
-                    ), new CssDeclaration(CssConstants.BACKGROUND_IMAGE, shorthandExpression), new CssDeclaration(CssConstants
-                    .BACKGROUND_POSITION, shorthandExpression), new CssDeclaration(CssConstants.BACKGROUND_SIZE, shorthandExpression
-                    ), new CssDeclaration(CssConstants.BACKGROUND_REPEAT, shorthandExpression), new CssDeclaration(CssConstants
-                    .BACKGROUND_ORIGIN, shorthandExpression), new CssDeclaration(CssConstants.BACKGROUND_CLIP, shorthandExpression
-                    ), new CssDeclaration(CssConstants.BACKGROUND_ATTACHMENT, shorthandExpression));
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BACKGROUND_COLOR, shorthandExpression), new CssDeclaration
+                    (CssConstants.BACKGROUND_IMAGE, shorthandExpression), new CssDeclaration(CssConstants.BACKGROUND_POSITION
+                    , shorthandExpression), new CssDeclaration(CssConstants.BACKGROUND_SIZE, shorthandExpression), new CssDeclaration
+                    (CssConstants.BACKGROUND_REPEAT, shorthandExpression), new CssDeclaration(CssConstants.BACKGROUND_ORIGIN
+                    , shorthandExpression), new CssDeclaration(CssConstants.BACKGROUND_CLIP, shorthandExpression), new CssDeclaration
+                    (CssConstants.BACKGROUND_ATTACHMENT, shorthandExpression));
             }
             IList<String> commaSeparatedExpressions = SplitMultipleBackgrounds(shorthandExpression);
             // TODO ignore multiple backgrounds at the moment
@@ -122,11 +122,11 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                     resolvedProps[i] = CssConstants.INITIAL;
                 }
             }
-            IList<CssDeclaration> cssDeclarations = iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants
-                .BACKGROUND_COLOR, resolvedProps[BACKGROUND_COLOR_TYPE]), new CssDeclaration(CssConstants.BACKGROUND_IMAGE
-                , resolvedProps[BACKGROUND_IMAGE_TYPE]), new CssDeclaration(CssConstants.BACKGROUND_POSITION, resolvedProps
-                [BACKGROUND_POSITION_TYPE]), new CssDeclaration(CssConstants.BACKGROUND_SIZE, resolvedProps[BACKGROUND_POSITION_OR_SIZE_TYPE
-                ]), new CssDeclaration(CssConstants.BACKGROUND_REPEAT, resolvedProps[BACKGROUND_REPEAT_TYPE]), new CssDeclaration
+            IList<CssDeclaration> cssDeclarations = JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BACKGROUND_COLOR
+                , resolvedProps[BACKGROUND_COLOR_TYPE]), new CssDeclaration(CssConstants.BACKGROUND_IMAGE, resolvedProps
+                [BACKGROUND_IMAGE_TYPE]), new CssDeclaration(CssConstants.BACKGROUND_POSITION, resolvedProps[BACKGROUND_POSITION_TYPE
+                ]), new CssDeclaration(CssConstants.BACKGROUND_SIZE, resolvedProps[BACKGROUND_POSITION_OR_SIZE_TYPE]), 
+                new CssDeclaration(CssConstants.BACKGROUND_REPEAT, resolvedProps[BACKGROUND_REPEAT_TYPE]), new CssDeclaration
                 (CssConstants.BACKGROUND_ORIGIN, resolvedProps[BACKGROUND_ORIGIN_OR_CLIP_TYPE]), new CssDeclaration(CssConstants
                 .BACKGROUND_CLIP, resolvedProps[BACKGROUND_CLIP_TYPE]), new CssDeclaration(CssConstants.BACKGROUND_ATTACHMENT
                 , resolvedProps[BACKGROUND_ATTACHMENT_TYPE]));

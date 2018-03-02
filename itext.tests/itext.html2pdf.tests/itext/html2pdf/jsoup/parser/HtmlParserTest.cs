@@ -1011,7 +1011,7 @@ namespace iText.Html2pdf.Jsoup.Parser {
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void TestInvalidTableContents() {
-            FileInfo @in = iText.Html2pdf.Jsoup.PortTestUtil.GetFile("/htmltests/table-invalid-elements.html");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/table-invalid-elements.html");
             Document doc = iText.Html2pdf.Jsoup.Jsoup.Parse(@in, "UTF-8");
             doc.OutputSettings().PrettyPrint(true);
             String rendered = doc.ToString();

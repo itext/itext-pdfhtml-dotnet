@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Html2pdf.Jsoup;
 
 namespace iText.Html2pdf.Jsoup.Nodes {
     public class EntitiesTest {
@@ -76,7 +77,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
 
         [NUnit.Framework.Test]
         public virtual void EscapeSupplementaryCharacter() {
-            String text = new String(iText.Html2pdf.Jsoup.PortUtil.ToChars(135361));
+            String text = new String(PortUtil.ToChars(135361));
             String escapedAscii = Entities.Escape(text, new OutputSettings().Charset("ascii").EscapeMode(Entities.EscapeMode
                 .@base));
             NUnit.Framework.Assert.AreEqual("&#x210c1;", escapedAscii);

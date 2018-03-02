@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Html2pdf.Jsoup;
 
 namespace iText.Html2pdf.Jsoup.Nodes {
     public class AttributeTest {
@@ -53,7 +54,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
 
         [NUnit.Framework.Test]
         public virtual void TestWithSupplementaryCharacterInAttributeKeyAndValue() {
-            String s = new String(iText.Html2pdf.Jsoup.PortUtil.ToChars(135361));
+            String s = new String(PortUtil.ToChars(135361));
             iText.Html2pdf.Jsoup.Nodes.Attribute attr = new iText.Html2pdf.Jsoup.Nodes.Attribute(s, "A" + s + "B");
             NUnit.Framework.Assert.AreEqual(s + "=\"A" + s + "B\"", attr.Html());
             NUnit.Framework.Assert.AreEqual(attr.Html(), attr.ToString());

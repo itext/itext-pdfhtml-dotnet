@@ -457,15 +457,15 @@ namespace iText.Html2pdf.Jsoup.Select {
                 }
                 else {
                     if (mAB.Success) {
-                        a = iText.IO.Util.StringUtil.Group(mAB, 3) != null ? System.Convert.ToInt32(iText.IO.Util.StringUtil.Group
-                            (mAB, 1).ReplaceFirst("^\\+", "")) : 1;
-                        b = iText.IO.Util.StringUtil.Group(mAB, 4) != null ? System.Convert.ToInt32(iText.IO.Util.StringUtil.Group
-                            (mAB, 4).ReplaceFirst("^\\+", "")) : 0;
+                        a = iText.IO.Util.StringUtil.Group(mAB, 3) != null ? Convert.ToInt32(iText.IO.Util.StringUtil.Group(mAB, 1
+                            ).ReplaceFirst("^\\+", "")) : 1;
+                        b = iText.IO.Util.StringUtil.Group(mAB, 4) != null ? Convert.ToInt32(iText.IO.Util.StringUtil.Group(mAB, 4
+                            ).ReplaceFirst("^\\+", "")) : 0;
                     }
                     else {
                         if (mB.Success) {
                             a = 0;
-                            b = System.Convert.ToInt32(iText.IO.Util.StringUtil.Group(mB).ReplaceFirst("^\\+", ""));
+                            b = Convert.ToInt32(iText.IO.Util.StringUtil.Group(mB).ReplaceFirst("^\\+", ""));
                         }
                         else {
                             throw new Selector.SelectorParseException("Could not parse nth-index " + PortUtil.EscapedSingleBracket + "{0}"
@@ -495,7 +495,7 @@ namespace iText.Html2pdf.Jsoup.Select {
         private int ConsumeIndex() {
             String indexS = tq.ChompTo(")").Trim();
             Validate.IsTrue(iText.Html2pdf.Jsoup.Helper.StringUtil.IsNumeric(indexS), "Index must be numeric");
-            return System.Convert.ToInt32(indexS);
+            return Convert.ToInt32(indexS);
         }
 
         // pseudo selector :has(el)

@@ -43,8 +43,10 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.Text;
+using iText.Html2pdf.Jsoup;
 using iText.Html2pdf.Jsoup.Helper;
 using iText.Html2pdf.Jsoup.Select;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Jsoup.Nodes {
     /// <summary>A HTML Document.</summary>
@@ -457,7 +459,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
  {
         private Entities.EscapeMode escapeMode = Entities.EscapeMode.@base;
 
-        private Encoding charset = iText.IO.Util.EncodingUtil.GetEncoding("UTF-8");
+        private Encoding charset = EncodingUtil.GetEncoding("UTF-8");
 
         private Encoding charsetEncoder;
 
@@ -470,7 +472,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         private iText.Html2pdf.Jsoup.Nodes.Syntax syntax = iText.Html2pdf.Jsoup.Nodes.Syntax.html;
 
         public OutputSettings() {
-            charsetEncoder = iText.Html2pdf.Jsoup.PortUtil.NewEncoder(charset);
+            charsetEncoder = PortUtil.NewEncoder(charset);
         }
 
         /// <summary>
@@ -522,7 +524,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <returns>the document's output settings, for chaining</returns>
         public virtual iText.Html2pdf.Jsoup.Nodes.OutputSettings Charset(Encoding charset) {
             this.charset = charset;
-            charsetEncoder = iText.Html2pdf.Jsoup.PortUtil.NewEncoder(charset);
+            charsetEncoder = PortUtil.NewEncoder(charset);
             return this;
         }
 
@@ -530,7 +532,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <param name="charset">the new charset (by name) to use.</param>
         /// <returns>the document's output settings, for chaining</returns>
         public virtual iText.Html2pdf.Jsoup.Nodes.OutputSettings Charset(String charset) {
-            Charset(iText.IO.Util.EncodingUtil.GetEncoding(charset));
+            Charset(EncodingUtil.GetEncoding(charset));
             return this;
         }
 

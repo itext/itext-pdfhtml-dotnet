@@ -126,8 +126,7 @@ namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
                         int rad = args.IndexOf('r');
                         if (deg > 0 && args.Substring(deg).Equals("deg") || rad > 0 && args.Substring(rad).Equals("rad")) {
                             try {
-                                System.Double.Parse(args.JSubstring(0, deg > 0 ? deg : rad), System.Globalization.CultureInfo.InvariantCulture
-                                    );
+                                Double.Parse(args.JSubstring(0, deg > 0 ? deg : rad), System.Globalization.CultureInfo.InvariantCulture);
                             }
                             catch (FormatException) {
                                 return false;

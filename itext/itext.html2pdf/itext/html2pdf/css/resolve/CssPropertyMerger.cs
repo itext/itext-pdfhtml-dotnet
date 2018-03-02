@@ -89,7 +89,7 @@ namespace iText.Html2pdf.Css.Resolve {
             String[] parts = iText.IO.Util.StringUtil.Split(value, "\\s+");
             // LinkedHashSet to make order invariant of JVM
             ICollection<String> merged = new LinkedHashSet<String>();
-            merged.AddAll(iText.IO.Util.JavaUtil.ArraysAsList(parts));
+            merged.AddAll(JavaUtil.ArraysAsList(parts));
             // if none and any other decoration are used together, none is displayed
             if (merged.Contains(CssConstants.NONE)) {
                 merged.Clear();

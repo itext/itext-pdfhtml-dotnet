@@ -261,8 +261,7 @@ namespace iText.Html2pdf.Css {
                     ));
             }
             IDictionary<String, String> elementStyles = element.GetStyles();
-            ICollection<String> expectedStylesSet = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList(expectedStyles
-                ));
+            ICollection<String> expectedStylesSet = new HashSet<String>(JavaUtil.ArraysAsList(expectedStyles));
             ICollection<String> actualStylesSet = StylesMapToHashSet(elementStyles);
             NUnit.Framework.Assert.IsTrue(SetsAreEqual(expectedStylesSet, actualStylesSet), GetDifferencesMessage(expectedStylesSet
                 , actualStylesSet));
@@ -278,7 +277,7 @@ namespace iText.Html2pdf.Css {
                 int ancestorIndex = 0;
                 int dash = ancestor.IndexOf('-');
                 if (dash > 0) {
-                    ancestorIndex = System.Convert.ToInt32(ancestor.JSubstring(dash + 1, ancestor.Length));
+                    ancestorIndex = Convert.ToInt32(ancestor.JSubstring(dash + 1, ancestor.Length));
                     ancestor = ancestor.JSubstring(0, dash);
                 }
                 int sameNameInd = 0;

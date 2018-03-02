@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css {
     /// <summary>
@@ -863,41 +864,41 @@ namespace iText.Html2pdf.Css {
         public const String XX_SMALL = "xx-small";
 
         /// <summary>The Constant BACKGROUND_SIZE_VALUES.</summary>
-        public static readonly ICollection<String> BACKGROUND_SIZE_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        public static readonly ICollection<String> BACKGROUND_SIZE_VALUES = new HashSet<String>(JavaUtil.ArraysAsList
             (AUTO, COVER, CONTAIN));
 
         /// <summary>The Constant BACKGROUND_ORIGIN_OR_CLIP_VALUES.</summary>
-        public static readonly ICollection<String> BACKGROUND_ORIGIN_OR_CLIP_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        public static readonly ICollection<String> BACKGROUND_ORIGIN_OR_CLIP_VALUES = new HashSet<String>(JavaUtil.ArraysAsList
             (PADDING_BOX, BORDER_BOX, CONTENT_BOX));
 
         /// <summary>The Constant BACKGROUND_REPEAT_VALUES.</summary>
-        public static readonly ICollection<String> BACKGROUND_REPEAT_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        public static readonly ICollection<String> BACKGROUND_REPEAT_VALUES = new HashSet<String>(JavaUtil.ArraysAsList
             (REPEAT, NO_REPEAT, REPEAT_X, REPEAT_Y));
 
         /// <summary>The Constant BACKGROUND_ATTACHMENT_VALUES.</summary>
-        public static readonly ICollection<String> BACKGROUND_ATTACHMENT_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        public static readonly ICollection<String> BACKGROUND_ATTACHMENT_VALUES = new HashSet<String>(JavaUtil.ArraysAsList
             (FIXED, SCROLL, LOCAL));
 
         /// <summary>The Constant BACKGROUND_POSITION_VALUES.</summary>
-        public static readonly ICollection<String> BACKGROUND_POSITION_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        public static readonly ICollection<String> BACKGROUND_POSITION_VALUES = new HashSet<String>(JavaUtil.ArraysAsList
             (LEFT, CENTER, BOTTOM, TOP, RIGHT));
 
         /// <summary>The Constant BORDER_WIDTH_VALUES.</summary>
-        public static readonly ICollection<String> BORDER_WIDTH_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        public static readonly ICollection<String> BORDER_WIDTH_VALUES = new HashSet<String>(JavaUtil.ArraysAsList
             (new String[] { THIN, MEDIUM, THICK }));
 
         /// <summary>The Constant BORDER_STYLE_VALUES.</summary>
-        public static readonly ICollection<String> BORDER_STYLE_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        public static readonly ICollection<String> BORDER_STYLE_VALUES = new HashSet<String>(JavaUtil.ArraysAsList
             (new String[] { NONE, HIDDEN, DOTTED, DASHED, SOLID, DOUBLE, GROOVE, RIDGE, INSET, OUTSET }));
 
         /// <summary>The Constant FONT_ABSOLUTE_SIZE_KEYWORDS.</summary>
-        public static readonly ICollection<String> FONT_ABSOLUTE_SIZE_KEYWORDS = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        public static readonly ICollection<String> FONT_ABSOLUTE_SIZE_KEYWORDS = new HashSet<String>(JavaUtil.ArraysAsList
             (CssConstants.MEDIUM, CssConstants.XX_SMALL, CssConstants.X_SMALL, CssConstants.SMALL, CssConstants.LARGE
             , CssConstants.X_LARGE, CssConstants.XX_LARGE));
 
         /// <summary>The Constant OVERFLOW_VALUES.</summary>
-        public static readonly ICollection<String> OVERFLOW_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
-            (new String[] { VISIBLE, HIDDEN }));
+        public static readonly ICollection<String> OVERFLOW_VALUES = new HashSet<String>(JavaUtil.ArraysAsList(new 
+            String[] { VISIBLE, HIDDEN }));
 
         /// <summary>The Constant AFTER.</summary>
         public const String AFTER = "after";

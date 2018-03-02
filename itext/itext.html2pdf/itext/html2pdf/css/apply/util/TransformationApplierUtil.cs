@@ -45,6 +45,7 @@ using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Util;
+using iText.IO.Util;
 using iText.Layout;
 using iText.Layout.Properties;
 
@@ -190,11 +191,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return 0.0;
             }
             if (value.IndexOf('r') > 0) {
-                return -1 * System.Double.Parse(value.Trim().JSubstring(0, value.IndexOf('r')), System.Globalization.CultureInfo.InvariantCulture
+                return -1 * Double.Parse(value.Trim().JSubstring(0, value.IndexOf('r')), System.Globalization.CultureInfo.InvariantCulture
                     );
             }
-            return iText.IO.Util.MathUtil.ToRadians(-1 * System.Double.Parse(value.Trim().JSubstring(0, value.IndexOf(
-                'd')), System.Globalization.CultureInfo.InvariantCulture));
+            return MathUtil.ToRadians(-1 * Double.Parse(value.Trim().JSubstring(0, value.IndexOf('d')), System.Globalization.CultureInfo.InvariantCulture
+                ));
         }
 
         /// <summary>Apply a linear transformation, using a transformation matrix</summary>

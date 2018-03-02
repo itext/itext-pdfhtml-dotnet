@@ -1210,7 +1210,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <returns>set of classnames, empty if no class attribute</returns>
         public virtual ICollection<String> ClassNames() {
             String[] names = classSplit.Split(ClassName());
-            ICollection<String> classNames = new LinkedHashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList(names));
+            ICollection<String> classNames = new LinkedHashSet<String>(JavaUtil.ArraysAsList(names));
             classNames.Remove("");
             // if classNames() was empty, would include an empty class
             return classNames;
