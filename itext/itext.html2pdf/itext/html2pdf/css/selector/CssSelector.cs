@@ -93,9 +93,10 @@ namespace iText.Html2pdf.Css.Selector {
             }
             bool isPseudoElement = element is CssPseudoElementNode;
             for (int i = lastSelectorItemInd; i >= 0; i--) {
-                if (isPseudoElement && i < lastSelectorItemInd) {
-                    // Pseudo element and class selector item shall be at the end of the selector string 
-                    // and be single pseudo selector item in it. All other selector items are checked against 
+                if (isPseudoElement && selectorItems[lastSelectorItemInd] is CssPseudoElementSelectorItem && i < lastSelectorItemInd
+                    ) {
+                    // Pseudo element selector item shall be at the end of the selector string
+                    // and be single pseudo element selector item in it. All other selector items are checked against
                     // pseudo element node parent.
                     element = element.ParentNode();
                     isPseudoElement = false;

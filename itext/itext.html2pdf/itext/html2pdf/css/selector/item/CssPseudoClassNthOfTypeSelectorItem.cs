@@ -10,7 +10,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
         }
 
         public override bool Matches(INode node) {
-            if (!(node is IElementNode) || node is ICustomElementNode) {
+            if (!(node is IElementNode) || node is ICustomElementNode || node is IDocumentNode) {
                 return false;
             }
             IList<INode> children = GetAllSiblingsOfNodeType(node);
