@@ -125,6 +125,10 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     return new CssPseudoClassNotSelectorItem(selector);
                 }
 
+                case CssConstants.ROOT: {
+                    return CssPseudoClassRootSelectorItem.GetInstance();
+                }
+
                 case CssConstants.LINK: {
                     return new CssPseudoClassSelectorItem.AlwaysApplySelectorItem(pseudoClass, arguments);
                 }
@@ -155,7 +159,6 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     //case CssConstants.READ_ONLY:
                     //case CssConstants.READ_WRITE:
                     //case CssConstants.REQUIRED:
-                    //case CssConstants.ROOT:
                     //case CssConstants.VALID:
                     return null;
                 }
