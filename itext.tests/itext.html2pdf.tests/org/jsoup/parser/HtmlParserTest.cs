@@ -960,7 +960,7 @@ namespace Org.Jsoup.Parser {
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void TestInvalidTableContents() {
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/table-invalid-elements.html");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/table-invalid-elements.html");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, "UTF-8");
             doc.OutputSettings().PrettyPrint(true);
             String rendered = doc.ToString();

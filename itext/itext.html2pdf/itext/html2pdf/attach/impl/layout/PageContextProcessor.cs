@@ -52,6 +52,7 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
 using iText.IO.Log;
+using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
@@ -126,7 +127,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary>Compute layout margins.</summary>
         /// <returns>the float values of the margins</returns>
         internal virtual float[] ComputeLayoutMargins() {
-            float[] layoutMargins = iText.IO.Util.JavaUtil.ArraysCopyOf(margins, margins.Length);
+            float[] layoutMargins = JavaUtil.ArraysCopyOf(margins, margins.Length);
             for (int i = 0; i < borders.Length; ++i) {
                 float width = borders[i] != null ? borders[i].GetWidth() : 0;
                 layoutMargins[i] += width;

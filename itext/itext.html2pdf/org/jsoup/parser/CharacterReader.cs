@@ -1,5 +1,6 @@
 using System;
 using Org.Jsoup.Helper;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Parser {
     /// <summary>CharacterReader consumes tokens off a string.</summary>
@@ -153,7 +154,7 @@ OUTER_break: ;
             int remaining = length;
             char[] val = input;
             while (pos < remaining) {
-                if (iText.IO.Util.JavaUtil.ArraysBinarySearch(chars, val[pos]) >= 0) {
+                if (JavaUtil.ArraysBinarySearch(chars, val[pos]) >= 0) {
                     break;
                 }
                 pos++;
@@ -309,7 +310,7 @@ OUTER_break: ;
         }
 
         internal bool MatchesAnySorted(char[] seq) {
-            return !IsEmpty() && iText.IO.Util.JavaUtil.ArraysBinarySearch(seq, input[pos]) >= 0;
+            return !IsEmpty() && JavaUtil.ArraysBinarySearch(seq, input[pos]) >= 0;
         }
 
         internal bool MatchesLetter() {

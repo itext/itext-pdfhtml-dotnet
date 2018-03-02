@@ -79,15 +79,15 @@ namespace iText.Html2pdf.Css.Parse.Syntax {
 
         /// <summary>Set of the supported rules.</summary>
         private static readonly ICollection<String> SUPPORTED_RULES = JavaCollectionsUtil.UnmodifiableSet(new HashSet
-            <String>(iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName.MEDIA, CssRuleName.PAGE, CssRuleName.TOP_LEFT_CORNER
-            , CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT, CssRuleName.TOP_RIGHT_CORNER, CssRuleName
-            .BOTTOM_LEFT_CORNER, CssRuleName.BOTTOM_LEFT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_RIGHT, CssRuleName
-            .BOTTOM_RIGHT_CORNER, CssRuleName.LEFT_TOP, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_BOTTOM, CssRuleName
-            .RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM, CssRuleName.FONT_FACE)));
+            <String>(JavaUtil.ArraysAsList(CssRuleName.MEDIA, CssRuleName.PAGE, CssRuleName.TOP_LEFT_CORNER, CssRuleName
+            .TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT, CssRuleName.TOP_RIGHT_CORNER, CssRuleName.BOTTOM_LEFT_CORNER
+            , CssRuleName.BOTTOM_LEFT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_RIGHT, CssRuleName.BOTTOM_RIGHT_CORNER
+            , CssRuleName.LEFT_TOP, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_BOTTOM, CssRuleName.RIGHT_TOP, CssRuleName
+            .RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM, CssRuleName.FONT_FACE)));
 
         /// <summary>Set of conditional group rules.</summary>
         private static readonly ICollection<String> CONDITIONAL_GROUP_RULES = JavaCollectionsUtil.UnmodifiableSet(
-            new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName.MEDIA)));
+            new HashSet<String>(JavaUtil.ArraysAsList(CssRuleName.MEDIA)));
 
         /// <summary>The comment start state.</summary>
         private readonly IParserState commentStartState;

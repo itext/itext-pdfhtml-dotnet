@@ -1,4 +1,5 @@
 using System;
+using Org.Jsoup;
 
 namespace Org.Jsoup.Nodes {
     public class AttributeTest {
@@ -11,7 +12,7 @@ namespace Org.Jsoup.Nodes {
 
         [NUnit.Framework.Test]
         public virtual void TestWithSupplementaryCharacterInAttributeKeyAndValue() {
-            String s = new String(Org.Jsoup.PortUtil.ToChars(135361));
+            String s = new String(PortUtil.ToChars(135361));
             Org.Jsoup.Nodes.Attribute attr = new Org.Jsoup.Nodes.Attribute(s, "A" + s + "B");
             NUnit.Framework.Assert.AreEqual(s + "=\"A" + s + "B\"", attr.Html());
             NUnit.Framework.Assert.AreEqual(attr.Html(), attr.ToString());

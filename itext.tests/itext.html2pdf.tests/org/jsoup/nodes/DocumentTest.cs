@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using Org.Jsoup;
 using Org.Jsoup.Integration;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Nodes {
     /// <summary>Tests for Document.</summary>
@@ -91,14 +92,14 @@ namespace Org.Jsoup.Nodes {
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void TestLocation() {
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/yahoo-jp.html");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/yahoo-jp.html");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, "UTF-8", "http://www.yahoo.co.jp/index.html");
             String location = doc.Location();
             String baseUri = doc.BaseUri();
             NUnit.Framework.Assert.AreEqual("http://www.yahoo.co.jp/index.html", location);
             NUnit.Framework.Assert.AreEqual("http://www.yahoo.co.jp/_ylh=X3oDMTB0NWxnaGxsBF9TAzIwNzcyOTYyNjUEdGlkAzEyBHRtcGwDZ2Ex/"
                 , baseUri);
-            @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/nyt-article-1.html");
+            @in = PortTestUtil.GetFile("/htmltests/nyt-article-1.html");
             doc = Org.Jsoup.Jsoup.Parse(@in, null, "http://www.nytimes.com/2010/07/26/business/global/26bp.html?hp");
             location = doc.Location();
             baseUri = doc.BaseUri();
@@ -173,7 +174,7 @@ namespace Org.Jsoup.Nodes {
         public virtual void TestMetaCharsetUpdateUtf8() {
             Document doc = CreateHtmlDocument("changeThis");
             doc.UpdateMetaCharsetElement(true);
-            doc.Charset(iText.IO.Util.EncodingUtil.GetEncoding(charsetUtf8));
+            doc.Charset(EncodingUtil.GetEncoding(charsetUtf8));
             String htmlCharsetUTF8 = "<html>\n" + " <head>\n" + "  <meta charset=\"" + charsetUtf8 + "\">\n" + " </head>\n"
                  + " <body></body>\n" + "</html>";
             NUnit.Framework.Assert.AreEqual(htmlCharsetUTF8, doc.ToString());
@@ -187,7 +188,7 @@ namespace Org.Jsoup.Nodes {
         public virtual void TestMetaCharsetUpdateIso8859() {
             Document doc = CreateHtmlDocument("changeThis");
             doc.UpdateMetaCharsetElement(true);
-            doc.Charset(iText.IO.Util.EncodingUtil.GetEncoding(charsetIso8859));
+            doc.Charset(EncodingUtil.GetEncoding(charsetIso8859));
             String htmlCharsetISO = "<html>\n" + " <head>\n" + "  <meta charset=\"" + charsetIso8859 + "\">\n" + " </head>\n"
                  + " <body></body>\n" + "</html>";
             NUnit.Framework.Assert.AreEqual(htmlCharsetISO, doc.ToString());
@@ -201,7 +202,7 @@ namespace Org.Jsoup.Nodes {
         public virtual void TestMetaCharsetUpdateNoCharset() {
             Document docNoCharset = Document.CreateShell("");
             docNoCharset.UpdateMetaCharsetElement(true);
-            docNoCharset.Charset(iText.IO.Util.EncodingUtil.GetEncoding(charsetUtf8));
+            docNoCharset.Charset(EncodingUtil.GetEncoding(charsetUtf8));
             NUnit.Framework.Assert.AreEqual(charsetUtf8, docNoCharset.Select("meta[charset]").First().Attr("charset"));
             String htmlCharsetUTF8 = "<html>\n" + " <head>\n" + "  <meta charset=\"" + charsetUtf8 + "\">\n" + " </head>\n"
                  + " <body></body>\n" + "</html>";
@@ -233,7 +234,7 @@ namespace Org.Jsoup.Nodes {
         [NUnit.Framework.Test]
         public virtual void TestMetaCharsetUpdateEnabledAfterCharsetChange() {
             Document doc = CreateHtmlDocument("dontTouch");
-            doc.Charset(iText.IO.Util.EncodingUtil.GetEncoding(charsetUtf8));
+            doc.Charset(EncodingUtil.GetEncoding(charsetUtf8));
             Element selectedElement = doc.Select("meta[charset]").First();
             NUnit.Framework.Assert.AreEqual(charsetUtf8, selectedElement.Attr("charset"));
             NUnit.Framework.Assert.IsTrue(doc.Select("meta[name=charset]").IsEmpty());
@@ -243,7 +244,7 @@ namespace Org.Jsoup.Nodes {
         public virtual void TestMetaCharsetUpdateCleanup() {
             Document doc = CreateHtmlDocument("dontTouch");
             doc.UpdateMetaCharsetElement(true);
-            doc.Charset(iText.IO.Util.EncodingUtil.GetEncoding(charsetUtf8));
+            doc.Charset(EncodingUtil.GetEncoding(charsetUtf8));
             String htmlCharsetUTF8 = "<html>\n" + " <head>\n" + "  <meta charset=\"" + charsetUtf8 + "\">\n" + " </head>\n"
                  + " <body></body>\n" + "</html>";
             NUnit.Framework.Assert.AreEqual(htmlCharsetUTF8, doc.ToString());
@@ -253,7 +254,7 @@ namespace Org.Jsoup.Nodes {
         public virtual void TestMetaCharsetUpdateXmlUtf8() {
             Document doc = CreateXmlDocument("1.0", "changeThis", true);
             doc.UpdateMetaCharsetElement(true);
-            doc.Charset(iText.IO.Util.EncodingUtil.GetEncoding(charsetUtf8));
+            doc.Charset(EncodingUtil.GetEncoding(charsetUtf8));
             String xmlCharsetUTF8 = "<?xml version=\"1.0\" encoding=\"" + charsetUtf8 + "\"?>\n" + "<root>\n" + " node\n"
                  + "</root>";
             NUnit.Framework.Assert.AreEqual(xmlCharsetUTF8, doc.ToString());
@@ -267,7 +268,7 @@ namespace Org.Jsoup.Nodes {
         public virtual void TestMetaCharsetUpdateXmlIso8859() {
             Document doc = CreateXmlDocument("1.0", "changeThis", true);
             doc.UpdateMetaCharsetElement(true);
-            doc.Charset(iText.IO.Util.EncodingUtil.GetEncoding(charsetIso8859));
+            doc.Charset(EncodingUtil.GetEncoding(charsetIso8859));
             String xmlCharsetISO = "<?xml version=\"1.0\" encoding=\"" + charsetIso8859 + "\"?>\n" + "<root>\n" + " node\n"
                  + "</root>";
             NUnit.Framework.Assert.AreEqual(xmlCharsetISO, doc.ToString());
@@ -281,7 +282,7 @@ namespace Org.Jsoup.Nodes {
         public virtual void TestMetaCharsetUpdateXmlNoCharset() {
             Document doc = CreateXmlDocument("1.0", "none", false);
             doc.UpdateMetaCharsetElement(true);
-            doc.Charset(iText.IO.Util.EncodingUtil.GetEncoding(charsetUtf8));
+            doc.Charset(EncodingUtil.GetEncoding(charsetUtf8));
             String xmlCharsetUTF8 = "<?xml version=\"1.0\" encoding=\"" + charsetUtf8 + "\"?>\n" + "<root>\n" + " node\n"
                  + "</root>";
             NUnit.Framework.Assert.AreEqual(xmlCharsetUTF8, doc.ToString());
@@ -337,7 +338,7 @@ namespace Org.Jsoup.Nodes {
         public virtual void TestShiftJisRoundtrip() {
             String input = "<html>" + "<head>" + "<meta http-equiv=\"content-type\" content=\"text/html; charset=Shift_JIS\" />"
                  + "</head>" + "<body>" + "before&nbsp;after" + "</body>" + "</html>";
-            Stream @is = new MemoryStream(input.GetBytes(iText.IO.Util.EncodingUtil.GetEncoding("ASCII")));
+            Stream @is = new MemoryStream(input.GetBytes(EncodingUtil.GetEncoding("ASCII")));
             Document doc = Org.Jsoup.Jsoup.Parse(@is, null, "http://example.com");
             doc.OutputSettings().EscapeMode(Entities.EscapeMode.xhtml);
             String output = iText.IO.Util.JavaUtil.GetStringForBytes(doc.Html().GetBytes(doc.OutputSettings().Charset(

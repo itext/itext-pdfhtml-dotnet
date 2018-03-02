@@ -1,4 +1,5 @@
 using System;
+using Org.Jsoup;
 
 namespace Org.Jsoup.Nodes {
     public class EntitiesTest {
@@ -34,7 +35,7 @@ namespace Org.Jsoup.Nodes {
 
         [NUnit.Framework.Test]
         public virtual void EscapeSupplementaryCharacter() {
-            String text = new String(Org.Jsoup.PortUtil.ToChars(135361));
+            String text = new String(PortUtil.ToChars(135361));
             String escapedAscii = Entities.Escape(text, new OutputSettings().Charset("ascii").EscapeMode(Entities.EscapeMode
                 .@base));
             NUnit.Framework.Assert.AreEqual("&#x210c1;", escapedAscii);

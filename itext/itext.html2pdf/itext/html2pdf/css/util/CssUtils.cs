@@ -97,7 +97,7 @@ namespace iText.Html2pdf.Css.Util {
                 return null;
             }
             try {
-                return System.Convert.ToInt32(str);
+                return Convert.ToInt32(str);
             }
             catch (FormatException) {
                 return null;
@@ -125,8 +125,8 @@ namespace iText.Html2pdf.Css.Util {
         public static int[] ParseAspectRatio(String str) {
             int indexOfSlash = str.IndexOf('/');
             try {
-                int first = System.Convert.ToInt32(str.JSubstring(0, indexOfSlash));
-                int second = System.Convert.ToInt32(str.Substring(indexOfSlash + 1));
+                int first = Convert.ToInt32(str.JSubstring(0, indexOfSlash));
+                int second = Convert.ToInt32(str.Substring(indexOfSlash + 1));
                 return new int[] { first, second };
             }
             catch (Exception) {
@@ -221,7 +221,7 @@ namespace iText.Html2pdf.Css.Util {
             if (pos == 0) {
                 return 0f;
             }
-            double f = System.Double.Parse(relativeValue.JSubstring(0, pos), System.Globalization.CultureInfo.InvariantCulture
+            double f = Double.Parse(relativeValue.JSubstring(0, pos), System.Globalization.CultureInfo.InvariantCulture
                 );
             String unit = relativeValue.Substring(pos);
             if (unit.StartsWith(CssConstants.PERCENTAGE)) {

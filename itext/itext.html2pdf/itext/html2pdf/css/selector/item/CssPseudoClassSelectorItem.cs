@@ -273,7 +273,7 @@ namespace iText.Html2pdf.Css.Selector.Item {
                             int indexOfN = arguments.IndexOf('n');
                             if (indexOfN == -1) {
                                 this.nthChildA = 0;
-                                this.nthChildB = System.Convert.ToInt32(arguments);
+                                this.nthChildB = Convert.ToInt32(arguments);
                             }
                             else {
                                 String aParticle = arguments.JSubstring(0, indexOfN).Trim();
@@ -285,12 +285,12 @@ namespace iText.Html2pdf.Css.Selector.Item {
                                         this.nthChildA = aParticle.Equals("+") ? 1 : -1;
                                     }
                                     else {
-                                        this.nthChildA = System.Convert.ToInt32(aParticle);
+                                        this.nthChildA = Convert.ToInt32(aParticle);
                                     }
                                 }
                                 String bParticle = arguments.Substring(indexOfN + 1).Trim();
                                 if (!String.IsNullOrEmpty(bParticle)) {
-                                    this.nthChildB = System.Convert.ToInt32(bParticle[0] + bParticle.Substring(1).Trim());
+                                    this.nthChildB = Convert.ToInt32(bParticle[0] + bParticle.Substring(1).Trim());
                                 }
                                 else {
                                     this.nthChildB = 0;

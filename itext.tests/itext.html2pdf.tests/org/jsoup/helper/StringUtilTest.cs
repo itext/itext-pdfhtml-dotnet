@@ -1,15 +1,15 @@
 using System;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Helper {
     public class StringUtilTest {
         [NUnit.Framework.Test]
         public virtual void Join() {
-            NUnit.Framework.Assert.AreEqual("", Org.Jsoup.Helper.StringUtil.Join(iText.IO.Util.JavaUtil.ArraysAsList(""
-                ), " "));
-            NUnit.Framework.Assert.AreEqual("one", Org.Jsoup.Helper.StringUtil.Join(iText.IO.Util.JavaUtil.ArraysAsList
-                ("one"), " "));
-            NUnit.Framework.Assert.AreEqual("one two three", Org.Jsoup.Helper.StringUtil.Join(iText.IO.Util.JavaUtil.ArraysAsList
-                ("one", "two", "three"), " "));
+            NUnit.Framework.Assert.AreEqual("", Org.Jsoup.Helper.StringUtil.Join(JavaUtil.ArraysAsList(""), " "));
+            NUnit.Framework.Assert.AreEqual("one", Org.Jsoup.Helper.StringUtil.Join(JavaUtil.ArraysAsList("one"), " ")
+                );
+            NUnit.Framework.Assert.AreEqual("one two three", Org.Jsoup.Helper.StringUtil.Join(JavaUtil.ArraysAsList("one"
+                , "two", "three"), " "));
         }
 
         [NUnit.Framework.Test]

@@ -40,7 +40,7 @@ namespace Org.Jsoup.Select {
             }
 
             internal And(params Evaluator[] evaluators)
-                : this(iText.IO.Util.JavaUtil.ArraysAsList(evaluators)) {
+                : this(JavaUtil.ArraysAsList(evaluators)) {
             }
 
             public override bool Matches(Element root, Element node) {

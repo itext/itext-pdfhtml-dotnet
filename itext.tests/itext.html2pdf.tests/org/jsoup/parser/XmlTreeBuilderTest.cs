@@ -5,6 +5,7 @@ using System.Text;
 using Org.Jsoup;
 using Org.Jsoup.Integration;
 using Org.Jsoup.Nodes;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Parser {
     /// <summary>Tests XmlTreeBuilder.</summary>
@@ -51,7 +52,7 @@ namespace Org.Jsoup.Parser {
         /// <exception cref="Java.Net.URISyntaxException"/>
         [NUnit.Framework.Test]
         public virtual void TestSupplyParserToDataStream() {
-            FileInfo xmlFile = Org.Jsoup.PortTestUtil.GetFile("/htmltests/xml-test.xml");
+            FileInfo xmlFile = PortTestUtil.GetFile("/htmltests/xml-test.xml");
             Stream inStream = new FileStream(xmlFile.FullName, FileMode.Open, FileAccess.Read);
             Document doc = Org.Jsoup.Jsoup.Parse(inStream, null, "http://foo.com", Org.Jsoup.Parser.Parser.XmlParser()
                 );
@@ -105,7 +106,7 @@ namespace Org.Jsoup.Parser {
         /// <exception cref="Java.Net.URISyntaxException"/>
         [NUnit.Framework.Test]
         public virtual void TestDetectCharsetEncodingDeclaration() {
-            FileInfo xmlFile = Org.Jsoup.PortTestUtil.GetFile("/htmltests/xml-charset.xml");
+            FileInfo xmlFile = PortTestUtil.GetFile("/htmltests/xml-charset.xml");
             Stream inStream = new FileStream(xmlFile.FullName, FileMode.Open, FileAccess.Read);
             Document doc = Org.Jsoup.Jsoup.Parse(inStream, null, "http://example.com/", Org.Jsoup.Parser.Parser.XmlParser
                 ());
@@ -132,7 +133,7 @@ namespace Org.Jsoup.Parser {
         public virtual void TestCreatesValidProlog() {
             Document document = Document.CreateShell("");
             document.OutputSettings().Syntax(Syntax.xml);
-            document.Charset(iText.IO.Util.EncodingUtil.GetEncoding("utf-8"));
+            document.Charset(EncodingUtil.GetEncoding("utf-8"));
             NUnit.Framework.Assert.AreEqual("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<html>\n" + " <head></head>\n"
                  + " <body></body>\n" + "</html>", document.OuterHtml());
         }

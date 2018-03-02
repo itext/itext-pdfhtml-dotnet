@@ -110,7 +110,7 @@ namespace iText.Html2pdf.Resolver.Resource {
                     fixedSrc = fixedSrc.Substring(fixedSrc.IndexOf("base64", StringComparison.Ordinal) + 7);
                     PdfImageXObject imageXObject = imageCache.GetImage(fixedSrc);
                     if (imageXObject == null) {
-                        imageXObject = new PdfImageXObject(ImageDataFactory.Create(System.Convert.FromBase64String(fixedSrc)));
+                        imageXObject = new PdfImageXObject(ImageDataFactory.Create(Convert.FromBase64String(fixedSrc)));
                         imageCache.PutImage(fixedSrc, imageXObject);
                     }
                     return imageXObject;
@@ -149,7 +149,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// </returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public virtual Stream RetrieveStyleSheet(String uri) {
-            return iText.IO.Util.UrlUtil.OpenStream(uriResolver.ResolveAgainstBaseUri(uri));
+            return UrlUtil.OpenStream(uriResolver.ResolveAgainstBaseUri(uri));
         }
 
         /// <summary>
@@ -165,14 +165,13 @@ namespace iText.Html2pdf.Resolver.Resource {
                 try {
                     String fixedSrc = iText.IO.Util.StringUtil.ReplaceAll(src, "\\s", "");
                     fixedSrc = fixedSrc.Substring(fixedSrc.IndexOf("base64", StringComparison.Ordinal) + 7);
-                    return System.Convert.FromBase64String(fixedSrc);
+                    return Convert.FromBase64String(fixedSrc);
                 }
                 catch (Exception) {
                 }
             }
             try {
-                return StreamUtil.InputStreamToArray(iText.IO.Util.UrlUtil.OpenStream(uriResolver.ResolveAgainstBaseUri(src
-                    )));
+                return StreamUtil.InputStreamToArray(UrlUtil.OpenStream(uriResolver.ResolveAgainstBaseUri(src)));
             }
             catch (Exception e) {
                 ILogger logger = LoggerFactory.GetLogger(typeof(iText.Html2pdf.Resolver.Resource.ResourceResolver));
