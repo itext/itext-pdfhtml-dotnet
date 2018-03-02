@@ -91,6 +91,10 @@ namespace iText.Html2pdf.Css.Selector.Item {
         public static iText.Html2pdf.Css.Selector.Item.CssPseudoClassSelectorItem Create(String pseudoClass, String
              arguments) {
             switch (pseudoClass) {
+                case CssConstants.EMPTY: {
+                    return CssPseudoClassEmptySelectorItem.GetInstance();
+                }
+
                 case CssConstants.FIRST_CHILD: {
                     return CssPseudoClassFirstChildSelectorItem.GetInstance();
                 }
@@ -145,7 +149,6 @@ namespace iText.Html2pdf.Css.Selector.Item {
                     //Still unsupported, should be addressed in DEVSIX-1440
                     //case CssConstants.CHECKED:
                     //case CssConstants.DISABLED:
-                    //case CssConstants.EMPTY:
                     //case CssConstants.ENABLED:
                     //case CssConstants.IN_RANGE:
                     //case CssConstants.INVALID:
