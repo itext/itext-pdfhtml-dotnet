@@ -41,12 +41,9 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.Collections.Generic;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Css.Selector;
 using iText.Html2pdf.Html.Node;
-using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Selector.Item {
     /// <summary>
@@ -95,37 +92,37 @@ namespace iText.Html2pdf.Css.Selector.Item {
              arguments) {
             switch (pseudoClass) {
                 case CssConstants.FIRST_CHILD: {
-                    return CssPseudoClassSelectorItem.FirstChildSelectorItem.GetInstance();
+                    return CssPseudoClassFirstChildSelectorItem.GetInstance();
                 }
 
                 case CssConstants.FIRST_OF_TYPE: {
-                    return CssPseudoClassSelectorItem.FirstOfTypeSelectorItem.GetInstance();
+                    return CssPseudoClassFirstOfTypeSelectorItem.GetInstance();
                 }
 
                 case CssConstants.LAST_CHILD: {
-                    return CssPseudoClassSelectorItem.LastChildSelectorItem.GetInstance();
+                    return CssPseudoClassLastChildSelectorItem.GetInstance();
                 }
 
                 case CssConstants.LAST_OF_TYPE: {
-                    return CssPseudoClassSelectorItem.LastOfTypeSelectorItem.GetInstance();
+                    return CssPseudoClassLastOfTypeSelectorItem.GetInstance();
                 }
 
                 case CssConstants.NTH_CHILD: {
-                    return new CssPseudoClassSelectorItem.NthChildSelectorItem(arguments);
+                    return new CssPseudoClassNthChildSelectorItem(arguments);
                 }
 
                 case CssConstants.NTH_OF_TYPE: {
-                    return new CssPseudoClassSelectorItem.NthOfTypeSelectorItem(arguments);
+                    return new CssPseudoClassNthOfTypeSelectorItem(arguments);
                 }
 
                 case CssConstants.NOT: {
                     CssSelector selector = new CssSelector(arguments);
                     foreach (ICssSelectorItem item in selector.GetSelectorItems()) {
-                        if (item is CssPseudoClassSelectorItem.NotSelectorItem || item is CssPseudoElementSelectorItem) {
+                        if (item is CssPseudoClassNotSelectorItem || item is CssPseudoElementSelectorItem) {
                             return null;
                         }
                     }
-                    return new CssPseudoClassSelectorItem.NotSelectorItem(selector);
+                    return new CssPseudoClassNotSelectorItem(selector);
                 }
 
                 case CssConstants.LINK: {
@@ -188,271 +185,6 @@ namespace iText.Html2pdf.Css.Selector.Item {
 
         public virtual String GetPseudoClass() {
             return pseudoClass;
-        }
-
-        private class ChildSelectorItem : CssPseudoClassSelectorItem {
-            /// <summary>
-            /// Creates a new
-            /// <see cref="CssPseudoClassSelectorItem"/>
-            /// instance.
-            /// </summary>
-            /// <param name="pseudoClass">the pseudo class name</param>
-            internal ChildSelectorItem(String pseudoClass)
-                : base(pseudoClass) {
-            }
-
-            internal ChildSelectorItem(String pseudoClass, String arguments)
-                : base(pseudoClass, arguments) {
-            }
-
-            /// <summary>Gets the all the siblings of a child node.</summary>
-            /// <param name="node">the child node</param>
-            /// <returns>the sibling nodes</returns>
-            internal virtual IList<INode> GetAllSiblings(INode node) {
-                INode parentElement = node.ParentNode();
-                if (parentElement != null) {
-                    IList<INode> childrenUnmodifiable = parentElement.ChildNodes();
-                    IList<INode> children = new List<INode>(childrenUnmodifiable.Count);
-                    foreach (INode iNode in childrenUnmodifiable) {
-                        if (iNode is IElementNode) {
-                            children.Add(iNode);
-                        }
-                    }
-                    return children;
-                }
-                return JavaCollectionsUtil.EmptyList<INode>();
-            }
-
-            /// <summary>Gets all siblings of a child node with the type of a child node.</summary>
-            /// <param name="node">the child node</param>
-            /// <returns>the sibling nodes with the type of a child node</returns>
-            internal virtual IList<INode> GetAllSiblingsOfNodeType(INode node) {
-                INode parentElement = node.ParentNode();
-                if (parentElement != null) {
-                    IList<INode> childrenUnmodifiable = parentElement.ChildNodes();
-                    IList<INode> children = new List<INode>(childrenUnmodifiable.Count);
-                    foreach (INode iNode in childrenUnmodifiable) {
-                        if (iNode is IElementNode && ((IElementNode)iNode).Name().Equals(((IElementNode)node).Name())) {
-                            children.Add(iNode);
-                        }
-                    }
-                    return children;
-                }
-                return JavaCollectionsUtil.EmptyList<INode>();
-            }
-        }
-
-        private class FirstChildSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
-            private static readonly CssPseudoClassSelectorItem.FirstChildSelectorItem instance = new CssPseudoClassSelectorItem.FirstChildSelectorItem
-                ();
-
-            private FirstChildSelectorItem()
-                : base(CssConstants.FIRST_CHILD) {
-            }
-
-            public static CssPseudoClassSelectorItem.FirstChildSelectorItem GetInstance() {
-                return instance;
-            }
-
-            public override bool Matches(INode node) {
-                if (!(node is IElementNode) || node is ICustomElementNode) {
-                    return false;
-                }
-                IList<INode> children = GetAllSiblings(node);
-                return !children.IsEmpty() && node.Equals(children[0]);
-            }
-        }
-
-        private class FirstOfTypeSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
-            private static readonly CssPseudoClassSelectorItem.FirstOfTypeSelectorItem instance = new CssPseudoClassSelectorItem.FirstOfTypeSelectorItem
-                ();
-
-            private FirstOfTypeSelectorItem()
-                : base(CssConstants.FIRST_OF_TYPE) {
-            }
-
-            public static CssPseudoClassSelectorItem.FirstOfTypeSelectorItem GetInstance() {
-                return instance;
-            }
-
-            public override bool Matches(INode node) {
-                if (!(node is IElementNode) || node is ICustomElementNode) {
-                    return false;
-                }
-                IList<INode> children = GetAllSiblingsOfNodeType(node);
-                return !children.IsEmpty() && node.Equals(children[0]);
-            }
-        }
-
-        private class LastChildSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
-            private static readonly CssPseudoClassSelectorItem.LastChildSelectorItem instance = new CssPseudoClassSelectorItem.LastChildSelectorItem
-                ();
-
-            private LastChildSelectorItem()
-                : base(CssConstants.LAST_CHILD) {
-            }
-
-            public static CssPseudoClassSelectorItem.LastChildSelectorItem GetInstance() {
-                return instance;
-            }
-
-            public override bool Matches(INode node) {
-                if (!(node is IElementNode) || node is ICustomElementNode) {
-                    return false;
-                }
-                IList<INode> children = GetAllSiblings(node);
-                return !children.IsEmpty() && node.Equals(children[children.Count - 1]);
-            }
-        }
-
-        private class LastOfTypeSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
-            private static readonly CssPseudoClassSelectorItem.LastOfTypeSelectorItem instance = new CssPseudoClassSelectorItem.LastOfTypeSelectorItem
-                ();
-
-            private LastOfTypeSelectorItem()
-                : base(CssConstants.LAST_OF_TYPE) {
-            }
-
-            public static CssPseudoClassSelectorItem.LastOfTypeSelectorItem GetInstance() {
-                return instance;
-            }
-
-            public override bool Matches(INode node) {
-                if (!(node is IElementNode) || node is ICustomElementNode) {
-                    return false;
-                }
-                IList<INode> children = GetAllSiblingsOfNodeType(node);
-                return !children.IsEmpty() && node.Equals(children[children.Count - 1]);
-            }
-        }
-
-        private class NthSelectorItem : CssPseudoClassSelectorItem.ChildSelectorItem {
-            /// <summary>The nth A.</summary>
-            private int nthA;
-
-            /// <summary>The nth B.</summary>
-            private int nthB;
-
-            internal NthSelectorItem(String pseudoClass, String arguments)
-                : base(pseudoClass, arguments) {
-                GetNthArguments();
-            }
-
-            public override bool Matches(INode node) {
-                if (!(node is IElementNode) || node is ICustomElementNode) {
-                    return false;
-                }
-                IList<INode> children = GetAllSiblings(node);
-                return !children.IsEmpty() && ResolveNth(node, children);
-            }
-
-            /// <summary>Gets the nth arguments.</summary>
-            protected internal virtual void GetNthArguments() {
-                if (arguments.Matches("((-|\\+)?[0-9]*n(\\s*(-|\\+)\\s*[0-9]+)?|(-|\\+)?[0-9]+|odd|even)")) {
-                    if (arguments.Equals("odd")) {
-                        this.nthA = 2;
-                        this.nthB = 1;
-                    }
-                    else {
-                        if (arguments.Equals("even")) {
-                            this.nthA = 2;
-                            this.nthB = 0;
-                        }
-                        else {
-                            int indexOfN = arguments.IndexOf('n');
-                            if (indexOfN == -1) {
-                                this.nthA = 0;
-                                this.nthB = Convert.ToInt32(arguments);
-                            }
-                            else {
-                                String aParticle = arguments.JSubstring(0, indexOfN).Trim();
-                                if (String.IsNullOrEmpty(aParticle)) {
-                                    this.nthA = 0;
-                                }
-                                else {
-                                    if (aParticle.Length == 1 && !char.IsDigit(aParticle[0])) {
-                                        this.nthA = aParticle.Equals("+") ? 1 : -1;
-                                    }
-                                    else {
-                                        this.nthA = Convert.ToInt32(aParticle);
-                                    }
-                                }
-                                String bParticle = arguments.Substring(indexOfN + 1).Trim();
-                                if (!String.IsNullOrEmpty(bParticle)) {
-                                    this.nthB = Convert.ToInt32(bParticle[0] + bParticle.Substring(1).Trim());
-                                }
-                                else {
-                                    this.nthB = 0;
-                                }
-                            }
-                        }
-                    }
-                }
-                else {
-                    this.nthA = 0;
-                    this.nthB = 0;
-                }
-            }
-
-            /// <summary>Resolves the nth.</summary>
-            /// <param name="node">a node</param>
-            /// <param name="children">the children</param>
-            /// <returns>true, if successful</returns>
-            protected internal virtual bool ResolveNth(INode node, IList<INode> children) {
-                if (!children.Contains(node)) {
-                    return false;
-                }
-                if (this.nthA > 0) {
-                    int temp = children.IndexOf(node) + 1 - this.nthB;
-                    return temp >= 0 && temp % this.nthA == 0;
-                }
-                else {
-                    if (this.nthA < 0) {
-                        int temp = children.IndexOf(node) + 1 - this.nthB;
-                        return temp <= 0 && temp % this.nthA == 0;
-                    }
-                    else {
-                        return (children.IndexOf(node) + 1) - this.nthB == 0;
-                    }
-                }
-            }
-        }
-
-        private class NthChildSelectorItem : CssPseudoClassSelectorItem.NthSelectorItem {
-            internal NthChildSelectorItem(String arguments)
-                : base(CssConstants.NTH_CHILD, arguments) {
-            }
-        }
-
-        private class NthOfTypeSelectorItem : CssPseudoClassSelectorItem.NthSelectorItem {
-            public NthOfTypeSelectorItem(String arguments)
-                : base(CssConstants.NTH_OF_TYPE, arguments) {
-            }
-
-            public override bool Matches(INode node) {
-                if (!(node is IElementNode) || node is ICustomElementNode) {
-                    return false;
-                }
-                IList<INode> children = GetAllSiblingsOfNodeType(node);
-                return !children.IsEmpty() && ResolveNth(node, children);
-            }
-        }
-
-        private class NotSelectorItem : CssPseudoClassSelectorItem {
-            private ICssSelector argumentsSelector;
-
-            internal NotSelectorItem(ICssSelector argumentsSelector)
-                : base(CssConstants.NOT, argumentsSelector.ToString()) {
-                this.argumentsSelector = argumentsSelector;
-            }
-
-            public virtual IList<ICssSelectorItem> GetArgumentsSelector() {
-                return CssSelectorParser.ParseSelectorItems(arguments);
-            }
-
-            public override bool Matches(INode node) {
-                return !argumentsSelector.Matches(node);
-            }
         }
 
         private class AlwaysApplySelectorItem : CssPseudoClassSelectorItem {
