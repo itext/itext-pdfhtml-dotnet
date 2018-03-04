@@ -78,7 +78,6 @@ namespace iText.Html2pdf.Css {
             * now it points not only incorrect alignment vs float positioning, but also incorrect float area
             */
             //TODO: update cmp file after ticket DEVSIX-1268 fix (Float property...)
-            //TODO: update after DEVSIX-1437 fix (Fix edge cases for floats splitting)
             RunTest("blocksInsideParagraph", "diffInside01_");
         }
 

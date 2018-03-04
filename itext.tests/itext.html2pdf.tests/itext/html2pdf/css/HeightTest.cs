@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Test;
 
@@ -65,10 +66,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest01() {
             String testName = "heightTest01";
             String diffPrefix = "diff01_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -77,10 +75,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest02() {
             String testName = "heightTest02";
             String diffPrefix = "diff02_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -89,10 +84,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest03() {
             String testName = "heightTest03";
             String diffPrefix = "diff03_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -101,10 +93,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest04() {
             String testName = "heightTest04";
             String diffPrefix = "diff04_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -113,10 +102,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest05() {
             String testName = "heightTest05";
             String diffPrefix = "diff05_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -126,10 +112,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest06() {
             String testName = "heightTest06";
             String diffPrefix = "diff06_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -138,10 +121,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest07() {
             String testName = "heightTest07";
             String diffPrefix = "diff07_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -150,10 +130,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest08() {
             String testName = "heightTest08";
             String diffPrefix = "diff08_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -162,10 +139,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest09() {
             String testName = "heightTest09";
             String diffPrefix = "diff09_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -174,10 +148,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest10() {
             String testName = "heightTest10";
             String diffPrefix = "diff10_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -186,10 +157,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest11() {
             String testName = "heightTest11";
             String diffPrefix = "diff11_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -198,10 +166,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest12() {
             String testName = "heightTest12";
             String diffPrefix = "diff12_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -210,10 +175,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest13() {
             String testName = "heightTest13";
             String diffPrefix = "diff13_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -222,10 +184,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest14() {
             String testName = "heightTest14";
             String diffPrefix = "diff14_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -234,10 +193,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest15() {
             String testName = "heightTest15";
             String diffPrefix = "diff15_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -246,10 +202,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest16() {
             String testName = "heightTest16";
             String diffPrefix = "diff16_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -258,10 +211,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightTest17() {
             String testName = "heightTest17";
             String diffPrefix = "diff17_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -270,10 +220,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightWithCollapsingMarginsTest01() {
             String testName = "heightWithCollapsingMarginsTest01";
             String diffPrefix = "diffMargins01_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -282,10 +229,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightWithCollapsingMarginsTest03() {
             String testName = "heightWithCollapsingMarginsTest03";
             String diffPrefix = "diffMargins03_";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            RunTest(testName, diffPrefix);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -295,8 +239,16 @@ namespace iText.Html2pdf.Css {
             String testName = "heightWithCollapsingMarginsTest04";
             String diffPrefix = "diffMargins04_";
             // second paragraph should not be drawn in pdf, as it doesn't fit with it's margins
+            RunTest(testName, diffPrefix);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        public virtual void RunTest(String testName, String diffPrefix) {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
                  + testName + ".pdf"));
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + testName + ".html")
+                .AbsolutePath + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
                  + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
         }
