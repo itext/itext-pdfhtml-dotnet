@@ -53,9 +53,8 @@ namespace iText.Html2pdf.Css.Resolve {
         private static readonly IDictionary<String, String> defaultValues = new Dictionary<String, String>();
 
         static CssDefaults() {
-            // TODO make internal?
             defaultValues.Put(CssConstants.COLOR, "black");
-            // TODO not specified, varies from browser to browser
+            // not specified, varies from browser to browser
             defaultValues.Put(CssConstants.OPACITY, "1");
             defaultValues.Put(CssConstants.BACKGROUND_ATTACHMENT, CssConstants.SCROLL);
             defaultValues.Put(CssConstants.BACKGROUND_BLEND_MODE, CssConstants.NORMAL);
