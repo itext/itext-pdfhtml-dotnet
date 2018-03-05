@@ -388,6 +388,26 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockJustified01Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_inline-block_justified01.html"), new FileInfo
+                (destinationFolder + "display_inline-block_justified01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_inline-block_justified01.pdf"
+                , sourceFolder + "cmp_display_inline-block_justified01.pdf", destinationFolder, "diff21_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockJustified02Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_inline-block_justified02.html"), new FileInfo
+                (destinationFolder + "display_inline-block_justified02.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_inline-block_justified02.pdf"
+                , sourceFolder + "cmp_display_inline-block_justified02.pdf", destinationFolder, "diff22_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 7)]
         public virtual void InlineBlockInsideTableCellTest() {
             // IO setup
