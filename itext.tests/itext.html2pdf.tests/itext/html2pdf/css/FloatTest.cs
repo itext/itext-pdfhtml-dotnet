@@ -160,8 +160,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Float14Test() {
-            //NOTE: in this test overflow property creates new block-context and element is floating in this block context
-            //the block-context based floating is unsupported in iText
             RunTest("float14Test", "diff14_");
         }
 
