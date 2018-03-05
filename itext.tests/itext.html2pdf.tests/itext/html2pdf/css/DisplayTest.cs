@@ -408,6 +408,48 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest01() {
+            RunTest("displayInlineBlockYLineTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest02() {
+            RunTest("displayInlineBlockYLineTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest03() {
+            RunTest("displayInlineBlockYLineTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest04() {
+            RunTest("displayInlineBlockYLineTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest05() {
+            RunTest("displayInlineBlockYLineTest05");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest06() {
+            RunTest("displayInlineBlockYLineTest06");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 7)]
         public virtual void InlineBlockInsideTableCellTest() {
             // IO setup
@@ -422,6 +464,15 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "inlineBlockInsideTableCellTest.pdf"
                 , sourceFolder + "cmp_inlineBlockInsideTableCell.pdf", destinationFolder, "diffinlineBlockInsideTableCellTest_"
                 ));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String testName) {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_"));
         }
     }
 }
