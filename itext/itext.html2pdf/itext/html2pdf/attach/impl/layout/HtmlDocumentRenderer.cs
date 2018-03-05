@@ -148,12 +148,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 if (true.Equals(renderer.GetProperty<bool?>(Html2PdfProperty.KEEP_WITH_PREVIOUS))) {
                     waitingElement.SetProperty(Property.KEEP_WITH_NEXT, true);
                 }
-                base.AddChild(waitingElement);
-                if (!IsRunningElementsOnly(waitingElement)) {
+                IRenderer element = waitingElement;
+                waitingElement = null;
+                base.AddChild(element);
+                if (!IsRunningElementsOnly(element)) {
                     // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
                     shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
                 }
-                waitingElement = null;
             }
             waitingElement = renderer;
             FloatPropertyValue? floatPropertyValue = renderer.GetProperty<FloatPropertyValue?>(Property.FLOAT);
