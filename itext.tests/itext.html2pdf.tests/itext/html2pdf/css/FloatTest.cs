@@ -384,18 +384,14 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1268")]
         public virtual void Float44Test() {
-            // TODO DEVSIX-1268
             RunTest("float44Test", "diff44_");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1268")]
         public virtual void Float45Test() {
-            // TODO DEVSIX-1268
             RunTest("float45Test", "diff45_");
         }
 
