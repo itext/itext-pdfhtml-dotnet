@@ -58,8 +58,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// <summary>
     /// The
     /// <see cref="AbstractOneLineTextFieldRenderer"/>
-    /// implementation for buttons.
+    /// implementation for buttons with no kids.
     /// </summary>
+    [System.ObsoleteAttribute(@"Will be renamed to InputButtonRenderer in next major release.")]
     public class ButtonRenderer : AbstractOneLineTextFieldRenderer {
         /// <summary>Indicates of the content was split.</summary>
         private bool isSplit = false;
