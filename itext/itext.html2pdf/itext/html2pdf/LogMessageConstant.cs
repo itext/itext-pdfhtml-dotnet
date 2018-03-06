@@ -89,6 +89,9 @@ namespace iText.Html2pdf {
         /// <summary>The Constant NOT_SUPPORTED_LIST_STYLE_TYPE.</summary>
         public const String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
 
+        /// <summary>The Constant NOT_SUPPORTED_TH_SCOPE_TYPE.</summary>
+        public const String NOT_SUPPORTED_TH_SCOPE_TYPE = "Not supported th scope type: {0}. Document may not be compliant with PDF/UA standards.";
+
         /// <summary>The Constant NO_CONSUMER_FOUND_FOR_CONTENT.</summary>
         public const String NO_CONSUMER_FOUND_FOR_CONTENT = "No consumer found for content";
 

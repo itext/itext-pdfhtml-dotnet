@@ -40,9 +40,15 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
+using System;
+using Common.Logging;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
+using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Tagging;
+using iText.Kernel.Pdf.Tagutils;
 using iText.Layout;
 using iText.Layout.Tagging;
 
@@ -64,6 +70,29 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             IPropertyContainer elementResult = base.GetElementResult();
             if (elementResult is IAccessibleElement) {
                 ((IAccessibleElement)elementResult).GetAccessibilityProperties().SetRole(StandardRoles.TH);
+                if (context.GetPdfDocument().IsTagged()) {
+                    String scope = element.GetAttribute(AttributeConstants.SCOPE);
+                    AccessibilityProperties properties = ((IAccessibleElement)elementResult).GetAccessibilityProperties();
+                    PdfDictionary attributes = new PdfDictionary();
+                    attributes.Put(PdfName.O, PdfName.Table);
+                    if (scope != null && (scope.EqualsIgnoreCase(AttributeConstants.ROW) || scope.EqualsIgnoreCase(AttributeConstants
+                        .ROWGROUP))) {
+                        attributes.Put(PdfName.Scope, PdfName.Row);
+                        properties.AddAttributes(new PdfStructureAttributes(attributes));
+                    }
+                    else {
+                        if (scope != null && (scope.EqualsIgnoreCase(AttributeConstants.COL) || scope.EqualsIgnoreCase(AttributeConstants
+                            .COLGROUP))) {
+                            attributes.Put(PdfName.Scope, PdfName.Column);
+                            properties.AddAttributes(new PdfStructureAttributes(attributes));
+                        }
+                        else {
+                            ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.ThTagWorker));
+                            logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, scope)
+                                );
+                        }
+                    }
+                }
             }
         }
     }

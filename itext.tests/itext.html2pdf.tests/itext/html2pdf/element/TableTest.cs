@@ -47,6 +47,7 @@ using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class TableTest : ExtendedITextTest {
@@ -313,6 +314,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
         public virtual void ThTagTest() {
             RunTest("thTag", true);
         }
@@ -436,6 +438,13 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void SeparateBorder01() {
             RunTest("separateBorder01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ThScopeTaggedTest() {
+            RunTest("thTagScopeTagged", true);
         }
 
         /// <exception cref="System.IO.IOException"/>

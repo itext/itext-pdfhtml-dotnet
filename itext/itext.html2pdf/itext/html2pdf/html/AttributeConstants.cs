@@ -140,6 +140,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant ROWSPAN.</summary>
         public const String ROWSPAN = "rowspan";
 
+        /// <summary>The Constant SCOPE.</summary>
+        public const String SCOPE = "scope";
+
         /// <summary>The Constant SIZE.</summary>
         public const String SIZE = "size";
 
@@ -194,6 +197,12 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant CHECKED.</summary>
         public const String CHECKED = "checked";
 
+        /// <summary>The Constant COL.</summary>
+        public const String COL = "col";
+
+        /// <summary>The Constant COLGROUP.</summary>
+        public const String COLGROUP = "colgroup";
+
         /// <summary>The Constant EMAIL.</summary>
         public const String EMAIL = "email";
 
@@ -220,6 +229,12 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant RIGHT.</summary>
         public const String RIGHT = "right";
+
+        /// <summary>The Constant ROW.</summary>
+        public const String ROW = "row";
+
+        /// <summary>The Constant ROWGROUP.</summary>
+        public const String ROWGROUP = "rowgroup";
 
         /// <summary>The Constant RTL.</summary>
         public const String RTL = "rtl";
