@@ -6,12 +6,12 @@ using iText.Kernel.Utils;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class CssRootSelectorTest : ExtendedITextTest {
+    public class CssEmptySelectorTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssRootSelectorTest/";
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssEmptySelectorTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/css/CssRootSelectorTest/";
+             + "/test/itext/html2pdf/css/CssEmptySelectorTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
@@ -21,15 +21,8 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        public virtual void RootSelectorTest01() {
-            RunTest("rootSelectorTest01", "diffRoot01_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Test]
-        public virtual void RootAndNotRootTest() {
-            RunTest("rootAndNotRootTest", "diffRoot02_");
+        public virtual void CssEmptyNotEmptyNestedNodesTest() {
+            RunTest("cssEmptyNotEmptyNestedNodesTest", "diff01_");
         }
 
         /// <exception cref="System.IO.IOException"/>
