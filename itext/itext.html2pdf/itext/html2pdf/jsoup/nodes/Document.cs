@@ -43,7 +43,6 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.Text;
-using iText.Html2pdf.Jsoup;
 using iText.Html2pdf.Jsoup.Helper;
 using iText.Html2pdf.Jsoup.Select;
 using iText.IO.Util;
@@ -472,7 +471,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         private iText.Html2pdf.Jsoup.Nodes.Syntax syntax = iText.Html2pdf.Jsoup.Nodes.Syntax.html;
 
         public OutputSettings() {
-            charsetEncoder = PortUtil.NewEncoder(charset);
+            charsetEncoder = iText.IO.Util.TextUtil.NewEncoder(charset);
         }
 
         /// <summary>
@@ -524,7 +523,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         /// <returns>the document's output settings, for chaining</returns>
         public virtual iText.Html2pdf.Jsoup.Nodes.OutputSettings Charset(Encoding charset) {
             this.charset = charset;
-            charsetEncoder = PortUtil.NewEncoder(charset);
+            charsetEncoder = iText.IO.Util.TextUtil.NewEncoder(charset);
             return this;
         }
 

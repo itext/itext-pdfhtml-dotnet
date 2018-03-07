@@ -241,12 +241,12 @@ namespace iText.Html2pdf.Jsoup.Parser {
                 else {
                     // todo: implement number replacement table
                     // todo: check for extra illegal unicode points as parse errors
-                    if (charval < iText.Html2pdf.Jsoup.PortUtil.CHARACTER_MIN_SUPPLEMENTARY_CODE_POINT) {
+                    if (charval < iText.IO.Util.TextUtil.CHARACTER_MIN_SUPPLEMENTARY_CODE_POINT) {
                         charRef[0] = (char)charval;
                         return charRef;
                     }
                     else {
-                        return PortUtil.ToChars(charval);
+                        return iText.IO.Util.TextUtil.ToChars(charval);
                     }
                 }
             }

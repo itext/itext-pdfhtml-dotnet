@@ -130,7 +130,7 @@ namespace iText.Html2pdf.Css.Parse {
                                         );
                                 }
                                 else {
-                                    if (!TextUtil.IsWhiteSpace(curChar)) {
+                                    if (!iText.IO.Util.TextUtil.IsWhiteSpace(curChar)) {
                                         buff.Append(curChar);
                                     }
                                 }
@@ -187,7 +187,7 @@ namespace iText.Html2pdf.Css.Parse {
                                     return new CssDeclarationValueTokenizer.Token(",", CssDeclarationValueTokenizer.TokenType.COMMA);
                                 }
                                 else {
-                                    if (TextUtil.IsWhiteSpace(curChar)) {
+                                    if (iText.IO.Util.TextUtil.IsWhiteSpace(curChar)) {
                                         if (functionDepth > 0) {
                                             buff.Append(curChar);
                                         }

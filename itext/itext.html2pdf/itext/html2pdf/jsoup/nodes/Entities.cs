@@ -161,7 +161,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             IDictionary<char, String> map = escapeMode.GetMap();
             int length = str.Length;
             int codePoint;
-            for (int offset = 0; offset < length; offset += PortUtil.CharCount(codePoint)) {
+            for (int offset = 0; offset < length; offset += iText.IO.Util.TextUtil.CharCount(codePoint)) {
                 codePoint = str.CodePointAt(offset);
                 if (normaliseWhite) {
                     if (iText.Html2pdf.Jsoup.Helper.StringUtil.IsWhitespace(codePoint)) {
@@ -178,7 +178,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
                     }
                 }
                 // surrogate pairs, split implementation for efficiency on single char common case (saves creating strings, char[]):
-                if (codePoint < iText.Html2pdf.Jsoup.PortUtil.CHARACTER_MIN_SUPPLEMENTARY_CODE_POINT) {
+                if (codePoint < iText.IO.Util.TextUtil.CHARACTER_MIN_SUPPLEMENTARY_CODE_POINT) {
                     char c = (char)codePoint;
                     switch (c) {
                         case '&': {
@@ -245,7 +245,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
                     }
                 }
                 else {
-                    String c = new String(PortUtil.ToChars(codePoint));
+                    String c = new String(iText.IO.Util.TextUtil.ToChars(codePoint));
                     if (encoder.CanEncode(c)) {
                         // uses fallback encoder for simplicity
                         accum.Append(c);

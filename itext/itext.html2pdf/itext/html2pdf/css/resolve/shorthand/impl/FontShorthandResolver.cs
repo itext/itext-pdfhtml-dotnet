@@ -154,7 +154,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                         sb.Append(currentChar);
                     }
                     else {
-                        if (!doubleQuotesAreSpotted && !singleQuoteIsSpotted && TextUtil.IsWhiteSpace(currentChar)) {
+                        if (!doubleQuotesAreSpotted && !singleQuoteIsSpotted && iText.IO.Util.TextUtil.IsWhiteSpace(currentChar)) {
                             if (sb.Length > 0) {
                                 properties.Add(sb.ToString());
                                 sb = new StringBuilder();

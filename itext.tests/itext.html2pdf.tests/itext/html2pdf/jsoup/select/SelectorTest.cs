@@ -41,7 +41,6 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using iText.Html2pdf.Jsoup;
 using iText.Html2pdf.Jsoup.Nodes;
 
 namespace iText.Html2pdf.Jsoup.Select {
@@ -670,7 +669,7 @@ namespace iText.Html2pdf.Jsoup.Select {
 
         [NUnit.Framework.Test]
         public virtual void SelectSupplementaryCharacter() {
-            String s = new String(PortUtil.ToChars(135361));
+            String s = new String(iText.IO.Util.TextUtil.ToChars(135361));
             Document doc = iText.Html2pdf.Jsoup.Jsoup.Parse("<div k" + s + "='" + s + "'>^" + s + "$/div>");
             NUnit.Framework.Assert.AreEqual("div", doc.Select("div[k" + s + "]").First().TagName());
             NUnit.Framework.Assert.AreEqual("div", doc.Select("div:containsOwn(" + s + ")").First().TagName());
