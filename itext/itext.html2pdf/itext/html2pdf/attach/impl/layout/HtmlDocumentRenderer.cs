@@ -318,9 +318,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return estimatedNumberOfPages;
         }
 
-        /// <summary>Gets the next page processor.</summary>
-        /// <param name="firstPage">the first page</param>
-        /// <returns>the next page processor</returns>
+        /// <summary>Gets a page processor for the page.</summary>
+        /// <param name="pageNum">
+        /// the number of the page for which the
+        /// <see cref="PageContextProcessor"/>
+        /// shall be obtained
+        /// </param>
+        /// <returns>a page processor</returns>
         private PageContextProcessor GetPageProcessor(int pageNum) {
             // If first page, but break-before: left for ltr is present, we should use left page instead of first
             if (pageNum == 1 && evenPagesAreLeft) {
