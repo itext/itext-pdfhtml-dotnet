@@ -94,38 +94,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             flatRenderer = null;
             float parentWidth = layoutContext.GetArea().GetBBox().GetWidth();
             float parentHeight = layoutContext.GetArea().GetBBox().GetHeight();
-            UnitValue minHeight = this.GetProperty<UnitValue>(Property.MIN_HEIGHT);
-            UnitValue maxHeight = this.GetProperty<UnitValue>(Property.MAX_HEIGHT);
-            UnitValue height = this.GetProperty<UnitValue>(Property.HEIGHT);
-            bool restoreMinHeight = HasOwnProperty(Property.MIN_HEIGHT);
-            bool restoreMaxHeight = HasOwnProperty(Property.MAX_HEIGHT);
-            bool restoreHeight = HasOwnProperty(Property.HEIGHT);
-            SetProperty(Property.MIN_HEIGHT, null);
-            SetProperty(Property.MAX_HEIGHT, null);
-            SetProperty(Property.HEIGHT, null);
             IRenderer renderer = CreateFlatRenderer();
+            renderer.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
+            renderer.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
             AddChild(renderer);
             Rectangle bBox = layoutContext.GetArea().GetBBox().Clone().MoveDown(INF - parentHeight).SetHeight(INF);
             layoutContext.GetArea().SetBBox(bBox);
             LayoutResult result = base.Layout(layoutContext);
-            if (restoreMinHeight) {
-                SetProperty(Property.MIN_HEIGHT, minHeight);
-            }
-            else {
-                DeleteOwnProperty(Property.MIN_HEIGHT);
-            }
-            if (restoreMaxHeight) {
-                SetProperty(Property.MAX_HEIGHT, maxHeight);
-            }
-            else {
-                DeleteOwnProperty(Property.MAX_HEIGHT);
-            }
-            if (restoreHeight) {
-                SetProperty(Property.HEIGHT, height);
-            }
-            else {
-                DeleteOwnProperty(Property.HEIGHT);
-            }
             if (!true.Equals(GetPropertyAsBoolean(Property.FORCED_PLACEMENT)) && (result.GetStatus() != LayoutResult.FULL
                 )) {
                 //@TODO investigate this tricky code a little more.
@@ -164,13 +139,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 LogManager.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD);
                 occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
             }
-            if (!true.Equals(GetPropertyAsBoolean(Property.FORCED_PLACEMENT)) && !IsRendererFit(parentWidth, parentHeight
-                )) {
-                SetProperty(Property.FORCED_PLACEMENT, true);
-                occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
-                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new 
-                    MinMaxWidth());
-            }
             if (result.GetStatus() != LayoutResult.FULL || !IsRendererFit(parentWidth, parentHeight)) {
                 LogManager.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
             }
@@ -194,7 +162,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             drawContext.GetCanvas().SaveState();
             bool flatten = IsFlatten();
             if (flatten) {
-                drawContext.GetCanvas().Rectangle(occupiedArea.GetBBox()).Clip().NewPath();
+                drawContext.GetCanvas().Rectangle(ApplyBorderBox(occupiedArea.GetBBox(), false)).Clip().NewPath();
                 flatRenderer.Draw(drawContext);
             }
             else {
@@ -220,27 +188,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected override MinMaxWidth GetMinMaxWidth() {
             childRenderers.Clear();
             flatRenderer = null;
-            UnitValue maxHeight = this.GetProperty<UnitValue>(Property.MAX_HEIGHT);
-            UnitValue height = this.GetProperty<UnitValue>(Property.HEIGHT);
-            bool restoreMaxHeight = HasOwnProperty(Property.MAX_HEIGHT);
-            bool restoreHeight = HasOwnProperty(Property.HEIGHT);
-            SetProperty(Property.MAX_HEIGHT, null);
-            SetProperty(Property.HEIGHT, null);
             IRenderer renderer = CreateFlatRenderer();
             AddChild(renderer);
             MinMaxWidth minMaxWidth = base.GetMinMaxWidth();
-            if (restoreMaxHeight) {
-                SetProperty(Property.MAX_HEIGHT, maxHeight);
-            }
-            else {
-                DeleteOwnProperty(Property.MAX_HEIGHT);
-            }
-            if (restoreHeight) {
-                SetProperty(Property.HEIGHT, height);
-            }
-            else {
-                DeleteOwnProperty(Property.HEIGHT);
-            }
             return minMaxWidth;
         }
 
