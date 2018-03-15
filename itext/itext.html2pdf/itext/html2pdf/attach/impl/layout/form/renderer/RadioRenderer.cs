@@ -50,7 +50,6 @@ using iText.Kernel.Colors;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
-using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
@@ -60,40 +59,47 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// <summary>
     /// The
     /// <see cref="AbstractOneLineTextFieldRenderer"/>
-    /// implementation for checkboxes.
+    /// implementation for radio buttons.
     /// </summary>
-    public class CheckBoxRenderer : AbstractFormFieldRenderer {
-        private static readonly Color DEFAULT_BORDER_COLOR = ColorConstants.DARK_GRAY;
+    public class RadioRenderer : AbstractFormFieldRenderer {
+        private static readonly Color DEFAULT_CHECKED_COLOR = ColorConstants.BLACK;
 
-        private static readonly Color DEFAULT_BACKGROUND_COLOR = ColorConstants.WHITE;
-
-        private const float DEFAULT_BORDER_WIDTH = 0.75f;
+        private static readonly Color DEFAULT_COLOR = ColorConstants.LIGHT_GRAY;
 
         private const float DEFAULT_SIZE = 8.25f;
 
+        private static readonly HorizontalAlignment? DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.CENTER;
+
+        private static readonly VerticalAlignment? DEFAULT_VERTICAL_ALIGNMENT = VerticalAlignment.MIDDLE;
+
         /// <summary>
         /// Creates a new
-        /// <see cref="CheckBoxRenderer"/>
+        /// <see cref="RadioRenderer"/>
         /// instance.
         /// </summary>
         /// <param name="modelElement">the model element</param>
-        public CheckBoxRenderer(CheckBox modelElement)
+        public RadioRenderer(Radio modelElement)
             : base(modelElement) {
+            // 11px
+            SetProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.MIDDLE);
         }
 
-        // 1px
-        // 11px
         /* (non-Javadoc)
         * @see com.itextpdf.layout.renderer.IRenderer#getNextRenderer()
         */
         public override IRenderer GetNextRenderer() {
-            return new iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.CheckBoxRenderer((CheckBox)modelElement);
+            return new iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.RadioRenderer((Radio)modelElement);
         }
 
         protected internal override IRenderer CreateFlatRenderer() {
-            Paragraph paragraph = new Paragraph().SetWidth(DEFAULT_SIZE).SetHeight(DEFAULT_SIZE).SetBorder(new SolidBorder
-                (DEFAULT_BORDER_COLOR, DEFAULT_BORDER_WIDTH)).SetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
-            return new CheckBoxRenderer.FlatParagraphRenderer(this, paragraph);
+            UnitValue heightUV = GetPropertyAsUnitValue(Property.HEIGHT);
+            UnitValue widthUV = GetPropertyAsUnitValue(Property.WIDTH);
+            float height = null == heightUV ? DEFAULT_SIZE : heightUV.GetValue();
+            float width = null == widthUV ? DEFAULT_SIZE : widthUV.GetValue();
+            float size = Math.Min(height, width);
+            Paragraph paragraph = new Paragraph().SetWidth(size).SetHeight(size).SetHorizontalAlignment(DEFAULT_HORIZONTAL_ALIGNMENT
+                ).SetVerticalAlignment(DEFAULT_VERTICAL_ALIGNMENT);
+            return new RadioRenderer.FlatParagraphRenderer(this, paragraph);
         }
 
         protected internal override void AdjustFieldLayout() {
@@ -108,8 +114,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             this.SetProperty(Property.BACKGROUND, null);
         }
 
-        /// <summary>Defines whether the box is checked or not.</summary>
-        /// <returns>the default value of the checkbox field</returns>
+        /// <summary>Defines whether the radio is checked or not.</summary>
+        /// <returns>the default value of the radio field</returns>
         public virtual bool IsBoxChecked() {
             return null != this.GetProperty<Object>(Html2PdfProperty.FORM_FIELD_CHECKED);
         }
@@ -118,12 +124,21 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
         */
         protected internal override void ApplyAcroField(DrawContext drawContext) {
-            String name = GetModelId();
             PdfDocument doc = drawContext.GetDocument();
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
-            PdfButtonFormField checkBox = PdfFormField.CreateCheckBox(doc, area, name, IsBoxChecked() ? "Yes" : "Off");
-            PdfAcroForm.GetAcroForm(doc, true).AddField(checkBox, page);
+            String groupName = this.GetProperty<String>(Html2PdfProperty.FORM_FIELD_VALUE);
+            PdfButtonFormField radioGroup = (PdfButtonFormField)PdfAcroForm.GetAcroForm(doc, true).GetField(groupName);
+            if (null == radioGroup) {
+                radioGroup = PdfFormField.CreateRadioGroup(doc, groupName, "on");
+            }
+            if (IsBoxChecked()) {
+                radioGroup.SetValue(GetModelId());
+            }
+            PdfButtonFormField field = (PdfButtonFormField)PdfFormField.CreateRadioButton(doc, area, radioGroup, GetModelId
+                ());
+            field.SetCheckType(PdfFormField.TYPE_CIRCLE);
+            PdfAcroForm.GetAcroForm(doc, true).AddField(radioGroup, page);
         }
 
         protected internal override bool IsLayoutBasedOnFlatRenderer() {
@@ -131,24 +146,26 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         }
 
         private class FlatParagraphRenderer : ParagraphRenderer {
-            public FlatParagraphRenderer(CheckBoxRenderer _enclosing, Paragraph modelElement)
+            public FlatParagraphRenderer(RadioRenderer _enclosing, Paragraph modelElement)
                 : base(modelElement) {
                 this._enclosing = _enclosing;
             }
 
             public override void DrawChildren(DrawContext drawContext) {
+                PdfCanvas canvas = drawContext.GetCanvas();
+                Rectangle rectangle = this._enclosing.flatRenderer.GetOccupiedArea().GetBBox();
+                float radius = (float)Math.Min(rectangle.GetWidth(), rectangle.GetHeight()) / 2;
+                canvas.SaveState();
+                canvas.SetFillColor(RadioRenderer.DEFAULT_COLOR);
+                DrawingUtil.DrawCircle(canvas, rectangle.GetLeft() + radius, rectangle.GetBottom() + radius, radius);
                 if (this._enclosing.IsBoxChecked()) {
-                    PdfCanvas canvas = drawContext.GetCanvas();
-                    Rectangle rectangle = this.GetInnerAreaBBox();
-                    canvas.SaveState();
-                    canvas.SetFillColor(ColorConstants.BLACK);
-                    DrawingUtil.DrawPdfACheck(canvas, rectangle.GetWidth(), rectangle.GetHeight(), rectangle.GetLeft(), rectangle
-                        .GetBottom());
-                    canvas.RestoreState();
+                    canvas.SetFillColor(RadioRenderer.DEFAULT_CHECKED_COLOR);
+                    DrawingUtil.DrawCircle(canvas, rectangle.GetLeft() + radius, rectangle.GetBottom() + radius, radius / 2);
                 }
+                canvas.RestoreState();
             }
 
-            private readonly CheckBoxRenderer _enclosing;
+            private readonly RadioRenderer _enclosing;
         }
     }
 }

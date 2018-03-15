@@ -84,6 +84,9 @@ namespace iText.Html2pdf.Attach {
         /// <summary>The form field name resolver.</summary>
         private FormFieldNameResolver formFieldNameResolver;
 
+        /// <summary>The radio check resolver.</summary>
+        private RadioCheckResolver radioCheckResolver;
+
         /// <summary>The outline handler.</summary>
         private OutlineHandler outlineHandler;
 
@@ -147,6 +150,7 @@ namespace iText.Html2pdf.Attach {
             linkContext = new LinkContext();
             createAcroForm = converterProperties.IsCreateAcroForm();
             formFieldNameResolver = new FormFieldNameResolver();
+            radioCheckResolver = new RadioCheckResolver();
             immediateFlush = converterProperties.IsImmediateFlush();
         }
 
@@ -226,6 +230,12 @@ namespace iText.Html2pdf.Attach {
         /// <returns>the form field name resolver</returns>
         public virtual FormFieldNameResolver GetFormFieldNameResolver() {
             return formFieldNameResolver;
+        }
+
+        /// <summary>Gets the radio check resolver.</summary>
+        /// <returns>the radio check resolver</returns>
+        public virtual RadioCheckResolver GetRadioCheckResolver() {
+            return radioCheckResolver;
         }
 
         /// <summary>Gets the outline handler.</summary>

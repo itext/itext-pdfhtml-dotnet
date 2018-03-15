@@ -113,12 +113,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                     childRenderers.Clear();
                     childRenderers.Add(flatRenderer);
                     AdjustFieldLayout(layoutContext);
-                    Rectangle fBox = flatRenderer.GetOccupiedArea().GetBBox();
-                    occupiedArea.GetBBox().SetX(fBox.GetX()).SetY(fBox.GetY()).SetWidth(fBox.GetWidth()).SetHeight(fBox.GetHeight
-                        ());
-                    ApplyPaddings(occupiedArea.GetBBox(), true);
-                    ApplyBorderBox(occupiedArea.GetBBox(), true);
-                    ApplyMargins(occupiedArea.GetBBox(), true);
+                    if (IsLayoutBasedOnFlatRenderer()) {
+                        Rectangle fBox = flatRenderer.GetOccupiedArea().GetBBox();
+                        occupiedArea.GetBBox().SetX(fBox.GetX()).SetY(fBox.GetY()).SetWidth(fBox.GetWidth()).SetHeight(fBox.GetHeight
+                            ());
+                        ApplyPaddings(occupiedArea.GetBBox(), true);
+                        ApplyBorderBox(occupiedArea.GetBBox(), true);
+                        ApplyMargins(occupiedArea.GetBBox(), true);
+                    }
                 }
                 return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new 
                     MinMaxWidth());
@@ -128,17 +130,27 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 childRenderers.Clear();
                 childRenderers.Add(flatRenderer);
                 AdjustFieldLayout(layoutContext);
-                Rectangle fBox = flatRenderer.GetOccupiedArea().GetBBox();
-                occupiedArea.GetBBox().SetX(fBox.GetX()).SetY(fBox.GetY()).SetWidth(fBox.GetWidth()).SetHeight(fBox.GetHeight
-                    ());
-                ApplyPaddings(occupiedArea.GetBBox(), true);
-                ApplyBorderBox(occupiedArea.GetBBox(), true);
-                ApplyMargins(occupiedArea.GetBBox(), true);
+                if (IsLayoutBasedOnFlatRenderer()) {
+                    Rectangle fBox = flatRenderer.GetOccupiedArea().GetBBox();
+                    occupiedArea.GetBBox().SetX(fBox.GetX()).SetY(fBox.GetY()).SetWidth(fBox.GetWidth()).SetHeight(fBox.GetHeight
+                        ());
+                    ApplyPaddings(occupiedArea.GetBBox(), true);
+                    ApplyBorderBox(occupiedArea.GetBBox(), true);
+                    ApplyMargins(occupiedArea.GetBBox(), true);
+                }
             }
             else {
                 LogManager.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD);
                 occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
             }
+            if (!true.Equals(GetPropertyAsBoolean(Property.FORCED_PLACEMENT)) && !IsRendererFit(parentWidth, parentHeight
+                ))
+            {
+                occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
+                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new
+                    MinMaxWidth());
+            }
+
             if (result.GetStatus() != LayoutResult.FULL || !IsRendererFit(parentWidth, parentHeight)) {
                 LogManager.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
             }
@@ -244,6 +256,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 return GetContentWidth();
             }
             return base.RetrieveWidth(parentBoxWidth);
+        }
+
+        protected internal virtual bool IsLayoutBasedOnFlatRenderer()
+        {
+            return true;
         }
     }
 }
