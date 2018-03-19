@@ -187,20 +187,28 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         }
 
         protected override bool SetMinMaxWidthBasedOnFixedWidth(MinMaxWidth minMaxWidth) {
-            if (!HasAbsoluteUnitValue(Property.WIDTH)) {
-                UnitValue width = this.GetProperty<UnitValue>(Property.WIDTH);
+            bool result = false;
+            if (HasRelativeUnitValue(Property.WIDTH)) {
+                UnitValue widthUV = this.GetProperty<UnitValue>(Property.WIDTH);
                 bool restoreWidth = HasOwnProperty(Property.WIDTH);
                 SetProperty(Property.WIDTH, null);
-                bool result = base.SetMinMaxWidthBasedOnFixedWidth(minMaxWidth);
+                float? width = RetrieveWidth(0);
+                if (width != null) {
+                    // the field can be shrinked if necessary so only max width is set here
+                    minMaxWidth.SetChildrenMaxWidth((float)width);
+                    result = true;
+                }
                 if (restoreWidth) {
-                    SetProperty(Property.WIDTH, width);
+                    SetProperty(Property.WIDTH, widthUV);
                 }
                 else {
                     DeleteOwnProperty(Property.WIDTH);
                 }
-                return result;
             }
-            return base.SetMinMaxWidthBasedOnFixedWidth(minMaxWidth);
+            else {
+                result = base.SetMinMaxWidthBasedOnFixedWidth(minMaxWidth);
+            }
+            return result;
         }
 
         /// <summary>Obfuscates the content of a password input field.</summary>
