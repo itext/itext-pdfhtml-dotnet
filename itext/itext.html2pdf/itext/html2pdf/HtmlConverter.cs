@@ -55,6 +55,7 @@ using iText.Layout.Element;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
+using iText.IO.Log;
 using Versions.Attributes;
 using iText.Kernel;
 
@@ -657,7 +658,7 @@ namespace iText.Html2pdf {
                 {
                     fileLoadExceptionMessage = fileLoadException.Message;
                 }
-                if (fileLoadExceptionMessage != null)
+                if (type == null)
                 {
                     try
                     {
@@ -666,6 +667,9 @@ namespace iText.Html2pdf {
                     catch
                     {
                         // empty
+                    }
+                    if (type == null && fileLoadExceptionMessage != null) {
+                        LoggerFactory.GetLogger(typeof(HtmlConverter)).Error(fileLoadExceptionMessage);
                     }
                 }
             }
