@@ -49,6 +49,7 @@ using iText.Html2pdf.Css.Parse.Syntax;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
+using Common.Logging;
 using Versions.Attributes;
 using iText.Kernel;
 
@@ -139,7 +140,7 @@ namespace iText.Html2pdf.Css.Parse {
                 {
                     fileLoadExceptionMessage = fileLoadException.Message;
                 }
-                if (fileLoadExceptionMessage != null)
+                if (type == null)
                 {
                     try
                     {
@@ -148,6 +149,9 @@ namespace iText.Html2pdf.Css.Parse {
                     catch
                     {
                         // empty
+                    }
+                    if (type == null && fileLoadExceptionMessage != null) {
+                        LogManager.GetLogger(typeof(CssStyleSheetParser)).Error(fileLoadExceptionMessage);
                     }
                 }
             }

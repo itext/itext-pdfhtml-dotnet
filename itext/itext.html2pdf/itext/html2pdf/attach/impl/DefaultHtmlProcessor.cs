@@ -193,7 +193,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 {
                     fileLoadExceptionMessage = fileLoadException.Message;
                 }
-                if (fileLoadExceptionMessage != null)
+                if (type == null)
                 {
                     try
                     {
@@ -202,6 +202,9 @@ namespace iText.Html2pdf.Attach.Impl {
                     catch
                     {
                         // empty
+                    }
+                    if (type == null && fileLoadExceptionMessage != null) {
+                        LogManager.GetLogger(typeof(DefaultHtmlProcessor)).Error(fileLoadExceptionMessage);
                     }
                 }
             }
