@@ -70,7 +70,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             IPropertyContainer elementResult = base.GetElementResult();
             if (elementResult is IAccessibleElement) {
                 ((IAccessibleElement)elementResult).GetAccessibilityProperties().SetRole(StandardRoles.TH);
-                if (context.GetPdfDocument().IsTagged()) {
+                if (context.GetPdfDocument() == null || context.GetPdfDocument().IsTagged()) {
                     String scope = element.GetAttribute(AttributeConstants.SCOPE);
                     AccessibilityProperties properties = ((IAccessibleElement)elementResult).GetAccessibilityProperties();
                     PdfDictionary attributes = new PdfDictionary();
