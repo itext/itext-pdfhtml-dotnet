@@ -40,9 +40,14 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
+using System;
+using System.Collections.Generic;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Css.Apply;
+using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Html.Node;
+using iText.Layout;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     /// <summary>
@@ -50,13 +55,25 @@ namespace iText.Html2pdf.Css.Apply.Impl {
     /// implementation for Body elements.
     /// </summary>
     public class BodyTagCssApplier : ICssApplier {
-        //TODO apply background property, margins. I am not sure if we should extend from BlockCssApplier
+        //TODO apply background property.
         //DEVSIX-940
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
         */
         public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
             ) {
+            IDictionary<String, String> cssProps = stylesContainer.GetStyles();
+            BodyHtmlStylesContainer styleProperty = new BodyHtmlStylesContainer();
+            IPropertyContainer container = tagWorker.GetElementResult();
+            if (container != null) {
+                //            BackgroundApplierUtil.applyBackground(cssProps, context, styleProperty);
+                MarginApplierUtil.ApplyMargins(cssProps, context, styleProperty);
+                PaddingApplierUtil.ApplyPaddings(cssProps, context, styleProperty);
+                BorderStyleApplierUtil.ApplyBorders(cssProps, context, styleProperty);
+                if (styleProperty.HasStylesToApply()) {
+                    container.SetProperty(Html2PdfProperty.BODY_STYLING, styleProperty);
+                }
+            }
         }
     }
 }

@@ -40,6 +40,7 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
+using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css.Page;
@@ -48,6 +49,8 @@ using iText.Html2pdf.Html.Node;
 using iText.Kernel.Events;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Layout;
@@ -305,11 +308,40 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
             nextProcessor.ProcessNewPage(addedPage);
             float[] margins = nextProcessor.ComputeLayoutMargins();
-            SetProperty(Property.MARGIN_TOP, margins[0]);
-            SetProperty(Property.MARGIN_RIGHT, margins[1]);
-            SetProperty(Property.MARGIN_BOTTOM, margins[2]);
-            SetProperty(Property.MARGIN_LEFT, margins[3]);
+            float[] htmlStylesWidth = ApplyHtmlBodyMarginsBorders(addedPage, margins, false);
+            float[] simulatedMarginForBody = new float[4];
+            for (int i = 0; i < 4; i++) {
+                simulatedMarginForBody[i] = margins[i] + htmlStylesWidth[i];
+            }
+            float[] bodyStylesWidth = ApplyHtmlBodyMarginsBorders(addedPage, simulatedMarginForBody, true);
+            SetProperty(Property.MARGIN_TOP, margins[0] + htmlStylesWidth[0] + bodyStylesWidth[0]);
+            SetProperty(Property.MARGIN_RIGHT, margins[1] + htmlStylesWidth[1] + bodyStylesWidth[1]);
+            SetProperty(Property.MARGIN_BOTTOM, margins[2] + htmlStylesWidth[2] + bodyStylesWidth[2]);
+            SetProperty(Property.MARGIN_LEFT, margins[3] + htmlStylesWidth[3] + bodyStylesWidth[3]);
             return new PageSize(addedPage.GetTrimBox());
+        }
+
+        private float[] ApplyHtmlBodyMarginsBorders(PdfPage page, float[] defaultMargins, bool body) {
+            int htmlOrBodyStylingProperty = body ? Html2PdfProperty.BODY_STYLING : Html2PdfProperty.HTML_STYLING;
+            BodyHtmlStylesContainer styles = ((IPropertyContainer)document).GetProperty<BodyHtmlStylesContainer>(htmlOrBodyStylingProperty
+                );
+            if (styles == null) {
+                return new float[4];
+            }
+            if (styles.HasBordersToDraw()) {
+                Div pageBordersSimulation;
+                pageBordersSimulation = new Div().SetFillAvailableArea(true);
+                foreach (KeyValuePair<int, Object> entry in styles.properties) {
+                    pageBordersSimulation.SetProperty(entry.Key, entry.Value);
+                }
+                pageBordersSimulation.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
+                iText.Layout.Canvas canvas = new Canvas(new PdfCanvas(page), page.GetDocument(), page.GetTrimBox().ApplyMargins
+                    (defaultMargins[0], defaultMargins[1], defaultMargins[2], defaultMargins[3], false));
+                canvas.EnableAutoTagging(page);
+                canvas.Add(pageBordersSimulation);
+                canvas.Close();
+            }
+            return styles.GetTotalWidth();
         }
 
         /// <summary>Gets the estimated number of pages.</summary>

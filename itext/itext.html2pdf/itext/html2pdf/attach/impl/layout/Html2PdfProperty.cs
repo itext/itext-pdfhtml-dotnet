@@ -74,5 +74,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>The Constant FORM_FIELD_CHECKED.</summary>
         public const int FORM_FIELD_CHECKED = PROPERTY_START + 9;
+
+        /// <summary>The Constant BODY_STYLING.</summary>
+        public const int BODY_STYLING = PROPERTY_START + 10;
+
+        /// <summary>The Constant HTML_STYLING.</summary>
+        public const int HTML_STYLING = PROPERTY_START + 11;
     }
 }

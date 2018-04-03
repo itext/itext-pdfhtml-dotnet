@@ -286,6 +286,8 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
                 context.GetOutlineHandler().AddOutline(tagWorker, element, context);
                 VisitPseudoElement(element, CssConstants.BEFORE);
+                if (element.Name().Equals(TagConstants.BODY) || element.Name().Equals(TagConstants.HTML))
+                    RunApplier(element, tagWorker);
                 foreach (INode childNode in element.ChildNodes()) {
                     Visit(childNode);
                 }
@@ -295,16 +297,8 @@ namespace iText.Html2pdf.Attach.Impl {
                     LinkHelper.CreateDestination(tagWorker, element, context);
                     context.GetOutlineHandler().AddDestination(tagWorker, element);
                     context.GetState().Pop();
-                    ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(element);
-                    if (cssApplier == null) {
-                        if (!ignoredCssTags.Contains(element.Name())) {
-                            logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element
-                                .Name()));
-                        }
-                    }
-                    else {
-                        cssApplier.Apply(context, element, tagWorker);
-                    }
+                    if (!element.Name().Equals(TagConstants.BODY) && !element.Name().Equals(TagConstants.HTML))
+                        RunApplier(element, tagWorker);
                     if (!context.GetState().Empty()) {
                         PageBreakApplierUtil.AddPageBreakElementBefore(context, context.GetState().Top(), element, tagWorker);
                         tagWorker = ProcessRunningElement(tagWorker, element, context);
@@ -339,6 +333,22 @@ namespace iText.Html2pdf.Attach.Impl {
                         }
                     }
                 }
+            }
+        }
+
+        private void RunApplier(IElementNode element, ITagWorker tagWorker) {
+            ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(element);
+            if (cssApplier == null)
+            {
+                if (!ignoredCssTags.Contains(element.Name()))
+                {
+                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element
+                        .Name()));
+                }
+            }
+            else
+            {
+                cssApplier.Apply(context, element, tagWorker);
             }
         }
 

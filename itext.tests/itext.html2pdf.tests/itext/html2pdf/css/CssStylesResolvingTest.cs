@@ -228,9 +228,8 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest11() {
-            Test("htmlStylesConvertingTest10.html", "html body", "background-color: yellow", "font-size: 12.0pt", "margin-bottom: 10%"
-                , "margin-left: 10%", "margin-right: 10%", "margin-top: 10%", "display: block", "font-family: times-roman"
-                );
+            Test("htmlStylesConvertingTest10.html", "html body", "background-color: yellow", "font-size: 12.0pt", "display: block"
+                , "font-family: times-roman");
         }
 
         private void ResolveStylesForTree(INode node, ICssResolver cssResolver, CssContext context) {
