@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.IO.Font.Otf;
@@ -26,6 +27,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             : base(modelElement) {
             AddChild(CreateFlatRenderer());
             SetProperty(Property.SPLIT_CHARACTERS, new AbstractSelectFieldRenderer.NoSplitCharacters());
+            if (!IsFlatten()) {
+                // TODO DEVSIX-1901
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.AbstractSelectFieldRenderer
+                    ));
+                logger.Warn(iText.Html2pdf.LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT);
+                SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
+            }
         }
 
         public override LayoutResult Layout(LayoutContext layoutContext) {
@@ -70,8 +78,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         }
 
         public override void DrawChildren(DrawContext drawContext) {
-            if (true) {
-                // TODO isFlatten
+            if (IsFlatten()) {
                 base.DrawChildren(drawContext);
             }
             else {
@@ -82,6 +89,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected internal abstract IRenderer CreateFlatRenderer();
 
         protected internal abstract void ApplyAcroField(DrawContext drawContext);
+
+        /// <summary>Checks if form fields need to be flattened.</summary>
+        /// <returns>true, if fields need to be flattened</returns>
+        protected internal virtual bool IsFlatten() {
+            return (bool)GetPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_FLATTEN);
+        }
+
+        /// <summary>Gets the model id.</summary>
+        /// <returns>the model id</returns>
+        protected internal virtual String GetModelId() {
+            return ((IFormField)GetModelElement()).GetId();
+        }
 
         protected internal virtual float GetFinalSelectFieldHeight(float availableHeight, float actualHeight, bool
              isClippedHeight) {

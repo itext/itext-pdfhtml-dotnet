@@ -62,7 +62,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public override bool ProcessContent(String content, ProcessorContext context) {
             content = content.Trim();
-            // TODO white-space:pre is overridden in chrome in user agent css for list-boxes, we don't do this for now
+            // white-space:pre is overridden in chrome in user agent css for list-boxes, we don't do this for now
             if (labelAttrVal != null) {
                 if (!labelReplacedContent) {
                     labelReplacedContent = true;
@@ -75,7 +75,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (!fakedContent) {
                 actualOptionTextContent.Append(content);
             }
-            // TODO spaces are not collapsed according to white-space property in here
+            // TODO DEVSIX-1901: spaces are not collapsed according to white-space property in here
             return true;
         }
 

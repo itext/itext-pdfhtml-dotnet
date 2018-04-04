@@ -34,11 +34,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             LayoutResult layoutResult = base.Layout(layoutContext);
             // options container is the only kid of the select field renderer by design
             IRenderer optionsContainer = childRenderers.Count == 1 ? childRenderers[0] : null;
-            if (layoutResult.GetStatus() != LayoutResult.FULL || optionsContainer == null || optionsContainer.GetOccupiedArea
-                () == null) {
+            if (!IsFlatten() || layoutResult.GetStatus() != LayoutResult.FULL || optionsContainer == null || optionsContainer
+                .GetOccupiedArea() == null) {
                 return layoutResult;
             }
-            // TODO only if flatten
             if (IsOverflowProperty(OverflowPropertyValue.HIDDEN, this, Property.OVERFLOW_Y)) {
                 IList<IRenderer> selectedOptions = GetSelectedOptions(this);
                 IRenderer firstSelectedOption;
@@ -118,7 +117,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected internal override void ApplyAcroField(DrawContext drawContext) {
         }
 
-        // TODO
+        // TODO DEVSIX-1901
         private float GetCalculatedHeight(IRenderer flatRenderer) {
             int? sizeProp = this.GetProperty<int?>(Html2PdfProperty.FORM_FIELD_SIZE);
             int size;

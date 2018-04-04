@@ -45,6 +45,9 @@ using System;
 namespace iText.Html2pdf {
     /// <summary>Class that bundles all the error message templates as constants.</summary>
     public sealed class LogMessageConstant {
+        /// <summary>The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT.</summary>
+        public const String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will be flattened instead.";
+
         /// <summary>The Constant CONTENT_PROPERTY_INVALID.</summary>
         public const String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
 

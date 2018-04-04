@@ -209,7 +209,29 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 2)]
+        public virtual void SelectTest01() {
+            RunTest("select01", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 3)]
+        public virtual void SelectTest02() {
+            RunTest("select02", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String name) {
+            RunTest(name, true);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String name, bool flattenPdfAcroFormFields) {
             String htmlPath = sourceFolder + name + ".html";
             String outPdfPath = destinationFolder + name + ".pdf";
             String outAcroPdfPath = destinationFolder + name + "_acro.pdf";
@@ -221,17 +243,21 @@ namespace iText.Html2pdf.Element {
             HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(outPdfPath));
             HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(outAcroPdfPath), new ConverterProperties()
                 .SetCreateAcroForm(true));
-            PdfDocument document = new PdfDocument(new PdfReader(outAcroPdfPath), new PdfWriter(outAcroFlattenPdfPath)
-                );
-            PdfAcroForm acroForm = PdfAcroForm.GetAcroForm(document, false);
-            acroForm.FlattenFields();
-            document.Close();
+            if (flattenPdfAcroFormFields) {
+                PdfDocument document = new PdfDocument(new PdfReader(outAcroPdfPath), new PdfWriter(outAcroFlattenPdfPath)
+                    );
+                PdfAcroForm acroForm = PdfAcroForm.GetAcroForm(document, false);
+                acroForm.FlattenFields();
+                document.Close();
+            }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
                 , diff));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outAcroPdfPath, cmpAcroPdfPath, destinationFolder
                 , diff));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outAcroFlattenPdfPath, cmpAcroFlattenPdfPath
-                , destinationFolder, diff));
+            if (flattenPdfAcroFormFields) {
+                NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outAcroFlattenPdfPath, cmpAcroFlattenPdfPath
+                    , destinationFolder, diff));
+            }
         }
     }
 }

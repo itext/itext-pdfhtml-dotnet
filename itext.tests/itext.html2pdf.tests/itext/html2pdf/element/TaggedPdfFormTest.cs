@@ -57,7 +57,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DefaultHtmlProcessor ERROR No worker found for tag select")]
+        [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void SimpleSelectTagged() {
             RunTest("simpleSelectTagged");
         }
@@ -65,6 +65,23 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1901")]
+        public virtual void ListBoxSelectTagged() {
+            RunTest("listBoxSelectTagged");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1901")]
+        public virtual void ListBoxOptGroupSelectTagged() {
+            RunTest("listBoxOptGroupSelectTagged");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void SimpleRadioFormTagged() {
             RunTest("simpleRadioFormTagged");
         }
