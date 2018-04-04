@@ -244,6 +244,26 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HeightLargerThanMinHeight01() {
+            // TODO DEVSIX-1895: height differs from the browser rendering due to incorrect resolving of max-height/height properties
+            String testName = "heightLargerThanMinHeight01";
+            String diffPrefix = "diffLargerMin01_";
+            RunTest(testName, diffPrefix);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HeightLesserThanMaxHeight01() {
+            // TODO DEVSIX-1895: height differs from the browser rendering due to incorrect resolving of max-height/height properties
+            String testName = "heightLesserThanMaxHeight01";
+            String diffPrefix = "diffLessMax01_";
+            RunTest(testName, diffPrefix);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         public virtual void RunTest(String testName, String diffPrefix) {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
                  + testName + ".pdf"));
