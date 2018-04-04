@@ -79,10 +79,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 defaultValue = "\u00A0";
             }
             Paragraph paragraph = new Paragraph(defaultValue).SetMargin(0);
-            Leading leading = this.GetProperty<Leading>(Property.LEADING);
-            if (leading != null) {
-                paragraph.SetProperty(Property.LEADING, leading);
-            }
             return paragraph.CreateRendererSubTree();
         }
 
@@ -132,7 +128,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 if (lines != null) {
                     foreach (LineRenderer line in lines) {
                         foreach (IRenderer child in line.GetChildRenderers()) {
-                            retrievedFont = child.GetProperty<PdfFont>(Property.FONT);
+                            retrievedFont = child.GetProperty<Object>(Property.FONT);
                             if (retrievedFont is PdfFont) {
                                 font = (PdfFont)retrievedFont;
                                 return;
@@ -140,10 +136,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                         }
                     }
                 }
-            }
-            retrievedFont = renderer.GetProperty<PdfFont>(Property.FONT);
-            if (retrievedFont is PdfFont) {
-                font = (PdfFont)retrievedFont;
+                retrievedFont = renderer.GetProperty<Object>(Property.FONT);
+                if (retrievedFont is PdfFont) {
+                    font = (PdfFont)retrievedFont;
+                }
             }
         }
 

@@ -224,6 +224,12 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant OL.</summary>
         public const String OL = "ol";
 
+        /// <summary>The Constant OPTION.</summary>
+        public const String OPTGROUP = "optgroup";
+
+        /// <summary>The Constant OPTION.</summary>
+        public const String OPTION = "option";
+
         /// <summary>The Constant P.</summary>
         public const String P = "p";
 

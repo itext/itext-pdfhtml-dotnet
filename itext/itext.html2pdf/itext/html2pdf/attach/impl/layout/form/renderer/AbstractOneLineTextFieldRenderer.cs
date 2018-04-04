@@ -40,6 +40,7 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
+using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Kernel.Geom;

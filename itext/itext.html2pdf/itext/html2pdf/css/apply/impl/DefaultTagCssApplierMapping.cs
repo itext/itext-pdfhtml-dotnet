@@ -115,12 +115,15 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.MARK, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.NAV, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.OL, typeof(UlOlTagCssApplier));
+            mapping.PutMapping(TagConstants.OPTGROUP, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.OPTION, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.P, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.PRE, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.Q, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.S, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.SAMP, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.SECTION, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.SELECT, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.SMALL, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.SPAN, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.STRIKE, typeof(SpanTagCssApplier));

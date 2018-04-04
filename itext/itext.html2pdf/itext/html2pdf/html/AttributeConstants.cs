@@ -116,11 +116,17 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant KEYWORDS.</summary>
         public const String KEYWORDS = "keywords";
 
+        /// <summary>The Constant LABEL.</summary>
+        public const String LABEL = "label";
+
         /// <summary>The Constant LANG.</summary>
         public const String LANG = "lang";
 
         /// <summary>The Constant MEDIA.</summary>
         public const String MEDIA = "media";
+
+        /// <summary>The Constant MULTIPLE.</summary>
+        public const String MULTIPLE = "multiple";
 
         /// <summary>The Constant NAME.</summary>
         public const String NAME = "name";
@@ -142,6 +148,9 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant SCOPE.</summary>
         public const String SCOPE = "scope";
+
+        /// <summary>The Constant SELECTED.</summary>
+        public const String SELECTED = "selected";
 
         /// <summary>The Constant SIZE.</summary>
         public const String SIZE = "size";

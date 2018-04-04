@@ -122,12 +122,15 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.META, typeof(MetaTagWorker));
             workerMapping.PutMapping(TagConstants.NAV, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.OL, typeof(UlOlTagWorker));
+            workerMapping.PutMapping(TagConstants.OPTGROUP, typeof(OptGroupTagWorker));
+            workerMapping.PutMapping(TagConstants.OPTION, typeof(OptionTagWorker));
             workerMapping.PutMapping(TagConstants.P, typeof(PTagWorker));
             workerMapping.PutMapping(TagConstants.PRE, typeof(PreTagWorker));
             workerMapping.PutMapping(TagConstants.Q, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.S, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SAMP, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SECTION, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.SELECT, typeof(SelectTagWorker));
             workerMapping.PutMapping(TagConstants.SMALL, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SPAN, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.STRIKE, typeof(SpanTagWorker));
