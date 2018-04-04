@@ -46,6 +46,8 @@ using iText.Html2pdf;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
+using iText.Layout;
+using iText.Layout.Element;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -449,6 +451,20 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ThScopeTaggedDifferentTablesTest() {
+            RunConvertToElements("thTagScopeTaggedDifferentTables", true);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ThScopeNotTaggedDifferentTablesTest() {
+            RunConvertToElements("thTagScopeNotTaggedDifferentTables", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String testName) {
             RunTest(testName, false);
         }
@@ -466,6 +482,27 @@ namespace iText.Html2pdf.Element {
                 .AbsolutePath + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
                  + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunConvertToElements(String testName, bool tagged) {
+            FileStream source = new FileStream(sourceFolder + testName + ".html", FileMode.Open, FileAccess.Read);
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + testName + ".pdf"));
+            if (tagged) {
+                pdfDocument.SetTagged();
+            }
+            Document layoutDocument = new Document(pdfDocument);
+            ConverterProperties props = new ConverterProperties();
+            foreach (IElement element in HtmlConverter.ConvertToElements(source, props)) {
+                if (element is IBlockElement) {
+                    layoutDocument.Add((IBlockElement)element);
+                }
+            }
+            layoutDocument.Close();
+            pdfDocument.Close();
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + "cmp_" + testName + ".pdf", destinationFolder, "diff01_"));
         }
     }
 }
