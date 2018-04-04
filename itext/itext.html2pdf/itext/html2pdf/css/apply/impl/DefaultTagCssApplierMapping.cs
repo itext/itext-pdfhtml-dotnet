@@ -157,6 +157,8 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             String afterPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.AFTER);
             mapping.PutMapping(beforePseudoElemName, typeof(SpanTagCssApplier));
             mapping.PutMapping(afterPseudoElemName, typeof(SpanTagCssApplier));
+            mapping.PutMapping(beforePseudoElemName, CssConstants.INLINE_BLOCK, typeof(BlockCssApplier));
+            mapping.PutMapping(afterPseudoElemName, CssConstants.INLINE_BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(beforePseudoElemName, CssConstants.BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(afterPseudoElemName, CssConstants.BLOCK, typeof(BlockCssApplier));
             // For now behaving like display:block in display:table case is sufficient
