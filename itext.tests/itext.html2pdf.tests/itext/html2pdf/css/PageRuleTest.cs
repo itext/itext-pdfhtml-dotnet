@@ -819,7 +819,7 @@ namespace iText.Html2pdf.Css {
                 converterProperties = new ConverterProperties();
             }
             if (converterProperties.GetBaseUri() == null) {
-                converterProperties.SetBaseUri(new FileInfo(htmlPath).FullName);
+                converterProperties.SetBaseUri(UrlUtil.GetFileUriString(htmlPath));
             }
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             if (isTagged) {

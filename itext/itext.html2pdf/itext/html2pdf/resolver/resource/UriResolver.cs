@@ -91,7 +91,6 @@ namespace iText.Html2pdf.Resolver.Resource
             Uri resolvedUrl = null;
             uriString = uriString.Trim();
             // decode and then encode uri string in order to process unsafe characters correctly
-            String scheme = GetScheme(uriString);
             uriString = UriEncodeUtil.Encode(uriString);
             if (isLocalBaseUri)
             {
@@ -130,7 +129,6 @@ namespace iText.Html2pdf.Resolver.Resource
         private void ResolveBaseUrlOrPath(String @base)
         {
             @base = @base.Trim();
-            String scheme = GetScheme(@base);
             @base = UriEncodeUtil.Encode(@base);
             baseUrl = BaseUriAsUrl(@base);
             if (baseUrl == null)
@@ -154,14 +152,17 @@ namespace iText.Html2pdf.Resolver.Resource
             Uri baseAsUrl = null;
             try
             {
-                Uri baseUri = new Uri(baseUriString);
-                if (Path.IsPathRooted(baseUri.AbsolutePath))
+                if (!Path.IsPathRooted(baseUriString))
                 {
-                    baseAsUrl = baseUri;
-                    if ("file".Equals(baseUri.Scheme))
+                    Uri baseUri = new Uri(baseUriString);
+                    if (Path.IsPathRooted(baseUri.AbsolutePath))
                     {
-                        baseAsUrl = new Uri(NormalizeFilePath(baseAsUrl));
-                        isLocalBaseUri = true;
+                        baseAsUrl = baseUri;
+                        if ("file".Equals(baseUri.Scheme))
+                        {
+                            baseAsUrl = new Uri(NormalizeFilePath(baseAsUrl));
+                            isLocalBaseUri = true;
+                        }
                     }
                 }
             }
@@ -186,7 +187,15 @@ namespace iText.Html2pdf.Resolver.Resource
             Uri baseAsFileUrl = null;
             try
             {
-                baseAsFileUrl = new Uri(NormalizeFilePath(Path.GetFullPath(baseUriString)));
+                if (Path.IsPathRooted(baseUriString))
+                {
+                    baseAsFileUrl = new Uri("file:///" + NormalizeFilePath(Path.GetFullPath(baseUriString)));
+                }
+                else
+                {
+                    Uri baseUri = new Uri(Directory.GetCurrentDirectory() + "/");
+                    baseAsFileUrl = new Uri(baseUri, NormalizeFilePath(baseUriString));
+                }
                 isLocalBaseUri = true;
             }
             catch (Exception)
@@ -221,26 +230,6 @@ namespace iText.Html2pdf.Resolver.Resource
                 path = baseUri.AbsoluteUri;
             }
             return path;
-        }
-
-        /// <summary>
-        /// Get the scheme component of this URI.
-        /// </summary>
-        private string GetScheme(String uriString)
-        {
-            String result = null;
-
-            string pattern = "^[a-zA-Z]([a-zA-Z]|\\d|\\+|-|\\.)*:";
-            Match match = Regex.Match(uriString, pattern);
-
-            if (match.Success) {
-                result = match.Value.Substring(0, match.Value.IndexOf(':'));
-            }
-            else if (null != baseUrl)
-            {
-                result = baseUrl.Scheme;
-            }
-            return result;
         }
 
         /// <summary>
