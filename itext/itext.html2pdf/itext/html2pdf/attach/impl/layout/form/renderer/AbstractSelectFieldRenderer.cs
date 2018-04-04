@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.IO.Font.Otf;
 using iText.Kernel.Geom;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
+using iText.Layout.Splitting;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// <summary>
@@ -23,6 +25,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         public AbstractSelectFieldRenderer(AbstractSelectField modelElement)
             : base(modelElement) {
             AddChild(CreateFlatRenderer());
+            SetProperty(Property.SPLIT_CHARACTERS, new AbstractSelectFieldRenderer.NoSplitCharacters());
         }
 
         public override LayoutResult Layout(LayoutContext layoutContext) {
@@ -127,18 +130,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return child.HasProperty(Html2PdfProperty.FORM_FIELD_SELECTED);
         }
 
-        internal static void ReplaceParagraphRenderers(IRenderer rendererSubTree) {
-            // TODO does inf width messes up the layout?
-            // TODO may be better run it in constructor
-            for (int i = 0; i < rendererSubTree.GetChildRenderers().Count; ++i) {
-                IRenderer renderer = rendererSubTree.GetChildRenderers()[i];
-                if (renderer is ParagraphRenderer) {
-                    // TODO may be better to introduce intermediate parent
-                    InfiniteWidthParagraphRenderer newRenderer = new InfiniteWidthParagraphRenderer((ParagraphRenderer)renderer
-                        );
-                    rendererSubTree.GetChildRenderers()[i] = newRenderer;
-                }
-                ReplaceParagraphRenderers(renderer);
+        private class NoSplitCharacters : ISplitCharacters {
+            public virtual bool IsSplitCharacter(GlyphLine text, int glyphPos) {
+                return false;
             }
         }
     }

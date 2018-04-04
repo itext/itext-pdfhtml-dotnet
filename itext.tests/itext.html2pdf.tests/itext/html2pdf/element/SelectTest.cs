@@ -85,6 +85,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, Count = 1)]
         public virtual void SelectBasicTest10() {
             RunTest("selectBasicTest10");
         }
@@ -121,7 +122,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SelectStylesTest02() {
-            // TODO content with text-align not left is mvoed outside the page area
             RunTest("selectStylesTest02");
         }
 
@@ -144,13 +144,16 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SelectWidthTest03() {
+            // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
             RunTest("selectWidthTest03");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, Count = 1)]
         public virtual void SelectWidthTest04() {
+            // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
             RunTest("selectWidthTest04");
         }
 
@@ -179,6 +182,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         public virtual void SelectMinMaxWidthCalculationTest01() {
             RunTest("selectMinMaxWidthCalculationTest01");
         }

@@ -79,7 +79,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 pseudoContainer.Add(option);
             }
             IRenderer rendererSubTree = pseudoContainer.CreateRendererSubTree();
-            ReplaceParagraphRenderers(rendererSubTree);
             return rendererSubTree;
         }
 

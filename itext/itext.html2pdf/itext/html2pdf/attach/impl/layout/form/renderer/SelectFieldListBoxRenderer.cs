@@ -86,7 +86,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
             else {
                 rendererSubTree = optionsContainer.CreateRendererSubTree();
-                ReplaceParagraphRenderers(rendererSubTree);
                 IList<IRenderer> selectedOptions = GetSelectedOptions(rendererSubTree);
                 foreach (IRenderer selectedOption in selectedOptions) {
                     ApplySelectedStyle(selectedOption);

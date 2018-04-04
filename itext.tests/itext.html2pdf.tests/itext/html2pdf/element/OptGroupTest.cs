@@ -78,6 +78,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupWidthTest01() {
+            // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
             RunTest("optGroupWidthTest01");
         }
 
@@ -92,6 +93,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupOverflowTest02() {
+            // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
             RunTest("optGroupOverflowTest02");
         }
 
