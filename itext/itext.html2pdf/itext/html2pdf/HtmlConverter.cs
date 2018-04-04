@@ -267,13 +267,13 @@ namespace iText.Html2pdf {
         public static void ConvertToPdf(FileInfo htmlFile, FileInfo pdfFile, ConverterProperties converterProperties
             ) {
             if (converterProperties == null) {
-                converterProperties = new ConverterProperties().SetBaseUri(FileUtil.GetParentDirectory(htmlFile.FullName) 
+                converterProperties = new ConverterProperties().SetBaseUri(new Uri(FileUtil.GetParentDirectory(htmlFile.FullName)).ToExternalForm() 
                     + System.IO.Path.DirectorySeparatorChar);
             }
             else {
                 if (converterProperties.GetBaseUri() == null) {
-                    converterProperties = new ConverterProperties(converterProperties).SetBaseUri(FileUtil.GetParentDirectory(
-                        htmlFile.FullName) + System.IO.Path.DirectorySeparatorChar);
+                    converterProperties = new ConverterProperties(converterProperties).SetBaseUri(new Uri(FileUtil.GetParentDirectory(
+                        htmlFile.FullName)).ToExternalForm() + System.IO.Path.DirectorySeparatorChar);
                 }
             }
             using (FileStream fileInputStream = new FileStream(htmlFile.FullName, FileMode.Open, FileAccess.Read)) {
