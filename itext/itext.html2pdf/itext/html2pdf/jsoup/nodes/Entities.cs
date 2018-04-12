@@ -161,7 +161,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
             IDictionary<char, String> map = escapeMode.GetMap();
             int length = str.Length;
             int codePoint;
-            for (int offset = 0; offset < length; offset += iText.Html2pdf.Jsoup.PortUtil.CharCount(codePoint)) {
+            for (int offset = 0; offset < length; offset += iText.IO.Util.TextUtil.CharCount(codePoint)) {
                 codePoint = str.CodePointAt(offset);
                 if (normaliseWhite) {
                     if (iText.Html2pdf.Jsoup.Helper.StringUtil.IsWhitespace(codePoint)) {
@@ -178,7 +178,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
                     }
                 }
                 // surrogate pairs, split implementation for efficiency on single char common case (saves creating strings, char[]):
-                if (codePoint < iText.Html2pdf.Jsoup.PortUtil.CHARACTER_MIN_SUPPLEMENTARY_CODE_POINT) {
+                if (codePoint < iText.IO.Util.TextUtil.CHARACTER_MIN_SUPPLEMENTARY_CODE_POINT) {
                     char c = (char)codePoint;
                     switch (c) {
                         case '&': {
@@ -237,7 +237,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
                                     accum.Append('&').Append(map.Get(c)).Append(';');
                                 }
                                 else {
-                                    accum.Append("&#x").Append(iText.IO.Util.JavaUtil.IntegerToHexString(codePoint)).Append(';');
+                                    accum.Append("&#x").Append(JavaUtil.IntegerToHexString(codePoint)).Append(';');
                                 }
                             }
                             break;
@@ -245,13 +245,13 @@ namespace iText.Html2pdf.Jsoup.Nodes {
                     }
                 }
                 else {
-                    String c = new String(iText.Html2pdf.Jsoup.PortUtil.ToChars(codePoint));
+                    String c = new String(iText.IO.Util.TextUtil.ToChars(codePoint));
                     if (encoder.CanEncode(c)) {
                         // uses fallback encoder for simplicity
                         accum.Append(c);
                     }
                     else {
-                        accum.Append("&#x").Append(iText.IO.Util.JavaUtil.IntegerToHexString(codePoint)).Append(';');
+                        accum.Append("&#x").Append(JavaUtil.IntegerToHexString(codePoint)).Append(';');
                     }
                 }
             }
@@ -347,7 +347,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
                 throw new MissingResourceException("Error loading entities resource: " + e.Message, "Entities", filename);
             }
             foreach (Object name in properties.Keys) {
-                char? val = (char)System.Convert.ToInt32(properties.GetProperty((String)name), 16);
+                char? val = (char)Convert.ToInt32(properties.GetProperty((String)name), 16);
                 entities.Put((String)name, val);
             }
             return entities;

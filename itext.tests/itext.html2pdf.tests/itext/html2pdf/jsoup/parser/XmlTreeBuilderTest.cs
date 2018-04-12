@@ -47,6 +47,7 @@ using System.Text;
 using iText.Html2pdf.Jsoup;
 using iText.Html2pdf.Jsoup.Integration;
 using iText.Html2pdf.Jsoup.Nodes;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Jsoup.Parser {
     /// <summary>Tests XmlTreeBuilder.</summary>
@@ -94,7 +95,7 @@ namespace iText.Html2pdf.Jsoup.Parser {
         /// <exception cref="Java.Net.URISyntaxException"/>
         [NUnit.Framework.Test]
         public virtual void TestSupplyParserToDataStream() {
-            FileInfo xmlFile = iText.Html2pdf.Jsoup.PortTestUtil.GetFile("/htmltests/xml-test.xml");
+            FileInfo xmlFile = PortTestUtil.GetFile("/htmltests/xml-test.xml");
             Stream inStream = new FileStream(xmlFile.FullName, FileMode.Open, FileAccess.Read);
             Document doc = iText.Html2pdf.Jsoup.Jsoup.Parse(inStream, null, "http://foo.com", iText.Html2pdf.Jsoup.Parser.Parser
                 .XmlParser());
@@ -150,7 +151,7 @@ namespace iText.Html2pdf.Jsoup.Parser {
         /// <exception cref="Java.Net.URISyntaxException"/>
         [NUnit.Framework.Test]
         public virtual void TestDetectCharsetEncodingDeclaration() {
-            FileInfo xmlFile = iText.Html2pdf.Jsoup.PortTestUtil.GetFile("/htmltests/xml-charset.xml");
+            FileInfo xmlFile = PortTestUtil.GetFile("/htmltests/xml-charset.xml");
             Stream inStream = new FileStream(xmlFile.FullName, FileMode.Open, FileAccess.Read);
             Document doc = iText.Html2pdf.Jsoup.Jsoup.Parse(inStream, null, "http://example.com/", iText.Html2pdf.Jsoup.Parser.Parser
                 .XmlParser());
@@ -177,7 +178,7 @@ namespace iText.Html2pdf.Jsoup.Parser {
         public virtual void TestCreatesValidProlog() {
             Document document = Document.CreateShell("");
             document.OutputSettings().Syntax(Syntax.xml);
-            document.Charset(iText.IO.Util.EncodingUtil.GetEncoding("utf-8"));
+            document.Charset(EncodingUtil.GetEncoding("utf-8"));
             NUnit.Framework.Assert.AreEqual("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<html>\n" + " <head></head>\n"
                  + " <body></body>\n" + "</html>", document.OuterHtml());
         }

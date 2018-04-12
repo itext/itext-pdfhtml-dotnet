@@ -79,30 +79,28 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 defaultValue = "\u00A0";
             }
             Paragraph paragraph = new Paragraph(defaultValue).SetMargin(0);
-            Leading leading = this.GetProperty<Leading>(Property.LEADING);
-            if (leading != null) {
-                paragraph.SetProperty(Property.LEADING, leading);
-            }
             return paragraph.CreateRendererSubTree();
         }
 
         /// <summary>Adjust number of content lines.</summary>
         /// <param name="lines">the lines that need to be rendered</param>
         /// <param name="bBox">the bounding box</param>
-        /// <param name="linesNumber">the number of lines</param>
-        internal virtual void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, int linesNumber
-            ) {
+        /// <param name="rows">the desired number of lines</param>
+        internal virtual void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, int rows) {
+            if (lines.Count != rows) {
+                float rowsHeight = GetHeightRowsBased(lines, bBox, rows);
+                AdjustNumberOfContentLines(lines, bBox, rows, rowsHeight);
+            }
+        }
+
+        /// <summary>Adjust number of content lines.</summary>
+        /// <param name="lines">the lines that need to be rendered</param>
+        /// <param name="bBox">the bounding box</param>
+        /// <param name="height">the desired height of content</param>
+        internal virtual void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, float height) {
             float averageLineHeight = bBox.GetHeight() / lines.Count;
-            if (lines.Count != linesNumber) {
-                float actualHeight = averageLineHeight * linesNumber;
-                bBox.MoveUp(bBox.GetHeight() - actualHeight);
-                bBox.SetHeight(actualHeight);
-            }
-            if (lines.Count > linesNumber) {
-                IList<LineRenderer> subList = new List<LineRenderer>(lines.SubList(0, linesNumber));
-                lines.Clear();
-                lines.AddAll(subList);
-            }
+            int visibleLinesNumber = (int)Math.Ceiling(height / averageLineHeight);
+            AdjustNumberOfContentLines(lines, bBox, visibleLinesNumber, height);
         }
 
         /// <summary>Applies the default field properties.</summary>
@@ -116,6 +114,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
         }
 
+        internal virtual float GetHeightRowsBased(IList<LineRenderer> lines, Rectangle bBox, int rows) {
+            float averageLineHeight = bBox.GetHeight() / lines.Count;
+            return averageLineHeight * rows;
+        }
+
         /// <summary>Updates the font.</summary>
         /// <param name="renderer">the renderer</param>
         internal virtual void UpdatePdfFont(ParagraphRenderer renderer) {
@@ -125,7 +128,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 if (lines != null) {
                     foreach (LineRenderer line in lines) {
                         foreach (IRenderer child in line.GetChildRenderers()) {
-                            retrievedFont = child.GetProperty<PdfFont>(Property.FONT);
+                            retrievedFont = child.GetProperty<Object>(Property.FONT);
                             if (retrievedFont is PdfFont) {
                                 font = (PdfFont)retrievedFont;
                                 return;
@@ -133,10 +136,33 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                         }
                     }
                 }
+                retrievedFont = renderer.GetProperty<Object>(Property.FONT);
+                if (retrievedFont is PdfFont) {
+                    font = (PdfFont)retrievedFont;
+                }
             }
-            retrievedFont = renderer.GetProperty<PdfFont>(Property.FONT);
-            if (retrievedFont is PdfFont) {
-                font = (PdfFont)retrievedFont;
+        }
+
+        //The width based on cols of textarea and size of input doesn't affected by box sizing, so we emulate it here
+        internal virtual float UpdateHtmlColsSizeBasedWidth(float width) {
+            if (BoxSizingPropertyValue.BORDER_BOX.Equals(this.GetProperty<BoxSizingPropertyValue?>(Property.BOX_SIZING
+                ))) {
+                Rectangle dummy = new Rectangle(width, 0);
+                ApplyBorderBox(dummy, true);
+                ApplyPaddings(dummy, true);
+                return dummy.GetWidth();
+            }
+            return width;
+        }
+
+        private static void AdjustNumberOfContentLines(IList<LineRenderer> lines, Rectangle bBox, int linesNumber, 
+            float height) {
+            bBox.MoveUp(bBox.GetHeight() - height);
+            bBox.SetHeight(height);
+            if (lines.Count > linesNumber) {
+                IList<LineRenderer> subList = new List<LineRenderer>(lines.SubList(0, linesNumber));
+                lines.Clear();
+                lines.AddAll(subList);
             }
         }
     }

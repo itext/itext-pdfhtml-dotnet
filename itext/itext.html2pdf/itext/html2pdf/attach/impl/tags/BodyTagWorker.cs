@@ -116,7 +116,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
         */
         public override IPropertyContainer GetElementResult() {
-            return parentTagWorker == null ? base.GetElementResult() : null;
+            return parentTagWorker == null ? base.GetElementResult() : parentTagWorker.GetElementResult();
         }
     }
 }

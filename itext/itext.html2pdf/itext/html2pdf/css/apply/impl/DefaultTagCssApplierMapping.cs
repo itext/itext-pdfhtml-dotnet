@@ -115,12 +115,15 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.MARK, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.NAV, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.OL, typeof(UlOlTagCssApplier));
+            mapping.PutMapping(TagConstants.OPTGROUP, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.OPTION, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.P, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.PRE, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.Q, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.S, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.SAMP, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.SECTION, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.SELECT, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.SMALL, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.SPAN, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.STRIKE, typeof(SpanTagCssApplier));
@@ -146,8 +149,10 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.DT, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.SPAN, CssConstants.BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.SPAN, CssConstants.INLINE_BLOCK, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.A, CssConstants.INLINE_BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.A, CssConstants.BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.A, CssConstants.TABLE_CELL, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE, typeof(TableTagCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_CELL, typeof(TdTagCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_ROW, typeof(DisplayTableRowTagCssApplier));
             // pseudo elements mapping
@@ -155,6 +160,8 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             String afterPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.AFTER);
             mapping.PutMapping(beforePseudoElemName, typeof(SpanTagCssApplier));
             mapping.PutMapping(afterPseudoElemName, typeof(SpanTagCssApplier));
+            mapping.PutMapping(beforePseudoElemName, CssConstants.INLINE_BLOCK, typeof(BlockCssApplier));
+            mapping.PutMapping(afterPseudoElemName, CssConstants.INLINE_BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(beforePseudoElemName, CssConstants.BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(afterPseudoElemName, CssConstants.BLOCK, typeof(BlockCssApplier));
             // For now behaving like display:block in display:table case is sufficient

@@ -46,6 +46,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>
@@ -55,11 +56,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     /// </summary>
     internal class PageContextProperties {
         /// <summary>List containing possible names for page margin boxes.</summary>
-        internal static readonly IList<String> pageMarginBoxNames = iText.IO.Util.JavaUtil.ArraysAsList(CssRuleName
-            .TOP_LEFT_CORNER, CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT, CssRuleName.TOP_RIGHT_CORNER
-            , CssRuleName.RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM, CssRuleName.BOTTOM_RIGHT_CORNER
-            , CssRuleName.BOTTOM_RIGHT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_LEFT, CssRuleName.BOTTOM_LEFT_CORNER
-            , CssRuleName.LEFT_BOTTOM, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_TOP);
+        private static readonly IList<String> pageMarginBoxNames = JavaUtil.ArraysAsList(CssRuleName.TOP_LEFT_CORNER
+            , CssRuleName.TOP_LEFT, CssRuleName.TOP_CENTER, CssRuleName.TOP_RIGHT, CssRuleName.TOP_RIGHT_CORNER, CssRuleName
+            .RIGHT_TOP, CssRuleName.RIGHT_MIDDLE, CssRuleName.RIGHT_BOTTOM, CssRuleName.BOTTOM_RIGHT_CORNER, CssRuleName
+            .BOTTOM_RIGHT, CssRuleName.BOTTOM_CENTER, CssRuleName.BOTTOM_LEFT, CssRuleName.BOTTOM_LEFT_CORNER, CssRuleName
+            .LEFT_BOTTOM, CssRuleName.LEFT_MIDDLE, CssRuleName.LEFT_TOP);
 
         /// <summary>The page context node.</summary>
         private PageContextNode pageContextNode;

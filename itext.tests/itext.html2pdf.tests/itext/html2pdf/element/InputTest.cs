@@ -43,8 +43,12 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.IO.Util;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class InputTest : ExtendedITextTest {
@@ -89,11 +93,112 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
-        private void RunTest(String testName) {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+        [NUnit.Framework.Test]
+        public virtual void Input05Test() {
+            RunTest("inputTest05");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Count = 4, Ignore = true)]
+        public virtual void Input06Test() {
+            String htmlPath = sourceFolder + "inputTest06.html";
+            String outPdfPath = destinationFolder + "inputTest06.pdf";
+            String cmpPdfPath = sourceFolder + "cmp_" + "inputTest06.pdf";
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outPdfPath));
+            pdfDoc.SetDefaultPageSize(PageSize.A8);
+            HtmlConverter.ConvertToPdf(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), pdfDoc, new ConverterProperties
+                ().SetCreateAcroForm(true));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
+                , "diff_inputTest06_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Input07Test() {
+            // TODO DEVSIX-1777: if not explicitly specified, <input> border default value should be different from the one
+            // specified in user agent css. Also user agent css should not specify default color
+            // and should use 'initial' instead.
+            RunTest("inputTest07");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Input08Test() {
+            RunTest("inputTest08");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Input09Test() {
+            RunTest("inputTest09");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Input10Test() {
+            RunTest("inputTest10");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TextareaRowsHeightTest() {
+            RunTest("textareaRowsHeight");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BlockHeightTest() {
+            RunTest("blockHeightTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SmallPercentWidthTest() {
+            RunTest("smallPercentWidth");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Button01Test() {
+            RunTest("buttonTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Button02Test() {
+            RunTest("buttonTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ButtonWithDisplayBlockTest() {
+            RunTest("buttonWithDisplayBlock");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String name) {
+            String htmlPath = sourceFolder + name + ".html";
+            String outPdfPath = destinationFolder + name + ".pdf";
+            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+            String diff = "diff_" + name + "_";
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(outPdfPath));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
+                , diff));
         }
     }
 }

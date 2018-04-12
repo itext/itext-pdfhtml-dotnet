@@ -122,12 +122,15 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.META, typeof(MetaTagWorker));
             workerMapping.PutMapping(TagConstants.NAV, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.OL, typeof(UlOlTagWorker));
+            workerMapping.PutMapping(TagConstants.OPTGROUP, typeof(OptGroupTagWorker));
+            workerMapping.PutMapping(TagConstants.OPTION, typeof(OptionTagWorker));
             workerMapping.PutMapping(TagConstants.P, typeof(PTagWorker));
             workerMapping.PutMapping(TagConstants.PRE, typeof(PreTagWorker));
             workerMapping.PutMapping(TagConstants.Q, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.S, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SAMP, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SECTION, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.SELECT, typeof(SelectTagWorker));
             workerMapping.PutMapping(TagConstants.SMALL, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SPAN, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.STRIKE, typeof(SpanTagWorker));
@@ -155,6 +158,7 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.SPAN, CssConstants.BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.SPAN, CssConstants.INLINE_BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.A, CssConstants.BLOCK, typeof(ABlockTagWorker));
+            workerMapping.PutMapping(TagConstants.A, CssConstants.INLINE_BLOCK, typeof(ABlockTagWorker));
             workerMapping.PutMapping(TagConstants.A, CssConstants.TABLE_CELL, typeof(ABlockTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.TABLE, typeof(DisplayTableTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_ROW, typeof(DisplayTableRowTagWorker));
@@ -166,6 +170,8 @@ namespace iText.Html2pdf.Attach.Impl {
             String afterPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.AFTER);
             workerMapping.PutMapping(beforePseudoElemName, typeof(SpanTagWorker));
             workerMapping.PutMapping(afterPseudoElemName, typeof(SpanTagWorker));
+            workerMapping.PutMapping(beforePseudoElemName, CssConstants.INLINE_BLOCK, typeof(DivTagWorker));
+            workerMapping.PutMapping(afterPseudoElemName, CssConstants.INLINE_BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(beforePseudoElemName, CssConstants.BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(afterPseudoElemName, CssConstants.BLOCK, typeof(DivTagWorker));
             // For now behaving like display:block in display:table case is sufficient

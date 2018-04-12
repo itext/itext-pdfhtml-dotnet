@@ -446,6 +446,22 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CollapsingMarginsFloatTest08() {
+            // TODO DEVSIX-1820: on floats positioning collapsing margins of parent and first child is not taken into account
+            Test("collapsingMarginsFloatTest08.html", "collapsingMarginsFloatTest08.pdf", "diff_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CollapsingMarginsFloatTest09() {
+            // TODO DEVSIX-1820: on floats positioning collapsing margins of parent and first child is not taken into account
+            Test("collapsingMarginsFloatTest09.html", "collapsingMarginsFloatTest09.pdf", "diff_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void Test(String @in, String @out, String diff) {
             String outPdf = destinationFolder + @out;
             String cmpPdf = sourceFolder + "cmp_" + @out;

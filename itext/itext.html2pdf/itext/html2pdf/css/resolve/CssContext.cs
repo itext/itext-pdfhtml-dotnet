@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
+using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 
 namespace iText.Html2pdf.Css.Resolve {
@@ -60,6 +61,9 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>The quotes depth.</summary>
         private int quotesDepth = 0;
+
+        /// <summary>The running elements manager.</summary>
+        private CssRunningManager runningManager = new CssRunningManager();
 
         /// <summary>Gets the root font size.</summary>
         /// <returns>the root font size in pt</returns>
@@ -107,6 +111,10 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="quotesDepth">the new quotes depth</param>
         public virtual void SetQuotesDepth(int quotesDepth) {
             this.quotesDepth = quotesDepth;
+        }
+
+        public virtual CssRunningManager GetRunningManager() {
+            return runningManager;
         }
     }
 }

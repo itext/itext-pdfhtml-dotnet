@@ -53,9 +53,8 @@ namespace iText.Html2pdf.Css.Resolve {
         private static readonly IDictionary<String, String> defaultValues = new Dictionary<String, String>();
 
         static CssDefaults() {
-            // TODO make internal?
             defaultValues.Put(CssConstants.COLOR, "black");
-            // TODO not specified, varies from browser to browser
+            // not specified, varies from browser to browser
             defaultValues.Put(CssConstants.OPACITY, "1");
             defaultValues.Put(CssConstants.BACKGROUND_ATTACHMENT, CssConstants.SCROLL);
             defaultValues.Put(CssConstants.BACKGROUND_BLEND_MODE, CssConstants.NORMAL);
@@ -66,10 +65,10 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues.Put(CssConstants.BACKGROUND_CLIP, CssConstants.BORDER_BOX);
             defaultValues.Put(CssConstants.BACKGROUND_ORIGIN, CssConstants.PADDING_BOX);
             defaultValues.Put(CssConstants.BACKGROUND_SIZE, CssConstants.AUTO);
-            defaultValues.Put(CssConstants.BORDER_BOTTOM_COLOR, CssConstants.TRANSPARENT);
-            defaultValues.Put(CssConstants.BORDER_LEFT_COLOR, CssConstants.TRANSPARENT);
-            defaultValues.Put(CssConstants.BORDER_RIGHT_COLOR, CssConstants.TRANSPARENT);
-            defaultValues.Put(CssConstants.BORDER_TOP_COLOR, CssConstants.TRANSPARENT);
+            defaultValues.Put(CssConstants.BORDER_BOTTOM_COLOR, CssConstants.CURRENTCOLOR);
+            defaultValues.Put(CssConstants.BORDER_LEFT_COLOR, CssConstants.CURRENTCOLOR);
+            defaultValues.Put(CssConstants.BORDER_RIGHT_COLOR, CssConstants.CURRENTCOLOR);
+            defaultValues.Put(CssConstants.BORDER_TOP_COLOR, CssConstants.CURRENTCOLOR);
             defaultValues.Put(CssConstants.BORDER_BOTTOM_STYLE, CssConstants.NONE);
             defaultValues.Put(CssConstants.BORDER_LEFT_STYLE, CssConstants.NONE);
             defaultValues.Put(CssConstants.BORDER_RIGHT_STYLE, CssConstants.NONE);
@@ -101,7 +100,7 @@ namespace iText.Html2pdf.Css.Resolve {
             defaultValues.Put(CssConstants.MARGIN_RIGHT, "0");
             defaultValues.Put(CssConstants.MARGIN_TOP, "0");
             defaultValues.Put(CssConstants.MIN_HEIGHT, "0");
-            defaultValues.Put(CssConstants.OUTLINE_COLOR, CssConstants.INVERT);
+            defaultValues.Put(CssConstants.OUTLINE_COLOR, CssConstants.CURRENTCOLOR);
             defaultValues.Put(CssConstants.OUTLINE_STYLE, CssConstants.NONE);
             defaultValues.Put(CssConstants.OUTLINE_WIDTH, CssConstants.MEDIUM);
             defaultValues.Put(CssConstants.PADDING_BOTTOM, "0");

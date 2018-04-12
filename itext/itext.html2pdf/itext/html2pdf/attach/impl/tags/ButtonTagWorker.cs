@@ -41,25 +41,31 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Text;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
-using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.Layout;
+using iText.Layout.Element;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for a button element.</summary>
-    public class ButtonTagWorker : ITagWorker, IDisplayAware {
+    public class ButtonTagWorker : DivTagWorker {
         /// <summary>The Constant DEFAULT_BUTTON_NAME.</summary>
         private const String DEFAULT_BUTTON_NAME = "Button";
 
         /// <summary>The button.</summary>
-        private Button button;
+        private IFormField formField;
 
-        /// <summary>The display value.</summary>
-        private String display;
+        private StringBuilder fallbackContent = new StringBuilder();
+
+        private String name;
+
+        private bool flatten;
+
+        private bool hasChildren = false;
 
         /// <summary>
         /// Creates a new
@@ -68,50 +74,61 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
-        public ButtonTagWorker(IElementNode element, ProcessorContext context) {
+        public ButtonTagWorker(IElementNode element, ProcessorContext context)
+            : base(element, context) {
             String name = element.GetAttribute(AttributeConstants.ID);
             if (name == null) {
                 name = DEFAULT_BUTTON_NAME;
             }
-            name = context.GetFormFieldNameResolver().ResolveFormName(name);
-            button = new Button(name);
-            button.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
-            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
-        */
-        public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.html2pdf.attach.impl.tags.IDisplayAware#getDisplay()
-        */
-        public virtual String GetDisplay() {
-            return display;
+            this.name = context.GetFormFieldNameResolver().ResolveFormName(name);
+            flatten = !context.IsCreateAcroForm();
         }
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processContent(java.lang.String, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
-        public virtual bool ProcessContent(String content, ProcessorContext context) {
-            button.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, content);
-            return true;
+        public override bool ProcessContent(String content, ProcessorContext context) {
+            fallbackContent.Append(content);
+            return base.ProcessContent(content, context);
         }
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
-        public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-            return false;
+        public override bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+            hasChildren = true;
+            return base.ProcessTagChild(childTagWorker, context);
         }
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
         */
-        public virtual IPropertyContainer GetElementResult() {
-            return button;
+        public override IPropertyContainer GetElementResult() {
+            if (formField == null) {
+                if (hasChildren) {
+                    ButtonContainer button = new ButtonContainer(name);
+                    Div div = (Div)base.GetElementResult();
+                    foreach (IElement element in div.GetChildren()) {
+                        if (element is IBlockElement) {
+                            button.Add((IBlockElement)element);
+                        }
+                        else {
+                            if (element is Image) {
+                                button.Add((Image)element);
+                            }
+                        }
+                    }
+                    div.GetChildren().Clear();
+                    formField = button;
+                }
+                else {
+                    Button inputButton = new Button(name);
+                    inputButton.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, fallbackContent.ToString().Trim());
+                    formField = inputButton;
+                }
+            }
+            formField.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, flatten);
+            return formField;
         }
     }
 }

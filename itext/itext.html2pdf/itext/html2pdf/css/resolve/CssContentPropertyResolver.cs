@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Parse;
 using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
@@ -87,7 +88,7 @@ namespace iText.Html2pdf.Css.Resolve {
                              1);
                         String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
                         if (@params.Length == 0) {
-                            return null;
+                            return ErrorFallback(contentStr);
                         }
                         // Counters are denoted by case-sensitive identifiers
                         String counterName = @params[0].Trim();
@@ -96,12 +97,12 @@ namespace iText.Html2pdf.Css.Resolve {
                         String listStyleType = @params.Length > 2 ? @params[2].Trim() : null;
                         CssCounterManager counterManager = context.GetCounterManager();
                         INode scope = contentContainer;
-                        if ("page".Equals(counterName)) {
-                            result.Add(new PageCountElementNode(false));
+                        if (CssConstants.PAGE.Equals(counterName)) {
+                            result.Add(new PageCountElementNode(false, contentContainer));
                         }
                         else {
-                            if ("pages".Equals(counterName)) {
-                                result.Add(new PageCountElementNode(true));
+                            if (CssConstants.PAGES.Equals(counterName)) {
+                                result.Add(new PageCountElementNode(true, contentContainer));
                             }
                             else {
                                 String resolvedCounter = counterManager.ResolveCounters(counterName, counterSeparationStr, listStyleType, 
@@ -122,19 +123,19 @@ namespace iText.Html2pdf.Css.Resolve {
                                 1);
                             String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
                             if (@params.Length == 0) {
-                                return null;
+                                return ErrorFallback(contentStr);
                             }
                             // Counters are denoted by case-sensitive identifiers
                             String counterName = @params[0].Trim();
                             String listStyleType = @params.Length > 1 ? @params[1].Trim() : null;
                             CssCounterManager counterManager = context.GetCounterManager();
                             INode scope = contentContainer;
-                            if ("page".Equals(counterName)) {
-                                result.Add(new PageCountElementNode(false));
+                            if (CssConstants.PAGE.Equals(counterName)) {
+                                result.Add(new PageCountElementNode(false, contentContainer));
                             }
                             else {
-                                if ("pages".Equals(counterName)) {
-                                    result.Add(new PageCountElementNode(true));
+                                if (CssConstants.PAGES.Equals(counterName)) {
+                                    result.Add(new PageCountElementNode(true, contentContainer));
                                 }
                                 else {
                                     String resolvedCounter = counterManager.ResolveCounter(counterName, listStyleType, scope);
@@ -181,7 +182,24 @@ namespace iText.Html2pdf.Css.Resolve {
                                         result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value));
                                     }
                                     else {
-                                        return ErrorFallback(contentStr);
+                                        if (token.GetValue().StartsWith(CssConstants.ELEMENT + "(") && contentContainer is PageMarginBoxContextNode
+                                            ) {
+                                            String paramsStr = token.GetValue().JSubstring(CssConstants.ELEMENT.Length + 1, token.GetValue().Length - 
+                                                1);
+                                            String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
+                                            if (@params.Length == 0) {
+                                                return ErrorFallback(contentStr);
+                                            }
+                                            String name = @params[0].Trim();
+                                            String runningElementOccurrence = null;
+                                            if (@params.Length > 1) {
+                                                runningElementOccurrence = @params[1].Trim();
+                                            }
+                                            result.Add(new PageMarginRunningElementNode(name, runningElementOccurrence));
+                                        }
+                                        else {
+                                            return ErrorFallback(contentStr);
+                                        }
                                     }
                                 }
                             }

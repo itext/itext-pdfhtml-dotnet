@@ -42,7 +42,6 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using iText.Html2pdf.Jsoup;
 using iText.Html2pdf.Jsoup.Helper;
 using iText.IO.Util;
 

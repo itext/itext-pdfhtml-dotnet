@@ -152,11 +152,11 @@ namespace iText.Html2pdf.Css.Media {
                 }
 
                 case MediaFeature.SCAN: {
-                    return System.Object.Equals(value, deviceDescription.GetScan());
+                    return Object.Equals(value, deviceDescription.GetScan());
                 }
 
                 case MediaFeature.ORIENTATION: {
-                    return System.Object.Equals(value, deviceDescription.GetOrientation());
+                    return Object.Equals(value, deviceDescription.GetOrientation());
                 }
 
                 case MediaFeature.MONOCHROME: {

@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
@@ -94,6 +95,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     }
                 }
                 for (int i = 0; i < GetAllElements().Count; i++) {
+                    if (GetAllElements()[i] is RunningElement) {
+                        continue;
+                    }
                     if (GetAllElements()[i] is IBlockElement) {
                         Div simulatedDiv = new Div();
                         simulatedDiv.GetAccessibilityProperties().SetRole(StandardRoles.LINK);
@@ -102,7 +106,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                             GetAllElements()[i].DeleteOwnProperty(Property.TRANSFORM);
                             simulatedDiv.SetProperty(Property.TRANSFORM, cssTransform);
                         }
+                        FloatPropertyValue? floatPropVal = GetAllElements()[i].GetProperty<FloatPropertyValue?>(Property.FLOAT);
+                        if (floatPropVal != null) {
+                            GetAllElements()[i].DeleteOwnProperty(Property.FLOAT);
+                            simulatedDiv.SetProperty(Property.FLOAT, floatPropVal);
+                        }
                         simulatedDiv.Add((IBlockElement)GetAllElements()[i]);
+                        String display = childrenDisplayMap.JRemove(GetAllElements()[i]);
+                        if (display != null) {
+                            childrenDisplayMap.Put(simulatedDiv, display);
+                        }
                         GetAllElements()[i] = simulatedDiv;
                     }
                     LinkHelper.ApplyLinkAnnotation(GetAllElements()[i], url);

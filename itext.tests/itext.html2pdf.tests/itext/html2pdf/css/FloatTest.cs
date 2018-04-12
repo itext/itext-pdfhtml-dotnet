@@ -45,6 +45,7 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Util;
+using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
@@ -159,8 +160,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Float14Test() {
-            //NOTE: in this test overflow property creates new block-context and element is floating in this block context
-            //the block-context based floating is unsupported in iText
             RunTest("float14Test", "diff14_");
         }
 
@@ -385,18 +384,14 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1268")]
         public virtual void Float44Test() {
-            // TODO DEVSIX-1268
             RunTest("float44Test", "diff44_");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1268")]
         public virtual void Float45Test() {
-            // TODO DEVSIX-1268
             RunTest("float45Test", "diff45_");
         }
 
@@ -596,11 +591,47 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatFixedWidthOverflow01Test() {
+            RunTest("floatFixedWidthOverflow01Test", "diffWidthOverflow01_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatFixedWidthOverflow02Test() {
+            RunTest("floatFixedWidthOverflow02Test", "diffWidthOverflow02_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatContentOverflow01Test() {
+            RunTest("floatContentOverflow01Test", "diffContentOverflow01_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FloatFixedWidthNested01Test() {
+            RunTest("floatFixedWidthNested01Test", "diffWidthOverflowNested01_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void NestedFloat01Test() {
+            RunTest("nestedFloat01Test", "diffNested01_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String testName, String diff) {
             String htmlName = sourceFolder + testName + ".html";
             String outFileName = destinationFolder + testName + ".pdf";
             String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
             HtmlConverter.ConvertToPdf(new FileInfo(htmlName), new FileInfo(outFileName));
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlName).AbsolutePath + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, destinationFolder
                 , diff));
         }

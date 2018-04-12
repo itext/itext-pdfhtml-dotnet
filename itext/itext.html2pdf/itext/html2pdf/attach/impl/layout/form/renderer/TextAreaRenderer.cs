@@ -50,6 +50,8 @@ using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
+using iText.Layout.Layout;
+using iText.Layout.Minmaxwidth;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
@@ -90,18 +92,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return (int)modelElement.GetDefaultProperty<int>(Html2PdfProperty.FORM_FIELD_ROWS);
         }
 
-        /* (non-Javadoc)
-        * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getAscent()
-        */
-        public override float GetAscent() {
-            return occupiedArea.GetBBox().GetHeight();
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.layout.renderer.ILeafElementRenderer#getDescent()
-        */
-        public override float GetDescent() {
-            return 0;
+        protected override float? GetLastYLineRecursively() {
+            if (occupiedArea != null && occupiedArea.GetBBox() != null) {
+                return occupiedArea.GetBBox().GetBottom();
+            }
+            return null;
         }
 
         /* (non-Javadoc)
@@ -111,16 +106,20 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return new iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.TextAreaRenderer((TextArea)GetModelElement());
         }
 
+        protected internal override void AdjustFieldLayout() {
+            throw new Exception("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead"
+                );
+        }
+
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
         */
-        protected internal override void AdjustFieldLayout() {
+        protected internal override void AdjustFieldLayout(LayoutContext layoutContext) {
             IList<LineRenderer> flatLines = ((ParagraphRenderer)flatRenderer).GetLines();
             UpdatePdfFont((ParagraphRenderer)flatRenderer);
             Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
             if (!flatLines.IsEmpty() && font != null) {
-                int rows = GetRows();
-                AdjustNumberOfContentLines(flatLines, flatBBox, rows);
+                CropContentLines(flatLines, flatBBox);
             }
             else {
                 LogManager.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
@@ -128,7 +127,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
                 flatBBox.SetHeight(0);
             }
-            flatBBox.SetWidth((float)GetContentWidth());
+            flatBBox.SetWidth((float)RetrieveWidth(layoutContext.GetArea().GetBBox().GetWidth()));
         }
 
         /* (non-Javadoc)
@@ -162,23 +161,65 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
         }
 
-        /* (non-Javadoc)
-        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#getContentWidth()
-        */
-        protected internal override float? GetContentWidth() {
-            float? width = base.GetContentWidth();
-            if (width == null) {
-                UnitValue fontSize = (UnitValue)this.GetPropertyAsUnitValue(Property.FONT_SIZE);
-                if (!fontSize.IsPointValue()) {
-                    ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.TextAreaRenderer
-                        ));
-                    logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property
-                        .FONT_SIZE));
+        public override T1 GetProperty<T1>(int key) {
+            if (key == Property.WIDTH) {
+                T1 width = base.GetProperty<T1>(Property.WIDTH);
+                if (width == null) {
+                    UnitValue fontSize = (UnitValue)this.GetPropertyAsUnitValue(Property.FONT_SIZE);
+                    if (!fontSize.IsPointValue()) {
+                        ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.TextAreaRenderer
+                            ));
+                        logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property
+                            .FONT_SIZE));
+                    }
+                    int cols = GetCols();
+                    return (T1)(Object)UnitValue.CreatePointValue(UpdateHtmlColsSizeBasedWidth(fontSize.GetValue() * (cols * 0.5f
+                         + 2) + 2));
                 }
-                int cols = GetCols();
-                return fontSize.GetValue() * (cols * 0.5f + 2) + 2;
+                return width;
             }
-            return width;
+            return base.GetProperty<T1>(key);
+        }
+
+        protected override bool SetMinMaxWidthBasedOnFixedWidth(MinMaxWidth minMaxWidth) {
+            if (!HasAbsoluteUnitValue(Property.WIDTH)) {
+                UnitValue width = this.GetProperty<UnitValue>(Property.WIDTH);
+                bool restoreWidth = HasOwnProperty(Property.WIDTH);
+                SetProperty(Property.WIDTH, null);
+                bool result = base.SetMinMaxWidthBasedOnFixedWidth(minMaxWidth);
+                if (restoreWidth) {
+                    SetProperty(Property.WIDTH, width);
+                }
+                else {
+                    DeleteOwnProperty(Property.WIDTH);
+                }
+                return result;
+            }
+            return base.SetMinMaxWidthBasedOnFixedWidth(minMaxWidth);
+        }
+
+        private void CropContentLines(IList<LineRenderer> lines, Rectangle bBox) {
+            float? height = RetrieveHeight();
+            float? minHeight = RetrieveMinHeight();
+            float? maxHeight = RetrieveMaxHeight();
+            int rowsAttribute = GetRows();
+            float rowsHeight = GetHeightRowsBased(lines, bBox, rowsAttribute);
+            if (height != null && (float)height > 0) {
+                AdjustNumberOfContentLines(lines, bBox, (float)height);
+            }
+            else {
+                if (minHeight != null && (float)minHeight > rowsHeight) {
+                    AdjustNumberOfContentLines(lines, bBox, (float)minHeight);
+                }
+                else {
+                    if (maxHeight != null && (float)maxHeight > 0 && (float)maxHeight < rowsHeight) {
+                        AdjustNumberOfContentLines(lines, bBox, (float)maxHeight);
+                    }
+                    else {
+                        AdjustNumberOfContentLines(lines, bBox, rowsAttribute);
+                    }
+                }
+            }
         }
     }
 }

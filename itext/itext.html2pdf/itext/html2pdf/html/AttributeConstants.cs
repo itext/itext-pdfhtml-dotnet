@@ -77,6 +77,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant CLASS.</summary>
         public const String CELLPADDING = "cellpadding";
 
+        /// <summary>The Constant CLASS.</summary>
+        public const String CELLSPACING = "cellspacing";
+
         /// <summary>The Constant COLOR.</summary>
         public const String COLOR = "color";
 
@@ -113,11 +116,17 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant KEYWORDS.</summary>
         public const String KEYWORDS = "keywords";
 
+        /// <summary>The Constant LABEL.</summary>
+        public const String LABEL = "label";
+
         /// <summary>The Constant LANG.</summary>
         public const String LANG = "lang";
 
         /// <summary>The Constant MEDIA.</summary>
         public const String MEDIA = "media";
+
+        /// <summary>The Constant MULTIPLE.</summary>
+        public const String MULTIPLE = "multiple";
 
         /// <summary>The Constant NAME.</summary>
         public const String NAME = "name";
@@ -136,6 +145,12 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant ROWSPAN.</summary>
         public const String ROWSPAN = "rowspan";
+
+        /// <summary>The Constant SCOPE.</summary>
+        public const String SCOPE = "scope";
+
+        /// <summary>The Constant SELECTED.</summary>
+        public const String SELECTED = "selected";
 
         /// <summary>The Constant SIZE.</summary>
         public const String SIZE = "size";
@@ -188,6 +203,15 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant CHECKBOX.</summary>
         public const String CHECKBOX = "checkbox";
 
+        /// <summary>The Constant CHECKED.</summary>
+        public const String CHECKED = "checked";
+
+        /// <summary>The Constant COL.</summary>
+        public const String COL = "col";
+
+        /// <summary>The Constant COLGROUP.</summary>
+        public const String COLGROUP = "colgroup";
+
         /// <summary>The Constant EMAIL.</summary>
         public const String EMAIL = "email";
 
@@ -214,6 +238,12 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant RIGHT.</summary>
         public const String RIGHT = "right";
+
+        /// <summary>The Constant ROW.</summary>
+        public const String ROW = "row";
+
+        /// <summary>The Constant ROWGROUP.</summary>
+        public const String ROWGROUP = "rowgroup";
 
         /// <summary>The Constant RTL.</summary>
         public const String RTL = "rtl";

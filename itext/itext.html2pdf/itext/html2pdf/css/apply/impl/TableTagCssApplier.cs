@@ -43,8 +43,9 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html.Node;
-using iText.Layout;
+using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
@@ -58,11 +59,30 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         */
         public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker worker) {
             base.Apply(context, stylesContainer, worker);
-            IPropertyContainer table = worker.GetElementResult();
+            Table table = (Table)worker.GetElementResult();
             if (table != null) {
                 String tableLayout = stylesContainer.GetStyles().Get(CssConstants.TABLE_LAYOUT);
                 if (tableLayout != null) {
                     table.SetProperty(Property.TABLE_LAYOUT, tableLayout);
+                }
+                String borderCollapse = stylesContainer.GetStyles().Get(CssConstants.BORDER_COLLAPSE);
+                // BorderCollapsePropertyValue.COLLAPSE is default in iText layout
+                if (null == borderCollapse || CssConstants.SEPARATE.Equals(borderCollapse)) {
+                    table.SetBorderCollapse(BorderCollapsePropertyValue.SEPARATE);
+                }
+                String borderSpacing = stylesContainer.GetStyles().Get(CssConstants.BORDER_SPACING);
+                if (null != borderSpacing) {
+                    String[] props = iText.IO.Util.StringUtil.Split(borderSpacing, "\\s+");
+                    if (1 == props.Length) {
+                        table.SetHorizontalBorderSpacing(CssUtils.ParseAbsoluteLength(props[0]));
+                        table.SetVerticalBorderSpacing(CssUtils.ParseAbsoluteLength(props[0]));
+                    }
+                    else {
+                        if (2 == props.Length) {
+                            table.SetHorizontalBorderSpacing(CssUtils.ParseAbsoluteLength(props[0]));
+                            table.SetVerticalBorderSpacing(CssUtils.ParseAbsoluteLength(props[1]));
+                        }
+                    }
                 }
             }
         }

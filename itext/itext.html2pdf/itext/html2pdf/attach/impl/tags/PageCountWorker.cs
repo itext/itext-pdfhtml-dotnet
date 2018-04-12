@@ -44,11 +44,13 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html.Node;
-using iText.Layout.Element;
+using iText.Layout;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for the page count.</summary>
     public class PageCountWorker : SpanTagWorker {
+        private IPropertyContainer pageCountElement;
+
         /// <summary>
         /// Creates a new
         /// <see cref="PageCountWorker"/>
@@ -58,19 +60,23 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public PageCountWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {
+            bool totalPageCount = element is PageCountElementNode && ((PageCountElementNode)element).IsTotalPageCount(
+                );
+            pageCountElement = new PageCountElement();
+            pageCountElement.SetProperty(Html2PdfProperty.PAGE_COUNT_TYPE, totalPageCount ? PageCountType.TOTAL_PAGE_COUNT
+                 : PageCountType.CURRENT_PAGE_NUMBER);
         }
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.impl.tags.SpanTagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public override void ProcessEnd(IElementNode element, ProcessorContext context) {
-            bool totalPageCount = element is PageCountElementNode && ((PageCountElementNode)element).IsTotalPageCount(
-                );
-            ILeafElement pageCountElement = new PageCountElement();
-            pageCountElement.SetProperty(Html2PdfProperty.PAGE_COUNT_TYPE, totalPageCount ? PageCountType.TOTAL_PAGE_COUNT
-                 : PageCountType.CURRENT_PAGE_NUMBER);
-            spanWrapper.Add(pageCountElement);
+            base.ProcessTagChild(this, context);
             base.ProcessEnd(element, context);
+        }
+
+        public override IPropertyContainer GetElementResult() {
+            return pageCountElement;
         }
     }
 }

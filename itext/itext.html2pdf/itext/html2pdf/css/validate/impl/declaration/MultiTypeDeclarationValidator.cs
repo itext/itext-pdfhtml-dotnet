@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Validate;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Validate.Impl.Declaration {
     /// <summary>
@@ -60,7 +61,7 @@ namespace iText.Html2pdf.Css.Validate.Impl.Declaration {
         /// </summary>
         /// <param name="allowedTypes">the allowed types</param>
         public MultiTypeDeclarationValidator(params ICssDataTypeValidator[] allowedTypes) {
-            this.allowedTypes = iText.IO.Util.JavaUtil.ArraysAsList(allowedTypes);
+            this.allowedTypes = JavaUtil.ArraysAsList(allowedTypes);
         }
 
         /* (non-Javadoc)

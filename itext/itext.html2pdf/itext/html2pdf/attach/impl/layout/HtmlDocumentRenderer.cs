@@ -40,13 +40,17 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
+using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Html.Node;
+using iText.Kernel.Events;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Layout;
@@ -73,15 +77,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary>The page context processor for all right pages.</summary>
         private PageContextProcessor rightPageProc;
 
-        /// <summary>Indicates if the current page is even.</summary>
+        /// <summary>Indicates if even pages are considered as left or right.</summary>
         /// <remarks>
-        /// Indicates if the current page is even.
-        /// Important: this number may differ from the result you get checking
-        /// if the number of pages in the document is even or not, because
-        /// the first page break-before might change right page to left (in ltr cases),
+        /// Indicates if even pages are considered as left or right.
+        /// Important: this value might differ depending on page progression direction,
+        /// as well as because the first page break-before might change right page to left (in ltr cases),
         /// but a blank page will not be added.
         /// </remarks>
-        private bool currentPageEven = true;
+        private bool evenPagesAreLeft = true;
+
+        private HtmlDocumentRenderer.PageMarginBoxesDrawingHandler handler;
 
         /// <summary>
         /// The waiting element, an child element is kept waiting for the
@@ -129,9 +134,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             PageContextProperties rightPageProps = PageContextProperties.Resolve(rootNode, cssResolver, context.GetCssContext
                 (), PageContextConstants.RIGHT);
             PageSize defaultPageSize = document.GetPdfDocument().GetDefaultPageSize();
-            firstPageProc = new PageContextProcessor(firstPageProps, context, defaultPageSize);
-            leftPageProc = new PageContextProcessor(leftPageProps, context, defaultPageSize);
-            rightPageProc = new PageContextProcessor(rightPageProps, context, defaultPageSize);
+            float[] defaultPageMargins = new float[] { document.GetTopMargin(), document.GetRightMargin(), document.GetBottomMargin
+                (), document.GetRightMargin() };
+            firstPageProc = new PageContextProcessor(firstPageProps, context, defaultPageSize, defaultPageMargins);
+            leftPageProc = new PageContextProcessor(leftPageProps, context, defaultPageSize, defaultPageMargins);
+            rightPageProc = new PageContextProcessor(rightPageProps, context, defaultPageSize, defaultPageMargins);
+            handler = new HtmlDocumentRenderer.PageMarginBoxesDrawingHandler().SetHtmlDocumentRenderer(this);
+            document.GetPdfDocument().AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
         }
 
         /* (non-Javadoc)
@@ -142,10 +151,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 if (true.Equals(renderer.GetProperty<bool?>(Html2PdfProperty.KEEP_WITH_PREVIOUS))) {
                     waitingElement.SetProperty(Property.KEEP_WITH_NEXT, true);
                 }
-                base.AddChild(waitingElement);
-                // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
-                shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
+                IRenderer element = waitingElement;
                 waitingElement = null;
+                base.AddChild(element);
+                if (!IsRunningElementsOnly(element)) {
+                    // After we have added any child, we should not trim first pages because of break before element, even if the added child had zero height
+                    shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
+                }
             }
             waitingElement = renderer;
             FloatPropertyValue? floatPropertyValue = renderer.GetProperty<FloatPropertyValue?>(Property.FLOAT);
@@ -176,6 +188,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     pdfDocument.RemovePage(pdfDocument.GetNumberOfPages());
                 }
             }
+            document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, handler);
+            for (int i = 1; i <= document.GetPdfDocument().GetNumberOfPages(); ++i) {
+                PdfPage page = document.GetPdfDocument().GetPage(i);
+                if (!page.IsFlushed()) {
+                    handler.ProcessPage(document.GetPdfDocument(), i);
+                }
+            }
         }
 
         /* (non-Javadoc)
@@ -189,10 +208,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
             iText.Html2pdf.Attach.Impl.Layout.HtmlDocumentRenderer relayoutRenderer = new iText.Html2pdf.Attach.Impl.Layout.HtmlDocumentRenderer
                 (document, immediateFlush);
-            relayoutRenderer.firstPageProc = firstPageProc;
-            relayoutRenderer.leftPageProc = leftPageProc;
-            relayoutRenderer.rightPageProc = rightPageProc;
+            PageSize defaultPageSize = document.GetPdfDocument().GetDefaultPageSize();
+            float[] defaultPageMargins = new float[] { document.GetTopMargin(), document.GetRightMargin(), document.GetBottomMargin
+                (), document.GetRightMargin() };
+            relayoutRenderer.firstPageProc = firstPageProc.Reset(defaultPageSize, defaultPageMargins);
+            relayoutRenderer.leftPageProc = leftPageProc.Reset(defaultPageSize, defaultPageMargins);
+            relayoutRenderer.rightPageProc = rightPageProc.Reset(defaultPageSize, defaultPageMargins);
             relayoutRenderer.estimatedNumberOfPages = currentPageNumber;
+            relayoutRenderer.handler = handler.SetHtmlDocumentRenderer(relayoutRenderer);
             return relayoutRenderer;
         }
 
@@ -212,9 +235,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     overflowResult = null;
                     currentArea = null;
                     shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
-                    if (HtmlPageBreakType.LEFT.Equals(htmlPageBreakType) && IsCurrentPageLeft() || HtmlPageBreakType.RIGHT.Equals
-                        (htmlPageBreakType) && IsCurrentPageRight()) {
-                        currentPageEven = !currentPageEven;
+                    if (HtmlPageBreakType.LEFT.Equals(htmlPageBreakType) && !IsPageLeft(1) || HtmlPageBreakType.RIGHT.Equals(htmlPageBreakType
+                        ) && !IsPageRight(1)) {
+                        evenPagesAreLeft = !evenPagesAreLeft;
                     }
                 }
                 // hack to change the "evenness" of the first page without adding an unnecessary blank page
@@ -231,11 +254,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 else {
                     if (HtmlPageBreakType.LEFT.Equals(htmlPageBreakType)) {
                         LayoutArea nextArea = currentArea;
-                        if (anythingAddedToCurrentArea || !IsCurrentPageLeft() || currentArea == null) {
+                        if (anythingAddedToCurrentArea || currentArea == null || !IsPageLeft(currentPageNumber)) {
                             do {
                                 nextArea = base.UpdateCurrentArea(overflowResult);
                             }
-                            while (!IsCurrentPageLeft());
+                            while (!IsPageLeft(currentPageNumber));
                         }
                         anythingAddedToCurrentArea = false;
                         return nextArea;
@@ -243,11 +266,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     else {
                         if (HtmlPageBreakType.RIGHT.Equals(htmlPageBreakType)) {
                             LayoutArea nextArea = currentArea;
-                            if (anythingAddedToCurrentArea || !IsCurrentPageRight() || currentArea == null) {
+                            if (anythingAddedToCurrentArea || currentArea == null || !IsPageRight(currentPageNumber)) {
                                 do {
                                     nextArea = base.UpdateCurrentArea(overflowResult);
                                 }
-                                while (!IsCurrentPageRight());
+                                while (!IsPageRight(currentPageNumber));
                             }
                             anythingAddedToCurrentArea = false;
                             return nextArea;
@@ -276,18 +299,49 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         protected override PageSize AddNewPage(PageSize customPageSize) {
             PdfPage addedPage;
             int numberOfPages = document.GetPdfDocument().GetNumberOfPages();
-            PageContextProcessor nextProcessor = GetNextPageProcessor(numberOfPages == 0);
+            PageContextProcessor nextProcessor = GetPageProcessor(numberOfPages + 1);
             if (customPageSize != null) {
                 addedPage = document.GetPdfDocument().AddNewPage(customPageSize);
             }
             else {
                 addedPage = document.GetPdfDocument().AddNewPage(nextProcessor.GetPageSize());
             }
-            currentPageEven = !currentPageEven;
-            nextProcessor.ProcessNewPage(addedPage, this);
+            nextProcessor.ProcessNewPage(addedPage);
             float[] margins = nextProcessor.ComputeLayoutMargins();
-            document.SetMargins(margins[0], margins[1], margins[2], margins[3]);
+            float[] htmlStylesWidth = ApplyHtmlBodyMarginsBorders(addedPage, margins, false);
+            float[] simulatedMarginForBody = new float[4];
+            for (int i = 0; i < 4; i++) {
+                simulatedMarginForBody[i] = margins[i] + htmlStylesWidth[i];
+            }
+            float[] bodyStylesWidth = ApplyHtmlBodyMarginsBorders(addedPage, simulatedMarginForBody, true);
+            SetProperty(Property.MARGIN_TOP, margins[0] + htmlStylesWidth[0] + bodyStylesWidth[0]);
+            SetProperty(Property.MARGIN_RIGHT, margins[1] + htmlStylesWidth[1] + bodyStylesWidth[1]);
+            SetProperty(Property.MARGIN_BOTTOM, margins[2] + htmlStylesWidth[2] + bodyStylesWidth[2]);
+            SetProperty(Property.MARGIN_LEFT, margins[3] + htmlStylesWidth[3] + bodyStylesWidth[3]);
             return new PageSize(addedPage.GetTrimBox());
+        }
+
+        private float[] ApplyHtmlBodyMarginsBorders(PdfPage page, float[] defaultMargins, bool body) {
+            int htmlOrBodyStylingProperty = body ? Html2PdfProperty.BODY_STYLING : Html2PdfProperty.HTML_STYLING;
+            BodyHtmlStylesContainer styles = ((IPropertyContainer)document).GetProperty<BodyHtmlStylesContainer>(htmlOrBodyStylingProperty
+                );
+            if (styles == null) {
+                return new float[4];
+            }
+            if (styles.HasBordersToDraw()) {
+                Div pageBordersSimulation;
+                pageBordersSimulation = new Div().SetFillAvailableArea(true);
+                foreach (KeyValuePair<int, Object> entry in styles.properties) {
+                    pageBordersSimulation.SetProperty(entry.Key, entry.Value);
+                }
+                pageBordersSimulation.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
+                iText.Layout.Canvas canvas = new Canvas(new PdfCanvas(page), page.GetDocument(), page.GetTrimBox().ApplyMargins
+                    (defaultMargins[0], defaultMargins[1], defaultMargins[2], defaultMargins[3], false));
+                canvas.EnableAutoTagging(page);
+                canvas.Add(pageBordersSimulation);
+                canvas.Close();
+            }
+            return styles.GetTotalWidth();
         }
 
         /// <summary>Gets the estimated number of pages.</summary>
@@ -296,16 +350,20 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return estimatedNumberOfPages;
         }
 
-        /// <summary>Gets the next page processor.</summary>
-        /// <param name="firstPage">the first page</param>
-        /// <returns>the next page processor</returns>
-        private PageContextProcessor GetNextPageProcessor(bool firstPage) {
+        /// <summary>Gets a page processor for the page.</summary>
+        /// <param name="pageNum">
+        /// the number of the page for which the
+        /// <see cref="PageContextProcessor"/>
+        /// shall be obtained
+        /// </param>
+        /// <returns>a page processor</returns>
+        private PageContextProcessor GetPageProcessor(int pageNum) {
             // If first page, but break-before: left for ltr is present, we should use left page instead of first
-            if (firstPage && currentPageEven) {
+            if (pageNum == 1 && evenPagesAreLeft) {
                 return firstPageProc;
             }
             else {
-                if (IsCurrentPageRight()) {
+                if (IsPageLeft(pageNum)) {
                     return leftPageProc;
                 }
                 else {
@@ -316,15 +374,52 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>Checks if the current page is a left page.</summary>
         /// <returns>true, if is current page left</returns>
-        private bool IsCurrentPageLeft() {
+        private bool IsPageLeft(int pageNum) {
             // TODO rtl
-            return currentPageEven;
+            bool pageIsEven = pageNum % 2 == 0;
+            return evenPagesAreLeft == pageIsEven;
         }
 
         /// <summary>Checks if the current page is a right page.</summary>
         /// <returns>true, if is current page right</returns>
-        private bool IsCurrentPageRight() {
-            return !IsCurrentPageLeft();
+        private bool IsPageRight(int pageNum) {
+            return !IsPageLeft(pageNum);
+        }
+
+        private static bool IsRunningElementsOnly(IRenderer waitingElement) {
+            bool res;
+            if (res = waitingElement is ParagraphRenderer && !waitingElement.GetChildRenderers().IsEmpty()) {
+                IList<IRenderer> childRenderers = waitingElement.GetChildRenderers();
+                int i = 0;
+                while (res && i < childRenderers.Count) {
+                    res = childRenderers[i++] is RunningElement.RunningElementRenderer;
+                }
+            }
+            return res;
+        }
+
+        private class PageMarginBoxesDrawingHandler : IEventHandler {
+            private HtmlDocumentRenderer htmlDocumentRenderer;
+
+            internal virtual HtmlDocumentRenderer.PageMarginBoxesDrawingHandler SetHtmlDocumentRenderer(HtmlDocumentRenderer
+                 htmlDocumentRenderer) {
+                this.htmlDocumentRenderer = htmlDocumentRenderer;
+                return this;
+            }
+
+            public virtual void HandleEvent(Event @event) {
+                if (@event is PdfDocumentEvent) {
+                    PdfPage page = ((PdfDocumentEvent)@event).GetPage();
+                    PdfDocument pdfDoc = ((PdfDocumentEvent)@event).GetDocument();
+                    int pageNumber = pdfDoc.GetPageNumber(page);
+                    ProcessPage(pdfDoc, pageNumber);
+                }
+            }
+
+            internal virtual void ProcessPage(PdfDocument pdfDoc, int pageNumber) {
+                PageContextProcessor pageProcessor = htmlDocumentRenderer.GetPageProcessor(pageNumber);
+                pageProcessor.ProcessPageEnd(pageNumber, pdfDoc, htmlDocumentRenderer);
+            }
         }
     }
 }

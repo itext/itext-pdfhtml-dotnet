@@ -184,14 +184,17 @@ namespace iText.Html2pdf.Css {
             Test("htmlStylesConvertingTest05.html", "html body table", "border-bottom-style: solid", "border-left-style: solid"
                 , "border-right-style: solid", "border-top-style: solid", "border-bottom-width: 2px", "border-left-width: 2px"
                 , "border-right-width: 2px", "border-top-width: 2px", "font-size: 12.0pt", "margin-bottom: 0", "margin-left: 0"
-                , "margin-right: 0", "margin-top: 0", "text-indent: 0", "display: table", "font-family: times-roman");
+                , "margin-right: 0", "margin-top: 0", "text-indent: 0", "display: table", "border-spacing: 2px", "font-family: times-roman"
+                , "border-bottom-color: currentcolor", "border-left-color: currentcolor", "border-right-color: currentcolor"
+                , "border-top-color: currentcolor");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest06() {
             Test("htmlStylesConvertingTest05.html", "html body table tbody tr", "background-color: yellow", "font-size: 12.0pt"
-                , "text-indent: 0", "vertical-align: middle", "display: table-row", "font-family: times-roman");
+                , "text-indent: 0", "vertical-align: middle", "display: table-row", "border-spacing: 2px", "font-family: times-roman"
+                );
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -225,9 +228,8 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest11() {
-            Test("htmlStylesConvertingTest10.html", "html body", "background-color: yellow", "font-size: 12.0pt", "margin-bottom: 10%"
-                , "margin-left: 10%", "margin-right: 10%", "margin-top: 10%", "display: block", "font-family: times-roman"
-                );
+            Test("htmlStylesConvertingTest10.html", "html body", "background-color: yellow", "font-size: 12.0pt", "display: block"
+                , "font-family: times-roman");
         }
 
         private void ResolveStylesForTree(INode node, ICssResolver cssResolver, CssContext context) {
@@ -258,8 +260,7 @@ namespace iText.Html2pdf.Css {
                     ));
             }
             IDictionary<String, String> elementStyles = element.GetStyles();
-            ICollection<String> expectedStylesSet = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList(expectedStyles
-                ));
+            ICollection<String> expectedStylesSet = new HashSet<String>(JavaUtil.ArraysAsList(expectedStyles));
             ICollection<String> actualStylesSet = StylesMapToHashSet(elementStyles);
             NUnit.Framework.Assert.IsTrue(SetsAreEqual(expectedStylesSet, actualStylesSet), GetDifferencesMessage(expectedStylesSet
                 , actualStylesSet));
@@ -275,7 +276,7 @@ namespace iText.Html2pdf.Css {
                 int ancestorIndex = 0;
                 int dash = ancestor.IndexOf('-');
                 if (dash > 0) {
-                    ancestorIndex = System.Convert.ToInt32(ancestor.JSubstring(dash + 1, ancestor.Length));
+                    ancestorIndex = Convert.ToInt32(ancestor.JSubstring(dash + 1, ancestor.Length));
                     ancestor = ancestor.JSubstring(0, dash);
                 }
                 int sameNameInd = 0;

@@ -78,8 +78,8 @@ namespace iText.Html2pdf.Css.Media {
         /// <param name="deviceDescription">the device description</param>
         /// <returns>true, if successful</returns>
         public virtual bool Matches(MediaDeviceDescription deviceDescription) {
-            bool typeMatches = type == null || MediaType.ALL.Equals(type) || System.Object.Equals(type, deviceDescription
-                .GetType());
+            bool typeMatches = type == null || MediaType.ALL.Equals(type) || Object.Equals(type, deviceDescription.GetType
+                ());
             bool matchesExpressions = true;
             foreach (MediaExpression expression in expressions) {
                 if (!expression.Matches(deviceDescription)) {

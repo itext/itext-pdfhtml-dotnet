@@ -140,6 +140,13 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void BeforeAfterPseudoTest14() {
+            RunTest("beforeAfterPseudoTest14");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo01() {
             RunTest("collapsingMarginsBeforeAfterPseudo01");
         }

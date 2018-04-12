@@ -56,7 +56,7 @@ namespace iText.Html2pdf.Jsoup.Parser {
 
         static Tokeniser() {
             // replaces null character
-            iText.IO.Util.JavaUtil.Sort(notCharRefCharsSorted);
+            JavaUtil.Sort(notCharRefCharsSorted);
         }
 
         private CharacterReader reader;
@@ -172,7 +172,7 @@ namespace iText.Html2pdf.Jsoup.Parser {
         }
 
         internal void Emit(char[] chars) {
-            Emit(iText.IO.Util.JavaUtil.GetStringForChars(chars));
+            Emit(JavaUtil.GetStringForChars(chars));
         }
 
         internal void Emit(char c) {
@@ -228,7 +228,7 @@ namespace iText.Html2pdf.Jsoup.Parser {
                 int charval = -1;
                 try {
                     int @base = isHexMode ? 16 : 10;
-                    charval = System.Convert.ToInt32(numRef, @base);
+                    charval = Convert.ToInt32(numRef, @base);
                 }
                 catch (FormatException) {
                 }
@@ -241,12 +241,12 @@ namespace iText.Html2pdf.Jsoup.Parser {
                 else {
                     // todo: implement number replacement table
                     // todo: check for extra illegal unicode points as parse errors
-                    if (charval < iText.Html2pdf.Jsoup.PortUtil.CHARACTER_MIN_SUPPLEMENTARY_CODE_POINT) {
+                    if (charval < iText.IO.Util.TextUtil.CHARACTER_MIN_SUPPLEMENTARY_CODE_POINT) {
                         charRef[0] = (char)charval;
                         return charRef;
                     }
                     else {
-                        return iText.Html2pdf.Jsoup.PortUtil.ToChars(charval);
+                        return iText.IO.Util.TextUtil.ToChars(charval);
                     }
                 }
             }

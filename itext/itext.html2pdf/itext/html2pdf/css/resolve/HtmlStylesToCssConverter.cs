@@ -65,6 +65,8 @@ namespace iText.Html2pdf.Css.Resolve {
                 ());
             htmlAttributeConverters.Put(AttributeConstants.CELLPADDING, new HtmlStylesToCssConverter.CellPaddingAttributeConverter
                 ());
+            htmlAttributeConverters.Put(AttributeConstants.CELLSPACING, new HtmlStylesToCssConverter.CellSpacingAttributeConverter
+                ());
             htmlAttributeConverters.Put(AttributeConstants.COLOR, new HtmlStylesToCssConverter.FontColorAttributeConverter
                 ());
             htmlAttributeConverters.Put(AttributeConstants.DIR, new HtmlStylesToCssConverter.DirAttributeConverter());
@@ -183,7 +185,7 @@ namespace iText.Html2pdf.Css.Resolve {
                         ApplyBordersToTableCells(element, styles);
                     }
                     if (width >= 0) {
-                        return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BORDER, value + "px solid"));
+                        return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BORDER, value + "px solid"));
                     }
                 }
                 return JavaCollectionsUtil.EmptyList<CssDeclaration>();
@@ -238,13 +240,33 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>
         /// <see cref="IAttributeConverter"/>
+        /// implementation for table's cellspacing.
+        /// </summary>
+        private class CellSpacingAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
+            public virtual bool IsSupportedForElement(String elementName) {
+                return TagConstants.TABLE.Equals(elementName);
+            }
+
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            */
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BORDER_SPACING, value));
+            }
+        }
+
+        /// <summary>
+        /// <see cref="IAttributeConverter"/>
         /// implementation for HTML background color styles.
         /// </summary>
         private class BgColorAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
             /// <summary>The supported tags.</summary>
-            private static ICollection<String> supportedTags = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
-                (TagConstants.BODY, TagConstants.COL, TagConstants.COLGROUP, TagConstants.MARQUEE, TagConstants.TABLE, 
-                TagConstants.TBODY, TagConstants.TFOOT, TagConstants.TD, TagConstants.TH, TagConstants.TR));
+            private static ICollection<String> supportedTags = new HashSet<String>(JavaUtil.ArraysAsList(TagConstants.
+                BODY, TagConstants.COL, TagConstants.COLGROUP, TagConstants.MARQUEE, TagConstants.TABLE, TagConstants.
+                TBODY, TagConstants.TFOOT, TagConstants.TD, TagConstants.TH, TagConstants.TR));
 
             /* (non-Javadoc)
             * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
@@ -257,7 +279,7 @@ namespace iText.Html2pdf.Css.Resolve {
             * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BACKGROUND_COLOR, value));
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BACKGROUND_COLOR, value));
             }
         }
 
@@ -277,7 +299,7 @@ namespace iText.Html2pdf.Css.Resolve {
             * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.COLOR, value));
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.COLOR, value));
             }
         }
 
@@ -352,7 +374,7 @@ namespace iText.Html2pdf.Css.Resolve {
                         cssValueEquivalent = value + CssConstants.PX;
                     }
                 }
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(cssPropertyEquivalent, cssValueEquivalent));
+                return JavaUtil.ArraysAsList(new CssDeclaration(cssPropertyEquivalent, cssValueEquivalent));
             }
         }
 
@@ -372,7 +394,7 @@ namespace iText.Html2pdf.Css.Resolve {
             * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.FONT_FAMILY, value));
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.FONT_FAMILY, value));
             }
         }
 
@@ -419,8 +441,7 @@ namespace iText.Html2pdf.Css.Resolve {
                         break;
                     }
                 }
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.LIST_STYLE_TYPE, cssEquivalent)
-                    );
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.LIST_STYLE_TYPE, cssEquivalent));
             }
         }
 
@@ -440,7 +461,7 @@ namespace iText.Html2pdf.Css.Resolve {
             * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.DIRECTION, value));
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.DIRECTION, value));
             }
         }
 
@@ -467,7 +488,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 if (!CssUtils.IsMetricValue(cssEquivalent) && !cssEquivalent.EndsWith(CssConstants.PERCENTAGE)) {
                     cssEquivalent += CssConstants.PX;
                 }
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.WIDTH, cssEquivalent));
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.WIDTH, cssEquivalent));
             }
         }
 
@@ -492,7 +513,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 if (!CssUtils.IsMetricValue(cssEquivalent) && !cssEquivalent.EndsWith(CssConstants.PERCENTAGE)) {
                     cssEquivalent += CssConstants.PX;
                 }
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, cssEquivalent));
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, cssEquivalent));
             }
         }
 
@@ -580,8 +601,8 @@ namespace iText.Html2pdf.Css.Resolve {
             * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, "2px"), new CssDeclaration
-                    (CssConstants.BORDER_WIDTH, "0"), new CssDeclaration(CssConstants.BACKGROUND_COLOR, "gray"));
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, "2px"), new CssDeclaration(CssConstants
+                    .BORDER_WIDTH, "0"), new CssDeclaration(CssConstants.BACKGROUND_COLOR, "gray"));
             }
         }
 
@@ -602,7 +623,7 @@ namespace iText.Html2pdf.Css.Resolve {
             * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
             }
         }
     }

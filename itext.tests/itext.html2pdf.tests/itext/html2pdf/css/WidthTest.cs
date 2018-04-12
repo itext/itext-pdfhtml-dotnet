@@ -45,6 +45,7 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Kernel.Utils;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class WidthTest : ExtendedITextTest {
@@ -93,6 +94,29 @@ namespace iText.Html2pdf.Css {
         public virtual void PercentMarginTest() {
             //Todo: the width for table currently set incorrect.
             RunTest("percentMarginTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RelativeInlineBlockWidthWithTextIndentTest01() {
+            RunTest("relativeInlineBlockWidthWithTextIndentTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RelativeInlineBlockWidthWithTextIndentTest02() {
+            // TODO DEVSIX-1823: inline blocks with relative widths (width:100%) do not wrap to the next line
+            RunTest("relativeInlineBlockWidthWithTextIndentTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, Count = 2)]
+        public virtual void RelativeInlineBlockWidthWithTextIndentTest03() {
+            RunTest("relativeInlineBlockWidthWithTextIndentTest03");
         }
 
         /// <exception cref="System.IO.IOException"/>

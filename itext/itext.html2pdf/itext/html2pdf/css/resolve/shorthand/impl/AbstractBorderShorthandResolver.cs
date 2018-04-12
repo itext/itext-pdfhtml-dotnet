@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
 using iText.Html2pdf.Css.Util;
@@ -75,14 +76,20 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             String stylePropName = MessageFormatUtil.Format(_0_STYLE, GetPrefix());
             String colorPropName = MessageFormatUtil.Format(_0_COLOR, GetPrefix());
             if (CssConstants.INITIAL.Equals(shorthandExpression) || CssConstants.INHERIT.Equals(shorthandExpression)) {
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(widthPropName, shorthandExpression), new CssDeclaration
-                    (stylePropName, shorthandExpression), new CssDeclaration(colorPropName, shorthandExpression));
+                return JavaUtil.ArraysAsList(new CssDeclaration(widthPropName, shorthandExpression), new CssDeclaration(stylePropName
+                    , shorthandExpression), new CssDeclaration(colorPropName, shorthandExpression));
             }
             String[] props = iText.IO.Util.StringUtil.Split(shorthandExpression, "\\s+");
             String borderColorValue = null;
             String borderStyleValue = null;
             String borderWidthValue = null;
             foreach (String value in props) {
+                if (CssConstants.INITIAL.Equals(value) || CssConstants.INHERIT.Equals(value)) {
+                    ILog logger = LogManager.GetLogger(typeof(AbstractBorderShorthandResolver));
+                    logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, shorthandExpression
+                        ));
+                    return JavaCollectionsUtil.EmptyList<CssDeclaration>();
+                }
                 if (CssConstants.BORDER_WIDTH_VALUES.Contains(value) || CssUtils.IsNumericValue(value) || CssUtils.IsMetricValue
                     (value) || CssUtils.IsRelativeValue(value)) {
                     borderWidthValue = value;
@@ -93,7 +100,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                         borderStyleValue = value;
                     }
                     else {
-                        if (CssUtils.IsColorProperty(value) || CssConstants.INITIAL.Equals(value)) {
+                        if (CssUtils.IsColorProperty(value)) {
                             borderColorValue = value;
                         }
                     }
@@ -104,9 +111,8 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
                 ));
             resolvedDecl.Add(new CssDeclaration(stylePropName, borderStyleValue == null ? CssConstants.INITIAL : borderStyleValue
                 ));
-            if (borderColorValue != null) {
-                resolvedDecl.Add(new CssDeclaration(colorPropName, borderColorValue));
-            }
+            resolvedDecl.Add(new CssDeclaration(colorPropName, borderColorValue == null ? CssConstants.INITIAL : borderColorValue
+                ));
             return resolvedDecl;
         }
     }

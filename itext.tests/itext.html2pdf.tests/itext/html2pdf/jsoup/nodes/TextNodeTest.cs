@@ -105,10 +105,9 @@ namespace iText.Html2pdf.Jsoup.Nodes {
         // not great that we get \n<b>there there... must correct
         [NUnit.Framework.Test]
         public virtual void TestWithSupplementaryCharacter() {
-            Document doc = iText.Html2pdf.Jsoup.Jsoup.Parse(new String(iText.Html2pdf.Jsoup.PortUtil.ToChars(135361)));
+            Document doc = iText.Html2pdf.Jsoup.Jsoup.Parse(new String(iText.IO.Util.TextUtil.ToChars(135361)));
             TextNode t = doc.Body().TextNodes()[0];
-            NUnit.Framework.Assert.AreEqual(new String(iText.Html2pdf.Jsoup.PortUtil.ToChars(135361)), t.OuterHtml().Trim
-                ());
+            NUnit.Framework.Assert.AreEqual(new String(iText.IO.Util.TextUtil.ToChars(135361)), t.OuterHtml().Trim());
         }
     }
 }

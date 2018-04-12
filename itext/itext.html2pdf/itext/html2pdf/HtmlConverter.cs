@@ -55,6 +55,7 @@ using iText.Layout.Element;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
+using Common.Logging;
 using Versions.Attributes;
 using iText.Kernel;
 
@@ -266,13 +267,13 @@ namespace iText.Html2pdf {
         public static void ConvertToPdf(FileInfo htmlFile, FileInfo pdfFile, ConverterProperties converterProperties
             ) {
             if (converterProperties == null) {
-                converterProperties = new ConverterProperties().SetBaseUri(FileUtil.GetParentDirectory(htmlFile.FullName) 
+                converterProperties = new ConverterProperties().SetBaseUri(new Uri(FileUtil.GetParentDirectory(htmlFile.FullName)).ToExternalForm() 
                     + System.IO.Path.DirectorySeparatorChar);
             }
             else {
                 if (converterProperties.GetBaseUri() == null) {
-                    converterProperties = new ConverterProperties(converterProperties).SetBaseUri(FileUtil.GetParentDirectory(
-                        htmlFile.FullName) + System.IO.Path.DirectorySeparatorChar);
+                    converterProperties = new ConverterProperties(converterProperties).SetBaseUri(new Uri(FileUtil.GetParentDirectory(
+                        htmlFile.FullName)).ToExternalForm() + System.IO.Path.DirectorySeparatorChar);
                 }
             }
             using (FileStream fileInputStream = new FileStream(htmlFile.FullName, FileMode.Open, FileAccess.Read)) {
@@ -657,7 +658,7 @@ namespace iText.Html2pdf {
                 {
                     fileLoadExceptionMessage = fileLoadException.Message;
                 }
-                if (fileLoadExceptionMessage != null)
+                if (type == null)
                 {
                     try
                     {
@@ -666,6 +667,9 @@ namespace iText.Html2pdf {
                     catch
                     {
                         // empty
+                    }
+                    if (type == null && fileLoadExceptionMessage != null) {
+                        LogManager.GetLogger(typeof(HtmlConverter)).Error(fileLoadExceptionMessage);
                     }
                 }
             }

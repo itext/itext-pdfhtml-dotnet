@@ -76,7 +76,7 @@ namespace iText.Html2pdf.Jsoup.Nodes {
 
         [NUnit.Framework.Test]
         public virtual void EscapeSupplementaryCharacter() {
-            String text = new String(iText.Html2pdf.Jsoup.PortUtil.ToChars(135361));
+            String text = new String(iText.IO.Util.TextUtil.ToChars(135361));
             String escapedAscii = Entities.Escape(text, new OutputSettings().Charset("ascii").EscapeMode(Entities.EscapeMode
                 .@base));
             NUnit.Framework.Assert.AreEqual("&#x210c1;", escapedAscii);

@@ -75,6 +75,16 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void DisplayTable01ATest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table01A.html"), new FileInfo(destinationFolder
+                 + "display_table01A.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table01A.pdf"
+                , sourceFolder + "cmp_display_table01A.pdf", destinationFolder, "diff01A_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
         [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         public virtual void DisplayTable02Test() {
@@ -149,6 +159,39 @@ namespace iText.Html2pdf.Css {
                  + "display_table08.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table08.pdf"
                 , sourceFolder + "cmp_display_table08.pdf", destinationFolder, "diff25_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        [LogMessage(iText.IO.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100)]
+        public virtual void DisplayTable09Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table09.html"), new FileInfo(destinationFolder
+                 + "display_table09.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table09.pdf"
+                , sourceFolder + "cmp_display_table09.pdf", destinationFolder, "diff26_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayTable10Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table10.html"), new FileInfo(destinationFolder
+                 + "display_table10.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table10.pdf"
+                , sourceFolder + "cmp_display_table10.pdf", destinationFolder, "diff27_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        [NUnit.Framework.Test]
+        public virtual void DisplayTable11Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_table11.html"), new FileInfo(destinationFolder
+                 + "display_table11.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_table11.pdf"
+                , sourceFolder + "cmp_display_table11.pdf", destinationFolder, "diff28_"));
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -335,6 +378,78 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlock18Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_inline-block18.html"), new FileInfo(destinationFolder
+                 + "display_inline-block18.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_inline-block18.pdf"
+                , sourceFolder + "cmp_display_inline-block18.pdf", destinationFolder, "diff20_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockJustified01Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_inline-block_justified01.html"), new FileInfo
+                (destinationFolder + "display_inline-block_justified01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_inline-block_justified01.pdf"
+                , sourceFolder + "cmp_display_inline-block_justified01.pdf", destinationFolder, "diff21_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockJustified02Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "display_inline-block_justified02.html"), new FileInfo
+                (destinationFolder + "display_inline-block_justified02.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "display_inline-block_justified02.pdf"
+                , sourceFolder + "cmp_display_inline-block_justified02.pdf", destinationFolder, "diff22_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest01() {
+            RunTest("displayInlineBlockYLineTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest02() {
+            RunTest("displayInlineBlockYLineTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest03() {
+            RunTest("displayInlineBlockYLineTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest04() {
+            RunTest("displayInlineBlockYLineTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest05() {
+            RunTest("displayInlineBlockYLineTest05");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest06() {
+            RunTest("displayInlineBlockYLineTest06");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 7)]
         public virtual void InlineBlockInsideTableCellTest() {
             // IO setup
@@ -349,6 +464,15 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "inlineBlockInsideTableCellTest.pdf"
                 , sourceFolder + "cmp_inlineBlockInsideTableCell.pdf", destinationFolder, "diffinlineBlockInsideTableCellTest_"
                 ));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String testName) {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_"));
         }
     }
 }

@@ -55,7 +55,8 @@ namespace iText.Html2pdf.Css.Validate {
         static CssDeclarationValidationMaster() {
             // TODO lazy initialization?
             ICssDeclarationValidator colorCommonValidator = new MultiTypeDeclarationValidator(new CssEnumValidator(CssConstants
-                .TRANSPARENT, CssConstants.INITIAL, CssConstants.INHERIT), new CssColorValidator());
+                .TRANSPARENT, CssConstants.INITIAL, CssConstants.INHERIT, CssConstants.CURRENTCOLOR), new CssColorValidator
+                ());
             DEFAULT_VALIDATORS = new Dictionary<String, ICssDeclarationValidator>();
             DEFAULT_VALIDATORS.Put(CssConstants.BACKGROUND_COLOR, colorCommonValidator);
             DEFAULT_VALIDATORS.Put(CssConstants.COLOR, colorCommonValidator);

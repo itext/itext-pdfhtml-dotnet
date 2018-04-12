@@ -41,8 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Collections.Generic;
 using iText.Html2pdf.Html.Impl.Jsoup.Node;
 using iText.Html2pdf.Html.Node;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve.Func.Counter {
     /// <summary>
@@ -53,6 +55,9 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// <summary>The Constant PAGE_COUNTER_TAG.</summary>
         public const String PAGE_COUNTER_TAG = "_e0d00a6_page-counter";
 
+        /// <summary>The parent.</summary>
+        private readonly INode parent;
+
         /// <summary>Indicates if the node represents the total page count.</summary>
         private bool totalPageCount = false;
 
@@ -62,10 +67,38 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// instance.
         /// </summary>
         /// <param name="totalPageCount">indicates if the node represents the total page count</param>
+        [System.ObsoleteAttribute(@"Will be removed in 3.0. Use PageCountElementNode(bool, iText.Html2pdf.Html.Node.INode) instead"
+            )]
         public PageCountElementNode(bool totalPageCount)
+            : this(totalPageCount, null) {
+        }
+
+        public PageCountElementNode(bool totalPageCount, INode parent)
             : base(new iText.Html2pdf.Jsoup.Nodes.Element(iText.Html2pdf.Jsoup.Parser.Tag.ValueOf(PAGE_COUNTER_TAG), ""
                 )) {
             this.totalPageCount = totalPageCount;
+            this.parent = parent;
+        }
+
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.INode#childNodes()
+        */
+        public override IList<INode> ChildNodes() {
+            return JavaCollectionsUtil.EmptyList<INode>();
+        }
+
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.INode#addChild(com.itextpdf.html2pdf.html.node.INode)
+        */
+        public override void AddChild(INode node) {
+            throw new NotSupportedException();
+        }
+
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.html.node.INode#parentNode()
+        */
+        public override INode ParentNode() {
+            return parent;
         }
 
         /// <summary>Checks if the node represents the total page count.</summary>

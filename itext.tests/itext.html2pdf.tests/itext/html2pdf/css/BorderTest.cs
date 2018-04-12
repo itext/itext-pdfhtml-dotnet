@@ -45,6 +45,7 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Kernel.Utils;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class BorderTest : ExtendedITextTest {
@@ -63,30 +64,114 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Border01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "border01.html"), new FileInfo(destinationFolder + 
-                "border01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "border01.pdf", sourceFolder
-                 + "cmp_border01.pdf", destinationFolder, "diff01_"));
+            RunTest("border01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 4)]
         public virtual void Border02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "border02.html"), new FileInfo(destinationFolder + 
-                "border02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "border02.pdf", sourceFolder
-                 + "cmp_border02.pdf", destinationFolder, "diff02_"));
+            RunTest("border02");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Border03Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "border03.html"), new FileInfo(destinationFolder + 
-                "border03.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "border03.pdf", sourceFolder
-                 + "cmp_border03.pdf", destinationFolder, "diff03_"));
+            RunTest("border03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Border04Test() {
+            RunTest("border04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        public virtual void Border05Test() {
+            RunTest("border05");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Border06Test() {
+            RunTest("border06");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Border07Test() {
+            RunTest("border07");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Border08Test() {
+            RunTest("border08");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        public virtual void Border09Test() {
+            RunTest("border09");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        public virtual void Border10Test() {
+            RunTest("border10");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Border3DTest01() {
+            RunTest("border3DTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Border3DTest02() {
+            RunTest("border3DTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BorderTransparencyTest01() {
+            RunTest("borderTransparencyTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BorderTransparencyTest02() {
+            RunTest("borderTransparencyTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String name) {
+            String htmlPath = sourceFolder + name + ".html";
+            String pdfPath = destinationFolder + name + ".pdf";
+            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+            String diffPrefix = "diff_" + name + "_";
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
+                ));
         }
     }
 }

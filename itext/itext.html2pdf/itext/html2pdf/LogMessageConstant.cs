@@ -45,6 +45,9 @@ using System;
 namespace iText.Html2pdf {
     /// <summary>Class that bundles all the error message templates as constants.</summary>
     public sealed class LogMessageConstant {
+        /// <summary>The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT.</summary>
+        public const String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will be flattened instead.";
+
         /// <summary>The Constant CONTENT_PROPERTY_INVALID.</summary>
         public const String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
 
@@ -88,6 +91,9 @@ namespace iText.Html2pdf {
 
         /// <summary>The Constant NOT_SUPPORTED_LIST_STYLE_TYPE.</summary>
         public const String NOT_SUPPORTED_LIST_STYLE_TYPE = "Not supported list style type: {0}";
+
+        /// <summary>The Constant NOT_SUPPORTED_TH_SCOPE_TYPE.</summary>
+        public const String NOT_SUPPORTED_TH_SCOPE_TYPE = "Not supported th scope type: {0}. Document may not be compliant with PDF/UA standards.";
 
         /// <summary>The Constant NO_CONSUMER_FOUND_FOR_CONTENT.</summary>
         public const String NO_CONSUMER_FOUND_FOR_CONTENT = "No consumer found for content";

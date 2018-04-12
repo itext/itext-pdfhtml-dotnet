@@ -48,11 +48,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
     /// <summary>
     /// Extension of the
     /// <see cref="FormField{T}"/>
-    /// class representing a button so that
-    /// a
-    /// <see cref="iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.ButtonRenderer"/>
-    /// is used instead.
+    /// class representing a input with type button or submit in html
     /// </summary>
+    [System.ObsoleteAttribute(@"will be renamed to InputButton in next major release")]
     public class Button : FormField<iText.Html2pdf.Attach.Impl.Layout.Form.Element.Button> {
         /// <summary>
         /// Creates a new

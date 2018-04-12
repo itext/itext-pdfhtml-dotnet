@@ -71,5 +71,23 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>The Constant FORM_FIELD_ROWS.</summary>
         public const int FORM_FIELD_ROWS = PROPERTY_START + 8;
+
+        /// <summary>The Constant FORM_FIELD_CHECKED.</summary>
+        public const int FORM_FIELD_CHECKED = PROPERTY_START + 9;
+
+        /// <summary>The Constant BODY_STYLING.</summary>
+        public const int BODY_STYLING = PROPERTY_START + 10;
+
+        /// <summary>The Constant HTML_STYLING.</summary>
+        public const int HTML_STYLING = PROPERTY_START + 11;
+
+        /// <summary>The Constant FORM_FIELD_MULTIPLE.</summary>
+        public const int FORM_FIELD_MULTIPLE = PROPERTY_START + 12;
+
+        /// <summary>The Constant FORM_FIELD_SELECTED.</summary>
+        public const int FORM_FIELD_SELECTED = PROPERTY_START + 13;
+
+        /// <summary>The Constant FORM_FIELD_SELECTED.</summary>
+        public const int FORM_FIELD_LABEL = PROPERTY_START + 14;
     }
 }

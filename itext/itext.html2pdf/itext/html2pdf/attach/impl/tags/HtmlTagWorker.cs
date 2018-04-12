@@ -128,16 +128,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 processed = allChildrenProcessed;
             }
             else {
-                if (childTagWorker.GetElementResult() is IFormField) {
-                    if (childTagWorker is IDisplayAware && CssConstants.BLOCK.Equals(((IDisplayAware)childTagWorker).GetDisplay
-                        ())) {
-                        PostProcessInlineGroup();
-                        inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
-                        PostProcessInlineGroup();
-                    }
-                    else {
-                        inlineHelper.Add((IFormField)childTagWorker.GetElementResult());
-                    }
+                if (childTagWorker.GetElementResult() is IFormField && !(childTagWorker is IDisplayAware && CssConstants.BLOCK
+                    .Equals(((IDisplayAware)childTagWorker).GetDisplay()))) {
+                    inlineHelper.Add((IBlockElement)childTagWorker.GetElementResult());
                     processed = true;
                 }
                 else {

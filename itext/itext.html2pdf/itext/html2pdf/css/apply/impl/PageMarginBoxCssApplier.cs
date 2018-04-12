@@ -27,14 +27,14 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         /// </param>
         /// <param name="em">a measurement expressed in em</param>
         /// <param name="rem">a measurement expressed in rem (root em)</param>
-        /// <param name="defaultValue">the default value</param>
+        /// <param name="defaultValues">the default values</param>
         /// <param name="containingBlock">the containing block</param>
         /// <param name="topPropName">the top prop name</param>
         /// <param name="rightPropName">the right prop name</param>
         /// <param name="bottomPropName">the bottom prop name</param>
         /// <param name="leftPropName">the left prop name</param>
         /// <returns>an array with a top, right, bottom, and top float value</returns>
-        public static float[] ParseBoxProps(IDictionary<String, String> styles, float em, float rem, float defaultValue
+        public static float[] ParseBoxProps(IDictionary<String, String> styles, float em, float rem, float[] defaultValues
             , Rectangle containingBlock, String topPropName, String rightPropName, String bottomPropName, String leftPropName
             ) {
             String topStr = styles.Get(topPropName);
@@ -45,8 +45,8 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             float? right = ParseBoxValue(rightStr, em, rem, containingBlock.GetWidth());
             float? bottom = ParseBoxValue(bottomStr, em, rem, containingBlock.GetHeight());
             float? left = ParseBoxValue(leftStr, em, rem, containingBlock.GetWidth());
-            return new float[] { top != null ? (float)top : defaultValue, right != null ? (float)right : defaultValue, 
-                bottom != null ? (float)bottom : defaultValue, left != null ? (float)left : defaultValue };
+            return new float[] { top != null ? (float)top : defaultValues[0], right != null ? (float)right : defaultValues
+                [1], bottom != null ? (float)bottom : defaultValues[2], left != null ? (float)left : defaultValues[3] };
         }
 
         public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
@@ -88,12 +88,12 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             PageMarginBoxContextNode pageMarginBoxContextNode = (PageMarginBoxContextNode)stylesContainer;
             float em = CssUtils.ParseAbsoluteLength(boxStyles.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
-            float[] boxMargins = ParseBoxProps(boxStyles, em, rem, 0, pageMarginBoxContextNode.GetContainingBlockForMarginBox
-                (), CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM, CssConstants.MARGIN_LEFT
-                );
-            float[] boxPaddings = ParseBoxProps(boxStyles, em, rem, 0, pageMarginBoxContextNode.GetContainingBlockForMarginBox
-                (), CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT, CssConstants.PADDING_BOTTOM, CssConstants.PADDING_LEFT
-                );
+            float[] boxMargins = ParseBoxProps(boxStyles, em, rem, new float[] { 0, 0, 0, 0 }, pageMarginBoxContextNode
+                .GetContainingBlockForMarginBox(), CssConstants.MARGIN_TOP, CssConstants.MARGIN_RIGHT, CssConstants.MARGIN_BOTTOM
+                , CssConstants.MARGIN_LEFT);
+            float[] boxPaddings = ParseBoxProps(boxStyles, em, rem, new float[] { 0, 0, 0, 0 }, pageMarginBoxContextNode
+                .GetContainingBlockForMarginBox(), CssConstants.PADDING_TOP, CssConstants.PADDING_RIGHT, CssConstants.
+                PADDING_BOTTOM, CssConstants.PADDING_LEFT);
             SetUnitPointValueProperties(marginBox, new int[] { Property.MARGIN_TOP, Property.MARGIN_RIGHT, Property.MARGIN_BOTTOM
                 , Property.MARGIN_LEFT }, boxMargins);
             SetUnitPointValueProperties(marginBox, new int[] { Property.PADDING_TOP, Property.PADDING_RIGHT, Property.

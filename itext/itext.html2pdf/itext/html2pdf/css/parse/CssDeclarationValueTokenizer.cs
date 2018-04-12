@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Text;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Parse {
     /// <summary>Tokenizer for CSS declaration values.</summary>
@@ -115,8 +116,8 @@ namespace iText.Html2pdf.Css.Parse {
                         }
                         else {
                             if (pendingUnicodeSequence.Length != 0) {
-                                int codePoint = System.Convert.ToInt32(pendingUnicodeSequence.ToString(), 16);
-                                if (iText.IO.Util.JavaUtil.IsValidCodePoint(codePoint)) {
+                                int codePoint = Convert.ToInt32(pendingUnicodeSequence.ToString(), 16);
+                                if (JavaUtil.IsValidCodePoint(codePoint)) {
                                     buff.AppendCodePoint(codePoint);
                                 }
                                 else {
