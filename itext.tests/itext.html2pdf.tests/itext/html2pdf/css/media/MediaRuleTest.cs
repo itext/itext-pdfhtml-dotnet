@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using iText.Html2pdf;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Parse;
@@ -100,7 +101,7 @@ namespace iText.Html2pdf.Css.Media {
             deviceDescription2.SetOrientation("landscape");
             IList<CssDeclaration> declarations1 = css.GetCssDeclarations(element, deviceDescription1);
             IList<CssDeclaration> declarations2 = css.GetCssDeclarations(element, deviceDescription2);
-            NUnit.Framework.Assert.IsTrue(System.Linq.Enumerable.SequenceEqual(declarations1, declarations2));
+            NUnit.Framework.Assert.IsTrue(Enumerable.SequenceEqual(declarations1, declarations2));
             NUnit.Framework.Assert.AreEqual(1, declarations1.Count);
             NUnit.Framework.Assert.AreEqual("font-weight: bold", declarations1[0].ToString());
         }
@@ -183,7 +184,7 @@ namespace iText.Html2pdf.Css.Media {
             IList<CssDeclaration> declarations1 = css.GetCssDeclarations(element, deviceDescription1);
             IList<CssDeclaration> declarations2 = css.GetCssDeclarations(element, deviceDescription2);
             IList<CssDeclaration> declarations3 = css.GetCssDeclarations(element, deviceDescription3);
-            NUnit.Framework.Assert.IsTrue(System.Linq.Enumerable.SequenceEqual(declarations1, declarations2));
+            NUnit.Framework.Assert.IsTrue(Enumerable.SequenceEqual(declarations1, declarations2));
             NUnit.Framework.Assert.AreEqual(0, declarations3.Count);
             NUnit.Framework.Assert.AreEqual(1, declarations1.Count);
             NUnit.Framework.Assert.AreEqual("color: red", declarations1[0].ToString());

@@ -156,8 +156,8 @@ namespace iText.Html2pdf.Css.Resolve {
                     .PT);
             }
             else {
-                elementStyles.Put(CssConstants.FONT_SIZE, System.Convert.ToString(FontStyleApplierUtil.ParseAbsoluteFontSize
-                    (elementFontSize), System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT);
+                elementStyles.Put(CssConstants.FONT_SIZE, Convert.ToString(FontStyleApplierUtil.ParseAbsoluteFontSize(elementFontSize
+                    ), System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT);
             }
             // Update root font size
             if (element is IElementNode && TagConstants.HTML.Equals(((IElementNode)element).Name())) {

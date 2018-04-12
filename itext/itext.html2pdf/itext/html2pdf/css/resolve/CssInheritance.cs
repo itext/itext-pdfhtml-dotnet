@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>Helper class that allows you to check if a property is inheritable.</summary>
@@ -52,7 +53,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// in accordance with "http://www.w3schools.com/cssref/"
         /// and "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference"
         /// </summary>
-        private static readonly ICollection<String> inheritableProperties = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        private static readonly ICollection<String> inheritableProperties = new HashSet<String>(JavaUtil.ArraysAsList
             (CssConstants.COLOR, CssConstants.VISIBILITY, CssConstants.HANGING_PUNCTUATION, CssConstants.HYPHENS, 
             CssConstants.LETTER_SPACING, CssConstants.LINE_HEIGHT, CssConstants.OVERFLOW_WRAP, CssConstants.TAB_SIZE
             , CssConstants.TEXT_ALIGN, CssConstants.TEXT_ALIGN_LAST, CssConstants.TEXT_INDENT, CssConstants.TEXT_JUSTIFY

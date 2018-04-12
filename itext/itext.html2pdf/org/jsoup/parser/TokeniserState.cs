@@ -1,4 +1,5 @@
 using System;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Parser {
     /// <summary>States and transition activations for the Tokeniser.</summary>
@@ -2771,10 +2772,10 @@ namespace Org.Jsoup.Parser {
         private const char eof = CharacterReader.EOF;
 
         static TokeniserState() {
-            iText.IO.Util.JavaUtil.Sort(attributeSingleValueCharsSorted);
-            iText.IO.Util.JavaUtil.Sort(attributeDoubleValueCharsSorted);
-            iText.IO.Util.JavaUtil.Sort(attributeNameCharsSorted);
-            iText.IO.Util.JavaUtil.Sort(attributeValueUnquoted);
+            JavaUtil.Sort(attributeSingleValueCharsSorted);
+            JavaUtil.Sort(attributeDoubleValueCharsSorted);
+            JavaUtil.Sort(attributeNameCharsSorted);
+            JavaUtil.Sort(attributeValueUnquoted);
         }
 
         /// <summary>Handles RawtextEndTagName, ScriptDataEndTagName, and ScriptDataEscapedEndTagName.</summary>

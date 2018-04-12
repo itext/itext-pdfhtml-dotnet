@@ -75,8 +75,8 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             String stylePropName = MessageFormatUtil.Format(_0_STYLE, GetPrefix());
             String colorPropName = MessageFormatUtil.Format(_0_COLOR, GetPrefix());
             if (CssConstants.INITIAL.Equals(shorthandExpression) || CssConstants.INHERIT.Equals(shorthandExpression)) {
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(widthPropName, shorthandExpression), new CssDeclaration
-                    (stylePropName, shorthandExpression), new CssDeclaration(colorPropName, shorthandExpression));
+                return JavaUtil.ArraysAsList(new CssDeclaration(widthPropName, shorthandExpression), new CssDeclaration(stylePropName
+                    , shorthandExpression), new CssDeclaration(colorPropName, shorthandExpression));
             }
             String[] props = iText.IO.Util.StringUtil.Split(shorthandExpression, "\\s+");
             String borderColorValue = null;

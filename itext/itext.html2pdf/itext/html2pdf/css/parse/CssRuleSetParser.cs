@@ -57,12 +57,12 @@ namespace iText.Html2pdf.Css.Parse {
             ));
 
         private static readonly ICollection<String> unsupportedPseudoClasses = JavaCollectionsUtil.UnmodifiableSet
-            (new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList(CssConstants.CHECKED, CssConstants.DISABLED, 
-            CssConstants.EMPTY, CssConstants.ENABLED, CssConstants.FIRST_OF_TYPE, CssConstants.IN_RANGE, CssConstants
-            .INVALID, CssConstants.LANG, CssConstants.LAST_OF_TYPE, CssConstants.NTH_LAST_CHILD, CssConstants.NTH_LAST_OF_TYPE
-            , CssConstants.NTH_OF_TYPE, CssConstants.ONLY_OF_TYPE, CssConstants.ONLY_CHILD, CssConstants.OPTIONAL, 
-            CssConstants.OUT_OF_RANGE, CssConstants.READ_ONLY, CssConstants.READ_WRITE, CssConstants.REQUIRED, CssConstants
-            .ROOT, CssConstants.VALID)));
+            (new HashSet<String>(JavaUtil.ArraysAsList(CssConstants.CHECKED, CssConstants.DISABLED, CssConstants.EMPTY
+            , CssConstants.ENABLED, CssConstants.FIRST_OF_TYPE, CssConstants.IN_RANGE, CssConstants.INVALID, CssConstants
+            .LANG, CssConstants.LAST_OF_TYPE, CssConstants.NTH_LAST_CHILD, CssConstants.NTH_LAST_OF_TYPE, CssConstants
+            .NTH_OF_TYPE, CssConstants.ONLY_OF_TYPE, CssConstants.ONLY_CHILD, CssConstants.OPTIONAL, CssConstants.
+            OUT_OF_RANGE, CssConstants.READ_ONLY, CssConstants.READ_WRITE, CssConstants.REQUIRED, CssConstants.ROOT
+            , CssConstants.VALID)));
 
         /// <summary>
         /// Creates a new

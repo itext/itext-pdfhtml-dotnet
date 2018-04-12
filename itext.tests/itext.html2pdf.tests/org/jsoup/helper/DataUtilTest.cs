@@ -1,7 +1,9 @@
 using System;
 using System.IO;
 using System.Text;
+using Org.Jsoup;
 using Org.Jsoup.Nodes;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Helper {
     public class DataUtilTest {
@@ -32,7 +34,7 @@ namespace Org.Jsoup.Helper {
         [NUnit.Framework.Test]
         public virtual void DiscardsSpuriousByteOrderMark() {
             String html = "\uFEFF<html><head><title>One</title></head><body>Two</body></html>";
-            ByteBuffer buffer = iText.IO.Util.EncodingUtil.GetEncoding("UTF-8").Encode(html);
+            ByteBuffer buffer = EncodingUtil.GetEncoding("UTF-8").Encode(html);
             Document doc = DataUtil.ParseByteData(buffer, "UTF-8", "http://foo.com/", Org.Jsoup.Parser.Parser.HtmlParser
                 ());
             NUnit.Framework.Assert.AreEqual("One", doc.Head().Text());
@@ -41,7 +43,7 @@ namespace Org.Jsoup.Helper {
         [NUnit.Framework.Test]
         public virtual void DiscardsSpuriousByteOrderMarkWhenNoCharsetSet() {
             String html = "\uFEFF<html><head><title>One</title></head><body>Two</body></html>";
-            ByteBuffer buffer = iText.IO.Util.EncodingUtil.GetEncoding("UTF-8").Encode(html);
+            ByteBuffer buffer = EncodingUtil.GetEncoding("UTF-8").Encode(html);
             Document doc = DataUtil.ParseByteData(buffer, null, "http://foo.com/", Org.Jsoup.Parser.Parser.HtmlParser(
                 ));
             NUnit.Framework.Assert.AreEqual("One", doc.Head().Text());
@@ -100,19 +102,19 @@ namespace Org.Jsoup.Helper {
         [NUnit.Framework.Test]
         public virtual void SupportsBOMinFiles() {
             // test files from http://www.i18nl10n.com/korean/utftest/
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/bomtests/bom_utf16be.html");
+            FileInfo @in = PortTestUtil.GetFile("/bomtests/bom_utf16be.html");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, null, "http://example.com");
             NUnit.Framework.Assert.IsTrue(doc.Title().Contains("UTF-16BE"));
             NUnit.Framework.Assert.IsTrue(doc.Text().Contains("가각갂갃간갅"));
-            @in = Org.Jsoup.PortTestUtil.GetFile("/bomtests/bom_utf16le.html");
+            @in = PortTestUtil.GetFile("/bomtests/bom_utf16le.html");
             doc = Org.Jsoup.Jsoup.Parse(@in, null, "http://example.com");
             NUnit.Framework.Assert.IsTrue(doc.Title().Contains("UTF-16LE"));
             NUnit.Framework.Assert.IsTrue(doc.Text().Contains("가각갂갃간갅"));
-            @in = Org.Jsoup.PortTestUtil.GetFile("/bomtests/bom_utf32be.html");
+            @in = PortTestUtil.GetFile("/bomtests/bom_utf32be.html");
             doc = Org.Jsoup.Jsoup.Parse(@in, null, "http://example.com");
             NUnit.Framework.Assert.IsTrue(doc.Title().Contains("UTF-32BE"));
             NUnit.Framework.Assert.IsTrue(doc.Text().Contains("가각갂갃간갅"));
-            @in = Org.Jsoup.PortTestUtil.GetFile("/bomtests/bom_utf32le.html");
+            @in = PortTestUtil.GetFile("/bomtests/bom_utf32le.html");
             doc = Org.Jsoup.Jsoup.Parse(@in, null, "http://example.com");
             NUnit.Framework.Assert.IsTrue(doc.Title().Contains("UTF-32LE"));
             NUnit.Framework.Assert.IsTrue(doc.Text().Contains("가각갂갃간갅"));

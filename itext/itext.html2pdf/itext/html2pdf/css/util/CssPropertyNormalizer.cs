@@ -65,7 +65,7 @@ namespace iText.Html2pdf.Css.Util {
                     }
                 }
                 else {
-                    if (iText.IO.Util.TextUtil.IsWhiteSpace(str[i])) {
+                    if (TextUtil.IsWhiteSpace(str[i])) {
                         isWhitespace = true;
                         ++i;
                     }
@@ -121,7 +121,7 @@ namespace iText.Html2pdf.Css.Util {
         /// <param name="start">where to start in the source. Should point at first symbol after "url(".</param>
         /// <returns>the new position in the source</returns>
         private static int AppendUrlContent(StringBuilder buffer, String source, int start) {
-            while (iText.IO.Util.TextUtil.IsWhiteSpace(source[start]) && start < source.Length) {
+            while (TextUtil.IsWhiteSpace(source[start]) && start < source.Length) {
                 ++start;
             }
             if (start < source.Length) {

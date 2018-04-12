@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Shorthand;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
     /// <summary>
@@ -52,7 +53,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
     /// </summary>
     public class ListStyleShorthandResolver : IShorthandResolver {
         /// <summary>The list style types (disc, decimal,...).</summary>
-        private static readonly ICollection<String> LIST_STYLE_TYPE_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        private static readonly ICollection<String> LIST_STYLE_TYPE_VALUES = new HashSet<String>(JavaUtil.ArraysAsList
             (CssConstants.DISC, CssConstants.ARMENIAN, CssConstants.CIRCLE, CssConstants.CJK_IDEOGRAPHIC, CssConstants
             .DECIMAL, CssConstants.DECIMAL_LEADING_ZERO, CssConstants.GEORGIAN, CssConstants.HEBREW, CssConstants.
             HIRAGANA, CssConstants.HIRAGANA_IROHA, CssConstants.LOWER_ALPHA, CssConstants.LOWER_GREEK, CssConstants
@@ -60,7 +61,7 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
             , CssConstants.UPPER_LATIN, CssConstants.UPPER_ROMAN));
 
         /// <summary>The list stype positions (inside, outside).</summary>
-        private static readonly ICollection<String> LIST_STYLE_POSITION_VALUES = new HashSet<String>(iText.IO.Util.JavaUtil.ArraysAsList
+        private static readonly ICollection<String> LIST_STYLE_POSITION_VALUES = new HashSet<String>(JavaUtil.ArraysAsList
             (CssConstants.INSIDE, CssConstants.OUTSIDE));
 
         /* (non-Javadoc)
@@ -68,9 +69,9 @@ namespace iText.Html2pdf.Css.Resolve.Shorthand.Impl {
         */
         public virtual IList<CssDeclaration> ResolveShorthand(String shorthandExpression) {
             if (CssConstants.INITIAL.Equals(shorthandExpression) || CssConstants.INHERIT.Equals(shorthandExpression)) {
-                return iText.IO.Util.JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.LIST_STYLE_TYPE, shorthandExpression
-                    ), new CssDeclaration(CssConstants.LIST_STYLE_POSITION, shorthandExpression), new CssDeclaration(CssConstants
-                    .LIST_STYLE_IMAGE, shorthandExpression));
+                return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.LIST_STYLE_TYPE, shorthandExpression), new CssDeclaration
+                    (CssConstants.LIST_STYLE_POSITION, shorthandExpression), new CssDeclaration(CssConstants.LIST_STYLE_IMAGE
+                    , shorthandExpression));
             }
             String[] props = iText.IO.Util.StringUtil.Split(shorthandExpression, "\\s+");
             String listStyleTypeValue = null;

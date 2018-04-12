@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Org.Jsoup;
 using Org.Jsoup.Nodes;
 using Org.Jsoup.Select;
 
@@ -10,7 +11,7 @@ namespace Org.Jsoup.Integration {
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void TestSmhBizArticle() {
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/smh-biz-article-1.html");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/smh-biz-article-1.html");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, "UTF-8", "http://www.smh.com.au/business/the-boards-next-fear-the-female-quota-20100106-lteq.html"
                 );
             NUnit.Framework.Assert.AreEqual("The board’s next fear: the female quota", doc.Title());
@@ -24,7 +25,7 @@ namespace Org.Jsoup.Integration {
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void TestNewsHomepage() {
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/news-com-au-home.html");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/news-com-au-home.html");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, "UTF-8", "http://www.news.com.au/");
             NUnit.Framework.Assert.AreEqual("News.com.au | News from Australia and around the world online | NewsComAu"
                 , doc.Title());
@@ -42,7 +43,7 @@ namespace Org.Jsoup.Integration {
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void TestGoogleSearchIpod() {
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/google-ipod.html");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/google-ipod.html");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, "UTF-8", "http://www.google.com/search?hl=en&q=ipod&aq=f&oq=&aqi=g10"
                 );
             NUnit.Framework.Assert.AreEqual("ipod - Google Search", doc.Title());
@@ -56,7 +57,7 @@ namespace Org.Jsoup.Integration {
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void TestBinary() {
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/thumb.jpg");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/thumb.jpg");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, "UTF-8");
             // nothing useful, but did not blow up
             NUnit.Framework.Assert.IsTrue(doc.Text().Contains("gd-jpeg"));
@@ -65,7 +66,7 @@ namespace Org.Jsoup.Integration {
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void TestYahooJp() {
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/yahoo-jp.html");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/yahoo-jp.html");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, "UTF-8", "http://www.yahoo.co.jp/index.html");
             // http charset is utf-8.
             NUnit.Framework.Assert.AreEqual("Yahoo! JAPAN", doc.Title());
@@ -82,7 +83,7 @@ namespace Org.Jsoup.Integration {
         [NUnit.Framework.Test]
         public virtual void TestBaidu() {
             // tests <meta http-equiv="Content-Type" content="text/html;charset=gb2312">
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/baidu-cn-home.html");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/baidu-cn-home.html");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, null, "http://www.baidu.com");
             // http charset is gb2312, but NOT specifying it, to test http-equiv parse
             Element submit = doc.Select("#su").First();
@@ -104,7 +105,7 @@ namespace Org.Jsoup.Integration {
         [NUnit.Framework.Test]
         public virtual void TestBaiduVariant() {
             // tests <meta charset> when preceded by another <meta>
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/baidu-variant.html");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/baidu-variant.html");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, null, "http://www.baidu.com/");
             // http charset is gb2312, but NOT specifying it, to test http-equiv parse
             // check auto-detect from meta
@@ -116,20 +117,20 @@ namespace Org.Jsoup.Integration {
         [NUnit.Framework.Test]
         public virtual void TestHtml5Charset() {
             // test that <meta charset="gb2312"> works
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/meta-charset-1.html");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/meta-charset-1.html");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, null, "http://example.com/");
             //gb2312, has html5 <meta charset>
             NUnit.Framework.Assert.AreEqual("新", doc.Text());
             NUnit.Framework.Assert.AreEqual("GB2312", doc.OutputSettings().Charset().DisplayName());
             // double check, no charset, falls back to utf8 which is incorrect
-            @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/meta-charset-2.html");
+            @in = PortTestUtil.GetFile("/htmltests/meta-charset-2.html");
             //
             doc = Org.Jsoup.Jsoup.Parse(@in, null, "http://example.com");
             // gb2312, no charset
             NUnit.Framework.Assert.AreEqual("UTF-8", doc.OutputSettings().Charset().DisplayName());
             NUnit.Framework.Assert.IsFalse("新".Equals(doc.Text()));
             // confirm fallback to utf8
-            @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/meta-charset-3.html");
+            @in = PortTestUtil.GetFile("/htmltests/meta-charset-3.html");
             doc = Org.Jsoup.Jsoup.Parse(@in, null, "http://example.com/");
             // utf8, no charset
             NUnit.Framework.Assert.AreEqual("UTF-8", doc.OutputSettings().Charset().DisplayName());
@@ -149,7 +150,7 @@ namespace Org.Jsoup.Integration {
         [NUnit.Framework.Test]
         public virtual void TestNytArticle() {
             // has tags like <nyt_text>
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/nyt-article-1.html");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/nyt-article-1.html");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, null, "http://www.nytimes.com/2010/07/26/business/global/26bp.html?hp"
                 );
             Element headline = doc.Select("nyt_headline[version=1.0]").First();
@@ -159,7 +160,7 @@ namespace Org.Jsoup.Integration {
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void TestYahooArticle() {
-            FileInfo @in = Org.Jsoup.PortTestUtil.GetFile("/htmltests/yahoo-article-1.html");
+            FileInfo @in = PortTestUtil.GetFile("/htmltests/yahoo-article-1.html");
             Document doc = Org.Jsoup.Jsoup.Parse(@in, "UTF-8", "http://news.yahoo.com/s/nm/20100831/bs_nm/us_gm_china"
                 );
             Element p = doc.Select("p:contains(Volt will be sold in the United States").First();

@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css.Validate;
+using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
     /// <summary>
@@ -60,7 +61,7 @@ namespace iText.Html2pdf.Css.Validate.Impl.Datatype {
         /// </summary>
         /// <param name="allowedValues">the allowed values</param>
         public CssEnumValidator(params String[] allowedValues) {
-            this.allowedValues = iText.IO.Util.JavaUtil.ArraysAsList(allowedValues);
+            this.allowedValues = JavaUtil.ArraysAsList(allowedValues);
         }
 
         /* (non-Javadoc)

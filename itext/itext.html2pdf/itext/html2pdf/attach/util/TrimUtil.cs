@@ -107,7 +107,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <param name="ch">the character</param>
         /// <returns>true, if the character is a white space character, but no em, en or similar</returns>
         internal static bool IsNonEmSpace(char ch) {
-            return iText.IO.Util.TextUtil.IsWhiteSpace(ch) && !EM_SPACES.Contains(ch);
+            return TextUtil.IsWhiteSpace(ch) && !EM_SPACES.Contains(ch);
         }
 
         /// <summary>Trims a sub list of leaf elements.</summary>

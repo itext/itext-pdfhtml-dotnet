@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Org.Jsoup;
 using Org.Jsoup.Nodes;
+using iText.IO.Util;
 
 namespace Org.Jsoup.Helper {
     /// <summary>Internal static utilities for handling data.</summary>
@@ -91,7 +92,7 @@ namespace Org.Jsoup.Helper {
             if (charsetName == null) {
                 // determine from meta. safe first parse as UTF-8
                 // look for <meta http-equiv="Content-Type" content="text/html;charset=gb2312"> or HTML5 <meta charset="gb2312">
-                docData = iText.IO.Util.EncodingUtil.GetEncoding(defaultCharset).Decode(byteData).ToString();
+                docData = EncodingUtil.GetEncoding(defaultCharset).Decode(byteData).ToString();
                 doc = parser.ParseInput(docData, baseUri);
                 Element meta = doc.Select("meta[http-equiv=content-type], meta[charset]").First();
                 String foundCharset = null;
@@ -117,7 +118,7 @@ namespace Org.Jsoup.Helper {
                     foundCharset = iText.IO.Util.StringUtil.ReplaceAll(foundCharset.Trim(), "[\"']", "");
                     charsetName = foundCharset;
                     byteData.Rewind();
-                    docData = iText.IO.Util.EncodingUtil.GetEncoding(foundCharset).Decode(byteData).ToString();
+                    docData = EncodingUtil.GetEncoding(foundCharset).Decode(byteData).ToString();
                     doc = null;
                 }
             }
@@ -125,7 +126,7 @@ namespace Org.Jsoup.Helper {
                 // specified by content type header (or by user on file load)
                 Validate.NotEmpty(charsetName, "Must set charset arg to character set of file to parse. Set to null to attempt to detect from HTML"
                     );
-                docData = iText.IO.Util.EncodingUtil.GetEncoding(charsetName).Decode(byteData).ToString();
+                docData = EncodingUtil.GetEncoding(charsetName).Decode(byteData).ToString();
             }
             if (doc == null) {
                 doc = parser.ParseInput(docData, baseUri);

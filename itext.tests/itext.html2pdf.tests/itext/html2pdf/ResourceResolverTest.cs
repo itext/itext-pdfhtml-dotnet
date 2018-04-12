@@ -98,6 +98,56 @@ namespace iText.Html2pdf {
             ));
         }
 
+		        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        public void ResourceResolverTest07A()
+        {
+            String baseUri = sourceFolder + "%23r%e%2525s@o%25urces/";
+
+            String outPdf = destinationFolder + "resourceResolverTest07A.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest07A.pdf";
+            using (
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest07A.html", FileMode.Open,
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
+                    new ConverterProperties().SetBaseUri(baseUri));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff07A_"));
+            }
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ResourceResolverTest07B()
+        {
+            String outPdf = destinationFolder + "resourceResolverTest07B.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest07B.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "#r%e%25s@o%urces/resourceResolverTest07B.html"), new FileInfo(outPdf
+            ));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder,
+                "diff07B_"
+            ));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        public virtual void ResourceResolverTest07C()
+        {
+            String outPdf = destinationFolder + "resourceResolverTest07C.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest07C.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "#r%e%25s@o%urces/resourceResolverTest07C.html"), new FileInfo(outPdf
+            ), new ConverterProperties().SetBaseUri(sourceFolder + "#r%e%25s@o%urces/.."));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder,
+                "diff07C_"
+            ));
+        }
+
+		
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
@@ -145,21 +195,123 @@ namespace iText.Html2pdf {
             }
         }
 
-        [NUnit.Framework.Test]
-        [Ignore("DEVSIX-1668")]
-        public void ResourceResolverTest12() {
-            String baseUri = sourceFolder + "path with spaces";
+         [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        public void ResourceResolverTest12A()
+        {
+            String baseUri = sourceFolder + "path%with%spaces/";
 
-            String outPdf = destinationFolder + "resourceResolverTest12.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceResolverTest12.pdf";
+            String outPdf = destinationFolder + "resourceResolverTest12A.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest12A.pdf";
             using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12.html", FileMode.Open,
-                        FileAccess.Read),
-                    fileOutputStream = new FileStream(outPdf, FileMode.Create)) {
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12A.html", FileMode.Open,
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
                 HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
                     new ConverterProperties().SetBaseUri(baseUri));
                 NUnit.Framework.Assert.IsNull(
-                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff12_"));
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff12A_"));
+            }
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        public void ResourceResolverTest12B()
+        {
+            String baseUri = sourceFolder + "path%25with%25spaces/";
+
+            String outPdf = destinationFolder + "resourceResolverTest12B.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest12B.pdf";
+            using (
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12B.html", FileMode.Open,
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
+                    new ConverterProperties().SetBaseUri(baseUri));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff12B_"));
+            }
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        public void ResourceResolverTest12C()
+        {
+            String baseUri = sourceFolder + "path%2525with%2525spaces/";
+
+            String outPdf = destinationFolder + "resourceResolverTest12C.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest12C.pdf";
+            using (
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12C.html", FileMode.Open,
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
+                    new ConverterProperties().SetBaseUri(baseUri));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff12C_"));
+            }
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        public void ResourceResolverTest12D()
+        {
+            String baseUri = sourceFolder + "path with spaces/";
+
+            String outPdf = destinationFolder + "resourceResolverTest12D.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest12D.pdf";
+            using (
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12D.html", FileMode.Open,
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
+                    new ConverterProperties().SetBaseUri(baseUri));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff12D_"));
+            }
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        public void ResourceResolverTest12E()
+        {
+            String baseUri = sourceFolder + "path%20with%20spaces/";
+
+            String outPdf = destinationFolder + "resourceResolverTest12E.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest12E.pdf";
+            using (
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12E.html", FileMode.Open,
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
+                    new ConverterProperties().SetBaseUri(baseUri));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff12E_"));
+            }
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        public void ResourceResolverTest12F()
+        {
+            String baseUri = sourceFolder + "path%2520with%2520spaces/";
+
+            String outPdf = destinationFolder + "resourceResolverTest12F.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest12F.pdf";
+            using (
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12F.html", FileMode.Open,
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
+                    new ConverterProperties().SetBaseUri(baseUri));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff12F_"));
             }
         }
 
@@ -216,6 +368,85 @@ namespace iText.Html2pdf {
             }
         }
 
+		        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        public void ResourceResolverTest16A()
+        {
+            String baseUri = sourceFolder + "path/with/spaces/";
+
+            String outPdf = destinationFolder + "resourceResolverTest16A.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest16A.pdf";
+            using (
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest16A.html", FileMode.Open,
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
+                    new ConverterProperties().SetBaseUri(baseUri));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff16A_"));
+            }
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        public void ResourceResolverTest16B()
+        {
+            String baseUri = sourceFolder + "path%2Fwith%2Fspaces/";
+
+            String outPdf = destinationFolder + "resourceResolverTest16B.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest16B.pdf";
+            using (
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest16B.html", FileMode.Open,
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
+                    new ConverterProperties().SetBaseUri(baseUri));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff16B_"));
+            }
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        public void ResourceResolverTest16C()
+        {
+            String baseUri = sourceFolder + "path%252Fwith%252Fspaces/";
+
+            String outPdf = destinationFolder + "resourceResolverTest16C.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest16C.pdf";
+            using (
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest16C.html", FileMode.Open,
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
+                    new ConverterProperties().SetBaseUri(baseUri));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff16C_"));
+            }
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        public void ResourceResolverTest16D()
+        {
+            String baseUri = sourceFolder + "path%25252Fwith%25252Fspaces/";
+
+            String outPdf = destinationFolder + "resourceResolverTest16D.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest16D.pdf";
+            using (
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest16D.html", FileMode.Open,
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
+                    new ConverterProperties().SetBaseUri(baseUri));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff16D_"));
+            }
+        }
 
         // TODO test with absolute http links for resources?
         // TODO test with http base URI?
