@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>itext7.pdfhtml</id>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.5-SNAPSHOT</version>
     <title>iText 7 pdfHTML</title>
     <authors>iText Software</authors>
     <owners>iText Software</owners>
@@ -18,10 +18,10 @@
     <tags>itext itext7 itextsharp c# .net csharp pdf html pdfhtml</tags>
     <dependencies>
         <group targetFramework="net40">
-          <dependency id="itext7" version="7.0.7-SNAPSHOT" />
+          <dependency id="itext7" version="7.0.8-SNAPSHOT" />
         </group>  
         <group targetFramework="netstandard1.6">
-          <dependency id="itext7" version="7.0.7-SNAPSHOT" />
+          <dependency id="itext7" version="7.0.8-SNAPSHOT" />
           <dependency id="NETStandard.Library" version="1.6.1" />
         </group>
     </dependencies>
