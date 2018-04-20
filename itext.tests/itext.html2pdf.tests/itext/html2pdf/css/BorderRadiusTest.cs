@@ -232,5 +232,16 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest17.pdf"
                 , sourceFolder + "cmp_borderRadiusTest17.pdf", destinationFolder, "diff17_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BorderRadiusInlineElementTest01() {
+            // TODO DEVSIX-1935
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusInlineElementTest01.html"), new FileInfo
+                (destinationFolder + "borderRadiusInlineElementTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusInlineElementTest01.pdf"
+                , sourceFolder + "cmp_borderRadiusInlineElementTest01.pdf", destinationFolder, "diffInline01_"));
+        }
     }
 }
