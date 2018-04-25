@@ -99,8 +99,8 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         /// <param name="css">the CSS mapping</param>
         /// <param name="context">the processor context</param>
         /// <param name="stylesContainer">the styles container</param>
-        private void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String> css, ProcessorContext
-             context, IStylesContainer stylesContainer) {
+        protected internal virtual void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String
+            > css, ProcessorContext context, IStylesContainer stylesContainer) {
             FontStyleApplierUtil.ApplyFontStyles(css, context, stylesContainer, element);
             //TODO: Background-applying currently doesn't work in html way for spans inside other spans.
             BackgroundApplierUtil.ApplyBackground(css, context, element);

@@ -150,6 +150,9 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.U, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.UL, typeof(UlOlTagWorker));
             workerMapping.PutMapping(TagConstants.VAR, typeof(SpanTagWorker));
+            String placeholderPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.PLACEHOLDER
+                );
+            workerMapping.PutMapping(placeholderPseudoElemName, typeof(PlaceholderTagWorker));
             workerMapping.PutMapping(TagConstants.UL, CssConstants.INLINE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.LI, CssConstants.INLINE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, typeof(DivTagWorker));

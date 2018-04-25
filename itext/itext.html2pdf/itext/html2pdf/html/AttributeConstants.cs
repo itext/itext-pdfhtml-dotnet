@@ -137,6 +137,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant NUMBER.</summary>
         public const String NUMBER = "number";
 
+        /// <summary>The Constant PLACEHOLDER.</summary>
+        public const String PLACEHOLDER = "placeholder";
+
         /// <summary>The Constant REL.</summary>
         public const String REL = "rel";
 

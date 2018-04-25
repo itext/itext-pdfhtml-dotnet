@@ -66,6 +66,7 @@ using iText.Layout.Properties;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
+using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using Versions.Attributes;
 using iText.Kernel;
 
@@ -285,13 +286,15 @@ namespace iText.Html2pdf.Attach.Impl {
                     ((HtmlTagWorker)tagWorker).ProcessPageRules(node, cssResolver, context);
                 }
                 context.GetOutlineHandler().AddOutline(tagWorker, element, context);
-                VisitPseudoElement(element, CssConstants.BEFORE);
+                VisitPseudoElement(element, tagWorker, CssConstants.BEFORE);
+                VisitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
+
                 if (element.Name().Equals(TagConstants.BODY) || element.Name().Equals(TagConstants.HTML))
                     RunApplier(element, tagWorker);
                 foreach (INode childNode in element.ChildNodes()) {
                     Visit(childNode);
                 }
-                VisitPseudoElement(element, CssConstants.AFTER);
+                VisitPseudoElement(element, tagWorker, CssConstants.AFTER);
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
                     LinkHelper.CreateDestination(tagWorker, element, context);
@@ -477,10 +480,28 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>Processes a pseudo element (before and after CSS).</summary>
         /// <param name="node">the node</param>
         /// <param name="pseudoElementName">the pseudo element name</param>
-        private void VisitPseudoElement(IElementNode node, String pseudoElementName) {
-            if (CssPseudoElementUtil.HasBeforeAfterElements(node)) {
-                Visit(new CssPseudoElementNode(node, pseudoElementName));
+        private void VisitPseudoElement(IElementNode node, ITagWorker tagWorker, String pseudoElementName) {
+            switch (pseudoElementName) {
+                case CssConstants.BEFORE:
+                case CssConstants.AFTER:
+                    if (!CssPseudoElementUtil.HasBeforeAfterElements(node)) {
+                        return;
+                    }
+
+                    break;
+                case CssConstants.PLACEHOLDER:
+                    if (!TagConstants.INPUT.Equals(node.Name())
+                        || null == tagWorker
+                        || !(tagWorker.GetElementResult() is InputField)
+                        || null == ((InputField) tagWorker.GetElementResult()).GetPlaceholder()) {
+                        return;
+                    }
+
+                    break;
+                default:
+                    return;
             }
+            Visit(new CssPseudoElementNode(node, pseudoElementName));
         }
 
         /// <summary>Find an element in a node.</summary>
@@ -527,6 +548,9 @@ namespace iText.Html2pdf.Attach.Impl {
                 .DISPLAY))) {
                 return false;
             }
+            if (IsPlaceholder(element)) {
+                return true;
+            }
             if (element is CssPseudoElementNode) {
                 if (element.ChildNodes().IsEmpty()) {
                     return false;
@@ -551,6 +575,11 @@ namespace iText.Html2pdf.Attach.Impl {
                     .FIXED.Equals(positionVal) || displayVal != null && !CssConstants.INLINE.Equals(displayVal);
             }
             return element != null;
+        }
+
+        private bool IsPlaceholder(IElementNode element) {
+            return element is CssPseudoElementNode &&
+                   CssConstants.PLACEHOLDER.Equals(((CssPseudoElementNode) element).GetPseudoElementName());
         }
     }
 }

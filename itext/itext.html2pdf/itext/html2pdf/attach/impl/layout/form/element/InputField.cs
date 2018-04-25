@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Renderer;
+using iText.Layout.Element;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
@@ -59,6 +60,28 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
         /// <param name="id">the id</param>
         public InputField(String id)
             : base(id) {
+        }
+
+        /// <summary>The placeholder paragraph.</summary>
+        private Paragraph placeholder;
+
+        /// <summary>Gets the placeholder paragraph.</summary>
+        /// <returns>the placeholder paragraph</returns>
+        public virtual Paragraph GetPlaceholder() {
+            return placeholder;
+        }
+
+        /// <summary>Sets the placeholder paragraph.</summary>
+        /// <param name="placeholder">the paragraph to be used as placeholder</param>
+        /// <returns>
+        /// this
+        /// <see cref="InputField"/>
+        /// instance
+        /// </returns>
+        public virtual iText.Html2pdf.Attach.Impl.Layout.Form.Element.InputField SetPlaceholder(Paragraph placeholder
+            ) {
+            this.placeholder = placeholder;
+            return this;
         }
 
         /* (non-Javadoc)

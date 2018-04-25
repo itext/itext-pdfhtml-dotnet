@@ -987,6 +987,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant OUT_OF_RANGE.</summary>
         public const String OUT_OF_RANGE = "out-of-range";
 
+        /// <summary>The Constant PLACEHOLDER.</summary>
+        public const String PLACEHOLDER = "placeholder";
+
         /// <summary>The Constant READ_ONLY.</summary>
         public const String READ_ONLY = "read-only";
 

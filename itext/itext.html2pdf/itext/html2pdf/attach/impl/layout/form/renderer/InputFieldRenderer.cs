@@ -96,6 +96,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 );
         }
 
+        internal override IRenderer CreateParagraphRenderer(String defaultValue) {
+            if (String.IsNullOrEmpty(defaultValue)) {
+                if (null != ((InputField)modelElement).GetPlaceholder() && !((InputField)modelElement).GetPlaceholder().IsEmpty
+                    ()) {
+                    return ((InputField)modelElement).GetPlaceholder().CreateRendererSubTree();
+                }
+            }
+            return base.CreateParagraphRenderer(defaultValue);
+        }
+
         protected internal override void AdjustFieldLayout() {
             throw new Exception("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead"
                 );

@@ -41,12 +41,17 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.IO.Util;
+using iText.Kernel.Colors;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
+using iText.Layout;
+using iText.Layout.Element;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -186,6 +191,67 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void ButtonWithDisplayBlockTest() {
             RunTest("buttonWithDisplayBlock");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void PlaceholderTest01() {
+            RunTest("placeholderTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void PlaceholderTest02() {
+            RunTest("placeholderTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void PlaceholderTest03() {
+            RunTest("placeholderTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, Count = 3, Ignore = true)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 3, Ignore = true
+            )]
+        public virtual void PlaceholderTest04() {
+            RunTest("placeholderTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void PlaceholderTest05() {
+            String htmlPath = sourceFolder + "placeholderTest05.html";
+            String outPdfPath = destinationFolder + "placeholderTest05.pdf";
+            String cmpPdfPath = sourceFolder + "cmp_" + "placeholderTest05.pdf";
+            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            IList<IElement> elements = HtmlConverter.ConvertToElements(new FileStream(htmlPath, FileMode.Open, FileAccess.Read
+                ));
+            Paragraph placeholderToBeSet = new Paragraph("bazinga").SetBackgroundColor(ColorConstants.RED).SetFontColor
+                (ColorConstants.YELLOW);
+            IList<IElement> children = ((Paragraph)elements[0]).GetChildren();
+            foreach (IElement child in children) {
+                if (child is InputField) {
+                    ((InputField)child).SetPlaceholder(placeholderToBeSet);
+                }
+            }
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outPdfPath));
+            Document doc = new Document(pdfDoc);
+            foreach (IElement child in elements) {
+                if (child is IBlockElement) {
+                    doc.Add((IBlockElement)child);
+                }
+            }
+            doc.Close();
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
+                , "diff_placeholderTest05_"));
         }
 
         /// <exception cref="System.IO.IOException"/>
