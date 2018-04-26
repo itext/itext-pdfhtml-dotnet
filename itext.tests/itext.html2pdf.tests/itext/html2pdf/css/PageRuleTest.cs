@@ -761,6 +761,27 @@ namespace iText.Html2pdf.Css {
             CompareResult(name);
         }
 
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxMultilineTest01() {
+            RunTest("marginBoxMultilineTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxMultilineTest02() {
+            RunTest("marginBoxMultilineTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxMultilineTest03() {
+            RunTest("marginBoxMultilineTest03");
+        }
+
         private class CustomFlushingTagWorkerFactory : DefaultTagWorkerFactory {
             public override ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
                 if (tag.Name().Equals(TagConstants.HTML)) {

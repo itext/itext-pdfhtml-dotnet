@@ -475,6 +475,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private IElement ProcessMarginBoxContent(PageMarginBoxContextNode marginBoxContentNode, int pageNumber, ProcessorContext
              context) {
             IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
+            dummyMarginBoxNode.SetStyles(marginBoxContentNode.GetStyles());
             ITagWorker marginBoxWorker = context.GetTagWorkerFactory().GetTagWorker(dummyMarginBoxNode, context);
             for (int i = 0; i < marginBoxContentNode.ChildNodes().Count; i++) {
                 INode childNode = marginBoxContentNode.ChildNodes()[i];

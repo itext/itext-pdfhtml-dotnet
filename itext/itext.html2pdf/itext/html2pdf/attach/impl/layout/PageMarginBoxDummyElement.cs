@@ -8,6 +8,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     [System.ObsoleteAttribute(@"Remove this class in 7.2 and use iText.Html2pdf.Css.Page.PageMarginBoxContextNode instead (by making it implement iText.Html2pdf.Html.Node.IElementNode )."
         )]
     internal class PageMarginBoxDummyElement : IElementNode, ICustomElementNode {
+        /// <summary>The resolved styles.</summary>
+        private IDictionary<String, String> elementResolvedStyles;
+
         public virtual String Name() {
             return PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG;
         }
@@ -45,11 +48,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         public virtual void SetStyles(IDictionary<String, String> stringStringMap) {
-            throw new NotSupportedException();
+            elementResolvedStyles = stringStringMap;
         }
 
         public virtual IDictionary<String, String> GetStyles() {
-            return JavaCollectionsUtil.EmptyMap<String, String>();
+            return elementResolvedStyles == null ? JavaCollectionsUtil.EmptyMap<String, String>() : elementResolvedStyles;
         }
     }
 }
