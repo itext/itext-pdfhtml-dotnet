@@ -71,6 +71,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 if (styleProperty.HasStylesToApply()) {
                     container.SetProperty(Html2PdfProperty.BODY_STYLING, styleProperty);
                 }
+                FontStyleApplierUtil.ApplyFontStyles(cssProps, context, stylesContainer, container);
             }
         }
     }
