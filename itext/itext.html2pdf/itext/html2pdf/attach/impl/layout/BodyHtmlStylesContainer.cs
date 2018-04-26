@@ -76,15 +76,24 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// element,
         /// i.e. to perform any drawing at all.
         /// </summary>
-        /// <returns>true if there is at least one Border present in the container</returns>
-        public virtual bool HasBordersToDraw() {
+        /// <returns>
+        /// true if there is at least one
+        /// <see cref="iText.Layout.Borders.Border"/>
+        /// or a
+        /// <see cref="iText.Layout.Properties.Background"/>
+        /// or a
+        /// <see cref="iText.Layout.Properties.BackgroundImage"/>
+        /// present in the container
+        /// </returns>
+        public virtual bool HasContentToDraw() {
             Border[] borders = GetBodyHtmlBorders();
             for (int i = 0; i < 4; i++) {
                 if (borders[i] != null && borders[i].GetWidth() != 0) {
                     return true;
                 }
             }
-            return false;
+            return this.GetOwnProperty<Background>(Property.BACKGROUND) != null || this.GetOwnProperty<BackgroundImage
+                >(Property.BACKGROUND_IMAGE) != null;
         }
 
         /// <summary>This method is needed to check if there are styles applied on the current element.</summary>
@@ -96,7 +105,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     return true;
                 }
             }
-            return false;
+            return this.GetOwnProperty<Background>(Property.BACKGROUND) != null || this.GetOwnProperty<BackgroundImage
+                >(Property.BACKGROUND_IMAGE) != null;
         }
 
         /// <summary>

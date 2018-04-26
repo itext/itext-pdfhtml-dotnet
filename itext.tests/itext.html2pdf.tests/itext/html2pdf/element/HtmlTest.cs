@@ -111,5 +111,37 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "htmlTest05.pdf", sourceFolder
                  + "cmp_htmlTest05.pdf", destinationFolder, "diff05_"));
         }
+
+        // this test is both for html and body
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Html06Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "htmlTest06.html"), new FileInfo(destinationFolder 
+                + "htmlTest06.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "htmlTest06.pdf", sourceFolder
+                 + "cmp_htmlTest06.pdf", destinationFolder, "diff06_"));
+        }
+
+        // this test is both for html and body
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Html07Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "htmlTest07.html"), new FileInfo(destinationFolder 
+                + "htmlTest07.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "htmlTest07.pdf", sourceFolder
+                 + "cmp_htmlTest07.pdf", destinationFolder, "diff07_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Html08Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "htmlTest08.html"), new FileInfo(destinationFolder 
+                + "htmlTest08.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "htmlTest08.pdf", sourceFolder
+                 + "cmp_htmlTest08.pdf", destinationFolder, "diff08_"));
+        }
     }
 }

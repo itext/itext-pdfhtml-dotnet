@@ -55,8 +55,6 @@ namespace iText.Html2pdf.Css.Apply.Impl {
     /// implementation for Html elements.
     /// </summary>
     public class HtmlTagCssApplier : ICssApplier {
-        //TODO apply background property.
-        //DEVSIX-940
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
         */
@@ -66,7 +64,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             BodyHtmlStylesContainer styleProperty = new BodyHtmlStylesContainer();
             IPropertyContainer container = tagWorker.GetElementResult();
             if (container != null) {
-                //            BackgroundApplierUtil.applyBackground(cssProps, context, styleProperty);
+                BackgroundApplierUtil.ApplyBackground(cssProps, context, styleProperty);
                 MarginApplierUtil.ApplyMargins(cssProps, context, styleProperty);
                 PaddingApplierUtil.ApplyPaddings(cssProps, context, styleProperty);
                 BorderStyleApplierUtil.ApplyBorders(cssProps, context, styleProperty);

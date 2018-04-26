@@ -308,40 +308,71 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
             nextProcessor.ProcessNewPage(addedPage);
             float[] margins = nextProcessor.ComputeLayoutMargins();
-            float[] htmlStylesWidth = ApplyHtmlBodyMarginsBorders(addedPage, margins, false);
-            float[] simulatedMarginForBody = new float[4];
-            for (int i = 0; i < 4; i++) {
-                simulatedMarginForBody[i] = margins[i] + htmlStylesWidth[i];
-            }
-            float[] bodyStylesWidth = ApplyHtmlBodyMarginsBorders(addedPage, simulatedMarginForBody, true);
-            SetProperty(Property.MARGIN_TOP, margins[0] + htmlStylesWidth[0] + bodyStylesWidth[0]);
-            SetProperty(Property.MARGIN_RIGHT, margins[1] + htmlStylesWidth[1] + bodyStylesWidth[1]);
-            SetProperty(Property.MARGIN_BOTTOM, margins[2] + htmlStylesWidth[2] + bodyStylesWidth[2]);
-            SetProperty(Property.MARGIN_LEFT, margins[3] + htmlStylesWidth[3] + bodyStylesWidth[3]);
+            ApplyHtmlBodyStyles(addedPage, margins);
+            SetProperty(Property.MARGIN_TOP, margins[0]);
+            SetProperty(Property.MARGIN_RIGHT, margins[1]);
+            SetProperty(Property.MARGIN_BOTTOM, margins[2]);
+            SetProperty(Property.MARGIN_LEFT, margins[3]);
             return new PageSize(addedPage.GetTrimBox());
         }
 
-        private float[] ApplyHtmlBodyMarginsBorders(PdfPage page, float[] defaultMargins, bool body) {
-            int htmlOrBodyStylingProperty = body ? Html2PdfProperty.BODY_STYLING : Html2PdfProperty.HTML_STYLING;
-            BodyHtmlStylesContainer styles = ((IPropertyContainer)document).GetProperty<BodyHtmlStylesContainer>(htmlOrBodyStylingProperty
+        private void ApplyHtmlBodyStyles(PdfPage page, float[] defaultMargins) {
+            BodyHtmlStylesContainer[] styles = new BodyHtmlStylesContainer[2];
+            styles[0] = ((IPropertyContainer)document).GetProperty<BodyHtmlStylesContainer>(Html2PdfProperty.HTML_STYLING
                 );
-            if (styles == null) {
-                return new float[4];
-            }
-            if (styles.HasBordersToDraw()) {
-                Div pageBordersSimulation;
-                pageBordersSimulation = new Div().SetFillAvailableArea(true);
-                foreach (KeyValuePair<int, Object> entry in styles.properties) {
-                    pageBordersSimulation.SetProperty(entry.Key, entry.Value);
+            styles[1] = ((IPropertyContainer)document).GetProperty<BodyHtmlStylesContainer>(Html2PdfProperty.BODY_STYLING
+                );
+            int firstBackground = ApplyFirstBackground(page, defaultMargins, styles);
+            for (int i = 0; i < 2; i++) {
+                if (styles[i] != null) {
+                    if (styles[i].HasContentToDraw()) {
+                        DrawSimulatedDiv(page, styles[i].properties, defaultMargins, firstBackground != i);
+                    }
+                    for (int j = 0; j < 4; j++) {
+                        defaultMargins[j] += styles[i].GetTotalWidth()[j];
+                    }
                 }
-                pageBordersSimulation.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
-                iText.Layout.Canvas canvas = new Canvas(new PdfCanvas(page), page.GetDocument(), page.GetTrimBox().ApplyMargins
-                    (defaultMargins[0], defaultMargins[1], defaultMargins[2], defaultMargins[3], false));
-                canvas.EnableAutoTagging(page);
-                canvas.Add(pageBordersSimulation);
-                canvas.Close();
             }
-            return styles.GetTotalWidth();
+        }
+
+        private int ApplyFirstBackground(PdfPage page, float[] defaultMargins, BodyHtmlStylesContainer[] styles) {
+            int firstBackground = -1;
+            if (styles[0] != null && (styles[0].GetOwnProperty<Background>(Property.BACKGROUND) != null || styles[0].GetOwnProperty
+                <BackgroundImage>(Property.BACKGROUND_IMAGE) != null)) {
+                firstBackground = 0;
+            }
+            else {
+                if (styles[1] != null && (styles[1].GetOwnProperty<Background>(Property.BACKGROUND) != null || styles[1].GetOwnProperty
+                    <BackgroundImage>(Property.BACKGROUND_IMAGE) != null)) {
+                    firstBackground = 1;
+                }
+            }
+            if (firstBackground != -1) {
+                Dictionary<int, Object> background = new Dictionary<int, Object>();
+                background.Put(Property.BACKGROUND, styles[firstBackground].GetProperty<Background>(Property.BACKGROUND));
+                background.Put(Property.BACKGROUND_IMAGE, styles[firstBackground].GetProperty<BackgroundImage>(Property.BACKGROUND_IMAGE
+                    ));
+                DrawSimulatedDiv(page, background, defaultMargins, true);
+            }
+            return firstBackground;
+        }
+
+        private void DrawSimulatedDiv(PdfPage page, IDictionary<int, Object> styles, float[] margins, bool drawBackground
+            ) {
+            Div pageBordersSimulation;
+            pageBordersSimulation = new Div().SetFillAvailableArea(true);
+            foreach (KeyValuePair<int, Object> entry in styles) {
+                if ((entry.Key == Property.BACKGROUND || entry.Key == Property.BACKGROUND_IMAGE) && !drawBackground) {
+                    continue;
+                }
+                pageBordersSimulation.SetProperty(entry.Key, entry.Value);
+            }
+            pageBordersSimulation.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
+            iText.Layout.Canvas canvas = new Canvas(new PdfCanvas(page), page.GetDocument(), page.GetTrimBox().ApplyMargins
+                (margins[0], margins[1], margins[2], margins[3], false));
+            canvas.EnableAutoTagging(page);
+            canvas.Add(pageBordersSimulation);
+            canvas.Close();
         }
 
         /// <summary>Gets the estimated number of pages.</summary>
