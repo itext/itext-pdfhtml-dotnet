@@ -564,8 +564,8 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
                 else {
                     if (TagConstants.TABLE.Equals(element.Name()) || TagConstants.IMG.Equals(element.Name())) {
-                        if (TagConstants.IMG.Equals(element.Name()) && AttributeConstants.TOP.Equals(value) && AttributeConstants.
-                            MIDDLE.Equals(value) && AttributeConstants.BOTTOM.Equals(value)) {
+                        if (TagConstants.IMG.Equals(element.Name()) && (AttributeConstants.TOP.Equals(value) || AttributeConstants
+                            .MIDDLE.Equals(value) || AttributeConstants.BOTTOM.Equals(value))) {
                             result.Add(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
                         }
                         else {
