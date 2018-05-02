@@ -40,69 +40,17 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-using System;
-using iText.Html2pdf.Attach.Impl.Layout;
-using iText.Html2pdf.Attach.Impl.Layout.Form.Renderer;
 using iText.Layout.Element;
-using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
-    /// <summary>
-    /// Extension of the
-    /// <see cref="FormField{T}"/>
-    /// class representing a button so that
-    /// a
-    /// <see cref="iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.TextAreaRenderer"/>
-    /// is used instead of the default renderer for fields.
-    /// </summary>
-    public class TextArea : FormField<iText.Html2pdf.Attach.Impl.Layout.Form.Element.TextArea>, IPlaceholderable {
-        /// <summary>The placeholder paragraph.</summary>
-        private Paragraph placeholder;
+    /// <summary>A marker interface that specifies that the layout object has placeholder</summary>
+    public interface IPlaceholderable {
+        /// <summary>Gets the placeholder paragraph.</summary>
+        /// <returns>the placeholder paragraph</returns>
+        Paragraph GetPlaceholder();
 
-        /// <summary>
-        /// Creates a new
-        /// <see cref="TextArea"/>
-        /// instance.
-        /// </summary>
-        /// <param name="id">the id</param>
-        public TextArea(String id)
-            : base(id) {
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.html2pdf.attach.impl.layout.form.element.FormField#getDefaultProperty(int)
-        */
-        public override T1 GetDefaultProperty<T1>(int property) {
-            switch (property) {
-                case Html2PdfProperty.FORM_FIELD_ROWS: {
-                    return (T1)(Object)2;
-                }
-
-                case Html2PdfProperty.FORM_FIELD_COLS: {
-                    return (T1)(Object)20;
-                }
-
-                default: {
-                    return base.GetDefaultProperty<T1>(property);
-                }
-            }
-        }
-
-        /// <summary><inheritDoc/></summary>
-        public virtual Paragraph GetPlaceholder() {
-            return placeholder;
-        }
-
-        /// <summary><inheritDoc/></summary>
-        public virtual void SetPlaceholder(Paragraph placeholder) {
-            this.placeholder = placeholder;
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.layout.element.AbstractElement#makeNewRenderer()
-        */
-        protected override IRenderer MakeNewRenderer() {
-            return new TextAreaRenderer(this);
-        }
+        /// <summary>Sets the placeholder paragraph.</summary>
+        /// <param name="placeholder">the paragraph to be used as placeholder</param>
+        void SetPlaceholder(Paragraph placeholder);
     }
 }

@@ -210,6 +210,13 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void PlaceholderTest02A() {
+            RunTest("placeholderTest02A");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void PlaceholderTest03() {
             RunTest("placeholderTest03");
         }
@@ -252,6 +259,13 @@ namespace iText.Html2pdf.Element {
             doc.Close();
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
                 , "diff_placeholderTest05_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void PlaceholderTest05A() {
+            RunTest("placeholderTest05A");
         }
 
         /// <exception cref="System.IO.IOException"/>

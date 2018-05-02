@@ -61,10 +61,13 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             IDictionary<String, String> cssStyles = stylesContainer.GetStyles();
             IStylesContainer parentToBeProcessed = (IStylesContainer)((CssPseudoElementNode)stylesContainer).ParentNode
                 ();
-            IPropertyContainer element = ((InputField)context.GetState().Top().GetElementResult()).GetPlaceholder();
-            FontStyleApplierUtil.ApplyFontStyles(cssStyles, context, parentToBeProcessed, element);
-            BackgroundApplierUtil.ApplyBackground(cssStyles, context, element);
-            OpacityApplierUtil.ApplyOpacity(cssStyles, context, element);
+            IPropertyContainer elementResult = context.GetState().Top().GetElementResult();
+            if (elementResult is IPlaceholderable) {
+                IPropertyContainer element = ((IPlaceholderable)elementResult).GetPlaceholder();
+                FontStyleApplierUtil.ApplyFontStyles(cssStyles, context, parentToBeProcessed, element);
+                BackgroundApplierUtil.ApplyBackground(cssStyles, context, element);
+                OpacityApplierUtil.ApplyOpacity(cssStyles, context, element);
+            }
         }
     }
 }

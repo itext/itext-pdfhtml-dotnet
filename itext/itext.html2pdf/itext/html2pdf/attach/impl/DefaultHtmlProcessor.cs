@@ -490,10 +490,10 @@ namespace iText.Html2pdf.Attach.Impl {
 
                     break;
                 case CssConstants.PLACEHOLDER:
-                    if (!TagConstants.INPUT.Equals(node.Name())
+                    if (!(TagConstants.INPUT.Equals(node.Name()) || TagConstants.TEXTAREA.Equals(node.Name())) // TODO DEVSIX-1944: Resolve the issue and remove the line
                         || null == tagWorker
-                        || !(tagWorker.GetElementResult() is InputField)
-                        || null == ((InputField) tagWorker.GetElementResult()).GetPlaceholder()) {
+                        || !(tagWorker.GetElementResult() is IPlaceholderable)
+                        || null == ((IPlaceholderable) tagWorker.GetElementResult()).GetPlaceholder()) {
                         return;
                     }
 

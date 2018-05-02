@@ -137,6 +137,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return CreateParagraphRenderer(GetDefaultValue());
         }
 
+        internal override IRenderer CreateParagraphRenderer(String defaultValue) {
+            if (String.IsNullOrEmpty(defaultValue)) {
+                if (null != ((TextArea)modelElement).GetPlaceholder() && !((TextArea)modelElement).GetPlaceholder().IsEmpty
+                    ()) {
+                    return ((TextArea)modelElement).GetPlaceholder().CreateRendererSubTree();
+                }
+            }
+            return base.CreateParagraphRenderer(defaultValue);
+        }
+
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
         */
