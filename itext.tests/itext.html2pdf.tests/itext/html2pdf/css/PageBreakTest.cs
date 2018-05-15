@@ -45,10 +45,9 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Css.Media;
 using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class PageBreakTest : ExtendedITextTest {
+    public class PageBreakTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/PageBreakTest/";
 

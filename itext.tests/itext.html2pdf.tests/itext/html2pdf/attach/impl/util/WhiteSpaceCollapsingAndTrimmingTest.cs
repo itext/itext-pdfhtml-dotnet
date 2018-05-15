@@ -1,11 +1,8 @@
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl.Util {
-    public class WhiteSpaceCollapsingAndTrimmingTest : ExtendedITextTest {
+    public class WhiteSpaceCollapsingAndTrimmingTest : ExtendedHtmlConversionITextTest {
         private static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/attacher/impl/WhiteSpaceCollapsingAndTrimmingTest/";
 
@@ -21,40 +18,28 @@ namespace iText.Html2pdf.Attach.Impl.Util {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EmptyElementsTest01() {
-            RunTest("emptyElementsTest01");
+            ConvertToPdfAndCompare("emptyElementsTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EmptyElementsTest02() {
-            RunTest("emptyElementsTest02");
+            ConvertToPdfAndCompare("emptyElementsTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EmptyElementsTest03() {
-            RunTest("emptyElementsTest03");
+            ConvertToPdfAndCompare("emptyElementsTest03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FloatingInlineBlockInsideLinkTest01() {
-            RunTest("floatingInlineBlockInsideLinkTest01");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        private void RunTest(String name) {
-            String htmlPath = sourceFolder + name + ".html";
-            String pdfPath = destinationFolder + name + ".pdf";
-            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-            String diffPrefix = "diff_" + name + "_";
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
-                ));
+            ConvertToPdfAndCompare("floatingInlineBlockInsideLinkTest01", sourceFolder, destinationFolder);
         }
     }
 }

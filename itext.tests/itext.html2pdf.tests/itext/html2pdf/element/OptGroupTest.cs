@@ -1,12 +1,8 @@
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.IO.Util;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class OptGroupTest : ExtendedITextTest {
+    public class OptGroupTest : ExtendedHtmlConversionITextTest {
         private static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/OptGroupTest/";
 
@@ -22,56 +18,56 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupBasicTest01() {
-            RunTest("optGroupBasicTest01");
+            ConvertToPdfAndCompare("optGroupBasicTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupBasicTest02() {
-            RunTest("optGroupBasicTest02");
+            ConvertToPdfAndCompare("optGroupBasicTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupEmptyTest01() {
-            RunTest("optGroupEmptyTest01");
+            ConvertToPdfAndCompare("optGroupEmptyTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupNestedTest01() {
-            RunTest("optGroupNestedTest01");
+            ConvertToPdfAndCompare("optGroupNestedTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupNestedTest02() {
-            RunTest("optGroupNestedTest02");
+            ConvertToPdfAndCompare("optGroupNestedTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupNoSelectTest01() {
-            RunTest("optGroupNoSelectTest01");
+            ConvertToPdfAndCompare("optGroupNoSelectTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupStylesTest01() {
-            RunTest("optGroupStylesTest01");
+            ConvertToPdfAndCompare("optGroupStylesTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupHeightTest01() {
-            RunTest("optGroupHeightTest01");
+            ConvertToPdfAndCompare("optGroupHeightTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -79,14 +75,14 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void OptGroupWidthTest01() {
             // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
-            RunTest("optGroupWidthTest01");
+            ConvertToPdfAndCompare("optGroupWidthTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupOverflowTest01() {
-            RunTest("optGroupOverflowTest01");
+            ConvertToPdfAndCompare("optGroupOverflowTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -94,27 +90,14 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void OptGroupOverflowTest02() {
             // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
-            RunTest("optGroupOverflowTest02");
+            ConvertToPdfAndCompare("optGroupOverflowTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupPseudoTest01() {
-            RunTest("optGroupPseudoTest01");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        private void RunTest(String name) {
-            String htmlPath = sourceFolder + name + ".html";
-            String outPdfPath = destinationFolder + name + ".pdf";
-            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-            String diff = "diff_" + name + "_";
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(outPdfPath));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
-                , diff));
+            ConvertToPdfAndCompare("optGroupPseudoTest01", sourceFolder, destinationFolder);
         }
     }
 }

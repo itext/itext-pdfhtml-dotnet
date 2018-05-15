@@ -41,14 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.IO.Util;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class ColColgroupTest : ExtendedITextTest {
+    public class ColColgroupTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/ColColgroupTest/";
 
@@ -64,86 +60,49 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SimpleBackgroundTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "simpleBackgroundTest.html"), new FileInfo(destinationFolder
-                 + "simpleBackgroundTest.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "simpleBackgroundTest.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "simpleBackgroundTest.pdf"
-                , sourceFolder + "cmp_simpleBackgroundTest.pdf", destinationFolder, "diff_simpleBackgroundTest_"));
+            ConvertToPdfAndCompare("simpleBackgroundTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SimpleTdColspanTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "simpleTdColspanTest.html"), new FileInfo(destinationFolder
-                 + "simpleTdColspanTest.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "simpleTdColspanTest.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "simpleTdColspanTest.pdf"
-                , sourceFolder + "cmp_simpleTdColspanTest.pdf", destinationFolder, "diff_simpleTdColspanTest_"));
+            ConvertToPdfAndCompare("simpleTdColspanTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SimpleTdRowspanTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "simpleTdRowspanTest.html"), new FileInfo(destinationFolder
-                 + "simpleTdRowspanTest.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "simpleTdRowspanTest.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "simpleTdRowspanTest.pdf"
-                , sourceFolder + "cmp_simpleTdRowspanTest.pdf", destinationFolder, "diff_simpleTdRowspanTest_"));
+            ConvertToPdfAndCompare("simpleTdRowspanTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SimpleTdColspanRowspanTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "simpleTdColspanRowspanTest.html"), new FileInfo(destinationFolder
-                 + "simpleTdColspanRowspanTest.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "simpleTdColspanRowspanTest.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "simpleTdColspanRowspanTest.pdf"
-                , sourceFolder + "cmp_simpleTdColspanRowspanTest.pdf", destinationFolder, "diff_simpleTdColspanRowspanTest_"
-                ));
+            ConvertToPdfAndCompare("simpleTdColspanRowspanTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ComplexColspanRowspanTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "complexColspanRowspanTest.html"), new FileInfo(destinationFolder
-                 + "complexColspanRowspanTest.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "complexColspanRowspanTest.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "complexColspanRowspanTest.pdf"
-                , sourceFolder + "cmp_complexColspanRowspanTest.pdf", destinationFolder, "diff_complexColspanRowspanTest_"
-                ));
+            ConvertToPdfAndCompare("complexColspanRowspanTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SimpleWidthTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "simpleWidthTest.html"), new FileInfo(destinationFolder
-                 + "simpleWidthTest.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "simpleWidthTest.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "simpleWidthTest.pdf"
-                , sourceFolder + "cmp_simpleWidthTest.pdf", destinationFolder, "diff_simpleWidthTest_"));
+            ConvertToPdfAndCompare("simpleWidthTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void WidthColOverridedTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "widthColOverridedTest.html"), new FileInfo(destinationFolder
-                 + "widthColOverridedTest.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "widthColOverridedTest.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "widthColOverridedTest.pdf"
-                , sourceFolder + "cmp_widthColOverridedTest.pdf", destinationFolder, "diff_widthColOverridedTest_"));
+            ConvertToPdfAndCompare("widthColOverridedTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -151,13 +110,7 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void WidthColgroupOverridedTest() {
             //In this test we use FireFox behavior that treat <colgroup> and <col> tags equally and don't override colgroup's width value with smaller one in case of width set on <td>
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "widthColgroupOverridedTest.html"), new FileInfo(destinationFolder
-                 + "widthColgroupOverridedTest.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "widthColgroupOverridedTest.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "widthColgroupOverridedTest.pdf"
-                , sourceFolder + "cmp_widthColgroupOverridedTest.pdf", destinationFolder, "diff_widthColgroupOverridedTest_"
-                ));
+            ConvertToPdfAndCompare("widthColgroupOverridedTest", sourceFolder, destinationFolder);
         }
     }
 }

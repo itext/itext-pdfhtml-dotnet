@@ -41,14 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.IO.Util;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class HeightTest : ExtendedITextTest {
+    public class HeightTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/HeightTest/";
 
@@ -64,45 +60,35 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest01() {
-            String testName = "heightTest01";
-            String diffPrefix = "diff01_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest02() {
-            String testName = "heightTest02";
-            String diffPrefix = "diff02_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest03() {
-            String testName = "heightTest03";
-            String diffPrefix = "diff03_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest04() {
-            String testName = "heightTest04";
-            String diffPrefix = "diff04_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest04", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest05() {
-            String testName = "heightTest05";
-            String diffPrefix = "diff05_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest05", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -110,136 +96,106 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1007")]
         public virtual void HeightTest06() {
-            String testName = "heightTest06";
-            String diffPrefix = "diff06_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest06", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest07() {
-            String testName = "heightTest07";
-            String diffPrefix = "diff07_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest07", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest08() {
-            String testName = "heightTest08";
-            String diffPrefix = "diff08_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest08", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest09() {
-            String testName = "heightTest09";
-            String diffPrefix = "diff09_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest09", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest10() {
-            String testName = "heightTest10";
-            String diffPrefix = "diff10_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest10", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest11() {
-            String testName = "heightTest11";
-            String diffPrefix = "diff11_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest11", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest12() {
-            String testName = "heightTest12";
-            String diffPrefix = "diff12_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest12", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest13() {
-            String testName = "heightTest13";
-            String diffPrefix = "diff13_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest13", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest14() {
-            String testName = "heightTest14";
-            String diffPrefix = "diff14_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest14", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest15() {
-            String testName = "heightTest15";
-            String diffPrefix = "diff15_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest15", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest16() {
-            String testName = "heightTest16";
-            String diffPrefix = "diff16_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest16", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest17() {
-            String testName = "heightTest17";
-            String diffPrefix = "diff17_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightTest17", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightWithCollapsingMarginsTest01() {
-            String testName = "heightWithCollapsingMarginsTest01";
-            String diffPrefix = "diffMargins01_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightWithCollapsingMarginsTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightWithCollapsingMarginsTest03() {
-            String testName = "heightWithCollapsingMarginsTest03";
-            String diffPrefix = "diffMargins03_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightWithCollapsingMarginsTest03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightWithCollapsingMarginsTest04() {
-            String testName = "heightWithCollapsingMarginsTest04";
-            String diffPrefix = "diffMargins04_";
             // second paragraph should not be drawn in pdf, as it doesn't fit with it's margins
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightWithCollapsingMarginsTest04", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -247,9 +203,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void HeightLargerThanMinHeight01() {
             // TODO DEVSIX-1895: height differs from the browser rendering due to incorrect resolving of max-height/height properties
-            String testName = "heightLargerThanMinHeight01";
-            String diffPrefix = "diffLargerMin01_";
-            RunTest(testName, diffPrefix);
+            ConvertToPdfAndCompare("heightLargerThanMinHeight01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -257,20 +211,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void HeightLesserThanMaxHeight01() {
             // TODO DEVSIX-1895: height differs from the browser rendering due to incorrect resolving of max-height/height properties
-            String testName = "heightLesserThanMaxHeight01";
-            String diffPrefix = "diffLessMax01_";
-            RunTest(testName, diffPrefix);
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        public virtual void RunTest(String testName, String diffPrefix) {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + testName + ".html")
-                .AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diffPrefix));
+            ConvertToPdfAndCompare("heightLesserThanMaxHeight01", sourceFolder, destinationFolder);
         }
     }
 }

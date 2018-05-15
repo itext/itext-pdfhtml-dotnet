@@ -41,13 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class BorderRadiusTest : ExtendedITextTest {
+    public class BorderRadiusTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/BorderRadiusTest/";
 
@@ -63,130 +60,91 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest01.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest01.pdf"
-                , sourceFolder + "cmp_borderRadiusTest01.pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("borderRadiusTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest02.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest02.pdf"
-                , sourceFolder + "cmp_borderRadiusTest02.pdf", destinationFolder, "diff02_"));
+            ConvertToPdfAndCompare("borderRadiusTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius03Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest03.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest03.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest03.pdf"
-                , sourceFolder + "cmp_borderRadiusTest03.pdf", destinationFolder, "diff03_"));
+            ConvertToPdfAndCompare("borderRadiusTest03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius04Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest04.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest04.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest04.pdf"
-                , sourceFolder + "cmp_borderRadiusTest04.pdf", destinationFolder, "diff04_"));
+            ConvertToPdfAndCompare("borderRadiusTest04", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius05Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest05.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest05.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest05.pdf"
-                , sourceFolder + "cmp_borderRadiusTest05.pdf", destinationFolder, "diff05_"));
+            ConvertToPdfAndCompare("borderRadiusTest05", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius06Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest06.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest06.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest06.pdf"
-                , sourceFolder + "cmp_borderRadiusTest06.pdf", destinationFolder, "diff06_"));
+            ConvertToPdfAndCompare("borderRadiusTest06", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius07Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest07.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest07.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest07.pdf"
-                , sourceFolder + "cmp_borderRadiusTest07.pdf", destinationFolder, "diff07_"));
+            ConvertToPdfAndCompare("borderRadiusTest07", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius08Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest08.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest08.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest08.pdf"
-                , sourceFolder + "cmp_borderRadiusTest08.pdf", destinationFolder, "diff08_"));
+            ConvertToPdfAndCompare("borderRadiusTest08", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius09Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest09.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest09.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest09.pdf"
-                , sourceFolder + "cmp_borderRadiusTest09.pdf", destinationFolder, "diff09_"));
+            ConvertToPdfAndCompare("borderRadiusTest09", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius10Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest10.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest10.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest10.pdf"
-                , sourceFolder + "cmp_borderRadiusTest10.pdf", destinationFolder, "diff10_"));
+            ConvertToPdfAndCompare("borderRadiusTest10", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius11Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest11.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest11.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest11.pdf"
-                , sourceFolder + "cmp_borderRadiusTest11.pdf", destinationFolder, "diff11_"));
+            ConvertToPdfAndCompare("borderRadiusTest11", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius12Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest12.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest12.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest12.pdf"
-                , sourceFolder + "cmp_borderRadiusTest12.pdf", destinationFolder, "diff12_"));
+            ConvertToPdfAndCompare("borderRadiusTest12", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius13Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest13.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest13.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest13.pdf"
-                , sourceFolder + "cmp_borderRadiusTest13.pdf", destinationFolder, "diff13_"));
+            ConvertToPdfAndCompare("borderRadiusTest13", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -194,10 +152,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void BorderRadius14Test() {
             // TODO DEVSIX-1911
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest14.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest14.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest14.pdf"
-                , sourceFolder + "cmp_borderRadiusTest14.pdf", destinationFolder, "diff14_"));
+            ConvertToPdfAndCompare("borderRadiusTest14", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -205,10 +160,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void BorderRadius15Test() {
             // TODO DEVSIX-1911
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest15.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest15.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest15.pdf"
-                , sourceFolder + "cmp_borderRadiusTest15.pdf", destinationFolder, "diff15_"));
+            ConvertToPdfAndCompare("borderRadiusTest15", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -216,10 +168,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void BorderRadius16Test() {
             // TODO DEVSIX-1911
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest16.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest16.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest16.pdf"
-                , sourceFolder + "cmp_borderRadiusTest16.pdf", destinationFolder, "diff16_"));
+            ConvertToPdfAndCompare("borderRadiusTest16", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -227,10 +176,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void BorderRadius17Test() {
             // TODO DEVSIX-1911
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusTest17.html"), new FileInfo(destinationFolder
-                 + "borderRadiusTest17.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusTest17.pdf"
-                , sourceFolder + "cmp_borderRadiusTest17.pdf", destinationFolder, "diff17_"));
+            ConvertToPdfAndCompare("borderRadiusTest17", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -238,10 +184,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void BorderRadiusInlineElementTest01() {
             // TODO DEVSIX-1935
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "borderRadiusInlineElementTest01.html"), new FileInfo
-                (destinationFolder + "borderRadiusInlineElementTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "borderRadiusInlineElementTest01.pdf"
-                , sourceFolder + "cmp_borderRadiusInlineElementTest01.pdf", destinationFolder, "diffInline01_"));
+            ConvertToPdfAndCompare("borderRadiusInlineElementTest01", sourceFolder, destinationFolder);
         }
     }
 }

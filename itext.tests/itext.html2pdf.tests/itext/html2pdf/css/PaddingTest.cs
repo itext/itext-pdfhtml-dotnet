@@ -41,14 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.IO.Util;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class PaddingTest : ExtendedITextTest {
+    public class PaddingTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/PaddingTest/";
 
@@ -64,34 +60,21 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ElementFixedWidthTest() {
-            RunTest("elementFixedWidthTest");
+            ConvertToPdfAndCompare("elementFixedWidthTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CellPaddingTest01() {
-            RunTest("cellPaddingTest01");
+            ConvertToPdfAndCompare("cellPaddingTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CellPaddingTest02() {
-            RunTest("cellPaddingTest02");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        private void RunTest(String name) {
-            String htmlPath = sourceFolder + name + ".html";
-            String pdfPath = destinationFolder + name + ".pdf";
-            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-            String diffPrefix = "diff_" + name + "_";
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
-                ));
+            ConvertToPdfAndCompare("cellPaddingTest02", sourceFolder, destinationFolder);
         }
     }
 }

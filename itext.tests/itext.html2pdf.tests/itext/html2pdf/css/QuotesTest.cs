@@ -41,14 +41,11 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    public class QuotesTest : ExtendedITextTest {
+    public class QuotesTest : ExtendedHtmlConversionITextTest {
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/QuotesTest/";
 
@@ -64,42 +61,42 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DepthTest01() {
-            RunTest("depthTest01");
+            ConvertToPdfAndCompare("depthTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DepthTest02() {
-            RunTest("depthTest02");
+            ConvertToPdfAndCompare("depthTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DepthTest03() {
-            RunTest("depthTest03");
+            ConvertToPdfAndCompare("depthTest03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EscapedTest() {
-            RunTest("escapedTest");
+            ConvertToPdfAndCompare("escapedTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NoQuoteTest() {
-            RunTest("noQuoteTest");
+            ConvertToPdfAndCompare("noQuoteTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ValuesTest() {
-            RunTest("valuesTest");
+            ConvertToPdfAndCompare("valuesTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -109,7 +106,7 @@ namespace iText.Html2pdf.Css {
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void AttrTest() {
             //attr() is not supported in quotes property in browsers
-            RunTest("attrTest");
+            ConvertToPdfAndCompare("attrTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -118,19 +115,7 @@ namespace iText.Html2pdf.Css {
         [LogMessage(iText.Html2pdf.LogMessageConstant.QUOTES_PROPERTY_INVALID, Count = 2)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void ErrorTest() {
-            RunTest("errorTest");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        private void RunTest(String name) {
-            String htmlPath = sourceFolder + name + ".html";
-            String pdfPath = destinationFolder + name + ".pdf";
-            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-            String diffPrefix = "diff_" + name + "_";
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
-                ));
+            ConvertToPdfAndCompare("errorTest", sourceFolder, destinationFolder);
         }
     }
 }

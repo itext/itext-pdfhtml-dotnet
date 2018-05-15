@@ -1,11 +1,8 @@
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class HtmlCommentedTest : ExtendedITextTest {
+    public class HtmlCommentedTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/HtmlCommentedTest/";
 
@@ -21,14 +18,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CommentedHtmlToPdf() {
-            String htmlSource = sourceFolder + "commentedHtmlToPdf.html";
-            String outPdf = destinationFolder + "commentedHtmlToPdf.pdf";
-            String cmpPdf = sourceFolder + "cmp_commentedHtmlToPdf.pdf";
-            FileInfo htmlInput = new FileInfo(htmlSource);
-            FileInfo pdfOutput = new FileInfo(outPdf);
-            HtmlConverter.ConvertToPdf(htmlInput, pdfOutput);
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff_"
-                ));
+            ConvertToPdfAndCompare("commentedHtmlToPdf", sourceFolder, destinationFolder);
         }
     }
 }

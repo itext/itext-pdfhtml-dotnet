@@ -41,14 +41,11 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    public class BorderTest : ExtendedITextTest {
+    public class BorderTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/BorderTest/";
 
@@ -64,7 +61,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Border01Test() {
-            RunTest("border01");
+            ConvertToPdfAndCompare("border01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -72,21 +69,21 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 4)]
         public virtual void Border02Test() {
-            RunTest("border02");
+            ConvertToPdfAndCompare("border02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Border03Test() {
-            RunTest("border03");
+            ConvertToPdfAndCompare("border03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Border04Test() {
-            RunTest("border04");
+            ConvertToPdfAndCompare("border04", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -94,28 +91,28 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void Border05Test() {
-            RunTest("border05");
+            ConvertToPdfAndCompare("border05", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Border06Test() {
-            RunTest("border06");
+            ConvertToPdfAndCompare("border06", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Border07Test() {
-            RunTest("border07");
+            ConvertToPdfAndCompare("border07", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Border08Test() {
-            RunTest("border08");
+            ConvertToPdfAndCompare("border08", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -123,7 +120,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void Border09Test() {
-            RunTest("border09");
+            ConvertToPdfAndCompare("border09", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -131,47 +128,35 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void Border10Test() {
-            RunTest("border10");
+            ConvertToPdfAndCompare("border10", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Border3DTest01() {
-            RunTest("border3DTest01");
+            ConvertToPdfAndCompare("border3DTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Border3DTest02() {
-            RunTest("border3DTest02");
+            ConvertToPdfAndCompare("border3DTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderTransparencyTest01() {
-            RunTest("borderTransparencyTest01");
+            ConvertToPdfAndCompare("borderTransparencyTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderTransparencyTest02() {
-            RunTest("borderTransparencyTest02");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        private void RunTest(String name) {
-            String htmlPath = sourceFolder + name + ".html";
-            String pdfPath = destinationFolder + name + ".pdf";
-            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-            String diffPrefix = "diff_" + name + "_";
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
-                ));
+            ConvertToPdfAndCompare("borderTransparencyTest02", sourceFolder, destinationFolder);
         }
     }
 }

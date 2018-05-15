@@ -41,13 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class ClearTest : ExtendedITextTest {
+    public class ClearTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/ClearTest/";
 
@@ -63,50 +60,35 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear02Test.html"), new FileInfo(destinationFolder
-                 + "clear02Test.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear02Test.pdf", sourceFolder
-                 + "cmp_clear02Test.pdf", destinationFolder, "diff02_"));
+            ConvertToPdfAndCompare("clear02Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear03Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear03Test.html"), new FileInfo(destinationFolder
-                 + "clear03Test.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear03Test.pdf", sourceFolder
-                 + "cmp_clear03Test.pdf", destinationFolder, "diff03_"));
+            ConvertToPdfAndCompare("clear03Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear04Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear04Test.html"), new FileInfo(destinationFolder
-                 + "clear04Test.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear04Test.pdf", sourceFolder
-                 + "cmp_clear04Test.pdf", destinationFolder, "diff04_"));
+            ConvertToPdfAndCompare("clear04Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear06Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear06Test.html"), new FileInfo(destinationFolder
-                 + "clear06Test.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear06Test.pdf", sourceFolder
-                 + "cmp_clear06Test.pdf", destinationFolder, "diff06_"));
+            ConvertToPdfAndCompare("clear06Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear07Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear07Test.html"), new FileInfo(destinationFolder
-                 + "clear07Test.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear07Test.pdf", sourceFolder
-                 + "cmp_clear07Test.pdf", destinationFolder, "diff07_"));
+            ConvertToPdfAndCompare("clear07Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -115,10 +97,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Clear08Test() {
             // TODO behaving differently from browser in some cases of selfcollapsing margins
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear08Test.html"), new FileInfo(destinationFolder
-                 + "clear08Test.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear08Test.pdf", sourceFolder
-                 + "cmp_clear08Test.pdf", destinationFolder, "diff08_"));
+            ConvertToPdfAndCompare("clear08Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -126,10 +105,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void Clear09Test() {
             // TODO behaving differently from browser in some cases of selfcollapsing margins
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear09Test.html"), new FileInfo(destinationFolder
-                 + "clear09Test.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear09Test.pdf", sourceFolder
-                 + "cmp_clear09Test.pdf", destinationFolder, "diff09_"));
+            ConvertToPdfAndCompare("clear09Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -137,31 +113,14 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void Clear10Test() {
             // TODO behaving differently from browser in some cases of selfcollapsing margins
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear10Test.html"), new FileInfo(destinationFolder
-                 + "clear10Test.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear10Test.pdf", sourceFolder
-                 + "cmp_clear10Test.pdf", destinationFolder, "dif10_"));
+            ConvertToPdfAndCompare("clear10Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear11Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "clear11Test.html"), new FileInfo(destinationFolder
-                 + "clear11Test.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "clear11Test.pdf", sourceFolder
-                 + "cmp_clear11Test.pdf", destinationFolder, "dif11_"));
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        private void RunTest(String testName, String diff) {
-            String htmlName = sourceFolder + testName + ".html";
-            String outFileName = destinationFolder + testName + ".pdf";
-            String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlName), new FileInfo(outFileName));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, destinationFolder
-                , diff));
+            ConvertToPdfAndCompare("clear11Test", sourceFolder, destinationFolder);
         }
     }
 }

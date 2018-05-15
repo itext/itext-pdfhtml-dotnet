@@ -41,13 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class OverflowTest : ExtendedITextTest {
+    public class OverflowTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/OverflowTest/";
 
@@ -63,44 +60,35 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OverflowTest04() {
-            RunTest("overflowTest04", "diff04_");
+            ConvertToPdfAndCompare("overflowTest04", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OverflowTest06() {
-            RunTest("overflowTest06", "diff06_");
+            ConvertToPdfAndCompare("overflowTest06", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OverflowTest07() {
-            RunTest("overflowTest07", "diff07_");
+            ConvertToPdfAndCompare("overflowTest07", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OverflowAndAlignment01() {
-            RunTest("overflowAndAlignment01", "diffAlign01_");
+            ConvertToPdfAndCompare("overflowAndAlignment01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OverflowAndAlignment02() {
-            RunTest("overflowAndAlignment02", "diffAlign02_");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        public virtual void RunTest(String testName, String diff) {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, diff));
+            ConvertToPdfAndCompare("overflowAndAlignment02", sourceFolder, destinationFolder);
         }
     }
 }

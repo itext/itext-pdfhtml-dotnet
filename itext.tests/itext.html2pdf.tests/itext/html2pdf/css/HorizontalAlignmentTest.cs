@@ -41,14 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.IO.Util;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class HorizontalAlignmentTest : ExtendedITextTest {
+    public class HorizontalAlignmentTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/HorizontalAlignment/";
 
@@ -65,14 +61,14 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void AlignAttribute01() {
             // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
-            RunTest("alignAttribute01");
+            ConvertToPdfAndCompare("alignAttribute01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AlignAttribute03() {
-            RunTest("alignAttribute03");
+            ConvertToPdfAndCompare("alignAttribute03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -80,32 +76,21 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void AlignAttribute04() {
             // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
-            RunTest("alignAttribute04");
+            ConvertToPdfAndCompare("alignAttribute04", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginsAutoBlocks() {
-            RunTest("marginsAutoBlocks");
+            ConvertToPdfAndCompare("marginsAutoBlocks", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginsAutoInlines() {
-            RunTest("marginsAutoInlines");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        private void RunTest(String testName) {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + testName + ".html")
-                .AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName + "_"));
+            ConvertToPdfAndCompare("marginsAutoInlines", sourceFolder, destinationFolder);
         }
     }
 }

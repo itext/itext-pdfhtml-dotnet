@@ -41,13 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Attribute {
-    public class DirAttributeTest : ExtendedITextTest {
+    public class DirAttributeTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/attribute/DirAttributeTest/";
 
@@ -63,20 +60,14 @@ namespace iText.Html2pdf.Attribute {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RtlDir01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "rtlDirTest01.html"), new FileInfo(destinationFolder
-                 + "rtlDirTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "rtlDirTest01.pdf", sourceFolder
-                 + "cmp_rtlDirTest01.pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("rtlDirTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RtlDir02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "rtlDirTest02.html"), new FileInfo(destinationFolder
-                 + "rtlDirTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "rtlDirTest02.pdf", sourceFolder
-                 + "cmp_rtlDirTest02.pdf", destinationFolder, "diff02_"));
+            ConvertToPdfAndCompare("rtlDirTest02", sourceFolder, destinationFolder);
         }
     }
 }
