@@ -135,6 +135,9 @@ namespace iText.Html2pdf {
         /// <summary>The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE.</summary>
         public const String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
 
+        /// <summary>The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG</summary>
+        public const String UNABLE_TO_PROCESS_IMAGE_AS_SVG = "Unable to process image found at {0} as an SVG";
+
         /// <summary>The Constant UNABLE_TO_RESOLVE_COUNTER.</summary>
         public const String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";
 
@@ -173,6 +176,9 @@ namespace iText.Html2pdf {
 
         /// <summary>The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER.</summary>
         public const String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
+
+        /// <summary>The Constant PDF_DOCUMENT_NOT_PRESENT</summary>
+        public const String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
 
         /// <summary>Instantiates a new log message constant.</summary>
         private LogMessageConstant() {

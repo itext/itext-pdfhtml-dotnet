@@ -221,6 +221,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant NAV.</summary>
         public const String NAV = "nav";
 
+        /// <summary>The Constant OBJECT</summary>
+        public const String OBJECT = "object";
+
         /// <summary>The Constant OL.</summary>
         public const String OL = "ol";
 

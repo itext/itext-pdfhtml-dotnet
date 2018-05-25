@@ -73,6 +73,14 @@
       <Project>{f9880dc4-f015-4413-af86-66d0e9512774}</Project>
       <Name>itext.pdftest</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\styled-xml-parser\itext\itext.styledxmlparser\itext.styledxmlparser.csproj">
+      <Project>{8636f290-00df-403e-b841-e4bfd6d9ce7a}</Project>
+      <Name>itext.styledxmlparser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\svg\itext\itext.svg\itext.svg.csproj">
+      <Project>{ddec35d2-5781-471d-5ea1-a6e433eddb11}</Project>
+      <Name>itext.svg</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\itext\itext.html2pdf\itext.html2pdf.csproj">
       <Project>{ff6ba09d-3655-466a-8c17-a7bfd3479ca1}</Project>
       <Name>itext.html2pdf</Name>
@@ -83,9 +91,7 @@
     <None Include="itext.snk" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="itext\html2pdf\attach\impl" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

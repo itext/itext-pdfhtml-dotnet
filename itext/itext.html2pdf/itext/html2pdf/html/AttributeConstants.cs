@@ -95,6 +95,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant DESCRIPTION.</summary>
         public const String DESCRIPTION = "description";
 
+        /// <summary>The Constant DATA</summary>
+        public const String DATA = "data";
+
         /// <summary>The Constant DIR.</summary>
         public const String DIR = "dir";
 
@@ -268,7 +271,17 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant PARENT_TABLE_BORDER.</summary>
         public const String PARENT_TABLE_BORDER = "parenttableborder";
-        // attribute values
-        // iText custom attributes
+
+        public sealed class ObjectTypes {
+            public const String SVGIMAGE = "image/svg+xml";
+
+            internal ObjectTypes(AttributeConstants _enclosing) {
+                this._enclosing = _enclosing;
+            }
+
+            private readonly AttributeConstants _enclosing;
+            // attribute values
+            // iText custom attributes
+        }
     }
 }

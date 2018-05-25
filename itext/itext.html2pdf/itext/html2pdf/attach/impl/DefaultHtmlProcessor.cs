@@ -441,7 +441,7 @@ namespace iText.Html2pdf.Attach.Impl {
                     try {
                         // Cache at resource resolver level only, at font level we will create font in any case.
                         // The instance of fontProgram will be collected by GC if the is no need in it.
-                        byte[] bytes = context.GetResourceResolver().RetrieveStream(src.src);
+                        byte[] bytes = context.GetResourceResolver().RetrieveBytesFromResource(src.src);
                         if (bytes != null) {
                             FontProgram fp = FontProgramFactory.CreateFont(bytes, false);
                             context.AddTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily);

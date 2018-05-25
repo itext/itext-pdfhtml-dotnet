@@ -71,6 +71,14 @@
       <Project>{42173642-db52-44d3-9883-3e34c65c53bc}</Project>
       <Name>itext.layout</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\styled-xml-parser\itext\itext.styledxmlparser\itext.styledxmlparser.csproj">
+      <Project>{8636f290-00df-403e-b841-e4bfd6d9ce7a}</Project>
+      <Name>itext.styledxmlparser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\svg\itext\itext.svg\itext.svg.csproj">
+      <Project>{ddec35d2-5781-471d-5ea1-a6e433eddb11}</Project>
+      <Name>itext.svg</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="itext.snk" />
