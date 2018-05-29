@@ -5,13 +5,13 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Util;
+using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Svg.Converter;
 using iText.Svg.Exceptions;
 using iText.Svg.Processors;
-using iText.IO.Util;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -56,7 +56,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         LOGGER.Error(spe.Message);
                     }
                     catch (System.IO.IOException) {
-                        LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA)));
+                        LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+                            , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA)));
                     }
                 }
             }

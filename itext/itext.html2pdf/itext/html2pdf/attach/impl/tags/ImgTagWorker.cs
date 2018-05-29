@@ -96,11 +96,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                             ProcessAsSvg(resourceStream, context);
                         }
                         catch (SvgProcessingException) {
-                            LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, src
-                                ));
+                            LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context
+                                .GetBaseUri(), src));
                         }
                         catch (System.IO.IOException) {
-                            LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, context.GetBaseUri(), src));
+                            LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+                                , context.GetBaseUri(), src));
                         }
                     }
                 }
