@@ -79,9 +79,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static void AddPageBreakElementBefore(ProcessorContext context, ITagWorker parentTagWorker, IElementNode
              childElement, ITagWorker childTagWorker) {
             /* Handles left, right, always cases. Avoid is handled at different time along with other css property application */
-            // Applies to block-level elements
-            if (CssConstants.BLOCK.Equals(childElement.GetStyles().Get(CssConstants.DISPLAY)) || childElement.GetStyles
-                ().Get(CssConstants.DISPLAY) == null && childTagWorker.GetElementResult() is IBlockElement) {
+            if (IsEligibleForBreakBeforeAfter(parentTagWorker, childElement, childTagWorker)) {
                 String pageBreakBeforeVal = childElement.GetStyles().Get(CssConstants.PAGE_BREAK_BEFORE);
                 HtmlPageBreak breakBefore = CreateHtmlPageBreak(pageBreakBeforeVal);
                 if (breakBefore != null) {
@@ -98,15 +96,21 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static void AddPageBreakElementAfter(ProcessorContext context, ITagWorker parentTagWorker, IElementNode
              childElement, ITagWorker childTagWorker) {
             /* Handles left, right, always cases. Avoid is handled at different time along with other css property application */
-            // Applies to block-level elements
-            if (CssConstants.BLOCK.Equals(childElement.GetStyles().Get(CssConstants.DISPLAY)) || childElement.GetStyles
-                ().Get(CssConstants.DISPLAY) == null && childTagWorker.GetElementResult() is IBlockElement) {
+            if (IsEligibleForBreakBeforeAfter(parentTagWorker, childElement, childTagWorker)) {
                 String pageBreakAfterVal = childElement.GetStyles().Get(CssConstants.PAGE_BREAK_AFTER);
                 HtmlPageBreak breakAfter = CreateHtmlPageBreak(pageBreakAfterVal);
                 if (breakAfter != null) {
                     parentTagWorker.ProcessTagChild(new PageBreakApplierUtil.HtmlPageBreakWorker(breakAfter), context);
                 }
             }
+        }
+
+        private static bool IsEligibleForBreakBeforeAfter(ITagWorker parentTagWorker, IElementNode childElement, ITagWorker
+             childTagWorker) {
+            // Applies to block-level elements as per spec
+            String childElementDisplay = childElement.GetStyles().Get(CssConstants.DISPLAY);
+            return CssConstants.BLOCK.Equals(childElementDisplay) || CssConstants.TABLE.Equals(childElementDisplay) ||
+                 childElementDisplay == null && childTagWorker.GetElementResult() is IBlockElement;
         }
 
         /// <summary>
