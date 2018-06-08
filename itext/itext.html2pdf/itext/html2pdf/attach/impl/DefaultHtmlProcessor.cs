@@ -67,8 +67,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Html2pdf.Events;
 using Versions.Attributes;
 using iText.Kernel;
+using iText.Kernel.Counter;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>The default implementation to process HTML.</summary>
@@ -168,6 +170,7 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             cssResolver = null;
             roots = null;
+            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, GetType());
             return elements;
         }
 
@@ -260,6 +263,7 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             cssResolver = null;
             roots = null;
+            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, GetType());
             return doc;
         }
 
