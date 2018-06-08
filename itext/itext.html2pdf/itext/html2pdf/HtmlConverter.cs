@@ -55,6 +55,7 @@ using iText.Layout.Element;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Common.Logging;
 using Versions.Attributes;
 using iText.Kernel;
@@ -181,6 +182,7 @@ namespace iText.Html2pdf {
         /// instance
         /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void ConvertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
             ConvertToPdf(html, new PdfDocument(pdfWriter), converterProperties);
         }
@@ -377,6 +379,7 @@ namespace iText.Html2pdf {
         /// containing the resulting PDF
         /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter) {
             ConvertToPdf(htmlStream, new PdfDocument(pdfWriter));
         }
@@ -407,6 +410,7 @@ namespace iText.Html2pdf {
         /// instance
         /// </param>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
             ) {
             ConvertToPdf(htmlStream, new PdfDocument(pdfWriter), converterProperties);
@@ -531,6 +535,7 @@ namespace iText.Html2pdf {
         /// instance
         /// </returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static Document ConvertToDocument(String html, PdfWriter pdfWriter, ConverterProperties converterProperties
             ) {
             return ConvertToDocument(html, new PdfDocument(pdfWriter), converterProperties);
@@ -561,6 +566,7 @@ namespace iText.Html2pdf {
         /// instance
         /// </returns>
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static Document ConvertToDocument(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
             ) {
             return ConvertToDocument(htmlStream, new PdfDocument(pdfWriter), converterProperties);

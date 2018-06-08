@@ -66,6 +66,7 @@ using iText.Layout.Properties;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
+using System.Runtime.CompilerServices;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Events;
 using Versions.Attributes;
@@ -118,6 +119,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processElements(com.itextpdf.html2pdf.html.node.INode)
         */
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public virtual IList<IElement> ProcessElements(INode root) {
 
             try 
@@ -218,6 +220,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processDocument(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.kernel.pdf.PdfDocument)
         */
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public virtual Document ProcessDocument(INode root, PdfDocument pdfDocument) {
 
             try 
@@ -462,7 +465,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>Checks whether in general we support requested font format.</summary>
         /// <param name="format">
         /// 
-        /// <see cref="FontFormat"/>
+        /// <see cref="FontFace.FontFormat"/>
         /// </param>
         /// <returns>true, if supported or unrecognized.</returns>
         private bool SupportedFontFormat(FontFace.FontFormat format) {
