@@ -143,6 +143,13 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void BorderRadius12ATest() {
+            ConvertToPdfAndCompare("borderRadiusTest12A", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void BorderRadius13Test() {
             ConvertToPdfAndCompare("borderRadiusTest13", sourceFolder, destinationFolder);
         }
@@ -151,7 +158,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius14Test() {
-            // TODO DEVSIX-1911
             ConvertToPdfAndCompare("borderRadiusTest14", sourceFolder, destinationFolder);
         }
 
@@ -159,7 +165,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius15Test() {
-            // TODO DEVSIX-1911
             ConvertToPdfAndCompare("borderRadiusTest15", sourceFolder, destinationFolder);
         }
 
@@ -167,7 +172,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius16Test() {
-            // TODO DEVSIX-1911
             ConvertToPdfAndCompare("borderRadiusTest16", sourceFolder, destinationFolder);
         }
 
@@ -175,8 +179,14 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius17Test() {
-            // TODO DEVSIX-1911
             ConvertToPdfAndCompare("borderRadiusTest17", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BorderRadius18Test() {
+            ConvertToPdfAndCompare("borderRadiusTest18", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
