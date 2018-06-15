@@ -150,6 +150,13 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void BorderRadius12BTest() {
+            ConvertToPdfAndCompare("borderRadiusTest12B", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void BorderRadius13Test() {
             ConvertToPdfAndCompare("borderRadiusTest13", sourceFolder, destinationFolder);
         }
@@ -193,7 +200,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadiusInlineElementTest01() {
-            // TODO DEVSIX-1935
             ConvertToPdfAndCompare("borderRadiusInlineElementTest01", sourceFolder, destinationFolder);
         }
     }
