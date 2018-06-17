@@ -51,6 +51,7 @@ using iText.Html2pdf.Resolver.Font;
 using iText.Html2pdf.Resolver.Form;
 using iText.Html2pdf.Resolver.Resource;
 using iText.IO.Font;
+using iText.Kernel.Counter.Event;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
 
@@ -105,6 +106,9 @@ namespace iText.Html2pdf.Attach {
         /// <summary>The PDF document.</summary>
         private PdfDocument pdfDocument;
 
+        /// <summary>The Processor meta info</summary>
+        private IMetaInfo metaInfo;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="ProcessorContext"/>
@@ -152,6 +156,7 @@ namespace iText.Html2pdf.Attach {
             formFieldNameResolver = new FormFieldNameResolver();
             radioCheckResolver = new RadioCheckResolver();
             immediateFlush = converterProperties.IsImmediateFlush();
+            metaInfo = converterProperties.GetEventCountingMetaInfo();
         }
 
         /// <summary>Sets the font provider.</summary>
@@ -305,6 +310,19 @@ namespace iText.Html2pdf.Attach {
         /// <returns>true if immediateFlush is set, false if not.</returns>
         public virtual bool IsImmediateFlush() {
             return immediateFlush;
+        }
+
+        /// <summary>Gets html meta info.</summary>
+        /// <remarks>
+        /// Gets html meta info. This meta info will be passed with to
+        /// <see cref="iText.Kernel.Counter.EventCounter"/>
+        /// with
+        /// <see cref="iText.Html2pdf.Events.PdfHtmlEvent"/>
+        /// and can be used to determine event origin.
+        /// </remarks>
+        /// <returns>html meta info</returns>
+        public virtual IMetaInfo GetEventCountingMetaInfo() {
+            return metaInfo;
         }
     }
 }

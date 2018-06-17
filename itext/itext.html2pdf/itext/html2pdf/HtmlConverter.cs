@@ -59,6 +59,7 @@ using System.Runtime.CompilerServices;
 using Common.Logging;
 using Versions.Attributes;
 using iText.Kernel;
+using iText.Kernel.Counter.Event;
 
 namespace iText.Html2pdf {
     /// <summary>The HtmlConverter is the class you will use most when converting HTML to PDF.</summary>
@@ -184,7 +185,7 @@ namespace iText.Html2pdf {
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void ConvertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
-            ConvertToPdf(html, new PdfDocument(pdfWriter), converterProperties);
+            ConvertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
         }
 
         /// <summary>
@@ -381,7 +382,7 @@ namespace iText.Html2pdf {
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter) {
-            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter));
+            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(new HtmlMetaInfo())));
         }
 
         /// <summary>
@@ -413,7 +414,7 @@ namespace iText.Html2pdf {
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
             ) {
-            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter), converterProperties);
+            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
         }
 
         /// <summary>
@@ -905,6 +906,9 @@ namespace iText.Html2pdf {
             IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
                 ) : null);
             return Attacher.Attach(doc, converterProperties);
+        }
+
+        private class HtmlMetaInfo : IMetaInfo {
         }
     }
 }

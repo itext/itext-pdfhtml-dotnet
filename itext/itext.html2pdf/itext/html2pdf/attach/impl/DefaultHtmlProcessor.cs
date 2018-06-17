@@ -172,7 +172,7 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             cssResolver = null;
             roots = null;
-            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, GetType());
+            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType());
             return elements;
         }
 
@@ -266,7 +266,7 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             cssResolver = null;
             roots = null;
-            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, GetType());
+            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType());
             return doc;
         }
 
