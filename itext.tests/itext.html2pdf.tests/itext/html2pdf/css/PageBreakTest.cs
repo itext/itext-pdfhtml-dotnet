@@ -45,6 +45,7 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Css.Media;
 using iText.Kernel.Utils;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class PageBreakTest : ExtendedHtmlConversionITextTest {
@@ -54,6 +55,7 @@ namespace iText.Html2pdf.Css {
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/PageBreakTest/";
 
+        //Member of testing class. Add if it isn't there.
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateOrClearDestinationFolder(destinationFolder);
@@ -134,6 +136,19 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void PageBreakBeforeTable01Test() {
             RunTest("page-break-before-table01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT)]
+        public virtual void PageBreakInConstrainedDivTest() {
+            NUnit.Framework.Assert.That(() =>  {
+                /* Test will fail after fix in DEVSIX-2024 */
+                RunTest("pageBreakInConstrainedDivTest");
+            }
+            , NUnit.Framework.Throws.TypeOf<NotSupportedException>());
+;
         }
 
         /// <exception cref="System.IO.IOException"/>
