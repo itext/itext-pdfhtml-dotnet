@@ -91,7 +91,13 @@ namespace iText.Html2pdf.Css.Parse {
                     Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
                     Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
                     Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
-                    object[] objects = new object[] { "pdfHtml", 1, 0, array };
+                    object[] objects = new object[]
+                    {
+                        Html2PdfProductInfo.PRODUCT_NAME,
+                        Html2PdfProductInfo.MAJOR_VERSION,
+                        Html2PdfProductInfo.MINOR_VERSION,
+                        array
+                    };
                     Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
                     MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
                     m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
