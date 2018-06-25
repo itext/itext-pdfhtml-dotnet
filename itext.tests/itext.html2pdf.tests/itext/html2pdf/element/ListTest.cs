@@ -43,11 +43,11 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
-using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Pdfa;
+using iText.StyledXmlParser.Css.Media;
 using iText.Test;
 using iText.Test.Attributes;
 

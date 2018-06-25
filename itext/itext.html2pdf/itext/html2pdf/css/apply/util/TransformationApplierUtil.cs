@@ -44,10 +44,10 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Util;
 using iText.IO.Util;
 using iText.Layout;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     public class TransformationApplierUtil {

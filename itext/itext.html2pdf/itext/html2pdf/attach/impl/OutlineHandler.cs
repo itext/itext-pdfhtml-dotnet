@@ -44,13 +44,13 @@ using System;
 using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Html.Impl.Jsoup.Node;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Navigation;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>

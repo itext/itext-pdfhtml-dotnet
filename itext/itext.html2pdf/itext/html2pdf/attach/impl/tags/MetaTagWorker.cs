@@ -43,9 +43,9 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
 using iText.Kernel.Pdf;
 using iText.Layout;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>

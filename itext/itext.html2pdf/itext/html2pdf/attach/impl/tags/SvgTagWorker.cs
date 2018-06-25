@@ -1,10 +1,10 @@
 using System;
 using Common.Logging;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Util;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.StyledXmlParser.Node;
 using iText.Svg.Exceptions;
 using iText.Svg.Processors;
 using iText.Svg.Processors.Impl;

@@ -51,11 +51,9 @@ using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
-using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Font;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
@@ -72,6 +70,9 @@ using iText.Html2pdf.Events;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Kernel.Counter;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Css.Pseudo;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>The default implementation to process HTML.</summary>

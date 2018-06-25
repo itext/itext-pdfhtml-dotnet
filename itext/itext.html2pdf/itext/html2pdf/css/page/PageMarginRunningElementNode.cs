@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using iText.Html2pdf.Html.Node;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Page {
     /// <summary>
     /// Wrapper
-    /// <see cref="iText.Html2pdf.Html.Node.INode"/>
+    /// <see cref="iText.StyledXmlParser.Node.INode"/>
     /// serving as a placeholder for running element.
     /// </summary>
     public class PageMarginRunningElementNode : INode {

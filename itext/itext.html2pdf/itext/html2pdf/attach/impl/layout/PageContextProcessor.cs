@@ -49,8 +49,6 @@ using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Css.Util;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -63,6 +61,10 @@ using iText.Layout.Layout;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
 using iText.Layout.Tagging;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Page;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>Context processor for specific types of pages: first, left, or right page.</summary>

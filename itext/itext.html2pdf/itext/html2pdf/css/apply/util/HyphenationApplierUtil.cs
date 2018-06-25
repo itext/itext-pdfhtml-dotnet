@@ -44,11 +44,11 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Resolve;
-using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Hyphenation;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css.Resolve;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>The Class HyphenationApplierUtil.</summary>

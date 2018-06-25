@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
+using iText.StyledXmlParser.Css.Page;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    [System.ObsoleteAttribute(@"Remove this class in 7.2 and use iText.Html2pdf.Css.Page.PageMarginBoxContextNode instead (by making it implement iText.Html2pdf.Html.Node.IElementNode )."
+    [System.ObsoleteAttribute(@"Remove this class in 7.2 and use iText.StyledXmlParser.Css.Page.PageMarginBoxContextNode instead (by making it implement iText.StyledXmlParser.Node.IElementNode )."
         )]
     internal class PageMarginBoxDummyElement : IElementNode, ICustomElementNode {
         /// <summary>The resolved styles.</summary>

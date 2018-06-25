@@ -41,8 +41,8 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using iText.Html2pdf.Html.Node;
 using iText.Layout;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach {
     /// <summary>Interface for all the tag worker implementations.</summary>

@@ -45,12 +45,12 @@ using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Resolve;
-using iText.Html2pdf.Css.Util;
 using iText.Kernel.Colors;
 using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css.Resolve;
+using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     public class OutlineApplierUtil {

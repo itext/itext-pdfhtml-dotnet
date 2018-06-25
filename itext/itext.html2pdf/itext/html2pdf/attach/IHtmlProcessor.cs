@@ -41,10 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System.Collections.Generic;
-using iText.Html2pdf.Html.Node;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach {
     /// <summary>

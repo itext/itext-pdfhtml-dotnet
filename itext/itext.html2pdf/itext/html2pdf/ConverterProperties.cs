@@ -44,9 +44,9 @@ using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
-using iText.Html2pdf.Css.Media;
 using iText.Kernel.Counter.Event;
 using iText.Layout.Font;
+using iText.StyledXmlParser.Css.Media;
 
 namespace iText.Html2pdf {
     /// <summary>Properties that will be used by the converter.</summary>

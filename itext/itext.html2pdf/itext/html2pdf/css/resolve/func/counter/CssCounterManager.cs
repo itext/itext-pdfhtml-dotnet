@@ -44,8 +44,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Html.Node;
 using iText.Kernel.Numbering;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Resolve.Func.Counter {
     /// <summary>Class that manages counters (e.g.</summary>

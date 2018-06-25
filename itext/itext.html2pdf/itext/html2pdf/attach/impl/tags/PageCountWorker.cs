@@ -43,8 +43,8 @@ address: sales@itextpdf.com
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
-using iText.Html2pdf.Html.Node;
 using iText.Layout;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for the page count.</summary>

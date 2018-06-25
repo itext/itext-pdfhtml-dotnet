@@ -40,7 +40,7 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-using iText.Html2pdf.Html.Node;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Html {
     /// <summary>Utilities class with HTML-related functionality.</summary>
@@ -55,7 +55,7 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>
         /// Checks if an
-        /// <see cref="iText.Html2pdf.Html.Node.IElementNode"/>
+        /// <see cref="iText.StyledXmlParser.Node.IElementNode"/>
         /// represents a style sheet link.
         /// </summary>
         /// <param name="headChildElement">the head child element</param>

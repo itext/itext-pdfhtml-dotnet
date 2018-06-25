@@ -44,11 +44,11 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Util;
-using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply vertical alignment values.</summary>

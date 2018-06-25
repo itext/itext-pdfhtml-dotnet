@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System.Collections.Generic;
 using iText.Html2pdf.Attach.Wrapelement;
-using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Util {
     /// <summary>Helper class for waiting column groups.</summary>

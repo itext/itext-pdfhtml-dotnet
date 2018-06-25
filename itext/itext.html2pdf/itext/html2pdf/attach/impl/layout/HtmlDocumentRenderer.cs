@@ -43,9 +43,6 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Css.Resolve;
-using iText.Html2pdf.Html.Node;
 using iText.Kernel.Events;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -56,6 +53,9 @@ using iText.Layout.Element;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Page;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>The DocumentRenderer class for HTML.</summary>

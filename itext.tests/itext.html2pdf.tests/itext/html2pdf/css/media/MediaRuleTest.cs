@@ -45,15 +45,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using iText.Html2pdf;
-using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Parse;
-using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Impl.Jsoup;
-using iText.Html2pdf.Html.Impl.Jsoup.Node;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.StyledXmlParser;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Media;
+using iText.StyledXmlParser.Css.Parse;
+using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Node.Impl.Jsoup;
+using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 using iText.Test;
 
 namespace iText.Html2pdf.Css.Media {
@@ -70,7 +71,7 @@ namespace iText.Html2pdf.Css.Media {
         public virtual void Test01() {
             String htmlFileName = sourceFolder + "html01.html";
             String cssFileName = sourceFolder + "css01.css";
-            IHtmlParser htmlParser = new JsoupHtmlParser();
+            IXmlParser htmlParser = new JsoupHtmlParser();
             IDocumentNode document = htmlParser.Parse(new FileStream(htmlFileName, FileMode.Open, FileAccess.Read), "UTF-8"
                 );
             CssStyleSheet css = CssStyleSheetParser.Parse(new FileStream(cssFileName, FileMode.Open, FileAccess.Read));
@@ -89,7 +90,7 @@ namespace iText.Html2pdf.Css.Media {
         public virtual void Test02() {
             String htmlFileName = sourceFolder + "html02.html";
             String cssFileName = sourceFolder + "css02.css";
-            IHtmlParser htmlParser = new JsoupHtmlParser();
+            IXmlParser htmlParser = new JsoupHtmlParser();
             IDocumentNode document = htmlParser.Parse(new FileStream(htmlFileName, FileMode.Open, FileAccess.Read), "UTF-8"
                 );
             CssStyleSheet css = CssStyleSheetParser.Parse(new FileStream(cssFileName, FileMode.Open, FileAccess.Read));
@@ -111,7 +112,7 @@ namespace iText.Html2pdf.Css.Media {
         public virtual void Test03() {
             String htmlFileName = sourceFolder + "html03.html";
             String cssFileName = sourceFolder + "css03.css";
-            IHtmlParser htmlParser = new JsoupHtmlParser();
+            IXmlParser htmlParser = new JsoupHtmlParser();
             IDocumentNode document = htmlParser.Parse(new FileStream(htmlFileName, FileMode.Open, FileAccess.Read), "UTF-8"
                 );
             CssStyleSheet css = CssStyleSheetParser.Parse(new FileStream(cssFileName, FileMode.Open, FileAccess.Read));
@@ -129,7 +130,7 @@ namespace iText.Html2pdf.Css.Media {
         public virtual void Test04() {
             String htmlFileName = sourceFolder + "html04.html";
             String cssFileName = sourceFolder + "css04.css";
-            IHtmlParser htmlParser = new JsoupHtmlParser();
+            IXmlParser htmlParser = new JsoupHtmlParser();
             IDocumentNode document = htmlParser.Parse(new FileStream(htmlFileName, FileMode.Open, FileAccess.Read), "UTF-8"
                 );
             CssStyleSheet css = CssStyleSheetParser.Parse(new FileStream(cssFileName, FileMode.Open, FileAccess.Read));
@@ -147,7 +148,7 @@ namespace iText.Html2pdf.Css.Media {
         public virtual void Test05() {
             String htmlFileName = sourceFolder + "html05.html";
             String cssFileName = sourceFolder + "css05.css";
-            IHtmlParser htmlParser = new JsoupHtmlParser();
+            IXmlParser htmlParser = new JsoupHtmlParser();
             IDocumentNode document = htmlParser.Parse(new FileStream(htmlFileName, FileMode.Open, FileAccess.Read), "UTF-8"
                 );
             CssStyleSheet css = CssStyleSheetParser.Parse(new FileStream(cssFileName, FileMode.Open, FileAccess.Read));
@@ -169,7 +170,7 @@ namespace iText.Html2pdf.Css.Media {
         public virtual void Test06() {
             String htmlFileName = sourceFolder + "html06.html";
             String cssFileName = sourceFolder + "css06.css";
-            IHtmlParser htmlParser = new JsoupHtmlParser();
+            IXmlParser htmlParser = new JsoupHtmlParser();
             IDocumentNode document = htmlParser.Parse(new FileStream(htmlFileName, FileMode.Open, FileAccess.Read), "UTF-8"
                 );
             CssStyleSheet css = CssStyleSheetParser.Parse(new FileStream(cssFileName, FileMode.Open, FileAccess.Read));

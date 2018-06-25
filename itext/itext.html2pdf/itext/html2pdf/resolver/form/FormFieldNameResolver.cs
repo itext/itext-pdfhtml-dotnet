@@ -42,7 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using iText.Html2pdf.Css.Util;
+using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Resolver.Form {
     /// <summary>Utilities class that resolves form field names.</summary>

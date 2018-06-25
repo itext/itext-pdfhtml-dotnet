@@ -1,10 +1,10 @@
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Html.Node;
 using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout.Tagging;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for the page margin box.</summary>

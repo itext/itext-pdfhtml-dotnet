@@ -46,8 +46,6 @@ using System.IO;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Impl.Jsoup;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Layout;
@@ -60,6 +58,9 @@ using Common.Logging;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Kernel.Counter.Event;
+using iText.StyledXmlParser;
+using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Node.Impl.Jsoup;
 
 namespace iText.Html2pdf {
     /// <summary>The HtmlConverter is the class you will use most when converting HTML to PDF.</summary>
@@ -643,7 +644,7 @@ namespace iText.Html2pdf {
             if (pdfDocument.GetReader() != null) {
                 throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
             }
-            IHtmlParser parser = new JsoupHtmlParser();
+            IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(html);
             return Attacher.Attach(doc, pdfDocument, converterProperties);
         }
@@ -760,7 +761,7 @@ namespace iText.Html2pdf {
             if (pdfDocument.GetReader() != null) {
                 throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
             }
-            IHtmlParser parser = new JsoupHtmlParser();
+            IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
                 ) : null);
             return Attacher.Attach(doc, pdfDocument, converterProperties);
@@ -863,7 +864,7 @@ namespace iText.Html2pdf {
                     throw;
                 }
             }
-            IHtmlParser parser = new JsoupHtmlParser();
+            IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(html);
             return Attacher.Attach(doc, converterProperties);
         }
@@ -926,7 +927,7 @@ namespace iText.Html2pdf {
                     throw;
                 }
             }
-            IHtmlParser parser = new JsoupHtmlParser();
+            IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
                 ) : null);
             return Attacher.Attach(doc, converterProperties);

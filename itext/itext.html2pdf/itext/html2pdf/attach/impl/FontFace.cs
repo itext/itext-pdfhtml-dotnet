@@ -43,10 +43,10 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Util;
 using iText.IO.Util;
 using iText.Layout.Font;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>

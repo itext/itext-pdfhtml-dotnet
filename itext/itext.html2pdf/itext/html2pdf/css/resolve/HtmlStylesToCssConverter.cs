@@ -43,11 +43,12 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Resolve.Shorthand.Impl;
-using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Resolve.Shorthand.Impl;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>Utilities class that converts HTML styles to CSS.</summary>
@@ -88,13 +89,13 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>
         /// Converts a the HTML styles of an element to a list of
-        /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+        /// <see cref="iText.StyledXmlParser.Css.CssDeclaration"/>
         /// instances.
         /// </summary>
         /// <param name="element">the element</param>
         /// <returns>
         /// the resulting list of
-        /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+        /// <see cref="iText.StyledXmlParser.Css.CssDeclaration"/>
         /// instances.
         /// </returns>
         public static IList<CssDeclaration> Convert(IElementNode element) {
@@ -127,14 +128,14 @@ namespace iText.Html2pdf.Css.Resolve {
 
             /// <summary>
             /// Converts a specific HTML style to a
-            /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+            /// <see cref="iText.StyledXmlParser.Css.CssDeclaration"/>
             /// .
             /// </summary>
             /// <param name="element">the element</param>
             /// <param name="value">the value of the HTML style</param>
             /// <returns>
             /// a list of
-            /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+            /// <see cref="iText.StyledXmlParser.Css.CssDeclaration"/>
             /// instances
             /// </returns>
             IList<CssDeclaration> Convert(IElementNode element, String value);
@@ -171,7 +172,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 float? width = CssUtils.ParseFloat(value);
@@ -223,7 +224,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 float? cellPadding = CssUtils.ParseFloat(value);
@@ -251,7 +252,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BORDER_SPACING, value));
@@ -276,7 +277,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.BACKGROUND_COLOR, value));
@@ -296,7 +297,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.COLOR, value));
@@ -316,7 +317,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 String cssValueEquivalent = null;
@@ -391,7 +392,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.FONT_FAMILY, value));
@@ -411,7 +412,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 String cssEquivalent = null;
@@ -458,7 +459,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.DIRECTION, value));
@@ -480,7 +481,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 // Trim semicolons at the end because they seem to not affect the value in browsers
@@ -505,7 +506,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 // Trim semicolons at the end because they seem to not affect the value in browsers
@@ -532,7 +533,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 IList<CssDeclaration> result = new List<CssDeclaration>(2);
@@ -598,7 +599,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, "2px"), new CssDeclaration(CssConstants
@@ -620,7 +621,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
 
             /* (non-Javadoc)
-            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.html2pdf.html.node.IElementNode, java.lang.String)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));

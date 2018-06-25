@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Tagging;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     public class HTagWorker : DivTagWorker {

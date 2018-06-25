@@ -45,13 +45,15 @@ using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Css.Parse;
-using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
-using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
+using iText.StyledXmlParser.Css.Page;
+using iText.StyledXmlParser.Css.Parse;
+using iText.StyledXmlParser.Css.Pseudo;
+using iText.StyledXmlParser.Css.Resolve;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>The Class CssContentPropertyResolver.</summary>
@@ -65,7 +67,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="context">the CSS context</param>
         /// <returns>
         /// a list of
-        /// <see cref="iText.Html2pdf.Html.Node.INode"/>
+        /// <see cref="iText.StyledXmlParser.Node.INode"/>
         /// instances
         /// </returns>
         internal static IList<INode> ResolveContent(IDictionary<String, String> styles, INode contentContainer, CssContext
@@ -214,7 +216,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="contentStr">the content</param>
         /// <returns>
         /// the resulting list of
-        /// <see cref="iText.Html2pdf.Html.Node.INode"/>
+        /// <see cref="iText.StyledXmlParser.Node.INode"/>
         /// instances
         /// </returns>
         private static IList<INode> ErrorFallback(String contentStr) {
@@ -229,7 +231,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         /// <summary>
-        /// <see cref="iText.Html2pdf.Html.Node.ITextNode"/>
+        /// <see cref="iText.StyledXmlParser.Node.ITextNode"/>
         /// implementation for content text.
         /// </summary>
         private class ContentTextNode : ITextNode {

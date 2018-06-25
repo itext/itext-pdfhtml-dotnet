@@ -45,13 +45,14 @@ using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Util;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Exceptions;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply font styles.</summary>
@@ -288,7 +289,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
             }
-            return CssUtils.ParseAbsoluteLength(fontSizeValue);
+            try {
+                /* Styled XML Parser will throw an exception when it can't parse the given value
+                but in html2pdf, we want to fall back to the default value of 0
+                */
+                return CssUtils.ParseAbsoluteLength(fontSizeValue);
+            }
+            catch (StyledXMLParserException) {
+                return 0f;
+            }
         }
 
         /// <summary>Parses the relative font size.</summary>

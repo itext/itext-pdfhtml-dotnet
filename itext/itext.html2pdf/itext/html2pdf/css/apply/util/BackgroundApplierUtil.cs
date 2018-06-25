@@ -44,11 +44,11 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply backgrounds.</summary>

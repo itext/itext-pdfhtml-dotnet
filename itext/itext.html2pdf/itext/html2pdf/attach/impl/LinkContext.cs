@@ -43,7 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>This class keeps track of information regarding link (destinations) that occur in the document.</summary>

@@ -45,15 +45,15 @@ using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Impl;
-using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Resolver.Font;
 using iText.Html2pdf.Resolver.Form;
-using iText.Html2pdf.Resolver.Resource;
 using iText.IO.Font;
 using iText.Kernel.Counter.Event;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
+using iText.StyledXmlParser.Css.Media;
+using iText.StyledXmlParser.Resolver.Resource;
 
 namespace iText.Html2pdf.Attach {
     /// <summary>Keeps track of the context of the processor.</summary>

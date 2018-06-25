@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,10 +41,11 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.StyledXmlParser;
 
 namespace iText.Html2pdf.Html {
     /// <summary>Class that bundles a series of attribute constants.</summary>
-    public sealed class AttributeConstants {
+    public sealed class AttributeConstants : CommonAttributeConstants {
         /// <summary>
         /// Creates a new
         /// <see cref="AttributeConstants"/>
@@ -72,9 +73,6 @@ namespace iText.Html2pdf.Html {
         public const String BORDER = "border";
 
         /// <summary>The Constant CLASS.</summary>
-        public const String CLASS = "class";
-
-        /// <summary>The Constant CLASS.</summary>
         public const String CELLPADDING = "cellpadding";
 
         /// <summary>The Constant CLASS.</summary>
@@ -82,6 +80,12 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant COLOR.</summary>
         public const String COLOR = "color";
+
+        /// <summary>The Constant COLS.</summary>
+        public const String COL = "col";
+
+        /// <summary>The Constant COLS.</summary>
+        public const String COLGROUP = "colgroup";
 
         /// <summary>The Constant COLS.</summary>
         public const String COLS = "cols";
@@ -92,11 +96,11 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant CONTENT.</summary>
         public const String CONTENT = "content";
 
-        /// <summary>The Constant DESCRIPTION.</summary>
-        public const String DESCRIPTION = "description";
-
         /// <summary>The Constant DATA</summary>
         public const String DATA = "data";
+
+        /// <summary>The Constant DESCRIPTION.</summary>
+        public const String DESCRIPTION = "description";
 
         /// <summary>The Constant DIR.</summary>
         public const String DIR = "dir";
@@ -122,9 +126,6 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant LABEL.</summary>
         public const String LABEL = "label";
 
-        /// <summary>The Constant LANG.</summary>
-        public const String LANG = "lang";
-
         /// <summary>The Constant MEDIA.</summary>
         public const String MEDIA = "media";
 
@@ -140,11 +141,11 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant NUMBER.</summary>
         public const String NUMBER = "number";
 
-        /// <summary>The Constant PLACEHOLDER.</summary>
-        public const String PLACEHOLDER = "placeholder";
+        /// <summary>The Constant ROWS.</summary>
+        public const String ROW = "row";
 
-        /// <summary>The Constant REL.</summary>
-        public const String REL = "rel";
+        /// <summary>The Constant ROWS.</summary>
+        public const String ROWGROUP = "rowgroup";
 
         /// <summary>The Constant ROWS.</summary>
         public const String ROWS = "rows";
@@ -212,12 +213,6 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant CHECKED.</summary>
         public const String CHECKED = "checked";
 
-        /// <summary>The Constant COL.</summary>
-        public const String COL = "col";
-
-        /// <summary>The Constant COLGROUP.</summary>
-        public const String COLGROUP = "colgroup";
-
         /// <summary>The Constant EMAIL.</summary>
         public const String EMAIL = "email";
 
@@ -245,17 +240,8 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant RIGHT.</summary>
         public const String RIGHT = "right";
 
-        /// <summary>The Constant ROW.</summary>
-        public const String ROW = "row";
-
-        /// <summary>The Constant ROWGROUP.</summary>
-        public const String ROWGROUP = "rowgroup";
-
         /// <summary>The Constant RTL.</summary>
         public const String RTL = "rtl";
-
-        /// <summary>The Constant STYLESHEET.</summary>
-        public const String STYLESHEET = "stylesheet";
 
         /// <summary>The Constant SUBMIT.</summary>
         public const String SUBMIT = "submit";
@@ -269,17 +255,10 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant start</summary>
         public const String START = "start";
 
-        /// <summary>The Constant PARENT_TABLE_BORDER.</summary>
-        public const String PARENT_TABLE_BORDER = "parenttableborder";
+        public const String PLACEHOLDER = "placeholder";
 
         public sealed class ObjectTypes {
             public const String SVGIMAGE = "image/svg+xml";
-
-            internal ObjectTypes(AttributeConstants _enclosing) {
-                this._enclosing = _enclosing;
-            }
-
-            private readonly AttributeConstants _enclosing;
             // attribute values
             // iText custom attributes
         }

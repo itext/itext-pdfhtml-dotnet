@@ -45,10 +45,11 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
+using iText.StyledXmlParser.Css.Resolve;
 
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>Class that bundles all the CSS context properties.</summary>
-    public class CssContext {
+    public class CssContext : AbstractCssContext {
         /// <summary>The root font size value in pt.</summary>
         private float rootFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants
             .FONT_SIZE));
@@ -58,9 +59,6 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>Indicates if a page counter is present.</summary>
         private bool pagesCounterPresent = false;
-
-        /// <summary>The quotes depth.</summary>
-        private int quotesDepth = 0;
 
         /// <summary>The running elements manager.</summary>
         private CssRunningManager runningManager = new CssRunningManager();
@@ -99,18 +97,6 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <returns>true, if is pages counter present</returns>
         public virtual bool IsPagesCounterPresent() {
             return pagesCounterPresent;
-        }
-
-        /// <summary>Gets the quotes depth.</summary>
-        /// <returns>the quotes depth</returns>
-        public virtual int GetQuotesDepth() {
-            return quotesDepth;
-        }
-
-        /// <summary>Sets the quotes depth.</summary>
-        /// <param name="quotesDepth">the new quotes depth</param>
-        public virtual void SetQuotesDepth(int quotesDepth) {
-            this.quotesDepth = quotesDepth;
         }
 
         public virtual CssRunningManager GetRunningManager() {

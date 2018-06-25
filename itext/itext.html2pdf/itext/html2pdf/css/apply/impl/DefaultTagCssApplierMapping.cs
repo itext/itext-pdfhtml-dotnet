@@ -42,11 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Util;
+using iText.StyledXmlParser.Css.Page;
+using iText.StyledXmlParser.Css.Pseudo;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     /// <summary>Class that contains the default mapping between CSS keys and CSS appliers.</summary>

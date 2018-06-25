@@ -44,8 +44,8 @@ using System;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Exceptions;
-using iText.Html2pdf.Html.Node;
 using iText.Html2pdf.Util;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     /// <summary>

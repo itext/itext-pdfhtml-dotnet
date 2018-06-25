@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace iText.Html2pdf.Jsoup.Helper
+namespace iText.Html2pdf
 {
     internal class ByteBuffer {
         internal byte[] buffer;

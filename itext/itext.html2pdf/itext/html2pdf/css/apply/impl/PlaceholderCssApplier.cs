@@ -46,9 +46,9 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
-using iText.Html2pdf.Css.Pseudo;
-using iText.Html2pdf.Html.Node;
 using iText.Layout;
+using iText.StyledXmlParser.Css.Pseudo;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     /// <summary>

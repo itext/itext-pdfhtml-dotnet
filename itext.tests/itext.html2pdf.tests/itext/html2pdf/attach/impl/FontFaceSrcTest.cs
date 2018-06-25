@@ -43,9 +43,9 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Parse;
 using iText.IO.Util;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Parse;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -119,7 +119,7 @@ namespace iText.Html2pdf.Attach.Impl {
 
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION)]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION)]
         public virtual void ParseBase64SrcTest() {
             CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(sourceFolder + "srcs2.css", FileMode.Open
                 , FileAccess.Read));

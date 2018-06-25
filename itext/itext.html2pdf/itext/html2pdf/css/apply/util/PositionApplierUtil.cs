@@ -45,11 +45,11 @@ using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Util;
 using iText.IO.Util;
 using iText.Layout;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply a position.</summary>
@@ -90,7 +90,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         //            element.setProperty(Property.POSITION, LayoutPosition.FIXED);
-        //            float em = CssUtils.parseAbsoluteLength(cssProps.get(CssConstants.FONT_SIZE));
+        //            float em = CssUtils.parseAbsoluteLength(cssProps.get(CommonCssConstants.FONT_SIZE));
         //            applyLeftProperty(cssProps, element, em, Property.X);
         //            applyTopProperty(cssProps, element, em, Property.Y);
         // TODO
