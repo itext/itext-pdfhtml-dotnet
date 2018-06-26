@@ -75,6 +75,9 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>The device description.</summary>
         private MediaDeviceDescription deviceDescription;
 
+        /// <summary>Css inheritance checker</summary>
+        private IStyleInheritance cssInheritance = new CssInheritance();
+
         /// <summary>The list of fonts.</summary>
         private IList<CssFontFaceRule> fonts = new List<CssFontFaceRule>();
 
@@ -371,7 +374,7 @@ namespace iText.Html2pdf.Css.Resolve {
         private void MergeParentCssDeclaration(IDictionary<String, String> styles, String cssProperty, String parentPropValue
             , IDictionary<String, String> parentStyles) {
             String childPropValue = styles.Get(cssProperty);
-            if ((childPropValue == null && CssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals(childPropValue
+            if ((childPropValue == null && cssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals(childPropValue
                 )) {
                 if (ValueIsOfMeasurement(parentPropValue, CssConstants.EM) || ValueIsOfMeasurement(parentPropValue, CssConstants
                     .EX) || ValueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.
