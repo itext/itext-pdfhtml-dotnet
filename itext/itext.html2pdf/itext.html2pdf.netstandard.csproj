@@ -19,10 +19,6 @@
     <AssemblyName>itext.html2pdf</AssemblyName>
     <RootNamespace />
   </PropertyGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="itext\html2pdf\jsoup\nodes\entities-base.properties" />
-    <EmbeddedResource Include="itext\html2pdf\jsoup\nodes\entities-full.properties" />
-  </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <PackageReference Include="NETStandard.Library" Version="1.6.1" />
   </ItemGroup>
