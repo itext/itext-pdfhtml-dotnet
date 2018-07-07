@@ -202,5 +202,21 @@ namespace iText.Html2pdf.Css {
         public virtual void BorderRadiusInlineElementTest01() {
             ConvertToPdfAndCompare("borderRadiusInlineElementTest01", sourceFolder, destinationFolder);
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BorderRadiusInlineSpanElementTest01() {
+            //TODO: update after DEVSIX-2018, DEVSIX-1191 closing
+            ConvertToPdfAndCompare("borderRadiusInlineSpanElementTest01", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BorderRadiusInlineDivElementTest01() {
+            //TODO: update after DEVSIX-2018, DEVSIX-1191 closing
+            ConvertToPdfAndCompare("borderRadiusInlineDivElementTest01", sourceFolder, destinationFolder);
+        }
     }
 }
