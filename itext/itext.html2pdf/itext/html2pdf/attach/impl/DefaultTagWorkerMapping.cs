@@ -138,6 +138,7 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.STRONG, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SUB, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SUP, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.SVG, typeof(SvgTagWorker));
             workerMapping.PutMapping(TagConstants.TABLE, typeof(TableTagWorker));
             workerMapping.PutMapping(TagConstants.TD, typeof(TdTagWorker));
             workerMapping.PutMapping(TagConstants.TEXTAREA, typeof(TextAreaTagWorker));

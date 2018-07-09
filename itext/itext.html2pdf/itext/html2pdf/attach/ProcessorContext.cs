@@ -109,6 +109,9 @@ namespace iText.Html2pdf.Attach {
         /// <summary>The Processor meta info</summary>
         private IMetaInfo metaInfo;
 
+        /// <summary>Internal state variable to keep track of whether the processor is currently inside an inlineSvg</summary>
+        private bool processingInlineSvg;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="ProcessorContext"/>
@@ -157,6 +160,7 @@ namespace iText.Html2pdf.Attach {
             radioCheckResolver = new RadioCheckResolver();
             immediateFlush = converterProperties.IsImmediateFlush();
             metaInfo = converterProperties.GetEventCountingMetaInfo();
+            processingInlineSvg = false;
         }
 
         /// <summary>Sets the font provider.</summary>
@@ -290,6 +294,7 @@ namespace iText.Html2pdf.Attach {
             this.fontProvider = new FontProvider(this.fontProvider.GetFontSet());
             this.tempFonts = null;
             this.outlineHandler.Reset();
+            this.processingInlineSvg = false;
         }
 
         /// <summary>Resets the context, and assigns a new PDF document.</summary>
@@ -323,6 +328,22 @@ namespace iText.Html2pdf.Attach {
         /// <returns>html meta info</returns>
         public virtual IMetaInfo GetEventCountingMetaInfo() {
             return metaInfo;
+        }
+
+        /// <summary>Check if the processor is currently processing an inline svg</summary>
+        /// <returns>True if the processor is processing an inline Svg, false otherwise.</returns>
+        public virtual bool IsProcessingInlineSvg() {
+            return processingInlineSvg;
+        }
+
+        /// <summary>Set the processor to processing Inline Svg state</summary>
+        public virtual void StartProcessingInlineSvg() {
+            processingInlineSvg = true;
+        }
+
+        /// <summary>End the processing Svg State</summary>
+        public virtual void EndProcessingInlineSvg() {
+            processingInlineSvg = false;
         }
     }
 }

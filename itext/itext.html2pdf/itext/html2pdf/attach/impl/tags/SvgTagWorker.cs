@@ -34,9 +34,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             svgImage = null;
             try {
                 ISvgProcessor proc = new DefaultSvgProcessor();
-                //TODO(blocked by DEVSIX-1955, RND-982): uncomment and register in the mapping
-                //processingResult = proc.process((INode) element);
-                processingResult = null;
+                processingResult = proc.Process((INode)element);
+                context.StartProcessingInlineSvg();
             }
             catch (SvgProcessingException pe) {
                 LOGGER.Error(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, pe);
@@ -47,6 +46,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (context.GetPdfDocument() != null && processingResult != null) {
                 SvgProcessingUtil util = new SvgProcessingUtil();
                 svgImage = util.CreateImageFromProcessingResult(processingResult, context.GetPdfDocument());
+                context.EndProcessingInlineSvg();
             }
         }
 

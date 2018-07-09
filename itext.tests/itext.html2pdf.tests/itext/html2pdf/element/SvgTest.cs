@@ -20,10 +20,46 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
-        [NUnit.Framework.Ignore("RND-982")]
         [NUnit.Framework.Test]
         public virtual void InlineSvgTest() {
-            String name = "inline";
+            String name = "inline_svg";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void InlineNestedSvgTest() {
+            String name = "inline_nested_svg";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, Count = 2)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
+        public virtual void InlineSvgExternalFontRelativeTest() {
+            // TODO RND-883 external font loading in SVG
+            String name = "inline_svg_external_font_relative";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void InlineSvgExternalFontUrlTest() {
+            // TODO RND-883 external font loading in SVG
+            String name = "inline_svg_external_font_url";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder

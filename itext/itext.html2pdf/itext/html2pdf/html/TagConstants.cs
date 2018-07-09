@@ -245,6 +245,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant S.</summary>
         public const String S = "s";
 
+        /// <summary>The Constant SVG.</summary>
+        public const String SVG = "svg";
+
         /// <summary>The Constant SAMP.</summary>
         public const String SAMP = "samp";
 

@@ -312,7 +312,9 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (element.Name().Equals(TagConstants.BODY) || element.Name().Equals(TagConstants.HTML))
                     RunApplier(element, tagWorker);
                 foreach (INode childNode in element.ChildNodes()) {
-                    Visit(childNode);
+                    if (!context.IsProcessingInlineSvg()) {
+                        Visit(childNode);
+                    }
                 }
                 VisitPseudoElement(element, tagWorker, CssConstants.AFTER);
                 if (tagWorker != null) {
