@@ -274,16 +274,6 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
-        public virtual void CollectCssDeclarations(INode rootNode, ResourceResolver resourceResolver, AbstractCssContext
-             cssContext) {
-            if (cssContext is CssContext) {
-                CollectCssDeclarations(rootNode, resourceResolver, (CssContext)cssContext);
-            }
-            else {
-                throw new Html2PdfException("custom AbstractCssContext implementations are not supported yet");
-            }
-        }
-
         /// <summary>Collects CSS declarationss.</summary>
         /// <param name="rootNode">the root node</param>
         /// <param name="resourceResolver">the resource resolver</param>
