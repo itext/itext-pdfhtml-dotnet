@@ -1,4 +1,3 @@
-using Common.Logging;
 using iText.Html2pdf.Html;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -13,9 +12,6 @@ using iText.Svg.Renderers.Impl;
 namespace iText.Html2pdf.Util {
     /// <summary>Utility class for handling operations related to SVG</summary>
     public class SvgProcessingUtil {
-        /// <summary>The logger.</summary>
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(SvgProcessingUtil));
-
         /// <summary>
         /// Create an
         /// <c>Image</c>
@@ -32,7 +28,7 @@ namespace iText.Html2pdf.Util {
             float height = CssUtils.ParseAbsoluteLength(topSvgRenderer.GetAttribute(AttributeConstants.HEIGHT));
             PdfFormXObject pdfForm = new PdfFormXObject(new Rectangle(0, 0, width, height));
             PdfCanvas canvas = new PdfCanvas(pdfForm, pdfDocument);
-            SvgDrawContext context = new SvgDrawContext();
+            SvgDrawContext context = new SvgDrawContext(null, result.GetFontProvider());
             context.AddNamedObjects(result.GetNamedObjects());
             context.PushCanvas(canvas);
             ISvgNodeRenderer root = new PdfRootSvgNodeRenderer(topSvgRenderer);

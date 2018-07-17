@@ -16,12 +16,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// element.
     /// </summary>
     public class SvgTagWorker : ITagWorker {
-        internal Image svgImage;
+        private Image svgImage;
 
-        internal ISvgProcessorResult processingResult;
-
-        /// <summary>The logger.</summary>
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(ObjectTagWorker));
+        private ISvgProcessorResult processingResult;
 
         /// <summary>
         /// Creates a new
@@ -33,12 +30,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public SvgTagWorker(IElementNode element, ProcessorContext context) {
             svgImage = null;
             try {
-                ISvgProcessor proc = new DefaultSvgProcessor();
-                processingResult = proc.Process((INode)element);
+                SvgConverterProperties props = new SvgConverterProperties().SetBaseUri(context.GetBaseUri());
+                processingResult = new DefaultSvgProcessor().Process((INode)element, props);
                 context.StartProcessingInlineSvg();
             }
             catch (SvgProcessingException pe) {
-                LOGGER.Error(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, pe);
+                LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.SvgTagWorker)).Error(iText.Html2pdf.LogMessageConstant
+                    .UNABLE_TO_PROCESS_IMAGE_AS_SVG, pe);
             }
         }
 
