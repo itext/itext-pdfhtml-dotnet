@@ -112,26 +112,33 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-            if (childTagWorker is SpanTagWorker) {
-                bool allChildrenProcessed = true;
-                foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
-                    if (propertyContainer is ILeafElement) {
-                        inlineHelper.Add((ILeafElement)propertyContainer);
-                    }
-                    else {
-                        if (propertyContainer is IBlockElement && CssConstants.INLINE_BLOCK.Equals(((SpanTagWorker)childTagWorker)
-                            .GetElementDisplay(propertyContainer))) {
-                            inlineHelper.Add((IBlockElement)propertyContainer);
-                        }
-                        else {
-                            allChildrenProcessed = ProcessChild(propertyContainer) && allChildrenProcessed;
-                        }
-                    }
-                }
-                return allChildrenProcessed;
+            IPropertyContainer element = childTagWorker.GetElementResult();
+            if (element is ILeafElement) {
+                inlineHelper.Add((ILeafElement)element);
+                return true;
             }
             else {
-                return ProcessChild(childTagWorker.GetElementResult());
+                if (childTagWorker is SpanTagWorker) {
+                    bool allChildrenProcessed = true;
+                    foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
+                        if (propertyContainer is ILeafElement) {
+                            inlineHelper.Add((ILeafElement)propertyContainer);
+                        }
+                        else {
+                            if (propertyContainer is IBlockElement && CssConstants.INLINE_BLOCK.Equals(((SpanTagWorker)childTagWorker)
+                                .GetElementDisplay(propertyContainer))) {
+                                inlineHelper.Add((IBlockElement)propertyContainer);
+                            }
+                            else {
+                                allChildrenProcessed = ProcessChild(propertyContainer) && allChildrenProcessed;
+                            }
+                        }
+                    }
+                    return allChildrenProcessed;
+                }
+                else {
+                    return ProcessChild(childTagWorker.GetElementResult());
+                }
             }
         }
 
