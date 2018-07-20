@@ -481,7 +481,7 @@ namespace iText.Html2pdf.Attach.Impl {
                         byte[] bytes = context.GetResourceResolver().RetrieveBytesFromResource(src.src);
                         if (bytes != null) {
                             FontProgram fp = FontProgramFactory.CreateFont(bytes, false);
-                            context.AddTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily);
+                            context.AddTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily, uniRange);
                             return true;
                         }
                     }
