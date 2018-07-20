@@ -274,6 +274,19 @@ namespace iText.Html2pdf.Attach {
             tempFonts.AddFont(fontProgram, encoding, alias);
         }
 
+        /// <summary>Add temporary font from @font-face.</summary>
+        /// <param name="fontProgram">the font program</param>
+        /// <param name="encoding">the encoding</param>
+        /// <param name="alias">the alias</param>
+        /// <param name="unicodeRange">the unicode range</param>
+        public virtual void AddTemporaryFont(FontProgram fontProgram, String encoding, String alias, Range unicodeRange
+            ) {
+            if (tempFonts == null) {
+                tempFonts = new FontSet();
+            }
+            tempFonts.AddFont(fontProgram, encoding, alias, unicodeRange);
+        }
+
         /// <summary>Check fonts in font provider and temporary font set.</summary>
         /// <returns>true, if there is at least one font either in FontProvider or temporary FontSet.</returns>
         /// <seealso cref="AddTemporaryFont(iText.Layout.Font.FontInfo, System.String)"/>

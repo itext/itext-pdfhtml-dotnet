@@ -73,6 +73,7 @@ using iText.Kernel.Counter;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Css.Pseudo;
+using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>The default implementation to process HTML.</summary>
@@ -420,10 +421,11 @@ namespace iText.Html2pdf.Attach.Impl {
             if (cssResolver is DefaultCssResolver) {
                 foreach (CssFontFaceRule fontFace in ((DefaultCssResolver)cssResolver).GetFonts()) {
                     bool findSupportedSrc = false;
+                    IList<CssDeclaration> declarations = fontFace.GetProperties();
                     FontFace ff = FontFace.Create(fontFace.GetProperties());
                     if (ff != null) {
                         foreach (FontFace.FontFaceSrc src in ff.GetSources()) {
-                            if (CreateFont(ff.GetFontFamily(), src)) {
+                            if (CreateFont(ff.GetFontFamily(), src, ResolveUnicodeRange(declarations))) {
                                 findSupportedSrc = true;
                                 break;
                             }
@@ -437,11 +439,24 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
+        private Range ResolveUnicodeRange(IList<CssDeclaration> declarations) {
+            Range range = null;
+            foreach (CssDeclaration descriptor in declarations) {
+                if ("unicode-range".Equals(descriptor.GetProperty())) {
+                    range = CssUtils.ParseUnicodeRange(descriptor.GetExpression());
+                }
+            }
+            return range;
+        }
+
+
+
         /// <summary>Creates a font and adds it to the context.</summary>
         /// <param name="fontFamily">the font family</param>
         /// <param name="src">the source of the font</param>
+        /// <param name="src">the unicode range</param>
         /// <returns>true, if successful</returns>
-        private bool CreateFont(String fontFamily, FontFace.FontFaceSrc src) {
+        private bool CreateFont(String fontFamily, FontFace.FontFaceSrc src, Range uniRange) {
             if (!SupportedFontFormat(src.format)) {
                 return false;
             }
