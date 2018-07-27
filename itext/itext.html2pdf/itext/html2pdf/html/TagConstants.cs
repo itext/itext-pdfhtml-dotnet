@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -221,6 +221,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant NAV.</summary>
         public const String NAV = "nav";
 
+        /// <summary>The Constant OBJECT</summary>
+        public const String OBJECT = "object";
+
         /// <summary>The Constant OL.</summary>
         public const String OL = "ol";
 
@@ -241,6 +244,9 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant S.</summary>
         public const String S = "s";
+
+        /// <summary>The Constant SVG.</summary>
+        public const String SVG = "svg";
 
         /// <summary>The Constant SAMP.</summary>
         public const String SAMP = "samp";

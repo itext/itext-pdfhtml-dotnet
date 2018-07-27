@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -110,6 +110,48 @@ namespace iText.Html2pdf.Element {
                 + "htmlTest05.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "htmlTest05.pdf", sourceFolder
                  + "cmp_htmlTest05.pdf", destinationFolder, "diff05_"));
+        }
+
+        // this test is both for html and body
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Html06Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "htmlTest06.html"), new FileInfo(destinationFolder 
+                + "htmlTest06.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "htmlTest06.pdf", sourceFolder
+                 + "cmp_htmlTest06.pdf", destinationFolder, "diff06_"));
+        }
+
+        // this test is both for html and body
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Html07Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "htmlTest07.html"), new FileInfo(destinationFolder 
+                + "htmlTest07.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "htmlTest07.pdf", sourceFolder
+                 + "cmp_htmlTest07.pdf", destinationFolder, "diff07_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Html08Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "htmlTest08.html"), new FileInfo(destinationFolder 
+                + "htmlTest08.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "htmlTest08.pdf", sourceFolder
+                 + "cmp_htmlTest08.pdf", destinationFolder, "diff08_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Html09Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "htmlTest09.html"), new FileInfo(destinationFolder 
+                + "htmlTest09.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "htmlTest09.pdf", sourceFolder
+                 + "cmp_htmlTest09.pdf", destinationFolder, "diff09_"));
         }
     }
 }

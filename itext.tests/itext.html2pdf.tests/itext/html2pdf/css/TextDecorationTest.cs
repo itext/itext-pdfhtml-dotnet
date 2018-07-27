@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,14 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.IO.Util;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class TextDecorationTest : ExtendedITextTest {
+    public class TextDecorationTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/TextDecorationTest/";
 
@@ -64,36 +60,21 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TextDecoration01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textDecorationTest01.html"), new FileInfo(destinationFolder
-                 + "textDecorationTest01.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "textDecorationTest01.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textDecorationTest01.pdf"
-                , sourceFolder + "cmp_textDecorationTest01.pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("textDecorationTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TextDecoration02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textDecorationTest02.html"), new FileInfo(destinationFolder
-                 + "textDecorationTest02.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "textDecorationTest02.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textDecorationTest02.pdf"
-                , sourceFolder + "cmp_textDecorationTest02.pdf", destinationFolder, "diff02_"));
+            ConvertToPdfAndCompare("textDecorationTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TextDecoration03Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textDecorationTest03.html"), new FileInfo(destinationFolder
-                 + "textDecorationTest03.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "textDecorationTest03.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textDecorationTest03.pdf"
-                , sourceFolder + "cmp_textDecorationTest03.pdf", destinationFolder, "diff03_"));
+            ConvertToPdfAndCompare("textDecorationTest03", sourceFolder, destinationFolder);
         }
 
         //Text decoration property is in defaults.css for a[href], should be replaced by css.
@@ -101,12 +82,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TextDecoration04Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "textDecorationTest04.html"), new FileInfo(destinationFolder
-                 + "textDecorationTest04.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "textDecorationTest04.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "textDecorationTest04.pdf"
-                , sourceFolder + "cmp_textDecorationTest04.pdf", destinationFolder, "diff04_"));
+            ConvertToPdfAndCompare("textDecorationTest04", sourceFolder, destinationFolder);
         }
     }
 }

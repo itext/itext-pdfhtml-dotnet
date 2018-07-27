@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -45,10 +45,11 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
 using iText.Layout;
+using iText.Layout.Element;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -84,6 +85,22 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
+            String placeholder = element.GetAttribute(AttributeConstants.PLACEHOLDER);
+            if (null != placeholder) {
+                Paragraph paragraph;
+                if (String.IsNullOrEmpty(placeholder)) {
+                    paragraph = new Paragraph();
+                }
+                else {
+                    if (String.IsNullOrEmpty(placeholder.Trim())) {
+                        paragraph = new Paragraph("\u00A0");
+                    }
+                    else {
+                        paragraph = new Paragraph(placeholder);
+                    }
+                }
+                textArea.SetPlaceholder(paragraph.SetMargin(0));
+            }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 
@@ -113,7 +130,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-            return false;
+            return childTagWorker is PlaceholderTagWorker && null != textArea.GetPlaceholder();
         }
 
         /* (non-Javadoc)

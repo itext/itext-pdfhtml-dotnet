@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -135,6 +135,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         */
         protected internal override IRenderer CreateFlatRenderer() {
             return CreateParagraphRenderer(GetDefaultValue());
+        }
+
+        internal override IRenderer CreateParagraphRenderer(String defaultValue) {
+            if (String.IsNullOrEmpty(defaultValue)) {
+                if (null != ((TextArea)modelElement).GetPlaceholder() && !((TextArea)modelElement).GetPlaceholder().IsEmpty
+                    ()) {
+                    return ((TextArea)modelElement).GetPlaceholder().CreateRendererSubTree();
+                }
+            }
+            return base.CreateParagraphRenderer(defaultValue);
         }
 
         /* (non-Javadoc)

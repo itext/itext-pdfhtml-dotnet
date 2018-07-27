@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Renderer;
+using iText.Layout.Element;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
@@ -54,11 +55,24 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
     /// <see cref="iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.InputFieldRenderer"/>
     /// is used.
     /// </summary>
-    public class InputField : FormField<iText.Html2pdf.Attach.Impl.Layout.Form.Element.InputField> {
+    public class InputField : FormField<iText.Html2pdf.Attach.Impl.Layout.Form.Element.InputField>, IPlaceholderable {
         /// <summary>Creates a new input field.</summary>
         /// <param name="id">the id</param>
         public InputField(String id)
             : base(id) {
+        }
+
+        /// <summary>The placeholder paragraph.</summary>
+        private Paragraph placeholder;
+
+        /// <summary><inheritDoc/></summary>
+        public virtual Paragraph GetPlaceholder() {
+            return placeholder;
+        }
+
+        /// <summary><inheritDoc/></summary>
+        public virtual void SetPlaceholder(Paragraph placeholder) {
+            this.placeholder = placeholder;
         }
 
         /* (non-Javadoc)

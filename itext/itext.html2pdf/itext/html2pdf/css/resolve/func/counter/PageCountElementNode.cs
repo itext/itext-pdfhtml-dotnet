@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -42,13 +42,13 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using iText.Html2pdf.Html.Impl.Jsoup.Node;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
+using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 
 namespace iText.Html2pdf.Css.Resolve.Func.Counter {
     /// <summary>
-    /// <see cref="iText.Html2pdf.Html.Node.ICustomElementNode"/>
+    /// <see cref="iText.StyledXmlParser.Node.ICustomElementNode"/>
     /// implementation for a page count element node.
     /// </summary>
     public class PageCountElementNode : JsoupElementNode, ICustomElementNode {
@@ -67,15 +67,15 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// instance.
         /// </summary>
         /// <param name="totalPageCount">indicates if the node represents the total page count</param>
-        [System.ObsoleteAttribute(@"Will be removed in 3.0. Use PageCountElementNode(bool, iText.Html2pdf.Html.Node.INode) instead"
+        [System.ObsoleteAttribute(@"Will be removed in 3.0. Use PageCountElementNode(bool, iText.StyledXmlParser.Node.INode) instead"
             )]
         public PageCountElementNode(bool totalPageCount)
             : this(totalPageCount, null) {
         }
 
         public PageCountElementNode(bool totalPageCount, INode parent)
-            : base(new iText.Html2pdf.Jsoup.Nodes.Element(iText.Html2pdf.Jsoup.Parser.Tag.ValueOf(PAGE_COUNTER_TAG), ""
-                )) {
+            : base(new iText.StyledXmlParser.Jsoup.Nodes.Element(iText.StyledXmlParser.Jsoup.Parser.Tag.ValueOf(PAGE_COUNTER_TAG
+                ), "")) {
             this.totalPageCount = totalPageCount;
             this.parent = parent;
         }

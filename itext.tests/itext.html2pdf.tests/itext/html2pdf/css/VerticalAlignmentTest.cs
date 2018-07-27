@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,14 +41,11 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.IO.Util;
-using iText.Kernel.Utils;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class VerticalAlignmentTest {
+    public class VerticalAlignmentTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/VerticalAlignmentTest/";
 
@@ -65,56 +62,56 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest01() {
             // TODO 'top' and 'bottom' values are not supported for now
-            RunTest("verticalAlignmentTest01");
+            ConvertToPdfAndCompare("verticalAlignmentTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest02() {
-            RunTest("verticalAlignmentTest02");
+            ConvertToPdfAndCompare("verticalAlignmentTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest03() {
-            RunTest("verticalAlignmentTest03");
+            ConvertToPdfAndCompare("verticalAlignmentTest03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest05() {
-            RunTest("verticalAlignmentTest05");
+            ConvertToPdfAndCompare("verticalAlignmentTest05", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest06() {
-            RunTest("verticalAlignmentTest06");
+            ConvertToPdfAndCompare("verticalAlignmentTest06", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest07() {
-            RunTest("verticalAlignmentTest07");
+            ConvertToPdfAndCompare("verticalAlignmentTest07", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest08() {
-            RunTest("verticalAlignmentTest08");
+            ConvertToPdfAndCompare("verticalAlignmentTest08", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest09() {
-            RunTest("verticalAlignmentTest09");
+            ConvertToPdfAndCompare("verticalAlignmentTest09", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -122,74 +119,63 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest10() {
             // TODO interesting thing is that vertical alignment increases line height if needed, however itext doesn't in this case 
-            RunTest("verticalAlignmentTest10");
+            ConvertToPdfAndCompare("verticalAlignmentTest10", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest11() {
-            RunTest("verticalAlignmentTest11");
+            ConvertToPdfAndCompare("verticalAlignmentTest11", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest12() {
-            RunTest("verticalAlignmentTest12");
+            ConvertToPdfAndCompare("verticalAlignmentTest12", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentCellTest01() {
-            RunTest("verticalAlignmentCellTest01");
+            ConvertToPdfAndCompare("verticalAlignmentCellTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentCellTest02() {
-            RunTest("verticalAlignmentCellTest02");
+            ConvertToPdfAndCompare("verticalAlignmentCellTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentCellTest03() {
-            RunTest("verticalAlignmentCellTest03");
+            ConvertToPdfAndCompare("verticalAlignmentCellTest03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VAlignAttributeCellTest01() {
-            RunTest("vAlignAttributeCellTest01");
+            ConvertToPdfAndCompare("vAlignAttributeCellTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignOnNestedInlines01() {
-            RunTest("verticalAlignOnNestedInlines01");
+            ConvertToPdfAndCompare("verticalAlignOnNestedInlines01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VerticalAlignOnNestedInlines02() {
-            RunTest("verticalAlignOnNestedInlines02");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        private void RunTest(String testName) {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + testName + ".html")
-                .AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName + "_"));
+            ConvertToPdfAndCompare("verticalAlignOnNestedInlines02", sourceFolder, destinationFolder);
         }
     }
 }

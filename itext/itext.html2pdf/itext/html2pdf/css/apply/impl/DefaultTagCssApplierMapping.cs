@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -42,11 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Util;
+using iText.StyledXmlParser.Css.Page;
+using iText.StyledXmlParser.Css.Pseudo;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     /// <summary>Class that contains the default mapping between CSS keys and CSS appliers.</summary>
@@ -114,6 +114,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.MAIN, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.MARK, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.NAV, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.OBJECT, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.OL, typeof(UlOlTagCssApplier));
             mapping.PutMapping(TagConstants.OPTGROUP, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.OPTION, typeof(BlockCssApplier));
@@ -130,6 +131,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.STRONG, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.SUB, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.SUP, typeof(SpanTagCssApplier));
+            mapping.PutMapping(TagConstants.SVG, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.TABLE, typeof(TableTagCssApplier));
             mapping.PutMapping(TagConstants.TEXTAREA, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.TD, typeof(TdTagCssApplier));
@@ -142,6 +144,9 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.U, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.UL, typeof(UlOlTagCssApplier));
             mapping.PutMapping(TagConstants.VAR, typeof(SpanTagCssApplier));
+            String placeholderPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.PLACEHOLDER
+                );
+            mapping.PutMapping(placeholderPseudoElemName, typeof(PlaceholderCssApplier));
             mapping.PutMapping(TagConstants.UL, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.LI, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, typeof(BlockCssApplier));
@@ -152,6 +157,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.A, CssConstants.INLINE_BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.A, CssConstants.BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.A, CssConstants.TABLE_CELL, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.LABEL, CssConstants.BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE, typeof(TableTagCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_CELL, typeof(TdTagCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_ROW, typeof(DisplayTableRowTagCssApplier));

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,15 +41,11 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.IO.Util;
-using iText.Kernel.Utils;
-using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    public class CssInheritanceTest : ExtendedITextTest {
+    public class CssInheritanceTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssInheritanceTest/";
 
@@ -66,12 +62,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance01.html"), new FileInfo(destinationFolder
-                 + "cssInheritance01.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssInheritance01.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance01.pdf"
-                , sourceFolder + "cmp_cssInheritance01.pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("cssInheritance01", sourceFolder, destinationFolder);
         }
 
         //ex value inherited
@@ -80,12 +71,7 @@ namespace iText.Html2pdf.Css {
         [LogMessage(iText.Html2pdf.LogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN)]
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest02() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance02.html"), new FileInfo(destinationFolder
-                 + "cssInheritance02.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssInheritance02.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance02.pdf"
-                , sourceFolder + "cmp_cssInheritance02.pdf", destinationFolder, "diff02_"));
+            ConvertToPdfAndCompare("cssInheritance02", sourceFolder, destinationFolder);
         }
 
         //rem value inherited, shorthand
@@ -93,12 +79,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest03() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance03.html"), new FileInfo(destinationFolder
-                 + "cssInheritance03.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssInheritance03.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance03.pdf"
-                , sourceFolder + "cmp_cssInheritance03.pdf", destinationFolder, "diff03_"));
+            ConvertToPdfAndCompare("cssInheritance03", sourceFolder, destinationFolder);
         }
 
         //% value inherited, font-size dependent
@@ -106,12 +87,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest04() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance04.html"), new FileInfo(destinationFolder
-                 + "cssInheritance04.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssInheritance04.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance04.pdf"
-                , sourceFolder + "cmp_cssInheritance04.pdf", destinationFolder, "diff04_"));
+            ConvertToPdfAndCompare("cssInheritance04", sourceFolder, destinationFolder);
         }
 
         //% value inherited, layout dependent
@@ -119,12 +95,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest05() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance05.html"), new FileInfo(destinationFolder
-                 + "cssInheritance05.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssInheritance05.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance05.pdf"
-                , sourceFolder + "cmp_cssInheritance05.pdf", destinationFolder, "diff05_"));
+            ConvertToPdfAndCompare("cssInheritance05", sourceFolder, destinationFolder);
         }
 
         //smaller value inherited
@@ -132,12 +103,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest06() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssInheritance06.html"), new FileInfo(destinationFolder
-                 + "cssInheritance06.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssInheritance06.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssInheritance06.pdf"
-                , sourceFolder + "cmp_cssInheritance06.pdf", destinationFolder, "diff06_"));
+            ConvertToPdfAndCompare("cssInheritance06", sourceFolder, destinationFolder);
         }
     }
 }

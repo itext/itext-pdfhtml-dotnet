@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -44,13 +44,13 @@ using System;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Tagging;
 using iText.Kernel.Pdf.Tagutils;
 using iText.Layout;
 using iText.Layout.Tagging;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     public class ThTagWorker : TdTagWorker {

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -94,6 +94,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             bool? password = GetPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG);
             return password != null ? (bool)password : (bool)modelElement.GetDefaultProperty<bool>(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG
                 );
+        }
+
+        internal override IRenderer CreateParagraphRenderer(String defaultValue) {
+            if (String.IsNullOrEmpty(defaultValue)) {
+                if (null != ((InputField)modelElement).GetPlaceholder() && !((InputField)modelElement).GetPlaceholder().IsEmpty
+                    ()) {
+                    return ((InputField)modelElement).GetPlaceholder().CreateRendererSubTree();
+                }
+            }
+            return base.CreateParagraphRenderer(defaultValue);
         }
 
         protected internal override void AdjustFieldLayout() {

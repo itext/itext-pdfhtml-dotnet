@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,11 +43,11 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
-using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Pdfa;
+using iText.StyledXmlParser.Css.Media;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -182,6 +182,20 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void ListTest17() {
             RunTest("listTest17");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ListTest18() {
+            RunTest("listTest18");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ListTest19() {
+            RunTest("listTest19");
         }
 
         /// <exception cref="System.IO.IOException"/>

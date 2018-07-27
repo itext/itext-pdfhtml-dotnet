@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -443,6 +443,26 @@ namespace iText.Html2pdf
                     new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff16D_"));
             }
         }
+
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("The path to the image shall be changed to reference some available shared file in order to run the test correctly.")]
+        public void ResourceResolverTest17()
+        {
+            String baseUri = sourceFolder;
+            String outPdf = destinationFolder + "resourceResolverTest17.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest17.pdf";
+            using (
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest17.html", FileMode.Open,
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
+                    new ConverterProperties().SetBaseUri(baseUri));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff17_"));
+            }
+        }
+
 
         // TODO test with absolute http links for resources?
         // TODO test with http base URI?

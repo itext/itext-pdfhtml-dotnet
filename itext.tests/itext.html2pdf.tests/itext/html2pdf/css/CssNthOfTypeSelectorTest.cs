@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,13 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class CssNthOfTypeSelectorTest : ExtendedITextTest {
+    public class CssNthOfTypeSelectorTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssNthOfTypeSelectorTest/";
 
@@ -63,84 +60,49 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthOfTypeEvenTest() {
-            String outPdf = destinationFolder + "resourceNthOfTypeEvenTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceNthOfTypeEvenTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceNthOfTypeEvenTest.html"), new FileInfo(outPdf
-                ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffNthOfTypeEven_"
-                ));
+            ConvertToPdfAndCompare("resourceNthOfTypeEvenTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthOfTypeExpressionTest() {
-            String outPdf = destinationFolder + "resourceNthOfTypeExpressionTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceNthOfTypeExpressionTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceNthOfTypeExpressionTest.html"), new FileInfo
-                (outPdf));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffNthOfTypeExpression_"
-                ));
+            ConvertToPdfAndCompare("resourceNthOfTypeExpressionTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthOfTypeNegativeExpressionTest() {
-            String outPdf = destinationFolder + "resourceNthOfTypeNegativeExpressionTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceNthOfTypeNegativeExpressionTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceNthOfTypeNegativeExpressionTest.html"), new 
-                FileInfo(outPdf));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffNthOfTypeNegativeExpression_"
-                ));
+            ConvertToPdfAndCompare("resourceNthOfTypeNegativeExpressionTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthOfTypeIntegerTest() {
-            String outPdf = destinationFolder + "resourceNthOfTypeIntegerTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceNthOfTypeIntegerTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceNthOfTypeIntegerTest.html"), new FileInfo(
-                outPdf));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffNthOfTypeInteger_"
-                ));
+            ConvertToPdfAndCompare("resourceNthOfTypeIntegerTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FirstOfTypeTest() {
-            String outPdf = destinationFolder + "resourceFirstOfTypeTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceFirstOfTypeTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceFirstOfTypeTest.html"), new FileInfo(outPdf
-                ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffFirstOfType_"
-                ));
+            ConvertToPdfAndCompare("resourceFirstOfTypeTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LastOfTypeTest() {
-            String outPdf = destinationFolder + "resourceLastOfTypeTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceLastOfTypeTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceLastOfTypeTest.html"), new FileInfo(outPdf
-                ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffLastOfType_"
-                ));
+            ConvertToPdfAndCompare("resourceLastOfTypeTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NotLastOfTypeTest() {
-            String outPdf = destinationFolder + "resourceNotLastOfTypeTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceNotLastOfTypeTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceNotLastOfTypeTest.html"), new FileInfo(outPdf
-                ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffNotLastOfType_"
-                ));
+            ConvertToPdfAndCompare("resourceNotLastOfTypeTest", sourceFolder, destinationFolder);
         }
     }
 }

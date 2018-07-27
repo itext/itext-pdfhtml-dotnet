@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -44,14 +44,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Resolve;
-using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Impl.Jsoup;
-using iText.Html2pdf.Html.Node;
-using iText.Html2pdf.Resolver.Resource;
 using iText.IO.Util;
+using iText.StyledXmlParser;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Media;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Node.Impl.Jsoup;
+using iText.StyledXmlParser.Resolver.Resource;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
@@ -248,7 +250,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         private void Test(String fileName, String elementPath, params String[] expectedStyles) {
             String filePath = sourceFolder + fileName;
-            IHtmlParser parser = new JsoupHtmlParser();
+            IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode document = parser.Parse(new FileStream(filePath, FileMode.Open, FileAccess.Read), "UTF-8");
             ICssResolver cssResolver = new DefaultCssResolver(document, MediaDeviceDescription.CreateDefault(), new ResourceResolver
                 (""));

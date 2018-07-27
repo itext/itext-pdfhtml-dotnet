@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,13 +41,21 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.IO;
+using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
+using iText.Html2pdf.Util;
+using iText.IO.Util;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Resolver.Resource;
+using iText.Svg.Converter;
+using iText.Svg.Exceptions;
+using iText.Svg.Processors;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -56,8 +64,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// element.
     /// </summary>
     public class ImgTagWorker : ITagWorker {
+        /// <summary>The logger.</summary>
+        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(ObjectTagWorker));
+
         /// <summary>The image.</summary>
-        private ImgTagWorker.HtmlImage image;
+        private Image image;
 
         /// <summary>The display value.</summary>
         private String display;
@@ -70,20 +81,60 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public ImgTagWorker(IElementNode element, ProcessorContext context) {
-            PdfImageXObject imageXObject = context.GetResourceResolver().RetrieveImage(element.GetAttribute(AttributeConstants
-                .SRC));
-            if (imageXObject != null) {
-                image = new ImgTagWorker.HtmlImage(this, imageXObject);
-                String altText = element.GetAttribute(AttributeConstants.ALT);
-                if (altText != null) {
-                    image.SetAltText(altText);
+            String src = element.GetAttribute(AttributeConstants.SRC);
+            if (src != null) {
+                if (src.Contains(ResourceResolver.BASE64IDENTIFIER) || context.GetResourceResolver().IsImageTypeSupportedByImageDataFactory
+                    (src)) {
+                    ProcessAsImage(src, element, context);
+                }
+                else {
+                    byte[] resourceBytes = context.GetResourceResolver().RetrieveBytesFromResource(src);
+                    if (resourceBytes != null) {
+                        Stream resourceStream = context.GetResourceResolver().RetrieveResourceAsInputStream(src);
+                        //Try with svg
+                        try {
+                            ProcessAsSvg(resourceStream, context);
+                        }
+                        catch (SvgProcessingException) {
+                            LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context
+                                .GetBaseUri(), src));
+                        }
+                        catch (System.IO.IOException) {
+                            LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+                                , context.GetBaseUri(), src));
+                        }
+                    }
                 }
             }
+            else {
+                LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
+                    , context.GetBaseUri(), src));
+            }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
-            // TODO this is a workaround for now to that image is not added as inline
+            // TODO this is a workaround for now Imgto that image is not added as inline
             if (element.GetStyles() != null && CssConstants.ABSOLUTE.Equals(element.GetStyles().Get(CssConstants.POSITION
                 ))) {
                 display = CssConstants.BLOCK;
+            }
+            String altText = element.GetAttribute(AttributeConstants.ALT);
+            if (altText != null && image != null) {
+                image.GetAccessibilityProperties().SetAlternateDescription(altText);
+            }
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        private void ProcessAsSvg(Stream stream, ProcessorContext context) {
+            SvgProcessingUtil processingUtil = new SvgProcessingUtil();
+            ISvgProcessorResult res = SvgConverter.ParseAndProcess(stream);
+            if (context.GetPdfDocument() != null) {
+                image = processingUtil.CreateImageFromProcessingResult(res, context.GetPdfDocument());
+            }
+        }
+
+        private void ProcessAsImage(String src, IElementNode element, ProcessorContext context) {
+            PdfImageXObject imageXObject = context.GetResourceResolver().RetrieveImage(src);
+            if (imageXObject != null) {
+                image = new ImgTagWorker.HtmlImage(this, imageXObject);
             }
         }
 
@@ -152,12 +203,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             */
             public override float GetImageHeight() {
                 return (float)(this.xObject.GetHeight() * this.pxToPt);
-            }
-
-            /// <summary>Sets the alt text for the image.</summary>
-            /// <param name="altText">the new alt text</param>
-            internal virtual void SetAltText(String altText) {
-                this.GetAccessibilityProperties().SetAlternateDescription(altText);
             }
 
             private readonly ImgTagWorker _enclosing;

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -46,8 +46,8 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
-using iText.Html2pdf.Html.Node;
 using iText.Layout;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     /// <summary>
@@ -55,8 +55,6 @@ namespace iText.Html2pdf.Css.Apply.Impl {
     /// implementation for Body elements.
     /// </summary>
     public class BodyTagCssApplier : ICssApplier {
-        //TODO apply background property.
-        //DEVSIX-940
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.css.apply.ICssApplier#apply(com.itextpdf.html2pdf.attach.ProcessorContext, com.itextpdf.html2pdf.html.node.IStylesContainer, com.itextpdf.html2pdf.attach.ITagWorker)
         */
@@ -66,13 +64,14 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             BodyHtmlStylesContainer styleProperty = new BodyHtmlStylesContainer();
             IPropertyContainer container = tagWorker.GetElementResult();
             if (container != null) {
-                //            BackgroundApplierUtil.applyBackground(cssProps, context, styleProperty);
+                BackgroundApplierUtil.ApplyBackground(cssProps, context, styleProperty);
                 MarginApplierUtil.ApplyMargins(cssProps, context, styleProperty);
                 PaddingApplierUtil.ApplyPaddings(cssProps, context, styleProperty);
                 BorderStyleApplierUtil.ApplyBorders(cssProps, context, styleProperty);
                 if (styleProperty.HasStylesToApply()) {
                     container.SetProperty(Html2PdfProperty.BODY_STYLING, styleProperty);
                 }
+                FontStyleApplierUtil.ApplyFontStyles(cssProps, context, stylesContainer, container);
             }
         }
     }

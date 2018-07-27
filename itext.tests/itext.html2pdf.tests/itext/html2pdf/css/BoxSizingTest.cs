@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,14 +41,11 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    public class BoxSizingTest : ExtendedITextTest {
+    public class BoxSizingTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/BoxSizingTest/";
 
@@ -64,14 +61,14 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingCellContentTest01() {
-            RunTest("boxSizingCellContentTest01");
+            ConvertToPdfAndCompare("boxSizingCellContentTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingCellContentTest02() {
-            RunTest("boxSizingCellContentTest02");
+            ConvertToPdfAndCompare("boxSizingCellContentTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -81,14 +78,14 @@ namespace iText.Html2pdf.Css {
             // TODO Result of processing of this html is different from what browsers show.
             // Height of cells is always border-box-like at least if DOCTYPE "html" is not specified.
             // See also boxSizingCellTest03.
-            RunTest("boxSizingCellTest01");
+            ConvertToPdfAndCompare("boxSizingCellTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingCellTest02() {
-            RunTest("boxSizingCellTest02");
+            ConvertToPdfAndCompare("boxSizingCellTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -100,56 +97,56 @@ namespace iText.Html2pdf.Css {
             // TODO: we don't include half of the borders in height calculation when border-box is set
             // because we apply borders on table level. However, this seems to be not very important for heights,
             // height will only be bigger and it's not that crucial in comparison to width calculations.
-            RunTest("boxSizingCellTest03");
+            ConvertToPdfAndCompare("boxSizingCellTest03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingFloat01Test() {
-            RunTest("boxSizingFloat01Test");
+            ConvertToPdfAndCompare("boxSizingFloat01Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingFloat02Test() {
-            RunTest("boxSizingFloat02Test");
+            ConvertToPdfAndCompare("boxSizingFloat02Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingRelativeWidth01Test() {
-            RunTest("boxSizingRelativeWidth01Test");
+            ConvertToPdfAndCompare("boxSizingRelativeWidth01Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingRelativeWidth02Test() {
-            RunTest("boxSizingRelativeWidth02Test");
+            ConvertToPdfAndCompare("boxSizingRelativeWidth02Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingRelativeWidth03Test() {
-            RunTest("boxSizingRelativeWidth03Test");
+            ConvertToPdfAndCompare("boxSizingRelativeWidth03Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingDiv01Test() {
-            RunTest("boxSizingDiv01Test");
+            ConvertToPdfAndCompare("boxSizingDiv01Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingDiv03Test() {
-            RunTest("boxSizingDiv03Test");
+            ConvertToPdfAndCompare("boxSizingDiv03Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -158,21 +155,21 @@ namespace iText.Html2pdf.Css {
         public virtual void BoxSizingDiv04Test() {
             // TODO inner div still doesn't fit, because it's height is increased every time page split occurs by margins borders padding
             // Thus, if parent height was manually fixed to include child with fixed height and if page split occurs - child might not fit.
-            RunTest("boxSizingDiv04Test");
+            ConvertToPdfAndCompare("boxSizingDiv04Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingPara01Test() {
-            RunTest("boxSizingPara01Test");
+            ConvertToPdfAndCompare("boxSizingPara01Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingPara03Test() {
-            RunTest("boxSizingPara03Test");
+            ConvertToPdfAndCompare("boxSizingPara03Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -180,70 +177,70 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 2)]
         public virtual void BoxSizingTable01Test() {
-            RunTest("boxSizingTable01Test");
+            ConvertToPdfAndCompare("boxSizingTable01Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingTable02Test() {
-            RunTest("boxSizingTable02Test");
+            ConvertToPdfAndCompare("boxSizingTable02Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingTable04Test() {
-            RunTest("boxSizingTable04Test");
+            ConvertToPdfAndCompare("boxSizingTable04Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingTable05Test() {
-            RunTest("boxSizingTable05Test");
+            ConvertToPdfAndCompare("boxSizingTable05Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingTable06Test() {
-            RunTest("boxSizingTable06Test");
+            ConvertToPdfAndCompare("boxSizingTable06Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingMinMaxHeight01Test() {
-            RunTest("boxSizingMinMaxHeight01Test");
+            ConvertToPdfAndCompare("boxSizingMinMaxHeight01Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingInlineBlock01Test() {
-            RunTest("boxSizingInlineBlock01Test");
+            ConvertToPdfAndCompare("boxSizingInlineBlock01Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingInlineBlock02Test() {
-            RunTest("boxSizingInlineBlock02Test");
+            ConvertToPdfAndCompare("boxSizingInlineBlock02Test", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingFormTest01() {
-            RunTest("boxSizingFormTest01");
+            ConvertToPdfAndCompare("boxSizingFormTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingFormTest02() {
-            RunTest("boxSizingFormTest02");
+            ConvertToPdfAndCompare("boxSizingFormTest02", sourceFolder, destinationFolder);
         }
 
         // TODO we don't apply height to textarea yet
@@ -251,7 +248,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingFormTest03() {
-            RunTest("boxSizingFormTest03");
+            ConvertToPdfAndCompare("boxSizingFormTest03", sourceFolder, destinationFolder);
         }
 
         // TODO at least in chrome, borders of buttons are always included to width and height (just as with border-box)
@@ -259,25 +256,14 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingLiTest01() {
-            RunTest("boxSizingLiTest01");
+            ConvertToPdfAndCompare("boxSizingLiTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingLiTest02() {
-            RunTest("boxSizingLiTest02");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        private void RunTest(String testName) {
-            String htmlName = sourceFolder + testName + ".html";
-            String outFileName = destinationFolder + testName + ".pdf";
-            String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlName), new FileInfo(outFileName));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, destinationFolder
-                , "diff_" + testName + "_"));
+            ConvertToPdfAndCompare("boxSizingLiTest02", sourceFolder, destinationFolder);
         }
     }
 }

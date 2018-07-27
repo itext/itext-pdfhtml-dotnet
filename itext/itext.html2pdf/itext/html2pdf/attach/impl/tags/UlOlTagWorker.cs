@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -44,12 +44,12 @@ using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -106,32 +106,38 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             IPropertyContainer child = childTagWorker.GetElementResult();
-            if (childTagWorker is SpanTagWorker) {
-                bool allChildrenProcessed = true;
-                foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
-                    if (propertyContainer is ILeafElement) {
-                        inlineHelper.Add((ILeafElement)propertyContainer);
-                    }
-                    else {
-                        if (propertyContainer is IBlockElement && CssConstants.INLINE_BLOCK.Equals(((SpanTagWorker)childTagWorker)
-                            .GetElementDisplay(propertyContainer))) {
-                            inlineHelper.Add((IBlockElement)propertyContainer);
-                        }
-                        else {
-                            allChildrenProcessed = AddBlockChild(propertyContainer) && allChildrenProcessed;
-                        }
-                    }
-                }
-                return allChildrenProcessed;
+            if (child is ILeafElement) {
+                inlineHelper.Add((ILeafElement)child);
+                return true;
             }
             else {
-                if (childTagWorker is IDisplayAware && CssConstants.INLINE_BLOCK.Equals(((IDisplayAware)childTagWorker).GetDisplay
-                    ()) && childTagWorker.GetElementResult() is IBlockElement) {
-                    inlineHelper.Add((IBlockElement)childTagWorker.GetElementResult());
-                    return true;
+                if (childTagWorker is SpanTagWorker) {
+                    bool allChildrenProcessed = true;
+                    foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
+                        if (propertyContainer is ILeafElement) {
+                            inlineHelper.Add((ILeafElement)propertyContainer);
+                        }
+                        else {
+                            if (propertyContainer is IBlockElement && CssConstants.INLINE_BLOCK.Equals(((SpanTagWorker)childTagWorker)
+                                .GetElementDisplay(propertyContainer))) {
+                                inlineHelper.Add((IBlockElement)propertyContainer);
+                            }
+                            else {
+                                allChildrenProcessed = AddBlockChild(propertyContainer) && allChildrenProcessed;
+                            }
+                        }
+                    }
+                    return allChildrenProcessed;
                 }
                 else {
-                    return AddBlockChild(child);
+                    if (childTagWorker is IDisplayAware && CssConstants.INLINE_BLOCK.Equals(((IDisplayAware)childTagWorker).GetDisplay
+                        ()) && childTagWorker.GetElementResult() is IBlockElement) {
+                        inlineHelper.Add((IBlockElement)childTagWorker.GetElementResult());
+                        return true;
+                    }
+                    else {
+                        return AddBlockChild(child);
+                    }
                 }
             }
         }

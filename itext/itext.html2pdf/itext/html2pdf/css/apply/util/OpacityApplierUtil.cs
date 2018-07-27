@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -44,9 +44,9 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Util;
 using iText.Layout;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply opacity.</summary>

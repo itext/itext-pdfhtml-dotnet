@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -120,9 +120,6 @@ namespace iText.Html2pdf {
         /// <summary>The Constant QUOTES_PROPERTY_INVALID.</summary>
         public const String QUOTES_PROPERTY_INVALID = "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
 
-        /// <summary>The Constant QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION.</summary>
-        public const String QUOTE_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "The quote is not closed in css expression: {0}";
-
         /// <summary>The Constant RULE_IS_NOT_SUPPORTED.</summary>
         public const String RULE_IS_NOT_SUPPORTED = "The rule @{0} is unsupported. All selectors in this rule will be ignored.";
 
@@ -135,6 +132,9 @@ namespace iText.Html2pdf {
         /// <summary>The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE.</summary>
         public const String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
 
+        /// <summary>The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG</summary>
+        public const String UNABLE_TO_PROCESS_IMAGE_AS_SVG = "Unable to process image found at {0} as an SVG";
+
         /// <summary>The Constant UNABLE_TO_RESOLVE_COUNTER.</summary>
         public const String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";
 
@@ -144,35 +144,23 @@ namespace iText.Html2pdf {
         /// <summary>The Constant UNABLE_TO_RETRIEVE_FONT.</summary>
         public const String UNABLE_TO_RETRIEVE_FONT = "Unable to retrieve font:\n {0}";
 
-        /// <summary>The Constant UNABLE_TO_RETRIEVE_IMAGE_FROM_BASE64_SOURCE.</summary>
-        public const String UNABLE_TO_RETRIEVE_IMAGE_FROM_BASE64_SOURCE = "Unable to retrieve image from given base64 source string";
-
         /// <summary>The Constant UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI.</summary>
         public const String UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI = "Unable to retrieve image with given base URI ({0}) and image source path ({1})";
 
         /// <summary>The Constant UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI.</summary>
         public const String UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI = "Unable to retrieve stream with given base URI ({0}) and source path ({1})";
 
-        /// <summary>The Constant UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED.</summary>
-        public const String UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED = "Unknown absolute metric length parsed \"{0}\".";
-
         /// <summary>The Constant UNKNOWN_MARGIN_BOX_CHILD.</summary>
         public const String UNKNOWN_MARGIN_BOX_CHILD = "Unknown margin box child";
-
-        public const String UNSUPPORTED_PSEUDO_CSS_SELECTOR = "Unsupported pseudo css selector: {0}";
-
-        public const String URL_IS_EMPTY_IN_CSS_EXPRESSION = "url function is empty in expression:{0}";
-
-        public const String URL_IS_NOT_CLOSED_IN_CSS_EXPRESSION = "url function is not properly closed in expression:{0}";
-
-        /// <summary>The Constant WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES.</summary>
-        public const String WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES = "Was not able to define one of the background CSS shorthand properties: {0}";
 
         /// <summary>The Constant WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT.</summary>
         public const String WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT = "Worker of type {0} unable to process it's text content";
 
         /// <summary>The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER.</summary>
         public const String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
+
+        /// <summary>The Constant PDF_DOCUMENT_NOT_PRESENT</summary>
+        public const String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
 
         /// <summary>Instantiates a new log message constant.</summary>
         private LogMessageConstant() {

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -127,6 +127,18 @@ namespace iText.Html2pdf.Css {
                  + "hyphenateTest08De.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hyphenateTest08De.pdf"
                 , sourceFolder + "cmp_hyphenateTest08De.pdf", destinationFolder, "diff08De_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Test09NonBreakingHyphen() {
+            // TODO DEVSIX-1438: Support word-break
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest09NonBreakingHyphen.html"), new FileInfo
+                (destinationFolder + "hyphenateTest09NonBreakingHyphen.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hyphenateTest09NonBreakingHyphen.pdf"
+                , sourceFolder + "cmp_hyphenateTest09NonBreakingHyphen.pdf", destinationFolder, "diff09NonBreakingHyphen_"
+                ));
         }
     }
 }

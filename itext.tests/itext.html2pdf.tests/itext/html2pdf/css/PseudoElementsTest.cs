@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,14 +41,11 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    public class PseudoElementsTest : ExtendedITextTest {
+    public class PseudoElementsTest : ExtendedHtmlConversionITextTest {
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/PseudoElementsTest/";
 
@@ -64,98 +61,98 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest01() {
-            RunTest("beforeAfterPseudoTest01");
+            ConvertToPdfAndCompare("beforeAfterPseudoTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest02() {
-            RunTest("beforeAfterPseudoTest02");
+            ConvertToPdfAndCompare("beforeAfterPseudoTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest03() {
-            RunTest("beforeAfterPseudoTest03");
+            ConvertToPdfAndCompare("beforeAfterPseudoTest03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest04() {
-            RunTest("beforeAfterPseudoTest04");
+            ConvertToPdfAndCompare("beforeAfterPseudoTest04", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest05() {
-            RunTest("beforeAfterPseudoTest05");
+            ConvertToPdfAndCompare("beforeAfterPseudoTest05", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest06() {
-            RunTest("beforeAfterPseudoTest06");
+            ConvertToPdfAndCompare("beforeAfterPseudoTest06", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest07() {
-            RunTest("beforeAfterPseudoTest07");
+            ConvertToPdfAndCompare("beforeAfterPseudoTest07", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest10() {
-            RunTest("beforeAfterPseudoTest10");
+            ConvertToPdfAndCompare("beforeAfterPseudoTest10", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest11() {
-            RunTest("beforeAfterPseudoTest11");
+            ConvertToPdfAndCompare("beforeAfterPseudoTest11", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest12() {
-            RunTest("beforeAfterPseudoTest12");
+            ConvertToPdfAndCompare("beforeAfterPseudoTest12", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest13() {
-            RunTest("beforeAfterPseudoTest13");
+            ConvertToPdfAndCompare("beforeAfterPseudoTest13", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest14() {
-            RunTest("beforeAfterPseudoTest14");
+            ConvertToPdfAndCompare("beforeAfterPseudoTest14", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo01() {
-            RunTest("collapsingMarginsBeforeAfterPseudo01");
+            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo02() {
-            RunTest("collapsingMarginsBeforeAfterPseudo02");
+            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -163,56 +160,63 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo03() {
             //TODO: incorrect behaviour because of trimmed non-breakable space
-            RunTest("collapsingMarginsBeforeAfterPseudo03");
+            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo04() {
-            RunTest("collapsingMarginsBeforeAfterPseudo04");
+            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo04", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo05() {
-            RunTest("collapsingMarginsBeforeAfterPseudo05");
+            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo05", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo06() {
-            RunTest("collapsingMarginsBeforeAfterPseudo06");
+            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo06", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EscapedStringTest01() {
-            RunTest("escapedStringTest01");
+            ConvertToPdfAndCompare("escapedStringTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EscapedStringTest02() {
-            RunTest("escapedStringTest02");
+            ConvertToPdfAndCompare("escapedStringTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EscapedStringTest03() {
-            RunTest("escapedStringTest03");
+            ConvertToPdfAndCompare("escapedStringTest03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EscapedStringTest04() {
-            RunTest("escapedStringTest04");
+            ConvertToPdfAndCompare("escapedStringTest04", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void EscapedStringTest05() {
+            ConvertToPdfAndCompare("escapedStringTest05", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -220,7 +224,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 5)]
         public virtual void AttrTest01() {
-            RunTest("attrTest01");
+            ConvertToPdfAndCompare("attrTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -228,14 +232,14 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 3)]
         public virtual void AttrTest02() {
-            RunTest("attrTest02");
+            ConvertToPdfAndCompare("attrTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest01() {
-            RunTest("emptyStillShownPseudoTest01");
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -243,7 +247,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest02() {
             // TODO inline elements with absolute positioning are not supported at the moment
-            RunTest("emptyStillShownPseudoTest02");
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -251,7 +255,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest03() {
             // TODO inline elements with absolute positioning are not supported at the moment
-            RunTest("emptyStillShownPseudoTest03");
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -259,21 +263,21 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest04() {
             // TODO inline elements with absolute positioning are not supported at the moment
-            RunTest("emptyStillShownPseudoTest04");
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest04", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest05() {
-            RunTest("emptyStillShownPseudoTest05");
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest05", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest06() {
-            RunTest("emptyStillShownPseudoTest06");
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest06", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -281,7 +285,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
         public virtual void EmptyStillShownPseudoTest07() {
-            RunTest("emptyStillShownPseudoTest07");
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest07", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -289,40 +293,28 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
         public virtual void EmptyStillShownPseudoTest08() {
-            RunTest("emptyStillShownPseudoTest08");
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest08", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest09() {
-            RunTest("emptyStillShownPseudoTest09");
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest09", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PseudoDisplayTable01Test() {
-            RunTest("pseudoDisplayTable01");
+            ConvertToPdfAndCompare("pseudoDisplayTable01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PseudoDisplayTable02Test() {
-            RunTest("pseudoDisplayTable02");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        private void RunTest(String name) {
-            String htmlPath = sourceFolder + name + ".html";
-            String pdfPath = destinationFolder + name + ".pdf";
-            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-            String diffPrefix = "diff_" + name + "_";
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
-                ));
+            ConvertToPdfAndCompare("pseudoDisplayTable02", sourceFolder, destinationFolder);
         }
     }
 }

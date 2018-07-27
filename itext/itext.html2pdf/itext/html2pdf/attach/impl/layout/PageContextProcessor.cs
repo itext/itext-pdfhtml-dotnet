@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -49,8 +49,6 @@ using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Css.Util;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -63,6 +61,10 @@ using iText.Layout.Layout;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
 using iText.Layout.Tagging;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Page;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>Context processor for specific types of pages: first, left, or right page.</summary>
@@ -475,6 +477,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private IElement ProcessMarginBoxContent(PageMarginBoxContextNode marginBoxContentNode, int pageNumber, ProcessorContext
              context) {
             IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
+            dummyMarginBoxNode.SetStyles(marginBoxContentNode.GetStyles());
             ITagWorker marginBoxWorker = context.GetTagWorkerFactory().GetTagWorker(dummyMarginBoxNode, context);
             for (int i = 0; i < marginBoxContentNode.ChildNodes().Count; i++) {
                 INode childNode = marginBoxContentNode.ChildNodes()[i];

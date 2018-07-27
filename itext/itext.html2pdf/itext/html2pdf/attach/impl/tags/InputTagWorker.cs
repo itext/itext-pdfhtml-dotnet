@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -46,12 +46,12 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -83,7 +83,25 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 ) || AttributeConstants.PASSWORD.Equals(inputType) || AttributeConstants.NUMBER.Equals(inputType)) {
                 int? size = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.SIZE));
                 formElement = new InputField(name);
-                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, PreprocessInputValue(value, inputType));
+                value = PreprocessInputValue(value, inputType);
+                // process placeholder instead
+                String placeholder = element.GetAttribute(AttributeConstants.PLACEHOLDER);
+                if (null != placeholder) {
+                    Paragraph paragraph;
+                    if (String.IsNullOrEmpty(placeholder)) {
+                        paragraph = new Paragraph();
+                    }
+                    else {
+                        if (String.IsNullOrEmpty(placeholder.Trim())) {
+                            paragraph = new Paragraph("\u00A0");
+                        }
+                        else {
+                            paragraph = new Paragraph(placeholder);
+                        }
+                    }
+                    ((InputField)formElement).SetPlaceholder(paragraph.SetMargin(0));
+                }
+                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
                 formElement.SetProperty(Html2PdfProperty.FORM_FIELD_SIZE, size);
                 if (AttributeConstants.PASSWORD.Equals(inputType)) {
                     formElement.SetProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG, true);
@@ -153,7 +171,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processTagChild(com.itextpdf.html2pdf.attach.ITagWorker, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
-            return false;
+            return childTagWorker is PlaceholderTagWorker && null != ((InputField)formElement).GetPlaceholder();
         }
 
         /* (non-Javadoc)

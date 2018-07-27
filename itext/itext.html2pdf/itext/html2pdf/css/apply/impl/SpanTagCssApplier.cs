@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -48,10 +48,10 @@ using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
-using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     /// <summary>
@@ -99,8 +99,8 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         /// <param name="css">the CSS mapping</param>
         /// <param name="context">the processor context</param>
         /// <param name="stylesContainer">the styles container</param>
-        private void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String> css, ProcessorContext
-             context, IStylesContainer stylesContainer) {
+        protected internal virtual void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String
+            > css, ProcessorContext context, IStylesContainer stylesContainer) {
             FontStyleApplierUtil.ApplyFontStyles(css, context, stylesContainer, element);
             //TODO: Background-applying currently doesn't work in html way for spans inside other spans.
             BackgroundApplierUtil.ApplyBackground(css, context, element);

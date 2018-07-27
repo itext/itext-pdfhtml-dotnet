@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,15 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.IO.Util;
-using iText.Kernel.Pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class CssOutlineTest : ExtendedITextTest {
+    public class CssOutlineTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssOutlineTest/";
 
@@ -65,64 +60,35 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssOutlineTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssOutline01.html"), new FileInfo(destinationFolder
-                 + "cssOutline01.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssOutline01.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssOutline01.pdf", sourceFolder
-                 + "cmp_cssOutline01.pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("cssOutline01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssOutlineTest02() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssOutline02.html"), new FileInfo(destinationFolder
-                 + "cssOutline02.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssOutline02.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssOutline02.pdf", sourceFolder
-                 + "cmp_cssOutline02.pdf", destinationFolder, "diff02_"));
+            ConvertToPdfAndCompare("cssOutline02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssOutlineTest03() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssOutline03.html"), new FileInfo(destinationFolder
-                 + "cssOutline03.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssOutline03.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssOutline03.pdf", sourceFolder
-                 + "cmp_cssOutline03.pdf", destinationFolder, "diff03_"));
+            ConvertToPdfAndCompare("cssOutline03", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssOutlineTest04() {
-            PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "cssOutline04.pdf"));
-            outDoc.SetTagged();
-            using (FileStream fileInputStream = new FileStream(sourceFolder + "cssOutline04.html", FileMode.Open, FileAccess.Read
-                )) {
-                HtmlConverter.ConvertToPdf(fileInputStream, outDoc);
-            }
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssOutline04.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssOutline04.pdf", sourceFolder
-                 + "cmp_cssOutline04.pdf", destinationFolder, "diff04_"));
+            ConvertToPdfAndCompare("cssOutline04", sourceFolder, destinationFolder, true);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssOutlineTest05() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "cssOutline05.html"), new FileInfo(destinationFolder
-                 + "cssOutline05.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "cssOutline05.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "cssOutline05.pdf", sourceFolder
-                 + "cmp_cssOutline05.pdf", destinationFolder, "diff05_"));
+            ConvertToPdfAndCompare("cssOutline05", sourceFolder, destinationFolder);
         }
     }
 }

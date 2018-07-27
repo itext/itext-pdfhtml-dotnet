@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -42,11 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Resolve;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Page;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>

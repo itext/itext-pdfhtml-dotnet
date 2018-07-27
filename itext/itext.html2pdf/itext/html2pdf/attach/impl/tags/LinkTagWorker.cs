@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -42,8 +42,8 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Html.Node;
 using iText.Layout;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>

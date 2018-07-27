@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -67,6 +67,26 @@ namespace iText.Html2pdf.Element {
                  + "labelTest01.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "labelTest01.pdf", sourceFolder
                  + "cmp_labelTest01.pdf", destinationFolder, "diff01_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LabelDisplayBlock01Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "labelDisplayBlockTest01.html"), new FileInfo(destinationFolder
+                 + "labelDisplayBlockTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "labelDisplayBlockTest01.pdf"
+                , sourceFolder + "cmp_labelDisplayBlockTest01.pdf", destinationFolder, "diffBlock01_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LabelDisplayBlock02Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "labelDisplayBlockTest02.html"), new FileInfo(destinationFolder
+                 + "labelDisplayBlockTest02.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "labelDisplayBlockTest02.pdf"
+                , sourceFolder + "cmp_labelDisplayBlockTest02.pdf", destinationFolder, "diffBlock02_"));
         }
     }
 }

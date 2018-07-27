@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -51,11 +51,9 @@ using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
-using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Font;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
@@ -66,8 +64,16 @@ using iText.Layout.Properties;
 using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
+using System.Runtime.CompilerServices;
+using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Html2pdf.Events;
 using Versions.Attributes;
 using iText.Kernel;
+using iText.Kernel.Counter;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Css.Pseudo;
+using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>The default implementation to process HTML.</summary>
@@ -115,6 +121,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processElements(com.itextpdf.html2pdf.html.node.INode)
         */
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public virtual IList<IElement> ProcessElements(INode root) {
 
             try 
@@ -129,7 +136,13 @@ namespace iText.Html2pdf.Attach.Impl {
                     Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
                     Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
                     Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
-                    object[] objects = new object[] { "pdfHtml", 1, 0, array };
+                    object[] objects = new object[]
+                    {
+                        Html2PdfProductInfo.PRODUCT_NAME,
+                        Html2PdfProductInfo.MAJOR_VERSION,
+                        Html2PdfProductInfo.MINOR_VERSION,
+                        array
+                    };
                     Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
                     MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
                     m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
@@ -167,6 +180,7 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             cssResolver = null;
             roots = null;
+            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType());
             return elements;
         }
 
@@ -214,6 +228,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processDocument(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.kernel.pdf.PdfDocument)
         */
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public virtual Document ProcessDocument(INode root, PdfDocument pdfDocument) {
 
             try 
@@ -228,7 +243,13 @@ namespace iText.Html2pdf.Attach.Impl {
                     Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
                     Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
                     Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
-                    object[] objects = new object[] { "pdfHtml", 1, 0, array };
+                    object[] objects = new object[]
+                    {
+                        Html2PdfProductInfo.PRODUCT_NAME,
+                        Html2PdfProductInfo.MAJOR_VERSION,
+                        Html2PdfProductInfo.MINOR_VERSION,
+                        array
+                    };
                     Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
                     MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
                     m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
@@ -259,6 +280,7 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             cssResolver = null;
             roots = null;
+            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType());
             return doc;
         }
 
@@ -285,13 +307,17 @@ namespace iText.Html2pdf.Attach.Impl {
                     ((HtmlTagWorker)tagWorker).ProcessPageRules(node, cssResolver, context);
                 }
                 context.GetOutlineHandler().AddOutline(tagWorker, element, context);
-                VisitPseudoElement(element, CssConstants.BEFORE);
+                VisitPseudoElement(element, tagWorker, CssConstants.BEFORE);
+                VisitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
+
                 if (element.Name().Equals(TagConstants.BODY) || element.Name().Equals(TagConstants.HTML))
                     RunApplier(element, tagWorker);
                 foreach (INode childNode in element.ChildNodes()) {
-                    Visit(childNode);
+                    if (!context.IsProcessingInlineSvg()) {
+                        Visit(childNode);
+                    }
                 }
-                VisitPseudoElement(element, CssConstants.AFTER);
+                VisitPseudoElement(element, tagWorker, CssConstants.AFTER);
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
                     LinkHelper.CreateDestination(tagWorker, element, context);
@@ -395,10 +421,11 @@ namespace iText.Html2pdf.Attach.Impl {
             if (cssResolver is DefaultCssResolver) {
                 foreach (CssFontFaceRule fontFace in ((DefaultCssResolver)cssResolver).GetFonts()) {
                     bool findSupportedSrc = false;
+                    IList<CssDeclaration> declarations = fontFace.GetProperties();
                     FontFace ff = FontFace.Create(fontFace.GetProperties());
                     if (ff != null) {
                         foreach (FontFace.FontFaceSrc src in ff.GetSources()) {
-                            if (CreateFont(ff.GetFontFamily(), src)) {
+                            if (CreateFont(ff.GetFontFamily(), src, ResolveUnicodeRange(declarations))) {
                                 findSupportedSrc = true;
                                 break;
                             }
@@ -412,11 +439,24 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
+        private Range ResolveUnicodeRange(IList<CssDeclaration> declarations) {
+            Range range = null;
+            foreach (CssDeclaration descriptor in declarations) {
+                if ("unicode-range".Equals(descriptor.GetProperty())) {
+                    range = CssUtils.ParseUnicodeRange(descriptor.GetExpression());
+                }
+            }
+            return range;
+        }
+
+
+
         /// <summary>Creates a font and adds it to the context.</summary>
         /// <param name="fontFamily">the font family</param>
         /// <param name="src">the source of the font</param>
+        /// <param name="src">the unicode range</param>
         /// <returns>true, if successful</returns>
-        private bool CreateFont(String fontFamily, FontFace.FontFaceSrc src) {
+        private bool CreateFont(String fontFamily, FontFace.FontFaceSrc src, Range uniRange) {
             if (!SupportedFontFormat(src.format)) {
                 return false;
             }
@@ -438,10 +478,10 @@ namespace iText.Html2pdf.Attach.Impl {
                     try {
                         // Cache at resource resolver level only, at font level we will create font in any case.
                         // The instance of fontProgram will be collected by GC if the is no need in it.
-                        byte[] bytes = context.GetResourceResolver().RetrieveStream(src.src);
+                        byte[] bytes = context.GetResourceResolver().RetrieveBytesFromResource(src.src);
                         if (bytes != null) {
                             FontProgram fp = FontProgramFactory.CreateFont(bytes, false);
-                            context.AddTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily);
+                            context.AddTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily, uniRange);
                             return true;
                         }
                     }
@@ -455,7 +495,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>Checks whether in general we support requested font format.</summary>
         /// <param name="format">
         /// 
-        /// <see cref="FontFormat"/>
+        /// <see cref="FontFace.FontFormat"/>
         /// </param>
         /// <returns>true, if supported or unrecognized.</returns>
         private bool SupportedFontFormat(FontFace.FontFormat format) {
@@ -477,10 +517,28 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>Processes a pseudo element (before and after CSS).</summary>
         /// <param name="node">the node</param>
         /// <param name="pseudoElementName">the pseudo element name</param>
-        private void VisitPseudoElement(IElementNode node, String pseudoElementName) {
-            if (CssPseudoElementUtil.HasBeforeAfterElements(node)) {
-                Visit(new CssPseudoElementNode(node, pseudoElementName));
+        private void VisitPseudoElement(IElementNode node, ITagWorker tagWorker, String pseudoElementName) {
+            switch (pseudoElementName) {
+                case CssConstants.BEFORE:
+                case CssConstants.AFTER:
+                    if (!CssPseudoElementUtil.HasBeforeAfterElements(node)) {
+                        return;
+                    }
+
+                    break;
+                case CssConstants.PLACEHOLDER:
+                    if (!(TagConstants.INPUT.Equals(node.Name()) || TagConstants.TEXTAREA.Equals(node.Name())) // TODO DEVSIX-1944: Resolve the issue and remove the line
+                        || null == tagWorker
+                        || !(tagWorker.GetElementResult() is IPlaceholderable)
+                        || null == ((IPlaceholderable) tagWorker.GetElementResult()).GetPlaceholder()) {
+                        return;
+                    }
+
+                    break;
+                default:
+                    return;
             }
+            Visit(new CssPseudoElementNode(node, pseudoElementName));
         }
 
         /// <summary>Find an element in a node.</summary>
@@ -527,6 +585,9 @@ namespace iText.Html2pdf.Attach.Impl {
                 .DISPLAY))) {
                 return false;
             }
+            if (IsPlaceholder(element)) {
+                return true;
+            }
             if (element is CssPseudoElementNode) {
                 if (element.ChildNodes().IsEmpty()) {
                     return false;
@@ -551,6 +612,11 @@ namespace iText.Html2pdf.Attach.Impl {
                     .FIXED.Equals(positionVal) || displayVal != null && !CssConstants.INLINE.Equals(displayVal);
             }
             return element != null;
+        }
+
+        private bool IsPlaceholder(IElementNode element) {
+            return element is CssPseudoElementNode &&
+                   CssConstants.PLACEHOLDER.Equals(((CssPseudoElementNode) element).GetPseudoElementName());
         }
     }
 }

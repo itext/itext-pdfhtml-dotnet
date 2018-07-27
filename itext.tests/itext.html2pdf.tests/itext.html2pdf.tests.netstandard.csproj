@@ -24,8 +24,6 @@
     <StartupObject />
     <AssemblyName>itext.html2pdf.tests</AssemblyName>
   </PropertyGroup>
-  <ItemGroup>
-  </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">
     <PackageReference Include="Microsoft.NETCore.App">
       <Version>1.0.0</Version>
@@ -53,6 +51,8 @@
     <ProjectReference Include="..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.netstandard.csproj" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.hyph\itext.hyph.netstandard.csproj" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.netstandard.csproj" />
+    <ProjectReference Include="..\..\..\styled-xml-parser\itext\itext.styledxmlparser\itext.styledxmlparser.netstandard.csproj" />
+    <ProjectReference Include="..\..\..\svg\itext\itext.svg\itext.svg.netstandard.csproj" />
     <ProjectReference Include="..\..\itext\itext.html2pdf\itext.html2pdf.netstandard.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.0'">

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,13 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class CssNthChildSelectorTest : ExtendedITextTest {
+    public class CssNthChildSelectorTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssNthChildSelectorTest/";
 
@@ -63,84 +60,49 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthChildEvenTest() {
-            String outPdf = destinationFolder + "resourceNthChildEvenTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceNthChildEvenTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceNthChildEvenTest.html"), new FileInfo(outPdf
-                ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffNthChildEven_"
-                ));
+            ConvertToPdfAndCompare("resourceNthChildEvenTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthChildExpressionTest() {
-            String outPdf = destinationFolder + "resourceNthChildExpressionTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceNthChildExpressionTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceNthChildExpressionTest.html"), new FileInfo
-                (outPdf));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffNthChildExpression_"
-                ));
+            ConvertToPdfAndCompare("resourceNthChildExpressionTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthOfTypeNegativeExpressionTest() {
-            String outPdf = destinationFolder + "resourceNthOfTypeNegativeExpressionTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceNthOfTypeNegativeExpressionTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceNthOfTypeNegativeExpressionTest.html"), new 
-                FileInfo(outPdf));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffNthOfTypeNegativeExpression_"
-                ));
+            ConvertToPdfAndCompare("resourceNthOfTypeNegativeExpressionTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthChildIntegerTest() {
-            String outPdf = destinationFolder + "resourceNthChildIntegerTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceNthChildIntegerTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceNthChildIntegerTest.html"), new FileInfo(outPdf
-                ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffNthChildInteger_"
-                ));
+            ConvertToPdfAndCompare("resourceNthChildIntegerTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FirstChildTest() {
-            String outPdf = destinationFolder + "resourceFirstChildTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceFirstChildTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceFirstChildTest.html"), new FileInfo(outPdf
-                ));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffFirstChild_"
-                ));
+            ConvertToPdfAndCompare("resourceFirstChildTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LastChildTest() {
-            String outPdf = destinationFolder + "resourceLastChildTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceLastChildTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceLastChildTest.html"), new FileInfo(outPdf)
-                );
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffLastChild_"
-                ));
+            ConvertToPdfAndCompare("resourceLastChildTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NotExpressionChildTest() {
-            String outPdf = destinationFolder + "resourceNotExpressionChildTest.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceNotExpressionChildTest.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "resourceNotExpressionChildTest.html"), new FileInfo
-                (outPdf));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffNotExpChild_"
-                ));
+            ConvertToPdfAndCompare("resourceNotExpressionChildTest", sourceFolder, destinationFolder);
         }
     }
 }

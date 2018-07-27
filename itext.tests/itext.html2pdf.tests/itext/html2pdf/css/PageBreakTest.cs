@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,18 +43,19 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
-using iText.Html2pdf.Css.Media;
 using iText.Kernel.Utils;
-using iText.Test;
+using iText.StyledXmlParser.Css.Media;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    public class PageBreakTest : ExtendedITextTest {
+    public class PageBreakTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/PageBreakTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/PageBreakTest/";
 
+        //Member of testing class. Add if it isn't there.
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateOrClearDestinationFolder(destinationFolder);
@@ -121,6 +122,33 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void PageBreakBeforeAfter02Test() {
             RunTest("page-break-before-after02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void PageBreakAfterTable01Test() {
+            RunTest("page-break-after-table01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void PageBreakBeforeTable01Test() {
+            RunTest("page-break-before-table01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT)]
+        public virtual void PageBreakInConstrainedDivTest() {
+            NUnit.Framework.Assert.That(() =>  {
+                /* Test will fail after fix in DEVSIX-2024 */
+                RunTest("pageBreakInConstrainedDivTest");
+            }
+            , NUnit.Framework.Throws.TypeOf<NotSupportedException>());
+;
         }
 
         /// <exception cref="System.IO.IOException"/>

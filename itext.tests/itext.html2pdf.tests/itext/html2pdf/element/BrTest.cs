@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -92,6 +92,16 @@ namespace iText.Html2pdf.Element {
                 pdfDoc, new ConverterProperties());
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "brTest03.pdf", sourceFolder
                  + "cmp_brTest03.pdf", destinationFolder, "diff03_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BrInsideDifferentTagsTest01() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "brInsideDifferentTagsTest01.html"), new FileInfo(destinationFolder
+                 + "brInsideDifferentTagsTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "brInsideDifferentTagsTest01.pdf"
+                , sourceFolder + "cmp_brInsideDifferentTagsTest01.pdf", destinationFolder, "diff04_"));
         }
     }
 }

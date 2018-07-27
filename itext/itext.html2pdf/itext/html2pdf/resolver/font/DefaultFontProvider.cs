@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,17 +43,17 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.IO.Util;
-using iText.Layout.Font;
+using iText.StyledXmlParser.Resolver.Font;
 
 namespace iText.Html2pdf.Resolver.Font {
     /// <summary>
     /// The default
-    /// <see cref="iText.Layout.Font.FontProvider"/>
+    /// <see cref="iText.StyledXmlParser.Resolver.Font.BasicFontProvider"/>
     /// for pdfHTML, that, as opposed to
-    /// the font provider in iText 7, also includes a series of fonts that
-    /// are shipped with the add-on.
+    /// the font provider in iText 7's styled-xml-parser, also includes a
+    /// series of fonts that are shipped with the add-on.
     /// </summary>
-    public class DefaultFontProvider : FontProvider {
+    public class DefaultFontProvider : BasicFontProvider {
         /// <summary>The path to the shipped fonts.</summary>
         private const String SHIPPED_FONT_RESOURCE_PATH = "iText.Html2Pdf.font.";
 
@@ -84,15 +84,9 @@ namespace iText.Html2pdf.Resolver.Font {
         ///     </param>
         public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFreeFonts, bool registerSystemFonts
             )
-            : base() {
-            if (registerStandardPdfFonts) {
-                AddStandardPdfFonts();
-            }
+            : base(registerStandardPdfFonts, registerSystemFonts) {
             if (registerShippedFreeFonts) {
                 AddShippedFreeFonts();
-            }
-            if (registerSystemFonts) {
-                AddSystemFonts();
             }
         }
 

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,14 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class AbbrTest : ExtendedITextTest {
+    public class AbbrTest : ExtendedHtmlConversionITextTest {
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/element/AbbrTest/";
 
@@ -64,48 +60,35 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbbrTest01() {
-            RunAbbrTest("abbrTest01");
+            ConvertToPdfAndCompare("abbrTest01", sourceFolder, destinationFolder, true);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbbrTest02() {
-            RunAbbrTest("abbrTest02");
+            ConvertToPdfAndCompare("abbrTest02", sourceFolder, destinationFolder, true);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbbrTest03() {
-            RunAbbrTest("abbrTest03");
+            ConvertToPdfAndCompare("abbrTest03", sourceFolder, destinationFolder, true);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbbrTest04() {
-            RunAbbrTest("abbrTest04");
+            ConvertToPdfAndCompare("abbrTest04", sourceFolder, destinationFolder, true);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbbrTest05() {
-            RunAbbrTest("abbrTest05");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        private void RunAbbrTest(String testName) {
-            PdfDocument document = new PdfDocument(new PdfWriter(destinationFolder + testName + ".pdf"));
-            document.SetTagged();
-            using (FileStream fileInputStream = new FileStream(sourceFolder + testName + ".html", FileMode.Open, FileAccess.Read
-                )) {
-                HtmlConverter.ConvertToPdf(fileInputStream, document);
-            }
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+            ConvertToPdfAndCompare("abbrTest05", sourceFolder, destinationFolder, true);
         }
     }
 }

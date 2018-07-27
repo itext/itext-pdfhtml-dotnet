@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,11 +43,11 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using Common.Logging;
-using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Media;
-using iText.Html2pdf.Css.Parse;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Media;
+using iText.StyledXmlParser.Css.Parse;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>Utilities class to get the styles of a node.</summary>
@@ -57,7 +57,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>
         /// The default
-        /// <see cref="iText.Html2pdf.Css.CssStyleSheet"/>
+        /// <see cref="iText.StyledXmlParser.Css.CssStyleSheet"/>
         /// instance.
         /// </summary>
         private static readonly CssStyleSheet defaultCss;
@@ -80,7 +80,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="node">the node</param>
         /// <returns>
         /// a list of
-        /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+        /// <see cref="iText.StyledXmlParser.Css.CssDeclaration"/>
         /// values
         /// </returns>
         public static IList<CssDeclaration> GetStyles(INode node) {

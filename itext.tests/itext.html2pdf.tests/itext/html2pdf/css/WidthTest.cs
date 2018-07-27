@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,14 +41,11 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    public class WidthTest : ExtendedITextTest {
+    public class WidthTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/WidthTest/";
 
@@ -64,28 +61,28 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PercentTest() {
-            RunTest("percentTest");
+            ConvertToPdfAndCompare("percentTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MaxWidthTest01() {
-            RunTest("maxWidthTest01");
+            ConvertToPdfAndCompare("maxWidthTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MinWidthTest01() {
-            RunTest("minWidthTest01");
+            ConvertToPdfAndCompare("minWidthTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MinMaxWidthTest01() {
-            RunTest("minMaxWidthTest01");
+            ConvertToPdfAndCompare("minMaxWidthTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -93,14 +90,14 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void PercentMarginTest() {
             //Todo: the width for table currently set incorrect.
-            RunTest("percentMarginTest");
+            ConvertToPdfAndCompare("percentMarginTest", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RelativeInlineBlockWidthWithTextIndentTest01() {
-            RunTest("relativeInlineBlockWidthWithTextIndentTest01");
+            ConvertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -108,7 +105,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void RelativeInlineBlockWidthWithTextIndentTest02() {
             // TODO DEVSIX-1823: inline blocks with relative widths (width:100%) do not wrap to the next line
-            RunTest("relativeInlineBlockWidthWithTextIndentTest02");
+            ConvertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -116,19 +113,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, Count = 2)]
         public virtual void RelativeInlineBlockWidthWithTextIndentTest03() {
-            RunTest("relativeInlineBlockWidthWithTextIndentTest03");
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        private void RunTest(String name) {
-            String htmlPath = sourceFolder + name + ".html";
-            String pdfPath = destinationFolder + name + ".pdf";
-            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-            String diffPrefix = "diff_" + name + "_";
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
-                ));
+            ConvertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest03", sourceFolder, destinationFolder);
         }
     }
 }

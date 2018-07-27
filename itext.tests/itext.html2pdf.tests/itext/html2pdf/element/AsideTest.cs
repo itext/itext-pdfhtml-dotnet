@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,13 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class AsideTest : ExtendedITextTest {
+    public class AsideTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/AsideTest/";
 
@@ -63,20 +60,14 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Aside01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "asideTest01.html"), new FileInfo(destinationFolder
-                 + "asideTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "asideTest01.pdf", sourceFolder
-                 + "cmp_asideTest01.pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("asideTest01", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Aside02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "asideTest02.html"), new FileInfo(destinationFolder
-                 + "asideTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "asideTest02.pdf", sourceFolder
-                 + "cmp_asideTest02.pdf", destinationFolder, "diff02_"));
+            ConvertToPdfAndCompare("asideTest01", sourceFolder, destinationFolder);
         }
     }
 }

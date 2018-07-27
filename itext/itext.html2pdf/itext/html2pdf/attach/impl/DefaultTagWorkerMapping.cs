@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,11 +43,11 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Css.Pseudo;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Util;
+using iText.StyledXmlParser.Css.Page;
+using iText.StyledXmlParser.Css.Pseudo;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>
@@ -121,6 +121,7 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.MARK, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.META, typeof(MetaTagWorker));
             workerMapping.PutMapping(TagConstants.NAV, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.OBJECT, typeof(ObjectTagWorker));
             workerMapping.PutMapping(TagConstants.OL, typeof(UlOlTagWorker));
             workerMapping.PutMapping(TagConstants.OPTGROUP, typeof(OptGroupTagWorker));
             workerMapping.PutMapping(TagConstants.OPTION, typeof(OptionTagWorker));
@@ -137,6 +138,7 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.STRONG, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SUB, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.SUP, typeof(SpanTagWorker));
+            workerMapping.PutMapping(TagConstants.SVG, typeof(SvgTagWorker));
             workerMapping.PutMapping(TagConstants.TABLE, typeof(TableTagWorker));
             workerMapping.PutMapping(TagConstants.TD, typeof(TdTagWorker));
             workerMapping.PutMapping(TagConstants.TEXTAREA, typeof(TextAreaTagWorker));
@@ -150,6 +152,9 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.U, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.UL, typeof(UlOlTagWorker));
             workerMapping.PutMapping(TagConstants.VAR, typeof(SpanTagWorker));
+            String placeholderPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.PLACEHOLDER
+                );
+            workerMapping.PutMapping(placeholderPseudoElemName, typeof(PlaceholderTagWorker));
             workerMapping.PutMapping(TagConstants.UL, CssConstants.INLINE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.LI, CssConstants.INLINE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, typeof(DivTagWorker));
@@ -160,6 +165,7 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.A, CssConstants.BLOCK, typeof(ABlockTagWorker));
             workerMapping.PutMapping(TagConstants.A, CssConstants.INLINE_BLOCK, typeof(ABlockTagWorker));
             workerMapping.PutMapping(TagConstants.A, CssConstants.TABLE_CELL, typeof(ABlockTagWorker));
+            workerMapping.PutMapping(TagConstants.LABEL, CssConstants.BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.TABLE, typeof(DisplayTableTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_ROW, typeof(DisplayTableRowTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.INLINE, typeof(SpanTagWorker));

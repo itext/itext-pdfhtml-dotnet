@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,13 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class BdoTest : ExtendedITextTest {
+    public class BdoTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/BdoTest/";
 
@@ -63,10 +60,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Bdo01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bdoTest01.html"), new FileInfo(destinationFolder +
-                 "bdoTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "bdoTest01.pdf", sourceFolder
-                 + "cmp_bdoTest01.pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("bdoTest01", sourceFolder, destinationFolder);
         }
     }
 }

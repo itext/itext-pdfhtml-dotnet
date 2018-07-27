@@ -19,10 +19,6 @@
     <AssemblyName>itext.html2pdf</AssemblyName>
     <RootNamespace />
   </PropertyGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="itext\html2pdf\jsoup\nodes\entities-base.properties" />
-    <EmbeddedResource Include="itext\html2pdf\jsoup\nodes\entities-full.properties" />
-  </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <PackageReference Include="NETStandard.Library" Version="1.6.1" />
   </ItemGroup>
@@ -41,6 +37,8 @@
     <ProjectReference Include="..\..\..\itextcore\itext\itext.kernel\itext.kernel.netstandard.csproj" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.layout\itext.layout.netstandard.csproj" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.forms\itext.forms.netstandard.csproj" />
+    <ProjectReference Include="..\..\..\styled-xml-parser\itext\itext.styledxmlparser\itext.styledxmlparser.netstandard.csproj" />
+    <ProjectReference Include="..\..\..\svg\itext\itext.svg\itext.svg.netstandard.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="resources\default.css">

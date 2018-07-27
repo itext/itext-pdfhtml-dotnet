@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -44,8 +44,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Html.Node;
 using iText.Kernel.Numbering;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Resolve.Func.Counter {
     /// <summary>Class that manages counters (e.g.</summary>

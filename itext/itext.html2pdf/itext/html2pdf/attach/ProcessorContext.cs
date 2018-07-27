@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -45,14 +45,15 @@ using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Impl;
-using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Resolver.Font;
 using iText.Html2pdf.Resolver.Form;
-using iText.Html2pdf.Resolver.Resource;
 using iText.IO.Font;
+using iText.Kernel.Counter.Event;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
+using iText.StyledXmlParser.Css.Media;
+using iText.StyledXmlParser.Resolver.Resource;
 
 namespace iText.Html2pdf.Attach {
     /// <summary>Keeps track of the context of the processor.</summary>
@@ -105,6 +106,12 @@ namespace iText.Html2pdf.Attach {
         /// <summary>The PDF document.</summary>
         private PdfDocument pdfDocument;
 
+        /// <summary>The Processor meta info</summary>
+        private IMetaInfo metaInfo;
+
+        /// <summary>Internal state variable to keep track of whether the processor is currently inside an inlineSvg</summary>
+        private bool processingInlineSvg;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="ProcessorContext"/>
@@ -152,6 +159,8 @@ namespace iText.Html2pdf.Attach {
             formFieldNameResolver = new FormFieldNameResolver();
             radioCheckResolver = new RadioCheckResolver();
             immediateFlush = converterProperties.IsImmediateFlush();
+            metaInfo = converterProperties.GetEventCountingMetaInfo();
+            processingInlineSvg = false;
         }
 
         /// <summary>Sets the font provider.</summary>
@@ -265,6 +274,19 @@ namespace iText.Html2pdf.Attach {
             tempFonts.AddFont(fontProgram, encoding, alias);
         }
 
+        /// <summary>Add temporary font from @font-face.</summary>
+        /// <param name="fontProgram">the font program</param>
+        /// <param name="encoding">the encoding</param>
+        /// <param name="alias">the alias</param>
+        /// <param name="unicodeRange">the unicode range</param>
+        public virtual void AddTemporaryFont(FontProgram fontProgram, String encoding, String alias, Range unicodeRange
+            ) {
+            if (tempFonts == null) {
+                tempFonts = new FontSet();
+            }
+            tempFonts.AddFont(fontProgram, encoding, alias, unicodeRange);
+        }
+
         /// <summary>Check fonts in font provider and temporary font set.</summary>
         /// <returns>true, if there is at least one font either in FontProvider or temporary FontSet.</returns>
         /// <seealso cref="AddTemporaryFont(iText.Layout.Font.FontInfo, System.String)"/>
@@ -285,6 +307,7 @@ namespace iText.Html2pdf.Attach {
             this.fontProvider = new FontProvider(this.fontProvider.GetFontSet());
             this.tempFonts = null;
             this.outlineHandler.Reset();
+            this.processingInlineSvg = false;
         }
 
         /// <summary>Resets the context, and assigns a new PDF document.</summary>
@@ -305,6 +328,35 @@ namespace iText.Html2pdf.Attach {
         /// <returns>true if immediateFlush is set, false if not.</returns>
         public virtual bool IsImmediateFlush() {
             return immediateFlush;
+        }
+
+        /// <summary>Gets html meta info.</summary>
+        /// <remarks>
+        /// Gets html meta info. This meta info will be passed with to
+        /// <see cref="iText.Kernel.Counter.EventCounter"/>
+        /// with
+        /// <see cref="iText.Html2pdf.Events.PdfHtmlEvent"/>
+        /// and can be used to determine event origin.
+        /// </remarks>
+        /// <returns>html meta info</returns>
+        public virtual IMetaInfo GetEventCountingMetaInfo() {
+            return metaInfo;
+        }
+
+        /// <summary>Check if the processor is currently processing an inline svg</summary>
+        /// <returns>True if the processor is processing an inline Svg, false otherwise.</returns>
+        public virtual bool IsProcessingInlineSvg() {
+            return processingInlineSvg;
+        }
+
+        /// <summary>Set the processor to processing Inline Svg state</summary>
+        public virtual void StartProcessingInlineSvg() {
+            processingInlineSvg = true;
+        }
+
+        /// <summary>End the processing Svg State</summary>
+        public virtual void EndProcessingInlineSvg() {
+            processingInlineSvg = false;
         }
     }
 }

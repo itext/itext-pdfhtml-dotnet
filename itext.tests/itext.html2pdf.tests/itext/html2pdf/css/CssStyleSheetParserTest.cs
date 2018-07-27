@@ -1,6 +1,6 @@
 /*
     This file is part of the iText (R) project.
-    Copyright (c) 1998-2017 iText Group NV
+    Copyright (c) 1998-2018 iText Group NV
     Authors: iText Software.
 
     This program is free software; you can redistribute it and/or modify
@@ -41,7 +41,6 @@
     address: sales@itextpdf.com */
 using System;
 using System.IO;
-using iText.Html2pdf.Css.Parse;
 using iText.IO.Util;
 using System.Collections.Generic;
 using System.Reflection;
@@ -49,6 +48,8 @@ using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
+using iText.StyledXmlParser.Css.Parse;
+using iText.StyledXmlParser.Css;
 
 namespace iText.Html2pdf.Css {
     public class CssStyleSheetParserTest : ExtendedITextTest {

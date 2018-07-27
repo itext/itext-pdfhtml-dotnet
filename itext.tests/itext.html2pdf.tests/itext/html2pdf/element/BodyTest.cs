@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -62,7 +62,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-940")]
         public virtual void Body01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest01.html"), new FileInfo(destinationFolder 
                 + "bodyTest01.pdf"));
@@ -73,7 +72,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-940")]
         public virtual void Body02Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest02.html"), new FileInfo(destinationFolder 
                 + "bodyTest02.pdf"));
@@ -84,7 +82,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-940")]
         public virtual void Body03Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest03.html"), new FileInfo(destinationFolder 
                 + "bodyTest03.pdf"));
@@ -95,7 +92,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-940")]
         public virtual void Body04Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest04.html"), new FileInfo(destinationFolder 
                 + "bodyTest04.pdf"));
@@ -121,6 +117,39 @@ namespace iText.Html2pdf.Element {
                 + "bodyTest06.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "bodyTest06.pdf", sourceFolder
                  + "cmp_bodyTest06.pdf", destinationFolder, "diff06_"));
+        }
+
+        // this test is both for html and body
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Body07Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest07.html"), new FileInfo(destinationFolder 
+                + "bodyTest07.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "bodyTest07.pdf", sourceFolder
+                 + "cmp_bodyTest07.pdf", destinationFolder, "diff07_"));
+        }
+
+        // this test is both for html and body
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Body08Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest08.html"), new FileInfo(destinationFolder 
+                + "bodyTest08.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "bodyTest08.pdf", sourceFolder
+                 + "cmp_bodyTest08.pdf", destinationFolder, "diff08_"));
+        }
+
+        // this test is both for html and body
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void Body09Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest09.html"), new FileInfo(destinationFolder 
+                + "bodyTest09.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "bodyTest09.pdf", sourceFolder
+                 + "cmp_bodyTest09.pdf", destinationFolder, "diff09_"));
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -49,10 +49,7 @@ using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Impl;
-using iText.Html2pdf.Css.Media;
-using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Tagging;
@@ -60,6 +57,9 @@ using iText.Kernel.Utils;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Tagging;
+using iText.StyledXmlParser.Css.Media;
+using iText.StyledXmlParser.Css.Page;
+using iText.StyledXmlParser.Node;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -759,6 +759,27 @@ namespace iText.Html2pdf.Css {
             HtmlConverter.ConvertToPdf(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), new PdfWriter(pdfPath
                 ), converterProperties);
             CompareResult(name);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxMultilineTest01() {
+            RunTest("marginBoxMultilineTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxMultilineTest02() {
+            RunTest("marginBoxMultilineTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxMultilineTest03() {
+            RunTest("marginBoxMultilineTest03");
         }
 
         private class CustomFlushingTagWorkerFactory : DefaultTagWorkerFactory {

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System.Collections.Generic;
 using iText.Html2pdf.Attach.Wrapelement;
-using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Util {
     /// <summary>Helper class for waiting column groups.</summary>

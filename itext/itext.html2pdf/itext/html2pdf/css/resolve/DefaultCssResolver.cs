@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -47,22 +47,25 @@ using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
-using iText.Html2pdf.Css.Media;
-using iText.Html2pdf.Css.Page;
-using iText.Html2pdf.Css.Parse;
-using iText.Html2pdf.Css.Pseudo;
-using iText.Html2pdf.Css.Resolve.Shorthand;
-using iText.Html2pdf.Css.Util;
-using iText.Html2pdf.Css.Validate;
+using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Html.Node;
-using iText.Html2pdf.Resolver.Resource;
 using iText.IO.Util;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Media;
+using iText.StyledXmlParser.Css.Page;
+using iText.StyledXmlParser.Css.Parse;
+using iText.StyledXmlParser.Css.Pseudo;
+using iText.StyledXmlParser.Css.Resolve;
+using iText.StyledXmlParser.Css.Resolve.Shorthand;
+using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Css.Validate;
+using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Resolver.Resource;
 
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>
     /// Default implementation of the
-    /// <see cref="ICssResolver"/>
+    /// <see cref="iText.StyledXmlParser.Css.ICssResolver"/>
     /// interface.
     /// </summary>
     public class DefaultCssResolver : ICssResolver {
@@ -71,6 +74,9 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>The device description.</summary>
         private MediaDeviceDescription deviceDescription;
+
+        /// <summary>Css inheritance checker</summary>
+        private IStyleInheritance cssInheritance = new CssInheritance();
 
         /// <summary>The list of fonts.</summary>
         private IList<CssFontFaceRule> fonts = new List<CssFontFaceRule>();
@@ -110,10 +116,17 @@ namespace iText.Html2pdf.Css.Resolve {
             CollectFonts();
         }
 
+        public virtual IDictionary<String, String> ResolveStyles(INode element, AbstractCssContext context) {
+            if (context is CssContext) {
+                return ResolveStyles(element, (CssContext)context);
+            }
+            throw new Html2PdfException("custom AbstractCssContext implementations are not supported yet");
+        }
+
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.css.resolve.ICssResolver#resolveStyles(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.resolve.CssContext)
         */
-        public virtual IDictionary<String, String> ResolveStyles(INode element, CssContext context) {
+        private IDictionary<String, String> ResolveStyles(INode element, CssContext context) {
             IList<CssDeclaration> nodeCssDeclarations = UserAgentCss.GetStyles(element);
             if (element is IElementNode) {
                 nodeCssDeclarations.AddAll(HtmlStylesToCssConverter.Convert((IElementNode)element));
@@ -194,7 +207,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>Gets the list of fonts.</summary>
         /// <returns>
         /// the list of
-        /// <see cref="iText.Html2pdf.Css.CssFontFaceRule"/>
+        /// <see cref="iText.StyledXmlParser.Css.CssFontFaceRule"/>
         /// instances
         /// </returns>
         public virtual IList<CssFontFaceRule> GetFonts() {
@@ -220,7 +233,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>
         /// Converts a list of
-        /// <see cref="iText.Html2pdf.Css.CssDeclaration"/>
+        /// <see cref="iText.StyledXmlParser.Css.CssDeclaration"/>
         /// instances to a map consisting of
         /// <see cref="System.String"/>
         /// key-value pairs.
@@ -265,8 +278,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="rootNode">the root node</param>
         /// <param name="resourceResolver">the resource resolver</param>
         /// <param name="cssContext">the CSS context</param>
-        /// <returns>the node (always null in this case)</returns>
-        private INode CollectCssDeclarations(INode rootNode, ResourceResolver resourceResolver, CssContext cssContext
+        private void CollectCssDeclarations(INode rootNode, ResourceResolver resourceResolver, CssContext cssContext
             ) {
             cssStyleSheet = new CssStyleSheet();
             LinkedList<INode> q = new LinkedList<INode>();
@@ -310,7 +322,6 @@ namespace iText.Html2pdf.Css.Resolve {
                     }
                 }
             }
-            return null;
         }
 
         /// <summary>Check if a pages counter is mentioned.</summary>
@@ -328,7 +339,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>
         /// Wraps a
-        /// <see cref="iText.Html2pdf.Css.Media.CssMediaRule"/>
+        /// <see cref="iText.StyledXmlParser.Css.Media.CssMediaRule"/>
         /// into the style sheet if the head child element has a media attribute.
         /// </summary>
         /// <param name="headChildElement">the head child element</param>
@@ -353,7 +364,7 @@ namespace iText.Html2pdf.Css.Resolve {
         private void MergeParentCssDeclaration(IDictionary<String, String> styles, String cssProperty, String parentPropValue
             , IDictionary<String, String> parentStyles) {
             String childPropValue = styles.Get(cssProperty);
-            if ((childPropValue == null && CssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals(childPropValue
+            if ((childPropValue == null && cssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals(childPropValue
                 )) {
                 if (ValueIsOfMeasurement(parentPropValue, CssConstants.EM) || ValueIsOfMeasurement(parentPropValue, CssConstants
                     .EX) || ValueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.
@@ -401,7 +412,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>
         /// Collects fonts from a
-        /// <see cref="iText.Html2pdf.Css.CssStatement"/>
+        /// <see cref="iText.StyledXmlParser.Css.CssStatement"/>
         /// .
         /// </summary>
         /// <param name="cssStatement">the CSS statement</param>

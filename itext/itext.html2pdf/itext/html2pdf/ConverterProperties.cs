@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -44,8 +44,9 @@ using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
-using iText.Html2pdf.Css.Media;
+using iText.Kernel.Counter.Event;
 using iText.Layout.Font;
+using iText.StyledXmlParser.Css.Media;
 
 namespace iText.Html2pdf {
     /// <summary>Properties that will be used by the converter.</summary>
@@ -77,6 +78,9 @@ namespace iText.Html2pdf {
         /// <summary>Indicates whether the document should be opened in immediate flush or not</summary>
         private bool immediateFlush = true;
 
+        /// <summary>Meta info that will be added to the events thrown by html2Pdf</summary>
+        private IMetaInfo metaInfo;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="ConverterProperties"/>
@@ -107,6 +111,7 @@ namespace iText.Html2pdf {
             this.createAcroForm = other.createAcroForm;
             this.outlineHandler = other.outlineHandler;
             this.charset = other.charset;
+            this.metaInfo = other.metaInfo;
         }
 
         /// <summary>Gets the media device description.</summary>
@@ -264,6 +269,41 @@ namespace iText.Html2pdf {
         /// <returns>the ConverterProperties</returns>
         public virtual iText.Html2pdf.ConverterProperties SetImmediateFlush(bool immediateFlush) {
             this.immediateFlush = immediateFlush;
+            return this;
+        }
+
+        /// <summary>Gets html meta info.</summary>
+        /// <remarks>
+        /// Gets html meta info. This meta info will be passed with to
+        /// <see cref="iText.Kernel.Counter.EventCounter"/>
+        /// with
+        /// <see cref="iText.Html2pdf.Events.PdfHtmlEvent"/>
+        /// and can be used to determine event origin.
+        /// </remarks>
+        /// <returns>
+        /// converter's
+        /// <see cref="iText.Kernel.Counter.Event.IMetaInfo"/>
+        /// </returns>
+        public virtual IMetaInfo GetEventCountingMetaInfo() {
+            return metaInfo;
+        }
+
+        /// <summary>Sets html meta info.</summary>
+        /// <remarks>
+        /// Sets html meta info. This meta info will be passed with to
+        /// <see cref="iText.Kernel.Counter.EventCounter"/>
+        /// with
+        /// <see cref="iText.Html2pdf.Events.PdfHtmlEvent"/>
+        /// and can be used to determine event origin.
+        /// </remarks>
+        /// <param name="metaInfo">meta info to set</param>
+        /// <returns>
+        /// this
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
+        public virtual iText.Html2pdf.ConverterProperties SetEventCountingMetaInfo(IMetaInfo metaInfo) {
+            this.metaInfo = metaInfo;
             return this;
         }
     }

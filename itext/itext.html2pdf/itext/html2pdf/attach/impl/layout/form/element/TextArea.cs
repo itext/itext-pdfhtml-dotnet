@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Renderer;
+using iText.Layout.Element;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
@@ -54,7 +55,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
     /// <see cref="iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.TextAreaRenderer"/>
     /// is used instead of the default renderer for fields.
     /// </summary>
-    public class TextArea : FormField<iText.Html2pdf.Attach.Impl.Layout.Form.Element.TextArea> {
+    public class TextArea : FormField<iText.Html2pdf.Attach.Impl.Layout.Form.Element.TextArea>, IPlaceholderable {
+        /// <summary>The placeholder paragraph.</summary>
+        private Paragraph placeholder;
+
         /// <summary>
         /// Creates a new
         /// <see cref="TextArea"/>
@@ -82,6 +86,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
                     return base.GetDefaultProperty<T1>(property);
                 }
             }
+        }
+
+        /// <summary><inheritDoc/></summary>
+        public virtual Paragraph GetPlaceholder() {
+            return placeholder;
+        }
+
+        /// <summary><inheritDoc/></summary>
+        public virtual void SetPlaceholder(Paragraph placeholder) {
+            this.placeholder = placeholder;
         }
 
         /* (non-Javadoc)

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -45,10 +45,10 @@ using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Html.Node;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply page breaks.</summary>
@@ -79,9 +79,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static void AddPageBreakElementBefore(ProcessorContext context, ITagWorker parentTagWorker, IElementNode
              childElement, ITagWorker childTagWorker) {
             /* Handles left, right, always cases. Avoid is handled at different time along with other css property application */
-            // Applies to block-level elements
-            if (CssConstants.BLOCK.Equals(childElement.GetStyles().Get(CssConstants.DISPLAY)) || childElement.GetStyles
-                ().Get(CssConstants.DISPLAY) == null && childTagWorker.GetElementResult() is IBlockElement) {
+            if (IsEligibleForBreakBeforeAfter(parentTagWorker, childElement, childTagWorker)) {
                 String pageBreakBeforeVal = childElement.GetStyles().Get(CssConstants.PAGE_BREAK_BEFORE);
                 HtmlPageBreak breakBefore = CreateHtmlPageBreak(pageBreakBeforeVal);
                 if (breakBefore != null) {
@@ -98,15 +96,21 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static void AddPageBreakElementAfter(ProcessorContext context, ITagWorker parentTagWorker, IElementNode
              childElement, ITagWorker childTagWorker) {
             /* Handles left, right, always cases. Avoid is handled at different time along with other css property application */
-            // Applies to block-level elements
-            if (CssConstants.BLOCK.Equals(childElement.GetStyles().Get(CssConstants.DISPLAY)) || childElement.GetStyles
-                ().Get(CssConstants.DISPLAY) == null && childTagWorker.GetElementResult() is IBlockElement) {
+            if (IsEligibleForBreakBeforeAfter(parentTagWorker, childElement, childTagWorker)) {
                 String pageBreakAfterVal = childElement.GetStyles().Get(CssConstants.PAGE_BREAK_AFTER);
                 HtmlPageBreak breakAfter = CreateHtmlPageBreak(pageBreakAfterVal);
                 if (breakAfter != null) {
                     parentTagWorker.ProcessTagChild(new PageBreakApplierUtil.HtmlPageBreakWorker(breakAfter), context);
                 }
             }
+        }
+
+        private static bool IsEligibleForBreakBeforeAfter(ITagWorker parentTagWorker, IElementNode childElement, ITagWorker
+             childTagWorker) {
+            // Applies to block-level elements as per spec
+            String childElementDisplay = childElement.GetStyles().Get(CssConstants.DISPLAY);
+            return CssConstants.BLOCK.Equals(childElementDisplay) || CssConstants.TABLE.Equals(childElementDisplay) ||
+                 childElementDisplay == null && childTagWorker.GetElementResult() is IBlockElement;
         }
 
         /// <summary>

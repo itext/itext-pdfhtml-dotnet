@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2017 iText Group NV
+Copyright (c) 1998-2018 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,12 +43,12 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
-using iText.Html2pdf.Css.Media;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Resolver.Font;
 using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Layout.Font;
+using iText.StyledXmlParser.Css.Media;
 using iText.Test;
 using iText.Test.Attributes;
 
