@@ -1,11 +1,53 @@
+/*
+This file is part of the iText (R) project.
+Copyright (c) 1998-2018 iText Group NV
+Authors: iText Software.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3
+as published by the Free Software Foundation with the addition of the
+following permission added to Section 15 as permitted in Section 7(a):
+FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
+ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
+OF THIRD PARTY RIGHTS
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License
+along with this program; if not, see http://www.gnu.org/licenses or write to
+the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+Boston, MA, 02110-1301 USA, or download the license from the following URL:
+http://itextpdf.com/terms-of-use/
+
+The interactive user interfaces in modified source and object code versions
+of this program must display Appropriate Legal Notices, as required under
+Section 5 of the GNU Affero General Public License.
+
+In accordance with Section 7(b) of the GNU Affero General Public License,
+a covered work must retain the producer line in every PDF that is created
+or manipulated using iText.
+
+You can be released from the requirements of the license by purchasing
+a commercial license. Buying such a license is mandatory as soon as you
+develop commercial activities involving the iText software without
+disclosing the source code of your own applications.
+These activities include: offering paid services to customers as an ASP,
+serving PDFs on the fly in a web application, shipping iText with a closed
+source product.
+
+For more information, please contact iText Software Corp. at this
+address: sales@itextpdf.com
+*/
 using System;
 using iText.IO.Util;
 
 namespace Org.Jsoup.Parser {
     /// <summary>States and transition activations for the Tokeniser.</summary>
     internal abstract class TokeniserState {
-        private sealed class _TokeniserState_10 : TokeniserState {
-            public _TokeniserState_10() {
+        private sealed class _TokeniserState_52 : TokeniserState {
+            public _TokeniserState_52() {
             }
 
             internal override String GetName() {
@@ -46,10 +88,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState Data = new _TokeniserState_10();
+        internal static TokeniserState Data = new _TokeniserState_52();
 
-        private sealed class _TokeniserState_41 : TokeniserState {
-            public _TokeniserState_41() {
+        private sealed class _TokeniserState_83 : TokeniserState {
+            public _TokeniserState_83() {
             }
 
             internal override String GetName() {
@@ -62,10 +104,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState CharacterReferenceInData = new _TokeniserState_41();
+        internal static TokeniserState CharacterReferenceInData = new _TokeniserState_83();
 
-        private sealed class _TokeniserState_54 : TokeniserState {
-            public _TokeniserState_54() {
+        private sealed class _TokeniserState_96 : TokeniserState {
+            public _TokeniserState_96() {
             }
 
             internal override String GetName() {
@@ -106,10 +148,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState Rcdata = new _TokeniserState_54();
+        internal static TokeniserState Rcdata = new _TokeniserState_96();
 
-        private sealed class _TokeniserState_86 : TokeniserState {
-            public _TokeniserState_86() {
+        private sealed class _TokeniserState_128 : TokeniserState {
+            public _TokeniserState_128() {
             }
 
             internal override String GetName() {
@@ -121,10 +163,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState CharacterReferenceInRcdata = new _TokeniserState_86();
+        internal static TokeniserState CharacterReferenceInRcdata = new _TokeniserState_128();
 
-        private sealed class _TokeniserState_98 : TokeniserState {
-            public _TokeniserState_98() {
+        private sealed class _TokeniserState_140 : TokeniserState {
+            public _TokeniserState_140() {
             }
 
             internal override String GetName() {
@@ -136,10 +178,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState Rawtext = new _TokeniserState_98();
+        internal static TokeniserState Rawtext = new _TokeniserState_140();
 
-        private sealed class _TokeniserState_110 : TokeniserState {
-            public _TokeniserState_110() {
+        private sealed class _TokeniserState_152 : TokeniserState {
+            public _TokeniserState_152() {
             }
 
             internal override String GetName() {
@@ -151,10 +193,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptData = new _TokeniserState_110();
+        internal static TokeniserState ScriptData = new _TokeniserState_152();
 
-        private sealed class _TokeniserState_122 : TokeniserState {
-            public _TokeniserState_122() {
+        private sealed class _TokeniserState_164 : TokeniserState {
+            public _TokeniserState_164() {
             }
 
             internal override String GetName() {
@@ -184,10 +226,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState PLAINTEXT = new _TokeniserState_122();
+        internal static TokeniserState PLAINTEXT = new _TokeniserState_164();
 
-        private sealed class _TokeniserState_147 : TokeniserState {
-            public _TokeniserState_147() {
+        private sealed class _TokeniserState_189 : TokeniserState {
+            public _TokeniserState_189() {
             }
 
             internal override String GetName() {
@@ -229,10 +271,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState TagOpen = new _TokeniserState_147();
+        internal static TokeniserState TagOpen = new _TokeniserState_189();
 
-        private sealed class _TokeniserState_180 : TokeniserState {
-            public _TokeniserState_180() {
+        private sealed class _TokeniserState_222 : TokeniserState {
+            public _TokeniserState_222() {
             }
 
             internal override String GetName() {
@@ -264,10 +306,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState EndTagOpen = new _TokeniserState_180();
+        internal static TokeniserState EndTagOpen = new _TokeniserState_222();
 
-        private sealed class _TokeniserState_205 : TokeniserState {
-            public _TokeniserState_205() {
+        private sealed class _TokeniserState_247 : TokeniserState {
+            public _TokeniserState_247() {
             }
 
             internal override String GetName() {
@@ -317,10 +359,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState TagName = new _TokeniserState_205();
+        internal static TokeniserState TagName = new _TokeniserState_247();
 
-        private sealed class _TokeniserState_245 : TokeniserState {
-            public _TokeniserState_245() {
+        private sealed class _TokeniserState_287 : TokeniserState {
+            public _TokeniserState_287() {
             }
 
             // no default, as covered with above consumeToAny
@@ -353,10 +395,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState RcdataLessthanSign = new _TokeniserState_245();
+        internal static TokeniserState RcdataLessthanSign = new _TokeniserState_287();
 
-        private sealed class _TokeniserState_271 : TokeniserState {
-            public _TokeniserState_271() {
+        private sealed class _TokeniserState_313 : TokeniserState {
+            public _TokeniserState_313() {
             }
 
             internal override String GetName() {
@@ -377,10 +419,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState RCDATAEndTagOpen = new _TokeniserState_271();
+        internal static TokeniserState RCDATAEndTagOpen = new _TokeniserState_313();
 
-        private sealed class _TokeniserState_291 : TokeniserState {
-            public _TokeniserState_291() {
+        private sealed class _TokeniserState_333 : TokeniserState {
+            public _TokeniserState_333() {
             }
 
             internal override String GetName() {
@@ -445,10 +487,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState RCDATAEndTagName = new _TokeniserState_291();
+        internal static TokeniserState RCDATAEndTagName = new _TokeniserState_333();
 
-        private sealed class _TokeniserState_344 : TokeniserState {
-            public _TokeniserState_344() {
+        private sealed class _TokeniserState_386 : TokeniserState {
+            public _TokeniserState_386() {
             }
 
             internal override String GetName() {
@@ -467,10 +509,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState RawtextLessthanSign = new _TokeniserState_344();
+        internal static TokeniserState RawtextLessthanSign = new _TokeniserState_386();
 
-        private sealed class _TokeniserState_362 : TokeniserState {
-            public _TokeniserState_362() {
+        private sealed class _TokeniserState_404 : TokeniserState {
+            public _TokeniserState_404() {
             }
 
             internal override String GetName() {
@@ -482,10 +524,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState RawtextEndTagOpen = new _TokeniserState_362();
+        internal static TokeniserState RawtextEndTagOpen = new _TokeniserState_404();
 
-        private sealed class _TokeniserState_374 : TokeniserState {
-            public _TokeniserState_374() {
+        private sealed class _TokeniserState_416 : TokeniserState {
+            public _TokeniserState_416() {
             }
 
             internal override String GetName() {
@@ -497,10 +539,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState RawtextEndTagName = new _TokeniserState_374();
+        internal static TokeniserState RawtextEndTagName = new _TokeniserState_416();
 
-        private sealed class _TokeniserState_386 : TokeniserState {
-            public _TokeniserState_386() {
+        private sealed class _TokeniserState_428 : TokeniserState {
+            public _TokeniserState_428() {
             }
 
             internal override String GetName() {
@@ -531,10 +573,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataLessthanSign = new _TokeniserState_386();
+        internal static TokeniserState ScriptDataLessthanSign = new _TokeniserState_428();
 
-        private sealed class _TokeniserState_411 : TokeniserState {
-            public _TokeniserState_411() {
+        private sealed class _TokeniserState_453 : TokeniserState {
+            public _TokeniserState_453() {
             }
 
             internal override String GetName() {
@@ -546,10 +588,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataEndTagOpen = new _TokeniserState_411();
+        internal static TokeniserState ScriptDataEndTagOpen = new _TokeniserState_453();
 
-        private sealed class _TokeniserState_423 : TokeniserState {
-            public _TokeniserState_423() {
+        private sealed class _TokeniserState_465 : TokeniserState {
+            public _TokeniserState_465() {
             }
 
             internal override String GetName() {
@@ -561,10 +603,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataEndTagName = new _TokeniserState_423();
+        internal static TokeniserState ScriptDataEndTagName = new _TokeniserState_465();
 
-        private sealed class _TokeniserState_435 : TokeniserState {
-            public _TokeniserState_435() {
+        private sealed class _TokeniserState_477 : TokeniserState {
+            public _TokeniserState_477() {
             }
 
             internal override String GetName() {
@@ -582,10 +624,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataEscapeStart = new _TokeniserState_435();
+        internal static TokeniserState ScriptDataEscapeStart = new _TokeniserState_477();
 
-        private sealed class _TokeniserState_452 : TokeniserState {
-            public _TokeniserState_452() {
+        private sealed class _TokeniserState_494 : TokeniserState {
+            public _TokeniserState_494() {
             }
 
             internal override String GetName() {
@@ -603,10 +645,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataEscapeStartDash = new _TokeniserState_452();
+        internal static TokeniserState ScriptDataEscapeStartDash = new _TokeniserState_494();
 
-        private sealed class _TokeniserState_469 : TokeniserState {
-            public _TokeniserState_469() {
+        private sealed class _TokeniserState_511 : TokeniserState {
+            public _TokeniserState_511() {
             }
 
             internal override String GetName() {
@@ -647,10 +689,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataEscaped = new _TokeniserState_469();
+        internal static TokeniserState ScriptDataEscaped = new _TokeniserState_511();
 
-        private sealed class _TokeniserState_503 : TokeniserState {
-            public _TokeniserState_503() {
+        private sealed class _TokeniserState_545 : TokeniserState {
+            public _TokeniserState_545() {
             }
 
             internal override String GetName() {
@@ -692,10 +734,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataEscapedDash = new _TokeniserState_503();
+        internal static TokeniserState ScriptDataEscapedDash = new _TokeniserState_545();
 
-        private sealed class _TokeniserState_538 : TokeniserState {
-            public _TokeniserState_538() {
+        private sealed class _TokeniserState_580 : TokeniserState {
+            public _TokeniserState_580() {
             }
 
             internal override String GetName() {
@@ -742,10 +784,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataEscapedDashDash = new _TokeniserState_538();
+        internal static TokeniserState ScriptDataEscapedDashDash = new _TokeniserState_580();
 
-        private sealed class _TokeniserState_576 : TokeniserState {
-            public _TokeniserState_576() {
+        private sealed class _TokeniserState_618 : TokeniserState {
+            public _TokeniserState_618() {
             }
 
             internal override String GetName() {
@@ -772,10 +814,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataEscapedLessthanSign = new _TokeniserState_576();
+        internal static TokeniserState ScriptDataEscapedLessthanSign = new _TokeniserState_618();
 
-        private sealed class _TokeniserState_599 : TokeniserState {
-            public _TokeniserState_599() {
+        private sealed class _TokeniserState_641 : TokeniserState {
+            public _TokeniserState_641() {
             }
 
             internal override String GetName() {
@@ -796,10 +838,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataEscapedEndTagOpen = new _TokeniserState_599();
+        internal static TokeniserState ScriptDataEscapedEndTagOpen = new _TokeniserState_641();
 
-        private sealed class _TokeniserState_619 : TokeniserState {
-            public _TokeniserState_619() {
+        private sealed class _TokeniserState_661 : TokeniserState {
+            public _TokeniserState_661() {
             }
 
             internal override String GetName() {
@@ -811,10 +853,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataEscapedEndTagName = new _TokeniserState_619();
+        internal static TokeniserState ScriptDataEscapedEndTagName = new _TokeniserState_661();
 
-        private sealed class _TokeniserState_631 : TokeniserState {
-            public _TokeniserState_631() {
+        private sealed class _TokeniserState_673 : TokeniserState {
+            public _TokeniserState_673() {
             }
 
             internal override String GetName() {
@@ -827,10 +869,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataDoubleEscapeStart = new _TokeniserState_631();
+        internal static TokeniserState ScriptDataDoubleEscapeStart = new _TokeniserState_673();
 
-        private sealed class _TokeniserState_643 : TokeniserState {
-            public _TokeniserState_643() {
+        private sealed class _TokeniserState_685 : TokeniserState {
+            public _TokeniserState_685() {
             }
 
             internal override String GetName() {
@@ -874,10 +916,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataDoubleEscaped = new _TokeniserState_643();
+        internal static TokeniserState ScriptDataDoubleEscaped = new _TokeniserState_685();
 
-        private sealed class _TokeniserState_677 : TokeniserState {
-            public _TokeniserState_677() {
+        private sealed class _TokeniserState_719 : TokeniserState {
+            public _TokeniserState_719() {
             }
 
             internal override String GetName() {
@@ -921,10 +963,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataDoubleEscapedDash = new _TokeniserState_677();
+        internal static TokeniserState ScriptDataDoubleEscapedDash = new _TokeniserState_719();
 
-        private sealed class _TokeniserState_711 : TokeniserState {
-            public _TokeniserState_711() {
+        private sealed class _TokeniserState_753 : TokeniserState {
+            public _TokeniserState_753() {
             }
 
             internal override String GetName() {
@@ -973,10 +1015,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataDoubleEscapedDashDash = new _TokeniserState_711();
+        internal static TokeniserState ScriptDataDoubleEscapedDashDash = new _TokeniserState_753();
 
-        private sealed class _TokeniserState_748 : TokeniserState {
-            public _TokeniserState_748() {
+        private sealed class _TokeniserState_790 : TokeniserState {
+            public _TokeniserState_790() {
             }
 
             internal override String GetName() {
@@ -995,10 +1037,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataDoubleEscapedLessthanSign = new _TokeniserState_748();
+        internal static TokeniserState ScriptDataDoubleEscapedLessthanSign = new _TokeniserState_790();
 
-        private sealed class _TokeniserState_766 : TokeniserState {
-            public _TokeniserState_766() {
+        private sealed class _TokeniserState_808 : TokeniserState {
+            public _TokeniserState_808() {
             }
 
             internal override String GetName() {
@@ -1011,10 +1053,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState ScriptDataDoubleEscapeEnd = new _TokeniserState_766();
+        internal static TokeniserState ScriptDataDoubleEscapeEnd = new _TokeniserState_808();
 
-        private sealed class _TokeniserState_778 : TokeniserState {
-            public _TokeniserState_778() {
+        private sealed class _TokeniserState_820 : TokeniserState {
+            public _TokeniserState_820() {
             }
 
             internal override String GetName() {
@@ -1081,10 +1123,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState BeforeAttributeName = new _TokeniserState_778();
+        internal static TokeniserState BeforeAttributeName = new _TokeniserState_820();
 
-        private sealed class _TokeniserState_829 : TokeniserState {
-            public _TokeniserState_829() {
+        private sealed class _TokeniserState_871 : TokeniserState {
+            public _TokeniserState_871() {
             }
 
             internal override String GetName() {
@@ -1145,10 +1187,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState AttributeName = new _TokeniserState_829();
+        internal static TokeniserState AttributeName = new _TokeniserState_871();
 
-        private sealed class _TokeniserState_878 : TokeniserState {
-            public _TokeniserState_878() {
+        private sealed class _TokeniserState_920 : TokeniserState {
+            public _TokeniserState_920() {
             }
 
             // no default, as covered in consumeToAny
@@ -1218,10 +1260,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState AfterAttributeName = new _TokeniserState_878();
+        internal static TokeniserState AfterAttributeName = new _TokeniserState_920();
 
-        private sealed class _TokeniserState_930 : TokeniserState {
-            public _TokeniserState_930() {
+        private sealed class _TokeniserState_972 : TokeniserState {
+            public _TokeniserState_972() {
             }
 
             internal override String GetName() {
@@ -1295,10 +1337,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState BeforeAttributeValue = new _TokeniserState_930();
+        internal static TokeniserState BeforeAttributeValue = new _TokeniserState_972();
 
-        private sealed class _TokeniserState_986 : TokeniserState {
-            public _TokeniserState_986() {
+        private sealed class _TokeniserState_1028 : TokeniserState {
+            public _TokeniserState_1028() {
             }
 
             internal override String GetName() {
@@ -1346,10 +1388,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState AttributeValue_doubleQuoted = new _TokeniserState_986();
+        internal static TokeniserState AttributeValue_doubleQuoted = new _TokeniserState_1028();
 
-        private sealed class _TokeniserState_1025 : TokeniserState {
-            public _TokeniserState_1025() {
+        private sealed class _TokeniserState_1067 : TokeniserState {
+            public _TokeniserState_1067() {
             }
 
             // no default, handled in consume to any above
@@ -1398,10 +1440,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState AttributeValue_singleQuoted = new _TokeniserState_1025();
+        internal static TokeniserState AttributeValue_singleQuoted = new _TokeniserState_1067();
 
-        private sealed class _TokeniserState_1064 : TokeniserState {
-            public _TokeniserState_1064() {
+        private sealed class _TokeniserState_1106 : TokeniserState {
+            public _TokeniserState_1106() {
             }
 
             // no default, handled in consume to any above
@@ -1467,10 +1509,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState AttributeValue_unquoted = new _TokeniserState_1064();
+        internal static TokeniserState AttributeValue_unquoted = new _TokeniserState_1106();
 
-        private sealed class _TokeniserState_1119 : TokeniserState {
-            public _TokeniserState_1119() {
+        private sealed class _TokeniserState_1161 : TokeniserState {
+            public _TokeniserState_1161() {
             }
 
             // no default, handled in consume to any above
@@ -1518,10 +1560,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState AfterAttributeValue_quoted = new _TokeniserState_1119();
+        internal static TokeniserState AfterAttributeValue_quoted = new _TokeniserState_1161();
 
-        private sealed class _TokeniserState_1156 : TokeniserState {
-            public _TokeniserState_1156() {
+        private sealed class _TokeniserState_1198 : TokeniserState {
+            public _TokeniserState_1198() {
             }
 
             internal override String GetName() {
@@ -1553,10 +1595,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState SelfClosingStartTag = new _TokeniserState_1156();
+        internal static TokeniserState SelfClosingStartTag = new _TokeniserState_1198();
 
-        private sealed class _TokeniserState_1182 : TokeniserState {
-            public _TokeniserState_1182() {
+        private sealed class _TokeniserState_1224 : TokeniserState {
+            public _TokeniserState_1224() {
             }
 
             internal override String GetName() {
@@ -1576,10 +1618,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState BogusComment = new _TokeniserState_1182();
+        internal static TokeniserState BogusComment = new _TokeniserState_1224();
 
-        private sealed class _TokeniserState_1202 : TokeniserState {
-            public _TokeniserState_1202() {
+        private sealed class _TokeniserState_1244 : TokeniserState {
+            public _TokeniserState_1244() {
             }
 
             internal override String GetName() {
@@ -1611,10 +1653,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState MarkupDeclarationOpen = new _TokeniserState_1202();
+        internal static TokeniserState MarkupDeclarationOpen = new _TokeniserState_1244();
 
-        private sealed class _TokeniserState_1227 : TokeniserState {
-            public _TokeniserState_1227() {
+        private sealed class _TokeniserState_1269 : TokeniserState {
+            public _TokeniserState_1269() {
             }
 
             // advance so this character gets in bogus comment data's rewind
@@ -1660,10 +1702,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState CommentStart = new _TokeniserState_1227();
+        internal static TokeniserState CommentStart = new _TokeniserState_1269();
 
-        private sealed class _TokeniserState_1262 : TokeniserState {
-            public _TokeniserState_1262() {
+        private sealed class _TokeniserState_1304 : TokeniserState {
+            public _TokeniserState_1304() {
             }
 
             internal override String GetName() {
@@ -1708,10 +1750,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState CommentStartDash = new _TokeniserState_1262();
+        internal static TokeniserState CommentStartDash = new _TokeniserState_1304();
 
-        private sealed class _TokeniserState_1297 : TokeniserState {
-            public _TokeniserState_1297() {
+        private sealed class _TokeniserState_1339 : TokeniserState {
+            public _TokeniserState_1339() {
             }
 
             internal override String GetName() {
@@ -1748,10 +1790,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState Comment = new _TokeniserState_1297();
+        internal static TokeniserState Comment = new _TokeniserState_1339();
 
-        private sealed class _TokeniserState_1326 : TokeniserState {
-            public _TokeniserState_1326() {
+        private sealed class _TokeniserState_1368 : TokeniserState {
+            public _TokeniserState_1368() {
             }
 
             internal override String GetName() {
@@ -1789,10 +1831,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState CommentEndDash = new _TokeniserState_1326();
+        internal static TokeniserState CommentEndDash = new _TokeniserState_1368();
 
-        private sealed class _TokeniserState_1356 : TokeniserState {
-            public _TokeniserState_1356() {
+        private sealed class _TokeniserState_1398 : TokeniserState {
+            public _TokeniserState_1398() {
             }
 
             internal override String GetName() {
@@ -1844,10 +1886,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState CommentEnd = new _TokeniserState_1356();
+        internal static TokeniserState CommentEnd = new _TokeniserState_1398();
 
-        private sealed class _TokeniserState_1396 : TokeniserState {
-            public _TokeniserState_1396() {
+        private sealed class _TokeniserState_1438 : TokeniserState {
+            public _TokeniserState_1438() {
             }
 
             internal override String GetName() {
@@ -1892,10 +1934,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState CommentEndBang = new _TokeniserState_1396();
+        internal static TokeniserState CommentEndBang = new _TokeniserState_1438();
 
-        private sealed class _TokeniserState_1431 : TokeniserState {
-            public _TokeniserState_1431() {
+        private sealed class _TokeniserState_1473 : TokeniserState {
+            public _TokeniserState_1473() {
             }
 
             internal override String GetName() {
@@ -1939,10 +1981,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState Doctype = new _TokeniserState_1431();
+        internal static TokeniserState Doctype = new _TokeniserState_1473();
 
-        private sealed class _TokeniserState_1465 : TokeniserState {
-            public _TokeniserState_1465() {
+        private sealed class _TokeniserState_1507 : TokeniserState {
+            public _TokeniserState_1507() {
             }
 
             internal override String GetName() {
@@ -1993,10 +2035,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState BeforeDoctypeName = new _TokeniserState_1465();
+        internal static TokeniserState BeforeDoctypeName = new _TokeniserState_1507();
 
-        private sealed class _TokeniserState_1507 : TokeniserState {
-            public _TokeniserState_1507() {
+        private sealed class _TokeniserState_1549 : TokeniserState {
+            public _TokeniserState_1549() {
             }
 
             internal override String GetName() {
@@ -2048,10 +2090,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState DoctypeName = new _TokeniserState_1507();
+        internal static TokeniserState DoctypeName = new _TokeniserState_1549();
 
-        private sealed class _TokeniserState_1549 : TokeniserState {
-            public _TokeniserState_1549() {
+        private sealed class _TokeniserState_1591 : TokeniserState {
+            public _TokeniserState_1591() {
             }
 
             internal override String GetName() {
@@ -2094,10 +2136,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState AfterDoctypeName = new _TokeniserState_1549();
+        internal static TokeniserState AfterDoctypeName = new _TokeniserState_1591();
 
-        private sealed class _TokeniserState_1582 : TokeniserState {
-            public _TokeniserState_1582() {
+        private sealed class _TokeniserState_1624 : TokeniserState {
+            public _TokeniserState_1624() {
             }
 
             internal override String GetName() {
@@ -2156,10 +2198,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState AfterDoctypePublicKeyword = new _TokeniserState_1582();
+        internal static TokeniserState AfterDoctypePublicKeyword = new _TokeniserState_1624();
 
-        private sealed class _TokeniserState_1629 : TokeniserState {
-            public _TokeniserState_1629() {
+        private sealed class _TokeniserState_1671 : TokeniserState {
+            public _TokeniserState_1671() {
             }
 
             internal override String GetName() {
@@ -2215,10 +2257,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState BeforeDoctypePublicIdentifier = new _TokeniserState_1629();
+        internal static TokeniserState BeforeDoctypePublicIdentifier = new _TokeniserState_1671();
 
-        private sealed class _TokeniserState_1673 : TokeniserState {
-            public _TokeniserState_1673() {
+        private sealed class _TokeniserState_1715 : TokeniserState {
+            public _TokeniserState_1715() {
             }
 
             internal override String GetName() {
@@ -2263,10 +2305,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState DoctypePublicIdentifier_doubleQuoted = new _TokeniserState_1673();
+        internal static TokeniserState DoctypePublicIdentifier_doubleQuoted = new _TokeniserState_1715();
 
-        private sealed class _TokeniserState_1708 : TokeniserState {
-            public _TokeniserState_1708() {
+        private sealed class _TokeniserState_1750 : TokeniserState {
+            public _TokeniserState_1750() {
             }
 
             internal override String GetName() {
@@ -2311,10 +2353,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState DoctypePublicIdentifier_singleQuoted = new _TokeniserState_1708();
+        internal static TokeniserState DoctypePublicIdentifier_singleQuoted = new _TokeniserState_1750();
 
-        private sealed class _TokeniserState_1743 : TokeniserState {
-            public _TokeniserState_1743() {
+        private sealed class _TokeniserState_1785 : TokeniserState {
+            public _TokeniserState_1785() {
             }
 
             internal override String GetName() {
@@ -2371,10 +2413,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState AfterDoctypePublicIdentifier = new _TokeniserState_1743();
+        internal static TokeniserState AfterDoctypePublicIdentifier = new _TokeniserState_1785();
 
-        private sealed class _TokeniserState_1788 : TokeniserState {
-            public _TokeniserState_1788() {
+        private sealed class _TokeniserState_1830 : TokeniserState {
+            public _TokeniserState_1830() {
             }
 
             internal override String GetName() {
@@ -2430,10 +2472,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState BetweenDoctypePublicAndSystemIdentifiers = new _TokeniserState_1788();
+        internal static TokeniserState BetweenDoctypePublicAndSystemIdentifiers = new _TokeniserState_1830();
 
-        private sealed class _TokeniserState_1832 : TokeniserState {
-            public _TokeniserState_1832() {
+        private sealed class _TokeniserState_1874 : TokeniserState {
+            public _TokeniserState_1874() {
             }
 
             internal override String GetName() {
@@ -2492,10 +2534,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState AfterDoctypeSystemKeyword = new _TokeniserState_1832();
+        internal static TokeniserState AfterDoctypeSystemKeyword = new _TokeniserState_1874();
 
-        private sealed class _TokeniserState_1879 : TokeniserState {
-            public _TokeniserState_1879() {
+        private sealed class _TokeniserState_1921 : TokeniserState {
+            public _TokeniserState_1921() {
             }
 
             internal override String GetName() {
@@ -2551,10 +2593,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState BeforeDoctypeSystemIdentifier = new _TokeniserState_1879();
+        internal static TokeniserState BeforeDoctypeSystemIdentifier = new _TokeniserState_1921();
 
-        private sealed class _TokeniserState_1923 : TokeniserState {
-            public _TokeniserState_1923() {
+        private sealed class _TokeniserState_1965 : TokeniserState {
+            public _TokeniserState_1965() {
             }
 
             internal override String GetName() {
@@ -2599,10 +2641,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState DoctypeSystemIdentifier_doubleQuoted = new _TokeniserState_1923();
+        internal static TokeniserState DoctypeSystemIdentifier_doubleQuoted = new _TokeniserState_1965();
 
-        private sealed class _TokeniserState_1958 : TokeniserState {
-            public _TokeniserState_1958() {
+        private sealed class _TokeniserState_2000 : TokeniserState {
+            public _TokeniserState_2000() {
             }
 
             internal override String GetName() {
@@ -2647,10 +2689,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState DoctypeSystemIdentifier_singleQuoted = new _TokeniserState_1958();
+        internal static TokeniserState DoctypeSystemIdentifier_singleQuoted = new _TokeniserState_2000();
 
-        private sealed class _TokeniserState_1993 : TokeniserState {
-            public _TokeniserState_1993() {
+        private sealed class _TokeniserState_2035 : TokeniserState {
+            public _TokeniserState_2035() {
             }
 
             internal override String GetName() {
@@ -2691,10 +2733,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState AfterDoctypeSystemIdentifier = new _TokeniserState_1993();
+        internal static TokeniserState AfterDoctypeSystemIdentifier = new _TokeniserState_2035();
 
-        private sealed class _TokeniserState_2027 : TokeniserState {
-            public _TokeniserState_2027() {
+        private sealed class _TokeniserState_2069 : TokeniserState {
+            public _TokeniserState_2069() {
             }
 
             // NOT force quirks
@@ -2725,10 +2767,10 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState BogusDoctype = new _TokeniserState_2027();
+        internal static TokeniserState BogusDoctype = new _TokeniserState_2069();
 
-        private sealed class _TokeniserState_2052 : TokeniserState {
-            public _TokeniserState_2052() {
+        private sealed class _TokeniserState_2094 : TokeniserState {
+            public _TokeniserState_2094() {
             }
 
             internal override String GetName() {
@@ -2743,7 +2785,7 @@ namespace Org.Jsoup.Parser {
             }
         }
 
-        internal static TokeniserState CdataSection = new _TokeniserState_2052();
+        internal static TokeniserState CdataSection = new _TokeniserState_2094();
 
         public override String ToString() {
             return GetName();
