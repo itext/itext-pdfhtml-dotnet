@@ -48,8 +48,26 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// <exception cref="Java.Net.MalformedURLException"/>
         [NUnit.Framework.Test]
         public virtual void UriResolverTest01() {
-            String absolutePathRoot = "file:///" + (Directory.GetCurrentDirectory() + "/").Replace
-                ('\\', '/').ReplaceFirst("^/", "");
+            String absolutePathRoot = new Uri(Path.GetPathRoot((Directory.GetCurrentDirectory() + "/")).Replace
+                    ('\\', '/').ReplaceFirst("^/", "")).ToExternalForm(); 
+            String absoluteBaseUri = absolutePathRoot + "test/folder/index.html";
+            UriResolver resolver = new UriResolver(absoluteBaseUri);
+            NUnit.Framework.Assert.AreEqual(absolutePathRoot + "test/folder/index.html", resolver.GetBaseUri());
+            NUnit.Framework.Assert.AreEqual(absolutePathRoot + "test/folder/innerTest", resolver.ResolveAgainstBaseUri
+                ("innerTest").ToExternalForm());
+            NUnit.Framework.Assert.AreEqual(absolutePathRoot + "test/folder2/innerTest2", resolver.ResolveAgainstBaseUri
+                ("../folder2/innerTest2").ToExternalForm());
+            NUnit.Framework.Assert.AreEqual(absolutePathRoot + "test/folder/folder2/innerTest2", resolver.ResolveAgainstBaseUri
+                ("/folder2/innerTest2").ToExternalForm());
+            NUnit.Framework.Assert.AreEqual(absolutePathRoot + "test/folder/folder2/innerTest2", resolver.ResolveAgainstBaseUri
+                ("//folder2/innerTest2").ToExternalForm());
+        }
+
+        /// <exception cref="Java.Net.MalformedURLException"/>
+        [NUnit.Framework.Test]
+        public virtual void UriResolverTest01A() {
+            String absolutePathRoot = new Uri("file:///" + (Directory.GetCurrentDirectory() + "/").Replace
+                ('\\', '/').ReplaceFirst("^/", "")).ToExternalForm();
             String absoluteBaseUri = absolutePathRoot + "test/folder/index.html";
             UriResolver resolver = new UriResolver(absoluteBaseUri);
             NUnit.Framework.Assert.AreEqual(absolutePathRoot + "test/folder/index.html", resolver.GetBaseUri());
