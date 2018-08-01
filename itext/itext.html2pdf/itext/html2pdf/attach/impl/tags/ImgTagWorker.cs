@@ -65,7 +65,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// </summary>
     public class ImgTagWorker : ITagWorker {
         /// <summary>The logger.</summary>
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(ObjectTagWorker));
+        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(ImgTagWorker));
 
         /// <summary>The image.</summary>
         private Image image;
