@@ -102,7 +102,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         protected internal virtual void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String
             > css, ProcessorContext context, IStylesContainer stylesContainer) {
             FontStyleApplierUtil.ApplyFontStyles(css, context, stylesContainer, element);
-            //TODO: Background-applying currently doesn't work in html way for spans inside other spans.
+            //TODO DEVSIX-2118: Background-applying currently doesn't work in html way for spans inside other spans.
             BackgroundApplierUtil.ApplyBackground(css, context, element);
             //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
             BorderStyleApplierUtil.ApplyBorders(css, context, element);
