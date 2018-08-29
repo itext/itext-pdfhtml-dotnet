@@ -257,9 +257,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void IncorrectFontNameTest02() {
-            // The result of te test is FAIL. However we consider it to be correct.
-            // Although the font-family specified by the paragraph's class doesn't match the one of fontface,
-            // font's full name contains specified font-family and iText takes it into account.
             RunTest("incorrectFontNameTest02");
         }
 
@@ -292,6 +289,38 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Ignore("DEVSIX-1759")]
         public virtual void FontFamilyTest01() {
             RunTest("fontFamilyTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FontFaceFontWeightTest() {
+            //TODO DEVSIX-2122
+            RunTest("fontFaceFontWeightTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FontFaceFontWeightWrongTest() {
+            //TODO DEVSIX-2122
+            RunTest("fontFaceFontWeightWrongWeightsTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void FontFaceFontWeightInvalidTest() {
+            //TODO DEVSIX-2122
+            RunTest("fontFaceFontWeightInvalidWeightsTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TexFonts01() {
+            // TODO DEVSIX-1953
+            RunTest("texFonts01");
         }
 
         /// <exception cref="System.IO.IOException"/>
