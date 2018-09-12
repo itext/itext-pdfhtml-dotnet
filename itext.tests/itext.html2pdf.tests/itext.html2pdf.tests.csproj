@@ -73,11 +73,11 @@
       <Project>{f9880dc4-f015-4413-af86-66d0e9512774}</Project>
       <Name>itext.pdftest</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\styled-xml-parser\itext\itext.styledxmlparser\itext.styledxmlparser.csproj">
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj">
       <Project>{8636f290-00df-403e-b841-e4bfd6d9ce7a}</Project>
       <Name>itext.styledxmlparser</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\svg\itext\itext.svg\itext.svg.csproj">
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.svg\itext.svg.csproj">
       <Project>{ddec35d2-5781-471d-5ea1-a6e433eddb11}</Project>
       <Name>itext.svg</Name>
     </ProjectReference>

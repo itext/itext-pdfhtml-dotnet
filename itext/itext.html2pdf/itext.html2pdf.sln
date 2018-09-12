@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itext.html2pdf", "itext.htm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itext.html2pdf.tests", "..\..\itext.tests\itext.html2pdf.tests\itext.html2pdf.tests.csproj", "{AE4E5743-0665-4705-9A33-07EA57CDD269}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itext.styledxmlparser", "..\..\..\styled-xml-parser\itext\itext.styledxmlparser\itext.styledxmlparser.csproj", "{8636F290-00DF-403E-B841-E4BFD6D9CE7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itext.styledxmlparser", "..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj", "{8636F290-00DF-403E-B841-E4BFD6D9CE7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itext.svg", "..\..\..\svg\itext\itext.svg\itext.svg.csproj", "{DDEC35D2-5781-471D-5EA1-A6E433EDDB11}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "itext.svg", "..\..\..\itextcore\itext\itext.svg\itext.svg.csproj", "{DDEC35D2-5781-471D-5EA1-A6E433EDDB11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
