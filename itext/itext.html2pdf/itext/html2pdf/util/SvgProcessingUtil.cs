@@ -40,13 +40,12 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-using iText.Html2pdf.Html;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout.Element;
-using iText.StyledXmlParser.Css.Util;
+using iText.Svg.Converter;
 using iText.Svg.Processors;
 using iText.Svg.Renderers;
 using iText.Svg.Renderers.Impl;
@@ -66,8 +65,11 @@ namespace iText.Html2pdf.Util {
         /// <returns>image layout object</returns>
         public virtual Image CreateImageFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument) {
             ISvgNodeRenderer topSvgRenderer = result.GetRootRenderer();
-            float width = CssUtils.ParseAbsoluteLength(topSvgRenderer.GetAttribute(AttributeConstants.WIDTH));
-            float height = CssUtils.ParseAbsoluteLength(topSvgRenderer.GetAttribute(AttributeConstants.HEIGHT));
+            float width;
+            float height;
+            float[] wh = SvgConverter.ExtractWidthAndHeight(topSvgRenderer);
+            width = wh[0];
+            height = wh[1];
             PdfFormXObject pdfForm = new PdfFormXObject(new Rectangle(0, 0, width, height));
             PdfCanvas canvas = new PdfCanvas(pdfForm, pdfDocument);
             SvgDrawContext context = new SvgDrawContext(null, result.GetFontProvider());
