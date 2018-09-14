@@ -189,6 +189,7 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         [LogMessage(SvgLogMessageConstant.MISSING_WIDTH, Count = 2)]
         [LogMessage(SvgLogMessageConstant.MISSING_HEIGHT, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 6)]
         public virtual void SvgWithoutDimensionsImageAndObjectRef() {
             String name = "SvgWithoutDimensionsImageAndObjectRef";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
