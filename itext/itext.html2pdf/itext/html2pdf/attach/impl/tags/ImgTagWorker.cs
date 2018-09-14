@@ -56,6 +56,7 @@ using iText.StyledXmlParser.Resolver.Resource;
 using iText.Svg.Converter;
 using iText.Svg.Exceptions;
 using iText.Svg.Processors;
+using iText.Svg.Processors.Impl;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -126,7 +127,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <exception cref="System.IO.IOException"/>
         private void ProcessAsSvg(Stream stream, ProcessorContext context) {
             SvgProcessingUtil processingUtil = new SvgProcessingUtil();
-            ISvgProcessorResult res = SvgConverter.ParseAndProcess(stream);
+            SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
+            svgConverterProperties.SetBaseUri(context.GetBaseUri()).SetFontProvider(context.GetFontProvider()).SetMediaDeviceDescription
+                (context.GetDeviceDescription());
+            ISvgProcessorResult res = SvgConverter.ParseAndProcess(stream, svgConverterProperties);
             if (context.GetPdfDocument() != null) {
                 image = processingUtil.CreateImageFromProcessingResult(res, context.GetPdfDocument());
             }

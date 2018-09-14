@@ -54,6 +54,7 @@ using iText.StyledXmlParser.Node;
 using iText.Svg.Converter;
 using iText.Svg.Exceptions;
 using iText.Svg.Processors;
+using iText.Svg.Processors.Impl;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -92,7 +93,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     .DATA));
                 if (svgStream != null) {
                     try {
-                        res = SvgConverter.ParseAndProcess(svgStream);
+                        SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
+                        svgConverterProperties.SetBaseUri(context.GetBaseUri()).SetFontProvider(context.GetFontProvider()).SetMediaDeviceDescription
+                            (context.GetDeviceDescription());
+                        res = SvgConverter.ParseAndProcess(svgStream, svgConverterProperties);
                     }
                     catch (SvgProcessingException spe) {
                         LOGGER.Error(spe.Message);
