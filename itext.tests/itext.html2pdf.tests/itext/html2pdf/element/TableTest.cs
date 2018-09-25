@@ -473,6 +473,13 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TableCellMinWidthRightAlignmentTest() {
+            RunConvertToElements("tableCellMinWidthRightAlignmentTest", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String testName) {
             RunTest(testName, false);
         }
