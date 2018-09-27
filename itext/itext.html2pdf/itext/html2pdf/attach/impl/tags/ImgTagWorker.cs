@@ -92,14 +92,17 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 else {
                     byte[] resourceBytes = context.GetResourceResolver().RetrieveBytesFromResource(src);
                     if (resourceBytes != null) {
-                        Stream resourceStream = context.GetResourceResolver().RetrieveResourceAsInputStream(src);
-                        //Try with svg
                         try {
-                            ProcessAsSvg(resourceStream, context);
-                        }
-                        catch (SvgProcessingException) {
-                            LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context
-                                .GetBaseUri(), src));
+                            using (Stream resourceStream = context.GetResourceResolver().RetrieveResourceAsInputStream(src)) {
+                                //Try with svg
+                                try {
+                                    ProcessAsSvg(resourceStream, context);
+                                }
+                                catch (SvgProcessingException) {
+                                    LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context
+                                        .GetBaseUri(), src));
+                                }
+                            }
                         }
                         catch (System.IO.IOException) {
                             LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI

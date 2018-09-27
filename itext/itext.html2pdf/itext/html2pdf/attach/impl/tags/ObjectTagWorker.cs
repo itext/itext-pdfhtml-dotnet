@@ -89,22 +89,25 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             String type = element.GetAttribute(AttributeConstants.TYPE);
             if (IsSvgImage(type)) {
                 //Use resource resolver to retrieve the URL
-                Stream svgStream = context.GetResourceResolver().RetrieveResourceAsInputStream(element.GetAttribute(AttributeConstants
-                    .DATA));
-                if (svgStream != null) {
-                    try {
-                        SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
-                        svgConverterProperties.SetBaseUri(context.GetBaseUri()).SetFontProvider(context.GetFontProvider()).SetMediaDeviceDescription
-                            (context.GetDeviceDescription());
-                        res = SvgConverter.ParseAndProcess(svgStream, svgConverterProperties);
+                try {
+                    using (Stream svgStream = context.GetResourceResolver().RetrieveResourceAsInputStream(element.GetAttribute
+                        (AttributeConstants.DATA))) {
+                        if (svgStream != null) {
+                            try {
+                                SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
+                                svgConverterProperties.SetBaseUri(context.GetBaseUri()).SetFontProvider(context.GetFontProvider()).SetMediaDeviceDescription
+                                    (context.GetDeviceDescription());
+                                res = SvgConverter.ParseAndProcess(svgStream, svgConverterProperties);
+                            }
+                            catch (SvgProcessingException spe) {
+                                LOGGER.Error(spe.Message);
+                            }
+                        }
                     }
-                    catch (SvgProcessingException spe) {
-                        LOGGER.Error(spe.Message);
-                    }
-                    catch (System.IO.IOException) {
-                        LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
-                            , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA)));
-                    }
+                }
+                catch (System.IO.IOException) {
+                    LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+                        , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA)));
                 }
             }
         }
