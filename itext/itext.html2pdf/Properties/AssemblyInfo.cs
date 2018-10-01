@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Versions.Attributes;
 
 [assembly: AssemblyTitle("iText.Html2Pdf")]
 [assembly: AssemblyDescription("")]
@@ -26,6 +27,8 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 [assembly: Guid("ff6ba09d-3655-466a-8c17-a7bfd3479ca1")]
+
+[assembly: TypographyVersion("2.0.2.0")]
 
 [assembly: AssemblyVersion("2.1.1.0")]
 [assembly: AssemblyFileVersion("2.1.1.0")]
