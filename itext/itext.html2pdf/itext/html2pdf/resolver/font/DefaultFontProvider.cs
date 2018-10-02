@@ -131,11 +131,8 @@ namespace iText.Html2pdf.Resolver.Font {
             }
             if (klass != null) {
                 try {
-                    Type[] cArg = new Type[] { typeof(FontProvider) };
                     MethodInfo m = klass.GetMethod(methodName);
-                    // an empty array of arguments is needed for autoport
-                    Object[] args = new Object[] {  };
-                    List<byte[]> fontStreams = (List<byte[]>)m.Invoke(cArg, args);
+                    List<byte[]> fontStreams = (List<byte[]>)m.Invoke(null, null);
                     foreach (byte[] font in fontStreams) {
                         AddFont(font);
                     }
