@@ -147,7 +147,7 @@ namespace iText.Html2pdf.Css {
                 /* Test will fail after fix in DEVSIX-2024 */
                 RunTest("pageBreakInConstrainedDivTest");
             }
-            , NUnit.Framework.Throws.TypeOf<NotSupportedException>());
+            , NUnit.Framework.Throws.InstanceOf<NotSupportedException>())
 ;
         }
 
