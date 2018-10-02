@@ -37,9 +37,9 @@ namespace iText.Html2pdf.Resolver.Font {
                 HtmlConverter.ConvertToPdf(new FileInfo(workDirHtmlFile), new FileInfo(targetPdfFile));
             }
             // The resource must be freed after the conversion
-            FileInfo resourceToBeremoved = new FileInfo(workDirFontFile);
-            resourceToBeremoved.Delete();
-            NUnit.Framework.Assert.IsFalse(resourceToBeremoved.Exists);
+            FileInfo resourceToBeRemoved = new FileInfo(workDirFontFile);
+            resourceToBeRemoved.Delete();
+            NUnit.Framework.Assert.IsFalse(resourceToBeRemoved.Exists);
         }
     }
 }
