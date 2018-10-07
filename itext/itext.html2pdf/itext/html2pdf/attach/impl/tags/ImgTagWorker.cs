@@ -56,6 +56,7 @@ using iText.StyledXmlParser.Resolver.Resource;
 using iText.Svg.Converter;
 using iText.Svg.Exceptions;
 using iText.Svg.Processors;
+using iText.Svg.Processors.Impl;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -65,7 +66,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// </summary>
     public class ImgTagWorker : ITagWorker {
         /// <summary>The logger.</summary>
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(ObjectTagWorker));
+        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.ImgTagWorker
+            ));
 
         /// <summary>The image.</summary>
         private Image image;
@@ -90,14 +92,17 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 else {
                     byte[] resourceBytes = context.GetResourceResolver().RetrieveBytesFromResource(src);
                     if (resourceBytes != null) {
-                        Stream resourceStream = context.GetResourceResolver().RetrieveResourceAsInputStream(src);
-                        //Try with svg
                         try {
-                            ProcessAsSvg(resourceStream, context);
-                        }
-                        catch (SvgProcessingException) {
-                            LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context
-                                .GetBaseUri(), src));
+                            using (Stream resourceStream = context.GetResourceResolver().RetrieveResourceAsInputStream(src)) {
+                                //Try with svg
+                                try {
+                                    ProcessAsSvg(resourceStream, context);
+                                }
+                                catch (SvgProcessingException) {
+                                    LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context
+                                        .GetBaseUri(), src));
+                                }
+                            }
                         }
                         catch (System.IO.IOException) {
                             LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
@@ -125,7 +130,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <exception cref="System.IO.IOException"/>
         private void ProcessAsSvg(Stream stream, ProcessorContext context) {
             SvgProcessingUtil processingUtil = new SvgProcessingUtil();
-            ISvgProcessorResult res = SvgConverter.ParseAndProcess(stream);
+            SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
+            svgConverterProperties.SetBaseUri(context.GetBaseUri()).SetFontProvider(context.GetFontProvider()).SetMediaDeviceDescription
+                (context.GetDeviceDescription());
+            ISvgProcessorResult res = SvgConverter.ParseAndProcess(stream, svgConverterProperties);
             if (context.GetPdfDocument() != null) {
                 image = processingUtil.CreateImageFromProcessingResult(res, context.GetPdfDocument());
             }

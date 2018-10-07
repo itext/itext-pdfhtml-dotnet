@@ -42,7 +42,6 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
     public class VerticalAlignmentTest : ExtendedHtmlConversionITextTest {
@@ -54,7 +53,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            ITextTest.CreateOrClearDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -134,6 +133,30 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest12() {
             ConvertToPdfAndCompare("verticalAlignmentTest12", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1750")]
+        public virtual void VerticalAlignmentTest13() {
+            ConvertToPdfAndCompare("verticalAlignmentTest13", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1750")]
+        public virtual void VerticalAlignmentTest14() {
+            ConvertToPdfAndCompare("verticalAlignmentTest14", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-1750")]
+        public virtual void VerticalAlignmentTest15() {
+            ConvertToPdfAndCompare("verticalAlignmentTest15", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>

@@ -69,7 +69,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void CollectStylesDeclarationsTest01() {
             Test("collectStylesDeclarationsTest01.html", "html body p", "color: red", "text-align: center", "font-size: 11.25pt"
-                , "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times-roman"
+                , "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times"
                 );
         }
 
@@ -78,14 +78,14 @@ namespace iText.Html2pdf.Css {
         public virtual void CollectStylesDeclarationsTest02() {
             Test("collectStylesDeclarationsTest02.html", "html body p", "color: blue", "text-align: center", "font-style: italic"
                 , "font-size: 11.25pt", "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", 
-                "display: block", "font-family: times-roman");
+                "display: block", "font-family: times");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void CollectStylesDeclarationsTest03() {
             Test("collectStylesDeclarationsTest03.html", "html body p", "color: red", "text-align: right", "font-size: 7.5pt"
-                , "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times-roman"
+                , "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times"
                 );
         }
 
@@ -93,34 +93,34 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest01() {
             Test("stylesInheritanceTest01.html", "html body p span", "color: blue", "text-align: center", "font-style: italic"
-                , "font-size: 11.25pt", "font-family: times-roman");
+                , "font-size: 11.25pt", "font-family: times");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest02() {
             Test("stylesInheritanceTest02.html", "html body p span", "color: black", "text-align: center", "font-style: italic"
-                , "font-size: 11.25pt", "font-family: times-roman");
+                , "font-size: 11.25pt", "font-family: times");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest03() {
-            Test("stylesInheritanceTest03.html", "html body p span", "color: green", "font-size: 12.0pt", "font-family: times-roman"
+            Test("stylesInheritanceTest03.html", "html body p span", "color: green", "font-size: 12.0pt", "font-family: times"
                 );
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest04() {
-            Test("stylesInheritanceTest04.html", "html body p span", "color: blue", "font-size: 12.0pt", "font-family: times-roman"
+            Test("stylesInheritanceTest04.html", "html body p span", "color: blue", "font-size: 12.0pt", "font-family: times"
                 );
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest05() {
-            Test("stylesInheritanceTest05.html", "html body p span", "color: black", "font-size: 12.0pt", "font-family: times-roman"
+            Test("stylesInheritanceTest05.html", "html body p span", "color: black", "font-size: 12.0pt", "font-family: times"
                 );
         }
 
@@ -128,14 +128,14 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest06() {
             Test("stylesInheritanceTest06.html", "html body p span", "margin-left: 20px", "margin-right: 0", "background-color: yellow"
-                , "font-size: 12.0pt", "font-family: times-roman");
+                , "font-size: 12.0pt", "font-family: times");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest07() {
             Test("stylesInheritanceTest07.html", "html body div p span", "margin-left: 0", "padding-top: 10px", "background-color: yellow"
-                , "font-size: 12.0pt", "font-family: times-roman");
+                , "font-size: 12.0pt", "font-family: times");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -145,22 +145,21 @@ namespace iText.Html2pdf.Css {
                 , "border-left-style: dashed", "border-left-width: 5px", "border-right-style: dashed", "border-right-width: 5px"
                 , "border-top-style: dashed", "border-top-width: 5px", "border-bottom-color: red", "border-left-color: red"
                 , "border-right-color: red", "border-top-color: red", "font-size: 12.0pt", "margin-bottom: 1em", "margin-left: 0"
-                , "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times-roman");
+                , "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest01() {
             Test("htmlStylesConvertingTest01.html", "html body b p", "font-weight: bold", "font-size: 12.0pt", "margin-bottom: 1em"
-                , "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times-roman"
-                );
+                , "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times");
         }
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest02() {
             Test("htmlStylesConvertingTest01.html", "html body b i p", "font-weight: bold", "font-style: italic", "font-size: 12.0pt"
-                , "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times-roman"
+                , "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times"
                 );
         }
 
@@ -168,8 +167,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest03() {
             Test("htmlStylesConvertingTest01.html", "html body i p", "font-style: italic", "font-size: 12.0pt", "margin-bottom: 1em"
-                , "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times-roman"
-                );
+                , "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -177,7 +175,7 @@ namespace iText.Html2pdf.Css {
         public virtual void HtmlStylesConvertingTest04() {
             Test("htmlStylesConvertingTest01.html", "html body i center p", "font-style: italic", "text-align: center"
                 , "font-size: 12.0pt", "margin-bottom: 1em", "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block"
-                , "font-family: times-roman");
+                , "font-family: times");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -186,7 +184,7 @@ namespace iText.Html2pdf.Css {
             Test("htmlStylesConvertingTest05.html", "html body table", "border-bottom-style: solid", "border-left-style: solid"
                 , "border-right-style: solid", "border-top-style: solid", "border-bottom-width: 2px", "border-left-width: 2px"
                 , "border-right-width: 2px", "border-top-width: 2px", "font-size: 12.0pt", "margin-bottom: 0", "margin-left: 0"
-                , "margin-right: 0", "margin-top: 0", "text-indent: 0", "display: table", "border-spacing: 2px", "font-family: times-roman"
+                , "margin-right: 0", "margin-top: 0", "text-indent: 0", "display: table", "border-spacing: 2px", "font-family: times"
                 , "border-bottom-color: currentcolor", "border-left-color: currentcolor", "border-right-color: currentcolor"
                 , "border-top-color: currentcolor");
         }
@@ -195,7 +193,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest06() {
             Test("htmlStylesConvertingTest05.html", "html body table tbody tr", "background-color: yellow", "font-size: 12.0pt"
-                , "text-indent: 0", "vertical-align: middle", "display: table-row", "border-spacing: 2px", "font-family: times-roman"
+                , "text-indent: 0", "vertical-align: middle", "display: table-row", "border-spacing: 2px", "font-family: times"
                 );
         }
 
@@ -217,7 +215,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest09() {
             Test("htmlStylesConvertingTest08.html", "html body div center", "text-align: center", "display: block", "font-size: 12.0pt"
-                , "font-family: times-roman");
+                , "font-family: times");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -231,7 +229,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest11() {
             Test("htmlStylesConvertingTest10.html", "html body", "background-color: yellow", "font-size: 12.0pt", "display: block"
-                , "font-family: times-roman");
+                , "font-family: times");
         }
 
         private void ResolveStylesForTree(INode node, ICssResolver cssResolver, CssContext context) {

@@ -138,6 +138,14 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void WhiteSpaceTest03() {
+            // TODO DEVSIX-1896
+            ConvertToPdfAndCompare("whiteSpaceTest03", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void EnspEmspThinspTest01() {
             ConvertToPdfAndCompare("enspEmspThinspTest01", sourceFolder, destinationFolder);
         }

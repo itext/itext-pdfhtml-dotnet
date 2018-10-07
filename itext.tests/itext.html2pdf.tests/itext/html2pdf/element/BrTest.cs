@@ -98,6 +98,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BrInsideDifferentTagsTest01() {
+            // TODO DEVSIX-2092
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "brInsideDifferentTagsTest01.html"), new FileInfo(destinationFolder
                  + "brInsideDifferentTagsTest01.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "brInsideDifferentTagsTest01.pdf"

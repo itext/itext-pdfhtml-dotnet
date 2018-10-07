@@ -41,8 +41,13 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using Common.Logging;
+using Versions.Attributes;
 using iText.IO.Util;
+using iText.Layout.Font;
 using iText.StyledXmlParser.Resolver.Font;
 
 namespace iText.Html2pdf.Resolver.Font {
@@ -54,6 +59,10 @@ namespace iText.Html2pdf.Resolver.Font {
     /// series of fonts that are shipped with the add-on.
     /// </summary>
     public class DefaultFontProvider : BasicFontProvider {
+        /// <summary>The logger.</summary>
+        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Resolver.Font.DefaultFontProvider
+            ));
+
         /// <summary>The path to the shipped fonts.</summary>
         private const String SHIPPED_FONT_RESOURCE_PATH = "iText.Html2Pdf.font.";
 
@@ -61,6 +70,9 @@ namespace iText.Html2pdf.Resolver.Font {
         private static readonly String[] SHIPPED_FONT_NAMES = new String[] { "FreeMono.ttf", "FreeMonoBold.ttf", "FreeMonoBoldOblique.ttf"
             , "FreeMonoOblique.ttf", "FreeSans.ttf", "FreeSansBold.ttf", "FreeSansBoldOblique.ttf", "FreeSansOblique.ttf"
             , "FreeSerif.ttf", "FreeSerifBold.ttf", "FreeSerifBoldItalic.ttf", "FreeSerifItalic.ttf" };
+
+        private static readonly Range FREE_FONT_RANGE = new RangeBuilder().AddRange(0, 0x058F).AddRange(0x0E80, int.MaxValue
+            ).Create();
 
         /// <summary>
         /// Creates a new
@@ -85,22 +97,102 @@ namespace iText.Html2pdf.Resolver.Font {
         public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFreeFonts, bool registerSystemFonts
             )
             : base(registerStandardPdfFonts, registerSystemFonts) {
+            // This range exclude Hebrew, Arabic, Syriac, Arabic Supplement, Thaana, NKo, Samaritan,
+            // Mandaic, Syriac Supplement, Arabic Extended-A, Devanagari, Bengali, Gurmukhi, Gujarati,
+            // Oriya, Tamil, Telugu, Kannada, Malayalam, Sinhala, Thai unicode blocks.
+            // Those blocks either require pdfCalligraph or do not supported by GNU Free Fonts.
             if (registerShippedFreeFonts) {
-                AddShippedFreeFonts();
+                AddShippedFreeFonts(AddCalligraphFonts());
             }
         }
 
         /// <summary>Adds the shipped free fonts.</summary>
-        private void AddShippedFreeFonts() {
+        private void AddShippedFreeFonts(Range rangeToLoad) {
             foreach (String fontName in SHIPPED_FONT_NAMES) {
-                Stream stream = ResourceUtil.GetResourceStream(SHIPPED_FONT_RESOURCE_PATH + fontName);
                 try {
-                    byte[] fontProgramBytes = StreamUtil.InputStreamToArray(stream);
-                    AddFont(fontProgramBytes);
+                    using (Stream stream = ResourceUtil.GetResourceStream(SHIPPED_FONT_RESOURCE_PATH + fontName)) {
+                        byte[] fontProgramBytes = StreamUtil.InputStreamToArray(stream);
+                        AddFont(fontProgramBytes, null, rangeToLoad);
+                    }
                 }
                 catch (Exception) {
+                    LOGGER.Error(iText.Html2pdf.LogMessageConstant.ERROR_LOADING_FONT);
                 }
             }
+        }
+
+        private Range AddCalligraphFonts() {
+            String methodName = "LoadShippedFonts";
+            Type klass = null;
+            try {
+                klass = GetTypographyUtilsClass();
+            }
+            catch (TypeLoadException) {
+            }
+            if (klass != null) {
+                try {
+                    MethodInfo m = klass.GetMethod(methodName);
+                    List<byte[]> fontStreams = (List<byte[]>)m.Invoke(null, null);
+                    foreach (byte[] font in fontStreams) {
+                        AddFont(font);
+                    }
+                    // here we return a unicode range that excludes the loaded from the calligraph module fonts
+                    // i.e. the unicode range that is to be rendered with standard or shipped free fonts
+                    return FREE_FONT_RANGE;
+                }
+                catch (Exception) {
+                    LOGGER.Error(iText.Html2pdf.LogMessageConstant.ERROR_LOADING_FONT);
+                }
+            }
+            return null;
+        }
+
+        private static Type GetTypographyUtilsClass() {
+            String partialName = "iText.Typography.Util.TypographyShippedFontsUtil, iText.Typography";
+            String classFullName = null;
+
+            Assembly html2pdfAssembly = typeof(DefaultFontProvider).GetAssembly();
+            try {
+                Attribute customAttribute = html2pdfAssembly.GetCustomAttribute(typeof(TypographyVersionAttribute));
+                if (customAttribute is TypographyVersionAttribute) {
+                    string typographyVersion = ((TypographyVersionAttribute) customAttribute).TypographyVersion;
+                    string format = "{0}, Version={1}, Culture=neutral, PublicKeyToken=8354ae6d2174ddca";
+                    classFullName = String.Format(format, partialName, typographyVersion);
+                }
+            } catch (Exception ignored) {
+            }
+
+            Type type = null;
+            if (classFullName != null) {
+                String fileLoadExceptionMessage = null;
+                try {
+                    type = System.Type.GetType(classFullName);
+                } catch (FileLoadException fileLoadException) {
+                    fileLoadExceptionMessage = fileLoadException.Message;
+                }
+                if (type == null) {
+                    // try to find typography assembly by it's partial name and check if it refers to current version of itext core
+                    try {
+                        type = System.Type.GetType(partialName);
+                    } catch {
+                        // ignore
+                    }
+                    if (type != null) {
+                        bool doesReferToCurrentVersionOfCore = false;
+                        foreach (AssemblyName assemblyName in type.GetAssembly().GetReferencedAssemblies()) {
+                            if ("itext.io".Equals(assemblyName.Name)) {
+                                doesReferToCurrentVersionOfCore = assemblyName.Version.Equals(html2pdfAssembly.GetName().Version);
+                                break;
+                            }
+                        }
+                        if (!doesReferToCurrentVersionOfCore) {
+                            type = null;
+                        }
+                    }
+                }
+            }
+
+            return type;
         }
     }
 }

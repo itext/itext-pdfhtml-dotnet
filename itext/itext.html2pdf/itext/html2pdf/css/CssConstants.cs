@@ -107,7 +107,7 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant VERTICAL_ALIGN.</summary>
         public const String VERTICAL_ALIGN = "vertical-align";
 
-        /// <summary>The Constant VISIBILITY.</summary>
+        /// <summary>The Constant VISIBLE.</summary>
         public const String VISIBLE = "visible";
 
         /// <summary>The Constant MAX_WIDTH.</summary>

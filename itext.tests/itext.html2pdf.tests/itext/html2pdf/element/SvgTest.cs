@@ -44,6 +44,7 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.Kernel.Utils;
+using iText.Svg.Exceptions;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -147,10 +148,65 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 4)]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, Count = 
+            1)]
+        public virtual void ExternalObjectWithResourceTest() {
+            // TODO DEVSIX-2338: image inside the SVG cannot be resolved because baseUri is not passed correctly in ObjectTagWorker: processUtil.createImageFromProcessingResult(res,document)
+            String name = "external_object_with_resource";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
         public virtual void ExternalObjectNonExistentRefTest() {
             String name = "external_objectNonExistentRef";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(SvgLogMessageConstant.MISSING_WIDTH)]
+        [LogMessage(SvgLogMessageConstant.MISSING_HEIGHT)]
+        public virtual void SvgWithoutDimensionsTest() {
+            String name = "svg_without_dimensions";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(SvgLogMessageConstant.MISSING_WIDTH)]
+        [LogMessage(SvgLogMessageConstant.MISSING_HEIGHT)]
+        public virtual void SvgWithoutDimensionsWithViewboxTest() {
+            String name = "svg_without_dimensions_with_viewbox";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(SvgLogMessageConstant.MISSING_WIDTH, Count = 2)]
+        [LogMessage(SvgLogMessageConstant.MISSING_HEIGHT, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 6)]
+        public virtual void SvgWithoutDimensionsImageAndObjectRef() {
+            String name = "SvgWithoutDimensionsImageAndObjectRef";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder

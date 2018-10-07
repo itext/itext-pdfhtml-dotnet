@@ -463,6 +463,25 @@ namespace iText.Html2pdf
             }
         }
 
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
+        public void ResourceResolverTest18()
+        {
+            String baseUri = sourceFolder;
+            String outPdf = destinationFolder + "resourceResolverTest18.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverTest18.pdf";
+            using (
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest18.html", FileMode.Open,
+                        FileAccess.Read),
+                    fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
+                    new ConverterProperties().SetBaseUri(baseUri));
+                NUnit.Framework.Assert.IsNull(
+                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff18_"));
+            }
+        }
+
 
         // TODO test with absolute http links for resources?
         // TODO test with http base URI?

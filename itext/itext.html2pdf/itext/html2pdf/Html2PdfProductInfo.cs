@@ -52,7 +52,7 @@ namespace iText.Html2pdf {
         public const int MAJOR_VERSION = 2;
 
         /// <summary>The minor version number.</summary>
-        public const int MINOR_VERSION = 0;
+        public const int MINOR_VERSION = 1;
         // TODO refactor? move to local fields in order to hide it?
     }
 }
