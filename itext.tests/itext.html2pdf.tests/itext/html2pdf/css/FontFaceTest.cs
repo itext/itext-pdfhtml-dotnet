@@ -279,7 +279,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CannotProcessSpecifiedFontTest01() {
-            // TODO DEVSIX-1760
             RunTest("cannotProcessSpecifiedFontTest01");
         }
 
@@ -319,7 +318,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TexFonts01() {
-            // TODO DEVSIX-1953
             RunTest("texFonts01");
         }
 
