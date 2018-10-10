@@ -141,6 +141,14 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void PageBreakInsideAvoidTest01() {
+            //Test will fail after fix in DEVSIX-2332
+            RunTest("pageBreakInsideAvoidTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT)]
         public virtual void PageBreakInConstrainedDivTest() {
             NUnit.Framework.Assert.That(() =>  {
