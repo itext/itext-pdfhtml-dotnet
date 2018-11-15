@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach.Util;
+using iText.IO.Util;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 
@@ -73,6 +74,16 @@ namespace iText.Html2pdf.Attach.Wrapelement {
 
         /// <summary>The number of columns.</summary>
         private int numberOfColumns = 0;
+
+        /// <summary>The direction value.</summary>
+        private bool isRtl = false;
+
+        public TableWrapper() {
+        }
+
+        public TableWrapper(bool isRtl) {
+            this.isRtl = isRtl;
+        }
 
         /// <summary>Gets the number of rows.</summary>
         /// <returns>the number of rows</returns>
@@ -174,6 +185,9 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             }
             if (headerRows != null) {
                 for (int i = 0; i < headerRows.Count; i++) {
+                    if (isRtl) {
+                        JavaCollectionsUtil.Reverse(headerRows[i]);
+                    }
                     for (int j = 0; j < headerRows[i].Count; j++) {
                         table.AddHeaderCell(headerRows[i][j].cell);
                     }
@@ -184,6 +198,9 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             }
             if (footerRows != null) {
                 for (int i = 0; i < footerRows.Count; i++) {
+                    if (isRtl) {
+                        JavaCollectionsUtil.Reverse(footerRows[i]);
+                    }
                     for (int j = 0; j < footerRows[i].Count; j++) {
                         table.AddFooterCell(footerRows[i][j].cell);
                     }
@@ -194,6 +211,9 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             }
             if (rows != null) {
                 for (int i = 0; i < rows.Count; i++) {
+                    if (isRtl) {
+                        JavaCollectionsUtil.Reverse(rows[i]);
+                    }
                     for (int j = 0; j < rows[i].Count; j++) {
                         table.AddCell(rows[i][j].cell);
                     }

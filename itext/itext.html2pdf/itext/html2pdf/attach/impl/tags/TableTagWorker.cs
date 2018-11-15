@@ -85,7 +85,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public TableTagWorker(IElementNode element, ProcessorContext context) {
-            tableWrapper = new TableWrapper();
+            String str = element.GetStyles().Get(CssConstants.DIRECTION);
+            bool isRtl = "rtl".Equals(str);
+            tableWrapper = new TableWrapper(isRtl);
             parentTagWorker = context.GetState().Empty() ? null : context.GetState().Top();
             if (parentTagWorker is iText.Html2pdf.Attach.Impl.Tags.TableTagWorker) {
                 ((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)parentTagWorker).ApplyColStyles();
