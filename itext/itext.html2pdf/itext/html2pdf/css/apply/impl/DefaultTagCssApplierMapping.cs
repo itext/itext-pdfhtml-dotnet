@@ -147,6 +147,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             String placeholderPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.PLACEHOLDER
                 );
             mapping.PutMapping(placeholderPseudoElemName, typeof(PlaceholderCssApplier));
+            mapping.PutMapping(TagConstants.DIV, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.UL, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.LI, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, typeof(BlockCssApplier));
