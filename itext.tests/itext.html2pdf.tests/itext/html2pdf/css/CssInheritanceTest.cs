@@ -103,5 +103,12 @@ namespace iText.Html2pdf.Css {
         public virtual void CssInheritanceTest06() {
             ConvertToPdfAndCompare("cssInheritance06", sourceFolder, destinationFolder);
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CssFontFamilyInheritanceTest01() {
+            ConvertToPdfAndCompare("cssFontFamilyInheritanceTest01", sourceFolder, destinationFolder);
+        }
     }
 }
