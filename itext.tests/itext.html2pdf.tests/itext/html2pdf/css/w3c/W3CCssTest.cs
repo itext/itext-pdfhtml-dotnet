@@ -77,9 +77,14 @@ namespace iText.Html2pdf.Css.W3c {
             String outFilePath = destinationFolder + GetOutPdfFileName();
             String cmpFilePath = sourceFolder + GetOutPdfFileName();
             System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlFilePath).AbsolutePath + "\n");
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlFilePath), new FileInfo(outFilePath));
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlFilePath), new FileInfo(outFilePath), GetConverterProperties()
+                );
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFilePath, cmpFilePath, destinationFolder
                 , "diff_"));
+        }
+
+        protected internal virtual ConverterProperties GetConverterProperties() {
+            return null;
         }
 
         private String GetDestinationFolder() {
