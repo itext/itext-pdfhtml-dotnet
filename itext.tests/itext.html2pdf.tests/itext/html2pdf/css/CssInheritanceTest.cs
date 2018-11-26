@@ -42,7 +42,6 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class CssInheritanceTest : ExtendedHtmlConversionITextTest {
@@ -68,7 +67,6 @@ namespace iText.Html2pdf.Css {
         //ex value inherited
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
-        [LogMessage(iText.Html2pdf.LogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN)]
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest02() {
             ConvertToPdfAndCompare("cssInheritance02", sourceFolder, destinationFolder);

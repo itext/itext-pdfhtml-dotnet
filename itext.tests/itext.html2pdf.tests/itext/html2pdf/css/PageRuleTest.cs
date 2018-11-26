@@ -785,6 +785,13 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void MarginBoxMultilineTest04() {
+            RunTest("marginBoxMultilineTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void WrongPageRuleCssStructureTest() {
             NUnit.Framework.Assert.That(() =>  {
                 RunTest("wrongPageRuleCssStructureTest");

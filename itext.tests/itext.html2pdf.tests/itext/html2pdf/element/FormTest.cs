@@ -79,8 +79,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, Count = 2)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Count = 2)]
         public virtual void ForcedSplitTextFieldTest() {
             RunTest("forcedSplitTextField");
         }

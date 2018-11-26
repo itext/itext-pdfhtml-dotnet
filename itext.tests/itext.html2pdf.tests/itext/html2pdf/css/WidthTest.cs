@@ -42,7 +42,6 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class WidthTest : ExtendedHtmlConversionITextTest {
@@ -111,7 +110,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED, Count = 2)]
         public virtual void RelativeInlineBlockWidthWithTextIndentTest03() {
             ConvertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest03", sourceFolder, destinationFolder);
         }

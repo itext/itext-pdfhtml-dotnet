@@ -77,6 +77,8 @@ namespace iText.Html2pdf.Css.Resolve {
                 ());
             htmlAttributeConverters.Put(AttributeConstants.NOSHADE, new HtmlStylesToCssConverter.NoShadeAttributeConverter
                 ());
+            htmlAttributeConverters.Put(AttributeConstants.NOWRAP, new HtmlStylesToCssConverter.NoWrapAttributeConverter
+                ());
             htmlAttributeConverters.Put(AttributeConstants.TYPE, new HtmlStylesToCssConverter.TypeAttributeConverter()
                 );
             htmlAttributeConverters.Put(AttributeConstants.WIDTH, new HtmlStylesToCssConverter.WidthAttributeConverter
@@ -604,6 +606,27 @@ namespace iText.Html2pdf.Css.Resolve {
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, "2px"), new CssDeclaration(CssConstants
                     .BORDER_WIDTH, "0"), new CssDeclaration(CssConstants.BACKGROUND_COLOR, "gray"));
+            }
+        }
+
+        /// <summary>
+        /// <see cref="IAttributeConverter"/>
+        /// implementation for HTML shade styles.
+        /// </summary>
+        private class NoWrapAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
+            public virtual bool IsSupportedForElement(String elementName) {
+                return TagConstants.TD.Equals(elementName) || TagConstants.TH.Equals(elementName);
+            }
+
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
+            */
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
+                return JavaCollectionsUtil.SingletonList(new CssDeclaration(CssConstants.WHITE_SPACE, CssConstants.NOWRAP)
+                    );
             }
         }
 

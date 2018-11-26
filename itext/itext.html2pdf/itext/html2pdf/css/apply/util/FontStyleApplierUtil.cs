@@ -143,6 +143,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
             }
+            String whiteSpace = cssProps.Get(CssConstants.WHITE_SPACE);
+            element.SetProperty(Property.NO_SOFT_WRAP_INLINE, CssConstants.NOWRAP.Equals(whiteSpace) || CssConstants.PRE
+                .Equals(whiteSpace));
             String textDecorationProp = cssProps.Get(CssConstants.TEXT_DECORATION);
             if (textDecorationProp != null) {
                 String[] textDecorations = iText.IO.Util.StringUtil.Split(textDecorationProp, "\\s+");

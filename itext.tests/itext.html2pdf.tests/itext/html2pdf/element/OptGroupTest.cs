@@ -116,8 +116,15 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupWidthTest01() {
-            // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
             ConvertToPdfAndCompare("optGroupWidthTest01", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void OptGroupWidthTest02() {
+            // TODO DEVSIX-2444 select props parsing essentially neglects whitespace pre
+            ConvertToPdfAndCompare("optGroupWidthTest02", sourceFolder, destinationFolder);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -131,7 +138,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void OptGroupOverflowTest02() {
-            // TODO DEVSIX-1896 Support "nowrap" value of "white-space" css property value
             ConvertToPdfAndCompare("optGroupOverflowTest02", sourceFolder, destinationFolder);
         }
 

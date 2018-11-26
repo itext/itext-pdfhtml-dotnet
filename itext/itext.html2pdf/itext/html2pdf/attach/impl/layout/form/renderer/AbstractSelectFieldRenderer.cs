@@ -68,7 +68,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         public AbstractSelectFieldRenderer(AbstractSelectField modelElement)
             : base(modelElement) {
             AddChild(CreateFlatRenderer());
-            SetProperty(Property.SPLIT_CHARACTERS, new AbstractSelectFieldRenderer.NoSplitCharacters());
             if (!IsFlatten()) {
                 // TODO DEVSIX-1901
                 ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.AbstractSelectFieldRenderer
