@@ -94,7 +94,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         backgroundImage = new BackgroundImage((PdfImageXObject)image, repeatX, repeatY);
                     }
                     else {
-                        throw new InvalidOperationException();
+                        if (image is PdfFormXObject) {
+                            backgroundImage = new BackgroundImage((PdfFormXObject)image, repeatX, repeatY);
+                        }
+                        else {
+                            throw new InvalidOperationException();
+                        }
                     }
                     element.SetProperty(Property.BACKGROUND_IMAGE, backgroundImage);
                 }
