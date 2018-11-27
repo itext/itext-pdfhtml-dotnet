@@ -201,6 +201,14 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 3)]
+        public virtual void ListTest20() {
+            RunTest("listTest20");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-2431")]
         public virtual void ListItemAbsolutePositionTest() {
             RunTest("list-item-absolute");

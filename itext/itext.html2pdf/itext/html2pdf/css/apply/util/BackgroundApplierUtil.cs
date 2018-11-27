@@ -78,7 +78,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String backgroundImageStr = cssProps.Get(CssConstants.BACKGROUND_IMAGE);
             if (backgroundImageStr != null && !backgroundImageStr.Equals(CssConstants.NONE)) {
                 String backgroundRepeatStr = cssProps.Get(CssConstants.BACKGROUND_REPEAT);
-                PdfImageXObject image = context.GetResourceResolver().RetrieveImage(CssUtils.ExtractUrl(backgroundImageStr
+                PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImageStr
                     ));
                 bool repeatX = true;
                 bool repeatY = true;
@@ -89,7 +89,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         );
                 }
                 if (image != null) {
-                    BackgroundImage backgroundImage = new BackgroundImage(image, repeatX, repeatY);
+                    BackgroundImage backgroundImage = null;
+                    if (image is PdfImageXObject) {
+                        backgroundImage = new BackgroundImage((PdfImageXObject)image, repeatX, repeatY);
+                    }
+                    else {
+                        throw new InvalidOperationException();
+                    }
                     element.SetProperty(Property.BACKGROUND_IMAGE, backgroundImage);
                 }
             }

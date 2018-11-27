@@ -122,7 +122,7 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
         public virtual void ExternalImageNonExistentRefTest() {
             String name = "external_img_nonExistentRef";
@@ -206,7 +206,7 @@ namespace iText.Html2pdf.Element {
         [LogMessage(SvgLogMessageConstant.MISSING_HEIGHT, Count = 2)]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 6)]
         public virtual void SvgWithoutDimensionsImageAndObjectRef() {
-            String name = "SvgWithoutDimensionsImageAndObjectRef";
+            String name = "svgWithoutDimensionsImageAndObjectRef";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
