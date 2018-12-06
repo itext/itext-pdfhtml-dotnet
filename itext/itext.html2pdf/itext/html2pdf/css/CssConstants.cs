@@ -246,7 +246,7 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant OVERFLOW_VALUES.</summary>
         public static readonly ICollection<String> OVERFLOW_VALUES = new HashSet<String>(JavaUtil.ArraysAsList(new 
-            String[] { VISIBLE, HIDDEN }));
+            String[] { VISIBLE, HIDDEN, SCROLL, AUTO }));
 
         /// <summary>The Constant AFTER.</summary>
         public const String AFTER = "after";
