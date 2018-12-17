@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Test;
 
@@ -61,72 +62,75 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        private void TestWithSuffix(String testIndex) {
+            String htmlFile = sourceFolder + MessageFormatUtil.Format("spanTest{0}.html", testIndex);
+            String pdfFile = destinationFolder + MessageFormatUtil.Format("spanTest{0}.pdf", testIndex);
+            String cmpFile = sourceFolder + MessageFormatUtil.Format("cmp_spanTest{0}.pdf", testIndex);
+            String diff = MessageFormatUtil.Format("diff{0}_", testIndex);
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlFile), new FileInfo(pdfFile));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfFile, cmpFile, destinationFolder, diff
+                ));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void Test(String testName) {
+            String htmlFile = sourceFolder + testName + ".html";
+            String pdfFile = destinationFolder + testName + ".pdf";
+            String cmpFile = sourceFolder + MessageFormatUtil.Format("cmp_{0}.pdf", testName);
+            String diff = MessageFormatUtil.Format("diff_{0}_", testName);
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlFile), new FileInfo(pdfFile));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfFile, cmpFile, destinationFolder, diff
+                ));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest01.html"), new FileInfo(destinationFolder 
-                + "spanTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest01.pdf", sourceFolder
-                 + "cmp_spanTest01.pdf", destinationFolder, "diff01_"));
+            TestWithSuffix("01");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest02() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest02.html"), new FileInfo(destinationFolder 
-                + "spanTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest02.pdf", sourceFolder
-                 + "cmp_spanTest02.pdf", destinationFolder, "diff02_"));
+            TestWithSuffix("02");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest03() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest03.html"), new FileInfo(destinationFolder 
-                + "spanTest03.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest03.pdf", sourceFolder
-                 + "cmp_spanTest03.pdf", destinationFolder, "diff03_"));
+            TestWithSuffix("03");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest04() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest04.html"), new FileInfo(destinationFolder 
-                + "spanTest04.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest04.pdf", sourceFolder
-                 + "cmp_spanTest04.pdf", destinationFolder, "diff04_"));
+            TestWithSuffix("04");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest05() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest05.html"), new FileInfo(destinationFolder 
-                + "spanTest05.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest05.pdf", sourceFolder
-                 + "cmp_spanTest05.pdf", destinationFolder, "diff05_"));
+            TestWithSuffix("05");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest06() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest06.html"), new FileInfo(destinationFolder 
-                + "spanTest06.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest06.pdf", sourceFolder
-                 + "cmp_spanTest06.pdf", destinationFolder, "diff06_"));
+            TestWithSuffix("06");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest07() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest07.html"), new FileInfo(destinationFolder 
-                + "spanTest07.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest07.pdf", sourceFolder
-                 + "cmp_spanTest07.pdf", destinationFolder, "diff07_"));
+            TestWithSuffix("07");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -134,62 +138,86 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void SpanTest08() {
             // TODO DEVSIX-1438
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest08.html"), new FileInfo(destinationFolder 
-                + "spanTest08.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest08.pdf", sourceFolder
-                 + "cmp_spanTest08.pdf", destinationFolder, "diff08_"));
+            TestWithSuffix("08");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest09() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest09.html"), new FileInfo(destinationFolder 
-                + "spanTest09.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest09.pdf", sourceFolder
-                 + "cmp_spanTest09.pdf", destinationFolder, "diff09_"));
+            TestWithSuffix("09");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest10() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest10.html"), new FileInfo(destinationFolder 
-                + "spanTest10.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest10.pdf", sourceFolder
-                 + "cmp_spanTest10.pdf", destinationFolder, "diff10_"));
+            TestWithSuffix("10");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest11() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest11.html"), new FileInfo(destinationFolder 
-                + "spanTest11.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest11.pdf", sourceFolder
-                 + "cmp_spanTest11.pdf", destinationFolder, "diff11_"));
+            TestWithSuffix("11");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-2118")]
         public virtual void SpanTest12() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest12.html"), new FileInfo(destinationFolder 
-                + "spanTest12.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest12.pdf", sourceFolder
-                 + "cmp_spanTest12.pdf", destinationFolder, "diff12_"));
+            TestWithSuffix("12");
         }
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-2118")]
         public virtual void SpanTest13() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "spanTest13.html"), new FileInfo(destinationFolder 
-                + "spanTest13.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "spanTest13.pdf", sourceFolder
-                 + "cmp_spanTest13.pdf", destinationFolder, "diff13_"));
+            TestWithSuffix("13");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SpanInsideSpanWithBackgroundTest() {
+            Test("spanInsideSpanWithBackground");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SpanWithLeftFloatInsideSpanWithBackgroundTest() {
+            Test("spanWithLeftFloatInsideSpanWithBackground");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SpanWithFloatsInsideSpanWithBackgroundAndFloatTest() {
+            Test("spanWithFloatsInsideSpanWithBackgroundAndFloat");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CommonNestedSpanTest() {
+            Test("commonNestedSpanTest");
+        }
+
+        // TODO: update cmp files during DEVSIX-2510
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SpanTestNestedBlock() {
+            Test("spanTestNestedBlock");
+        }
+
+        // TODO: update cmp files during DEVSIX-2510
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SpanTestNestedInlineBlock() {
+            Test("spanTestNestedInlineBlock");
         }
     }
 }
