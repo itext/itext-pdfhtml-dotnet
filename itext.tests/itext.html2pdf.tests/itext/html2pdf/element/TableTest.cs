@@ -474,6 +474,69 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void SeparatedTablesWithDifferentCaptionsTest01() {
+            RunTest("separatedTableWithDifferentCaptionsTest01", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CollapsedTablesWithDifferentCaptionsTest01() {
+            RunTest("collapsedTablesWithDifferentCaptionsTest01", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CaptionWithTextAlignTest01() {
+            RunTest("captionWithTextAlignTest01", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void WideCaptionTest01() {
+            RunTest("wideCaptionTest01", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void WideCaptionTest02() {
+            RunTest("wideCaptionTest02", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void WideTableWithCaptionTest01() {
+            RunTest("wideTableWithCaptionTest01", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void WideTableWithCaptionTest02() {
+            RunTest("wideTableWithCaptionTest02", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CaptionSideTest01() {
+            RunTest("captionSideTest01", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CaptionSideSetAsAlignTest01() {
+            RunTest("captionSideSetAsAlignTest01", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void TableCellMinWidthRightAlignmentTest() {
             RunConvertToElements("tableCellMinWidthRightAlignmentTest", false);
         }

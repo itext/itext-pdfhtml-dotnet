@@ -78,6 +78,9 @@ namespace iText.Html2pdf.Attach.Wrapelement {
         /// <summary>The direction value.</summary>
         private bool isRtl = false;
 
+        /// <summary>The caption value.</summary>
+        private Div caption = null;
+
         public TableWrapper() {
         }
 
@@ -167,6 +170,12 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             numberOfColumns = Math.Max(numberOfColumns, col + cell.GetColspan());
         }
 
+        /// <summary>Sets the table's caption.</summary>
+        /// <param name="caption">the caption to be set</param>
+        public virtual void SetCaption(Div caption) {
+            this.caption = caption;
+        }
+
         /// <summary>
         /// Renders all the rows to a
         /// <see cref="iText.Layout.Element.Table"/>
@@ -221,6 +230,9 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                         table.StartNewRow();
                     }
                 }
+            }
+            if (caption != null) {
+                table.SetCaption(caption);
             }
             return table;
         }

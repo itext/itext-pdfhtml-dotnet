@@ -164,6 +164,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                             return true;
                         }
                     }
+                    else {
+                        if (childTagWorker is CaptionTagWorker) {
+                            tableWrapper.SetCaption((Div)childTagWorker.GetElementResult());
+                            return true;
+                        }
+                    }
                 }
             }
             return false;

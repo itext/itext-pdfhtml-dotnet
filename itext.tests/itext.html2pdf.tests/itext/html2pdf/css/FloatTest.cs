@@ -634,6 +634,14 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 1)]
+        public virtual void FloatCaption01Test() {
+            RunTest("floatCaption01Test", "diff_floatCaption01Test_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String testName, String diff) {
             String htmlName = sourceFolder + testName + ".html";
             String outFileName = destinationFolder + testName + ".pdf";

@@ -75,7 +75,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.BLOCKQUOTE, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.BODY, typeof(BodyTagCssApplier));
             mapping.PutMapping(TagConstants.BUTTON, typeof(BlockCssApplier));
-            //mapping.putMapping(TagConstants.CAPTION, SpanTagCssApplier.class);
+            mapping.PutMapping(TagConstants.CAPTION, typeof(CaptionCssApplier));
             mapping.PutMapping(TagConstants.CENTER, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.CITE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.CODE, typeof(SpanTagCssApplier));

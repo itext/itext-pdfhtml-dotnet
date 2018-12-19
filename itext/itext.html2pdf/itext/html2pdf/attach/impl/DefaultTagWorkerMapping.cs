@@ -56,14 +56,6 @@ namespace iText.Html2pdf.Attach.Impl {
     /// .
     /// </summary>
     internal class DefaultTagWorkerMapping {
-        /// <summary>
-        /// Instantiates a new
-        /// <see cref="DefaultTagWorkerMapping"/>
-        /// instance.
-        /// </summary>
-        private DefaultTagWorkerMapping() {
-        }
-
         /// <summary>The worker mapping.</summary>
         private static TagProcessorMapping workerMapping;
 
@@ -81,6 +73,7 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.BODY, typeof(BodyTagWorker));
             workerMapping.PutMapping(TagConstants.BR, typeof(BrTagWorker));
             workerMapping.PutMapping(TagConstants.BUTTON, typeof(ButtonTagWorker));
+            workerMapping.PutMapping(TagConstants.CAPTION, typeof(CaptionTagWorker));
             workerMapping.PutMapping(TagConstants.CENTER, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.CITE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.CODE, typeof(SpanTagWorker));
@@ -194,6 +187,14 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <returns>the default mapping</returns>
         internal static TagProcessorMapping GetDefaultTagWorkerMapping() {
             return workerMapping;
+        }
+
+        /// <summary>
+        /// Instantiates a new
+        /// <see cref="DefaultTagWorkerMapping"/>
+        /// instance.
+        /// </summary>
+        private DefaultTagWorkerMapping() {
         }
     }
 }

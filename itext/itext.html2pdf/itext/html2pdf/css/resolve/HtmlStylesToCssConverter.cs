@@ -531,7 +531,7 @@ namespace iText.Html2pdf.Css.Resolve {
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.HR.Equals(elementName) || TagConstants.TABLE.Equals(elementName) || TagConstants.IMG.Equals
                     (elementName) || TagConstants.TD.Equals(elementName) || TagConstants.DIV.Equals(elementName) || TagConstants
-                    .P.Equals(elementName);
+                    .P.Equals(elementName) || TagConstants.CAPTION.Equals(elementName);
             }
 
             /* (non-Javadoc)
@@ -578,10 +578,15 @@ namespace iText.Html2pdf.Css.Resolve {
                         }
                     }
                     else {
-                        // TODO in fact, align attribute also affects horizontal alignment of all child blocks (not only direct children),
-                        // however this effect conflicts in queer manner with 'text-align' property if it set on the same blocks explicitly via CSS
-                        // (see HorizontalAlignmentTest#alignAttribute01)
-                        result.Add(new CssDeclaration(CssConstants.TEXT_ALIGN, value));
+                        if (TagConstants.CAPTION.Equals(element.Name())) {
+                            result.Add(new CssDeclaration(CssConstants.CAPTION_SIDE, value));
+                        }
+                        else {
+                            // TODO in fact, align attribute also affects horizontal alignment of all child blocks (not only direct children),
+                            // however this effect conflicts in queer manner with 'text-align' property if it set on the same blocks explicitly via CSS
+                            // (see HorizontalAlignmentTest#alignAttribute01)
+                            result.Add(new CssDeclaration(CssConstants.TEXT_ALIGN, value));
+                        }
                     }
                 }
                 return result;
