@@ -201,9 +201,43 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 3)]
-        public virtual void ListTest20() {
-            RunTest("listTest20");
+        public virtual void ListLiValuePropertyTest() {
+            RunTest("listLiValuePropertyTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ListStartPropertyTest() {
+            RunTest("listStartPropertyTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ListItemValueTest() {
+            RunTest("listItemValueTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ListItemValueTest01() {
+            RunTest("listItemValueTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ListItemValueTest02() {
+            RunTest("listItemValueTest02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DescendingListTest() {
+            RunTest("descendingListTest");
         }
 
         /// <exception cref="System.IO.IOException"/>
