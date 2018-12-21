@@ -84,5 +84,13 @@ namespace iText.Html2pdf.Css {
         public virtual void TextDecoration04Test() {
             ConvertToPdfAndCompare("textDecorationTest04", sourceFolder, destinationFolder);
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TextDecoration05Test() {
+            // TODO DEVSIX-2532
+            ConvertToPdfAndCompare("textDecorationTest05", sourceFolder, destinationFolder);
+        }
     }
 }
