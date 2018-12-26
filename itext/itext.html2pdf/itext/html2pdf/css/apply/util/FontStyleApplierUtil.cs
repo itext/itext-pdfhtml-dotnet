@@ -49,6 +49,7 @@ using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
+using iText.Layout.Font;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Exceptions;
@@ -82,7 +83,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 element.SetProperty(Property.FONT_SIZE, UnitValue.CreatePointValue(em));
             }
             if (cssProps.Get(CssConstants.FONT_FAMILY) != null) {
-                element.SetProperty(Property.FONT, cssProps.Get(CssConstants.FONT_FAMILY));
+                // TODO DEVSIX-2534
+                IList<String> fontFamilies = FontFamilySplitter.SplitFontFamily(cssProps.Get(CssConstants.FONT_FAMILY));
+                element.SetProperty(Property.FONT, fontFamilies.ToArray(new String[fontFamilies.Count]));
             }
             if (cssProps.Get(CssConstants.FONT_WEIGHT) != null) {
                 element.SetProperty(Property.FONT_WEIGHT, cssProps.Get(CssConstants.FONT_WEIGHT));

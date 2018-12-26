@@ -77,6 +77,7 @@ namespace iText.Html2pdf.Attach.Impl {
             String srcs = null;
             foreach (CssDeclaration descriptor in properties) {
                 if ("font-family".Equals(descriptor.GetProperty())) {
+                    // TODO DEVSIX-2534
                     fontFamily = FontFamilySplitter.RemoveQuotes(descriptor.GetExpression());
                 }
                 else {
