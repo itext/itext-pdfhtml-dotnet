@@ -125,20 +125,26 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         */
         protected internal override void ApplyAcroField(DrawContext drawContext) {
             PdfDocument doc = drawContext.GetDocument();
+            PdfAcroForm form = PdfAcroForm.GetAcroForm(doc, true);
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
             String groupName = this.GetProperty<String>(Html2PdfProperty.FORM_FIELD_VALUE);
-            PdfButtonFormField radioGroup = (PdfButtonFormField)PdfAcroForm.GetAcroForm(doc, true).GetField(groupName);
+            PdfButtonFormField radioGroup = (PdfButtonFormField)form.GetField(groupName);
+            bool addNew = false;
             if (null == radioGroup) {
                 radioGroup = PdfFormField.CreateRadioGroup(doc, groupName, "on");
+                addNew = true;
             }
             if (IsBoxChecked()) {
                 radioGroup.SetValue(GetModelId());
             }
-            PdfButtonFormField field = (PdfButtonFormField)PdfFormField.CreateRadioButton(doc, area, radioGroup, GetModelId
-                ());
-            field.SetCheckType(PdfFormField.TYPE_CIRCLE);
-            PdfAcroForm.GetAcroForm(doc, true).AddField(radioGroup, page);
+            PdfFormField.CreateRadioButton(doc, area, radioGroup, GetModelId()).SetCheckType(PdfFormField.TYPE_CIRCLE);
+            if (addNew) {
+                form.AddField(radioGroup, page);
+            }
+            else {
+                form.ReplaceField(GetModelId(), radioGroup);
+            }
         }
 
         protected internal override bool IsLayoutBasedOnFlatRenderer() {
