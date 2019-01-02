@@ -100,6 +100,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         private ProcessorContext context;
 
+        /// <summary>The logger.</summary>
+        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor
+            ));
+
         /// <summary>Instantiates a new page context processor.</summary>
         /// <param name="properties">the page context properties</param>
         /// <param name="context">the processor context</param>
@@ -157,19 +161,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             strategy.NextGlyphs();
             PdfFont currentFont = strategy.GetCurrentFont();
             if (currentFont == null) {
-                //TODO(DEVSIX-1050) Warn and use pdf default
+                LOGGER.Warn(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT);
                 try {
                     currentFont = PdfFontFactory.CreateFont();
                 }
                 catch (System.IO.IOException) {
+                    LOGGER.Error(iText.Html2pdf.LogMessageConstant.ERROR_LOADING_FONT);
                 }
             }
-            //TODO throw exception further?
             return currentFont.GetWidth(content, fontSize);
         }
 
         internal static float GetMinContentWidth(PageMarginBoxContextNode node, ProcessorContext context) {
-            //TODO(DEVSIX-1050): reread spec to be certain that min-content-size does in fact mean the same as max content
             return GetMaxContentWidth(node, context);
         }
 
@@ -936,8 +939,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             float flexRatioA;
             float flexRatioC;
             float flexSpace;
-            if (sum == 0) {
-                //TODO(DEVSIX-1050) float comparison to zero, revisit
+            if (CssUtils.CompareFloats(sum, 0f)) {
                 flexRatioA = 1;
                 flexRatioC = 1;
             }
