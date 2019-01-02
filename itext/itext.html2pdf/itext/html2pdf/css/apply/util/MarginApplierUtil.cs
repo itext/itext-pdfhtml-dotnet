@@ -65,7 +65,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private MarginApplierUtil() {
         }
 
-        // todo change javadocs!
         /// <summary>Applies margins to an element.</summary>
         /// <param name="cssProps">the CSS properties</param>
         /// <param name="context">the processor context</param>
@@ -79,6 +78,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="cssProps">the CSS properties</param>
         /// <param name="context">the processor context</param>
         /// <param name="element">the element</param>
+        /// <param name="baseValueHorizontal">value used by default for horizontal dimension</param>
+        /// <param name="baseValueVertical">value used by default for vertical dimension</param>
         public static void ApplyMargins(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element, float baseValueVertical, float baseValueHorizontal) {
             String marginTop = cssProps.Get(CssConstants.MARGIN_TOP);
@@ -121,6 +122,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="element">the element</param>
         /// <param name="em">the em value</param>
         /// <param name="rem">the root em value</param>
+        /// <param name="baseValue">value used by default</param>
         /// <returns>false if the margin value was "auto"</returns>
         private static bool TrySetMarginIfNotAuto(int marginProperty, String marginValue, IPropertyContainer element
             , float em, float rem, float baseValue) {
@@ -142,6 +144,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// </param>
         /// <param name="em">the em value</param>
         /// <param name="rem">the root em value</param>
+        /// <param name="baseValue">value used my default</param>
         /// <returns>
         /// the margin value as a
         /// <see cref="float?"/>

@@ -64,7 +64,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private PaddingApplierUtil() {
         }
 
-        // todo change javadoc
+        /// <summary>Applies paddings to an element.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element</param>
         public static void ApplyPaddings(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             ApplyPaddings(cssProps, context, element, 0.0f, 0.0f);
@@ -74,6 +77,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="cssProps">the CSS properties</param>
         /// <param name="context">the processor context</param>
         /// <param name="element">the element</param>
+        /// <param name="baseValueHorizontal">value used by default for horizontal dimension</param>
+        /// <param name="baseValueVertical">value used by default for vertical dimension</param>
         public static void ApplyPaddings(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element, float baseValueVertical, float baseValueHorizontal) {
             String paddingTop = cssProps.Get(CssConstants.PADDING_TOP);

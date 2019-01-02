@@ -126,11 +126,10 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 logger.Warn(iText.Html2pdf.LogMessageConstant.PAGE_MARGIN_BOX_SOME_PROPERTIES_NOT_PROCESSED);
                 return;
             }
-            float availableWidth = stylesContainer is PageMarginBoxContextNode ? ((PageMarginBoxContextNode)stylesContainer
-                ).GetContainingBlockForMarginBox().GetWidth() : 0.0f;
-            float availableHeight = stylesContainer is PageMarginBoxContextNode ? ((PageMarginBoxContextNode)stylesContainer
-                ).GetContainingBlockForMarginBox().GetHeight() : 0.0f;
-            // todo : check HORIZONTAL_ALIGNMENT in MarginApplierUtil.
+            float availableWidth = ((PageMarginBoxContextNode)stylesContainer).GetContainingBlockForMarginBox().GetWidth
+                ();
+            float availableHeight = ((PageMarginBoxContextNode)stylesContainer).GetContainingBlockForMarginBox().GetHeight
+                ();
             MarginApplierUtil.ApplyMargins(boxStyles, context, marginBox, availableHeight, availableWidth);
             PaddingApplierUtil.ApplyPaddings(boxStyles, context, marginBox, availableHeight, availableWidth);
         }
