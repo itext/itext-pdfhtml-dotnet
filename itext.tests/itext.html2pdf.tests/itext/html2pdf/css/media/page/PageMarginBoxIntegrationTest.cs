@@ -237,6 +237,7 @@ namespace iText.Html2pdf.Css.Media.Page {
         }
 
         //Edge-case test
+        // TODO testing here
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
@@ -369,6 +370,13 @@ namespace iText.Html2pdf.Css.Media.Page {
         [NUnit.Framework.Test]
         public virtual void LargeFixedSidesNoMiddleTest() {
             ConvertToPdfAndCompare("largeFixedSidesNoMiddleTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TwoPagesTest() {
+            ConvertToPdfAndCompare("twoPagesTest", sourceFolder, destinationFolder);
         }
     }
 }

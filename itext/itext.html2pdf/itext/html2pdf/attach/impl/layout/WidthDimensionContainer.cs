@@ -1,50 +1,41 @@
 using System;
-using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.Layout.Minmaxwidth;
+using iText.Layout.Renderer;
 using iText.StyledXmlParser.Css;
-using iText.StyledXmlParser.Css.Page;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     internal class WidthDimensionContainer : DimensionContainer {
-        internal WidthDimensionContainer(CssContextNode node, float maxWidth, ProcessorContext context) {
+        public WidthDimensionContainer(CssContextNode node, float maxWidth, IRenderer renderer, float additionalWidthFix
+            ) {
             String width = node.GetStyles().Get(CssConstants.WIDTH);
             if (width != null && !width.Equals("auto")) {
-                dimension = ParseDimension(node, width, maxWidth);
+                dimension = ParseDimension(node, width, maxWidth, additionalWidthFix);
             }
-            minDimension = GetMinWidth(node, maxWidth);
-            maxDimension = GetMaxWidth(node, maxWidth);
-            minContentDimension = PageContextProcessor.GetMinContentWidth((PageMarginBoxContextNode)node, context);
-            maxContentDimension = PageContextProcessor.GetMaxContentWidth((PageMarginBoxContextNode)node, context);
+            minDimension = GetMinWidth(node, maxWidth, additionalWidthFix);
+            maxDimension = GetMaxWidth(node, maxWidth, additionalWidthFix);
+            MinMaxWidth minMaxWidth = null;
+            if (renderer is BlockRenderer) {
+                minMaxWidth = ((BlockRenderer)renderer).GetMinMaxWidth();
+                maxContentDimension = minMaxWidth.GetMaxWidth();
+                minContentDimension = minMaxWidth.GetMinWidth();
+            }
         }
 
-        private float GetMinWidth(CssContextNode node, float maxAvailableWidth) {
+        private float GetMinWidth(CssContextNode node, float maxAvailableWidth, float additionalWidthFix) {
             String content = node.GetStyles().Get(CssConstants.MIN_WIDTH);
             if (content == null) {
                 return 0;
             }
-            content = content.ToLowerInvariant().Trim();
-            if (content.Equals("inherit")) {
-                if (node.ParentNode() is CssContextNode) {
-                    return GetMinWidth((CssContextNode)node.ParentNode(), maxAvailableWidth);
-                }
-                return 0;
-            }
-            return ParseDimension(node, content, maxAvailableWidth);
+            return ParseDimension(node, content, maxAvailableWidth, additionalWidthFix);
         }
 
-        private float GetMaxWidth(CssContextNode node, float maxAvailableWidth) {
+        private float GetMaxWidth(CssContextNode node, float maxAvailableWidth, float additionalWidthFix) {
             String content = node.GetStyles().Get(CssConstants.MAX_WIDTH);
             if (content == null) {
                 return float.MaxValue;
             }
-            content = content.ToLowerInvariant().Trim();
-            if (content.Equals("inherit")) {
-                if (node.ParentNode() is CssContextNode) {
-                    return GetMaxWidth((CssContextNode)node.ParentNode(), maxAvailableWidth);
-                }
-                return float.MaxValue;
-            }
-            float dim = ParseDimension(node, content, maxAvailableWidth);
+            float dim = ParseDimension(node, content, maxAvailableWidth, additionalWidthFix);
             if (dim == 0) {
                 return float.MaxValue;
             }

@@ -32,14 +32,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return dimension == -1;
         }
 
-        internal virtual float ParseDimension(CssContextNode node, String content, float maxAvailableDimension) {
-            float fontsize = FontStyleApplierUtil.ParseAbsoluteFontSize(node.GetStyles().Get(CssConstants.FONT_SIZE));
-            UnitValue unitValue = CssUtils.ParseLengthValueToPt(content, fontsize, 0);
+        internal virtual float ParseDimension(CssContextNode node, String content, float maxAvailableDimension, float
+             additionalWidthFix) {
+            float fontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(node.GetStyles().Get(CssConstants.FONT_SIZE));
+            UnitValue unitValue = CssUtils.ParseLengthValueToPt(content, fontSize, 0);
             if (unitValue == null) {
                 return 0;
             }
             if (unitValue.IsPointValue()) {
-                return unitValue.GetValue();
+                return unitValue.GetValue() + additionalWidthFix;
             }
             return maxAvailableDimension * unitValue.GetValue() / 100f;
         }
