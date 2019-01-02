@@ -193,6 +193,20 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void MarginBoxTestImg01() {
+            RunTest("marginBoxTestImg01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxTestImg02() {
+            RunTest("marginBoxTestImg02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void BigImageOnPageMarginTest01() {
             RunTest("bigImageOnPageMarginTest01");
         }
