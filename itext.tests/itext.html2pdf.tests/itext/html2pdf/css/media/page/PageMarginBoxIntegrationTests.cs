@@ -1,0 +1,238 @@
+using System;
+using iText.Html2pdf;
+
+namespace iText.Html2pdf.Css.Media.Page {
+    public class PageMarginBoxIntegrationTests : ExtendedHtmlConversionITextTest {
+        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/media/page/PageMarginBoxIntegrationTests/";
+
+        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+             + "/test/itext/html2pdf/css/media/page/PageMarginBoxIntegrationTests/";
+
+        [NUnit.Framework.OneTimeSetUp]
+        public static void BeforeClass() {
+            CreateOrClearDestinationFolder(destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HeaderFooterTest() {
+            ConvertToPdfAndCompare("headerFooter", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void PageWidthContentTest() {
+            ConvertToPdfAndCompare("css-page-width-content", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void PageWidthElementTest() {
+            ConvertToPdfAndCompare("css-page-width-element", sourceFolder, destinationFolder);
+        }
+
+        // Top margin box tests
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TopOnlyLeftTest() {
+            ConvertToPdfAndCompare("topOnlyLeft", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TopOnlyRightTest() {
+            ConvertToPdfAndCompare("topOnlyRight", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TopOnlyCenterTest() {
+            ConvertToPdfAndCompare("topOnlyCenter", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TopCenterAndRight() {
+            ConvertToPdfAndCompare("topCenterAndRight", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TopLeftAndCenter() {
+            ConvertToPdfAndCompare("topLeftAndCenter", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TopLeftAndRight() {
+            ConvertToPdfAndCompare("topLeftAndRight", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TopLeftAndCenterAndRight() {
+            ConvertToPdfAndCompare("topLeftAndCenterAndRight", sourceFolder, destinationFolder);
+        }
+
+        //Bottom margin box tests
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BottomOnlyLeftTest() {
+            ConvertToPdfAndCompare("bottomOnlyLeft", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BottomOnlyRightTest() {
+            ConvertToPdfAndCompare("bottomOnlyRight", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BottomOnlyCenterTest() {
+            ConvertToPdfAndCompare("bottomOnlyCenter", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BottomCenterAndRight() {
+            ConvertToPdfAndCompare("bottomCenterAndRight", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BottomLeftAndCenter() {
+            ConvertToPdfAndCompare("bottomLeftAndCenter", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BottomLeftAndRight() {
+            ConvertToPdfAndCompare("bottomLeftAndRight", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void BottomLeftAndCenterAndRight() {
+            ConvertToPdfAndCompare("bottomLeftAndCenterAndRight", sourceFolder, destinationFolder);
+        }
+
+        //Left margin box tests
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LeftOnlyTopTest() {
+            ConvertToPdfAndCompare("leftOnlyTop", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LeftOnlyCenterTest() {
+            ConvertToPdfAndCompare("leftOnlyCenter", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LeftOnlyBottomTest() {
+            ConvertToPdfAndCompare("leftOnlyBottom", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LeftTopAndCenterTest() {
+            ConvertToPdfAndCompare("leftTopAndCenter", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LeftTopAndBottomTest() {
+            ConvertToPdfAndCompare("leftTopAndBottom", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LeftCenterAndBottomTest() {
+            ConvertToPdfAndCompare("leftCenterAndBottom", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LeftTopAndCenterAndBottomTest() {
+            ConvertToPdfAndCompare("leftTopAndCenterAndBottom", sourceFolder, destinationFolder);
+        }
+
+        //Right margin box tests
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RightOnlyTopTest() {
+            ConvertToPdfAndCompare("rightOnlyTop", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RightOnlyCenterTest() {
+            ConvertToPdfAndCompare("rightOnlyCenter", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RightOnlyBottomTest() {
+            ConvertToPdfAndCompare("rightOnlyBottom", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RightTopAndCenterTest() {
+            ConvertToPdfAndCompare("rightTopAndCenter", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RightTopAndBottomTest() {
+            ConvertToPdfAndCompare("rightTopAndBottom", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RightCenterAndBottomTest() {
+            ConvertToPdfAndCompare("rightCenterAndBottom", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RightTopAndCenterAndBottomTest() {
+            ConvertToPdfAndCompare("rightTopAndCenterAndBottom", sourceFolder, destinationFolder);
+        }
+    }
+}

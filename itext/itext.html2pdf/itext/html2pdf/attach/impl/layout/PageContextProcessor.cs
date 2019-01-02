@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
@@ -50,6 +51,7 @@ using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Page;
 using iText.IO.Util;
+using iText.Kernel.Font;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
@@ -57,9 +59,11 @@ using iText.Kernel.Pdf.Tagging;
 using iText.Kernel.Pdf.Tagutils;
 using iText.Layout.Borders;
 using iText.Layout.Element;
+using iText.Layout.Font;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
+using iText.Layout.Splitting;
 using iText.Layout.Tagging;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Page;
@@ -462,15 +466,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="resolvedPageMarginBoxes">the resolved page margin boxes</param>
         private void PrepareMarginBoxesSizing(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
             Rectangle[] marginBoxRectangles = CalculateMarginBoxRectangles(resolvedPageMarginBoxes);
+            Rectangle[] marginBoxRectanglesSpec = CalculateMarginBoxRectanglesSpec(resolvedPageMarginBoxes);
             foreach (PageMarginBoxContextNode marginBoxContentNode in resolvedPageMarginBoxes) {
                 if (marginBoxContentNode.ChildNodes().IsEmpty()) {
                     // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
                     throw new InvalidOperationException();
                 }
                 int marginBoxInd = MapMarginBoxNameToIndex(marginBoxContentNode.GetMarginBoxName());
-                marginBoxContentNode.SetPageMarginBoxRectangle(marginBoxRectangles[marginBoxInd]);
+                marginBoxContentNode.SetPageMarginBoxRectangle(marginBoxRectanglesSpec[marginBoxInd]);
                 marginBoxContentNode.SetContainingBlockForMarginBox(CalculateContainingBlockSizesForMarginBox(marginBoxInd
-                    , marginBoxRectangles[marginBoxInd]));
+                    , marginBoxRectanglesSpec[marginBoxInd]));
             }
         }
 
@@ -553,6 +558,554 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 ), new Rectangle(0, withoutMargins.GetTop() - leftRightMarginHeight, leftMargin, leftRightMarginHeight
                 ) };
             return hardcodedBoxRectangles;
+        }
+
+        internal virtual Rectangle[] CalculateMarginBoxRectanglesSpec(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes
+            ) {
+            float topMargin = margins[0];
+            float rightMargin = margins[1];
+            float bottomMargin = margins[2];
+            float leftMargin = margins[3];
+            Rectangle withoutMargins = pageSize.Clone().ApplyMargins(topMargin, rightMargin, bottomMargin, leftMargin, 
+                false);
+            IDictionary<String, PageMarginBoxContextNode> resolvedPMBMap = new Dictionary<String, PageMarginBoxContextNode
+                >();
+            foreach (PageMarginBoxContextNode node in resolvedPageMarginBoxes) {
+                resolvedPMBMap.Put(node.GetMarginBoxName(), node);
+            }
+            //Define corner boxes
+            Rectangle tlc = new Rectangle(0, withoutMargins.GetTop(), leftMargin, topMargin);
+            Rectangle trc = new Rectangle(withoutMargins.GetRight(), withoutMargins.GetTop(), rightMargin, topMargin);
+            Rectangle blc = new Rectangle(0, 0, leftMargin, bottomMargin);
+            Rectangle brc = new Rectangle(withoutMargins.GetRight(), 0, rightMargin, bottomMargin);
+            //Top calculation
+            //Gather necessary input
+            float[] topWidthResults = CalculatePageMarginBoxDimensions(RetrievePageMarginBoxWidths(resolvedPMBMap.Get(
+                CssRuleName.TOP_LEFT), withoutMargins.GetWidth()), RetrievePageMarginBoxWidths(resolvedPMBMap.Get(CssRuleName
+                .TOP_CENTER), withoutMargins.GetWidth()), RetrievePageMarginBoxWidths(resolvedPMBMap.Get(CssRuleName.TOP_RIGHT
+                ), withoutMargins.GetWidth()), withoutMargins.GetWidth());
+            float centerOrMiddleCoord = GetStartCoordForCenterOrMiddleBox(withoutMargins.GetWidth(), topWidthResults, 
+                withoutMargins.GetLeft());
+            Rectangle[] topResults = new Rectangle[] { new Rectangle(withoutMargins.GetLeft(), withoutMargins.GetTop()
+                , topWidthResults[0], topMargin), new Rectangle(centerOrMiddleCoord, withoutMargins.GetTop(), topWidthResults
+                [1], topMargin), new Rectangle(withoutMargins.GetRight() - topWidthResults[2], withoutMargins.GetTop()
+                , topWidthResults[2], topMargin) };
+            //Right calculation
+            float[] rightHeightResults = CalculatePageMarginBoxDimensions(RetrievePageMarginBoxHeights(resolvedPMBMap.
+                Get(CssRuleName.RIGHT_TOP), rightMargin, withoutMargins.GetHeight()), RetrievePageMarginBoxHeights(resolvedPMBMap
+                .Get(CssRuleName.RIGHT_MIDDLE), rightMargin, withoutMargins.GetHeight()), RetrievePageMarginBoxHeights
+                (resolvedPMBMap.Get(CssRuleName.RIGHT_BOTTOM), rightMargin, withoutMargins.GetHeight()), withoutMargins
+                .GetHeight());
+            centerOrMiddleCoord = GetStartCoordForCenterOrMiddleBox(withoutMargins.GetHeight(), rightHeightResults, withoutMargins
+                .GetBottom());
+            Rectangle[] rightResults = new Rectangle[] { new Rectangle(withoutMargins.GetRight(), withoutMargins.GetTop
+                () - rightHeightResults[0], rightMargin, rightHeightResults[0]), new Rectangle(withoutMargins.GetRight
+                (), centerOrMiddleCoord, rightMargin, rightHeightResults[1]), new Rectangle(withoutMargins.GetRight(), 
+                withoutMargins.GetBottom(), rightMargin, rightHeightResults[2]) };
+            //Bottom calculation
+            float[] bottomWidthResults = CalculatePageMarginBoxDimensions(RetrievePageMarginBoxWidths(resolvedPMBMap.Get
+                (CssRuleName.BOTTOM_LEFT), withoutMargins.GetWidth()), RetrievePageMarginBoxWidths(resolvedPMBMap.Get(
+                CssRuleName.BOTTOM_CENTER), withoutMargins.GetWidth()), RetrievePageMarginBoxWidths(resolvedPMBMap.Get
+                (CssRuleName.BOTTOM_RIGHT), withoutMargins.GetWidth()), withoutMargins.GetWidth());
+            centerOrMiddleCoord = GetStartCoordForCenterOrMiddleBox(withoutMargins.GetWidth(), bottomWidthResults, withoutMargins
+                .GetLeft());
+            Rectangle[] bottomResults = new Rectangle[] { new Rectangle(withoutMargins.GetRight() - bottomWidthResults
+                [2], 0, bottomWidthResults[2], bottomMargin), new Rectangle(centerOrMiddleCoord, 0, bottomWidthResults
+                [1], bottomMargin), new Rectangle(withoutMargins.GetLeft(), 0, bottomWidthResults[0], bottomMargin) };
+            //Left calculation
+            float[] leftHeightResults = CalculatePageMarginBoxDimensions(RetrievePageMarginBoxHeights(resolvedPMBMap.Get
+                (CssRuleName.LEFT_TOP), leftMargin, withoutMargins.GetHeight()), RetrievePageMarginBoxHeights(resolvedPMBMap
+                .Get(CssRuleName.LEFT_MIDDLE), leftMargin, withoutMargins.GetHeight()), RetrievePageMarginBoxHeights(resolvedPMBMap
+                .Get(CssRuleName.LEFT_BOTTOM), leftMargin, withoutMargins.GetHeight()), withoutMargins.GetHeight());
+            centerOrMiddleCoord = GetStartCoordForCenterOrMiddleBox(withoutMargins.GetHeight(), leftHeightResults, withoutMargins
+                .GetBottom());
+            Rectangle[] leftResults = new Rectangle[] { new Rectangle(0, withoutMargins.GetTop() - leftHeightResults[0
+                ], leftMargin, leftHeightResults[0]), new Rectangle(0, centerOrMiddleCoord, leftMargin, leftHeightResults
+                [1]), new Rectangle(0, withoutMargins.GetBottom(), leftMargin, leftHeightResults[2]) };
+            //Group & return results
+            Rectangle[] groupedRectangles = new Rectangle[] { tlc, topResults[0], topResults[1], topResults[2], trc, rightResults
+                [0], rightResults[1], rightResults[2], brc, bottomResults[0], bottomResults[1], bottomResults[2], blc, 
+                leftResults[2], leftResults[1], leftResults[0] };
+            return groupedRectangles;
+        }
+
+        private float GetStartCoordForCenterOrMiddleBox(float availableDimension, float[] dimensionResults, float 
+            offset) {
+            return offset + (availableDimension - dimensionResults[1]) / 2;
+        }
+
+        /// <summary>See the algorithm detailed at https://www.w3.org/TR/css3-page/#margin-dimension</summary>
+        /// <param name="dimA"/>
+        /// <param name="dimB"/>
+        /// <param name="dimC"/>
+        /// <param name="availableDimension"/>
+        /// <returns/>
+        internal virtual float[] CalculatePageMarginBoxDimensions(PageContextProcessor.Dimensions dimA, PageContextProcessor.Dimensions
+             dimB, PageContextProcessor.Dimensions dimC, float availableDimension) {
+            float maxContentDimensionA;
+            float minContentDimensionA;
+            float maxContentDimensionB;
+            float minContentDimensionB;
+            float maxContentDimensionC;
+            float minContentDimensionC;
+            float[] dimensions = new float[3];
+            if (dimA == null && dimB == null && dimC == null) {
+                return dimensions;
+            }
+            //Calculate widths
+            //Check if B is present
+            if (dimB == null) {
+                //Single box present
+                if (dimA == null) {
+                    if (dimC.IsAutoDimension()) {
+                        //Allocate everything to C
+                        return new float[] { 0, 0, availableDimension };
+                    }
+                    else {
+                        return new float[] { 0, 0, dimC.dimension };
+                    }
+                }
+                if (dimC == null) {
+                    if (dimA.IsAutoDimension()) {
+                        //Allocate everything to A
+                        return new float[] { availableDimension, 0, 0 };
+                    }
+                    else {
+                        return new float[] { dimA.dimension, 0, 0 };
+                    }
+                }
+                if (dimA.IsAutoDimension() && dimC.IsAutoDimension()) {
+                    //Gather input
+                    maxContentDimensionA = dimA.maxContentDimension;
+                    minContentDimensionA = dimA.minContentDimension;
+                    maxContentDimensionC = dimC.maxContentDimension;
+                    minContentDimensionC = dimC.minContentDimension;
+                    float[] distributedWidths = DistributeDimensionBetweenTwoBoxes(maxContentDimensionA, minContentDimensionA, 
+                        maxContentDimensionC, minContentDimensionC, availableDimension);
+                    dimensions = new float[] { distributedWidths[0], 0f, distributedWidths[1] };
+                }
+                else {
+                    if (!dimA.IsAutoDimension()) {
+                        dimensions[0] = dimA.dimension;
+                    }
+                    else {
+                        dimensions[0] = availableDimension - dimC.dimension;
+                    }
+                    if (!dimC.IsAutoDimension()) {
+                        dimensions[2] = dimC.dimension;
+                    }
+                    else {
+                        dimensions[2] = availableDimension - dimA.dimension;
+                    }
+                }
+            }
+            else {
+                //Check for edge cases
+                if (dimA != null) {
+                    maxContentDimensionA = dimA.maxContentDimension;
+                    minContentDimensionA = dimA.minContentDimension;
+                }
+                else {
+                    maxContentDimensionA = 0;
+                    minContentDimensionA = 0;
+                }
+                if (dimC != null) {
+                    maxContentDimensionC = dimC.maxContentDimension;
+                    minContentDimensionC = dimC.minContentDimension;
+                }
+                else {
+                    maxContentDimensionC = 0;
+                    minContentDimensionC = 0;
+                }
+                //Construct box AC
+                float maxContentWidthAC = maxContentDimensionA + maxContentDimensionC;
+                float minContentWidthAC = minContentDimensionA + minContentDimensionC;
+                //Determine width box B
+                maxContentDimensionB = dimB.maxContentDimension;
+                minContentDimensionB = dimB.minContentDimension;
+                float[] distributedDimensions = DistributeDimensionBetweenTwoBoxes(maxContentDimensionB, minContentDimensionB
+                    , maxContentWidthAC, minContentWidthAC, availableDimension);
+                //Determine width boxes A & C
+                float newAvailableDimension = (availableDimension - distributedDimensions[0]) / 2;
+                float[] distributedWidthsAC = new float[] { Math.Min(minContentDimensionA, newAvailableDimension), Math.Min
+                    (minContentDimensionC, newAvailableDimension) };
+                dimensions = new float[] { distributedWidthsAC[0], distributedDimensions[0], distributedWidthsAC[1] };
+                SetManualDimension(dimA, dimensions, 0);
+                SetManualDimension(dimB, dimensions, 1);
+                SetManualDimension(dimC, dimensions, 2);
+            }
+            if (RecalculateIfNecessary(dimA, dimensions, 0) || RecalculateIfNecessary(dimB, dimensions, 1) || RecalculateIfNecessary
+                (dimC, dimensions, 2)) {
+                return CalculatePageMarginBoxDimensions(dimA, dimB, dimC, availableDimension);
+            }
+            return dimensions;
+        }
+
+        private void SetManualDimension(PageContextProcessor.Dimensions dim, float[] dimensions, int index) {
+            if (dim != null && !dim.IsAutoDimension()) {
+                dimensions[index] = dim.dimension;
+            }
+        }
+
+        private bool RecalculateIfNecessary(PageContextProcessor.Dimensions dim, float[] dimensions, int index) {
+            if (dim != null) {
+                if (dimensions[index] < dim.minDimension && dim.IsAutoDimension()) {
+                    dim.dimension = dim.minDimension;
+                    return true;
+                }
+                if (dimensions[index] > dim.maxDimension && dim.IsAutoDimension()) {
+                    dim.dimension = dim.maxDimension;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        internal virtual PageContextProcessor.Dimensions RetrievePageMarginBoxWidths(PageMarginBoxContextNode pmbcNode
+            , float maxWidth) {
+            if (pmbcNode == null) {
+                return null;
+            }
+            else {
+                return new PageContextProcessor.WidthDimensions(this, pmbcNode, maxWidth);
+            }
+        }
+
+        internal virtual PageContextProcessor.Dimensions RetrievePageMarginBoxHeights(PageMarginBoxContextNode pmbcNode
+            , float marginWidth, float maxHeight) {
+            if (pmbcNode == null) {
+                return null;
+            }
+            else {
+                return new PageContextProcessor.HeightDimensions(this, pmbcNode, marginWidth, maxHeight);
+            }
+        }
+
+        internal class Dimensions {
+            internal float dimension;
+
+            internal float minDimension;
+
+            internal float maxDimension;
+
+            internal float minContentDimension;
+
+            internal float maxContentDimension;
+
+            internal Dimensions(PageContextProcessor _enclosing) {
+                this._enclosing = _enclosing;
+                this.dimension = -1;
+                this.minDimension = 0;
+                this.minContentDimension = 0;
+                this.maxDimension = float.MaxValue;
+                this.maxContentDimension = float.MaxValue;
+            }
+
+            internal virtual bool IsAutoDimension() {
+                return this.dimension == -1;
+            }
+
+            internal virtual float ParseDimension(CssContextNode node, String content, float maxAvailableDimension) {
+                String numberRegex = "(\\d+(\\.\\d*)?)";
+                String units = "(in|cm|mm|pt|pc|px|%|em|ex)";
+                Match matcher = iText.IO.Util.StringUtil.Match(iText.IO.Util.StringUtil.RegexCompile(numberRegex + units), 
+                    content);
+                if (matcher.Find()) {
+                    float value = float.Parse(iText.IO.Util.StringUtil.Group(matcher, 1), System.Globalization.CultureInfo.InvariantCulture
+                        );
+                    String unit = iText.IO.Util.StringUtil.Group(matcher, 3);
+                    switch (unit) {
+                        case "pt": {
+                            break;
+                        }
+
+                        case "%": {
+                            value *= maxAvailableDimension / 100;
+                            break;
+                        }
+
+                        case "pc": {
+                            value *= 12;
+                            break;
+                        }
+
+                        case "px": {
+                            value *= 0.75;
+                            break;
+                        }
+
+                        case "in": {
+                            value *= 72;
+                            break;
+                        }
+
+                        case "cm": {
+                            value *= 28.3465;
+                            break;
+                        }
+
+                        case "mm": {
+                            value *= 2.83465;
+                            break;
+                        }
+
+                        case "em": {
+                            float fontSize = this._enclosing.GetFontSize(node);
+                            value *= fontSize;
+                            break;
+                        }
+
+                        case "ex": {
+                            // Use 0.5em as heuristic of x-height. Look CSS 2.1 Spec
+                            float fontSize = this._enclosing.GetFontSize(node);
+                            value *= 0.5 * fontSize;
+                            break;
+                        }
+
+                        default: {
+                            value = 0;
+                            break;
+                        }
+                    }
+                    return value;
+                }
+                return 0;
+            }
+
+            private readonly PageContextProcessor _enclosing;
+        }
+
+        internal class WidthDimensions : PageContextProcessor.Dimensions {
+            internal WidthDimensions(PageContextProcessor _enclosing, CssContextNode node, float maxWidth)
+                : base(_enclosing) {
+                this._enclosing = _enclosing;
+                String width = node.GetStyles().Get(CssConstants.WIDTH);
+                if (width != null && !width.Equals("auto")) {
+                    this.dimension = this.ParseDimension(node, width, maxWidth);
+                }
+                this.minDimension = this.GetMinWidth(node, maxWidth);
+                this.maxDimension = this.GetMaxWidth(node, maxWidth);
+                this.minContentDimension = this._enclosing.GetMinContentWidth((PageMarginBoxContextNode)node);
+                this.maxContentDimension = this._enclosing.GetMaxContentWidth((PageMarginBoxContextNode)node);
+            }
+
+            internal virtual float GetMinWidth(CssContextNode node, float maxAvailableWidth) {
+                String content = node.GetStyles().Get(CssConstants.MIN_WIDTH);
+                if (content == null) {
+                    return 0;
+                }
+                content = content.ToLowerInvariant().Trim();
+                if (content.Equals("inherit")) {
+                    if (node.ParentNode() is CssContextNode) {
+                        return this.GetMinWidth((CssContextNode)node.ParentNode(), maxAvailableWidth);
+                    }
+                    return 0;
+                }
+                return this.ParseDimension(node, content, maxAvailableWidth);
+            }
+
+            internal virtual float GetMaxWidth(CssContextNode node, float maxAvailableWidth) {
+                String content = node.GetStyles().Get(CssConstants.MAX_WIDTH);
+                if (content == null) {
+                    return float.MaxValue;
+                }
+                content = content.ToLowerInvariant().Trim();
+                if (content.Equals("inherit")) {
+                    if (node.ParentNode() is CssContextNode) {
+                        return this.GetMaxWidth((CssContextNode)node.ParentNode(), maxAvailableWidth);
+                    }
+                    return float.MaxValue;
+                }
+                float dim = this.ParseDimension(node, content, maxAvailableWidth);
+                if (dim == 0) {
+                    return float.MaxValue;
+                }
+                return dim;
+            }
+
+            private readonly PageContextProcessor _enclosing;
+        }
+
+        internal class HeightDimensions : PageContextProcessor.Dimensions {
+            internal HeightDimensions(PageContextProcessor _enclosing, CssContextNode pmbcNode, float width, float maxHeight
+                )
+                : base(_enclosing) {
+                this._enclosing = _enclosing;
+                String height = pmbcNode.GetStyles().Get(CssConstants.HEIGHT);
+                if (height != null && !height.Equals("auto")) {
+                    this.dimension = this.ParseDimension(pmbcNode, height, maxHeight);
+                }
+                this.minDimension = this.GetMinHeight(pmbcNode, maxHeight);
+                this.maxDimension = this.GetMaxHeight(pmbcNode, maxHeight);
+                this.minContentDimension = this._enclosing.GetMinContentHeight((PageMarginBoxContextNode)pmbcNode, width, 
+                    maxHeight);
+                this.maxContentDimension = this._enclosing.GetMaxContentHeight((PageMarginBoxContextNode)pmbcNode, width, 
+                    maxHeight);
+            }
+
+            internal virtual float GetMinHeight(CssContextNode node, float maxAvailableHeight) {
+                String content = node.GetStyles().Get(CssConstants.MIN_HEIGHT);
+                if (content == null) {
+                    return 0;
+                }
+                content = content.ToLowerInvariant().Trim();
+                if (content.Equals("inherit")) {
+                    if (node.ParentNode() is CssContextNode) {
+                        return this.GetMinHeight((CssContextNode)node.ParentNode(), maxAvailableHeight);
+                    }
+                    return 0;
+                }
+                return this.ParseDimension(node, content, maxAvailableHeight);
+            }
+
+            internal virtual float GetMaxHeight(CssContextNode node, float maxAvailableHeight) {
+                String content = node.GetStyles().Get(CssConstants.MIN_HEIGHT);
+                if (content == null) {
+                    return float.MaxValue;
+                }
+                content = content.ToLowerInvariant().Trim();
+                if (content.Equals("inherit")) {
+                    if (node.ParentNode() is CssContextNode) {
+                        return this.GetMaxHeight((CssContextNode)node.ParentNode(), maxAvailableHeight);
+                    }
+                    return float.MaxValue;
+                }
+                float dim = this.ParseDimension(node, content, maxAvailableHeight);
+                if (dim == 0) {
+                    return float.MaxValue;
+                }
+                return dim;
+            }
+
+            private readonly PageContextProcessor _enclosing;
+        }
+
+        internal virtual float[] DistributeDimensionBetweenTwoBoxes(float maxContentDimensionA, float minContentDimensionA
+            , float maxContentDimensionC, float minContentDimensionC, float availableDimension) {
+            //calculate based on flex space
+            //Determine flex factor
+            float flexRatioA;
+            float flexRatioC;
+            float flexSpace;
+            float distributedWidthA;
+            float distributedWidthC;
+            if (maxContentDimensionA + maxContentDimensionC < availableDimension) {
+                if (maxContentDimensionA == 0 && maxContentDimensionC == 0) {
+                    //TODO(DEVSIX-1050) float comparison to zero, revisit
+                    flexRatioA = 1;
+                    flexRatioC = 1;
+                }
+                else {
+                    flexRatioA = maxContentDimensionA / (maxContentDimensionA + maxContentDimensionC);
+                    flexRatioC = maxContentDimensionC / (maxContentDimensionA + maxContentDimensionC);
+                }
+                flexSpace = availableDimension - (maxContentDimensionA + maxContentDimensionC);
+                distributedWidthA = maxContentDimensionA + flexRatioA * flexSpace;
+                distributedWidthC = maxContentDimensionC + flexRatioC * flexSpace;
+            }
+            else {
+                if (minContentDimensionA + minContentDimensionC < availableDimension) {
+                    float factorSum = (maxContentDimensionA - minContentDimensionA) + (maxContentDimensionC - minContentDimensionC
+                        );
+                    if (factorSum == 0) {
+                        //TODO(DEVSIX-1050) float comparison to zero, revisit
+                        flexRatioA = 1;
+                        flexRatioC = 1;
+                    }
+                    else {
+                        flexRatioA = (maxContentDimensionA - minContentDimensionA) / factorSum;
+                        flexRatioC = (maxContentDimensionC - minContentDimensionC) / factorSum;
+                    }
+                    flexSpace = availableDimension - (minContentDimensionA + minContentDimensionC);
+                    distributedWidthA = minContentDimensionA + flexRatioA * flexSpace;
+                    distributedWidthC = minContentDimensionC + flexRatioC * flexSpace;
+                }
+                else {
+                    if (minContentDimensionA == 0 && minContentDimensionC == 0) {
+                        //TODO(DEVSIX-1050) float comparison to zero, revisit
+                        flexRatioA = 1;
+                        flexRatioC = 1;
+                    }
+                    else {
+                        flexRatioA = minContentDimensionA / (minContentDimensionA + minContentDimensionC);
+                        flexRatioC = minContentDimensionC / (minContentDimensionA + minContentDimensionC);
+                    }
+                    flexSpace = availableDimension - (minContentDimensionA + minContentDimensionC);
+                    distributedWidthA = minContentDimensionA + flexRatioA * flexSpace;
+                    distributedWidthC = minContentDimensionC + flexRatioC * flexSpace;
+                }
+            }
+            return new float[] { distributedWidthA, distributedWidthC };
+        }
+
+        internal virtual float GetMaxContentWidth(PageMarginBoxContextNode pmbcNode) {
+            //Check styles?
+            //Simulate contents?
+            //TODO(DEVSIX-1050): Consider complex non-purely text based contents
+            String content = pmbcNode.GetStyles().Get(CssConstants.CONTENT);
+            //Resolve font using context
+            String fontFamilyName = pmbcNode.GetStyles().Get(CssConstants.FONT_FAMILY);
+            float fontSize = GetFontSize(pmbcNode);
+            FontProvider provider = this.context.GetFontProvider();
+            FontCharacteristics fc = new FontCharacteristics();
+            FontSelectorStrategy strategy = provider.GetStrategy(content, FontFamilySplitter.SplitFontFamily(fontFamilyName
+                ), fc);
+            strategy.NextGlyphs();
+            PdfFont currentFont = strategy.GetCurrentFont();
+            if (currentFont == null) {
+                //TODO(DEVSIX-1050) Warn and use pdf default
+                try {
+                    currentFont = PdfFontFactory.CreateFont();
+                }
+                catch (System.IO.IOException) {
+                }
+            }
+            //TODO throw exception further?
+            return currentFont.GetWidth(content, fontSize);
+        }
+
+        internal virtual float GetMinContentWidth(PageMarginBoxContextNode node) {
+            //TODO(DEVSIX-1050): reread spec to be certain that min-content-size does in fact mean the same as max content
+            return GetMaxContentWidth(node);
+        }
+
+        internal virtual float GetMaxContentHeight(PageMarginBoxContextNode pmbcNode, float width, float maxAvailableHeight
+            ) {
+            //TODO(DEVSIX-1050): Consider complex non-purely text based contents
+            String content = pmbcNode.GetStyles().Get(CssConstants.CONTENT);
+            //Use iText layout engine to simulate
+            //Resolve font using context
+            String fontFamilyName = pmbcNode.GetStyles().Get(CssConstants.FONT_FAMILY);
+            float fontSize = GetFontSize(pmbcNode);
+            FontProvider provider = this.context.GetFontProvider();
+            FontCharacteristics fc = new FontCharacteristics();
+            FontSelectorStrategy strategy = provider.GetStrategy(content, FontFamilySplitter.SplitFontFamily(fontFamilyName
+                ), fc);
+            strategy.NextGlyphs();
+            PdfFont currentFont = strategy.GetCurrentFont();
+            iText.Layout.Element.Text text = new iText.Layout.Element.Text(content);
+            text.SetFont(currentFont);
+            text.SetFontSize(fontSize);
+            text.SetProperty(Property.TEXT_RISE, 0f);
+            text.SetProperty(Property.TEXT_RENDERING_MODE, PdfCanvasConstants.TextRenderingMode.FILL);
+            text.SetProperty(Property.SPLIT_CHARACTERS, new DefaultSplitCharacters());
+            Paragraph p = new Paragraph(text);
+            p.SetMargin(0f);
+            p.SetPadding(0f);
+            IRenderer pRend = p.CreateRendererSubTree();
+            LayoutArea layoutArea = new LayoutArea(1, new Rectangle(0, 0, width, maxAvailableHeight));
+            LayoutContext minimalContext = new LayoutContext(layoutArea);
+            LayoutResult quickLayout = pRend.Layout(minimalContext);
+            return quickLayout.GetOccupiedArea().GetBBox().GetHeight();
+        }
+
+        private float GetFontSize(CssContextNode pmbcNode) {
+            return FontStyleApplierUtil.ParseAbsoluteFontSize(pmbcNode.GetStyles().Get(CssConstants.FONT_SIZE));
+        }
+
+        internal virtual float GetMinContentHeight(PageMarginBoxContextNode node, float width, float maxAvailableHeight
+            ) {
+            return GetMaxContentHeight(node, width, maxAvailableHeight);
         }
 
         /// <summary>Calculate containing block sizes for margin box.</summary>
