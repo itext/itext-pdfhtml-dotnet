@@ -145,7 +145,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 [1] + boxPaddings[3];
             float marginBorderPaddingHeight = boxMargins[0] + boxMargins[2] + boxBorders[0] + boxBorders[2] + boxPaddings
                 [0] + boxPaddings[2];
-            // TODO DEVSIX-1050: improve width/height calculation according to "5.3. Computing Page-margin Box Dimensions", take into account height and width properties
+            // TODO DEVSIX-1050: improve width/height calculation according to "5.3. Computing page-margin Box Dimensions", take into account height and width properties
             float width = pageMarginBoxContextNode.GetPageMarginBoxRectangle().GetWidth() - marginBorderPaddingWidth;
             float height = pageMarginBoxContextNode.GetPageMarginBoxRectangle().GetHeight() - marginBorderPaddingHeight;
             SetUnitPointValueProperty(marginBox, Property.WIDTH, width);

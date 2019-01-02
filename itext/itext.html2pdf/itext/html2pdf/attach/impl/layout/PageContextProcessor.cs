@@ -90,10 +90,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary>The paddings.</summary>
         private float[] paddings;
 
-        /// <summary>Page background simulation.</summary>
+        /// <summary>page background simulation.</summary>
         private Div pageBackgroundSimulation;
 
-        /// <summary>Page borders simulation.</summary>
+        /// <summary>page borders simulation.</summary>
         private Div pageBordersSimulation;
 
         private PageContextProperties properties;
@@ -547,9 +547,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             Rectangle brc = new Rectangle(withoutMargins.GetRight(), 0, rightMargin, bottomMargin);
             //Top calculation
             float[] topWidthResults = CalculatePageMarginBoxDimensions(RetrievePageMarginBoxWidths(resolvedPMBMap.Get(
-                CssRuleName.TOP_LEFT), withoutMargins.GetWidth()), RetrievePageMarginBoxWidths(resolvedPMBMap.Get(CssRuleName
-                .TOP_CENTER), withoutMargins.GetWidth()), RetrievePageMarginBoxWidths(resolvedPMBMap.Get(CssRuleName.TOP_RIGHT
-                ), withoutMargins.GetWidth()), withoutMargins.GetWidth());
+                CssRuleName.TOP_LEFT), withoutMargins.GetWidth(), context), RetrievePageMarginBoxWidths(resolvedPMBMap
+                .Get(CssRuleName.TOP_CENTER), withoutMargins.GetWidth(), context), RetrievePageMarginBoxWidths(resolvedPMBMap
+                .Get(CssRuleName.TOP_RIGHT), withoutMargins.GetWidth(), context), withoutMargins.GetWidth());
             float centerOrMiddleCoord = GetStartCoordForCenterOrMiddleBox(withoutMargins.GetWidth(), topWidthResults, 
                 withoutMargins.GetLeft());
             Rectangle[] topResults = new Rectangle[] { new Rectangle(withoutMargins.GetLeft(), withoutMargins.GetTop()
@@ -558,9 +558,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 , topWidthResults[2], topMargin) };
             //Right calculation
             float[] rightHeightResults = CalculatePageMarginBoxDimensions(RetrievePageMarginBoxHeights(resolvedPMBMap.
-                Get(CssRuleName.RIGHT_TOP), rightMargin, withoutMargins.GetHeight()), RetrievePageMarginBoxHeights(resolvedPMBMap
-                .Get(CssRuleName.RIGHT_MIDDLE), rightMargin, withoutMargins.GetHeight()), RetrievePageMarginBoxHeights
-                (resolvedPMBMap.Get(CssRuleName.RIGHT_BOTTOM), rightMargin, withoutMargins.GetHeight()), withoutMargins
+                Get(CssRuleName.RIGHT_TOP), rightMargin, withoutMargins.GetHeight(), context), RetrievePageMarginBoxHeights
+                (resolvedPMBMap.Get(CssRuleName.RIGHT_MIDDLE), rightMargin, withoutMargins.GetHeight(), context), RetrievePageMarginBoxHeights
+                (resolvedPMBMap.Get(CssRuleName.RIGHT_BOTTOM), rightMargin, withoutMargins.GetHeight(), context), withoutMargins
                 .GetHeight());
             centerOrMiddleCoord = GetStartCoordForCenterOrMiddleBox(withoutMargins.GetHeight(), rightHeightResults, withoutMargins
                 .GetBottom());
@@ -570,9 +570,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 withoutMargins.GetBottom(), rightMargin, rightHeightResults[2]) };
             //Bottom calculation
             float[] bottomWidthResults = CalculatePageMarginBoxDimensions(RetrievePageMarginBoxWidths(resolvedPMBMap.Get
-                (CssRuleName.BOTTOM_LEFT), withoutMargins.GetWidth()), RetrievePageMarginBoxWidths(resolvedPMBMap.Get(
-                CssRuleName.BOTTOM_CENTER), withoutMargins.GetWidth()), RetrievePageMarginBoxWidths(resolvedPMBMap.Get
-                (CssRuleName.BOTTOM_RIGHT), withoutMargins.GetWidth()), withoutMargins.GetWidth());
+                (CssRuleName.BOTTOM_LEFT), withoutMargins.GetWidth(), context), RetrievePageMarginBoxWidths(resolvedPMBMap
+                .Get(CssRuleName.BOTTOM_CENTER), withoutMargins.GetWidth(), context), RetrievePageMarginBoxWidths(resolvedPMBMap
+                .Get(CssRuleName.BOTTOM_RIGHT), withoutMargins.GetWidth(), context), withoutMargins.GetWidth());
             centerOrMiddleCoord = GetStartCoordForCenterOrMiddleBox(withoutMargins.GetWidth(), bottomWidthResults, withoutMargins
                 .GetLeft());
             Rectangle[] bottomResults = new Rectangle[] { new Rectangle(withoutMargins.GetRight() - bottomWidthResults
@@ -580,9 +580,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 [1], bottomMargin), new Rectangle(withoutMargins.GetLeft(), 0, bottomWidthResults[0], bottomMargin) };
             //Left calculation
             float[] leftHeightResults = CalculatePageMarginBoxDimensions(RetrievePageMarginBoxHeights(resolvedPMBMap.Get
-                (CssRuleName.LEFT_TOP), leftMargin, withoutMargins.GetHeight()), RetrievePageMarginBoxHeights(resolvedPMBMap
-                .Get(CssRuleName.LEFT_MIDDLE), leftMargin, withoutMargins.GetHeight()), RetrievePageMarginBoxHeights(resolvedPMBMap
-                .Get(CssRuleName.LEFT_BOTTOM), leftMargin, withoutMargins.GetHeight()), withoutMargins.GetHeight());
+                (CssRuleName.LEFT_TOP), leftMargin, withoutMargins.GetHeight(), context), RetrievePageMarginBoxHeights
+                (resolvedPMBMap.Get(CssRuleName.LEFT_MIDDLE), leftMargin, withoutMargins.GetHeight(), context), RetrievePageMarginBoxHeights
+                (resolvedPMBMap.Get(CssRuleName.LEFT_BOTTOM), leftMargin, withoutMargins.GetHeight(), context), withoutMargins
+                .GetHeight());
             centerOrMiddleCoord = GetStartCoordForCenterOrMiddleBox(withoutMargins.GetHeight(), leftHeightResults, withoutMargins
                 .GetBottom());
             Rectangle[] leftResults = new Rectangle[] { new Rectangle(0, withoutMargins.GetTop() - leftHeightResults[0
@@ -614,8 +615,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="dimC">object containing the dimension-related properties of C</param>
         /// <param name="availableDimension">maximum available dimension that can be taken up</param>
         /// <returns>float[3] containing the distributed dimensions of A at [0], B at [1] and C at [2]</returns>
-        internal virtual float[] CalculatePageMarginBoxDimensions(PageContextProcessor.DimensionContainer dimA, PageContextProcessor.DimensionContainer
-             dimB, PageContextProcessor.DimensionContainer dimC, float availableDimension) {
+        internal virtual float[] CalculatePageMarginBoxDimensions(DimensionContainer dimA, DimensionContainer dimB
+            , DimensionContainer dimC, float availableDimension) {
             float maxContentDimensionA;
             float minContentDimensionA;
             float maxContentDimensionB;
@@ -756,8 +757,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="dim">Dimension Container containing the manually set dimension</param>
         /// <param name="dimensions">array of calculated auto values for boxes in the given dimension</param>
         /// <param name="index">position in the array to replace</param>
-        internal virtual void SetManualDimension(PageContextProcessor.DimensionContainer dim, float[] dimensions, 
-            int index) {
+        internal virtual void SetManualDimension(DimensionContainer dim, float[] dimensions, int index) {
             if (dim != null && !dim.IsAutoDimension()) {
                 dimensions[index] = dim.dimension;
             }
@@ -768,8 +768,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="dimensions">array of calculated auto values for boxes in the given dimension</param>
         /// <param name="index">position in the array to look at</param>
         /// <returns>True if the values in dimensions trigger a recalculation, false otherwise</returns>
-        internal virtual bool RecalculateIfNecessary(PageContextProcessor.DimensionContainer dim, float[] dimensions
-            , int index) {
+        internal virtual bool RecalculateIfNecessary(DimensionContainer dim, float[] dimensions, int index) {
             if (dim != null) {
                 if (dimensions[index] < dim.minDimension && dim.IsAutoDimension()) {
                     dim.dimension = dim.minDimension;
@@ -783,170 +782,24 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return false;
         }
 
-        internal virtual PageContextProcessor.DimensionContainer RetrievePageMarginBoxWidths(PageMarginBoxContextNode
-             pmbcNode, float maxWidth) {
+        internal virtual DimensionContainer RetrievePageMarginBoxWidths(PageMarginBoxContextNode pmbcNode, float maxWidth
+            , ProcessorContext context) {
             if (pmbcNode == null) {
                 return null;
             }
             else {
-                return new PageContextProcessor.WidthDimensionContainer(this, pmbcNode, maxWidth);
+                return new WidthDimensionContainer(pmbcNode, maxWidth, context);
             }
         }
 
-        internal virtual PageContextProcessor.DimensionContainer RetrievePageMarginBoxHeights(PageMarginBoxContextNode
-             pmbcNode, float marginWidth, float maxHeight) {
+        internal virtual DimensionContainer RetrievePageMarginBoxHeights(PageMarginBoxContextNode pmbcNode, float 
+            marginWidth, float maxHeight, ProcessorContext context) {
             if (pmbcNode == null) {
                 return null;
             }
             else {
-                return new PageContextProcessor.HeightDimensionContainer(this, pmbcNode, marginWidth, maxHeight);
+                return new HeightDimensionContainer(pmbcNode, marginWidth, maxHeight, context);
             }
-        }
-
-        /// <summary>Container class for grouping necessary values used in dimension calculation</summary>
-        internal class DimensionContainer {
-            internal float dimension;
-
-            internal float minDimension;
-
-            internal float maxDimension;
-
-            internal float minContentDimension;
-
-            internal float maxContentDimension;
-
-            internal DimensionContainer(PageContextProcessor _enclosing) {
-                this._enclosing = _enclosing;
-                this.dimension = -1;
-                this.minDimension = 0;
-                this.minContentDimension = 0;
-                this.maxDimension = float.MaxValue;
-                this.maxContentDimension = float.MaxValue;
-            }
-
-            /// <summary>Check if this dimension is auto</summary>
-            /// <returns>True if the dimension is to be automatically calculated, false if it was set via a property</returns>
-            internal virtual bool IsAutoDimension() {
-                return this.dimension == -1;
-            }
-
-            internal virtual float ParseDimension(CssContextNode node, String content, float maxAvailableDimension) {
-                UnitValue unitValue = CssUtils.ParseLengthValueToPt(content, this._enclosing.GetFontSize(node), 0);
-                if (unitValue == null) {
-                    return 0;
-                }
-                if (unitValue.IsPointValue()) {
-                    return unitValue.GetValue();
-                }
-                return maxAvailableDimension * unitValue.GetValue() / 100f;
-            }
-
-            private readonly PageContextProcessor _enclosing;
-        }
-
-        internal class WidthDimensionContainer : PageContextProcessor.DimensionContainer {
-            internal WidthDimensionContainer(PageContextProcessor _enclosing, CssContextNode node, float maxWidth)
-                : base(_enclosing) {
-                this._enclosing = _enclosing;
-                String width = node.GetStyles().Get(CssConstants.WIDTH);
-                if (width != null && !width.Equals("auto")) {
-                    this.dimension = this.ParseDimension(node, width, maxWidth);
-                }
-                this.minDimension = this.GetMinWidth(node, maxWidth);
-                this.maxDimension = this.GetMaxWidth(node, maxWidth);
-                this.minContentDimension = this._enclosing.GetMinContentWidth((PageMarginBoxContextNode)node);
-                this.maxContentDimension = this._enclosing.GetMaxContentWidth((PageMarginBoxContextNode)node);
-            }
-
-            internal virtual float GetMinWidth(CssContextNode node, float maxAvailableWidth) {
-                String content = node.GetStyles().Get(CssConstants.MIN_WIDTH);
-                if (content == null) {
-                    return 0;
-                }
-                content = content.ToLowerInvariant().Trim();
-                if (content.Equals("inherit")) {
-                    if (node.ParentNode() is CssContextNode) {
-                        return this.GetMinWidth((CssContextNode)node.ParentNode(), maxAvailableWidth);
-                    }
-                    return 0;
-                }
-                return this.ParseDimension(node, content, maxAvailableWidth);
-            }
-
-            internal virtual float GetMaxWidth(CssContextNode node, float maxAvailableWidth) {
-                String content = node.GetStyles().Get(CssConstants.MAX_WIDTH);
-                if (content == null) {
-                    return float.MaxValue;
-                }
-                content = content.ToLowerInvariant().Trim();
-                if (content.Equals("inherit")) {
-                    if (node.ParentNode() is CssContextNode) {
-                        return this.GetMaxWidth((CssContextNode)node.ParentNode(), maxAvailableWidth);
-                    }
-                    return float.MaxValue;
-                }
-                float dim = this.ParseDimension(node, content, maxAvailableWidth);
-                if (dim == 0) {
-                    return float.MaxValue;
-                }
-                return dim;
-            }
-
-            private readonly PageContextProcessor _enclosing;
-        }
-
-        internal class HeightDimensionContainer : PageContextProcessor.DimensionContainer {
-            internal HeightDimensionContainer(PageContextProcessor _enclosing, CssContextNode pmbcNode, float width, float
-                 maxHeight)
-                : base(_enclosing) {
-                this._enclosing = _enclosing;
-                String height = pmbcNode.GetStyles().Get(CssConstants.HEIGHT);
-                if (height != null && !height.Equals("auto")) {
-                    this.dimension = this.ParseDimension(pmbcNode, height, maxHeight);
-                }
-                this.minDimension = this.GetMinHeight(pmbcNode, maxHeight);
-                this.maxDimension = this.GetMaxHeight(pmbcNode, maxHeight);
-                this.minContentDimension = this._enclosing.GetMinContentHeight((PageMarginBoxContextNode)pmbcNode, width, 
-                    maxHeight);
-                this.maxContentDimension = this._enclosing.GetMaxContentHeight((PageMarginBoxContextNode)pmbcNode, width, 
-                    maxHeight);
-            }
-
-            internal virtual float GetMinHeight(CssContextNode node, float maxAvailableHeight) {
-                String content = node.GetStyles().Get(CssConstants.MIN_HEIGHT);
-                if (content == null) {
-                    return 0;
-                }
-                content = content.ToLowerInvariant().Trim();
-                if (content.Equals("inherit")) {
-                    if (node.ParentNode() is CssContextNode) {
-                        return this.GetMinHeight((CssContextNode)node.ParentNode(), maxAvailableHeight);
-                    }
-                    return 0;
-                }
-                return this.ParseDimension(node, content, maxAvailableHeight);
-            }
-
-            internal virtual float GetMaxHeight(CssContextNode node, float maxAvailableHeight) {
-                String content = node.GetStyles().Get(CssConstants.MAX_HEIGHT);
-                if (content == null) {
-                    return float.MaxValue;
-                }
-                content = content.ToLowerInvariant().Trim();
-                if (content.Equals("inherit")) {
-                    if (node.ParentNode() is CssContextNode) {
-                        return this.GetMaxHeight((CssContextNode)node.ParentNode(), maxAvailableHeight);
-                    }
-                    return float.MaxValue;
-                }
-                float dim = this.ParseDimension(node, content, maxAvailableHeight);
-                if (dim == 0) {
-                    return float.MaxValue;
-                }
-                return dim;
-            }
-
-            private readonly PageContextProcessor _enclosing;
         }
 
         /// <summary>Distribute the available dimension between two boxes A and C based on their content-needs.</summary>
@@ -998,15 +851,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return new float[] { argA + flexRatioA * flexSpace, argC + flexRatioC * flexSpace };
         }
 
-        internal virtual float GetMaxContentWidth(PageMarginBoxContextNode pmbcNode) {
+        public static float GetMaxContentWidth(PageMarginBoxContextNode pmbcNode, ProcessorContext context) {
             //Check styles?
             //Simulate contents?
             //TODO(DEVSIX-1050): Consider complex non-purely text based contents
             String content = pmbcNode.GetStyles().Get(CssConstants.CONTENT);
             //Resolve font using context
             String fontFamilyName = pmbcNode.GetStyles().Get(CssConstants.FONT_FAMILY);
-            float fontSize = GetFontSize(pmbcNode);
-            FontProvider provider = this.context.GetFontProvider();
+            float fontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(pmbcNode.GetStyles().Get(CssConstants.FONT_SIZE
+                ));
+            FontProvider provider = context.GetFontProvider();
             FontCharacteristics fc = new FontCharacteristics();
             FontSelectorStrategy strategy = provider.GetStrategy(content, FontFamilySplitter.SplitFontFamily(fontFamilyName
                 ), fc);
@@ -1024,20 +878,21 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return currentFont.GetWidth(content, fontSize);
         }
 
-        internal virtual float GetMinContentWidth(PageMarginBoxContextNode node) {
+        public static float GetMinContentWidth(PageMarginBoxContextNode node, ProcessorContext context) {
             //TODO(DEVSIX-1050): reread spec to be certain that min-content-size does in fact mean the same as max content
-            return GetMaxContentWidth(node);
+            return GetMaxContentWidth(node, context);
         }
 
-        internal virtual float GetMaxContentHeight(PageMarginBoxContextNode pmbcNode, float width, float maxAvailableHeight
-            ) {
+        public static float GetMaxContentHeight(PageMarginBoxContextNode pmbcNode, float width, float maxAvailableHeight
+            , ProcessorContext context) {
             //TODO(DEVSIX-1050): Consider complex non-purely text based contents
             String content = pmbcNode.GetStyles().Get(CssConstants.CONTENT);
             //Use iText layout engine to simulate
             //Resolve font using context
             String fontFamilyName = pmbcNode.GetStyles().Get(CssConstants.FONT_FAMILY);
-            float fontSize = GetFontSize(pmbcNode);
-            FontProvider provider = this.context.GetFontProvider();
+            float fontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(pmbcNode.GetStyles().Get(CssConstants.FONT_SIZE
+                ));
+            FontProvider provider = context.GetFontProvider();
             FontCharacteristics fc = new FontCharacteristics();
             FontSelectorStrategy strategy = provider.GetStrategy(content, FontFamilySplitter.SplitFontFamily(fontFamilyName
                 ), fc);
@@ -1059,13 +914,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return quickLayout.GetOccupiedArea().GetBBox().GetHeight();
         }
 
-        private float GetFontSize(CssContextNode pmbcNode) {
-            return FontStyleApplierUtil.ParseAbsoluteFontSize(pmbcNode.GetStyles().Get(CssConstants.FONT_SIZE));
-        }
-
-        internal virtual float GetMinContentHeight(PageMarginBoxContextNode node, float width, float maxAvailableHeight
-            ) {
-            return GetMaxContentHeight(node, width, maxAvailableHeight);
+        public static float GetMinContentHeight(PageMarginBoxContextNode node, float width, float maxAvailableHeight
+            , ProcessorContext context) {
+            return GetMaxContentHeight(node, width, maxAvailableHeight, context);
         }
 
         /// <summary>Calculate containing block sizes for margin box.</summary>
