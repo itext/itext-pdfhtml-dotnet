@@ -617,12 +617,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <returns>float[3] containing the distributed dimensions of A at [0], B at [1] and C at [2]</returns>
         internal virtual float[] CalculatePageMarginBoxDimensions(DimensionContainer dimA, DimensionContainer dimB
             , DimensionContainer dimC, float availableDimension) {
-            float maxContentDimensionA;
-            float minContentDimensionA;
-            float maxContentDimensionB;
-            float minContentDimensionB;
-            float maxContentDimensionC;
-            float minContentDimensionC;
+            float maxContentDimensionA = 0;
+            float minContentDimensionA = 0;
+            float maxContentDimensionB = 0;
+            float minContentDimensionB = 0;
+            float maxContentDimensionC = 0;
+            float minContentDimensionC = 0;
             float[] dimensions = new float[3];
             if (dimA == null && dimB == null && dimC == null) {
                 return dimensions;
@@ -690,10 +690,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                         minContentDimensionA = dimA.dimension;
                     }
                 }
-                else {
-                    maxContentDimensionA = 0;
-                    minContentDimensionA = 0;
-                }
                 if (dimC != null) {
                     if (dimC.IsAutoDimension()) {
                         maxContentDimensionC = dimC.maxContentDimension;
@@ -704,14 +700,23 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                         minContentDimensionC = dimC.dimension;
                     }
                 }
-                else {
-                    maxContentDimensionC = 0;
-                    minContentDimensionC = 0;
-                }
                 if (dimB.IsAutoDimension()) {
                     //Construct box AC
-                    float maxContentWidthAC = maxContentDimensionA + maxContentDimensionC;
-                    float minContentWidthAC = minContentDimensionA + minContentDimensionC;
+                    float maxContentWidthAC;
+                    float minContentWidthAC;
+                    if (dimA != null && !dimA.IsAutoDimension() || dimC != null && !dimC.IsAutoDimension()) {
+                        maxContentWidthAC = 2 * Math.Max(maxContentDimensionA, maxContentDimensionC);
+                        if (dimA != null && !dimA.IsAutoDimension()) {
+                            minContentWidthAC = 2 * minContentDimensionA;
+                        }
+                        else {
+                            minContentWidthAC = 2 * minContentDimensionC;
+                        }
+                    }
+                    else {
+                        maxContentWidthAC = maxContentDimensionA + maxContentDimensionC;
+                        minContentWidthAC = minContentDimensionA + minContentDimensionC;
+                    }
                     //Determine width box B
                     maxContentDimensionB = dimB.maxContentDimension;
                     minContentDimensionB = dimB.minContentDimension;
@@ -719,9 +724,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                         , maxContentWidthAC, minContentWidthAC, availableDimension);
                     //Determine width boxes A & C
                     float newAvailableDimension = (availableDimension - distributedDimensions[0]) / 2;
-                    float[] distributedWidthsAC = new float[] { Math.Min(minContentDimensionA, newAvailableDimension), Math.Min
-                        (minContentDimensionC, newAvailableDimension) };
-                    dimensions = new float[] { distributedWidthsAC[0], distributedDimensions[0], distributedWidthsAC[1] };
+                    dimensions = new float[] { newAvailableDimension, distributedDimensions[0], newAvailableDimension };
                 }
                 else {
                     dimensions[1] = dimB.dimension;
@@ -730,15 +733,22 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     dimensions[2] = Math.Min(minContentDimensionC, newAvailableDimension);
                 }
                 SetManualDimension(dimA, dimensions, 0);
-                SetManualDimension(dimB, dimensions, 1);
                 SetManualDimension(dimC, dimensions, 2);
             }
             if (RecalculateIfNecessary(dimA, dimensions, 0) || RecalculateIfNecessary(dimB, dimensions, 1) || RecalculateIfNecessary
                 (dimC, dimensions, 2)) {
                 return CalculatePageMarginBoxDimensions(dimA, dimB, dimC, availableDimension);
             }
-            LimitIfNecessary(dimensions, availableDimension);
+            RemoveNegativeValues(dimensions);
             return dimensions;
+        }
+
+        private void RemoveNegativeValues(float[] dimensions) {
+            for (int i = 0; i < dimensions.Length; i++) {
+                if (dimensions[i] < 0) {
+                    dimensions[i] = 0;
+                }
+            }
         }
 
         /// <summary>Cap each element of the array to the available dimension</summary>
