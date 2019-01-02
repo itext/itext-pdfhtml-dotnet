@@ -234,5 +234,104 @@ namespace iText.Html2pdf.Css.Media.Page {
         public virtual void RightTopAndCenterAndBottomTest() {
             ConvertToPdfAndCompare("rightTopAndCenterAndBottom", sourceFolder, destinationFolder);
         }
+
+        //Edge-case test
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeAutoLeftRegularCenterTopBottomTest() {
+            ConvertToPdfAndCompare("largeAutoLeftRegularCenterTopBottomTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HugeAutoLeftTopBottomTest() {
+            ConvertToPdfAndCompare("hugeAutoLeftTopBottomTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeAutoCenterRegularSidesTopBottomTest() {
+            ConvertToPdfAndCompare("largeAutoCenterRegularSidesTopBottomTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeFixedLeftRegularCenterTopBottomTest() {
+            ConvertToPdfAndCompare("largeFixedLeftRegularCenterTopBottomTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HugeFixedLeftTopBottomTest() {
+            ConvertToPdfAndCompare("hugeFixedLeftTopBottomTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SmallFixedLeftTopBottomTest() {
+            ConvertToPdfAndCompare("smallFixedLeftTopBottomTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeFixedCenterRegularSidesTopBottomTest() {
+            ConvertToPdfAndCompare("largeFixedCenterRegularSidesTopBottomTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeAutoTopRegularCenterLeftRightTest() {
+            ConvertToPdfAndCompare("largeAutoTopRegularCenterLeftRightTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HugeAutoTopLeftRightTest() {
+            ConvertToPdfAndCompare("hugeAutoTopLeftRightTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeAutoCenterRegularSidesLeftRightTest() {
+            ConvertToPdfAndCompare("largeAutoCenterRegularSidesLeftRightTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeFixedTopRegularCenterLeftRightTest() {
+            ConvertToPdfAndCompare("largeFixedTopRegularCenterLeftRightTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HugeFixedTopLeftRightTest() {
+            ConvertToPdfAndCompare("hugeFixedTopLeftRightTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SmallFixedTopLeftRightTest() {
+            ConvertToPdfAndCompare("smallFixedTopLeftRightTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeFixedCenterRegularSidesLeftRightTest() {
+            ConvertToPdfAndCompare("largeFixedCenterRegularSidesLeftRightTest", sourceFolder, destinationFolder);
+        }
     }
 }

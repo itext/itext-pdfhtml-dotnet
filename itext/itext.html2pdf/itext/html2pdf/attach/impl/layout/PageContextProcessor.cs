@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Common.Logging;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Layout.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Impl;
@@ -808,12 +808,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             internal virtual float ParseDimension(CssContextNode node, String content, float maxAvailableDimension) {
                 String numberRegex = "(\\d+(\\.\\d*)?)";
                 String units = "(in|cm|mm|pt|pc|px|%|em|ex)";
-                Match matcher = iText.IO.Util.StringUtil.Match(iText.IO.Util.StringUtil.RegexCompile(numberRegex + units), 
-                    content);
+                REMatcher matcher = new REMatcher(numberRegex + units);
+                matcher.SetStringForMatch(content);
                 if (matcher.Find()) {
-                    float value = float.Parse(iText.IO.Util.StringUtil.Group(matcher, 1), System.Globalization.CultureInfo.InvariantCulture
-                        );
-                    String unit = iText.IO.Util.StringUtil.Group(matcher, 3);
+                    float value = float.Parse(matcher.Group(1), System.Globalization.CultureInfo.InvariantCulture);
+                    String unit = matcher.Group(3);
                     switch (unit) {
                         case "pt": {
                             break;
@@ -1083,7 +1082,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 ), fc);
             strategy.NextGlyphs();
             PdfFont currentFont = strategy.GetCurrentFont();
-            iText.Layout.Element.Text text = new iText.Layout.Element.Text(content);
+            Text text = new Text(content);
             text.SetFont(currentFont);
             text.SetFontSize(fontSize);
             text.SetProperty(Property.TEXT_RISE, 0f);
