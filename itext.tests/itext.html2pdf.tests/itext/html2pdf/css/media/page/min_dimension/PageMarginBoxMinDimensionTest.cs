@@ -2,7 +2,7 @@ using System;
 using iText.Html2pdf;
 
 namespace iText.Html2pdf.Css.Media.Page.Min_dimension {
-    public class PageMarginBoxMinDimensionTests : ExtendedHtmlConversionITextTest {
+    public class PageMarginBoxMinDimensionTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/media/page/min_dimension/";
 

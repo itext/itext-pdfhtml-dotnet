@@ -465,16 +465,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="resolvedPageMarginBoxes">the resolved page margin boxes</param>
         private void PrepareMarginBoxesSizing(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
             Rectangle[] marginBoxRectangles = CalculateMarginBoxRectangles(resolvedPageMarginBoxes);
-            Rectangle[] marginBoxRectanglesSpec = CalculateMarginBoxRectanglesSpec(resolvedPageMarginBoxes);
             foreach (PageMarginBoxContextNode marginBoxContentNode in resolvedPageMarginBoxes) {
                 if (marginBoxContentNode.ChildNodes().IsEmpty()) {
                     // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
                     throw new InvalidOperationException();
                 }
                 int marginBoxInd = MapMarginBoxNameToIndex(marginBoxContentNode.GetMarginBoxName());
-                marginBoxContentNode.SetPageMarginBoxRectangle(marginBoxRectanglesSpec[marginBoxInd]);
+                marginBoxContentNode.SetPageMarginBoxRectangle(marginBoxRectangles[marginBoxInd]);
                 marginBoxContentNode.SetContainingBlockForMarginBox(CalculateContainingBlockSizesForMarginBox(marginBoxInd
-                    , marginBoxRectanglesSpec[marginBoxInd]));
+                    , marginBoxRectangles[marginBoxInd]));
             }
         }
 
@@ -522,44 +521,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return (IElement)marginBoxWorker.GetElementResult();
         }
 
-        /// <summary>Calculate margin box rectangles.</summary>
-        /// <param name="resolvedPageMarginBoxes">the resolved page margin boxes</param>
+        /// <summary>Calculate the margin boxes given the list of margin boxes that have generated content</summary>
+        /// <param name="resolvedPageMarginBoxes">list of context nodes representing the generated margin boxes</param>
         /// <returns>
-        /// an array of
-        /// <see cref="iText.Kernel.Geom.Rectangle"/>
-        /// values
+        /// Rectangle[12] containing the calulated bounding boxes of the margin-box-nodes. Rectangles with 0 width and/or heigh
+        /// refer to empty boxes. The order is TLC(top-left-corner)-TL-TC-TY-TRC-RT-RM-RB-RBC-BR-BC-BL-BLC-LB-LM-LT
         /// </returns>
-        private Rectangle[] CalculateMarginBoxRectangles(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
-            // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes,
-            //      also height and width properties should be taken into account.
-            float topMargin = margins[0];
-            float rightMargin = margins[1];
-            float bottomMargin = margins[2];
-            float leftMargin = margins[3];
-            Rectangle withoutMargins = pageSize.Clone().ApplyMargins(topMargin, rightMargin, bottomMargin, leftMargin, 
-                false);
-            float topBottomMarginWidth = withoutMargins.GetWidth() / 3;
-            float leftRightMarginHeight = withoutMargins.GetHeight() / 3;
-            Rectangle[] hardcodedBoxRectangles = new Rectangle[] { new Rectangle(0, withoutMargins.GetTop(), leftMargin
-                , topMargin), new Rectangle(rightMargin, withoutMargins.GetTop(), topBottomMarginWidth, topMargin), new 
-                Rectangle(rightMargin + topBottomMarginWidth, withoutMargins.GetTop(), topBottomMarginWidth, topMargin
-                ), new Rectangle(withoutMargins.GetRight() - topBottomMarginWidth, withoutMargins.GetTop(), topBottomMarginWidth
-                , topMargin), new Rectangle(withoutMargins.GetRight(), withoutMargins.GetTop(), topBottomMarginWidth, 
-                topMargin), new Rectangle(withoutMargins.GetRight(), withoutMargins.GetTop() - leftRightMarginHeight, 
-                rightMargin, leftRightMarginHeight), new Rectangle(withoutMargins.GetRight(), withoutMargins.GetBottom
-                () + leftRightMarginHeight, rightMargin, leftRightMarginHeight), new Rectangle(withoutMargins.GetRight
-                (), withoutMargins.GetBottom(), rightMargin, leftRightMarginHeight), new Rectangle(withoutMargins.GetRight
-                (), 0, rightMargin, bottomMargin), new Rectangle(withoutMargins.GetRight() - topBottomMarginWidth, 0, 
-                topBottomMarginWidth, bottomMargin), new Rectangle(rightMargin + topBottomMarginWidth, 0, topBottomMarginWidth
-                , bottomMargin), new Rectangle(rightMargin, 0, topBottomMarginWidth, bottomMargin), new Rectangle(0, 0
-                , leftMargin, bottomMargin), new Rectangle(0, withoutMargins.GetBottom(), leftMargin, leftRightMarginHeight
-                ), new Rectangle(0, withoutMargins.GetBottom() + leftRightMarginHeight, leftMargin, leftRightMarginHeight
-                ), new Rectangle(0, withoutMargins.GetTop() - leftRightMarginHeight, leftMargin, leftRightMarginHeight
-                ) };
-            return hardcodedBoxRectangles;
-        }
-
-        internal virtual Rectangle[] CalculateMarginBoxRectanglesSpec(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes
+        internal virtual Rectangle[] CalculateMarginBoxRectangles(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes
             ) {
             float topMargin = margins[0];
             float rightMargin = margins[1];
@@ -578,7 +546,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             Rectangle blc = new Rectangle(0, 0, leftMargin, bottomMargin);
             Rectangle brc = new Rectangle(withoutMargins.GetRight(), 0, rightMargin, bottomMargin);
             //Top calculation
-            //Gather necessary input
             float[] topWidthResults = CalculatePageMarginBoxDimensions(RetrievePageMarginBoxWidths(resolvedPMBMap.Get(
                 CssRuleName.TOP_LEFT), withoutMargins.GetWidth()), RetrievePageMarginBoxWidths(resolvedPMBMap.Get(CssRuleName
                 .TOP_CENTER), withoutMargins.GetWidth()), RetrievePageMarginBoxWidths(resolvedPMBMap.Get(CssRuleName.TOP_RIGHT
@@ -628,19 +595,27 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return groupedRectangles;
         }
 
-        private float GetStartCoordForCenterOrMiddleBox(float availableDimension, float[] dimensionResults, float 
-            offset) {
+        /// <summary>Calculate the starting coordinate in a given dimension for a center of middle box</summary>
+        /// <param name="availableDimension">size of the available area</param>
+        /// <param name="dimensionResults">float[3] containing the calculated dimensions</param>
+        /// <param name="offset">offset from the start of the page (page margins and padding included)</param>
+        /// <returns>starting coordinate in a given dimension for a center of middle box</returns>
+        internal virtual float GetStartCoordForCenterOrMiddleBox(float availableDimension, float[] dimensionResults
+            , float offset) {
             return offset + (availableDimension - dimensionResults[1]) / 2;
         }
 
-        /// <summary>See the algorithm detailed at https://www.w3.org/TR/css3-page/#margin-dimension</summary>
-        /// <param name="dimA"/>
-        /// <param name="dimB"/>
-        /// <param name="dimC"/>
-        /// <param name="availableDimension"/>
-        /// <returns/>
-        internal virtual float[] CalculatePageMarginBoxDimensions(PageContextProcessor.Dimensions dimA, PageContextProcessor.Dimensions
-             dimB, PageContextProcessor.Dimensions dimC, float availableDimension) {
+        /// <summary>
+        /// See the algorithm detailed at https://www.w3.org/TR/css3-page/#margin-dimension
+        /// Divide the available dimension along the A,B and C according to their properties.
+        /// </summary>
+        /// <param name="dimA">object containing the dimension-related properties of A</param>
+        /// <param name="dimB">object containing the dimension-related properties of B</param>
+        /// <param name="dimC">object containing the dimension-related properties of C</param>
+        /// <param name="availableDimension">maximum available dimension that can be taken up</param>
+        /// <returns>float[3] containing the distributed dimensions of A at [0], B at [1] and C at [2]</returns>
+        internal virtual float[] CalculatePageMarginBoxDimensions(PageContextProcessor.DimensionContainer dimA, PageContextProcessor.DimensionContainer
+             dimB, PageContextProcessor.DimensionContainer dimC, float availableDimension) {
             float maxContentDimensionA;
             float minContentDimensionA;
             float maxContentDimensionB;
@@ -761,16 +736,40 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 (dimC, dimensions, 2)) {
                 return CalculatePageMarginBoxDimensions(dimA, dimB, dimC, availableDimension);
             }
+            LimitIfNecessary(dimensions, availableDimension);
             return dimensions;
         }
 
-        private void SetManualDimension(PageContextProcessor.Dimensions dim, float[] dimensions, int index) {
+        /// <summary>Cap each element of the array to the available dimension</summary>
+        /// <param name="dimensions">array containing non-capped, calculated dimensions</param>
+        /// <param name="availableDimension">array containing dimensions, with each element set to available dimension if it was larger before
+        ///     </param>
+        internal virtual void LimitIfNecessary(float[] dimensions, float availableDimension) {
+            for (int i = 0; i < dimensions.Length; i++) {
+                if (dimensions[i] > availableDimension) {
+                    dimensions[i] = availableDimension;
+                }
+            }
+        }
+
+        /// <summary>Set the calculated dimension to the manually set dimension in the passed float array</summary>
+        /// <param name="dim">Dimension Container containing the manually set dimension</param>
+        /// <param name="dimensions">array of calculated auto values for boxes in the given dimension</param>
+        /// <param name="index">position in the array to replace</param>
+        internal virtual void SetManualDimension(PageContextProcessor.DimensionContainer dim, float[] dimensions, 
+            int index) {
             if (dim != null && !dim.IsAutoDimension()) {
                 dimensions[index] = dim.dimension;
             }
         }
 
-        private bool RecalculateIfNecessary(PageContextProcessor.Dimensions dim, float[] dimensions, int index) {
+        /// <summary>Check if a calculated dimension value needs to be recalculated</summary>
+        /// <param name="dim">Dimension container containing min and max dimension info</param>
+        /// <param name="dimensions">array of calculated auto values for boxes in the given dimension</param>
+        /// <param name="index">position in the array to look at</param>
+        /// <returns>True if the values in dimensions trigger a recalculation, false otherwise</returns>
+        internal virtual bool RecalculateIfNecessary(PageContextProcessor.DimensionContainer dim, float[] dimensions
+            , int index) {
             if (dim != null) {
                 if (dimensions[index] < dim.minDimension && dim.IsAutoDimension()) {
                     dim.dimension = dim.minDimension;
@@ -784,27 +783,28 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return false;
         }
 
-        internal virtual PageContextProcessor.Dimensions RetrievePageMarginBoxWidths(PageMarginBoxContextNode pmbcNode
-            , float maxWidth) {
+        internal virtual PageContextProcessor.DimensionContainer RetrievePageMarginBoxWidths(PageMarginBoxContextNode
+             pmbcNode, float maxWidth) {
             if (pmbcNode == null) {
                 return null;
             }
             else {
-                return new PageContextProcessor.WidthDimensions(this, pmbcNode, maxWidth);
+                return new PageContextProcessor.WidthDimensionContainer(this, pmbcNode, maxWidth);
             }
         }
 
-        internal virtual PageContextProcessor.Dimensions RetrievePageMarginBoxHeights(PageMarginBoxContextNode pmbcNode
-            , float marginWidth, float maxHeight) {
+        internal virtual PageContextProcessor.DimensionContainer RetrievePageMarginBoxHeights(PageMarginBoxContextNode
+             pmbcNode, float marginWidth, float maxHeight) {
             if (pmbcNode == null) {
                 return null;
             }
             else {
-                return new PageContextProcessor.HeightDimensions(this, pmbcNode, marginWidth, maxHeight);
+                return new PageContextProcessor.HeightDimensionContainer(this, pmbcNode, marginWidth, maxHeight);
             }
         }
 
-        internal class Dimensions {
+        /// <summary>Container class for grouping necessary values used in dimension calculation</summary>
+        internal class DimensionContainer {
             internal float dimension;
 
             internal float minDimension;
@@ -815,7 +815,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
             internal float maxContentDimension;
 
-            internal Dimensions(PageContextProcessor _enclosing) {
+            internal DimensionContainer(PageContextProcessor _enclosing) {
                 this._enclosing = _enclosing;
                 this.dimension = -1;
                 this.minDimension = 0;
@@ -824,6 +824,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 this.maxContentDimension = float.MaxValue;
             }
 
+            /// <summary>Check if this dimension is auto</summary>
+            /// <returns>True if the dimension is to be automatically calculated, false if it was set via a property</returns>
             internal virtual bool IsAutoDimension() {
                 return this.dimension == -1;
             }
@@ -842,8 +844,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             private readonly PageContextProcessor _enclosing;
         }
 
-        internal class WidthDimensions : PageContextProcessor.Dimensions {
-            internal WidthDimensions(PageContextProcessor _enclosing, CssContextNode node, float maxWidth)
+        internal class WidthDimensionContainer : PageContextProcessor.DimensionContainer {
+            internal WidthDimensionContainer(PageContextProcessor _enclosing, CssContextNode node, float maxWidth)
                 : base(_enclosing) {
                 this._enclosing = _enclosing;
                 String width = node.GetStyles().Get(CssConstants.WIDTH);
@@ -893,9 +895,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             private readonly PageContextProcessor _enclosing;
         }
 
-        internal class HeightDimensions : PageContextProcessor.Dimensions {
-            internal HeightDimensions(PageContextProcessor _enclosing, CssContextNode pmbcNode, float width, float maxHeight
-                )
+        internal class HeightDimensionContainer : PageContextProcessor.DimensionContainer {
+            internal HeightDimensionContainer(PageContextProcessor _enclosing, CssContextNode pmbcNode, float width, float
+                 maxHeight)
                 : base(_enclosing) {
                 this._enclosing = _enclosing;
                 String height = pmbcNode.GetStyles().Get(CssConstants.HEIGHT);
@@ -947,62 +949,53 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             private readonly PageContextProcessor _enclosing;
         }
 
+        /// <summary>Distribute the available dimension between two boxes A and C based on their content-needs.</summary>
+        /// <remarks>
+        /// Distribute the available dimension between two boxes A and C based on their content-needs.
+        /// The box with more content will get more space assigned
+        /// </remarks>
+        /// <param name="maxContentDimensionA">maximum of the dimension the content in A occupies</param>
+        /// <param name="minContentDimensionA">minimum of the dimension the content in A occupies</param>
+        /// <param name="maxContentDimensionC">maximum of the dimension the content in C occupies</param>
+        /// <param name="minContentDimensionC">minimum of the dimension the content in C occupies</param>
+        /// <param name="availableDimension">maximum available dimension to distribute</param>
+        /// <returns>float[2], distributed dimension for A in [0], distributed dimension for B in [1]</returns>
         internal virtual float[] DistributeDimensionBetweenTwoBoxes(float maxContentDimensionA, float minContentDimensionA
             , float maxContentDimensionC, float minContentDimensionC, float availableDimension) {
             //calculate based on flex space
             //Determine flex factor
+            float maxSum = maxContentDimensionA + maxContentDimensionC;
+            float minSum = minContentDimensionA + minContentDimensionC;
+            if (maxSum < availableDimension) {
+                return CalculateDistribution(maxContentDimensionA, maxContentDimensionC, maxContentDimensionA, maxContentDimensionC
+                    , maxSum, availableDimension);
+            }
+            else {
+                if (minSum < availableDimension) {
+                    return CalculateDistribution(minContentDimensionA, minContentDimensionC, maxContentDimensionA - minContentDimensionA
+                        , maxContentDimensionC - minContentDimensionC, maxSum - minSum, availableDimension);
+                }
+            }
+            return CalculateDistribution(minContentDimensionA, minContentDimensionC, minContentDimensionA, minContentDimensionC
+                , minSum, availableDimension);
+        }
+
+        internal virtual float[] CalculateDistribution(float argA, float argC, float flexA, float flexC, float sum
+            , float availableDimension) {
             float flexRatioA;
             float flexRatioC;
             float flexSpace;
-            float distributedWidthA;
-            float distributedWidthC;
-            if (maxContentDimensionA + maxContentDimensionC < availableDimension) {
-                if (maxContentDimensionA == 0 && maxContentDimensionC == 0) {
-                    //TODO(DEVSIX-1050) float comparison to zero, revisit
-                    flexRatioA = 1;
-                    flexRatioC = 1;
-                }
-                else {
-                    flexRatioA = maxContentDimensionA / (maxContentDimensionA + maxContentDimensionC);
-                    flexRatioC = maxContentDimensionC / (maxContentDimensionA + maxContentDimensionC);
-                }
-                flexSpace = availableDimension - (maxContentDimensionA + maxContentDimensionC);
-                distributedWidthA = maxContentDimensionA + flexRatioA * flexSpace;
-                distributedWidthC = maxContentDimensionC + flexRatioC * flexSpace;
+            if (sum == 0) {
+                //TODO(DEVSIX-1050) float comparison to zero, revisit
+                flexRatioA = 1;
+                flexRatioC = 1;
             }
             else {
-                if (minContentDimensionA + minContentDimensionC < availableDimension) {
-                    float factorSum = (maxContentDimensionA - minContentDimensionA) + (maxContentDimensionC - minContentDimensionC
-                        );
-                    if (factorSum == 0) {
-                        //TODO(DEVSIX-1050) float comparison to zero, revisit
-                        flexRatioA = 1;
-                        flexRatioC = 1;
-                    }
-                    else {
-                        flexRatioA = (maxContentDimensionA - minContentDimensionA) / factorSum;
-                        flexRatioC = (maxContentDimensionC - minContentDimensionC) / factorSum;
-                    }
-                    flexSpace = availableDimension - (minContentDimensionA + minContentDimensionC);
-                    distributedWidthA = minContentDimensionA + flexRatioA * flexSpace;
-                    distributedWidthC = minContentDimensionC + flexRatioC * flexSpace;
-                }
-                else {
-                    if (minContentDimensionA == 0 && minContentDimensionC == 0) {
-                        //TODO(DEVSIX-1050) float comparison to zero, revisit
-                        flexRatioA = 1;
-                        flexRatioC = 1;
-                    }
-                    else {
-                        flexRatioA = minContentDimensionA / (minContentDimensionA + minContentDimensionC);
-                        flexRatioC = minContentDimensionC / (minContentDimensionA + minContentDimensionC);
-                    }
-                    flexSpace = availableDimension - (minContentDimensionA + minContentDimensionC);
-                    distributedWidthA = minContentDimensionA + flexRatioA * flexSpace;
-                    distributedWidthC = minContentDimensionC + flexRatioC * flexSpace;
-                }
+                flexRatioA = flexA / sum;
+                flexRatioC = flexC / sum;
             }
-            return new float[] { distributedWidthA, distributedWidthC };
+            flexSpace = availableDimension - (argA + argC);
+            return new float[] { argA + flexRatioA * flexSpace, argC + flexRatioC * flexSpace };
         }
 
         internal virtual float GetMaxContentWidth(PageMarginBoxContextNode pmbcNode) {

@@ -2,7 +2,7 @@ using System;
 using iText.Html2pdf;
 
 namespace iText.Html2pdf.Css.Media.Page.Max_dimension {
-    public class PageMarginBoxMaxDimensionTests : ExtendedHtmlConversionITextTest {
+    public class PageMarginBoxMaxDimensionTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/media/page/max_dimension/";
 

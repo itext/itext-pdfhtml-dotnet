@@ -3,12 +3,12 @@ using iText.Html2pdf;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Media.Page {
-    public class PageMarginBoxIntegrationTests : ExtendedHtmlConversionITextTest {
+    public class PageMarginBoxIntegrationTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/media/page/PageMarginBoxIntegrationTests/";
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/media/page/PageMarginBoxIntegrationTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/css/media/page/PageMarginBoxIntegrationTests/";
+             + "/test/itext/html2pdf/css/media/page/PageMarginBoxIntegrationTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
@@ -348,6 +348,27 @@ namespace iText.Html2pdf.Css.Media.Page {
         [NUnit.Framework.Test]
         public virtual void LargeFixedAllTopBottomTest() {
             ConvertToPdfAndCompare("largeFixedAllTopBottomTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeFixedSidesAutoMiddleTest() {
+            ConvertToPdfAndCompare("largeFixedSidesAutoMiddleTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeFixedSidesFixedMiddleTest() {
+            ConvertToPdfAndCompare("largeFixedSidesFixedMiddleTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeFixedSidesNoMiddleTest() {
+            ConvertToPdfAndCompare("largeFixedSidesNoMiddleTest", sourceFolder, destinationFolder);
         }
     }
 }

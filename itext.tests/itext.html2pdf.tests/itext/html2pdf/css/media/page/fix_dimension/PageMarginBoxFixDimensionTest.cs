@@ -2,7 +2,7 @@ using System;
 using iText.Html2pdf;
 
 namespace iText.Html2pdf.Css.Media.Page.Fix_dimension {
-    public class PageMarginBoxFixDimensionTests : ExtendedHtmlConversionITextTest {
+    public class PageMarginBoxFixDimensionTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/media/page/fix_dimension/";
 
