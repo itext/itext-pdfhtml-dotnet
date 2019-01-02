@@ -7,7 +7,7 @@ using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>Container class for grouping necessary values used in dimension calculation</summary>
-    public abstract class DimensionContainer {
+    internal abstract class DimensionContainer {
         internal float dimension;
 
         internal float minDimension;

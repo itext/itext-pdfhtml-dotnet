@@ -5,8 +5,8 @@ using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Page;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    public class WidthDimensionContainer : DimensionContainer {
-        public WidthDimensionContainer(CssContextNode node, float maxWidth, ProcessorContext context) {
+    internal class WidthDimensionContainer : DimensionContainer {
+        internal WidthDimensionContainer(CssContextNode node, float maxWidth, ProcessorContext context) {
             String width = node.GetStyles().Get(CssConstants.WIDTH);
             if (width != null && !width.Equals("auto")) {
                 dimension = ParseDimension(node, width, maxWidth);
@@ -17,7 +17,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             maxContentDimension = PageContextProcessor.GetMaxContentWidth((PageMarginBoxContextNode)node, context);
         }
 
-        internal virtual float GetMinWidth(CssContextNode node, float maxAvailableWidth) {
+        private float GetMinWidth(CssContextNode node, float maxAvailableWidth) {
             String content = node.GetStyles().Get(CssConstants.MIN_WIDTH);
             if (content == null) {
                 return 0;
@@ -32,7 +32,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return ParseDimension(node, content, maxAvailableWidth);
         }
 
-        internal virtual float GetMaxWidth(CssContextNode node, float maxAvailableWidth) {
+        private float GetMaxWidth(CssContextNode node, float maxAvailableWidth) {
             String content = node.GetStyles().Get(CssConstants.MAX_WIDTH);
             if (content == null) {
                 return float.MaxValue;

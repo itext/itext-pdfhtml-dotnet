@@ -5,7 +5,7 @@ using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Page;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    public class HeightDimensionContainer : DimensionContainer {
+    internal class HeightDimensionContainer : DimensionContainer {
         internal HeightDimensionContainer(CssContextNode pmbcNode, float width, float maxHeight, ProcessorContext 
             context) {
             String height = pmbcNode.GetStyles().Get(CssConstants.HEIGHT);
@@ -20,7 +20,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 maxHeight, context);
         }
 
-        internal virtual float GetMinHeight(CssContextNode node, float maxAvailableHeight) {
+        private float GetMinHeight(CssContextNode node, float maxAvailableHeight) {
             String content = node.GetStyles().Get(CssConstants.MIN_HEIGHT);
             if (content == null) {
                 return 0;
@@ -35,7 +35,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return ParseDimension(node, content, maxAvailableHeight);
         }
 
-        internal virtual float GetMaxHeight(CssContextNode node, float maxAvailableHeight) {
+        private float GetMaxHeight(CssContextNode node, float maxAvailableHeight) {
             String content = node.GetStyles().Get(CssConstants.MAX_HEIGHT);
             if (content == null) {
                 return float.MaxValue;

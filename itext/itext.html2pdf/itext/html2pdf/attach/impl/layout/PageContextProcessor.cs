@@ -112,6 +112,124 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             Reset(defaultPageSize, defaultPageMargins);
         }
 
+        /// <summary>Parses the marks.</summary>
+        /// <param name="marksStr">
+        /// a
+        /// <see cref="System.String"/>
+        /// value defining the marks
+        /// </param>
+        /// <returns>
+        /// a
+        /// <see cref="Java.Util.Set{E}"/>
+        /// of mark values
+        /// </returns>
+        private static ICollection<String> ParseMarks(String marksStr) {
+            ICollection<String> marks = new HashSet<String>();
+            if (marksStr == null) {
+                return marks;
+            }
+            String[] split = iText.IO.Util.StringUtil.Split(marksStr, " ");
+            foreach (String mark in split) {
+                if (CssConstants.CROP.Equals(mark) || CssConstants.CROSS.Equals(mark)) {
+                    marks.Add(mark);
+                }
+                else {
+                    marks.Clear();
+                    break;
+                }
+            }
+            return marks;
+        }
+
+        internal static float GetMaxContentWidth(PageMarginBoxContextNode pmbcNode, ProcessorContext context) {
+            //Check styles?
+            //Simulate contents?
+            //TODO(DEVSIX-1050): Consider complex non-purely text based contents
+            String content = pmbcNode.GetStyles().Get(CssConstants.CONTENT);
+            //Resolve font using context
+            String fontFamilyName = pmbcNode.GetStyles().Get(CssConstants.FONT_FAMILY);
+            float fontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(pmbcNode.GetStyles().Get(CssConstants.FONT_SIZE
+                ));
+            FontProvider provider = context.GetFontProvider();
+            FontCharacteristics fc = new FontCharacteristics();
+            FontSelectorStrategy strategy = provider.GetStrategy(content, FontFamilySplitter.SplitFontFamily(fontFamilyName
+                ), fc);
+            strategy.NextGlyphs();
+            PdfFont currentFont = strategy.GetCurrentFont();
+            if (currentFont == null) {
+                //TODO(DEVSIX-1050) Warn and use pdf default
+                try {
+                    currentFont = PdfFontFactory.CreateFont();
+                }
+                catch (System.IO.IOException) {
+                }
+            }
+            //TODO throw exception further?
+            return currentFont.GetWidth(content, fontSize);
+        }
+
+        internal static float GetMinContentWidth(PageMarginBoxContextNode node, ProcessorContext context) {
+            //TODO(DEVSIX-1050): reread spec to be certain that min-content-size does in fact mean the same as max content
+            return GetMaxContentWidth(node, context);
+        }
+
+        internal static float GetMaxContentHeight(PageMarginBoxContextNode pmbcNode, float width, float maxAvailableHeight
+            , ProcessorContext context) {
+            //TODO(DEVSIX-1050): Consider complex non-purely text based contents
+            String content = pmbcNode.GetStyles().Get(CssConstants.CONTENT);
+            //Use iText layout engine to simulate
+            //Resolve font using context
+            String fontFamilyName = pmbcNode.GetStyles().Get(CssConstants.FONT_FAMILY);
+            float fontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(pmbcNode.GetStyles().Get(CssConstants.FONT_SIZE
+                ));
+            FontProvider provider = context.GetFontProvider();
+            FontCharacteristics fc = new FontCharacteristics();
+            FontSelectorStrategy strategy = provider.GetStrategy(content, FontFamilySplitter.SplitFontFamily(fontFamilyName
+                ), fc);
+            strategy.NextGlyphs();
+            PdfFont currentFont = strategy.GetCurrentFont();
+            Text text = new Text(content);
+            text.SetFont(currentFont);
+            text.SetFontSize(fontSize);
+            text.SetProperty(Property.TEXT_RISE, 0f);
+            text.SetProperty(Property.TEXT_RENDERING_MODE, PdfCanvasConstants.TextRenderingMode.FILL);
+            text.SetProperty(Property.SPLIT_CHARACTERS, new DefaultSplitCharacters());
+            Paragraph p = new Paragraph(text);
+            p.SetMargin(0f);
+            p.SetPadding(0f);
+            IRenderer pRend = p.CreateRendererSubTree();
+            LayoutArea layoutArea = new LayoutArea(1, new Rectangle(0, 0, width, maxAvailableHeight));
+            LayoutContext minimalContext = new LayoutContext(layoutArea);
+            LayoutResult quickLayout = pRend.Layout(minimalContext);
+            return quickLayout.GetOccupiedArea().GetBBox().GetHeight();
+        }
+
+        internal static float GetMinContentHeight(PageMarginBoxContextNode node, float width, float maxAvailableHeight
+            , ProcessorContext context) {
+            return GetMaxContentHeight(node, width, maxAvailableHeight, context);
+        }
+
+        /// <summary>Gets rid of all page breaks that might have occurred inside page margin boxes because of the running elements.
+        ///     </summary>
+        /// <param name="renderer">root renderer of renderers subtree</param>
+        private static void RemoveAreaBreaks(IRenderer renderer) {
+            IList<IRenderer> areaBreaks = null;
+            foreach (IRenderer child in renderer.GetChildRenderers()) {
+                if (child is AreaBreakRenderer) {
+                    if (areaBreaks == null) {
+                        areaBreaks = new List<IRenderer>();
+                    }
+                    areaBreaks.Add(child);
+                }
+                else {
+                    RemoveAreaBreaks(child);
+                }
+            }
+            if (areaBreaks != null) {
+                renderer.GetChildRenderers().RemoveAll(areaBreaks);
+            }
+        }
+
         /// <summary>
         /// Re-initializes page context processor based on default current page size and page margins
         /// and on properties from css page at-rules.
@@ -369,35 +487,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
-        /// <summary>Parses the marks.</summary>
-        /// <param name="marksStr">
-        /// a
-        /// <see cref="System.String"/>
-        /// value defining the marks
-        /// </param>
-        /// <returns>
-        /// a
-        /// <see cref="Java.Util.Set{E}"/>
-        /// of mark values
-        /// </returns>
-        private static ICollection<String> ParseMarks(String marksStr) {
-            ICollection<String> marks = new HashSet<String>();
-            if (marksStr == null) {
-                return marks;
-            }
-            String[] split = iText.IO.Util.StringUtil.Split(marksStr, " ");
-            foreach (String mark in split) {
-                if (CssConstants.CROP.Equals(mark) || CssConstants.CROSS.Equals(mark)) {
-                    marks.Add(mark);
-                }
-                else {
-                    marks.Clear();
-                    break;
-                }
-            }
-            return marks;
-        }
-
         /// <summary>Parses the margins.</summary>
         /// <param name="styles">
         /// a
@@ -527,8 +616,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// Rectangle[12] containing the calulated bounding boxes of the margin-box-nodes. Rectangles with 0 width and/or heigh
         /// refer to empty boxes. The order is TLC(top-left-corner)-TL-TC-TY-TRC-RT-RM-RB-RBC-BR-BC-BL-BLC-LB-LM-LT
         /// </returns>
-        internal virtual Rectangle[] CalculateMarginBoxRectangles(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes
-            ) {
+        private Rectangle[] CalculateMarginBoxRectangles(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
             float topMargin = margins[0];
             float rightMargin = margins[1];
             float bottomMargin = margins[2];
@@ -601,8 +689,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="dimensionResults">float[3] containing the calculated dimensions</param>
         /// <param name="offset">offset from the start of the page (page margins and padding included)</param>
         /// <returns>starting coordinate in a given dimension for a center of middle box</returns>
-        internal virtual float GetStartCoordForCenterOrMiddleBox(float availableDimension, float[] dimensionResults
-            , float offset) {
+        private float GetStartCoordForCenterOrMiddleBox(float availableDimension, float[] dimensionResults, float 
+            offset) {
             return offset + (availableDimension - dimensionResults[1]) / 2;
         }
 
@@ -615,8 +703,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="dimC">object containing the dimension-related properties of C</param>
         /// <param name="availableDimension">maximum available dimension that can be taken up</param>
         /// <returns>float[3] containing the distributed dimensions of A at [0], B at [1] and C at [2]</returns>
-        internal virtual float[] CalculatePageMarginBoxDimensions(DimensionContainer dimA, DimensionContainer dimB
-            , DimensionContainer dimC, float availableDimension) {
+        private float[] CalculatePageMarginBoxDimensions(DimensionContainer dimA, DimensionContainer dimB, DimensionContainer
+             dimC, float availableDimension) {
             float maxContentDimensionA = 0;
             float minContentDimensionA = 0;
             float maxContentDimensionB = 0;
@@ -767,7 +855,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="dim">Dimension Container containing the manually set dimension</param>
         /// <param name="dimensions">array of calculated auto values for boxes in the given dimension</param>
         /// <param name="index">position in the array to replace</param>
-        internal virtual void SetManualDimension(DimensionContainer dim, float[] dimensions, int index) {
+        private void SetManualDimension(DimensionContainer dim, float[] dimensions, int index) {
             if (dim != null && !dim.IsAutoDimension()) {
                 dimensions[index] = dim.dimension;
             }
@@ -778,7 +866,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="dimensions">array of calculated auto values for boxes in the given dimension</param>
         /// <param name="index">position in the array to look at</param>
         /// <returns>True if the values in dimensions trigger a recalculation, false otherwise</returns>
-        internal virtual bool RecalculateIfNecessary(DimensionContainer dim, float[] dimensions, int index) {
+        private bool RecalculateIfNecessary(DimensionContainer dim, float[] dimensions, int index) {
             if (dim != null) {
                 if (dimensions[index] < dim.minDimension && dim.IsAutoDimension()) {
                     dim.dimension = dim.minDimension;
@@ -792,8 +880,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return false;
         }
 
-        internal virtual DimensionContainer RetrievePageMarginBoxWidths(PageMarginBoxContextNode pmbcNode, float maxWidth
-            , ProcessorContext context) {
+        private DimensionContainer RetrievePageMarginBoxWidths(PageMarginBoxContextNode pmbcNode, float maxWidth, 
+            ProcessorContext context) {
             if (pmbcNode == null) {
                 return null;
             }
@@ -802,8 +890,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
-        internal virtual DimensionContainer RetrievePageMarginBoxHeights(PageMarginBoxContextNode pmbcNode, float 
-            marginWidth, float maxHeight, ProcessorContext context) {
+        private DimensionContainer RetrievePageMarginBoxHeights(PageMarginBoxContextNode pmbcNode, float marginWidth
+            , float maxHeight, ProcessorContext context) {
             if (pmbcNode == null) {
                 return null;
             }
@@ -823,8 +911,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="minContentDimensionC">minimum of the dimension the content in C occupies</param>
         /// <param name="availableDimension">maximum available dimension to distribute</param>
         /// <returns>float[2], distributed dimension for A in [0], distributed dimension for B in [1]</returns>
-        internal virtual float[] DistributeDimensionBetweenTwoBoxes(float maxContentDimensionA, float minContentDimensionA
-            , float maxContentDimensionC, float minContentDimensionC, float availableDimension) {
+        private float[] DistributeDimensionBetweenTwoBoxes(float maxContentDimensionA, float minContentDimensionA, 
+            float maxContentDimensionC, float minContentDimensionC, float availableDimension) {
             //calculate based on flex space
             //Determine flex factor
             float maxSum = maxContentDimensionA + maxContentDimensionC;
@@ -843,8 +931,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 , minSum, availableDimension);
         }
 
-        internal virtual float[] CalculateDistribution(float argA, float argC, float flexA, float flexC, float sum
-            , float availableDimension) {
+        private float[] CalculateDistribution(float argA, float argC, float flexA, float flexC, float sum, float availableDimension
+            ) {
             float flexRatioA;
             float flexRatioC;
             float flexSpace;
@@ -859,74 +947,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
             flexSpace = availableDimension - (argA + argC);
             return new float[] { argA + flexRatioA * flexSpace, argC + flexRatioC * flexSpace };
-        }
-
-        public static float GetMaxContentWidth(PageMarginBoxContextNode pmbcNode, ProcessorContext context) {
-            //Check styles?
-            //Simulate contents?
-            //TODO(DEVSIX-1050): Consider complex non-purely text based contents
-            String content = pmbcNode.GetStyles().Get(CssConstants.CONTENT);
-            //Resolve font using context
-            String fontFamilyName = pmbcNode.GetStyles().Get(CssConstants.FONT_FAMILY);
-            float fontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(pmbcNode.GetStyles().Get(CssConstants.FONT_SIZE
-                ));
-            FontProvider provider = context.GetFontProvider();
-            FontCharacteristics fc = new FontCharacteristics();
-            FontSelectorStrategy strategy = provider.GetStrategy(content, FontFamilySplitter.SplitFontFamily(fontFamilyName
-                ), fc);
-            strategy.NextGlyphs();
-            PdfFont currentFont = strategy.GetCurrentFont();
-            if (currentFont == null) {
-                //TODO(DEVSIX-1050) Warn and use pdf default
-                try {
-                    currentFont = PdfFontFactory.CreateFont();
-                }
-                catch (System.IO.IOException) {
-                }
-            }
-            //TODO throw exception further?
-            return currentFont.GetWidth(content, fontSize);
-        }
-
-        public static float GetMinContentWidth(PageMarginBoxContextNode node, ProcessorContext context) {
-            //TODO(DEVSIX-1050): reread spec to be certain that min-content-size does in fact mean the same as max content
-            return GetMaxContentWidth(node, context);
-        }
-
-        public static float GetMaxContentHeight(PageMarginBoxContextNode pmbcNode, float width, float maxAvailableHeight
-            , ProcessorContext context) {
-            //TODO(DEVSIX-1050): Consider complex non-purely text based contents
-            String content = pmbcNode.GetStyles().Get(CssConstants.CONTENT);
-            //Use iText layout engine to simulate
-            //Resolve font using context
-            String fontFamilyName = pmbcNode.GetStyles().Get(CssConstants.FONT_FAMILY);
-            float fontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(pmbcNode.GetStyles().Get(CssConstants.FONT_SIZE
-                ));
-            FontProvider provider = context.GetFontProvider();
-            FontCharacteristics fc = new FontCharacteristics();
-            FontSelectorStrategy strategy = provider.GetStrategy(content, FontFamilySplitter.SplitFontFamily(fontFamilyName
-                ), fc);
-            strategy.NextGlyphs();
-            PdfFont currentFont = strategy.GetCurrentFont();
-            Text text = new Text(content);
-            text.SetFont(currentFont);
-            text.SetFontSize(fontSize);
-            text.SetProperty(Property.TEXT_RISE, 0f);
-            text.SetProperty(Property.TEXT_RENDERING_MODE, PdfCanvasConstants.TextRenderingMode.FILL);
-            text.SetProperty(Property.SPLIT_CHARACTERS, new DefaultSplitCharacters());
-            Paragraph p = new Paragraph(text);
-            p.SetMargin(0f);
-            p.SetPadding(0f);
-            IRenderer pRend = p.CreateRendererSubTree();
-            LayoutArea layoutArea = new LayoutArea(1, new Rectangle(0, 0, width, maxAvailableHeight));
-            LayoutContext minimalContext = new LayoutContext(layoutArea);
-            LayoutResult quickLayout = pRend.Layout(minimalContext);
-            return quickLayout.GetOccupiedArea().GetBBox().GetHeight();
-        }
-
-        public static float GetMinContentHeight(PageMarginBoxContextNode node, float width, float maxAvailableHeight
-            , ProcessorContext context) {
-            return GetMaxContentHeight(node, width, maxAvailableHeight, context);
         }
 
         /// <summary>Calculate containing block sizes for margin box.</summary>
@@ -1032,27 +1052,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 }
             }
             return -1;
-        }
-
-        /// <summary>Gets rid of all page breaks that might have occurred inside page margin boxes because of the running elements.
-        ///     </summary>
-        /// <param name="renderer">root renderer of renderers subtree</param>
-        private static void RemoveAreaBreaks(IRenderer renderer) {
-            IList<IRenderer> areaBreaks = null;
-            foreach (IRenderer child in renderer.GetChildRenderers()) {
-                if (child is AreaBreakRenderer) {
-                    if (areaBreaks == null) {
-                        areaBreaks = new List<IRenderer>();
-                    }
-                    areaBreaks.Add(child);
-                }
-                else {
-                    RemoveAreaBreaks(child);
-                }
-            }
-            if (areaBreaks != null) {
-                renderer.GetChildRenderers().RemoveAll(areaBreaks);
-            }
         }
     }
 }
