@@ -375,5 +375,33 @@ namespace iText.Html2pdf.Css.Media.Page {
         public virtual void AllFixedWithMBPTest() {
             ConvertToPdfAndCompare("allFixedWithMBPTest", sourceFolder, destinationFolder);
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void PercentageVerticalTest() {
+            ConvertToPdfAndCompare("percentageVerticalTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CornerPrecisionTest() {
+            ConvertToPdfAndCompare("cornerPrecisionTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void NegativeMarginsTest() {
+            ConvertToPdfAndCompare("negativeMarginsTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HugeImageTest() {
+            ConvertToPdfAndCompare("hugeImageTest", sourceFolder, destinationFolder);
+        }
     }
 }

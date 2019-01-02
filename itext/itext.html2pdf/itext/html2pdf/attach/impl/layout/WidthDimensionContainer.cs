@@ -9,16 +9,21 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         public WidthDimensionContainer(CssContextNode node, float maxWidth, IRenderer renderer, float additionalWidthFix
             ) {
             String width = node.GetStyles().Get(CssConstants.WIDTH);
-            if (width != null && !width.Equals("auto")) {
+            if (width != null && !width.Equals(CssConstants.AUTO)) {
                 dimension = ParseDimension(node, width, maxWidth, additionalWidthFix);
             }
             minDimension = GetMinWidth(node, maxWidth, additionalWidthFix);
             maxDimension = GetMaxWidth(node, maxWidth, additionalWidthFix);
-            MinMaxWidth minMaxWidth = null;
-            if (renderer is BlockRenderer) {
-                minMaxWidth = ((BlockRenderer)renderer).GetMinMaxWidth();
-                maxContentDimension = minMaxWidth.GetMaxWidth();
-                minContentDimension = minMaxWidth.GetMinWidth();
+            if (!IsAutoDimension()) {
+                maxContentDimension = dimension;
+                maxContentDimension = dimension;
+            }
+            else {
+                if (renderer is BlockRenderer) {
+                    MinMaxWidth minMaxWidth = ((BlockRenderer)renderer).GetMinMaxWidth();
+                    maxContentDimension = minMaxWidth.GetMaxWidth();
+                    minContentDimension = minMaxWidth.GetMinWidth();
+                }
             }
         }
 

@@ -98,6 +98,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         private ProcessorContext context;
 
+        private const float EPSILON = 0.00001f;
+
         /// <summary>The logger.</summary>
         private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor
             ));
@@ -380,69 +382,68 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 return;
             }
             PdfPage page = pdfDocument.GetPage(pageNumber);
-            PageMarginBoxContextNode[][] sides = new PageMarginBoxContextNode[][] { new PageMarginBoxContextNode[3], new 
-                PageMarginBoxContextNode[3], new PageMarginBoxContextNode[3], new PageMarginBoxContextNode[3] };
-            PageMarginBoxContextNode[] corners = new PageMarginBoxContextNode[4];
+            List<PageMarginBoxContextNode> nodes = new List<PageMarginBoxContextNode>(JavaCollectionsUtil.NCopies(16, 
+                (PageMarginBoxContextNode)null));
             foreach (PageMarginBoxContextNode marginBoxContentNode in properties.GetResolvedPageMarginBoxes()) {
-                int marginBoxInd = MapMarginBoxNameToIndex(marginBoxContentNode.GetMarginBoxName());
-                if (marginBoxInd % 4 != 0) {
-                    sides[marginBoxInd / 4][marginBoxInd % 4 - 1] = marginBoxContentNode;
-                }
-                else {
-                    corners[marginBoxInd / 4] = marginBoxContentNode;
+                nodes[MapMarginBoxNameToIndex(marginBoxContentNode.GetMarginBoxName())] = marginBoxContentNode;
+            }
+            List<IElement> elements = new List<IElement>(JavaCollectionsUtil.NCopies(16, (IElement)null));
+            for (int i = 0; i < 16; i++) {
+                if (nodes[i] != null) {
+                    elements[i] = ProcessMarginBoxContent(nodes[i], pageNumber, context);
                 }
             }
-            IElement[][] sideBoxElement = new IElement[][] { new IElement[3], new IElement[3], new IElement[3], new IElement
-                [3] };
-            IElement[] cornerBoxElement = new IElement[4];
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 3; j++) {
-                    if (sides[i][j] != null) {
-                        sideBoxElement[i][j] = ProcessMarginBoxContent(sides[i][j], pageNumber, context);
-                    }
-                }
-                if (corners[i] != null) {
-                    cornerBoxElement[i] = ProcessMarginBoxContent(corners[i], pageNumber, context);
-                }
-            }
-            for (int i = 0; i < 4; i++) {
-                if (cornerBoxElement[i] != null) {
-                    IRenderer cornerRenderer = CreateRendererFromElement(cornerBoxElement[i], documentRenderer, pdfDocument);
-                    float rendererWidth = margins[i % 3 == 0 ? 3 : 1] - GetSizeOfOneSide(cornerBoxElement[i], Property.MARGIN_LEFT
-                        , Property.BORDER_LEFT, Property.PADDING_LEFT) - GetSizeOfOneSide(cornerBoxElement[i], Property.MARGIN_RIGHT
-                        , Property.BORDER_RIGHT, Property.PADDING_RIGHT);
-                    float rendererHeight = margins[i > 1 ? 2 : 0] - GetSizeOfOneSide(cornerBoxElement[i], Property.MARGIN_TOP, 
-                        Property.BORDER_TOP, Property.PADDING_TOP) - GetSizeOfOneSide(cornerBoxElement[i], Property.MARGIN_BOTTOM
-                        , Property.BORDER_BOTTOM, Property.PADDING_BOTTOM);
-                    cornerRenderer.SetProperty(Property.WIDTH, UnitValue.CreatePointValue(rendererWidth));
-                    cornerRenderer.SetProperty(Property.HEIGHT, UnitValue.CreatePointValue(rendererHeight));
-                    Draw(cornerRenderer, corners[i], pdfDocument, page, documentRenderer, pageNumber);
-                }
-                IRenderer[] renderers = new IRenderer[3];
-                for (int j = 0; j < 3; j++) {
-                    if (sideBoxElement[i][j] != null) {
-                        renderers[j] = CreateRendererFromElement(sideBoxElement[i][j], documentRenderer, pdfDocument);
-                    }
-                }
-                DetermineSizes(sides[i], renderers, sideBoxElement[i], i);
-                for (int j = 0; j < 3; j++) {
-                    if (renderers[j] != null) {
-                        Draw(renderers[j], sides[i][j], pdfDocument, page, documentRenderer, pageNumber);
-                    }
+            List<IRenderer> renderers = GetPMBRenderers(elements, nodes, documentRenderer, pdfDocument);
+            for (int i = 0; i < 16; i++) {
+                if (renderers[i] != null) {
+                    Draw(renderers[i], nodes[i], pdfDocument, page, documentRenderer, pageNumber);
                 }
             }
         }
 
+        private List<IRenderer> GetPMBRenderers(List<IElement> elements, List<PageMarginBoxContextNode> nodes, DocumentRenderer
+             documentRenderer, PdfDocument pdfDocument) {
+            List<IRenderer> renderers = new List<IRenderer>(JavaCollectionsUtil.NCopies(16, (IRenderer)null));
+            for (int i = 0; i < 4; i++) {
+                renderers[i * 4] = CreateCornerRenderer(elements[i * 4], documentRenderer, pdfDocument, i);
+                for (int j = 1; j <= 3; j++) {
+                    renderers[i * 4 + j] = CreateRendererFromElement(elements[i * 4 + j], documentRenderer, pdfDocument);
+                }
+                DetermineSizes(nodes.SubList(i * 4 + 1, i * 4 + 4), renderers.SubList(i * 4 + 1, i * 4 + 4), i);
+            }
+            return renderers;
+        }
+
+        private IRenderer CreateCornerRenderer(IElement cornerBoxElement, DocumentRenderer documentRenderer, PdfDocument
+             pdfDocument, int indexOfCorner) {
+            IRenderer cornerRenderer = CreateRendererFromElement(cornerBoxElement, documentRenderer, pdfDocument);
+            if (cornerRenderer != null) {
+                float rendererWidth = margins[indexOfCorner % 3 == 0 ? 3 : 1] - GetSizeOfOneSide(cornerRenderer, Property.
+                    MARGIN_LEFT, Property.BORDER_LEFT, Property.PADDING_LEFT) - GetSizeOfOneSide(cornerRenderer, Property.
+                    MARGIN_RIGHT, Property.BORDER_RIGHT, Property.PADDING_RIGHT);
+                float rendererHeight = margins[indexOfCorner > 1 ? 2 : 0] - GetSizeOfOneSide(cornerRenderer, Property.MARGIN_TOP
+                    , Property.BORDER_TOP, Property.PADDING_TOP) - GetSizeOfOneSide(cornerRenderer, Property.MARGIN_BOTTOM
+                    , Property.BORDER_BOTTOM, Property.PADDING_BOTTOM);
+                cornerRenderer.SetProperty(Property.WIDTH, UnitValue.CreatePointValue(rendererWidth));
+                cornerRenderer.SetProperty(Property.HEIGHT, UnitValue.CreatePointValue(rendererHeight));
+                return cornerRenderer;
+            }
+            return null;
+        }
+
         private IRenderer CreateRendererFromElement(IElement element, DocumentRenderer documentRenderer, PdfDocument
              pdfDocument) {
-            IRenderer renderer = element.CreateRendererSubTree();
-            RemoveAreaBreaks(renderer);
-            renderer.SetParent(documentRenderer);
-            if (pdfDocument.IsTagged()) {
-                LayoutTaggingHelper taggingHelper = renderer.GetProperty<LayoutTaggingHelper>(Property.TAGGING_HELPER);
-                LayoutTaggingHelper.AddTreeHints(taggingHelper, renderer);
+            if (element != null) {
+                IRenderer renderer = element.CreateRendererSubTree();
+                RemoveAreaBreaks(renderer);
+                renderer.SetParent(documentRenderer);
+                if (pdfDocument.IsTagged()) {
+                    LayoutTaggingHelper taggingHelper = renderer.GetProperty<LayoutTaggingHelper>(Property.TAGGING_HELPER);
+                    LayoutTaggingHelper.AddTreeHints(taggingHelper, renderer);
+                }
+                return renderer;
             }
-            return renderer;
+            return null;
         }
 
         private void Draw(IRenderer renderer, PageMarginBoxContextNode node, PdfDocument pdfDocument, PdfPage page
@@ -471,8 +472,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             else {
                 // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
                 // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
-                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor));
-                logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN
+                LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN
                     , node.GetMarginBoxName()));
             }
         }
@@ -550,7 +550,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     throw new InvalidOperationException();
                 }
                 int marginBoxInd = MapMarginBoxNameToIndex(marginBoxContentNode.GetMarginBoxName());
-                marginBoxContentNode.SetPageMarginBoxRectangle(marginBoxRectangles[marginBoxInd]);
+                if (marginBoxRectangles[marginBoxInd] != null) {
+                    marginBoxContentNode.SetPageMarginBoxRectangle(new Rectangle(marginBoxRectangles[marginBoxInd]).IncreaseHeight
+                        (EPSILON));
+                }
                 marginBoxContentNode.SetContainingBlockForMarginBox(CalculateContainingBlockSizesForMarginBox(marginBoxInd
                     , marginBoxRectangles[marginBoxInd]));
             }
@@ -585,7 +588,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                             }
                         }
                         else {
-                            LogManager.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
+                            LOGGER.Error(iText.Html2pdf.LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
                         }
                     }
                 }
@@ -630,18 +633,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return groupedRectangles;
         }
 
-        private void DetermineSizes(PageMarginBoxContextNode[] resolvedPageMarginBoxes, IRenderer[] renderers, IElement
-            [] elements, int side) {
+        private void DetermineSizes(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes, IList<IRenderer> renderers
+            , int side) {
             float[][] marginsBordersPaddingsWidths = new float[][] { new float[4], new float[4], new float[4] };
             for (int i = 0; i < 3; i++) {
-                if (elements[i] != null) {
-                    marginsBordersPaddingsWidths[i][0] = GetSizeOfOneSide(elements[i], Property.MARGIN_TOP, Property.BORDER_TOP
+                if (renderers[i] != null) {
+                    marginsBordersPaddingsWidths[i][0] = GetSizeOfOneSide(renderers[i], Property.MARGIN_TOP, Property.BORDER_TOP
                         , Property.PADDING_TOP);
-                    marginsBordersPaddingsWidths[i][1] = GetSizeOfOneSide(elements[i], Property.MARGIN_RIGHT, Property.BORDER_RIGHT
+                    marginsBordersPaddingsWidths[i][1] = GetSizeOfOneSide(renderers[i], Property.MARGIN_RIGHT, Property.BORDER_RIGHT
                         , Property.PADDING_RIGHT);
-                    marginsBordersPaddingsWidths[i][2] = GetSizeOfOneSide(elements[i], Property.MARGIN_BOTTOM, Property.BORDER_BOTTOM
+                    marginsBordersPaddingsWidths[i][2] = GetSizeOfOneSide(renderers[i], Property.MARGIN_BOTTOM, Property.BORDER_BOTTOM
                         , Property.PADDING_BOTTOM);
-                    marginsBordersPaddingsWidths[i][3] = GetSizeOfOneSide(elements[i], Property.MARGIN_LEFT, Property.BORDER_LEFT
+                    marginsBordersPaddingsWidths[i][3] = GetSizeOfOneSide(renderers[i], Property.MARGIN_LEFT, Property.BORDER_LEFT
                         , Property.PADDING_LEFT);
                 }
             }
@@ -668,27 +671,26 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 }
             }
             float centerOrMiddleCoord;
-            float[] widthOfHeightResults;
-            widthOfHeightResults = CalculatePageMarginBoxDimensions(dims[0], dims[1], dims[2], withoutMarginsWidthOrHeight
+            float[] widthOrHeightResults;
+            widthOrHeightResults = CalculatePageMarginBoxDimensions(dims[0], dims[1], dims[2], withoutMarginsWidthOrHeight
                 );
             if (side % 2 == 0) {
-                centerOrMiddleCoord = GetStartCoordForCenterOrMiddleBox(withoutMarginsWidthOrHeight, widthOfHeightResults[
+                centerOrMiddleCoord = GetStartCoordForCenterOrMiddleBox(withoutMarginsWidthOrHeight, widthOrHeightResults[
                     1], withoutMargins.GetLeft());
             }
             else {
-                centerOrMiddleCoord = GetStartCoordForCenterOrMiddleBox(withoutMarginsWidthOrHeight, widthOfHeightResults[
+                centerOrMiddleCoord = GetStartCoordForCenterOrMiddleBox(withoutMarginsWidthOrHeight, widthOrHeightResults[
                     1], withoutMargins.GetBottom());
             }
-            Rectangle[] result = GetRectangles(side, withoutMargins, centerOrMiddleCoord, widthOfHeightResults, marginsBordersPaddingsWidths
-                );
+            Rectangle[] result = GetRectangles(side, withoutMargins, centerOrMiddleCoord, widthOrHeightResults);
             for (int i = 0; i < 3; i++) {
                 if (resolvedPageMarginBoxes[i] != null) {
-                    resolvedPageMarginBoxes[i].SetPageMarginBoxRectangle(result[i]);
+                    resolvedPageMarginBoxes[i].SetPageMarginBoxRectangle(new Rectangle(result[i]).IncreaseHeight(EPSILON));
                     UnitValue width = UnitValue.CreatePointValue(result[i].GetWidth() - marginsBordersPaddingsWidths[i][1] - marginsBordersPaddingsWidths
                         [i][3]);
                     UnitValue height = UnitValue.CreatePointValue(result[i].GetHeight() - marginsBordersPaddingsWidths[i][0] -
                          marginsBordersPaddingsWidths[i][2]);
-                    if (Math.Abs(width.GetValue()) < 1e-3 || Math.Abs(height.GetValue()) < 1e-3) {
+                    if (Math.Abs(width.GetValue()) < EPSILON || Math.Abs(height.GetValue()) < EPSILON) {
                         renderers[i] = null;
                     }
                     else {
@@ -721,7 +723,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         private Rectangle[] GetRectangles(int side, Rectangle withoutMargins, float centerOrMiddleCoord, float[] results
-            , float[][] marginsBordersPaddingsWidths) {
+            ) {
             switch (side) {
                 case 0: {
                     return new Rectangle[] { new Rectangle(withoutMargins.GetLeft(), withoutMargins.GetTop(), results[0], margins
@@ -750,20 +752,20 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return new Rectangle[3];
         }
 
-        private float GetSizeOfOneSide(IElement element, int marginProperty, int borderProperty, int paddingProperty
+        private float GetSizeOfOneSide(IRenderer renderer, int marginProperty, int borderProperty, int paddingProperty
             ) {
             float marginWidth = 0;
             float paddingWidth = 0;
             float borderWidth = 0;
-            UnitValue temp = element.GetProperty<UnitValue>(marginProperty);
+            UnitValue temp = renderer.GetProperty<UnitValue>(marginProperty);
             if (null != temp) {
                 marginWidth = temp.GetValue();
             }
-            temp = element.GetProperty<UnitValue>(paddingProperty);
+            temp = renderer.GetProperty<UnitValue>(paddingProperty);
             if (null != temp) {
                 paddingWidth = temp.GetValue();
             }
-            Border border = element.GetProperty<Border>(borderProperty);
+            Border border = renderer.GetProperty<Border>(borderProperty);
             if (null != border) {
                 borderWidth = border.GetWidth();
             }
@@ -878,20 +880,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     //Construct box AC
                     float maxContentWidthAC;
                     float minContentWidthAC;
-                    if (dimA != null && !dimA.IsAutoDimension() || dimC != null && !dimC.IsAutoDimension()) {
-                        maxContentWidthAC = 2 * Math.Max(maxContentDimensionA, maxContentDimensionC);
-                        // I don't get this :\
-                        if (dimA != null && !dimA.IsAutoDimension()) {
-                            minContentWidthAC = 2 * minContentDimensionA;
-                        }
-                        else {
-                            minContentWidthAC = 2 * minContentDimensionC;
-                        }
-                    }
-                    else {
-                        maxContentWidthAC = maxContentDimensionA + maxContentDimensionC;
-                        minContentWidthAC = minContentDimensionA + minContentDimensionC;
-                    }
+                    maxContentWidthAC = 2 * Math.Max(maxContentDimensionA, maxContentDimensionC);
+                    minContentWidthAC = 2 * Math.Max(minContentDimensionA, minContentDimensionC);
                     //Determine width box B
                     maxContentDimensionB = dimB.maxContentDimension;
                     minContentDimensionB = dimB.minContentDimension;
@@ -922,7 +912,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         private bool IsContainerEmpty(DimensionContainer container) {
-            return container == null || Math.Abs(container.maxContentDimension) < 1e-3;
+            return container == null || Math.Abs(container.maxContentDimension) < EPSILON;
         }
 
         private void RemoveNegativeValues(float[] dimensions) {
@@ -1069,7 +1059,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                         return new Rectangle(withoutMargins.GetWidth(), margins[2]);
                     }
                     else {
-                        return new Rectangle(margins[3], withoutMargins.GetWidth());
+                        return new Rectangle(margins[3], withoutMargins.GetHeight());
                     }
                 }
             }

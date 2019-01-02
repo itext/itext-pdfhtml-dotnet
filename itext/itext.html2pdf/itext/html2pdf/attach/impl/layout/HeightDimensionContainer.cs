@@ -7,19 +7,29 @@ using iText.StyledXmlParser.Css;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     internal class HeightDimensionContainer : DimensionContainer {
+        private const float infHeight = 1e6f;
+
         internal HeightDimensionContainer(CssContextNode pmbcNode, float width, float maxHeight, IRenderer renderer
             , float additionalWidthFix) {
             String height = pmbcNode.GetStyles().Get(CssConstants.HEIGHT);
-            if (height != null && !height.Equals("auto")) {
+            if (height != null && !height.Equals(CssConstants.AUTO)) {
                 dimension = ParseDimension(pmbcNode, height, maxHeight, additionalWidthFix);
             }
             minDimension = GetMinHeight(pmbcNode, maxHeight, additionalWidthFix);
             maxDimension = GetMaxHeight(pmbcNode, maxHeight, additionalWidthFix);
-            LayoutArea layoutArea = new LayoutArea(1, new Rectangle(0, 0, width, maxHeight));
-            LayoutContext minimalContext = new LayoutContext(layoutArea);
-            LayoutResult quickLayout = renderer.Layout(minimalContext);
-            maxContentDimension = quickLayout.GetOccupiedArea().GetBBox().GetHeight();
-            minContentDimension = maxContentDimension;
+            if (!IsAutoDimension()) {
+                maxContentDimension = dimension;
+                maxContentDimension = dimension;
+            }
+            else {
+                LayoutArea layoutArea = new LayoutArea(1, new Rectangle(0, 0, width, infHeight));
+                LayoutContext minimalContext = new LayoutContext(layoutArea);
+                LayoutResult quickLayout = renderer.Layout(minimalContext);
+                if (quickLayout.GetStatus() != LayoutResult.NOTHING) {
+                    maxContentDimension = quickLayout.GetOccupiedArea().GetBBox().GetHeight();
+                    minContentDimension = maxContentDimension;
+                }
+            }
         }
 
         private float GetMinHeight(CssContextNode node, float maxAvailableHeight, float additionalWidthFix) {
