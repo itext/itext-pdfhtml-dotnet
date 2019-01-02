@@ -44,7 +44,6 @@ using System;
 using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Layout.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Impl;
@@ -659,77 +658,101 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 if (dimA == null) {
                     if (dimC.IsAutoDimension()) {
                         //Allocate everything to C
-                        return new float[] { 0, 0, availableDimension };
+                        dimensions[2] = availableDimension;
                     }
                     else {
-                        return new float[] { 0, 0, dimC.dimension };
-                    }
-                }
-                if (dimC == null) {
-                    if (dimA.IsAutoDimension()) {
-                        //Allocate everything to A
-                        return new float[] { availableDimension, 0, 0 };
-                    }
-                    else {
-                        return new float[] { dimA.dimension, 0, 0 };
-                    }
-                }
-                if (dimA.IsAutoDimension() && dimC.IsAutoDimension()) {
-                    //Gather input
-                    maxContentDimensionA = dimA.maxContentDimension;
-                    minContentDimensionA = dimA.minContentDimension;
-                    maxContentDimensionC = dimC.maxContentDimension;
-                    minContentDimensionC = dimC.minContentDimension;
-                    float[] distributedWidths = DistributeDimensionBetweenTwoBoxes(maxContentDimensionA, minContentDimensionA, 
-                        maxContentDimensionC, minContentDimensionC, availableDimension);
-                    dimensions = new float[] { distributedWidths[0], 0f, distributedWidths[1] };
-                }
-                else {
-                    if (!dimA.IsAutoDimension()) {
-                        dimensions[0] = dimA.dimension;
-                    }
-                    else {
-                        dimensions[0] = availableDimension - dimC.dimension;
-                    }
-                    if (!dimC.IsAutoDimension()) {
                         dimensions[2] = dimC.dimension;
                     }
+                }
+                else {
+                    if (dimC == null) {
+                        if (dimA.IsAutoDimension()) {
+                            //Allocate everything to A
+                            dimensions[0] = availableDimension;
+                        }
+                        else {
+                            dimensions[0] = dimA.dimension;
+                        }
+                    }
                     else {
-                        dimensions[2] = availableDimension - dimA.dimension;
+                        if (dimA.IsAutoDimension() && dimC.IsAutoDimension()) {
+                            //Gather input
+                            maxContentDimensionA = dimA.maxContentDimension;
+                            minContentDimensionA = dimA.minContentDimension;
+                            maxContentDimensionC = dimC.maxContentDimension;
+                            minContentDimensionC = dimC.minContentDimension;
+                            float[] distributedWidths = DistributeDimensionBetweenTwoBoxes(maxContentDimensionA, minContentDimensionA, 
+                                maxContentDimensionC, minContentDimensionC, availableDimension);
+                            dimensions = new float[] { distributedWidths[0], 0f, distributedWidths[1] };
+                        }
+                        else {
+                            if (!dimA.IsAutoDimension()) {
+                                dimensions[0] = dimA.dimension;
+                            }
+                            else {
+                                dimensions[0] = availableDimension - dimC.dimension;
+                            }
+                            if (!dimC.IsAutoDimension()) {
+                                dimensions[2] = dimC.dimension;
+                            }
+                            else {
+                                dimensions[2] = availableDimension - dimA.dimension;
+                            }
+                        }
                     }
                 }
             }
             else {
                 //Check for edge cases
                 if (dimA != null) {
-                    maxContentDimensionA = dimA.maxContentDimension;
-                    minContentDimensionA = dimA.minContentDimension;
+                    if (dimA.IsAutoDimension()) {
+                        maxContentDimensionA = dimA.maxContentDimension;
+                        minContentDimensionA = dimA.minContentDimension;
+                    }
+                    else {
+                        maxContentDimensionA = dimA.dimension;
+                        minContentDimensionA = dimA.dimension;
+                    }
                 }
                 else {
                     maxContentDimensionA = 0;
                     minContentDimensionA = 0;
                 }
                 if (dimC != null) {
-                    maxContentDimensionC = dimC.maxContentDimension;
-                    minContentDimensionC = dimC.minContentDimension;
+                    if (dimC.IsAutoDimension()) {
+                        maxContentDimensionC = dimC.maxContentDimension;
+                        minContentDimensionC = dimC.minContentDimension;
+                    }
+                    else {
+                        maxContentDimensionC = dimC.dimension;
+                        minContentDimensionC = dimC.dimension;
+                    }
                 }
                 else {
                     maxContentDimensionC = 0;
                     minContentDimensionC = 0;
                 }
-                //Construct box AC
-                float maxContentWidthAC = maxContentDimensionA + maxContentDimensionC;
-                float minContentWidthAC = minContentDimensionA + minContentDimensionC;
-                //Determine width box B
-                maxContentDimensionB = dimB.maxContentDimension;
-                minContentDimensionB = dimB.minContentDimension;
-                float[] distributedDimensions = DistributeDimensionBetweenTwoBoxes(maxContentDimensionB, minContentDimensionB
-                    , maxContentWidthAC, minContentWidthAC, availableDimension);
-                //Determine width boxes A & C
-                float newAvailableDimension = (availableDimension - distributedDimensions[0]) / 2;
-                float[] distributedWidthsAC = new float[] { Math.Min(minContentDimensionA, newAvailableDimension), Math.Min
-                    (minContentDimensionC, newAvailableDimension) };
-                dimensions = new float[] { distributedWidthsAC[0], distributedDimensions[0], distributedWidthsAC[1] };
+                if (dimB.IsAutoDimension()) {
+                    //Construct box AC
+                    float maxContentWidthAC = maxContentDimensionA + maxContentDimensionC;
+                    float minContentWidthAC = minContentDimensionA + minContentDimensionC;
+                    //Determine width box B
+                    maxContentDimensionB = dimB.maxContentDimension;
+                    minContentDimensionB = dimB.minContentDimension;
+                    float[] distributedDimensions = DistributeDimensionBetweenTwoBoxes(maxContentDimensionB, minContentDimensionB
+                        , maxContentWidthAC, minContentWidthAC, availableDimension);
+                    //Determine width boxes A & C
+                    float newAvailableDimension = (availableDimension - distributedDimensions[0]) / 2;
+                    float[] distributedWidthsAC = new float[] { Math.Min(minContentDimensionA, newAvailableDimension), Math.Min
+                        (minContentDimensionC, newAvailableDimension) };
+                    dimensions = new float[] { distributedWidthsAC[0], distributedDimensions[0], distributedWidthsAC[1] };
+                }
+                else {
+                    dimensions[1] = dimB.dimension;
+                    float newAvailableDimension = (availableDimension - dimensions[1]) / 2;
+                    dimensions[0] = Math.Min(minContentDimensionA, newAvailableDimension);
+                    dimensions[2] = Math.Min(minContentDimensionC, newAvailableDimension);
+                }
                 SetManualDimension(dimA, dimensions, 0);
                 SetManualDimension(dimB, dimensions, 1);
                 SetManualDimension(dimC, dimensions, 2);
@@ -806,69 +829,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
 
             internal virtual float ParseDimension(CssContextNode node, String content, float maxAvailableDimension) {
-                String numberRegex = "(\\d+(\\.\\d*)?)";
-                String units = "(in|cm|mm|pt|pc|px|%|em|ex)";
-                REMatcher matcher = new REMatcher(numberRegex + units);
-                matcher.SetStringForMatch(content);
-                if (matcher.Find()) {
-                    float value = float.Parse(matcher.Group(1), System.Globalization.CultureInfo.InvariantCulture);
-                    String unit = matcher.Group(3);
-                    switch (unit) {
-                        case "pt": {
-                            break;
-                        }
-
-                        case "%": {
-                            value *= maxAvailableDimension / 100;
-                            break;
-                        }
-
-                        case "pc": {
-                            value *= 12;
-                            break;
-                        }
-
-                        case "px": {
-                            value *= 0.75;
-                            break;
-                        }
-
-                        case "in": {
-                            value *= 72;
-                            break;
-                        }
-
-                        case "cm": {
-                            value *= 28.3465;
-                            break;
-                        }
-
-                        case "mm": {
-                            value *= 2.83465;
-                            break;
-                        }
-
-                        case "em": {
-                            float fontSize = this._enclosing.GetFontSize(node);
-                            value *= fontSize;
-                            break;
-                        }
-
-                        case "ex": {
-                            // Use 0.5em as heuristic of x-height. Look CSS 2.1 Spec
-                            float fontSize = this._enclosing.GetFontSize(node);
-                            value *= 0.5 * fontSize;
-                            break;
-                        }
-
-                        default: {
-                            value = 0;
-                            break;
-                        }
-                    }
-                    return value;
+                UnitValue unitValue = CssUtils.ParseLengthValueToPt(content, this._enclosing.GetFontSize(node), 0);
+                if (unitValue == null) {
+                    return 0;
                 }
-                return 0;
+                if (unitValue.IsPointValue()) {
+                    return unitValue.GetValue();
+                }
+                return maxAvailableDimension * unitValue.GetValue() / 100f;
             }
 
             private readonly PageContextProcessor _enclosing;
@@ -958,7 +926,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
 
             internal virtual float GetMaxHeight(CssContextNode node, float maxAvailableHeight) {
-                String content = node.GetStyles().Get(CssConstants.MIN_HEIGHT);
+                String content = node.GetStyles().Get(CssConstants.MAX_HEIGHT);
                 if (content == null) {
                     return float.MaxValue;
                 }

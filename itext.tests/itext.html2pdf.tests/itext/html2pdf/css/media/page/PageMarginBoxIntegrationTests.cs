@@ -1,5 +1,6 @@
 using System;
 using iText.Html2pdf;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Media.Page {
     public class PageMarginBoxIntegrationTests : ExtendedHtmlConversionITextTest {
@@ -330,8 +331,23 @@ namespace iText.Html2pdf.Css.Media.Page {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 4)]
         public virtual void LargeFixedCenterRegularSidesLeftRightTest() {
             ConvertToPdfAndCompare("largeFixedCenterRegularSidesLeftRightTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeFixedAllLeftRightTest() {
+            ConvertToPdfAndCompare("largeFixedAllLeftRightTest", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void LargeFixedAllTopBottomTest() {
+            ConvertToPdfAndCompare("largeFixedAllTopBottomTest", sourceFolder, destinationFolder);
         }
     }
 }
