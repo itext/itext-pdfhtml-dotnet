@@ -77,7 +77,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 )modelElement);
         }
 
-        protected override MinMaxWidth GetMinMaxWidth() {
+        public override MinMaxWidth GetMinMaxWidth() {
             IList<IRenderer> realChildRenderers = childRenderers;
             childRenderers = new List<IRenderer>();
             childRenderers.Add(minMaxWidthRenderer);
