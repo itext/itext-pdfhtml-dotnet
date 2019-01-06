@@ -47,6 +47,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
@@ -74,6 +75,16 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             ListStyleApplierUtil.ApplyListStyleTypeProperty(stylesContainer, css, context, list);
             ListStyleApplierUtil.ApplyListStyleImageProperty(css, context, list);
             base.Apply(context, stylesContainer, tagWorker);
+            // process the padding considering the direction
+            bool isRtl = BaseDirection.RIGHT_TO_LEFT.Equals(list.GetProperty<BaseDirection?>(Property.BASE_DIRECTION));
+            if ((isRtl && !list.HasProperty(Property.PADDING_RIGHT)) || (!isRtl && !list.HasProperty(Property.PADDING_LEFT
+                ))) {
+                float em = CssUtils.ParseAbsoluteLength(css.Get(CssConstants.FONT_SIZE));
+                float rem = context.GetCssContext().GetRootFontSize();
+                UnitValue startPadding = CssUtils.ParseLengthValueToPt(css.Get(CssConstants.PADDING_INLINE_START), em, rem
+                    );
+                list.SetProperty(isRtl ? Property.PADDING_RIGHT : Property.PADDING_LEFT, startPadding);
+            }
         }
     }
 }
