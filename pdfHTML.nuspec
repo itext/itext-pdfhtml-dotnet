@@ -13,7 +13,7 @@
     <description>pdfHTML is an iText 7 add-on that lets you to parse (X)HTML snippets and the associated CSS and converts them to PDF.</description>
     <summary></summary>
     <releaseNotes>http://itextpdf.com/itext7release</releaseNotes>
-    <copyright>Copyright (c) 1998-2018 iText Group NV</copyright>
+    <copyright>Copyright (c) 1998-2019 iText Group NV</copyright>
     <language>en-US</language>
     <tags>itext itext7 itextsharp c# .net csharp pdf html pdfhtml</tags>
     <dependencies>
