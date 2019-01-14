@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -92,7 +92,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-2118")]
         public virtual void LabelBackground01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "labelBackground01Test.html"), new FileInfo(destinationFolder
                  + "labelBackground01Test.pdf"));

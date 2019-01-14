@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -72,12 +72,14 @@ namespace iText.Html2pdf {
         public const String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE = "Error during layout of form filed with type {0}.";
 
         /// <summary>The Constant HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED.</summary>
+        [Obsolete]
         public const String HEIGHT_VALUE_IN_PERCENT_NOT_SUPPORTED = "Height value in percent not supported";
 
         /// <summary>The Constant INPUT_FIELD_DOES_NOT_FIT.</summary>
         public const String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
 
         /// <summary>The Constant INPUT_SUPPORTS_ONLY_POINT_WIDTH.</summary>
+        [Obsolete]
         public const String INPUT_SUPPORTS_ONLY_POINT_WIDTH = "Input field supports only point width";
 
         /// <summary>The Constant INPUT_TYPE_IS_NOT_SUPPORTED.</summary>
@@ -117,6 +119,9 @@ namespace iText.Html2pdf {
         /// <summary>The Constant PAGE_SIZE_VALUE_IS_INVALID.</summary>
         public const String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
 
+        /// <summary>The Constant PDF_DOCUMENT_NOT_PRESENT</summary>
+        public const String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
+
         /// <summary>The Constant QUOTES_PROPERTY_INVALID.</summary>
         public const String QUOTES_PROPERTY_INVALID = "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
 
@@ -127,6 +132,7 @@ namespace iText.Html2pdf {
         public const String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
 
         /// <summary>The Constant TEXT_WAS_NOT_PROCESSED.</summary>
+        [Obsolete]
         public const String TEXT_WAS_NOT_PROCESSED = "Text was not processed: {0}";
 
         /// <summary>The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE.</summary>
@@ -139,6 +145,7 @@ namespace iText.Html2pdf {
         public const String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";
 
         /// <summary>The Constant UNABLE_TO_RESOLVE_FONT.</summary>
+        [Obsolete]
         public const String UNABLE_TO_RESOLVE_FONT = "Unable to resolve font: {0}. The default one will be used instead";
 
         /// <summary>The Constant UNABLE_TO_RETRIEVE_FONT.</summary>
@@ -159,10 +166,6 @@ namespace iText.Html2pdf {
         /// <summary>The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER.</summary>
         public const String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
 
-        /// <summary>The Constant PDF_DOCUMENT_NOT_PRESENT</summary>
-        public const String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
-
-        /// <summary>Instantiates a new log message constant.</summary>
         private LogMessageConstant() {
         }
     }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,10 +41,12 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Font;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
@@ -68,7 +70,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             //There is no mappings for BR element in DefaultTagCssApplierMapping,
             // because only font-family should be applied to <br /> element.
             String fontFamily = element.GetStyles().Get(CssConstants.FONT_FAMILY);
-            newLine.SetFont(fontFamily);
+            // TODO DEVSIX-2534
+            IList<String> splitFontFamily = FontFamilySplitter.SplitFontFamily(fontFamily);
+            newLine.SetFontFamily(splitFontFamily.ToArray(new String[splitFontFamily.Count]));
         }
 
         /* (non-Javadoc)

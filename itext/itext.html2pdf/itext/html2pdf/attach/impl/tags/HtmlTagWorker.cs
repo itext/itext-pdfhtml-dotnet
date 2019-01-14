@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
@@ -49,6 +50,7 @@ using iText.Html2pdf.Css;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Font;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Node;
@@ -84,7 +86,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 document.SetProperty(Property.FONT_SET, context.GetTempFonts());
             }
             String fontFamily = element.GetStyles().Get(CssConstants.FONT_FAMILY);
-            document.SetProperty(Property.FONT, fontFamily);
+            // TODO DEVSIX-2534
+            IList<String> fontFamilies = FontFamilySplitter.SplitFontFamily(fontFamily);
+            document.SetProperty(Property.FONT, fontFamilies.ToArray(new String[fontFamilies.Count]));
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
         }

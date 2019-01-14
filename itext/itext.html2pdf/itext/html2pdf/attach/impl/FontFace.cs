@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -77,6 +77,7 @@ namespace iText.Html2pdf.Attach.Impl {
             String srcs = null;
             foreach (CssDeclaration descriptor in properties) {
                 if ("font-family".Equals(descriptor.GetProperty())) {
+                    // TODO DEVSIX-2534
                     fontFamily = FontFamilySplitter.RemoveQuotes(descriptor.GetExpression());
                 }
                 else {

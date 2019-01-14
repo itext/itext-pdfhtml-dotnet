@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -76,6 +76,8 @@ namespace iText.Html2pdf.Css.Resolve {
             htmlAttributeConverters.Put(AttributeConstants.FACE, new HtmlStylesToCssConverter.FontFaceAttributeConverter
                 ());
             htmlAttributeConverters.Put(AttributeConstants.NOSHADE, new HtmlStylesToCssConverter.NoShadeAttributeConverter
+                ());
+            htmlAttributeConverters.Put(AttributeConstants.NOWRAP, new HtmlStylesToCssConverter.NoWrapAttributeConverter
                 ());
             htmlAttributeConverters.Put(AttributeConstants.TYPE, new HtmlStylesToCssConverter.TypeAttributeConverter()
                 );
@@ -529,7 +531,7 @@ namespace iText.Html2pdf.Css.Resolve {
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.HR.Equals(elementName) || TagConstants.TABLE.Equals(elementName) || TagConstants.IMG.Equals
                     (elementName) || TagConstants.TD.Equals(elementName) || TagConstants.DIV.Equals(elementName) || TagConstants
-                    .P.Equals(elementName);
+                    .P.Equals(elementName) || TagConstants.CAPTION.Equals(elementName);
             }
 
             /* (non-Javadoc)
@@ -576,10 +578,15 @@ namespace iText.Html2pdf.Css.Resolve {
                         }
                     }
                     else {
-                        // TODO in fact, align attribute also affects horizontal alignment of all child blocks (not only direct children),
-                        // however this effect conflicts in queer manner with 'text-align' property if it set on the same blocks explicitly via CSS
-                        // (see HorizontalAlignmentTest#alignAttribute01)
-                        result.Add(new CssDeclaration(CssConstants.TEXT_ALIGN, value));
+                        if (TagConstants.CAPTION.Equals(element.Name())) {
+                            result.Add(new CssDeclaration(CssConstants.CAPTION_SIDE, value));
+                        }
+                        else {
+                            // TODO in fact, align attribute also affects horizontal alignment of all child blocks (not only direct children),
+                            // however this effect conflicts in queer manner with 'text-align' property if it set on the same blocks explicitly via CSS
+                            // (see HorizontalAlignmentTest#alignAttribute01)
+                            result.Add(new CssDeclaration(CssConstants.TEXT_ALIGN, value));
+                        }
                     }
                 }
                 return result;
@@ -604,6 +611,27 @@ namespace iText.Html2pdf.Css.Resolve {
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, "2px"), new CssDeclaration(CssConstants
                     .BORDER_WIDTH, "0"), new CssDeclaration(CssConstants.BACKGROUND_COLOR, "gray"));
+            }
+        }
+
+        /// <summary>
+        /// <see cref="IAttributeConverter"/>
+        /// implementation for HTML shade styles.
+        /// </summary>
+        private class NoWrapAttributeConverter : HtmlStylesToCssConverter.IAttributeConverter {
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
+            */
+            public virtual bool IsSupportedForElement(String elementName) {
+                return TagConstants.TD.Equals(elementName) || TagConstants.TH.Equals(elementName);
+            }
+
+            /* (non-Javadoc)
+            * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
+            */
+            public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
+                return JavaCollectionsUtil.SingletonList(new CssDeclaration(CssConstants.WHITE_SPACE, CssConstants.NOWRAP)
+                    );
             }
         }
 

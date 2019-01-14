@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -85,7 +85,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public TableTagWorker(IElementNode element, ProcessorContext context) {
-            tableWrapper = new TableWrapper();
+            String str = element.GetStyles().Get(CssConstants.DIRECTION);
+            bool isRtl = "rtl".Equals(str);
+            tableWrapper = new TableWrapper(isRtl);
             parentTagWorker = context.GetState().Empty() ? null : context.GetState().Top();
             if (parentTagWorker is iText.Html2pdf.Attach.Impl.Tags.TableTagWorker) {
                 ((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)parentTagWorker).ApplyColStyles();
@@ -159,6 +161,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     if (childTagWorker is ColgroupTagWorker) {
                         if (colgroupsHelper != null) {
                             colgroupsHelper.Add(((ColgroupTagWorker)childTagWorker).GetColgroup().FinalizeCols());
+                            return true;
+                        }
+                    }
+                    else {
+                        if (childTagWorker is CaptionTagWorker) {
+                            tableWrapper.SetCaption((Div)childTagWorker.GetElementResult());
                             return true;
                         }
                     }

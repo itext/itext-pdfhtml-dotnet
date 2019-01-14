@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -73,7 +73,8 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsTrue(elements[1] is Paragraph);
             NUnit.Framework.Assert.AreEqual(1, ((Paragraph)elements[1]).GetChildren().Count);
             IElement iElement = ((Paragraph)elements[1]).GetChildren()[0];
-            NUnit.Framework.Assert.AreEqual("freesans", iElement.GetProperty<String>(Property.FONT));
+            NUnit.Framework.Assert.AreEqual(new String[] { "freesans" }, iElement.GetProperty<String[]>(Property.FONT)
+                );
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -45,7 +45,6 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Kernel.Utils;
 using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class CaptionTest : ExtendedITextTest {
@@ -63,7 +62,6 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
         public virtual void Caption01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "captionTest01.html"), new FileInfo(destinationFolder
                  + "captionTest01.pdf"));

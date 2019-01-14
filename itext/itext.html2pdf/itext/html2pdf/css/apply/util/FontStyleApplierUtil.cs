@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -49,6 +49,7 @@ using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
+using iText.Layout.Font;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Exceptions;
@@ -82,7 +83,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 element.SetProperty(Property.FONT_SIZE, UnitValue.CreatePointValue(em));
             }
             if (cssProps.Get(CssConstants.FONT_FAMILY) != null) {
-                element.SetProperty(Property.FONT, cssProps.Get(CssConstants.FONT_FAMILY));
+                // TODO DEVSIX-2534
+                IList<String> fontFamilies = FontFamilySplitter.SplitFontFamily(cssProps.Get(CssConstants.FONT_FAMILY));
+                element.SetProperty(Property.FONT, fontFamilies.ToArray(new String[fontFamilies.Count]));
             }
             if (cssProps.Get(CssConstants.FONT_WEIGHT) != null) {
                 element.SetProperty(Property.FONT_WEIGHT, cssProps.Get(CssConstants.FONT_WEIGHT));
@@ -143,6 +146,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
             }
+            String whiteSpace = cssProps.Get(CssConstants.WHITE_SPACE);
+            element.SetProperty(Property.NO_SOFT_WRAP_INLINE, CssConstants.NOWRAP.Equals(whiteSpace) || CssConstants.PRE
+                .Equals(whiteSpace));
             String textDecorationProp = cssProps.Get(CssConstants.TEXT_DECORATION);
             if (textDecorationProp != null) {
                 String[] textDecorations = iText.IO.Util.StringUtil.Split(textDecorationProp, "\\s+");

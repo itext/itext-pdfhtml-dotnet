@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -42,7 +42,6 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Kernel.Colors;
@@ -55,10 +54,6 @@ using iText.StyledXmlParser.Css.Util;
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply border styles.</summary>
     public class BorderStyleApplierUtil {
-        /// <summary>The logger.</summary>
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.BorderStyleApplierUtil
-            ));
-
         /// <summary>
         /// Creates a new
         /// <see cref="BorderStyleApplierUtil"/>
@@ -167,7 +162,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return null;
             }
             if (unitValue.IsPercentValue()) {
-                LOGGER.Error("border-width in percents is not supported");
                 return null;
             }
             borderWidthValue = unitValue.GetValue();

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -137,6 +137,9 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant NOSHADE.</summary>
         public const String NOSHADE = "noshade";
+
+        /// <summary>The Constant NOWRAP.</summary>
+        public const String NOWRAP = "nowrap";
 
         /// <summary>The Constant NUMBER.</summary>
         public const String NUMBER = "number";

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -78,7 +78,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String backgroundImageStr = cssProps.Get(CssConstants.BACKGROUND_IMAGE);
             if (backgroundImageStr != null && !backgroundImageStr.Equals(CssConstants.NONE)) {
                 String backgroundRepeatStr = cssProps.Get(CssConstants.BACKGROUND_REPEAT);
-                PdfImageXObject image = context.GetResourceResolver().RetrieveImage(CssUtils.ExtractUrl(backgroundImageStr
+                PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImageStr
                     ));
                 bool repeatX = true;
                 bool repeatY = true;
@@ -89,7 +89,18 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         );
                 }
                 if (image != null) {
-                    BackgroundImage backgroundImage = new BackgroundImage(image, repeatX, repeatY);
+                    BackgroundImage backgroundImage = null;
+                    if (image is PdfImageXObject) {
+                        backgroundImage = new BackgroundImage((PdfImageXObject)image, repeatX, repeatY);
+                    }
+                    else {
+                        if (image is PdfFormXObject) {
+                            backgroundImage = new BackgroundImage((PdfFormXObject)image, repeatX, repeatY);
+                        }
+                        else {
+                            throw new InvalidOperationException();
+                        }
+                    }
                     element.SetProperty(Property.BACKGROUND_IMAGE, backgroundImage);
                 }
             }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -188,6 +188,20 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void MarginBoxTest04() {
             RunTest("marginBoxTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxTestImg01() {
+            RunTest("marginBoxTestImg01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxTestImg02() {
+            RunTest("marginBoxTestImg02");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -462,6 +476,20 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningElements02() {
             RunTest("marginBoxRunningElements02");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxRunningElements03() {
+            RunTest("marginBoxRunningElements03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxRunningElements04() {
+            RunTest("marginBoxRunningElements04");
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -780,6 +808,24 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void MarginBoxMultilineTest03() {
             RunTest("marginBoxMultilineTest03");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void MarginBoxMultilineTest04() {
+            RunTest("marginBoxMultilineTest04");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void WrongPageRuleCssStructureTest() {
+            NUnit.Framework.Assert.That(() =>  {
+                RunTest("wrongPageRuleCssStructureTest");
+            }
+            , NUnit.Framework.Throws.InstanceOf<Exception>())
+;
         }
 
         private class CustomFlushingTagWorkerFactory : DefaultTagWorkerFactory {

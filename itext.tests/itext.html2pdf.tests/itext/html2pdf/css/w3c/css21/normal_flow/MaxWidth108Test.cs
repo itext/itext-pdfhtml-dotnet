@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -44,7 +44,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Normal_flow {
-    public class MaxWidth108Test : W3CCssTest {
+    public class MaxWidth108Test : W3CCssAhemFontTest {
         protected internal override String GetHtmlFileName() {
             return "max-width-108.xht";
         }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -97,9 +97,21 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String listStyleImage = cssProps.Get(CssConstants.LIST_STYLE_IMAGE);
             if (listStyleImage != null && !CssConstants.NONE.Equals(listStyleImage)) {
                 String url = CssUtils.ExtractUrl(listStyleImage);
-                PdfImageXObject imageXObject = context.GetResourceResolver().RetrieveImage(url);
+                PdfXObject imageXObject = context.GetResourceResolver().RetrieveImageExtended(url);
                 if (imageXObject != null) {
-                    element.SetProperty(Property.LIST_SYMBOL, new Image(imageXObject));
+                    Image image = null;
+                    if (imageXObject is PdfImageXObject) {
+                        image = new Image((PdfImageXObject)imageXObject);
+                    }
+                    else {
+                        if (imageXObject is PdfFormXObject) {
+                            image = new Image((PdfFormXObject)imageXObject);
+                        }
+                        else {
+                            throw new InvalidOperationException();
+                        }
+                    }
+                    element.SetProperty(Property.LIST_SYMBOL, image);
                     element.SetProperty(Property.LIST_SYMBOL_INDENT, 5);
                 }
             }

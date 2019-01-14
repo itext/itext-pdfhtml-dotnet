@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -92,6 +92,13 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                     }
                 }
             }
+            foreach (IPropertyContainer child in spanTagWorker.GetAllElements()) {
+                FloatPropertyValue? kidFloatVal = child.GetProperty<FloatPropertyValue?>(Property.FLOAT);
+                if (child is Text && !child.HasOwnProperty(Property.BACKGROUND) && (kidFloatVal == null || FloatPropertyValue
+                    .NONE.Equals(kidFloatVal))) {
+                    BackgroundApplierUtil.ApplyBackground(cssStyles, context, child);
+                }
+            }
         }
 
         /// <summary>Applies styles to child elements.</summary>
@@ -102,7 +109,6 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         protected internal virtual void ApplyChildElementStyles(IPropertyContainer element, IDictionary<String, String
             > css, ProcessorContext context, IStylesContainer stylesContainer) {
             FontStyleApplierUtil.ApplyFontStyles(css, context, stylesContainer, element);
-            //TODO DEVSIX-2118: Background-applying currently doesn't work in html way for spans inside other spans.
             BackgroundApplierUtil.ApplyBackground(css, context, element);
             //TODO: Border-applying currently doesn't work in html way for spans inside other spans.
             BorderStyleApplierUtil.ApplyBorders(css, context, element);

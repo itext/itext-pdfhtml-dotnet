@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -68,7 +68,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         public AbstractSelectFieldRenderer(AbstractSelectField modelElement)
             : base(modelElement) {
             AddChild(CreateFlatRenderer());
-            SetProperty(Property.SPLIT_CHARACTERS, new AbstractSelectFieldRenderer.NoSplitCharacters());
             if (!IsFlatten()) {
                 // TODO DEVSIX-1901
                 ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.AbstractSelectFieldRenderer

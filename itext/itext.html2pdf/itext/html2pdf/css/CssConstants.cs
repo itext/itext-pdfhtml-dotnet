@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -80,6 +80,12 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant MAX_HEIGHT.</summary>
         public const String MAX_HEIGHT = "max-height";
 
+        /// <summary>The Constant MAX_WIDTH.</summary>
+        public const String MAX_WIDTH = "max-width";
+
+        /// <summary>The Constant MIN_WIDTH.</summary>
+        public const String MIN_WIDTH = "min-width";
+
         /// <summary>The Constant OUTLINE_OFFSET.</summary>
         public const String OUTLINE_OFFSET = "outline-offset";
 
@@ -91,6 +97,9 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant OVERFLOW_Y.</summary>
         public const String OVERFLOW_Y = "overflow-y";
+
+        /// <summary>The Constant PADDING_INLINE_START.</summary>
+        public const String PADDING_INLINE_START = "padding-inline-start";
 
         /// <summary>The Constant PLACEHOLDER.</summary>
         public const String PLACEHOLDER = "placeholder";
@@ -109,12 +118,6 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant VISIBLE.</summary>
         public const String VISIBLE = "visible";
-
-        /// <summary>The Constant MAX_WIDTH.</summary>
-        public const String MAX_WIDTH = "max-width";
-
-        /// <summary>The Constant MIN_WIDTH.</summary>
-        public const String MIN_WIDTH = "min-width";
 
         /// <summary>The Constant ABSOLUTE.</summary>
         public const String ABSOLUTE = "absolute";
@@ -246,7 +249,7 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant OVERFLOW_VALUES.</summary>
         public static readonly ICollection<String> OVERFLOW_VALUES = new HashSet<String>(JavaUtil.ArraysAsList(new 
-            String[] { VISIBLE, HIDDEN }));
+            String[] { VISIBLE, HIDDEN, SCROLL, AUTO }));
 
         /// <summary>The Constant AFTER.</summary>
         public const String AFTER = "after";

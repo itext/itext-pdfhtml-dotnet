@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -61,7 +61,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 )) ? cssProps.Get(CssConstants.OVERFLOW) : null;
             String overflowX = null != cssProps && CssConstants.OVERFLOW_VALUES.Contains(cssProps.Get(CssConstants.OVERFLOW_X
                 )) ? cssProps.Get(CssConstants.OVERFLOW_X) : overflow;
-            if (CssConstants.HIDDEN.Equals(overflowX)) {
+            if (CssConstants.HIDDEN.Equals(overflowX) || CssConstants.AUTO.Equals(overflowX) || CssConstants.SCROLL.Equals
+                (overflowX)) {
                 element.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.HIDDEN);
             }
             else {
@@ -69,7 +70,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             String overflowY = null != cssProps && CssConstants.OVERFLOW_VALUES.Contains(cssProps.Get(CssConstants.OVERFLOW_Y
                 )) ? cssProps.Get(CssConstants.OVERFLOW_Y) : overflow;
-            if (CssConstants.HIDDEN.Equals(overflowY)) {
+            if (CssConstants.HIDDEN.Equals(overflowY) || CssConstants.AUTO.Equals(overflowY) || CssConstants.SCROLL.Equals
+                (overflowY)) {
                 element.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.HIDDEN);
             }
             else {

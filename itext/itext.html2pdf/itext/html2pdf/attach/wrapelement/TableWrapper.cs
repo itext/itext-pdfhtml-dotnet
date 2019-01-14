@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach.Util;
+using iText.IO.Util;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 
@@ -73,6 +74,19 @@ namespace iText.Html2pdf.Attach.Wrapelement {
 
         /// <summary>The number of columns.</summary>
         private int numberOfColumns = 0;
+
+        /// <summary>The direction value.</summary>
+        private bool isRtl = false;
+
+        /// <summary>The caption value.</summary>
+        private Div caption = null;
+
+        public TableWrapper() {
+        }
+
+        public TableWrapper(bool isRtl) {
+            this.isRtl = isRtl;
+        }
 
         /// <summary>Gets the number of rows.</summary>
         /// <returns>the number of rows</returns>
@@ -156,6 +170,12 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             numberOfColumns = Math.Max(numberOfColumns, col + cell.GetColspan());
         }
 
+        /// <summary>Sets the table's caption.</summary>
+        /// <param name="caption">the caption to be set</param>
+        public virtual void SetCaption(Div caption) {
+            this.caption = caption;
+        }
+
         /// <summary>
         /// Renders all the rows to a
         /// <see cref="iText.Layout.Element.Table"/>
@@ -174,6 +194,9 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             }
             if (headerRows != null) {
                 for (int i = 0; i < headerRows.Count; i++) {
+                    if (isRtl) {
+                        JavaCollectionsUtil.Reverse(headerRows[i]);
+                    }
                     for (int j = 0; j < headerRows[i].Count; j++) {
                         table.AddHeaderCell(headerRows[i][j].cell);
                     }
@@ -184,6 +207,9 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             }
             if (footerRows != null) {
                 for (int i = 0; i < footerRows.Count; i++) {
+                    if (isRtl) {
+                        JavaCollectionsUtil.Reverse(footerRows[i]);
+                    }
                     for (int j = 0; j < footerRows[i].Count; j++) {
                         table.AddFooterCell(footerRows[i][j].cell);
                     }
@@ -194,6 +220,9 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             }
             if (rows != null) {
                 for (int i = 0; i < rows.Count; i++) {
+                    if (isRtl) {
+                        JavaCollectionsUtil.Reverse(rows[i]);
+                    }
                     for (int j = 0; j < rows[i].Count; j++) {
                         table.AddCell(rows[i][j].cell);
                     }
@@ -201,6 +230,9 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                         table.StartNewRow();
                     }
                 }
+            }
+            if (caption != null) {
+                table.SetCaption(caption);
             }
             return table;
         }

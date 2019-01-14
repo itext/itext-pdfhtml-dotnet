@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -75,7 +75,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.BLOCKQUOTE, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.BODY, typeof(BodyTagCssApplier));
             mapping.PutMapping(TagConstants.BUTTON, typeof(BlockCssApplier));
-            //mapping.putMapping(TagConstants.CAPTION, SpanTagCssApplier.class);
+            mapping.PutMapping(TagConstants.CAPTION, typeof(CaptionCssApplier));
             mapping.PutMapping(TagConstants.CENTER, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.CITE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.CODE, typeof(SpanTagCssApplier));
@@ -147,6 +147,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             String placeholderPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.PLACEHOLDER
                 );
             mapping.PutMapping(placeholderPseudoElemName, typeof(PlaceholderCssApplier));
+            mapping.PutMapping(TagConstants.DIV, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.UL, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.LI, CssConstants.INLINE, typeof(SpanTagCssApplier));
             mapping.PutMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, typeof(BlockCssApplier));

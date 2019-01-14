@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -77,9 +77,14 @@ namespace iText.Html2pdf.Css.W3c {
             String outFilePath = destinationFolder + GetOutPdfFileName();
             String cmpFilePath = sourceFolder + GetOutPdfFileName();
             System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlFilePath).AbsolutePath + "\n");
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlFilePath), new FileInfo(outFilePath));
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlFilePath), new FileInfo(outFilePath), GetConverterProperties()
+                );
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFilePath, cmpFilePath, destinationFolder
                 , "diff_"));
+        }
+
+        protected internal virtual ConverterProperties GetConverterProperties() {
+            return null;
         }
 
         private String GetDestinationFolder() {

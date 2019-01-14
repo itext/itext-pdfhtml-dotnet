@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -48,6 +48,7 @@ using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Resolver.Font;
 using iText.Html2pdf.Resolver.Form;
+using iText.Html2pdf.Resolver.Resource;
 using iText.IO.Font;
 using iText.Kernel.Counter.Event;
 using iText.Kernel.Pdf;
@@ -153,7 +154,7 @@ namespace iText.Html2pdf.Attach {
             if (outlineHandler == null) {
                 outlineHandler = new OutlineHandler();
             }
-            resourceResolver = new ResourceResolver(baseUri);
+            resourceResolver = new HtmlResourceResolver(baseUri, this);
             cssContext = new CssContext();
             linkContext = new LinkContext();
             createAcroForm = converterProperties.IsCreateAcroForm();

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -64,6 +64,22 @@ namespace iText.Html2pdf.Util {
         /// <param name="pdfDocument">pdf that shall contain the image</param>
         /// <returns>image layout object</returns>
         public virtual Image CreateImageFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument) {
+            PdfFormXObject xObject = CreateXObjectFromProcessingResult(result, pdfDocument);
+            return new Image(xObject);
+        }
+
+        /// <summary>
+        /// Create an
+        /// <see cref="iText.Kernel.Pdf.Xobject.PdfFormXObject"/>
+        /// tied to the passed
+        /// <c>PdfDocument</c>
+        /// using the SVG processing result.
+        /// </summary>
+        /// <param name="result">Processing result containing the SVG information</param>
+        /// <param name="pdfDocument">pdf that shall contain the image</param>
+        /// <returns>PdfFormXObject instance</returns>
+        public virtual PdfFormXObject CreateXObjectFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument
+            ) {
             ISvgNodeRenderer topSvgRenderer = result.GetRootRenderer();
             float width;
             float height;
@@ -77,7 +93,7 @@ namespace iText.Html2pdf.Util {
             context.PushCanvas(canvas);
             ISvgNodeRenderer root = new PdfRootSvgNodeRenderer(topSvgRenderer);
             root.Draw(context);
-            return new Image(pdfForm);
+            return pdfForm;
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -56,9 +56,7 @@ using iText.StyledXmlParser.Css.Page;
 using iText.StyledXmlParser.Css.Parse;
 using iText.StyledXmlParser.Css.Pseudo;
 using iText.StyledXmlParser.Css.Resolve;
-using iText.StyledXmlParser.Css.Resolve.Shorthand;
 using iText.StyledXmlParser.Css.Util;
-using iText.StyledXmlParser.Css.Validate;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Resolver.Resource;
 
@@ -127,18 +125,19 @@ namespace iText.Html2pdf.Css.Resolve {
         * @see com.itextpdf.html2pdf.css.resolve.ICssResolver#resolveStyles(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.resolve.CssContext)
         */
         private IDictionary<String, String> ResolveStyles(INode element, CssContext context) {
-            IList<CssDeclaration> nodeCssDeclarations = UserAgentCss.GetStyles(element);
+            IList<CssRuleSet> ruleSets = new List<CssRuleSet>();
+            ruleSets.Add(new CssRuleSet(null, UserAgentCss.GetStyles(element)));
             if (element is IElementNode) {
-                nodeCssDeclarations.AddAll(HtmlStylesToCssConverter.Convert((IElementNode)element));
+                ruleSets.Add(new CssRuleSet(null, HtmlStylesToCssConverter.Convert((IElementNode)element)));
             }
-            nodeCssDeclarations.AddAll(cssStyleSheet.GetCssDeclarations(element, deviceDescription));
+            ruleSets.AddAll(cssStyleSheet.GetCssRuleSets(element, deviceDescription));
             if (element is IElementNode) {
                 String styleAttribute = ((IElementNode)element).GetAttribute(AttributeConstants.STYLE);
                 if (styleAttribute != null) {
-                    nodeCssDeclarations.AddAll(CssRuleSetParser.ParsePropertyDeclarations(styleAttribute));
+                    ruleSets.Add(new CssRuleSet(null, CssRuleSetParser.ParsePropertyDeclarations(styleAttribute)));
                 }
             }
-            IDictionary<String, String> elementStyles = CssDeclarationsToMap(nodeCssDeclarations);
+            IDictionary<String, String> elementStyles = CssStyleSheet.ExtractStylesFromRuleSets(ruleSets);
             if (CssConstants.CURRENTCOLOR.Equals(elementStyles.Get(CssConstants.COLOR))) {
                 // css-color-3/#currentcolor:
                 // If the ‘currentColor’ keyword is set on the ‘color’ property itself, it is treated as ‘color: inherit’.
@@ -228,49 +227,6 @@ namespace iText.Html2pdf.Css.Resolve {
                         contentContainer.AddChild(child);
                     }
                 }
-            }
-        }
-
-        /// <summary>
-        /// Converts a list of
-        /// <see cref="iText.StyledXmlParser.Css.CssDeclaration"/>
-        /// instances to a map consisting of
-        /// <see cref="System.String"/>
-        /// key-value pairs.
-        /// </summary>
-        /// <param name="nodeCssDeclarations">the node css declarations</param>
-        /// <returns>the map</returns>
-        private IDictionary<String, String> CssDeclarationsToMap(IList<CssDeclaration> nodeCssDeclarations) {
-            IDictionary<String, String> stylesMap = new Dictionary<String, String>();
-            foreach (CssDeclaration cssDeclaration in nodeCssDeclarations) {
-                IShorthandResolver shorthandResolver = ShorthandResolverFactory.GetShorthandResolver(cssDeclaration.GetProperty
-                    ());
-                if (shorthandResolver == null) {
-                    PutDeclarationInMapIfValid(stylesMap, cssDeclaration);
-                }
-                else {
-                    IList<CssDeclaration> resolvedShorthandProps = shorthandResolver.ResolveShorthand(cssDeclaration.GetExpression
-                        ());
-                    foreach (CssDeclaration resolvedProp in resolvedShorthandProps) {
-                        PutDeclarationInMapIfValid(stylesMap, resolvedProp);
-                    }
-                }
-            }
-            return stylesMap;
-        }
-
-        /// <summary>Adds a CSS declaration to a styles map if the CSS declaration is valid.</summary>
-        /// <param name="stylesMap">the styles map</param>
-        /// <param name="cssDeclaration">the CSS declaration</param>
-        private void PutDeclarationInMapIfValid(IDictionary<String, String> stylesMap, CssDeclaration cssDeclaration
-            ) {
-            if (CssDeclarationValidationMaster.CheckDeclaration(cssDeclaration)) {
-                stylesMap.Put(cssDeclaration.GetProperty(), cssDeclaration.GetExpression());
-            }
-            else {
-                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
-                logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, cssDeclaration
-                    ));
             }
         }
 

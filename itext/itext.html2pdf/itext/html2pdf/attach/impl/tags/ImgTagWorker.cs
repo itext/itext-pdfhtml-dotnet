@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,22 +41,14 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Util;
-using iText.IO.Util;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Node;
-using iText.StyledXmlParser.Resolver.Resource;
-using iText.Svg.Converter;
-using iText.Svg.Exceptions;
-using iText.Svg.Processors;
-using iText.Svg.Processors.Impl;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -84,36 +76,19 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public ImgTagWorker(IElementNode element, ProcessorContext context) {
             String src = element.GetAttribute(AttributeConstants.SRC);
-            if (src != null) {
-                if (src.Contains(ResourceResolver.BASE64IDENTIFIER) || context.GetResourceResolver().IsImageTypeSupportedByImageDataFactory
-                    (src)) {
-                    ProcessAsImage(src, element, context);
+            PdfXObject imageXObject = context.GetResourceResolver().RetrieveImageExtended(src);
+            if (imageXObject != null) {
+                if (imageXObject is PdfImageXObject) {
+                    image = new ImgTagWorker.HtmlImage((PdfImageXObject)imageXObject);
                 }
                 else {
-                    byte[] resourceBytes = context.GetResourceResolver().RetrieveBytesFromResource(src);
-                    if (resourceBytes != null) {
-                        try {
-                            using (Stream resourceStream = context.GetResourceResolver().RetrieveResourceAsInputStream(src)) {
-                                //Try with svg
-                                try {
-                                    ProcessAsSvg(resourceStream, context);
-                                }
-                                catch (SvgProcessingException) {
-                                    LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_IMAGE_AS_SVG, context
-                                        .GetBaseUri(), src));
-                                }
-                            }
-                        }
-                        catch (System.IO.IOException) {
-                            LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
-                                , context.GetBaseUri(), src));
-                        }
+                    if (imageXObject is PdfFormXObject) {
+                        image = new ImgTagWorker.HtmlImage((PdfFormXObject)imageXObject);
+                    }
+                    else {
+                        throw new InvalidOperationException();
                     }
                 }
-            }
-            else {
-                LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
-                    , context.GetBaseUri(), src));
             }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
             // TODO this is a workaround for now Imgto that image is not added as inline
@@ -124,25 +99,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             String altText = element.GetAttribute(AttributeConstants.ALT);
             if (altText != null && image != null) {
                 image.GetAccessibilityProperties().SetAlternateDescription(altText);
-            }
-        }
-
-        /// <exception cref="System.IO.IOException"/>
-        private void ProcessAsSvg(Stream stream, ProcessorContext context) {
-            SvgProcessingUtil processingUtil = new SvgProcessingUtil();
-            SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
-            svgConverterProperties.SetBaseUri(context.GetBaseUri()).SetFontProvider(context.GetFontProvider()).SetMediaDeviceDescription
-                (context.GetDeviceDescription());
-            ISvgProcessorResult res = SvgConverter.ParseAndProcess(stream, svgConverterProperties);
-            if (context.GetPdfDocument() != null) {
-                image = processingUtil.CreateImageFromProcessingResult(res, context.GetPdfDocument());
-            }
-        }
-
-        private void ProcessAsImage(String src, IElementNode element, ProcessorContext context) {
-            PdfImageXObject imageXObject = context.GetResourceResolver().RetrieveImage(src);
-            if (imageXObject != null) {
-                image = new ImgTagWorker.HtmlImage(this, imageXObject);
             }
         }
 
@@ -181,39 +137,49 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         /// <summary>Implementation of the Image class when used in the context of HTML to PDF conversion.</summary>
         private class HtmlImage : Image {
+            private const double PX_TO_PT_MULTIPLIER = 0.75;
+
             /// <summary>
             /// In iText, we use user unit for the image sizes (and by default
             /// one user unit = one point), whereas images are usually measured
             /// in pixels.
             /// </summary>
-            private double pxToPt = 0.75;
+            private double dimensionMultiplier = 1;
 
             /// <summary>
-            /// * Creates a new
+            /// Creates a new
             /// <see cref="HtmlImage"/>
             /// instance.
             /// </summary>
             /// <param name="xObject">an Image XObject</param>
-            public HtmlImage(ImgTagWorker _enclosing, PdfImageXObject xObject)
+            public HtmlImage(PdfImageXObject xObject)
                 : base(xObject) {
-                this._enclosing = _enclosing;
+                this.dimensionMultiplier = PX_TO_PT_MULTIPLIER;
+            }
+
+            /// <summary>
+            /// Creates a new
+            /// <see cref="HtmlImage"/>
+            /// instance.
+            /// </summary>
+            /// <param name="xObject">an Image XObject</param>
+            public HtmlImage(PdfFormXObject xObject)
+                : base(xObject) {
             }
 
             /* (non-Javadoc)
             * @see com.itextpdf.layout.element.Image#getImageWidth()
             */
             public override float GetImageWidth() {
-                return (float)(this.xObject.GetWidth() * this.pxToPt);
+                return (float)(xObject.GetWidth() * dimensionMultiplier);
             }
 
             /* (non-Javadoc)
             * @see com.itextpdf.layout.element.Image#getImageHeight()
             */
             public override float GetImageHeight() {
-                return (float)(this.xObject.GetHeight() * this.pxToPt);
+                return (float)(xObject.GetHeight() * dimensionMultiplier);
             }
-
-            private readonly ImgTagWorker _enclosing;
         }
     }
 }

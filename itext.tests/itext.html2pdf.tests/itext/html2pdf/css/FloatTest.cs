@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -630,6 +630,14 @@ namespace iText.Html2pdf.Css {
         public virtual void FloatingDivBottomBorderTest() {
             //This test should fail after the fix in DEVSIX-2335
             RunTest("floatingDivBottomBorderTest", "diff_BottomBorderTest_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 1)]
+        public virtual void FloatCaption01Test() {
+            RunTest("floatCaption01Test", "diff_floatCaption01Test_");
         }
 
         /// <exception cref="System.IO.IOException"/>

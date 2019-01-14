@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2018 iText Group NV
+Copyright (c) 1998-2019 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -45,10 +45,8 @@ using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Css.Apply.Util;
-using iText.Html2pdf.Css.Page;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -60,11 +58,8 @@ using iText.Layout.Element;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
-using iText.Layout.Tagging;
-using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Page;
 using iText.StyledXmlParser.Css.Util;
-using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>Context processor for specific types of pages: first, left, or right page.</summary>
@@ -87,15 +82,21 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary>The paddings.</summary>
         private float[] paddings;
 
-        /// <summary>Page background simulation.</summary>
+        /// <summary>page background simulation.</summary>
         private Div pageBackgroundSimulation;
 
-        /// <summary>Page borders simulation.</summary>
+        /// <summary>page borders simulation.</summary>
         private Div pageBordersSimulation;
 
         private PageContextProperties properties;
 
         private ProcessorContext context;
+
+        private PageMarginBoxBuilder pageMarginBoxHelper;
+
+        /// <summary>The logger.</summary>
+        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor
+            ));
 
         /// <summary>Instantiates a new page context processor.</summary>
         /// <param name="properties">the page context properties</param>
@@ -107,6 +108,35 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             this.properties = properties;
             this.context = context;
             Reset(defaultPageSize, defaultPageMargins);
+        }
+
+        /// <summary>Parses the marks.</summary>
+        /// <param name="marksStr">
+        /// a
+        /// <see cref="System.String"/>
+        /// value defining the marks
+        /// </param>
+        /// <returns>
+        /// a
+        /// <see cref="Java.Util.Set{E}"/>
+        /// of mark values
+        /// </returns>
+        private static ICollection<String> ParseMarks(String marksStr) {
+            ICollection<String> marks = new HashSet<String>();
+            if (marksStr == null) {
+                return marks;
+            }
+            String[] split = iText.IO.Util.StringUtil.Split(marksStr, " ");
+            foreach (String mark in split) {
+                if (CssConstants.CROP.Equals(mark) || CssConstants.CROSS.Equals(mark)) {
+                    marks.Add(mark);
+                }
+                else {
+                    marks.Clear();
+                    break;
+                }
+            }
+            return marks;
         }
 
         /// <summary>
@@ -139,7 +169,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             ParseBorders(styles, em, rem);
             ParsePaddings(styles, em, rem);
             CreatePageSimulationElements(styles, context);
-            PrepareMarginBoxesSizing(properties.GetResolvedPageMarginBoxes());
+            pageMarginBoxHelper = new PageMarginBoxBuilder(properties.GetResolvedPageMarginBoxes(), margins, pageSize);
             return this;
         }
 
@@ -321,78 +351,46 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// </param>
         /// <param name="documentRenderer">the document renderer</param>
         private void DrawMarginBoxes(int pageNumber, PdfDocument pdfDocument, DocumentRenderer documentRenderer) {
-            if (properties.GetResolvedPageMarginBoxes().IsEmpty()) {
-                return;
-            }
-            PdfPage page = pdfDocument.GetPage(pageNumber);
-            foreach (PageMarginBoxContextNode marginBoxContentNode in properties.GetResolvedPageMarginBoxes()) {
-                IElement curBoxElement = ProcessMarginBoxContent(marginBoxContentNode, pageNumber, context);
-                IRenderer renderer = curBoxElement.CreateRendererSubTree();
-                RemoveAreaBreaks(renderer);
-                renderer.SetParent(documentRenderer);
-                bool isTagged = pdfDocument.IsTagged();
-                if (isTagged) {
-                    LayoutTaggingHelper taggingHelper = renderer.GetProperty<LayoutTaggingHelper>(Property.TAGGING_HELPER);
-                    LayoutTaggingHelper.AddTreeHints(taggingHelper, renderer);
-                }
-                LayoutResult result = renderer.Layout(new LayoutContext(new LayoutArea(pageNumber, marginBoxContentNode.GetPageMarginBoxRectangle
-                    ())));
-                IRenderer rendererToDraw = result.GetStatus() == LayoutResult.FULL ? renderer : result.GetSplitRenderer();
-                if (rendererToDraw != null) {
-                    TagTreePointer tagPointer = null;
-                    TagTreePointer backupPointer = null;
-                    PdfPage backupPage = null;
-                    if (isTagged) {
-                        tagPointer = pdfDocument.GetTagStructureContext().GetAutoTaggingPointer();
-                        backupPage = tagPointer.GetCurrentPage();
-                        backupPointer = new TagTreePointer(tagPointer);
-                        tagPointer.MoveToRoot();
-                        tagPointer.SetPageForTagging(page);
+            pageMarginBoxHelper.BuildForSinglePage(pageNumber, pdfDocument, documentRenderer, context);
+            if (pageMarginBoxHelper.GetRenderers() != null) {
+                for (int i = 0; i < 16; i++) {
+                    if (pageMarginBoxHelper.GetRenderers()[i] != null) {
+                        Draw(pageMarginBoxHelper.GetRenderers()[i], pageMarginBoxHelper.GetNodes()[i], pdfDocument, pdfDocument.GetPage
+                            (pageNumber), documentRenderer, pageNumber);
                     }
-                    rendererToDraw.SetParent(documentRenderer).Draw(new DrawContext(page.GetDocument(), new PdfCanvas(page), isTagged
-                        ));
-                    if (isTagged) {
-                        tagPointer.SetPageForTagging(backupPage);
-                        tagPointer.MoveToPointer(backupPointer);
-                    }
-                }
-                else {
-                    // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
-                    // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
-                    ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor));
-                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN
-                        , marginBoxContentNode.GetMarginBoxName()));
                 }
             }
         }
 
-        /// <summary>Parses the marks.</summary>
-        /// <param name="marksStr">
-        /// a
-        /// <see cref="System.String"/>
-        /// value defining the marks
-        /// </param>
-        /// <returns>
-        /// a
-        /// <see cref="Java.Util.Set{E}"/>
-        /// of mark values
-        /// </returns>
-        private static ICollection<String> ParseMarks(String marksStr) {
-            ICollection<String> marks = new HashSet<String>();
-            if (marksStr == null) {
-                return marks;
-            }
-            String[] split = iText.IO.Util.StringUtil.Split(marksStr, " ");
-            foreach (String mark in split) {
-                if (CssConstants.CROP.Equals(mark) || CssConstants.CROSS.Equals(mark)) {
-                    marks.Add(mark);
+        private void Draw(IRenderer renderer, PageMarginBoxContextNode node, PdfDocument pdfDocument, PdfPage page
+            , DocumentRenderer documentRenderer, int pageNumber) {
+            LayoutResult result = renderer.Layout(new LayoutContext(new LayoutArea(pageNumber, node.GetPageMarginBoxRectangle
+                ())));
+            IRenderer rendererToDraw = result.GetStatus() == LayoutResult.FULL ? renderer : result.GetSplitRenderer();
+            if (rendererToDraw != null) {
+                TagTreePointer tagPointer = null;
+                TagTreePointer backupPointer = null;
+                PdfPage backupPage = null;
+                if (pdfDocument.IsTagged()) {
+                    tagPointer = pdfDocument.GetTagStructureContext().GetAutoTaggingPointer();
+                    backupPage = tagPointer.GetCurrentPage();
+                    backupPointer = new TagTreePointer(tagPointer);
+                    tagPointer.MoveToRoot();
+                    tagPointer.SetPageForTagging(page);
                 }
-                else {
-                    marks.Clear();
-                    break;
+                rendererToDraw.SetParent(documentRenderer).Draw(new DrawContext(page.GetDocument(), new PdfCanvas(page), pdfDocument
+                    .IsTagged()));
+                if (pdfDocument.IsTagged()) {
+                    tagPointer.SetPageForTagging(backupPage);
+                    tagPointer.MoveToPointer(backupPointer);
                 }
             }
-            return marks;
+            else {
+                // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
+                // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
+                LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN
+                    , node.GetMarginBoxName()));
+            }
         }
 
         /// <summary>Parses the margins.</summary>
@@ -456,229 +454,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             pageBordersSimulation.SetBorderBottom(borders[2]);
             pageBordersSimulation.SetBorderLeft(borders[3]);
             pageBordersSimulation.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
-        }
-
-        /// <summary>Creates the margin boxes elements.</summary>
-        /// <param name="resolvedPageMarginBoxes">the resolved page margin boxes</param>
-        private void PrepareMarginBoxesSizing(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
-            Rectangle[] marginBoxRectangles = CalculateMarginBoxRectangles(resolvedPageMarginBoxes);
-            foreach (PageMarginBoxContextNode marginBoxContentNode in resolvedPageMarginBoxes) {
-                if (marginBoxContentNode.ChildNodes().IsEmpty()) {
-                    // margin box node shall not be added to resolvedPageMarginBoxes if it's kids were not resolved from content
-                    throw new InvalidOperationException();
-                }
-                int marginBoxInd = MapMarginBoxNameToIndex(marginBoxContentNode.GetMarginBoxName());
-                marginBoxContentNode.SetPageMarginBoxRectangle(marginBoxRectangles[marginBoxInd]);
-                marginBoxContentNode.SetContainingBlockForMarginBox(CalculateContainingBlockSizesForMarginBox(marginBoxInd
-                    , marginBoxRectangles[marginBoxInd]));
-            }
-        }
-
-        private IElement ProcessMarginBoxContent(PageMarginBoxContextNode marginBoxContentNode, int pageNumber, ProcessorContext
-             context) {
-            IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
-            dummyMarginBoxNode.SetStyles(marginBoxContentNode.GetStyles());
-            ITagWorker marginBoxWorker = context.GetTagWorkerFactory().GetTagWorker(dummyMarginBoxNode, context);
-            for (int i = 0; i < marginBoxContentNode.ChildNodes().Count; i++) {
-                INode childNode = marginBoxContentNode.ChildNodes()[i];
-                if (childNode is ITextNode) {
-                    String text = ((ITextNode)marginBoxContentNode.ChildNodes()[i]).WholeText();
-                    marginBoxWorker.ProcessContent(text, context);
-                }
-                else {
-                    if (childNode is IElementNode) {
-                        ITagWorker childTagWorker = context.GetTagWorkerFactory().GetTagWorker((IElementNode)childNode, context);
-                        if (childTagWorker != null) {
-                            childTagWorker.ProcessEnd((IElementNode)childNode, context);
-                            marginBoxWorker.ProcessTagChild(childTagWorker, context);
-                        }
-                    }
-                    else {
-                        if (childNode is PageMarginRunningElementNode) {
-                            PageMarginRunningElementNode runningElementNode = (PageMarginRunningElementNode)childNode;
-                            RunningElementContainer runningElement = context.GetCssContext().GetRunningManager().GetRunningElement(runningElementNode
-                                .GetRunningElementName(), runningElementNode.GetRunningElementOccurrence(), pageNumber);
-                            if (runningElement != null) {
-                                marginBoxWorker.ProcessTagChild(runningElement.GetProcessedElementWorker(), context);
-                            }
-                        }
-                        else {
-                            LogManager.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
-                        }
-                    }
-                }
-            }
-            marginBoxWorker.ProcessEnd(dummyMarginBoxNode, context);
-            if (!(marginBoxWorker.GetElementResult() is IElement)) {
-                throw new InvalidOperationException("Custom tag worker implementation for margin boxes shall return IElement for #getElementResult() call."
-                    );
-            }
-            ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(dummyMarginBoxNode);
-            cssApplier.Apply(context, marginBoxContentNode, marginBoxWorker);
-            return (IElement)marginBoxWorker.GetElementResult();
-        }
-
-        /// <summary>Calculate margin box rectangles.</summary>
-        /// <param name="resolvedPageMarginBoxes">the resolved page margin boxes</param>
-        /// <returns>
-        /// an array of
-        /// <see cref="iText.Kernel.Geom.Rectangle"/>
-        /// values
-        /// </returns>
-        private Rectangle[] CalculateMarginBoxRectangles(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes) {
-            // TODO It's a very basic implementation for now. In future resolve rectangles based on presence of certain margin boxes,
-            //      also height and width properties should be taken into account.
-            float topMargin = margins[0];
-            float rightMargin = margins[1];
-            float bottomMargin = margins[2];
-            float leftMargin = margins[3];
-            Rectangle withoutMargins = pageSize.Clone().ApplyMargins(topMargin, rightMargin, bottomMargin, leftMargin, 
-                false);
-            float topBottomMarginWidth = withoutMargins.GetWidth() / 3;
-            float leftRightMarginHeight = withoutMargins.GetHeight() / 3;
-            Rectangle[] hardcodedBoxRectangles = new Rectangle[] { new Rectangle(0, withoutMargins.GetTop(), leftMargin
-                , topMargin), new Rectangle(rightMargin, withoutMargins.GetTop(), topBottomMarginWidth, topMargin), new 
-                Rectangle(rightMargin + topBottomMarginWidth, withoutMargins.GetTop(), topBottomMarginWidth, topMargin
-                ), new Rectangle(withoutMargins.GetRight() - topBottomMarginWidth, withoutMargins.GetTop(), topBottomMarginWidth
-                , topMargin), new Rectangle(withoutMargins.GetRight(), withoutMargins.GetTop(), topBottomMarginWidth, 
-                topMargin), new Rectangle(withoutMargins.GetRight(), withoutMargins.GetTop() - leftRightMarginHeight, 
-                rightMargin, leftRightMarginHeight), new Rectangle(withoutMargins.GetRight(), withoutMargins.GetBottom
-                () + leftRightMarginHeight, rightMargin, leftRightMarginHeight), new Rectangle(withoutMargins.GetRight
-                (), withoutMargins.GetBottom(), rightMargin, leftRightMarginHeight), new Rectangle(withoutMargins.GetRight
-                (), 0, rightMargin, bottomMargin), new Rectangle(withoutMargins.GetRight() - topBottomMarginWidth, 0, 
-                topBottomMarginWidth, bottomMargin), new Rectangle(rightMargin + topBottomMarginWidth, 0, topBottomMarginWidth
-                , bottomMargin), new Rectangle(rightMargin, 0, topBottomMarginWidth, bottomMargin), new Rectangle(0, 0
-                , leftMargin, bottomMargin), new Rectangle(0, withoutMargins.GetBottom(), leftMargin, leftRightMarginHeight
-                ), new Rectangle(0, withoutMargins.GetBottom() + leftRightMarginHeight, leftMargin, leftRightMarginHeight
-                ), new Rectangle(0, withoutMargins.GetTop() - leftRightMarginHeight, leftMargin, leftRightMarginHeight
-                ) };
-            return hardcodedBoxRectangles;
-        }
-
-        /// <summary>Calculate containing block sizes for margin box.</summary>
-        /// <param name="marginBoxInd">the margin box index</param>
-        /// <param name="pageMarginBoxRectangle">
-        /// a
-        /// <see cref="iText.Kernel.Geom.Rectangle"/>
-        /// defining dimensions of the page margin box corresponding to the given index
-        /// </param>
-        /// <returns>the corresponding rectangle</returns>
-        private Rectangle CalculateContainingBlockSizesForMarginBox(int marginBoxInd, Rectangle pageMarginBoxRectangle
-            ) {
-            if (marginBoxInd == 0 || marginBoxInd == 4 || marginBoxInd == 8 || marginBoxInd == 12) {
-                return pageMarginBoxRectangle;
-            }
-            Rectangle withoutMargins = pageSize.Clone().ApplyMargins(margins[0], margins[1], margins[2], margins[3], false
-                );
-            if (marginBoxInd < 4) {
-                return new Rectangle(withoutMargins.GetWidth(), margins[0]);
-            }
-            else {
-                if (marginBoxInd < 8) {
-                    return new Rectangle(margins[1], withoutMargins.GetHeight());
-                }
-                else {
-                    if (marginBoxInd < 12) {
-                        return new Rectangle(withoutMargins.GetWidth(), margins[2]);
-                    }
-                    else {
-                        return new Rectangle(margins[3], withoutMargins.GetWidth());
-                    }
-                }
-            }
-        }
-
-        /// <summary>Maps a margin box name to an index.</summary>
-        /// <param name="marginBoxName">the margin box name</param>
-        /// <returns>the index corresponding with the margin box name</returns>
-        private int MapMarginBoxNameToIndex(String marginBoxName) {
-            switch (marginBoxName) {
-                case CssRuleName.TOP_LEFT_CORNER: {
-                    return 0;
-                }
-
-                case CssRuleName.TOP_LEFT: {
-                    return 1;
-                }
-
-                case CssRuleName.TOP_CENTER: {
-                    return 2;
-                }
-
-                case CssRuleName.TOP_RIGHT: {
-                    return 3;
-                }
-
-                case CssRuleName.TOP_RIGHT_CORNER: {
-                    return 4;
-                }
-
-                case CssRuleName.RIGHT_TOP: {
-                    return 5;
-                }
-
-                case CssRuleName.RIGHT_MIDDLE: {
-                    return 6;
-                }
-
-                case CssRuleName.RIGHT_BOTTOM: {
-                    return 7;
-                }
-
-                case CssRuleName.BOTTOM_RIGHT_CORNER: {
-                    return 8;
-                }
-
-                case CssRuleName.BOTTOM_RIGHT: {
-                    return 9;
-                }
-
-                case CssRuleName.BOTTOM_CENTER: {
-                    return 10;
-                }
-
-                case CssRuleName.BOTTOM_LEFT: {
-                    return 11;
-                }
-
-                case CssRuleName.BOTTOM_LEFT_CORNER: {
-                    return 12;
-                }
-
-                case CssRuleName.LEFT_BOTTOM: {
-                    return 13;
-                }
-
-                case CssRuleName.LEFT_MIDDLE: {
-                    return 14;
-                }
-
-                case CssRuleName.LEFT_TOP: {
-                    return 15;
-                }
-            }
-            return -1;
-        }
-
-        /// <summary>Gets rid of all page breaks that might have occurred inside page margin boxes because of the running elements.
-        ///     </summary>
-        /// <param name="renderer">root renderer of renderers subtree</param>
-        private static void RemoveAreaBreaks(IRenderer renderer) {
-            IList<IRenderer> areaBreaks = null;
-            foreach (IRenderer child in renderer.GetChildRenderers()) {
-                if (child is AreaBreakRenderer) {
-                    if (areaBreaks == null) {
-                        areaBreaks = new List<IRenderer>();
-                    }
-                    areaBreaks.Add(child);
-                }
-                else {
-                    RemoveAreaBreaks(child);
-                }
-            }
-            if (areaBreaks != null) {
-                renderer.GetChildRenderers().RemoveAll(areaBreaks);
-            }
         }
     }
 }
