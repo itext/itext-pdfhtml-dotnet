@@ -54,7 +54,6 @@ using iText.Kernel.Counter.Event;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
 using iText.StyledXmlParser.Css.Media;
-using iText.StyledXmlParser.Resolver.Font;
 using iText.StyledXmlParser.Resolver.Resource;
 
 namespace iText.Html2pdf.Attach {
@@ -306,8 +305,7 @@ namespace iText.Html2pdf.Attach {
             this.linkContext = new LinkContext();
             this.formFieldNameResolver.Reset();
             //Reset font provider. PdfFonts shall be reseted.
-            this.fontProvider = new BasicFontProvider(this.fontProvider.GetFontSet(), this.fontProvider.GetDefaultFontFamily
-                ());
+            this.fontProvider.Reset();
             this.tempFonts = null;
             this.outlineHandler.Reset();
             this.processingInlineSvg = false;
