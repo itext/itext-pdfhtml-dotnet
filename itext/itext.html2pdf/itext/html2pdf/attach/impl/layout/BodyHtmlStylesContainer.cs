@@ -59,7 +59,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     /// This class is primarily meant for internal usage.
     /// </summary>
     public class BodyHtmlStylesContainer : IPropertyContainer {
-        /// <summary><inheritDoc/></summary>
         protected internal IDictionary<int, Object> properties = new Dictionary<int, Object>();
 
         /// <summary><inheritDoc/></summary>
