@@ -49,6 +49,7 @@ using iText.Html2pdf.Css.Apply.Util;
 using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.StyledXmlParser.Util;
 
 namespace iText.Html2pdf.Attach.Util {
     /// <summary>Helper class for waiting inline elements.</summary>
@@ -83,7 +84,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <param name="text">the text</param>
         public virtual void Add(String text) {
             if (!keepLineBreaks && collapseSpaces) {
-                text = CollapseConsecutiveSpaces(text);
+                text = WhiteSpaceUtil.CollapseConsecutiveSpaces(text);
             }
             else {
                 if (keepLineBreaks && collapseSpaces) {
@@ -288,24 +289,6 @@ namespace iText.Html2pdf.Attach.Util {
                     previousLetter = false;
                 }
             }
-        }
-
-        /// <summary>Collapses consecutive spaces.</summary>
-        /// <param name="s">a string</param>
-        /// <returns>the string with the consecutive spaces collapsed</returns>
-        private static String CollapseConsecutiveSpaces(String s) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < s.Length; i++) {
-                if (TrimUtil.IsNonEmSpace(s[i])) {
-                    if (sb.Length == 0 || !TrimUtil.IsNonEmSpace(sb[sb.Length - 1])) {
-                        sb.Append(" ");
-                    }
-                }
-                else {
-                    sb.Append(s[i]);
-                }
-            }
-            return sb.ToString();
         }
     }
 }
