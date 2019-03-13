@@ -65,8 +65,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         public override LayoutResult Layout(LayoutContext layoutContext) {
             PageCountType pageCountType = (PageCountType)this.GetProperty<PageCountType?>(Html2PdfProperty.PAGE_COUNT_TYPE
                 );
+            String previousText = GetText().ToString();
+            // If typography is enabled and the page counter element has a non-default direction,
+            // iText processes its content (see LineRenderer#updateBidiLevels) before layouting it.
+            // This might result in an ArrayIndexOutOfBounds exception, because currently iText updates the page counter's content on layout.
+            // To solve this, this workaround has been implemented: the renderer's strToBeConverted shouldn't be updated by layout.
+            bool textHasBeenReplaced = false;
             if (pageCountType == PageCountType.CURRENT_PAGE_NUMBER) {
                 SetText(layoutContext.GetArea().GetPageNumber().ToString());
+                textHasBeenReplaced = true;
             }
             else {
                 if (pageCountType == PageCountType.TOTAL_PAGE_COUNT) {
@@ -77,15 +84,21 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     if (rootRenderer is HtmlDocumentRenderer && ((HtmlDocumentRenderer)rootRenderer).GetEstimatedNumberOfPages
                         () > 0) {
                         SetText(((HtmlDocumentRenderer)rootRenderer).GetEstimatedNumberOfPages().ToString());
+                        textHasBeenReplaced = true;
                     }
                     else {
                         if (rootRenderer is DocumentRenderer && rootRenderer.GetModelElement() is Document) {
                             SetText(((Document)rootRenderer.GetModelElement()).GetPdfDocument().GetNumberOfPages().ToString());
+                            textHasBeenReplaced = true;
                         }
                     }
                 }
             }
-            return base.Layout(layoutContext);
+            LayoutResult result = base.Layout(layoutContext);
+            if (textHasBeenReplaced) {
+                SetText(previousText);
+            }
+            return result;
         }
 
         /* (non-Javadoc)
