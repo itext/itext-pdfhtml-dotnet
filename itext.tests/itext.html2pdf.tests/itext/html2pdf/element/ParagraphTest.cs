@@ -250,5 +250,16 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithLabelSpanDisplayBlockTest.pdf"
                 , sourceFolder + "cmp_paragraphWithLabelSpanDisplayBlockTest.pdf", destinationFolder, "diff15_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ParagraphWithImageTest01() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithImageTest01.html"), new FileInfo(destinationFolder
+                 + "paragraphWithImageTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithImageTest01.pdf"
+                , sourceFolder + "cmp_paragraphWithImageTest01.pdf", destinationFolder, "diff_paragraphWithImageTest01_"
+                ));
+        }
     }
 }
