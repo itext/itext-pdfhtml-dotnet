@@ -196,6 +196,14 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_INVALID)]
+        public virtual void InputDefaultTest01() {
+            RunTest("inputDefaultTest01");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void PlaceholderTest01() {
             RunTest("placeholderTest01");
         }

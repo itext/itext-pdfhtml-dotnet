@@ -75,6 +75,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public InputTagWorker(IElementNode element, ProcessorContext context) {
             String inputType = element.GetAttribute(AttributeConstants.TYPE);
+            if (!AttributeConstants.INPUT_TYPE_VALUES.Contains(inputType)) {
+                if (null != inputType && 0 != inputType.Length) {
+                    ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
+                    logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_INVALID, inputType));
+                }
+                inputType = AttributeConstants.TEXT;
+            }
             String value = element.GetAttribute(AttributeConstants.VALUE);
             String name = context.GetFormFieldNameResolver().ResolveFormName(element.GetAttribute(AttributeConstants.NAME
                 ));

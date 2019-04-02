@@ -82,6 +82,9 @@ namespace iText.Html2pdf {
         [Obsolete]
         public const String INPUT_SUPPORTS_ONLY_POINT_WIDTH = "Input field supports only point width";
 
+        /// <summary>The Constant INPUT_TYPE_IS_INVALID.</summary>
+        public const String INPUT_TYPE_IS_INVALID = "Input type {0} is invalid. The default text type will be used instead.";
+
         /// <summary>The Constant INPUT_TYPE_IS_NOT_SUPPORTED.</summary>
         public const String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";
 

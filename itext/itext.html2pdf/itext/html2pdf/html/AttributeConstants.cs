@@ -41,6 +41,8 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Collections.Generic;
+using iText.IO.Util;
 using iText.StyledXmlParser;
 
 namespace iText.Html2pdf.Html {
@@ -216,14 +218,32 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant CHECKED.</summary>
         public const String CHECKED = "checked";
 
+        /// <summary>The Constant DATE.</summary>
+        public const String DATE = "date";
+
+        /// <summary>The Constant DATETIME.</summary>
+        public const String DATETIME = "datetime";
+
+        /// <summary>The Constant DATETIME_LOCAL.</summary>
+        public const String DATETIME_LOCAL = "datetime_local";
+
         /// <summary>The Constant EMAIL.</summary>
         public const String EMAIL = "email";
+
+        /// <summary>The Constant FILE.</summary>
+        public const String FILE = "file";
+
+        /// <summary>The Constant HIDDEN.</summary>
+        public const String HIDDEN = "hidden";
 
         /// <summary>The Constant I.</summary>
         public const String I = "I";
 
         /// <summary>The Constant i.</summary>
         public const String i = "i";
+
+        /// <summary>The Constant IMAGE.</summary>
+        public const String IMAGE = "image";
 
         /// <summary>The Constant LEFT.</summary>
         public const String LEFT = "left";
@@ -234,11 +254,23 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant MIDDLE.</summary>
         public const String MIDDLE = "middle";
 
+        /// <summary>The Constant MONTH.</summary>
+        public const String MONTH = "month";
+
         /// <summary>The Constant PASSWORD.</summary>
         public const String PASSWORD = "password";
 
+        /// <summary>The Constant PLACEHOLDER.</summary>
+        public const String PLACEHOLDER = "placeholder";
+
         /// <summary>The Constant RADIO.</summary>
         public const String RADIO = "radio";
+
+        /// <summary>The Constant RANGE.</summary>
+        public const String RANGE = "range";
+
+        /// <summary>The Constant RESET.</summary>
+        public const String RESET = "reset";
 
         /// <summary>The Constant RIGHT.</summary>
         public const String RIGHT = "right";
@@ -246,19 +278,38 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant RTL.</summary>
         public const String RTL = "rtl";
 
+        /// <summary>The Constant SEARCH.</summary>
+        public const String SEARCH = "search";
+
+        /// <summary>The Constant START</summary>
+        public const String START = "start";
+
         /// <summary>The Constant SUBMIT.</summary>
         public const String SUBMIT = "submit";
+
+        /// <summary>The Constant TEL.</summary>
+        public const String TEL = "tel";
 
         /// <summary>The Constant TEXT.</summary>
         public const String TEXT = "text";
 
+        /// <summary>The Constant TIME.</summary>
+        public const String TIME = "time";
+
         /// <summary>The Constant TOP.</summary>
         public const String TOP = "top";
 
-        /// <summary>The Constant start</summary>
-        public const String START = "start";
+        /// <summary>The Constant URL</summary>
+        public const String URL = "url";
 
-        public const String PLACEHOLDER = "placeholder";
+        /// <summary>The Constant WEEK</summary>
+        public const String WEEK = "week";
+
+        /// <summary>The Constant INPUT_TYPE_VALUES.</summary>
+        public static readonly ICollection<String> INPUT_TYPE_VALUES = JavaCollectionsUtil.UnmodifiableSet(new HashSet
+            <String>(JavaUtil.ArraysAsList(new String[] { BUTTON, CHECKBOX, COLOR, DATE, DATETIME, DATETIME_LOCAL, 
+            EMAIL, FILE, HIDDEN, IMAGE, MONTH, NUMBER, PASSWORD, RADIO, RANGE, RESET, SEARCH, SUBMIT, TEL, TEXT, TIME
+            , URL, WEEK })));
 
         public sealed class ObjectTypes {
             public const String SVGIMAGE = "image/svg+xml";
