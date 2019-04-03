@@ -128,6 +128,7 @@ namespace iText.Html2pdf {
         private void GenerateTestHtml(String destinationFolder, String fileName, byte[] bytes) {
             String htmlPath = destinationFolder + DOCUMENT_PREFIX + fileName + ".html";
             FileStream @out = new FileStream(htmlPath, FileMode.Create);
+            @out.Write(bytes);
             System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
             @out.Dispose();
         }
