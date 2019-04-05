@@ -78,10 +78,12 @@ namespace iText.Html2pdf.Attach.Impl {
             while (!stk.IsEmpty()) {
                 INode n = stk.Pop();
                 if (n is IElementNode) {
-                    IElementNode n2 = (IElementNode)n;
-                    if (n2.Name().Equals(AttributeConstants.a) && n2.GetAttribute(AttributeConstants.HREF) != null && n2.GetAttribute
-                        (AttributeConstants.HREF).StartsWith("#")) {
-                        linkDestinations.Add(n2.GetAttribute(AttributeConstants.HREF).Substring(1));
+                    IElementNode elem = (IElementNode)n;
+                    if (TagConstants.A.Equals(elem.Name())) {
+                        String href = elem.GetAttribute(AttributeConstants.HREF);
+                        if (href != null && href.StartsWith("#")) {
+                            linkDestinations.Add(href.Substring(1));
+                        }
                     }
                 }
                 if (!n.ChildNodes().IsEmpty()) {
