@@ -121,7 +121,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             if (stylesContainer is IElementNode && ((IElementNode)stylesContainer).ParentNode() is IElementNode && CssConstants
                 .RTL.Equals(((IElementNode)((IElementNode)stylesContainer).ParentNode()).GetStyles().Get(CssConstants.
-                DIRECTION))) {
+                DIRECTION)) && !element.HasProperty(Property.HORIZONTAL_ALIGNMENT)) {
                 // We should only apply horizontal alignment if parent has dir attribute or direction property
                 element.SetProperty(Property.HORIZONTAL_ALIGNMENT, HorizontalAlignment.RIGHT);
             }

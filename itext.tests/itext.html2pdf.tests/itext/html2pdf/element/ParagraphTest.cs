@@ -261,5 +261,16 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithImageTest01.pdf", destinationFolder, "diff_paragraphWithImageTest01_"
                 ));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ParagraphWithImageTest01RTL() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithImageTest01RTL.html"), new FileInfo(destinationFolder
+                 + "paragraphWithImageTest01RTL.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithImageTest01RTL.pdf"
+                , sourceFolder + "cmp_paragraphWithImageTest01RTL.pdf", destinationFolder, "diff_paragraphWithImageTest01_"
+                ));
+        }
     }
 }
