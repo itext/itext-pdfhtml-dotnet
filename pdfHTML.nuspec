@@ -24,7 +24,6 @@
       <group targetFramework="netstandard1.6">
         <dependency id="itext7" version="7.1.6-SNAPSHOT" />
         <dependency id="Common.Logging" version="3.4.1" />
-        <dependency id="NETStandard.Library" version="1.6.1" />
       </group>
     </dependencies>
   </metadata>
