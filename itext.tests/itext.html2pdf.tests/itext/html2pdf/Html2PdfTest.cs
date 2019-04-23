@@ -45,7 +45,6 @@ using System.IO;
 using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf {
     public class Html2PdfTest : ExtendedITextTest {
@@ -149,9 +148,7 @@ namespace iText.Html2pdf {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
         public virtual void ABlockInPTagTest() {
-            //TODO after DEVSIX-2002 fix change cmp_ file and remove expected LogMessage annotation
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "aBlockInPTag.html"), new FileInfo(destinationFolder
                  + "aBlockInPTag.pdf"));
             System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "aBlockInPTag.html"

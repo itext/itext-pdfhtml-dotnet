@@ -44,6 +44,7 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.IO.Util;
+using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
@@ -126,6 +127,50 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void HelloTableFixed8DocumentTest() {
             RunTest("hello_table_fixed8");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixedLackOfTableWidthTest01() {
+            RunTest("helloTableFixedLackOfTableWidthTest01", false, new PageSize(PageSize.A3).Rotate());
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixedLackOfTableWidthTest01A() {
+            RunTest("helloTableFixedLackOfTableWidthTest01A", false, new PageSize(PageSize.A3).Rotate());
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixedLackOfTableWidthTest02() {
+            RunTest("helloTableFixedLackOfTableWidthTest02", false, new PageSize(PageSize.A3).Rotate());
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HelloTableFixedLackOfTableWidthTest02A() {
+            RunTest("helloTableFixedLackOfTableWidthTest02A", false, new PageSize(PageSize.A3).Rotate());
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, Count = 3)]
+        public virtual void HelloTableFixedLackOfTableWidthTest03() {
+            RunTest("helloTableFixedLackOfTableWidthTest03", false, new PageSize(PageSize.A3).Rotate());
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, Count = 3)]
+        public virtual void HelloTableFixedLackOfTableWidthTest03A() {
+            RunTest("helloTableFixedLackOfTableWidthTest03A", false, new PageSize(PageSize.A3).Rotate());
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -550,7 +595,16 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         private void RunTest(String testName, bool tagged) {
+            RunTest(testName, tagged, null);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void RunTest(String testName, bool tagged, PageSize pageSize) {
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + testName + ".pdf"));
+            if (null != pageSize) {
+                pdfDocument.SetDefaultPageSize(pageSize);
+            }
             if (tagged) {
                 pdfDocument.SetTagged();
             }

@@ -44,6 +44,7 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.IO.Util;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Test;
 
@@ -74,14 +75,29 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
-        private void Test(String testName) {
+        private void Test(String testName, bool tagged) {
             String htmlFile = sourceFolder + testName + ".html";
             String pdfFile = destinationFolder + testName + ".pdf";
             String cmpFile = sourceFolder + MessageFormatUtil.Format("cmp_{0}.pdf", testName);
             String diff = MessageFormatUtil.Format("diff_{0}_", testName);
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlFile), new FileInfo(pdfFile));
+            if (tagged) {
+                PdfDocument pdfDocument = new PdfDocument(new PdfWriter(pdfFile));
+                pdfDocument.SetTagged();
+                using (FileStream fileInputStream = new FileStream(htmlFile, FileMode.Open, FileAccess.Read)) {
+                    HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument);
+                }
+            }
+            else {
+                HtmlConverter.ConvertToPdf(new FileInfo(htmlFile), new FileInfo(pdfFile));
+            }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfFile, cmpFile, destinationFolder, diff
                 ));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        private void Test(String testName) {
+            Test(testName, false);
         }
 
         /// <exception cref="System.IO.IOException"/>
@@ -218,6 +234,13 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void SpanTestNestedInlineBlock() {
             Test("spanTestNestedInlineBlock");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void SpanWithDisplayBlockInsideSpanParagraphTest() {
+            Test("spanWithDisplayBlockInsideSpanParagraphTest", true);
         }
     }
 }

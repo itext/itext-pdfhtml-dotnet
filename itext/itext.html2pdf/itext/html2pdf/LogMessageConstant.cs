@@ -48,6 +48,8 @@ namespace iText.Html2pdf {
         /// <summary>The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT.</summary>
         public const String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will be flattened instead.";
 
+        public const String ANCHOR_LINK_NOT_HANDLED = "The anchor link was not handled. Could not create a destination for element \"{0}\" with ID \"{1}\", which is processed by \"{2}\" tag worker class.";
+
         /// <summary>The Constant CONTENT_PROPERTY_INVALID.</summary>
         public const String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
 
@@ -81,6 +83,9 @@ namespace iText.Html2pdf {
         /// <summary>The Constant INPUT_SUPPORTS_ONLY_POINT_WIDTH.</summary>
         [Obsolete]
         public const String INPUT_SUPPORTS_ONLY_POINT_WIDTH = "Input field supports only point width";
+
+        /// <summary>The Constant INPUT_TYPE_IS_INVALID.</summary>
+        public const String INPUT_TYPE_IS_INVALID = "Input type {0} is invalid. The default text type will be used instead.";
 
         /// <summary>The Constant INPUT_TYPE_IS_NOT_SUPPORTED.</summary>
         public const String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";

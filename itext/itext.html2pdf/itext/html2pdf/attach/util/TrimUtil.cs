@@ -46,18 +46,11 @@ using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Util;
 
 namespace iText.Html2pdf.Attach.Util {
     /// <summary>Utility class to trim content.</summary>
     public sealed class TrimUtil {
-        private static readonly ICollection<char> EM_SPACES = new HashSet<char>();
-
-        static TrimUtil() {
-            EM_SPACES.Add((char)0x2002);
-            EM_SPACES.Add((char)0x2003);
-            EM_SPACES.Add((char)0x2009);
-        }
-
         /// <summary>
         /// Creates a new
         /// <see cref="TrimUtil"/>
@@ -98,15 +91,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <param name="ch">the character</param>
         /// <returns>true, if the character is a white space character, but no newline</returns>
         internal static bool IsNonLineBreakSpace(char ch) {
-            return IsNonEmSpace(ch) && ch != '\n';
-        }
-
-        /// <summary>Checks if a character is white space value that is not em, en or similar special whitespace character.
-        ///     </summary>
-        /// <param name="ch">the character</param>
-        /// <returns>true, if the character is a white space character, but no em, en or similar</returns>
-        internal static bool IsNonEmSpace(char ch) {
-            return iText.IO.Util.TextUtil.IsWhiteSpace(ch) && !EM_SPACES.Contains(ch);
+            return WhiteSpaceUtil.IsNonEmSpace(ch) && ch != '\n';
         }
 
         /// <summary>Trims a sub list of leaf elements.</summary>

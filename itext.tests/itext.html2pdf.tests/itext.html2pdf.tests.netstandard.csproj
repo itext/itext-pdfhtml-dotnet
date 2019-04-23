@@ -25,11 +25,6 @@
     <StartupObject />
     <AssemblyName>itext.html2pdf.tests</AssemblyName>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">
-    <PackageReference Include="Microsoft.NETCore.App">
-      <Version>1.0.0</Version>
-    </PackageReference>
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.0" />
     <PackageReference Include="NUnit" Version="3.7.1" />
@@ -40,21 +35,24 @@
     <None Include="itext.snk" />
     <None Include="packages.config" />
   </ItemGroup>
+  <PropertyGroup>
+    <NoWarn>1701;1702;1591;1570;1572;1573;1574;1580;1584;1658</NoWarn>
+  </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\itextcore\itext\itext.io\itext.io.netstandard.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.io\itext.io.netstandard.csproj')" />
-    <PackageReference Include="itext7" Version="7.1.5" Condition="!Exists('..\..\..\itextcore\itext\itext.io\itext.io.netstandard.csproj')" />
+    <PackageReference Include="itext7" Version="7.1.6" Condition="!Exists('..\..\..\itextcore\itext\itext.io\itext.io.netstandard.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.kernel\itext.kernel.netstandard.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.kernel\itext.kernel.netstandard.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.layout\itext.layout.netstandard.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.layout\itext.layout.netstandard.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.forms\itext.forms.netstandard.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.forms\itext.forms.netstandard.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.netstandard.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.netstandard.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.hyph\itext.hyph.netstandard.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.hyph\itext.hyph.netstandard.csproj')" />
-    <PackageReference Include="itext7.hyph" Version="7.1.5" Condition="!Exists('..\..\..\itextcore\itext\itext.hyph\itext.hyph.netstandard.csproj')" />
+    <PackageReference Include="itext7.hyph" Version="7.1.6" Condition="!Exists('..\..\..\itextcore\itext\itext.hyph\itext.hyph.netstandard.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.netstandard.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.netstandard.csproj')" />
-    <PackageReference Include="itext7.pdftest" Version="7.1.5" Condition="!Exists('..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.netstandard.csproj')" />
+    <PackageReference Include="itext7.pdftest" Version="7.1.6" Condition="!Exists('..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.netstandard.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.netstandard.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.netstandard.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.svg\itext.svg.netstandard.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.svg\itext.svg.netstandard.csproj')" />
     <ProjectReference Include="..\..\itext\itext.html2pdf\itext.html2pdf.netstandard.csproj" />
