@@ -68,5 +68,47 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imagesInBody.pdf", sourceFolder
                  + "cmp_imagesInBody.pdf", destinationFolder, "diff18_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ImagesWithWideBorders() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imagesWithWideBorders.html"), new FileInfo(destinationFolder
+                 + "imagesWithWideBorders.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imagesWithWideBorders.pdf"
+                , sourceFolder + "cmp_imagesWithWideBorders.pdf", destinationFolder));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ImagesWithWideMargins() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imagesWithWideMargins.html"), new FileInfo(destinationFolder
+                 + "imagesWithWideMargins.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imagesWithWideMargins.pdf"
+                , sourceFolder + "cmp_imagesWithWideMargins.pdf", destinationFolder));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ImagesWithWidePaddings() {
+            // TODO DEVSIX-2467
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imagesWithWidePaddings.html"), new FileInfo(destinationFolder
+                 + "imagesWithWidePaddings.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imagesWithWidePaddings.pdf"
+                , sourceFolder + "cmp_imagesWithWidePaddings.pdf", destinationFolder));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ImagesWithWidePaddingsBordersMargins() {
+            // TODO DEVSIX-2467
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imagesWithWidePaddingsBordersMargins.html"), new FileInfo
+                (destinationFolder + "imagesWithWidePaddingsBordersMargins.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imagesWithWidePaddingsBordersMargins.pdf"
+                , sourceFolder + "cmp_imagesWithWidePaddingsBordersMargins.pdf", destinationFolder));
+        }
     }
 }
