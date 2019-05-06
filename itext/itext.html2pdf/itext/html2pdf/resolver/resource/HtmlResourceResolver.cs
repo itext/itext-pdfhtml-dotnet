@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Util;
 using iText.IO.Codec;
 using iText.IO.Util;
@@ -110,17 +111,19 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
             catch (Exception) {
                 using (Stream @is = UrlUtil.OpenStream(url)) {
-                    return ProcessAsSvg(@is, context);
+                    String newRoot = FileUtil.ParentDirectory(url);
+                    return ProcessAsSvg(@is, context, newRoot);
                 }
             }
         }
 
         /// <exception cref="System.IO.IOException"/>
-        private PdfFormXObject ProcessAsSvg(Stream stream, ProcessorContext context) {
+        private PdfFormXObject ProcessAsSvg(Stream stream, ProcessorContext context, String parentDir) {
             SvgProcessingUtil processingUtil = new SvgProcessingUtil();
-            SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
-            svgConverterProperties.SetBaseUri(context.GetBaseUri()).SetFontProvider(context.GetFontProvider()).SetMediaDeviceDescription
-                (context.GetDeviceDescription());
+            SvgConverterProperties svgConverterProperties = ContextMappingHelper.MapToSvgConverterProperties(context);
+            if (parentDir != null) {
+                svgConverterProperties.SetBaseUri(parentDir);
+            }
             ISvgProcessorResult res = SvgConverter.ParseAndProcess(stream, svgConverterProperties);
             if (context.GetPdfDocument() != null) {
                 return processingUtil.CreateXObjectFromProcessingResult(res, context.GetPdfDocument());
@@ -128,6 +131,11 @@ namespace iText.Html2pdf.Resolver.Resource {
             else {
                 return null;
             }
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        private PdfFormXObject ProcessAsSvg(Stream stream, ProcessorContext context) {
+            return this.ProcessAsSvg(stream, context, null);
         }
     }
 }

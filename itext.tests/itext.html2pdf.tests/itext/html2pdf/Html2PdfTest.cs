@@ -45,6 +45,7 @@ using System.IO;
 using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf {
     public class Html2PdfTest : ExtendedITextTest {
@@ -155,6 +156,66 @@ namespace iText.Html2pdf {
                 ).AbsolutePath + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "aBlockInPTag.pdf", sourceFolder
                  + "cmp_aBlockInPTag.pdf", destinationFolder, "diff03_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 8)]
+        public virtual void Base64svgTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "objectTag_base64svg.html"), new FileInfo(destinationFolder
+                 + "objectTag_base64svg.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "objectTag_base64svg.pdf"
+                , sourceFolder + "cmp_objectTag_base64svg.pdf", destinationFolder, "diff01_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, Count = 
+            1)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
+        public virtual void HtmlObjectIncorrectBase64Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "objectTag_incorrectBase64svg.html"), new FileInfo(
+                destinationFolder + "objectTag_incorrectBase64svg.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "objectTag_incorrectBase64svg.pdf"
+                , sourceFolder + "cmp_objectTag_incorrectBase64svg.pdf", destinationFolder, "diff01_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT, Count = 1)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
+        public virtual void HtmlObjectAltTextTest() {
+            //update after DEVSIX-1346
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "objectTag_altText.html"), new FileInfo(destinationFolder
+                 + "objectTag_altText.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "objectTag_altText.pdf"
+                , sourceFolder + "cmp_objectTag_altText.pdf", destinationFolder, "diff01_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 8)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
+        public virtual void HtmlObjectNestedObjectTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "objectTag_nestedTag.html"), new FileInfo(destinationFolder
+                 + "objectTag_nestedTag.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "objectTag_nestedTag.pdf"
+                , sourceFolder + "cmp_objectTag_nestedTag.pdf", destinationFolder, "diff01_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 8)]
+        public virtual void HtmlImgBase64SVGTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imgTag_base64svg.html"), new FileInfo(destinationFolder
+                 + "imgTag_base64svg.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imgTag_base64svg.pdf"
+                , sourceFolder + "cmp_imgTag_base64svg.pdf", destinationFolder, "diff01_"));
         }
     }
 }

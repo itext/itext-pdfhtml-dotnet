@@ -46,6 +46,7 @@ using iText.Html2pdf.Attach.Impl;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf {
     public class Html2ElementsTest : ExtendedITextTest {
@@ -167,6 +168,18 @@ namespace iText.Html2pdf {
             outlineHandler.PutTagPriorityMapping("p", 3);
             props.SetOutlineHandler(outlineHandler);
             HtmlConverter.ConvertToElements(html);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, Count = 
+            1)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.PDF_DOCUMENT_NOT_PRESENT, Count = 1)]
+        public virtual void HtmlObjectMalformedUrlTest() {
+            String html = "<object data ='htt://as' type='image/svg+xml'></object>";
+            IList<IElement> lst = HtmlConverter.ConvertToElements(html);
+            NUnit.Framework.Assert.IsTrue(lst.Count == 0);
         }
     }
 }

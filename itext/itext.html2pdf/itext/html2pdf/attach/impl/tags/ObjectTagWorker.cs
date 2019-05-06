@@ -44,6 +44,7 @@ using System;
 using System.IO;
 using Common.Logging;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Util;
 using iText.IO.Util;
@@ -67,12 +68,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.ObjectTagWorker
             ));
 
-        /// <summary>The Svg as image.</summary>
+        /// <summary>Helper for conversion of SVG processing results.</summary>
+        private readonly SvgProcessingUtil processUtil;
+
+        /// <summary>An Outcome of the worker.</summary>
+        /// <remarks>An Outcome of the worker. The Svg as image.</remarks>
         private Image image;
 
+        /// <summary>Output of SVG processing.</summary>
+        /// <remarks>Output of SVG processing.  Intermediate result.</remarks>
         private ISvgProcessorResult res;
-
-        private SvgProcessingUtil processUtil;
 
         /// <summary>
         /// Creates a new
@@ -82,34 +87,37 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public ObjectTagWorker(IElementNode element, ProcessorContext context) {
-            image = null;
-            res = null;
-            processUtil = new SvgProcessingUtil();
+            this.processUtil = new SvgProcessingUtil();
             //Retrieve object type
             String type = element.GetAttribute(AttributeConstants.TYPE);
             if (IsSvgImage(type)) {
-                //Use resource resolver to retrieve the URL
+                String dataValue = element.GetAttribute(AttributeConstants.DATA);
                 try {
-                    using (Stream svgStream = context.GetResourceResolver().RetrieveResourceAsInputStream(element.GetAttribute
-                        (AttributeConstants.DATA))) {
+                    using (Stream svgStream = context.GetResourceResolver().RetrieveResourceAsInputStream(dataValue)) {
                         if (svgStream != null) {
-                            try {
-                                SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
-                                svgConverterProperties.SetBaseUri(context.GetBaseUri()).SetFontProvider(context.GetFontProvider()).SetMediaDeviceDescription
-                                    (context.GetDeviceDescription());
-                                res = SvgConverter.ParseAndProcess(svgStream, svgConverterProperties);
+                            SvgConverterProperties props = ContextMappingHelper.MapToSvgConverterProperties(context);
+                            if (!context.GetResourceResolver().IsDataSrc(dataValue)) {
+                                Uri fullURL = context.GetResourceResolver().ResolveAgainstBaseUri(dataValue);
+                                String dir = FileUtil.ParentDirectory(fullURL);
+                                props.SetBaseUri(dir);
                             }
-                            catch (SvgProcessingException spe) {
-                                LOGGER.Error(spe.Message);
-                            }
+                            res = SvgConverter.ParseAndProcess(svgStream, props);
                         }
                     }
                 }
-                catch (System.IO.IOException) {
+                catch (SvgProcessingException spe) {
+                    LOGGER.Error(spe.Message);
+                }
+                catch (Exception ie) {
                     LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
-                        , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA)));
+                        , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA), ie));
                 }
             }
+        }
+
+        //todo  according specs 'At least one of the "data" or "type" attribute MUST be defined.'
+        private bool IsSvgImage(String typeAttribute) {
+            return AttributeConstants.ObjectTypes.SVGIMAGE.Equals(typeAttribute);
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
@@ -135,10 +143,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public virtual IPropertyContainer GetElementResult() {
             return image;
-        }
-
-        private bool IsSvgImage(String typeAttribute) {
-            return typeAttribute.Equals(AttributeConstants.ObjectTypes.SVGIMAGE);
         }
     }
 }

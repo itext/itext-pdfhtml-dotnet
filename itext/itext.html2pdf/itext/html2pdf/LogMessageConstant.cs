@@ -166,7 +166,7 @@ namespace iText.Html2pdf {
         public const String UNKNOWN_MARGIN_BOX_CHILD = "Unknown margin box child";
 
         /// <summary>The Constant WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT.</summary>
-        public const String WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT = "Worker of type {0} unable to process it's text content";
+        public const String WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT = "Worker of type {0} unable to process it`s text content";
 
         /// <summary>The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER.</summary>
         public const String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
