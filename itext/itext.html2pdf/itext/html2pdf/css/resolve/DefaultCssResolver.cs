@@ -167,21 +167,20 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
                 else {
                     if (parentFontSizeStr == null) {
-                        baseFontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants.FONT_SIZE
-                            ));
+                        baseFontSize = CssUtils.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants.FONT_SIZE));
                     }
                     else {
                         baseFontSize = CssUtils.ParseAbsoluteLength(parentFontSizeStr);
                     }
                 }
-                float absoluteFontSize = FontStyleApplierUtil.ParseRelativeFontSize(elementFontSize, baseFontSize);
+                float absoluteFontSize = CssUtils.ParseRelativeFontSize(elementFontSize, baseFontSize);
                 // Format to 4 decimal places to prevent differences between Java and C#
                 elementStyles.Put(CssConstants.FONT_SIZE, DecimalFormatUtil.FormatNumber(absoluteFontSize, "0.####") + CssConstants
                     .PT);
             }
             else {
-                elementStyles.Put(CssConstants.FONT_SIZE, Convert.ToString(FontStyleApplierUtil.ParseAbsoluteFontSize(elementFontSize
-                    ), System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT);
+                elementStyles.Put(CssConstants.FONT_SIZE, Convert.ToString(CssUtils.ParseAbsoluteFontSize(elementFontSize)
+                    , System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT);
             }
             // Update root font size
             if (element is IElementNode && TagConstants.HTML.Equals(((IElementNode)element).Name())) {
