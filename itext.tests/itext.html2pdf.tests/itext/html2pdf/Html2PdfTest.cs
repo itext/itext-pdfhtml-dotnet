@@ -161,7 +161,6 @@ namespace iText.Html2pdf {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 8)]
         public virtual void Base64svgTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "objectTag_base64svg.html"), new FileInfo(destinationFolder
                  + "objectTag_base64svg.pdf"));
@@ -198,7 +197,6 @@ namespace iText.Html2pdf {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 8)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
         public virtual void HtmlObjectNestedObjectTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "objectTag_nestedTag.html"), new FileInfo(destinationFolder
@@ -210,7 +208,6 @@ namespace iText.Html2pdf {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 8)]
         public virtual void HtmlImgBase64SVGTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imgTag_base64svg.html"), new FileInfo(destinationFolder
                  + "imgTag_base64svg.pdf"));

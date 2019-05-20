@@ -504,7 +504,6 @@ namespace iText.Html2pdf
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 1)]
         public void ResourceResolverSvgWithImageBackgroundTest() {
             //Browsers do not render this
             String baseUri = sourceFolder;
@@ -520,7 +519,6 @@ namespace iText.Html2pdf
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 1)]
         public void ResourceResolverSvgWithImageObjectTest() {
             String baseUri = sourceFolder;
             String outPdf = destinationFolder + "resourceResolverSvgWithImageObject.pdf";

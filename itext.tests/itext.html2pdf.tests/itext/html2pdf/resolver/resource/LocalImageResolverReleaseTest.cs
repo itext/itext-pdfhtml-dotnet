@@ -44,7 +44,6 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Resolver.Resource {
     public class LocalImageResolverReleaseTest : ExtendedITextTest {
@@ -61,7 +60,6 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES, Count = 60)]
         public virtual void TestThatSvgIsReleasedAfterConversion() {
             String htmlFileName = "testWithSvg.html";
             String svgFileName = "imageWithMultipleShapes.svg";
