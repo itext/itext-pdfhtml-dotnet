@@ -369,6 +369,21 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
+        public virtual void TheadTagTest() {
+            RunTest("theadTagTest", true);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TfootTagTest() {
+            RunTest("tfootTagTest", true);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void BrInTdTest() {
             RunTest("brInTd");
         }
