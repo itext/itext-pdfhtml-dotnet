@@ -121,7 +121,23 @@ namespace iText.Html2pdf.Resolver.Font {
             }
         }
 
-        private Range AddCalligraphFonts() {
+        /// <summary>This method loads a list of noto fonts from pdfCalligraph (if present in the classpath!) into FontProvider.
+        ///     </summary>
+        /// <remarks>
+        /// This method loads a list of noto fonts from pdfCalligraph (if present in the classpath!) into FontProvider.
+        /// The list is the following (each font is represented in regular and bold types): NotoSansArabic, NotoSansGurmukhi,
+        /// NotoSansOriya, NotoSerifBengali, NotoSerifDevanagari, NotoSerifGujarati, NotoSerifHebrew, NotoSerifKannada,
+        /// NotoSerifKhmer, NotoSerifMalayalam, NotoSerifTamil, NotoSerifTelugu, NotoSerifThai.
+        /// If it's needed to have a DefaultFontProvider without typography fonts loaded,
+        /// create an extension of DefaultFontProvider and override this method so it does nothing and only returns null.
+        /// </remarks>
+        /// <returns>
+        /// a unicode
+        /// <see cref="iText.Layout.Font.Range"/>
+        /// that excludes the loaded from pdfCalligraph fonts,
+        /// i.e. the unicode range that is to be rendered with any other font contained in this FontProvider
+        /// </returns>
+        protected internal virtual Range AddCalligraphFonts() {
             String methodName = "LoadShippedFonts";
             Type klass = null;
             try {
