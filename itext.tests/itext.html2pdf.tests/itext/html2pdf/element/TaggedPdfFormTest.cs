@@ -172,19 +172,14 @@ namespace iText.Html2pdf.Element {
             //flatted created tagged PDF with acroform
             PdfDocument document = new PdfDocument(new PdfReader(outTaggedPdfPathAcro), new PdfWriter(outTaggedPdfPathFlatted
                 ));
-            PdfAcroForm acroForm = PdfAcroForm.GetAcroForm(document, false);
-            acroForm.FlattenFields();
+            PdfAcroForm.GetAcroForm(document, false).FlattenFields();
             document.Close();
-            //compare with cmp
-            String compResult1 = new CompareTool().CompareByContent(outTaggedPdfPath, cmpPdfPath, destinationFolder, diff1
-                );
-            String compResult2 = new CompareTool().CompareByContent(outTaggedPdfPathAcro, cmpPdfPathAcro, destinationFolder
-                , diff2);
-            String compResult3 = new CompareTool().CompareByContent(outTaggedPdfPathFlatted, cmpPdfPathAcroFlatten, destinationFolder
-                , diff3);
-            NUnit.Framework.Assert.IsNull(compResult1);
-            NUnit.Framework.Assert.IsNull(compResult2);
-            NUnit.Framework.Assert.IsNull(compResult3);
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outTaggedPdfPath, cmpPdfPath, destinationFolder
+                , diff1));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outTaggedPdfPathAcro, cmpPdfPathAcro, destinationFolder
+                , diff2));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outTaggedPdfPathFlatted, cmpPdfPathAcroFlatten
+                , destinationFolder, diff3));
         }
     }
 }
