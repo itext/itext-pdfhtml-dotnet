@@ -204,6 +204,8 @@ namespace iText.Html2pdf
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        // TODO DEVSIX-1595
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
         public virtual void ResourceResolverTest11()
         {
             String outPdf = destinationFolder + "resourceResolverTest11.pdf";
