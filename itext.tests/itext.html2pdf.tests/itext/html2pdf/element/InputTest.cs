@@ -242,6 +242,27 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void InputDisabled01AcroTest() {
+            // TODO DEVSIX_1973
+            String htmlPath = sourceFolder + "inputDisabled01Test.html";
+            String outPdfPath = destinationFolder + "inputDisabled01AcroTest.pdf";
+            String cmpPdfPath = sourceFolder + "cmp_" + "inputDisabled01AcroTest.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(outPdfPath), new ConverterProperties().SetCreateAcroForm
+                (true));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
+                ));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void InputDisabled01Test() {
+            RunTest("inputDisabled01Test");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void PlaceholderTest05() {
             String htmlPath = sourceFolder + "placeholderTest05.html";
             String outPdfPath = destinationFolder + "placeholderTest05.pdf";
