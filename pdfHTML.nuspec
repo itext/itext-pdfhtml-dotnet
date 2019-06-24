@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>itext7.pdfhtml</id>
     <version>2.1.4-SNAPSHOT</version>
     <title>iText 7 pdfHTML</title>
     <authors>iText Software</authors>
     <owners>iText Software</owners>
-    <licenseUrl>http://itextpdf.com/legal</licenseUrl>
+    <licenseUrl>http://www.gnu.org/licenses/agpl.html</licenseUrl>
     <projectUrl>http://itextpdf.com/</projectUrl>
     <iconUrl>http://itextpdf.com/sites/default/files/ITSC-avatar.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -32,5 +32,7 @@
     <file src="itext\itext.html2pdf\bin\Release\net40\itext.html2pdf.xml" target="lib\net40" />
     <file src="itext\itext.html2pdf\bin\Release\netstandard1.6\itext.html2pdf.dll" target="lib\netstandard1.6" />
     <file src="itext\itext.html2pdf\bin\Release\netstandard1.6\itext.html2pdf.xml" target="lib\netstandard1.6" />
+    <file src="gnu-agpl-v3.0.md" target="" />
+    <file src="LICENSE.md" target="" />
   </files>
 </package>
