@@ -603,6 +603,15 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, Count = 4)]
+        public virtual void TableWidthMoreThan100PercentTest() {
+            //TODO: DEVSIX-2895 - inconsistency in table width between pdf and html
+            RunTest("tableWidthMoreThan100Percent");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String testName) {
             RunTest(testName, false);
         }
