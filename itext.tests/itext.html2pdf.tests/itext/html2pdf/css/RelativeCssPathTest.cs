@@ -78,5 +78,15 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "css_relative_base64.pdf"
                 , sourceFolder + "cmp_css_relative_base64.pdf", destinationFolder, "diff02_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void RelativeImports01Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "root/html/test.html"), new FileInfo(destinationFolder
+                 + "relativeImportsTest.pdf"), new ConverterProperties().SetBaseUri(sourceFolder + "root/html/"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "relativeImportsTest.pdf"
+                , sourceFolder + "cmp_relativeImportsTest.pdf", destinationFolder));
+        }
     }
 }

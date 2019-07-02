@@ -155,8 +155,15 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                                 processed = true;
                             }
                             else {
-                                if (childTagWorker.GetElementResult() != null) {
-                                    processed = ProcessBlockChild(childTagWorker.GetElementResult());
+                                if (childTagWorker is ImgTagWorker && childTagWorker.GetElementResult() is IElement && !CssConstants.BLOCK
+                                    .Equals(((ImgTagWorker)childTagWorker).GetDisplay())) {
+                                    inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
+                                    processed = true;
+                                }
+                                else {
+                                    if (childTagWorker.GetElementResult() != null) {
+                                        processed = ProcessBlockChild(childTagWorker.GetElementResult());
+                                    }
                                 }
                             }
                         }

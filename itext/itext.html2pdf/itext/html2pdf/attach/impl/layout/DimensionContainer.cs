@@ -42,7 +42,6 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Css.Apply.Util;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Util;
@@ -76,7 +75,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         internal virtual float ParseDimension(CssContextNode node, String content, float maxAvailableDimension, float
              additionalWidthFix) {
-            float fontSize = FontStyleApplierUtil.ParseAbsoluteFontSize(node.GetStyles().Get(CssConstants.FONT_SIZE));
+            float fontSize = CssUtils.ParseAbsoluteFontSize(node.GetStyles().Get(CssConstants.FONT_SIZE));
             UnitValue unitValue = CssUtils.ParseLengthValueToPt(content, fontSize, 0);
             if (unitValue == null) {
                 return 0;

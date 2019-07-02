@@ -369,6 +369,21 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
+        public virtual void TheadTagTest() {
+            RunTest("theadTagTest", true);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void TfootTagTest() {
+            RunTest("tfootTagTest", true);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void BrInTdTest() {
             RunTest("brInTd");
         }
@@ -584,6 +599,15 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void TableCellMinWidthRightAlignmentTest() {
             RunConvertToElements("tableCellMinWidthRightAlignmentTest", false);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, Count = 4)]
+        public virtual void TableWidthMoreThan100PercentTest() {
+            //TODO: DEVSIX-2895 - inconsistency in table width between pdf and html
+            RunTest("tableWidthMoreThan100Percent");
         }
 
         /// <exception cref="System.IO.IOException"/>

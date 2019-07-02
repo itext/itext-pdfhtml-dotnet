@@ -627,8 +627,24 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void FloatImageTableTest() {
+            // TODO fix cmp file after DEVSIX-1933
+            RunTest("floatImageTableTest", "diffFloatImageTableTest_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void NewPageFloatTest() {
+            //TODO Test file to be updated in DEVSIX-2231
+            RunTest("newPageFloatTest", "diff_newPageFloat_");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void FloatingDivBottomBorderTest() {
-            //This test should fail after the fix in DEVSIX-2335
+            //TODO This test should fail after the fix in DEVSIX-2335
             RunTest("floatingDivBottomBorderTest", "diff_BottomBorderTest_");
         }
 

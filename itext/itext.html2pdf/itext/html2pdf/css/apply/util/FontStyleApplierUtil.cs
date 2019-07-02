@@ -251,6 +251,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// the font size value as a
         /// <c>float</c>
         /// </returns>
+        [System.ObsoleteAttribute(@"Use iText.StyledXmlParser.Css.Util.CssUtils.ParseAbsoluteFontSize(System.String) instead."
+            )]
         public static float ParseAbsoluteFontSize(String fontSizeValue) {
             if (CssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS.Contains(fontSizeValue)) {
                 switch (fontSizeValue) {
@@ -316,6 +318,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// the relative font size value as a
         /// <c>float</c>
         /// </returns>
+        [System.ObsoleteAttribute(@"Use iText.StyledXmlParser.Css.Util.CssUtils.ParseRelativeFontSize(System.String, float) instead."
+            )]
         public static float ParseRelativeFontSize(String relativeFontSizeValue, float baseValue) {
             if (CssConstants.SMALLER.Equals(relativeFontSizeValue)) {
                 return (float)(baseValue / 1.2);

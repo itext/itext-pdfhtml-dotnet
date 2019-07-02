@@ -44,11 +44,13 @@ using System.IO;
 using iText.Kernel.Utils;
 using System.Collections.Generic;
 using System.Reflection;
-using System.IO;
 using Versions.Attributes;
 using iText.Kernel;
 using iText.Test;
 using iText.Test.Attributes;
+using iText.Html2pdf.Resolver.Resource;
+using iText.Html2pdf.Attach;
+using iText.Kernel.Pdf.Xobject;
 using NUnit.Framework;
 
 namespace iText.Html2pdf
@@ -62,6 +64,11 @@ namespace iText.Html2pdf
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
                                                           + "/test/itext/html2pdf/ResourceResolverTest/";
 
+        private static readonly String bLogoCorruptedData = "data:image/png;base64,,,iVBORw0KGgoAAAANSUhEUgAAAVoAAAAxCAMAAACsy5FpAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAqUExURQAAAPicJAdJdQdJdQdJdficJjBUbPicJgdJdQdJdficJficJQdJdficJlrFe50AAAAMdFJOUwCBe8I/Phe+65/saIJg0K4AAAMOSURBVHja7ZvbmqsgDIU5Bo/v/7q7/WZXsQYNuGy1muuZFH7DIiSglFLU6pZUbGQQNvXpNcC4caoNRvNxOuDUdf80HXk3VYewKp516DHWxuOc/0ye/U00duAwU+/qkWzfh9F9hzIHJxuzNa+fsa4I7Ihx+H+qUFN/sKVhzP7lH+a+qwY1gJHtmwFDPBHK1wLLjLOGTb2jIWhHScAF7RgOGod2CAGTFB8J2JodJ3Dq5kNow95oH3BdtsjGHE6LVu+P9iG5UlVwNjXOndGeRWuZEBBJLtWcMMK11nFoDfDL4TOEMUu0K/leIpNNpUrYFVsrDi2Mbb1DXqv5PV4quWzKHikJKq99utTsoI1dsMjBkr2dctoAMO3XQS2ogrNrJ5vH1OvtU6/ddIPR0k1g9K++bcSKo6Htf8wbdxpK2rnRigJRqAU3WiEylzzVlubCF0TLb/pTyZXH9o1WoKLVoKK8yBbUHS6IdjksZYpxo82WXIzIXhptYtmDRPbQaDXiPBZaaQl26ZBI6pfQ+gZ00A3CxkH6COo2rIwjom12KM/IJRehBUdF2wLrtUWS+56P/Q7aPUrheYnYRpE9LtrwSbSp7cxuJnv1qCWzk9AeEy3t0MAp2ccq93NogWHry3QWowqHPDK0mPSr8aXZAWQzO+hB17ebb9P5ZbDCu2obJPeiNQQWbAUse10VbbKqSLm9yRutQGT/8wO0G6+LdvV2Aaq0eDW0kmI3SHKvhZZkESnoTd5o5SIr+gb0A2g9wGQi67KUw5wdLajNEHymyCqo5B4RLawWHp10XcEC528suBOjJVwDZ2iOca9lBNsSl4jZE6Ntd6jXmtKVzeiIOy/aDzwTydmPZpJrzov2A89EsrKod8mVoq1y0LbsE02Zf/sVQSAObXa5ZSq5UkGoZw9LlqwRNkai5ZT7rRXyHkJgQqioSBipgjhGHPdMYy3hbLx8UDbDPTatndyeeW1HpaXtodxYyUO+zmoDUWjeUnHRB7d5E/KQnazRs0VdbWjI/EluloPnb26+KXIGI+e+7CBt/wAetDeCKwxY6QAAAABJRU5ErkJggg==";
+
+        private static readonly String bLogo = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVoAAAAxCAMAAACsy5FpAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAqUExURQAAAPicJAdJdQdJdQdJdficJjBUbPicJgdJdQdJdficJficJQdJdficJlrFe50AAAAMdFJOUwCBe8I/Phe+65/saIJg0K4AAAMOSURBVHja7ZvbmqsgDIU5Bo/v/7q7/WZXsQYNuGy1muuZFH7DIiSglFLU6pZUbGQQNvXpNcC4caoNRvNxOuDUdf80HXk3VYewKp516DHWxuOc/0ye/U00duAwU+/qkWzfh9F9hzIHJxuzNa+fsa4I7Ihx+H+qUFN/sKVhzP7lH+a+qwY1gJHtmwFDPBHK1wLLjLOGTb2jIWhHScAF7RgOGod2CAGTFB8J2JodJ3Dq5kNow95oH3BdtsjGHE6LVu+P9iG5UlVwNjXOndGeRWuZEBBJLtWcMMK11nFoDfDL4TOEMUu0K/leIpNNpUrYFVsrDi2Mbb1DXqv5PV4quWzKHikJKq99utTsoI1dsMjBkr2dctoAMO3XQS2ogrNrJ5vH1OvtU6/ddIPR0k1g9K++bcSKo6Htf8wbdxpK2rnRigJRqAU3WiEylzzVlubCF0TLb/pTyZXH9o1WoKLVoKK8yBbUHS6IdjksZYpxo82WXIzIXhptYtmDRPbQaDXiPBZaaQl26ZBI6pfQ+gZ00A3CxkH6COo2rIwjom12KM/IJRehBUdF2wLrtUWS+56P/Q7aPUrheYnYRpE9LtrwSbSp7cxuJnv1qCWzk9AeEy3t0MAp2ccq93NogWHry3QWowqHPDK0mPSr8aXZAWQzO+hB17ebb9P5ZbDCu2obJPeiNQQWbAUse10VbbKqSLm9yRutQGT/8wO0G6+LdvV2Aaq0eDW0kmI3SHKvhZZkESnoTd5o5SIr+gb0A2g9wGQi67KUw5wdLajNEHymyCqo5B4RLawWHp10XcEC528suBOjJVwDZ2iOca9lBNsSl4jZE6Ntd6jXmtKVzeiIOy/aDzwTydmPZpJrzov2A89EsrKod8mVoq1y0LbsE02Zf/sVQSAObXa5ZSq5UkGoZw9LlqwRNkai5ZT7rRXyHkJgQqioSBipgjhGHPdMYy3hbLx8UDbDPTatndyeeW1HpaXtodxYyUO+zmoDUWjeUnHRB7d5E/KQnazRs0VdbWjI/EluloPnb26+KXIGI+e+7CBt/wAetDeCKwxY6QAAAABJRU5ErkJggg==";
+
+
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass()
         {
@@ -72,7 +79,8 @@ namespace iText.Html2pdf
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, Count = 1)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, Count = 1)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI,
+            Count = 1)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
         public virtual void ResourceResolverTest03()
         {
@@ -82,8 +90,8 @@ namespace iText.Html2pdf
 
             using (
                 FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest03.html", FileMode.Open,
-                        FileAccess.Read),
-                    fileOutputStream = new FileStream(outPdf, FileMode.Create))
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
                 HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
                     new ConverterProperties().SetBaseUri(baseUri));
@@ -116,7 +124,8 @@ namespace iText.Html2pdf
             String outPdf = destinationFolder + "resourceResolverTest07A.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest07A.pdf";
             using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest07A.html", FileMode.Open,
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest07A.html",
+                    FileMode.Open,
                     FileAccess.Read),
                 fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
@@ -134,8 +143,9 @@ namespace iText.Html2pdf
         {
             String outPdf = destinationFolder + "resourceResolverTest07B.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest07B.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "#r%e%25s@o%urces/resourceResolverTest07B.html"), new FileInfo(outPdf
-            ));
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "#r%e%25s@o%urces/resourceResolverTest07B.html"),
+                new FileInfo(outPdf
+                ));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder,
                 "diff07B_"
             ));
@@ -149,8 +159,9 @@ namespace iText.Html2pdf
         {
             String outPdf = destinationFolder + "resourceResolverTest07C.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest07C.pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "#r%e%25s@o%urces/resourceResolverTest07C.html"), new FileInfo(outPdf
-            ), new ConverterProperties().SetBaseUri(sourceFolder + "#r%e%25s@o%urces/.."));
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "#r%e%25s@o%urces/resourceResolverTest07C.html"),
+                new FileInfo(outPdf
+                ), new ConverterProperties().SetBaseUri(sourceFolder + "#r%e%25s@o%urces/.."));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder,
                 "diff07C_"
             ));
@@ -180,8 +191,8 @@ namespace iText.Html2pdf
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest10.pdf";
             using (
                 FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest10.html", FileMode.Open,
-                        FileAccess.Read),
-                    fileOutputStream = new FileStream(outPdf, FileMode.Create))
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
                 HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
                     new ConverterProperties().SetBaseUri("%homepath%"));
@@ -193,14 +204,16 @@ namespace iText.Html2pdf
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        // TODO DEVSIX-1595
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
         public virtual void ResourceResolverTest11()
         {
             String outPdf = destinationFolder + "resourceResolverTest11.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest11.pdf";
             using (
                 FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest11.html", FileMode.Open,
-                        FileAccess.Read),
-                    fileOutputStream = new FileStream(outPdf, FileMode.Create))
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
                 HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
                     new ConverterProperties().SetBaseUri("https://en.wikipedia.org/wiki/Welsh_Corgi"));
@@ -218,7 +231,8 @@ namespace iText.Html2pdf
             String outPdf = destinationFolder + "resourceResolverTest12A.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest12A.pdf";
             using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12A.html", FileMode.Open,
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12A.html",
+                    FileMode.Open,
                     FileAccess.Read),
                 fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
@@ -238,7 +252,8 @@ namespace iText.Html2pdf
             String outPdf = destinationFolder + "resourceResolverTest12B.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest12B.pdf";
             using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12B.html", FileMode.Open,
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12B.html",
+                    FileMode.Open,
                     FileAccess.Read),
                 fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
@@ -258,7 +273,8 @@ namespace iText.Html2pdf
             String outPdf = destinationFolder + "resourceResolverTest12C.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest12C.pdf";
             using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12C.html", FileMode.Open,
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12C.html",
+                    FileMode.Open,
                     FileAccess.Read),
                 fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
@@ -278,7 +294,8 @@ namespace iText.Html2pdf
             String outPdf = destinationFolder + "resourceResolverTest12D.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest12D.pdf";
             using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12D.html", FileMode.Open,
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12D.html",
+                    FileMode.Open,
                     FileAccess.Read),
                 fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
@@ -298,7 +315,8 @@ namespace iText.Html2pdf
             String outPdf = destinationFolder + "resourceResolverTest12E.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest12E.pdf";
             using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12E.html", FileMode.Open,
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12E.html",
+                    FileMode.Open,
                     FileAccess.Read),
                 fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
@@ -318,7 +336,8 @@ namespace iText.Html2pdf
             String outPdf = destinationFolder + "resourceResolverTest12F.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest12F.pdf";
             using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12F.html", FileMode.Open,
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest12F.html",
+                    FileMode.Open,
                     FileAccess.Read),
                 fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
@@ -357,8 +376,8 @@ namespace iText.Html2pdf
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest15.pdf";
             using (
                 FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest15.html", FileMode.Open,
-                        FileAccess.Read),
-                    fileOutputStream = new FileStream(outPdf, FileMode.Create))
+                    FileAccess.Read),
+                fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
                 HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
                     new ConverterProperties().SetBaseUri(baseUri));
@@ -376,7 +395,8 @@ namespace iText.Html2pdf
             String outPdf = destinationFolder + "resourceResolverTest16A.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest16A.pdf";
             using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest16A.html", FileMode.Open,
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest16A.html",
+                    FileMode.Open,
                     FileAccess.Read),
                 fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
@@ -396,7 +416,8 @@ namespace iText.Html2pdf
             String outPdf = destinationFolder + "resourceResolverTest16B.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest16B.pdf";
             using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest16B.html", FileMode.Open,
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest16B.html",
+                    FileMode.Open,
                     FileAccess.Read),
                 fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
@@ -416,7 +437,8 @@ namespace iText.Html2pdf
             String outPdf = destinationFolder + "resourceResolverTest16C.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest16C.pdf";
             using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest16C.html", FileMode.Open,
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest16C.html",
+                    FileMode.Open,
                     FileAccess.Read),
                 fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
@@ -436,7 +458,8 @@ namespace iText.Html2pdf
             String outPdf = destinationFolder + "resourceResolverTest16D.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest16D.pdf";
             using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest16D.html", FileMode.Open,
+                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest16D.html",
+                    FileMode.Open,
                     FileAccess.Read),
                 fileOutputStream = new FileStream(outPdf, FileMode.Create))
             {
@@ -448,7 +471,8 @@ namespace iText.Html2pdf
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("The path to the image shall be changed to reference some available shared file in order to run the test correctly.")]
+        [NUnit.Framework.Ignore(
+            "The path to the image shall be changed to reference some available shared file in order to run the test correctly.")]
         public void ResourceResolverTest17()
         {
             String baseUri = sourceFolder;
@@ -467,24 +491,94 @@ namespace iText.Html2pdf
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
-        public void ResourceResolverTest18()
-        {
+        public void ResourceResolverSvgWithImageInlineTest() {
             String baseUri = sourceFolder;
-            String outPdf = destinationFolder + "resourceResolverTest18.pdf";
-            String cmpPdf = sourceFolder + "cmp_resourceResolverTest18.pdf";
-            using (
-                FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverTest18.html", FileMode.Open,
-                        FileAccess.Read),
-                    fileOutputStream = new FileStream(outPdf, FileMode.Create))
+            String outPdf = destinationFolder + "resourceResolverSvgWithImageInline.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverSvgWithImageInline.pdf";
+            String inHtml = sourceFolder + "resourceResolverSvgWithImageInline.html";
+            using ( FileStream fileInputStream =  new FileStream(inHtml, FileMode.Open, FileAccess.Read), 
+                    fileOutputStream = new FileStream(outPdf, FileMode.Create)) 
             {
-                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream,
-                    new ConverterProperties().SetBaseUri(baseUri));
-                NUnit.Framework.Assert.IsNull(
-                    new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff18_"));
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().SetBaseUri(baseUri));
             }
+            NUnit.Framework.Assert.IsNull(
+                new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffInlineSvg_"));
         }
 
+        [NUnit.Framework.Test]
+        public void ResourceResolverSvgWithImageBackgroundTest() {
+            //Browsers do not render this
+            String baseUri = sourceFolder;
+            String outPdf = destinationFolder + "resourceResolverSvgWithImageBackground.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverSvgWithImageBackground.pdf";
+            String inHtml = sourceFolder + "resourceResolverSvgWithImageBackground.html";
+            using ( FileStream fileInputStream =  new FileStream(inHtml, FileMode.Open, FileAccess.Read), 
+                fileOutputStream = new FileStream(outPdf, FileMode.Create)) {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().SetBaseUri(baseUri));
+            }
+            NUnit.Framework.Assert.IsNull(
+                new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffSvgWithImg_"));
+        }
+
+        [NUnit.Framework.Test]
+        public void ResourceResolverSvgWithImageObjectTest() {
+            String baseUri = sourceFolder;
+            String outPdf = destinationFolder + "resourceResolverSvgWithImageObject.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverSvgWithImageObject.pdf";
+            String inHtml = sourceFolder + "resourceResolverSvgWithImageObject.html";
+            using ( FileStream fileInputStream =  new FileStream(inHtml, FileMode.Open, FileAccess.Read), 
+                fileOutputStream = new FileStream(outPdf, FileMode.Create)) {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().SetBaseUri(baseUri));
+            }
+            NUnit.Framework.Assert.IsNull(
+                new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff18_"));
+        }
+
+        private HtmlResourceResolver CreateResolver() {
+            ConverterProperties cp = new ConverterProperties();
+            cp.SetBaseUri(sourceFolder);
+            return new HtmlResourceResolver(sourceFolder, new ProcessorContext(cp));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, Count = 1)]
+        public void RetrieveImageExtendedNullTest() {
+            HtmlResourceResolver resourceResolver = CreateResolver();
+            PdfXObject image = resourceResolver.RetrieveImageExtended(null);
+            NUnit.Framework.Assert.IsNull(image);
+        }
+
+        [NUnit.Framework.Test]
+        public void RetrieveImageExtendedBase64Test() {
+            HtmlResourceResolver resourceResolver = CreateResolver();
+            PdfXObject image = resourceResolver.RetrieveImageExtended(bLogo);
+            NUnit.Framework.Assert.NotNull(image);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, Count = 1)]
+        public void RetrieveImageExtendedIncorrectBase64Test() {
+            HtmlResourceResolver resourceResolver = CreateResolver();
+            PdfXObject image = resourceResolver.RetrieveImageExtended(bLogoCorruptedData);
+            NUnit.Framework.Assert.IsNull(image);
+        }
+
+        [NUnit.Framework.Test]
+         [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, Count = 1)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
+            Count = 1)]
+        public void ResourceResolverIncorrectSyntaxTest() {
+			//this test is inconsistent with java
+            String baseUri = sourceFolder;
+            String outPdf = destinationFolder + "resourceResolverIncorrectSyntaxObject.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverIncorrectSyntaxObject.pdf";
+            String inHtml = sourceFolder + "resourceResolverIncorrectSyntaxObject.html";
+            using ( FileStream fileInputStream =  new FileStream(inHtml, FileMode.Open, FileAccess.Read), 
+                fileOutputStream = new FileStream(outPdf, FileMode.Create)) {
+                HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().SetBaseUri(baseUri));
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffIncorrectSyntax_"));
+        }
 
         // TODO test with absolute http links for resources?
         // TODO test with http base URI?

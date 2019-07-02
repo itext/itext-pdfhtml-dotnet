@@ -146,16 +146,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                                 processed = true;
                             }
                             else {
-                                if (childTagWorker is ImgTagWorker && element is IElement) {
-                                    if (CssConstants.BLOCK.Equals(((ImgTagWorker)childTagWorker).GetDisplay())) {
-                                        processed = AddBlockChild((IElement)element);
-                                    }
-                                    else {
-                                        if (childTagWorker.GetElementResult() is Image) {
-                                            inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
-                                            processed = true;
-                                        }
-                                    }
+                                if (childTagWorker is ImgTagWorker && element is IElement && !CssConstants.BLOCK.Equals(((ImgTagWorker)childTagWorker
+                                    ).GetDisplay())) {
+                                    inlineHelper.Add((ILeafElement)childTagWorker.GetElementResult());
+                                    processed = true;
                                 }
                                 else {
                                     if (element is IElement) {
