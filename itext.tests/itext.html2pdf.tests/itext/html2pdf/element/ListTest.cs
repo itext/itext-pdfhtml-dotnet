@@ -44,6 +44,7 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Resolver.Font;
+using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Pdfa;
@@ -246,6 +247,36 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Ignore("DEVSIX-2431")]
         public virtual void ListItemAbsolutePositionTest() {
             RunTest("list-item-absolute");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CheckOrderedListStartAndValue() {
+            //TODO: update after fix of DEVSIX-2537
+            //http://www.timrivera.com/tests/ol-start.html
+            RunTest("checkOrderedListStartAndValue");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CheckOrderedListNestedLists() {
+            NUnit.Framework.Assert.That(() =>  {
+                //TODO: update after fix of DEVSIX-2538
+                RunTest("checkOrderedListNestedLists");
+            }
+            , NUnit.Framework.Throws.InstanceOf<ArgumentException>().With.Message.EqualTo(MessageFormatUtil.Format("The parameter must be a positive integer")))
+;
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 6)]
+        public virtual void ListsWithInlineChildren() {
+            //TODO: update after DEVSIX-2093, DEVSIX-2092, DEVSIX-2091 fixes
+            RunTest("listsWithInlineChildren");
         }
 
         /// <exception cref="System.IO.IOException"/>
