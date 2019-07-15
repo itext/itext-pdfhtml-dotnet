@@ -152,6 +152,15 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        public virtual void CheckWhiteSpaceCss() {
+            //TODO: fix after DEVSIX-2447. To reproduce without error, remove "white-space: pre;" (pre-wrap, pre-line)
+            ConvertToPdfAndCompare("checkWhiteSpaceCss", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void WhiteSpaceNowrapBasicTest01() {
             ConvertToPdfAndCompare("whiteSpaceNowrapBasicTest01", sourceFolder, destinationFolder);
         }

@@ -90,5 +90,13 @@ namespace iText.Html2pdf.Css {
         public virtual void OverflowAndAlignment02() {
             ConvertToPdfAndCompare("overflowAndAlignment02", sourceFolder, destinationFolder);
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayOverflowAutoScroll() {
+            //TODO: update after DEVSIX-2502 fix
+            ConvertToPdfAndCompare("displayOverflowAutoScroll", sourceFolder, destinationFolder);
+        }
     }
 }
