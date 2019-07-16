@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Svg.Exceptions;
 using iText.Test;
@@ -109,6 +110,124 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void Convert_inline_Svg_path_in_HTML() {
+            String name = "HTML_with_inline_svg_path";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void Convert_inline_Svg_polygon_in_HTML() {
+            // TODO: Update cmp_ file when DEVSIX-2719 resolved
+            String name = "HTML_with_inline_svg_polygon";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void Convert_namespace_Svg_in_HTML() {
+            String name = "namespace_svg";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ConvertInlineSvgCircle() {
+            String html = "inline_svg_circle";
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
+            pdfDoc.AddNewPage();
+            String string_file = "<!DOCTYPE html>\n" + "<html>\n" + "<body>\n" + "\n" + "<svg width=\"100\" height=\"100\">\n"
+                 + "  <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"green\" stroke-width=\"4\" fill=\"yellow\" />\n" +
+                 "</svg>\n" + "\n" + "</body>\n" + "</html>";
+            HtmlConverter.ConvertToPdf(string_file, pdfDoc, new ConverterProperties());
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + html + ".pdf", sourceFolder
+                 + "cmp_" + html + ".pdf", destinationFolder));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ConvertInlineSvgRectangle() {
+            String html = "inline_svg_rectangle";
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
+            pdfDoc.AddNewPage();
+            String string_file = "<!DOCTYPE html>\n" + "<html>\n" + "<body>\n" + "\n" + "<svg width=\"400\" height=\"100\">\n"
+                 + "  <rect width=\"400\" height=\"100\" \n" + "  style=\"fill:rgb(0,0,255);stroke-width:10;stroke:rgb(0,0,0)\" />\n"
+                 + "Sorry, your browser does not support inline SVG.\n" + "</svg>\n" + " \n" + "</body>\n" + "</html>\n";
+            HtmlConverter.ConvertToPdf(string_file, pdfDoc, new ConverterProperties());
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + html + ".pdf", sourceFolder
+                 + "cmp_" + html + ".pdf", destinationFolder));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ConvertInlineSvgRoundedRectangle() {
+            String html = "inline_svg_rounded_rect";
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
+            pdfDoc.AddNewPage();
+            String string_file = "<!DOCTYPE html>\n" + "<html>\n" + "<body>\n" + "\n" + "<svg width=\"400\" height=\"180\">\n"
+                 + "  <rect x=\"50\" y=\"20\" rx=\"20\" ry=\"20\" width=\"150\" height=\"150\"\n" + "  style=\"fill:red;stroke:black;stroke-width:5;opacity:0.5\" />\n"
+                 + "Sorry, your browser does not support inline SVG.\n" + "</svg>\n" + "\n" + "</body>\n" + "</html>\n";
+            HtmlConverter.ConvertToPdf(string_file, pdfDoc, new ConverterProperties());
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + html + ".pdf", sourceFolder
+                 + "cmp_" + html + ".pdf", destinationFolder));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ConvertInlineSvgStar() {
+            // TODO: Update cmp_ file when DEVSIX-2719 resolved
+            String html = "inline_svg_star";
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
+            pdfDoc.AddNewPage();
+            String string_file = "<!DOCTYPE html>\n" + "<html>\n" + "<body>\n" + "\n" + "<svg width=\"300\" height=\"200\">\n"
+                 + "  <polygon points=\"100,10 40,198 190,78 10,78 160,198\"\n" + "  style=\"fill:lime;stroke:purple;stroke-width:5;fill-rule:evenodd;\" />\n"
+                 + "Sorry, your browser does not support inline SVG.\n" + "</svg>\n" + " \n" + "</body>\n" + "</html>\n";
+            HtmlConverter.ConvertToPdf(string_file, pdfDoc, new ConverterProperties());
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + html + ".pdf", sourceFolder
+                 + "cmp_" + html + ".pdf", destinationFolder));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(SvgLogMessageConstant.UNMAPPEDTAG)]
+        public virtual void ConvertInlineSvgLogo() {
+            String html = "inline_svg_logo";
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
+            pdfDoc.AddNewPage();
+            String string_file = "<!DOCTYPE html>\n" + "  <html>\n" + "  <body>\n" + "\n" + "  <svg height=\"130\" width=\"500\">\n"
+                 + "    <defs>\n" + "      <linearGradient id=\"grad1\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\">\n" 
+                + "        <stop offset=\"0%\"\n" + "        style=\"stop-color:rgb(255,255,0);stop-opacity:1\" />\n" 
+                + "        <stop offset=\"100%\"\n" + "        style=\"stop-color:rgb(255,0,0);stop-opacity:1\" />\n" 
+                + "      </linearGradient>\n" + "    </defs>\n" + "    <ellipse cx=\"100\" cy=\"70\" rx=\"85\" ry=\"55\" fill=\"url(#grad1)\" />\n"
+                 + "    <text fill=\"#ffffff\" font-size=\"45\" font-family=\"Verdana\"\n" + "    x=\"50\" y=\"86\">SVG</text>\n"
+                 + "  Sorry, your browser does not support inline SVG.\n" + "  </svg>\n" + "\n" + "  </body>\n" + "  </html>\n";
+            HtmlConverter.ConvertToPdf(string_file, pdfDoc, new ConverterProperties());
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + html + ".pdf", sourceFolder
+                 + "cmp_" + html + ".pdf", destinationFolder));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void ExternalImageSuccessTest() {
             String name = "external_img";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
@@ -133,7 +252,9 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
         public virtual void ExternalObjectSuccessTest() {
+            //TODO update after DEVSIX-3034
             String name = "external_object";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));
@@ -156,10 +277,48 @@ namespace iText.Html2pdf.Element {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 66)]
+        [LogMessage(SvgLogMessageConstant.UNMAPPEDTAG, Count = 67)]
+        public virtual void ExternalObjectWithGoogleCharts() {
+            //TODO update after DEVSIX-2239
+            String name = "inlineSvg_googleCharts";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
         public virtual void ExternalObjectNonExistentRefTest() {
             String name = "external_objectNonExistentRef";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HtmlWithSvgBackground() {
+            //TODO: Update cmp_ file when DEVSIX-2731 resolved
+            String name = "HTML_with_svg_background";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
+                 + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
+                 + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void HtmlWithSvgBackgroundNoViewbox() {
+            //TODO: Update cmp_ file when DEVSIX-2731 resolved
+            String name = "Html_with_svg_background_no_viewbox";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
