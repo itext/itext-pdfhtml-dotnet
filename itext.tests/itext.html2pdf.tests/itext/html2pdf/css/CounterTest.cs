@@ -88,7 +88,6 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PageCounter04Test() {
-            // TODO cmp file to be fixed after DEVSIX-2999 is done
             ConvertToPdfAndCompare("page_counter04", sourceFolder, destinationFolder);
         }
     }
