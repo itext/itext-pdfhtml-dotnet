@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class FontSizeTest : ExtendedHtmlConversionITextTest {
@@ -83,6 +84,15 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void FontRelativeKeywords() {
             ConvertToPdfAndCompare("fontRelativeKeywords", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED)]
+        public virtual void SpacesInFontSizeValueTest() {
+            // TODO DEVSIX-2881 : Update cmps
+            ConvertToPdfAndCompare("spacesInFontSizeValueTest", sourceFolder, destinationFolder);
         }
     }
 }
