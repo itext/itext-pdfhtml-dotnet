@@ -83,5 +83,16 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "devanagari.pdf", sourceFolder
                  + "cmp_devanagari.pdf", destinationFolder, "diffDevanagari_"));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void ConvertStandardFonts() {
+            //For more specific tests see FontSelectorTimesFontTest in html2pdf and FontSelectorHelveticaFontTest in html2pdf-private
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "convertStandardFonts.html"), new FileInfo(destinationFolder
+                 + "convertStandardFonts.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "convertStandardFonts.pdf"
+                , sourceFolder + "cmp_convertStandardFonts", destinationFolder, "difffontstand_"));
+        }
     }
 }
