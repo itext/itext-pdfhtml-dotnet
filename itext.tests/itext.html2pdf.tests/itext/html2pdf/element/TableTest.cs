@@ -674,6 +674,16 @@ namespace iText.Html2pdf.Element {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Count = 2)]
+        public virtual void TableWithChildrenBiggerThanCellTest() {
+            //TODO: DEVSIX-3022 - Inputs bigger than enclosing cell force table to split
+            RunTest("tableWithChildrenBiggerThanCell");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String testName) {
             RunTest(testName, false);
         }
