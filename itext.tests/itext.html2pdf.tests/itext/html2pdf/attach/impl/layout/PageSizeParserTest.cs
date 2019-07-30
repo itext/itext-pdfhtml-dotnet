@@ -1,7 +1,8 @@
 using iText.Kernel.Geom;
+using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    public class PageSizeParserTest {
+    public class PageSizeParserTest : ExtendedITextTest {
         private const double EPS = 1e-9;
 
         [NUnit.Framework.Test]
@@ -19,7 +20,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("To be fixed in DEVSIX-3072")]
         public virtual void LedgerLandscapeIsSameAsLedgerTest() {
             PageSize expected = PageSize.LEDGER;
             PageSize actual = PageSizeParser.FetchPageSize("ledger landscape", 10, 10, PageSize.A0);
@@ -27,7 +27,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("To be fixed in DEVSIX-3072")]
         public virtual void LedgerPortraitIsRotatedLedgerTest() {
             PageSize expected = PageSize.LEDGER.Rotate();
             PageSize actual = PageSizeParser.FetchPageSize("ledger portrait", 10, 10, PageSize.A0);

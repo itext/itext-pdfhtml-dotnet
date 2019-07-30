@@ -112,13 +112,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                         namedPageSize = pageSizeConstants.Get(secondChunk);
                     }
                 }
-                bool b1 = pageSizeChunks.Length == 1 && (namedPageSize != null || landscape != null);
-                bool b2 = namedPageSize != null && landscape != null;
-                if (b1 || b2) {
+                bool isValidSingleWordDeclaration = pageSizeChunks.Length == 1 && (namedPageSize != null || landscape != null
+                    );
+                bool isValidTwoWordDeclaration = namedPageSize != null && landscape != null;
+                if (isValidSingleWordDeclaration || isValidTwoWordDeclaration) {
                     if (namedPageSize != null) {
                         pageSize = namedPageSize;
                     }
-                    if (true.Equals(landscape)) {
+                    bool landscapeRequestedAndNeedRotation = true.Equals(landscape) && pageSize.GetWidth() < pageSize.GetHeight
+                        ();
+                    bool portraitRequestedAndNeedRotation = false.Equals(landscape) && pageSize.GetHeight() < pageSize.GetWidth
+                        ();
+                    if (landscapeRequestedAndNeedRotation || portraitRequestedAndNeedRotation) {
                         pageSize = pageSize.Rotate();
                     }
                 }
