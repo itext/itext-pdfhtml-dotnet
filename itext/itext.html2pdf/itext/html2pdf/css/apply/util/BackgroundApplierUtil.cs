@@ -76,16 +76,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 element.SetProperty(Property.BACKGROUND, backgroundColor);
             }
             String backgroundImageStr = cssProps.Get(CssConstants.BACKGROUND_IMAGE);
-            if (backgroundImageStr != null && !backgroundImageStr.Equals(CssConstants.NONE)) {
+            if (backgroundImageStr != null && !CssConstants.NONE.Equals(backgroundImageStr)) {
                 String backgroundRepeatStr = cssProps.Get(CssConstants.BACKGROUND_REPEAT);
                 PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImageStr
                     ));
                 bool repeatX = true;
                 bool repeatY = true;
                 if (backgroundRepeatStr != null) {
-                    repeatX = backgroundRepeatStr.Equals(CssConstants.REPEAT) || backgroundRepeatStr.Equals(CssConstants.REPEAT_X
+                    repeatX = CssConstants.REPEAT.Equals(backgroundRepeatStr) || CssConstants.REPEAT_X.Equals(backgroundRepeatStr
                         );
-                    repeatY = backgroundRepeatStr.Equals(CssConstants.REPEAT) || backgroundRepeatStr.Equals(CssConstants.REPEAT_Y
+                    repeatY = CssConstants.REPEAT.Equals(backgroundRepeatStr) || CssConstants.REPEAT_Y.Equals(backgroundRepeatStr
                         );
                 }
                 if (image != null) {
