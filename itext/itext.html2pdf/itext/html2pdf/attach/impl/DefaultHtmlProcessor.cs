@@ -310,7 +310,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 VisitPseudoElement(element, tagWorker, CssConstants.BEFORE);
                 VisitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
 
-                if (element.Name().Equals(TagConstants.BODY) || element.Name().Equals(TagConstants.HTML))
+                if (TagConstants.BODY.Equals(element.Name()) || TagConstants.HTML.Equals(element.Name()))
                     RunApplier(element, tagWorker);
                 foreach (INode childNode in element.ChildNodes()) {
                     if (!context.IsProcessingInlineSvg()) {
@@ -323,7 +323,7 @@ namespace iText.Html2pdf.Attach.Impl {
                     LinkHelper.CreateDestination(tagWorker, element, context);
                     context.GetOutlineHandler().AddDestination(tagWorker, element);
                     context.GetState().Pop();
-                    if (!element.Name().Equals(TagConstants.BODY) && !element.Name().Equals(TagConstants.HTML))
+                    if (!TagConstants.BODY.Equals(element.Name()) && !TagConstants.HTML.Equals(element.Name()))
                         RunApplier(element, tagWorker);
                     if (!context.GetState().Empty()) {
                         PageBreakApplierUtil.AddPageBreakElementBefore(context, context.GetState().Top(), element, tagWorker);

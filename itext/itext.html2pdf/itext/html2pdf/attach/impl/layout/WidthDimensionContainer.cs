@@ -51,7 +51,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         public WidthDimensionContainer(CssContextNode node, float maxWidth, IRenderer renderer, float additionalWidthFix
             ) {
             String width = node.GetStyles().Get(CssConstants.WIDTH);
-            if (width != null && !width.Equals(CssConstants.AUTO)) {
+            if (width != null && !CssConstants.AUTO.Equals(width)) {
                 dimension = ParseDimension(node, width, maxWidth, additionalWidthFix);
             }
             minDimension = GetMinWidth(node, maxWidth, additionalWidthFix);

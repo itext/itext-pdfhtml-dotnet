@@ -75,14 +75,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     AccessibilityProperties properties = ((IAccessibleElement)elementResult).GetAccessibilityProperties();
                     PdfDictionary attributes = new PdfDictionary();
                     attributes.Put(PdfName.O, PdfName.Table);
-                    if (scope != null && (scope.EqualsIgnoreCase(AttributeConstants.ROW) || scope.EqualsIgnoreCase(AttributeConstants
-                        .ROWGROUP))) {
+                    if (scope != null && (AttributeConstants.ROW.EqualsIgnoreCase(scope) || AttributeConstants.ROWGROUP.EqualsIgnoreCase
+                        (scope))) {
                         attributes.Put(PdfName.Scope, PdfName.Row);
                         properties.AddAttributes(new PdfStructureAttributes(attributes));
                     }
                     else {
-                        if (scope != null && (scope.EqualsIgnoreCase(AttributeConstants.COL) || scope.EqualsIgnoreCase(AttributeConstants
-                            .COLGROUP))) {
+                        if (scope != null && (AttributeConstants.COL.EqualsIgnoreCase(scope) || AttributeConstants.COLGROUP.EqualsIgnoreCase
+                            (scope))) {
                             attributes.Put(PdfName.Scope, PdfName.Column);
                             properties.AddAttributes(new PdfStructureAttributes(attributes));
                         }

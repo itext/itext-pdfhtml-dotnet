@@ -54,7 +54,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         internal HeightDimensionContainer(CssContextNode pmbcNode, float width, float maxHeight, IRenderer renderer
             , float additionalWidthFix) {
             String height = pmbcNode.GetStyles().Get(CssConstants.HEIGHT);
-            if (height != null && !height.Equals(CssConstants.AUTO)) {
+            if (height != null && !CssConstants.AUTO.Equals(height)) {
                 dimension = ParseDimension(pmbcNode, height, maxHeight, additionalWidthFix);
             }
             minDimension = GetMinHeight(pmbcNode, maxHeight, additionalWidthFix);
