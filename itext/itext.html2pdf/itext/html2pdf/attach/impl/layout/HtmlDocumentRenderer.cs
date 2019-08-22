@@ -173,11 +173,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         * @see com.itextpdf.layout.renderer.DocumentRenderer#close()
         */
         public override void Close() {
-            if (waitingElement != null) {
-                IRenderer r = this.waitingElement;
-                waitingElement = null;
-                base.AddChild(r);
-            }
+            ProcessWaitingElement();
             base.Close();
             TrimLastPageIfNecessary();
             document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, handler);
@@ -194,10 +190,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         */
         public override IRenderer GetNextRenderer() {
             // Process waiting element to get the correct number of pages
-            if (waitingElement != null) {
-                base.AddChild(waitingElement);
-                waitingElement = null;
-            }
+            ProcessWaitingElement();
             iText.Html2pdf.Attach.Impl.Layout.HtmlDocumentRenderer relayoutRenderer = new iText.Html2pdf.Attach.Impl.Layout.HtmlDocumentRenderer
                 (document, immediateFlush);
             PageSize defaultPageSize = document.GetPdfDocument().GetDefaultPageSize();
@@ -209,6 +202,19 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             relayoutRenderer.estimatedNumberOfPages = currentPageNumber - SimulateTrimLastPage();
             relayoutRenderer.handler = handler.SetHtmlDocumentRenderer(relayoutRenderer);
             return relayoutRenderer;
+        }
+
+        public override void Flush() {
+            ProcessWaitingElement();
+            base.Flush();
+        }
+
+        internal virtual void ProcessWaitingElement() {
+            if (waitingElement != null) {
+                IRenderer r = this.waitingElement;
+                waitingElement = null;
+                base.AddChild(r);
+            }
         }
 
         internal virtual bool ShouldAttemptTrimLastPage() {

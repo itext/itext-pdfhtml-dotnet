@@ -779,7 +779,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, Count = 4)]
+        [LogMessage(iText.IO.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, Count = 6)]
         public virtual void MarginBoxRunningNoImmediateFlush04() {
             String name = "marginBoxRunningNoImmediateFlush04";
             String htmlPath = sourceFolder + name + ".html";
