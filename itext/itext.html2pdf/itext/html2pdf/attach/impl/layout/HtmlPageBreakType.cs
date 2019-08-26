@@ -43,8 +43,11 @@ address: sales@itextpdf.com
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>Enumeration of the HTML page break types.</summary>
     public enum HtmlPageBreakType {
+        /// <summary>Always break.</summary>
         ALWAYS,
+        /// <summary>Insert page break so that the next page is formatted as a left page.</summary>
         LEFT,
+        /// <summary>Insert page break so that the next page is formatted as a right page.</summary>
         RIGHT
     }
 }

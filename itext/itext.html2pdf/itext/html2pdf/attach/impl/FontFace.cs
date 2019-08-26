@@ -300,11 +300,17 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>The Enum FontFormat.</summary>
         internal enum FontFormat {
             None,
+            /// <summary>"truetype"</summary>
             TrueType,
+            /// <summary>"opentype"</summary>
             OpenType,
+            /// <summary>"woff"</summary>
             WOFF,
+            /// <summary>"woff2"</summary>
             WOFF2,
+            /// <summary>"embedded-opentype"</summary>
             EOT,
+            /// <summary>"svg"</summary>
             SVG
         }
         //endregion
