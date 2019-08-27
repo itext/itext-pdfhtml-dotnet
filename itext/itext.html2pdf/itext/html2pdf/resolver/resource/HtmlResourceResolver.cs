@@ -72,7 +72,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// is a string that represents an absolute URI with any schema
         /// except "file" - resources url values will be resolved exactly as "new URL(baseUrl, uriString)". Otherwise base URI
         /// will be handled as path in local file system.
-        /// <p>
+        /// <para />
         /// If empty string or relative URI string is passed as base URI, then it will be resolved against current working
         /// directory of this application instance.
         /// </summary>

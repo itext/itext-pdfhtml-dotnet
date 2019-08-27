@@ -53,7 +53,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// TagWorker class for the
     /// <c>p</c>
     /// element.
-    /// <p>
+    /// <para />
     /// This is how this worker processes the &lt;p&gt; tag:
     /// <ul>
     /// <li> if the worker meets a text or an inline element, it processes them with a help of
