@@ -28,10 +28,10 @@ using Versions.Attributes;
 
 [assembly: Guid("ff6ba09d-3655-466a-8c17-a7bfd3479ca1")]
 
-[assembly: TypographyVersion("2.0.5.0")]
+[assembly: TypographyVersion("2.0.4.0")]
 
 [assembly: AssemblyVersion("2.1.5.0")]
 [assembly: AssemblyFileVersion("2.1.5.0")]
-[assembly: AssemblyInformationalVersion("2.1.5-SNAPSHOT")]
+[assembly: AssemblyInformationalVersion("2.1.5")]
 
 [assembly: Versions.Attributes.KeyVersion("3.0.5.0")]
