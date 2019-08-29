@@ -173,21 +173,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         * @see com.itextpdf.layout.renderer.DocumentRenderer#close()
         */
         public override void Close() {
-            if (waitingElement != null) {
-                IRenderer r = this.waitingElement;
-                waitingElement = null;
-                base.AddChild(r);
-            }
+            ProcessWaitingElement();
             base.Close();
-            PdfDocument pdfDocument = document.GetPdfDocument();
-            if (pdfDocument.GetNumberOfPages() > 1) {
-                PdfPage lastPage = pdfDocument.GetLastPage();
-                if (lastPage.GetContentStreamCount() == 1 && lastPage.GetContentStream(0).GetOutputStream().GetCurrentPos(
-                    ) <= 0) {
-                    // Remove last empty page
-                    pdfDocument.RemovePage(pdfDocument.GetNumberOfPages());
-                }
-            }
+            TrimLastPageIfNecessary();
             document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, handler);
             for (int i = 1; i <= document.GetPdfDocument().GetNumberOfPages(); ++i) {
                 PdfPage page = document.GetPdfDocument().GetPage(i);
@@ -202,10 +190,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         */
         public override IRenderer GetNextRenderer() {
             // Process waiting element to get the correct number of pages
-            if (waitingElement != null) {
-                base.AddChild(waitingElement);
-                waitingElement = null;
-            }
+            ProcessWaitingElement();
             iText.Html2pdf.Attach.Impl.Layout.HtmlDocumentRenderer relayoutRenderer = new iText.Html2pdf.Attach.Impl.Layout.HtmlDocumentRenderer
                 (document, immediateFlush);
             PageSize defaultPageSize = document.GetPdfDocument().GetDefaultPageSize();
@@ -214,9 +199,69 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             relayoutRenderer.firstPageProc = firstPageProc.Reset(defaultPageSize, defaultPageMargins);
             relayoutRenderer.leftPageProc = leftPageProc.Reset(defaultPageSize, defaultPageMargins);
             relayoutRenderer.rightPageProc = rightPageProc.Reset(defaultPageSize, defaultPageMargins);
-            relayoutRenderer.estimatedNumberOfPages = currentPageNumber;
+            relayoutRenderer.estimatedNumberOfPages = currentPageNumber - SimulateTrimLastPage();
             relayoutRenderer.handler = handler.SetHtmlDocumentRenderer(relayoutRenderer);
             return relayoutRenderer;
+        }
+
+        public override void Flush() {
+            ProcessWaitingElement();
+            base.Flush();
+        }
+
+        internal virtual void ProcessWaitingElement() {
+            if (waitingElement != null) {
+                IRenderer r = this.waitingElement;
+                waitingElement = null;
+                base.AddChild(r);
+            }
+        }
+
+        internal virtual bool ShouldAttemptTrimLastPage() {
+            return TRIM_LAST_BLANK_PAGE && document.GetPdfDocument().GetNumberOfPages() > 1;
+        }
+
+        internal virtual void TrimLastPageIfNecessary() {
+            if (ShouldAttemptTrimLastPage()) {
+                PdfDocument pdfDocument = document.GetPdfDocument();
+                PdfPage lastPage = pdfDocument.GetLastPage();
+                if (lastPage.GetContentStreamCount() == 1 && lastPage.GetContentStream(0).GetOutputStream().GetCurrentPos(
+                    ) <= 0) {
+                    // Remove last empty page
+                    pdfDocument.RemovePage(pdfDocument.GetNumberOfPages());
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns the number of pages that will be trimmed on
+        /// <see cref="Close()"/>
+        /// </summary>
+        /// <returns>0 if no pages will be trimmed, or positive number of trimmed pages in case any are trimmed</returns>
+        internal virtual int SimulateTrimLastPage() {
+            if (ShouldAttemptTrimLastPage()) {
+                int lastPageNumber = document.GetPdfDocument().GetNumberOfPages();
+                // At the moment we only check if some element was positioned on this page
+                // However, there might theoretically be an inconsistency with the method that
+                // actually does the trimming because that method checks the canvas output only.
+                // We might want to simulate drawing on canvas here in the future, or possibly
+                // consider invisible elements in the method that actually does the trimming
+                bool willAnyContentBeDrawnOnLastPage = false;
+                foreach (IRenderer renderer in childRenderers) {
+                    if (renderer.GetOccupiedArea().GetPageNumber() == lastPageNumber) {
+                        willAnyContentBeDrawnOnLastPage = true;
+                    }
+                }
+                foreach (IRenderer renderer in positionedRenderers) {
+                    if (renderer.GetOccupiedArea().GetPageNumber() == lastPageNumber) {
+                        willAnyContentBeDrawnOnLastPage = true;
+                    }
+                }
+                return willAnyContentBeDrawnOnLastPage ? 0 : 1;
+            }
+            else {
+                return 0;
+            }
         }
 
         /* (non-Javadoc)
@@ -381,6 +426,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return estimatedNumberOfPages;
         }
 
+        private static bool IsRunningElementsOnly(IRenderer waitingElement) {
+            bool res;
+            if (res = waitingElement is ParagraphRenderer && !waitingElement.GetChildRenderers().IsEmpty()) {
+                IList<IRenderer> childRenderers = waitingElement.GetChildRenderers();
+                int i = 0;
+                while (res && i < childRenderers.Count) {
+                    res = childRenderers[i++] is RunningElement.RunningElementRenderer;
+                }
+            }
+            return res;
+        }
+
         /// <summary>Gets a page processor for the page.</summary>
         /// <param name="pageNum">
         /// the number of the page for which the
@@ -415,18 +472,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <returns>true, if is current page right</returns>
         private bool IsPageRight(int pageNum) {
             return !IsPageLeft(pageNum);
-        }
-
-        private static bool IsRunningElementsOnly(IRenderer waitingElement) {
-            bool res;
-            if (res = waitingElement is ParagraphRenderer && !waitingElement.GetChildRenderers().IsEmpty()) {
-                IList<IRenderer> childRenderers = waitingElement.GetChildRenderers();
-                int i = 0;
-                while (res && i < childRenderers.Count) {
-                    res = childRenderers[i++] is RunningElement.RunningElementRenderer;
-                }
-            }
-            return res;
         }
 
         private class PageMarginBoxesDrawingHandler : IEventHandler {

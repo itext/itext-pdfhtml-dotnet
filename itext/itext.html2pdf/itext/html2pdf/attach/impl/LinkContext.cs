@@ -52,7 +52,7 @@ namespace iText.Html2pdf.Attach.Impl {
     /// Doing so enables us to drastically trim the amount of PdfDestinations that will end up being included in the document.
     /// For performance reasons it was decided to scan the DOM tree only once and store the result in a separate object
     /// (this object) in the ProcessorContext.
-    /// <p>
+    /// <para />
     /// This class is not reusable and a new instance shall be created for every new conversion process.
     /// </remarks>
     public class LinkContext {

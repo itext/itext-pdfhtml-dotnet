@@ -243,7 +243,8 @@ namespace iText.Html2pdf.Css {
         public const String UPPERCASE = "uppercase";
 
         /// <summary>The Constant FONT_ABSOLUTE_SIZE_KEYWORDS.</summary>
-        [System.ObsoleteAttribute(@"Use CommonCssConstants#FONT_ABSOLUTE_SIZE_KEYWORDS instead.")]
+        [System.ObsoleteAttribute(@"Use iText.StyledXmlParser.Css.CommonCssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS_VALUES instead."
+            )]
         public static readonly ICollection<String> FONT_ABSOLUTE_SIZE_KEYWORDS = JavaCollectionsUtil.UnmodifiableSet
             (new HashSet<String>(JavaUtil.ArraysAsList(CommonCssConstants.MEDIUM, CommonCssConstants.XX_SMALL, CommonCssConstants
             .X_SMALL, CommonCssConstants.SMALL, CommonCssConstants.LARGE, CommonCssConstants.X_LARGE, CommonCssConstants

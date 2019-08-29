@@ -171,6 +171,15 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 6)]
+        public virtual void DisplayBlockInsideParagraphTest() {
+            //TODO: update after DEVSIX-2445 fix
+            ConvertToPdfAndCompare("displayBlockInsideParagraph", sourceFolder, destinationFolder);
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void DisplayInline01Test() {
             ConvertToPdfAndCompare("display_inline01", sourceFolder, destinationFolder);
         }

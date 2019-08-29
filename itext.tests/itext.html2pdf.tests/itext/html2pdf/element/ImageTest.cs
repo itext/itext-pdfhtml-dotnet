@@ -110,5 +110,15 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imagesWithWidePaddingsBordersMargins.pdf"
                 , sourceFolder + "cmp_imagesWithWidePaddingsBordersMargins.pdf", destinationFolder));
         }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CheckImageBorderRadius() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "checkImageBorderRadius.html"), new FileInfo(destinationFolder
+                 + "checkImageBorderRadius.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "checkImageBorderRadius.pdf"
+                , sourceFolder + "cmp_checkImageBorderRadius.pdf", destinationFolder));
+        }
     }
 }

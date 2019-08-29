@@ -93,11 +93,11 @@ namespace iText.Html2pdf.Attach.Util {
             foreach (INode child in tableElement.ChildNodes()) {
                 if (child is IElementNode) {
                     element = (IElementNode)child;
-                    if (element.Name().Equals(TagConstants.THEAD)) {
+                    if (TagConstants.THEAD.Equals(element.Name())) {
                         ApplyColStyles(element, headerRowColHelper);
                     }
                     else {
-                        if (element.Name().Equals(TagConstants.TFOOT)) {
+                        if (TagConstants.TFOOT.Equals(element.Name())) {
                             ApplyColStyles(element, footerRowColHelper);
                         }
                         else {
@@ -128,12 +128,12 @@ namespace iText.Html2pdf.Attach.Util {
             foreach (INode child in node.ChildNodes()) {
                 if (child is IElementNode) {
                     element = (IElementNode)child;
-                    if (element.Name().Equals(TagConstants.TR)) {
+                    if (TagConstants.TR.Equals(element.Name())) {
                         ApplyColStyles(element, rowColHelper);
                         rowColHelper.NewRow();
                     }
                     else {
-                        if (element.Name().Equals(TagConstants.TH) || element.Name().Equals(TagConstants.TD)) {
+                        if (TagConstants.TH.Equals(element.Name()) || TagConstants.TD.Equals(element.Name())) {
                             int? colspan = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.COLSPAN));
                             int? rowspan = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.ROWSPAN));
                             colspan = colspan != null ? colspan : 1;

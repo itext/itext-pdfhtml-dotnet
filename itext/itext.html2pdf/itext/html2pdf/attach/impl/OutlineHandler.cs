@@ -57,7 +57,7 @@ namespace iText.Html2pdf.Attach.Impl {
     /// A
     /// <see cref="OutlineHandler"/>
     /// handles creating outlines for tags.
-    /// <p>
+    /// <para />
     /// This class is not reusable and a new instance shall be created for every new conversion process.
     /// </summary>
     public class OutlineHandler {

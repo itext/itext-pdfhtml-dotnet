@@ -43,7 +43,9 @@ address: sales@itextpdf.com
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>Enumeration of page count types.</summary>
     public enum PageCountType {
+        /// <summary>Type for the current page number.</summary>
         CURRENT_PAGE_NUMBER,
+        /// <summary>Type for the total page count.</summary>
         TOTAL_PAGE_COUNT
     }
 }

@@ -623,6 +623,27 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        public virtual void CheckMarginBoxFixDimension() {
+            RunTest("checkMarginBoxFixDimension");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CheckMarginBoxMaxMinDimension() {
+            RunTest("checkMarginBoxMaxMinDimension");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CheckMarginBoxMarginPaddings() {
+            RunTest("checkMarginBoxMarginPaddings");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
         public virtual void MediaAppliedToRunningElementsProperties() {
             MediaDeviceDescription printMediaDevice = new MediaDeviceDescription("print");
             ConverterProperties converterProperties = new ConverterProperties().SetMediaDeviceDescription(printMediaDevice
@@ -758,7 +779,7 @@ namespace iText.Html2pdf.Css {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, Count = 4)]
+        [LogMessage(iText.IO.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, Count = 6)]
         public virtual void MarginBoxRunningNoImmediateFlush04() {
             String name = "marginBoxRunningNoImmediateFlush04";
             String htmlPath = sourceFolder + name + ".html";

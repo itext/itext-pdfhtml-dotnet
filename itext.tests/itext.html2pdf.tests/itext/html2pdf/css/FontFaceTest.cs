@@ -323,6 +323,30 @@ namespace iText.Html2pdf.Css {
 
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CorrectUrlWithNotUsedUnicodeRangeTest() {
+            //TODO: update/refactor after DEVSIX-2054 fix
+            RunTest("correctUrlWithNotUsedUnicodeRangeTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CorrectUrlWithUsedUnicodeRangeTest() {
+            //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
+            RunTest("correctUrlWithUsedUnicodeRangeTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void CorrectUnicodeRangeSignificantTest() {
+            //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
+            RunTest("correctUnicodeRangeSignificantTest");
+        }
+
+        /// <exception cref="System.IO.IOException"/>
+        /// <exception cref="System.Exception"/>
         private void RunTest(String name) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";
