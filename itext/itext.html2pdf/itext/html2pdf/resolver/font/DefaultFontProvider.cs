@@ -102,8 +102,13 @@ namespace iText.Html2pdf.Resolver.Font {
             // Oriya, Tamil, Telugu, Kannada, Malayalam, Sinhala, Thai unicode blocks.
             // Those blocks either require pdfCalligraph or do not supported by GNU Free Fonts.
             if (registerShippedFreeFonts) {
-                AddShippedFreeFonts(null);
-                AddCalligraphFonts();
+                if (CheckCalligraphFonts() != null) {
+                    AddShippedFreeFonts(FREE_FONT_RANGE);
+                    AddCalligraphFonts();
+                }
+                else {
+                    AddShippedFreeFonts(null);
+                }
             }
         }
 
@@ -140,12 +145,7 @@ namespace iText.Html2pdf.Resolver.Font {
         /// </returns>
         protected internal virtual Range AddCalligraphFonts() {
             String methodName = "LoadShippedFonts";
-            Type klass = null;
-            try {
-                klass = GetTypographyUtilsClass();
-            }
-            catch (TypeLoadException) {
-            }
+            Type klass = CheckCalligraphFonts();
             if (klass != null) {
                 try {
                     MethodInfo m = klass.GetMethod(methodName);
@@ -162,6 +162,16 @@ namespace iText.Html2pdf.Resolver.Font {
                 }
             }
             return null;
+        }
+
+        private Type CheckCalligraphFonts() {
+            Type klass = null;
+            try {
+                klass = GetTypographyUtilsClass();
+            }
+            catch (TypeLoadException) {
+            }
+            return klass;
         }
 
         private static Type GetTypographyUtilsClass() {
