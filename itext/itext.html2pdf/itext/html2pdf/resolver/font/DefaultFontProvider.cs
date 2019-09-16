@@ -74,6 +74,8 @@ namespace iText.Html2pdf.Resolver.Font {
         private static readonly Range FREE_FONT_RANGE = new RangeBuilder().AddRange(0, 0x058F).AddRange(0x0E80, int.MaxValue
             ).Create();
 
+        private IList<byte[]> fontStreamList = new List<byte[]>();
+
         /// <summary>
         /// Creates a new
         /// <see cref="DefaultFontProvider"/>
@@ -102,13 +104,14 @@ namespace iText.Html2pdf.Resolver.Font {
             // Oriya, Tamil, Telugu, Kannada, Malayalam, Sinhala, Thai unicode blocks.
             // Those blocks either require pdfCalligraph or do not supported by GNU Free Fonts.
             if (registerShippedFreeFonts) {
-                if (CheckCalligraphFonts() != null) {
-                    AddShippedFreeFonts(FREE_FONT_RANGE);
-                    AddCalligraphFonts();
-                }
-                else {
-                    AddShippedFreeFonts(null);
-                }
+                AddAllAvailableFonts(AddCalligraphFonts());
+            }
+        }
+
+        private void AddAllAvailableFonts(Range rangeToLoad) {
+            AddShippedFreeFonts(rangeToLoad);
+            foreach (byte[] fontData in fontStreamList) {
+                AddFont(fontData, null);
             }
         }
 
@@ -145,7 +148,12 @@ namespace iText.Html2pdf.Resolver.Font {
         /// </returns>
         protected internal virtual Range AddCalligraphFonts() {
             String methodName = "LoadShippedFonts";
-            Type klass = CheckCalligraphFonts();
+            Type klass = null;
+            try {
+                klass = GetTypographyUtilsClass();
+            }
+            catch (TypeLoadException) {
+            }
             if (klass != null) {
                 try {
                     MethodInfo m = klass.GetMethod(methodName);
@@ -164,14 +172,9 @@ namespace iText.Html2pdf.Resolver.Font {
             return null;
         }
 
-        private Type CheckCalligraphFonts() {
-            Type klass = null;
-            try {
-                klass = GetTypographyUtilsClass();
-            }
-            catch (TypeLoadException) {
-            }
-            return klass;
+        public override bool AddFont(byte[] fontData) {
+            this.fontStreamList.Add(fontData);
+            return true;
         }
 
         private static Type GetTypographyUtilsClass() {
