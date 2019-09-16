@@ -74,7 +74,7 @@ namespace iText.Html2pdf.Resolver.Font {
         private static readonly Range FREE_FONT_RANGE = new RangeBuilder().AddRange(0, 0x058F).AddRange(0x0E80, int.MaxValue
             ).Create();
 
-        private IList<byte[]> fontStreamList = new List<byte[]>();
+        private IList<byte[]> calligraphyFontsTempList = new List<byte[]>();
 
         /// <summary>
         /// Creates a new
@@ -103,6 +103,9 @@ namespace iText.Html2pdf.Resolver.Font {
             // Mandaic, Syriac Supplement, Arabic Extended-A, Devanagari, Bengali, Gurmukhi, Gujarati,
             // Oriya, Tamil, Telugu, Kannada, Malayalam, Sinhala, Thai unicode blocks.
             // Those blocks either require pdfCalligraph or do not supported by GNU Free Fonts.
+            //we want to add free fonts to font provider before calligraph fonts. However, the existing public API states
+            // that addCalligraphFonts() should be used first to load calligraph fonts and to define the range for loading free fonts.
+            // In order to maintain backward compatibility, this temporary field is used to stash calligraph fonts before free fonts are loaded.
             if (registerShippedFreeFonts) {
                 AddAllAvailableFonts(AddCalligraphFonts());
             }
@@ -110,9 +113,10 @@ namespace iText.Html2pdf.Resolver.Font {
 
         private void AddAllAvailableFonts(Range rangeToLoad) {
             AddShippedFreeFonts(rangeToLoad);
-            foreach (byte[] fontData in fontStreamList) {
+            foreach (byte[] fontData in calligraphyFontsTempList) {
                 AddFont(fontData, null);
             }
+            calligraphyFontsTempList = null;
         }
 
         /// <summary>Adds the shipped free fonts.</summary>
@@ -159,7 +163,7 @@ namespace iText.Html2pdf.Resolver.Font {
                     MethodInfo m = klass.GetMethod(methodName);
                     List<byte[]> fontStreams = (List<byte[]>)m.Invoke(null, null);
                     foreach (byte[] font in fontStreams) {
-                        AddFontToList(font);
+                        this.calligraphyFontsTempList.Add(font);
                     }
                     // here we return a unicode range that excludes the loaded from the calligraph module fonts
                     // i.e. the unicode range that is to be rendered with standard or shipped free fonts
@@ -170,10 +174,6 @@ namespace iText.Html2pdf.Resolver.Font {
                 }
             }
             return null;
-        }
-
-        private void AddFontToList(byte[] fontData) {
-            this.fontStreamList.Add(fontData);
         }
 
         private static Type GetTypographyUtilsClass() {
