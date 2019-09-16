@@ -102,7 +102,8 @@ namespace iText.Html2pdf.Resolver.Font {
             // Oriya, Tamil, Telugu, Kannada, Malayalam, Sinhala, Thai unicode blocks.
             // Those blocks either require pdfCalligraph or do not supported by GNU Free Fonts.
             if (registerShippedFreeFonts) {
-                AddShippedFreeFonts(AddCalligraphFonts());
+                AddShippedFreeFonts(null);
+                AddCalligraphFonts();
             }
         }
 
