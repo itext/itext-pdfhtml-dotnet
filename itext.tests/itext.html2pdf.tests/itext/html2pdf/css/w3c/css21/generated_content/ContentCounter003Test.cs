@@ -45,7 +45,6 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Generated_content {
     public class ContentCounter003Test : W3CCssTest {
-        //It was decided not to update fonts to the current latest version (dated from 2012)
         protected internal override String GetHtmlFileName() {
             return "content-counter-003.xht";
         }
