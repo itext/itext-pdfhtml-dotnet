@@ -74,7 +74,6 @@ namespace iText.Html2pdf.Css.Media.Page.Min_dimension {
         /// <exception cref="System.IO.IOException"/>
         /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("TODO DEVSIX-2389: Change test files after decision")]
         public virtual void TopMinLeftAndCenterTest() {
             ConvertToPdfAndCompare("topMinLeftAndCenter", sourceFolder, destinationFolder);
         }
