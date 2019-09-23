@@ -51,7 +51,7 @@ using iText.StyledXmlParser.Node;
 namespace iText.Html2pdf.Css.Apply.Impl {
     /// <summary>
     /// <see cref="iText.Html2pdf.Css.Apply.ICssApplier"/>
-    /// implementation for a <code>caption</code>element.
+    /// implementation for a <c>caption</c>element.
     /// </summary>
     public class CaptionCssApplier : BlockCssApplier {
         /* (non-Javadoc)

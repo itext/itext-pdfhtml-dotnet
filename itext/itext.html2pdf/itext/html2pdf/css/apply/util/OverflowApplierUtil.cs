@@ -50,6 +50,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply overflow.</summary>
     public class OverflowApplierUtil {
         /// <summary>Creates a new <code>OverflowApplierUtil</code> instance.</summary>
+        /// <remarks>Creates a new <c>OverflowApplierUtil</c> instance.</remarks>
         private OverflowApplierUtil() {
         }
 
