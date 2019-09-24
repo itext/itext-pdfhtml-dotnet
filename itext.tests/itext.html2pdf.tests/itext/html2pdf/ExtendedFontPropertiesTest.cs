@@ -103,7 +103,7 @@ namespace iText.Html2pdf {
             String cmpPdf = sourceFolder + "cmp_" + fileName + ".pdf";
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outPdf));
             Document doc = new Document(pdfDoc);
-            byte[] bytes = htmlString.GetBytes(Encoding.UTF8);
+            byte[] bytes = htmlString.GetBytes(System.Text.Encoding.UTF8);
             // save to html
             GenerateTestHtml(destinationFolder, fileName, bytes);
             // Convert to elements
