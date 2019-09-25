@@ -52,8 +52,7 @@ using iText.StyledXmlParser.Css.Pseudo;
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>
     /// Contains the actual mapping of the
-    /// <see cref="DefaultTagWorkerFactory"/>
-    /// .
+    /// <see cref="DefaultTagWorkerFactory"/>.
     /// </summary>
     internal class DefaultTagWorkerMapping {
         /// <summary>The worker mapping.</summary>

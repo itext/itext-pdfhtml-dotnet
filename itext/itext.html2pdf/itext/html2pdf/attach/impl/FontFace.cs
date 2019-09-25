@@ -262,8 +262,7 @@ namespace iText.Html2pdf.Attach.Impl {
 
             /// <summary>
             /// Removes single and double quotes at the start and the end of a
-            /// <see cref="System.String"/>
-            /// .
+            /// <see cref="System.String"/>.
             /// </summary>
             /// <param name="quotedString">
             /// a

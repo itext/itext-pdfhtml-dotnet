@@ -61,8 +61,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         /// <summary>
         /// Creates a new
-        /// <see cref="VerticalAlignmentApplierUtil"/>
-        /// .
+        /// <see cref="VerticalAlignmentApplierUtil"/>.
         /// </summary>
         private VerticalAlignmentApplierUtil() {
         }

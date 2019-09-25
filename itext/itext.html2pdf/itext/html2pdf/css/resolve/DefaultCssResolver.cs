@@ -368,8 +368,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>
         /// Collects fonts from a
-        /// <see cref="iText.StyledXmlParser.Css.CssStatement"/>
-        /// .
+        /// <see cref="iText.StyledXmlParser.Css.CssStatement"/>.
         /// </summary>
         /// <param name="cssStatement">the CSS statement</param>
         private void CollectFonts(CssStatement cssStatement) {

@@ -57,8 +57,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>
         /// Creates a new instance of
-        /// <see cref="RunningElement"/>
-        /// .
+        /// <see cref="RunningElement"/>.
         /// </summary>
         /// <param name="runningElementContainer">a container for the actual running element removed from the normal flow.
         ///     </param>

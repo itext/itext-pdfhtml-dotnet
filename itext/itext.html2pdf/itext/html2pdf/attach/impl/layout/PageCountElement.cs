@@ -51,8 +51,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     public class PageCountElement : Text {
         /// <summary>
         /// Instantiates a new
-        /// <see cref="PageCountElement"/>
-        /// .
+        /// <see cref="PageCountElement"/>.
         /// </summary>
         public PageCountElement()
             : base("1234567890") {

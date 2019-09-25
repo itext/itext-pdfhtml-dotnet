@@ -57,8 +57,7 @@ namespace iText.Html2pdf.Attach {
     public interface IHtmlProcessor {
         /// <summary>
         /// Parses HTML to add the content to a
-        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
-        /// .
+        /// <see cref="iText.Kernel.Pdf.PdfDocument"/>.
         /// </summary>
         /// <param name="root">the root node of the HTML that needs to be parsed</param>
         /// <param name="pdfDocument">

@@ -104,8 +104,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         /// Gets a custom CSS applier.
         /// This method needs to be overridden because the default CSS applier
         /// factory will always return
-        /// <see langword="null"/>
-        /// .
+        /// <see langword="null"/>.
         /// </remarks>
         /// <param name="tag">the key</param>
         /// <returns>the custom CSS applier</returns>

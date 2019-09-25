@@ -73,8 +73,7 @@ namespace iText.Html2pdf.Attach {
         /// the same object on every call.
         /// Might return null either if result is not yet produced or if this particular
         /// tag worker doesn't produce result in a form of
-        /// <see cref="iText.Layout.IPropertyContainer"/>
-        /// .
+        /// <see cref="iText.Layout.IPropertyContainer"/>.
         /// </returns>
         IPropertyContainer GetElementResult();
     }

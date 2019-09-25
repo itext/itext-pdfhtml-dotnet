@@ -130,8 +130,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
             /// <summary>
             /// Converts a specific HTML style to a
-            /// <see cref="iText.StyledXmlParser.Css.CssDeclaration"/>
-            /// .
+            /// <see cref="iText.StyledXmlParser.Css.CssDeclaration"/>.
             /// </summary>
             /// <param name="element">the element</param>
             /// <param name="value">the value of the HTML style</param>
