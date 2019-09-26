@@ -57,9 +57,14 @@ namespace iText.Html2pdf.Attach.Impl {
     /// A
     /// <see cref="OutlineHandler"/>
     /// handles creating outlines for tags.
+    /// </summary>
+    /// <remarks>
+    /// A
+    /// <see cref="OutlineHandler"/>
+    /// handles creating outlines for tags.
     /// <para />
     /// This class is not reusable and a new instance shall be created for every new conversion process.
-    /// </summary>
+    /// </remarks>
     public class OutlineHandler {
         /// <summary>The Constant DESTINATION_PREFIX.</summary>
         private const String DESTINATION_PREFIX = "pdfHTML-iText-outline-";

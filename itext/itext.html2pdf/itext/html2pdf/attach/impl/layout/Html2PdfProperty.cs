@@ -46,9 +46,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary>The Constant PROPERTY_START.</summary>
         private const int PROPERTY_START = (1 << 20);
 
-        /// <summary>The Constant KEEP_WITH_PREVIOUS works only for top-level elements, i.e.</summary>
-        /// <remarks>The Constant KEEP_WITH_PREVIOUS works only for top-level elements, i.e. ones that are added to the document directly.
-        ///     </remarks>
+        /// <summary>The Constant KEEP_WITH_PREVIOUS works only for top-level elements, i.e. ones that are added to the document directly.
+        ///     </summary>
         public const int KEEP_WITH_PREVIOUS = PROPERTY_START + 1;
 
         /// <summary>The Constant PAGE_COUNT_TYPE.</summary>

@@ -48,8 +48,7 @@ using iText.Kernel.Numbering;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Resolve.Func.Counter {
-    /// <summary>Class that manages counters (e.g.</summary>
-    /// <remarks>Class that manages counters (e.g. for list symbols).</remarks>
+    /// <summary>Class that manages counters (e.g. for list symbols).</summary>
     public class CssCounterManager {
         /// <summary>The Constant DISC_SYMBOL.</summary>
         private const String DISC_SYMBOL = "\u2022";

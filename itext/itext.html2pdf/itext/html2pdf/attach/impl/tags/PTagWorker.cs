@@ -53,6 +53,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// TagWorker class for the
     /// <c>p</c>
     /// element.
+    /// </summary>
+    /// <remarks>
+    /// TagWorker class for the
+    /// <c>p</c>
+    /// element.
     /// <para />
     /// This is how this worker processes the &lt;p&gt; tag:
     /// <list type="bullet">
@@ -73,7 +78,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// 
     /// </description></item>
     /// </list>
-    /// </summary>
+    /// </remarks>
     public class PTagWorker : ITagWorker, IDisplayAware {
         /// <summary>The latest paragraph object inside tag.</summary>
         private Paragraph lastParagraph;
