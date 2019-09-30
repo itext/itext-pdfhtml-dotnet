@@ -75,7 +75,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// object and adds this paragraph to the resultant
     /// <c>com.itextpdf.layout.element.Div</c>
     /// object
-    /// 
     /// </description></item>
     /// </list>
     /// </remarks>
