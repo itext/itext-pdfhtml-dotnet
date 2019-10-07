@@ -61,7 +61,6 @@ namespace iText.Html2pdf.Css {
         public static void BeforeClass() {
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void TestDefaultCss() {
             String cmpFile = sourceFolder + "cmp_default.css";
@@ -69,7 +68,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test01() {
             String cssFile = sourceFolder + "css01.css";
@@ -78,7 +76,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cssFile), styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test02() {
             String cssFile = sourceFolder + "css02.css";
@@ -88,7 +85,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test03() {
             String cssFile = sourceFolder + "css03.css";
@@ -98,7 +94,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test04() {
             String cssFile = sourceFolder + "css04.css";
@@ -107,7 +102,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual("", styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test05() {
             String cssFile = sourceFolder + "css05.css";
@@ -117,7 +111,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test06() {
             String cssFile = sourceFolder + "css06.css";
@@ -127,7 +120,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test07() {
             String cssFile = sourceFolder + "css07.css";
@@ -136,7 +128,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cssFile), styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test08() {
             String cssFile = sourceFolder + "css08.css";
@@ -146,7 +137,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test09() {
             String cssFile = sourceFolder + "css09.css";
@@ -155,7 +145,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cssFile), styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test10() {
             String cssFile = sourceFolder + "css10.css";
@@ -165,7 +154,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test11() {
             // TODO in this test declarations of the page at-rule with compound selector are duplicated.
@@ -178,7 +166,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test12() {
             // TODO in this test declarations of the page at-rule with compound selector are duplicated.
@@ -191,7 +178,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         private String GetCssFileContents(String filePath) {
             byte[] bytes = StreamUtil.InputStreamToArray(new FileStream(filePath, FileMode.Open, FileAccess.Read));
             String content = iText.IO.Util.JavaUtil.GetStringForBytes(bytes);

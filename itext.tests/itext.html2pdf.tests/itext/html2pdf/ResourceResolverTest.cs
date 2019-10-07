@@ -77,8 +77,6 @@ namespace iText.Html2pdf
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, Count = 1)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI,
@@ -103,8 +101,6 @@ namespace iText.Html2pdf
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ResourceResolverTest07()
         {
@@ -138,8 +134,6 @@ namespace iText.Html2pdf
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ResourceResolverTest07B()
         {
@@ -153,8 +147,6 @@ namespace iText.Html2pdf
             ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
         public virtual void ResourceResolverTest07C()
@@ -169,8 +161,6 @@ namespace iText.Html2pdf
             ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ResourceResolverTest09()
         {
@@ -183,8 +173,6 @@ namespace iText.Html2pdf
             ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ResourceResolverHtmlWithSvgTest01()
         {
@@ -198,8 +186,6 @@ namespace iText.Html2pdf
             ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI,
             Count = 2)]
@@ -224,8 +210,6 @@ namespace iText.Html2pdf
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ResourceResolverHtmlWithSvgTest03()
         {
@@ -246,8 +230,6 @@ namespace iText.Html2pdf
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ResourceResolverHtmlWithSvgTest04()
         {
@@ -268,8 +250,6 @@ namespace iText.Html2pdf
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         //TODO: update after DEVSIX-2239 fix
         public virtual void ResourceResolverCssWithSvg()
@@ -282,9 +262,7 @@ namespace iText.Html2pdf
                 "diffCss_"
             ));
         }
-        
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
+
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
 
@@ -301,8 +279,6 @@ namespace iText.Html2pdf
             ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ResourceResolverTest10()
         {
@@ -320,8 +296,6 @@ namespace iText.Html2pdf
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         // TODO DEVSIX-1595
         [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
