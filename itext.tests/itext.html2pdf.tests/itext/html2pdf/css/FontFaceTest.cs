@@ -65,65 +65,47 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DroidSerifWebFontTest() {
             RunTest("droidSerifWebFontTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DroidSerifLocalFontTest() {
             RunTest("droidSerifLocalFontTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DroidSerifLocalLocalFontTest() {
             RunTest("droidSerifLocalLocalFontTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DroidSerifLocalWithMediaFontTest() {
             RunTest("droidSerifLocalWithMediaFontTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DroidSerifLocalWithMediaRuleFontTest() {
             RunTest("droidSerifLocalWithMediaRuleFontTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DroidSerifLocalWithMediaRuleFontTest2() {
             RunTest("droidSerifLocalWithMediaRuleFontTest2");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FontSelectorTest01() {
             RunTest("fontSelectorTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
         public virtual void FontFaceGrammarTest() {
             RunTest("fontFaceGrammarTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DroidSerifLocalWithMediaRuleFontTest3() {
             String name = "droidSerifLocalWithMediaRuleFontTest";
@@ -142,45 +124,33 @@ namespace iText.Html2pdf.Css {
                 );
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FontFaceWoffTest01() {
             RunTest("fontFaceWoffTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FontFaceWoffTest02() {
             RunTest("fontFaceWoffTest02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
         public virtual void FontFaceTtcTest() {
             RunTest("fontFaceTtcTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FontFaceWoff2SimpleTest() {
             RunTest("fontFaceWoff2SimpleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
         public virtual void FontFaceWoff2TtcTest() {
             RunTest("fontFaceWoff2TtcTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest01() {
             //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
@@ -188,8 +158,6 @@ namespace iText.Html2pdf.Css {
             RunTest("w3cProblemTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1612")]
         public virtual void W3cProblemTest02() {
@@ -198,8 +166,6 @@ namespace iText.Html2pdf.Css {
             RunTest("w3cProblemTest02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest03() {
             //TODO: silently omitted, decompression should fail.
@@ -207,8 +173,6 @@ namespace iText.Html2pdf.Css {
             RunTest("w3cProblemTest03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void W3cProblemTest04() {
@@ -218,8 +182,6 @@ namespace iText.Html2pdf.Css {
             RunTest("w3cProblemTest04");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest05() {
             //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
@@ -227,8 +189,6 @@ namespace iText.Html2pdf.Css {
             RunTest("w3cProblemTest05");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest06() {
             //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
@@ -236,8 +196,6 @@ namespace iText.Html2pdf.Css {
             RunTest("w3cProblemTest06");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1612")]
         public virtual void W3cProblemTest07() {
@@ -246,107 +204,79 @@ namespace iText.Html2pdf.Css {
             RunTest("w3cProblemTest07");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void IncorrectFontNameTest01() {
             RunTest("incorrectFontNameTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void IncorrectFontNameTest02() {
             RunTest("incorrectFontNameTest02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void IncorrectFontNameTest03() {
             //Checks that font used in previous two files is correct
             RunTest("incorrectFontNameTest03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void IncorrectFontNameTest04() {
             RunTest("incorrectFontNameTest04");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CannotProcessSpecifiedFontTest01() {
             RunTest("cannotProcessSpecifiedFontTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1759")]
         public virtual void FontFamilyTest01() {
             RunTest("fontFamilyTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FontFaceFontWeightTest() {
             //TODO DEVSIX-2122
             RunTest("fontFaceFontWeightTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FontFaceFontWeightWrongTest() {
             //TODO DEVSIX-2122
             RunTest("fontFaceFontWeightWrongWeightsTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FontFaceFontWeightInvalidTest() {
             //TODO DEVSIX-2122
             RunTest("fontFaceFontWeightInvalidWeightsTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TexFonts01() {
             RunTest("texFonts01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CorrectUrlWithNotUsedUnicodeRangeTest() {
             //TODO: update/refactor after DEVSIX-2054 fix
             RunTest("correctUrlWithNotUsedUnicodeRangeTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CorrectUrlWithUsedUnicodeRangeTest() {
             //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
             RunTest("correctUrlWithUsedUnicodeRangeTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CorrectUnicodeRangeSignificantTest() {
             //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
             RunTest("correctUnicodeRangeSignificantTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         private void RunTest(String name) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";

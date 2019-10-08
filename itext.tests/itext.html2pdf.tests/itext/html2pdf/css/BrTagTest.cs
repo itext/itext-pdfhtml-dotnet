@@ -62,8 +62,6 @@ namespace iText.Html2pdf.Css {
         public static void BeforeClass() {
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Test() {
             String input = "<html>\n" + "<head><title>Test</title></head>" + "<body style=\"font-family: FreeSans;\">"

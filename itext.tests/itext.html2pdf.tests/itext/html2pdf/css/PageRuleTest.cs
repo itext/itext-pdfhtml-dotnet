@@ -76,150 +76,108 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarksCropCrossPageRuleTest() {
             RunTest("marksCropCrossPageRuleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarksCropPageRuleTest() {
             RunTest("marksCropPageRuleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarksCrossPageRuleTest() {
             RunTest("marksCrossPageRuleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarksInvalidPageRuleTest() {
             RunTest("marksInvalidPageRuleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarksNonePageRuleTest() {
             RunTest("marksNonePageRuleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PaddingPageRuleTest() {
             RunTest("paddingPageRuleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CompoundSizePageRuleTest() {
             RunTest("compoundSizePageRuleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BleedPageRuleTest() {
             RunTest("bleedPageRuleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, Count = 3)]
         public virtual void InvalidCompoundSizePageRuleTest() {
             RunTest("invalidCompoundSizePageRuleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NotAllMarginsPageRuleTest() {
             RunTest("notAllMarginsPageRuleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FirstLeftRightPageRuleTest() {
             RunTest("firstLeftRightPageRuleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarksBleedPageRuleTest() {
             RunTest("marksBleedPageRuleTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 3)]
         public virtual void MarginBoxTest01() {
             RunTest("marginBoxTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxTest02() {
             RunTest("marginBoxTest02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxTest03() {
             RunTest("marginBoxTest03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxTest04() {
             RunTest("marginBoxTest04");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxTestImg01() {
             RunTest("marginBoxTestImg01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxTestImg02() {
             RunTest("marginBoxTestImg02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BigImageOnPageMarginTest01() {
             RunTest("bigImageOnPageMarginTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BigImageOnPageMarginTest02() {
             RunTest("bigImageOnPageMarginTest02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BigImageOnPageMarginTest03() {
             RunTest("bigImageOnPageMarginTest03", new ConverterProperties().SetTagWorkerFactory(new PageRuleTest.PageMarginBoxImagesTagWorkerFactory
@@ -250,29 +208,21 @@ namespace iText.Html2pdf.Css {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BigTextOnPageMarginTest01() {
             RunTest("bigTextOnPageMarginTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BigTextOnPageMarginTest02() {
             RunTest("bigTextOnPageMarginTest02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxOverflowPropertyTest01() {
             RunTest("marginBoxOverflowPropertyTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxOverflowPropertyTest02() {
             RunTest("marginBoxOverflowPropertyTest02", new ConverterProperties().SetCssApplierFactory(new PageRuleTest.PageMarginsOverflowCssApplierFactory
@@ -299,8 +249,6 @@ namespace iText.Html2pdf.Css {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxOutlinePropertyTest01() {
             // TODO Outlines are currently not supported for page margin boxes, because of the outlines handling specificity (they are handled on renderer's parent level).
@@ -308,341 +256,245 @@ namespace iText.Html2pdf.Css {
             RunTest("marginBoxOutlinePropertyTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningTest01() {
             RunTest("marginBoxRunningTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningTest02() {
             RunTest("marginBoxRunningTest02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningTest03() {
             RunTest("marginBoxRunningTest03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningTest04() {
             // TODO This tests shows wrong result, because running element name is custom-ident which shall be case sensitive, while iText treats it as case-insensitive.
             RunTest("marginBoxRunningTest04");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningTest05() {
             RunTest("marginBoxRunningTest05");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningTest06() {
             RunTest("marginBoxRunningTest06");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID)]
         public virtual void MarginBoxRunningTest07() {
             RunTest("marginBoxRunningTest07");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningTest08() {
             RunTest("marginBoxRunningTest08");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningOverrideTest01() {
             RunTest("marginBoxRunningOverrideTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningOverrideTest02() {
             RunTest("marginBoxRunningOverrideTest02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningOverrideTest03() {
             RunTest("marginBoxRunningOverrideTest03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningOverrideTest04() {
             RunTest("marginBoxRunningOverrideTest04");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningOverrideTest05() {
             RunTest("marginBoxRunningOverrideTest05");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningOverrideTest06() {
             RunTest("marginBoxRunningOverrideTest06");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningOverrideTest07() {
             RunTest("marginBoxRunningOverrideTest07");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningOverrideTest08() {
             RunTest("marginBoxRunningOverrideTest08");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningImg01() {
             RunTest("marginBoxRunningImg01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningImg02() {
             RunTest("marginBoxRunningImg02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningTable01() {
             RunTest("marginBoxRunningTable01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningLink01() {
             RunTest("marginBoxRunningLink01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningLink02() {
             RunTest("marginBoxRunningLink02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningLink03() {
             RunTest("marginBoxRunningLink03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningElements01() {
             RunTest("marginBoxRunningElements01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningElements02() {
             RunTest("marginBoxRunningElements02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningElements03() {
             RunTest("marginBoxRunningElements03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningElements04() {
             RunTest("marginBoxRunningElements04");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningParent01() {
             RunTest("marginBoxRunningParent01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningParent02() {
             RunTest("marginBoxRunningParent02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningParent03() {
             RunTest("marginBoxRunningParent03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningParent04() {
             RunTest("marginBoxRunningParent04");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningParent05() {
             RunTest("marginBoxRunningParent05");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningParent06() {
             RunTest("marginBoxRunningParent06");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningParent07() {
             RunTest("marginBoxRunningParent07");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningParent08() {
             RunTest("marginBoxRunningParent08");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningPageBreak01() {
             RunTest("marginBoxRunningPageBreak01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningPageBreak02() {
             RunTest("marginBoxRunningPageBreak02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningPageBreak03() {
             RunTest("marginBoxRunningPageBreak03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningPageBreakAvoid01() {
             RunTest("marginBoxRunningPageBreakAvoid01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningOutlines01() {
             RunTest("marginBoxRunningOutlines01", new ConverterProperties().SetOutlineHandler(OutlineHandler.CreateStandardHandler
                 ()));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningOutlines02() {
             RunTest("marginBoxRunningOutlines02", new ConverterProperties().SetOutlineHandler(OutlineHandler.CreateStandardHandler
                 ()));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningQuotes01() {
             RunTest("marginBoxRunningQuotes01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningQuotes02() {
             RunTest("marginBoxRunningQuotes02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningQuotes03() {
             RunTest("marginBoxRunningQuotes03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningQuotes04() {
             RunTest("marginBoxRunningQuotes04");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CheckMarginBoxFixDimension() {
             RunTest("checkMarginBoxFixDimension");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CheckMarginBoxMaxMinDimension() {
             RunTest("checkMarginBoxMaxMinDimension");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CheckMarginBoxMarginPaddings() {
             RunTest("checkMarginBoxMarginPaddings");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MediaAppliedToRunningElementsProperties() {
             MediaDeviceDescription printMediaDevice = new MediaDeviceDescription("print");
@@ -651,45 +503,27 @@ namespace iText.Html2pdf.Css {
             RunTest("mediaAppliedToRunningElementsProperties", converterProperties);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MediaNotAppliedToRunningElementsProperties() {
             RunTest("mediaNotAppliedToRunningElementsProperties");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        /// <exception cref="Javax.Xml.Parsers.ParserConfigurationException"/>
-        /// <exception cref="Org.Xml.Sax.SAXException"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxTaggedTest01() {
             RunTest("marginBoxTaggedTest01", null, true);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        /// <exception cref="Javax.Xml.Parsers.ParserConfigurationException"/>
-        /// <exception cref="Org.Xml.Sax.SAXException"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxTaggedTest02() {
             RunTest("marginBoxTaggedTest02", null, true);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        /// <exception cref="Javax.Xml.Parsers.ParserConfigurationException"/>
-        /// <exception cref="Org.Xml.Sax.SAXException"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxTaggedTest03() {
             RunTest("marginBoxTaggedTest03", new ConverterProperties().SetTagWorkerFactory(new PageRuleTest.TaggedPageMarginBoxTagWorkerFactory
                 ()), true);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        /// <exception cref="Javax.Xml.Parsers.ParserConfigurationException"/>
-        /// <exception cref="Org.Xml.Sax.SAXException"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxTaggedTest04() {
             RunTest("marginBoxTaggedTest04", new ConverterProperties().SetTagWorkerFactory(new PageRuleTest.TaggedPageMarginBoxTagWorkerFactory
@@ -718,8 +552,6 @@ namespace iText.Html2pdf.Css {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningNoImmediateFlush01() {
             String name = "marginBoxRunningNoImmediateFlush01";
@@ -732,8 +564,6 @@ namespace iText.Html2pdf.Css {
             CompareResult(name);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningNoImmediateFlush02() {
             String name = "marginBoxRunningNoImmediateFlush02";
@@ -750,8 +580,6 @@ namespace iText.Html2pdf.Css {
             CompareResult(name);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningNoImmediateFlush03() {
             String name = "marginBoxRunningNoImmediateFlush03";
@@ -776,8 +604,6 @@ namespace iText.Html2pdf.Css {
             CompareResult(name);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, Count = 6)]
         public virtual void MarginBoxRunningNoImmediateFlush04() {
@@ -796,8 +622,6 @@ namespace iText.Html2pdf.Css {
             CompareResult(name);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningNoImmediateFlush05() {
             String name = "marginBoxRunningNoImmediateFlush05";
@@ -810,36 +634,26 @@ namespace iText.Html2pdf.Css {
             CompareResult(name);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxMultilineTest01() {
             RunTest("marginBoxMultilineTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxMultilineTest02() {
             RunTest("marginBoxMultilineTest02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxMultilineTest03() {
             RunTest("marginBoxMultilineTest03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginBoxMultilineTest04() {
             RunTest("marginBoxMultilineTest04");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void WrongPageRuleCssStructureTest() {
             NUnit.Framework.Assert.That(() =>  {
@@ -875,14 +689,10 @@ namespace iText.Html2pdf.Css {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         private void RunTest(String name) {
             RunTest(name, null);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         private void RunTest(String name, ConverterProperties converterProperties) {
             try {
                 RunTest(name, converterProperties, false);
@@ -892,10 +702,6 @@ namespace iText.Html2pdf.Css {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        /// <exception cref="Javax.Xml.Parsers.ParserConfigurationException"/>
-        /// <exception cref="Org.Xml.Sax.SAXException"/>
         private void RunTest(String name, ConverterProperties converterProperties, bool isTagged) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";
@@ -923,8 +729,6 @@ namespace iText.Html2pdf.Css {
                 ));
         }
 
-        /// <exception cref="System.Exception"/>
-        /// <exception cref="System.IO.IOException"/>
         private void CompareResult(String name) {
             String pdfPath = destinationFolder + name + ".pdf";
             String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";

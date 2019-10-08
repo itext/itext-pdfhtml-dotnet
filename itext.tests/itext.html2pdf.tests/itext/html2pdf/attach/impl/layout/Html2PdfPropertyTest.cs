@@ -47,7 +47,6 @@ using iText.IO.Util;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     public class Html2PdfPropertyTest {
-        /// <exception cref="System.MemberAccessException"/>
         [NUnit.Framework.Test]
         public virtual void PropertyUniquenessTest() {
             ICollection<int> fieldValues = new HashSet<int>();

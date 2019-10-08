@@ -63,8 +63,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest01() {
             System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "linkTest01.html").
@@ -79,8 +77,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest01.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest02() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "linkTest02.html"), new FileInfo(destinationFolder 
@@ -89,8 +85,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest02.pdf", destinationFolder, "diff02_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest03() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "linkTest03.html"), new FileInfo(destinationFolder 
@@ -99,8 +93,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest03.pdf", destinationFolder, "diff03_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest04() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "linkTest04.html"), new FileInfo(destinationFolder 
@@ -109,8 +101,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest04.pdf", destinationFolder, "diff04_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest05() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "linkTest05.html"), new FileInfo(destinationFolder 
@@ -119,8 +109,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest05.pdf", destinationFolder, "diff05_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest06() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "linkTest06.html"), new FileInfo(destinationFolder 
@@ -129,8 +117,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest06.pdf", destinationFolder, "diff06_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest07() {
             PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest07.pdf"));
@@ -143,8 +129,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest07.pdf", destinationFolder, "diff07_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest09() {
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest09.pdf"));
@@ -158,8 +142,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest09.pdf", destinationFolder, "diff09_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(PdfAConformanceLogMessageConstant.CATALOG_SHOULD_CONTAIN_LANG_ENTRY)]
         public virtual void LinkTest10ToPdfa() {
@@ -175,8 +157,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest10.pdf", destinationFolder, "diff10_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest11() {
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest11.pdf"));
@@ -190,8 +170,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest11.pdf", destinationFolder, "diff11_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LinkTest12() {
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest12.pdf"));
@@ -205,8 +183,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest12.pdf", destinationFolder, "diff12_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AnchorLinkToSpanTest01() {
             String fileName = "anchorLinkToSpanTest01";

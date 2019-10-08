@@ -56,59 +56,43 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PercentTest() {
             ConvertToPdfAndCompare("percentTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MaxWidthTest01() {
             ConvertToPdfAndCompare("maxWidthTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MinWidthTest01() {
             ConvertToPdfAndCompare("minWidthTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MinMaxWidthTest01() {
             ConvertToPdfAndCompare("minMaxWidthTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PercentMarginTest() {
             //Todo: the width for table currently set incorrect.
             ConvertToPdfAndCompare("percentMarginTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RelativeInlineBlockWidthWithTextIndentTest01() {
             ConvertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RelativeInlineBlockWidthWithTextIndentTest02() {
             // TODO DEVSIX-1823: inline blocks with relative widths (width:100%) do not wrap to the next line
             ConvertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RelativeInlineBlockWidthWithTextIndentTest03() {
             ConvertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest03", sourceFolder, destinationFolder);

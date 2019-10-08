@@ -59,8 +59,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Body01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest01.html"), new FileInfo(destinationFolder 
@@ -69,8 +67,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_bodyTest01.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Body02Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest02.html"), new FileInfo(destinationFolder 
@@ -79,8 +75,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_bodyTest02.pdf", destinationFolder, "diff02_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Body03Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest03.html"), new FileInfo(destinationFolder 
@@ -89,8 +83,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_bodyTest03.pdf", destinationFolder, "diff03_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Body04Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest04.html"), new FileInfo(destinationFolder 
@@ -99,8 +91,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_bodyTest04.pdf", destinationFolder, "diff04_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Body05Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest05.html"), new FileInfo(destinationFolder 
@@ -109,8 +99,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_bodyTest05.pdf", destinationFolder, "diff05_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Body06Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest06.html"), new FileInfo(destinationFolder 
@@ -120,8 +108,6 @@ namespace iText.Html2pdf.Element {
         }
 
         // this test is both for html and body
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Body07Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest07.html"), new FileInfo(destinationFolder 
@@ -131,8 +117,6 @@ namespace iText.Html2pdf.Element {
         }
 
         // this test is both for html and body
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Body08Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest08.html"), new FileInfo(destinationFolder 
@@ -142,8 +126,6 @@ namespace iText.Html2pdf.Element {
         }
 
         // this test is both for html and body
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Body09Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "bodyTest09.html"), new FileInfo(destinationFolder 

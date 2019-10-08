@@ -66,7 +66,6 @@ namespace iText.Html2pdf {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void DoNotResetFontProviderTest() {
             NUnit.Framework.Assert.That(() =>  {

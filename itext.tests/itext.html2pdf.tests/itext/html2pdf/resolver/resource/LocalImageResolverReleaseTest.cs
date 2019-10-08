@@ -58,7 +58,6 @@ namespace iText.Html2pdf.Resolver.Resource {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void TestThatSvgIsReleasedAfterConversion() {
             String htmlFileName = "testWithSvg.html";

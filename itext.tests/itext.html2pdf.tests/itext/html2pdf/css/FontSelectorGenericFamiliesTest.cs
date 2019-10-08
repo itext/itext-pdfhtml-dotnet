@@ -63,22 +63,16 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void StandardFontsTest() {
             RunTest("standardFonts", new DefaultFontProvider(true, false, false));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EmbeddedFontsTest() {
             RunTest("embeddedFonts", new DefaultFontProvider(false, true, false));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         public virtual void RunTest(String testName, FontProvider fontProvider) {
             String outPdf = destinationFolder + testName + ".pdf";
             String cmpPdf = sourceFolder + "cmp_" + testName + ".pdf";

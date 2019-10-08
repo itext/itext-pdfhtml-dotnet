@@ -66,7 +66,6 @@ namespace iText.Html2pdf.Css.Media {
         public static void BeforeClass() {
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test01() {
             String htmlFileName = sourceFolder + "html01.html";
@@ -85,7 +84,6 @@ namespace iText.Html2pdf.Css.Media {
             NUnit.Framework.Assert.AreEqual("font-size: 20pt", declarations[2].ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test02() {
             String htmlFileName = sourceFolder + "html02.html";
@@ -107,7 +105,6 @@ namespace iText.Html2pdf.Css.Media {
             NUnit.Framework.Assert.AreEqual("font-weight: bold", declarations1[0].ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test03() {
             String htmlFileName = sourceFolder + "html03.html";
@@ -125,7 +122,6 @@ namespace iText.Html2pdf.Css.Media {
             NUnit.Framework.Assert.AreEqual("color: black", declarations[0].ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test04() {
             String htmlFileName = sourceFolder + "html04.html";
@@ -143,7 +139,6 @@ namespace iText.Html2pdf.Css.Media {
             NUnit.Framework.Assert.AreEqual("font-size: 20em", declarations[1].ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test05() {
             String htmlFileName = sourceFolder + "html05.html";
@@ -165,7 +160,6 @@ namespace iText.Html2pdf.Css.Media {
             NUnit.Framework.Assert.AreEqual("color: red", declarations2[0].ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test06() {
             String htmlFileName = sourceFolder + "html06.html";
@@ -191,7 +185,6 @@ namespace iText.Html2pdf.Css.Media {
             NUnit.Framework.Assert.AreEqual("color: red", declarations1[0].ToString());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void Test07() {
             String htmlFileName = sourceFolder + "html07.html";

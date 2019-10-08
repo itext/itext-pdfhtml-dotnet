@@ -59,8 +59,6 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RelativeCssPath01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "css_relative.html"), new FileInfo(destinationFolder
@@ -69,8 +67,6 @@ namespace iText.Html2pdf.Css {
                  + "cmp_css_relative.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RelativeCssPath02Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "css_relative_base64.html"), new FileInfo(destinationFolder
@@ -79,8 +75,6 @@ namespace iText.Html2pdf.Css {
                 , sourceFolder + "cmp_css_relative_base64.pdf", destinationFolder, "diff02_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RelativeImports01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "root/html/test.html"), new FileInfo(destinationFolder

@@ -56,15 +56,11 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginAutoImageInsideDiv01Test() {
             ConvertToPdfAndCompare("marginAutoImageInsideDiv01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginAutoImageInsideDiv02Test() {
             ConvertToPdfAndCompare("marginAutoImageInsideDiv02", sourceFolder, destinationFolder);

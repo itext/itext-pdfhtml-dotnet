@@ -59,8 +59,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Center01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "centerTest01.html"), new FileInfo(destinationFolder
@@ -69,8 +67,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_centerTest01.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Center02Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "centerTest02.html"), new FileInfo(destinationFolder

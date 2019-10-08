@@ -62,8 +62,6 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TimesFontFamilyTest() {
             String text = "quick brown fox jumps over the lazy dog";
@@ -75,8 +73,6 @@ namespace iText.Html2pdf.Css {
             RunTest(htmlString, sourceFolder, destinationFolder, fileName, fileName);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TimesFontFamilyTest02() {
             String text = "quick brown fox jumps over the lazy dog";

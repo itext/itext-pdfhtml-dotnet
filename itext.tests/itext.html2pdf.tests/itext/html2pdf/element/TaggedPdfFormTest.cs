@@ -61,90 +61,66 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SimpleTextFieldTagged() {
             RunTest("simpleTextFieldTagged");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SimpleTextareaTagged() {
             RunTest("simpleTextareaTagged");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SimpleButtonTagged() {
             RunTest("simpleButtonTagged");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SimpleLabelTagged() {
             RunTest("simpleLabelTagged");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SimpleCheckboxTagged() {
             RunTest("simpleCheckboxTagged");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void SimpleSelectTagged() {
             RunTest("simpleSelectTagged");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void ListBoxSelectTagged() {
             RunTest("listBoxSelectTagged");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void ListBoxOptGroupSelectTagged() {
             RunTest("listBoxOptGroupSelectTagged");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void SimpleRadioFormTagged() {
             RunTest("simpleRadioFormTagged");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DefaultHtmlProcessor ERROR No worker found for tag datalist")]
         public virtual void DatalistFormTagged() {
             RunTest("datalistFormTagged");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FieldsetFormTagged() {
             RunTest("fieldsetFormTagged");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         private void RunTest(String name) {
             String htmlPath = sourceFolder + name + ".html";
             String outTaggedPdfPath = destinationFolder + name + ".pdf";

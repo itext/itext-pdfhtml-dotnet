@@ -57,8 +57,6 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void SingleBlockSingleParagraphRight() {
@@ -68,8 +66,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("singleBlockSingleParagraphRight", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void SingleBlockSingleParagraphLeft() {
@@ -77,8 +73,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("singleBlockSingleParagraphLeft", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void SingleBlockSingleParagraphJustify() {
@@ -86,8 +80,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("singleBlockSingleParagraphJustify", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void SingleBlockSingleParagraphCenter() {
@@ -95,8 +87,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("singleBlockSingleParagraphCenter", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SeveralBlocksSingleParagraph() {
             /* this test shows different combinations of 3 float values blocks and 1 paragraph aligns within div container
@@ -104,8 +94,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("severalBlocksSingleParagraph", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BlocksInsideParagraph() {
             /* this test shows different combinations of 3 float values blocks and 1 paragraph aligns within div container
@@ -114,29 +102,21 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("blocksInsideParagraph", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void InlineBlocksInsideParagraph() {
             ConvertToPdfAndCompare("inlineBlocksInsideParagraph", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void InlineFloatsWithTextAlignmentTest01() {
             ConvertToPdfAndCompare("inlineFloatsWithTextAlignmentTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void InlineFloatsWithTextAlignmentTest02() {
             ConvertToPdfAndCompare("inlineFloatsWithTextAlignmentTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void InlineFloatsWithTextAlignmentTest03() {
             ConvertToPdfAndCompare("inlineFloatsWithTextAlignmentTest03", sourceFolder, destinationFolder);

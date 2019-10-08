@@ -56,15 +56,11 @@ namespace iText.Html2pdf.Attribute {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RtlDir01Test() {
             ConvertToPdfAndCompare("rtlDirTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RtlDir02Test() {
             ConvertToPdfAndCompare("rtlDirTest02", sourceFolder, destinationFolder);

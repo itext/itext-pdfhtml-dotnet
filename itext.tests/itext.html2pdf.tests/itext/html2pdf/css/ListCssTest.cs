@@ -59,8 +59,6 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ListCSSStartTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "orderedList.html"), new FileInfo(destinationFolder

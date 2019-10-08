@@ -56,36 +56,26 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssOutlineTest01() {
             ConvertToPdfAndCompare("cssOutline01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssOutlineTest02() {
             ConvertToPdfAndCompare("cssOutline02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssOutlineTest03() {
             ConvertToPdfAndCompare("cssOutline03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssOutlineTest04() {
             ConvertToPdfAndCompare("cssOutline04", sourceFolder, destinationFolder, true);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssOutlineTest05() {
             ConvertToPdfAndCompare("cssOutline05", sourceFolder, destinationFolder);

@@ -59,8 +59,6 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Test01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest01.html"), new FileInfo(destinationFolder
@@ -69,8 +67,6 @@ namespace iText.Html2pdf.Css {
                 , sourceFolder + "cmp_hyphenateTest01.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Test03() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest03.html"), new FileInfo(destinationFolder
@@ -79,8 +75,6 @@ namespace iText.Html2pdf.Css {
                 , sourceFolder + "cmp_hyphenateTest03.pdf", destinationFolder, "diff03_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Test04() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest04.html"), new FileInfo(destinationFolder
@@ -89,8 +83,6 @@ namespace iText.Html2pdf.Css {
                 , sourceFolder + "cmp_hyphenateTest04.pdf", destinationFolder, "diff04_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Test05() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest05.html"), new FileInfo(destinationFolder
@@ -99,8 +91,6 @@ namespace iText.Html2pdf.Css {
                 , sourceFolder + "cmp_hyphenateTest05.pdf", destinationFolder, "diff05_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Test06() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest06.html"), new FileInfo(destinationFolder
@@ -109,8 +99,6 @@ namespace iText.Html2pdf.Css {
                 , sourceFolder + "cmp_hyphenateTest06.pdf", destinationFolder, "diff06_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Test07Ru() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest07Ru.html"), new FileInfo(destinationFolder
@@ -119,8 +107,6 @@ namespace iText.Html2pdf.Css {
                 , sourceFolder + "cmp_hyphenateTest07Ru.pdf", destinationFolder, "diff07Ru_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Test08De() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest08De.html"), new FileInfo(destinationFolder
@@ -129,8 +115,6 @@ namespace iText.Html2pdf.Css {
                 , sourceFolder + "cmp_hyphenateTest08De.pdf", destinationFolder, "diff08De_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Test09NonBreakingHyphen() {
             // TODO DEVSIX-1438: Support word-break

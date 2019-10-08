@@ -56,22 +56,16 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BfcOwnerFloat_floatsAndClear() {
             ConvertToPdfAndCompare("bfcOwnerFloat_floatsAndClear", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BfcOwnerFloat_marginsCollapse() {
             ConvertToPdfAndCompare("bfcOwnerFloat_marginsCollapse", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BfcOwnerAbsolute_floatsAndClear() {
             // Positioning and handling floats and clearance is exactly correct,
@@ -79,8 +73,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("bfcOwnerAbsolute_floatsAndClear", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BfcOwnerAbsolute_marginsCollapse() {
             // Margins don't collapse here which is correct,
@@ -88,22 +80,16 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("bfcOwnerAbsolute_marginsCollapse", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BfcOwnerInlineBlock_floatsAndClear() {
             ConvertToPdfAndCompare("bfcOwnerInlineBlock_floatsAndClear", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BfcOwnerInlineBlock_marginsCollapse() {
             ConvertToPdfAndCompare("bfcOwnerInlineBlock_marginsCollapse", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BfcOwnerOverflowHidden_floatsAndClear() {
             // TODO overflow:hidden with display:block behaves curiously: it completely moves away from float horizontally.
@@ -116,8 +102,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("bfcOwnerOverflowHidden_floatsAndClear", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BfcOwnerOverflowHidden_marginsCollapse() {
             ConvertToPdfAndCompare("bfcOwnerOverflowHidden_marginsCollapse", sourceFolder, destinationFolder);

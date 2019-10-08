@@ -60,8 +60,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphTest01.html"), new FileInfo(destinationFolder
@@ -70,8 +68,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphTest01.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithBordersTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithBordersTest01.html"), new FileInfo(destinationFolder
@@ -80,8 +76,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithBordersTest01.pdf", destinationFolder, "diff02_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithMarginsTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithMarginsTest01.html"), new FileInfo(destinationFolder
@@ -90,8 +84,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithMarginsTest01.pdf", destinationFolder, "diff03_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithPaddingTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithPaddingTest01.html"), new FileInfo(destinationFolder
@@ -100,8 +92,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithPaddingTest01.pdf", destinationFolder, "diff04_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithFontAttributesTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithFontAttributesTest01.html"), new FileInfo
@@ -110,8 +100,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithFontAttributesTest01.pdf", destinationFolder, "diff05_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithNonBreakableSpaceTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithNonBreakableSpaceTest01.html"), new FileInfo
@@ -120,8 +108,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest01.pdf", destinationFolder, "diff06_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithNonBreakableSpaceTest02() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithNonBreakableSpaceTest02.html"), new FileInfo
@@ -130,8 +116,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest02.pdf", destinationFolder, "diff07_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithNonBreakableSpaceTest03() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithNonBreakableSpaceTest03.html"), new FileInfo
@@ -140,8 +124,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest03.pdf", destinationFolder, "diff08_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphInTablePercentTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphInTablePercentTest01.html"), new FileInfo
@@ -150,8 +132,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphInTablePercentTest01.pdf", destinationFolder, "diff09_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithButtonInputLabelSelectTextareaTest() {
             //TODO: update after DEVSIX-2445 fix
@@ -162,8 +142,6 @@ namespace iText.Html2pdf.Element {
                 ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 2)]
         [NUnit.Framework.Test]
         public virtual void ParagraphWithBdoBrImgMapQSubSupTest() {
@@ -174,8 +152,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithBdoBrImgMapQSubSupTest.pdf", destinationFolder, "diff12_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 2)]
         [NUnit.Framework.Test]
         public virtual void ParagraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest() {
@@ -187,8 +163,6 @@ namespace iText.Html2pdf.Element {
                 ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithAParagraphSpanDivTest() {
             //TODO: update after DEVSIX-2445 fix
@@ -198,8 +172,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithAParagraphSpanDivTest.pdf", destinationFolder, "diff14_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 2)]
         [NUnit.Framework.Test]
         public virtual void ParagraphWithBBigISmallTtStrongTest() {
@@ -210,8 +182,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithBBigISmallTtStrongTest.pdf", destinationFolder, "diff15_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithPDisplayTableTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithPDisplayTableTest.html"), new FileInfo
@@ -220,8 +190,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithPDisplayTableTest.pdf", destinationFolder, "diff15_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithDifferentSpansTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithDifferentSpansTest.html"), new FileInfo
@@ -230,8 +198,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithDifferentSpansTest.pdf", destinationFolder, "diff15_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithDifferentBlocksAndDisplaysTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithDifferentBlocksAndDisplaysTest.html")
@@ -240,8 +206,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithDifferentBlocksAndDisplaysTest.pdf", destinationFolder, "diff15_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithLabelSpanDisplayBlockTest() {
             //TODO: update after DEVSIX-2619 fix
@@ -251,8 +215,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithLabelSpanDisplayBlockTest.pdf", destinationFolder, "diff15_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithImageTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithImageTest01.html"), new FileInfo(destinationFolder
@@ -262,8 +224,6 @@ namespace iText.Html2pdf.Element {
                 ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ParagraphWithImageTest01RTL() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithImageTest01RTL.html"), new FileInfo(destinationFolder

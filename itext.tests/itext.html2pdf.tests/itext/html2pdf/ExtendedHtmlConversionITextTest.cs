@@ -56,21 +56,15 @@ namespace iText.Html2pdf {
     /// extends ExtendedITextTest test class
     /// </summary>
     public abstract class ExtendedHtmlConversionITextTest : ExtendedITextTest {
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         public virtual void ConvertToPdfAndCompare(String name, String sourceFolder, String destinationFolder) {
             ConvertToPdfAndCompare(name, sourceFolder, destinationFolder, false, sourceFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         public virtual void ConvertToPdfAndCompare(String name, String sourceFolder, String destinationFolder, bool
              tagged) {
             ConvertToPdfAndCompare(name, sourceFolder, destinationFolder, tagged, sourceFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         public virtual void ConvertToPdfAndCompare(String name, String sourceFolder, String destinationFolder, bool
              tagged, String fontsFolder) {
             String sourceHtml = sourceFolder + name + ".html";
@@ -89,22 +83,16 @@ namespace iText.Html2pdf {
                 , "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         public virtual void ConvertToElementsAndCompare(String name, String sourceFolder, String destinationFolder
             ) {
             ConvertToElementsAndCompare(name, sourceFolder, destinationFolder, false, sourceFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         public virtual void ConvertToElementsAndCompare(String name, String sourceFolder, String destinationFolder
             , bool tagged) {
             ConvertToElementsAndCompare(name, sourceFolder, destinationFolder, tagged, sourceFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         public virtual void ConvertToElementsAndCompare(String name, String sourceFolder, String destinationFolder
             , bool tagged, String fontsFolder) {
             String sourceHtml = sourceFolder + name + ".html";
@@ -126,10 +114,6 @@ namespace iText.Html2pdf {
                 , "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        /// <exception cref="Javax.Xml.Parsers.ParserConfigurationException"/>
-        /// <exception cref="Org.Xml.Sax.SAXException"/>
         public virtual void ConvertToPdfAcroformFlattenAndCompare(String name, String sourceFolder, String destinationFolder
             , bool tagged) {
             String sourceHtml = sourceFolder + name + ".html";
@@ -185,10 +169,6 @@ namespace iText.Html2pdf {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
-        /// <exception cref="Javax.Xml.Parsers.ParserConfigurationException"/>
-        /// <exception cref="Org.Xml.Sax.SAXException"/>
         private void CompareTagStructure(String outPath, String cmpPath) {
             CompareTool compareTool = new CompareTool();
             String tagStructureErrors = compareTool.CompareTagStructures(outPath, cmpPath);

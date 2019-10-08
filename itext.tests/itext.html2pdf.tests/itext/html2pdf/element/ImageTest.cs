@@ -59,8 +59,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ImagesInBodyTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imagesInBody.html"), new FileInfo(destinationFolder
@@ -69,8 +67,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_imagesInBody.pdf", destinationFolder, "diff18_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ImagesWithWideBorders() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imagesWithWideBorders.html"), new FileInfo(destinationFolder
@@ -79,8 +75,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_imagesWithWideBorders.pdf", destinationFolder));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ImagesWithWideMargins() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imagesWithWideMargins.html"), new FileInfo(destinationFolder
@@ -89,8 +83,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_imagesWithWideMargins.pdf", destinationFolder));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ImagesWithWidePaddings() {
             // TODO DEVSIX-2467
@@ -100,8 +92,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_imagesWithWidePaddings.pdf", destinationFolder));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ImagesWithWidePaddingsBordersMargins() {
             // TODO DEVSIX-2467
@@ -111,8 +101,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_imagesWithWidePaddingsBordersMargins.pdf", destinationFolder));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CheckImageBorderRadius() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "checkImageBorderRadius.html"), new FileInfo(destinationFolder

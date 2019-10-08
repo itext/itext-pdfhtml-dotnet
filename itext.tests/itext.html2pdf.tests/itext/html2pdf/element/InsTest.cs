@@ -59,8 +59,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Ins01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "insTest01.html"), new FileInfo(destinationFolder +

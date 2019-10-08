@@ -58,8 +58,6 @@ namespace iText.Html2pdf {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1708")]
         public virtual void BackgroundSizeTest01() {

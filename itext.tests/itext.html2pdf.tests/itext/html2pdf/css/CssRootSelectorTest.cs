@@ -56,15 +56,11 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RootSelectorTest01() {
             ConvertToPdfAndCompare("rootSelectorTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void RootAndNotRootTest() {
             ConvertToPdfAndCompare("rootAndNotRootTest", sourceFolder, destinationFolder);

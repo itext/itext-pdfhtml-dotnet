@@ -59,72 +59,54 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VisiblePropertyLastPageTest() {
             //TODO update cmp-file after DEVSIX-2090 done
             ConvertToPdfAndCompare("visiblePropertyLastPageTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VisiblePropertyTableTest() {
             //TODO update cmp-file after DEVSIX-2090 done
             ConvertToPdfAndCompare("visiblePropertyTableTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VisiblePropertySvgTest() {
             //TODO update cmp-file after DEVSIX-2090 done
             ConvertToPdfAndCompare("visiblePropertySvgTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VisiblePropertyLinkTest() {
             //TODO update cmp-file after DEVSIX-2090 done
             ConvertToPdfAndCompare("visiblePropertyLinkTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VisiblePropertyImagesTest() {
             //TODO update cmp-file after DEVSIX-2090 done
             ConvertToPdfAndCompare("visiblePropertyImagesTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VisiblePropertyInFormsTest() {
             //TODO update cmp-file after DEVSIX-2090 done
             ConvertToPdfAndCompare("visiblePropertyInFormsTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VisiblePropertyInFormFieldTest() {
             //TODO update cmp-file after DEVSIX-2090 done
             ConvertToPdfAndCompare("visiblePropertyInFormFieldTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VisiblePropertyInFormRadioButtonTest() {
             //TODO update cmp-file after DEVSIX-2090 done
             ConvertToPdfAndCompare("visiblePropertyInFormRadioButtonTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT)]
         public virtual void VisiblePropertyInFormDropdownListTest() {
@@ -138,16 +120,12 @@ namespace iText.Html2pdf.Css {
                 , destinationFolder, "diff_dropdown"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VisiblePropertyInFormCheckBoxTest() {
             //TODO update cmp-file after DEVSIX-2090 done
             ConvertToPdfAndCompare("visiblePropertyInFormCheckBoxTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void VisiblePropertyDivTest() {
             //TODO update cmp-file after DEVSIX-2090 done

@@ -63,8 +63,6 @@ namespace iText.Html2pdf {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(TYPOGRAPHY_WARNING, Count = 14)]
         public virtual void HebrewTest() {
@@ -74,8 +72,6 @@ namespace iText.Html2pdf {
                  + "cmp_hebrew.pdf", destinationFolder, "diffHebrew_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DevanagariTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "devanagari.html"), new FileInfo(destinationFolder 
@@ -84,8 +80,6 @@ namespace iText.Html2pdf {
                  + "cmp_devanagari.pdf", destinationFolder, "diffDevanagari_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ConvertStandardFonts() {
             //For more specific tests see FontSelectorTimesFontTest in html2pdf and FontSelectorHelveticaFontTest in html2pdf-private

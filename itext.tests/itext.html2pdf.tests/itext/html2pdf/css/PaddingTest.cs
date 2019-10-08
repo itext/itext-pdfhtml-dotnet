@@ -56,22 +56,16 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ElementFixedWidthTest() {
             ConvertToPdfAndCompare("elementFixedWidthTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CellPaddingTest01() {
             ConvertToPdfAndCompare("cellPaddingTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CellPaddingTest02() {
             ConvertToPdfAndCompare("cellPaddingTest02", sourceFolder, destinationFolder);

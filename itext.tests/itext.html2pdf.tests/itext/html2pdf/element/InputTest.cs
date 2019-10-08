@@ -68,43 +68,31 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Input01Test() {
             RunTest("inputTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Input02Test() {
             RunTest("inputTest02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Input03Test() {
             RunTest("inputTest03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Input04Test() {
             RunTest("inputTest04");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Input05Test() {
             RunTest("inputTest05");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Count = 4, Ignore = true)]
         public virtual void Input06Test() {
@@ -120,8 +108,6 @@ namespace iText.Html2pdf.Element {
                 , "diff_inputTest06_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Input07Test() {
             // TODO DEVSIX-1777: if not explicitly specified, <input> border default value should be different from the one
@@ -130,107 +116,77 @@ namespace iText.Html2pdf.Element {
             RunTest("inputTest07");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Input08Test() {
             RunTest("inputTest08");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Input09Test() {
             RunTest("inputTest09");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Input10Test() {
             RunTest("inputTest10");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TextareaRowsHeightTest() {
             RunTest("textareaRowsHeight");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BlockHeightTest() {
             RunTest("blockHeightTest");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SmallPercentWidthTest() {
             RunTest("smallPercentWidth");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Button01Test() {
             RunTest("buttonTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Button02Test() {
             RunTest("buttonTest02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ButtonWithDisplayBlockTest() {
             RunTest("buttonWithDisplayBlock");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_INVALID)]
         public virtual void InputDefaultTest01() {
             RunTest("inputDefaultTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PlaceholderTest01() {
             RunTest("placeholderTest01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PlaceholderTest02() {
             RunTest("placeholderTest02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PlaceholderTest02A() {
             RunTest("placeholderTest02A");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PlaceholderTest03() {
             RunTest("placeholderTest03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, Count = 3, Ignore = true)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 3, Ignore = true
@@ -239,8 +195,6 @@ namespace iText.Html2pdf.Element {
             RunTest("placeholderTest04");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void InputDisabled01AcroTest() {
             // TODO DEVSIX_1973
@@ -253,15 +207,11 @@ namespace iText.Html2pdf.Element {
                 ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void InputDisabled01Test() {
             RunTest("inputDisabled01Test");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PlaceholderTest05() {
             String htmlPath = sourceFolder + "placeholderTest05.html";
@@ -290,15 +240,11 @@ namespace iText.Html2pdf.Element {
                 , "diff_placeholderTest05_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PlaceholderTest05A() {
             RunTest("placeholderTest05A");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         private void RunTest(String name) {
             String htmlPath = sourceFolder + name + ".html";
             String outPdfPath = destinationFolder + name + ".pdf";

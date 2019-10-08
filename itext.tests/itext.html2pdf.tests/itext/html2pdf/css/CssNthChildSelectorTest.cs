@@ -56,50 +56,36 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthChildEvenTest() {
             ConvertToPdfAndCompare("resourceNthChildEvenTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthChildExpressionTest() {
             ConvertToPdfAndCompare("resourceNthChildExpressionTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthOfTypeNegativeExpressionTest() {
             ConvertToPdfAndCompare("resourceNthOfTypeNegativeExpressionTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthChildIntegerTest() {
             ConvertToPdfAndCompare("resourceNthChildIntegerTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FirstChildTest() {
             ConvertToPdfAndCompare("resourceFirstChildTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LastChildTest() {
             ConvertToPdfAndCompare("resourceLastChildTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NotExpressionChildTest() {
             ConvertToPdfAndCompare("resourceNotExpressionChildTest", sourceFolder, destinationFolder);

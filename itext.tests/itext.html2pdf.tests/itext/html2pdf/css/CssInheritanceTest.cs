@@ -57,55 +57,41 @@ namespace iText.Html2pdf.Css {
         }
 
         //em value inherited
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest01() {
             ConvertToPdfAndCompare("cssInheritance01", sourceFolder, destinationFolder);
         }
 
         //ex value inherited
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest02() {
             ConvertToPdfAndCompare("cssInheritance02", sourceFolder, destinationFolder);
         }
 
         //rem value inherited, shorthand
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest03() {
             ConvertToPdfAndCompare("cssInheritance03", sourceFolder, destinationFolder);
         }
 
         //% value inherited, font-size dependent
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest04() {
             ConvertToPdfAndCompare("cssInheritance04", sourceFolder, destinationFolder);
         }
 
         //% value inherited, layout dependent
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest05() {
             ConvertToPdfAndCompare("cssInheritance05", sourceFolder, destinationFolder);
         }
 
         //smaller value inherited
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssInheritanceTest06() {
             ConvertToPdfAndCompare("cssInheritance06", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CssFontFamilyInheritanceTest01() {
             ConvertToPdfAndCompare("cssFontFamilyInheritanceTest01", sourceFolder, destinationFolder);

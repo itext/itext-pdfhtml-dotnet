@@ -108,7 +108,6 @@ namespace iText.Html2pdf.Resolver.Resource {
             return base.TryResolveBase64ImageSource(src);
         }
 
-        /// <exception cref="System.Exception"/>
         protected override PdfXObject CreateImageByUrl(Uri url) {
             try {
                 return base.CreateImageByUrl(url);
@@ -121,7 +120,6 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
         private PdfFormXObject ProcessAsSvg(Stream stream, ProcessorContext context, String parentDir) {
             SvgProcessingUtil processingUtil = new SvgProcessingUtil();
             SvgConverterProperties svgConverterProperties = ContextMappingHelper.MapToSvgConverterProperties(context);
@@ -137,7 +135,6 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
         private PdfFormXObject ProcessAsSvg(Stream stream, ProcessorContext context) {
             return this.ProcessAsSvg(stream, context, null);
         }
