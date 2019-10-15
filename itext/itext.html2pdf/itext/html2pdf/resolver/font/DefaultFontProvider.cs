@@ -71,9 +71,16 @@ namespace iText.Html2pdf.Resolver.Font {
             , "FreeMonoOblique.ttf", "FreeSans.ttf", "FreeSansBold.ttf", "FreeSansBoldOblique.ttf", "FreeSansOblique.ttf"
             , "FreeSerif.ttf", "FreeSerifBold.ttf", "FreeSerifBoldItalic.ttf", "FreeSerifItalic.ttf" };
 
+        // This range exclude Hebrew, Arabic, Syriac, Arabic Supplement, Thaana, NKo, Samaritan,
+        // Mandaic, Syriac Supplement, Arabic Extended-A, Devanagari, Bengali, Gurmukhi, Gujarati,
+        // Oriya, Tamil, Telugu, Kannada, Malayalam, Sinhala, Thai unicode blocks.
+        // Those blocks either require pdfCalligraph or do not supported by GNU Free Fonts.
         private static readonly Range FREE_FONT_RANGE = new RangeBuilder().AddRange(0, 0x058F).AddRange(0x0E80, int.MaxValue
             ).Create();
 
+        //we want to add free fonts to font provider before calligraph fonts. However, the existing public API states
+        // that addCalligraphFonts() should be used first to load calligraph fonts and to define the range for loading free fonts.
+        // In order to maintain backward compatibility, this temporary field is used to stash calligraph fonts before free fonts are loaded.
         private IList<byte[]> calligraphyFontsTempList = new List<byte[]>();
 
         /// <summary>
@@ -99,13 +106,6 @@ namespace iText.Html2pdf.Resolver.Font {
         public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFreeFonts, bool registerSystemFonts
             )
             : base(registerStandardPdfFonts, registerSystemFonts) {
-            // This range exclude Hebrew, Arabic, Syriac, Arabic Supplement, Thaana, NKo, Samaritan,
-            // Mandaic, Syriac Supplement, Arabic Extended-A, Devanagari, Bengali, Gurmukhi, Gujarati,
-            // Oriya, Tamil, Telugu, Kannada, Malayalam, Sinhala, Thai unicode blocks.
-            // Those blocks either require pdfCalligraph or do not supported by GNU Free Fonts.
-            //we want to add free fonts to font provider before calligraph fonts. However, the existing public API states
-            // that addCalligraphFonts() should be used first to load calligraph fonts and to define the range for loading free fonts.
-            // In order to maintain backward compatibility, this temporary field is used to stash calligraph fonts before free fonts are loaded.
             if (registerShippedFreeFonts) {
                 AddAllAvailableFonts(AddCalligraphFonts());
             }

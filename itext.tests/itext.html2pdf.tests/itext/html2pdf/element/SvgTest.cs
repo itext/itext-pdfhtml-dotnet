@@ -222,9 +222,9 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        //TODO update after DEVSIX-3034
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
         public virtual void ExternalObjectSuccessTest() {
-            //TODO update after DEVSIX-3034
             String name = "external_object";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));

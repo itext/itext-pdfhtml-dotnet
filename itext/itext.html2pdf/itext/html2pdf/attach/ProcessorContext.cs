@@ -95,6 +95,7 @@ namespace iText.Html2pdf.Attach {
         /// <summary>Indicates whether the document should be opened in immediate flush or not</summary>
         private bool immediateFlush;
 
+        // Variable fields
         /// <summary>The state.</summary>
         private State state;
 
@@ -124,7 +125,6 @@ namespace iText.Html2pdf.Attach {
         /// instance
         /// </param>
         public ProcessorContext(ConverterProperties converterProperties) {
-            // Variable fields
             if (converterProperties == null) {
                 converterProperties = new ConverterProperties();
             }

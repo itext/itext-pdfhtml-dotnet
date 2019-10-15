@@ -49,13 +49,13 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class PageBreakTest : ExtendedHtmlConversionITextTest {
+        //Member of testing class. Add if it isn't there.
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/PageBreakTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/PageBreakTest/";
 
-        //Member of testing class. Add if it isn't there.
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateOrClearDestinationFolder(destinationFolder);

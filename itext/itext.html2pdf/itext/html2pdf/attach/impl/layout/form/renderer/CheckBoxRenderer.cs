@@ -69,8 +69,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
 
         private const float DEFAULT_BORDER_WIDTH = 0.75f;
 
+        // 1px
         private const float DEFAULT_SIZE = 8.25f;
 
+        // 11px
         /// <summary>
         /// Creates a new
         /// <see cref="CheckBoxRenderer"/>
@@ -81,8 +83,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             : base(modelElement) {
         }
 
-        // 1px
-        // 11px
         /* (non-Javadoc)
         * @see com.itextpdf.layout.renderer.IRenderer#getNextRenderer()
         */

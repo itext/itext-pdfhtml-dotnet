@@ -143,9 +143,9 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        //TODO: update after DEVSIX-2445 fix
         [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 6)]
         public virtual void DisplayBlockInsideParagraphTest() {
-            //TODO: update after DEVSIX-2445 fix
             ConvertToPdfAndCompare("displayBlockInsideParagraph", sourceFolder, destinationFolder);
         }
 

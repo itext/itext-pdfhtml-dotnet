@@ -47,6 +47,8 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf {
+    // Actually the results are invalid because there is no pdfCalligraph.
+    // But we'd like to test how Free Sans works for a specific scripts.
     public class FontProviderTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/FontProviderTest/";
@@ -56,8 +58,6 @@ namespace iText.Html2pdf {
 
         private const String TYPOGRAPHY_WARNING = "Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties";
 
-        // Actually the results are invalid because there is no pdfCalligraph.
-        // But we'd like to test how Free Sans works for a specific scripts.
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateDestinationFolder(destinationFolder);

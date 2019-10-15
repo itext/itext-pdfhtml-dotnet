@@ -68,6 +68,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
 
         private const float DEFAULT_SIZE = 8.25f;
 
+        // 11px
         private static readonly HorizontalAlignment? DEFAULT_HORIZONTAL_ALIGNMENT = HorizontalAlignment.CENTER;
 
         private static readonly VerticalAlignment? DEFAULT_VERTICAL_ALIGNMENT = VerticalAlignment.MIDDLE;
@@ -80,7 +81,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <param name="modelElement">the model element</param>
         public RadioRenderer(Radio modelElement)
             : base(modelElement) {
-            // 11px
             SetProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.MIDDLE);
         }
 

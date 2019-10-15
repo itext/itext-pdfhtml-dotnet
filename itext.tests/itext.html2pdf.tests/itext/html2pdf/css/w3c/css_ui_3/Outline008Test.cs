@@ -44,8 +44,8 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_ui_3 {
+    //There is a thin red "border" because of rendering issues
     public class Outline008Test : W3CCssTest {
-        //There is a thin red "border" because of rendering issues
         protected internal override String GetHtmlFileName() {
             return "outline-008.html";
         }

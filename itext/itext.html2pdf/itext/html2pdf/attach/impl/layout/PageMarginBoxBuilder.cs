@@ -60,6 +60,7 @@ using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    // implementation of algorithm specified in https://drafts.csswg.org/css-page-3/#margin-dimension
     internal class PageMarginBoxBuilder {
         internal IRenderer[] renderers;
 
@@ -75,7 +76,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         public PageMarginBoxBuilder(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes, float[] margins, PageSize
              pageSize) {
-            // implementation of algorithm specified in https://drafts.csswg.org/css-page-3/#margin-dimension
             this.resolvedPageMarginBoxes = resolvedPageMarginBoxes;
             this.margins = margins;
             this.pageSize = pageSize;

@@ -119,6 +119,7 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant VISIBLE.</summary>
         public const String VISIBLE = "visible";
 
+        // property values
         /// <summary>The Constant ABSOLUTE.</summary>
         public const String ABSOLUTE = "absolute";
 
@@ -242,6 +243,7 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant UPPERCASE.</summary>
         public const String UPPERCASE = "uppercase";
 
+        // properties possible values
         /// <summary>The Constant FONT_ABSOLUTE_SIZE_KEYWORDS.</summary>
         [System.ObsoleteAttribute(@"Use iText.StyledXmlParser.Css.CommonCssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS_VALUES instead."
             )]
@@ -254,6 +256,7 @@ namespace iText.Html2pdf.Css {
         public static readonly ICollection<String> OVERFLOW_VALUES = new HashSet<String>(JavaUtil.ArraysAsList(new 
             String[] { VISIBLE, HIDDEN, SCROLL, AUTO }));
 
+        // pseudo-elements
         /// <summary>The Constant AFTER.</summary>
         public const String AFTER = "after";
 
@@ -269,6 +272,7 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant SELECTION.</summary>
         public const String SELECTION = "selection";
 
+        // Functions
         /// <summary>The Constant COUNTER.</summary>
         public const String COUNTER = "counter";
 
@@ -281,12 +285,8 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant RUNNING.</summary>
         public const String RUNNING = "running";
 
+        // units of resolution
         /// <summary>The Constant DPI.</summary>
         public const String DPI = "dpi";
-        // property values
-        // properties possible values
-        // pseudo-elements
-        // Functions
-        // units of resolution
     }
 }

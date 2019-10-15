@@ -88,10 +88,10 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        //attr() is not supported in quotes property in browsers
         [LogMessage(iText.Html2pdf.LogMessageConstant.QUOTES_PROPERTY_INVALID)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void AttrTest() {
-            //attr() is not supported in quotes property in browsers
             ConvertToPdfAndCompare("attrTest", sourceFolder, destinationFolder);
         }
 

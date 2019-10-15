@@ -54,10 +54,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <see cref="PageCountElement"/>.
         /// </summary>
         public PageCountElement()
-            : base("1234567890") {
+            : base(
+                        // Workaround to match correct font containing number glyphs
+                        "1234567890") {
         }
 
-        // Workaround to match correct font containing number glyphs
         /* (non-Javadoc)
         * @see com.itextpdf.layout.element.Text#makeNewRenderer()
         */

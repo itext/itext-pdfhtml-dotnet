@@ -69,10 +69,10 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
+        //TODO DEVSIX-3307
         [LogMessage(TYPOGRAPHY_WARNING, Count = 2)]
         [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void SurrogatePairCombingFullSurrs() {
-            //TODO DEVSIX-3307
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairCombingFullSurrs.html"), new FileInfo
                 (destinationFolder + "surrogatePairCombingFullSurrs.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "surrogatePairCombingFullSurrs.pdf"
@@ -80,10 +80,10 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
+        //TODO DEVSIX-3307
         [LogMessage(TYPOGRAPHY_WARNING, Count = 2)]
         [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void SurrogatePairCombingFullSurrsWithNoSurrs() {
-            //TODO DEVSIX-3307
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairCombingFullSurrsWithNoSurrs.html"), new 
                 FileInfo(destinationFolder + "surrogatePairCombingFullSurrsWithNoSurrs.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "surrogatePairCombingFullSurrsWithNoSurrs.pdf"
@@ -91,9 +91,9 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
+        //TODO DEVSIX-3307
         [LogMessage(TYPOGRAPHY_WARNING, Count = 2)]
         public virtual void SurrogatePairCombinationOf3TypesPairs() {
-            //TODO DEVSIX-3307
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairCombinationOf3TypesPairs.html"), new 
                 FileInfo(destinationFolder + "surrogatePairCombinationOf3TypesPairs.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "surrogatePairCombinationOf3TypesPairs.pdf"

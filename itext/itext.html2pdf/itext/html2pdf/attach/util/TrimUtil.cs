@@ -176,14 +176,14 @@ namespace iText.Html2pdf.Attach.Util {
         private static bool HasZeroWidth(IElement leafElement) {
             return (null == leafElement.GetProperty<Border>(Property.BORDER_RIGHT) || 0 == ((Border)leafElement.GetProperty
                 <Border>(Property.BORDER_RIGHT)).GetWidth()) && (null == leafElement.GetProperty<Border>(Property.BORDER_LEFT
-                ) || 0 == ((Border)leafElement.GetProperty<Border>(Property.BORDER_LEFT)).GetWidth()) && (null == leafElement
-                .GetProperty<UnitValue>(Property.PADDING_RIGHT) || 0 == leafElement.GetProperty<UnitValue>(Property.PADDING_RIGHT
-                ).GetValue()) && (null == leafElement.GetProperty<UnitValue>(Property.PADDING_LEFT) || 0 == leafElement
-                .GetProperty<UnitValue>(Property.PADDING_LEFT).GetValue()) && (null == leafElement.GetProperty<UnitValue
-                >(Property.MARGIN_RIGHT) || 0 == leafElement.GetProperty<UnitValue>(Property.MARGIN_RIGHT).GetValue())
-                 && (null == leafElement.GetProperty<UnitValue>(Property.MARGIN_LEFT) || 0 == leafElement.GetProperty<
-                UnitValue>(Property.MARGIN_LEFT).GetValue());
+                ) || 0 == ((Border)leafElement.GetProperty<Border>(Property.BORDER_LEFT)).GetWidth()) && 
+                        // Note that iText parses padding and float values to points so the next unit values are always point values
+                        (null == leafElement.GetProperty<UnitValue>(Property.PADDING_RIGHT) || 0 == leafElement.GetProperty<UnitValue
+                >(Property.PADDING_RIGHT).GetValue()) && (null == leafElement.GetProperty<UnitValue>(Property.PADDING_LEFT
+                ) || 0 == leafElement.GetProperty<UnitValue>(Property.PADDING_LEFT).GetValue()) && (null == leafElement
+                .GetProperty<UnitValue>(Property.MARGIN_RIGHT) || 0 == leafElement.GetProperty<UnitValue>(Property.MARGIN_RIGHT
+                ).GetValue()) && (null == leafElement.GetProperty<UnitValue>(Property.MARGIN_LEFT) || 0 == leafElement
+                .GetProperty<UnitValue>(Property.MARGIN_LEFT).GetValue());
         }
-        // Note that iText parses padding and float values to points so the next unit values are always point values
     }
 }

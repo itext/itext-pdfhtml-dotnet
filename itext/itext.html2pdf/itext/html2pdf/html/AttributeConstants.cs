@@ -194,6 +194,7 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant TITLE.</summary>
         public const String TITLE = "title";
 
+        // attribute values
         /// <summary>The Constant _1.</summary>
         public const String _1 = "1";
 
@@ -311,10 +312,9 @@ namespace iText.Html2pdf.Html {
             EMAIL, FILE, HIDDEN, IMAGE, MONTH, NUMBER, PASSWORD, RADIO, RANGE, RESET, SEARCH, SUBMIT, TEL, TEXT, TIME
             , URL, WEEK })));
 
+        // iText custom attributes
         public sealed class ObjectTypes {
             public const String SVGIMAGE = "image/svg+xml";
-            // attribute values
-            // iText custom attributes
         }
     }
 }

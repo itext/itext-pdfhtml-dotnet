@@ -99,6 +99,7 @@ namespace iText.Html2pdf.Events {
             doc.Close();
         }
 
+        //page X of Y
         protected internal class PageXofY : IEventHandler {
             protected internal PdfFormXObject placeholder;
 
@@ -114,7 +115,6 @@ namespace iText.Html2pdf.Events {
 
             public PageXofY(PdfHtmlPageXofYEventHandlerTest _enclosing, PdfDocument pdf) {
                 this._enclosing = _enclosing;
-                //page X of Y
                 this.placeholder = new PdfFormXObject(new Rectangle(0, 0, this.side, this.side));
             }
 

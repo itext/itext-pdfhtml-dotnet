@@ -538,9 +538,9 @@ namespace iText.Html2pdf.Css.Resolve {
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 IList<CssDeclaration> result = new List<CssDeclaration>(2);
-                if (TagConstants.HR.Equals(element.Name()) || (TagConstants.TABLE.Equals(element.Name()) && AttributeConstants
-                    .CENTER.Equals(value))) {
-                    // html align-center attribute doesn't apply text wrapping
+                if (TagConstants.HR.Equals(element.Name()) || 
+                                // html align-center attribute doesn't apply text wrapping
+                                (TagConstants.TABLE.Equals(element.Name()) && AttributeConstants.CENTER.Equals(value))) {
                     String leftMargin = null;
                     String rightMargin = null;
                     if (AttributeConstants.RIGHT.Equals(value)) {

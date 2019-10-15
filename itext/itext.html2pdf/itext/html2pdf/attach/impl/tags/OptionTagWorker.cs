@@ -56,6 +56,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// element.
     /// </summary>
     public class OptionTagWorker : DivTagWorker {
+        // extends DivTagWorker for the sake of pseudo elements
         private StringBuilder actualOptionTextContent;
 
         private String labelAttrVal;
@@ -73,7 +74,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public OptionTagWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {
-            // extends DivTagWorker for the sake of pseudo elements
             bool selectedAttr = element.GetAttribute(AttributeConstants.SELECTED) != null;
             GetElementResult().SetProperty(Html2PdfProperty.FORM_FIELD_SELECTED, selectedAttr);
             actualOptionTextContent = new StringBuilder();
