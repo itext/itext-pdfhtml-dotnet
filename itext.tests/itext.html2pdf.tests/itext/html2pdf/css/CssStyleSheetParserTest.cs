@@ -56,125 +56,12 @@ namespace iText.Html2pdf.Css {
         private static readonly String sourceFolder = TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext.CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssStyleSheetParserTest/";
 
         private const String DEFAULT_CSS_PATH = "iText.Html2Pdf.default.css";
-
-        [NUnit.Framework.OneTimeSetUp]
-        public static void BeforeClass() {
-        }
+        
 
         [NUnit.Framework.Test]
         public virtual void TestDefaultCss() {
             String cmpFile = sourceFolder + "cmp_default.css";
             CssStyleSheet styleSheet = CssStyleSheetParser.Parse(ResourceUtil.GetResourceStream(DEFAULT_CSS_PATH, typeof(HtmlConverter)));
-            NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void Test01() {
-            String cssFile = sourceFolder + "css01.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
-                ));
-            NUnit.Framework.Assert.AreEqual(GetCssFileContents(cssFile), styleSheet.ToString());
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void Test02() {
-            String cssFile = sourceFolder + "css02.css";
-            String cmpFile = sourceFolder + "cmp_css02.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
-                ));
-            NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void Test03() {
-            String cssFile = sourceFolder + "css03.css";
-            String cmpFile = sourceFolder + "cmp_css03.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
-                ));
-            NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void Test04() {
-            String cssFile = sourceFolder + "css04.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
-                ));
-            NUnit.Framework.Assert.AreEqual("", styleSheet.ToString());
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void Test05() {
-            String cssFile = sourceFolder + "css05.css";
-            String cmpFile = sourceFolder + "cmp_css05.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
-                ));
-            NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void Test06() {
-            String cssFile = sourceFolder + "css06.css";
-            String cmpFile = sourceFolder + "cmp_css06.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
-                ));
-            NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void Test07() {
-            String cssFile = sourceFolder + "css07.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
-                ));
-            NUnit.Framework.Assert.AreEqual(GetCssFileContents(cssFile), styleSheet.ToString());
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void Test08() {
-            String cssFile = sourceFolder + "css08.css";
-            String cmpFile = sourceFolder + "cmp_css08.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
-                ));
-            NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void Test09() {
-            String cssFile = sourceFolder + "css09.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
-                ));
-            NUnit.Framework.Assert.AreEqual(GetCssFileContents(cssFile), styleSheet.ToString());
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void Test10() {
-            String cssFile = sourceFolder + "css10.css";
-            String cmpFile = sourceFolder + "cmp_css10.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
-                ));
-            NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void Test11() {
-            // TODO in this test declarations of the page at-rule with compound selector are duplicated.
-            // See CssPageRule#addBodyCssDeclarations() method for the reason and possible solution if this becomes important.
-
-            String cssFile = sourceFolder + "css11.css";
-            String cmpFile = sourceFolder + "cmp_css11.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
-                ));
-            NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void Test12() {
-            // TODO in this test declarations of the page at-rule with compound selector are duplicated.
-            // See CssPageRule#addBodyCssDeclarations() method for the reason and possible solution if this becomes important.
-
-            String cssFile = sourceFolder + "css12.css";
-            String cmpFile = sourceFolder + "cmp_css12.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new FileStream(cssFile, FileMode.Open, FileAccess.Read
-            ));
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
         }
 
