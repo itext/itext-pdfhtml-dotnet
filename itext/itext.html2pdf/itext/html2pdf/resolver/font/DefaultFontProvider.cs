@@ -63,6 +63,8 @@ namespace iText.Html2pdf.Resolver.Font {
         private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Resolver.Font.DefaultFontProvider
             ));
 
+        private const String DEFAULT_FONT_FAMILY = "Times";
+
         /// <summary>The path to the shipped fonts.</summary>
         private const String SHIPPED_FONT_RESOURCE_PATH = "iText.Html2Pdf.font.";
 
@@ -105,7 +107,24 @@ namespace iText.Html2pdf.Resolver.Font {
         ///     </param>
         public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFreeFonts, bool registerSystemFonts
             )
-            : base(registerStandardPdfFonts, registerSystemFonts) {
+            : this(registerStandardPdfFonts, registerShippedFreeFonts, registerSystemFonts, DEFAULT_FONT_FAMILY) {
+        }
+
+        /// <summary>
+        /// Creates a new
+        /// <see cref="DefaultFontProvider"/>
+        /// instance.
+        /// </summary>
+        /// <param name="registerStandardPdfFonts">use true if you want to register the standard Type 1 fonts (can't be embedded)
+        ///     </param>
+        /// <param name="registerShippedFreeFonts">use true if you want to register the shipped fonts (can be embedded)
+        ///     </param>
+        /// <param name="registerSystemFonts">use true if you want to register the system fonts (can require quite some resources)
+        ///     </param>
+        /// <param name="defaultFontFamily">default font family</param>
+        public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFreeFonts, bool registerSystemFonts
+            , String defaultFontFamily)
+            : base(registerStandardPdfFonts, registerSystemFonts, defaultFontFamily) {
             if (registerShippedFreeFonts) {
                 AddAllAvailableFonts(AddCalligraphFonts());
             }
