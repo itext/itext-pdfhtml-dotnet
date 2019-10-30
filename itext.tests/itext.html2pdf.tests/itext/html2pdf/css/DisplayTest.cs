@@ -286,6 +286,12 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest07() {
+            // TODO Fix cmp after DEVSIX-3429 is implemented. The checkbox should become aligned with the baseline of the text
+            ConvertToPdfAndCompare("displayInlineBlockYLineTest07", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void DisplayNoneImportant01() {
             ConvertToPdfAndCompare("displayNoneImportant01", sourceFolder, destinationFolder);
         }
