@@ -90,6 +90,8 @@ namespace iText.Html2pdf.Css {
         public const String OUTLINE_OFFSET = "outline-offset";
 
         /// <summary>The Constant OVERFLOW.</summary>
+        /// <remarks>The Constant OVERFLOW. @Deprecated in favour of CommonCssConstants.OVERFLOW</remarks>
+        [Obsolete]
         public const String OVERFLOW = "overflow";
 
         /// <summary>The Constant OVERFLOW_X.</summary>
@@ -117,6 +119,7 @@ namespace iText.Html2pdf.Css {
         public const String VERTICAL_ALIGN = "vertical-align";
 
         /// <summary>The Constant VISIBLE.</summary>
+        [System.ObsoleteAttribute(@"in favour of StyledXmlParser")]
         public const String VISIBLE = "visible";
 
         // property values
@@ -254,7 +257,7 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant OVERFLOW_VALUES.</summary>
         public static readonly ICollection<String> OVERFLOW_VALUES = new HashSet<String>(JavaUtil.ArraysAsList(new 
-            String[] { VISIBLE, HIDDEN, SCROLL, AUTO }));
+            String[] { CommonCssConstants.VISIBLE, HIDDEN, SCROLL, AUTO }));
 
         // pseudo-elements
         /// <summary>The Constant AFTER.</summary>

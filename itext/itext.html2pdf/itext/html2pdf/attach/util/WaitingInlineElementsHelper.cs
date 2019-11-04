@@ -49,6 +49,7 @@ using iText.Html2pdf.Css.Apply.Util;
 using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Util;
 
 namespace iText.Html2pdf.Attach.Util {
@@ -151,7 +152,7 @@ namespace iText.Html2pdf.Attach.Util {
             Paragraph p = CreateLeavesContainer();
             if (p != null) {
                 IDictionary<String, String> map = new Dictionary<String, String>();
-                map.Put(CssConstants.OVERFLOW, CssConstants.VISIBLE);
+                map.Put(CssConstants.OVERFLOW, CommonCssConstants.VISIBLE);
                 OverflowApplierUtil.ApplyOverflow(map, p);
                 if (container is Document) {
                     ((Document)container).Add(p);

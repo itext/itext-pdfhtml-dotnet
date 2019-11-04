@@ -57,6 +57,7 @@ using iText.Kernel.Utils;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Tagging;
+using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Media;
 using iText.StyledXmlParser.Css.Page;
 using iText.StyledXmlParser.Node;
@@ -243,7 +244,7 @@ namespace iText.Html2pdf.Css {
                 ) {
                 IDictionary<String, String> styles = stylesContainer.GetStyles();
                 if (styles.Get(CssConstants.OVERFLOW) == null) {
-                    styles.Put(CssConstants.OVERFLOW, CssConstants.VISIBLE);
+                    styles.Put(CssConstants.OVERFLOW, CommonCssConstants.VISIBLE);
                 }
                 base.Apply(context, stylesContainer, tagWorker);
             }
