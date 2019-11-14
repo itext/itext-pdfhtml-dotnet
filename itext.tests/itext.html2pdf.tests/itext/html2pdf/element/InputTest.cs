@@ -52,11 +52,10 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
 using iText.Layout.Element;
-using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
-    public class InputTest : ExtendedITextTest {
+    public class InputTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/InputTest/";
 
@@ -245,15 +244,14 @@ namespace iText.Html2pdf.Element {
             RunTest("placeholderTest05A");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void CheckboxTaggingTest() {
+            // TODO fix after DEVSIX-3461 is done
+            ConvertToPdfAndCompare("checkboxTagging", sourceFolder, destinationFolder, true);
+        }
+
         private void RunTest(String name) {
-            String htmlPath = sourceFolder + name + ".html";
-            String outPdfPath = destinationFolder + name + ".pdf";
-            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-            String diff = "diff_" + name + "_";
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(outPdfPath));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
-                , diff));
+            ConvertToPdfAndCompare(name, sourceFolder, destinationFolder);
         }
     }
 }
