@@ -51,8 +51,7 @@ using iText.StyledXmlParser.Node;
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>
     /// Properties class for the
-    /// <see cref="PageContextProcessor"/>
-    /// .
+    /// <see cref="PageContextProcessor"/>.
     /// </summary>
     internal class PageContextProperties {
         /// <summary>List containing possible names for page margin boxes.</summary>

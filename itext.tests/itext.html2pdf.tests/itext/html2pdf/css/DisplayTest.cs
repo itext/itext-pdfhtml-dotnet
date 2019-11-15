@@ -61,22 +61,16 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayTable01Test() {
             ConvertToPdfAndCompare("display_table01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayTable01ATest() {
             ConvertToPdfAndCompare("display_table01A", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
         [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
@@ -89,22 +83,16 @@ namespace iText.Html2pdf.Css {
                 , sourceFolder + "cmp_display_table02.pdf", destinationFolder, "diff20_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayTable03Test() {
             ConvertToPdfAndCompare("display_table03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayTable04Test() {
             ConvertToPdfAndCompare("display_table04", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
         [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
@@ -112,23 +100,17 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("display_table05", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         public virtual void DisplayTable05aTest() {
             ConvertToPdfAndCompare("display_table05a", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayTable06Test() {
             ConvertToPdfAndCompare("display_table06", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
         [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
@@ -137,15 +119,11 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("display_table07", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayTable08Test() {
             ConvertToPdfAndCompare("display_table08", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         [LogMessage(iText.IO.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100)]
@@ -153,250 +131,186 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("display_table09", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayTable10Test() {
             ConvertToPdfAndCompare("display_table10", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         [NUnit.Framework.Test]
         public virtual void DisplayTable11Test() {
             ConvertToPdfAndCompare("display_table11", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        //TODO: update after DEVSIX-2445 fix
         [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 6)]
         public virtual void DisplayBlockInsideParagraphTest() {
-            //TODO: update after DEVSIX-2445 fix
             ConvertToPdfAndCompare("displayBlockInsideParagraph", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInline01Test() {
             ConvertToPdfAndCompare("display_inline01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock01Test() {
             ConvertToPdfAndCompare("display_inline-block01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.INLINE_BLOCK_ELEMENT_WILL_BE_CLIPPED)]
         public virtual void DisplayInlineBlock02Test() {
             ConvertToPdfAndCompare("display_inline-block02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock03Test() {
             ConvertToPdfAndCompare("display_inline-block03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock04Test() {
             ConvertToPdfAndCompare("display_inline-block04", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock05Test() {
             ConvertToPdfAndCompare("display_inline-block05", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock06Test() {
             ConvertToPdfAndCompare("display_inline-block06", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock07Test() {
             ConvertToPdfAndCompare("display_inline-block07", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock08Test() {
             ConvertToPdfAndCompare("display_inline-block08", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock09Test() {
             ConvertToPdfAndCompare("display_inline-block09", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock10Test() {
             ConvertToPdfAndCompare("display_inline-block10", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock11Test() {
             ConvertToPdfAndCompare("display_inline-block11", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock12Test() {
             ConvertToPdfAndCompare("display_inline-block12", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock13Test() {
             ConvertToPdfAndCompare("display_inline-block13", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock14Test() {
             ConvertToPdfAndCompare("display_inline-block14", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock15Test() {
             ConvertToPdfAndCompare("display_inline-block15", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock16Test() {
             ConvertToPdfAndCompare("display_inline-block16", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock17Test() {
             ConvertToPdfAndCompare("display_inline-block17", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlock18Test() {
             ConvertToPdfAndCompare("display_inline-block18", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlockJustified01Test() {
             ConvertToPdfAndCompare("display_inline-block_justified01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlockJustified02Test() {
             ConvertToPdfAndCompare("display_inline-block_justified02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlockYLineTest01() {
             ConvertToPdfAndCompare("displayInlineBlockYLineTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlockYLineTest02() {
             ConvertToPdfAndCompare("displayInlineBlockYLineTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlockYLineTest03() {
             ConvertToPdfAndCompare("displayInlineBlockYLineTest03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlockYLineTest04() {
             ConvertToPdfAndCompare("displayInlineBlockYLineTest04", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlockYLineTest05() {
             ConvertToPdfAndCompare("displayInlineBlockYLineTest05", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlockYLineTest06() {
             ConvertToPdfAndCompare("displayInlineBlockYLineTest06", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockYLineTest07() {
+            // TODO Fix cmp after DEVSIX-3429 is implemented. The checkbox should become aligned with the baseline of the text
+            ConvertToPdfAndCompare("displayInlineBlockYLineTest07", sourceFolder, destinationFolder);
+        }
+
         [NUnit.Framework.Test]
         public virtual void DisplayNoneImportant01() {
             ConvertToPdfAndCompare("displayNoneImportant01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayNoneImportant02() {
             ConvertToPdfAndCompare("displayNoneImportant02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayNoneImportant03() {
             ConvertToPdfAndCompare("displayNoneImportant03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DisplayDivInlineWithStyle() {
             ConvertToPdfAndCompare("displayDivInlineWithStyle", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 7)]
         public virtual void InlineBlockInsideTableCellTest() {

@@ -56,177 +56,127 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius01Test() {
             ConvertToPdfAndCompare("borderRadiusTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius02Test() {
             ConvertToPdfAndCompare("borderRadiusTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius03Test() {
             ConvertToPdfAndCompare("borderRadiusTest03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius04Test() {
             ConvertToPdfAndCompare("borderRadiusTest04", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius05Test() {
             ConvertToPdfAndCompare("borderRadiusTest05", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius06Test() {
             ConvertToPdfAndCompare("borderRadiusTest06", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius07Test() {
             ConvertToPdfAndCompare("borderRadiusTest07", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius08Test() {
             ConvertToPdfAndCompare("borderRadiusTest08", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius09Test() {
             ConvertToPdfAndCompare("borderRadiusTest09", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius10Test() {
             ConvertToPdfAndCompare("borderRadiusTest10", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius11Test() {
             ConvertToPdfAndCompare("borderRadiusTest11", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius12Test() {
             ConvertToPdfAndCompare("borderRadiusTest12", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius12ImageTest() {
             ConvertToPdfAndCompare("borderRadiusTest12Image", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius12ATest() {
             ConvertToPdfAndCompare("borderRadiusTest12A", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius12BTest() {
             ConvertToPdfAndCompare("borderRadiusTest12B", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius13Test() {
             ConvertToPdfAndCompare("borderRadiusTest13", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius14Test() {
             ConvertToPdfAndCompare("borderRadiusTest14", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius15Test() {
             ConvertToPdfAndCompare("borderRadiusTest15", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius16Test() {
             ConvertToPdfAndCompare("borderRadiusTest16", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius17Test() {
             ConvertToPdfAndCompare("borderRadiusTest17", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadius18Test() {
             ConvertToPdfAndCompare("borderRadiusTest18", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadiusInlineElementTest01() {
             ConvertToPdfAndCompare("borderRadiusInlineElementTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ImageBorderRadiusTest01() {
             ConvertToPdfAndCompare("imageBorderRadiusTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadiusInlineSpanElementTest01() {
             //TODO: update after DEVSIX-2018, DEVSIX-1191 closing
             ConvertToPdfAndCompare("borderRadiusInlineSpanElementTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BorderRadiusInlineDivElementTest01() {
             //TODO: update after DEVSIX-2018, DEVSIX-1191 closing

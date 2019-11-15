@@ -56,50 +56,36 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthOfTypeEvenTest() {
             ConvertToPdfAndCompare("resourceNthOfTypeEvenTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthOfTypeExpressionTest() {
             ConvertToPdfAndCompare("resourceNthOfTypeExpressionTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthOfTypeNegativeExpressionTest() {
             ConvertToPdfAndCompare("resourceNthOfTypeNegativeExpressionTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NthOfTypeIntegerTest() {
             ConvertToPdfAndCompare("resourceNthOfTypeIntegerTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FirstOfTypeTest() {
             ConvertToPdfAndCompare("resourceFirstOfTypeTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LastOfTypeTest() {
             ConvertToPdfAndCompare("resourceLastOfTypeTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NotLastOfTypeTest() {
             ConvertToPdfAndCompare("resourceNotLastOfTypeTest", sourceFolder, destinationFolder);

@@ -59,8 +59,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Label01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "labelTest01.html"), new FileInfo(destinationFolder
@@ -69,8 +67,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_labelTest01.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LabelDisplayBlock01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "labelDisplayBlockTest01.html"), new FileInfo(destinationFolder
@@ -79,8 +75,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_labelDisplayBlockTest01.pdf", destinationFolder, "diffBlock01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LabelDisplayBlock02Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "labelDisplayBlockTest02.html"), new FileInfo(destinationFolder
@@ -89,8 +83,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_labelDisplayBlockTest02.pdf", destinationFolder, "diffBlock02_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void LabelBackground01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "labelBackground01Test.html"), new FileInfo(destinationFolder

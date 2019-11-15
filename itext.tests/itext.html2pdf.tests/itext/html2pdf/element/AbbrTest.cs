@@ -56,36 +56,26 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbbrTest01() {
             ConvertToPdfAndCompare("abbrTest01", sourceFolder, destinationFolder, true);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbbrTest02() {
             ConvertToPdfAndCompare("abbrTest02", sourceFolder, destinationFolder, true);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbbrTest03() {
             ConvertToPdfAndCompare("abbrTest03", sourceFolder, destinationFolder, true);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbbrTest04() {
             ConvertToPdfAndCompare("abbrTest04", sourceFolder, destinationFolder, true);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbbrTest05() {
             ConvertToPdfAndCompare("abbrTest05", sourceFolder, destinationFolder, true);

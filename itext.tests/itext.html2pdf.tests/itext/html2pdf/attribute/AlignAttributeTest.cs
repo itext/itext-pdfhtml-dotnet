@@ -56,8 +56,6 @@ namespace iText.Html2pdf.Attribute {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AlignImgTest01() {
             // vertical-alignment values top, middle and bottom are not currently supported for inline-block elements and images

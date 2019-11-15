@@ -44,9 +44,10 @@ using iText.IO.Source;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
+using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    public class HtmlDocumentRendererTest {
+    public class HtmlDocumentRendererTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void ShouldAttemptTrimLastPageTest() {
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));

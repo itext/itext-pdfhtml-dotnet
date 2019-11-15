@@ -95,15 +95,13 @@ namespace iText.Html2pdf {
 
         private const String FONT_WEIGHT = "'; font-weight: ";
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         public virtual void RunTest(String htmlString, String sourceFolder, String destinationFolder, String fileName
             , String testName) {
             String outPdf = destinationFolder + fileName + ".pdf";
             String cmpPdf = sourceFolder + "cmp_" + fileName + ".pdf";
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outPdf));
             Document doc = new Document(pdfDoc);
-            byte[] bytes = htmlString.GetBytes(Encoding.UTF8);
+            byte[] bytes = htmlString.GetBytes(System.Text.Encoding.UTF8);
             // save to html
             GenerateTestHtml(destinationFolder, fileName, bytes);
             // Convert to elements
@@ -112,7 +110,6 @@ namespace iText.Html2pdf {
                  + testName + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
         private void WriteToDocument(Document doc, byte[] bytes) {
             Stream @in = new MemoryStream(bytes);
             IList<IElement> arrayList = HtmlConverter.ConvertToElements(@in);
@@ -124,7 +121,6 @@ namespace iText.Html2pdf {
             doc.Close();
         }
 
-        /// <exception cref="System.IO.IOException"/>
         private void GenerateTestHtml(String destinationFolder, String fileName, byte[] bytes) {
             String htmlPath = destinationFolder + DOCUMENT_PREFIX + fileName + ".html";
             FileStream @out = new FileStream(htmlPath, FileMode.Create);

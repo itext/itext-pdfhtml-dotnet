@@ -58,40 +58,30 @@ namespace iText.Html2pdf.Css {
         }
 
         //TODO: Note that in case of font-size < 100% in browsers line-height stays the same as in 100%. We don't do it for now.
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FontSize01Test() {
             ConvertToPdfAndCompare("fontSizeTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FontSize02Test() {
             ConvertToPdfAndCompare("fontSizeTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FontAbsoluteKeywords() {
             ConvertToPdfAndCompare("fontAbsoluteKeywords", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FontRelativeKeywords() {
             ConvertToPdfAndCompare("fontRelativeKeywords", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        // TODO DEVSIX-2881 : Update cmps
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED)]
         public virtual void SpacesInFontSizeValueTest() {
-            // TODO DEVSIX-2881 : Update cmps
             ConvertToPdfAndCompare("spacesInFontSizeValueTest", sourceFolder, destinationFolder);
         }
     }

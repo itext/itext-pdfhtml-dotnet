@@ -57,15 +57,11 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition01Test() {
             ConvertToPdfAndCompare("absolutePositionTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1616: Absolute position for elements that break across pages is not supported"
             )]
@@ -73,115 +69,83 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("absolutePositionTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
         public virtual void AbsolutePosition03Test() {
             ConvertToPdfAndCompare("absolutePositionTest03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition04Test() {
             ConvertToPdfAndCompare("absolutePositionTest04", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition05Test() {
             ConvertToPdfAndCompare("absolutePositionTest05", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition06Test() {
             ConvertToPdfAndCompare("absolutePositionTest06", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition07Test() {
             ConvertToPdfAndCompare("absolutePositionTest07", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition08Test() {
             ConvertToPdfAndCompare("absolutePositionTest08", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 1)]
         public virtual void AbsolutePosition09Test() {
             ConvertToPdfAndCompare("absolutePositionTest09", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition10Test() {
             ConvertToPdfAndCompare("absolutePositionTest10", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition11Test() {
             ConvertToPdfAndCompare("absolutePositionTest11", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition12Test() {
             ConvertToPdfAndCompare("absolutePositionTest12", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition13Test() {
             ConvertToPdfAndCompare("absolutePositionTest13", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition14Test() {
             ConvertToPdfAndCompare("absolutePositionTest14", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition15Test() {
             ConvertToPdfAndCompare("absolutePositionTest15", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePositionTest16() {
             ConvertToPdfAndCompare("absolutePositionTest16", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AbsolutePositionTest17() {
             ConvertToPdfAndCompare("absolutePositionTest17", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Ignore("DEVSIX-1818")]
         [NUnit.Framework.Test]
         public virtual void AbsolutePositionTest18() {

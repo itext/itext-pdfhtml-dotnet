@@ -443,15 +443,11 @@ internal static class Html2PdfExtensions {
     }
 
 #if !NETSTANDARD1_6
-    public static Attribute GetCustomAttribute(this Assembly assembly, Type attributeType)
-    {
-        object[] customAttributes = Assembly.GetExecutingAssembly().GetCustomAttributes(attributeType, false);
-        if (customAttributes.Length > 0 && customAttributes[0] is Attribute)
-        {
+    public static Attribute GetCustomAttribute(this Assembly assembly, Type attributeType) {
+        object[] customAttributes = assembly.GetCustomAttributes(attributeType, false);
+        if (customAttributes.Length > 0 && customAttributes[0] is Attribute) {
             return customAttributes[0] as Attribute;
-        }
-        else
-        {
+        } else {
             return null;
         }
     }

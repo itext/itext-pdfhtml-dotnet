@@ -56,22 +56,16 @@ namespace iText.Html2pdf.Css.Selector.Item {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PseudoElementMatchingTest01() {
             ConvertToPdfAndCompare("pseudoElementMatchingTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PseudoElementMatchingTest02() {
             ConvertToPdfAndCompare("pseudoElementMatchingTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DocumentNodeMatchingTest01() {
             ConvertToPdfAndCompare("documentNodeMatchingTest01", sourceFolder, destinationFolder);

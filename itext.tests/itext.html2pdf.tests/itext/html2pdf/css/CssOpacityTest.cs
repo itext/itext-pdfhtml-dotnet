@@ -56,8 +56,6 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void InnerOpacityTest() {
             // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
@@ -65,8 +63,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("innerOpacityTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NestedInSpanTest() {
             ConvertToPdfAndCompare("nestedInSpanTest", sourceFolder, destinationFolder);

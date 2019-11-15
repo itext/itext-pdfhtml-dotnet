@@ -67,6 +67,11 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// <summary>
         /// Creates
         /// <see cref="HtmlResourceResolver"/>
+        /// instance.
+        /// </summary>
+        /// <remarks>
+        /// Creates
+        /// <see cref="HtmlResourceResolver"/>
         /// instance. If
         /// <paramref name="baseUri"/>
         /// is a string that represents an absolute URI with any schema
@@ -75,7 +80,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// <para />
         /// If empty string or relative URI string is passed as base URI, then it will be resolved against current working
         /// directory of this application instance.
-        /// </summary>
+        /// </remarks>
         /// <param name="baseUri">base URI against which all relative resource URIs will be resolved.</param>
         /// <param name="context">
         /// 
@@ -103,7 +108,6 @@ namespace iText.Html2pdf.Resolver.Resource {
             return base.TryResolveBase64ImageSource(src);
         }
 
-        /// <exception cref="System.Exception"/>
         protected override PdfXObject CreateImageByUrl(Uri url) {
             try {
                 return base.CreateImageByUrl(url);
@@ -116,7 +120,6 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
         private PdfFormXObject ProcessAsSvg(Stream stream, ProcessorContext context, String parentDir) {
             SvgProcessingUtil processingUtil = new SvgProcessingUtil();
             SvgConverterProperties svgConverterProperties = ContextMappingHelper.MapToSvgConverterProperties(context);
@@ -132,7 +135,6 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
         private PdfFormXObject ProcessAsSvg(Stream stream, ProcessorContext context) {
             return this.ProcessAsSvg(stream, context, null);
         }

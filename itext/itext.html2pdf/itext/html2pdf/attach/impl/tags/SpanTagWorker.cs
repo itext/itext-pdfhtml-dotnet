@@ -60,6 +60,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The span wrapper.</summary>
         internal SpanWrapper spanWrapper;
 
+        // TODO ideally, this should be refactored. For now, I don't see a beautiful way of passing this information to other workers.
+        // Also, we probably should wait a bit until the display support is more or less stable
         internal IDictionary<IPropertyContainer, String> childrenDisplayMap = new Dictionary<IPropertyContainer, String
             >();
 
@@ -83,8 +85,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the processor context</param>
         public SpanTagWorker(IElementNode element, ProcessorContext context) {
-            // TODO ideally, this should be refactored. For now, I don't see a beautiful way of passing this information to other workers.
-            // Also, we probably should wait a bit until the display support is more or less stable
             spanWrapper = new SpanWrapper();
             IDictionary<String, String> styles = element.GetStyles();
             inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.Get(CssConstants.WHITE_SPACE

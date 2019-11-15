@@ -56,8 +56,6 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BlockElementPropertiesTest() {
             ConvertToPdfAndCompare("blockElementPropertiesTest", sourceFolder, destinationFolder);

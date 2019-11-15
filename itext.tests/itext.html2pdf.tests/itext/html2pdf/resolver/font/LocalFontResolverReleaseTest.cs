@@ -58,7 +58,6 @@ namespace iText.Html2pdf.Resolver.Font {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void TestThatLocalFontIsReleasedAfterConversion() {
             String htmlFileName = "test.html";

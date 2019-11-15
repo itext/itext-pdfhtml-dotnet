@@ -43,7 +43,6 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
@@ -259,7 +258,8 @@ namespace iText.Html2pdf.Css.Resolve {
                             try {
                                 Stream stream = resourceResolver.RetrieveStyleSheet(styleSheetUri);
                                 byte[] bytes = StreamUtil.InputStreamToArray(stream);
-                                CheckIfPagesCounterMentioned(iText.IO.Util.JavaUtil.GetStringForBytes(bytes, Encoding.UTF8), cssContext);
+                                CheckIfPagesCounterMentioned(iText.IO.Util.JavaUtil.GetStringForBytes(bytes, System.Text.Encoding.UTF8), cssContext
+                                    );
                                 CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new MemoryStream(bytes), resourceResolver.ResolveAgainstBaseUri
                                     (styleSheetUri).ToExternalForm());
                                 styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
@@ -368,8 +368,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>
         /// Collects fonts from a
-        /// <see cref="iText.StyledXmlParser.Css.CssStatement"/>
-        /// .
+        /// <see cref="iText.StyledXmlParser.Css.CssStatement"/>.
         /// </summary>
         /// <param name="cssStatement">the CSS statement</param>
         private void CollectFonts(CssStatement cssStatement) {

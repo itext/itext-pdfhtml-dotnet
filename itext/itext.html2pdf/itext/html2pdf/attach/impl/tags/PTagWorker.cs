@@ -53,14 +53,20 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// TagWorker class for the
     /// <c>p</c>
     /// element.
+    /// </summary>
+    /// <remarks>
+    /// TagWorker class for the
+    /// <c>p</c>
+    /// element.
     /// <para />
     /// This is how this worker processes the &lt;p&gt; tag:
-    /// <ul>
-    /// <li> if the worker meets a text or an inline element, it processes them with a help of
+    /// <list type="bullet">
+    /// <item><description> if the worker meets a text or an inline element, it processes them with a help of
     /// the
     /// <see cref="iText.Html2pdf.Attach.Util.WaitingInlineElementsHelper"/>
-    /// instance</li>
-    /// <li> if the worker meets a block element without inline displaying or
+    /// instance
+    /// </description></item>
+    /// <item><description> if the worker meets a block element without inline displaying or
     /// an inline element with the
     /// <c>display: block</c>
     /// style, it wraps all the content which hasn't been handled yet
@@ -69,9 +75,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// object and adds this paragraph to the resultant
     /// <c>com.itextpdf.layout.element.Div</c>
     /// object
-    /// </li>
-    /// </ul>
-    /// </summary>
+    /// </description></item>
+    /// </list>
+    /// </remarks>
     public class PTagWorker : ITagWorker, IDisplayAware {
         /// <summary>The latest paragraph object inside tag.</summary>
         private Paragraph lastParagraph;

@@ -56,158 +56,114 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest01() {
             ConvertToPdfAndCompare("heightTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest02() {
             ConvertToPdfAndCompare("heightTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest03() {
             ConvertToPdfAndCompare("heightTest03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest04() {
             ConvertToPdfAndCompare("heightTest04", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest05() {
             ConvertToPdfAndCompare("heightTest05", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1007")]
         public virtual void HeightTest06() {
             ConvertToPdfAndCompare("heightTest06", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest07() {
             ConvertToPdfAndCompare("heightTest07", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest08() {
             ConvertToPdfAndCompare("heightTest08", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest09() {
             ConvertToPdfAndCompare("heightTest09", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest10() {
             ConvertToPdfAndCompare("heightTest10", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest11() {
             ConvertToPdfAndCompare("heightTest11", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest12() {
             ConvertToPdfAndCompare("heightTest12", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest13() {
             ConvertToPdfAndCompare("heightTest13", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest14() {
             ConvertToPdfAndCompare("heightTest14", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest15() {
             ConvertToPdfAndCompare("heightTest15", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest16() {
             ConvertToPdfAndCompare("heightTest16", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightTest17() {
             ConvertToPdfAndCompare("heightTest17", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightWithCollapsingMarginsTest01() {
             ConvertToPdfAndCompare("heightWithCollapsingMarginsTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightWithCollapsingMarginsTest03() {
             ConvertToPdfAndCompare("heightWithCollapsingMarginsTest03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightWithCollapsingMarginsTest04() {
             // second paragraph should not be drawn in pdf, as it doesn't fit with it's margins
             ConvertToPdfAndCompare("heightWithCollapsingMarginsTest04", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightLargerThanMinHeight01() {
             // TODO DEVSIX-1895: height differs from the browser rendering due to incorrect resolving of max-height/height properties
             ConvertToPdfAndCompare("heightLargerThanMinHeight01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HeightLesserThanMaxHeight01() {
             // TODO DEVSIX-1895: height differs from the browser rendering due to incorrect resolving of max-height/height properties

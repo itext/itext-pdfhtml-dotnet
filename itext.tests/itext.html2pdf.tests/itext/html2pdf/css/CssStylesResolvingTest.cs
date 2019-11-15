@@ -65,7 +65,6 @@ namespace iText.Html2pdf.Css {
         public static void BeforeClass() {
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void CollectStylesDeclarationsTest01() {
             Test("collectStylesDeclarationsTest01.html", "html body p", "color: red", "text-align: center", "font-size: 11.25pt"
@@ -73,7 +72,6 @@ namespace iText.Html2pdf.Css {
                 );
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void CollectStylesDeclarationsTest02() {
             Test("collectStylesDeclarationsTest02.html", "html body p", "color: blue", "text-align: center", "font-style: italic"
@@ -81,7 +79,6 @@ namespace iText.Html2pdf.Css {
                 "display: block", "font-family: times");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void CollectStylesDeclarationsTest03() {
             Test("collectStylesDeclarationsTest03.html", "html body p", "color: red", "text-align: right", "font-size: 7.5pt"
@@ -89,56 +86,48 @@ namespace iText.Html2pdf.Css {
                 );
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest01() {
             Test("stylesInheritanceTest01.html", "html body p span", "color: blue", "text-align: center", "font-style: italic"
                 , "font-size: 11.25pt", "font-family: times");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest02() {
             Test("stylesInheritanceTest02.html", "html body p span", "color: black", "text-align: center", "font-style: italic"
                 , "font-size: 11.25pt", "font-family: times");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest03() {
             Test("stylesInheritanceTest03.html", "html body p span", "color: green", "font-size: 12.0pt", "font-family: times"
                 );
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest04() {
             Test("stylesInheritanceTest04.html", "html body p span", "color: blue", "font-size: 12.0pt", "font-family: times"
                 );
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest05() {
             Test("stylesInheritanceTest05.html", "html body p span", "color: black", "font-size: 12.0pt", "font-family: times"
                 );
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest06() {
             Test("stylesInheritanceTest06.html", "html body p span", "margin-left: 20px", "margin-right: 0", "background-color: yellow"
                 , "font-size: 12.0pt", "font-family: times");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesInheritanceTest07() {
             Test("stylesInheritanceTest07.html", "html body div p span", "margin-left: 0", "padding-top: 10px", "background-color: yellow"
                 , "font-size: 12.0pt", "font-family: times");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void StylesShorthandsTest01() {
             Test("stylesShorthandsTest01.html", "html body p", "border-bottom-style: dashed", "border-bottom-width: 5px"
@@ -148,14 +137,12 @@ namespace iText.Html2pdf.Css {
                 , "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest01() {
             Test("htmlStylesConvertingTest01.html", "html body b p", "font-weight: bold", "font-size: 12.0pt", "margin-bottom: 1em"
                 , "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest02() {
             Test("htmlStylesConvertingTest01.html", "html body b i p", "font-weight: bold", "font-style: italic", "font-size: 12.0pt"
@@ -163,14 +150,12 @@ namespace iText.Html2pdf.Css {
                 );
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest03() {
             Test("htmlStylesConvertingTest01.html", "html body i p", "font-style: italic", "font-size: 12.0pt", "margin-bottom: 1em"
                 , "margin-left: 0", "margin-right: 0", "margin-top: 1em", "display: block", "font-family: times");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest04() {
             Test("htmlStylesConvertingTest01.html", "html body i center p", "font-style: italic", "text-align: center"
@@ -178,7 +163,6 @@ namespace iText.Html2pdf.Css {
                 , "font-family: times");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest05() {
             Test("htmlStylesConvertingTest05.html", "html body table", "border-bottom-style: solid", "border-left-style: solid"
@@ -189,7 +173,6 @@ namespace iText.Html2pdf.Css {
                 , "border-top-color: currentcolor");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest06() {
             Test("htmlStylesConvertingTest05.html", "html body table tbody tr", "background-color: yellow", "font-size: 12.0pt"
@@ -197,35 +180,30 @@ namespace iText.Html2pdf.Css {
                 );
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest07() {
             Test("htmlStylesConvertingTest07.html", "html body p font span", "font-size: 18.0pt", "font-family: verdana"
                 , "color: blue");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest08() {
             Test("htmlStylesConvertingTest08.html", "html body p font span", "font-size: 18.0pt", "font-family: verdana"
                 , "color: blue");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest09() {
             Test("htmlStylesConvertingTest08.html", "html body div center", "text-align: center", "display: block", "font-size: 12.0pt"
                 , "font-family: times");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest10() {
             Test("htmlStylesConvertingTest10.html", "html body p font span", "font-size: 7.5pt", "font-family: verdana"
                 , "color: blue");
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlStylesConvertingTest11() {
             Test("htmlStylesConvertingTest10.html", "html body", "background-color: yellow", "font-size: 12.0pt", "display: block"
@@ -245,7 +223,6 @@ namespace iText.Html2pdf.Css {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
         private void Test(String fileName, String elementPath, params String[] expectedStyles) {
             String filePath = sourceFolder + fileName;
             IXmlParser parser = new JsoupHtmlParser();

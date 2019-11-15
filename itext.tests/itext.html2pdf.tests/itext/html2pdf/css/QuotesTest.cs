@@ -57,60 +57,44 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DepthTest01() {
             ConvertToPdfAndCompare("depthTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DepthTest02() {
             ConvertToPdfAndCompare("depthTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DepthTest03() {
             ConvertToPdfAndCompare("depthTest03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EscapedTest() {
             ConvertToPdfAndCompare("escapedTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void NoQuoteTest() {
             ConvertToPdfAndCompare("noQuoteTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ValuesTest() {
             ConvertToPdfAndCompare("valuesTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        //attr() is not supported in quotes property in browsers
         [LogMessage(iText.Html2pdf.LogMessageConstant.QUOTES_PROPERTY_INVALID)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void AttrTest() {
-            //attr() is not supported in quotes property in browsers
             ConvertToPdfAndCompare("attrTest", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.QUOTES_PROPERTY_INVALID, Count = 2)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]

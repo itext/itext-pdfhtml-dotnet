@@ -44,7 +44,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_ui_3 {
-    [NUnit.Framework.Ignore("")]
+    // TODO update cmp file after fixing DEVSIX-3386
     public class Outline009Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             // parent's <outline-style: none;> should override parent's <outline-width: whatever;> to 0 value

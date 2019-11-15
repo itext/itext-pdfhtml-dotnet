@@ -61,8 +61,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Br01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "brTest01.html"), new FileInfo(destinationFolder + 
@@ -71,8 +69,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_brTest01.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Br02Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "brTest02.html"), new FileInfo(destinationFolder + 
@@ -81,8 +77,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_brTest02.pdf", destinationFolder, "diff02_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1655")]
         public virtual void Br03Test() {
@@ -94,8 +88,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_brTest03.pdf", destinationFolder, "diff03_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BrInsideDifferentTagsTest01() {
             // TODO DEVSIX-2092

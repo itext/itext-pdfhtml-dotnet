@@ -64,17 +64,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
             , CssConstants.BACKGROUND_ATTACHMENT));
 
         /// <summary>These properties don't need to be transferred from &lt;colgroup&gt; to &lt;col&gt;.</summary>
-        private static readonly ICollection<String> OWN_CSS_PROPERTIES = new HashSet<String>(JavaUtil.ArraysAsList
+        private static readonly ICollection<String> OWN_CSS_PROPERTIES = /*TODO Note: visibility doesn't work on "chrome" or "safari" and though it technically works on "firefox" and "edge" the results differ, 
+            with "edge" surprisingly giving the closest result to expected one. The supported values are 'collapse' and 'visible'. The expected behaviour for 'collapse' is not to render those cols 
+            (the table layout should change ann the width should be diminished), and to clip cells that are spaned to none-collapsed one. 
+            The state of the content in clipped cells is not specified*/ new HashSet<String>(JavaUtil.ArraysAsList
             (CssConstants.BORDER_BOTTOM_COLOR, CssConstants.BORDER_BOTTOM_STYLE, CssConstants.BORDER_BOTTOM_WIDTH, 
             CssConstants.BORDER_LEFT_COLOR, CssConstants.BORDER_LEFT_STYLE, CssConstants.BORDER_LEFT_WIDTH, CssConstants
             .BORDER_RIGHT_COLOR, CssConstants.BORDER_RIGHT_STYLE, CssConstants.BORDER_RIGHT_WIDTH, CssConstants.BORDER_TOP_COLOR
             , CssConstants.BORDER_TOP_STYLE, CssConstants.BORDER_TOP_WIDTH, CssConstants.VISIBILITY));
 
-        /*TODO Note: visibility doesn't work on "chrome" or "safari" and though it technically works on "firefox" and "edge" the results differ,
-        with "edge" surprisingly giving the closest result to expected one.
-        The supported values are 'collapse' and 'visible'. The expected behaviour for 'collapse' is not to render those cols
-        (the table layout should change ann the width should be diminished), and to clip cells that are spaned to none-collapsed one.
-        The state of the content in clipped cells is not specified*/
         /// <summary>Gets the width.</summary>
         /// <param name="resolvedCssProps">the resolved CSS properties</param>
         /// <param name="context">the processor context</param>

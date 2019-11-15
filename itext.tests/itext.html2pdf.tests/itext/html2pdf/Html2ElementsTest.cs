@@ -58,7 +58,6 @@ namespace iText.Html2pdf {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlToElementsTest01() {
             String html = "<p>Hello world!</p>";
@@ -70,7 +69,6 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.AreEqual(12f, p.GetProperty<UnitValue>(Property.FONT_SIZE).GetValue(), 1e-10);
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlToElementsTest02() {
             String html = "<table style=\"font-size: 2em\"><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table>";
@@ -84,7 +82,6 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.AreEqual(24f, t.GetProperty<UnitValue>(Property.FONT_SIZE).GetValue(), 1e-10);
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlToElementsTest03() {
             String html = "<p>Hello world!</p><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p>";
@@ -98,7 +95,6 @@ namespace iText.Html2pdf {
                 .GetChildren()[0])).GetText());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlToElementsTest04() {
             // Handles malformed html
@@ -112,7 +108,6 @@ namespace iText.Html2pdf {
                 .GetChildren()[0])).GetText());
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlToElementsTest05() {
             String html = "123";
@@ -120,7 +115,6 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.IsTrue(lst.Count == 1);
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlElementsTest06() {
             String html = "<html>Lorem<p>Ipsum</p>Dolor<p>Sit</p></html>";
@@ -131,7 +125,6 @@ namespace iText.Html2pdf {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlElementsTest07() {
             String html = "<html>Lorem<span>Dolor</span><p>Ipsum</p><p>Sit</p></html>";
@@ -142,7 +135,6 @@ namespace iText.Html2pdf {
             }
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlToElementsTest08() {
             // this test checks whether iText fails to process meta tag inside body section or not
@@ -150,7 +142,6 @@ namespace iText.Html2pdf {
             HtmlConverter.ConvertToElements(html);
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         public virtual void HtmlToElementsTest09() {
             //Test OutlineHandler exception throwing
@@ -170,7 +161,6 @@ namespace iText.Html2pdf {
             HtmlConverter.ConvertToElements(html);
         }
 
-        /// <exception cref="System.IO.IOException"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, Count = 
             1)]

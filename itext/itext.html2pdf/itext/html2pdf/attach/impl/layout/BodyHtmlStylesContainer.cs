@@ -56,8 +56,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     /// to simplify their application on the document as an
     /// <see cref="Html2PdfProperty"/>
     /// and to simplify their processing on the layout level.
-    /// This class is primarily meant for internal usage.
     /// </summary>
+    /// <remarks>
+    /// This class is used to store styles of
+    /// <c>&lt;html&gt;</c>
+    /// and
+    /// <c>&lt;body&gt;</c>
+    /// tags,
+    /// to simplify their application on the document as an
+    /// <see cref="Html2PdfProperty"/>
+    /// and to simplify their processing on the layout level.
+    /// This class is primarily meant for internal usage.
+    /// </remarks>
     public class BodyHtmlStylesContainer : IPropertyContainer {
         protected internal IDictionary<int, Object> properties = new Dictionary<int, Object>();
 

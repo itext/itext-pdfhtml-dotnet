@@ -45,14 +45,12 @@ using iText.Layout.Element;
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>
     /// The HTML implementation of an
-    /// <see cref="iText.Layout.Element.AreaBreak"/>
-    /// .
+    /// <see cref="iText.Layout.Element.AreaBreak"/>.
     /// </summary>
     public class HtmlPageBreak : AreaBreak {
         /// <summary>
         /// The
-        /// <see cref="HtmlPageBreakType"/>
-        /// .
+        /// <see cref="HtmlPageBreakType"/>.
         /// </summary>
         internal HtmlPageBreakType breakType;
 
@@ -64,8 +62,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>
         /// Gets the
-        /// <see cref="HtmlPageBreakType"/>
-        /// .
+        /// <see cref="HtmlPageBreakType"/>.
         /// </summary>
         /// <returns>the page break type</returns>
         internal virtual HtmlPageBreakType GetBreakType() {

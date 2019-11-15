@@ -60,8 +60,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Title01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "titleTest01.html"), new FileInfo(destinationFolder
@@ -72,8 +70,6 @@ namespace iText.Html2pdf.Element {
                 )).GetDocumentInfo().GetTitle());
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Title02Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "titleTest02.html"), new FileInfo(destinationFolder

@@ -61,8 +61,6 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Each machine has different set of fonts")]
         public virtual void PerformanceTest01() {
@@ -79,8 +77,6 @@ namespace iText.Html2pdf.Css {
                 ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("Each machine has different set of fonts")]
         public virtual void PerformanceTest02() {
@@ -106,8 +102,6 @@ namespace iText.Html2pdf.Css {
                 ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PerformanceTest03() {
             String name = "performanceTest03";

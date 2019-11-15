@@ -50,35 +50,29 @@ using iText.Test;
 
 namespace iText.Html2pdf.Css {
     public class FontSelectorGenericFamiliesTest : ExtendedITextTest {
+        //TODO(DEVSIX-1034): serif, sans-serif font families are not supported
+        //TODO(DEVSIX-1036): cursive, fantasy, system-ui font-families are not supported
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/FontSelectorGenericFamiliesTest/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/FontSelectorGenericFamiliesTest/";
 
-        //TODO(DEVSIX-1034): serif, sans-serif font families are not supported
-        //TODO(DEVSIX-1036): cursive, fantasy, system-ui font-families are not supported
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void StandardFontsTest() {
             RunTest("standardFonts", new DefaultFontProvider(true, false, false));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EmbeddedFontsTest() {
             RunTest("embeddedFonts", new DefaultFontProvider(false, true, false));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         public virtual void RunTest(String testName, FontProvider fontProvider) {
             String outPdf = destinationFolder + testName + ".pdf";
             String cmpPdf = sourceFolder + "cmp_" + testName + ".pdf";

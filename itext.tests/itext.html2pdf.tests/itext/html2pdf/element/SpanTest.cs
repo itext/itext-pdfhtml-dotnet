@@ -61,8 +61,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         private void TestWithSuffix(String testIndex) {
             String htmlFile = sourceFolder + MessageFormatUtil.Format("spanTest{0}.html", testIndex);
             String pdfFile = destinationFolder + MessageFormatUtil.Format("spanTest{0}.pdf", testIndex);
@@ -73,8 +71,6 @@ namespace iText.Html2pdf.Element {
                 ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         private void Test(String testName, bool tagged) {
             String htmlFile = sourceFolder + testName + ".html";
             String pdfFile = destinationFolder + testName + ".pdf";
@@ -94,150 +90,108 @@ namespace iText.Html2pdf.Element {
                 ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         private void Test(String testName) {
             Test(testName, false);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest01() {
             TestWithSuffix("01");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest02() {
             TestWithSuffix("02");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest03() {
             TestWithSuffix("03");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest04() {
             TestWithSuffix("04");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest05() {
             TestWithSuffix("05");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest06() {
             TestWithSuffix("06");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest07() {
             TestWithSuffix("07");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest08() {
             // TODO DEVSIX-1438
             TestWithSuffix("08");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest09() {
             TestWithSuffix("09");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest10() {
             TestWithSuffix("10");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest11() {
             TestWithSuffix("11");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest12() {
             TestWithSuffix("12");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTest13() {
             TestWithSuffix("13");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanInsideSpanWithBackgroundTest() {
             Test("spanInsideSpanWithBackground");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanWithLeftFloatInsideSpanWithBackgroundTest() {
             Test("spanWithLeftFloatInsideSpanWithBackground");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanWithFloatsInsideSpanWithBackgroundAndFloatTest() {
             Test("spanWithFloatsInsideSpanWithBackgroundAndFloat");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void CommonNestedSpanTest() {
             Test("commonNestedSpanTest");
         }
 
         // TODO: update cmp files during DEVSIX-2510
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTestNestedBlock() {
             Test("spanTestNestedBlock");
         }
 
         // TODO: update cmp files during DEVSIX-2510
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanTestNestedInlineBlock() {
             Test("spanTestNestedInlineBlock");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SpanWithDisplayBlockInsideSpanParagraphTest() {
             Test("spanWithDisplayBlockInsideSpanParagraphTest", true);

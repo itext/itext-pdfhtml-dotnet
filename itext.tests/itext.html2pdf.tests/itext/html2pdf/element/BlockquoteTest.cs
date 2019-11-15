@@ -59,8 +59,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Blockquote01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "blockquoteTest01.html"), new FileInfo(destinationFolder
@@ -69,8 +67,6 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_blockquoteTest01.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Blockquote02Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "blockquoteTest02.html"), new FileInfo(destinationFolder

@@ -58,6 +58,7 @@ using iText.StyledXmlParser.Node;
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply list styles to an element.</summary>
     public sealed class ListStyleApplierUtil {
+        //private static final String HTML_SYMBOL_FONT = "Sans-serif";
         /// <summary>The Constant GREEK_ALPHABET_LENGTH.</summary>
         private const int GREEK_ALPHABET_LENGTH = 24;
 
@@ -74,7 +75,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private const String SQUARE_SYMBOL = "\u25a0";
 
         static ListStyleApplierUtil() {
-            //private static final String HTML_SYMBOL_FONT = "Sans-serif";
             for (int i = 0; i < GREEK_ALPHABET_LENGTH; i++) {
                 GREEK_LOWERCASE[i] = (char)(945 + i + (i > 16 ? 1 : 0));
             }

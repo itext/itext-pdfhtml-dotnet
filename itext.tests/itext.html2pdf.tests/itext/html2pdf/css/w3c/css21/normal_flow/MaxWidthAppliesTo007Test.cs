@@ -44,9 +44,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Normal_flow {
-    [NUnit.Framework.Ignore("")]
     public class MaxWidthAppliesTo007Test : W3CCssTest {
-        [NUnit.Framework.Ignore("")]
         protected internal override String GetHtmlFileName() {
             return "max-width-applies-to-007.xht";
         }

@@ -56,43 +56,31 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear02Test() {
             ConvertToPdfAndCompare("clear02Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear03Test() {
             ConvertToPdfAndCompare("clear03Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear04Test() {
             ConvertToPdfAndCompare("clear04Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear06Test() {
             ConvertToPdfAndCompare("clear06Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear07Test() {
             ConvertToPdfAndCompare("clear07Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Clear08Test() {
@@ -100,24 +88,18 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("clear08Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear09Test() {
             // TODO behaving differently from browser in some cases of selfcollapsing margins
             ConvertToPdfAndCompare("clear09Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear10Test() {
             // TODO behaving differently from browser in some cases of selfcollapsing margins
             ConvertToPdfAndCompare("clear10Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Clear11Test() {
             ConvertToPdfAndCompare("clear11Test", sourceFolder, destinationFolder);

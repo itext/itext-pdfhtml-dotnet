@@ -65,8 +65,6 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(sourceFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TestArial() {
             String fileName = "testArial";
@@ -75,8 +73,6 @@ namespace iText.Html2pdf.Css {
             RunTest(fileName, converterProperties);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TestArialWithHelveticaAsAnAlias() {
             String fileName = "testArialWithHelveticaAsAnAlias";
@@ -87,8 +83,6 @@ namespace iText.Html2pdf.Css {
             RunTest(fileName, converterProperties);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         private void RunTest(String name, ConverterProperties converterProperties) {
             String htmlPath = sourceFolder + SOURCE_HTML_NAME + ".html";
             String pdfPath = destinationFolder + name + ".pdf";

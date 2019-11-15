@@ -56,8 +56,6 @@ namespace iText.Html2pdf.Css.Selector.Item {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AlwaysApplyPseudoClassesTest01() {
             ConvertToPdfAndCompare("alwaysApplyPseudoClassesTest01", sourceFolder, destinationFolder);

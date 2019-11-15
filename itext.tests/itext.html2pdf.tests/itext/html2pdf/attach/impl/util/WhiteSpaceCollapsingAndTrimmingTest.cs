@@ -56,29 +56,21 @@ namespace iText.Html2pdf.Attach.Impl.Util {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EmptyElementsTest01() {
             ConvertToPdfAndCompare("emptyElementsTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EmptyElementsTest02() {
             ConvertToPdfAndCompare("emptyElementsTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void EmptyElementsTest03() {
             ConvertToPdfAndCompare("emptyElementsTest03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void FloatingInlineBlockInsideLinkTest01() {
             ConvertToPdfAndCompare("floatingInlineBlockInsideLinkTest01", sourceFolder, destinationFolder);

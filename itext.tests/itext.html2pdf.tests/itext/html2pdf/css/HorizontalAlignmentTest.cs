@@ -56,38 +56,28 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AlignAttribute01() {
             // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
             ConvertToPdfAndCompare("alignAttribute01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AlignAttribute03() {
             ConvertToPdfAndCompare("alignAttribute03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void AlignAttribute04() {
             // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
             ConvertToPdfAndCompare("alignAttribute04", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginsAutoBlocks() {
             ConvertToPdfAndCompare("marginsAutoBlocks", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void MarginsAutoInlines() {
             ConvertToPdfAndCompare("marginsAutoInlines", sourceFolder, destinationFolder);

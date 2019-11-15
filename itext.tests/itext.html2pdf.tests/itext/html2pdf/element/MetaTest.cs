@@ -60,8 +60,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Meta01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "metaTest01.html"), new FileInfo(destinationFolder 
@@ -76,8 +74,6 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.AreEqual(pdfDocInfo.GetMoreInfo("test"), "the test content");
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Meta02Test() {
             // In this test we also check that it's not possible to override description name content
@@ -99,8 +95,6 @@ namespace iText.Html2pdf.Element {
                 );
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Meta03Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "metaTest03.html"), new FileInfo(destinationFolder 

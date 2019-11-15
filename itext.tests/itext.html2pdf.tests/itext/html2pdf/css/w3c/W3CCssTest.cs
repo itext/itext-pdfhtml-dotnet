@@ -67,8 +67,6 @@ namespace iText.Html2pdf.Css.W3c {
             CreateDestinationFolder(GetDestinationFolder());
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Test() {
             String sourceFolder = GetSourceFolder();

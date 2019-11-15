@@ -50,15 +50,20 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     /// An
     /// <see cref="iText.Layout.Element.IElement"/>
     /// that serves as a placeholder for removed running element
-    /// from the normal flow. This element is designed to register where particular running element would have been placed.
+    /// from the normal flow.
     /// </summary>
+    /// <remarks>
+    /// An
+    /// <see cref="iText.Layout.Element.IElement"/>
+    /// that serves as a placeholder for removed running element
+    /// from the normal flow. This element is designed to register where particular running element would have been placed.
+    /// </remarks>
     public class RunningElement : Div {
         private RunningElementContainer runningElementContainer;
 
         /// <summary>
         /// Creates a new instance of
-        /// <see cref="RunningElement"/>
-        /// .
+        /// <see cref="RunningElement"/>.
         /// </summary>
         /// <param name="runningElementContainer">a container for the actual running element removed from the normal flow.
         ///     </param>

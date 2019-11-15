@@ -68,8 +68,6 @@ namespace iText.Html2pdf.Events {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void PageXofYHtmlTest() {
             String filename = "pageXofY";
@@ -82,8 +80,6 @@ namespace iText.Html2pdf.Events {
                 ));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         public virtual void ParseWithFooter(String htmlSource, String pdfDest, String resoureLoc) {
             //Create Document
             PdfWriter writer = new PdfWriter(pdfDest);
@@ -103,6 +99,7 @@ namespace iText.Html2pdf.Events {
             doc.Close();
         }
 
+        //page X of Y
         protected internal class PageXofY : IEventHandler {
             protected internal PdfFormXObject placeholder;
 
@@ -118,7 +115,6 @@ namespace iText.Html2pdf.Events {
 
             public PageXofY(PdfHtmlPageXofYEventHandlerTest _enclosing, PdfDocument pdf) {
                 this._enclosing = _enclosing;
-                //page X of Y
                 this.placeholder = new PdfFormXObject(new Rectangle(0, 0, this.side, this.side));
             }
 

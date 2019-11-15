@@ -50,7 +50,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Element {
     /// <see cref="iText.Layout.Element.AbstractElement{T}"/>
     /// class for form fields.
     /// </summary>
-    /// 
+    /// <typeparam name="T">the generic type of the form field (e.g. input field, button, text area)</typeparam>
     public abstract class FormField<T> : AbstractElement<T>, IFormField
         where T : IFormField {
         /// <summary>The id.</summary>

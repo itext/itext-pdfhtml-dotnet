@@ -45,6 +45,7 @@ using System;
 namespace iText.Html2pdf {
     /// <summary>Product info about this iText add-on.</summary>
     public class Html2PdfProductInfo {
+        // TODO refactor? move to local fields in order to hide it?
         /// <summary>The product name.</summary>
         public const String PRODUCT_NAME = "pdfHtml";
 
@@ -53,6 +54,5 @@ namespace iText.Html2pdf {
 
         /// <summary>The minor version number.</summary>
         public const int MINOR_VERSION = 1;
-        // TODO refactor? move to local fields in order to hide it?
     }
 }

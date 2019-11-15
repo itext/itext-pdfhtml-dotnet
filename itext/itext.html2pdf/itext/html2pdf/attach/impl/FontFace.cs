@@ -166,6 +166,7 @@ namespace iText.Html2pdf.Attach.Impl {
             this.sources = sources;
         }
 
+        //region Nested types
         /// <summary>Class that defines a font face source.</summary>
         internal class FontFaceSrc {
             /// <summary>The UrlPattern used to compose a source path.</summary>
@@ -190,7 +191,6 @@ namespace iText.Html2pdf.Attach.Impl {
             /// <summary>Indicates if the font is local.</summary>
             internal readonly bool isLocal;
 
-            //region Nested types
             /* (non-Javadoc)
             * @see java.lang.Object#toString()
             */
@@ -262,8 +262,7 @@ namespace iText.Html2pdf.Attach.Impl {
 
             /// <summary>
             /// Removes single and double quotes at the start and the end of a
-            /// <see cref="System.String"/>
-            /// .
+            /// <see cref="System.String"/>.
             /// </summary>
             /// <param name="quotedString">
             /// a

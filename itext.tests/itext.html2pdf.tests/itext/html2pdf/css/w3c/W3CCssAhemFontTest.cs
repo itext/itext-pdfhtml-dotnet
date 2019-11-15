@@ -48,7 +48,7 @@ namespace iText.Html2pdf.Css.W3c {
     /// <summary>
     /// <see cref="W3CCssTest"/>
     /// but using Ahem font in font provider,
-    /// taken from <a href="https://github.com/Kozea/Ahem">https://github.com/Kozea/Ahem</a>
+    /// taken from <a href="https://github.com/kozea/ahem">https://github.com/Kozea/Ahem</a>
     /// </summary>
     /// <seealso><a href="https://github.com/w3c/csswg-test">https://github.com/w3c/csswg-test</a></seealso>
     public abstract class W3CCssAhemFontTest : W3CCssTest {

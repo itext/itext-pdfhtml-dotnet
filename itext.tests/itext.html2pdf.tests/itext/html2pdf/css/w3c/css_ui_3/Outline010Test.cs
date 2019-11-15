@@ -44,7 +44,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_ui_3 {
-    [NUnit.Framework.Ignore("DEVSIX-1578")]
+    //There is a thin red "border" because of rendering issues
     public class Outline010Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "outline-010.html";

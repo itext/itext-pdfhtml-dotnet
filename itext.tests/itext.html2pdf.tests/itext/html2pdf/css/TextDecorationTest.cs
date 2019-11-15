@@ -56,37 +56,27 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TextDecoration01Test() {
             ConvertToPdfAndCompare("textDecorationTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TextDecoration02Test() {
             ConvertToPdfAndCompare("textDecorationTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TextDecoration03Test() {
             ConvertToPdfAndCompare("textDecorationTest03", sourceFolder, destinationFolder);
         }
 
         //Text decoration property is in defaults.css for a[href], should be replaced by css.
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TextDecoration04Test() {
             ConvertToPdfAndCompare("textDecorationTest04", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void TextDecoration05Test() {
             // TODO DEVSIX-2532

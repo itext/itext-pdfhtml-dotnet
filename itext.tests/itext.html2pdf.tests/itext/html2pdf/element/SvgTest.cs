@@ -62,8 +62,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void InlineSvgTest() {
             String name = "inline_svg";
@@ -73,8 +71,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void InlineNestedSvgTest() {
             String name = "inline_nested_svg";
@@ -84,8 +80,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void InlineSvgExternalFontRelativeTest() {
             String name = "inline_svg_external_font_relative";
@@ -95,8 +89,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void InlineSvgExternalFontUrlTest() {
             // TODO RND-1042 external font loading in SVG via @import
@@ -107,8 +99,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void Convert_inline_Svg_path_in_HTML() {
@@ -119,8 +109,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void Convert_inline_Svg_polygon_in_HTML() {
@@ -132,8 +120,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void Convert_namespace_Svg_in_HTML() {
@@ -144,8 +130,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ConvertInlineSvgCircle() {
             String html = "inline_svg_circle";
@@ -159,8 +143,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + html + ".pdf", destinationFolder));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ConvertInlineSvgRectangle() {
             String html = "inline_svg_rectangle";
@@ -174,8 +156,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + html + ".pdf", destinationFolder));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ConvertInlineSvgRoundedRectangle() {
             String html = "inline_svg_rounded_rect";
@@ -189,8 +169,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + html + ".pdf", destinationFolder));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ConvertInlineSvgStar() {
             // TODO: Update cmp_ file when DEVSIX-2719 resolved
@@ -205,8 +183,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + html + ".pdf", destinationFolder));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(SvgLogMessageConstant.UNMAPPEDTAG)]
         public virtual void ConvertInlineSvgLogo() {
@@ -225,8 +201,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + html + ".pdf", destinationFolder));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ExternalImageSuccessTest() {
             String name = "external_img";
@@ -236,8 +210,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
@@ -249,12 +221,10 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
+        //TODO update after DEVSIX-3034
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
         public virtual void ExternalObjectSuccessTest() {
-            //TODO update after DEVSIX-3034
             String name = "external_object";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));
@@ -262,8 +232,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ExternalObjectWithResourceTest() {
             //TODO update after DEVSIX-2239
@@ -274,8 +242,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 66)]
         [LogMessage(SvgLogMessageConstant.UNMAPPEDTAG, Count = 67)]
@@ -288,8 +254,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
@@ -301,8 +265,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HtmlWithSvgBackground() {
             //TODO: Update cmp_ file when DEVSIX-2731 resolved
@@ -313,8 +275,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HtmlWithSvgBackgroundNoViewbox() {
             //TODO: Update cmp_ file when DEVSIX-2731 resolved
@@ -325,8 +285,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(SvgLogMessageConstant.MISSING_WIDTH)]
         [LogMessage(SvgLogMessageConstant.MISSING_HEIGHT)]
@@ -338,8 +296,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void SvgWithoutDimensionsWithViewboxTest() {
             String name = "svg_without_dimensions_with_viewbox";
@@ -349,8 +305,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_" + name + ".pdf", destinationFolder, "diff_" + name + "_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(SvgLogMessageConstant.MISSING_WIDTH, Count = 2)]
         [LogMessage(SvgLogMessageConstant.MISSING_HEIGHT, Count = 2)]

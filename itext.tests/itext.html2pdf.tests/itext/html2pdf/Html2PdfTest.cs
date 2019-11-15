@@ -60,8 +60,6 @@ namespace iText.Html2pdf {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloWorldParagraphTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_paragraph.html"), new FileInfo(destinationFolder
@@ -72,8 +70,6 @@ namespace iText.Html2pdf {
                 , sourceFolder + "cmp_hello_paragraph.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloParagraphTableTest() {
             // TODO DEVSIX-1124
@@ -85,8 +81,6 @@ namespace iText.Html2pdf {
                 , sourceFolder + "cmp_hello_paragraph_table.pdf", destinationFolder, "diff02_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloMalformedDocumentTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_malformed.html"), new FileInfo(destinationFolder
@@ -97,8 +91,6 @@ namespace iText.Html2pdf {
                 , sourceFolder + "cmp_hello_malformed.pdf", destinationFolder, "diff03_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloParagraphJunkSpacesDocumentTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_paragraph_junk_spaces.html"), new FileInfo(destinationFolder
@@ -109,8 +101,6 @@ namespace iText.Html2pdf {
                 , sourceFolder + "cmp_hello_paragraph_junk_spaces.pdf", destinationFolder, "diff03_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloParagraphNestedInTableDocumentTest() {
             // TODO DEVSIX-1124
@@ -122,8 +112,6 @@ namespace iText.Html2pdf {
                 , sourceFolder + "cmp_hello_paragraph_nested_in_table.pdf", destinationFolder, "diff03_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloParagraphWithSpansDocumentTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_paragraph_with_span.html"), new FileInfo(destinationFolder
@@ -134,8 +122,6 @@ namespace iText.Html2pdf {
                 , sourceFolder + "cmp_hello_paragraph_with_span.pdf", destinationFolder, "diff03_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HelloDivDocumentTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_div.html"), new FileInfo(destinationFolder +
@@ -146,8 +132,6 @@ namespace iText.Html2pdf {
                  + "cmp_hello_div.pdf", destinationFolder, "diff03_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void ABlockInPTagTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "aBlockInPTag.html"), new FileInfo(destinationFolder
@@ -158,8 +142,6 @@ namespace iText.Html2pdf {
                  + "cmp_aBlockInPTag.pdf", destinationFolder, "diff03_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void Base64svgTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "objectTag_base64svg.html"), new FileInfo(destinationFolder
@@ -168,8 +150,6 @@ namespace iText.Html2pdf {
                 , sourceFolder + "cmp_objectTag_base64svg.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, Count = 
             1)]
@@ -181,8 +161,6 @@ namespace iText.Html2pdf {
                 , sourceFolder + "cmp_objectTag_incorrectBase64svg.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT, Count = 1)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
@@ -194,8 +172,6 @@ namespace iText.Html2pdf {
                 , sourceFolder + "cmp_objectTag_altText.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
         public virtual void HtmlObjectNestedObjectTest() {
@@ -205,8 +181,6 @@ namespace iText.Html2pdf {
                 , sourceFolder + "cmp_objectTag_nestedTag.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void HtmlImgBase64SVGTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imgTag_base64svg.html"), new FileInfo(destinationFolder

@@ -57,22 +57,16 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingCellContentTest01() {
             ConvertToPdfAndCompare("boxSizingCellContentTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingCellContentTest02() {
             ConvertToPdfAndCompare("boxSizingCellContentTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingCellTest01() {
             // TODO Result of processing of this html is different from what browsers show.
@@ -81,15 +75,11 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("boxSizingCellTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingCellTest02() {
             ConvertToPdfAndCompare("boxSizingCellTest02", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingCellTest03() {
             // This test is exactly the same as boxSizingCellTest01, except DOCTYPE "html" is used:
@@ -100,57 +90,41 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("boxSizingCellTest03", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingFloat01Test() {
             ConvertToPdfAndCompare("boxSizingFloat01Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingFloat02Test() {
             ConvertToPdfAndCompare("boxSizingFloat02Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingRelativeWidth01Test() {
             ConvertToPdfAndCompare("boxSizingRelativeWidth01Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingRelativeWidth02Test() {
             ConvertToPdfAndCompare("boxSizingRelativeWidth02Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingRelativeWidth03Test() {
             ConvertToPdfAndCompare("boxSizingRelativeWidth03Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingDiv01Test() {
             ConvertToPdfAndCompare("boxSizingDiv01Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingDiv03Test() {
             ConvertToPdfAndCompare("boxSizingDiv03Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingDiv04Test() {
             // TODO inner div still doesn't fit, because it's height is increased every time page split occurs by margins borders padding
@@ -158,109 +132,79 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("boxSizingDiv04Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingPara01Test() {
             ConvertToPdfAndCompare("boxSizingPara01Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingPara03Test() {
             ConvertToPdfAndCompare("boxSizingPara03Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 2)]
         public virtual void BoxSizingTable01Test() {
             ConvertToPdfAndCompare("boxSizingTable01Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingTable02Test() {
             ConvertToPdfAndCompare("boxSizingTable02Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingTable04Test() {
             ConvertToPdfAndCompare("boxSizingTable04Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingTable05Test() {
             ConvertToPdfAndCompare("boxSizingTable05Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingTable06Test() {
             ConvertToPdfAndCompare("boxSizingTable06Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingMinMaxHeight01Test() {
             ConvertToPdfAndCompare("boxSizingMinMaxHeight01Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingInlineBlock01Test() {
             ConvertToPdfAndCompare("boxSizingInlineBlock01Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingInlineBlock02Test() {
             ConvertToPdfAndCompare("boxSizingInlineBlock02Test", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingFormTest01() {
             ConvertToPdfAndCompare("boxSizingFormTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingFormTest02() {
             ConvertToPdfAndCompare("boxSizingFormTest02", sourceFolder, destinationFolder);
         }
 
         // TODO we don't apply height to textarea yet
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingFormTest03() {
             ConvertToPdfAndCompare("boxSizingFormTest03", sourceFolder, destinationFolder);
         }
 
         // TODO at least in chrome, borders of buttons are always included to width and height (just as with border-box)
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingLiTest01() {
             ConvertToPdfAndCompare("boxSizingLiTest01", sourceFolder, destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void BoxSizingLiTest02() {
             ConvertToPdfAndCompare("boxSizingLiTest02", sourceFolder, destinationFolder);

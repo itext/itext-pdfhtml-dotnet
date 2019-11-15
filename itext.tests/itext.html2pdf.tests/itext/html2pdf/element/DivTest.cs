@@ -59,8 +59,6 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DivTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "divTest01.html"), new FileInfo(destinationFolder +
@@ -69,8 +67,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_divTest01.pdf", destinationFolder, "diff01_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DivTest02() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "divTest02.html"), new FileInfo(destinationFolder +
@@ -79,8 +75,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_divTest02.pdf", destinationFolder, "diff02_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DivTest03() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "divTest03.html"), new FileInfo(destinationFolder +
@@ -89,8 +83,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_divTest03.pdf", destinationFolder, "diff03_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DivTest04() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "divTest04.html"), new FileInfo(destinationFolder +
@@ -99,8 +91,6 @@ namespace iText.Html2pdf.Element {
                  + "cmp_divTest04.pdf", destinationFolder, "diff04_"));
         }
 
-        /// <exception cref="System.IO.IOException"/>
-        /// <exception cref="System.Exception"/>
         [NUnit.Framework.Test]
         public virtual void DivInTablePercentTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "divInTablePercent.html"), new FileInfo(destinationFolder

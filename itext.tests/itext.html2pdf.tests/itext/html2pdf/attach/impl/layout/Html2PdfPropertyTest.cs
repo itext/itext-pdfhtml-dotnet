@@ -44,10 +44,10 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using iText.IO.Util;
+using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    public class Html2PdfPropertyTest {
-        /// <exception cref="System.MemberAccessException"/>
+    public class Html2PdfPropertyTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void PropertyUniquenessTest() {
             ICollection<int> fieldValues = new HashSet<int>();
