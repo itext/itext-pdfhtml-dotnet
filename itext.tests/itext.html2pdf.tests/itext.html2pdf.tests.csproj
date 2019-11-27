@@ -72,8 +72,8 @@
       <Project>{4e7819e8-7555-4e2e-9a01-d8718a2cfdda}</Project>
       <Name>itext.kernel</Name>
     </ProjectReference>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942" Condition="!Exists('..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj')">
-      <HintPath>$(SolutionDir)\packages\Portable.BouncyCastle.1.8.1.3\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.5, Culture=neutral, PublicKeyToken=0e99375e54769942" Condition="!Exists('..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj')">
+      <HintPath>$(SolutionDir)\packages\Portable.BouncyCastle.1.8.5\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="itext.kernel, Version=7.1.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" Condition="!Exists('..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj')">
       <HintPath>$(SolutionDir)\packages\itext7.7.1.10-SNAPSHOT\lib\net40\itext.kernel.dll</HintPath>
