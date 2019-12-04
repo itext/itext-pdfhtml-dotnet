@@ -49,7 +49,10 @@ using iText.Layout.Font;
 using iText.StyledXmlParser.Css.Media;
 
 namespace iText.Html2pdf {
-    /// <summary>Properties that will be used by the converter.</summary>
+    /// <summary>
+    /// Properties that will be used by the
+    /// <see cref="HtmlConverter"/>.
+    /// </summary>
     public class ConverterProperties {
         /// <summary>The media device description.</summary>
         private MediaDeviceDescription mediaDeviceDescription;
@@ -115,14 +118,28 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>Gets the media device description.</summary>
+        /// <remarks>
+        /// Gets the media device description.
+        /// The properties of the multimedia device are taken into account when creating the SVG and
+        /// when processing the properties of the СSS.
+        /// </remarks>
         /// <returns>the media device description</returns>
         public virtual MediaDeviceDescription GetMediaDeviceDescription() {
             return mediaDeviceDescription;
         }
 
         /// <summary>Sets the media device description.</summary>
+        /// <remarks>
+        /// Sets the media device description.
+        /// The properties of the multimedia device are taken into account when creating the SVG and
+        /// when processing the properties of the СSS.
+        /// </remarks>
         /// <param name="mediaDeviceDescription">the media device description</param>
-        /// <returns>the ConverterProperties instance</returns>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetMediaDeviceDescription(MediaDeviceDescription mediaDeviceDescription
             ) {
             this.mediaDeviceDescription = mediaDeviceDescription;
@@ -130,6 +147,16 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>Gets the font provider.</summary>
+        /// <remarks>
+        /// Gets the font provider.
+        /// Please note that
+        /// <see cref="iText.Layout.Font.FontProvider"/>
+        /// instances cannot be reused across several documents
+        /// and thus as soon as you set this property, this
+        /// <see cref="ConverterProperties"/>
+        /// instance becomes only useful
+        /// for a single HTML conversion.
+        /// </remarks>
         /// <returns>the font provider</returns>
         public virtual FontProvider GetFontProvider() {
             return fontProvider;
@@ -137,44 +164,85 @@ namespace iText.Html2pdf {
 
         /// <summary>Sets the font provider.</summary>
         /// <remarks>
-        /// Sets the font provider. Please note that
+        /// Sets the font provider.
+        /// Please note that
         /// <see cref="iText.Layout.Font.FontProvider"/>
         /// instances cannot be reused across several documents
         /// and thus as soon as you set this property, this
         /// <see cref="ConverterProperties"/>
-        /// instance becomes only useful for a single
-        /// HTML conversion.
+        /// instance becomes only useful
+        /// for a single HTML conversion.
         /// </remarks>
         /// <param name="fontProvider">the font provider</param>
-        /// <returns>the ConverterProperties instance</returns>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetFontProvider(FontProvider fontProvider) {
             this.fontProvider = fontProvider;
             return this;
         }
 
         /// <summary>Gets the TagWorkerFactory instance.</summary>
+        /// <remarks>
+        /// Gets the TagWorkerFactory instance.
+        /// The tagWorkerFactory is used to create
+        /// <see cref="iText.Html2pdf.Attach.ITagWorker"/>
+        /// , which in turn
+        /// are used to convert the HTML tags to the PDF elements.
+        /// </remarks>
         /// <returns>the TagWorkerFactory</returns>
         public virtual ITagWorkerFactory GetTagWorkerFactory() {
             return tagWorkerFactory;
         }
 
         /// <summary>Sets the TagWorkerFactory.</summary>
+        /// <remarks>
+        /// Sets the TagWorkerFactory.
+        /// The tagWorkerFactory is used to create
+        /// <see cref="iText.Html2pdf.Attach.ITagWorker"/>
+        /// , which in turn
+        /// are used to convert the HTML tags to the PDF elements.
+        /// </remarks>
         /// <param name="tagWorkerFactory">the TagWorkerFactory</param>
-        /// <returns>the ConverterProperties instance</returns>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetTagWorkerFactory(ITagWorkerFactory tagWorkerFactory) {
             this.tagWorkerFactory = tagWorkerFactory;
             return this;
         }
 
         /// <summary>Gets the CSS applier factory.</summary>
+        /// <remarks>
+        /// Gets the CSS applier factory.
+        /// The cssApplierFactory is used to create
+        /// <see cref="iText.Html2pdf.Css.Apply.ICssApplier"/>
+        /// , which in turn
+        /// are used to convert the CSS properties to the PDF properties.
+        /// </remarks>
         /// <returns>the CSS applier factory</returns>
         public virtual ICssApplierFactory GetCssApplierFactory() {
             return cssApplierFactory;
         }
 
         /// <summary>Sets the CSS applier factory.</summary>
+        /// <remarks>
+        /// Sets the CSS applier factory.
+        /// The cssApplierFactory is used to create
+        /// <see cref="iText.Html2pdf.Css.Apply.ICssApplier"/>
+        /// , which in turn
+        /// are used to convert the CSS properties to the PDF properties.
+        /// </remarks>
         /// <param name="cssApplierFactory">the CSS applier factory</param>
-        /// <returns>the ConverterProperties instance</returns>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetCssApplierFactory(ICssApplierFactory cssApplierFactory
             ) {
             this.cssApplierFactory = cssApplierFactory;
@@ -182,34 +250,74 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>Gets the base URI.</summary>
+        /// <remarks>
+        /// Gets the base URI.
+        /// Base URI is used to resolve other URI.
+        /// </remarks>
         /// <returns>the base URI</returns>
         public virtual String GetBaseUri() {
             return baseUri;
         }
 
         /// <summary>Sets the base URI.</summary>
+        /// <remarks>
+        /// Sets the base URI.
+        /// Base URI is used to resolve other URI.
+        /// </remarks>
         /// <param name="baseUri">the base URI</param>
-        /// <returns>the ConverterProperties instance</returns>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetBaseUri(String baseUri) {
             this.baseUri = baseUri;
             return this;
         }
 
-        /// <summary>Checks if is an AcroForm needs to be created.</summary>
-        /// <returns>true, an AcroForm should be created</returns>
+        /// <summary>Check if the createAcroForm flag is set.</summary>
+        /// <remarks>
+        /// Check if the createAcroForm flag is set.
+        /// If createAcroForm is set, then when the form is encountered in HTML, AcroForm will be created, otherwise
+        /// a visually identical, but not functional element will be created. Please bare in mind that the created
+        /// Acroform may visually differ a bit from the HTML one.
+        /// </remarks>
+        /// <returns>the createAcroForm flag</returns>
         public virtual bool IsCreateAcroForm() {
             return createAcroForm;
         }
 
         /// <summary>Sets the createAcroForm value.</summary>
+        /// <remarks>
+        /// Sets the createAcroForm value.
+        /// If createAcroForm is set, then when the form is encountered in HTML, AcroForm will be created, otherwise
+        /// a visually identical, but not functional element will be created. Please bare in mind that the created
+        /// Acroform may visually differ a bit from the HTML one.
+        /// </remarks>
         /// <param name="createAcroForm">true if an AcroForm needs to be created</param>
-        /// <returns>the ConverterProperties instance</returns>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetCreateAcroForm(bool createAcroForm) {
             this.createAcroForm = createAcroForm;
             return this;
         }
 
         /// <summary>Gets the outline handler.</summary>
+        /// <remarks>
+        /// Gets the outline handler.
+        /// If outlineHandler is specified, then outlines will be created in the PDF
+        /// for HTML tags specified in outlineHandler.
+        /// Please note that
+        /// <see cref="iText.Html2pdf.Attach.Impl.OutlineHandler"/>
+        /// is not thread safe, thus
+        /// as soon as you have set this property, this
+        /// <see cref="ConverterProperties"/>
+        /// instance cannot be used in
+        /// converting multiple HTMLs simultaneously.
+        /// </remarks>
         /// <returns>the outline handler</returns>
         public virtual OutlineHandler GetOutlineHandler() {
             return outlineHandler;
@@ -217,56 +325,89 @@ namespace iText.Html2pdf {
 
         /// <summary>Sets the outline handler.</summary>
         /// <remarks>
-        /// Sets the outline handler. Please note that
+        /// Sets the outline handler.
+        /// If outlineHandler is specified, then outlines will be created in the PDF
+        /// for HTML tags specified in outlineHandler.
+        /// Please note that
         /// <see cref="iText.Html2pdf.Attach.Impl.OutlineHandler"/>
         /// is not thread safe, thus
         /// as soon as you have set this property, this
         /// <see cref="ConverterProperties"/>
-        /// instance cannot be used in converting multiple
-        /// HTMLs simultaneously.
+        /// instance cannot be used in
+        /// converting multiple HTMLs simultaneously.
         /// </remarks>
         /// <param name="outlineHandler">the outline handler</param>
-        /// <returns>the ConverterProperties instance</returns>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetOutlineHandler(OutlineHandler outlineHandler) {
             this.outlineHandler = outlineHandler;
             return this;
         }
 
         /// <summary>Gets the encoding charset.</summary>
+        /// <remarks>
+        /// Gets the encoding charset.
+        /// Charset is used to correctly decode an HTML file.
+        /// </remarks>
         /// <returns>the charset</returns>
         public virtual String GetCharset() {
             return charset;
         }
 
         /// <summary>Sets the encoding charset.</summary>
+        /// <remarks>
+        /// Sets the encoding charset.
+        /// Charset is used to correctly decode an HTML file.
+        /// </remarks>
         /// <param name="charset">the charset</param>
-        /// <returns>the ConverterProperties instance</returns>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetCharset(String charset) {
             this.charset = charset;
             return this;
         }
 
-        /// <summary>Checks if immediateFlush is set</summary>
-        /// <returns>true if immediateFlush is set, false if not.</returns>
+        /// <summary>Checks if immediateFlush is set.</summary>
+        /// <remarks>
+        /// Checks if immediateFlush is set.
+        /// This is used for
+        /// <see cref="HtmlConverter.ConvertToDocument(System.String, iText.Kernel.Pdf.PdfWriter)"/>
+        /// methods and will be
+        /// overwritten to false if a page-counter declaration is present in the CSS of the HTML being converted.
+        /// Has no effect when used in conjunction with
+        /// <see cref="HtmlConverter.ConvertToPdf(System.String, System.IO.Stream)"/>
+        /// or
+        /// <see cref="HtmlConverter.ConvertToElements(System.String)"/>.
+        /// </remarks>
+        /// <returns>true if immediateFlush is set, false if not</returns>
         public virtual bool IsImmediateFlush() {
             return immediateFlush;
         }
 
-        /// <summary>
-        /// set the immediate flush property of the layout document
-        /// This is used for convertToDocument methods and will be overwritten to
-        /// false if a page-counter declaration is present in the CSS of the HTML being
-        /// converted.
-        /// </summary>
+        /// <summary>Set the immediate flush property of the layout document.</summary>
         /// <remarks>
-        /// set the immediate flush property of the layout document
-        /// This is used for convertToDocument methods and will be overwritten to
-        /// false if a page-counter declaration is present in the CSS of the HTML being
-        /// converted.
-        /// Has no effect when used in conjunction with convertToPdf or convertToElements
+        /// Set the immediate flush property of the layout document.
+        /// This is used for
+        /// <see cref="HtmlConverter.ConvertToDocument(System.String, iText.Kernel.Pdf.PdfWriter)"/>
+        /// methods and will be
+        /// overwritten to false if a page-counter declaration is present in the CSS of the HTML being converted.
+        /// Has no effect when used in conjunction with
+        /// <see cref="HtmlConverter.ConvertToPdf(System.String, System.IO.Stream)"/>
+        /// or
+        /// <see cref="HtmlConverter.ConvertToElements(System.String)"/>.
         /// </remarks>
         /// <param name="immediateFlush">the immediate flush value</param>
-        /// <returns>the ConverterProperties</returns>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetImmediateFlush(bool immediateFlush) {
             this.immediateFlush = immediateFlush;
             return this;
@@ -274,7 +415,8 @@ namespace iText.Html2pdf {
 
         /// <summary>Gets html meta info.</summary>
         /// <remarks>
-        /// Gets html meta info. This meta info will be passed with to
+        /// Gets html meta info.
+        /// This meta info will be passed with to
         /// <see cref="iText.Kernel.Counter.EventCounter"/>
         /// with
         /// <see cref="iText.Html2pdf.Events.PdfHtmlEvent"/>
@@ -290,7 +432,8 @@ namespace iText.Html2pdf {
 
         /// <summary>Sets html meta info.</summary>
         /// <remarks>
-        /// Sets html meta info. This meta info will be passed with to
+        /// Sets html meta info.
+        /// This meta info will be passed with to
         /// <see cref="iText.Kernel.Counter.EventCounter"/>
         /// with
         /// <see cref="iText.Html2pdf.Events.PdfHtmlEvent"/>
@@ -298,7 +441,7 @@ namespace iText.Html2pdf {
         /// </remarks>
         /// <param name="metaInfo">meta info to set</param>
         /// <returns>
-        /// this
+        /// the
         /// <see cref="ConverterProperties"/>
         /// instance
         /// </returns>
