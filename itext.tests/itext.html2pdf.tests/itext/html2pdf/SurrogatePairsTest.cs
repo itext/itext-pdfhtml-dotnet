@@ -27,7 +27,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf {
-    public class SurrogatePairsTests : ExtendedITextTest {
+    public class SurrogatePairsTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/SurrogatePairsTests/";
 
@@ -69,7 +69,7 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        //TODO DEVSIX-3307
+        //TODO DEVSIX-3307: It is required to update cmp files when the ticket will be implemented.
         [LogMessage(TYPOGRAPHY_WARNING, Count = 2)]
         [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void SurrogatePairCombingFullSurrs() {
@@ -80,7 +80,7 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        //TODO DEVSIX-3307
+        //TODO DEVSIX-3307: It is required to update cmp files when the ticket will be implemented.
         [LogMessage(TYPOGRAPHY_WARNING, Count = 2)]
         [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void SurrogatePairCombingFullSurrsWithNoSurrs() {
@@ -91,7 +91,6 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        //TODO DEVSIX-3307
         [LogMessage(TYPOGRAPHY_WARNING, Count = 2)]
         public virtual void SurrogatePairCombinationOf3TypesPairs() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairCombinationOf3TypesPairs.html"), new 

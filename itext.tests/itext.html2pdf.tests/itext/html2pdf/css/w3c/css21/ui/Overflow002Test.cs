@@ -44,7 +44,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.UI {
-    public class OverflowTest002 : W3CCssTest {
+    public class Overflow002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "overflow-002.xht";
         }
