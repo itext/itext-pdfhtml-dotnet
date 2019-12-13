@@ -11,7 +11,6 @@ pipeline {
         ansiColor('xterm')
         buildDiscarder(logRotator(artifactNumToKeepStr: '1'))
         parallelsAlwaysFailFast()
-        retry(1)
         skipStagesAfterUnstable()
         timeout(time: 60, unit: 'MINUTES')
         timestamps()
@@ -29,35 +28,47 @@ pipeline {
                 }
             }
         }
-        stage('Clean workspace') {
+        stage('Build') {
             options {
-                timeout(time: 5, unit: 'MINUTES')
+                retry(2)
             }
-            steps {
-                cleanWs deleteDirs: true, patterns: [
-                    [pattern: 'packages', type: 'INCLUDE'],
-                    [pattern: 'global-packages', type: 'INCLUDE'],
-                    [pattern: 'tmp/NuGetScratch', type: 'INCLUDE'],
-                    [pattern: 'http-cache', type: 'INCLUDE'],
-                    [pattern: 'plugins-cache', type: 'INCLUDE'],
-                    [pattern: '**/obj', type: 'INCLUDE'],
-                    [pattern: '**/bin', type: 'INCLUDE']
-                ]
-            }
-        }
-        stage('Compile') {
-            options {
-                timeout(time: 20, unit: 'MINUTES')
-            }
-            steps {
-                withEnv(["NUGET_PACKAGES=${env.WORKSPACE}/global-packages", "temp=${env.WORKSPACE}/tmp/NuGetScratch", "NUGET_HTTP_CACHE_PATH=${env.WORKSPACE}/http-cache", "NUGET_PLUGINS_CACHE_PATH=${env.WORKSPACE}/plugins-cache", "gsExec=${gsExec}", "compareExec=${compareExec}"]) {
-                    bat "\"${env.NuGet}\" restore itext.html2pdf.sln"
-                    bat "dotnet restore itext.html2pdf.sln"
-                    bat "dotnet build itext.html2pdf.sln --configuration Release --source ${env.WORKSPACE}/packages"
-                    script {
-                         createPackAllFile(findFiles(glob: '**/*.nuspec'))
-                         load 'packAll.groovy'
+            stages {
+                stage('Clean workspace') {
+                    options {
+                        timeout(time: 5, unit: 'MINUTES')
                     }
+                    steps {
+                        cleanWs deleteDirs: true, patterns: [
+                            [pattern: 'packages', type: 'INCLUDE'],
+                            [pattern: 'global-packages', type: 'INCLUDE'],
+                            [pattern: 'tmp/NuGetScratch', type: 'INCLUDE'],
+                            [pattern: 'http-cache', type: 'INCLUDE'],
+                            [pattern: 'plugins-cache', type: 'INCLUDE'],
+                            [pattern: '**/obj', type: 'INCLUDE'],
+                            [pattern: '**/bin', type: 'INCLUDE']
+                        ]
+                    }
+                }
+                stage('Compile') {
+                    options {
+                        timeout(time: 20, unit: 'MINUTES')
+                    }
+                    steps {
+                        withEnv(["NUGET_PACKAGES=${env.WORKSPACE}/global-packages", "temp=${env.WORKSPACE}/tmp/NuGetScratch", "NUGET_HTTP_CACHE_PATH=${env.WORKSPACE}/http-cache", "NUGET_PLUGINS_CACHE_PATH=${env.WORKSPACE}/plugins-cache", "gsExec=${gsExec}", "compareExec=${compareExec}"]) {
+                            bat "\"${env.NuGet}\" restore itext.html2pdf.sln"
+                            bat "dotnet restore itext.html2pdf.sln"
+                            bat "dotnet build itext.html2pdf.sln --configuration Release --source ${env.WORKSPACE}/packages"
+                            script {
+                                createPackAllFile(findFiles(glob: '**/*.nuspec'))
+                                load 'packAll.groovy'
+                            }
+                        }
+                    }
+                }
+            }
+            post {
+                failure {
+                    sleep time: 2, unit: 'MINUTES'
                 }
             }
         }
