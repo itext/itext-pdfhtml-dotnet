@@ -45,8 +45,49 @@ pipeline {
                             [pattern: 'http-cache', type: 'INCLUDE'],
                             [pattern: 'plugins-cache', type: 'INCLUDE'],
                             [pattern: '**/obj', type: 'INCLUDE'],
-                            [pattern: '**/bin', type: 'INCLUDE']
+                            [pattern: '**/bin', type: 'INCLUDE'],
+                            [pattern: '**/*.nupkg', type: 'INCLUDE']
                         ]
+                    }
+                }
+                stage('Install branch dependencies') {
+                    options {
+                        timeout(time: 5, unit: 'MINUTES')
+                    }
+                    when {
+                        not {
+                            anyOf {
+                                branch "master"
+                                branch "develop"
+                            }
+                        }
+                    }
+                    steps {
+                        script {
+                            getAndConfigureJFrogCLI()
+                            sh "./jfrog rt dl --flat=true branch-artifacts/${env.JOB_BASE_NAME}/**/dotnet/"
+                            // create global-packages directory
+                            dir("${env.WORKSPACE}/global-packages") {writeFile file:'dummy', text:''}
+                            nuspecFiles = findFiles(glob: '**/*.nuspec')
+                            buildArtifacts = []
+                            nuspecFiles.each{ nuspecFile ->
+                                def xmlTxt = sh(returnStdout: true, script: '#!/bin/sh -e\n' + "cat \"${nuspecFile.path.replace('\\','/')}\"").replaceAll("^.*<", "<")
+                                def xml = new XmlSlurper(false, false).parseText("${xmlTxt}")
+                                def artifactId = "${xml.metadata.id}"
+                                def artifactVersion = "${xml.metadata.version}"
+                                artifact = "${artifactId}.${artifactVersion}"
+                                buildArtifacts.add(artifact)
+                            }
+                            withEnv(["NUGET_PACKAGES=${env.WORKSPACE}/global-packages", "temp=${env.WORKSPACE}/tmp/NuGetScratch", "NUGET_HTTP_CACHE_PATH=${env.WORKSPACE}/http-cache", "NUGET_PLUGINS_CACHE_PATH=${env.WORKSPACE}/plugins-cache", "gsExec=${gsExec}", "compareExec=${compareExec}"]) {
+                                 createInstallAllFile(findFiles(glob: '**/*.nupkg'), buildArtifacts)
+                                 load 'installAll.groovy'
+                            }
+                            nupkgFiles = findFiles(glob: '*.nupkg')
+                            nupkgFiles.each{ nupkgFile ->
+                                println "Delete downloaded ${nupkgFile.path}"
+                                cleanWs deleteDirs: true, patterns: [[pattern: "${nupkgFile.path}", type: 'INCLUDE']]
+                            }
+                        }
                     }
                 }
                 stage('Compile') {
@@ -102,15 +143,39 @@ pipeline {
             }
             steps {
                 script {
-                    getAndConfigureJFrogCLI()
                     findFiles(glob: '*.nupkg').each { item ->
-                        upload(item)
+                        def itemArray = (item =~ /(.*?)(\.[0-9]*\.[0-9]*\.[0-9]*(-SNAPSHOT)?)/)
+                        def dir = itemArray[ 0 ][ 1 ]
+                        sh "./jfrog rt u \"${item.path}\" nuget/${dir}/ --flat=false --build-name ${env.BRANCH_NAME} --build-number ${env.BUILD_NUMBER}"
+                    }
+                }
+            }
+        }
+        stage('Branch Artifactory Deploy') {
+            options {
+                timeout(time: 5, unit: 'MINUTES')
+            }
+            when {
+                not {
+                    anyOf {
+                        branch "master"
+                        branch "develop"
+                    }
+                }
+            }
+            steps {
+                script {
+                    if (env.GIT_URL) {
+                        repoName = ("${env.GIT_URL}" =~ /(.*\/)(.*)(\.git)/)[ 0 ][ 2 ]
+                        findFiles(glob: '*.nupkg').each { item ->
+                            sh "./jfrog rt u \"${item.path}\" branch-artifacts/${env.BRANCH_NAME}/${repoName}/dotnet/ --recursive=false --build-name ${env.BRANCH_NAME} --build-number ${env.BUILD_NUMBER} --props \"vcs.revision=${env.GIT_COMMIT};repo.name=${repoName}\""
+                        }
                     }
                 }
             }
         }
         stage('Archive Artifacts') {
-            options {
+             options {
                 timeout(time: 5, unit: 'MINUTES')
             }
             steps {
@@ -155,6 +220,58 @@ pipeline {
 }
 
 @NonCPS // has to be NonCPS or the build breaks on the call to .each
+def createInstallAllFile(list, buildArtifacts) {
+    // creates file because the sh command brakes the loop
+    def buildArtifactsList = buildArtifacts.join(",")
+    def ws = "${env.WORKSPACE.replace('\\','/')}"
+    def cmd = "import groovy.xml.XmlUtil\n"
+    cmd = cmd + "def xmlTxt = ''\n"
+    cmd = cmd + "def buildArtifacts = \"${buildArtifactsList}\".split(',').collect{it as java.lang.String}\n"
+    list.each { item ->
+        filename = item.getName()
+        def itemArray = (item.getName() =~ /(.*?)\.([0-9]*)\.([0-9]*)\.([0-9]*)(|-SNAPSHOT)/)
+        def name = itemArray[0][1]
+        if (!buildArtifacts.contains("${filename.replace(".nupkg","")}")) {
+            cmd = cmd + "try {xmlTxt = sh(returnStdout: true, script: 'unzip -p ${filename} ${name}.nuspec')} catch (Exception err) { }\n"
+            cmd = cmd + "xmlTxt = \"\${xmlTxt.replaceFirst('.*?<?xml version','<?xml version')}\"\n"
+            cmd = cmd + "xml = new XmlSlurper(false, false).parseText(xmlTxt)\n"
+            cmd = cmd + "install = true\n"
+            cmd = cmd + "xml.metadata.dependencies.group.dependency.each { dependency ->\n"
+            cmd = cmd + "    artifact = \"\${dependency[\'@id\']}.\${dependency[\'@version\']}\".toString()\n"
+            cmd = cmd + "    if (buildArtifacts.contains(artifact)) {\n"
+            cmd = cmd + "        install = false\n"
+            cmd = cmd + "    }\n"
+            cmd = cmd + "}\n"
+            cmd = cmd + "xml.metadata.dependencies.dependency.each { dependency ->\n"
+            cmd = cmd + "    artifact = \"\${dependency[\'@id\']}.\${dependency[\'@version\']}\".toString()\n"
+            cmd = cmd + "    if (buildArtifacts.contains(artifact)) {\n"
+            cmd = cmd + "        install = false\n"
+            cmd = cmd + "    }\n"
+            cmd = cmd + "}\n"
+            cmd = cmd + "if (install) {\n"
+            cmd = cmd + "    xml.metadata.dependencies.group.dependency.each { dependency ->\n"
+            cmd = cmd + "        if (\"\${dependency[\'@id\']}\".contains(\"itext7\")) {\n"
+            cmd = cmd + "            sh \"${env.NuGet.replace('\\','/')} install \${dependency[\'@id\']} -PreRelease -Version \${dependency[\'@version\']} -OutputDirectory packages -Source '${ws};https://repo.itextsupport.com/api/nuget/nuget;https://api.nuget.org/v3/index.json'\"\n"
+            cmd = cmd + "        }\n"
+            cmd = cmd + "    }\n"
+            cmd = cmd + "    xml.metadata.dependencies.dependency.each { dependency ->\n"
+            cmd = cmd + "        if (\"\${dependency[\'@id\']}\".contains(\"itext7\")) {\n"
+            cmd = cmd + "            sh \"${env.NuGet.replace('\\','/')} install \${dependency[\'@id\']} -PreRelease -Version \${dependency[\'@version\']} -OutputDirectory packages -Source '${ws};https://repo.itextsupport.com/api/nuget/nuget;https://api.nuget.org/v3/index.json'\"\n"
+            cmd = cmd + "        }\n"
+            cmd = cmd + "    }\n"
+            cmd = cmd + "    try {sh 'rm -r ${ws}/global-packages/${name}'} catch (Exception err) { }\n"
+            cmd = cmd + "    try {sh 'rm -r ${ws}/packages/${filename.replace('.nupkg','')}'} catch (Exception err) { }\n"
+            cmd = cmd + "    sh '\"${env.NuGet.replace('\\','/')}\" install ${name} -PreRelease -OutputDirectory packages -Source \"${ws};https://api.nuget.org/v3/index.json\"'\n"
+            cmd = cmd + "    sh '\"${env.NuGet.replace('\\','/')}\" push ${ws}/${filename} -Source \"${ws}/global-packages\"'\n"
+            cmd = cmd + "} else {\n"
+            cmd = cmd + "    println \"Not installing '${filename}' - this repository will build dependencies for it....\"\n"
+            cmd = cmd + "}\n"
+        }
+    }
+    writeFile file: 'installAll.groovy', text: cmd
+}
+
+@NonCPS // has to be NonCPS or the build breaks on the call to .each
 def createPackAllFile(list) {
     // creates file because the bat command brakes the loop
     def cmd = ''
@@ -190,12 +307,4 @@ def createRunTestCsProjsFile(list) {
     }
     writeFile file: 'runTestCsProjs.groovy', text: cmd
 }
-
-@NonCPS
-def upload(item) {
-    def itemArray = (item =~ /(.*?)(\.[0-9]*\.[0-9]*\.[0-9]*(-SNAPSHOT)?\.nupkg)/)
-    def dir = itemArray[ 0 ][ 1 ]
-    sh "./jfrog rt u \"${item.path}\" nuget/${dir}/ --flat=false --build-name="${env.BRANCH_NAME}" --build-number=${env.BUILD_NUMBER}"
-}
-
 
