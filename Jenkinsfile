@@ -143,6 +143,7 @@ pipeline {
             }
             steps {
                 script {
+                    getAndConfigureJFrogCLI()
                     findFiles(glob: '*.nupkg').each { item ->
                         def itemArray = (item =~ /(.*?)(\.[0-9]*\.[0-9]*\.[0-9]*(-SNAPSHOT)?)/)
                         def dir = itemArray[ 0 ][ 1 ]
