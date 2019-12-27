@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Layout;
 using iText.Layout.Element;
@@ -73,6 +74,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             // TODO DEVSIX-2534
             IList<String> splitFontFamily = FontFamilySplitter.SplitFontFamily(fontFamily);
             newLine.SetFontFamily(splitFontFamily.ToArray(new String[splitFontFamily.Count]));
+            AccessiblePropHelper.TrySetLangAttribute(newLine, element);
         }
 
         /* (non-Javadoc)

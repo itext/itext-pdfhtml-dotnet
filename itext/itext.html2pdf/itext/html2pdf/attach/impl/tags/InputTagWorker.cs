@@ -74,6 +74,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public InputTagWorker(IElementNode element, ProcessorContext context) {
+            String lang = element.GetAttribute(AttributeConstants.LANG);
             String inputType = element.GetAttribute(AttributeConstants.TYPE);
             if (!AttributeConstants.INPUT_TYPE_VALUES.Contains(inputType)) {
                 if (null != inputType && 0 != inputType.Length) {
@@ -150,6 +151,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             if (formElement != null) {
                 formElement.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
+                formElement.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
             }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }

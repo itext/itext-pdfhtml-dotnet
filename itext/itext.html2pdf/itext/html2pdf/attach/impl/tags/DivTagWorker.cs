@@ -79,6 +79,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.Get(CssConstants.WHITE_SPACE
                 ), styles == null ? null : styles.Get(CssConstants.TEXT_TRANSFORM));
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
+            AccessiblePropHelper.TrySetLangAttribute(div, element);
         }
 
         /* (non-Javadoc)
@@ -181,7 +182,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>Adds a child element to the div block.</summary>
         /// <param name="element">the element</param>
         /// <returns>true, if successful</returns>
-        private bool AddBlockChild(IElement element) {
+        protected internal virtual bool AddBlockChild(IElement element) {
             PostProcessInlineGroup();
             bool processed = false;
             if (element is IBlockElement) {
@@ -198,7 +199,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         /// <summary>Post-processes the hanging leaves of the waiting inline elements.</summary>
-        private void PostProcessInlineGroup() {
+        protected internal virtual void PostProcessInlineGroup() {
             inlineHelper.FlushHangingLeaves(div);
         }
     }

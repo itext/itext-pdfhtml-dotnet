@@ -41,14 +41,20 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Collections.Generic;
 using Common.Logging;
-using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Html2pdf.Attach.Util;
 using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Tagging;
+using iText.Kernel.Pdf.Tagutils;
+using iText.Layout;
 using iText.Layout.Layout;
 using iText.Layout.Minmaxwidth;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
+using iText.Layout.Tagging;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// <summary>
@@ -110,6 +116,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 }
                 else {
                     flatRenderer = childRenderers[0];
+                    ProcessLangAttribute();
                     childRenderers.Clear();
                     childRenderers.Add(flatRenderer);
                     AdjustFieldLayout(layoutContext);
@@ -127,6 +134,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
             if (!childRenderers.IsEmpty()) {
                 flatRenderer = childRenderers[0];
+                ProcessLangAttribute();
                 childRenderers.Clear();
                 childRenderers.Add(flatRenderer);
                 AdjustFieldLayout(layoutContext);
@@ -248,7 +256,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected internal virtual float? GetContentWidth() {
             return base.RetrieveWidth(0);
         }
-
+        
+        /// <summary>Gets the accessibility language.</summary>
+        /// <returns>the accessibility language</returns>
+        protected virtual String GetLang() {
+            return GetProperty<String>(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
+        }
+        
         //NOTE: should be removed in 3.0.0
         protected override float? RetrieveWidth(float parentBoxWidth) {
             UnitValue width = base.GetProperty<UnitValue>(Property.WIDTH);
@@ -261,6 +275,27 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         protected internal virtual bool IsLayoutBasedOnFlatRenderer()
         {
             return true;
+        }
+        
+        protected virtual void WriteAcroFormFieldLangAttribute(PdfDocument pdfDoc) {
+            if (pdfDoc.IsTagged()) {
+                TagTreePointer formParentPointer = pdfDoc.GetTagStructureContext().GetAutoTaggingPointer();
+                IList<String> kidsRoles = formParentPointer.GetKidsRoles();
+                int lastFormIndex = kidsRoles.LastIndexOf(StandardRoles.FORM);
+                TagTreePointer formPointer = formParentPointer.MoveToKid(lastFormIndex);
+
+                if (GetLang() != null) {
+                    formPointer.GetProperties().SetLanguage(GetLang());
+                }
+                formParentPointer.MoveToParent();
+            }
+        }
+
+        private void ProcessLangAttribute() {
+            IPropertyContainer propertyContainer = flatRenderer.GetModelElement();
+            if (propertyContainer is IAccessibleElement) {
+                AccessiblePropHelper.TrySetLangAttribute((IAccessibleElement) propertyContainer, GetLang());
+            }
         }
     }
 }

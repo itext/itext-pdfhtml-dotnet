@@ -54,7 +54,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for a table element.</summary>
     public class DisplayTableTagWorker : ITagWorker {
         /// <summary>The table.</summary>
-        private IPropertyContainer table;
+        private Table table;
 
         /// <summary>The table wrapper.</summary>
         private TableWrapper tableWrapper = new TableWrapper();
@@ -86,6 +86,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             FlushWaitingCell();
             table = tableWrapper.ToTable(null);
+            AccessiblePropHelper.TrySetLangAttribute(table, element);
         }
 
         /* (non-Javadoc)

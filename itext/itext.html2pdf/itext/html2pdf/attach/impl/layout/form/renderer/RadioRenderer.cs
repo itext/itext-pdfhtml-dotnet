@@ -138,13 +138,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             if (IsBoxChecked()) {
                 radioGroup.SetValue(GetModelId());
             }
-            PdfFormField.CreateRadioButton(doc, area, radioGroup, GetModelId()).SetCheckType(PdfFormField.TYPE_CIRCLE);
+            PdfFormField radio = PdfFormField.CreateRadioButton(doc, area, radioGroup, GetModelId());
+            radio.SetCheckType(PdfFormField.TYPE_CIRCLE);
             if (addNew) {
                 form.AddField(radioGroup, page);
             }
             else {
                 form.ReplaceField(GetModelId(), radioGroup);
             }
+            WriteAcroFormFieldLangAttribute(doc);
         }
 
         protected internal override bool IsLayoutBasedOnFlatRenderer() {

@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using Common.Logging;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Util;
 using iText.Layout;
 using iText.Layout.Element;
@@ -86,6 +87,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (context.GetPdfDocument() != null && processingResult != null) {
                 SvgProcessingUtil util = new SvgProcessingUtil();
                 svgImage = util.CreateImageFromProcessingResult(processingResult, context.GetPdfDocument());
+                AccessiblePropHelper.TrySetLangAttribute(svgImage, element);
                 context.EndProcessingInlineSvg();
             }
         }

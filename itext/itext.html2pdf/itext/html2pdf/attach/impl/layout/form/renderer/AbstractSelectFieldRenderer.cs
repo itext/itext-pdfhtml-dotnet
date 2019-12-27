@@ -127,6 +127,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
         }
 
+        /// <summary>Gets the accessibility language.</summary>
+        /// <returns>the accessibility language</returns>
+        protected internal virtual String GetLang() {
+            return this.GetProperty<String>(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
+        }
+
         protected internal abstract IRenderer CreateFlatRenderer();
 
         protected internal abstract void ApplyAcroField(DrawContext drawContext);

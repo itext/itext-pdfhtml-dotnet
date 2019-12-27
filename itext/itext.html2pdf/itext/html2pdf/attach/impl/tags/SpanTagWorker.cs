@@ -48,6 +48,7 @@ using iText.Html2pdf.Attach.Wrapelement;
 using iText.Html2pdf.Css;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Tagging;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
@@ -101,6 +102,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             FlushInlineHelper();
             elements = spanWrapper.GetElements();
+            foreach (IPropertyContainer elem in elements) {
+                if (elem is IAccessibleElement) {
+                    AccessiblePropHelper.TrySetLangAttribute((IAccessibleElement)elem, element);
+                }
+            }
         }
 
         /* (non-Javadoc)

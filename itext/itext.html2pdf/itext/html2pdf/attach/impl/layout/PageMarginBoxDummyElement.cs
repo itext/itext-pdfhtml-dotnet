@@ -62,7 +62,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         public virtual String GetAttribute(String key) {
-            throw new NotSupportedException();
+            return null;
         }
 
         public virtual IList<IDictionary<String, String>> GetAdditionalHtmlStyles() {

@@ -124,6 +124,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
             PdfButtonFormField checkBox = PdfFormField.CreateCheckBox(doc, area, name, IsBoxChecked() ? "Yes" : "Off");
             PdfAcroForm.GetAcroForm(doc, true).AddField(checkBox, page);
+            WriteAcroFormFieldLangAttribute(doc);
         }
 
         protected internal override bool IsLayoutBasedOnFlatRenderer() {

@@ -47,6 +47,8 @@ using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Html;
+using iText.IO.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
@@ -91,6 +93,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             document.SetProperty(Property.FONT, fontFamilies.ToArray(new String[fontFamilies.Count]));
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
+            String lang = element.GetAttribute(AttributeConstants.LANG);
+            if (lang != null) {
+                pdfDocument.GetCatalog().SetLang(new PdfString(lang, PdfEncodings.UNICODE_BIG));
+            }
         }
 
         /* (non-Javadoc)

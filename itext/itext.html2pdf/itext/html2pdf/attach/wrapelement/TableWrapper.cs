@@ -81,6 +81,15 @@ namespace iText.Html2pdf.Attach.Wrapelement {
         /// <summary>The caption value.</summary>
         private Div caption = null;
 
+        /// <summary>The lang attribute value.</summary>
+        private String lang;
+
+        /// <summary>The footer lang attribute value.</summary>
+        private String footerLang;
+
+        /// <summary>The header lang attribute value.</summary>
+        private String headerLang;
+
         public TableWrapper() {
         }
 
@@ -157,6 +166,18 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             AddCellToTable(cell, rows, rowShift);
         }
 
+        public virtual void SetLang(String lang) {
+            this.lang = lang;
+        }
+
+        public virtual void SetFooterLang(String footerLang) {
+            this.footerLang = footerLang;
+        }
+
+        public virtual void SetHeaderLang(String headerLang) {
+            this.headerLang = headerLang;
+        }
+
         /// <summary>Adds a cell to a table.</summary>
         /// <param name="cell">the cell</param>
         /// <param name="table">the table</param>
@@ -192,18 +213,29 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                 // if table is empty, create empty table with single column
                 table = new Table(1);
             }
+            AccessiblePropHelper.TrySetLangAttribute(table, lang);
             if (headerRows != null) {
                 for (int i = 0; i < headerRows.Count; i++) {
                     if (isRtl) {
                         JavaCollectionsUtil.Reverse(headerRows[i]);
                     }
                     for (int j = 0; j < headerRows[i].Count; j++) {
-                        table.AddHeaderCell(headerRows[i][j].cell);
+                        Cell cell = headerRows[i][j].cell;
+                        ColWrapper colWrapper = colgroupsHelper.GetColWrapper(j);
+                        if (colWrapper != null) {
+                            if (headerLang == null && cell.GetAccessibilityProperties().GetLanguage() == null) {
+                                if (colWrapper.GetLang() != null) {
+                                    cell.GetAccessibilityProperties().SetLanguage(colWrapper.GetLang());
+                                }
+                            }
+                        }
+                        table.AddHeaderCell(cell);
                     }
                     if (i != headerRows.Count - 1) {
                         table.GetHeader().StartNewRow();
                     }
                 }
+                AccessiblePropHelper.TrySetLangAttribute(table.GetHeader(), headerLang);
             }
             if (footerRows != null) {
                 for (int i = 0; i < footerRows.Count; i++) {
@@ -211,12 +243,22 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                         JavaCollectionsUtil.Reverse(footerRows[i]);
                     }
                     for (int j = 0; j < footerRows[i].Count; j++) {
-                        table.AddFooterCell(footerRows[i][j].cell);
+                        Cell cell = footerRows[i][j].cell;
+                        ColWrapper colWrapper = colgroupsHelper.GetColWrapper(j);
+                        if (colWrapper != null) {
+                            if (footerLang == null && cell.GetAccessibilityProperties().GetLanguage() == null) {
+                                if (colWrapper.GetLang() != null) {
+                                    cell.GetAccessibilityProperties().SetLanguage(colWrapper.GetLang());
+                                }
+                            }
+                        }
+                        table.AddFooterCell(cell);
                     }
                     if (i != footerRows.Count - 1) {
                         table.GetFooter().StartNewRow();
                     }
                 }
+                AccessiblePropHelper.TrySetLangAttribute(table.GetFooter(), footerLang);
             }
             if (rows != null) {
                 for (int i = 0; i < rows.Count; i++) {

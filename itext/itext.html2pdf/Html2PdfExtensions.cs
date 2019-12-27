@@ -251,6 +251,18 @@ internal static class Html2PdfExtensions {
         return ((List<T>) list).GetRange(fromIndex, toIndex - fromIndex);
     }
 
+    public static int LastIndexOf<T>(this IList<T> list, T item) {
+        if (list is List<T>) {
+            return ((List<T>) list).LastIndexOf(item);
+        }
+        for (int index = list.Count - 1; index >= 0; --index) {
+            if (Equals(list[index], item)) {
+                return index;
+            }
+        }
+        return -1;
+    }
+
     public static void GetChars(this StringBuilder sb, int srcBegin, int srcEnd, char[] dst, int dstBegin) {
         sb.CopyTo(srcBegin, dst, dstBegin, srcEnd - srcBegin);
     }

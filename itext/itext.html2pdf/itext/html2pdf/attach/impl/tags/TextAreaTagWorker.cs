@@ -85,6 +85,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
+            textArea.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, element.GetAttribute(AttributeConstants
+                .LANG));
             String placeholder = element.GetAttribute(AttributeConstants.PLACEHOLDER);
             if (null != placeholder) {
                 Paragraph paragraph;

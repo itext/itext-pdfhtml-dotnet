@@ -128,6 +128,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant LABEL.</summary>
         public const String LABEL = "label";
 
+        /// <summary>The Constant LANG.</summary>
+        public const String LANG = "lang";
+
         /// <summary>The Constant MEDIA.</summary>
         public const String MEDIA = "media";
 

@@ -42,9 +42,15 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Html;
+using iText.IO.Font;
+using iText.Kernel.Pdf;
 using iText.Layout;
+using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.Layout.Tagging;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
@@ -57,6 +63,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     public class BodyTagWorker : DivTagWorker {
         /// <summary>The parent tag worker.</summary>
         private ITagWorker parentTagWorker;
+
+        /// <summary>The lang attribute value.</summary>
+        private String lang;
 
         /// <summary>
         /// Creates a new
@@ -77,6 +86,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     parentTagWorker.GetElementResult().SetProperty(Property.FONT_SIZE, UnitValue.CreatePointValue(em));
                 }
             }
+            PdfDocument pdfDocument = context.GetPdfDocument();
+            if (pdfDocument != null) {
+                lang = element.GetAttribute(AttributeConstants.LANG);
+                if (lang != null) {
+                    pdfDocument.GetCatalog().SetLang(new PdfString(lang, PdfEncodings.UNICODE_BIG));
+                }
+            }
+            else {
+                lang = element.GetLang();
+            }
         }
 
         /* (non-Javadoc)
@@ -85,6 +104,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public override void ProcessEnd(IElementNode element, ProcessorContext context) {
             if (parentTagWorker == null) {
                 base.ProcessEnd(element, context);
+                if (context.GetPdfDocument() == null) {
+                    foreach (IElement child in ((Div)base.GetElementResult()).GetChildren()) {
+                        if (child is IAccessibleElement) {
+                            AccessiblePropHelper.TrySetLangAttribute((IAccessibleElement)child, lang);
+                        }
+                    }
+                }
             }
         }
 

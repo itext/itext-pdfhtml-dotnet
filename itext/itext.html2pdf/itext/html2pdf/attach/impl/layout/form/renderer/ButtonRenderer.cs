@@ -146,6 +146,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
             ApplyDefaultFieldProperties(button);
             PdfAcroForm.GetAcroForm(doc, true).AddField(button, page);
+            WriteAcroFormFieldLangAttribute(doc);
         }
 
         /* (non-Javadoc)

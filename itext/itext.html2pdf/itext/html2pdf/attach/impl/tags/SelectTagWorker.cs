@@ -83,6 +83,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             else {
                 selectElement = new ComboBoxField(name);
             }
+            String lang = element.GetAttribute(AttributeConstants.LANG);
+            selectElement.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
             selectElement.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }

@@ -110,6 +110,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             inlineHelper.FlushHangingLeaves(lastParagraph);
+            if (elementsContainer != null) {
+                AccessiblePropHelper.TrySetLangAttribute(elementsContainer, element);
+            }
+            else {
+                AccessiblePropHelper.TrySetLangAttribute(lastParagraph, element);
+            }
         }
 
         /* (non-Javadoc)

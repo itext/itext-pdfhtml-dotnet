@@ -59,10 +59,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <see cref="AbbrTagWorker"/>
         /// instance.
         /// </summary>
-        /// <param name="tag">the tag</param>
+        /// <param name="element">the tag</param>
         /// <param name="context">the context</param>
-        public AbbrTagWorker(IElementNode tag, ProcessorContext context)
-            : base(tag, context) {
+        public AbbrTagWorker(IElementNode element, ProcessorContext context)
+            : base(element, context) {
         }
 
         /* (non-Javadoc)

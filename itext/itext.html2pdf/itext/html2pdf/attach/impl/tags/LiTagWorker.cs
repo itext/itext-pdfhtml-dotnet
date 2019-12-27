@@ -97,6 +97,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
+            AccessiblePropHelper.TrySetLangAttribute(listItem, element);
         }
 
         /* (non-Javadoc)

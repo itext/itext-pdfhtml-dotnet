@@ -88,5 +88,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>The Constant FORM_FIELD_SELECTED.</summary>
         public const int FORM_FIELD_LABEL = PROPERTY_START + 14;
+
+        /// <summary>The Constant FORM_ACCESSIBILITY_LANGUAGE.</summary>
+        public const int FORM_ACCESSIBILITY_LANGUAGE = PROPERTY_START + 15;
     }
 }

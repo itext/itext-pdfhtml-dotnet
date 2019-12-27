@@ -169,6 +169,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             inputField.SetDefaultValue(new PdfString(GetDefaultValue()));
             ApplyDefaultFieldProperties(inputField);
             PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
+            WriteAcroFormFieldLangAttribute(doc);
         }
 
         public override T1 GetProperty<T1>(int key) {

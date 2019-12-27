@@ -126,6 +126,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 //Create Image object
                 if (res != null) {
                     image = processUtil.CreateImageFromProcessingResult(res, document);
+                    AccessiblePropHelper.TrySetLangAttribute(image, element);
                 }
             }
             else {
