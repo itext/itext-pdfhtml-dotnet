@@ -16,6 +16,7 @@
     <copyright>Copyright (c) 1998-2020 iText Group NV</copyright>
     <language>en-US</language>
     <tags>itext itext7 itextsharp c# .net csharp pdf html pdfhtml htmltopdf html2pdf html-to-pdf html-to-pdf-converter svg acroform pdf-generation generation converter accessbility opensource open source</tags>
+	<repository type="git" url="https://github.com/itext/i7n-pdfhtml.git"/>
     <dependencies>
       <group targetFramework="net40">
         <dependency id="itext7" version="7.1.10-SNAPSHOT" />
