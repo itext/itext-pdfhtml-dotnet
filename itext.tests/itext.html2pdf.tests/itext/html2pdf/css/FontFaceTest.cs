@@ -267,13 +267,13 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void CorrectUrlWithUsedUnicodeRangeTest() {
-            //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
+            //TODO: update after DEVSIX-2052
             RunTest("correctUrlWithUsedUnicodeRangeTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void CorrectUnicodeRangeSignificantTest() {
-            //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
+            //TODO: update after DEVSIX-2052
             RunTest("correctUnicodeRangeSignificantTest");
         }
 
