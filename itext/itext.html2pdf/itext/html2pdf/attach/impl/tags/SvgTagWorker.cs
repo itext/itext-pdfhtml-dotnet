@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using Common.Logging;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Util;
 using iText.Layout;
 using iText.Layout.Element;
@@ -86,6 +87,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (context.GetPdfDocument() != null && processingResult != null) {
                 SvgProcessingUtil util = new SvgProcessingUtil();
                 svgImage = util.CreateImageFromProcessingResult(processingResult, context.GetPdfDocument());
+                AccessiblePropHelper.TrySetLangAttribute(svgImage, element);
                 context.EndProcessingInlineSvg();
             }
         }

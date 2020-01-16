@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -138,13 +138,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             if (IsBoxChecked()) {
                 radioGroup.SetValue(GetModelId());
             }
-            PdfFormField.CreateRadioButton(doc, area, radioGroup, GetModelId()).SetCheckType(PdfFormField.TYPE_CIRCLE);
+            PdfFormField radio = PdfFormField.CreateRadioButton(doc, area, radioGroup, GetModelId());
+            radio.SetCheckType(PdfFormField.TYPE_CIRCLE);
             if (addNew) {
                 form.AddField(radioGroup, page);
             }
             else {
                 form.ReplaceField(GetModelId(), radioGroup);
             }
+            WriteAcroFormFieldLangAttribute(doc);
         }
 
         protected internal override bool IsLayoutBasedOnFlatRenderer() {

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -40,6 +40,7 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
+using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach.Wrapelement;
 using iText.Html2pdf.Html;
@@ -139,8 +140,19 @@ namespace iText.Html2pdf.Attach.Util {
                             colspan = colspan != null ? colspan : 1;
                             rowspan = rowspan != null ? rowspan : 1;
                             col = rowColHelper.MoveToNextEmptyCol();
-                            if (GetColWrapper(col) != null && GetColWrapper(col).GetCellCssProps() != null) {
-                                element.AddAdditionalHtmlStyles(GetColWrapper(col).GetCellCssProps());
+                            if (GetColWrapper(col) != null) {
+                                ColWrapper colWrapper = GetColWrapper(col);
+                                if (colWrapper.GetCellCssProps() != null) {
+                                    element.AddAdditionalHtmlStyles(colWrapper.GetCellCssProps());
+                                }
+                                String elemLang = element.GetAttribute(AttributeConstants.LANG);
+                                String trLang = null;
+                                if (node is IElementNode) {
+                                    trLang = ((IElementNode)node).GetAttribute(AttributeConstants.LANG);
+                                }
+                                if (trLang == null && colWrapper.GetLang() != null && elemLang == null) {
+                                    element.GetAttributes().SetAttribute(AttributeConstants.LANG, colWrapper.GetLang());
+                                }
                             }
                             rowColHelper.UpdateCurrentPosition((int)colspan, (int)rowspan);
                         }

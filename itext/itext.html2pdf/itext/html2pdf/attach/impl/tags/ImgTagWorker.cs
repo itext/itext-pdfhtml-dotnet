@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using Common.Logging;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Kernel.Pdf.Xobject;
@@ -96,9 +97,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 ))) {
                 display = CssConstants.BLOCK;
             }
-            String altText = element.GetAttribute(AttributeConstants.ALT);
-            if (altText != null && image != null) {
-                image.GetAccessibilityProperties().SetAlternateDescription(altText);
+            if (image != null) {
+                String altText = element.GetAttribute(AttributeConstants.ALT);
+                if (altText != null) {
+                    image.GetAccessibilityProperties().SetAlternateDescription(altText);
+                }
+                AccessiblePropHelper.TrySetLangAttribute(image, element);
             }
         }
 

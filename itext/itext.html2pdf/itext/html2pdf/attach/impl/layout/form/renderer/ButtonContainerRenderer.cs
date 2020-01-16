@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Collections.Generic;
 using iText.Forms;
 using iText.Forms.Fields;
 using iText.Html2pdf.Attach.Impl.Layout;
@@ -48,6 +49,8 @@ using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Annot;
+using iText.Kernel.Pdf.Tagging;
+using iText.Kernel.Pdf.Tagutils;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
@@ -91,6 +94,17 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 //Add fields only if it isn't already added. This can happen on split.
                 if (forms.GetField(name) == null) {
                     forms.AddField(button, page);
+                }
+                if (doc.IsTagged()) {
+                    TagTreePointer formParentPointer = doc.GetTagStructureContext().GetAutoTaggingPointer();
+                    IList<String> kidsRoles = formParentPointer.GetKidsRoles();
+                    int lastFormIndex = kidsRoles.LastIndexOf(StandardRoles.FORM);
+                    TagTreePointer formPointer = formParentPointer.MoveToKid(lastFormIndex);
+                    String lang = this.GetProperty<String>(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
+                    if (lang != null) {
+                        formPointer.GetProperties().SetLanguage(lang);
+                    }
+                    formParentPointer.MoveToParent();
                 }
             }
         }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -127,6 +127,9 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant LABEL.</summary>
         public const String LABEL = "label";
+
+        /// <summary>The Constant LANG.</summary>
+        public const String LANG = "lang";
 
         /// <summary>The Constant MEDIA.</summary>
         public const String MEDIA = "media";

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -159,11 +159,15 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1612")]
         public virtual void W3cProblemTest02() {
-            //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
-            //See DirectoryTableOrder002Test in io for decompression details
-            RunTest("w3cProblemTest02");
+            try {
+                RunTest("w3cProblemTest02");
+            }
+            catch (OverflowException) {
+                return;
+            }
+            NUnit.Framework.Assert.Fail("In w3c test suite this font is labeled as invalid, " + "so the invalid negative value is expected while creating a glyph."
+                );
         }
 
         [NUnit.Framework.Test]
@@ -197,11 +201,15 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1612")]
         public virtual void W3cProblemTest07() {
-            //TODO: In w3c test suite this font is labeled as invalid though and its loading failed in browser, though iText parses its as correct one and LOADS!
-            //See ValidationOff012Test in io for decompression details
-            RunTest("w3cProblemTest07");
+            try {
+                RunTest("w3cProblemTest07");
+            }
+            catch (OverflowException) {
+                return;
+            }
+            NUnit.Framework.Assert.Fail("In w3c test suite this font is labeled as invalid, " + "so the invalid negative value is expected while creating a glyph."
+                );
         }
 
         [NUnit.Framework.Test]
@@ -267,13 +275,13 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void CorrectUrlWithUsedUnicodeRangeTest() {
-            //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
+            //TODO: update after DEVSIX-2052
             RunTest("correctUrlWithUsedUnicodeRangeTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void CorrectUnicodeRangeSignificantTest() {
-            //TODO: update after DEVSIX-2052 and probably DEVSIX-2034 fix
+            //TODO: update after DEVSIX-2052
             RunTest("correctUnicodeRangeSignificantTest");
         }
 

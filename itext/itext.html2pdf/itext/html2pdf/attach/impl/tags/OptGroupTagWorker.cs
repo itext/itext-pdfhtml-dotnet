@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,9 +43,12 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
+using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.Layout.Tagging;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
@@ -77,6 +80,21 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public override bool ProcessContent(String content, ProcessorContext context) {
             return content == null || String.IsNullOrEmpty(content.Trim());
+        }
+
+        public override bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+            if (childTagWorker is OptionTagWorker) {
+                IPropertyContainer element = childTagWorker.GetElementResult();
+                IPropertyContainer propertyContainer = GetElementResult();
+                if (propertyContainer is IAccessibleElement) {
+                    String lang = ((IAccessibleElement)propertyContainer).GetAccessibilityProperties().GetLanguage();
+                    AccessiblePropHelper.TrySetLangAttribute((Div)childTagWorker.GetElementResult(), lang);
+                }
+                return AddBlockChild((IElement)element);
+            }
+            else {
+                return base.ProcessTagChild(childTagWorker, context);
+            }
         }
     }
 }

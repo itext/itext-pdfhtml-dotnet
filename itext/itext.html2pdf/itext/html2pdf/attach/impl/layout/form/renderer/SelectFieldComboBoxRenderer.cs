@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -44,10 +44,13 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Html2pdf.Attach.Util;
+using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Minmaxwidth;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
+using iText.Layout.Tagging;
 
 namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// <summary>
@@ -120,6 +123,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             foreach (Paragraph option in allOptions) {
                 pseudoContainer.Add(option);
             }
+            AccessiblePropHelper.TrySetLangAttribute(pseudoContainer, GetLang());
             IRenderer rendererSubTree = pseudoContainer.CreateRendererSubTree();
             return rendererSubTree;
         }
@@ -136,7 +140,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
             if (selectedOption != null) {
                 String label = selectedOption.GetProperty<String>(Html2PdfProperty.FORM_FIELD_LABEL);
-                selectedOptionFlatRendererList.Add(CreateComboBoxOptionFlatElement(label, false));
+                Paragraph p = CreateComboBoxOptionFlatElement(label, false);
+                ProcessLangAttribute(p, selectedOption);
+                selectedOptionFlatRendererList.Add(p);
             }
             return selectedOptionFlatRendererList;
         }
@@ -165,8 +171,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             foreach (IRenderer child in renderer.GetChildRenderers()) {
                 if (IsOptionRenderer(child)) {
                     String label = child.GetProperty<String>(Html2PdfProperty.FORM_FIELD_LABEL);
-                    Paragraph optionFlatElement = CreateComboBoxOptionFlatElement(label, isInOptGroup);
-                    options.Add(optionFlatElement);
+                    options.Add(CreateComboBoxOptionFlatElement(label, isInOptGroup));
                 }
                 else {
                     options.AddAll(GetAllOptionsFlatElements(child, isInOptGroup || IsOptGroupRenderer(child)));
@@ -197,6 +202,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             float topPaddingVal = 0;
             paragraph.SetPaddings(topPaddingVal, leftRightPaddingVal, bottomPaddingVal, leftRightPaddingVal);
             return paragraph;
+        }
+
+        private void ProcessLangAttribute(Paragraph optionFlatElement, IRenderer originalOptionRenderer) {
+            IPropertyContainer propertyContainer = originalOptionRenderer.GetModelElement();
+            if (propertyContainer is IAccessibleElement) {
+                String lang = ((IAccessibleElement)propertyContainer).GetAccessibilityProperties().GetLanguage();
+                AccessiblePropHelper.TrySetLangAttribute(optionFlatElement, lang);
+            }
         }
     }
 }

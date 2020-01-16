@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -124,6 +124,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
             PdfButtonFormField checkBox = PdfFormField.CreateCheckBox(doc, area, name, IsBoxChecked() ? "Yes" : "Off");
             PdfAcroForm.GetAcroForm(doc, true).AddField(checkBox, page);
+            WriteAcroFormFieldLangAttribute(doc);
         }
 
         protected internal override bool IsLayoutBasedOnFlatRenderer() {

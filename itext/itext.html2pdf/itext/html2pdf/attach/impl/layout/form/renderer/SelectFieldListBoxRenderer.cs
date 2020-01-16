@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System.Collections.Generic;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Html2pdf.Attach.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Geom;
 using iText.Layout.Element;
@@ -115,6 +116,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             foreach (IBlockElement option in options) {
                 optionsContainer.Add(option);
             }
+            AccessiblePropHelper.TrySetLangAttribute(optionsContainer, GetLang());
             IRenderer rendererSubTree;
             if (optionsContainer.GetChildren().IsEmpty()) {
                 Paragraph pStub = new Paragraph("\u00A0").SetMargin(0);

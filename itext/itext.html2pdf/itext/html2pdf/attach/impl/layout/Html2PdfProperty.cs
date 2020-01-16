@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -88,5 +88,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>The Constant FORM_FIELD_SELECTED.</summary>
         public const int FORM_FIELD_LABEL = PROPERTY_START + 14;
+
+        /// <summary>The Constant FORM_ACCESSIBILITY_LANGUAGE.</summary>
+        public const int FORM_ACCESSIBILITY_LANGUAGE = PROPERTY_START + 15;
     }
 }

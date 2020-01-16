@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -45,9 +45,11 @@ using System.Text;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Tagging;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
@@ -58,6 +60,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         /// <summary>The button.</summary>
         private IFormField formField;
+
+        /// <summary>The lang attribute value.</summary>
+        private String lang;
 
         private StringBuilder fallbackContent = new StringBuilder();
 
@@ -82,6 +87,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             this.name = context.GetFormFieldNameResolver().ResolveFormName(name);
             flatten = !context.IsCreateAcroForm();
+            lang = element.GetAttribute(AttributeConstants.LANG);
         }
 
         /* (non-Javadoc)
@@ -107,8 +113,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (formField == null) {
                 if (hasChildren) {
                     ButtonContainer button = new ButtonContainer(name);
+                    button.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
                     Div div = (Div)base.GetElementResult();
                     foreach (IElement element in div.GetChildren()) {
+                        if (element is IAccessibleElement) {
+                            AccessiblePropHelper.TrySetLangAttribute((IAccessibleElement)element, lang);
+                        }
                         if (element is IBlockElement) {
                             button.Add((IBlockElement)element);
                         }
@@ -123,6 +133,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
                 else {
                     Button inputButton = new Button(name);
+                    inputButton.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
                     inputButton.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, fallbackContent.ToString().Trim());
                     formField = inputButton;
                 }

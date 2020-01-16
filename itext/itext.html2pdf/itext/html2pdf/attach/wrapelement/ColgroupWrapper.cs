@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -54,6 +54,9 @@ namespace iText.Html2pdf.Attach.Wrapelement {
     public class ColgroupWrapper : IWrapElement {
         /// <summary>The span.</summary>
         private int span;
+
+        /// <summary>The lang attribute value.</summary>
+        private String lang;
 
         /// <summary>The width.</summary>
         private UnitValue width;
@@ -185,6 +188,13 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                         }
                     }
                 }
+                if (lang != null) {
+                    foreach (ColWrapper col in columns) {
+                        if (col.GetLang() == null) {
+                            col.SetLang(lang);
+                        }
+                    }
+                }
             }
             columns = JavaCollectionsUtil.UnmodifiableList(columns);
             int ncol = 0;
@@ -208,6 +218,18 @@ namespace iText.Html2pdf.Attach.Wrapelement {
         /// <returns>the column corresponding with the index</returns>
         public virtual ColWrapper GetColumnByIndex(int index) {
             return columns[indexToColMapping[index]];
+        }
+
+        /// <summary>Sets the language attribute.</summary>
+        /// <param name="lang">the lang attribute</param>
+        public virtual void SetLang(String lang) {
+            this.lang = lang;
+        }
+
+        /// <summary>Gets the language attribute.</summary>
+        /// <returns>the lang attribute</returns>
+        public virtual String GetLang() {
+            return lang;
         }
     }
 }

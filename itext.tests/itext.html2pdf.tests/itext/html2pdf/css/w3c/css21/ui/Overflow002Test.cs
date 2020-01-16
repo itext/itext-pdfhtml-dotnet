@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -44,9 +44,9 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.UI {
-    public class OverflowTest001 : W3CCssTest {
+    public class Overflow002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
-            return "overflow-001.xht";
+            return "overflow-002.xht";
         }
     }
 }

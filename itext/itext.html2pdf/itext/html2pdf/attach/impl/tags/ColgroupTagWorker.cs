@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -64,6 +64,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public ColgroupTagWorker(IElementNode element, ProcessorContext context) {
             int? span = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.SPAN));
             colgroup = new ColgroupWrapper(span != null ? (int)span : 1);
+            colgroup.SetLang(element.GetAttribute(AttributeConstants.LANG));
         }
 
         /* (non-Javadoc)

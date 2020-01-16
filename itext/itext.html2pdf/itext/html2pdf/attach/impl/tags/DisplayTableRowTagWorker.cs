@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -45,6 +45,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Attach.Wrapelement;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Html;
 using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
@@ -62,6 +63,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The cell waiting for flushing.</summary>
         private Cell waitingCell = null;
 
+        /// <summary>The lang attribute value.</summary>
+        private String lang;
+
         /// <summary>
         /// Creates a new
         /// <see cref="DisplayTableTagWorker"/>
@@ -72,6 +76,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public DisplayTableRowTagWorker(IElementNode element, ProcessorContext context) {
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
+            lang = element.GetAttribute(AttributeConstants.LANG);
         }
 
         /* (non-Javadoc)
@@ -136,6 +141,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public virtual IPropertyContainer GetElementResult() {
             TableWrapper tableWrapper = new TableWrapper();
             foreach (Cell cell in rowWrapper.GetCells()) {
+                AccessiblePropHelper.TrySetLangAttribute(cell, lang);
                 tableWrapper.AddCell(cell);
             }
             return tableWrapper.ToTable(null);

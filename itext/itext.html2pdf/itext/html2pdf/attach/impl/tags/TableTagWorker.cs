@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -45,6 +45,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Attach.Wrapelement;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Html;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Node;
@@ -96,6 +97,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 colgroupsHelper = new WaitingColgroupsHelper(element);
             }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
+            String lang = element.GetAttribute(AttributeConstants.LANG);
+            if (lang != null) {
+                tableWrapper.SetLang(lang);
+            }
         }
 
         /* (non-Javadoc)
@@ -129,6 +134,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     if (((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)childTagWorker).header) {
                         Table header = ((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)childTagWorker).tableWrapper.ToTable(colgroupsHelper
                             );
+                        String headerLang = header.GetAccessibilityProperties().GetLanguage();
+                        tableWrapper.SetHeaderLang(headerLang);
                         for (int i = 0; i < header.GetNumberOfRows(); i++) {
                             tableWrapper.NewHeaderRow();
                             for (int j = 0; j < header.GetNumberOfColumns(); j++) {
@@ -144,6 +151,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         if (((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)childTagWorker).footer) {
                             Table footer = ((iText.Html2pdf.Attach.Impl.Tags.TableTagWorker)childTagWorker).tableWrapper.ToTable(colgroupsHelper
                                 );
+                            String footerLang = footer.GetAccessibilityProperties().GetLanguage();
+                            tableWrapper.SetFooterLang(footerLang);
                             for (int i = 0; i < footer.GetNumberOfRows(); i++) {
                                 tableWrapper.NewFooterRow();
                                 for (int j = 0; j < footer.GetNumberOfColumns(); j++) {

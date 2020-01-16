@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2019 iText Group NV
+Copyright (c) 1998-2020 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -42,7 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Attach.Wrapelement;
+using iText.Html2pdf.Html;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Node;
@@ -60,6 +62,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The parent tag worker.</summary>
         private ITagWorker parentTagWorker;
 
+        /// <summary>The lang attribute value.</summary>
+        private String lang;
+
         /// <summary>
         /// Creates a new
         /// <see cref="TrTagWorker"/>
@@ -73,6 +78,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (parentTagWorker is TableTagWorker) {
                 ((TableTagWorker)parentTagWorker).ApplyColStyles();
             }
+            lang = element.GetAttribute(AttributeConstants.LANG);
         }
 
         /* (non-Javadoc)
@@ -94,6 +100,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             if (childTagWorker.GetElementResult() is Cell) {
                 Cell cell = (Cell)childTagWorker.GetElementResult();
+                AccessiblePropHelper.TrySetLangAttribute(cell, lang);
                 rowWrapper.AddCell(cell);
                 return true;
             }
