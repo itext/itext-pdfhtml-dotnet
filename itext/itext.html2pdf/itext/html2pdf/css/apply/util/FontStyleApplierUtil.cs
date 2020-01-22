@@ -62,6 +62,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static readonly ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.FontStyleApplierUtil
             ));
 
+        private const float DEFAULT_LINE_HEIGHT = 1.2f;
+
         /// <summary>
         /// Creates a
         /// <see cref="FontStyleApplierUtil"/>
@@ -238,7 +240,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             else {
-                element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, 1.2f));
+                element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, DEFAULT_LINE_HEIGHT));
             }
         }
 
