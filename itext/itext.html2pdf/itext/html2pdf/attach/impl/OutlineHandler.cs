@@ -66,8 +66,16 @@ namespace iText.Html2pdf.Attach.Impl {
     /// This class is not reusable and a new instance shall be created for every new conversion process.
     /// </remarks>
     public class OutlineHandler {
-        /// <summary>The Constant DESTINATION_PREFIX.</summary>
-        private const String DESTINATION_PREFIX = "pdfHTML-iText-outline-";
+        /// <summary>The Constant DEFAULT_DESTINATION_PREFIX.</summary>
+        private const String DEFAULT_DESTINATION_NAME_PREFIX = "pdfHTML-iText-outline-";
+
+        /// <summary>The destination counter.</summary>
+        /// <remarks>
+        /// The destination counter.
+        /// Counts the number of created the destinations with the same prefix in name,
+        /// to achieve the uniqueness of the destination names.
+        /// </remarks>
+        private IDictionary<String, int?> destCounter = new Dictionary<String, int?>();
 
         /// <summary>The current outline.</summary>
         private PdfOutline currentOutline;
@@ -81,8 +89,8 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>The tag priorities mapping.</summary>
         private IDictionary<String, int?> tagPrioritiesMapping = new Dictionary<String, int?>();
 
-        /// <summary>The unique IDs.</summary>
-        private IDictionary<String, int?> uniqueIDs = new Dictionary<String, int?>();
+        /// <summary>The destination prefix.</summary>
+        private String destinationNamePrefix = DEFAULT_DESTINATION_NAME_PREFIX;
 
         /// <summary>Creates an OutlineHandler with standard predefined mappings.</summary>
         /// <returns>the outline handler</returns>
@@ -137,16 +145,82 @@ namespace iText.Html2pdf.Attach.Impl {
             currentOutline = null;
             destinationsInProcess.Clear();
             levelsInProcess.Clear();
-            uniqueIDs.Clear();
+            destCounter.Clear();
         }
 
-        /// <summary>Adds the outline.</summary>
+        /// <summary>Sets the destination name prefix.</summary>
+        /// <remarks>
+        /// Sets the destination name prefix.
+        /// The destination name prefix serves as the prefix for the destination names created in the
+        /// <see cref="GenerateUniqueDestinationName(iText.StyledXmlParser.Node.IElementNode)"/>
+        /// method.
+        /// </remarks>
+        /// <param name="destinationNamePrefix">the destination name prefix</param>
+        public virtual void SetDestinationNamePrefix(String destinationNamePrefix) {
+            this.destinationNamePrefix = destinationNamePrefix;
+        }
+
+        /// <summary>Gets the destination name prefix.</summary>
+        /// <remarks>
+        /// Gets the destination name prefix.
+        /// The destination name prefix serves as the prefix for the destination names created in the
+        /// <see cref="GenerateUniqueDestinationName(iText.StyledXmlParser.Node.IElementNode)"/>
+        /// method.
+        /// </remarks>
+        /// <returns>the destination name prefix</returns>
+        public virtual String GetDestinationNamePrefix() {
+            return destinationNamePrefix;
+        }
+
+        /// <summary>Generate the unique destination name.</summary>
+        /// <remarks>
+        /// Generate the unique destination name.
+        /// The destination name is a unique identifier for the outline so it is generated for the outline
+        /// in the
+        /// <see cref="AddOutlineAndDestToDocument(iText.Html2pdf.Attach.ITagWorker, iText.StyledXmlParser.Node.IElementNode, iText.Html2pdf.Attach.ProcessorContext)
+        ///     "/>
+        /// method. You can override this method to set
+        /// your own way to generate the destination names, to avoid the destination name conflicts when
+        /// merging several PDF files created by html2pdf.
+        /// </remarks>
+        /// <param name="element">the element</param>
+        /// <returns>the unique destination name</returns>
+        protected internal virtual String GenerateUniqueDestinationName(IElementNode element) {
+            return destinationNamePrefix + GetUniqueID(destinationNamePrefix);
+        }
+
+        /// <summary>Generate the unique outline name.</summary>
+        /// <remarks>
+        /// Generate the unique outline name.
+        /// This method is used in the
+        /// <see cref="AddOutlineAndDestToDocument(iText.Html2pdf.Attach.ITagWorker, iText.StyledXmlParser.Node.IElementNode, iText.Html2pdf.Attach.ProcessorContext)
+        ///     "/>
+        /// method.
+        /// You can override this method to set your own way to generate the outline names.
+        /// </remarks>
+        /// <param name="element">the element</param>
+        /// <returns>the unique destination name</returns>
+        protected internal virtual String GenerateUniqueOutlineName(IElementNode element) {
+            String tagName = element.Name();
+            String content = ((JsoupElementNode)element).Text();
+            if (String.IsNullOrEmpty(content)) {
+                content = GetUniqueID(tagName);
+            }
+            return content;
+        }
+
+        /// <summary>Adds the outline and the destination.</summary>
+        /// <remarks>
+        /// Adds the outline and the destination.
+        /// Adds the outline and its corresponding the destination to the PDF document
+        /// if the priority mapping is set for the element.
+        /// </remarks>
         /// <param name="tagWorker">the tag worker</param>
         /// <param name="element">the element</param>
         /// <param name="context">the processor context</param>
         /// <returns>the outline handler</returns>
-        internal virtual OutlineHandler AddOutline(ITagWorker tagWorker, IElementNode element, ProcessorContext context
-            ) {
+        internal virtual OutlineHandler AddOutlineAndDestToDocument(ITagWorker tagWorker, IElementNode element, ProcessorContext
+             context) {
             String tagName = element.Name();
             if (null != tagWorker && HasTagPriorityMapping(tagName) && context.GetPdfDocument() != null) {
                 int level = (int)GetTagPriorityMapping(tagName);
@@ -158,12 +232,8 @@ namespace iText.Html2pdf.Attach.Impl {
                     parent = parent.GetParent();
                     levelsInProcess.JRemoveFirst();
                 }
-                String content = ((JsoupElementNode)element).Text();
-                if (String.IsNullOrEmpty(content)) {
-                    content = GetUniqueID(tagName);
-                }
-                PdfOutline outline = parent.AddOutline(content);
-                String destination = DESTINATION_PREFIX + GetUniqueID(DESTINATION_PREFIX);
+                PdfOutline outline = parent.AddOutline(GenerateUniqueOutlineName(element));
+                String destination = GenerateUniqueDestinationName(element);
                 outline.AddDestination(PdfDestination.MakeDestination(new PdfString(destination)));
                 destinationsInProcess.AddFirst(destination);
                 levelsInProcess.AddFirst(level);
@@ -172,11 +242,19 @@ namespace iText.Html2pdf.Attach.Impl {
             return this;
         }
 
-        /// <summary>Adds the destination.</summary>
+        /// <summary>Sets the destination to element.</summary>
+        /// <remarks>
+        /// Sets the destination to element.
+        /// Sets the destination previously created in the
+        /// <see cref="AddOutlineAndDestToDocument(iText.Html2pdf.Attach.ITagWorker, iText.StyledXmlParser.Node.IElementNode, iText.Html2pdf.Attach.ProcessorContext)
+        ///     "/>
+        /// method
+        /// to the tag worker element.
+        /// </remarks>
         /// <param name="tagWorker">the tag worker</param>
         /// <param name="element">the element</param>
         /// <returns>the outline handler</returns>
-        internal virtual OutlineHandler AddDestination(ITagWorker tagWorker, IElementNode element) {
+        internal virtual OutlineHandler SetDestinationToElement(ITagWorker tagWorker, IElementNode element) {
             String tagName = element.Name();
             if (null != tagWorker && HasTagPriorityMapping(tagName) && destinationsInProcess.Count > 0) {
                 String content = destinationsInProcess.JRemoveFirst();
@@ -193,14 +271,26 @@ namespace iText.Html2pdf.Attach.Impl {
         }
 
         /// <summary>Gets the unique ID.</summary>
+        /// <remarks>
+        /// Gets the unique ID.
+        /// This method is used in the
+        /// <see cref="GenerateUniqueDestinationName(iText.StyledXmlParser.Node.IElementNode)"/>
+        /// method to generate the unique
+        /// destination names and in the
+        /// <see cref="GenerateUniqueOutlineName(iText.StyledXmlParser.Node.IElementNode)"/>
+        /// method to generate the unique
+        /// outline names. The
+        /// <see cref="destCounter"/>
+        /// map serves to achieve the uniqueness of an ID.
+        /// </remarks>
         /// <param name="key">the key</param>
         /// <returns>the unique ID</returns>
         private String GetUniqueID(String key) {
-            if (!uniqueIDs.ContainsKey(key)) {
-                uniqueIDs.Put(key, 1);
+            if (!destCounter.ContainsKey(key)) {
+                destCounter.Put(key, 1);
             }
-            int id = (int)uniqueIDs.Get(key);
-            uniqueIDs.Put(key, id + 1);
+            int id = (int)destCounter.Get(key);
+            destCounter.Put(key, id + 1);
             return key + id;
         }
     }

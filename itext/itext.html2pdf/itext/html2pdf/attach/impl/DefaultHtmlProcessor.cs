@@ -306,7 +306,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (tagWorker is HtmlTagWorker) {
                     ((HtmlTagWorker)tagWorker).ProcessPageRules(node, cssResolver, context);
                 }
-                context.GetOutlineHandler().AddOutline(tagWorker, element, context);
+                context.GetOutlineHandler().AddOutlineAndDestToDocument(tagWorker, element, context);
                 VisitPseudoElement(element, tagWorker, CssConstants.BEFORE);
                 VisitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
 
@@ -321,7 +321,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
                     LinkHelper.CreateDestination(tagWorker, element, context);
-                    context.GetOutlineHandler().AddDestination(tagWorker, element);
+                    context.GetOutlineHandler().SetDestinationToElement(tagWorker, element);
                     context.GetState().Pop();
                     if (!TagConstants.BODY.Equals(element.Name()) && !TagConstants.HTML.Equals(element.Name()))
                         RunApplier(element, tagWorker);
