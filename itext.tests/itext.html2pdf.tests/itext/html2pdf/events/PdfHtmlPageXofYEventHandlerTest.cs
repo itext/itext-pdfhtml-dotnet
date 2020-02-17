@@ -75,7 +75,7 @@ namespace iText.Html2pdf.Events {
             String dest = destinationFolder + filename + ".pdf";
             String cmp = sourceFolder + "cmp_" + filename + ".pdf";
             new PdfHtmlPageXofYEventHandlerTest().ParseWithFooter(src, dest, sourceFolder);
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(src).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(src) + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(dest, cmp, destinationFolder, "diff_XofY_"
                 ));
         }

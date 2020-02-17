@@ -98,7 +98,7 @@ namespace iText.Html2pdf.Element {
             String htmlPath = sourceFolder + "inputTest06.html";
             String outPdfPath = destinationFolder + "inputTest06.pdf";
             String cmpPdfPath = sourceFolder + "cmp_" + "inputTest06.pdf";
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlPath) + "\n");
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(outPdfPath));
             pdfDoc.SetDefaultPageSize(PageSize.A8);
             HtmlConverter.ConvertToPdf(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), pdfDoc, new ConverterProperties
@@ -216,7 +216,7 @@ namespace iText.Html2pdf.Element {
             String htmlPath = sourceFolder + "placeholderTest05.html";
             String outPdfPath = destinationFolder + "placeholderTest05.pdf";
             String cmpPdfPath = sourceFolder + "cmp_" + "placeholderTest05.pdf";
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlPath) + "\n");
             IList<IElement> elements = HtmlConverter.ConvertToElements(new FileStream(htmlPath, FileMode.Open, FileAccess.Read
                 ));
             Paragraph placeholderToBeSet = new Paragraph("bazinga").SetBackgroundColor(ColorConstants.RED).SetFontColor

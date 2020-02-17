@@ -282,7 +282,7 @@ namespace iText.Html2pdf.Element {
             String outPdfPath = destinationFolder + name + ".pdf";
             String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
             String diff = "diff_" + name + "_";
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlPath) + "\n");
             HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(outPdfPath));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
                 , diff));

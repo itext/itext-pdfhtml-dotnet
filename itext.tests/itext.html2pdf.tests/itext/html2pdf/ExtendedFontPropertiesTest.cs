@@ -125,7 +125,7 @@ namespace iText.Html2pdf {
             String htmlPath = destinationFolder + DOCUMENT_PREFIX + fileName + ".html";
             FileStream @out = new FileStream(htmlPath, FileMode.Create);
             @out.Write(bytes);
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlPath) + "\n");
             @out.Dispose();
         }
 

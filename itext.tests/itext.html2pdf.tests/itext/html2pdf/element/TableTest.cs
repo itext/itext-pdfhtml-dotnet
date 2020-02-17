@@ -534,8 +534,8 @@ namespace iText.Html2pdf.Element {
             }
             HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + testName + ".html", FileMode.Open, FileAccess.Read
                 ), pdfDocument, new ConverterProperties().SetBaseUri(sourceFolder));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + testName + ".html")
-                .AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(sourceFolder + testName + ".html"
+                ) + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
                  + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
         }

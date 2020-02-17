@@ -356,7 +356,7 @@ namespace iText.Html2pdf.Css {
             FileInfo srcFile = new FileInfo(sourceFolder + @in);
             FileInfo destFile = new FileInfo(outPdf);
             HtmlConverter.ConvertToPdf(srcFile, destFile);
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(srcFile).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(srcFile.FullName) + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, diff));
         }
     }

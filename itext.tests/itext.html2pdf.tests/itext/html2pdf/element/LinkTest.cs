@@ -65,8 +65,8 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void LinkTest01() {
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "linkTest01.html").
-                AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(sourceFolder + "linkTest01.html"
+                ) + "\n");
             PdfDocument outDoc = new PdfDocument(new PdfWriter(destinationFolder + "linkTest01.pdf"));
             outDoc.SetTagged();
             using (FileStream fileInputStream = new FileStream(sourceFolder + "linkTest01.html", FileMode.Open, FileAccess.Read
