@@ -41,7 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.IO;
 using iText.Html2pdf;
+using iText.Kernel.Pdf;
+using iText.Kernel.Utils;
 
 namespace iText.Html2pdf.Attribute {
     public class AlignAttributeTest : ExtendedHtmlConversionITextTest {
@@ -60,6 +63,26 @@ namespace iText.Html2pdf.Attribute {
         public virtual void AlignImgTest01() {
             // vertical-alignment values top, middle and bottom are not currently supported for inline-block elements and images
             ConvertToPdfAndCompare("alignImgTest01", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgAttrAlignLeftReadOrderPdfTest() {
+            String pdfDestinationFile = destinationFolder + "imgAttrAlignLeftReadOrderPdf.pdf";
+            String htmlSource = sourceFolder + "imgAttrAlignLeftReadOrderPdf.html";
+            String cmpPdfDestinationFile = sourceFolder + "cmp_imgAttrAlignLeftReadOrderPdf.pdf";
+            FileStream fileOutputStream = new FileStream(pdfDestinationFile, FileMode.Create);
+            WriterProperties writerProperties = new WriterProperties();
+            writerProperties.AddXmpMetadata();
+            PdfWriter pdfWriter = new PdfWriter(fileOutputStream, writerProperties);
+            PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+            pdfDocument.GetCatalog().SetLang(new PdfString("en-US"));
+            pdfDocument.SetTagged();
+            ConverterProperties converterProperties = new ConverterProperties();
+            converterProperties.SetBaseUri(sourceFolder);
+            FileStream fileInputStream = new FileStream(htmlSource, FileMode.Open, FileAccess.Read);
+            HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, converterProperties);
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfDestinationFile, cmpPdfDestinationFile
+                , destinationFolder));
         }
     }
 }
