@@ -216,32 +216,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             // browsers ignore values in percents
             String lineHeight = cssProps.Get(CssConstants.LINE_HEIGHT);
-            // specification does not give auto as a possible lineHeight value
-            // nevertheless some browsers compute it as normal so we apply the same behaviour.
-            // What's more, it's basically the same thing as if lineHeight is not set in the first place
-            if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight) && !CssConstants.AUTO.Equals(lineHeight)
-                ) {
-                if (CssUtils.IsNumericValue(lineHeight)) {
-                    float? mult = CssUtils.ParseFloat(lineHeight);
-                    if (mult != null) {
-                        element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));
-                    }
-                }
-                else {
-                    UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em, rem);
-                    if (lineHeightValue != null && lineHeightValue.IsPointValue()) {
-                        element.SetProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.GetValue()));
-                    }
-                    else {
-                        if (lineHeightValue != null) {
-                            element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.GetValue() / 100));
-                        }
-                    }
-                }
-            }
-            else {
-                element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, DEFAULT_LINE_HEIGHT));
-            }
+            SetLineHeight(element, lineHeight, em, rem);
+            // TODO (DEVSIX-3662) remove this method
+            SetLineHeightByLeading(element, lineHeight, em, rem);
         }
 
         /// <summary>Parses the absolute font size.</summary>
@@ -332,6 +309,70 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             return CssUtils.ParseRelativeValue(relativeFontSizeValue, baseValue);
+        }
+
+        private static void SetLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {
+            if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight) && !CssConstants.AUTO.Equals(lineHeight)
+                ) {
+                if (CssUtils.IsNumericValue(lineHeight)) {
+                    float? number = CssUtils.ParseFloat(lineHeight);
+                    if (number != null) {
+                        elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateMultipliedValue((float)number));
+                    }
+                    else {
+                        elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateNormalValue());
+                    }
+                }
+                else {
+                    UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em, rem);
+                    if (lineHeightValue != null && lineHeightValue.IsPointValue()) {
+                        elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateFixedValue(lineHeightValue.GetValue()));
+                    }
+                    else {
+                        if (lineHeightValue != null) {
+                            elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateMultipliedValue(lineHeightValue.GetValue()
+                                 / 100f));
+                        }
+                        else {
+                            elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateNormalValue());
+                        }
+                    }
+                }
+            }
+            else {
+                elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateNormalValue());
+            }
+        }
+
+        [Obsolete]
+        private static void SetLineHeightByLeading(IPropertyContainer element, String lineHeight, float em, float 
+            rem) {
+            // specification does not give auto as a possible lineHeight value
+            // nevertheless some browsers compute it as normal so we apply the same behaviour.
+            // What's more, it's basically the same thing as if lineHeight is not set in the first place
+            if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight) && !CssConstants.AUTO.Equals(lineHeight)
+                ) {
+                if (CssUtils.IsNumericValue(lineHeight)) {
+                    float? mult = CssUtils.ParseFloat(lineHeight);
+                    if (mult != null) {
+                        element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));
+                    }
+                }
+                else {
+                    UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em, rem);
+                    if (lineHeightValue != null && lineHeightValue.IsPointValue()) {
+                        element.SetProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.GetValue()));
+                    }
+                    else {
+                        if (lineHeightValue != null) {
+                            element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, lineHeightValue.GetValue() / 100));
+                        }
+                    }
+                }
+            }
+            else {
+                element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, DEFAULT_LINE_HEIGHT));
+            }
         }
     }
 }
