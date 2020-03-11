@@ -47,8 +47,6 @@ namespace iText.Html2pdf.Css {
 
         private static readonly String RESOURCES = SOURCE_FOLDER + "fonts/";
 
-        private static ConverterProperties converterProperties = new ConverterProperties();
-
         [NUnit.Framework.OneTimeSetUp]
         public static void Init() {
             CreateOrClearDestinationFolder(DESTINATION_FOLDER);
@@ -89,6 +87,11 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void LineHeightNotoSansFontNormalTest() {
             TestLineHeight("lineHeightNotoSansFontNormalTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NotoSansNormalLineHeightLineBoxMinHeightTest() {
+            TestLineHeight("notoSansNormalLineHeightLineBoxMinHeightTest");
         }
 
         [NUnit.Framework.Test]
@@ -174,6 +177,7 @@ namespace iText.Html2pdf.Css {
             String destinationPdf = DESTINATION_FOLDER + name + ".pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_" + name + ".pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf));
+            ConverterProperties converterProperties = InitConverterProperties();
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
                 HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, converterProperties);
             }
@@ -182,7 +186,8 @@ namespace iText.Html2pdf.Css {
                 , "diff_" + name + "_"));
         }
 
-        internal static void InitConverterProperties() {
+        internal static ConverterProperties InitConverterProperties() {
+            ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetBaseUri(SOURCE_FOLDER);
             FontProvider fontProvider = new FontProvider();
             fontProvider.AddDirectory(RESOURCES);
@@ -190,6 +195,7 @@ namespace iText.Html2pdf.Css {
             converterProperties.SetFontProvider(fontProvider);
             DefaultTagWorkerFactory tagWorkerFactory = new LineHeightTest.HtmlModeTagWorkerFactory();
             converterProperties.SetTagWorkerFactory(tagWorkerFactory);
+            return converterProperties;
         }
 
         internal class HtmlModeTagWorkerFactory : DefaultTagWorkerFactory {
