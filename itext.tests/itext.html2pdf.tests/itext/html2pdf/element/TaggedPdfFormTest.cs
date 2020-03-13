@@ -111,7 +111,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DefaultHtmlProcessor ERROR No worker found for tag datalist")]
+        [NUnit.Framework.Ignore("DEVSIX-980. DefaultHtmlProcessor ERROR No worker found for tag datalist")]
         public virtual void DatalistFormTagged() {
             RunTest("datalistFormTagged");
         }
