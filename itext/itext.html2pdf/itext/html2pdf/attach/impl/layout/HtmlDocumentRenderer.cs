@@ -413,8 +413,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 pageBordersSimulation.SetProperty(entry.Key, entry.Value);
             }
             pageBordersSimulation.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
-            iText.Layout.Canvas canvas = new Canvas(new PdfCanvas(page), page.GetDocument(), page.GetTrimBox().ApplyMargins
-                (margins[0], margins[1], margins[2], margins[3], false));
+            iText.Layout.Canvas canvas = new Canvas(new PdfCanvas(page), page.GetTrimBox().ApplyMargins(margins[0], margins
+                [1], margins[2], margins[3], false));
             canvas.EnableAutoTagging(page);
             canvas.Add(pageBordersSimulation);
             canvas.Close();
