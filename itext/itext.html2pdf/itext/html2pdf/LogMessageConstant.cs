@@ -130,7 +130,7 @@ namespace iText.Html2pdf {
         /// <summary>The Constant QUOTES_PROPERTY_INVALID.</summary>
         public const String QUOTES_PROPERTY_INVALID = "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
 
-        /// <summary>The Constant RULE_IS_NOT_SUPPORTED.</summary>
+        [Obsolete]
         public const String RULE_IS_NOT_SUPPORTED = "The rule @{0} is unsupported. All selectors in this rule will be ignored.";
 
         /// <summary>The Constant TEXT_DECORATION_BLINK_NOT_SUPPORTED.</summary>

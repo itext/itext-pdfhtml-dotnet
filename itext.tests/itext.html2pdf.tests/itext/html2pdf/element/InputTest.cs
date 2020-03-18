@@ -93,7 +93,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Count = 4, Ignore = true)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
         public virtual void Input06Test() {
             String htmlPath = sourceFolder + "inputTest06.html";
             String outPdfPath = destinationFolder + "inputTest06.pdf";
@@ -187,9 +187,8 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, Count = 3, Ignore = true)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 3, Ignore = true
-            )]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, Ignore = true)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Ignore = true)]
         public virtual void PlaceholderTest04() {
             RunTest("placeholderTest04");
         }
