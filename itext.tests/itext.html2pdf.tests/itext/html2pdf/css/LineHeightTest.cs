@@ -36,6 +36,7 @@ using iText.Layout.Element;
 using iText.Layout.Font;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Node;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class LineHeightTest : ExtendedHtmlConversionITextTest {
@@ -170,6 +171,12 @@ namespace iText.Html2pdf.Css {
             IList<IElement> elements = HtmlConverter.ConvertToElements("<p>Lorem Ipsum</p>");
             NUnit.Framework.Assert.AreEqual(1.2f, elements[0].GetProperty<Leading>(Property.LEADING).GetValue(), 1e-10
                 );
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 2)]
+        public virtual void LineHeightEmptyDivTest() {
+            TestLineHeight("lineHeightEmptyDivTest");
         }
 
         internal virtual void TestLineHeight(String name) {
