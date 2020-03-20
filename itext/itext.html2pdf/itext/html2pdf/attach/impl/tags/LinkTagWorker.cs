@@ -52,6 +52,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// element.
     /// </summary>
     public class LinkTagWorker : ITagWorker {
+        // TODO DEVSIX-3857
         /// <summary>
         /// Creates a new
         /// <see cref="LinkTagWorker"/>
@@ -62,7 +63,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public LinkTagWorker(IElementNode element, ProcessorContext context) {
         }
 
-        // TODO process rel="author"?
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
