@@ -21,7 +21,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Html2pdf;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
@@ -29,12 +28,6 @@ namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
     public class LineHeight126Test : W3CCssAhemFontTest {
         protected internal override String GetHtmlFileName() {
             return "line-height-126.xht";
-        }
-
-        protected internal override ConverterProperties GetConverterProperties() {
-            ConverterProperties converterProperties = base.GetConverterProperties();
-            converterProperties.SetTagWorkerFactory(new HtmlModeTagWorkerFactory());
-            return converterProperties;
         }
     }
 }

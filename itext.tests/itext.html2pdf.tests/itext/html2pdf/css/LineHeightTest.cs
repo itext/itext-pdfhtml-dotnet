@@ -24,18 +24,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf;
-using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl;
-using iText.Html2pdf.Attach.Impl.Tags;
-using iText.Html2pdf.Html;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
-using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Font;
 using iText.Layout.Properties;
-using iText.StyledXmlParser.Node;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
@@ -200,30 +194,7 @@ namespace iText.Html2pdf.Css {
             fontProvider.AddDirectory(RESOURCES);
             fontProvider.AddStandardPdfFonts();
             converterProperties.SetFontProvider(fontProvider);
-            DefaultTagWorkerFactory tagWorkerFactory = new LineHeightTest.HtmlModeTagWorkerFactory();
-            converterProperties.SetTagWorkerFactory(tagWorkerFactory);
             return converterProperties;
-        }
-
-        internal class HtmlModeTagWorkerFactory : DefaultTagWorkerFactory {
-            public override ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
-                if (TagConstants.BODY.Equals(tag.Name())) {
-                    return new LineHeightTest.HtmlModeBodyTagWorker(tag, context);
-                }
-                return null;
-            }
-        }
-
-        internal class HtmlModeBodyTagWorker : BodyTagWorker {
-            internal HtmlModeBodyTagWorker(IElementNode element, ProcessorContext context)
-                : base(element, context) {
-            }
-
-            public override IPropertyContainer GetElementResult() {
-                IPropertyContainer result = base.GetElementResult();
-                result.SetProperty(Property.RENDERING_MODE, RenderingMode.HTML_MODE);
-                return result;
-            }
         }
     }
 }

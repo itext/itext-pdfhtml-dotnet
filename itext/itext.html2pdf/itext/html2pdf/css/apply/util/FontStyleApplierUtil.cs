@@ -217,7 +217,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             // browsers ignore values in percents
             String lineHeight = cssProps.Get(CssConstants.LINE_HEIGHT);
             SetLineHeight(element, lineHeight, em, rem);
-            // TODO (DEVSIX-3662) remove this method
             SetLineHeightByLeading(element, lineHeight, em, rem);
         }
 
@@ -344,7 +343,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        [Obsolete]
         private static void SetLineHeightByLeading(IPropertyContainer element, String lineHeight, float em, float 
             rem) {
             // specification does not give auto as a possible lineHeight value
