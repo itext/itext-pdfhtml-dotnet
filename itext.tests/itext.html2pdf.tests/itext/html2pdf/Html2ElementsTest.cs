@@ -42,7 +42,12 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using System.IO;
 using iText.Html2pdf.Attach.Impl;
+using iText.IO.Util;
+using iText.Kernel.Pdf;
+using iText.Kernel.Utils;
+using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Test;
@@ -50,6 +55,9 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf {
     public class Html2ElementsTest : ExtendedITextTest {
+        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/Html2ElementsTest/";
+
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/Html2ElementsTest/";
 
@@ -170,6 +178,59 @@ namespace iText.Html2pdf {
             String html = "<object data ='htt://as' type='image/svg+xml'></object>";
             IList<IElement> lst = HtmlConverter.ConvertToElements(html);
             NUnit.Framework.Assert.IsTrue(lst.Count == 0);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HtmlToElementsVsHtmlToPdfTest() {
+            String src = sourceFolder + "basic.html";
+            String outConvertToPdf = destinationFolder + "basicCovertToPdfResult.pdf";
+            String outConvertToElements = destinationFolder + "basicCovertToElementsResult.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(src), new FileInfo(outConvertToPdf));
+            IList<IElement> elements = HtmlConverter.ConvertToElements(new FileStream(src, FileMode.Open, FileAccess.Read
+                ));
+            Document document = new Document(new PdfDocument(new PdfWriter(outConvertToElements)));
+            // In order to collapse margins between the direct children of root element
+            // it's required to manually enable collapsing on root element. This is because siblings
+            // margins collapsing is controlled by the parent element.
+            // This leads to the difference between pure convertToPdf/Document and convertToElements methods.
+            document.SetProperty(Property.COLLAPSING_MARGINS, true);
+            foreach (IElement elem in elements) {
+                if (elem is IBlockElement) {
+                    document.Add((IBlockElement)elem);
+                }
+                else {
+                    if (elem is Image) {
+                        document.Add((Image)elem);
+                    }
+                    else {
+                        if (elem is AreaBreak) {
+                            document.Add((AreaBreak)elem);
+                        }
+                        else {
+                            NUnit.Framework.Assert.Fail("The #convertToElements method gave element which is unsupported as root element, it's unexpected."
+                                );
+                        }
+                    }
+                }
+            }
+            document.Close();
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(src) + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outConvertToElements, outConvertToPdf, destinationFolder
+                ));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BodyFontFamilyTest() {
+            String html = "<!DOCTYPE html>\n" + "<html>\n" + "<body style=\"font-family: monospace\">\n" + "This text is directly in body and should be monospaced.\n"
+                 + "<p>This text is in paragraph and should be monospaced.</p>\n" + "</body>\n" + "</html>";
+            IList<IElement> elements = HtmlConverter.ConvertToElements(html);
+            NUnit.Framework.Assert.AreEqual(2, elements.Count);
+            IElement anonymousParagraph = elements[0];
+            NUnit.Framework.Assert.AreEqual(new String[] { "monospace" }, anonymousParagraph.GetProperty<String[]>(Property
+                .FONT));
+            IElement normalParagraph = elements[1];
+            NUnit.Framework.Assert.AreEqual(new String[] { "monospace" }, normalParagraph.GetProperty<String[]>(Property
+                .FONT));
         }
     }
 }

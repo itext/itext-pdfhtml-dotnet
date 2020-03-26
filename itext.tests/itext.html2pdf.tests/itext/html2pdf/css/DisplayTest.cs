@@ -90,6 +90,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void DisplayTable04Test() {
+            // TODO DEVSIX-2445
             ConvertToPdfAndCompare("display_table04", sourceFolder, destinationFolder);
         }
 

@@ -94,7 +94,9 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
         public virtual void LineHeightTest03() {
+            // TODO DEVSIX-3662
             ConvertToPdfAndCompare("lineHeightTest03", sourceFolder, destinationFolder);
         }
 
