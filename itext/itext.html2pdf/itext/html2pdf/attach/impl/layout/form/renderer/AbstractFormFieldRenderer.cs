@@ -107,31 +107,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             Rectangle bBox = layoutContext.GetArea().GetBBox().Clone().MoveDown(INF - parentHeight).SetHeight(INF);
             layoutContext.GetArea().SetBBox(bBox);
             LayoutResult result = base.Layout(layoutContext);
-            if (!true.Equals(GetPropertyAsBoolean(Property.FORCED_PLACEMENT)) && (result.GetStatus() != LayoutResult.FULL
-                )) {
-                //@TODO investigate this tricky code a little more.
-                FloatPropertyValue? floatPropertyValue = this.GetProperty<FloatPropertyValue?>(Property.FLOAT);
-                if (floatPropertyValue == null || floatPropertyValue == FloatPropertyValue.NONE) {
-                    SetProperty(Property.FORCED_PLACEMENT, true);
-                }
-                else {
-                    flatRenderer = childRenderers[0];
-                    ProcessLangAttribute();
-                    childRenderers.Clear();
-                    childRenderers.Add(flatRenderer);
-                    AdjustFieldLayout(layoutContext);
-                    if (IsLayoutBasedOnFlatRenderer()) {
-                        Rectangle fBox = flatRenderer.GetOccupiedArea().GetBBox();
-                        occupiedArea.GetBBox().SetX(fBox.GetX()).SetY(fBox.GetY()).SetWidth(fBox.GetWidth()).SetHeight(fBox.GetHeight
-                            ());
-                        ApplyPaddings(occupiedArea.GetBBox(), true);
-                        ApplyBorderBox(occupiedArea.GetBBox(), true);
-                        ApplyMargins(occupiedArea.GetBBox(), true);
-                    }
-                }
-                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new 
-                    MinMaxWidth());
-            }
             if (!childRenderers.IsEmpty()) {
                 flatRenderer = childRenderers[0];
                 ProcessLangAttribute();
