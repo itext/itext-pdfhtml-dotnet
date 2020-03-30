@@ -48,7 +48,6 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf {
     // Actually the results are invalid because there is no pdfCalligraph.
-    // But we'd like to test how Free Sans works for a specific scripts.
     public class FontProviderTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/FontProviderTest/";
@@ -64,7 +63,7 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(TYPOGRAPHY_WARNING, Count = 14)]
+        [LogMessage(TYPOGRAPHY_WARNING, Count = 4)]
         public virtual void HebrewTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hebrew.html"), new FileInfo(destinationFolder + "hebrew.pdf"
                 ));
