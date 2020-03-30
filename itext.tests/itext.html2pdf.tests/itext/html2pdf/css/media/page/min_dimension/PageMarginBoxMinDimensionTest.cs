@@ -107,5 +107,10 @@ namespace iText.Html2pdf.Css.Media.Page.Min_dimension {
         public virtual void LeftMinTopAndMinCenterAndBottomTest() {
             ConvertToPdfAndCompare("leftMinTopAndMinCenterAndBottom", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void PageMarginFont() {
+            ConvertToPdfAndCompare("pageMarginFont", sourceFolder, destinationFolder);
+        }
     }
 }
