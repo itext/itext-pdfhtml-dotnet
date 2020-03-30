@@ -87,5 +87,21 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "convertStandardFonts.pdf"
                 , sourceFolder + "cmp_convertStandardFonts", destinationFolder, "difffontstand_"));
         }
+
+        [NUnit.Framework.Test]
+        public virtual void NotoSansMonoItalicTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "notoSansMonoItalic.html"), new FileInfo(destinationFolder
+                 + "notoSansMonoItalic.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "notoSansMonoItalic.pdf"
+                , sourceFolder + "cmp_notoSansMonoItalic.pdf", destinationFolder, "diffnotoSansMonoItalic_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NotoSansMonoBoldItalicTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "notoSansMonoBoldItalic.html"), new FileInfo(destinationFolder
+                 + "notoSansMonoBoldItalic.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "notoSansMonoBoldItalic.pdf"
+                , sourceFolder + "cmp_notoSansMonoBoldItalic.pdf", destinationFolder, "diffnotoSansMonoBoldItalic_"));
+        }
     }
 }
