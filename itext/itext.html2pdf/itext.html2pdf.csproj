@@ -107,41 +107,35 @@
     <EmbeddedResource Include="resources\default.css">
       <LogicalName>iText.Html2Pdf.default.css</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="resources\font\FreeMono.ttf">
-      <LogicalName>iText.Html2Pdf.font.FreeMono.ttf</LogicalName>
+    <EmbeddedResource Include="resources\font\NotoSansMono-Regular.ttf">
+      <LogicalName>iText.Html2Pdf.font.NotoSansMono-Regular.ttf</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="resources\font\FreeMonoBold.ttf">
-      <LogicalName>iText.Html2Pdf.font.FreeMonoBold.ttf</LogicalName>
+    <EmbeddedResource Include="resources\font\NotoSansMono-Bold.ttf">
+      <LogicalName>iText.Html2Pdf.font.NotoSansMono-Bold.ttf</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="resources\font\FreeMonoBoldOblique.ttf">
-      <LogicalName>iText.Html2Pdf.font.FreeMonoBoldOblique.ttf</LogicalName>
+    <EmbeddedResource Include="resources\font\NotoSans-Regular.ttf">
+      <LogicalName>iText.Html2Pdf.font.NotoSans-Regular.ttf</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="resources\font\FreeMonoOblique.ttf">
-      <LogicalName>iText.Html2Pdf.font.FreeMonoOblique.ttf</LogicalName>
+    <EmbeddedResource Include="resources\font\NotoSans-Bold.ttf">
+      <LogicalName>iText.Html2Pdf.font.NotoSans-Bold.ttf</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="resources\font\FreeSans.ttf">
-      <LogicalName>iText.Html2Pdf.font.FreeSans.ttf</LogicalName>
+    <EmbeddedResource Include="resources\font\NotoSans-BoldItalic.ttf">
+      <LogicalName>iText.Html2Pdf.font.NotoSans-BoldItalic.ttf</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="resources\font\FreeSansBold.ttf">
-      <LogicalName>iText.Html2Pdf.font.FreeSansBold.ttf</LogicalName>
+    <EmbeddedResource Include="resources\font\NotoSans-Italic.ttf">
+      <LogicalName>iText.Html2Pdf.font.NotoSans-Italic.ttf</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="resources\font\FreeSansBoldOblique.ttf">
-      <LogicalName>iText.Html2Pdf.font.FreeSansBoldOblique.ttf</LogicalName>
+    <EmbeddedResource Include="resources\font\NotoSerif-Regular.ttf">
+      <LogicalName>iText.Html2Pdf.font.NotoSerif-Regular.ttf</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="resources\font\FreeSansOblique.ttf">
-      <LogicalName>iText.Html2Pdf.font.FreeSansOblique.ttf</LogicalName>
+    <EmbeddedResource Include="resources\font\NotoSerif-Bold.ttf">
+      <LogicalName>iText.Html2Pdf.font.NotoSerif-Bold.ttf</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="resources\font\FreeSerif.ttf">
-      <LogicalName>iText.Html2Pdf.font.FreeSerif.ttf</LogicalName>
+    <EmbeddedResource Include="resources\font\NotoSerif-BoldItalic.ttf">
+      <LogicalName>iText.Html2Pdf.font.NotoSerif-BoldItalic.ttf</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="resources\font\FreeSerifBold.ttf">
-      <LogicalName>iText.Html2Pdf.font.FreeSerifBold.ttf</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="resources\font\FreeSerifBoldItalic.ttf">
-      <LogicalName>iText.Html2Pdf.font.FreeSerifBoldItalic.ttf</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="resources\font\FreeSerifItalic.ttf">
-      <LogicalName>iText.Html2Pdf.font.FreeSerifItalic.ttf</LogicalName>
+    <EmbeddedResource Include="resources\font\NotoSerif-Italic.ttf">
+      <LogicalName>iText.Html2Pdf.font.NotoSerif-Italic.ttf</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
