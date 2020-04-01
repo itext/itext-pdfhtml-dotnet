@@ -105,7 +105,6 @@ namespace iText.Html2pdf {
         /// the PDF as an
         /// <see cref="System.IO.Stream"/>
         /// </param>
-        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(String html, Stream pdfStream) {
             ConvertToPdf(html, pdfStream, null);
         }
@@ -132,7 +131,6 @@ namespace iText.Html2pdf {
         /// <see cref="ConverterProperties"/>
         /// instance
         /// </param>
-        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(String html, Stream pdfStream, ConverterProperties converterProperties) {
             ConvertToPdf(html, new PdfWriter(pdfStream), converterProperties);
         }
@@ -154,7 +152,6 @@ namespace iText.Html2pdf {
         /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
         /// instance
         /// </param>
-        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(String html, PdfWriter pdfWriter) {
             ConvertToPdf(html, pdfWriter, null);
         }
@@ -183,7 +180,6 @@ namespace iText.Html2pdf {
         /// <see cref="ConverterProperties"/>
         /// instance
         /// </param>
-        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void ConvertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
             ConvertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(new HtmlMetaInfo())), converterProperties);
@@ -213,7 +209,6 @@ namespace iText.Html2pdf {
         /// <see cref="ConverterProperties"/>
         /// instance
         /// </param>
-        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static void ConvertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
             Document document = ConvertToDocument(html, pdfDocument, converterProperties);
@@ -474,7 +469,6 @@ namespace iText.Html2pdf {
         /// <see cref="iText.Layout.Document"/>
         /// instance
         /// </returns>
-        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static Document ConvertToDocument(String html, PdfWriter pdfWriter) {
             return ConvertToDocument(html, pdfWriter, null);
         }
@@ -536,7 +530,6 @@ namespace iText.Html2pdf {
         /// <see cref="iText.Layout.Document"/>
         /// instance
         /// </returns>
-        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static Document ConvertToDocument(String html, PdfWriter pdfWriter, ConverterProperties converterProperties
             ) {
@@ -606,7 +599,6 @@ namespace iText.Html2pdf {
         /// <see cref="iText.Layout.Document"/>
         /// instance
         /// </returns>
-        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static Document ConvertToDocument(String html, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
 
@@ -782,7 +774,6 @@ namespace iText.Html2pdf {
         /// <see cref="System.String"/>
         /// </param>
         /// <returns>a list of iText building blocks</returns>
-        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static IList<IElement> ConvertToElements(String html) {
             return ConvertToElements(html, null);
         }
@@ -830,7 +821,6 @@ namespace iText.Html2pdf {
         /// instance
         /// </param>
         /// <returns>a list of iText building blocks</returns>
-        /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static IList<IElement> ConvertToElements(String html, ConverterProperties converterProperties) {
 
             try 
