@@ -483,7 +483,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 return this;
             }
 
-            public virtual void HandleEvent(Event @event) {
+            public virtual void HandleEvent(iText.Kernel.Events.Event @event) {
                 if (@event is PdfDocumentEvent) {
                     PdfPage page = ((PdfDocumentEvent)@event).GetPage();
                     PdfDocument pdfDoc = ((PdfDocumentEvent)@event).GetDocument();
