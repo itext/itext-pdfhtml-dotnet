@@ -144,38 +144,46 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     return true;
                 }
                 else {
-                    if (IsBlockWithDisplay(childTagWorker, element, CssConstants.INLINE_BLOCK, false)) {
+                    if (childTagWorker is IDisplayAware && (CssConstants.INLINE_BLOCK.Equals(((IDisplayAware)childTagWorker).GetDisplay
+                        ()) || CssConstants.INLINE.Equals(((IDisplayAware)childTagWorker).GetDisplay())) && element is IBlockElement
+                        ) {
                         inlineHelper.Add((IBlockElement)element);
                         return true;
                     }
                     else {
-                        if (IsBlockWithDisplay(childTagWorker, element, CssConstants.BLOCK, false)) {
-                            IPropertyContainer propertyContainer = childTagWorker.GetElementResult();
-                            ProcessBlockElement((IBlockElement)propertyContainer);
+                        if (IsBlockWithDisplay(childTagWorker, element, CssConstants.INLINE_BLOCK, false)) {
+                            inlineHelper.Add((IBlockElement)element);
                             return true;
                         }
                         else {
-                            if (childTagWorker is SpanTagWorker) {
-                                bool allChildrenProcessed = true;
-                                foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
-                                    if (propertyContainer is ILeafElement) {
-                                        inlineHelper.Add((ILeafElement)propertyContainer);
-                                    }
-                                    else {
-                                        if (IsBlockWithDisplay(childTagWorker, propertyContainer, CssConstants.INLINE_BLOCK, true)) {
-                                            inlineHelper.Add((IBlockElement)propertyContainer);
+                            if (IsBlockWithDisplay(childTagWorker, element, CssConstants.BLOCK, false)) {
+                                IPropertyContainer propertyContainer = childTagWorker.GetElementResult();
+                                ProcessBlockElement((IBlockElement)propertyContainer);
+                                return true;
+                            }
+                            else {
+                                if (childTagWorker is SpanTagWorker) {
+                                    bool allChildrenProcessed = true;
+                                    foreach (IPropertyContainer propertyContainer in ((SpanTagWorker)childTagWorker).GetAllElements()) {
+                                        if (propertyContainer is ILeafElement) {
+                                            inlineHelper.Add((ILeafElement)propertyContainer);
                                         }
                                         else {
-                                            if (IsBlockWithDisplay(childTagWorker, propertyContainer, CssConstants.BLOCK, true)) {
-                                                ProcessBlockElement((IBlockElement)propertyContainer);
+                                            if (IsBlockWithDisplay(childTagWorker, propertyContainer, CssConstants.INLINE_BLOCK, true)) {
+                                                inlineHelper.Add((IBlockElement)propertyContainer);
                                             }
                                             else {
-                                                allChildrenProcessed = false;
+                                                if (IsBlockWithDisplay(childTagWorker, propertyContainer, CssConstants.BLOCK, true)) {
+                                                    ProcessBlockElement((IBlockElement)propertyContainer);
+                                                }
+                                                else {
+                                                    allChildrenProcessed = false;
+                                                }
                                             }
                                         }
                                     }
+                                    return allChildrenProcessed;
                                 }
-                                return allChildrenProcessed;
                             }
                         }
                     }

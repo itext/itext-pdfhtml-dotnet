@@ -62,7 +62,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// <see cref="iText.Layout.Renderer.BlockRenderer"/>
     /// for form fields.
     /// </summary>
-    public abstract class AbstractFormFieldRenderer : BlockRenderer, ILeafElementRenderer {
+    public abstract class AbstractFormFieldRenderer : BlockRenderer {
         /// <summary>The flat renderer.</summary>
         protected internal IRenderer flatRenderer;
 
@@ -164,17 +164,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 ApplyAcroField(drawContext);
             }
             drawContext.GetCanvas().RestoreState();
-        }
-
-        public virtual float GetAscent() {
-            float? baseline = GetLastYLineRecursively();
-            return baseline != null ? occupiedArea.GetBBox().GetTop() - (float)baseline : occupiedArea.GetBBox().GetHeight
-                ();
-        }
-
-        public virtual float GetDescent() {
-            float? baseline = GetLastYLineRecursively();
-            return baseline != null ? occupiedArea.GetBBox().GetBottom() - (float)baseline : 0;
         }
 
         /* (non-Javadoc)
