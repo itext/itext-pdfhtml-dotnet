@@ -53,8 +53,7 @@ namespace iText.Html2pdf.Attach.Impl {
             PdfOutline pdfOutline = context.GetPdfDocument().GetOutlines(false).GetAllChildren()[0];
             NUnit.Framework.Assert.AreEqual("p1", pdfOutline.GetTitle());
             PdfString pdfStringDest = (PdfString)pdfOutline.GetDestination().GetPdfObject();
-            NUnit.Framework.Assert.AreEqual("pdfHTML-iText-outline-pdfHTML-iText-outline-1", pdfStringDest.ToUnicodeString
-                ());
+            NUnit.Framework.Assert.AreEqual("pdfHTML-iText-outline-1", pdfStringDest.ToUnicodeString());
         }
 
         [NUnit.Framework.Test]
@@ -78,7 +77,7 @@ namespace iText.Html2pdf.Attach.Impl {
             PdfOutline pdfOutline = context.GetPdfDocument().GetOutlines(false).GetAllChildren()[0];
             NUnit.Framework.Assert.AreEqual("p1", pdfOutline.GetTitle());
             PdfString pdfStringDest = (PdfString)pdfOutline.GetDestination().GetPdfObject();
-            NUnit.Framework.Assert.AreEqual("prefix-prefix-1", pdfStringDest.ToUnicodeString());
+            NUnit.Framework.Assert.AreEqual("prefix-1", pdfStringDest.ToUnicodeString());
         }
     }
 }

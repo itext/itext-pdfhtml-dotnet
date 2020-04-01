@@ -186,7 +186,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <param name="element">the element</param>
         /// <returns>the unique destination name</returns>
         protected internal virtual String GenerateUniqueDestinationName(IElementNode element) {
-            return destinationNamePrefix + GetUniqueID(destinationNamePrefix);
+            return GetUniqueID(destinationNamePrefix);
         }
 
         /// <summary>Generate the unique outline name.</summary>
