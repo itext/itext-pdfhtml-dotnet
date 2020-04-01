@@ -266,18 +266,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return borderRadii;
         }
 
-        /// <summary>Gets the array that defines the borders.</summary>
-        /// <param name="styles">the styles mapping</param>
-        /// <param name="em">the em value</param>
-        /// <param name="rem">the root em value</param>
-        /// <returns>the borders array</returns>
-        [System.ObsoleteAttribute(@"use GetBorderRadiiArray(System.Collections.Generic.IDictionary{K, V}, float, float) instead"
-            )]
-        public static UnitValue GetBorderRadius(IDictionary<String, String> styles, float em, float rem) {
-            String borderRadius = styles.Get(CssConstants.BORDER_RADIUS);
-            return CssUtils.ParseLengthValueToPt(borderRadius, em, rem);
-        }
-
         private static String GetSpecificBorderColorOrDefaultColor(IDictionary<String, String> styles, String specificBorderColorProperty
             ) {
             String borderColor = styles.Get(specificBorderColorProperty);

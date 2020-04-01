@@ -41,17 +41,15 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Collections.Generic;
+using Common.Logging;
 using iText.Forms;
 using iText.Forms.Fields;
-using iText.Forms.Util;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
-using iText.Kernel.Colors;
+using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas;
-using iText.Layout.Borders;
-using iText.Layout.Element;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
@@ -60,26 +58,19 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// <summary>
     /// The
     /// <see cref="AbstractOneLineTextFieldRenderer"/>
-    /// implementation for checkboxes.
+    /// implementation for buttons with no kids.
     /// </summary>
-    public class CheckBoxRenderer : AbstractFormFieldRenderer {
-        private static readonly Color DEFAULT_BORDER_COLOR = ColorConstants.DARK_GRAY;
+    public class InputButtonRenderer : AbstractOneLineTextFieldRenderer {
+        /// <summary>Indicates of the content was split.</summary>
+        private bool isSplit = false;
 
-        private static readonly Color DEFAULT_BACKGROUND_COLOR = ColorConstants.WHITE;
-
-        private const float DEFAULT_BORDER_WIDTH = 0.75f;
-
-        // 1px
-        private const float DEFAULT_SIZE = 8.25f;
-
-        // 11px
         /// <summary>
         /// Creates a new
-        /// <see cref="CheckBoxRenderer"/>
+        /// <see cref="InputButtonRenderer"/>
         /// instance.
         /// </summary>
         /// <param name="modelElement">the model element</param>
-        public CheckBoxRenderer(CheckBox modelElement)
+        public InputButtonRenderer(InputButton modelElement)
             : base(modelElement) {
         }
 
@@ -87,64 +78,76 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         * @see com.itextpdf.layout.renderer.IRenderer#getNextRenderer()
         */
         public override IRenderer GetNextRenderer() {
-            return new iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.CheckBoxRenderer((CheckBox)modelElement);
-        }
-
-        protected internal override IRenderer CreateFlatRenderer() {
-            Paragraph paragraph = new Paragraph().SetWidth(DEFAULT_SIZE).SetHeight(DEFAULT_SIZE).SetBorder(new SolidBorder
-                (DEFAULT_BORDER_COLOR, DEFAULT_BORDER_WIDTH)).SetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
-            return new CheckBoxRenderer.FlatParagraphRenderer(this, paragraph);
+            return new iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.InputButtonRenderer((InputButton)modelElement);
         }
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
         */
         protected internal override void AdjustFieldLayout(LayoutContext layoutContext) {
-            this.SetProperty(Property.BACKGROUND, null);
+            IList<LineRenderer> flatLines = ((ParagraphRenderer)flatRenderer).GetLines();
+            Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
+            UpdatePdfFont((ParagraphRenderer)flatRenderer);
+            if (!flatLines.IsEmpty() && font != null) {
+                if (flatLines.Count != 1) {
+                    isSplit = true;
+                }
+                CropContentLines(flatLines, flatBBox);
+                float? width = RetrieveWidth(layoutContext.GetArea().GetBBox().GetWidth());
+                if (width == null) {
+                    LineRenderer drawnLine = flatLines[0];
+                    drawnLine.Move(flatBBox.GetX() - drawnLine.GetOccupiedArea().GetBBox().GetX(), 0);
+                    flatBBox.SetWidth(drawnLine.GetOccupiedArea().GetBBox().GetWidth());
+                }
+            }
+            else {
+                LogManager.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
+                    , "button"));
+                SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
+                flatBBox.SetY(flatBBox.GetTop()).SetHeight(0);
+            }
         }
 
-        /// <summary>Defines whether the box is checked or not.</summary>
-        /// <returns>the default value of the checkbox field</returns>
-        public virtual bool IsBoxChecked() {
-            return null != this.GetProperty<Object>(Html2PdfProperty.FORM_FIELD_CHECKED);
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#createFlatRenderer()
+        */
+        protected internal override IRenderer CreateFlatRenderer() {
+            return CreateParagraphRenderer(GetDefaultValue());
         }
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
         */
         protected internal override void ApplyAcroField(DrawContext drawContext) {
+            String value = GetDefaultValue();
             String name = GetModelId();
+            UnitValue fontSize = (UnitValue)this.GetPropertyAsUnitValue(Property.FONT_SIZE);
+            if (!fontSize.IsPointValue()) {
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.InputButtonRenderer
+                    ));
+                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property
+                    .FONT_SIZE));
+            }
             PdfDocument doc = drawContext.GetDocument();
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
+            ApplyPaddings(area, true);
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
-            PdfButtonFormField checkBox = PdfFormField.CreateCheckBox(doc, area, name, IsBoxChecked() ? "Yes" : "Off");
-            PdfAcroForm.GetAcroForm(doc, true).AddField(checkBox, page);
+            PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSize.GetValue(
+                ));
+            Background background = this.GetProperty<Background>(Property.BACKGROUND);
+            if (background != null && background.GetColor() != null) {
+                button.SetBackgroundColor(background.GetColor());
+            }
+            ApplyDefaultFieldProperties(button);
+            PdfAcroForm.GetAcroForm(doc, true).AddField(button, page);
             WriteAcroFormFieldLangAttribute(doc);
         }
 
-        protected internal override bool IsLayoutBasedOnFlatRenderer() {
-            return false;
-        }
-
-        private class FlatParagraphRenderer : ParagraphRenderer {
-            public FlatParagraphRenderer(CheckBoxRenderer _enclosing, Paragraph modelElement)
-                : base(modelElement) {
-                this._enclosing = _enclosing;
-            }
-
-            public override void DrawChildren(DrawContext drawContext) {
-                if (this._enclosing.IsBoxChecked()) {
-                    PdfCanvas canvas = drawContext.GetCanvas();
-                    Rectangle rectangle = this.GetInnerAreaBBox();
-                    canvas.SaveState();
-                    canvas.SetFillColor(ColorConstants.BLACK);
-                    DrawingUtil.DrawPdfACheck(canvas, rectangle.GetWidth(), rectangle.GetHeight(), rectangle.GetLeft(), rectangle
-                        .GetBottom());
-                    canvas.RestoreState();
-                }
-            }
-
-            private readonly CheckBoxRenderer _enclosing;
+        /* (non-Javadoc)
+        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#isRendererFit(float, float)
+        */
+        protected internal override bool IsRendererFit(float availableWidth, float availableHeight) {
+            return !isSplit && base.IsRendererFit(availableWidth, availableHeight);
         }
     }
 }

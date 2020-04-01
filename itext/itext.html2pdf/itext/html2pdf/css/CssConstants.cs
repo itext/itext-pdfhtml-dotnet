@@ -89,11 +89,6 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant OUTLINE_OFFSET.</summary>
         public const String OUTLINE_OFFSET = "outline-offset";
 
-        /// <summary>The Constant OVERFLOW.</summary>
-        /// <remarks>The Constant OVERFLOW. @Deprecated in favour of CommonCssConstants.OVERFLOW</remarks>
-        [Obsolete]
-        public const String OVERFLOW = "overflow";
-
         /// <summary>The Constant OVERFLOW_X.</summary>
         public const String OVERFLOW_X = "overflow-x";
 
@@ -117,10 +112,6 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant VERTICAL_ALIGN.</summary>
         public const String VERTICAL_ALIGN = "vertical-align";
-
-        /// <summary>The Constant VISIBLE.</summary>
-        [System.ObsoleteAttribute(@"in favour of StyledXmlParser")]
-        public const String VISIBLE = "visible";
 
         // property values
         /// <summary>The Constant ABSOLUTE.</summary>
@@ -247,14 +238,6 @@ namespace iText.Html2pdf.Css {
         public const String UPPERCASE = "uppercase";
 
         // properties possible values
-        /// <summary>The Constant FONT_ABSOLUTE_SIZE_KEYWORDS.</summary>
-        [System.ObsoleteAttribute(@"Use iText.StyledXmlParser.Css.CommonCssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS_VALUES instead."
-            )]
-        public static readonly ICollection<String> FONT_ABSOLUTE_SIZE_KEYWORDS = JavaCollectionsUtil.UnmodifiableSet
-            (new HashSet<String>(JavaUtil.ArraysAsList(CommonCssConstants.MEDIUM, CommonCssConstants.XX_SMALL, CommonCssConstants
-            .X_SMALL, CommonCssConstants.SMALL, CommonCssConstants.LARGE, CommonCssConstants.X_LARGE, CommonCssConstants
-            .XX_LARGE)));
-
         /// <summary>The Constant OVERFLOW_VALUES.</summary>
         public static readonly ICollection<String> OVERFLOW_VALUES = new HashSet<String>(JavaUtil.ArraysAsList(new 
             String[] { CommonCssConstants.VISIBLE, HIDDEN, SCROLL, AUTO }));

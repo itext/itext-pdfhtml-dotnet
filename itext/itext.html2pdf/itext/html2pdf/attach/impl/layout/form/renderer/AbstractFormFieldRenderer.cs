@@ -177,16 +177,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             MinMaxWidth minMaxWidth = base.GetMinMaxWidth();
             return minMaxWidth;
         }
-
-        /// <summary>Adjusts the field layout.</summary>
-        [System.ObsoleteAttribute(@"Will be removed in 3.0.0, override AdjustFieldLayout(iText.Layout.Layout.LayoutContext) instead."
-            )]
-        protected internal abstract void AdjustFieldLayout();
-
-        //NOTE: should be abstract in 3.0.0
-        protected internal virtual void AdjustFieldLayout(LayoutContext layoutContext) {
-            AdjustFieldLayout();
-        }
+        
+        /// <summary>
+        /// Adjusts the field layout.
+        /// </summary>
+        /// <param name="layoutContext">layout context</param>
+        protected internal abstract void AdjustFieldLayout(LayoutContext layoutContext);
 
         /// <summary>Creates the flat renderer instance.</summary>
         /// <returns>the renderer instance</returns>
@@ -213,13 +209,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return availableHeight >= occupiedArea.GetBBox().GetHeight() && availableWidth >= occupiedArea.GetBBox().GetWidth
                 ();
         }
-
-        /// <summary>Gets the content width.</summary>
-        /// <returns>the content width</returns>
-        [System.ObsoleteAttribute(@"will be removed in 3.0.0. Use RetrieveWidth(float) } instead.")]
-        protected internal virtual float? GetContentWidth() {
-            return base.RetrieveWidth(0);
-        }
         
         /// <summary>Gets the accessibility language.</summary>
         /// <returns>the accessibility language</returns>
@@ -227,15 +216,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return GetProperty<String>(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
         }
         
-        //NOTE: should be removed in 3.0.0
-        protected override float? RetrieveWidth(float parentBoxWidth) {
-            UnitValue width = base.GetProperty<UnitValue>(Property.WIDTH);
-            if (width != null && width.IsPointValue()) {
-                return GetContentWidth();
-            }
-            return base.RetrieveWidth(parentBoxWidth);
-        }
-
         protected internal virtual bool IsLayoutBasedOnFlatRenderer()
         {
             return true;
