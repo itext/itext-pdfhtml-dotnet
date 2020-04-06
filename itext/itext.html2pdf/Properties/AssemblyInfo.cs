@@ -32,6 +32,6 @@ using Versions.Attributes;
 
 [assembly: AssemblyVersion("3.0.0.0")]
 [assembly: AssemblyFileVersion("3.0.0.0")]
-[assembly: AssemblyInformationalVersion("3.0.0-SNAPSHOT")]
+[assembly: AssemblyInformationalVersion("3.0.0")]
 
-[assembly: Versions.Attributes.KeyVersion("3.0.6.0")]
+[assembly: Versions.Attributes.KeyVersion("3.1.0.0")]
