@@ -117,7 +117,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             else {
                 if (AttributeConstants.SUBMIT.Equals(inputType) || AttributeConstants.BUTTON.Equals(inputType)) {
-                    formElement = new Button(name);
+                    formElement = new InputButton(name);
                     formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
                 }
                 else {

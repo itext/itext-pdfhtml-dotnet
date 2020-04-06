@@ -48,7 +48,6 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf {
     // Actually the results are invalid because there is no pdfCalligraph.
-    // But we'd like to test how Free Sans works for a specific scripts.
     public class FontProviderTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/FontProviderTest/";
@@ -64,7 +63,7 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(TYPOGRAPHY_WARNING, Count = 14)]
+        [LogMessage(TYPOGRAPHY_WARNING, Count = 4)]
         public virtual void HebrewTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hebrew.html"), new FileInfo(destinationFolder + "hebrew.pdf"
                 ));
@@ -87,6 +86,22 @@ namespace iText.Html2pdf {
                  + "convertStandardFonts.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "convertStandardFonts.pdf"
                 , sourceFolder + "cmp_convertStandardFonts", destinationFolder, "difffontstand_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NotoSansMonoItalicTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "notoSansMonoItalic.html"), new FileInfo(destinationFolder
+                 + "notoSansMonoItalic.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "notoSansMonoItalic.pdf"
+                , sourceFolder + "cmp_notoSansMonoItalic.pdf", destinationFolder, "diffnotoSansMonoItalic_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NotoSansMonoBoldItalicTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "notoSansMonoBoldItalic.html"), new FileInfo(destinationFolder
+                 + "notoSansMonoBoldItalic.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "notoSansMonoBoldItalic.pdf"
+                , sourceFolder + "cmp_notoSansMonoBoldItalic.pdf", destinationFolder, "diffnotoSansMonoBoldItalic_"));
         }
     }
 }

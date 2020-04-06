@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using iText.Kernel.Pdf.Tagging;
 using iText.Layout.Element;
 using iText.Layout.Layout;
+using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
@@ -85,6 +86,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             public RunningElementRenderer(Div modelElement, RunningElementContainer runningElementContainer)
                 : base(modelElement) {
                 this.runningElementContainer = runningElementContainer;
+                // LineRenderer uses html logic only if there is at least one child renderer in html
+                // mode. So the case when the line contains only running elements should be
+                // processed in the default mode, since for this line the line-height should not be calculated.
+                SetProperty(Property.RENDERING_MODE, RenderingMode.DEFAULT_LAYOUT_MODE);
             }
 
             public override LayoutResult Layout(LayoutContext layoutContext) {

@@ -47,7 +47,7 @@ using iText.StyledXmlParser.Css.Page;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    [System.ObsoleteAttribute(@"Remove this class in 7.2 and use iText.StyledXmlParser.Css.Page.PageMarginBoxContextNode instead (by making it implement iText.StyledXmlParser.Node.IElementNode )."
+    [System.ObsoleteAttribute(@"To be removed in next major pdfHTML version once iText.StyledXmlParser.Css.Page.PageMarginBoxContextNode implementsiText.StyledXmlParser.Node.IElementNode so that it can be used directly instead of creating dummy node."
         )]
     internal class PageMarginBoxDummyElement : IElementNode, ICustomElementNode {
         /// <summary>The resolved styles.</summary>

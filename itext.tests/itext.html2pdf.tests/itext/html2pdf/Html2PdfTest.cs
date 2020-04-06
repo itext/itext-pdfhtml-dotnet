@@ -62,84 +62,52 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         public virtual void HelloWorldParagraphTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_paragraph.html"), new FileInfo(destinationFolder
-                 + "hello_paragraph.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "hello_paragraph.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hello_paragraph.pdf"
-                , sourceFolder + "cmp_hello_paragraph.pdf", destinationFolder, "diff01_"));
+            ConvertAndCompare(sourceFolder + "hello_paragraph.html", destinationFolder + "hello_paragraph.pdf", sourceFolder
+                 + "cmp_hello_paragraph.pdf", destinationFolder, "diff01_");
         }
 
         [NUnit.Framework.Test]
         public virtual void HelloParagraphTableTest() {
             // TODO DEVSIX-1124
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_paragraph_table.html"), new FileInfo(destinationFolder
-                 + "hello_paragraph_table.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "hello_paragraph_table.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hello_paragraph_table.pdf"
-                , sourceFolder + "cmp_hello_paragraph_table.pdf", destinationFolder, "diff02_"));
+            ConvertAndCompare(sourceFolder + "hello_paragraph_table.html", destinationFolder + "hello_paragraph_table.pdf"
+                , sourceFolder + "cmp_hello_paragraph_table.pdf", destinationFolder, "diff02_");
         }
 
         [NUnit.Framework.Test]
         public virtual void HelloMalformedDocumentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_malformed.html"), new FileInfo(destinationFolder
-                 + "hello_malformed.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "hello_malformed.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hello_malformed.pdf"
-                , sourceFolder + "cmp_hello_malformed.pdf", destinationFolder, "diff03_"));
+            ConvertAndCompare(sourceFolder + "hello_malformed.html", destinationFolder + "hello_malformed.pdf", sourceFolder
+                 + "cmp_hello_malformed.pdf", destinationFolder, "diff03_");
         }
 
         [NUnit.Framework.Test]
         public virtual void HelloParagraphJunkSpacesDocumentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_paragraph_junk_spaces.html"), new FileInfo(destinationFolder
-                 + "hello_paragraph_junk_spaces.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "hello_paragraph_junk_spaces.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hello_paragraph_junk_spaces.pdf"
-                , sourceFolder + "cmp_hello_paragraph_junk_spaces.pdf", destinationFolder, "diff03_"));
+            ConvertAndCompare(sourceFolder + "hello_paragraph_junk_spaces.html", destinationFolder + "hello_paragraph_junk_spaces.pdf"
+                , sourceFolder + "cmp_hello_paragraph_junk_spaces.pdf", destinationFolder, "diff03_");
         }
 
         [NUnit.Framework.Test]
         public virtual void HelloParagraphNestedInTableDocumentTest() {
             // TODO DEVSIX-1124
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_paragraph_nested_in_table.html"), new FileInfo
-                (destinationFolder + "hello_paragraph_nested_in_table.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "hello_paragraph_nested_in_table.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hello_paragraph_nested_in_table.pdf"
-                , sourceFolder + "cmp_hello_paragraph_nested_in_table.pdf", destinationFolder, "diff03_"));
+            ConvertAndCompare(sourceFolder + "hello_paragraph_nested_in_table.html", destinationFolder + "hello_paragraph_nested_in_table.pdf"
+                , sourceFolder + "cmp_hello_paragraph_nested_in_table.pdf", destinationFolder, "diff03_");
         }
 
         [NUnit.Framework.Test]
         public virtual void HelloParagraphWithSpansDocumentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_paragraph_with_span.html"), new FileInfo(destinationFolder
-                 + "hello_paragraph_with_span.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "hello_paragraph_with_span.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hello_paragraph_with_span.pdf"
-                , sourceFolder + "cmp_hello_paragraph_with_span.pdf", destinationFolder, "diff03_"));
+            ConvertAndCompare(sourceFolder + "hello_paragraph_with_span.html", destinationFolder + "hello_paragraph_with_span.pdf"
+                , sourceFolder + "cmp_hello_paragraph_with_span.pdf", destinationFolder, "diff03_");
         }
 
         [NUnit.Framework.Test]
         public virtual void HelloDivDocumentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hello_div.html"), new FileInfo(destinationFolder +
-                 "hello_div.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "hello_div.html").AbsolutePath
-                 + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hello_div.pdf", sourceFolder
-                 + "cmp_hello_div.pdf", destinationFolder, "diff03_"));
+            ConvertAndCompare(sourceFolder + "hello_div.html", destinationFolder + "hello_div.pdf", sourceFolder + "cmp_hello_div.pdf"
+                , destinationFolder, "diff03_");
         }
 
         [NUnit.Framework.Test]
         public virtual void ABlockInPTagTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "aBlockInPTag.html"), new FileInfo(destinationFolder
-                 + "aBlockInPTag.pdf"));
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceFolder + "aBlockInPTag.html"
-                ).AbsolutePath + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "aBlockInPTag.pdf", sourceFolder
-                 + "cmp_aBlockInPTag.pdf", destinationFolder, "diff03_"));
+            ConvertAndCompare(sourceFolder + "aBlockInPTag.html", destinationFolder + "aBlockInPTag.pdf", sourceFolder
+                 + "cmp_aBlockInPTag.pdf", destinationFolder, "diff03_");
         }
 
         [NUnit.Framework.Test]
@@ -187,6 +155,14 @@ namespace iText.Html2pdf {
                  + "imgTag_base64svg.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imgTag_base64svg.pdf"
                 , sourceFolder + "cmp_imgTag_base64svg.pdf", destinationFolder, "diff01_"));
+        }
+
+        private void ConvertAndCompare(String srcFilename, String outFilename, String cmpFilename, String outFolder
+            , String diff) {
+            HtmlConverter.ConvertToPdf(new FileInfo(srcFilename), new FileInfo(outFilename));
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(srcFilename) + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFilename, cmpFilename, outFolder, diff
+                ));
         }
     }
 }

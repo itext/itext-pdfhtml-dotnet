@@ -78,7 +78,7 @@ namespace iText.Html2pdf {
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
                 HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, converterProperties);
             }
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceHtml).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(sourceHtml) + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, destinationFolder
                 , "diff_" + name + "_"));
         }
@@ -109,7 +109,7 @@ namespace iText.Html2pdf {
                     document.Add((IBlockElement)element);
                 }
             }
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceHtml).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(sourceHtml) + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, destinationFolder
                 , "diff_" + name + "_"));
         }
@@ -148,7 +148,7 @@ namespace iText.Html2pdf {
             converterPropertiesAcro.SetCreateAcroForm(true);
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfTaggedAcro, converterPropertiesAcro
                 );
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(sourceHtml).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(sourceHtml) + "\n");
             //flatted created tagged PDF with acroform
             PdfDocument document = new PdfDocument(new PdfReader(outPdfPathAcro), new PdfWriter(outPdfPathFlatted));
             PdfAcroForm acroForm = PdfAcroForm.GetAcroForm(document, false);

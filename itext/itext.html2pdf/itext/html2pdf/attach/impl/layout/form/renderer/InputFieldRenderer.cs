@@ -106,11 +106,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return base.CreateParagraphRenderer(defaultValue);
         }
 
-        protected internal override void AdjustFieldLayout() {
-            throw new Exception("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead"
-                );
-        }
-
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
         */
@@ -125,7 +120,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 LogManager.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
                     , "text input"));
                 SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
-                baseline = flatBBox.GetTop();
                 flatBBox.SetY(flatBBox.GetTop()).SetHeight(0);
             }
             flatBBox.SetWidth((float)RetrieveWidth(layoutContext.GetArea().GetBBox().GetWidth()));

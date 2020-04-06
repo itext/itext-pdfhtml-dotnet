@@ -69,9 +69,9 @@ namespace iText.Html2pdf.Resolver.Font {
         private const String SHIPPED_FONT_RESOURCE_PATH = "iText.Html2Pdf.font.";
 
         /// <summary>The file names of the shipped fonts.</summary>
-        private static readonly String[] SHIPPED_FONT_NAMES = new String[] { "FreeMono.ttf", "FreeMonoBold.ttf", "FreeMonoBoldOblique.ttf"
-            , "FreeMonoOblique.ttf", "FreeSans.ttf", "FreeSansBold.ttf", "FreeSansBoldOblique.ttf", "FreeSansOblique.ttf"
-            , "FreeSerif.ttf", "FreeSerifBold.ttf", "FreeSerifBoldItalic.ttf", "FreeSerifItalic.ttf" };
+        private static readonly String[] SHIPPED_FONT_NAMES = new String[] { "NotoSansMono-Regular.ttf", "NotoSansMono-Bold.ttf"
+            , "NotoSans-Regular.ttf", "NotoSans-Bold.ttf", "NotoSans-BoldItalic.ttf", "NotoSans-Italic.ttf", "NotoSerif-Regular.ttf"
+            , "NotoSerif-Bold.ttf", "NotoSerif-BoldItalic.ttf", "NotoSerif-Italic.ttf" };
 
         // This range exclude Hebrew, Arabic, Syriac, Arabic Supplement, Thaana, NKo, Samaritan,
         // Mandaic, Syriac Supplement, Arabic Extended-A, Devanagari, Bengali, Gurmukhi, Gujarati,

@@ -96,11 +96,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return new CheckBoxRenderer.FlatParagraphRenderer(this, paragraph);
         }
 
-        protected internal override void AdjustFieldLayout() {
-            throw new Exception("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead"
-                );
-        }
-
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
         */

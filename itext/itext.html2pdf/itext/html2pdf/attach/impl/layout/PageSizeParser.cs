@@ -66,10 +66,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             pageSizeConstants.Put("jis-b4", new PageSize(729, 1032));
             pageSizeConstants.Put("letter", PageSize.LETTER);
             pageSizeConstants.Put("legal", PageSize.LEGAL);
-            pageSizeConstants.Put("ledger", PageSize.LEDGER);
+            /* according to CSS Paged Media Module Level 3 Editor’s Draft:
+            "ledger - Equivalent to the size of North American ledger: 11 inches wide by 17 inches high"
+            See https://www.w3.org/TR/css-page-3/
+            That makes this <page-size> portrait-oriented, i.e. rotated PageSize.LEDGER.
+            */
+            pageSizeConstants.Put("ledger", PageSize.LEDGER.Rotate());
         }
 
-        // TODO may be use here TABLOID? based on w3c tests, ledger in html is interpreted as portrait-oriented page
         /// <summary>Fetch the page size.</summary>
         /// <param name="pageSizeStr">the name of the page size ("a4", "letter",...)</param>
         /// <param name="em">the em value</param>

@@ -167,5 +167,10 @@ namespace iText.Html2pdf.Css.Media.Page.Fix_dimension {
         public virtual void LeftFixTopAndFixCenterAndBottomTest() {
             ConvertToPdfAndCompare("leftFixTopAndFixCenterAndBottom", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void PageMarginFont() {
+            ConvertToPdfAndCompare("pageMarginFont", sourceFolder, destinationFolder);
+        }
     }
 }

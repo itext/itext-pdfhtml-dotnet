@@ -40,7 +40,6 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Kernel.Geom;
@@ -53,11 +52,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// for a single line of text content in a form field.
     /// </summary>
     public abstract class AbstractOneLineTextFieldRenderer : AbstractTextFieldRenderer {
-        /// <summary>The position of the base line of the text.</summary>
-        [System.ObsoleteAttribute(@"use iText.Layout.Renderer.AbstractRenderer.GetLastYLineRecursively() instead. Will be removed in 3.0.0"
-            )]
-        protected internal float baseline;
-
         /// <summary>
         /// Creates a new
         /// <see cref="AbstractOneLineTextFieldRenderer"/>
@@ -70,7 +64,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
 
         public override void Move(float dxRight, float dyUp) {
             base.Move(dxRight, dyUp);
-            baseline += dyUp;
         }
 
         /// <summary>Crops the content lines.</summary>
@@ -79,7 +72,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         internal virtual void CropContentLines(IList<LineRenderer> lines, Rectangle bBox) {
             AdjustNumberOfContentLines(lines, bBox, 1);
             UpdateParagraphHeight();
-            this.baseline = lines[0].GetYLine();
         }
 
         /// <summary>Updates the paragraph height.</summary>

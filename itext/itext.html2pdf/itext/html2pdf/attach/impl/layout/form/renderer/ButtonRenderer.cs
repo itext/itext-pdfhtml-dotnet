@@ -1,7 +1,7 @@
 /*
 This file is part of the iText (R) project.
 Copyright (c) 1998-2020 iText Group NV
-Authors: Bruno Lowagie, Paulo Soares, et al.
+Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License version 3
@@ -42,15 +42,15 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
 using iText.Forms;
 using iText.Forms.Fields;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
-using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
-using iText.Layout.Layout;
+using iText.Kernel.Pdf.Annot;
+using iText.Kernel.Pdf.Tagging;
+using iText.Kernel.Pdf.Tagutils;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
@@ -58,102 +58,85 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// <summary>
     /// The
     /// <see cref="AbstractOneLineTextFieldRenderer"/>
-    /// implementation for buttons with no kids.
+    /// implementation for buttons with kids.
     /// </summary>
-    [System.ObsoleteAttribute(@"Will be renamed to InputButtonRenderer in next major release.")]
-    public class ButtonRenderer : AbstractOneLineTextFieldRenderer {
-        /// <summary>Indicates of the content was split.</summary>
-        private bool isSplit = false;
+    public class ButtonRenderer : BlockRenderer {
+        private const float DEFAULT_FONT_SIZE = 12f;
 
-        /// <summary>
-        /// Creates a new
-        /// <see cref="ButtonRenderer"/>
-        /// instance.
-        /// </summary>
-        /// <param name="modelElement">the model element</param>
         public ButtonRenderer(Button modelElement)
             : base(modelElement) {
         }
 
-        /* (non-Javadoc)
-        * @see com.itextpdf.layout.renderer.IRenderer#getNextRenderer()
-        */
+        public override void Draw(DrawContext drawContext) {
+            base.Draw(drawContext);
+            if (!IsFlatten()) {
+                String value = GetDefaultValue();
+                String name = GetModelId();
+                UnitValue fontSize = (UnitValue)this.GetPropertyAsUnitValue(Property.FONT_SIZE);
+                if (!fontSize.IsPointValue()) {
+                    fontSize = UnitValue.CreatePointValue(DEFAULT_FONT_SIZE);
+                }
+                PdfDocument doc = drawContext.GetDocument();
+                Rectangle area = GetOccupiedArea().GetBBox().Clone();
+                ApplyMargins(area, false);
+                PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
+                PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, doc.GetDefaultFont(), fontSize
+                    .GetValue());
+                button.GetWidgets()[0].SetHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
+                button.SetBorderWidth(0);
+                button.SetBackgroundColor(null);
+                TransparentColor color = GetPropertyAsTransparentColor(Property.FONT_COLOR);
+                if (color != null) {
+                    button.SetColor(color.GetColor());
+                }
+                PdfAcroForm forms = PdfAcroForm.GetAcroForm(doc, true);
+                //Add fields only if it isn't already added. This can happen on split.
+                if (forms.GetField(name) == null) {
+                    forms.AddField(button, page);
+                }
+                if (doc.IsTagged()) {
+                    TagTreePointer formParentPointer = doc.GetTagStructureContext().GetAutoTaggingPointer();
+                    IList<String> kidsRoles = formParentPointer.GetKidsRoles();
+                    int lastFormIndex = kidsRoles.LastIndexOf(StandardRoles.FORM);
+                    TagTreePointer formPointer = formParentPointer.MoveToKid(lastFormIndex);
+                    String lang = this.GetProperty<String>(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
+                    if (lang != null) {
+                        formPointer.GetProperties().SetLanguage(lang);
+                    }
+                    formParentPointer.MoveToParent();
+                }
+            }
+        }
+
+        protected override float? GetLastYLineRecursively() {
+            return base.GetFirstYLineRecursively();
+        }
+
         public override IRenderer GetNextRenderer() {
             return new iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.ButtonRenderer((Button)modelElement);
         }
 
-        protected internal override void AdjustFieldLayout() {
-            throw new Exception("adjustFieldLayout() is deprecated and shouldn't be used. Override adjustFieldLayout(LayoutContext) instead"
+        //NOTE: Duplicates methods from AbstractFormFieldRenderer should be changed in next major version
+        /// <summary>Gets the model id.</summary>
+        /// <returns>the model id</returns>
+        protected internal virtual String GetModelId() {
+            return ((IFormField)GetModelElement()).GetId();
+        }
+
+        /// <summary>Checks if form fields need to be flattened.</summary>
+        /// <returns>true, if fields need to be flattened</returns>
+        public virtual bool IsFlatten() {
+            bool? flatten = GetPropertyAsBoolean(Html2PdfProperty.FORM_FIELD_FLATTEN);
+            return flatten != null ? (bool)flatten : (bool)modelElement.GetDefaultProperty<bool>(Html2PdfProperty.FORM_FIELD_FLATTEN
                 );
         }
 
-        /* (non-Javadoc)
-        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#adjustFieldLayout()
-        */
-        protected internal override void AdjustFieldLayout(LayoutContext layoutContext) {
-            IList<LineRenderer> flatLines = ((ParagraphRenderer)flatRenderer).GetLines();
-            Rectangle flatBBox = flatRenderer.GetOccupiedArea().GetBBox();
-            UpdatePdfFont((ParagraphRenderer)flatRenderer);
-            if (!flatLines.IsEmpty() && font != null) {
-                if (flatLines.Count != 1) {
-                    isSplit = true;
-                }
-                CropContentLines(flatLines, flatBBox);
-                float? width = RetrieveWidth(layoutContext.GetArea().GetBBox().GetWidth());
-                if (width == null) {
-                    LineRenderer drawnLine = flatLines[0];
-                    drawnLine.Move(flatBBox.GetX() - drawnLine.GetOccupiedArea().GetBBox().GetX(), 0);
-                    flatBBox.SetWidth(drawnLine.GetOccupiedArea().GetBBox().GetWidth());
-                }
-            }
-            else {
-                LogManager.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
-                    , "button"));
-                SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
-                baseline = flatBBox.GetTop();
-                flatBBox.SetY(flatBBox.GetTop()).SetHeight(0);
-            }
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#createFlatRenderer()
-        */
-        protected internal override IRenderer CreateFlatRenderer() {
-            return CreateParagraphRenderer(GetDefaultValue());
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#applyAcroField(com.itextpdf.layout.renderer.DrawContext)
-        */
-        protected internal override void ApplyAcroField(DrawContext drawContext) {
-            String value = GetDefaultValue();
-            String name = GetModelId();
-            UnitValue fontSize = (UnitValue)this.GetPropertyAsUnitValue(Property.FONT_SIZE);
-            if (!fontSize.IsPointValue()) {
-                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.ButtonRenderer));
-                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property
-                    .FONT_SIZE));
-            }
-            PdfDocument doc = drawContext.GetDocument();
-            Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
-            ApplyPaddings(area, true);
-            PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
-            PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSize.GetValue(
-                ));
-            Background background = this.GetProperty<Background>(Property.BACKGROUND);
-            if (background != null && background.GetColor() != null) {
-                button.SetBackgroundColor(background.GetColor());
-            }
-            ApplyDefaultFieldProperties(button);
-            PdfAcroForm.GetAcroForm(doc, true).AddField(button, page);
-            WriteAcroFormFieldLangAttribute(doc);
-        }
-
-        /* (non-Javadoc)
-        * @see com.itextpdf.html2pdf.attach.impl.layout.form.renderer.AbstractFormFieldRenderer#isRendererFit(float, float)
-        */
-        protected internal override bool IsRendererFit(float availableWidth, float availableHeight) {
-            return !isSplit && base.IsRendererFit(availableWidth, availableHeight);
+        /// <summary>Gets the default value of the form field.</summary>
+        /// <returns>the default value of the form field</returns>
+        public virtual String GetDefaultValue() {
+            String defaultValue = this.GetProperty<String>(Html2PdfProperty.FORM_FIELD_VALUE);
+            return defaultValue != null ? defaultValue : modelElement.GetDefaultProperty<String>(Html2PdfProperty.FORM_FIELD_VALUE
+                );
         }
     }
 }

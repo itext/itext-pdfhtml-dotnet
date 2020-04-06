@@ -52,7 +52,6 @@ using iText.Layout;
 using iText.Layout.Font;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
-using iText.StyledXmlParser.Exceptions;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Util {
@@ -61,6 +60,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <summary>The logger.</summary>
         private static readonly ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.FontStyleApplierUtil
             ));
+
+        private const float DEFAULT_LINE_HEIGHT = 1.2f;
 
         /// <summary>
         /// Creates a
@@ -214,6 +215,45 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             // browsers ignore values in percents
             String lineHeight = cssProps.Get(CssConstants.LINE_HEIGHT);
+            SetLineHeight(element, lineHeight, em, rem);
+            SetLineHeightByLeading(element, lineHeight, em, rem);
+        }
+
+        private static void SetLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {
+            if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight) && !CssConstants.AUTO.Equals(lineHeight)
+                ) {
+                if (CssUtils.IsNumericValue(lineHeight)) {
+                    float? number = CssUtils.ParseFloat(lineHeight);
+                    if (number != null) {
+                        elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateMultipliedValue((float)number));
+                    }
+                    else {
+                        elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateNormalValue());
+                    }
+                }
+                else {
+                    UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em, rem);
+                    if (lineHeightValue != null && lineHeightValue.IsPointValue()) {
+                        elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateFixedValue(lineHeightValue.GetValue()));
+                    }
+                    else {
+                        if (lineHeightValue != null) {
+                            elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateMultipliedValue(lineHeightValue.GetValue()
+                                 / 100f));
+                        }
+                        else {
+                            elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateNormalValue());
+                        }
+                    }
+                }
+            }
+            else {
+                elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateNormalValue());
+            }
+        }
+
+        private static void SetLineHeightByLeading(IPropertyContainer element, String lineHeight, float em, float 
+            rem) {
             // specification does not give auto as a possible lineHeight value
             // nevertheless some browsers compute it as normal so we apply the same behaviour.
             // What's more, it's basically the same thing as if lineHeight is not set in the first place
@@ -238,98 +278,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             else {
-                element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, 1.2f));
+                element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, DEFAULT_LINE_HEIGHT));
             }
-        }
-
-        /// <summary>Parses the absolute font size.</summary>
-        /// <param name="fontSizeValue">
-        /// the font size value as a
-        /// <see cref="System.String"/>
-        /// </param>
-        /// <returns>
-        /// the font size value as a
-        /// <c>float</c>
-        /// </returns>
-        [System.ObsoleteAttribute(@"Use iText.StyledXmlParser.Css.Util.CssUtils.ParseAbsoluteFontSize(System.String) instead."
-            )]
-        public static float ParseAbsoluteFontSize(String fontSizeValue) {
-            if (CssConstants.FONT_ABSOLUTE_SIZE_KEYWORDS.Contains(fontSizeValue)) {
-                switch (fontSizeValue) {
-                    case CssConstants.XX_SMALL: {
-                        fontSizeValue = "9px";
-                        break;
-                    }
-
-                    case CssConstants.X_SMALL: {
-                        fontSizeValue = "10px";
-                        break;
-                    }
-
-                    case CssConstants.SMALL: {
-                        fontSizeValue = "13px";
-                        break;
-                    }
-
-                    case CssConstants.MEDIUM: {
-                        fontSizeValue = "16px";
-                        break;
-                    }
-
-                    case CssConstants.LARGE: {
-                        fontSizeValue = "18px";
-                        break;
-                    }
-
-                    case CssConstants.X_LARGE: {
-                        fontSizeValue = "24px";
-                        break;
-                    }
-
-                    case CssConstants.XX_LARGE: {
-                        fontSizeValue = "32px";
-                        break;
-                    }
-
-                    default: {
-                        fontSizeValue = "16px";
-                        break;
-                    }
-                }
-            }
-            try {
-                /* Styled XML Parser will throw an exception when it can't parse the given value
-                but in html2pdf, we want to fall back to the default value of 0
-                */
-                return CssUtils.ParseAbsoluteLength(fontSizeValue);
-            }
-            catch (StyledXMLParserException) {
-                return 0f;
-            }
-        }
-
-        /// <summary>Parses the relative font size.</summary>
-        /// <param name="relativeFontSizeValue">
-        /// the relative font size value as a
-        /// <see cref="System.String"/>
-        /// </param>
-        /// <param name="baseValue">the base value</param>
-        /// <returns>
-        /// the relative font size value as a
-        /// <c>float</c>
-        /// </returns>
-        [System.ObsoleteAttribute(@"Use iText.StyledXmlParser.Css.Util.CssUtils.ParseRelativeFontSize(System.String, float) instead."
-            )]
-        public static float ParseRelativeFontSize(String relativeFontSizeValue, float baseValue) {
-            if (CssConstants.SMALLER.Equals(relativeFontSizeValue)) {
-                return (float)(baseValue / 1.2);
-            }
-            else {
-                if (CssConstants.LARGER.Equals(relativeFontSizeValue)) {
-                    return (float)(baseValue * 1.2);
-                }
-            }
-            return CssUtils.ParseRelativeValue(relativeFontSizeValue, baseValue);
         }
     }
 }

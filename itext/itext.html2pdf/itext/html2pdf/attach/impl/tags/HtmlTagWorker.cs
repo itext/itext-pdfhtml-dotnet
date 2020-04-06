@@ -41,8 +41,8 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.Collections.Generic;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Util;
@@ -52,8 +52,6 @@ using iText.IO.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
-using iText.Layout.Font;
-using iText.Layout.Properties;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Node;
 
@@ -82,15 +80,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             PdfDocument pdfDocument = context.GetPdfDocument();
             document = new Document(pdfDocument, pdfDocument.GetDefaultPageSize(), immediateFlush);
             document.SetRenderer(new HtmlDocumentRenderer(document, immediateFlush));
-            document.SetProperty(Property.COLLAPSING_MARGINS, true);
-            document.SetFontProvider(context.GetFontProvider());
-            if (context.GetTempFonts() != null) {
-                document.SetProperty(Property.FONT_SET, context.GetTempFonts());
-            }
-            String fontFamily = element.GetStyles().Get(CssConstants.FONT_FAMILY);
-            // TODO DEVSIX-2534
-            IList<String> fontFamilies = FontFamilySplitter.SplitFontFamily(fontFamily);
-            document.SetProperty(Property.FONT, fontFamilies.ToArray(new String[fontFamilies.Count]));
+            DefaultHtmlProcessor.SetConvertedRootElementProperties(element.GetStyles(), context, document);
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
             String lang = element.GetAttribute(AttributeConstants.LANG);

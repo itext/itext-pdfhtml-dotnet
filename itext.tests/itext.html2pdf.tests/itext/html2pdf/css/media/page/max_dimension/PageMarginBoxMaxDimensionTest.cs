@@ -127,5 +127,10 @@ namespace iText.Html2pdf.Css.Media.Page.Max_dimension {
         public virtual void LeftMaxTopAndMaxCenterAndBottomTest() {
             ConvertToPdfAndCompare("leftMaxTopAndMaxCenterAndBottom", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void PageMarginFont() {
+            ConvertToPdfAndCompare("pageMarginFont", sourceFolder, destinationFolder);
+        }
     }
 }

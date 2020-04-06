@@ -335,5 +335,10 @@ namespace iText.Html2pdf.Css.Media.Page {
         public virtual void HugeImageTest() {
             ConvertToPdfAndCompare("hugeImageTest", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void PageMarginFont() {
+            ConvertToPdfAndCompare("pageMarginFont", sourceFolder, destinationFolder);
+        }
     }
 }

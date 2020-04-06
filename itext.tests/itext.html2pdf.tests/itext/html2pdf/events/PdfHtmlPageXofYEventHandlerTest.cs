@@ -75,7 +75,7 @@ namespace iText.Html2pdf.Events {
             String dest = destinationFolder + filename + ".pdf";
             String cmp = sourceFolder + "cmp_" + filename + ".pdf";
             new PdfHtmlPageXofYEventHandlerTest().ParseWithFooter(src, dest, sourceFolder);
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(src).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(src) + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(dest, cmp, destinationFolder, "diff_XofY_"
                 ));
         }
@@ -118,14 +118,14 @@ namespace iText.Html2pdf.Events {
                 this.placeholder = new PdfFormXObject(new Rectangle(0, 0, this.side, this.side));
             }
 
-            public virtual void HandleEvent(Event @event) {
+            public virtual void HandleEvent(iText.Kernel.Events.Event @event) {
                 PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
                 PdfDocument pdf = docEvent.GetDocument();
                 PdfPage page = docEvent.GetPage();
                 int pageNumber = pdf.GetPageNumber(page);
                 Rectangle pageSize = page.GetPageSize();
                 PdfCanvas pdfCanvas = new PdfCanvas(page.GetLastContentStream(), page.GetResources(), pdf);
-                iText.Layout.Canvas canvas = new iText.Layout.Canvas(pdfCanvas, pdf, pageSize);
+                iText.Layout.Canvas canvas = new iText.Layout.Canvas(pdfCanvas, pageSize);
                 Paragraph p = new Paragraph().Add("Page ").Add(pageNumber.ToString()).Add(" of");
                 canvas.ShowTextAligned(p, this.x, this.y, TextAlignment.RIGHT);
                 pdfCanvas.AddXObject(this.placeholder, this.x + this.space, this.y - this.descent);

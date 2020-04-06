@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
+using iText.Kernel;
 
 namespace iText.Html2pdf.Element {
     public class TagsInsideButtonTest : ExtendedHtmlConversionITextTest {
@@ -74,6 +75,16 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void ButtonWithPInsideTagged() {
             ConvertToPdfAcroformFlattenAndCompare("buttonWithPInside", sourceFolder, destinationFolder, true);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ButtonInsideMoreThanTwoAreas() {
+            NUnit.Framework.Assert.That(() =>  {
+                ConvertToPdfAcroformFlattenAndCompare("buttonInsideMoreThanTwoAreas", sourceFolder, destinationFolder, true
+                    );
+            }
+            , NUnit.Framework.Throws.InstanceOf<PdfException>())
+;
         }
     }
 }

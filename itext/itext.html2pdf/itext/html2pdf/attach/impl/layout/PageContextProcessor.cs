@@ -331,12 +331,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary>Draws page background and borders.</summary>
         /// <param name="page">the page</param>
         private void DrawPageBackgroundAndBorders(PdfPage page) {
-            iText.Layout.Canvas canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetDocument(), page.GetBleedBox
-                ());
+            iText.Layout.Canvas canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetBleedBox());
             canvas.EnableAutoTagging(page);
             canvas.Add(pageBackgroundSimulation);
             canvas.Close();
-            canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetDocument(), page.GetTrimBox());
+            canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetTrimBox());
             canvas.EnableAutoTagging(page);
             canvas.Add(pageBordersSimulation);
             canvas.Close();

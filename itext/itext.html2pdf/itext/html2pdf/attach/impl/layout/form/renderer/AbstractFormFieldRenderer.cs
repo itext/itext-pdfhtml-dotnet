@@ -62,7 +62,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
     /// <see cref="iText.Layout.Renderer.BlockRenderer"/>
     /// for form fields.
     /// </summary>
-    public abstract class AbstractFormFieldRenderer : BlockRenderer, ILeafElementRenderer {
+    public abstract class AbstractFormFieldRenderer : BlockRenderer {
         /// <summary>The flat renderer.</summary>
         protected internal IRenderer flatRenderer;
 
@@ -107,31 +107,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             Rectangle bBox = layoutContext.GetArea().GetBBox().Clone().MoveDown(INF - parentHeight).SetHeight(INF);
             layoutContext.GetArea().SetBBox(bBox);
             LayoutResult result = base.Layout(layoutContext);
-            if (!true.Equals(GetPropertyAsBoolean(Property.FORCED_PLACEMENT)) && (result.GetStatus() != LayoutResult.FULL
-                )) {
-                //@TODO investigate this tricky code a little more.
-                FloatPropertyValue? floatPropertyValue = this.GetProperty<FloatPropertyValue?>(Property.FLOAT);
-                if (floatPropertyValue == null || floatPropertyValue == FloatPropertyValue.NONE) {
-                    SetProperty(Property.FORCED_PLACEMENT, true);
-                }
-                else {
-                    flatRenderer = childRenderers[0];
-                    ProcessLangAttribute();
-                    childRenderers.Clear();
-                    childRenderers.Add(flatRenderer);
-                    AdjustFieldLayout(layoutContext);
-                    if (IsLayoutBasedOnFlatRenderer()) {
-                        Rectangle fBox = flatRenderer.GetOccupiedArea().GetBBox();
-                        occupiedArea.GetBBox().SetX(fBox.GetX()).SetY(fBox.GetY()).SetWidth(fBox.GetWidth()).SetHeight(fBox.GetHeight
-                            ());
-                        ApplyPaddings(occupiedArea.GetBBox(), true);
-                        ApplyBorderBox(occupiedArea.GetBBox(), true);
-                        ApplyMargins(occupiedArea.GetBBox(), true);
-                    }
-                }
-                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new 
-                    MinMaxWidth());
-            }
             if (!childRenderers.IsEmpty()) {
                 flatRenderer = childRenderers[0];
                 ProcessLangAttribute();
@@ -191,17 +166,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             drawContext.GetCanvas().RestoreState();
         }
 
-        public virtual float GetAscent() {
-            float? baseline = GetLastYLineRecursively();
-            return baseline != null ? occupiedArea.GetBBox().GetTop() - (float)baseline : occupiedArea.GetBBox().GetHeight
-                ();
-        }
-
-        public virtual float GetDescent() {
-            float? baseline = GetLastYLineRecursively();
-            return baseline != null ? occupiedArea.GetBBox().GetBottom() - (float)baseline : 0;
-        }
-
         /* (non-Javadoc)
         * @see com.itextpdf.layout.renderer.BlockRenderer#getMinMaxWidth(float)
         */
@@ -213,16 +177,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             MinMaxWidth minMaxWidth = base.GetMinMaxWidth();
             return minMaxWidth;
         }
-
-        /// <summary>Adjusts the field layout.</summary>
-        [System.ObsoleteAttribute(@"Will be removed in 3.0.0, override AdjustFieldLayout(iText.Layout.Layout.LayoutContext) instead."
-            )]
-        protected internal abstract void AdjustFieldLayout();
-
-        //NOTE: should be abstract in 3.0.0
-        protected internal virtual void AdjustFieldLayout(LayoutContext layoutContext) {
-            AdjustFieldLayout();
-        }
+        
+        /// <summary>
+        /// Adjusts the field layout.
+        /// </summary>
+        /// <param name="layoutContext">layout context</param>
+        protected internal abstract void AdjustFieldLayout(LayoutContext layoutContext);
 
         /// <summary>Creates the flat renderer instance.</summary>
         /// <returns>the renderer instance</returns>
@@ -249,13 +209,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return availableHeight >= occupiedArea.GetBBox().GetHeight() && availableWidth >= occupiedArea.GetBBox().GetWidth
                 ();
         }
-
-        /// <summary>Gets the content width.</summary>
-        /// <returns>the content width</returns>
-        [System.ObsoleteAttribute(@"will be removed in 3.0.0. Use RetrieveWidth(float) } instead.")]
-        protected internal virtual float? GetContentWidth() {
-            return base.RetrieveWidth(0);
-        }
         
         /// <summary>Gets the accessibility language.</summary>
         /// <returns>the accessibility language</returns>
@@ -263,15 +216,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return GetProperty<String>(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
         }
         
-        //NOTE: should be removed in 3.0.0
-        protected override float? RetrieveWidth(float parentBoxWidth) {
-            UnitValue width = base.GetProperty<UnitValue>(Property.WIDTH);
-            if (width != null && width.IsPointValue()) {
-                return GetContentWidth();
-            }
-            return base.RetrieveWidth(parentBoxWidth);
-        }
-
         protected internal virtual bool IsLayoutBasedOnFlatRenderer()
         {
             return true;

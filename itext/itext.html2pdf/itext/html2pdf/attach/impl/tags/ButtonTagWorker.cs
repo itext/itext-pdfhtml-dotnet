@@ -112,7 +112,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public override IPropertyContainer GetElementResult() {
             if (formField == null) {
                 if (hasChildren) {
-                    ButtonContainer button = new ButtonContainer(name);
+                    Button button = new Button(name);
                     button.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
                     Div div = (Div)base.GetElementResult();
                     foreach (IElement element in div.GetChildren()) {
@@ -132,7 +132,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     formField = button;
                 }
                 else {
-                    Button inputButton = new Button(name);
+                    InputButton inputButton = new InputButton(name);
                     inputButton.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
                     inputButton.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, fallbackContent.ToString().Trim());
                     formField = inputButton;

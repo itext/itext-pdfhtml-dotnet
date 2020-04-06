@@ -709,7 +709,7 @@ namespace iText.Html2pdf.Css {
             String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
             String diffPrefix = "diff_" + name + "_";
             FileInfo outFile = new FileInfo(pdfPath);
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlPath) + "\n");
             if (converterProperties == null) {
                 converterProperties = new ConverterProperties();
             }

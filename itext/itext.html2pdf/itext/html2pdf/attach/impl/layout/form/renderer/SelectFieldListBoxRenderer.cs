@@ -174,7 +174,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 size = (int)sizeProp;
             }
             float maxOptionActualHeight = GetMaxOptionActualHeight(flatRenderer);
-            if (maxOptionActualHeight == float.MinValue) {
+            if (maxOptionActualHeight == float.Epsilon) {
                 UnitValue fontSize = flatRenderer.GetProperty<UnitValue>(Property.FONT_SIZE);
                 if (fontSize != null && fontSize.IsPointValue()) {
                     maxOptionActualHeight = fontSize.GetValue() * 1.2f;
@@ -188,7 +188,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         }
 
         private float GetMaxOptionActualHeight(IRenderer flatRenderer) {
-            float maxActualHeight = float.MinValue;
+            float maxActualHeight = float.Epsilon;
             foreach (IRenderer child in flatRenderer.GetChildRenderers()) {
                 if (IsOptionRenderer(child)) {
                     float childHeight;

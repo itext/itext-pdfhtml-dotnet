@@ -118,6 +118,33 @@ namespace iText.Html2pdf.Attach.Impl {
             this.context = new ProcessorContext(converterProperties);
         }
 
+
+        /// <summary>Sets properties to top-level layout elements converted from HTML.</summary>
+        /// <remarks>Sets properties to top-level layout elements converted from HTML. This enables features set by user via HTML
+        /// converter API and also changes properties defaults to the ones specific to HTML-like behavior.</remarks>
+        /// <param name="cssProperties">HTML document-level css properties.</param>
+        /// <param name="context">processor context specific to the current HTML conversion.</param>
+        /// <param name="propertyContainer">top-level layout element converted from HTML.</param>
+        public static void SetConvertedRootElementProperties(IDictionary<string, string> cssProperties,
+            ProcessorContext context, IPropertyContainer propertyContainer)
+        {
+            propertyContainer.SetProperty(Property.COLLAPSING_MARGINS, true);
+            propertyContainer.SetProperty(Property.RENDERING_MODE, RenderingMode.HTML_MODE);
+            propertyContainer.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
+            if (context.GetTempFonts() != null)
+            {
+                propertyContainer.SetProperty(Property.FONT_SET, context.GetTempFonts());
+            }
+
+            // TODO DEVSIX-2534
+            IList<String> fontFamilies =
+                FontFamilySplitter.SplitFontFamily(cssProperties.Get(CommonCssConstants.FONT_FAMILY));
+            if (fontFamilies != null && !propertyContainer.HasOwnProperty(Property.FONT))
+            {
+                propertyContainer.SetProperty(Property.FONT, fontFamilies.ToArray(new String[0]));
+            }
+        }
+
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processElements(com.itextpdf.html2pdf.html.node.INode)
         */
@@ -168,13 +195,11 @@ namespace iText.Html2pdf.Attach.Impl {
             Visit(body);
             Div bodyDiv = (Div)roots[0];
             IList<IElement> elements = new List<IElement>();
+            // re-resolve body element styles in order to use them in top-level elements properties setting
+            body.SetStyles(cssResolver.ResolveStyles(body, context.GetCssContext()));
             foreach (IPropertyContainer propertyContainer in bodyDiv.GetChildren()) {
                 if (propertyContainer is IElement) {
-                    propertyContainer.SetProperty(Property.COLLAPSING_MARGINS, true);
-                    propertyContainer.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
-                    if (context.GetTempFonts() != null) {
-                        propertyContainer.SetProperty(Property.FONT_SET, context.GetTempFonts());
-                    }
+                    SetConvertedRootElementProperties(body.GetStyles(), context, propertyContainer);
                     elements.Add((IElement)propertyContainer);
                 }
             }
@@ -306,7 +331,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (tagWorker is HtmlTagWorker) {
                     ((HtmlTagWorker)tagWorker).ProcessPageRules(node, cssResolver, context);
                 }
-                context.GetOutlineHandler().AddOutline(tagWorker, element, context);
+                context.GetOutlineHandler().AddOutlineAndDestToDocument(tagWorker, element, context);
                 VisitPseudoElement(element, tagWorker, CssConstants.BEFORE);
                 VisitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
 
@@ -321,7 +346,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
                     LinkHelper.CreateDestination(tagWorker, element, context);
-                    context.GetOutlineHandler().AddDestination(tagWorker, element);
+                    context.GetOutlineHandler().SetDestinationToElement(tagWorker, element);
                     context.GetState().Pop();
                     if (!TagConstants.BODY.Equals(element.Name()) && !TagConstants.HTML.Equals(element.Name()))
                         RunApplier(element, tagWorker);

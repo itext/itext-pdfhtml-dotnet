@@ -56,7 +56,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         [NUnit.Framework.Test]
         public virtual void SimpleLedgerTest() {
-            PageSize expected = PageSize.LEDGER;
+            PageSize expected = PageSize.LEDGER.Rotate();
             PageSize actual = PageSizeParser.FetchPageSize("ledger", 10, 10, PageSize.A0);
             AssertSizesAreSame(expected, actual);
         }

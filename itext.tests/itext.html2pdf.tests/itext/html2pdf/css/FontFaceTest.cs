@@ -110,7 +110,7 @@ namespace iText.Html2pdf.Css {
         public virtual void DroidSerifLocalWithMediaRuleFontTest3() {
             String name = "droidSerifLocalWithMediaRuleFontTest";
             String htmlPath = sourceFolder + name + ".html";
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlPath) + "\n");
             ConverterProperties converterProperties = new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription
                 (MediaType.PRINT)).SetFontProvider(new FontProvider());
             String exception = null;
@@ -290,7 +290,7 @@ namespace iText.Html2pdf.Css {
             String pdfPath = destinationFolder + name + ".pdf";
             String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
             String diffPrefix = "diff_" + name + "_";
-            System.Console.Out.WriteLine("html: file:///" + UrlUtil.ToNormalizedURI(htmlPath).AbsolutePath + "\n");
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlPath) + "\n");
             ConverterProperties converterProperties = new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription
                 (MediaType.PRINT)).SetFontProvider(new DefaultFontProvider());
             HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath), converterProperties);

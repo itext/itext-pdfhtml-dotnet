@@ -57,8 +57,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             minDimension = GetMinWidth(node, maxWidth, additionalWidthFix);
             maxDimension = GetMaxWidth(node, maxWidth, additionalWidthFix);
             if (!IsAutoDimension()) {
+                // According to point 3 of paragraph "5.3.2.3. Handling min-width and max-width" of the specification
+                // maxContentDimension and minContentDimension will always be equal
                 maxContentDimension = dimension;
-                maxContentDimension = dimension;
+                minContentDimension = dimension;
             }
             else {
                 if (renderer is BlockRenderer) {
