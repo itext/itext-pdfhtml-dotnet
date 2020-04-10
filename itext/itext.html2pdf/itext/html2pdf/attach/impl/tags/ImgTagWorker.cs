@@ -92,9 +92,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
-            // TODO this is a workaround for now Imgto that image is not added as inline
             if (element.GetStyles() != null && CssConstants.ABSOLUTE.Equals(element.GetStyles().Get(CssConstants.POSITION
                 ))) {
+                // TODO DEVSIX-1393: we don't support absolute positioning in inline context.
+                // This workaround allows to identify image as an element which needs to be processed outside of inline context.
+                // See AbsoluteReplacedHeight001Test.
                 display = CssConstants.BLOCK;
             }
             if (image != null) {
