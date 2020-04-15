@@ -173,6 +173,31 @@ namespace iText.Html2pdf.Css {
             TestLineHeight("lineHeightEmptyDivTest");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void LineHeightUnitlessValueInSpanTest() {
+            TestLineHeight("lineHeightUnitlessValueInSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LineHeightLengthValueInSpanTest() {
+            TestLineHeight("lineHeightLengthValueInSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LineHeightPercentageValueInSpanTest() {
+            TestLineHeight("lineHeightPercentageValueInSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LineHeightNormalInSpanTest() {
+            TestLineHeight("lineHeightNormalInSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LineHeightInheritedInSpanTest() {
+            TestLineHeight("lineHeightInheritedInSpan");
+        }
+
         internal virtual void TestLineHeight(String name) {
             String sourceHtml = SOURCE_FOLDER + name + ".html";
             String destinationPdf = DESTINATION_FOLDER + name + ".pdf";
