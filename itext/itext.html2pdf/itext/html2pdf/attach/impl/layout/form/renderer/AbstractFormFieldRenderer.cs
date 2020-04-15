@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using Common.Logging;
+using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Util;
 using iText.Kernel.Geom;
@@ -127,13 +128,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
             }
             if (!true.Equals(GetPropertyAsBoolean(Property.FORCED_PLACEMENT)) && !IsRendererFit(parentWidth, parentHeight
-                ))
-            {
+                )) {
                 occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
-                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new
+                return new MinMaxWidthLayoutResult(LayoutResult.NOTHING, occupiedArea, null, this, this).SetMinMaxWidth(new 
                     MinMaxWidth());
             }
-
             if (result.GetStatus() != LayoutResult.FULL || !IsRendererFit(parentWidth, parentHeight)) {
                 LogManager.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
             }
@@ -177,10 +176,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             MinMaxWidth minMaxWidth = base.GetMinMaxWidth();
             return minMaxWidth;
         }
-        
-        /// <summary>
-        /// Adjusts the field layout.
-        /// </summary>
+
+        /// <summary>Adjusts the field layout.</summary>
         /// <param name="layoutContext">layout context</param>
         protected internal abstract void AdjustFieldLayout(LayoutContext layoutContext);
 
@@ -209,25 +206,23 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             return availableHeight >= occupiedArea.GetBBox().GetHeight() && availableWidth >= occupiedArea.GetBBox().GetWidth
                 ();
         }
-        
+
         /// <summary>Gets the accessibility language.</summary>
         /// <returns>the accessibility language</returns>
-        protected virtual String GetLang() {
-            return GetProperty<String>(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
+        protected internal virtual String GetLang() {
+            return this.GetProperty<String>(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE);
         }
-        
-        protected internal virtual bool IsLayoutBasedOnFlatRenderer()
-        {
+
+        protected internal virtual bool IsLayoutBasedOnFlatRenderer() {
             return true;
         }
-        
-        protected virtual void WriteAcroFormFieldLangAttribute(PdfDocument pdfDoc) {
+
+        protected internal virtual void WriteAcroFormFieldLangAttribute(PdfDocument pdfDoc) {
             if (pdfDoc.IsTagged()) {
                 TagTreePointer formParentPointer = pdfDoc.GetTagStructureContext().GetAutoTaggingPointer();
                 IList<String> kidsRoles = formParentPointer.GetKidsRoles();
                 int lastFormIndex = kidsRoles.LastIndexOf(StandardRoles.FORM);
                 TagTreePointer formPointer = formParentPointer.MoveToKid(lastFormIndex);
-
                 if (GetLang() != null) {
                     formPointer.GetProperties().SetLanguage(GetLang());
                 }
@@ -238,7 +233,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         private void ProcessLangAttribute() {
             IPropertyContainer propertyContainer = flatRenderer.GetModelElement();
             if (propertyContainer is IAccessibleElement) {
-                AccessiblePropHelper.TrySetLangAttribute((IAccessibleElement) propertyContainer, GetLang());
+                AccessiblePropHelper.TrySetLangAttribute((IAccessibleElement)propertyContainer, GetLang());
             }
         }
     }
