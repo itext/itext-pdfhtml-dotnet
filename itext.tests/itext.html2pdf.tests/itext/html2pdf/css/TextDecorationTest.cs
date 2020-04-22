@@ -82,5 +82,58 @@ namespace iText.Html2pdf.Css {
             // TODO DEVSIX-2532
             ConvertToPdfAndCompare("textDecorationTest05", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationShorthandAllValuesTest() {
+            // TODO DEVSIX-3933
+            ConvertToPdfAndCompare("textDecorationShorthandAllValues", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationShorthandOneValueTest() {
+            // TODO DEVSIX-3933
+            ConvertToPdfAndCompare("textDecorationShorthandOneValue", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationShorthandTwoValuesTest() {
+            // TODO DEVSIX-3933
+            ConvertToPdfAndCompare("textDecorationShorthandTwoValues", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationWithChildElementTest() {
+            ConvertToPdfAndCompare("textDecorationWithChildElement", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationColorTest() {
+            //TODO: DEVSIX-3933
+            ConvertToPdfAndCompare("textDecorationColor", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationLineTest() {
+            //TODO: DEVSIX-3933
+            ConvertToPdfAndCompare("textDecorationLine", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationStyleTest() {
+            //TODO: DEVSIX-3933
+            ConvertToPdfAndCompare("textDecorationStyle", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ShorthandAndSpecificTextDecorPropsTest() {
+            //TODO: DEVSIX-3933
+            ConvertToPdfAndCompare("shorthandAndSpecificTextDecorProps", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CombinationOfLinesInTextDecorationTest() {
+            //TODO: DEVSIX-3933
+            ConvertToPdfAndCompare("combinationOfLinesInTextDecoration", sourceFolder, destinationFolder);
+        }
     }
 }
