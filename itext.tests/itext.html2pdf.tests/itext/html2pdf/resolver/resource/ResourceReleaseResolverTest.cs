@@ -75,9 +75,9 @@ namespace iText.Html2pdf.Resolver.Resource {
             String workDirHtmlFile = workDir + htmlFileName;
             String workDirSvgFile = workDir + svgFileName;
             String workDirImageFile = workDir + imageFileName;
-            File.Copy(Path.Combine(sourceHtmlFile), Path.Combine(workDirHtmlFile));
-            File.Copy(Path.Combine(sourceSvgFile), Path.Combine(workDirSvgFile));
-            File.Copy(Path.Combine(sourceImageFile), Path.Combine(workDirImageFile));
+            File.Copy(System.IO.Path.Combine(sourceHtmlFile), System.IO.Path.Combine(workDirHtmlFile));
+            File.Copy(System.IO.Path.Combine(sourceSvgFile), System.IO.Path.Combine(workDirSvgFile));
+            File.Copy(System.IO.Path.Combine(sourceImageFile), System.IO.Path.Combine(workDirImageFile));
             for (int i = 0; i < 10; i++) {
                 HtmlConverter.ConvertToPdf(new FileInfo(workDirHtmlFile), new FileInfo(targetPdfFile));
             }
@@ -102,8 +102,8 @@ namespace iText.Html2pdf.Resolver.Resource {
             String targetPdfFile = workDir + "target.pdf";
             String workDirHtmlFile = workDir + htmlFileName;
             String workDirFontFile = workDir + fontFileName;
-            File.Copy(Path.Combine(sourceHtmlFile), Path.Combine(workDirHtmlFile));
-            File.Copy(Path.Combine(sourceFontFile), Path.Combine(workDirFontFile));
+            File.Copy(System.IO.Path.Combine(sourceHtmlFile), System.IO.Path.Combine(workDirHtmlFile));
+            File.Copy(System.IO.Path.Combine(sourceFontFile), System.IO.Path.Combine(workDirFontFile));
             // The issue cannot be reproduced consistently and automatically with just single conversion for some reason
             // Probably related to some optimizations done by JVM
             // It already reproduces with 2 conversions, but here we do more to get rid of possible JVM even trickier optimizations
@@ -130,7 +130,7 @@ namespace iText.Html2pdf.Resolver.Resource {
             CreateDestinationFolder(workDir);
             String targetPdfFile = workDir + "target.pdf";
             String workDirFontFile = workDir + fontFileName;
-            File.Copy(Path.Combine(sourceFontFile), Path.Combine(workDirFontFile));
+            File.Copy(System.IO.Path.Combine(sourceFontFile), System.IO.Path.Combine(workDirFontFile));
             DefaultFontProvider fontProvider = new DefaultFontProvider(true, false, false);
             fontProvider.AddDirectory(workDir);
             ConverterProperties properties = new ConverterProperties().SetBaseUri(sourceFolder).SetFontProvider(fontProvider
@@ -156,8 +156,8 @@ namespace iText.Html2pdf.Resolver.Resource {
             String targetPdfFile = workDir + "target.pdf";
             String workDirHtmlFile = workDir + htmlFileName;
             String workDirCssFile = workDir + cssFileName;
-            File.Copy(Path.Combine(sourceHtmlFile), Path.Combine(workDirHtmlFile));
-            File.Copy(Path.Combine(sourceCssFile), Path.Combine(workDirCssFile));
+            File.Copy(System.IO.Path.Combine(sourceHtmlFile), System.IO.Path.Combine(workDirHtmlFile));
+            File.Copy(System.IO.Path.Combine(sourceCssFile), System.IO.Path.Combine(workDirCssFile));
             ConverterProperties properties = new ConverterProperties().SetBaseUri(workDir);
             HtmlConverter.ConvertToPdf(new FileInfo(workDirHtmlFile), new FileInfo(targetPdfFile), properties);
             FileInfo resourceToBeRemoved = new FileInfo(workDirCssFile);
