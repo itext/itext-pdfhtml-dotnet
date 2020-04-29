@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
+using NUnit.Framework;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
@@ -52,6 +53,7 @@ using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Html;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Parser;
 using iText.Kernel.Pdf.Tagging;
 using iText.Kernel.Utils;
 using iText.Layout;
@@ -661,6 +663,46 @@ namespace iText.Html2pdf.Css {
                 RunTest("wrongPageRuleCssStructureTest");
             }
             , NUnit.Framework.Throws.InstanceOf<Exception>())
+;
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageCountTestTableAlignLeft() {
+            NUnit.Framework.Assert.That(() =>  {
+                //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
+                String expectedText = "Page 1 of 3";
+                String nameAlignLeft = "htmlWithTableAlignLeft.html";
+                String pdfOutputName = destinationFolder + nameAlignLeft + ".pdf";
+                FileInfo pdfOutputAlignLeft = new FileInfo(pdfOutputName);
+                HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + nameAlignLeft), pdfOutputAlignLeft);
+                PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfOutputAlignLeft));
+                String textFromPage = PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(1));
+                // Print the output file. No comparison will be made on the following line
+                ExtendedITextTest.PrintOutputPdfNameAndDir(pdfOutputName);
+                NUnit.Framework.Assert.IsTrue(textFromPage.Contains(expectedText), "Page doesn't contain text " + expectedText
+                    );
+            }
+            , NUnit.Framework.Throws.InstanceOf<AssertionException>())
+;
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageCountTestTableFloatLeft() {
+            NUnit.Framework.Assert.That(() =>  {
+                //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
+                String expectedText = "Page 3 of 3";
+                String nameFloatLeft = "htmlWithTableFloatLeft.html";
+                String pdfOutputName = destinationFolder + nameFloatLeft + ".pdf";
+                FileInfo pdfOutputFloatLeft = new FileInfo(pdfOutputName);
+                HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + nameFloatLeft), pdfOutputFloatLeft);
+                PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfOutputFloatLeft));
+                String textFromPage = PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(3));
+                // Print the output file. No comparison will be made on the following line
+                ExtendedITextTest.PrintOutputPdfNameAndDir(pdfOutputName);
+                NUnit.Framework.Assert.IsTrue(textFromPage.Contains(expectedText), "Page doesn't contain text " + expectedText
+                    );
+            }
+            , NUnit.Framework.Throws.InstanceOf<AssertionException>())
 ;
         }
 
