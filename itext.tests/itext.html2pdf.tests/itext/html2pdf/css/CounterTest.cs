@@ -80,5 +80,10 @@ namespace iText.Html2pdf.Css {
         public virtual void PageCounter04Test() {
             ConvertToPdfAndCompare("page_counter04", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void PageCounterSpacesInDeclarationTest() {
+            ConvertToPdfAndCompare("page_counter_spaces_in_declaration", sourceFolder, destinationFolder);
+        }
     }
 }

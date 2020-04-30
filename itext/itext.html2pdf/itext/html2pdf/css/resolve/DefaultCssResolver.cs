@@ -47,6 +47,7 @@ using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
+using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
 using iText.IO.Util;
@@ -246,7 +247,6 @@ namespace iText.Html2pdf.Css.Resolve {
                     if (TagConstants.STYLE.Equals(headChildElement.Name())) {
                         if (currentNode.ChildNodes().Count > 0 && currentNode.ChildNodes()[0] is IDataNode) {
                             String styleData = ((IDataNode)currentNode.ChildNodes()[0]).GetWholeData();
-                            CheckIfPagesCounterMentioned(styleData, cssContext);
                             CssStyleSheet styleSheet = CssStyleSheetParser.Parse(styleData);
                             styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
                             cssStyleSheet.AppendCssStyleSheet(styleSheet);
@@ -258,8 +258,6 @@ namespace iText.Html2pdf.Css.Resolve {
                             try {
                                 Stream stream = resourceResolver.RetrieveStyleSheet(styleSheetUri);
                                 byte[] bytes = StreamUtil.InputStreamToArray(stream);
-                                CheckIfPagesCounterMentioned(iText.IO.Util.JavaUtil.GetStringForBytes(bytes, System.Text.Encoding.UTF8), cssContext
-                                    );
                                 CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new MemoryStream(bytes), resourceResolver.ResolveAgainstBaseUri
                                     (styleSheetUri).ToExternalForm());
                                 styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
@@ -278,17 +276,17 @@ namespace iText.Html2pdf.Css.Resolve {
                     }
                 }
             }
+            CheckIfPagesCounterMentioned(cssStyleSheet, cssContext);
         }
 
         /// <summary>Check if a pages counter is mentioned.</summary>
-        /// <param name="cssContents">the CSS contents</param>
+        /// <param name="styleSheet">the stylesheet to analyze</param>
         /// <param name="cssContext">the CSS context</param>
-        private void CheckIfPagesCounterMentioned(String cssContents, CssContext cssContext) {
-            // TODO more efficient (avoid searching in text string) and precise (e.g. skip spaces) check during the parsing.
-            if (cssContents.Contains("counter(pages)") || cssContents.Contains("counters(pages")) {
-                // The presence of counter(pages) means that theoretically relayout may be needed.
-                // We don't know it yet because that selector might not even be used, but
-                // when we know it for sure, it's too late because the Document is created right in the start.
+        private void CheckIfPagesCounterMentioned(CssStyleSheet styleSheet, CssContext cssContext) {
+            // The presence of counter(pages) means that theoretically relayout may be needed.
+            // We don't know it yet because that selector might not even be used, but
+            // when we know it for sure, it's too late because the Document is created right in the start.
+            if (CssStyleSheetAnalyzer.CheckPagesCounterPresence(styleSheet)) {
                 cssContext.SetPagesCounterPresent(true);
             }
         }
