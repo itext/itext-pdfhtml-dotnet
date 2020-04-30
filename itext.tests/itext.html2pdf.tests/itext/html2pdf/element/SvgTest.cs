@@ -91,7 +91,7 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void InlineSvgExternalFontUrlTest() {
-            // TODO RND-1042 external font loading in SVG via @import
+            // TODO DEVSIX-2264 external font loading in SVG via @import
             String name = "inline_svg_external_font_url";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));
