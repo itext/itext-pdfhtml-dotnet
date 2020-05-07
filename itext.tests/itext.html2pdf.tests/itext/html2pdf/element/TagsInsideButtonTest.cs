@@ -73,6 +73,11 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void ImageNotFinishedTagged() {
+            ConvertToPdfAcroformFlattenAndCompare("imageNotFinishedTagged", sourceFolder, destinationFolder, true);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void ButtonWithPInsideTagged() {
             ConvertToPdfAcroformFlattenAndCompare("buttonWithPInside", sourceFolder, destinationFolder, true);
         }
