@@ -34,12 +34,16 @@ namespace iText.Html2pdf.Css.Util {
         private CssStyleSheetAnalyzer() {
         }
 
-        /// <summary>Helper method to check if counter(pages) or counters(page) is present anywhere in the CSS.</summary>
+        /// <summary>Helper method to check if counter(pages) or counters(pages) is present anywhere in the CSS.</summary>
         /// <remarks>
-        /// Helper method to check if counter(pages) or counters(page) is present anywhere in the CSS.
+        /// Helper method to check if counter(pages) or counters(pages) is present anywhere in the CSS.
         /// If the presence is detected, it may require additional treatment
         /// </remarks>
         /// <param name="styleSheet">CSS stylesheet to analyze</param>
+        /// <returns>
+        /// <c>true</c> in case any "pages" counters are present in CSS declarations,
+        /// or <c>false</c> otherwise
+        /// </returns>
         public static bool CheckPagesCounterPresence(CssStyleSheet styleSheet) {
             return CheckPagesCounterPresence(styleSheet.GetStatements());
         }
