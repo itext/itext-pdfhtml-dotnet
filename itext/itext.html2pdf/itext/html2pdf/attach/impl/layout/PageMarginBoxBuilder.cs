@@ -602,7 +602,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="dim">Dimension container containing min and max dimension info</param>
         /// <param name="dimensions">array of calculated auto values for boxes in the given dimension</param>
         /// <param name="index">position in the array to look at</param>
-        /// <returns>True if the values in dimensions trigger a recalculation, false otherwise</returns>
+        /// <returns><c>true</c> if the values in dimensions trigger a recalculation, <c>false</c> otherwise</returns>
         private bool RecalculateIfNecessary(DimensionContainer dim, float[] dimensions, int index) {
             if (dim != null) {
                 if (dimensions[index] < dim.minDimension && dim.IsAutoDimension()) {
@@ -619,7 +619,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>Calculate the margin boxes given the list of margin boxes that have generated content</summary>
         /// <returns>
-        /// Rectangle[12] containing the calulated bounding boxes of the margin-box-nodes. Rectangles with 0 width and/or heigh
+        /// Rectangle[12] containing the calculated bounding boxes of the margin-box-nodes. Rectangles with 0 width and/or height
         /// refer to empty boxes. The order is TLC(top-left-corner)-TL-TC-TY-TRC-RT-RM-RB-RBC-BR-BC-BL-BLC-LB-LM-LT
         /// </returns>
         private Rectangle[] CalculateMarginBoxRectanglesCornersOnly() {
