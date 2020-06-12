@@ -105,7 +105,9 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         [LogMessage("Was not able to define one of the background CSS shorthand properties: rgdbq(150,90,60)")]
-        [LogMessage("Was not able to define one of the background CSS shorthand properties: url'smiley.gif')")]
+        [LogMessage("Was not able to define one of the background CSS shorthand properties: url")]
+        [LogMessage("Was not able to define one of the background CSS shorthand properties: smiley.gif")]
+        [LogMessage("Was not able to define one of the background CSS shorthand properties: )")]
         public virtual void BackgroundTest05() {
             String shorthandExpression = "rgdbq(150,90,60) url'smiley.gif') repeat-x scroll 20 60%";
             ICollection<String> expectedResolvedProperties = new HashSet<String>(JavaUtil.ArraysAsList("background-color: initial"

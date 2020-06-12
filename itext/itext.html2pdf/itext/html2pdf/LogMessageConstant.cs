@@ -85,6 +85,9 @@ namespace iText.Html2pdf {
         /// <summary>The Constant INVALID_CSS_PROPERTY_DECLARATION.</summary>
         public const String INVALID_CSS_PROPERTY_DECLARATION = "Invalid css property declaration: {0}";
 
+        /// <summary>The Constant INVALID_CSS_PROPERTY_DECLARATION.</summary>
+        public const String INVALID_GRADIENT_DECLARATION = "Invalid gradient declaration: {0}";
+
         /// <summary>The Constant MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED.</summary>
         public const String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
 

@@ -45,7 +45,6 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Kernel.Utils;
 using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class HrTest : ExtendedITextTest {
@@ -132,9 +131,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
         public virtual void HrTest14() {
-            //gradient function is not supported in iText
             RunHrTest("14");
         }
 

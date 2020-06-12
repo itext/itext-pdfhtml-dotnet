@@ -184,7 +184,6 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(SvgLogMessageConstant.UNMAPPEDTAG)]
         public virtual void ConvertInlineSvgLogo() {
             String html = "inline_svg_logo";
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
@@ -244,7 +243,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 66)]
-        [LogMessage(SvgLogMessageConstant.UNMAPPEDTAG, Count = 67)]
         public virtual void ExternalObjectWithGoogleCharts() {
             //TODO update after DEVSIX-2239
             String name = "inlineSvg_googleCharts";
