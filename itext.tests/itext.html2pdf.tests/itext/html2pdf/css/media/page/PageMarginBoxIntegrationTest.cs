@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Media.Page {
     public class PageMarginBoxIntegrationTest : ExtendedHtmlConversionITextTest {
@@ -339,6 +340,17 @@ namespace iText.Html2pdf.Css.Media.Page {
         [NUnit.Framework.Test]
         public virtual void PageMarginFont() {
             ConvertToPdfAndCompare("pageMarginFont", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT)]
+        public virtual void TableInsideOfPageMarginNotFittingIntoDedicatedSpace() {
+            NUnit.Framework.Assert.That(() =>  {
+                ConvertToPdfAndCompare("tableInsideOfPageMarginNotFittingIntoDedicatedSpace", sourceFolder, destinationFolder
+                    );
+            }
+            , NUnit.Framework.Throws.InstanceOf<NullReferenceException>())
+;
         }
     }
 }
