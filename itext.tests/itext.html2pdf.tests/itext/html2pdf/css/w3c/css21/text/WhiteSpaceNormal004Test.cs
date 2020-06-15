@@ -42,11 +42,20 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Text {
     public class WhiteSpaceNormal004Test : W3CCssAhemFontTest {
         protected internal override String GetHtmlFileName() {
             return "white-space-normal-004.xht";
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, LogLevel = LogLevelConstants
+            .WARN)]
+        public override void Test() {
+            base.Test();
         }
     }
 }

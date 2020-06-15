@@ -42,6 +42,8 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_3 {
     public class T32OpacityOffscreenMultipleBoxes2CTest : W3CCssTest {
@@ -50,6 +52,13 @@ namespace iText.Html2pdf.Css.W3c.Css_color_3 {
         // true for the css, apparently.
         protected internal override String GetHtmlFileName() {
             return "t32-opacity-offscreen-multiple-boxes-2-c.xht";
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, LogLevel = LogLevelConstants
+            .WARN)]
+        public override void Test() {
+            base.Test();
         }
     }
 }

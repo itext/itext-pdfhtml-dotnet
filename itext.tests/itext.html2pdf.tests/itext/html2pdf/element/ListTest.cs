@@ -216,6 +216,8 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 6)]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 12, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void ListsWithInlineChildren() {
             //TODO: update after DEVSIX-2093, DEVSIX-2092, DEVSIX-2091 fixes
             RunTest("listsWithInlineChildren");

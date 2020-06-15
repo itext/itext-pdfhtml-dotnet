@@ -42,6 +42,8 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
+using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class CssOpacityTest : ExtendedHtmlConversionITextTest {
@@ -59,11 +61,13 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void InnerOpacityTest() {
             // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
-            // i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
+            //  i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
             ConvertToPdfAndCompare("innerOpacityTest", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 2, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void NestedInSpanTest() {
             ConvertToPdfAndCompare("nestedInSpanTest", sourceFolder, destinationFolder);
         }
