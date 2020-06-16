@@ -47,17 +47,33 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.IO.Util;
+using iText.Kernel.Colors;
+using iText.Kernel.Colors.Gradients;
+using iText.Kernel.Geom;
 using iText.Kernel.Numbering;
+using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Exceptions;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply list styles to an element.</summary>
     public sealed class ListStyleApplierUtil {
+        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.ListStyleApplierUtil
+            ));
+
+        /// <summary>The Constant LIST_ITEM_MARKER_SIZE_COEFFICIENT.</summary>
+        /// <remarks>
+        /// The Constant LIST_ITEM_MARKER_SIZE_COEFFICIENT.
+        /// The coefficient value of 2/5 is chosen in such a way that the result
+        /// of the converting is as similar as possible to the browsers displaying.
+        /// </remarks>
+        private const float LIST_ITEM_MARKER_SIZE_COEFFICIENT = 2 / 5f;
+
         //private static final String HTML_SYMBOL_FONT = "Sans-serif";
         /// <summary>The Constant GREEK_ALPHABET_LENGTH.</summary>
         private const int GREEK_ALPHABET_LENGTH = 24;
@@ -94,10 +110,32 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="element">the element</param>
         public static void ApplyListStyleImageProperty(IDictionary<String, String> cssProps, ProcessorContext context
             , IPropertyContainer element) {
-            String listStyleImage = cssProps.Get(CssConstants.LIST_STYLE_IMAGE);
-            if (listStyleImage != null && !CssConstants.NONE.Equals(listStyleImage)) {
-                String url = CssUtils.ExtractUrl(listStyleImage);
-                PdfXObject imageXObject = context.GetResourceResolver().RetrieveImageExtended(url);
+            String listStyleImageStr = cssProps.Get(CssConstants.LIST_STYLE_IMAGE);
+            PdfXObject imageXObject = null;
+            if (listStyleImageStr != null && !CssConstants.NONE.Equals(listStyleImageStr)) {
+                if (CssGradientUtil.IsCssLinearGradientValue(listStyleImageStr)) {
+                    float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+                    float rem = context.GetCssContext().GetRootFontSize();
+                    try {
+                        StrategyBasedLinearGradientBuilder gradientBuilder = CssGradientUtil.ParseCssLinearGradient(listStyleImageStr
+                            , em, rem);
+                        if (gradientBuilder != null) {
+                            Rectangle formBBox = new Rectangle(0, 0, em * LIST_ITEM_MARKER_SIZE_COEFFICIENT, em * LIST_ITEM_MARKER_SIZE_COEFFICIENT
+                                );
+                            imageXObject = new PdfFormXObject(formBBox);
+                            Color gradientColor = gradientBuilder.BuildColor(formBBox, null);
+                            new PdfCanvas((PdfFormXObject)imageXObject, context.GetPdfDocument()).SetColor(gradientColor, true).Rectangle
+                                (formBBox).Fill();
+                        }
+                    }
+                    catch (StyledXMLParserException) {
+                        LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, listStyleImageStr
+                            ));
+                    }
+                }
+                else {
+                    imageXObject = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(listStyleImageStr));
+                }
                 if (imageXObject != null) {
                     Image image = null;
                     if (imageXObject is PdfImageXObject) {
