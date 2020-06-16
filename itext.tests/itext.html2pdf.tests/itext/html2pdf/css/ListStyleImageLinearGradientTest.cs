@@ -34,7 +34,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void LinearGradientWithEmRemValuesTest() {
-            // TODO update cmp file after fixing problem in DEVSIX-2086 scope
             RunTest("linearGradientWithEmRemValues");
         }
 
