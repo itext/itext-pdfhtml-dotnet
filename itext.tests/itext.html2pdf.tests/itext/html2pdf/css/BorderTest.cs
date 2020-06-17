@@ -132,21 +132,9 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        public virtual void BorderStyleSolidInTRTest() {
+        public virtual void BorderStyleOverlayingInTRTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleSolidInTR", sourceFolder, destinationFolder);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void BorderStyleDashedInTRTest() {
-            //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleDashedInTR", sourceFolder, destinationFolder);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void BorderStyleDoubleInTRTest() {
-            //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleDoubleInTR", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleOverlayingInTR", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
@@ -168,9 +156,9 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        public virtual void BorderStyleInTrVariousValuesTest() {
+        public virtual void BorderStyleInTrDifferentTypesTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleInTrVariousValues", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleInTrDifferentTypes", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
@@ -195,6 +183,31 @@ namespace iText.Html2pdf.Css {
         public virtual void BorderStyleInsideTableElementsTest() {
             //TODO DEVSIX-2857 update cmp file after fix
             ConvertToPdfAndCompare("borderStyleInsideTableElements", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleInTRLengthUnitsTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleInTRLengthUnits", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleInTrColorValuesTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleInTrColorValues", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        //TODO DEVSIX-2857 update cmp file after fix
+        [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        public virtual void BorderStyleInTRwithTHTest() {
+            ConvertToPdfAndCompare("borderStyleInTRwithTH", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleInTRSeparateBorderCollapseTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleInTRSeparateBorderCollapse", sourceFolder, destinationFolder);
         }
     }
 }
