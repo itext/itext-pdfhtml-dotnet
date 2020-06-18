@@ -204,6 +204,82 @@ namespace iText.Html2pdf.Css {
             ConvertHtmlWithGradient("linear-gradient(red, orange, 30%, green 200pt, blue 250pt, 120%)");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInBodyTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInBody", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInParagraphTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInParagraph", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInHeaderTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInHeader", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInAbbrTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInAbbr", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInListItemsTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInListItems", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInSeveralElementsTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInSeveralElements", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInSpanTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInSpan", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInTableTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInTable", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInCiteTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInCite", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInCaptionTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInCaption", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInBlockquoteTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInBlockquote", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInLinkTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInLink", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInLableTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInLabel", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInButtonTest() {
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInButton", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageLinearGradientInFormsTest() {
+            //TODO: DEVSIX-4174 update cmp after fix
+            ConvertToPdfAndCompare("backgroundImageLinearGradientInForms", sourceFolder, destinationFolder);
+        }
+
         private void ConvertHtmlWithGradient(String gradientString) {
             String html = "<!DOCTYPE html><html lang=\"en\">" + "<head><meta charset=\"UTF-8\"></head><body><div style=\"background-image: "
                  + gradientString + ";\"></div></body></html>";
