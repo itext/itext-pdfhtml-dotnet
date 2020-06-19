@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class TextDecorationTest : ExtendedHtmlConversionITextTest {
@@ -107,15 +108,26 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        //TODO: DEVSIX-3933
+        [LogMessage(iText.Html2pdf.LogMessageConstant.HSL_COLOR_NOT_SUPPORTED)]
         public virtual void TextDecorationColorTest() {
-            //TODO: DEVSIX-3933
             ConvertToPdfAndCompare("textDecorationColor", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationColorWithTransparencyTest() {
+            ConvertToPdfAndCompare("textDecorationColorWithTransparency", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationLineTest() {
             //TODO: DEVSIX-3933
             ConvertToPdfAndCompare("textDecorationLine", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationLineNoneAndUnderlineTogetherTest() {
+            ConvertToPdfAndCompare("textDecorationLineNoneAndUnderlineTogether", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]

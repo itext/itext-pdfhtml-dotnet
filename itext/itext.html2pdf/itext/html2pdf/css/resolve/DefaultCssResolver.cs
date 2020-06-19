@@ -60,6 +60,7 @@ using iText.StyledXmlParser.Css.Resolve;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Resolver.Resource;
+using iText.StyledXmlParser.Util;
 
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>
@@ -79,13 +80,6 @@ namespace iText.Html2pdf.Css.Resolve {
 
         /// <summary>The list of fonts.</summary>
         private IList<CssFontFaceRule> fonts = new List<CssFontFaceRule>();
-
-        private static readonly IList<String> fontSizeDependentPercentage = new List<String>(2);
-
-        static DefaultCssResolver() {
-            fontSizeDependentPercentage.Add(CssConstants.FONT_SIZE);
-            fontSizeDependentPercentage.Add(CssConstants.LINE_HEIGHT);
-        }
 
         /// <summary>
         /// Creates a new
@@ -153,8 +147,11 @@ namespace iText.Html2pdf.Css.Resolve {
                     logger.Error(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
                 }
                 if (parentStyles != null) {
+                    ICollection<IStyleInheritance> inheritanceRules = new HashSet<IStyleInheritance>();
+                    inheritanceRules.Add(cssInheritance);
                     foreach (KeyValuePair<String, String> entry in parentStyles) {
-                        MergeParentCssDeclaration(elementStyles, entry.Key, entry.Value, parentStyles);
+                        elementStyles = StyleUtil.MergeParentStyleDeclaration(elementStyles, entry.Key, entry.Value, parentStyles.
+                            Get(CommonCssConstants.FONT_SIZE), inheritanceRules);
                     }
                     parentFontSizeStr = parentStyles.Get(CssConstants.FONT_SIZE);
                 }
@@ -309,52 +306,6 @@ namespace iText.Html2pdf.Css.Resolve {
                 styleSheet.AddStatement(mediaRule);
             }
             return styleSheet;
-        }
-
-        /// <summary>Merge parent CSS declarations.</summary>
-        /// <param name="styles">the styles map</param>
-        /// <param name="cssProperty">the CSS property</param>
-        /// <param name="parentPropValue">the parent properties value</param>
-        private void MergeParentCssDeclaration(IDictionary<String, String> styles, String cssProperty, String parentPropValue
-            , IDictionary<String, String> parentStyles) {
-            String childPropValue = styles.Get(cssProperty);
-            if ((childPropValue == null && cssInheritance.IsInheritable(cssProperty)) || CssConstants.INHERIT.Equals(childPropValue
-                )) {
-                if (ValueIsOfMeasurement(parentPropValue, CssConstants.EM) || ValueIsOfMeasurement(parentPropValue, CssConstants
-                    .EX) || ValueIsOfMeasurement(parentPropValue, CssConstants.PERCENTAGE) && fontSizeDependentPercentage.
-                    Contains(cssProperty)) {
-                    float absoluteParentFontSize = CssUtils.ParseAbsoluteLength(parentStyles.Get(CssConstants.FONT_SIZE));
-                    // Format to 4 decimal places to prevent differences between Java and C#
-                    styles.Put(cssProperty, DecimalFormatUtil.FormatNumber(CssUtils.ParseRelativeValue(parentPropValue, absoluteParentFontSize
-                        ), "0.####") + CssConstants.PT);
-                }
-                else {
-                    styles.Put(cssProperty, parentPropValue);
-                }
-            }
-            else {
-                if (CssConstants.TEXT_DECORATION.Equals(cssProperty) && !CssConstants.INLINE_BLOCK.Equals(styles.Get(CssConstants
-                    .DISPLAY))) {
-                    // TODO Note! This property is formally not inherited, but the browsers behave very similar to inheritance here.
-                    /* Text decorations on inline boxes are drawn across the entire element,
-                    going across any descendant elements without paying any attention to their presence. */
-                    // Also, when, for example, parent element has text-decoration:underline, and the child text-decoration:overline,
-                    // then the text in the child will be both overline and underline. This is why the declarations are merged
-                    // See TextDecorationTest#textDecoration01Test
-                    styles.Put(cssProperty, CssPropertyMerger.MergeTextDecoration(childPropValue, parentPropValue));
-                }
-            }
-        }
-
-        private static bool ValueIsOfMeasurement(String value, String measurement) {
-            if (value == null) {
-                return false;
-            }
-            if (value.EndsWith(measurement) && CssUtils.IsNumericValue(value.JSubstring(0, value.Length - measurement.
-                Length).Trim())) {
-                return true;
-            }
-            return false;
         }
 
         /// <summary>Collects fonts from the style sheet.</summary>
