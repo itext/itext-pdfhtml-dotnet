@@ -209,5 +209,23 @@ namespace iText.Html2pdf.Css {
             //TODO DEVSIX-2857 update cmp file after fix
             ConvertToPdfAndCompare("borderStyleInTRSeparateBorderCollapse", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void TbodyBorderCollapseTest() {
+            //TODO DEVSix-4119 update cmp file after fix
+            ConvertToPdfAndCompare("tbodyBorderCollapse", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TheadBorderCollapseTest() {
+            //TODO DEVSix-4119 update cmp file after fix
+            ConvertToPdfAndCompare("theadBorderCollapse", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TfootBorderCollapseTest() {
+            //TODO DEVSix-4119 update cmp file after fix
+            ConvertToPdfAndCompare("tfootBorderCollapse", sourceFolder, destinationFolder);
+        }
     }
 }
