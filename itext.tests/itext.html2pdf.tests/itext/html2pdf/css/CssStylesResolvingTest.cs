@@ -253,7 +253,8 @@ namespace iText.Html2pdf.Css {
                 int ancestorIndex = 0;
                 int dash = ancestor.IndexOf('-');
                 if (dash > 0) {
-                    ancestorIndex = Convert.ToInt32(ancestor.JSubstring(dash + 1, ancestor.Length));
+                    ancestorIndex = Convert.ToInt32(ancestor.JSubstring(dash + 1, ancestor.Length), System.Globalization.CultureInfo.InvariantCulture
+                        );
                     ancestor = ancestor.JSubstring(0, dash);
                 }
                 int sameNameInd = 0;

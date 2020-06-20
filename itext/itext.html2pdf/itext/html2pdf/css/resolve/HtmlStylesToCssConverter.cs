@@ -328,7 +328,7 @@ namespace iText.Html2pdf.Css.Resolve {
                     cssPropertyEquivalent = CssConstants.FONT_SIZE;
                     try {
                         bool signedValue = value.Contains("-") || value.Contains("+");
-                        int htmlFontSize = System.Convert.ToInt32(value);
+                        int htmlFontSize = System.Convert.ToInt32(value, System.Globalization.CultureInfo.InvariantCulture);
                         if (signedValue) {
                             htmlFontSize = 3 + htmlFontSize;
                         }
