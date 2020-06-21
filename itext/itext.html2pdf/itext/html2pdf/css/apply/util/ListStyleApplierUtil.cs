@@ -51,6 +51,7 @@ using iText.Kernel.Colors;
 using iText.Kernel.Colors.Gradients;
 using iText.Kernel.Geom;
 using iText.Kernel.Numbering;
+using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
@@ -123,9 +124,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
                             Rectangle formBBox = new Rectangle(0, 0, em * LIST_ITEM_MARKER_SIZE_COEFFICIENT, em * LIST_ITEM_MARKER_SIZE_COEFFICIENT
                                 );
                             imageXObject = new PdfFormXObject(formBBox);
-                            Color gradientColor = gradientBuilder.BuildColor(formBBox, null);
-                            new PdfCanvas((PdfFormXObject)imageXObject, context.GetPdfDocument()).SetColor(gradientColor, true).Rectangle
-                                (formBBox).Fill();
+                            PdfDocument pdfDocument = context.GetPdfDocument();
+                            Color gradientColor = gradientBuilder.BuildColor(formBBox, null, pdfDocument);
+                            new PdfCanvas((PdfFormXObject)imageXObject, pdfDocument).SetColor(gradientColor, true).Rectangle(formBBox)
+                                .Fill();
                         }
                     }
                     catch (StyledXMLParserException) {
