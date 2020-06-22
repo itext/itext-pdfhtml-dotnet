@@ -25,6 +25,7 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Kernel.Utils;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class ListStyleImageLinearGradientTest : ExtendedITextTest {
@@ -47,6 +48,12 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void LinearGradientTypeTest() {
             RunTest("linearGradientType");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, Count = 3)]
+        public virtual void InvalidLinearGradientTypeTest() {
+            RunTest("invalidLinearGradientType");
         }
 
         [NUnit.Framework.Test]

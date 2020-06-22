@@ -123,11 +123,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         if (gradientBuilder != null) {
                             Rectangle formBBox = new Rectangle(0, 0, em * LIST_ITEM_MARKER_SIZE_COEFFICIENT, em * LIST_ITEM_MARKER_SIZE_COEFFICIENT
                                 );
-                            imageXObject = new PdfFormXObject(formBBox);
                             PdfDocument pdfDocument = context.GetPdfDocument();
                             Color gradientColor = gradientBuilder.BuildColor(formBBox, null, pdfDocument);
-                            new PdfCanvas((PdfFormXObject)imageXObject, pdfDocument).SetColor(gradientColor, true).Rectangle(formBBox)
-                                .Fill();
+                            if (gradientColor != null) {
+                                imageXObject = new PdfFormXObject(formBBox);
+                                new PdfCanvas((PdfFormXObject)imageXObject, context.GetPdfDocument()).SetColor(gradientColor, true).Rectangle
+                                    (formBBox).Fill();
+                            }
                         }
                     }
                     catch (StyledXMLParserException) {
