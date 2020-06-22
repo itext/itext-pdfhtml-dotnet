@@ -92,11 +92,13 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                     }
                 }
             }
-            foreach (IPropertyContainer child in spanTagWorker.GetAllElements()) {
-                FloatPropertyValue? kidFloatVal = child.GetProperty<FloatPropertyValue?>(Property.FLOAT);
-                if (child is Text && !child.HasOwnProperty(Property.BACKGROUND) && (kidFloatVal == null || FloatPropertyValue
-                    .NONE.Equals(kidFloatVal))) {
-                    BackgroundApplierUtil.ApplyBackground(cssStyles, context, child);
+            if (spanTagWorker.GetAllElements() != null) {
+                foreach (IPropertyContainer child in spanTagWorker.GetAllElements()) {
+                    FloatPropertyValue? kidFloatVal = child.GetProperty<FloatPropertyValue?>(Property.FLOAT);
+                    if (child is Text && !child.HasOwnProperty(Property.BACKGROUND) && (kidFloatVal == null || FloatPropertyValue
+                        .NONE.Equals(kidFloatVal))) {
+                        BackgroundApplierUtil.ApplyBackground(cssStyles, context, child);
+                    }
                 }
             }
         }

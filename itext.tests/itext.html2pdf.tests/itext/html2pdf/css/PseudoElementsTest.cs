@@ -47,205 +47,227 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class PseudoElementsTest : ExtendedHtmlConversionITextTest {
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/PseudoElementsTest/";
 
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/PseudoElementsTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateOrClearDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PseudoContentWithWidthAndHeightTest() {
+            ConvertToPdfAndCompare("pseudoContentWithWidthAndHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 2, LogLevel = LogLevelConstants
+            .WARN)]
+        public virtual void PseudoContentWithPercentWidthAndHeightTest() {
+            ConvertToPdfAndCompare("pseudoContentWithPercentWidthAndHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PseudoContentDisplayNoneTest() {
+            ConvertToPdfAndCompare("pseudoContentDisplayNoneTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PseudoContentWithAutoWidthAndHeightTest() {
+            ConvertToPdfAndCompare("pseudoContentWithAutoWidthAndHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest01() {
-            ConvertToPdfAndCompare("beforeAfterPseudoTest01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("beforeAfterPseudoTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest02() {
-            ConvertToPdfAndCompare("beforeAfterPseudoTest02", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("beforeAfterPseudoTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest03() {
-            ConvertToPdfAndCompare("beforeAfterPseudoTest03", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("beforeAfterPseudoTest03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest04() {
-            ConvertToPdfAndCompare("beforeAfterPseudoTest04", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("beforeAfterPseudoTest04", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest05() {
-            ConvertToPdfAndCompare("beforeAfterPseudoTest05", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("beforeAfterPseudoTest05", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest06() {
-            ConvertToPdfAndCompare("beforeAfterPseudoTest06", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("beforeAfterPseudoTest06", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest07() {
-            ConvertToPdfAndCompare("beforeAfterPseudoTest07", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("beforeAfterPseudoTest07", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest10() {
-            ConvertToPdfAndCompare("beforeAfterPseudoTest10", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("beforeAfterPseudoTest10", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest11() {
-            ConvertToPdfAndCompare("beforeAfterPseudoTest11", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("beforeAfterPseudoTest11", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest12() {
-            ConvertToPdfAndCompare("beforeAfterPseudoTest12", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("beforeAfterPseudoTest12", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest13() {
-            ConvertToPdfAndCompare("beforeAfterPseudoTest13", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("beforeAfterPseudoTest13", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest14() {
-            ConvertToPdfAndCompare("beforeAfterPseudoTest14", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("beforeAfterPseudoTest14", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo01() {
-            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo02() {
-            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo02", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo03() {
             //TODO: incorrect behaviour because of trimmed non-breakable space
-            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo03", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo04() {
-            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo04", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo04", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo05() {
-            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo05", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo05", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo06() {
-            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo06", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo06", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EscapedStringTest01() {
-            ConvertToPdfAndCompare("escapedStringTest01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("escapedStringTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EscapedStringTest02() {
-            ConvertToPdfAndCompare("escapedStringTest02", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("escapedStringTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EscapedStringTest03() {
-            ConvertToPdfAndCompare("escapedStringTest03", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("escapedStringTest03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EscapedStringTest04() {
-            ConvertToPdfAndCompare("escapedStringTest04", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("escapedStringTest04", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EscapedStringTest05() {
-            ConvertToPdfAndCompare("escapedStringTest05", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("escapedStringTest05", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 5)]
         public virtual void AttrTest01() {
-            ConvertToPdfAndCompare("attrTest01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("attrTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 3)]
         public virtual void AttrTest02() {
-            ConvertToPdfAndCompare("attrTest02", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("attrTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest01() {
-            ConvertToPdfAndCompare("emptyStillShownPseudoTest01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest02() {
             // TODO inline elements with absolute positioning are not supported at the moment
-            ConvertToPdfAndCompare("emptyStillShownPseudoTest02", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest03() {
             // TODO inline elements with absolute positioning are not supported at the moment
-            ConvertToPdfAndCompare("emptyStillShownPseudoTest03", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest04() {
             // TODO inline elements with absolute positioning are not supported at the moment
-            ConvertToPdfAndCompare("emptyStillShownPseudoTest04", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest04", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest05() {
-            ConvertToPdfAndCompare("emptyStillShownPseudoTest05", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest05", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest06() {
-            ConvertToPdfAndCompare("emptyStillShownPseudoTest06", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest06", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
         public virtual void EmptyStillShownPseudoTest07() {
-            ConvertToPdfAndCompare("emptyStillShownPseudoTest07", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest07", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
         public virtual void EmptyStillShownPseudoTest08() {
-            ConvertToPdfAndCompare("emptyStillShownPseudoTest08", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest08", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 2, LogLevel = LogLevelConstants
             .WARN)]
         public virtual void EmptyStillShownPseudoTest09() {
-            ConvertToPdfAndCompare("emptyStillShownPseudoTest09", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("emptyStillShownPseudoTest09", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void PseudoDisplayTable01Test() {
-            ConvertToPdfAndCompare("pseudoDisplayTable01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("pseudoDisplayTable01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void PseudoDisplayTable02Test() {
-            ConvertToPdfAndCompare("pseudoDisplayTable02", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("pseudoDisplayTable02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }

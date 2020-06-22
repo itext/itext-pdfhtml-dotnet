@@ -46,6 +46,7 @@ using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Page;
+using iText.Html2pdf.Css.Resolve;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Layout.Borders;
@@ -125,6 +126,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
              context) {
             IElementNode dummyMarginBoxNode = new PageMarginBoxDummyElement();
             dummyMarginBoxNode.SetStyles(marginBoxContentNode.GetStyles());
+            DefaultCssResolver cssResolver = new DefaultCssResolver(marginBoxContentNode, context);
             ITagWorker marginBoxWorker = context.GetTagWorkerFactory().GetTagWorker(dummyMarginBoxNode, context);
             for (int i = 0; i < marginBoxContentNode.ChildNodes().Count; i++) {
                 INode childNode = marginBoxContentNode.ChildNodes()[i];
@@ -136,6 +138,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     if (childNode is IElementNode) {
                         ITagWorker childTagWorker = context.GetTagWorkerFactory().GetTagWorker((IElementNode)childNode, context);
                         if (childTagWorker != null) {
+                            IDictionary<String, String> stringStringMap = cssResolver.ResolveStyles(childNode, context.GetCssContext()
+                                );
+                            ((IElementNode)childNode).SetStyles(stringStringMap);
+                            ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier((IElementNode)childNode);
+                            if (cssApplier != null) {
+                                cssApplier.Apply(context, (IStylesContainer)childNode, childTagWorker);
+                            }
                             childTagWorker.ProcessEnd((IElementNode)childNode, context);
                             marginBoxWorker.ProcessTagChild(childTagWorker, context);
                         }
@@ -160,8 +169,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 throw new InvalidOperationException("Custom tag worker implementation for margin boxes shall return IElement for #getElementResult() call."
                     );
             }
-            ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(dummyMarginBoxNode);
-            cssApplier.Apply(context, marginBoxContentNode, marginBoxWorker);
+            ICssApplier cssApplier_1 = context.GetCssApplierFactory().GetCssApplier(dummyMarginBoxNode);
+            cssApplier_1.Apply(context, marginBoxContentNode, marginBoxWorker);
             return (IElement)marginBoxWorker.GetElementResult();
         }
 

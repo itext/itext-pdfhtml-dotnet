@@ -177,6 +177,8 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(afterPseudoElemName, CssConstants.TABLE, typeof(DivTagWorker));
             workerMapping.PutMapping(CssPseudoElementUtil.CreatePseudoElementTagName(TagConstants.IMG), typeof(ImgTagWorker
                 ));
+            workerMapping.PutMapping(CssPseudoElementUtil.CreatePseudoElementTagName(TagConstants.DIV), typeof(DivTagWorker
+                ));
             // custom elements mapping, implementation-specific
             workerMapping.PutMapping(PageCountElementNode.PAGE_COUNTER_TAG, typeof(PageCountWorker));
             workerMapping.PutMapping(PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG, typeof(PageMarginBoxWorker));
