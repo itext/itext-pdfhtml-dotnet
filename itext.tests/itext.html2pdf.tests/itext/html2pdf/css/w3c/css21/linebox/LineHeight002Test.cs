@@ -32,7 +32,6 @@ namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
 
         [NUnit.Framework.Test]
         [LogMessage("Unable to process external css file")]
-        [LogMessage("The background rectangle has negative or zero sizes. It will not be displayed.")]
         public override void Test() {
             base.Test();
         }

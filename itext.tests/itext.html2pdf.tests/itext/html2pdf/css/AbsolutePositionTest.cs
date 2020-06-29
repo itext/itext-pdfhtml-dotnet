@@ -70,7 +70,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
         public virtual void AbsolutePosition03Test() {
             ConvertToPdfAndCompare("absolutePositionTest03", sourceFolder, destinationFolder);
         }

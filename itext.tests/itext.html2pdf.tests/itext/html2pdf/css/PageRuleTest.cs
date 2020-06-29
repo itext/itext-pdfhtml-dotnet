@@ -196,8 +196,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 2, LogLevel = LogLevelConstants.WARN)]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 2, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void LinearGradientOnPageMarginWithPercentWidthAndHeightTest() {
             RunTest("linearGradientOnPageMarginWithPercentWidthAndHeightTest", new ConverterProperties().SetTagWorkerFactory
                 (new PageRuleTest.PageMarginBoxImagesTagWorkerFactory()));

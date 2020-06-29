@@ -42,8 +42,6 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
-using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class CssOpacityTest : ExtendedHtmlConversionITextTest {
@@ -66,8 +64,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 2, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void NestedInSpanTest() {
             ConvertToPdfAndCompare("nestedInSpanTest", sourceFolder, destinationFolder);
         }

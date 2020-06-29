@@ -46,7 +46,6 @@ using iText.Html2pdf;
 using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class CssCollapsingMarginsTest : ExtendedITextTest {
@@ -144,7 +143,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 2)]
         public virtual void ElementUlOlLiTest() {
             Test("elementUlOlLiTest.html", "elementUlOlLiTest.pdf", "diff_");
         }
@@ -160,7 +158,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
         public virtual void NegativeMarginsTest01() {
             Test("negativeMarginsTest01.html", "negativeMarginsTest01.pdf", "diff_");
         }
@@ -171,7 +168,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
         public virtual void NegativeMarginsTest03() {
             Test("negativeMarginsTest03.html", "negativeMarginsTest03.pdf", "diff_");
         }
@@ -252,7 +248,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
         public virtual void SelfCollapsingTest09() {
             Test("selfCollapsingTest09.html", "selfCollapsingTest09.pdf", "diff_");
         }
@@ -278,7 +273,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES)]
         public virtual void SelfCollapsingTest14() {
             Test("selfCollapsingTest14.html", "selfCollapsingTest14.pdf", "diff_");
         }

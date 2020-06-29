@@ -50,7 +50,6 @@ using iText.Kernel.Utils;
 using iText.StyledXmlParser.Css.Media;
 using iText.StyledXmlParser.Css.Util;
 using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class FloatTest : ExtendedITextTest {
@@ -360,7 +359,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 1)]
         public virtual void Float60Test() {
             RunTest("float60Test", "diff60_");
         }
@@ -491,7 +489,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 1)]
         public virtual void FloatCaption01Test() {
             RunTest("floatCaption01Test", "diff_floatCaption01Test_");
         }

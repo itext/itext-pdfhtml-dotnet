@@ -47,7 +47,6 @@ using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class SpanTest : ExtendedITextTest {
@@ -142,8 +141,6 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void SpanTest10() {
             TestWithSuffix("10");
         }
@@ -185,16 +182,12 @@ namespace iText.Html2pdf.Element {
 
         // TODO: update cmp files during DEVSIX-2510
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 4, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void SpanTestNestedBlock() {
             Test("spanTestNestedBlock");
         }
 
         // TODO: update cmp files during DEVSIX-2510
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 4, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void SpanTestNestedInlineBlock() {
             Test("spanTestNestedInlineBlock");
         }
