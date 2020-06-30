@@ -86,19 +86,18 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationShorthandAllValuesTest() {
-            // TODO DEVSIX-3933
+            //TODO update after DEVSIX-4063 is closed
             ConvertToPdfAndCompare("textDecorationShorthandAllValues", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationShorthandOneValueTest() {
-            // TODO DEVSIX-3933
             ConvertToPdfAndCompare("textDecorationShorthandOneValue", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationShorthandTwoValuesTest() {
-            // TODO DEVSIX-3933
+            //TODO update after DEVSIX-4063 is closed
             ConvertToPdfAndCompare("textDecorationShorthandTwoValues", sourceFolder, destinationFolder);
         }
 
@@ -108,7 +107,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        //TODO: DEVSIX-3933
+        //TODO: DEVSIX-4201
         [LogMessage(iText.Html2pdf.LogMessageConstant.HSL_COLOR_NOT_SUPPORTED)]
         public virtual void TextDecorationColorTest() {
             ConvertToPdfAndCompare("textDecorationColor", sourceFolder, destinationFolder);
@@ -121,7 +120,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationLineTest() {
-            //TODO: DEVSIX-3933
             ConvertToPdfAndCompare("textDecorationLine", sourceFolder, destinationFolder);
         }
 
@@ -132,19 +130,18 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationStyleTest() {
-            //TODO: DEVSIX-3933
+            //TODO update after DEVSIX-4063 is closed
             ConvertToPdfAndCompare("textDecorationStyle", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void ShorthandAndSpecificTextDecorPropsTest() {
-            //TODO: DEVSIX-3933
+            //TODO update after DEVSIX-4063 is closed
             ConvertToPdfAndCompare("shorthandAndSpecificTextDecorProps", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void CombinationOfLinesInTextDecorationTest() {
-            //TODO: DEVSIX-3933
             ConvertToPdfAndCompare("combinationOfLinesInTextDecoration", sourceFolder, destinationFolder);
         }
     }
