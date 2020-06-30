@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Text.RegularExpressions;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
@@ -60,6 +61,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// element.
     /// </summary>
     public class InputTagWorker : ITagWorker, IDisplayAware {
+        private static readonly Regex NUMBER_INPUT_ALLOWED_VALUES = iText.IO.Util.StringUtil.RegexCompile("^(((-?[0-9]+)(\\.[0-9]+)?)|(-?\\.[0-9]+))$"
+            );
+
         /// <summary>The form element.</summary>
         private IElement formElement;
 
@@ -190,8 +194,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return formElement;
         }
 
-        private static String PreprocessInputValue(String value, String inputType) {
-            if (AttributeConstants.NUMBER.Equals(inputType) && value != null && !value.Matches("[0-9.]*")) {
+        internal static String PreprocessInputValue(String value, String inputType) {
+            if (AttributeConstants.NUMBER.Equals(inputType) && value != null && !iText.IO.Util.StringUtil.Match(NUMBER_INPUT_ALLOWED_VALUES
+                , value).Success) {
                 value = "";
             }
             return value;
