@@ -38,30 +38,26 @@ serving PDFs on the fly in a web application, shipping iText with a closed
 source product.
 
 For more information, please contact iText Software Corp. at this
-address: sales@itextpdf.com */
+address: sales@itextpdf.com
+*/
 using System;
 using System.IO;
 using iText.IO.Util;
-using System.Collections.Generic;
-using System.Reflection;
-using System.IO;
-using Versions.Attributes;
-using iText.Kernel;
-using iText.Test;
-using iText.StyledXmlParser.Css.Parse;
 using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Parse;
+using iText.Test;
 
 namespace iText.Html2pdf.Css {
     public class CssStyleSheetParserTest : ExtendedITextTest {
-        private static readonly String sourceFolder = TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext.CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssStyleSheetParserTest/";
+        private static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssStyleSheetParserTest/";
 
         private const String DEFAULT_CSS_PATH = "iText.Html2Pdf.default.css";
-        
 
         [NUnit.Framework.Test]
         public virtual void TestDefaultCss() {
             String cmpFile = sourceFolder + "cmp_default.css";
-            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(ResourceUtil.GetResourceStream(DEFAULT_CSS_PATH, typeof(HtmlConverter)));
+            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(ResourceUtil.GetResourceStream(DEFAULT_CSS_PATH));
             NUnit.Framework.Assert.AreEqual(GetCssFileContents(cmpFile), styleSheet.ToString());
         }
 
