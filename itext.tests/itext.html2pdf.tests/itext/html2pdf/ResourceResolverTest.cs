@@ -637,7 +637,7 @@ namespace iText.Html2pdf
         }
 
         [NUnit.Framework.Test]
-         [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, Count = 1)]
+        [LogMessage(iText.Svg.Exceptions.SvgLogMessageConstant.FAILED_TO_PARSE_INPUTSTREAM, Count = 1)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
             Count = 1)]
         public void ResourceResolverIncorrectSyntaxTest() {
