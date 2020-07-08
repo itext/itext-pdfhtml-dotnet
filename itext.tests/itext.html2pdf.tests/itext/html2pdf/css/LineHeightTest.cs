@@ -30,7 +30,6 @@ using iText.Kernel.Utils;
 using iText.Layout.Element;
 using iText.Layout.Font;
 using iText.Layout.Properties;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class LineHeightTest : ExtendedHtmlConversionITextTest {
@@ -168,9 +167,33 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_OR_ZERO_SIZES, Count = 2)]
         public virtual void LineHeightEmptyDivTest() {
             TestLineHeight("lineHeightEmptyDivTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LineHeightUnitlessValueInSpanTest() {
+            TestLineHeight("lineHeightUnitlessValueInSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LineHeightLengthValueInSpanTest() {
+            TestLineHeight("lineHeightLengthValueInSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LineHeightPercentageValueInSpanTest() {
+            TestLineHeight("lineHeightPercentageValueInSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LineHeightNormalInSpanTest() {
+            TestLineHeight("lineHeightNormalInSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LineHeightInheritedInSpanTest() {
+            TestLineHeight("lineHeightInheritedInSpan");
         }
 
         internal virtual void TestLineHeight(String name) {

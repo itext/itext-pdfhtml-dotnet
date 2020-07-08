@@ -51,5 +51,10 @@ namespace iText.Html2pdf.Css.W3c.Css_color_3 {
         protected internal override String GetHtmlFileName() {
             return "t32-opacity-offscreen-multiple-boxes-2-c.xht";
         }
+
+        [NUnit.Framework.Test]
+        public override void Test() {
+            base.Test();
+        }
     }
 }

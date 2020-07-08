@@ -128,7 +128,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         public virtual void ProcessPageRules(INode rootNode, ICssResolver cssResolver, ProcessorContext context) {
             PageContextProperties firstPageProps = PageContextProperties.Resolve(rootNode, cssResolver, context.GetCssContext
                 (), PageContextConstants.FIRST, PageContextConstants.RIGHT);
-            // TODO in documents with set to rtl on root document, first page is considered as left
+            // TODO DEVSIX-4118 in documents with set to rtl on root document, first page is considered as left
             PageContextProperties leftPageProps = PageContextProperties.Resolve(rootNode, cssResolver, context.GetCssContext
                 (), PageContextConstants.LEFT);
             PageContextProperties rightPageProps = PageContextProperties.Resolve(rootNode, cssResolver, context.GetCssContext
@@ -463,7 +463,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary>Checks if the current page is a left page.</summary>
         /// <returns>true, if is current page left</returns>
         private bool IsPageLeft(int pageNum) {
-            // TODO rtl
+            // TODO DEVSIX-4118 rtl
             bool pageIsEven = pageNum % 2 == 0;
             return evenPagesAreLeft == pageIsEven;
         }

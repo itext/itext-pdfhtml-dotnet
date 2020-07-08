@@ -154,7 +154,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (marginUnitVal != null) {
                 if (!marginUnitVal.IsPointValue()) {
                     if (baseValue != 0.0f) {
-                        return System.Convert.ToSingle(baseValue * marginUnitVal.GetValue() * 0.01);
+                        return System.Convert.ToSingle(baseValue * marginUnitVal.GetValue() * 0.01, System.Globalization.CultureInfo.InvariantCulture
+                            );
                     }
                     logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     return null;

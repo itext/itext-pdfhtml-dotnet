@@ -91,7 +91,7 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void InlineSvgExternalFontUrlTest() {
-            // TODO RND-1042 external font loading in SVG via @import
+            // TODO DEVSIX-2264 external font loading in SVG via @import
             String name = "inline_svg_external_font_url";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));
@@ -184,7 +184,6 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(SvgLogMessageConstant.UNMAPPEDTAG)]
         public virtual void ConvertInlineSvgLogo() {
             String html = "inline_svg_logo";
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(destinationFolder + html + ".pdf"));
@@ -244,7 +243,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 66)]
-        [LogMessage(SvgLogMessageConstant.UNMAPPEDTAG, Count = 67)]
         public virtual void ExternalObjectWithGoogleCharts() {
             //TODO update after DEVSIX-2239
             String name = "inlineSvg_googleCharts";

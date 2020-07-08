@@ -162,6 +162,11 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void ListTest20() {
+            RunTest("listTest20");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void ListLiValuePropertyTest() {
             RunTest("listLiValuePropertyTest");
         }

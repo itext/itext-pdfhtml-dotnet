@@ -160,47 +160,55 @@ namespace iText.Html2pdf.Css.Resolve {
                                 result.Add(new CssContentElementNode(contentContainer, TagConstants.IMG, attributes));
                             }
                             else {
-                                if (token.GetValue().StartsWith("attr(") && contentContainer is CssPseudoElementNode) {
-                                    int endBracket = token.GetValue().IndexOf(')');
-                                    if (endBracket > 5) {
-                                        String attrName = token.GetValue().JSubstring(5, endBracket);
-                                        if (attrName.Contains("(") || attrName.Contains(" ") || attrName.Contains("'") || attrName.Contains("\"")) {
-                                            return ErrorFallback(contentStr);
-                                        }
-                                        IElementNode element = (IElementNode)contentContainer.ParentNode();
-                                        String value = element.GetAttribute(attrName);
-                                        result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value == null ? "" : value));
-                                    }
+                                if (CssGradientUtil.IsCssLinearGradientValue(token.GetValue())) {
+                                    IDictionary<String, String> attributes = new Dictionary<String, String>();
+                                    attributes.Put(AttributeConstants.STYLE, CssConstants.BACKGROUND_IMAGE + ":" + token.GetValue() + ";" + CssConstants
+                                        .HEIGHT + ":" + CssConstants.INHERIT + ";" + CssConstants.WIDTH + ":" + CssConstants.INHERIT + ";");
+                                    result.Add(new CssContentElementNode(contentContainer, TagConstants.DIV, attributes));
                                 }
                                 else {
-                                    if (token.GetValue().EndsWith("quote") && contentContainer is IStylesContainer) {
-                                        if (quotes == null) {
-                                            quotes = CssQuotes.CreateQuotes(styles.Get(CssConstants.QUOTES), true);
-                                        }
-                                        String value = quotes.ResolveQuote(token.GetValue(), context);
-                                        if (value == null) {
-                                            return ErrorFallback(contentStr);
-                                        }
-                                        result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value));
-                                    }
-                                    else {
-                                        if (token.GetValue().StartsWith(CssConstants.ELEMENT + "(") && contentContainer is PageMarginBoxContextNode
-                                            ) {
-                                            String paramsStr = token.GetValue().JSubstring(CssConstants.ELEMENT.Length + 1, token.GetValue().Length - 
-                                                1);
-                                            String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
-                                            if (@params.Length == 0) {
+                                    if (token.GetValue().StartsWith("attr(") && contentContainer is CssPseudoElementNode) {
+                                        int endBracket = token.GetValue().IndexOf(')');
+                                        if (endBracket > 5) {
+                                            String attrName = token.GetValue().JSubstring(5, endBracket);
+                                            if (attrName.Contains("(") || attrName.Contains(" ") || attrName.Contains("'") || attrName.Contains("\"")) {
                                                 return ErrorFallback(contentStr);
                                             }
-                                            String name = @params[0].Trim();
-                                            String runningElementOccurrence = null;
-                                            if (@params.Length > 1) {
-                                                runningElementOccurrence = @params[1].Trim();
+                                            IElementNode element = (IElementNode)contentContainer.ParentNode();
+                                            String value = element.GetAttribute(attrName);
+                                            result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value == null ? "" : value));
+                                        }
+                                    }
+                                    else {
+                                        if (token.GetValue().EndsWith("quote") && contentContainer is IStylesContainer) {
+                                            if (quotes == null) {
+                                                quotes = CssQuotes.CreateQuotes(styles.Get(CssConstants.QUOTES), true);
                                             }
-                                            result.Add(new PageMarginRunningElementNode(name, runningElementOccurrence));
+                                            String value = quotes.ResolveQuote(token.GetValue(), context);
+                                            if (value == null) {
+                                                return ErrorFallback(contentStr);
+                                            }
+                                            result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value));
                                         }
                                         else {
-                                            return ErrorFallback(contentStr);
+                                            if (token.GetValue().StartsWith(CssConstants.ELEMENT + "(") && contentContainer is PageMarginBoxContextNode
+                                                ) {
+                                                String paramsStr = token.GetValue().JSubstring(CssConstants.ELEMENT.Length + 1, token.GetValue().Length - 
+                                                    1);
+                                                String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
+                                                if (@params.Length == 0) {
+                                                    return ErrorFallback(contentStr);
+                                                }
+                                                String name = @params[0].Trim();
+                                                String runningElementOccurrence = null;
+                                                if (@params.Length > 1) {
+                                                    runningElementOccurrence = @params[1].Trim();
+                                                }
+                                                result.Add(new PageMarginRunningElementNode(name, runningElementOccurrence));
+                                            }
+                                            else {
+                                                return ErrorFallback(contentStr);
+                                            }
                                         }
                                     }
                                 }

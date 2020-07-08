@@ -196,5 +196,10 @@ namespace iText.Html2pdf.Element {
         public virtual void SpanWithDisplayBlockInsideSpanParagraphTest() {
             Test("spanWithDisplayBlockInsideSpanParagraphTest", true);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void SpanWithBackgroundImageTest() {
+            Test("spanWithBackgroundImageTest");
+        }
     }
 }

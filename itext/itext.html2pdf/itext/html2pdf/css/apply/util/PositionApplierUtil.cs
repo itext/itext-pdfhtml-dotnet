@@ -93,7 +93,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         //            float em = CssUtils.parseAbsoluteLength(cssProps.get(CommonCssConstants.FONT_SIZE));
         //            applyLeftProperty(cssProps, element, em, Property.X);
         //            applyTopProperty(cssProps, element, em, Property.Y);
-        // TODO
+        // TODO DEVSIX-4104 support "fixed" value of position property
         /// <summary>Applies left, right, top, and bottom properties.</summary>
         /// <param name="cssProps">the CSS properties</param>
         /// <param name="context">the processor context</param>

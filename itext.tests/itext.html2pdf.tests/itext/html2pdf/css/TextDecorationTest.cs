@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class TextDecorationTest : ExtendedHtmlConversionITextTest {
@@ -81,6 +82,67 @@ namespace iText.Html2pdf.Css {
         public virtual void TextDecoration05Test() {
             // TODO DEVSIX-2532
             ConvertToPdfAndCompare("textDecorationTest05", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationShorthandAllValuesTest() {
+            //TODO update after DEVSIX-4063 is closed
+            ConvertToPdfAndCompare("textDecorationShorthandAllValues", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationShorthandOneValueTest() {
+            ConvertToPdfAndCompare("textDecorationShorthandOneValue", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationShorthandTwoValuesTest() {
+            //TODO update after DEVSIX-4063 is closed
+            ConvertToPdfAndCompare("textDecorationShorthandTwoValues", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationWithChildElementTest() {
+            ConvertToPdfAndCompare("textDecorationWithChildElement", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        //TODO: DEVSIX-4201
+        [LogMessage(iText.Html2pdf.LogMessageConstant.HSL_COLOR_NOT_SUPPORTED)]
+        public virtual void TextDecorationColorTest() {
+            ConvertToPdfAndCompare("textDecorationColor", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationColorWithTransparencyTest() {
+            ConvertToPdfAndCompare("textDecorationColorWithTransparency", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationLineTest() {
+            ConvertToPdfAndCompare("textDecorationLine", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationLineNoneAndUnderlineTogetherTest() {
+            ConvertToPdfAndCompare("textDecorationLineNoneAndUnderlineTogether", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationStyleTest() {
+            //TODO update after DEVSIX-4063 is closed
+            ConvertToPdfAndCompare("textDecorationStyle", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ShorthandAndSpecificTextDecorPropsTest() {
+            //TODO update after DEVSIX-4063 is closed
+            ConvertToPdfAndCompare("shorthandAndSpecificTextDecorProps", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CombinationOfLinesInTextDecorationTest() {
+            ConvertToPdfAndCompare("combinationOfLinesInTextDecoration", sourceFolder, destinationFolder);
         }
     }
 }

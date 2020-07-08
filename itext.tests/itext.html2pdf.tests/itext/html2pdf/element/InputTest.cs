@@ -195,7 +195,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void InputDisabled01AcroTest() {
-            // TODO DEVSIX_1973
             String htmlPath = sourceFolder + "inputDisabled01Test.html";
             String outPdfPath = destinationFolder + "inputDisabled01AcroTest.pdf";
             String cmpPdfPath = sourceFolder + "cmp_" + "inputDisabled01AcroTest.pdf";

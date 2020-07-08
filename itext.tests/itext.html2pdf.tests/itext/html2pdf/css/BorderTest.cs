@@ -130,5 +130,102 @@ namespace iText.Html2pdf.Css {
         public virtual void BorderTransparencyTest02() {
             ConvertToPdfAndCompare("borderTransparencyTest02", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleOverlayingInTRTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleOverlayingInTR", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleSolidAndDoubleValueInTRTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleSolidAndDoubleValueInTR", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleSolidAndDottedValueInTRTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleSolidAndDottedValueInTR", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleSolidAndDashedValueInTRTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleSolidAndDashedValueInTR", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleInTrDifferentTypesTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleInTrDifferentTypes", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleTRInsideTheadTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleTRInsideThead", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleTRInsideTbodyTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleTRInsideTbody", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleTRInsideTfootTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleTRInsideTfoot", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleInsideTableElementsTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleInsideTableElements", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleInTRLengthUnitsTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleInTRLengthUnits", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleInTrColorValuesTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleInTrColorValues", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        //TODO DEVSIX-2857 update cmp file after fix
+        [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        public virtual void BorderStyleInTRwithTHTest() {
+            ConvertToPdfAndCompare("borderStyleInTRwithTH", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderStyleInTRSeparateBorderCollapseTest() {
+            //TODO DEVSIX-2857 update cmp file after fix
+            ConvertToPdfAndCompare("borderStyleInTRSeparateBorderCollapse", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TbodyBorderCollapseTest() {
+            //TODO DEVSix-4119 update cmp file after fix
+            ConvertToPdfAndCompare("tbodyBorderCollapse", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TheadBorderCollapseTest() {
+            //TODO DEVSix-4119 update cmp file after fix
+            ConvertToPdfAndCompare("theadBorderCollapse", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TfootBorderCollapseTest() {
+            //TODO DEVSix-4119 update cmp file after fix
+            ConvertToPdfAndCompare("tfootBorderCollapse", sourceFolder, destinationFolder);
+        }
     }
 }

@@ -48,5 +48,10 @@ namespace iText.Html2pdf.Css.W3c.Css21.Text {
         protected internal override String GetHtmlFileName() {
             return "white-space-normal-004.xht";
         }
+
+        [NUnit.Framework.Test]
+        public override void Test() {
+            base.Test();
+        }
     }
 }

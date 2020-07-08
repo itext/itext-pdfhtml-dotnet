@@ -22,7 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
     public class LineHeightBleed001Test : W3CCssAhemFontTest {
@@ -31,7 +30,6 @@ namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage("The background rectangle has negative or zero sizes. It will not be displayed.")]
         public override void Test() {
             base.Test();
         }

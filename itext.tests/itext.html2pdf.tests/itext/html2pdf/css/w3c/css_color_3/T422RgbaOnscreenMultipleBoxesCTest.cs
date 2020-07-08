@@ -51,5 +51,10 @@ namespace iText.Html2pdf.Css.W3c.Css_color_3 {
         protected internal override String GetHtmlFileName() {
             return "t422-rgba-onscreen-multiple-boxes-c.xht";
         }
+
+        [NUnit.Framework.Test]
+        public override void Test() {
+            base.Test();
+        }
     }
 }

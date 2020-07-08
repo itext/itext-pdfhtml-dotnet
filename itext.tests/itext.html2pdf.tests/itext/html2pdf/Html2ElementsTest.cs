@@ -232,5 +232,19 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.AreEqual(new String[] { "monospace" }, normalParagraph.GetProperty<String[]>(Property
                 .FONT));
         }
+
+        [NUnit.Framework.Test]
+        public virtual void LeadingInDefaultRenderingModeTest() {
+            String html = "This text is directly in body. It should have the same default LEADING property as everything else.\n"
+                 + "<p>This text is in paragraph.</p>";
+            IList<IElement> elements = HtmlConverter.ConvertToElements(html);
+            NUnit.Framework.Assert.AreEqual(2, elements.Count);
+            IElement anonymousParagraph = elements[0];
+            // TODO DEVSIX-3873 anonymous paragraph inherited styles should be applied in general way
+            NUnit.Framework.Assert.IsNull(anonymousParagraph.GetProperty<Leading>(Property.LEADING));
+            IElement normalParagraph = elements[1];
+            NUnit.Framework.Assert.AreEqual(new Leading(Leading.MULTIPLIED, 1.2f), normalParagraph.GetProperty<Leading
+                >(Property.LEADING));
+        }
     }
 }

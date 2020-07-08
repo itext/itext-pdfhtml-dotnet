@@ -42,17 +42,25 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.IO.Util;
 using iText.Kernel.Colors;
+using iText.Kernel.Colors.Gradients;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css.Parse;
 using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Exceptions;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply backgrounds.</summary>
     public sealed class BackgroundApplierUtil {
+        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.BackgroundApplierUtil
+            ));
+
         /// <summary>
         /// Creates a new
         /// <see cref="BackgroundApplierUtil"/>
@@ -76,33 +84,61 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 element.SetProperty(Property.BACKGROUND, backgroundColor);
             }
             String backgroundImageStr = cssProps.Get(CssConstants.BACKGROUND_IMAGE);
+            // TODO: DEVSIX-2027 ignore multiple backgrounds at the moment
+            if (backgroundImageStr != null) {
+                CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(backgroundImageStr);
+                CssDeclarationValueTokenizer.Token currentToken = tokenizer.GetNextValidToken();
+                while (currentToken != null && currentToken.GetType() == CssDeclarationValueTokenizer.TokenType.COMMA) {
+                    currentToken = tokenizer.GetNextValidToken();
+                }
+                backgroundImageStr = currentToken != null ? currentToken.GetValue() : null;
+            }
+            BackgroundImage backgroundImage = null;
             if (backgroundImageStr != null && !CssConstants.NONE.Equals(backgroundImageStr)) {
-                String backgroundRepeatStr = cssProps.Get(CssConstants.BACKGROUND_REPEAT);
-                PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImageStr
-                    ));
                 bool repeatX = true;
                 bool repeatY = true;
+                String backgroundRepeatStr = cssProps.Get(CssConstants.BACKGROUND_REPEAT);
                 if (backgroundRepeatStr != null) {
                     repeatX = CssConstants.REPEAT.Equals(backgroundRepeatStr) || CssConstants.REPEAT_X.Equals(backgroundRepeatStr
                         );
                     repeatY = CssConstants.REPEAT.Equals(backgroundRepeatStr) || CssConstants.REPEAT_Y.Equals(backgroundRepeatStr
                         );
                 }
-                if (image != null) {
-                    BackgroundImage backgroundImage = null;
-                    if (image is PdfImageXObject) {
-                        backgroundImage = new BackgroundImage((PdfImageXObject)image, repeatX, repeatY);
+                if (CssGradientUtil.IsCssLinearGradientValue(backgroundImageStr)) {
+                    float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+                    float rem = context.GetCssContext().GetRootFontSize();
+                    try {
+                        StrategyBasedLinearGradientBuilder gradientBuilder = CssGradientUtil.ParseCssLinearGradient(backgroundImageStr
+                            , em, rem);
+                        if (gradientBuilder != null) {
+                            backgroundImage = new BackgroundImage(gradientBuilder);
+                        }
                     }
-                    else {
-                        if (image is PdfFormXObject) {
-                            backgroundImage = new BackgroundImage((PdfFormXObject)image, repeatX, repeatY);
+                    catch (StyledXMLParserException) {
+                        LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, backgroundImageStr
+                            ));
+                    }
+                }
+                else {
+                    PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImageStr
+                        ));
+                    if (image != null) {
+                        if (image is PdfImageXObject) {
+                            backgroundImage = new BackgroundImage((PdfImageXObject)image, repeatX, repeatY);
                         }
                         else {
-                            throw new InvalidOperationException();
+                            if (image is PdfFormXObject) {
+                                backgroundImage = new BackgroundImage((PdfFormXObject)image, repeatX, repeatY);
+                            }
+                            else {
+                                throw new InvalidOperationException();
+                            }
                         }
                     }
-                    element.SetProperty(Property.BACKGROUND_IMAGE, backgroundImage);
                 }
+            }
+            if (backgroundImage != null) {
+                element.SetProperty(Property.BACKGROUND_IMAGE, backgroundImage);
             }
         }
     }

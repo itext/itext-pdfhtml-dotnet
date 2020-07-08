@@ -150,28 +150,56 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String whiteSpace = cssProps.Get(CssConstants.WHITE_SPACE);
             element.SetProperty(Property.NO_SOFT_WRAP_INLINE, CssConstants.NOWRAP.Equals(whiteSpace) || CssConstants.PRE
                 .Equals(whiteSpace));
-            String textDecorationProp = cssProps.Get(CssConstants.TEXT_DECORATION);
-            if (textDecorationProp != null) {
-                String[] textDecorations = iText.IO.Util.StringUtil.Split(textDecorationProp, "\\s+");
+            float[] colors = new float[4];
+            Color textDecorationColor;
+            float opacity_1 = 1f;
+            String textDecorationColorProp = cssProps.Get(CssConstants.TEXT_DECORATION_COLOR);
+            if (textDecorationColorProp == null || CssConstants.CURRENTCOLOR.Equals(textDecorationColorProp)) {
+                if (element.GetProperty<TransparentColor>(Property.FONT_COLOR) != null) {
+                    TransparentColor transparentColor = element.GetProperty<TransparentColor>(Property.FONT_COLOR);
+                    textDecorationColor = transparentColor.GetColor();
+                    opacity_1 = transparentColor.GetOpacity();
+                }
+                else {
+                    textDecorationColor = ColorConstants.BLACK;
+                }
+            }
+            else {
+                if (textDecorationColorProp.StartsWith("hsl")) {
+                    logger.Error(iText.Html2pdf.LogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
+                    textDecorationColor = ColorConstants.BLACK;
+                }
+                else {
+                    colors = CssUtils.ParseRgbaColor(textDecorationColorProp);
+                    textDecorationColor = new DeviceRgb(colors[0], colors[1], colors[2]);
+                    opacity_1 = colors[3];
+                }
+            }
+            String textDecorationLineProp = cssProps.Get(CssConstants.TEXT_DECORATION_LINE);
+            if (textDecorationLineProp != null) {
+                String[] textDecorationLines = iText.IO.Util.StringUtil.Split(textDecorationLineProp, "\\s+");
                 IList<Underline> underlineList = new List<Underline>();
-                foreach (String textDecoration in textDecorations) {
-                    if (CssConstants.BLINK.Equals(textDecoration)) {
+                foreach (String textDecorationLine in textDecorationLines) {
+                    if (CssConstants.BLINK.Equals(textDecorationLine)) {
                         logger.Error(iText.Html2pdf.LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
                     }
                     else {
-                        if (CssConstants.LINE_THROUGH.Equals(textDecoration)) {
-                            underlineList.Add(new Underline(null, .75f, 0, 0, 1 / 4f, PdfCanvasConstants.LineCapStyle.BUTT));
+                        if (CssConstants.LINE_THROUGH.Equals(textDecorationLine)) {
+                            underlineList.Add(new Underline(textDecorationColor, opacity_1, .75f, 0, 0, 1 / 4f, PdfCanvasConstants.LineCapStyle
+                                .BUTT));
                         }
                         else {
-                            if (CssConstants.OVERLINE.Equals(textDecoration)) {
-                                underlineList.Add(new Underline(null, .75f, 0, 0, 9 / 10f, PdfCanvasConstants.LineCapStyle.BUTT));
+                            if (CssConstants.OVERLINE.Equals(textDecorationLine)) {
+                                underlineList.Add(new Underline(textDecorationColor, opacity_1, .75f, 0, 0, 9 / 10f, PdfCanvasConstants.LineCapStyle
+                                    .BUTT));
                             }
                             else {
-                                if (CssConstants.UNDERLINE.Equals(textDecoration)) {
-                                    underlineList.Add(new Underline(null, .75f, 0, 0, -1 / 10f, PdfCanvasConstants.LineCapStyle.BUTT));
+                                if (CssConstants.UNDERLINE.Equals(textDecorationLine)) {
+                                    underlineList.Add(new Underline(textDecorationColor, opacity_1, .75f, 0, 0, -1 / 10f, PdfCanvasConstants.LineCapStyle
+                                        .BUTT));
                                 }
                                 else {
-                                    if (CssConstants.NONE.Equals(textDecoration)) {
+                                    if (CssConstants.NONE.Equals(textDecorationLine)) {
                                         underlineList = null;
                                         // if none and any other decoration are used together, none is displayed
                                         break;

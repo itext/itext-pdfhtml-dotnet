@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
+using NUnit.Framework;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
@@ -52,6 +53,7 @@ using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Html;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Parser;
 using iText.Kernel.Pdf.Tagging;
 using iText.Kernel.Utils;
 using iText.Layout;
@@ -66,15 +68,15 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class PageRuleTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/PageRuleTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/PageRuleTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateOrClearDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
@@ -183,6 +185,27 @@ namespace iText.Html2pdf.Css {
         public virtual void BigImageOnPageMarginTest03() {
             RunTest("bigImageOnPageMarginTest03", new ConverterProperties().SetTagWorkerFactory(new PageRuleTest.PageMarginBoxImagesTagWorkerFactory
                 ()));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 4, LogLevel = LogLevelConstants.WARN)]
+        public virtual void LinearGradientOnPageMarginWithAutoWidthAndHeightTest() {
+            RunTest("linearGradientOnPageMarginWithAutoWidthAndHeightTest", new ConverterProperties().SetTagWorkerFactory
+                (new PageRuleTest.PageMarginBoxImagesTagWorkerFactory()));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 2, LogLevel = LogLevelConstants.WARN)]
+        public virtual void LinearGradientOnPageMarginWithPercentWidthAndHeightTest() {
+            RunTest("linearGradientOnPageMarginWithPercentWidthAndHeightTest", new ConverterProperties().SetTagWorkerFactory
+                (new PageRuleTest.PageMarginBoxImagesTagWorkerFactory()));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 2, LogLevel = LogLevelConstants.WARN)]
+        public virtual void LinearGradientOnPageMarginWithWidthAndHeightTest() {
+            RunTest("linearGradientOnPageMarginWithWidthAndHeightTest", new ConverterProperties().SetTagWorkerFactory(
+                new PageRuleTest.PageMarginBoxImagesTagWorkerFactory()));
         }
 
         private class PageMarginBoxImagesTagWorkerFactory : DefaultTagWorkerFactory {
@@ -556,8 +579,8 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningNoImmediateFlush01() {
             String name = "marginBoxRunningNoImmediateFlush01";
-            String htmlPath = sourceFolder + name + ".html";
-            String pdfPath = destinationFolder + name + ".pdf";
+            String htmlPath = SOURCE_FOLDER + name + ".html";
+            String pdfPath = DESTINATION_FOLDER + name + ".pdf";
             ConverterProperties converterProperties = new ConverterProperties().SetImmediateFlush(false);
             Document doc = HtmlConverter.ConvertToDocument(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), new 
                 PdfWriter(pdfPath), converterProperties);
@@ -568,8 +591,8 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningNoImmediateFlush02() {
             String name = "marginBoxRunningNoImmediateFlush02";
-            String htmlPath = sourceFolder + name + ".html";
-            String pdfPath = destinationFolder + name + ".pdf";
+            String htmlPath = SOURCE_FOLDER + name + ".html";
+            String pdfPath = DESTINATION_FOLDER + name + ".pdf";
             ConverterProperties converterProperties = new ConverterProperties().SetImmediateFlush(false);
             Document doc = HtmlConverter.ConvertToDocument(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), new 
                 PdfWriter(pdfPath), converterProperties);
@@ -584,8 +607,8 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningNoImmediateFlush03() {
             String name = "marginBoxRunningNoImmediateFlush03";
-            String htmlPath = sourceFolder + name + ".html";
-            String pdfPath = destinationFolder + name + ".pdf";
+            String htmlPath = SOURCE_FOLDER + name + ".html";
+            String pdfPath = DESTINATION_FOLDER + name + ".pdf";
             ConverterProperties converterProperties = new ConverterProperties().SetImmediateFlush(false);
             Document doc = HtmlConverter.ConvertToDocument(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), new 
                 PdfWriter(pdfPath), converterProperties);
@@ -609,8 +632,8 @@ namespace iText.Html2pdf.Css {
         [LogMessage(iText.IO.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, Count = 6)]
         public virtual void MarginBoxRunningNoImmediateFlush04() {
             String name = "marginBoxRunningNoImmediateFlush04";
-            String htmlPath = sourceFolder + name + ".html";
-            String pdfPath = destinationFolder + name + ".pdf";
+            String htmlPath = SOURCE_FOLDER + name + ".html";
+            String pdfPath = DESTINATION_FOLDER + name + ".pdf";
             ConverterProperties converterProperties = new ConverterProperties().SetImmediateFlush(false);
             Document doc = HtmlConverter.ConvertToDocument(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), new 
                 PdfWriter(pdfPath), converterProperties);
@@ -626,8 +649,8 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningNoImmediateFlush05() {
             String name = "marginBoxRunningNoImmediateFlush05";
-            String htmlPath = sourceFolder + name + ".html";
-            String pdfPath = destinationFolder + name + ".pdf";
+            String htmlPath = SOURCE_FOLDER + name + ".html";
+            String pdfPath = DESTINATION_FOLDER + name + ".pdf";
             ConverterProperties converterProperties = new ConverterProperties().SetImmediateFlush(false);
             converterProperties.SetTagWorkerFactory(new PageRuleTest.CustomFlushingTagWorkerFactory());
             HtmlConverter.ConvertToPdf(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), new PdfWriter(pdfPath
@@ -661,6 +684,46 @@ namespace iText.Html2pdf.Css {
                 RunTest("wrongPageRuleCssStructureTest");
             }
             , NUnit.Framework.Throws.InstanceOf<Exception>())
+;
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageCountTestTableAlignLeft() {
+            NUnit.Framework.Assert.That(() =>  {
+                //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
+                String expectedText = "Page 1 of 3";
+                String nameAlignLeft = "htmlWithTableAlignLeft.html";
+                String pdfOutputName = DESTINATION_FOLDER + nameAlignLeft + ".pdf";
+                FileInfo pdfOutputAlignLeft = new FileInfo(pdfOutputName);
+                HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + nameAlignLeft), pdfOutputAlignLeft);
+                PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfOutputAlignLeft));
+                String textFromPage = PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(1));
+                // Print the output file. No comparison will be made on the following line
+                ExtendedITextTest.PrintOutputPdfNameAndDir(pdfOutputName);
+                NUnit.Framework.Assert.IsTrue(textFromPage.Contains(expectedText), "Page doesn't contain text " + expectedText
+                    );
+            }
+            , NUnit.Framework.Throws.InstanceOf<AssertionException>())
+;
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageCountTestTableFloatLeft() {
+            NUnit.Framework.Assert.That(() =>  {
+                //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
+                String expectedText = "Page 3 of 3";
+                String nameFloatLeft = "htmlWithTableFloatLeft.html";
+                String pdfOutputName = DESTINATION_FOLDER + nameFloatLeft + ".pdf";
+                FileInfo pdfOutputFloatLeft = new FileInfo(pdfOutputName);
+                HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + nameFloatLeft), pdfOutputFloatLeft);
+                PdfDocument pdfDocument = new PdfDocument(new PdfReader(pdfOutputFloatLeft));
+                String textFromPage = PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(3));
+                // Print the output file. No comparison will be made on the following line
+                ExtendedITextTest.PrintOutputPdfNameAndDir(pdfOutputName);
+                NUnit.Framework.Assert.IsTrue(textFromPage.Contains(expectedText), "Page doesn't contain text " + expectedText
+                    );
+            }
+            , NUnit.Framework.Throws.InstanceOf<AssertionException>())
 ;
         }
 
@@ -704,9 +767,9 @@ namespace iText.Html2pdf.Css {
         }
 
         private void RunTest(String name, ConverterProperties converterProperties, bool isTagged) {
-            String htmlPath = sourceFolder + name + ".html";
-            String pdfPath = destinationFolder + name + ".pdf";
-            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+            String htmlPath = SOURCE_FOLDER + name + ".html";
+            String pdfPath = DESTINATION_FOLDER + name + ".pdf";
+            String cmpPdfPath = SOURCE_FOLDER + "cmp_" + name + ".pdf";
             String diffPrefix = "diff_" + name + "_";
             FileInfo outFile = new FileInfo(pdfPath);
             System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlPath) + "\n");
@@ -726,16 +789,16 @@ namespace iText.Html2pdf.Css {
             if (isTagged) {
                 compareTool.CompareTagStructures(pdfPath, cmpPdfPath);
             }
-            NUnit.Framework.Assert.IsNull(compareTool.CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
+            NUnit.Framework.Assert.IsNull(compareTool.CompareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, diffPrefix
                 ));
         }
 
         private void CompareResult(String name) {
-            String pdfPath = destinationFolder + name + ".pdf";
-            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
+            String pdfPath = DESTINATION_FOLDER + name + ".pdf";
+            String cmpPdfPath = SOURCE_FOLDER + "cmp_" + name + ".pdf";
             String diffPrefix = "diff_" + name + "_";
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
-                ));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, 
+                diffPrefix));
         }
     }
 }

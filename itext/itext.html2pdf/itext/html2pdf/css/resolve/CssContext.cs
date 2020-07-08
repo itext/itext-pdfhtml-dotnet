@@ -57,7 +57,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>The counter manager.</summary>
         private CssCounterManager counterManager = new CssCounterManager();
 
-        /// <summary>Indicates if a page counter is present.</summary>
+        /// <summary>Indicates if a pages counter is present.</summary>
         private bool pagesCounterPresent = false;
 
         /// <summary>The running elements manager.</summary>

@@ -85,6 +85,9 @@ namespace iText.Html2pdf {
         /// <summary>The Constant INVALID_CSS_PROPERTY_DECLARATION.</summary>
         public const String INVALID_CSS_PROPERTY_DECLARATION = "Invalid css property declaration: {0}";
 
+        /// <summary>The Constant INVALID_CSS_PROPERTY_DECLARATION.</summary>
+        public const String INVALID_GRADIENT_DECLARATION = "Invalid gradient declaration: {0}";
+
         /// <summary>The Constant MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED.</summary>
         public const String MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED = "Margin value in percents not supported";
 
@@ -124,6 +127,9 @@ namespace iText.Html2pdf {
 
         /// <summary>The Constant TEXT_DECORATION_BLINK_NOT_SUPPORTED.</summary>
         public const String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
+
+        /// <summary>The Constant HSL_COLOR_NOT_SUPPORTED.</summary>
+        public const String HSL_COLOR_NOT_SUPPORTED = "Hsl colors are not supported";
 
         /// <summary>The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE.</summary>
         public const String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";

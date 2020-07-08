@@ -331,12 +331,15 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (tagWorker is HtmlTagWorker) {
                     ((HtmlTagWorker)tagWorker).ProcessPageRules(node, cssResolver, context);
                 }
+
+                if (TagConstants.BODY.Equals(element.Name()) || TagConstants.HTML.Equals(element.Name())) {
+                    RunApplier(element, tagWorker);
+                }
+
                 context.GetOutlineHandler().AddOutlineAndDestToDocument(tagWorker, element, context);
+                
                 VisitPseudoElement(element, tagWorker, CssConstants.BEFORE);
                 VisitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
-
-                if (TagConstants.BODY.Equals(element.Name()) || TagConstants.HTML.Equals(element.Name()))
-                    RunApplier(element, tagWorker);
                 foreach (INode childNode in element.ChildNodes()) {
                     if (!context.IsProcessingInlineSvg()) {
                         Visit(childNode);

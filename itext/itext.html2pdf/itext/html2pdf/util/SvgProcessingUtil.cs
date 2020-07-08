@@ -88,7 +88,7 @@ namespace iText.Html2pdf.Util {
             height = wh[1];
             PdfFormXObject pdfForm = new PdfFormXObject(new Rectangle(0, 0, width, height));
             PdfCanvas canvas = new PdfCanvas(pdfForm, pdfDocument);
-            SvgDrawContext context = new SvgDrawContext(null, result.GetFontProvider());
+            SvgDrawContext context = new SvgDrawContext(null, result.GetFontProvider(), result.GetRootRenderer());
             context.AddNamedObjects(result.GetNamedObjects());
             context.PushCanvas(canvas);
             ISvgNodeRenderer root = new PdfRootSvgNodeRenderer(topSvgRenderer);
