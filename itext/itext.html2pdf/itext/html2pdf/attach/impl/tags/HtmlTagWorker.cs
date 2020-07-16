@@ -76,6 +76,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public HtmlTagWorker(IElementNode element, ProcessorContext context) {
+            // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
             bool immediateFlush = context.IsImmediateFlush() && !context.GetCssContext().IsPagesCounterPresent();
             PdfDocument pdfDocument = context.GetPdfDocument();
             document = new Document(pdfDocument, pdfDocument.GetDefaultPageSize(), immediateFlush);

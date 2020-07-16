@@ -310,7 +310,7 @@ namespace iText.Html2pdf.Attach.Impl {
             root = FindHtmlNode(root);
             Visit(root);
             Document doc = (Document)roots[0];
-            // TODO more precise check if a counter was actually added to the document
+            // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
             if (context.GetCssContext().IsPagesCounterPresent() && doc.GetRenderer() is HtmlDocumentRenderer) {
                 doc.Relayout();
             }
