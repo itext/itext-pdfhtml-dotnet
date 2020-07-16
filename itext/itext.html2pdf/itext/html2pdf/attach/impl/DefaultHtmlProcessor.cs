@@ -303,7 +303,6 @@ namespace iText.Html2pdf.Attach.Impl {
             if (!context.HasFonts()) {
                 throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
             }
-            // TODO store html version from document type in context if necessary
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context);
             context.GetLinkContext().ScanForIds(root);
