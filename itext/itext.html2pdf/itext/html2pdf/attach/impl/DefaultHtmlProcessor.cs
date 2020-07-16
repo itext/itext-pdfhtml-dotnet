@@ -85,20 +85,35 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>Set of tags that do not map to any tag worker and that are deliberately excluded from the logging.
         ///     </summary>
         private static readonly ICollection<String> ignoredTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet<
-            String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.HEAD, TagConstants.STYLE, TagConstants.TBODY)
+            String>(iText.IO.Util.JavaUtil.ArraysAsList(
+            TagConstants.HEAD, 
+            TagConstants.STYLE, 
+            // <tbody> is not supported via tag workers. Styles will be propagated anyway (most of them, but not all)
+            // TODO in scope of DEVSIX-4258 we might want to introduce a tag worker for <tbody> and remove it from here
+            TagConstants.TBODY)
             ));
 
         /// <summary>Set of tags to which we do not want to apply CSS to and that are deliberately excluded from the logging
         ///     </summary>
         private static readonly ICollection<String> ignoredCssTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet
-            <String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.BR, TagConstants.LINK, TagConstants.META, TagConstants
-            .TITLE, TagConstants.TR)));
+            <String>(iText.IO.Util.JavaUtil.ArraysAsList(
+                TagConstants.BR, 
+                TagConstants.LINK, 
+                TagConstants.META, 
+                TagConstants.TITLE,
+                // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
+                TagConstants.TR)));
 
         /// <summary>Set of tags that might be not processed by some tag workers and that are deliberately excluded from the logging.
         ///     </summary>
         private static readonly ICollection<String> ignoredChildTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet
-            <String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.BODY, TagConstants.LINK, TagConstants.META, 
-            TagConstants.SCRIPT, TagConstants.TITLE)));
+            <String>(iText.IO.Util.JavaUtil.ArraysAsList(
+                TagConstants.BODY, 
+                TagConstants.LINK, 
+                TagConstants.META, 
+                TagConstants.SCRIPT,
+                TagConstants.TITLE  // TODO implement
+            )));
 
         /// <summary>The processor context.</summary>
         private ProcessorContext context;
@@ -112,9 +127,6 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>Instantiates a new default html processor.</summary>
         /// <param name="converterProperties">the converter properties</param>
         public DefaultHtmlProcessor(ConverterProperties converterProperties) {
-            // TODO <tbody> is not supported. Styles will be propagated anyway
-            // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
-            // TODO implement
             this.context = new ProcessorContext(converterProperties);
         }
 
