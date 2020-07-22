@@ -124,11 +124,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         ));
                     if (image != null) {
                         if (image is PdfImageXObject) {
-                            backgroundImage = new BackgroundImage((PdfImageXObject)image, repeatX, repeatY);
+                            backgroundImage = new BackgroundApplierUtil.HtmlBackgroundImage((PdfImageXObject)image, repeatX, repeatY);
                         }
                         else {
                             if (image is PdfFormXObject) {
-                                backgroundImage = new BackgroundImage((PdfFormXObject)image, repeatX, repeatY);
+                                backgroundImage = new BackgroundApplierUtil.HtmlBackgroundImage((PdfFormXObject)image, repeatX, repeatY);
                             }
                             else {
                                 throw new InvalidOperationException();
@@ -139,6 +139,35 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             if (backgroundImage != null) {
                 element.SetProperty(Property.BACKGROUND_IMAGE, backgroundImage);
+            }
+        }
+
+        /// <summary>Implementation of the Image class when used in the context of HTML to PDF conversion.</summary>
+        private class HtmlBackgroundImage : BackgroundImage {
+            private const double PX_TO_PT_MULTIPLIER = 0.75;
+
+            /// <summary>
+            /// In iText, we use user unit for the image sizes (and by default
+            /// one user unit = one point), whereas images are usually measured
+            /// in pixels.
+            /// </summary>
+            private double dimensionMultiplier = 1;
+
+            public HtmlBackgroundImage(PdfImageXObject xObject, bool repeatX, bool repeatY)
+                : base(xObject, repeatX, repeatY) {
+                dimensionMultiplier = PX_TO_PT_MULTIPLIER;
+            }
+
+            public HtmlBackgroundImage(PdfFormXObject xObject, bool repeatX, bool repeatY)
+                : base(xObject, repeatX, repeatY) {
+            }
+
+            public override float GetWidth() {
+                return (float)(image.GetWidth() * dimensionMultiplier);
+            }
+
+            public override float GetHeight() {
+                return (float)(image.GetHeight() * dimensionMultiplier);
             }
         }
     }
