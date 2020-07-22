@@ -253,12 +253,14 @@ namespace iText.Html2pdf.Css.Resolve {
                         if (HtmlUtils.IsStyleSheetLink(headChildElement)) {
                             String styleSheetUri = headChildElement.GetAttribute(AttributeConstants.HREF);
                             try {
-                                Stream stream = resourceResolver.RetrieveStyleSheet(styleSheetUri);
-                                byte[] bytes = StreamUtil.InputStreamToArray(stream);
-                                CssStyleSheet styleSheet = CssStyleSheetParser.Parse(new MemoryStream(bytes), resourceResolver.ResolveAgainstBaseUri
-                                    (styleSheetUri).ToExternalForm());
-                                styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
-                                cssStyleSheet.AppendCssStyleSheet(styleSheet);
+                                using (Stream stream = resourceResolver.RetrieveResourceAsInputStream(styleSheetUri)) {
+                                    if (stream != null) {
+                                        CssStyleSheet styleSheet = CssStyleSheetParser.Parse(stream, resourceResolver.ResolveAgainstBaseUri(styleSheetUri
+                                            ).ToExternalForm());
+                                        styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                                        cssStyleSheet.AppendCssStyleSheet(styleSheet);
+                                    }
+                                }
                             }
                             catch (Exception exc) {
                                 ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));

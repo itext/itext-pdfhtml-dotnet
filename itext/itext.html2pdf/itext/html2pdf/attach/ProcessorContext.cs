@@ -153,7 +153,7 @@ namespace iText.Html2pdf.Attach {
             if (outlineHandler == null) {
                 outlineHandler = new OutlineHandler();
             }
-            resourceResolver = new HtmlResourceResolver(baseUri, this);
+            resourceResolver = new HtmlResourceResolver(baseUri, this, converterProperties.GetResourceRetriever());
             cssContext = new CssContext();
             linkContext = new LinkContext();
             createAcroForm = converterProperties.IsCreateAcroForm();

@@ -87,7 +87,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public ObjectTagWorker(IElementNode element, ProcessorContext context) {
-            this.processUtil = new SvgProcessingUtil();
+            this.processUtil = new SvgProcessingUtil(context.GetResourceResolver());
             //Retrieve object type
             String type = element.GetAttribute(AttributeConstants.TYPE);
             if (IsSvgImage(type)) {
@@ -119,7 +119,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
         }
 
-        //todo  according specs 'At least one of the "data" or "type" attribute MUST be defined.'
+        // TODO  according specs 'At least one of the "data" or "type" attribute MUST be defined.'
         private bool IsSvgImage(String typeAttribute) {
             return AttributeConstants.ObjectTypes.SVGIMAGE.Equals(typeAttribute);
         }

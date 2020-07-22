@@ -47,6 +47,7 @@ using iText.Html2pdf.Css.Apply;
 using iText.Kernel.Counter.Event;
 using iText.Layout.Font;
 using iText.StyledXmlParser.Css.Media;
+using iText.StyledXmlParser.Resolver.Resource;
 
 namespace iText.Html2pdf {
     /// <summary>
@@ -71,6 +72,9 @@ namespace iText.Html2pdf {
 
         /// <summary>The base URI.</summary>
         private String baseUri;
+
+        /// <summary>The resource retriever.</summary>
+        private IResourceRetriever resourceRetriever;
 
         /// <summary>Indicates whether an AcroForm should be created.</summary>
         private bool createAcroForm = false;
@@ -111,6 +115,7 @@ namespace iText.Html2pdf {
             this.tagWorkerFactory = other.tagWorkerFactory;
             this.cssApplierFactory = other.cssApplierFactory;
             this.baseUri = other.baseUri;
+            this.resourceRetriever = other.resourceRetriever;
             this.createAcroForm = other.createAcroForm;
             this.outlineHandler = other.outlineHandler;
             this.charset = other.charset;
@@ -120,6 +125,7 @@ namespace iText.Html2pdf {
         /// <summary>Gets the media device description.</summary>
         /// <remarks>
         /// Gets the media device description.
+        /// <para />
         /// The properties of the multimedia device are taken into account when creating the SVG and
         /// when processing the properties of the СSS.
         /// </remarks>
@@ -131,6 +137,7 @@ namespace iText.Html2pdf {
         /// <summary>Sets the media device description.</summary>
         /// <remarks>
         /// Sets the media device description.
+        /// <para />
         /// The properties of the multimedia device are taken into account when creating the SVG and
         /// when processing the properties of the СSS.
         /// </remarks>
@@ -149,6 +156,7 @@ namespace iText.Html2pdf {
         /// <summary>Gets the font provider.</summary>
         /// <remarks>
         /// Gets the font provider.
+        /// <para />
         /// Please note that
         /// <see cref="iText.Layout.Font.FontProvider"/>
         /// instances cannot be reused across several documents
@@ -165,6 +173,7 @@ namespace iText.Html2pdf {
         /// <summary>Sets the font provider.</summary>
         /// <remarks>
         /// Sets the font provider.
+        /// <para />
         /// Please note that
         /// <see cref="iText.Layout.Font.FontProvider"/>
         /// instances cannot be reused across several documents
@@ -187,6 +196,7 @@ namespace iText.Html2pdf {
         /// <summary>Gets the TagWorkerFactory instance.</summary>
         /// <remarks>
         /// Gets the TagWorkerFactory instance.
+        /// <para />
         /// The tagWorkerFactory is used to create
         /// <see cref="iText.Html2pdf.Attach.ITagWorker"/>
         /// , which in turn
@@ -200,6 +210,7 @@ namespace iText.Html2pdf {
         /// <summary>Sets the TagWorkerFactory.</summary>
         /// <remarks>
         /// Sets the TagWorkerFactory.
+        /// <para />
         /// The tagWorkerFactory is used to create
         /// <see cref="iText.Html2pdf.Attach.ITagWorker"/>
         /// , which in turn
@@ -219,6 +230,7 @@ namespace iText.Html2pdf {
         /// <summary>Gets the CSS applier factory.</summary>
         /// <remarks>
         /// Gets the CSS applier factory.
+        /// <para />
         /// The cssApplierFactory is used to create
         /// <see cref="iText.Html2pdf.Css.Apply.ICssApplier"/>
         /// , which in turn
@@ -232,6 +244,7 @@ namespace iText.Html2pdf {
         /// <summary>Sets the CSS applier factory.</summary>
         /// <remarks>
         /// Sets the CSS applier factory.
+        /// <para />
         /// The cssApplierFactory is used to create
         /// <see cref="iText.Html2pdf.Css.Apply.ICssApplier"/>
         /// , which in turn
@@ -252,6 +265,7 @@ namespace iText.Html2pdf {
         /// <summary>Gets the base URI.</summary>
         /// <remarks>
         /// Gets the base URI.
+        /// <para />
         /// Base URI is used to resolve other URI.
         /// </remarks>
         /// <returns>the base URI</returns>
@@ -262,6 +276,7 @@ namespace iText.Html2pdf {
         /// <summary>Sets the base URI.</summary>
         /// <remarks>
         /// Sets the base URI.
+        /// <para />
         /// Base URI is used to resolve other URI.
         /// </remarks>
         /// <param name="baseUri">the base URI</param>
@@ -275,9 +290,39 @@ namespace iText.Html2pdf {
             return this;
         }
 
+        /// <summary>Gets the resource retriever.</summary>
+        /// <remarks>
+        /// Gets the resource retriever.
+        /// <para />
+        /// The resourceRetriever is used to retrieve data from resources by URL.
+        /// </remarks>
+        /// <returns>the resource retriever</returns>
+        public virtual IResourceRetriever GetResourceRetriever() {
+            return resourceRetriever;
+        }
+
+        /// <summary>Sets the resource retriever.</summary>
+        /// <remarks>
+        /// Sets the resource retriever.
+        /// <para />
+        /// The resourceRetriever is used to retrieve data from resources by URL.
+        /// </remarks>
+        /// <param name="resourceRetriever">the resource retriever</param>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
+        public virtual iText.Html2pdf.ConverterProperties SetResourceRetriever(IResourceRetriever resourceRetriever
+            ) {
+            this.resourceRetriever = resourceRetriever;
+            return this;
+        }
+
         /// <summary>Check if the createAcroForm flag is set.</summary>
         /// <remarks>
         /// Check if the createAcroForm flag is set.
+        /// <para />
         /// If createAcroForm is set, then when the form is encountered in HTML, AcroForm will be created, otherwise
         /// a visually identical, but not functional element will be created. Please bare in mind that the created
         /// Acroform may visually differ a bit from the HTML one.
@@ -290,6 +335,7 @@ namespace iText.Html2pdf {
         /// <summary>Sets the createAcroForm value.</summary>
         /// <remarks>
         /// Sets the createAcroForm value.
+        /// <para />
         /// If createAcroForm is set, then when the form is encountered in HTML, AcroForm will be created, otherwise
         /// a visually identical, but not functional element will be created. Please bare in mind that the created
         /// Acroform may visually differ a bit from the HTML one.
@@ -308,8 +354,10 @@ namespace iText.Html2pdf {
         /// <summary>Gets the outline handler.</summary>
         /// <remarks>
         /// Gets the outline handler.
+        /// <para />
         /// If outlineHandler is specified, then outlines will be created in the PDF
         /// for HTML tags specified in outlineHandler.
+        /// <para />
         /// Please note that
         /// <see cref="iText.Html2pdf.Attach.Impl.OutlineHandler"/>
         /// is not thread safe, thus
@@ -326,8 +374,10 @@ namespace iText.Html2pdf {
         /// <summary>Sets the outline handler.</summary>
         /// <remarks>
         /// Sets the outline handler.
+        /// <para />
         /// If outlineHandler is specified, then outlines will be created in the PDF
         /// for HTML tags specified in outlineHandler.
+        /// <para />
         /// Please note that
         /// <see cref="iText.Html2pdf.Attach.Impl.OutlineHandler"/>
         /// is not thread safe, thus
@@ -350,6 +400,7 @@ namespace iText.Html2pdf {
         /// <summary>Gets the encoding charset.</summary>
         /// <remarks>
         /// Gets the encoding charset.
+        /// <para />
         /// Charset is used to correctly decode an HTML file.
         /// </remarks>
         /// <returns>the charset</returns>
@@ -360,6 +411,7 @@ namespace iText.Html2pdf {
         /// <summary>Sets the encoding charset.</summary>
         /// <remarks>
         /// Sets the encoding charset.
+        /// <para />
         /// Charset is used to correctly decode an HTML file.
         /// </remarks>
         /// <param name="charset">the charset</param>
@@ -376,6 +428,7 @@ namespace iText.Html2pdf {
         /// <summary>Checks if immediateFlush is set.</summary>
         /// <remarks>
         /// Checks if immediateFlush is set.
+        /// <para />
         /// This is used for
         /// <see cref="HtmlConverter.ConvertToDocument(System.String, iText.Kernel.Pdf.PdfWriter)"/>
         /// methods and will be
@@ -393,6 +446,7 @@ namespace iText.Html2pdf {
         /// <summary>Set the immediate flush property of the layout document.</summary>
         /// <remarks>
         /// Set the immediate flush property of the layout document.
+        /// <para />
         /// This is used for
         /// <see cref="HtmlConverter.ConvertToDocument(System.String, iText.Kernel.Pdf.PdfWriter)"/>
         /// methods and will be
@@ -416,6 +470,7 @@ namespace iText.Html2pdf {
         /// <summary>Gets html meta info.</summary>
         /// <remarks>
         /// Gets html meta info.
+        /// <para />
         /// This meta info will be passed with to
         /// <see cref="iText.Kernel.Counter.EventCounter"/>
         /// with
@@ -433,6 +488,7 @@ namespace iText.Html2pdf {
         /// <summary>Sets html meta info.</summary>
         /// <remarks>
         /// Sets html meta info.
+        /// <para />
         /// This meta info will be passed with to
         /// <see cref="iText.Kernel.Counter.EventCounter"/>
         /// with

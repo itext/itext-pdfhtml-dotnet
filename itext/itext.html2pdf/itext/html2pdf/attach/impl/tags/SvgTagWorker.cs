@@ -73,7 +73,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public SvgTagWorker(IElementNode element, ProcessorContext context) {
             svgImage = null;
             try {
-                SvgConverterProperties props = new SvgConverterProperties().SetBaseUri(context.GetBaseUri());
+                SvgConverterProperties props = ContextMappingHelper.MapToSvgConverterProperties(context);
                 processingResult = new DefaultSvgProcessor().Process((INode)element, props);
                 context.StartProcessingInlineSvg();
             }
@@ -85,7 +85,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             if (context.GetPdfDocument() != null && processingResult != null) {
-                SvgProcessingUtil util = new SvgProcessingUtil();
+                SvgProcessingUtil util = new SvgProcessingUtil(context.GetResourceResolver());
                 svgImage = util.CreateImageFromProcessingResult(processingResult, context.GetPdfDocument());
                 AccessiblePropHelper.TrySetLangAttribute(svgImage, element);
                 context.EndProcessingInlineSvg();
