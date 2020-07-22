@@ -108,7 +108,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 catch (SvgProcessingException spe) {
                     LOGGER.Error(spe.Message);
                 }
-                catch (Exception ie) {
+                catch (System.IO.IOException ie) {
+                    LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+                        , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA), ie));
+                }
+                catch (UriFormatException ie) {
                     LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
                         , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA), ie));
                 }
