@@ -46,9 +46,11 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
+using iText.IO.Util;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
@@ -106,6 +108,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
                 AccessiblePropHelper.TrySetLangAttribute(image, element);
             }
+            if (image != null) {
+                String objectFitValue = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.OBJECT_FIT) : null;
+                image.SetObjectFit(GetObjectFitValue(objectFitValue));
+            }
         }
 
         /* (non-Javadoc)
@@ -139,6 +145,39 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <returns>the display value</returns>
         internal virtual String GetDisplay() {
             return display;
+        }
+
+        private ObjectFit GetObjectFitValue(String objectFitValue) {
+            if (objectFitValue == null) {
+                return ObjectFit.FILL;
+            }
+            switch (objectFitValue) {
+                case CssConstants.CONTAIN: {
+                    return ObjectFit.CONTAIN;
+                }
+
+                case CssConstants.COVER: {
+                    return ObjectFit.COVER;
+                }
+
+                case CssConstants.SCALE_DOWN: {
+                    return ObjectFit.SCALE_DOWN;
+                }
+
+                case CssConstants.NONE: {
+                    return ObjectFit.NONE;
+                }
+
+                case CssConstants.FILL: {
+                    return ObjectFit.FILL;
+                }
+
+                default: {
+                    LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNEXPECTED_VALUE_OF_OBJECT_FIT, objectFitValue
+                        ));
+                    return ObjectFit.FILL;
+                }
+            }
         }
 
         /// <summary>Implementation of the Image class when used in the context of HTML to PDF conversion.</summary>
