@@ -88,8 +88,7 @@ namespace iText.Html2pdf {
         /// <summary>Instantiates a new HtmlConverter instance.</summary>
         private HtmlConverter() {
         }
-
-        // TODO add overloads without automatic elements flushing
+        
         /// <summary>
         /// Converts a
         /// <see cref="System.String"/>
