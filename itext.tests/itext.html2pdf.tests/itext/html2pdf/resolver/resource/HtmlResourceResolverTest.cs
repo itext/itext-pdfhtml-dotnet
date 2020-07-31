@@ -695,11 +695,10 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Svg.Exceptions.SvgLogMessageConstant.FAILED_TO_PARSE_INPUTSTREAM, Count = 1)]
+        [LogMessage(iText.Svg.Exceptions.SvgLogMessageConstant.NOROOT, Count = 1)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER,
             Count = 1)]
         public void ResourceResolverIncorrectSyntaxTest() {
-            //this test is inconsistent with java
             String baseUri = sourceFolder;
             String outPdf = destinationFolder + "resourceResolverIncorrectSyntaxObject.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverIncorrectSyntaxObject.pdf";
