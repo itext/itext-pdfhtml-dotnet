@@ -74,11 +74,19 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void LetterSpacingTest01() {
             ConvertToPdfAndCompare("letterSpacingTest01", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        public virtual void LetterSpacingWithInvalidValuesTest() {
+            ConvertToPdfAndCompare("letterSpacingWithInvalidValues", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void WordSpacingTest01() {
             ConvertToPdfAndCompare("wordSpacingTest01", sourceFolder, destinationFolder);
         }

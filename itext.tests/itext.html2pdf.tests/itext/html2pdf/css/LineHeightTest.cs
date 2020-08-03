@@ -192,8 +192,8 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        public virtual void LineHeightInheritedInSpanTest() {
-            TestLineHeight("lineHeightInheritedInSpan");
+        public virtual void LineHeightInheritInSpanTest() {
+            TestLineHeight("lineHeightInheritInSpan");
         }
 
         internal virtual void TestLineHeight(String name) {
