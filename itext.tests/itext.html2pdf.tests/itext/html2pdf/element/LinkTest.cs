@@ -191,5 +191,14 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + fileName + ".pdf", sourceFolder
                  + "cmp_" + fileName + ".pdf", destinationFolder));
         }
+
+        [NUnit.Framework.Test]
+        public virtual void SimpleLinkTest() {
+            String outPdf = destinationFolder + "simpleLink.pdf";
+            String cmpPdf = sourceFolder + "cmp_simpleLink.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "simpleLink.html"), new FileInfo(outPdf));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff09_"
+                ));
+        }
     }
 }
