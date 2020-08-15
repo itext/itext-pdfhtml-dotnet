@@ -71,6 +71,7 @@ using Versions.Attributes;
 using iText.Kernel;
 using iText.Kernel.Counter;
 using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Font;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Css.Pseudo;
 using iText.StyledXmlParser.Css.Util;
@@ -461,10 +462,10 @@ namespace iText.Html2pdf.Attach.Impl {
                 foreach (CssFontFaceRule fontFace in ((DefaultCssResolver)cssResolver).GetFonts()) {
                     bool findSupportedSrc = false;
                     IList<CssDeclaration> declarations = fontFace.GetProperties();
-                    FontFace ff = FontFace.Create(fontFace.GetProperties());
+                    CssFontFace ff = CssFontFace.Create(fontFace.GetProperties());
                     if (ff != null) {
-                        foreach (FontFace.FontFaceSrc src in ff.GetSources()) {
-                            if (CreateFont(ff.GetFontFamily(), src, ResolveUnicodeRange(declarations))) {
+                        foreach (CssFontFace.CssFontFaceSrc src in ff.GetSources()) {
+                            if (CreateFont(ff.GetFontFamily(), src, fontFace.ResolveUnicodeRange())) {
                                 findSupportedSrc = true;
                                 break;
                             }
@@ -478,31 +479,19 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
-        private Range ResolveUnicodeRange(IList<CssDeclaration> declarations) {
-            Range range = null;
-            foreach (CssDeclaration descriptor in declarations) {
-                if ("unicode-range".Equals(descriptor.GetProperty())) {
-                    range = CssUtils.ParseUnicodeRange(descriptor.GetExpression());
-                }
-            }
-            return range;
-        }
-
-
-
         /// <summary>Creates a font and adds it to the context.</summary>
         /// <param name="fontFamily">the font family</param>
         /// <param name="src">the source of the font</param>
         /// <param name="src">the unicode range</param>
         /// <returns>true, if successful</returns>
-        private bool CreateFont(String fontFamily, FontFace.FontFaceSrc src, Range uniRange) {
-            if (!SupportedFontFormat(src.format)) {
+        private bool CreateFont(String fontFamily, CssFontFace.CssFontFaceSrc src, Range uniRange) {
+            if (!CssFontFace.IsSupportedFontFormat(src.GetFormat())) {
                 return false;
             }
             else {
-                if (src.isLocal) {
+                if (src.IsLocal()) {
                     // to method with lazy initialization
-                    ICollection<FontInfo> fonts = context.GetFontProvider().GetFontSet().Get(src.src);
+                    ICollection<FontInfo> fonts = context.GetFontProvider().GetFontSet().Get(src.GetSrc());
                     if (fonts.Count > 0) {
                         foreach (FontInfo fi in fonts) {
                             context.AddTemporaryFont(fi, fontFamily);
@@ -517,7 +506,7 @@ namespace iText.Html2pdf.Attach.Impl {
                     try {
                         // Cache at resource resolver level only, at font level we will create font in any case.
                         // The instance of fontProgram will be collected by GC if the is no need in it.
-                        byte[] bytes = context.GetResourceResolver().RetrieveBytesFromResource(src.src);
+                        byte[] bytes = context.GetResourceResolver().RetrieveBytesFromResource(src.GetSrc());
                         if (bytes != null) {
                             FontProgram fp = FontProgramFactory.CreateFont(bytes, false);
                             context.AddTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily, uniRange);
@@ -526,28 +515,6 @@ namespace iText.Html2pdf.Attach.Impl {
                     }
                     catch (Exception) {
                     }
-                    return false;
-                }
-            }
-        }
-
-        /// <summary>Checks whether in general we support requested font format.</summary>
-        /// <param name="format">
-        /// 
-        /// <see cref="FontFace.FontFormat"/>
-        /// </param>
-        /// <returns>true, if supported or unrecognized.</returns>
-        private bool SupportedFontFormat(FontFace.FontFormat format) {
-            switch (format) {
-                case FontFace.FontFormat.None:
-                case FontFace.FontFormat.TrueType:
-                case FontFace.FontFormat.OpenType:
-                case FontFace.FontFormat.WOFF:
-                case FontFace.FontFormat.WOFF2: {
-                    return true;
-                }
-
-                default: {
                     return false;
                 }
             }
