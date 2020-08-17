@@ -201,9 +201,7 @@ namespace iText.Html2pdf.Attach.Util {
             if (collapseSpaces) {
                 waitingLeaves = TrimUtil.TrimLeafElementsAndSanitize(waitingLeaves);
             }
-            if (CssConstants.CAPITALIZE.Equals(textTransform)) {
-                Capitalize(waitingLeaves);
-            }
+            Capitalize(waitingLeaves);
             if (waitingLeaves.Count > 0) {
                 Paragraph p = CreateParagraphContainer();
                 bool runningElementsOnly = true;
@@ -262,34 +260,65 @@ namespace iText.Html2pdf.Attach.Util {
 
         /// <summary>Capitalizes a series of leaf elements.</summary>
         /// <param name="leaves">a list of leaf elements</param>
-        private static void Capitalize(IList<IElement> leaves) {
+        private void Capitalize(IList<IElement> leaves) {
             bool previousLetter = false;
-            foreach (IElement element in leaves) {
-                if (element is iText.Layout.Element.Text) {
+            bool previousProcessed = false;
+            for (int i = 0; i < leaves.Count; i++) {
+                IElement element = leaves[i];
+                bool hasCapitalizeProperty = element.HasOwnProperty(Html2PdfProperty.CAPITALIZE_ELEMENT);
+                bool needCapitalize = hasCapitalizeProperty && ((bool)element.GetOwnProperty<bool?>(Html2PdfProperty.CAPITALIZE_ELEMENT
+                    ));
+                if (hasCapitalizeProperty && !needCapitalize) {
+                    previousProcessed = false;
+                    continue;
+                }
+                if (element is iText.Layout.Element.Text && (CssConstants.CAPITALIZE.Equals(textTransform) || needCapitalize
+                    )) {
                     String text = ((iText.Layout.Element.Text)element).GetText();
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < text.Length; i++) {
-                        if (char.IsLower(text[i]) && !previousLetter) {
-                            sb.Append(char.ToUpper(text[i]));
-                            previousLetter = true;
-                        }
-                        else {
-                            if (char.IsLetter(text[i])) {
-                                sb.Append(text[i]);
-                                previousLetter = true;
-                            }
-                            else {
-                                sb.Append(text[i]);
-                                previousLetter = false;
-                            }
-                        }
+                    if (!previousProcessed && i > 0) {
+                        previousLetter = IsLastCharAlphabetic(leaves[i - 1]);
                     }
-                    ((iText.Layout.Element.Text)element).SetText(sb.ToString());
+                    previousLetter = CapitalizeAndReturnIsLastAlphabetic((iText.Layout.Element.Text)element, text, previousLetter
+                        );
+                    previousProcessed = true;
                 }
                 else {
+                    previousProcessed = false;
                     previousLetter = false;
                 }
             }
+        }
+
+        private bool IsLastCharAlphabetic(IElement element) {
+            if (!(element is iText.Layout.Element.Text)) {
+                return false;
+            }
+            String text = ((iText.Layout.Element.Text)element).GetText();
+            return text.Length > 0 && char.IsLetter(text[text.Length - 1]);
+        }
+
+        private bool CapitalizeAndReturnIsLastAlphabetic(iText.Layout.Element.Text element, String text, bool previousAlphabetic
+            ) {
+            StringBuilder sb = new StringBuilder();
+            bool previousLetter = previousAlphabetic;
+            for (int i = 0; i < text.Length; i++) {
+                if (char.IsLower(text[i]) && !previousLetter) {
+                    sb.Append(char.ToUpper(text[i]));
+                    previousLetter = true;
+                }
+                else {
+                    if (char.IsLetter(text[i])) {
+                        sb.Append(text[i]);
+                        previousLetter = true;
+                    }
+                    else {
+                        sb.Append(text[i]);
+                        previousLetter = false;
+                    }
+                }
+            }
+            element.SetText(sb.ToString());
+            return previousLetter;
         }
     }
 }
