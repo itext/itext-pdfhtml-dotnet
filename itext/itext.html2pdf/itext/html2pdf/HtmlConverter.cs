@@ -46,6 +46,7 @@ using System.IO;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Util;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Layout;
@@ -88,7 +89,7 @@ namespace iText.Html2pdf {
         /// <summary>Instantiates a new HtmlConverter instance.</summary>
         private HtmlConverter() {
         }
-        
+
         /// <summary>
         /// Converts a
         /// <see cref="System.String"/>
@@ -600,85 +601,13 @@ namespace iText.Html2pdf {
         /// </returns>
         public static Document ConvertToDocument(String html, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
-
-            try 
-            {
-                String licenseKeyClassName = "iText.License.LicenseKey, itext.licensekey";
-                String licenseKeyProductClassName = "iText.License.LicenseKeyProduct, itext.licensekey";
-                String licenseKeyFeatureClassName = "iText.License.LicenseKeyProductFeature, itext.licensekey";
-                String checkLicenseKeyMethodName = "ScheduledCheck";
-                Type licenseKeyClass = GetClass(licenseKeyClassName);
-                if ( licenseKeyClass != null ) 
-                {                
-                    Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
-                    Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
-                    Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
-                    object[] objects = new object[]
-                    {
-                        Html2PdfProductInfo.PRODUCT_NAME,
-                        Html2PdfProductInfo.MAJOR_VERSION,
-                        Html2PdfProductInfo.MINOR_VERSION,
-                        array
-                    };
-                    Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
-                    MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
-                    m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
-                }   
-            } 
-            catch ( Exception e ) 
-            {
-                if ( !Kernel.Version.IsAGPLVersion() )
-                {
-                    throw;
-                }
-            }
+            ReflectionUtils.ScheduledLicenseCheck();
             if (pdfDocument.GetReader() != null) {
                 throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
             }
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(html);
             return Attacher.Attach(doc, pdfDocument, converterProperties);
-        }
-
-        private static Type GetClass(string className)
-        {
-            String licenseKeyClassFullName = null;
-            Assembly assembly = typeof(HtmlConverter).GetAssembly();
-            Attribute keyVersionAttr = assembly.GetCustomAttribute(typeof(KeyVersionAttribute));
-            if (keyVersionAttr is KeyVersionAttribute)
-            {
-                String keyVersion = ((KeyVersionAttribute)keyVersionAttr).KeyVersion;
-                String format = "{0}, Version={1}, Culture=neutral, PublicKeyToken=8354ae6d2174ddca";
-                licenseKeyClassFullName = String.Format(format, className, keyVersion);
-            }
-            Type type = null;
-            if (licenseKeyClassFullName != null)
-            {
-                String fileLoadExceptionMessage = null;
-                try
-                {
-                    type = System.Type.GetType(licenseKeyClassFullName);
-                }
-                catch (FileLoadException fileLoadException)
-                {
-                    fileLoadExceptionMessage = fileLoadException.Message;
-                }
-                if (type == null)
-                {
-                    try
-                    {
-                        type = System.Type.GetType(className);
-                    }
-                    catch
-                    {
-                        // empty
-                    }
-                    if (type == null && fileLoadExceptionMessage != null) {
-                        LogManager.GetLogger(typeof(HtmlConverter)).Error(fileLoadExceptionMessage);
-                    }
-                }
-            }
-            return type;
         }
 
         /// <summary>
@@ -717,38 +646,7 @@ namespace iText.Html2pdf {
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static Document ConvertToDocument(Stream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
-
-            try 
-            {
-                String licenseKeyClassName = "iText.License.LicenseKey, itext.licensekey";
-                String licenseKeyProductClassName = "iText.License.LicenseKeyProduct, itext.licensekey";
-                String licenseKeyFeatureClassName = "iText.License.LicenseKeyProductFeature, itext.licensekey";
-                String checkLicenseKeyMethodName = "ScheduledCheck";
-                Type licenseKeyClass = GetClass(licenseKeyClassName);
-                if ( licenseKeyClass != null ) 
-                {                
-                    Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
-                    Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
-                    Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
-                    object[] objects = new object[]
-                    {
-                        Html2PdfProductInfo.PRODUCT_NAME,
-                        Html2PdfProductInfo.MAJOR_VERSION,
-                        Html2PdfProductInfo.MINOR_VERSION,
-                        array
-                    };
-                    Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
-                    MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
-                    m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
-                }   
-            } 
-            catch ( Exception e ) 
-            {
-                if ( !Kernel.Version.IsAGPLVersion() )
-                {
-                    throw;
-                }
-            }
+            ReflectionUtils.ScheduledLicenseCheck();
             if (pdfDocument.GetReader() != null) {
                 throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
             }
@@ -821,38 +719,7 @@ namespace iText.Html2pdf {
         /// </param>
         /// <returns>a list of iText building blocks</returns>
         public static IList<IElement> ConvertToElements(String html, ConverterProperties converterProperties) {
-
-            try 
-            {
-                String licenseKeyClassName = "iText.License.LicenseKey, itext.licensekey";
-                String licenseKeyProductClassName = "iText.License.LicenseKeyProduct, itext.licensekey";
-                String licenseKeyFeatureClassName = "iText.License.LicenseKeyProductFeature, itext.licensekey";
-                String checkLicenseKeyMethodName = "ScheduledCheck";
-                Type licenseKeyClass = GetClass(licenseKeyClassName);
-                if ( licenseKeyClass != null ) 
-                {                
-                    Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
-                    Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
-                    Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
-                    object[] objects = new object[]
-                    {
-                        Html2PdfProductInfo.PRODUCT_NAME,
-                        Html2PdfProductInfo.MAJOR_VERSION,
-                        Html2PdfProductInfo.MINOR_VERSION,
-                        array
-                    };
-                    Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
-                    MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
-                    m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
-                }   
-            } 
-            catch ( Exception e ) 
-            {
-                if ( !Kernel.Version.IsAGPLVersion() )
-                {
-                    throw;
-                }
-            }
+            ReflectionUtils.ScheduledLicenseCheck();
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(html);
             return Attacher.Attach(doc, converterProperties);
@@ -884,38 +751,7 @@ namespace iText.Html2pdf {
         /// <exception cref="System.IO.IOException">Signals that an I/O exception has occurred.</exception>
         public static IList<IElement> ConvertToElements(Stream htmlStream, ConverterProperties converterProperties
             ) {
-
-            try 
-            {
-                String licenseKeyClassName = "iText.License.LicenseKey, itext.licensekey";
-                String licenseKeyProductClassName = "iText.License.LicenseKeyProduct, itext.licensekey";
-                String licenseKeyFeatureClassName = "iText.License.LicenseKeyProductFeature, itext.licensekey";
-                String checkLicenseKeyMethodName = "ScheduledCheck";
-                Type licenseKeyClass = GetClass(licenseKeyClassName);
-                if ( licenseKeyClass != null ) 
-                {                
-                    Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
-                    Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
-                    Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
-                    object[] objects = new object[]
-                    {
-                        Html2PdfProductInfo.PRODUCT_NAME,
-                        Html2PdfProductInfo.MAJOR_VERSION,
-                        Html2PdfProductInfo.MINOR_VERSION,
-                        array
-                    };
-                    Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
-                    MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
-                    m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
-                }   
-            } 
-            catch ( Exception e ) 
-            {
-                if ( !Kernel.Version.IsAGPLVersion() )
-                {
-                    throw;
-                }
-            }
+            ReflectionUtils.ScheduledLicenseCheck();
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
                 ) : null);

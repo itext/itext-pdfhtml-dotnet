@@ -54,6 +54,7 @@ using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Util;
 using iText.IO.Font;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
@@ -87,8 +88,8 @@ namespace iText.Html2pdf.Attach.Impl {
         ///     </summary>
         private static readonly ICollection<String> ignoredTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet<
             String>(iText.IO.Util.JavaUtil.ArraysAsList(
-            TagConstants.HEAD, 
-            TagConstants.STYLE, 
+            TagConstants.HEAD,
+            TagConstants.STYLE,
             // <tbody> is not supported via tag workers. Styles will be propagated anyway (most of them, but not all)
             // TODO in scope of DEVSIX-4258 we might want to introduce a tag worker for <tbody> and remove it from here
             TagConstants.TBODY)
@@ -98,9 +99,9 @@ namespace iText.Html2pdf.Attach.Impl {
         ///     </summary>
         private static readonly ICollection<String> ignoredCssTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet
             <String>(iText.IO.Util.JavaUtil.ArraysAsList(
-                TagConstants.BR, 
-                TagConstants.LINK, 
-                TagConstants.META, 
+                TagConstants.BR,
+                TagConstants.LINK,
+                TagConstants.META,
                 TagConstants.TITLE,
                 // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
                 TagConstants.TR)));
@@ -109,9 +110,9 @@ namespace iText.Html2pdf.Attach.Impl {
         ///     </summary>
         private static readonly ICollection<String> ignoredChildTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet
             <String>(iText.IO.Util.JavaUtil.ArraysAsList(
-                TagConstants.BODY, 
-                TagConstants.LINK, 
-                TagConstants.META, 
+                TagConstants.BODY,
+                TagConstants.LINK,
+                TagConstants.META,
                 TagConstants.SCRIPT,
                 TagConstants.TITLE  // TODO implement
             )));
@@ -163,38 +164,7 @@ namespace iText.Html2pdf.Attach.Impl {
         */
         [MethodImpl(MethodImplOptions.NoInlining)]
         public virtual IList<IElement> ProcessElements(INode root) {
-
-            try 
-            {
-                String licenseKeyClassName = "iText.License.LicenseKey, itext.licensekey";
-                String licenseKeyProductClassName = "iText.License.LicenseKeyProduct, itext.licensekey";
-                String licenseKeyFeatureClassName = "iText.License.LicenseKeyProductFeature, itext.licensekey";
-                String checkLicenseKeyMethodName = "ScheduledCheck";
-                Type licenseKeyClass = GetClass(licenseKeyClassName);
-                if ( licenseKeyClass != null ) 
-                {                
-                    Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
-                    Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
-                    Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
-                    object[] objects = new object[]
-                    {
-                        Html2PdfProductInfo.PRODUCT_NAME,
-                        Html2PdfProductInfo.MAJOR_VERSION,
-                        Html2PdfProductInfo.MINOR_VERSION,
-                        array
-                    };
-                    Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
-                    MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
-                    m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
-                }   
-            } 
-            catch ( Exception e ) 
-            {
-                if ( !Kernel.Version.IsAGPLVersion() )
-                {
-                    throw;
-                }
-            }
+            ReflectionUtils.ScheduledLicenseCheck();
             context.Reset();
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context);
@@ -222,84 +192,12 @@ namespace iText.Html2pdf.Attach.Impl {
             return elements;
         }
 
-        private static Type GetClass(string className)
-        {
-            String licenseKeyClassFullName = null;
-            Assembly assembly = typeof(DefaultHtmlProcessor).GetAssembly();
-            Attribute keyVersionAttr = assembly.GetCustomAttribute(typeof(KeyVersionAttribute));
-            if (keyVersionAttr is KeyVersionAttribute)
-            {
-                String keyVersion = ((KeyVersionAttribute)keyVersionAttr).KeyVersion;
-                String format = "{0}, Version={1}, Culture=neutral, PublicKeyToken=8354ae6d2174ddca";
-                licenseKeyClassFullName = String.Format(format, className, keyVersion);
-            }
-            Type type = null;
-            if (licenseKeyClassFullName != null)
-            {
-                String fileLoadExceptionMessage = null;
-                try
-                {
-                    type = System.Type.GetType(licenseKeyClassFullName);
-                }
-                catch (FileLoadException fileLoadException)
-                {
-                    fileLoadExceptionMessage = fileLoadException.Message;
-                }
-                if (type == null)
-                {
-                    try
-                    {
-                        type = System.Type.GetType(className);
-                    }
-                    catch
-                    {
-                        // empty
-                    }
-                    if (type == null && fileLoadExceptionMessage != null) {
-                        LogManager.GetLogger(typeof(DefaultHtmlProcessor)).Error(fileLoadExceptionMessage);
-                    }
-                }
-            }
-            return type;
-        }
-
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processDocument(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.kernel.pdf.PdfDocument)
         */
         [MethodImpl(MethodImplOptions.NoInlining)]
         public virtual Document ProcessDocument(INode root, PdfDocument pdfDocument) {
-
-            try 
-            {
-                String licenseKeyClassName = "iText.License.LicenseKey, itext.licensekey";
-                String licenseKeyProductClassName = "iText.License.LicenseKeyProduct, itext.licensekey";
-                String licenseKeyFeatureClassName = "iText.License.LicenseKeyProductFeature, itext.licensekey";
-                String checkLicenseKeyMethodName = "ScheduledCheck";
-                Type licenseKeyClass = GetClass(licenseKeyClassName);
-                if ( licenseKeyClass != null ) 
-                {                
-                    Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
-                    Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
-                    Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
-                    object[] objects = new object[]
-                    {
-                        Html2PdfProductInfo.PRODUCT_NAME,
-                        Html2PdfProductInfo.MAJOR_VERSION,
-                        Html2PdfProductInfo.MINOR_VERSION,
-                        array
-                    };
-                    Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
-                    MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
-                    m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
-                }   
-            } 
-            catch ( Exception e ) 
-            {
-                if ( !Kernel.Version.IsAGPLVersion() )
-                {
-                    throw;
-                }
-            }
+            ReflectionUtils.ScheduledLicenseCheck();
             context.Reset(pdfDocument);
             if (!context.HasFonts()) {
                 throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
@@ -349,7 +247,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
 
                 context.GetOutlineHandler().AddOutlineAndDestToDocument(tagWorker, element, context);
-                
+
                 VisitPseudoElement(element, tagWorker, CssConstants.BEFORE);
                 VisitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
                 foreach (INode childNode in element.ChildNodes()) {
@@ -429,12 +327,12 @@ namespace iText.Html2pdf.Attach.Impl {
                     || (endBracketInd = positionVal.IndexOf(")", StringComparison.Ordinal)) <= runningPrefix.Length) {
                 return tagWorker;
             }
-    
+
             String runningElemName = positionVal.JSubstring(runningPrefix.Length, endBracketInd).Trim();
             if (String.IsNullOrEmpty(runningElemName)) {
                 return tagWorker;
             }
-    
+
             // TODO For now the whole ITagWorker of the running element is preserved inside RunningElementContainer
             // for the sake of future processing in page margin box. This is somewhat a workaround and storing
             // tag workers might be easily seen as something undesirable, however at least for now it seems to be
@@ -451,7 +349,7 @@ namespace iText.Html2pdf.Attach.Impl {
             //   RunningElementContainer, so it would be fairly easy to change this approach in future if needed.
             RunningElementContainer runningElementContainer = new RunningElementContainer(element, tagWorker);
             context.GetCssContext().GetRunningManager().AddRunningElement(runningElemName, runningElementContainer);
-    
+
             return new RunningElementTagWorker(runningElementContainer);
         }
 
