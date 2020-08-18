@@ -53,7 +53,7 @@ using Versions.Attributes;
 namespace iText.Html2pdf.Util {
 
     /// <summary>Utility class for handling operation related to reflections.</summary>
-    public class ReflectionUtils {
+    public sealed class ReflectionUtils {
 
         private static readonly String LICENSEKEY = "iText.License.LicenseKey, itext.licensekey";
         private static readonly String LICENSEKEY_PRODUCT = "iText.License.LicenseKeyProduct, itext.licensekey";
