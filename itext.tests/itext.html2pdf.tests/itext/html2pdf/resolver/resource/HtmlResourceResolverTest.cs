@@ -360,6 +360,35 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
         }
+
+        [NUnit.Framework.Test]
+        public virtual void ResourceResolverLinkBaseRefTest() {
+            String outPdf = destinationFolder + "resourceResolverLinkBaseRef.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverLinkBaseRef.pdf";
+            String baseUri = sourceFolder + "img/";
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverLinkBaseRef.html", FileMode.Open
+                , FileAccess.Read)) {
+                using (FileStream fileOutputStream = new FileStream(outPdf, FileMode.Create)) {
+                    HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().SetBaseUri(baseUri
+                        ));
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ResourceResolverLinkDirectRefTest() {
+            String outPdf = destinationFolder + "resourceResolverLinkDirectRef.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverLinkDirectRef.pdf";
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "resourceResolverLinkDirectRef.html", FileMode.Open
+                , FileAccess.Read)) {
+                using (FileStream fileOutputStream = new FileStream(outPdf, FileMode.Create)) {
+                    HtmlConverter.ConvertToPdf(fileInputStream, fileOutputStream, new ConverterProperties().SetBaseUri(sourceFolder
+                        ));
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
+        }
         // TODO test with absolute http links for resources?
         // TODO test with http base URI?
     }
