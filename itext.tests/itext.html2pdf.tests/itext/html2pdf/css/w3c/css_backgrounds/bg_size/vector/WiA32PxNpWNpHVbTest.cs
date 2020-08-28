@@ -29,7 +29,7 @@ namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Bg_size.Vector {
     [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, Count = 5)]
     public class WiA32PxNpWNpHVbTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
-            return "wide--auto-32px--nonpercent-width-nonpercent-height-viewbox.html";
+            return "wide--auto-32px--npercent-w-npercent-h-viewbox.html";
         }
     }
 }
