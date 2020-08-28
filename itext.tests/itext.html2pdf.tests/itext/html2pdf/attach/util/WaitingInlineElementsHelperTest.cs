@@ -225,6 +225,170 @@ namespace iText.Html2pdf.Attach.Util {
             NUnit.Framework.Assert.AreEqual("one Two", lineResult);
         }
 
+        [NUnit.Framework.Test]
+        public virtual void CapitalizeAfterUnderScoreTest() {
+            //TODO: replace assertNotEquals with assertEquals DEVSIX-4414
+            inlineHelper = new WaitingInlineElementsHelper(null, null);
+            inlineHelper.Add(CreateText("( one_", true));
+            inlineHelper.Add(CreateText("two) ", true));
+            inlineHelper.Add(CreateText("( _one", true));
+            inlineHelper.Add(CreateText("_two)", true));
+            Div div = new Div();
+            inlineHelper.FlushHangingLeaves(div);
+            String lineResult = GetLine(div);
+            NUnit.Framework.Assert.AreNotEqual("( One_two) ( _one_two)", lineResult);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalizeAfterDigitsTest() {
+            //TODO: replace assertNotEquals with assertEquals DEVSIX-4414
+            inlineHelper = new WaitingInlineElementsHelper(null, null);
+            inlineHelper.Add(CreateText("( one2", true));
+            inlineHelper.Add(CreateText("two) ", true));
+            inlineHelper.Add(CreateText("( one ", true));
+            inlineHelper.Add(CreateText("2two) ", true));
+            inlineHelper.Add(CreateText("( one-", true));
+            inlineHelper.Add(CreateText("2two) ", true));
+            inlineHelper.Add(CreateText("one_", true));
+            inlineHelper.Add(CreateText("2two", true));
+            Div div = new Div();
+            inlineHelper.FlushHangingLeaves(div);
+            String lineResult = GetLine(div);
+            NUnit.Framework.Assert.AreNotEqual("( One2two) ( One 2two) ( One-2two) ( One_2two)", lineResult);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalizeAfterColonTest() {
+            //TODO: replace assertNotEquals with assertEquals DEVSIX-4414
+            inlineHelper = new WaitingInlineElementsHelper(null, null);
+            inlineHelper.Add(CreateText("one:", true));
+            inlineHelper.Add(CreateText("two", true));
+            Div div = new Div();
+            inlineHelper.FlushHangingLeaves(div);
+            String lineResult = GetLine(div);
+            NUnit.Framework.Assert.AreNotEqual("One:two", lineResult);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalizeTest10() {
+            inlineHelper = new WaitingInlineElementsHelper(null, null);
+            inlineHelper.Add(CreateText("(one/", true));
+            inlineHelper.Add(CreateText("two) ", true));
+            inlineHelper.Add(CreateText("(one-", true));
+            inlineHelper.Add(CreateText("two) ", true));
+            inlineHelper.Add(CreateText("(one&", true));
+            inlineHelper.Add(CreateText("two)", true));
+            Div div = new Div();
+            inlineHelper.FlushHangingLeaves(div);
+            String lineResult = GetLine(div);
+            NUnit.Framework.Assert.AreEqual("(One/Two) (One-Two) (One&Two)", lineResult);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalizeTest11() {
+            inlineHelper = new WaitingInlineElementsHelper(null, null);
+            inlineHelper.Add(CreateText("(one: ", true));
+            inlineHelper.Add(CreateText("two) ", true));
+            inlineHelper.Add(CreateText("(one;", true));
+            inlineHelper.Add(CreateText("two) ", true));
+            inlineHelper.Add(CreateText("(one?", true));
+            inlineHelper.Add(CreateText("two)", true));
+            Div div = new Div();
+            inlineHelper.FlushHangingLeaves(div);
+            String lineResult = GetLine(div);
+            NUnit.Framework.Assert.AreEqual("(One: Two) (One;Two) (One?Two)", lineResult);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalizeTest12() {
+            //TODO: replace assertNotEquals with assertEquals DEVSIX-4414
+            inlineHelper = new WaitingInlineElementsHelper(null, null);
+            inlineHelper.Add(CreateText("one@", true));
+            inlineHelper.Add(CreateText("2two", true));
+            Div div = new Div();
+            inlineHelper.FlushHangingLeaves(div);
+            String lineResult = GetLine(div);
+            NUnit.Framework.Assert.AreNotEqual("One@2two", lineResult);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalizeTest13() {
+            //TODO: replace assertNotEquals with assertEquals DEVSIX-4414
+            inlineHelper = new WaitingInlineElementsHelper(null, null);
+            inlineHelper.Add(CreateText("_one", true));
+            inlineHelper.Add(CreateText("_@two", true));
+            Div div = new Div();
+            inlineHelper.FlushHangingLeaves(div);
+            String lineResult = GetLine(div);
+            NUnit.Framework.Assert.AreNotEqual("_one_@Two", lineResult);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalizeTest14() {
+            //TODO: replace assertNotEquals with assertEquals DEVSIX-4414
+            inlineHelper = new WaitingInlineElementsHelper(null, null);
+            inlineHelper.Add(CreateText("one'", true));
+            inlineHelper.Add(CreateText("two'", true));
+            Div div = new Div();
+            inlineHelper.FlushHangingLeaves(div);
+            String lineResult = GetLine(div);
+            NUnit.Framework.Assert.AreNotEqual("One'two'", lineResult);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalizeTest15() {
+            inlineHelper = new WaitingInlineElementsHelper(null, null);
+            inlineHelper.Add(CreateText("( 4'", true));
+            inlineHelper.Add(CreateText("two') ", true));
+            inlineHelper.Add(CreateText("( one2(", true));
+            inlineHelper.Add(CreateText("two))", true));
+            Div div = new Div();
+            inlineHelper.FlushHangingLeaves(div);
+            String lineResult = GetLine(div);
+            NUnit.Framework.Assert.AreEqual("( 4'Two') ( One2(Two))", lineResult);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalizeTest16() {
+            inlineHelper = new WaitingInlineElementsHelper(null, null);
+            inlineHelper.Add(CreateText("(!one", true));
+            inlineHelper.Add(CreateText("!two) ", true));
+            inlineHelper.Add(CreateText("( one:", true));
+            inlineHelper.Add(CreateText(":two) ", true));
+            inlineHelper.Add(CreateText("( one:", true));
+            inlineHelper.Add(CreateText("-two)", true));
+            Div div = new Div();
+            inlineHelper.FlushHangingLeaves(div);
+            String lineResult = GetLine(div);
+            NUnit.Framework.Assert.AreEqual("(!One!Two) ( One::Two) ( One:-Two)", lineResult);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalizeTest17() {
+            inlineHelper = new WaitingInlineElementsHelper(null, null);
+            inlineHelper.Add(CreateText("( one:'", true));
+            inlineHelper.Add(CreateText("two') ", true));
+            inlineHelper.Add(CreateText("( one(", true));
+            inlineHelper.Add(CreateText("two))", true));
+            Div div = new Div();
+            inlineHelper.FlushHangingLeaves(div);
+            String lineResult = GetLine(div);
+            NUnit.Framework.Assert.AreEqual("( One:'Two') ( One(Two))", lineResult);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalizeTest18() {
+            inlineHelper = new WaitingInlineElementsHelper(null, null);
+            inlineHelper.Add(CreateText("( one,", true));
+            inlineHelper.Add(CreateText("two) ", true));
+            inlineHelper.Add(CreateText("( one", true));
+            inlineHelper.Add(CreateText("~two)", true));
+            Div div = new Div();
+            inlineHelper.FlushHangingLeaves(div);
+            String lineResult = GetLine(div);
+            NUnit.Framework.Assert.AreEqual("( One,Two) ( One~Two)", lineResult);
+        }
+
         private Text CreateText(String text, bool capitalizeProperty) {
             Text element = new Text(text);
             element.SetProperty(Html2PdfProperty.CAPITALIZE_ELEMENT, capitalizeProperty);
