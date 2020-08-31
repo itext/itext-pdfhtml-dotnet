@@ -119,7 +119,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
         }
 
-        // TODO  according specs 'At least one of the "data" or "type" attribute MUST be defined.'
+        // TODO DEVSIX-4460. According specs 'At least one of the "data" or "type" attribute MUST be defined.'
         private bool IsSvgImage(String typeAttribute) {
             return AttributeConstants.ObjectTypes.SVGIMAGE.Equals(typeAttribute);
         }
