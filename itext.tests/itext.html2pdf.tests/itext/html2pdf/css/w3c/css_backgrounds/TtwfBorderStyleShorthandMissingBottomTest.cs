@@ -24,9 +24,9 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
-    public class TtwfCss3backgroundBorderColorShorthandMissingBottomTest : W3CCssTest {
+    public class TtwfBorderStyleShorthandMissingBottomTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
-            return "ttwf-css3background-border-color-shorthand-missing-bottom.htm";
+            return "ttwf-border-style-shorthand-missing-bottom.htm";
         }
     }
 }
