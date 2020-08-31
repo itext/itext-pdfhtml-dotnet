@@ -44,6 +44,7 @@ using System;
 using System.IO;
 using iText.Kernel.Utils;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf {
     public class BackgroundTest : ExtendedITextTest {
@@ -64,7 +65,69 @@ namespace iText.Html2pdf {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "backgroundsize01.html"), new FileInfo(destinationFolder
                  + "backgroundsize01.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "backgroundsize01.pdf"
-                , sourceFolder + "cmp_backgroundsize01.pdf", destinationFolder, "diff01_"));
+                , sourceFolder + "cmp_backgroundsize01.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundAttachmentMarginRoot1Test() {
+            // TODO DEVSIX-1708 support background-size
+            // TODO DEVSIX-2027 process multiple backgrounds
+            String testName = "backgroundAttachmentMarginRoot1";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundAttachmentMarginRoot2Test() {
+            // TODO DEVSIX-1708 support background-size
+            // TODO DEVSIX-2027 process multiple backgrounds
+            String testName = "backgroundAttachmentMarginRoot2";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundColorBodyDisplayContentsTest() {
+            // TODO DEVSIX-4445 support display: contents
+            String testName = "backgroundColorBodyDisplayContents";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundMarginHtmlTest() {
+            String testName = "backgroundMarginHtml";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        // TODO DEVSIX-4426 support rotateZ() - remove log message after fixing
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        public virtual void BackgroundTransformedRootTest() {
+            String testName = "backgroundTransformedRoot";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundWillChangeRootTest() {
+            // TODO DEVSIX-4448 support will-change CSS property
+            String testName = "backgroundWillChangeRoot";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
+                 + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
         }
     }
 }
