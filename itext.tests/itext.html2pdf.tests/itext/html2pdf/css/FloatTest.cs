@@ -493,6 +493,11 @@ namespace iText.Html2pdf.Css {
             RunTest("floatCaption01Test", "diff_floatCaption01Test_");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void PlainTextIndentAfterBlockAndFloatTest() {
+            RunTest("plainTextIndentAfterBlockAndFloat", "diff_plainTextIndentAfterBlockAndFloat_");
+        }
+
         private void RunTest(String testName, String diff) {
             String htmlName = sourceFolder + testName + ".html";
             String outFileName = destinationFolder + testName + ".pdf";
