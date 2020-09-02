@@ -76,7 +76,7 @@ namespace iText.Html2pdf {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
                  + testName + ".pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+                 + "cmp_" + testName + ".pdf", destinationFolder));
         }
 
         [NUnit.Framework.Test]
@@ -87,7 +87,7 @@ namespace iText.Html2pdf {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
                  + testName + ".pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+                 + "cmp_" + testName + ".pdf", destinationFolder));
         }
 
         [NUnit.Framework.Test]
@@ -97,7 +97,7 @@ namespace iText.Html2pdf {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
                  + testName + ".pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+                 + "cmp_" + testName + ".pdf", destinationFolder));
         }
 
         [NUnit.Framework.Test]
@@ -106,7 +106,7 @@ namespace iText.Html2pdf {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
                  + testName + ".pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+                 + "cmp_" + testName + ".pdf", destinationFolder));
         }
 
         [NUnit.Framework.Test]
@@ -117,7 +117,7 @@ namespace iText.Html2pdf {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
                  + testName + ".pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+                 + "cmp_" + testName + ".pdf", destinationFolder));
         }
 
         [NUnit.Framework.Test]
@@ -127,7 +127,7 @@ namespace iText.Html2pdf {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
                  + testName + ".pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + testName + "cmp_backgroundAttachmentMarginRoot1.pdf", destinationFolder));
+                 + "cmp_" + testName + ".pdf", destinationFolder));
         }
     }
 }
