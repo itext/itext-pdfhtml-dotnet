@@ -250,7 +250,7 @@ namespace iText.Html2pdf.Css.Resolve {
                         }
                     }
                     else {
-                        if (HtmlUtils.IsStyleSheetLink(headChildElement)) {
+                        if (CssUtils.IsStyleSheetLink(headChildElement)) {
                             String styleSheetUri = headChildElement.GetAttribute(AttributeConstants.HREF);
                             try {
                                 using (Stream stream = resourceResolver.RetrieveResourceAsInputStream(styleSheetUri)) {

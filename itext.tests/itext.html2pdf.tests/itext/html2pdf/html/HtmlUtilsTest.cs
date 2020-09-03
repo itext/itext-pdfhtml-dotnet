@@ -40,32 +40,22 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-using System;
+using iText.StyledXmlParser;
 using iText.StyledXmlParser.Css.Util;
-using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
+using iText.Test;
 
 namespace iText.Html2pdf.Html {
-    /// <summary>Utilities class with HTML-related functionality.</summary>
-    public sealed class HtmlUtils {
-        /// <summary>
-        /// Creates a new
-        /// <see cref="HtmlUtils"/>
-        /// instance.
-        /// </summary>
-        private HtmlUtils() {
-        }
-
-        /// <summary>
-        /// Checks if an
-        /// <see cref="iText.StyledXmlParser.Node.IElementNode"/>
-        /// represents a style sheet link.
-        /// </summary>
-        /// <param name="headChildElement">the head child element</param>
-        /// <returns>true, if the element node represents a style sheet link</returns>
-        [System.ObsoleteAttribute(@"Will be replaced by theiText.StyledXmlParser.Css.Util.CssUtils.IsStyleSheetLink(iText.StyledXmlParser.Node.IElementNode) in update 7.2."
-            )]
-        public static bool IsStyleSheetLink(IElementNode headChildElement) {
-            return CssUtils.IsStyleSheetLink(headChildElement);
+    public class HtmlUtilsTest : ExtendedITextTest {
+        [NUnit.Framework.Test]
+        public virtual void CompareIsStyleSheetLinkResult() {
+            iText.StyledXmlParser.Jsoup.Nodes.Element element = new iText.StyledXmlParser.Jsoup.Nodes.Element(iText.StyledXmlParser.Jsoup.Parser.Tag
+                .ValueOf("link"), "");
+            element.Attr(CommonAttributeConstants.REL, CommonAttributeConstants.STYLESHEET);
+            JsoupElementNode elementNode = new JsoupElementNode(element);
+            bool expected = CssUtils.IsStyleSheetLink(elementNode);
+            bool actual = HtmlUtils.IsStyleSheetLink(elementNode);
+            NUnit.Framework.Assert.AreEqual(actual, expected);
         }
     }
 }
