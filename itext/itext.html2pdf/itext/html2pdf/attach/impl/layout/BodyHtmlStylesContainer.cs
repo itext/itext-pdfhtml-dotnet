@@ -143,8 +143,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     return true;
                 }
             }
-            return this.GetOwnProperty<Background>(Property.BACKGROUND) != null || this.GetOwnProperty<BackgroundImage
-                >(Property.BACKGROUND_IMAGE) != null;
+            return this.GetOwnProperty<Background>(Property.BACKGROUND) != null || this.GetOwnProperty<Object>(Property
+                .BACKGROUND_IMAGE) != null;
         }
 
         /// <summary>This method is needed to check if there are styles applied on the current element.</summary>
@@ -156,8 +156,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     return true;
                 }
             }
-            return this.GetOwnProperty<Background>(Property.BACKGROUND) != null || this.GetOwnProperty<BackgroundImage
-                >(Property.BACKGROUND_IMAGE) != null;
+            return this.GetOwnProperty<Background>(Property.BACKGROUND) != null || this.GetOwnProperty<Object>(Property
+                .BACKGROUND_IMAGE) != null;
         }
 
         /// <summary>

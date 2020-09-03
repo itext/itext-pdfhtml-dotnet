@@ -22,9 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
     // TODO DEVSIX-1457 support background-position
+    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
     public class BackgroundPositionNegativePercentageComparisonTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "background-position-negative-percentage-comparison.html";

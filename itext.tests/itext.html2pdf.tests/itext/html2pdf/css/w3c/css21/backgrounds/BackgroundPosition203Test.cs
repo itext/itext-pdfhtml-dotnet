@@ -27,6 +27,8 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.W3c.Css21.Backgrounds {
     // TODO DEVSIX-1457. Background-position isn't supported
     [LogMessage(iText.StyledXmlParser.LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES
+        , Count = 3)]
+    [LogMessage(iText.StyledXmlParser.LogMessageConstant.ONLY_THE_LAST_BACKGROUND_CAN_INCLUDE_BACKGROUND_COLOR
         )]
     public class BackgroundPosition203Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {

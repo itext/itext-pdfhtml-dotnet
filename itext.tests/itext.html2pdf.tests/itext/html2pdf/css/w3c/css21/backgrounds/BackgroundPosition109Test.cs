@@ -22,9 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Backgrounds {
     // TODO DEVSIX-1457. Background-position isn't supported
+    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
     public class BackgroundPosition109Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "background-position-109.xht";

@@ -51,7 +51,6 @@ using iText.Kernel.Colors.Gradients;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Properties;
-using iText.StyledXmlParser.Css.Parse;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Exceptions;
 
@@ -76,6 +75,81 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static void ApplyBackground(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             String backgroundColorStr = cssProps.Get(CssConstants.BACKGROUND_COLOR);
+            ApplyBackgroundColor(backgroundColorStr, element);
+            String backgroundImagesStr = cssProps.Get(CssConstants.BACKGROUND_IMAGE);
+            String backgroundRepeatStr = cssProps.Get(CssConstants.BACKGROUND_REPEAT);
+            IList<BackgroundImage> backgroundImagesList = new List<BackgroundImage>();
+            String[] backgroundImagesArray = SplitStringWithComma(backgroundImagesStr);
+            String[] backgroundRepeatArray = SplitStringWithComma(backgroundRepeatStr);
+            for (int i = 0; i < backgroundImagesArray.Length; ++i) {
+                if (backgroundImagesArray[i] == null || CssConstants.NONE.Equals(backgroundImagesArray[i])) {
+                    continue;
+                }
+                if (CssGradientUtil.IsCssLinearGradientValue(backgroundImagesArray[i])) {
+                    ApplyLinearGradient(cssProps, context, backgroundImagesArray, backgroundImagesList, i);
+                }
+                else {
+                    BackgroundRepeat repeat = ApplyBackgroundRepeat(backgroundRepeatArray, i);
+                    ApplyBackgroundImage(context, backgroundImagesArray, backgroundImagesList, i, repeat);
+                }
+            }
+            if (!backgroundImagesList.IsEmpty()) {
+                element.SetProperty(Property.BACKGROUND_IMAGE, backgroundImagesList);
+            }
+        }
+
+        internal static String[] SplitStringWithComma(String value) {
+            if (value == null) {
+                return new String[0];
+            }
+            IList<String> resultList = new List<String>();
+            int lastComma = 0;
+            int notClosedBrackets = 0;
+            for (int i = 0; i < value.Length; ++i) {
+                if (value[i] == ',' && notClosedBrackets == 0) {
+                    resultList.Add(value.JSubstring(lastComma, i));
+                    lastComma = i + 1;
+                }
+                if (value[i] == '(') {
+                    ++notClosedBrackets;
+                }
+                if (value[i] == ')') {
+                    --notClosedBrackets;
+                    notClosedBrackets = Math.Max(notClosedBrackets, 0);
+                }
+            }
+            String lastToken = value.Substring(lastComma);
+            if (!String.IsNullOrEmpty(lastToken)) {
+                resultList.Add(lastToken);
+            }
+            return resultList.ToArray(new String[0]);
+        }
+
+        private static BackgroundRepeat ApplyBackgroundRepeat(String[] backgroundRepeatArray, int iteration) {
+            int index = GetBackgroundSidePropertyIndex(backgroundRepeatArray, iteration);
+            if (index != -1) {
+                bool repeatX = CssConstants.REPEAT.Equals(backgroundRepeatArray[index]) || CssConstants.REPEAT_X.Equals(backgroundRepeatArray
+                    [index]);
+                bool repeatY = CssConstants.REPEAT.Equals(backgroundRepeatArray[index]) || CssConstants.REPEAT_Y.Equals(backgroundRepeatArray
+                    [index]);
+                return new BackgroundRepeat(repeatX, repeatY);
+            }
+            return new BackgroundRepeat(true, true);
+        }
+
+        private static int GetBackgroundSidePropertyIndex(String[] backgroundPropertyArray, int iteration) {
+            if (backgroundPropertyArray.Length > 0) {
+                if (backgroundPropertyArray.Length > iteration) {
+                    return iteration;
+                }
+                else {
+                    return 0;
+                }
+            }
+            return -1;
+        }
+
+        private static void ApplyBackgroundColor(String backgroundColorStr, IPropertyContainer element) {
             if (backgroundColorStr != null && !CssConstants.TRANSPARENT.Equals(backgroundColorStr)) {
                 float[] rgbaColor = CssUtils.ParseRgbaColor(backgroundColorStr);
                 Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
@@ -83,62 +157,41 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 Background backgroundColor = new Background(color, opacity);
                 element.SetProperty(Property.BACKGROUND, backgroundColor);
             }
-            String backgroundImageStr = cssProps.Get(CssConstants.BACKGROUND_IMAGE);
-            // TODO: DEVSIX-2027 ignore multiple backgrounds at the moment
-            if (backgroundImageStr != null) {
-                CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(backgroundImageStr);
-                CssDeclarationValueTokenizer.Token currentToken = tokenizer.GetNextValidToken();
-                while (currentToken != null && currentToken.GetType() == CssDeclarationValueTokenizer.TokenType.COMMA) {
-                    currentToken = tokenizer.GetNextValidToken();
-                }
-                backgroundImageStr = currentToken != null ? currentToken.GetValue() : null;
-            }
-            BackgroundImage backgroundImage = null;
-            if (backgroundImageStr != null && !CssConstants.NONE.Equals(backgroundImageStr)) {
-                bool repeatX = true;
-                bool repeatY = true;
-                String backgroundRepeatStr = cssProps.Get(CssConstants.BACKGROUND_REPEAT);
-                if (backgroundRepeatStr != null) {
-                    repeatX = CssConstants.REPEAT.Equals(backgroundRepeatStr) || CssConstants.REPEAT_X.Equals(backgroundRepeatStr
-                        );
-                    repeatY = CssConstants.REPEAT.Equals(backgroundRepeatStr) || CssConstants.REPEAT_Y.Equals(backgroundRepeatStr
-                        );
-                }
-                if (CssGradientUtil.IsCssLinearGradientValue(backgroundImageStr)) {
-                    float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
-                    float rem = context.GetCssContext().GetRootFontSize();
-                    try {
-                        StrategyBasedLinearGradientBuilder gradientBuilder = CssGradientUtil.ParseCssLinearGradient(backgroundImageStr
-                            , em, rem);
-                        if (gradientBuilder != null) {
-                            backgroundImage = new BackgroundImage(gradientBuilder);
-                        }
-                    }
-                    catch (StyledXMLParserException) {
-                        LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, backgroundImageStr
-                            ));
-                    }
+        }
+
+        private static void ApplyBackgroundImage(ProcessorContext context, String[] backgroundImagesArray, IList<BackgroundImage
+            > backgroundImagesList, int i, BackgroundRepeat repeat) {
+            PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImagesArray
+                [i]));
+            if (image != null) {
+                if (image is PdfImageXObject) {
+                    backgroundImagesList.Add(new BackgroundApplierUtil.HtmlBackgroundImage((PdfImageXObject)image, repeat));
                 }
                 else {
-                    PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImageStr
-                        ));
-                    if (image != null) {
-                        if (image is PdfImageXObject) {
-                            backgroundImage = new BackgroundApplierUtil.HtmlBackgroundImage((PdfImageXObject)image, repeatX, repeatY);
-                        }
-                        else {
-                            if (image is PdfFormXObject) {
-                                backgroundImage = new BackgroundApplierUtil.HtmlBackgroundImage((PdfFormXObject)image, repeatX, repeatY);
-                            }
-                            else {
-                                throw new InvalidOperationException();
-                            }
-                        }
+                    if (image is PdfFormXObject) {
+                        backgroundImagesList.Add(new BackgroundApplierUtil.HtmlBackgroundImage((PdfFormXObject)image, repeat));
+                    }
+                    else {
+                        throw new InvalidOperationException();
                     }
                 }
             }
-            if (backgroundImage != null) {
-                element.SetProperty(Property.BACKGROUND_IMAGE, backgroundImage);
+        }
+
+        private static void ApplyLinearGradient(IDictionary<String, String> cssProps, ProcessorContext context, String
+            [] backgroundImagesArray, IList<BackgroundImage> backgroundImagesList, int i) {
+            float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            float rem = context.GetCssContext().GetRootFontSize();
+            try {
+                StrategyBasedLinearGradientBuilder gradientBuilder = CssGradientUtil.ParseCssLinearGradient(backgroundImagesArray
+                    [i], em, rem);
+                if (gradientBuilder != null) {
+                    backgroundImagesList.Add(new BackgroundImage(gradientBuilder));
+                }
+            }
+            catch (StyledXMLParserException) {
+                LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, backgroundImagesArray
+                    [i]));
             }
         }
 
@@ -153,13 +206,77 @@ namespace iText.Html2pdf.Css.Apply.Util {
             /// </summary>
             private double dimensionMultiplier = 1;
 
-            public HtmlBackgroundImage(PdfImageXObject xObject, bool repeatX, bool repeatY)
-                : base(xObject, repeatX, repeatY) {
+            /// <summary>
+            /// Creates a new
+            /// <see cref="HtmlBackgroundImage"/>
+            /// instance.
+            /// </summary>
+            /// <param name="xObject">
+            /// background image property.
+            /// <see cref="iText.Kernel.Pdf.Xobject.PdfImageXObject"/>
+            /// instance.
+            /// </param>
+            /// <param name="repeat">
+            /// background repeat property.
+            /// <see cref="iText.Layout.Properties.BackgroundRepeat"/>
+            /// instance.
+            /// </param>
+            public HtmlBackgroundImage(PdfImageXObject xObject, BackgroundRepeat repeat)
+                : base(xObject, repeat) {
                 dimensionMultiplier = PX_TO_PT_MULTIPLIER;
             }
 
+            /// <summary>
+            /// Creates a new
+            /// <see cref="HtmlBackgroundImage"/>
+            /// instance.
+            /// </summary>
+            /// <param name="xObject">
+            /// background-image property.
+            /// <see cref="iText.Kernel.Pdf.Xobject.PdfFormXObject"/>
+            /// instance.
+            /// </param>
+            /// <param name="repeat">
+            /// background-repeat property.
+            /// <see cref="iText.Layout.Properties.BackgroundRepeat"/>
+            /// instance.
+            /// </param>
+            public HtmlBackgroundImage(PdfFormXObject xObject, BackgroundRepeat repeat)
+                : base(xObject, repeat) {
+            }
+
+            /// <summary>
+            /// Creates a new
+            /// <see cref="HtmlBackgroundImage"/>
+            /// instance.
+            /// </summary>
+            /// <param name="xObject">
+            /// background image property.
+            /// <see cref="iText.Kernel.Pdf.Xobject.PdfImageXObject"/>
+            /// instance.
+            /// </param>
+            /// <param name="repeatX">is background is repeated in x dimension.</param>
+            /// <param name="repeatY">is background is repeated in y dimension.</param>
+            [System.ObsoleteAttribute(@"Remove this constructor in 7.2.")]
+            public HtmlBackgroundImage(PdfImageXObject xObject, bool repeatX, bool repeatY)
+                : this(xObject, new BackgroundRepeat(repeatX, repeatY)) {
+            }
+
+            /// <summary>
+            /// Creates a new
+            /// <see cref="HtmlBackgroundImage"/>
+            /// instance.
+            /// </summary>
+            /// <param name="xObject">
+            /// background-image property.
+            /// <see cref="iText.Kernel.Pdf.Xobject.PdfFormXObject"/>
+            /// instance.
+            /// </param>
+            /// <param name="repeatX">is background is repeated in x dimension.</param>
+            /// <param name="repeatY">is background is repeated in y dimension.</param>
+            [System.ObsoleteAttribute(@"Remove this constructor in 7.2.")]
             public HtmlBackgroundImage(PdfFormXObject xObject, bool repeatX, bool repeatY)
-                : base(xObject, repeatX, repeatY) {
+                : this(xObject, new BackgroundRepeat(repeatX, repeatY)) {
             }
 
             public override float GetWidth() {

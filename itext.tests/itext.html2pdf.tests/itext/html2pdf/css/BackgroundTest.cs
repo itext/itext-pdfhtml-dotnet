@@ -42,12 +42,12 @@ address: sales@itextpdf.com
 */
 using System;
 using System.IO;
+using iText.Html2pdf;
 using iText.Kernel.Utils;
-using iText.Test;
 using iText.Test.Attributes;
 
-namespace iText.Html2pdf {
-    public class BackgroundTest : ExtendedITextTest {
+namespace iText.Html2pdf.Css {
+    public class BackgroundTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/BackgroundTest/";
 
@@ -71,63 +71,110 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         public virtual void BackgroundAttachmentMarginRoot1Test() {
             // TODO DEVSIX-1708 support background-size
-            // TODO DEVSIX-2027 process multiple backgrounds
-            String testName = "backgroundAttachmentMarginRoot1";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder));
+            ConvertToPdfAndCompare("backgroundAttachmentMarginRoot1", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void BackgroundAttachmentMarginRoot2Test() {
             // TODO DEVSIX-1708 support background-size
-            // TODO DEVSIX-2027 process multiple backgrounds
-            String testName = "backgroundAttachmentMarginRoot2";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder));
+            ConvertToPdfAndCompare("backgroundAttachmentMarginRoot2", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void BackgroundColorBodyDisplayContentsTest() {
             // TODO DEVSIX-4445 support display: contents
-            String testName = "backgroundColorBodyDisplayContents";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder));
+            ConvertToPdfAndCompare("backgroundColorBodyDisplayContents", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void BackgroundMarginHtmlTest() {
-            String testName = "backgroundMarginHtml";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder));
+            ConvertToPdfAndCompare("backgroundMarginHtml", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         // TODO DEVSIX-4426 support rotateZ() - remove log message after fixing
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void BackgroundTransformedRootTest() {
-            String testName = "backgroundTransformedRoot";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder));
+            ConvertToPdfAndCompare("backgroundTransformedRoot", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void BackgroundWillChangeRootTest() {
             // TODO DEVSIX-4448 support will-change CSS property
-            String testName = "backgroundWillChangeRoot";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder));
+            ConvertToPdfAndCompare("backgroundWillChangeRoot", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundSoloImageTest() {
+            ConvertToPdfAndCompare("background_solo_image", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.ONLY_THE_LAST_BACKGROUND_CAN_INCLUDE_BACKGROUND_COLOR
+            )]
+        public virtual void BackgroundImageAndColorNotLastTest() {
+            ConvertToPdfAndCompare("background_image_and_color_not_last", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        public virtual void BackgroundImageAndColorsTest() {
+            ConvertToPdfAndCompare("background_image_and_colors", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundSoloImageWithNoRepeatTest() {
+            ConvertToPdfAndCompare("background_solo_image_with_no_repeat", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundSoloImageWithNoRepeatAndColorTest() {
+            ConvertToPdfAndCompare("background_solo_image_with_no_repeat_and_color", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundMultiImageTest() {
+            ConvertToPdfAndCompare("background_multi_image", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundTransparentAndNotTransparentImagesTest() {
+            ConvertToPdfAndCompare("backgroundTransparentAndNotTransparentImages", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundTwoTransparentImagesAndColorTest() {
+            ConvertToPdfAndCompare("backgroundTwoTransparentImagesAndColor", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundShorthandOnlyImageTest() {
+            ConvertToPdfAndCompare("backgroundShorthandOnlyImage", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundShorthandImageRepeatAndColorTest() {
+            ConvertToPdfAndCompare("backgroundShorthandImageRepeatAndColor", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundShorthandTwoImageWithRepeatAndColorTest() {
+            ConvertToPdfAndCompare("backgroundShorthandTwoImageWithRepeatAndColor", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundShorthandThreeImagesWithOneRepeatTest() {
+            ConvertToPdfAndCompare("backgroundShorthandThreeImagesWithOneRepeat", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundShorthandAndPropertyTest() {
+            ConvertToPdfAndCompare("backgroundShorthandAndProperty", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundPropertyAndShorthandTest() {
+            ConvertToPdfAndCompare("backgroundPropertyAndShorthand", sourceFolder, destinationFolder);
         }
     }
 }
