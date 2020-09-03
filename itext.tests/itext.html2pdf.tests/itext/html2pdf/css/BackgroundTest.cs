@@ -176,5 +176,15 @@ namespace iText.Html2pdf.Css {
         public virtual void BackgroundPropertyAndShorthandTest() {
             ConvertToPdfAndCompare("backgroundPropertyAndShorthand", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundSvgTest() {
+            // TODO DEVSIX-3108. Background with FormXObject isn't processed properly because of scaling
+            String testName = "backgroundSvgTest";
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".xht"), new FileInfo(destinationFolder 
+                + testName + ".pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
+                 + "cmp_" + testName + ".pdf", destinationFolder));
+        }
     }
 }
