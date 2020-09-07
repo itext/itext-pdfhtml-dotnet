@@ -22,18 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
     public class LineHeight102Test : W3CCssAhemFontTest {
         protected internal override String GetHtmlFileName() {
             return "line-height-102.xht";
-        }
-
-        [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
-        public override void Test() {
-            base.Test();
         }
     }
 }
