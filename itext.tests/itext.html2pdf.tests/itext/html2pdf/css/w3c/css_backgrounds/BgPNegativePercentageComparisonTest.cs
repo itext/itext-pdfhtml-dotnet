@@ -22,13 +22,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
     // TODO DEVSIX-1457 support background-position
-    // PDF and HTML look pretty the same but background-position is not supported
-    public class BackgroundPositionSubpixelAtBorderTentativeTest : W3CCssTest {
+    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+    public class BgPNegativePercentageComparisonTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
-            return "background-position-subpixel-at-border.tentative.html";
+            return "background-position-negative-percentage-comparison.html";
         }
     }
 }
