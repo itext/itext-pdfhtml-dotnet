@@ -179,7 +179,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BackgroundSvgTest() {
-            // TODO DEVSIX-3108. Background with FormXObject isn't processed properly because of scaling
             String testName = "backgroundSvgTest";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".xht"), new FileInfo(destinationFolder 
                 + testName + ".pdf"));
