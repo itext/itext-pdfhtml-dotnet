@@ -44,7 +44,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Text {
-    public class TextIndentIntrinsic003Test : W3CCssAhemFontTest {
+    public class TextIndentIntrinsic003Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "text-indent-intrinsic-003.xht";
         }

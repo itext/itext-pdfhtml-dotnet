@@ -27,7 +27,7 @@ namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
     // There is a slight difference between the appearance of the HTML and the output PDF.
     // This is due to the fact that no font is specified in the html,
     // and browsers and iText by default use different fonts from the Times font family.
-    public class LineHeightLargest001Test : W3CCssAhemFontTest {
+    public class LineHeightLargest001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "line-height-largest-001.xht";
         }

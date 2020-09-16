@@ -44,7 +44,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Text {
-    public class WhiteSpaceNormal001Test : W3CCssAhemFontTest {
+    public class WhiteSpaceNormal001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "white-space-normal-001.xht";
         }

@@ -26,7 +26,7 @@ using iText.Html2pdf.Css.W3c;
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
     // TODO DEVSIX-4384 box-shadow is not supported
     // Note that the font Ahem must be installed on your system to view valid HTML
-    public class BoxShadowOverlapping002Test : W3CCssAhemFontTest {
+    public class BoxShadowOverlapping002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "box-shadow-overlapping-002.html";
         }

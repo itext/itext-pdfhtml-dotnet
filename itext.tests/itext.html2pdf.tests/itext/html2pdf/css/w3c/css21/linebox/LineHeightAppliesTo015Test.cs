@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
-    public class LineHeightAppliesTo015Test : W3CCssAhemFontTest {
+    public class LineHeightAppliesTo015Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "line-height-applies-to-015.xht";
         }

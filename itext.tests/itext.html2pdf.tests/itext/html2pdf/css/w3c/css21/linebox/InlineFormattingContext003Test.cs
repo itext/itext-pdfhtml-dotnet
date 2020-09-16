@@ -25,7 +25,7 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
     //TODO: update cmp file after DEVSIX-2485 will be fixed
-    public class InlineFormattingContext003Test : W3CCssAhemFontTest {
+    public class InlineFormattingContext003Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "inline-formatting-context-003.xht";
         }

@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
-    public class ScrollableOverflowTentativeTest : W3CCssAhemFontTest {
+    public class ScrollableOverflowTentativeTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "scrollable-overflow.tentative.html";
         }

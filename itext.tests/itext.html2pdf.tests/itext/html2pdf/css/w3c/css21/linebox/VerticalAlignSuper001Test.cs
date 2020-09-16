@@ -25,7 +25,7 @@ using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
-    public class VerticalAlignSuper001Test : W3CCssAhemFontTest {
+    public class VerticalAlignSuper001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "vertical-align-super-001.xht";
         }

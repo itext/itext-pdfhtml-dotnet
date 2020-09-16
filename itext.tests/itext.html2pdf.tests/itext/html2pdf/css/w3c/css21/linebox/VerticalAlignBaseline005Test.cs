@@ -25,7 +25,7 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
     // TODO DEVSIX-2485 update cmp file after completing the ticket
-    public class VerticalAlignBaseline005Test : W3CCssAhemFontTest {
+    public class VerticalAlignBaseline005Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "vertical-align-baseline-005.xht";
         }

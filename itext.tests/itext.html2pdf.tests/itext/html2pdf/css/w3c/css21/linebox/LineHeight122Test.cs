@@ -25,7 +25,7 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
     //TODO: update cmp pdf after fix DEVSIX-2485 (nesting in span)
-    public class LineHeight122Test : W3CCssAhemFontTest {
+    public class LineHeight122Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "line-height-122.xht";
         }

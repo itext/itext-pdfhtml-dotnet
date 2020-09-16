@@ -25,7 +25,7 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
     // TODO DEVSIX-2445, 2485 update cmp file after fixing tickets
-    public class LineHeightAppliesTo010Test : W3CCssAhemFontTest {
+    public class LineHeightAppliesTo010Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "line-height-applies-to-010.xht";
         }

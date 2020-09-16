@@ -25,7 +25,7 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
     //TODO: update cmp file after fixing DEVSIX-4405
-    public class LineHeightOofDescendants001Test : W3CCssAhemFontTest {
+    public class LineHeightOofDescendants001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "line-height-oof-descendants-001.html";
         }
