@@ -62,6 +62,12 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void SimpleVisibilityTest() {
+            // TODO DEVSIX-2090. This property with cols works only in firefox and only with collapse value.
+            ConvertToPdfAndCompare("simpleVisibilityTest", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void SimpleTdColspanTest() {
             ConvertToPdfAndCompare("simpleTdColspanTest", sourceFolder, destinationFolder);
         }
