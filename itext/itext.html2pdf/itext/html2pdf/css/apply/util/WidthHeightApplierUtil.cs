@@ -88,7 +88,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 UnitValue maxWidth = CssUtils.ParseLengthValueToPt(maxWidthVal, em, rem);
                 element.SetProperty(Property.MAX_WIDTH, maxWidth);
             }
-            // TODO consider display css property
             bool applyToTable = element is Table;
             bool applyToCell = element is Cell;
             UnitValue height = null;

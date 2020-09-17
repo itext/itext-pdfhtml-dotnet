@@ -53,7 +53,7 @@ using iText.StyledXmlParser.Node;
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>The Class HyphenationApplierUtil.</summary>
     public sealed class HyphenationApplierUtil {
-        // TODO these are css properties actually, but it is not supported by the browsers currently
+        // These are css properties actually, but it is not supported by the browsers currently
         /// <summary>The Constant HYPHENATE_BEFORE.</summary>
         private const int HYPHENATE_BEFORE = 2;
 
