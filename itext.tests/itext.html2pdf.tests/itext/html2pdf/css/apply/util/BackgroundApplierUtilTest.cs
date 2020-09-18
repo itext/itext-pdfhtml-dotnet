@@ -292,11 +292,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             public _BodyHtmlStylesContainer_250(String gradients, String otterFontSize) {
                 this.gradients = gradients;
                 this.otterFontSize = otterFontSize;
-                this.gradientsArray = BackgroundApplierUtil.SplitStringWithComma(gradients);
+                this.gradientsArray = CssUtils.SplitStringWithComma(gradients);
                 this.fontSize = CssUtils.ParseAbsoluteLength(otterFontSize);
             }
 
-            internal readonly String[] gradientsArray;
+            internal readonly IList<String> gradientsArray;
 
             internal readonly float fontSize;
 
@@ -304,7 +304,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);
                 NUnit.Framework.Assert.IsTrue(value is IList);
                 IList values = (IList)value;
-                NUnit.Framework.Assert.AreEqual(this.gradientsArray.Length, values.Count);
+                NUnit.Framework.Assert.AreEqual(this.gradientsArray.Count, values.Count);
                 for (int i = 0; i < values.Count; ++i) {
                     NUnit.Framework.Assert.IsTrue(values[i] is BackgroundImage);
                     AbstractLinearGradientBuilder builder = ((BackgroundImage)values[i]).GetLinearGradientBuilder();
@@ -371,27 +371,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             private readonly String otterGradient;
 
             private readonly String otterFontSize;
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void SplitStringWithCommaTest() {
-            NUnit.Framework.Assert.AreEqual(new List<String>(), JavaUtil.ArraysAsList(BackgroundApplierUtil.SplitStringWithComma
-                (null)));
-            NUnit.Framework.Assert.AreEqual(JavaUtil.ArraysAsList("value1", "value2", "value3"), JavaUtil.ArraysAsList
-                (BackgroundApplierUtil.SplitStringWithComma("value1,value2,value3")));
-            NUnit.Framework.Assert.AreEqual(JavaUtil.ArraysAsList("value1", " value2", " value3"), JavaUtil.ArraysAsList
-                (BackgroundApplierUtil.SplitStringWithComma("value1, value2, value3")));
-            NUnit.Framework.Assert.AreEqual(JavaUtil.ArraysAsList("value1", "(value,with,comma)", "value3"), JavaUtil.ArraysAsList
-                (BackgroundApplierUtil.SplitStringWithComma("value1,(value,with,comma),value3")));
-            NUnit.Framework.Assert.AreEqual(JavaUtil.ArraysAsList("value1", "(val(ue,with,comma),value3"), JavaUtil.ArraysAsList
-                (BackgroundApplierUtil.SplitStringWithComma("value1,(val(ue,with,comma),value3")));
-            NUnit.Framework.Assert.AreEqual(JavaUtil.ArraysAsList("value1", "(value,with)", "comma)", "value3"), JavaUtil.ArraysAsList
-                (BackgroundApplierUtil.SplitStringWithComma("value1,(value,with),comma),value3")));
-            NUnit.Framework.Assert.AreEqual(JavaUtil.ArraysAsList("value1", "( v2,v3)", "(v4, v5)", "value3"), JavaUtil.ArraysAsList
-                (BackgroundApplierUtil.SplitStringWithComma("value1,( v2,v3),(v4, v5),value3")));
-            NUnit.Framework.Assert.AreEqual(JavaUtil.ArraysAsList("v.al*ue1\"", "( v2,v3)", "\"(v4,v5;);", "value3"), 
-                JavaUtil.ArraysAsList(BackgroundApplierUtil.SplitStringWithComma("v.al*ue1\",( v2,v3),\"(v4,v5;);,value3"
-                )));
         }
     }
 }
