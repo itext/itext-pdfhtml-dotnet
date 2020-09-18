@@ -39,6 +39,134 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeColorTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeColor", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeColorBurnTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeColorBurn", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeColorDodgeTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeColorDodge", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeDarkenTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeDarken", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeDifferenceTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeDifference", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeExclusionTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeExclusion", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeHardLightTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeHardLight", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeHueTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeHue", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeLightenTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeLighten", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeLuminosityTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeLuminosity", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeMultiplyTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeMultiply", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeNormalTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeNormal", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeOverlayTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeOverlay", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeSaturationTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeSaturation", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeScreenTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeScreen", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeSoftLightTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeSoftLight", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void OneImageTwoBackgroundBlendModesTest() {
+            ConvertToPdfAndCompare("oneImageTwoBackgroundBlendModes", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TwoImagesOneBackgroundBlendModeTest() {
+            ConvertToPdfAndCompare("twoImagesOneBackgroundBlendMode", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageAndGradientWithBackgroundBlendModeTest() {
+            ConvertToPdfAndCompare("imageAndGradientWithBackgroundBlendMode", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PlacementOrderOfLayersAndBackgroundBlendModeTest() {
+            ConvertToPdfAndCompare("placementOrderOfLayersAndBackgroundBlendMode", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeTwoGradientsSaturationLuminosityTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeTwoGradientsSaturationLuminosity", sourceFolder, destinationFolder
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ThreeBackgroundBlendModesLastNormalTest() {
+            ConvertToPdfAndCompare("threeBackgroundBlendModesLastNormal", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ThreeBackgroundBlendModesSecondNormalTest() {
+            ConvertToPdfAndCompare("threeBackgroundBlendModesSecondNormal", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundBlendModeLetterCaseTest() {
+            ConvertToPdfAndCompare("backgroundBlendModeLetterCase", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, LogLevel = LogLevelConstants
+            .WARN, Count = 3)]
+        public virtual void InvalidBackgroundBlendModeTest() {
+            ConvertToPdfAndCompare("invalidBackgroundBlendMode", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void BackgroundImageLinearGradientTest() {
             ConvertToPdfAndCompare("background-blend-mode-two-gradients-darken-lighten", sourceFolder, destinationFolder
                 );
