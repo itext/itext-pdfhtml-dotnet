@@ -51,6 +51,7 @@ using iText.Kernel.Colors.Gradients;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Exceptions;
 
@@ -78,23 +79,32 @@ namespace iText.Html2pdf.Css.Apply.Util {
             ApplyBackgroundColor(backgroundColorStr, element);
             String backgroundImagesStr = cssProps.Get(CssConstants.BACKGROUND_IMAGE);
             String backgroundRepeatStr = cssProps.Get(CssConstants.BACKGROUND_REPEAT);
+            String backgroundPositionXStr = cssProps.Get(CssConstants.BACKGROUND_POSITION_X);
+            String backgroundPositionYStr = cssProps.Get(CssConstants.BACKGROUND_POSITION_Y);
             String backgroundBlendModeStr = cssProps.Get(CssConstants.BACKGROUND_BLEND_MODE);
             IList<BackgroundImage> backgroundImagesList = new List<BackgroundImage>();
             IList<String> backgroundImagesArray = CssUtils.SplitStringWithComma(backgroundImagesStr);
             IList<String> backgroundRepeatArray = CssUtils.SplitStringWithComma(backgroundRepeatStr);
+            IList<String> backgroundPositionXArray = CssUtils.SplitStringWithComma(backgroundPositionXStr);
+            IList<String> backgroundPositionYArray = CssUtils.SplitStringWithComma(backgroundPositionYStr);
             IList<String> backgroundBlendModeArray = CssUtils.SplitStringWithComma(backgroundBlendModeStr);
             for (int i = 0; i < backgroundImagesArray.Count; ++i) {
                 String backgroundImage = backgroundImagesArray[i];
                 if (backgroundImage == null || CssConstants.NONE.Equals(backgroundImage)) {
                     continue;
                 }
-                BlendMode backgroundBlendMode = ApplyBackgroundBlendMode(backgroundBlendModeArray, i);
+                String fontSize = cssProps.Get(CssConstants.FONT_SIZE);
+                float em = fontSize == null ? 0 : CssUtils.ParseAbsoluteLength(fontSize);
+                float rem = context.GetCssContext().GetRootFontSize();
+                BackgroundPosition position = ApplyBackgroundPosition(backgroundPositionXArray, backgroundPositionYArray, 
+                    i, em, rem);
+                BlendMode blendMode = ApplyBackgroundBlendMode(backgroundBlendModeArray, i);
                 if (CssGradientUtil.IsCssLinearGradientValue(backgroundImage)) {
-                    ApplyLinearGradient(cssProps, context, backgroundImage, backgroundBlendMode, backgroundImagesList);
+                    ApplyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem);
                 }
                 else {
                     BackgroundRepeat repeat = ApplyBackgroundRepeat(backgroundRepeatArray, i);
-                    ApplyBackgroundImage(context, backgroundImage, backgroundImagesList, repeat, backgroundBlendMode);
+                    ApplyBackgroundImage(context, backgroundImage, backgroundImagesList, repeat, blendMode, position);
                 }
             }
             if (!backgroundImagesList.IsEmpty()) {
@@ -120,7 +130,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             int notClosedBrackets = 0;
             for (int i = 0; i < value.Length; ++i) {
                 if (value[i] == ',' && notClosedBrackets == 0) {
-                    resultList.Add(value.JSubstring(lastComma, i));
+                    resultList.Add(value.JSubstring(lastComma, i).Trim());
                     lastComma = i + 1;
                 }
                 if (value[i] == '(') {
@@ -133,7 +143,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             String lastToken = value.Substring(lastComma);
             if (!String.IsNullOrEmpty(lastToken)) {
-                resultList.Add(lastToken);
+                resultList.Add(lastToken.Trim());
             }
             return resultList.ToArray(new String[0]);
         }
@@ -147,6 +157,80 @@ namespace iText.Html2pdf.Css.Apply.Util {
             return CssUtils.ParseBlendMode(cssValue);
         }
 
+        private static BackgroundPosition ApplyBackgroundPosition(IList<String> backgroundPositionXArray, IList<String
+            > backgroundPositionYArray, int i, float em, float rem) {
+            BackgroundPosition position = new BackgroundPosition();
+            int indexX = GetBackgroundSidePropertyIndex(backgroundPositionXArray, i);
+            if (indexX != -1) {
+                ApplyBackgroundPositionX(position, backgroundPositionXArray[indexX], em, rem);
+            }
+            int indexY = GetBackgroundSidePropertyIndex(backgroundPositionYArray, i);
+            if (indexY != -1) {
+                ApplyBackgroundPositionY(position, backgroundPositionYArray[indexY], em, rem);
+            }
+            return position;
+        }
+
+        private static void ApplyBackgroundPositionX(BackgroundPosition position, String xPosition, float em, float
+             rem) {
+            foreach (String value in iText.IO.Util.StringUtil.Split(xPosition, " ")) {
+                switch (value) {
+                    case CommonCssConstants.LEFT: {
+                        position.SetPositionX(BackgroundPosition.PositionX.LEFT);
+                        break;
+                    }
+
+                    case CommonCssConstants.RIGHT: {
+                        position.SetPositionX(BackgroundPosition.PositionX.RIGHT);
+                        break;
+                    }
+
+                    case CommonCssConstants.CENTER: {
+                        position.SetPositionX(BackgroundPosition.PositionX.CENTER);
+                        break;
+                    }
+
+                    default: {
+                        UnitValue unitValue = CssUtils.ParseLengthValueToPt(value, em, rem);
+                        if (unitValue != null) {
+                            position.SetXShift(unitValue);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        private static void ApplyBackgroundPositionY(BackgroundPosition position, String yPosition, float em, float
+             rem) {
+            foreach (String value in iText.IO.Util.StringUtil.Split(yPosition, " ")) {
+                switch (value) {
+                    case CommonCssConstants.TOP: {
+                        position.SetPositionY(BackgroundPosition.PositionY.TOP);
+                        break;
+                    }
+
+                    case CommonCssConstants.BOTTOM: {
+                        position.SetPositionY(BackgroundPosition.PositionY.BOTTOM);
+                        break;
+                    }
+
+                    case CommonCssConstants.CENTER: {
+                        position.SetPositionY(BackgroundPosition.PositionY.CENTER);
+                        break;
+                    }
+
+                    default: {
+                        UnitValue unitValue = CssUtils.ParseLengthValueToPt(value, em, rem);
+                        if (unitValue != null) {
+                            position.SetYShift(unitValue);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
         private static BackgroundRepeat ApplyBackgroundRepeat(IList<String> backgroundRepeatArray, int iteration) {
             int index = GetBackgroundSidePropertyIndex(backgroundRepeatArray, iteration);
             if (index != -1) {
@@ -156,7 +240,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     [index]);
                 return new BackgroundRepeat(repeatX, repeatY);
             }
-            return new BackgroundRepeat(true, true);
+            return new BackgroundRepeat();
         }
 
         private static int GetBackgroundSidePropertyIndex(IList<String> backgroundPropertyArray, int iteration) {
@@ -182,18 +266,19 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         private static void ApplyBackgroundImage(ProcessorContext context, String backgroundImage, IList<BackgroundImage
-            > backgroundImagesList, BackgroundRepeat repeat, BlendMode backgroundBlendMode) {
+            > backgroundImagesList, BackgroundRepeat repeat, BlendMode backgroundBlendMode, BackgroundPosition position
+            ) {
             PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImage
                 ));
             if (image != null) {
                 if (image is PdfImageXObject) {
-                    backgroundImagesList.Add(new BackgroundApplierUtil.HtmlBackgroundImage((PdfImageXObject)image, repeat, backgroundBlendMode
-                        ));
+                    backgroundImagesList.Add(new BackgroundApplierUtil.HtmlBackgroundImage((PdfImageXObject)image, repeat, position
+                        , backgroundBlendMode));
                 }
                 else {
                     if (image is PdfFormXObject) {
-                        backgroundImagesList.Add(new BackgroundApplierUtil.HtmlBackgroundImage((PdfFormXObject)image, repeat, backgroundBlendMode
-                            ));
+                        backgroundImagesList.Add(new BackgroundApplierUtil.HtmlBackgroundImage((PdfFormXObject)image, repeat, position
+                            , backgroundBlendMode));
                     }
                     else {
                         throw new InvalidOperationException();
@@ -202,15 +287,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        private static void ApplyLinearGradient(IDictionary<String, String> cssProps, ProcessorContext context, String
-             backgroundImage, BlendMode backgroundBlendMode, IList<BackgroundImage> backgroundImagesList) {
-            float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
-            float rem = context.GetCssContext().GetRootFontSize();
+        private static void ApplyLinearGradient(String backgroundImage, IList<BackgroundImage> backgroundImagesList
+            , BlendMode blendMode, BackgroundPosition position, float em, float rem) {
             try {
                 StrategyBasedLinearGradientBuilder gradientBuilder = CssGradientUtil.ParseCssLinearGradient(backgroundImage
                     , em, rem);
                 if (gradientBuilder != null) {
-                    backgroundImagesList.Add(new BackgroundImage(gradientBuilder, backgroundBlendMode));
+                    backgroundImagesList.Add(new BackgroundImage.Builder().SetLinearGradientBuilder(gradientBuilder).SetBackgroundBlendMode
+                        (blendMode).SetBackgroundPosition(position).Build());
                 }
             }
             catch (StyledXMLParserException) {
@@ -238,20 +322,26 @@ namespace iText.Html2pdf.Css.Apply.Util {
             /// <param name="xObject">
             /// background-image property.
             /// <see cref="iText.Kernel.Pdf.Xobject.PdfImageXObject"/>
-            /// instance
+            /// instance.
             /// </param>
             /// <param name="repeat">
             /// background-repeat property.
             /// <see cref="iText.Layout.Properties.BackgroundRepeat"/>
-            /// instance
+            /// instance.
+            /// </param>
+            /// <param name="position">
+            /// background-position property.
+            /// <see cref="iText.Layout.Properties.BackgroundPosition"/>
+            /// instance.
             /// </param>
             /// <param name="blendMode">
             /// background-blend-mode property.
             /// <see cref="iText.Layout.Properties.BlendMode"/>
-            /// instance
+            /// instance.
             /// </param>
-            public HtmlBackgroundImage(PdfImageXObject xObject, BackgroundRepeat repeat, BlendMode blendMode)
-                : base(xObject, repeat, blendMode) {
+            public HtmlBackgroundImage(PdfImageXObject xObject, BackgroundRepeat repeat, BackgroundPosition position, 
+                BlendMode blendMode)
+                : base(xObject, repeat, position, null, blendMode) {
                 dimensionMultiplier = PX_TO_PT_MULTIPLIER;
             }
 
@@ -263,20 +353,26 @@ namespace iText.Html2pdf.Css.Apply.Util {
             /// <param name="xObject">
             /// background-image property.
             /// <see cref="iText.Kernel.Pdf.Xobject.PdfFormXObject"/>
-            /// instance
+            /// instance.
             /// </param>
             /// <param name="repeat">
             /// background-repeat property.
             /// <see cref="iText.Layout.Properties.BackgroundRepeat"/>
-            /// instance
+            /// instance.
+            /// </param>
+            /// <param name="position">
+            /// background-position property.
+            /// <see cref="iText.Layout.Properties.BackgroundPosition"/>
+            /// instance.
             /// </param>
             /// <param name="blendMode">
             /// background-blend-mode property.
             /// <see cref="iText.Layout.Properties.BlendMode"/>
-            /// instance
+            /// instance.
             /// </param>
-            public HtmlBackgroundImage(PdfFormXObject xObject, BackgroundRepeat repeat, BlendMode blendMode)
-                : base(xObject, repeat, blendMode) {
+            public HtmlBackgroundImage(PdfFormXObject xObject, BackgroundRepeat repeat, BackgroundPosition position, BlendMode
+                 blendMode)
+                : base(xObject, repeat, position, null, blendMode) {
             }
 
             public override float GetWidth() {

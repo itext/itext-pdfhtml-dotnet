@@ -148,6 +148,62 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void BackgroundPositionTest() {
+            ConvertToPdfAndCompare("backgroundPosition", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundGradientPositionTest() {
+            ConvertToPdfAndCompare("backgroundGradientPosition", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundGradientWithPercentagePositionTest() {
+            ConvertToPdfAndCompare("backgroundGradientWithPercentagePosition", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundPositionWithoutYTest() {
+            ConvertToPdfAndCompare("backgroundPositionWithoutY", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundPositionXTest() {
+            ConvertToPdfAndCompare("backgroundPositionX", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundPositionYTest() {
+            ConvertToPdfAndCompare("backgroundPositionY", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundPositionXYTest() {
+            ConvertToPdfAndCompare("backgroundPositionXY", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundComplicatedPositionXYTest() {
+            // html works inappropriate in chrome.
+            ConvertToPdfAndCompare("backgroundComplicatedPositionXY", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundPositionXAndPositionTest() {
+            ConvertToPdfAndCompare("backgroundPositionXAndPosition", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundPositionAndPositionXTest() {
+            ConvertToPdfAndCompare("backgroundPositionAndPositionX", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundPositionInheritAndInitialTest() {
+            ConvertToPdfAndCompare("backgroundPositionInheritAndInitial", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void BackgroundShorthandOnlyImageTest() {
             ConvertToPdfAndCompare("backgroundShorthandOnlyImage", sourceFolder, destinationFolder);
         }
