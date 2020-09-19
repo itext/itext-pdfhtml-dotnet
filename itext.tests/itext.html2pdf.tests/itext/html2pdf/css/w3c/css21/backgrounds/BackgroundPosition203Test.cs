@@ -25,9 +25,10 @@ using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Backgrounds {
-    // TODO DEVSIX-1457. Background-position isn't supported
+    // TODO DEVSIX-2431 Positioned elements are lost when block is split across pages.
     [LogMessage(iText.StyledXmlParser.LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES
         , Count = 3)]
+    [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 18)]
     [LogMessage(iText.StyledXmlParser.LogMessageConstant.ONLY_THE_LAST_BACKGROUND_CAN_INCLUDE_BACKGROUND_COLOR
         )]
     public class BackgroundPosition203Test : W3CCssTest {

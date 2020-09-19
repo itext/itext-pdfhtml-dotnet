@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Bg_att_local {
-    // TODO DEVSIX-1457 background's position is not supported
     public class AttLPos5RefTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "attachment-local-positioning-5-ref.html";

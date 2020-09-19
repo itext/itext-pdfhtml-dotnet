@@ -25,7 +25,8 @@ using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Backgrounds {
-    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 3)]
+    // TODO DEVSIX-2431 Positioned elements are lost when block is split across pages.
+    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 21)]
     public class BackgroundPosition202Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "background-position-202.xht";

@@ -26,7 +26,6 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
     // TODO DEVSIX-4423 support repeating-radial-gradient, change cmp and remove log message
-    // TODO DEVSIX-1457 support background-position
     [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
     public class BackgroundImageCenteredTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
