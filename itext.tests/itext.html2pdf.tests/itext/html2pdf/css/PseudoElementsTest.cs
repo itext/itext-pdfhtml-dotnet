@@ -149,7 +149,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void CollapsingMarginsBeforeAfterPseudo03() {
-            //TODO: incorrect behaviour because of trimmed non-breakable space
             ConvertToPdfAndCompare("collapsingMarginsBeforeAfterPseudo03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -212,24 +211,24 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest02() {
-            // TODO inline elements with absolute positioning are not supported at the moment
+            // TODO DEVSIX-1393 position property is not supported for inline elements.
             ConvertToPdfAndCompare("emptyStillShownPseudoTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest03() {
-            // TODO inline elements with absolute positioning are not supported at the moment
             ConvertToPdfAndCompare("emptyStillShownPseudoTest03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest04() {
-            // TODO inline elements with absolute positioning are not supported at the moment
+            // TODO DEVSIX-1393 position property is not supported for inline elements.
             ConvertToPdfAndCompare("emptyStillShownPseudoTest04", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void EmptyStillShownPseudoTest05() {
+            // TODO DEVSIX-1393 position property is not supported for inline elements.
             ConvertToPdfAndCompare("emptyStillShownPseudoTest05", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
