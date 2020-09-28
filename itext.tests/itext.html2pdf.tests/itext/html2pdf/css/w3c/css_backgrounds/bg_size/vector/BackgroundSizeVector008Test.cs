@@ -27,7 +27,6 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Bg_size.Vector {
     // TODO DEVSIX-4388 percentage is not supported for rect's x, y, width and height
-    // TODO DEVSIX-1708 background-size is not supported
     [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, Count = 5)]
     [LogMessage(SvgLogMessageConstant.MISSING_WIDTH)]
     public class BackgroundSizeVector008Test : W3CCssTest {

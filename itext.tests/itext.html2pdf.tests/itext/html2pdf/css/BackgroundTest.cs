@@ -60,7 +60,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1708")]
         public virtual void BackgroundSizeTest01() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "backgroundsize01.html"), new FileInfo(destinationFolder
                  + "backgroundsize01.pdf"));
@@ -70,13 +69,13 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BackgroundAttachmentMarginRoot1Test() {
-            // TODO DEVSIX-1708 support background-size
+            // TODO DEVSIX-4370 support background repeat for linear-gradient
             ConvertToPdfAndCompare("backgroundAttachmentMarginRoot1", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void BackgroundAttachmentMarginRoot2Test() {
-            // TODO DEVSIX-1708 support background-size
+            // TODO DEVSIX-4370 support background repeat for linear-gradient
             ConvertToPdfAndCompare("backgroundAttachmentMarginRoot2", sourceFolder, destinationFolder);
         }
 
@@ -107,6 +106,16 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void BackgroundSoloImageTest() {
             ConvertToPdfAndCompare("background_solo_image", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageWithoutFixedWidthTest() {
+            ConvertToPdfAndCompare("backgroundImageWithoutFixedSize", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageCoverSizeTest() {
+            ConvertToPdfAndCompare("backgroundImageCoverSize", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]

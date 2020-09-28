@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
-    // TODO DEVSIX-1708 support background-size
+    // TODO DEVSIX-4452 support first-letter pseudoelement
     public class BackgroundSize032Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "background-size-032.html";
