@@ -38,181 +38,167 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void ImageBckgRepeatTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("imageBckgRepeat", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageBckgNoRepeatTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("imageBckgNoRepeat", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageBckgRoundTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("imageBckgRound", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageBckgSpaceTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("imageBckgSpace", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        public virtual void ImageBckgSpaceWithBigBorderTest() {
+            // TODO DEVSIX-2105
+            ConvertToPdfAndCompare("imageBckgSpaceWithBigBorder", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void ImageBckgRepeatXTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("imageBckgRepeatX", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageBckgRepeatYTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("imageBckgRepeatY", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void LinearGradientBckgRepeatTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("linearGradientBckgRepeat", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void LinearGradientBckgNoRepeatTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("linearGradientBckgNoRepeat", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void LinearGradientBckgRoundTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("linearGradientBckgRound", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void LinearGradientBckgSpaceTest() {
-            //TODO: DEVSIX-1708 update cmp file
             ConvertToPdfAndCompare("linearGradientBckgSpace", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void LinearGradientBckgRepeatXTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("linearGradientBckgRepeatX", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void LinearGradientBckgRepeatYTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("linearGradientBckgRepeatY", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageBckgRepeatAndSpaceTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("imageBckgRepeatAndSpace", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageBckgRoundAndSpaceTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("imageBckgRoundAndSpace", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgRepeatAndBckgPositionXTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgRepeatAndBckgPositionX", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgRepeatAndBckgPositionYTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgRepeatAndBckgPositionY", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgRoundSpaceAndBckgPositionXTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgRoundSpaceAndBckgPositionX", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgSpaceRoundAndBckgPositionYTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgSpaceRoundAndBckgPositionY", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgRepeatXAndBckgPositionYTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgRepeatXAndBckgPositionY", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgRepeatYAndBckgPositionXTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgRepeatYAndBckgPositionX", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgRoundAndBckgPositionTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgRoundAndBckgPosition", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgRoundAndNegativeBckgPositionTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgRoundAndNegativeBckgPosition", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgSpaceAndBckgPositionTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgSpaceAndBckgPosition", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgSpaceAndBckgPositionPageSeparationTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgSpaceAndBckgPositionPageSeparation", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgSpaceAndNegativeBckgPositionTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgSpaceAndNegativeBckgPosition", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        public virtual void BckgSpaceAndBckgPositionAdvancedTest() {
+            ConvertToPdfAndCompare("bckgSpaceAndBckgPositionAdvanced", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BcgRoundAndBckgSizeAutoAndContainAdvancedTest() {
+            ConvertToPdfAndCompare("bcgRoundAndBckgSizeAutoAndContainAdvanced", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void BckgRoundRemainsLessHalfOfImageTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgRoundRemainsLessHalfOfImage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgRoundRemainsMoreHalfOfImageTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgRoundRemainsMoreHalfOfImage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BckgRoundCompressAndStretchImageTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("bckgRoundCompressAndStretchImage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageBckgRoundBckgSizeLessThanImageTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("imageBckgRoundBckgSizeLessThanImage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageBckgSpaceBckgSizeLessThanImageTest() {
-            //TODO: DEVSIX-4370 update cmp file
             ConvertToPdfAndCompare("imageBckgSpaceBckgSizeLessThanImage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }

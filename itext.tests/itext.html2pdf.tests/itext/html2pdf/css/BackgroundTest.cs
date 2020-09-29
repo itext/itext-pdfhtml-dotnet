@@ -69,13 +69,11 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BackgroundAttachmentMarginRoot1Test() {
-            // TODO DEVSIX-4370 support background repeat for linear-gradient
             ConvertToPdfAndCompare("backgroundAttachmentMarginRoot1", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void BackgroundAttachmentMarginRoot2Test() {
-            // TODO DEVSIX-4370 support background repeat for linear-gradient
             ConvertToPdfAndCompare("backgroundAttachmentMarginRoot2", sourceFolder, destinationFolder);
         }
 

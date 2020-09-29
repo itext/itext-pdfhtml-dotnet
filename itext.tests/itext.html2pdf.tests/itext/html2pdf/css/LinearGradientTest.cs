@@ -221,6 +221,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BackgroundImageLinearGradientInAbbrTest() {
+            // TODO DEVSIX-4617 process abbr tag with "text-decoration: underline dotted" CSS styles
             ConvertToPdfAndCompare("backgroundImageLinearGradientInAbbr", sourceFolder, destinationFolder);
         }
 

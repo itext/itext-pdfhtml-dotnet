@@ -103,11 +103,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     i, em, rem);
                 BlendMode blendMode = ApplyBackgroundBlendMode(backgroundBlendModeArray, i);
                 bool imageApplied = false;
+                BackgroundRepeat repeat = ApplyBackgroundRepeat(backgroundRepeatArray, i);
                 if (CssGradientUtil.IsCssLinearGradientValue(backgroundImage)) {
-                    imageApplied = ApplyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem);
+                    imageApplied = ApplyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem, repeat
+                        );
                 }
                 else {
-                    BackgroundRepeat repeat = ApplyBackgroundRepeat(backgroundRepeatArray, i);
                     PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImage
                         ));
                     imageApplied = ApplyBackgroundImage(image, backgroundImagesList, repeat, blendMode, position);
@@ -243,12 +244,32 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static BackgroundRepeat ApplyBackgroundRepeat(IList<String> backgroundRepeatArray, int iteration) {
             int index = GetBackgroundSidePropertyIndex(backgroundRepeatArray.Count, iteration);
             if (index != -1) {
-                bool repeatX = CssConstants.REPEAT.Equals(backgroundRepeatArray[index]) || CssConstants.REPEAT_X.Equals(backgroundRepeatArray
-                    [index]);
-                bool repeatY = CssConstants.REPEAT.Equals(backgroundRepeatArray[index]) || CssConstants.REPEAT_Y.Equals(backgroundRepeatArray
-                    [index]);
-                return new BackgroundRepeat(repeatX, repeatY);
+                String[] repeatProps = iText.IO.Util.StringUtil.Split(backgroundRepeatArray[index], " ");
+                if (repeatProps.Length == 1) {
+                    if (CommonCssConstants.REPEAT_X.Equals(repeatProps[0])) {
+                        return new BackgroundRepeat(BackgroundRepeat.BackgroundRepeatValue.REPEAT, BackgroundRepeat.BackgroundRepeatValue
+                            .NO_REPEAT);
+                    }
+                    else {
+                        if (CommonCssConstants.REPEAT_Y.Equals(repeatProps[0])) {
+                            return new BackgroundRepeat(BackgroundRepeat.BackgroundRepeatValue.NO_REPEAT, BackgroundRepeat.BackgroundRepeatValue
+                                .REPEAT);
+                        }
+                        else {
+                            BackgroundRepeat.BackgroundRepeatValue value = CssMappingUtils.ParseBackgroundRepeat(repeatProps[0]);
+                            return new BackgroundRepeat(value);
+                        }
+                    }
+                }
+                else {
+                    if (repeatProps.Length == 2) {
+                        return new BackgroundRepeat(CssMappingUtils.ParseBackgroundRepeat(repeatProps[0]), CssMappingUtils.ParseBackgroundRepeat
+                            (repeatProps[1]));
+                    }
+                }
             }
+            // Valid cases are processed by the block above, and in invalid
+            // situations, the REPEAT property on both axes is used by default
             return new BackgroundRepeat();
         }
 
@@ -292,13 +313,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         private static bool ApplyLinearGradient(String image, IList<BackgroundImage> backgroundImagesList, BlendMode
-             blendMode, BackgroundPosition position, float em, float rem) {
+             blendMode, BackgroundPosition position, float em, float rem, BackgroundRepeat repeat) {
             try {
                 StrategyBasedLinearGradientBuilder gradientBuilder = CssGradientUtil.ParseCssLinearGradient(image, em, rem
                     );
                 if (gradientBuilder != null) {
                     backgroundImagesList.Add(new BackgroundImage.Builder().SetLinearGradientBuilder(gradientBuilder).SetBackgroundBlendMode
-                        (blendMode).SetBackgroundPosition(position).Build());
+                        (blendMode).SetBackgroundPosition(position).SetBackgroundRepeat(repeat).Build());
                     return true;
                 }
             }
