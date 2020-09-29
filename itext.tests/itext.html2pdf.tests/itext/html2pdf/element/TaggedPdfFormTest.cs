@@ -44,6 +44,7 @@ using System;
 using System.IO;
 using iText.Forms;
 using iText.Html2pdf;
+using iText.Kernel;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Test;
@@ -112,13 +113,24 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-980. DefaultHtmlProcessor ERROR No worker found for tag datalist")]
-        public virtual void DatalistFormTagged() {
-            RunTest("datalistFormTagged");
+        public virtual void DataListFormTagged() {
+            RunTest("dataListFormTagged");
         }
 
         [NUnit.Framework.Test]
-        public virtual void FieldsetFormTagged() {
-            RunTest("fieldsetFormTagged");
+        public virtual void FieldSetFormTagged() {
+            RunTest("fieldSetFormTagged");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InputFormPrematureFlush() {
+            NUnit.Framework.Assert.That(() =>  {
+                // TODO DEVSIX-4601
+                // exception is thrown on "convert tagged PDF with acroform" stage
+                RunTest("inputFormPrematureFlush");
+            }
+            , NUnit.Framework.Throws.InstanceOf<PdfException>().With.Message.EqualTo(PdfException.TagStructureFlushingFailedItMightBeCorrupted))
+;
         }
 
         private void RunTest(String name) {
