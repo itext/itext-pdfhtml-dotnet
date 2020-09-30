@@ -41,16 +41,11 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
-using iText.Forms;
 using iText.Html2pdf;
 using iText.Kernel;
-using iText.Kernel.Pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class TaggedPdfFormTest : ExtendedITextTest {
+    public class TaggedPdfFormTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/TaggedPdfFormTest/";
 
@@ -64,62 +59,62 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void SimpleTextFieldTagged() {
-            RunTest("simpleTextFieldTagged");
+            ConvertToPdfAcroformFlattenAndCompare("simpleTextField", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void SimpleTextareaTagged() {
-            RunTest("simpleTextareaTagged");
+            ConvertToPdfAcroformFlattenAndCompare("simpleTextarea", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void SimpleButtonTagged() {
-            RunTest("simpleButtonTagged");
+            ConvertToPdfAcroformFlattenAndCompare("simpleButton", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void SimpleLabelTagged() {
-            RunTest("simpleLabelTagged");
+            ConvertToPdfAcroformFlattenAndCompare("simpleLabel", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void SimpleCheckboxTagged() {
-            RunTest("simpleCheckboxTagged");
+            ConvertToPdfAcroformFlattenAndCompare("simpleCheckbox", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void SimpleSelectTagged() {
-            RunTest("simpleSelectTagged");
+            ConvertToPdfAcroformFlattenAndCompare("simpleSelect", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void ListBoxSelectTagged() {
-            RunTest("listBoxSelectTagged");
+            ConvertToPdfAcroformFlattenAndCompare("listBoxSelect", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void ListBoxOptGroupSelectTagged() {
-            RunTest("listBoxOptGroupSelectTagged");
+            ConvertToPdfAcroformFlattenAndCompare("listBoxOptGroupSelect", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void SimpleRadioFormTagged() {
-            RunTest("simpleRadioFormTagged");
+            ConvertToPdfAcroformFlattenAndCompare("simpleRadioForm", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-980. DefaultHtmlProcessor ERROR No worker found for tag datalist")]
         public virtual void DataListFormTagged() {
-            RunTest("dataListFormTagged");
+            ConvertToPdfAcroformFlattenAndCompare("dataListForm", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void FieldSetFormTagged() {
-            RunTest("fieldSetFormTagged");
+            ConvertToPdfAcroformFlattenAndCompare("fieldSetForm", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
@@ -127,47 +122,10 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.That(() =>  {
                 // TODO DEVSIX-4601
                 // exception is thrown on "convert tagged PDF with acroform" stage
-                RunTest("inputFormPrematureFlush");
+                ConvertToPdfAcroformFlattenAndCompare("inputFormPrematureFlush", sourceFolder, destinationFolder, true);
             }
             , NUnit.Framework.Throws.InstanceOf<PdfException>().With.Message.EqualTo(PdfException.TagStructureFlushingFailedItMightBeCorrupted))
 ;
-        }
-
-        private void RunTest(String name) {
-            String htmlPath = sourceFolder + name + ".html";
-            String outTaggedPdfPath = destinationFolder + name + ".pdf";
-            String outTaggedPdfPathAcro = destinationFolder + name + "_acro.pdf";
-            String outTaggedPdfPathFlatted = destinationFolder + name + "_acro_flatten.pdf";
-            String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
-            String cmpPdfPathAcro = sourceFolder + "cmp_" + name + "_acro.pdf";
-            String cmpPdfPathAcroFlatten = sourceFolder + "cmp_" + name + "_acro_flatten.pdf";
-            String diff1 = "diff1_" + name;
-            String diff2 = "diff2_" + name;
-            String diff3 = "diff3_" + name;
-            //convert tagged PDF without acroform (from html with form elements)
-            PdfWriter taggedWriter = new PdfWriter(outTaggedPdfPath);
-            PdfDocument pdfTagged = new PdfDocument(taggedWriter);
-            pdfTagged.SetTagged();
-            HtmlConverter.ConvertToPdf(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), pdfTagged);
-            //convert tagged PDF with acroform
-            PdfWriter taggedWriterAcro = new PdfWriter(outTaggedPdfPathAcro);
-            PdfDocument pdfTaggedAcro = new PdfDocument(taggedWriterAcro);
-            pdfTaggedAcro.SetTagged();
-            ConverterProperties converterPropertiesAcro = new ConverterProperties();
-            converterPropertiesAcro.SetCreateAcroForm(true);
-            HtmlConverter.ConvertToPdf(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), pdfTaggedAcro, converterPropertiesAcro
-                );
-            //flatted created tagged PDF with acroform
-            PdfDocument document = new PdfDocument(new PdfReader(outTaggedPdfPathAcro), new PdfWriter(outTaggedPdfPathFlatted
-                ));
-            PdfAcroForm.GetAcroForm(document, false).FlattenFields();
-            document.Close();
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outTaggedPdfPath, cmpPdfPath, destinationFolder
-                , diff1));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outTaggedPdfPathAcro, cmpPdfPathAcro, destinationFolder
-                , diff2));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outTaggedPdfPathFlatted, cmpPdfPathAcroFlatten
-                , destinationFolder, diff3));
         }
     }
 }
