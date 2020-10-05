@@ -248,5 +248,60 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
                  + "cmp_" + testName + ".pdf", destinationFolder));
         }
+
+        [NUnit.Framework.Test]
+        public virtual void MultipleBackgroundRepeatMissedTest() {
+            ConvertToPdfAndCompare("multipleBackgroundRepeatMissed", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClipOriginTest() {
+            ConvertToPdfAndCompare("clipOrigin", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClipOriginGradientTest() {
+            ConvertToPdfAndCompare("clipOriginGradient", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClipOriginShorthandTest() {
+            ConvertToPdfAndCompare("clipOriginShorthand", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClipOriginLatentImageTest() {
+            ConvertToPdfAndCompare("clipOriginLatentImage", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClipOriginRepeatXTest() {
+            ConvertToPdfAndCompare("clipOriginRepeatX", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClipOriginLatentImageRepeatXTest() {
+            ConvertToPdfAndCompare("clipOriginLatentImageRepeatX", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClipOriginPositionOnePercentageValueTest() {
+            ConvertToPdfAndCompare("clipOriginPositionOnePercentageValue", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClipOriginSizeCoverTest() {
+            ConvertToPdfAndCompare("clipOriginSizeCover", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClipOriginRepeatSpaceTest() {
+            ConvertToPdfAndCompare("clipOriginRepeatSpace", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClipOriginRepeatRoundTest() {
+            ConvertToPdfAndCompare("clipOriginRepeatRound", sourceFolder, destinationFolder);
+        }
     }
 }

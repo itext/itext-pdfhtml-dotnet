@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Bg_att_local {
-    // TODO DEVSIX-2105 background's box is not supported (background-clip)
     public class AttLClipC1RefTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "attachment-local-clipping-color-1-ref.html";

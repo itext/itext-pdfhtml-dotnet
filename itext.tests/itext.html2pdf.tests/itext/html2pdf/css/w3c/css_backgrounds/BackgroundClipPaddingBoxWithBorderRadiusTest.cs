@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
-    // TODO DEVSIX-2105 support background-clip: padding-box
+    // TODO DEVSIX-4525 pdfHtml: calculate border-radius according to background-clip
     public class BackgroundClipPaddingBoxWithBorderRadiusTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "background-clip-padding-box-with-border-radius.html";

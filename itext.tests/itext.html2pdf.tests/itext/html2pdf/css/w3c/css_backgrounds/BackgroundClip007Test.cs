@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
-    // TODO DEVSIX-2105 support background-clip: content-box;
+    // TODO DEVSIX-4538 consider whether it is possible not to draw a rectangle when width or height equals to zero
     public class BackgroundClip007Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "background-clip-007.html";

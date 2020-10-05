@@ -58,7 +58,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void ImageBckgSpaceWithBigBorderTest() {
-            // TODO DEVSIX-2105
             ConvertToPdfAndCompare("imageBckgSpaceWithBigBorder", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

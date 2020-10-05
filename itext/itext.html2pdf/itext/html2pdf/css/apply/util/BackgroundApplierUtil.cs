@@ -76,14 +76,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static void ApplyBackground(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             String backgroundColorStr = cssProps.Get(CssConstants.BACKGROUND_COLOR);
-            ApplyBackgroundColor(backgroundColorStr, element);
             String backgroundImagesStr = cssProps.Get(CssConstants.BACKGROUND_IMAGE);
             String backgroundRepeatStr = cssProps.Get(CssConstants.BACKGROUND_REPEAT);
             String backgroundSizeStr = cssProps.Get(CssConstants.BACKGROUND_SIZE);
             String backgroundPositionXStr = cssProps.Get(CssConstants.BACKGROUND_POSITION_X);
             String backgroundPositionYStr = cssProps.Get(CssConstants.BACKGROUND_POSITION_Y);
             String backgroundBlendModeStr = cssProps.Get(CssConstants.BACKGROUND_BLEND_MODE);
-            IList<BackgroundImage> backgroundImagesList = new List<BackgroundImage>();
+            String backgroundClipStr = cssProps.Get(CssConstants.BACKGROUND_CLIP);
+            String backgroundOriginStr = cssProps.Get(CssConstants.BACKGROUND_ORIGIN);
             IList<String> backgroundImagesArray = CssUtils.SplitStringWithComma(backgroundImagesStr);
             IList<String> backgroundRepeatArray = CssUtils.SplitStringWithComma(backgroundRepeatStr);
             IList<IList<String>> backgroundSizeArray = backgroundSizeStr == null ? null : CssUtils.ExtractShorthandProperties
@@ -94,29 +94,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String fontSize = cssProps.Get(CssConstants.FONT_SIZE);
             float em = fontSize == null ? 0 : CssUtils.ParseAbsoluteLength(fontSize);
             float rem = context.GetCssContext().GetRootFontSize();
-            for (int i = 0; i < backgroundImagesArray.Count; ++i) {
-                String backgroundImage = backgroundImagesArray[i];
-                if (backgroundImage == null || CssConstants.NONE.Equals(backgroundImage)) {
-                    continue;
-                }
-                BackgroundPosition position = ApplyBackgroundPosition(backgroundPositionXArray, backgroundPositionYArray, 
-                    i, em, rem);
-                BlendMode blendMode = ApplyBackgroundBlendMode(backgroundBlendModeArray, i);
-                bool imageApplied = false;
-                BackgroundRepeat repeat = ApplyBackgroundRepeat(backgroundRepeatArray, i);
-                if (CssGradientUtil.IsCssLinearGradientValue(backgroundImage)) {
-                    imageApplied = ApplyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem, repeat
-                        );
-                }
-                else {
-                    PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImage
-                        ));
-                    imageApplied = ApplyBackgroundImage(image, backgroundImagesList, repeat, blendMode, position);
-                }
-                if (imageApplied) {
-                    ApplyBackgroundSize(backgroundSizeArray, em, rem, i, backgroundImagesList[backgroundImagesList.Count - 1]);
-                }
-            }
+            IList<String> backgroundClipArray = CssUtils.SplitStringWithComma(backgroundClipStr);
+            IList<String> backgroundOriginArray = CssUtils.SplitStringWithComma(backgroundOriginStr);
+            BackgroundBox clipForColor = GetBackgroundBoxProperty(backgroundClipArray, backgroundImagesArray.IsEmpty()
+                 ? 0 : (backgroundImagesArray.Count - 1), BackgroundBox.BORDER_BOX);
+            ApplyBackgroundColor(backgroundColorStr, element, clipForColor);
+            IList<BackgroundImage> backgroundImagesList = GetBackgroundImagesList(backgroundImagesArray, context, em, 
+                rem, backgroundPositionXArray, backgroundPositionYArray, backgroundSizeArray, backgroundBlendModeArray
+                , backgroundRepeatArray, backgroundClipArray, backgroundOriginArray);
             if (!backgroundImagesList.IsEmpty()) {
                 element.SetProperty(Property.BACKGROUND_IMAGE, backgroundImagesList);
             }
@@ -156,6 +141,65 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 resultList.Add(lastToken.Trim());
             }
             return resultList.ToArray(new String[0]);
+        }
+
+        private static IList<BackgroundImage> GetBackgroundImagesList(IList<String> backgroundImagesArray, ProcessorContext
+             context, float em, float rem, IList<String> backgroundPositionXArray, IList<String> backgroundPositionYArray
+            , IList<IList<String>> backgroundSizeArray, IList<String> backgroundBlendModeArray, IList<String> backgroundRepeatArray
+            , IList<String> backgroundClipArray, IList<String> backgroundOriginArray) {
+            IList<BackgroundImage> backgroundImagesList = new List<BackgroundImage>();
+            for (int i = 0; i < backgroundImagesArray.Count; ++i) {
+                String backgroundImage = backgroundImagesArray[i];
+                if (backgroundImage == null || CssConstants.NONE.Equals(backgroundImage)) {
+                    continue;
+                }
+                BackgroundPosition position = ApplyBackgroundPosition(backgroundPositionXArray, backgroundPositionYArray, 
+                    i, em, rem);
+                BlendMode blendMode = ApplyBackgroundBlendMode(backgroundBlendModeArray, i);
+                bool imageApplied = false;
+                BackgroundRepeat repeat = ApplyBackgroundRepeat(backgroundRepeatArray, i);
+                BackgroundBox clip = GetBackgroundBoxProperty(backgroundClipArray, i, BackgroundBox.BORDER_BOX);
+                BackgroundBox origin = GetBackgroundBoxProperty(backgroundOriginArray, i, BackgroundBox.PADDING_BOX);
+                if (CssGradientUtil.IsCssLinearGradientValue(backgroundImage)) {
+                    imageApplied = ApplyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem, repeat
+                        , clip, origin);
+                }
+                else {
+                    PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImage
+                        ));
+                    imageApplied = ApplyBackgroundImage(image, backgroundImagesList, repeat, blendMode, position, clip, origin
+                        );
+                }
+                if (imageApplied) {
+                    ApplyBackgroundSize(backgroundSizeArray, em, rem, i, backgroundImagesList[backgroundImagesList.Count - 1]);
+                }
+            }
+            return backgroundImagesList;
+        }
+
+        private static BackgroundBox GetBackgroundBoxProperty(IList<String> propertyArray, int iteration, BackgroundBox
+             defaultValue) {
+            int index = GetBackgroundSidePropertyIndex(propertyArray.Count, iteration);
+            if (index == -1) {
+                return defaultValue;
+            }
+            else {
+                return GetBackgroundBoxPropertyByString(propertyArray[index]);
+            }
+        }
+
+        private static BackgroundBox GetBackgroundBoxPropertyByString(String box) {
+            if (CommonCssConstants.PADDING_BOX.Equals(box)) {
+                return BackgroundBox.PADDING_BOX;
+            }
+            else {
+                if (CommonCssConstants.CONTENT_BOX.Equals(box)) {
+                    return BackgroundBox.CONTENT_BOX;
+                }
+                else {
+                    return BackgroundBox.BORDER_BOX;
+                }
+            }
         }
 
         private static BlendMode ApplyBackgroundBlendMode(IList<String> backgroundBlendModeArray, int iteration) {
@@ -277,33 +321,37 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (propertiesNumber > 0) {
                 return iteration % propertiesNumber;
             }
-            return -1;
+            else {
+                return -1;
+            }
         }
 
-        private static void ApplyBackgroundColor(String backgroundColorStr, IPropertyContainer element) {
+        private static void ApplyBackgroundColor(String backgroundColorStr, IPropertyContainer element, BackgroundBox
+             clip) {
             if (backgroundColorStr != null && !CssConstants.TRANSPARENT.Equals(backgroundColorStr)) {
                 float[] rgbaColor = CssUtils.ParseRgbaColor(backgroundColorStr);
                 Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
                 float opacity = rgbaColor[3];
-                Background backgroundColor = new Background(color, opacity);
+                Background backgroundColor = new Background(color, opacity, clip);
                 element.SetProperty(Property.BACKGROUND, backgroundColor);
             }
         }
 
         private static bool ApplyBackgroundImage(PdfXObject image, IList<BackgroundImage> backgroundImagesList, BackgroundRepeat
-             repeat, BlendMode backgroundBlendMode, BackgroundPosition position) {
+             repeat, BlendMode backgroundBlendMode, BackgroundPosition position, BackgroundBox clip, BackgroundBox
+             origin) {
             if (image == null) {
                 return false;
             }
             if (image is PdfImageXObject) {
                 backgroundImagesList.Add(new BackgroundApplierUtil.HtmlBackgroundImage((PdfImageXObject)image, repeat, position
-                    , backgroundBlendMode));
+                    , backgroundBlendMode, clip, origin));
                 return true;
             }
             else {
                 if (image is PdfFormXObject) {
                     backgroundImagesList.Add(new BackgroundApplierUtil.HtmlBackgroundImage((PdfFormXObject)image, repeat, position
-                        , backgroundBlendMode));
+                        , backgroundBlendMode, clip, origin));
                     return true;
                 }
                 else {
@@ -313,13 +361,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         private static bool ApplyLinearGradient(String image, IList<BackgroundImage> backgroundImagesList, BlendMode
-             blendMode, BackgroundPosition position, float em, float rem, BackgroundRepeat repeat) {
+             blendMode, BackgroundPosition position, float em, float rem, BackgroundRepeat repeat, BackgroundBox clip
+            , BackgroundBox origin) {
             try {
                 StrategyBasedLinearGradientBuilder gradientBuilder = CssGradientUtil.ParseCssLinearGradient(image, em, rem
                     );
                 if (gradientBuilder != null) {
                     backgroundImagesList.Add(new BackgroundImage.Builder().SetLinearGradientBuilder(gradientBuilder).SetBackgroundBlendMode
-                        (blendMode).SetBackgroundPosition(position).SetBackgroundRepeat(repeat).Build());
+                        (blendMode).SetBackgroundPosition(position).SetBackgroundRepeat(repeat).SetBackgroundClip(clip).SetBackgroundOrigin
+                        (origin).Build());
                     return true;
                 }
             }
@@ -418,9 +468,20 @@ namespace iText.Html2pdf.Css.Apply.Util {
             /// <see cref="iText.Layout.Properties.BlendMode"/>
             /// instance.
             /// </param>
+            /// <param name="clip">
+            /// background-clip property.
+            /// <see cref="iText.Layout.Properties.BackgroundBox"/>
+            /// instance.
+            /// </param>
+            /// <param name="origin">
+            /// background-origin property.
+            /// <see cref="iText.Layout.Properties.BackgroundBox"/>
+            /// instance.
+            /// </param>
             public HtmlBackgroundImage(PdfImageXObject xObject, BackgroundRepeat repeat, BackgroundPosition position, 
-                BlendMode blendMode)
-                : base(xObject, repeat, position, new BackgroundSize(), null, blendMode) {
+                BlendMode blendMode, BackgroundBox clip, BackgroundBox origin)
+                : base(new BackgroundImage.Builder().SetImage(xObject).SetBackgroundRepeat(repeat).SetBackgroundPosition(position
+                    ).SetBackgroundBlendMode(blendMode).SetBackgroundClip(clip).SetBackgroundOrigin(origin).Build()) {
                 dimensionMultiplier = PX_TO_PT_MULTIPLIER;
             }
 
@@ -449,9 +510,20 @@ namespace iText.Html2pdf.Css.Apply.Util {
             /// <see cref="iText.Layout.Properties.BlendMode"/>
             /// instance.
             /// </param>
+            /// <param name="clip">
+            /// background-clip property.
+            /// <see cref="iText.Layout.Properties.BackgroundBox"/>
+            /// instance.
+            /// </param>
+            /// <param name="origin">
+            /// background-origin property.
+            /// <see cref="iText.Layout.Properties.BackgroundBox"/>
+            /// instance.
+            /// </param>
             public HtmlBackgroundImage(PdfFormXObject xObject, BackgroundRepeat repeat, BackgroundPosition position, BlendMode
-                 blendMode)
-                : base(xObject, repeat, position, new BackgroundSize(), null, blendMode) {
+                 blendMode, BackgroundBox clip, BackgroundBox origin)
+                : base(new BackgroundImage.Builder().SetImage(xObject).SetBackgroundRepeat(repeat).SetBackgroundPosition(position
+                    ).SetBackgroundBlendMode(blendMode).SetBackgroundClip(clip).SetBackgroundOrigin(origin).Build()) {
             }
 
             public override float GetImageWidth() {
