@@ -264,8 +264,9 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        //TODO: Update cmp_ file when DEVSIX-2731 resolved
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void HtmlWithSvgBackground() {
-            //TODO: Update cmp_ file when DEVSIX-2731 resolved
             String name = "HTML_with_svg_background";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));
@@ -274,8 +275,9 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        //TODO: Update cmp_ file when DEVSIX-2731 resolved
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void HtmlWithSvgBackgroundNoViewbox() {
-            //TODO: Update cmp_ file when DEVSIX-2731 resolved
             String name = "Html_with_svg_background_no_viewbox";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));

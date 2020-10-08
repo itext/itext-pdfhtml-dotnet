@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Attach.Wrapelement;
 using iText.Html2pdf.Css;
@@ -61,7 +62,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The span wrapper.</summary>
         internal SpanWrapper spanWrapper;
 
-        // TODO ideally, this should be refactored. For now, I don't see a beautiful way of passing this information to other workers.
+        // TODO DEVSIX-2445. Ideally, this should be refactored. For now, I don't see a beautiful way
+        //  of passing this information to other workers.
         // Also, we probably should wait a bit until the display support is more or less stable
         internal IDictionary<IPropertyContainer, String> childrenDisplayMap = new Dictionary<IPropertyContainer, String
             >();
@@ -76,7 +78,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private WaitingInlineElementsHelper inlineHelper;
 
         /// <summary>The display value.</summary>
-        private String display;
+        private readonly String display;
+
+        /// <summary>The text-transform value.</summary>
+        private readonly String textTransform;
 
         /// <summary>
         /// Creates a new
@@ -90,7 +95,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             IDictionary<String, String> styles = element.GetStyles();
             inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.Get(CssConstants.WHITE_SPACE
                 ), styles == null ? null : styles.Get(CssConstants.TEXT_TRANSFORM));
-            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
+            display = styles == null ? null : styles.Get(CssConstants.DISPLAY);
+            textTransform = styles == null ? null : styles.Get(CssConstants.TEXT_TRANSFORM);
         }
 
         /* (non-Javadoc)
@@ -188,9 +194,31 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         /// <summary>Flushes the waiting leaf elements.</summary>
         private void FlushInlineHelper() {
-            spanWrapper.AddAll(inlineHelper.GetWaitingLeaves());
-            ownLeafElements.AddAll(inlineHelper.GetWaitingLeaves());
+            ICollection<IElement> waitingLeaves = inlineHelper.GetWaitingLeaves();
+            SetCapitalizeProperty(waitingLeaves);
+            spanWrapper.AddAll(waitingLeaves);
+            ownLeafElements.AddAll(waitingLeaves);
             inlineHelper.ClearWaitingLeaves();
+        }
+
+        /// <summary>
+        /// Sets property that indicates whether the element should be capitalized, for
+        /// <see cref="iText.Layout.Element.Text"/>
+        /// elements only.
+        /// </summary>
+        /// <param name="elements">elements to which properties will be added</param>
+        private void SetCapitalizeProperty(ICollection<IElement> elements) {
+            foreach (IElement iElement in elements) {
+                if (iElement is Text) {
+                    if (!iElement.HasOwnProperty(Html2PdfProperty.CAPITALIZE_ELEMENT) && CssConstants.CAPITALIZE.Equals(textTransform
+                        )) {
+                        iElement.SetProperty(Html2PdfProperty.CAPITALIZE_ELEMENT, true);
+                    }
+                    else {
+                        iElement.SetProperty(Html2PdfProperty.CAPITALIZE_ELEMENT, false);
+                    }
+                }
+            }
         }
     }
 }

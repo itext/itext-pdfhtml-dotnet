@@ -142,10 +142,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("Ignored because currently the css file is not removed and test is failed. Remove this ignore after DEVSIX-3205 is fixed"
-            )]
         public virtual void TestThatCssIsReleasedAfterConversion() {
-            // TODO update after DEVSIX-3205 is fixed
             String dirName = "CssIsReleased/";
             String htmlFileName = "cssIsReleased.html";
             String cssFileName = "cssIsReleased.css";

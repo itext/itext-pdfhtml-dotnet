@@ -83,6 +83,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant MIN_WIDTH.</summary>
         public const String MIN_WIDTH = "min-width";
 
+        /// <summary>The Constant OBJECT_FIT.</summary>
+        public const String OBJECT_FIT = "object-fit";
+
         /// <summary>The Constant OUTLINE_OFFSET.</summary>
         public const String OUTLINE_OFFSET = "outline-offset";
 
@@ -134,6 +137,9 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant CROSS.</summary>
         public const String CROSS = "cross";
+
+        /// <summary>The Constant FILL.</summary>
+        public const String FILL = "fill";
 
         /// <summary>The Constant FIRST.</summary>
         public const String FIRST = "first";
@@ -203,6 +209,9 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant RTL.</summary>
         public const String RTL = "rtl";
+
+        /// <summary>The Constant SCALE_DOWN.</summary>
+        public const String SCALE_DOWN = "scale-down";
 
         /// <summary>The Constant SEPARATE.</summary>
         public const String SEPARATE = "separate";

@@ -91,5 +91,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary>The Constant FORM_ACCESSIBILITY_LANGUAGE.</summary>
         public const int FORM_ACCESSIBILITY_LANGUAGE = PROPERTY_START + 15;
+
+        /// <summary>The Constant CAPITALIZE_ELEMENT indicates if an inline element needs to be capitalized.</summary>
+        public const int CAPITALIZE_ELEMENT = PROPERTY_START + 16;
     }
 }

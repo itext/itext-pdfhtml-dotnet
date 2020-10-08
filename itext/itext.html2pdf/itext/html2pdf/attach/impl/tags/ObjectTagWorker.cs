@@ -87,7 +87,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public ObjectTagWorker(IElementNode element, ProcessorContext context) {
-            this.processUtil = new SvgProcessingUtil();
+            this.processUtil = new SvgProcessingUtil(context.GetResourceResolver());
             //Retrieve object type
             String type = element.GetAttribute(AttributeConstants.TYPE);
             if (IsSvgImage(type)) {
@@ -108,14 +108,18 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 catch (SvgProcessingException spe) {
                     LOGGER.Error(spe.Message);
                 }
-                catch (Exception ie) {
+                catch (System.IO.IOException ie) {
+                    LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+                        , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA), ie));
+                }
+                catch (UriFormatException ie) {
                     LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
                         , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA), ie));
                 }
             }
         }
 
-        //todo  according specs 'At least one of the "data" or "type" attribute MUST be defined.'
+        // TODO DEVSIX-4460. According specs 'At least one of the "data" or "type" attribute MUST be defined.'
         private bool IsSvgImage(String typeAttribute) {
             return AttributeConstants.ObjectTypes.SVGIMAGE.Equals(typeAttribute);
         }

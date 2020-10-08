@@ -40,6 +40,8 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
+using System;
+using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Html {
@@ -60,9 +62,10 @@ namespace iText.Html2pdf.Html {
         /// </summary>
         /// <param name="headChildElement">the head child element</param>
         /// <returns>true, if the element node represents a style sheet link</returns>
+        [System.ObsoleteAttribute(@"Will be replaced by theiText.StyledXmlParser.Css.Util.CssUtils.IsStyleSheetLink(iText.StyledXmlParser.Node.IElementNode) in update 7.2."
+            )]
         public static bool IsStyleSheetLink(IElementNode headChildElement) {
-            return TagConstants.LINK.Equals(headChildElement.Name()) && AttributeConstants.STYLESHEET.Equals(headChildElement
-                .GetAttribute(AttributeConstants.REL));
+            return CssUtils.IsStyleSheetLink(headChildElement);
         }
     }
 }

@@ -74,11 +74,19 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void LetterSpacingTest01() {
             ConvertToPdfAndCompare("letterSpacingTest01", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        public virtual void LetterSpacingWithInvalidValuesTest() {
+            ConvertToPdfAndCompare("letterSpacingWithInvalidValues", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void WordSpacingTest01() {
             ConvertToPdfAndCompare("wordSpacingTest01", sourceFolder, destinationFolder);
         }
@@ -231,37 +239,37 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void WhiteSpaceNowrapInlineBlockTest03() {
-            // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+            // TODO DEVSIX-4600 ignores nowrap on inline elements
             ConvertToPdfAndCompare("whiteSpaceNowrapInlineBlockTest03", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void WhiteSpaceNowrapSequentialTest01() {
-            // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+            // TODO DEVSIX-4600 ignores nowrap on inline elements
             ConvertToPdfAndCompare("whiteSpaceNowrapSequentialTest01", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void WhiteSpaceNowrapSequentialTest02() {
-            // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+            // TODO DEVSIX-4600 ignores nowrap on inline elements
             ConvertToPdfAndCompare("whiteSpaceNowrapSequentialTest02", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void WhiteSpaceNowrapSequentialTest03() {
-            // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+            // TODO DEVSIX-4600 ignores nowrap on inline elements
             ConvertToPdfAndCompare("whiteSpaceNowrapSequentialTest03", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void WhiteSpaceNowrapSequentialTest04() {
-            // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+            // TODO DEVSIX-4600 ignores nowrap on inline elements
             ConvertToPdfAndCompare("whiteSpaceNowrapSequentialTest04", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void WhiteSpaceNowrapSequentialTest05() {
-            // TODO https://wiki.itextsupport.com/display/IT7/HTML-CSS+inline+context+limitations: ignores nowrap on inline elements
+            // TODO DEVSIX-4600 ignores nowrap on inline elements
             ConvertToPdfAndCompare("whiteSpaceNowrapSequentialTest05", sourceFolder, destinationFolder);
         }
 

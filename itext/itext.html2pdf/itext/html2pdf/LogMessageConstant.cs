@@ -149,6 +149,9 @@ namespace iText.Html2pdf {
         /// <summary>The Constant UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI.</summary>
         public const String UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI = "Unable to retrieve stream with given base URI ({0}) and source path ({1})";
 
+        /// <summary>The Constant UNEXPECTED_VALUE_OF_OBJECT_FIT_PROPERTY.</summary>
+        public const String UNEXPECTED_VALUE_OF_OBJECT_FIT = "Unexpected value of object-fit property: {0}. Will be processed as default";
+
         /// <summary>The Constant UNKNOWN_MARGIN_BOX_CHILD.</summary>
         public const String UNKNOWN_MARGIN_BOX_CHILD = "Unknown margin box child";
 

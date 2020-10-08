@@ -46,7 +46,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Text {
     [LogMessage(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED)]
-    public class TextIndent102Test : W3CCssAhemFontTest {
+    public class TextIndent102Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "text-indent-102.xht";
         }

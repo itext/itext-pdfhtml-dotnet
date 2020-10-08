@@ -40,11 +40,13 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
+using System;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout.Element;
+using iText.StyledXmlParser.Resolver.Resource;
 using iText.Svg.Converter;
 using iText.Svg.Processors;
 using iText.Svg.Renderers;
@@ -53,6 +55,30 @@ using iText.Svg.Renderers.Impl;
 namespace iText.Html2pdf.Util {
     /// <summary>Utility class for handling operations related to SVG</summary>
     public class SvgProcessingUtil {
+        private ResourceResolver resourceResolver;
+
+        /// <summary>
+        /// Creates a new
+        /// <see cref="SvgProcessingUtil"/>
+        /// instance.
+        /// </summary>
+        [System.ObsoleteAttribute(@"will be removed in next major release")]
+        public SvgProcessingUtil() {
+            resourceResolver = new ResourceResolver(null);
+        }
+
+        /// <summary>
+        /// Creates a new
+        /// <see cref="SvgProcessingUtil"/>
+        /// instance based on
+        /// <see cref="iText.StyledXmlParser.Resolver.Resource.ResourceResolver"/>
+        /// which is used to resolve a variety of resources.
+        /// </summary>
+        /// <param name="resourceResolver">the resource resolver</param>
+        public SvgProcessingUtil(ResourceResolver resourceResolver) {
+            this.resourceResolver = resourceResolver;
+        }
+
         /// <summary>
         /// Create an
         /// <c>Image</c>
@@ -88,7 +114,11 @@ namespace iText.Html2pdf.Util {
             height = wh[1];
             PdfFormXObject pdfForm = new PdfFormXObject(new Rectangle(0, 0, width, height));
             PdfCanvas canvas = new PdfCanvas(pdfForm, pdfDocument);
-            SvgDrawContext context = new SvgDrawContext(null, result.GetFontProvider(), result.GetRootRenderer());
+            ResourceResolver tempResolver = new ResourceResolver(null, resourceResolver.GetRetriever());
+            // TODO DEVSIX-4107 pass the resourceResolver variable (not tempResolver variable) to the
+            //  SvgDrawContext constructor so that the SVG inside the SVG is processed.
+            SvgDrawContext context = new SvgDrawContext(tempResolver, result.GetFontProvider(), result.GetRootRenderer
+                ());
             context.AddNamedObjects(result.GetNamedObjects());
             context.PushCanvas(canvas);
             ISvgNodeRenderer root = new PdfRootSvgNodeRenderer(topSvgRenderer);

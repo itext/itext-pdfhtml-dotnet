@@ -59,19 +59,19 @@ namespace iText.Html2pdf.Resolver.Font {
     /// series of fonts that are shipped with the add-on.
     /// </summary>
     public class DefaultFontProvider : BasicFontProvider {
+        /// <summary>The path to the shipped fonts.</summary>
+        internal const String SHIPPED_FONT_RESOURCE_PATH = "iText.Html2Pdf.font.";
+
+        /// <summary>The file names of the shipped fonts.</summary>
+        internal static readonly String[] SHIPPED_FONT_NAMES = new String[] { "NotoSansMono-Regular.ttf", "NotoSansMono-Bold.ttf"
+            , "NotoSans-Regular.ttf", "NotoSans-Bold.ttf", "NotoSans-BoldItalic.ttf", "NotoSans-Italic.ttf", "NotoSerif-Regular.ttf"
+            , "NotoSerif-Bold.ttf", "NotoSerif-BoldItalic.ttf", "NotoSerif-Italic.ttf" };
+
         /// <summary>The logger.</summary>
         private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Resolver.Font.DefaultFontProvider
             ));
 
         private const String DEFAULT_FONT_FAMILY = "Times";
-
-        /// <summary>The path to the shipped fonts.</summary>
-        private const String SHIPPED_FONT_RESOURCE_PATH = "iText.Html2Pdf.font.";
-
-        /// <summary>The file names of the shipped fonts.</summary>
-        private static readonly String[] SHIPPED_FONT_NAMES = new String[] { "NotoSansMono-Regular.ttf", "NotoSansMono-Bold.ttf"
-            , "NotoSans-Regular.ttf", "NotoSans-Bold.ttf", "NotoSans-BoldItalic.ttf", "NotoSans-Italic.ttf", "NotoSerif-Regular.ttf"
-            , "NotoSerif-Bold.ttf", "NotoSerif-BoldItalic.ttf", "NotoSerif-Italic.ttf" };
 
         // This range exclude Hebrew, Arabic, Syriac, Arabic Supplement, Thaana, NKo, Samaritan,
         // Mandaic, Syriac Supplement, Arabic Extended-A, Devanagari, Bengali, Gurmukhi, Gujarati,

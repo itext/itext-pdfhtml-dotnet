@@ -65,14 +65,15 @@ namespace iText.Html2pdf.Resolver.Resource {
         private ProcessorContext context;
 
         /// <summary>
-        /// Creates
+        /// Creates a new
         /// <see cref="HtmlResourceResolver"/>
         /// instance.
         /// </summary>
         /// <remarks>
-        /// Creates
+        /// Creates a new
         /// <see cref="HtmlResourceResolver"/>
-        /// instance. If
+        /// instance.
+        /// If
         /// <paramref name="baseUri"/>
         /// is a string that represents an absolute URI with any schema
         /// except "file" - resources url values will be resolved exactly as "new URL(baseUrl, uriString)". Otherwise base URI
@@ -81,14 +82,44 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// If empty string or relative URI string is passed as base URI, then it will be resolved against current working
         /// directory of this application instance.
         /// </remarks>
-        /// <param name="baseUri">base URI against which all relative resource URIs will be resolved.</param>
+        /// <param name="baseUri">base URI against which all relative resource URIs will be resolved</param>
         /// <param name="context">
         /// 
         /// <see cref="iText.Html2pdf.Attach.ProcessorContext"/>
         /// instance for the current HTML to PDF conversion process
         /// </param>
         public HtmlResourceResolver(String baseUri, ProcessorContext context)
-            : base(baseUri) {
+            : this(baseUri, context, null) {
+        }
+
+        /// <summary>
+        /// Creates a new
+        /// <see cref="HtmlResourceResolver"/>
+        /// instance.
+        /// </summary>
+        /// <remarks>
+        /// Creates a new
+        /// <see cref="HtmlResourceResolver"/>
+        /// instance.
+        /// If
+        /// <paramref name="baseUri"/>
+        /// is a string that represents an absolute URI with any schema
+        /// except "file" - resources url values will be resolved exactly as "new URL(baseUrl, uriString)". Otherwise base URI
+        /// will be handled as path in local file system.
+        /// <para />
+        /// If empty string or relative URI string is passed as base URI, then it will be resolved against current working
+        /// directory of this application instance.
+        /// </remarks>
+        /// <param name="baseUri">base URI against which all relative resource URIs will be resolved</param>
+        /// <param name="context">
+        /// 
+        /// <see cref="iText.Html2pdf.Attach.ProcessorContext"/>
+        /// instance for the current HTML to PDF conversion process
+        /// </param>
+        /// <param name="retriever">the resource retriever with the help of which data from resources will be retrieved
+        ///     </param>
+        public HtmlResourceResolver(String baseUri, ProcessorContext context, IResourceRetriever retriever)
+            : base(baseUri, retriever) {
             this.context = context;
         }
 
@@ -97,7 +128,8 @@ namespace iText.Html2pdf.Resolver.Resource {
             if (fixedSrc.StartsWith(SVG_BASE64_PREFIX)) {
                 fixedSrc = fixedSrc.Substring(fixedSrc.IndexOf(BASE64IDENTIFIER, StringComparison.Ordinal) + 7);
                 try {
-                    PdfFormXObject xObject = ProcessAsSvg(new MemoryStream(Convert.FromBase64String(fixedSrc)), context);
+                    PdfXObject xObject = iText.Html2pdf.Resolver.Resource.HtmlResourceResolver.ProcessAsSvg(new MemoryStream(Convert.FromBase64String
+                        (fixedSrc)), context, null);
                     if (xObject != null) {
                         return xObject;
                     }
@@ -113,30 +145,26 @@ namespace iText.Html2pdf.Resolver.Resource {
                 return base.CreateImageByUrl(url);
             }
             catch (Exception) {
-                using (Stream @is = UrlUtil.OpenStream(url)) {
-                    String newRoot = FileUtil.ParentDirectory(url);
-                    return ProcessAsSvg(@is, context, newRoot);
+                using (Stream @is = GetRetriever().GetInputStreamByUrl(url)) {
+                    return @is == null ? null : iText.Html2pdf.Resolver.Resource.HtmlResourceResolver.ProcessAsSvg(@is, context
+                        , FileUtil.ParentDirectory(url));
                 }
             }
         }
 
-        private PdfFormXObject ProcessAsSvg(Stream stream, ProcessorContext context, String parentDir) {
-            SvgProcessingUtil processingUtil = new SvgProcessingUtil();
+        private static PdfFormXObject ProcessAsSvg(Stream stream, ProcessorContext context, String parentDir) {
             SvgConverterProperties svgConverterProperties = ContextMappingHelper.MapToSvgConverterProperties(context);
             if (parentDir != null) {
                 svgConverterProperties.SetBaseUri(parentDir);
             }
             ISvgProcessorResult res = SvgConverter.ParseAndProcess(stream, svgConverterProperties);
             if (context.GetPdfDocument() != null) {
+                SvgProcessingUtil processingUtil = new SvgProcessingUtil(context.GetResourceResolver());
                 return processingUtil.CreateXObjectFromProcessingResult(res, context.GetPdfDocument());
             }
             else {
                 return null;
             }
-        }
-
-        private PdfFormXObject ProcessAsSvg(Stream stream, ProcessorContext context) {
-            return this.ProcessAsSvg(stream, context, null);
         }
     }
 }

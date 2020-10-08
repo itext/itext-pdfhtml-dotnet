@@ -192,8 +192,14 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        public virtual void LineHeightInheritedInSpanTest() {
-            TestLineHeight("lineHeightInheritedInSpan");
+        public virtual void LineHeightInheritInSpanTest() {
+            TestLineHeight("lineHeightInheritInSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockFloatAndLineHeightTest() {
+            // TODO: update cmp file after fixing DEVSIX-4604
+            TestLineHeight("inlineBlockFloatAndLineHeight");
         }
 
         internal virtual void TestLineHeight(String name) {

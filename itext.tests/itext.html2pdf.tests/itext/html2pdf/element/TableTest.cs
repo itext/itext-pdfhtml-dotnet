@@ -516,6 +516,12 @@ namespace iText.Html2pdf.Element {
             RunTest("tableWithChildrenBiggerThanCell");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void TableRowAndCellBackgroundColorConflictTest() {
+            // TODO DEVSIX-4247
+            RunTest("tableRowAndCellBackgroundColorConflictTest");
+        }
+
         private void RunTest(String testName) {
             RunTest(testName, false);
         }

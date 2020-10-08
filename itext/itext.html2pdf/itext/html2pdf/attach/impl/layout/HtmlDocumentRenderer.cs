@@ -383,19 +383,19 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private int ApplyFirstBackground(PdfPage page, float[] defaultMargins, BodyHtmlStylesContainer[] styles) {
             int firstBackground = -1;
             if (styles[0] != null && (styles[0].GetOwnProperty<Background>(Property.BACKGROUND) != null || styles[0].GetOwnProperty
-                <BackgroundImage>(Property.BACKGROUND_IMAGE) != null)) {
+                <Object>(Property.BACKGROUND_IMAGE) != null)) {
                 firstBackground = 0;
             }
             else {
                 if (styles[1] != null && (styles[1].GetOwnProperty<Background>(Property.BACKGROUND) != null || styles[1].GetOwnProperty
-                    <BackgroundImage>(Property.BACKGROUND_IMAGE) != null)) {
+                    <Object>(Property.BACKGROUND_IMAGE) != null)) {
                     firstBackground = 1;
                 }
             }
             if (firstBackground != -1) {
                 Dictionary<int, Object> background = new Dictionary<int, Object>();
                 background.Put(Property.BACKGROUND, styles[firstBackground].GetProperty<Background>(Property.BACKGROUND));
-                background.Put(Property.BACKGROUND_IMAGE, styles[firstBackground].GetProperty<BackgroundImage>(Property.BACKGROUND_IMAGE
+                background.Put(Property.BACKGROUND_IMAGE, styles[firstBackground].GetProperty<Object>(Property.BACKGROUND_IMAGE
                     ));
                 DrawSimulatedDiv(page, background, defaultMargins, true);
             }

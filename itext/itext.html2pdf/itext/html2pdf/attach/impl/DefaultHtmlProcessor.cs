@@ -46,34 +46,29 @@ using Common.Logging;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
+using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Resolve;
+using iText.Html2pdf.Events;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Util;
 using iText.IO.Font;
 using iText.IO.Util;
+using iText.Kernel.Counter;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Font;
 using iText.Layout.Properties;
-using System.Collections.Generic;
-using System.Reflection;
-using System.IO;
-using System.Runtime.CompilerServices;
-using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
-using iText.Html2pdf.Events;
-using Versions.Attributes;
-using iText.Kernel;
-using iText.Kernel.Counter;
 using iText.StyledXmlParser.Css;
-using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Css.Font;
 using iText.StyledXmlParser.Css.Pseudo;
-using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>The default implementation to process HTML.</summary>
@@ -85,21 +80,24 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>Set of tags that do not map to any tag worker and that are deliberately excluded from the logging.
         ///     </summary>
         private static readonly ICollection<String> ignoredTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet<
-            String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.HEAD, TagConstants.STYLE, TagConstants.TBODY)
-            ));
+            String>(JavaUtil.ArraysAsList(TagConstants.HEAD, TagConstants.STYLE, TagConstants.TBODY)));
 
+        // <tbody> is not supported via tag workers. Styles will be propagated anyway (most of them, but not all)
+        // TODO in scope of DEVSIX-4258 we might want to introduce a tag worker for <tbody> and remove it from here
         /// <summary>Set of tags to which we do not want to apply CSS to and that are deliberately excluded from the logging
         ///     </summary>
         private static readonly ICollection<String> ignoredCssTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet
-            <String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.BR, TagConstants.LINK, TagConstants.META, TagConstants
-            .TITLE, TagConstants.TR)));
+            <String>(JavaUtil.ArraysAsList(TagConstants.BR, TagConstants.LINK, TagConstants.META, TagConstants.TITLE
+            , TagConstants.TR)));
 
+        // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
         /// <summary>Set of tags that might be not processed by some tag workers and that are deliberately excluded from the logging.
         ///     </summary>
         private static readonly ICollection<String> ignoredChildTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet
-            <String>(iText.IO.Util.JavaUtil.ArraysAsList(TagConstants.BODY, TagConstants.LINK, TagConstants.META, 
-            TagConstants.SCRIPT, TagConstants.TITLE)));
+            <String>(JavaUtil.ArraysAsList(TagConstants.BODY, TagConstants.LINK, TagConstants.META, TagConstants.SCRIPT
+            , TagConstants.TITLE)));
 
+        // TODO implement
         /// <summary>The processor context.</summary>
         private ProcessorContext context;
 
@@ -112,35 +110,30 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>Instantiates a new default html processor.</summary>
         /// <param name="converterProperties">the converter properties</param>
         public DefaultHtmlProcessor(ConverterProperties converterProperties) {
-            // TODO <tbody> is not supported. Styles will be propagated anyway
-            // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
-            // TODO implement
             this.context = new ProcessorContext(converterProperties);
         }
 
-
         /// <summary>Sets properties to top-level layout elements converted from HTML.</summary>
-        /// <remarks>Sets properties to top-level layout elements converted from HTML. This enables features set by user via HTML
-        /// converter API and also changes properties defaults to the ones specific to HTML-like behavior.</remarks>
+        /// <remarks>
+        /// Sets properties to top-level layout elements converted from HTML.
+        /// This enables features set by user via HTML converter API and also changes properties defaults
+        /// to the ones specific to HTML-like behavior.
+        /// </remarks>
         /// <param name="cssProperties">HTML document-level css properties.</param>
         /// <param name="context">processor context specific to the current HTML conversion.</param>
         /// <param name="propertyContainer">top-level layout element converted from HTML.</param>
-        public static void SetConvertedRootElementProperties(IDictionary<string, string> cssProperties,
-            ProcessorContext context, IPropertyContainer propertyContainer)
-        {
+        public static void SetConvertedRootElementProperties(IDictionary<String, String> cssProperties, ProcessorContext
+             context, IPropertyContainer propertyContainer) {
             propertyContainer.SetProperty(Property.COLLAPSING_MARGINS, true);
             propertyContainer.SetProperty(Property.RENDERING_MODE, RenderingMode.HTML_MODE);
             propertyContainer.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
-            if (context.GetTempFonts() != null)
-            {
+            if (context.GetTempFonts() != null) {
                 propertyContainer.SetProperty(Property.FONT_SET, context.GetTempFonts());
             }
-
             // TODO DEVSIX-2534
-            IList<String> fontFamilies =
-                FontFamilySplitter.SplitFontFamily(cssProperties.Get(CommonCssConstants.FONT_FAMILY));
-            if (fontFamilies != null && !propertyContainer.HasOwnProperty(Property.FONT))
-            {
+            IList<String> fontFamilies = FontFamilySplitter.SplitFontFamily(cssProperties.Get(CssConstants.FONT_FAMILY
+                ));
+            if (fontFamilies != null && !propertyContainer.HasOwnProperty(Property.FONT)) {
                 propertyContainer.SetProperty(Property.FONT, fontFamilies.ToArray(new String[0]));
             }
         }
@@ -148,40 +141,8 @@ namespace iText.Html2pdf.Attach.Impl {
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processElements(com.itextpdf.html2pdf.html.node.INode)
         */
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public virtual IList<IElement> ProcessElements(INode root) {
-
-            try 
-            {
-                String licenseKeyClassName = "iText.License.LicenseKey, itext.licensekey";
-                String licenseKeyProductClassName = "iText.License.LicenseKeyProduct, itext.licensekey";
-                String licenseKeyFeatureClassName = "iText.License.LicenseKeyProductFeature, itext.licensekey";
-                String checkLicenseKeyMethodName = "ScheduledCheck";
-                Type licenseKeyClass = GetClass(licenseKeyClassName);
-                if ( licenseKeyClass != null ) 
-                {                
-                    Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
-                    Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
-                    Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
-                    object[] objects = new object[]
-                    {
-                        Html2PdfProductInfo.PRODUCT_NAME,
-                        Html2PdfProductInfo.MAJOR_VERSION,
-                        Html2PdfProductInfo.MINOR_VERSION,
-                        array
-                    };
-                    Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
-                    MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
-                    m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
-                }   
-            } 
-            catch ( Exception e ) 
-            {
-                if ( !Kernel.Version.IsAGPLVersion() )
-                {
-                    throw;
-                }
-            }
+            ReflectionUtils.ScheduledLicenseCheck();
             context.Reset();
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context);
@@ -205,93 +166,20 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             cssResolver = null;
             roots = null;
-            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType());
+            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType
+                ());
             return elements;
-        }
-
-        private static Type GetClass(string className)
-        {
-            String licenseKeyClassFullName = null;
-            Assembly assembly = typeof(DefaultHtmlProcessor).GetAssembly();
-            Attribute keyVersionAttr = assembly.GetCustomAttribute(typeof(KeyVersionAttribute));
-            if (keyVersionAttr is KeyVersionAttribute)
-            {
-                String keyVersion = ((KeyVersionAttribute)keyVersionAttr).KeyVersion;
-                String format = "{0}, Version={1}, Culture=neutral, PublicKeyToken=8354ae6d2174ddca";
-                licenseKeyClassFullName = String.Format(format, className, keyVersion);
-            }
-            Type type = null;
-            if (licenseKeyClassFullName != null)
-            {
-                String fileLoadExceptionMessage = null;
-                try
-                {
-                    type = System.Type.GetType(licenseKeyClassFullName);
-                }
-                catch (FileLoadException fileLoadException)
-                {
-                    fileLoadExceptionMessage = fileLoadException.Message;
-                }
-                if (type == null)
-                {
-                    try
-                    {
-                        type = System.Type.GetType(className);
-                    }
-                    catch
-                    {
-                        // empty
-                    }
-                    if (type == null && fileLoadExceptionMessage != null) {
-                        LogManager.GetLogger(typeof(DefaultHtmlProcessor)).Error(fileLoadExceptionMessage);
-                    }
-                }
-            }
-            return type;
         }
 
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processDocument(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.kernel.pdf.PdfDocument)
         */
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public virtual Document ProcessDocument(INode root, PdfDocument pdfDocument) {
-
-            try 
-            {
-                String licenseKeyClassName = "iText.License.LicenseKey, itext.licensekey";
-                String licenseKeyProductClassName = "iText.License.LicenseKeyProduct, itext.licensekey";
-                String licenseKeyFeatureClassName = "iText.License.LicenseKeyProductFeature, itext.licensekey";
-                String checkLicenseKeyMethodName = "ScheduledCheck";
-                Type licenseKeyClass = GetClass(licenseKeyClassName);
-                if ( licenseKeyClass != null ) 
-                {                
-                    Type licenseKeyProductClass = GetClass(licenseKeyProductClassName);
-                    Type licenseKeyProductFeatureClass = GetClass(licenseKeyFeatureClassName);
-                    Array array = Array.CreateInstance(licenseKeyProductFeatureClass, 0);
-                    object[] objects = new object[]
-                    {
-                        Html2PdfProductInfo.PRODUCT_NAME,
-                        Html2PdfProductInfo.MAJOR_VERSION,
-                        Html2PdfProductInfo.MINOR_VERSION,
-                        array
-                    };
-                    Object productObject = System.Activator.CreateInstance(licenseKeyProductClass, objects);
-                    MethodInfo m = licenseKeyClass.GetMethod(checkLicenseKeyMethodName);
-                    m.Invoke(System.Activator.CreateInstance(licenseKeyClass), new object[] {productObject});
-                }   
-            } 
-            catch ( Exception e ) 
-            {
-                if ( !Kernel.Version.IsAGPLVersion() )
-                {
-                    throw;
-                }
-            }
+            ReflectionUtils.ScheduledLicenseCheck();
             context.Reset(pdfDocument);
             if (!context.HasFonts()) {
                 throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
             }
-            // TODO store html version from document type in context if necessary
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context);
             context.GetLinkContext().ScanForIds(root);
@@ -299,13 +187,14 @@ namespace iText.Html2pdf.Attach.Impl {
             root = FindHtmlNode(root);
             Visit(root);
             Document doc = (Document)roots[0];
-            // TODO more precise check if a counter was actually added to the document
+            // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
             if (context.GetCssContext().IsPagesCounterPresent() && doc.GetRenderer() is HtmlDocumentRenderer) {
                 doc.Relayout();
             }
             cssResolver = null;
             roots = null;
-            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType());
+            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType
+                ());
             return doc;
         }
 
@@ -331,13 +220,10 @@ namespace iText.Html2pdf.Attach.Impl {
                 if (tagWorker is HtmlTagWorker) {
                     ((HtmlTagWorker)tagWorker).ProcessPageRules(node, cssResolver, context);
                 }
-
                 if (TagConstants.BODY.Equals(element.Name()) || TagConstants.HTML.Equals(element.Name())) {
                     RunApplier(element, tagWorker);
                 }
-
                 context.GetOutlineHandler().AddOutlineAndDestToDocument(tagWorker, element, context);
-                
                 VisitPseudoElement(element, tagWorker, CssConstants.BEFORE);
                 VisitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
                 foreach (INode childNode in element.ChildNodes()) {
@@ -351,8 +237,9 @@ namespace iText.Html2pdf.Attach.Impl {
                     LinkHelper.CreateDestination(tagWorker, element, context);
                     context.GetOutlineHandler().SetDestinationToElement(tagWorker, element);
                     context.GetState().Pop();
-                    if (!TagConstants.BODY.Equals(element.Name()) && !TagConstants.HTML.Equals(element.Name()))
+                    if (!TagConstants.BODY.Equals(element.Name()) && !TagConstants.HTML.Equals(element.Name())) {
                         RunApplier(element, tagWorker);
+                    }
                     if (!context.GetState().Empty()) {
                         PageBreakApplierUtil.AddPageBreakElementBefore(context, context.GetState().Top(), element, tagWorker);
                         tagWorker = ProcessRunningElement(tagWorker, element, context);
@@ -392,37 +279,32 @@ namespace iText.Html2pdf.Attach.Impl {
 
         private void RunApplier(IElementNode element, ITagWorker tagWorker) {
             ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(element);
-            if (cssApplier == null)
-            {
-                if (!ignoredCssTags.Contains(element.Name()))
-                {
+            if (cssApplier == null) {
+                if (!ignoredCssTags.Contains(element.Name())) {
                     logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element
                         .Name()));
                 }
             }
-            else
-            {
+            else {
                 cssApplier.Apply(context, element, tagWorker);
             }
         }
 
-        private ITagWorker ProcessRunningElement(ITagWorker tagWorker, IElementNode element, ProcessorContext context) {
+        private ITagWorker ProcessRunningElement(ITagWorker tagWorker, IElementNode element, ProcessorContext context
+            ) {
             String runningPrefix = CssConstants.RUNNING + "(";
             String positionVal;
             int endBracketInd;
-            if (element.GetStyles() == null
-                    || (positionVal = element.GetStyles().Get(CssConstants.POSITION)) == null
-                    || !positionVal.StartsWith(runningPrefix)
-                    // closing bracket should be there and there should be at least one symbol between brackets
-                    || (endBracketInd = positionVal.IndexOf(")", StringComparison.Ordinal)) <= runningPrefix.Length) {
+            if (element.GetStyles() == null || (positionVal = element.GetStyles().Get(CssConstants.POSITION)) == null 
+                || !positionVal.StartsWith(runningPrefix) || 
+                        // closing bracket should be there and there should be at least one symbol between brackets
+                        (endBracketInd = positionVal.IndexOf(")", StringComparison.Ordinal)) <= runningPrefix.Length) {
                 return tagWorker;
             }
-    
             String runningElemName = positionVal.JSubstring(runningPrefix.Length, endBracketInd).Trim();
             if (String.IsNullOrEmpty(runningElemName)) {
                 return tagWorker;
             }
-    
             // TODO For now the whole ITagWorker of the running element is preserved inside RunningElementContainer
             // for the sake of future processing in page margin box. This is somewhat a workaround and storing
             // tag workers might be easily seen as something undesirable, however at least for now it seems to be
@@ -439,7 +321,6 @@ namespace iText.Html2pdf.Attach.Impl {
             //   RunningElementContainer, so it would be fairly easy to change this approach in future if needed.
             RunningElementContainer runningElementContainer = new RunningElementContainer(element, tagWorker);
             context.GetCssContext().GetRunningManager().AddRunningElement(runningElemName, runningElementContainer);
-    
             return new RunningElementTagWorker(runningElementContainer);
         }
 
@@ -450,10 +331,10 @@ namespace iText.Html2pdf.Attach.Impl {
                 foreach (CssFontFaceRule fontFace in ((DefaultCssResolver)cssResolver).GetFonts()) {
                     bool findSupportedSrc = false;
                     IList<CssDeclaration> declarations = fontFace.GetProperties();
-                    FontFace ff = FontFace.Create(fontFace.GetProperties());
+                    CssFontFace ff = CssFontFace.Create(declarations);
                     if (ff != null) {
-                        foreach (FontFace.FontFaceSrc src in ff.GetSources()) {
-                            if (CreateFont(ff.GetFontFamily(), src, ResolveUnicodeRange(declarations))) {
+                        foreach (CssFontFace.CssFontFaceSrc src in ff.GetSources()) {
+                            if (CreateFont(ff.GetFontFamily(), src, fontFace.ResolveUnicodeRange())) {
                                 findSupportedSrc = true;
                                 break;
                             }
@@ -467,31 +348,19 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
-        private Range ResolveUnicodeRange(IList<CssDeclaration> declarations) {
-            Range range = null;
-            foreach (CssDeclaration descriptor in declarations) {
-                if ("unicode-range".Equals(descriptor.GetProperty())) {
-                    range = CssUtils.ParseUnicodeRange(descriptor.GetExpression());
-                }
-            }
-            return range;
-        }
-
-
-
         /// <summary>Creates a font and adds it to the context.</summary>
         /// <param name="fontFamily">the font family</param>
         /// <param name="src">the source of the font</param>
-        /// <param name="src">the unicode range</param>
+        /// <param name="unicodeRange">the unicode range</param>
         /// <returns>true, if successful</returns>
-        private bool CreateFont(String fontFamily, FontFace.FontFaceSrc src, Range uniRange) {
-            if (!SupportedFontFormat(src.format)) {
+        private bool CreateFont(String fontFamily, CssFontFace.CssFontFaceSrc src, Range unicodeRange) {
+            if (!CssFontFace.IsSupportedFontFormat(src.GetFormat())) {
                 return false;
             }
             else {
-                if (src.isLocal) {
+                if (src.IsLocal()) {
                     // to method with lazy initialization
-                    ICollection<FontInfo> fonts = context.GetFontProvider().GetFontSet().Get(src.src);
+                    ICollection<FontInfo> fonts = context.GetFontProvider().GetFontSet().Get(src.GetSrc());
                     if (fonts.Count > 0) {
                         foreach (FontInfo fi in fonts) {
                             context.AddTemporaryFont(fi, fontFamily);
@@ -506,37 +375,15 @@ namespace iText.Html2pdf.Attach.Impl {
                     try {
                         // Cache at resource resolver level only, at font level we will create font in any case.
                         // The instance of fontProgram will be collected by GC if the is no need in it.
-                        byte[] bytes = context.GetResourceResolver().RetrieveBytesFromResource(src.src);
+                        byte[] bytes = context.GetResourceResolver().RetrieveBytesFromResource(src.GetSrc());
                         if (bytes != null) {
                             FontProgram fp = FontProgramFactory.CreateFont(bytes, false);
-                            context.AddTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily, uniRange);
+                            context.AddTemporaryFont(fp, PdfEncodings.IDENTITY_H, fontFamily, unicodeRange);
                             return true;
                         }
                     }
                     catch (Exception) {
                     }
-                    return false;
-                }
-            }
-        }
-
-        /// <summary>Checks whether in general we support requested font format.</summary>
-        /// <param name="format">
-        /// 
-        /// <see cref="FontFace.FontFormat"/>
-        /// </param>
-        /// <returns>true, if supported or unrecognized.</returns>
-        private bool SupportedFontFormat(FontFace.FontFormat format) {
-            switch (format) {
-                case FontFace.FontFormat.None:
-                case FontFace.FontFormat.TrueType:
-                case FontFace.FontFormat.OpenType:
-                case FontFace.FontFormat.WOFF:
-                case FontFace.FontFormat.WOFF2: {
-                    return true;
-                }
-
-                default: {
                     return false;
                 }
             }
@@ -548,23 +395,26 @@ namespace iText.Html2pdf.Attach.Impl {
         private void VisitPseudoElement(IElementNode node, ITagWorker tagWorker, String pseudoElementName) {
             switch (pseudoElementName) {
                 case CssConstants.BEFORE:
-                case CssConstants.AFTER:
+                case CssConstants.AFTER: {
                     if (!CssPseudoElementUtil.HasBeforeAfterElements(node)) {
                         return;
                     }
-
                     break;
-                case CssConstants.PLACEHOLDER:
-                    if (!(TagConstants.INPUT.Equals(node.Name()) || TagConstants.TEXTAREA.Equals(node.Name())) // TODO DEVSIX-1944: Resolve the issue and remove the line
-                        || null == tagWorker
-                        || !(tagWorker.GetElementResult() is IPlaceholderable)
-                        || null == ((IPlaceholderable) tagWorker.GetElementResult()).GetPlaceholder()) {
+                }
+
+                case CssConstants.PLACEHOLDER: {
+                    if (!(TagConstants.INPUT.Equals(node.Name()) || TagConstants.TEXTAREA.Equals(node.Name())) || null == 
+                                        // TODO DEVSIX-1944: Resolve the issue and remove the line
+                                        tagWorker || !(tagWorker.GetElementResult() is IPlaceholderable) || null == ((IPlaceholderable)tagWorker.GetElementResult
+                        ()).GetPlaceholder()) {
                         return;
                     }
-
                     break;
-                default:
+                }
+
+                default: {
                     return;
+                }
             }
             Visit(new CssPseudoElementNode(node, pseudoElementName));
         }
@@ -643,8 +493,8 @@ namespace iText.Html2pdf.Attach.Impl {
         }
 
         private bool IsPlaceholder(IElementNode element) {
-            return element is CssPseudoElementNode &&
-                   CssConstants.PLACEHOLDER.Equals(((CssPseudoElementNode) element).GetPseudoElementName());
+            return element is CssPseudoElementNode && CssConstants.PLACEHOLDER.Equals(((CssPseudoElementNode)element).
+                GetPseudoElementName());
         }
     }
 }

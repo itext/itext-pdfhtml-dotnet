@@ -62,6 +62,12 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-4521: test currently results in endless loop")]
+        public virtual void BreakInsideAndBreakAfterTest() {
+            RunTest("breakInsideAndBreakAfter");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void PageBreakAfter01Test() {
             RunTest("page-break-after01");
         }

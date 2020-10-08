@@ -79,8 +79,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        // TODO DEVSIX-2881 : Update cmps
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED)]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void SpacesInFontSizeValueTest() {
             ConvertToPdfAndCompare("spacesInFontSizeValueTest", sourceFolder, destinationFolder);
         }

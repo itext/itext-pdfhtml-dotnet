@@ -44,7 +44,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Normal_flow {
-    public class WidthUndefined001Test : W3CCssAhemFontTest {
+    public class WidthUndefined001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "width-undefined-001.xht";
         }
