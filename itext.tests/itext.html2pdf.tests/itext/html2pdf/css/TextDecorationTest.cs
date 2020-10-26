@@ -46,103 +46,121 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class TextDecorationTest : ExtendedHtmlConversionITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/TextDecorationTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/TextDecorationTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecoration01Test() {
-            ConvertToPdfAndCompare("textDecorationTest01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecoration02Test() {
-            ConvertToPdfAndCompare("textDecorationTest02", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecoration03Test() {
-            ConvertToPdfAndCompare("textDecorationTest03", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationTest03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         //Text decoration property is in defaults.css for a[href], should be replaced by css.
         [NUnit.Framework.Test]
         public virtual void TextDecoration04Test() {
-            ConvertToPdfAndCompare("textDecorationTest04", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationTest04", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecoration05Test() {
             // TODO DEVSIX-2532
-            ConvertToPdfAndCompare("textDecorationTest05", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationTest05", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationShorthandAllValuesTest() {
             //TODO update after DEVSIX-4063 is closed
-            ConvertToPdfAndCompare("textDecorationShorthandAllValues", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationShorthandAllValues", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationShorthandOneValueTest() {
-            ConvertToPdfAndCompare("textDecorationShorthandOneValue", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationShorthandOneValue", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationShorthandTwoValuesTest() {
             //TODO update after DEVSIX-4063 is closed
-            ConvertToPdfAndCompare("textDecorationShorthandTwoValues", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationShorthandTwoValues", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationWithChildElementTest() {
-            ConvertToPdfAndCompare("textDecorationWithChildElement", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationWithChildElement", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         //TODO: DEVSIX-4201
         [LogMessage(iText.Html2pdf.LogMessageConstant.HSL_COLOR_NOT_SUPPORTED)]
         public virtual void TextDecorationColorTest() {
-            ConvertToPdfAndCompare("textDecorationColor", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationColor", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationColorWithTransparencyTest() {
-            ConvertToPdfAndCompare("textDecorationColorWithTransparency", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationColorWithTransparency", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationLineTest() {
-            ConvertToPdfAndCompare("textDecorationLine", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationLine", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationLineNoneAndUnderlineTogetherTest() {
-            ConvertToPdfAndCompare("textDecorationLineNoneAndUnderlineTogether", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationLineNoneAndUnderlineTogether", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationStyleTest() {
             //TODO update after DEVSIX-4063 is closed
-            ConvertToPdfAndCompare("textDecorationStyle", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("textDecorationStyle", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ShorthandAndSpecificTextDecorPropsTest() {
             //TODO update after DEVSIX-4063 is closed
-            ConvertToPdfAndCompare("shorthandAndSpecificTextDecorProps", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("shorthandAndSpecificTextDecorProps", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CombinationOfLinesInTextDecorationTest() {
-            ConvertToPdfAndCompare("combinationOfLinesInTextDecoration", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("combinationOfLinesInTextDecoration", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationColorEffectOnNestedElements01Test() {
+            // TODO DEVSIX-4719 replace cmp files once the issue is fixed
+            ConvertToPdfAndCompare("textDecorationColorEffectOnNestedElements01", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationColorEffectOnNestedElements02Test() {
+            // TODO DEVSIX-4719 replace cmp files once the issue is fixed
+            ConvertToPdfAndCompare("textDecorationColorEffectOnNestedElements02", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationColorEffectOnNestedElements03Test() {
+            // TODO DEVSIX-4719 replace cmp files once the issue is fixed
+            ConvertToPdfAndCompare("textDecorationColorEffectOnNestedElements03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }
