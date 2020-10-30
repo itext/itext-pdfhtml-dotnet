@@ -454,7 +454,7 @@ internal static class Html2PdfExtensions {
         return sb;
     }
 
-#if !NETSTANDARD1_6
+#if !NETSTANDARD2_0
     public static Attribute GetCustomAttribute(this Assembly assembly, Type attributeType) {
         object[] customAttributes = assembly.GetCustomAttributes(attributeType, false);
         if (customAttributes.Length > 0 && customAttributes[0] is Attribute) {
@@ -467,14 +467,14 @@ internal static class Html2PdfExtensions {
 
     public static Assembly GetAssembly(this Type type)
     {
-#if !NETSTANDARD1_6
+#if !NETSTANDARD2_0
         return type.Assembly;
 #else
         return type.GetTypeInfo().Assembly;
 #endif
     }
 
-#if NETSTANDARD1_6
+#if NETSTANDARD2_0
     public static MethodInfo GetMethod(this Type type, String methodName, Type[] parameterTypes) {
         return type.GetTypeInfo().GetMethod(methodName, parameterTypes);
     }

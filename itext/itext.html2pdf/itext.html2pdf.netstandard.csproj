@@ -7,7 +7,7 @@
     <DocumentationFile>$(TargetDir)bin\$(Configuration)\$(TargetFramework)\itext.html2pdf.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net40</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>library</OutputType>
