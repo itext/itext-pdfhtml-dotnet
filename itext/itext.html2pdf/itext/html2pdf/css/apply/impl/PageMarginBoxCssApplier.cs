@@ -47,6 +47,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Geom;
 using iText.Layout;
 using iText.Layout.Properties;
@@ -123,7 +124,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             marginBox.SetProperty(Property.FONT_SET, context.GetTempFonts());
             if (!(stylesContainer is PageMarginBoxContextNode)) {
                 ILog logger = LogManager.GetLogger(typeof(PageMarginBoxCssApplier));
-                logger.Warn(iText.Html2pdf.LogMessageConstant.PAGE_MARGIN_BOX_SOME_PROPERTIES_NOT_PROCESSED);
+                logger.Warn(Html2PdfLogMessageConstant.PAGE_MARGIN_BOX_SOME_PROPERTIES_NOT_PROCESSED);
                 return;
             }
             float availableWidth = ((PageMarginBoxContextNode)stylesContainer).GetContainingBlockForMarginBox().GetWidth

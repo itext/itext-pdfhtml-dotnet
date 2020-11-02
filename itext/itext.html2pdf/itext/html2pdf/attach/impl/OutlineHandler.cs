@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Navigation;
@@ -263,8 +264,8 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
                 else {
                     ILog logger = LogManager.GetLogger(typeof(OutlineHandler));
-                    logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG
-                        , tagName));
+                    logger.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG, 
+                        tagName));
                 }
             }
             return this;

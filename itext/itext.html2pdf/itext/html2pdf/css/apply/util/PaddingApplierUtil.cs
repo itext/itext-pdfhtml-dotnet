@@ -45,6 +45,7 @@ using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Logs;
 using iText.Layout;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
@@ -101,7 +102,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                             .GetValue() * 0.01f));
                     }
                     else {
-                        logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                        logger.Error(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     }
                 }
             }
@@ -115,7 +116,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                             .GetValue() * 0.01f));
                     }
                     else {
-                        logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                        logger.Error(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     }
                 }
             }
@@ -129,7 +130,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                             .GetValue() * 0.01f));
                     }
                     else {
-                        logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                        logger.Error(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     }
                 }
             }
@@ -143,7 +144,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                             .GetValue() * 0.01f));
                     }
                     else {
-                        logger.Error(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                        logger.Error(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     }
                 }
             }

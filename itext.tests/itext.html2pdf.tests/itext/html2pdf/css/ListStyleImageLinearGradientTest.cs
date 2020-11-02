@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Utils;
 using iText.Test;
 using iText.Test.Attributes;
@@ -51,7 +52,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, Count = 3)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, Count = 3)]
         public virtual void InvalidLinearGradientTypeTest() {
             RunTest("invalidLinearGradientType");
         }

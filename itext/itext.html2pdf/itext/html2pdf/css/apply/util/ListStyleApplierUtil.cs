@@ -46,6 +46,7 @@ using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Colors.Gradients;
@@ -133,7 +134,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         }
                     }
                     catch (StyledXMLParserException) {
-                        LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, listStyleImageStr
+                        LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, listStyleImageStr
                             ));
                     }
                 }
@@ -215,8 +216,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                                                     else {
                                                         if (style != null) {
                                                             ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.ListStyleApplierUtil));
-                                                            logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style
-                                                                ));
+                                                            logger.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
                                                         }
                                                         // Fallback style
                                                         if (stylesContainer is IElementNode) {

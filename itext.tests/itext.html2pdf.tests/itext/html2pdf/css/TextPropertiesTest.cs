@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
@@ -94,13 +95,13 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED)]
+        [LogMessage(Html2PdfLogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED)]
         public virtual void TextDecorationTest01() {
             ConvertToPdfAndCompare("textDecorationTest01", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void LetterSpacingTest01() {
             ConvertToPdfAndCompare("letterSpacingTest01", sourceFolder, destinationFolder);
         }
@@ -112,7 +113,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void WordSpacingTest01() {
             ConvertToPdfAndCompare("wordSpacingTest01", sourceFolder, destinationFolder);
         }

@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
@@ -89,15 +90,15 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         //attr() is not supported in quotes property in browsers
-        [LogMessage(iText.Html2pdf.LogMessageConstant.QUOTES_PROPERTY_INVALID)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(Html2PdfLogMessageConstant.QUOTES_PROPERTY_INVALID)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void AttrTest() {
             ConvertToPdfAndCompare("attrTest", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.QUOTES_PROPERTY_INVALID, Count = 2)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.QUOTES_PROPERTY_INVALID, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void ErrorTest() {
             ConvertToPdfAndCompare("errorTest", sourceFolder, destinationFolder);
         }

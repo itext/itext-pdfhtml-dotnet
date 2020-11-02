@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Test;
@@ -254,7 +255,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
         public virtual void SelectPseudoTest01() {
             // pseudo elements are not supported for select element. The same behaviour is in Mozilla Firefox.
             RunTest("selectPseudoTest01");

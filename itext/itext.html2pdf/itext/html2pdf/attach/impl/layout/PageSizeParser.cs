@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Layout.Properties;
@@ -94,8 +95,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 }
                 else {
                     ILog logger = LogManager.GetLogger(typeof(PageSizeParser));
-                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr
-                        ));
+                    logger.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
                 }
             }
             else {
@@ -133,8 +133,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 }
                 else {
                     ILog logger = LogManager.GetLogger(typeof(PageSizeParser));
-                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr
-                        ));
+                    logger.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
                 }
             }
             return pageSize;

@@ -42,10 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Pagination {
-    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 3)]
+    [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 3)]
     public class PageBreakAfter004Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "page-break-after-004.xht";

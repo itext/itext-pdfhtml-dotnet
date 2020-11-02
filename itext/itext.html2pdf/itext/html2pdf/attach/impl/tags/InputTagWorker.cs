@@ -48,6 +48,7 @@ using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Layout;
 using iText.Layout.Element;
@@ -83,7 +84,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (!AttributeConstants.INPUT_TYPE_VALUES.Contains(inputType)) {
                 if (null != inputType && 0 != inputType.Length) {
                     ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
-                    logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_INVALID, inputType));
+                    logger.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_INVALID, inputType));
                 }
                 inputType = AttributeConstants.TEXT;
             }
@@ -147,8 +148,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         else {
                             // has attribute == is checked
                             ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
-                            logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType
-                                ));
+                            logger.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
                         }
                     }
                 }

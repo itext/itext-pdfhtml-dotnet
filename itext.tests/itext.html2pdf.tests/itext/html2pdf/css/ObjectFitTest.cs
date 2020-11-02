@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Utils;
 using iText.Test;
 using iText.Test.Attributes;
@@ -69,7 +70,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNEXPECTED_VALUE_OF_OBJECT_FIT)]
+        [LogMessage(Html2PdfLogMessageConstant.UNEXPECTED_VALUE_OF_OBJECT_FIT)]
         public virtual void ObjectFitUnexpectedValueTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "objectFit_test_unexpected.html"), new FileInfo(destinationFolder
                  + "objectFit_test_unexpected.pdf"));

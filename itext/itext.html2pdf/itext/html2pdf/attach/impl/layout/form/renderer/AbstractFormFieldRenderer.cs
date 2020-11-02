@@ -46,6 +46,7 @@ using Common.Logging;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Util;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Tagging;
@@ -124,7 +125,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 }
             }
             else {
-                LogManager.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD);
+                LogManager.GetLogger(GetType()).Error(Html2PdfLogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD);
                 occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
             }
             if (!true.Equals(GetPropertyAsBoolean(Property.FORCED_PLACEMENT)) && !IsRendererFit(parentWidth, parentHeight
@@ -134,7 +135,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                     MinMaxWidth());
             }
             if (result.GetStatus() != LayoutResult.FULL || !IsRendererFit(parentWidth, parentHeight)) {
-                LogManager.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
+                LogManager.GetLogger(GetType()).Warn(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
             }
             return new MinMaxWidthLayoutResult(LayoutResult.FULL, occupiedArea, this, null).SetMinMaxWidth(new MinMaxWidth
                 (occupiedArea.GetBBox().GetWidth(), occupiedArea.GetBBox().GetWidth(), 0));

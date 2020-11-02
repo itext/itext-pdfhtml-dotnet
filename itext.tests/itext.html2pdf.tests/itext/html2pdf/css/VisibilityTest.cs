@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Utils;
 using iText.Test.Attributes;
 
@@ -108,7 +109,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT)]
+        [LogMessage(Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT)]
         public virtual void VisiblePropertyInFormDropdownListTest() {
             //TODO update cmp-file after DEVSIX-2090 and DEVSIX-1901 done
             String htmlFile = sourceFolder + "visiblePropertyInFormDropdownListTest.html";

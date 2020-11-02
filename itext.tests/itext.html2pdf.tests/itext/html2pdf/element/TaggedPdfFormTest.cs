@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf;
 using iText.Kernel;
+using iText.Kernel.Exceptions;
 
 namespace iText.Html2pdf.Element {
     public class TaggedPdfFormTest : ExtendedHtmlConversionITextTest {
@@ -124,7 +125,7 @@ namespace iText.Html2pdf.Element {
                 // exception is thrown on "convert tagged PDF with acroform" stage
                 ConvertToPdfAcroformFlattenAndCompare("inputFormPrematureFlush", sourceFolder, destinationFolder, true);
             }
-            , NUnit.Framework.Throws.InstanceOf<PdfException>().With.Message.EqualTo(PdfException.TagStructureFlushingFailedItMightBeCorrupted))
+            , NUnit.Framework.Throws.InstanceOf<PdfException>().With.Message.EqualTo(KernelExceptionMessageConstant.TAG_STRUCTURE_FLUSHING_FAILED_IT_MIGHT_BE_CORRUPTED))
 ;
         }
     }

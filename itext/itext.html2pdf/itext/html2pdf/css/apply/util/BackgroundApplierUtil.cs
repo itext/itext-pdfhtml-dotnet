@@ -45,6 +45,7 @@ using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Colors.Gradients;
@@ -374,7 +375,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             catch (StyledXMLParserException) {
-                LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, image
+                LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, image
                     ));
             }
             return false;

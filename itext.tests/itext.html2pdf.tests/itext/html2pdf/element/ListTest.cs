@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Html2pdf.Resolver.Font;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
@@ -86,7 +87,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, Count = 32)]
+        [LogMessage(Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, Count = 32)]
         public virtual void ListTest05() {
             RunTest("listTest05");
         }
@@ -220,14 +221,14 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 6)]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 6)]
         public virtual void ListsWithInlineChildren() {
             //TODO: update after DEVSIX-2093, DEVSIX-2092, DEVSIX-2091 fixes
             RunTest("listsWithInlineChildren");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, Count = 32)]
+        [LogMessage(Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, Count = 32)]
         public virtual void ListToPdfaTest() {
             Stream @is = new FileStream(sourceFolder + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read);
             PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "listToPdfa.pdf"), PdfAConformanceLevel

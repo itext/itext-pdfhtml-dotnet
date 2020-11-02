@@ -44,6 +44,7 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Exceptions;
+using iText.Html2pdf.Logs;
 using iText.Html2pdf.Resolver.Font;
 using iText.IO.Util;
 using iText.Kernel.Utils;
@@ -101,7 +102,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
         public virtual void FontFaceGrammarTest() {
             RunTest("fontFaceGrammarTest");
         }
@@ -135,7 +136,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
         public virtual void FontFaceTtcTest() {
             RunTest("fontFaceTtcTest");
         }
@@ -146,7 +147,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
         public virtual void FontFaceWoff2TtcTest() {
             RunTest("fontFaceWoff2TtcTest");
         }

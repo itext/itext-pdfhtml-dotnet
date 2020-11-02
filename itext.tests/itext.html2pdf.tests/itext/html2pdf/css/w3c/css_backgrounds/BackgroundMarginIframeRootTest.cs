@@ -22,7 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Html2pdf.Logs;
 using iText.Kernel;
+using iText.Kernel.Exceptions;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
@@ -33,12 +35,12 @@ namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
         public override void Test() {
             NUnit.Framework.Assert.That(() =>  {
                 base.Test();
             }
-            , NUnit.Framework.Throws.InstanceOf<PdfException>().With.Message.EqualTo(PdfException.DocumentHasNoPages))
+            , NUnit.Framework.Throws.InstanceOf<PdfException>().With.Message.EqualTo(KernelExceptionMessageConstant.DOCUMENT_HAS_NO_PAGES))
 ;
         }
     }

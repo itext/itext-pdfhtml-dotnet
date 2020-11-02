@@ -51,6 +51,7 @@ using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Parser;
@@ -120,7 +121,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, Count = 3)]
+        [LogMessage(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, Count = 3)]
         public virtual void InvalidCompoundSizePageRuleTest() {
             RunTest("invalidCompoundSizePageRuleTest");
         }
@@ -141,7 +142,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 3)]
+        [LogMessage(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 3)]
         public virtual void MarginBoxTest01() {
             RunTest("marginBoxTest01");
         }
@@ -312,7 +313,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID)]
+        [LogMessage(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID)]
         public virtual void MarginBoxRunningTest07() {
             RunTest("marginBoxRunningTest07");
         }

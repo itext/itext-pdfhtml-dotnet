@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 
-namespace iText.Html2pdf {
+namespace iText.Html2pdf.Logs {
     /// <summary>Class that bundles all the error message templates as constants.</summary>
-    public sealed class LogMessageConstant {
+    public sealed class Html2PdfLogMessageConstant {
         /// <summary>The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT.</summary>
         public const String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will be flattened instead.";
 
@@ -147,11 +147,7 @@ namespace iText.Html2pdf {
 
         /// <summary>The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE.</summary>
         public const String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
-
-        /// <summary>The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG.</summary>
-        [System.ObsoleteAttribute(@"will be removed in iText 7.2, use UNABLE_TO_PROCESS_SVG_ELEMENT")]
-        public const String UNABLE_TO_PROCESS_IMAGE_AS_SVG = "Unable to process image found at {0} as an SVG";
-
+        
         /// <summary>The Constant UNABLE_TO_PROCESS_SVG</summary>
         public const String UNABLE_TO_PROCESS_SVG_ELEMENT = "Unable to process an SVG element";
 
@@ -179,7 +175,7 @@ namespace iText.Html2pdf {
         /// <summary>The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER.</summary>
         public const String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
 
-        private LogMessageConstant() {
+        private Html2PdfLogMessageConstant() {
         }
     }
 }

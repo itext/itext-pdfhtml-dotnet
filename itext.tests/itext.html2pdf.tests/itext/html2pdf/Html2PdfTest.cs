@@ -45,6 +45,7 @@ using System.IO;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Resolver.Font;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
@@ -131,7 +132,7 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, Count = 
             1)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
         public virtual void HtmlObjectIncorrectBase64Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "objectTag_incorrectBase64svg.html"), new FileInfo(
                 destinationFolder + "objectTag_incorrectBase64svg.pdf"));
@@ -140,8 +141,8 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT, Count = 1)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT, Count = 1)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
         public virtual void HtmlObjectAltTextTest() {
             //update after DEVSIX-1346
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "objectTag_altText.html"), new FileInfo(destinationFolder
@@ -151,7 +152,7 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
         public virtual void HtmlObjectNestedObjectTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "objectTag_nestedTag.html"), new FileInfo(destinationFolder
                  + "objectTag_nestedTag.pdf"));
@@ -161,10 +162,10 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.RULE_IS_NOT_SUPPORTED, Ignore = true)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Ignore = true)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED, Ignore = true)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED, Ignore = true)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Ignore = true)]
+        [LogMessage(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Ignore = true)]
+        [LogMessage(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED, Ignore = true)]
+        [LogMessage(Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED, Ignore = true)]
+        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Ignore = true)]
         [LogMessage(iText.IO.LogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED, Ignore = true)]
         public virtual void BatchConversionTest() {
             ConverterProperties properties = new ConverterProperties().SetBaseUri(sourceFolder).SetMediaDeviceDescription

@@ -27,6 +27,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
@@ -60,7 +61,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS)]
+        [LogMessage(Html2PdfLogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS)]
         public virtual void TargetCounterManyRelayoutsTest() {
             ConvertToPdfAndCompare("targetCounterManyRelayouts");
         }
@@ -76,19 +77,19 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, Count = 2)]
         public virtual void TargetCounterNotExistingTargetTest() {
             ConvertToPdfAndCompare("targetCounterNotExistingTarget");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void PageTargetCounterTestWithLogMessageTest() {
             ConvertToPdfAndCompare("pageTargetCounterTestWithLogMessage");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void NonPageTargetCounterTestWithLogMessageTest() {
             // There should be only one log message here, but we have two because we resolve css styles twice.
             ConvertToPdfAndCompare("nonPageTargetCounterTestWithLogMessage");
@@ -131,13 +132,13 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS)]
+        [LogMessage(Html2PdfLogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS)]
         public virtual void TargetCounterCannotBeResolvedTest() {
             ConvertToPdfAndCompare("targetCounterCannotBeResolved");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT)]
+        [LogMessage(Html2PdfLogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT)]
         public virtual void CustomRendererAndPageTargetCounterTest() {
             ConvertToPdfWithCustomRendererAndCompare("customRendererAndPageTargetCounter");
         }

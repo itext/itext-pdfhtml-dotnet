@@ -46,6 +46,7 @@ using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -107,7 +108,7 @@ namespace iText.Html2pdf.Attach.Util {
             if (context.GetLinkContext().IsUsedLinkDestination(id)) {
                 if (propertyContainer == null) {
                     String tagWorkerClassName = tagWorker != null ? tagWorker.GetType().FullName : "null";
-                    LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.Name
+                    LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.Name
                         (), id, tagWorkerClassName));
                     return;
                 }

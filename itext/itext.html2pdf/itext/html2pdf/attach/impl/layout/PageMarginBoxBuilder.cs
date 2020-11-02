@@ -47,6 +47,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Resolve;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Layout.Borders;
@@ -159,7 +160,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                             }
                         }
                         else {
-                            LogManager.GetLogger(this.GetType()).Error(iText.Html2pdf.LogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
+                            LogManager.GetLogger(this.GetType()).Error(Html2PdfLogMessageConstant.UNKNOWN_MARGIN_BOX_CHILD);
                         }
                     }
                 }

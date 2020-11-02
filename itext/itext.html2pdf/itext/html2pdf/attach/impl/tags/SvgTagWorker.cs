@@ -44,6 +44,7 @@ using System;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
+using iText.Html2pdf.Logs;
 using iText.Html2pdf.Util;
 using iText.Layout;
 using iText.Layout.Element;
@@ -80,7 +81,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 processingResult = new DefaultSvgProcessor().Process((INode)element, props);
             }
             catch (SvgProcessingException spe) {
-                LOGGER.Error(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, spe);
+                LOGGER.Error(Html2PdfLogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, spe);
             }
             context.StartProcessingInlineSvg();
         }

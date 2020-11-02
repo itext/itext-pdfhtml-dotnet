@@ -45,6 +45,7 @@ using System.IO;
 using iText.Forms;
 using iText.Html2pdf;
 using iText.IO.Util;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Test;
@@ -182,13 +183,13 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 2)]
         public virtual void SelectTest01() {
             RunTest("select01", false);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 3)]
+        [LogMessage(Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 3)]
         public virtual void SelectTest02() {
             RunTest("select02", false);
         }

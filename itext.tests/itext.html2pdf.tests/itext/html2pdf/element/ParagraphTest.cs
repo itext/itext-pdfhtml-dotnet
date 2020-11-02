@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Utils;
 using iText.Test;
 using iText.Test.Attributes;
@@ -142,7 +143,7 @@ namespace iText.Html2pdf.Element {
                 ));
         }
 
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 2)]
         [NUnit.Framework.Test]
         public virtual void ParagraphWithBdoBrImgMapQSubSupTest() {
             //TODO: update after DEVSIX-2445 fix
@@ -152,7 +153,7 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithBdoBrImgMapQSubSupTest.pdf", destinationFolder, "diff12_"));
         }
 
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 2)]
         [NUnit.Framework.Test]
         public virtual void ParagraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest() {
             //TODO: update after DEVSIX-2445 fix
@@ -172,7 +173,7 @@ namespace iText.Html2pdf.Element {
                 , sourceFolder + "cmp_paragraphWithAParagraphSpanDivTest.pdf", destinationFolder, "diff14_"));
         }
 
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 2)]
         [NUnit.Framework.Test]
         public virtual void ParagraphWithBBigISmallTtStrongTest() {
             //TODO: update after DEVSIX-2445 fix

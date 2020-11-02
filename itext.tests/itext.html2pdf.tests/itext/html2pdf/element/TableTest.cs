@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel;
 using iText.Kernel.Geom;
@@ -319,13 +320,13 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
         public virtual void ThTagTest() {
             RunTest("thTag", true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
         public virtual void TheadTagTest() {
             RunTest("theadTagTest", true);
         }
@@ -503,7 +504,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED, Count = 63)]
+        [LogMessage(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED, Count = 63)]
         public virtual void CheckResponsiveTableExample() {
             //https://codepen.io/heypablete/pen/qdIsm
             //TODO: update after DEVSIX-1101
@@ -512,7 +513,7 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Count = 2)]
         public virtual void TableWithChildrenBiggerThanCellTest() {
             //TODO: DEVSIX-3022 - Inputs bigger than enclosing cell force table to split
             RunTest("tableWithChildrenBiggerThanCell");

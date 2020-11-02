@@ -47,6 +47,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Page;
@@ -296,7 +297,7 @@ namespace iText.Html2pdf.Css.Resolve {
             if (contentStr.Length > logMessageParameterMaxLength) {
                 contentStr = contentStr.JSubstring(0, logMessageParameterMaxLength) + ".....";
             }
-            LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr
+            LOGGER.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr
                 ));
             return null;
         }

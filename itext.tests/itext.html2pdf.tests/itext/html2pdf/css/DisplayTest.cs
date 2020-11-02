@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
@@ -115,7 +116,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
         [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
         public virtual void DisplayTable07Test() {
             ConvertToPdfAndCompare("display_table07", sourceFolder, destinationFolder);
         }
@@ -145,7 +146,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         //TODO: update after DEVSIX-2445 fix
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 6)]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 6)]
         public virtual void DisplayBlockInsideParagraphTest() {
             ConvertToPdfAndCompare("displayBlockInsideParagraph", sourceFolder, destinationFolder);
         }
@@ -313,7 +314,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 7)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 7)]
         public virtual void InlineBlockInsideTableCellTest() {
             // IO setup
             PdfWriter writer = new PdfWriter(new FileInfo(destinationFolder + "inlineBlockInsideTableCellTest.pdf"));

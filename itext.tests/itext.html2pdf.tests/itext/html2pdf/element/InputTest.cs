@@ -48,6 +48,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Impl.Tags;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Geom;
@@ -97,7 +98,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
         public virtual void Input06Test() {
             String htmlPath = sourceFolder + "inputTest06.html";
             String outPdfPath = destinationFolder + "inputTest06.pdf";
@@ -165,7 +166,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_INVALID)]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_TYPE_IS_INVALID)]
         public virtual void InputDefaultTest01() {
             RunTest("inputDefaultTest01");
         }
@@ -191,8 +192,8 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, Ignore = true)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Ignore = true)]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, Ignore = true)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Ignore = true)]
         public virtual void PlaceholderTest04() {
             RunTest("placeholderTest04");
         }
@@ -255,7 +256,7 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         // TODO DEVSIX-5571 Update cmp after the ticket is closed
         [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
         public virtual void CheckboxFullWidthDisplayBlockTest() {
             RunTest("checkboxFullWidthDisplayBlockTest");
         }

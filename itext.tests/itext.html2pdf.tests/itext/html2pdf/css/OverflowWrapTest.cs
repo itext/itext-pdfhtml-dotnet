@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Utils;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -102,7 +103,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void ChosenOverflowWrapValue01() {
             IList<IElement> elements = ConvertToElements("chosenOverflowWrapValue01");
             Paragraph paragraph = (Paragraph)elements[0];
@@ -114,7 +115,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void ChosenOverflowWrapValue02() {
             IList<IElement> elements = ConvertToElements("chosenOverflowWrapValue02");
             Paragraph paragraph = (Paragraph)elements[0];
@@ -161,7 +162,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void OverflowWrapWordWrapInheritanceAndInvalidValues() {
             IList<IElement> elements = ConvertToElements("overflowWrapWordWrapInheritanceAndInvalidValues");
             Div div = (Div)elements[0];

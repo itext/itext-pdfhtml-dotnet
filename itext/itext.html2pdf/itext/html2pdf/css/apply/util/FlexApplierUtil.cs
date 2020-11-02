@@ -44,7 +44,7 @@ using System;
 using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Css;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Layout;
 using iText.Layout.Properties;
@@ -102,7 +102,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 else {
                     // The case when we don't set the flex-basis property should be identified
                     // as flex-basis: content
-                    LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, 
+                    LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, 
                         CommonCssConstants.FLEX_BASIS, CommonCssConstants.CONTENT));
                 }
             }
@@ -170,7 +170,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
 
                     default: {
-                        LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, 
+                        LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, 
                             CommonCssConstants.ALIGN_ITEMS, alignItemsString));
                         alignItems = AlignmentPropertyValue.STRETCH;
                         break;
@@ -241,7 +241,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
 
                     default: {
-                        LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, 
+                        LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, 
                             CommonCssConstants.JUSTIFY_CONTENT, justifyContentString));
                         justifyContent = JustifyContent.FLEX_START;
                         break;
@@ -258,7 +258,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 ICollection<String> supportedValues = entry.Value;
                 String propertyValue = cssProps.Get(supportedPair);
                 if (propertyValue != null && !supportedValues.Contains(propertyValue)) {
-                    LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, 
+                    LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, 
                         supportedPair, propertyValue));
                 }
             }

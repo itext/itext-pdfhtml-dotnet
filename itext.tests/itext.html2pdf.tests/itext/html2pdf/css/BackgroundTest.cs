@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Utils;
 using iText.Test.Attributes;
 
@@ -90,7 +91,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         // TODO DEVSIX-4426 support rotateZ() - remove log message after fixing
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void BackgroundTransformedRootTest() {
             ConvertToPdfAndCompare("backgroundTransformedRoot", sourceFolder, destinationFolder);
         }
@@ -124,7 +125,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void BackgroundImageAndColorsTest() {
             ConvertToPdfAndCompare("background_image_and_colors", sourceFolder, destinationFolder);
         }

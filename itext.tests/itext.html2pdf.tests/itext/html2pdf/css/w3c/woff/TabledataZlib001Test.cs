@@ -42,10 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Woff {
-    [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
+    [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
     public class TabledataZlib001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "tabledata-zlib-001.xht";

@@ -46,6 +46,7 @@ using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.Html2pdf.Util;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
@@ -109,11 +110,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     LOGGER.Error(spe.Message);
                 }
                 catch (System.IO.IOException ie) {
-                    LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+                    LOGGER.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
                         , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA), ie));
                 }
                 catch (UriFormatException ie) {
-                    LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+                    LOGGER.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
                         , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA), ie));
                 }
             }
@@ -134,7 +135,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             else {
-                LOGGER.Error(iText.Html2pdf.LogMessageConstant.PDF_DOCUMENT_NOT_PRESENT);
+                LOGGER.Error(Html2PdfLogMessageConstant.PDF_DOCUMENT_NOT_PRESENT);
             }
         }
 

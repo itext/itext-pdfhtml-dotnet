@@ -45,6 +45,7 @@ using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Logs;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -157,7 +158,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         return System.Convert.ToSingle(baseValue * marginUnitVal.GetValue() * 0.01, System.Globalization.CultureInfo.InvariantCulture
                             );
                     }
-                    logger.Error(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    logger.Error(Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     return null;
                 }
                 return marginUnitVal.GetValue();

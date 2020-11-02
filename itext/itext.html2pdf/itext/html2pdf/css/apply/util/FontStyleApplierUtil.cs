@@ -45,6 +45,7 @@ using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Canvas;
@@ -204,7 +205,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             else {
                 if (textDecorationColorProp.StartsWith("hsl")) {
-                    logger.Error(iText.Html2pdf.LogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
+                    logger.Error(Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
                     textDecorationColor = ColorConstants.BLACK;
                 }
                 else {
@@ -219,7 +220,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 IList<Underline> underlineList = new List<Underline>();
                 foreach (String textDecorationLine in textDecorationLines) {
                     if (CssConstants.BLINK.Equals(textDecorationLine)) {
-                        logger.Error(iText.Html2pdf.LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
+                        logger.Error(Html2PdfLogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
                     }
                     else {
                         if (CssConstants.LINE_THROUGH.Equals(textDecorationLine)) {
@@ -257,8 +258,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         element.SetProperty(Property.FIRST_LINE_INDENT, textIndentValue.GetValue());
                     }
                     else {
-                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
-                            , CssConstants.TEXT_INDENT));
+                        logger.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
+                            .TEXT_INDENT));
                     }
                 }
             }

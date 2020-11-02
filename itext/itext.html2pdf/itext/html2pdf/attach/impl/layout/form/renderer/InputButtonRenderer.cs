@@ -47,6 +47,7 @@ using iText.Forms;
 using iText.Forms.Fields;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -101,7 +102,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 }
             }
             else {
-                LogManager.GetLogger(GetType()).Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
+                LogManager.GetLogger(GetType()).Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE
                     , "button"));
                 SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
                 flatBBox.SetY(flatBBox.GetTop()).SetHeight(0);

@@ -22,6 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Html2pdf.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
     public class LineBoxHeight001Test : W3CCssTest {

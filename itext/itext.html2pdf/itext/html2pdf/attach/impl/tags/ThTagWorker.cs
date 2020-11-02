@@ -44,6 +44,7 @@ using System;
 using Common.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Tagging;
@@ -88,8 +89,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         }
                         else {
                             ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.ThTagWorker));
-                            logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, scope)
-                                );
+                            logger.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, scope));
                         }
                     }
                 }

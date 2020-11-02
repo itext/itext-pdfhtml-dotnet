@@ -46,6 +46,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
@@ -173,7 +174,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
 
                 default: {
-                    LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNEXPECTED_VALUE_OF_OBJECT_FIT, objectFitValue
+                    LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.UNEXPECTED_VALUE_OF_OBJECT_FIT, objectFitValue
                         ));
                     return ObjectFit.FILL;
                 }
