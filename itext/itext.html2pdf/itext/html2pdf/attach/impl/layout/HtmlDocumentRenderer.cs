@@ -46,8 +46,6 @@ using iText.Html2pdf.Attach;
 using iText.Kernel.Events;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas;
-using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Layout;
@@ -86,7 +84,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// </remarks>
         private bool evenPagesAreLeft = true;
 
-        private HtmlDocumentRenderer.PageMarginBoxesDrawingHandler handler;
+        private HtmlDocumentRenderer.PageMarginBoxesDrawingHandler marginBoxesHandler;
+
+        private HtmlBodyStylesApplierHandler htmlBodyHandler;
+
+        private IDictionary<int, HtmlBodyStylesApplierHandler.PageStylesProperties> pageStylesPropertiesMap = new 
+            Dictionary<int, HtmlBodyStylesApplierHandler.PageStylesProperties>();
 
         /// <summary>
         /// The waiting element, an child element is kept waiting for the
@@ -119,6 +122,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="immediateFlush">the immediate flush indicator</param>
         public HtmlDocumentRenderer(Document document, bool immediateFlush)
             : base(document, immediateFlush) {
+            htmlBodyHandler = new HtmlBodyStylesApplierHandler(this, pageStylesPropertiesMap);
+            document.GetPdfDocument().AddEventHandler(PdfDocumentEvent.END_PAGE, htmlBodyHandler);
         }
 
         /// <summary>Processes the page rules.</summary>
@@ -139,8 +144,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             firstPageProc = new PageContextProcessor(firstPageProps, context, defaultPageSize, defaultPageMargins);
             leftPageProc = new PageContextProcessor(leftPageProps, context, defaultPageSize, defaultPageMargins);
             rightPageProc = new PageContextProcessor(rightPageProps, context, defaultPageSize, defaultPageMargins);
-            handler = new HtmlDocumentRenderer.PageMarginBoxesDrawingHandler().SetHtmlDocumentRenderer(this);
-            document.GetPdfDocument().AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
+            marginBoxesHandler = new HtmlDocumentRenderer.PageMarginBoxesDrawingHandler().SetHtmlDocumentRenderer(this
+                );
+            document.GetPdfDocument().AddEventHandler(PdfDocumentEvent.END_PAGE, marginBoxesHandler);
         }
 
         /* (non-Javadoc)
@@ -176,11 +182,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             ProcessWaitingElement();
             base.Close();
             TrimLastPageIfNecessary();
-            document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, handler);
+            document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, marginBoxesHandler);
+            document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, htmlBodyHandler);
             for (int i = 1; i <= document.GetPdfDocument().GetNumberOfPages(); ++i) {
                 PdfPage page = document.GetPdfDocument().GetPage(i);
                 if (!page.IsFlushed()) {
-                    handler.ProcessPage(document.GetPdfDocument(), i);
+                    marginBoxesHandler.ProcessPage(document.GetPdfDocument(), i);
+                    htmlBodyHandler.ProcessPage(page, i);
                 }
             }
         }
@@ -200,68 +208,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             relayoutRenderer.leftPageProc = leftPageProc.Reset(defaultPageSize, defaultPageMargins);
             relayoutRenderer.rightPageProc = rightPageProc.Reset(defaultPageSize, defaultPageMargins);
             relayoutRenderer.estimatedNumberOfPages = currentPageNumber - SimulateTrimLastPage();
-            relayoutRenderer.handler = handler.SetHtmlDocumentRenderer(relayoutRenderer);
+            relayoutRenderer.marginBoxesHandler = marginBoxesHandler.SetHtmlDocumentRenderer(relayoutRenderer);
             return relayoutRenderer;
         }
 
         public override void Flush() {
             ProcessWaitingElement();
             base.Flush();
-        }
-
-        internal virtual void ProcessWaitingElement() {
-            if (waitingElement != null) {
-                IRenderer r = this.waitingElement;
-                waitingElement = null;
-                base.AddChild(r);
-            }
-        }
-
-        internal virtual bool ShouldAttemptTrimLastPage() {
-            return TRIM_LAST_BLANK_PAGE && document.GetPdfDocument().GetNumberOfPages() > 1;
-        }
-
-        internal virtual void TrimLastPageIfNecessary() {
-            if (ShouldAttemptTrimLastPage()) {
-                PdfDocument pdfDocument = document.GetPdfDocument();
-                PdfPage lastPage = pdfDocument.GetLastPage();
-                if (lastPage.GetContentStreamCount() == 1 && lastPage.GetContentStream(0).GetOutputStream().GetCurrentPos(
-                    ) <= 0) {
-                    // Remove last empty page
-                    pdfDocument.RemovePage(pdfDocument.GetNumberOfPages());
-                }
-            }
-        }
-
-        /// <summary>
-        /// Returns the number of pages that will be trimmed on
-        /// <see cref="Close()"/>
-        /// </summary>
-        /// <returns>0 if no pages will be trimmed, or positive number of trimmed pages in case any are trimmed</returns>
-        internal virtual int SimulateTrimLastPage() {
-            if (ShouldAttemptTrimLastPage()) {
-                int lastPageNumber = document.GetPdfDocument().GetNumberOfPages();
-                // At the moment we only check if some element was positioned on this page
-                // However, there might theoretically be an inconsistency with the method that
-                // actually does the trimming because that method checks the canvas output only.
-                // We might want to simulate drawing on canvas here in the future, or possibly
-                // consider invisible elements in the method that actually does the trimming
-                bool willAnyContentBeDrawnOnLastPage = false;
-                foreach (IRenderer renderer in childRenderers) {
-                    if (renderer.GetOccupiedArea().GetPageNumber() == lastPageNumber) {
-                        willAnyContentBeDrawnOnLastPage = true;
-                    }
-                }
-                foreach (IRenderer renderer in positionedRenderers) {
-                    if (renderer.GetOccupiedArea().GetPageNumber() == lastPageNumber) {
-                        willAnyContentBeDrawnOnLastPage = true;
-                    }
-                }
-                return willAnyContentBeDrawnOnLastPage ? 0 : 1;
-            }
-            else {
-                return 0;
-            }
         }
 
         /* (non-Javadoc)
@@ -338,13 +291,21 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             base.ShrinkCurrentAreaAndProcessRenderer(renderer, resultRenderers, result);
         }
 
+        protected override void FlushSingleRenderer(IRenderer resultRenderer) {
+            if (!IsElementOnNonStaticLayout(resultRenderer)) {
+                LayoutArea area = resultRenderer.GetOccupiedArea();
+                UpdateLowestAndHighestPoints(area.GetBBox(), area.GetPageNumber());
+            }
+            base.FlushSingleRenderer(resultRenderer);
+        }
+
         /* (non-Javadoc)
         * @see com.itextpdf.layout.renderer.DocumentRenderer#addNewPage(com.itextpdf.kernel.geom.PageSize)
         */
         protected override PageSize AddNewPage(PageSize customPageSize) {
             PdfPage addedPage;
-            int numberOfPages = document.GetPdfDocument().GetNumberOfPages();
-            PageContextProcessor nextProcessor = GetPageProcessor(numberOfPages + 1);
+            int pageNumber = document.GetPdfDocument().GetNumberOfPages() + 1;
+            PageContextProcessor nextProcessor = GetPageProcessor(pageNumber);
             if (customPageSize != null) {
                 addedPage = document.GetPdfDocument().AddNewPage(customPageSize);
             }
@@ -353,7 +314,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
             nextProcessor.ProcessNewPage(addedPage);
             float[] margins = nextProcessor.ComputeLayoutMargins();
-            ApplyHtmlBodyStyles(addedPage, margins);
+            BodyHtmlStylesContainer[] styles = new BodyHtmlStylesContainer[] { ((IPropertyContainer)document).GetProperty
+                <BodyHtmlStylesContainer>(Html2PdfProperty.HTML_STYLING), ((IPropertyContainer)document).GetProperty<BodyHtmlStylesContainer
+                >(Html2PdfProperty.BODY_STYLING) };
+            pageStylesPropertiesMap.Put(pageNumber, new HtmlBodyStylesApplierHandler.PageStylesProperties(styles));
+            UpdateDefaultMargins(styles, margins);
             SetProperty(Property.MARGIN_TOP, margins[0]);
             SetProperty(Property.MARGIN_RIGHT, margins[1]);
             SetProperty(Property.MARGIN_BOTTOM, margins[2]);
@@ -361,81 +326,59 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return new PageSize(addedPage.GetTrimBox());
         }
 
-        private void ApplyHtmlBodyStyles(PdfPage page, float[] defaultMargins) {
-            BodyHtmlStylesContainer[] styles = new BodyHtmlStylesContainer[2];
-            styles[0] = ((IPropertyContainer)document).GetProperty<BodyHtmlStylesContainer>(Html2PdfProperty.HTML_STYLING
-                );
-            styles[1] = ((IPropertyContainer)document).GetProperty<BodyHtmlStylesContainer>(Html2PdfProperty.BODY_STYLING
-                );
-            int firstBackground = ApplyFirstBackground(page, defaultMargins, styles);
-            for (int i = 0; i < 2; i++) {
-                if (styles[i] != null) {
-                    if (styles[i].HasContentToDraw()) {
-                        DrawSimulatedDiv(page, styles[i].properties, defaultMargins, firstBackground != i);
-                    }
-                    for (int j = 0; j < 4; j++) {
-                        defaultMargins[j] += styles[i].GetTotalWidth()[j];
-                    }
+        internal virtual void ProcessWaitingElement() {
+            if (waitingElement != null) {
+                IRenderer r = this.waitingElement;
+                waitingElement = null;
+                base.AddChild(r);
+            }
+        }
+
+        internal virtual bool ShouldAttemptTrimLastPage() {
+            return TRIM_LAST_BLANK_PAGE && document.GetPdfDocument().GetNumberOfPages() > 1;
+        }
+
+        internal virtual void TrimLastPageIfNecessary() {
+            if (ShouldAttemptTrimLastPage()) {
+                PdfDocument pdfDocument = document.GetPdfDocument();
+                PdfPage lastPage = pdfDocument.GetLastPage();
+                if (lastPage.GetContentStreamCount() == 1 && lastPage.GetContentStream(0).GetOutputStream().GetCurrentPos(
+                    ) <= 0) {
+                    // Remove last empty page
+                    pdfDocument.RemovePage(pdfDocument.GetNumberOfPages());
                 }
             }
         }
 
-        private int ApplyFirstBackground(PdfPage page, float[] defaultMargins, BodyHtmlStylesContainer[] styles) {
-            int firstBackground = -1;
-            if (styles[0] != null && (styles[0].GetOwnProperty<Background>(Property.BACKGROUND) != null || styles[0].GetOwnProperty
-                <Object>(Property.BACKGROUND_IMAGE) != null)) {
-                firstBackground = 0;
+        /// <summary>
+        /// Returns the number of pages that will be trimmed on
+        /// <see cref="Close()"/>
+        /// </summary>
+        /// <returns>0 if no pages will be trimmed, or positive number of trimmed pages in case any are trimmed</returns>
+        internal virtual int SimulateTrimLastPage() {
+            if (ShouldAttemptTrimLastPage()) {
+                int lastPageNumber = document.GetPdfDocument().GetNumberOfPages();
+                // At the moment we only check if some element was positioned on this page
+                // However, there might theoretically be an inconsistency with the method that
+                // actually does the trimming because that method checks the canvas output only.
+                // We might want to simulate drawing on canvas here in the future, or possibly
+                // consider invisible elements in the method that actually does the trimming
+                bool willAnyContentBeDrawnOnLastPage = false;
+                foreach (IRenderer renderer in childRenderers) {
+                    if (renderer.GetOccupiedArea().GetPageNumber() == lastPageNumber) {
+                        willAnyContentBeDrawnOnLastPage = true;
+                    }
+                }
+                foreach (IRenderer renderer in positionedRenderers) {
+                    if (renderer.GetOccupiedArea().GetPageNumber() == lastPageNumber) {
+                        willAnyContentBeDrawnOnLastPage = true;
+                    }
+                }
+                return willAnyContentBeDrawnOnLastPage ? 0 : 1;
             }
             else {
-                if (styles[1] != null && (styles[1].GetOwnProperty<Background>(Property.BACKGROUND) != null || styles[1].GetOwnProperty
-                    <Object>(Property.BACKGROUND_IMAGE) != null)) {
-                    firstBackground = 1;
-                }
+                return 0;
             }
-            if (firstBackground != -1) {
-                Dictionary<int, Object> background = new Dictionary<int, Object>();
-                background.Put(Property.BACKGROUND, styles[firstBackground].GetProperty<Background>(Property.BACKGROUND));
-                background.Put(Property.BACKGROUND_IMAGE, styles[firstBackground].GetProperty<Object>(Property.BACKGROUND_IMAGE
-                    ));
-                DrawSimulatedDiv(page, background, defaultMargins, true);
-            }
-            return firstBackground;
-        }
-
-        private void DrawSimulatedDiv(PdfPage page, IDictionary<int, Object> styles, float[] margins, bool drawBackground
-            ) {
-            Div pageBordersSimulation;
-            pageBordersSimulation = new Div().SetFillAvailableArea(true);
-            foreach (KeyValuePair<int, Object> entry in styles) {
-                if ((entry.Key == Property.BACKGROUND || entry.Key == Property.BACKGROUND_IMAGE) && !drawBackground) {
-                    continue;
-                }
-                pageBordersSimulation.SetProperty(entry.Key, entry.Value);
-            }
-            pageBordersSimulation.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
-            iText.Layout.Canvas canvas = new Canvas(new PdfCanvas(page), page.GetTrimBox().ApplyMargins(margins[0], margins
-                [1], margins[2], margins[3], false));
-            canvas.EnableAutoTagging(page);
-            canvas.Add(pageBordersSimulation);
-            canvas.Close();
-        }
-
-        /// <summary>Gets the estimated number of pages.</summary>
-        /// <returns>the estimated number of pages</returns>
-        internal virtual int GetEstimatedNumberOfPages() {
-            return estimatedNumberOfPages;
-        }
-
-        private static bool IsRunningElementsOnly(IRenderer waitingElement) {
-            bool res;
-            if (res = waitingElement is ParagraphRenderer && !waitingElement.GetChildRenderers().IsEmpty()) {
-                IList<IRenderer> childRenderers = waitingElement.GetChildRenderers();
-                int i = 0;
-                while (res && i < childRenderers.Count) {
-                    res = childRenderers[i++] is RunningElement.RunningElementRenderer;
-                }
-            }
-            return res;
         }
 
         /// <summary>Gets a page processor for the page.</summary>
@@ -445,7 +388,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// shall be obtained
         /// </param>
         /// <returns>a page processor</returns>
-        private PageContextProcessor GetPageProcessor(int pageNum) {
+        internal virtual PageContextProcessor GetPageProcessor(int pageNum) {
             // If first page, but break-before: left for ltr is present, we should use left page instead of first
             if (pageNum == 1 && evenPagesAreLeft) {
                 return firstPageProc;
@@ -458,6 +401,64 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     return rightPageProc;
                 }
             }
+        }
+
+        /// <summary>Gets the estimated number of pages.</summary>
+        /// <returns>the estimated number of pages</returns>
+        internal virtual int GetEstimatedNumberOfPages() {
+            return estimatedNumberOfPages;
+        }
+
+        private void UpdateDefaultMargins(BodyHtmlStylesContainer[] styles, float[] defaultMargins) {
+            for (int i = 0; i < 2; i++) {
+                if (styles[i] != null) {
+                    for (int j = 0; j < 4; j++) {
+                        defaultMargins[j] += styles[i].GetTotalWidth()[j];
+                    }
+                }
+            }
+        }
+
+        private bool IsElementOnNonStaticLayout(IRenderer resultRenderer) {
+            bool nonStaticLayout = false;
+            if (resultRenderer.HasProperty(Property.POSITION)) {
+                int positionProperty = (int)resultRenderer.GetProperty<int?>(Property.POSITION);
+                nonStaticLayout = positionProperty == LayoutPosition.ABSOLUTE || positionProperty == LayoutPosition.FIXED;
+            }
+            if (!nonStaticLayout && resultRenderer.HasProperty(Property.FLOAT)) {
+                FloatPropertyValue? floatProperty = resultRenderer.GetProperty<FloatPropertyValue?>(Property.FLOAT);
+                nonStaticLayout = floatProperty == FloatPropertyValue.LEFT || floatProperty == FloatPropertyValue.RIGHT;
+            }
+            return nonStaticLayout;
+        }
+
+        private void UpdateLowestAndHighestPoints(Rectangle rectangle, int page) {
+            if (!pageStylesPropertiesMap.ContainsKey(page)) {
+                return;
+            }
+            HtmlBodyStylesApplierHandler.LowestAndHighest currentPagePoints = pageStylesPropertiesMap.Get(page).lowestAndHighest;
+            if (currentPagePoints == null) {
+                pageStylesPropertiesMap.Get(page).lowestAndHighest = new HtmlBodyStylesApplierHandler.LowestAndHighest(rectangle
+                    .GetY(), rectangle.GetY() + rectangle.GetHeight());
+            }
+            else {
+                float newLowestPoint = rectangle.GetY();
+                float newHighestPoint = rectangle.GetY() + rectangle.GetHeight();
+                currentPagePoints.lowest = Math.Min(newLowestPoint, currentPagePoints.lowest);
+                currentPagePoints.highest = Math.Max(newHighestPoint, currentPagePoints.highest);
+            }
+        }
+
+        private static bool IsRunningElementsOnly(IRenderer waitingElement) {
+            bool res;
+            if (res = waitingElement is ParagraphRenderer && !waitingElement.GetChildRenderers().IsEmpty()) {
+                IList<IRenderer> childRenderers = waitingElement.GetChildRenderers();
+                int i = 0;
+                while (res && i < childRenderers.Count) {
+                    res = childRenderers[i++] is RunningElement.RunningElementRenderer;
+                }
+            }
+            return res;
         }
 
         /// <summary>Checks if the current page is a left page.</summary>
