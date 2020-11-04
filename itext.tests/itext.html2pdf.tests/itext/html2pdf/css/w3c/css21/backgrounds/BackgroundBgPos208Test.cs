@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Backgrounds {
-    // TODO DEVSIX-4699 investigate problem
+    // TODO DEVSIX-4732 background image should be around the content
     public class BackgroundBgPos208Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "background-bg-pos-208.xht";
