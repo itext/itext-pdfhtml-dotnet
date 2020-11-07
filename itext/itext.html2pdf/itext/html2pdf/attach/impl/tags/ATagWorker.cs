@@ -125,6 +125,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 String name = element.GetAttribute(AttributeConstants.NAME);
                 IPropertyContainer firstElement = GetAllElements()[0];
                 firstElement.SetProperty(Property.DESTINATION, name);
+                firstElement.SetProperty(Property.ID, name);
             }
         }
     }

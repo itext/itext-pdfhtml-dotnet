@@ -57,16 +57,37 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>The counter manager.</summary>
         private CssCounterManager counterManager = new CssCounterManager();
 
-        /// <summary>Indicates if a pages counter is present.</summary>
-        private bool pagesCounterPresent = false;
+        /// <summary>Indicates if a pages counter or target-counter is present.</summary>
+        private bool pagesCounterOrTargetCounterPresent = false;
 
         /// <summary>The running elements manager.</summary>
         private CssRunningManager runningManager = new CssRunningManager();
+
+        /// <summary>Indicates whether the document shall process target-counter or not.</summary>
+        private bool targetCounterEnabled = false;
 
         /// <summary>Gets the root font size.</summary>
         /// <returns>the root font size in pt</returns>
         public virtual float GetRootFontSize() {
             return rootFontSize;
+        }
+
+        /// <summary>Sets the targetCounterEnabled flag.</summary>
+        /// <param name="targetCounterEnabled">true if target-counter shall be processed, false otherwise</param>
+        /// <returns>
+        /// the
+        /// <see cref="CssContext"/>
+        /// instance
+        /// </returns>
+        public virtual CssContext SetTargetCounterEnabled(bool targetCounterEnabled) {
+            this.targetCounterEnabled = targetCounterEnabled;
+            return this;
+        }
+
+        /// <summary>Checks if target-counter is enabled.</summary>
+        /// <returns>true if target-counter shall be processed, false otherwise</returns>
+        public virtual bool IsTargetCounterEnabled() {
+            return targetCounterEnabled;
         }
 
         /// <summary>Sets the root font size.</summary>
@@ -87,16 +108,16 @@ namespace iText.Html2pdf.Css.Resolve {
             return counterManager;
         }
 
-        /// <summary>Sets the presence of a page counter.</summary>
-        /// <param name="pagesCounterPresent">the new pages counter present</param>
-        public virtual void SetPagesCounterPresent(bool pagesCounterPresent) {
-            this.pagesCounterPresent = pagesCounterPresent;
+        /// <summary>Sets the presence of a page counter or target counter.</summary>
+        /// <param name="pagesCounterOrTargetCounterPresent">the new pages counter or target-counter present</param>
+        public virtual void SetPagesCounterPresent(bool pagesCounterOrTargetCounterPresent) {
+            this.pagesCounterOrTargetCounterPresent = pagesCounterOrTargetCounterPresent;
         }
 
-        /// <summary>Checks if a pages counter is present.</summary>
-        /// <returns>true, if is pages counter present</returns>
+        /// <summary>Checks if a pages counter or target is present.</summary>
+        /// <returns>true, if pages counter or target-counter present</returns>
         public virtual bool IsPagesCounterPresent() {
-            return pagesCounterPresent;
+            return pagesCounterOrTargetCounterPresent;
         }
 
         public virtual CssRunningManager GetRunningManager() {

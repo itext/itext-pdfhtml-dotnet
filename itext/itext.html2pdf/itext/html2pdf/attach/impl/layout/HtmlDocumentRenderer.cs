@@ -209,12 +209,22 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             relayoutRenderer.rightPageProc = rightPageProc.Reset(defaultPageSize, defaultPageMargins);
             relayoutRenderer.estimatedNumberOfPages = currentPageNumber - SimulateTrimLastPage();
             relayoutRenderer.marginBoxesHandler = marginBoxesHandler.SetHtmlDocumentRenderer(relayoutRenderer);
+            relayoutRenderer.targetCounterHandler = new TargetCounterHandler(targetCounterHandler);
             return relayoutRenderer;
         }
 
         public override void Flush() {
             ProcessWaitingElement();
             base.Flush();
+        }
+
+        /// <summary>Layouts waiting element.</summary>
+        public virtual void ProcessWaitingElement() {
+            if (waitingElement != null) {
+                IRenderer r = this.waitingElement;
+                waitingElement = null;
+                base.AddChild(r);
+            }
         }
 
         /* (non-Javadoc)
@@ -324,14 +334,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             SetProperty(Property.MARGIN_BOTTOM, margins[2]);
             SetProperty(Property.MARGIN_LEFT, margins[3]);
             return new PageSize(addedPage.GetTrimBox());
-        }
-
-        internal virtual void ProcessWaitingElement() {
-            if (waitingElement != null) {
-                IRenderer r = this.waitingElement;
-                waitingElement = null;
-                base.AddChild(r);
-            }
         }
 
         internal virtual bool ShouldAttemptTrimLastPage() {

@@ -114,6 +114,11 @@ namespace iText.Html2pdf.Attach {
         /// <summary>Internal state variable to keep track of whether the processor is currently inside an inlineSvg</summary>
         private bool processingInlineSvg;
 
+        /// <summary>Indicates whether the document shall process target-counter or not.</summary>
+        private readonly bool targetCounterEnabled;
+
+        private readonly int limitOfLayouts;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="ProcessorContext"/>
@@ -154,7 +159,9 @@ namespace iText.Html2pdf.Attach {
                 outlineHandler = new OutlineHandler();
             }
             resourceResolver = new HtmlResourceResolver(baseUri, this, converterProperties.GetResourceRetriever());
-            cssContext = new CssContext();
+            targetCounterEnabled = converterProperties.IsTargetCounterEnabled();
+            limitOfLayouts = converterProperties.GetLimitOfLayouts();
+            cssContext = new CssContext().SetTargetCounterEnabled(targetCounterEnabled);
             linkContext = new LinkContext();
             createAcroForm = converterProperties.IsCreateAcroForm();
             formFieldNameResolver = new FormFieldNameResolver();
@@ -162,6 +169,12 @@ namespace iText.Html2pdf.Attach {
             immediateFlush = converterProperties.IsImmediateFlush();
             metaInfo = converterProperties.GetEventCountingMetaInfo();
             processingInlineSvg = false;
+        }
+
+        /// <summary>Gets maximum number of layouts.</summary>
+        /// <returns>layouts limit</returns>
+        public virtual int GetLimitOfLayouts() {
+            return limitOfLayouts;
         }
 
         /// <summary>Sets the font provider.</summary>
@@ -174,6 +187,12 @@ namespace iText.Html2pdf.Attach {
         /// <returns>the state</returns>
         public virtual State GetState() {
             return state;
+        }
+
+        /// <summary>Checks if target-counter is enabled.</summary>
+        /// <returns>true if target-counter shall be processed, false otherwise</returns>
+        public virtual bool IsTargetCounterEnabled() {
+            return targetCounterEnabled;
         }
 
         /// <summary>Gets the PDF document.</summary>
@@ -301,7 +320,7 @@ namespace iText.Html2pdf.Attach {
             this.pdfDocument = null;
             this.state = new State();
             this.resourceResolver.ResetCache();
-            this.cssContext = new CssContext();
+            this.cssContext = new CssContext().SetTargetCounterEnabled(IsTargetCounterEnabled());
             this.linkContext = new LinkContext();
             this.formFieldNameResolver.Reset();
             //Reset font provider. PdfFonts shall be reseted.

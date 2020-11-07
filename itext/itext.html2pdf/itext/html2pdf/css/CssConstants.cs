@@ -277,6 +277,12 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant RUNNING.</summary>
         public const String RUNNING = "running";
 
+        /// <summary>The Constant TARGET_COUNTER.</summary>
+        public const String TARGET_COUNTER = "target-counter";
+
+        /// <summary>The Constant TARGET_COUNTERS.</summary>
+        public const String TARGET_COUNTERS = "target-counters";
+
         // units of resolution
         /// <summary>The Constant DPI.</summary>
         public const String DPI = "dpi";

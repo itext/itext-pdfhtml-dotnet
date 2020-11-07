@@ -50,6 +50,8 @@ namespace iText.Html2pdf {
 
         public const String ANCHOR_LINK_NOT_HANDLED = "The anchor link was not handled. Could not create a destination for element \"{0}\" with ID \"{1}\", which is processed by \"{2}\" tag worker class.";
 
+        public const String CANNOT_RESOLVE_TARGET_COUNTER_VALUE = "Cannot resolve target-counter value with given target \"{0}\"";
+
         /// <summary>The Constant CONTENT_PROPERTY_INVALID.</summary>
         public const String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
 
@@ -72,6 +74,10 @@ namespace iText.Html2pdf {
 
         /// <summary>The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE.</summary>
         public const String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE = "Error during layout of form filed with type {0}.";
+
+        /// <summary>The Constant EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS.</summary>
+        public const String EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS = "Exceeded the maximum number of relayouts. "
+             + "The resultant document may look not as expected. " + "Because of the content being dynamic iText performs several relayouts to produce correct document.";
 
         /// <summary>The Constant INPUT_FIELD_DOES_NOT_FIT.</summary>
         public const String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";

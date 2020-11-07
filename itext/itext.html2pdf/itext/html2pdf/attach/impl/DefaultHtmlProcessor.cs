@@ -65,6 +65,7 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Font;
 using iText.Layout.Properties;
+using iText.Layout.Renderer;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Font;
 using iText.StyledXmlParser.Css.Pseudo;
@@ -188,8 +189,20 @@ namespace iText.Html2pdf.Attach.Impl {
             Visit(root);
             Document doc = (Document)roots[0];
             // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
-            if (context.GetCssContext().IsPagesCounterPresent() && doc.GetRenderer() is HtmlDocumentRenderer) {
-                doc.Relayout();
+            if (doc.GetRenderer() is HtmlDocumentRenderer && context.GetCssContext().IsPagesCounterPresent()) {
+                ((HtmlDocumentRenderer)doc.GetRenderer()).ProcessWaitingElement();
+                int counter = 0;
+                do {
+                    ++counter;
+                    doc.Relayout();
+                    ((HtmlDocumentRenderer)doc.GetRenderer()).ProcessWaitingElement();
+                    if (counter >= context.GetLimitOfLayouts()) {
+                        logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS
+                            ));
+                        break;
+                    }
+                }
+                while (((DocumentRenderer)doc.GetRenderer()).IsRelayoutRequired());
             }
             cssResolver = null;
             roots = null;

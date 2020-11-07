@@ -83,20 +83,53 @@ namespace iText.Html2pdf.Css.Resolve {
             while ((token = tokenizer.GetNextValidToken()) != null) {
                 if (token.IsString()) {
                     result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, token.GetValue()));
+                    continue;
+                }
+                if (token.GetValue().StartsWith(CssConstants.COUNTERS + "(")) {
+                    String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTERS.Length + 1, token.GetValue().Length -
+                         1);
+                    String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
+                    if (@params.Length == 0) {
+                        return ErrorFallback(contentStr);
+                    }
+                    // Counters are denoted by case-sensitive identifiers
+                    String counterName = @params[0].Trim();
+                    String counterSeparationStr = @params[1].Trim();
+                    counterSeparationStr = counterSeparationStr.JSubstring(1, counterSeparationStr.Length - 1);
+                    String listStyleType = @params.Length > 2 ? @params[2].Trim() : null;
+                    CssCounterManager counterManager = context.GetCounterManager();
+                    INode scope = contentContainer;
+                    if (CssConstants.PAGE.Equals(counterName)) {
+                        result.Add(new PageCountElementNode(false, contentContainer));
+                    }
+                    else {
+                        if (CssConstants.PAGES.Equals(counterName)) {
+                            result.Add(new PageCountElementNode(true, contentContainer));
+                        }
+                        else {
+                            String resolvedCounter = counterManager.ResolveCounters(counterName, counterSeparationStr, listStyleType, 
+                                scope);
+                            if (resolvedCounter == null) {
+                                logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName
+                                    ));
+                            }
+                            else {
+                                result.Add(new CssContentPropertyResolver.ContentTextNode(scope, resolvedCounter));
+                            }
+                        }
+                    }
                 }
                 else {
-                    if (token.GetValue().StartsWith(CssConstants.COUNTERS + "(")) {
-                        String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTERS.Length + 1, token.GetValue().Length -
-                             1);
+                    if (token.GetValue().StartsWith(CssConstants.COUNTER + "(")) {
+                        String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTER.Length + 1, token.GetValue().Length - 
+                            1);
                         String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
                         if (@params.Length == 0) {
                             return ErrorFallback(contentStr);
                         }
                         // Counters are denoted by case-sensitive identifiers
                         String counterName = @params[0].Trim();
-                        String counterSeparationStr = @params[1].Trim();
-                        counterSeparationStr = counterSeparationStr.JSubstring(1, counterSeparationStr.Length - 1);
-                        String listStyleType = @params.Length > 2 ? @params[2].Trim() : null;
+                        String listStyleType = @params.Length > 1 ? @params[1].Trim() : null;
                         CssCounterManager counterManager = context.GetCounterManager();
                         INode scope = contentContainer;
                         if (CssConstants.PAGE.Equals(counterName)) {
@@ -107,8 +140,7 @@ namespace iText.Html2pdf.Css.Resolve {
                                 result.Add(new PageCountElementNode(true, contentContainer));
                             }
                             else {
-                                String resolvedCounter = counterManager.ResolveCounters(counterName, counterSeparationStr, listStyleType, 
-                                    scope);
+                                String resolvedCounter = counterManager.ResolveCounter(counterName, listStyleType, scope);
                                 if (resolvedCounter == null) {
                                     logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName
                                         ));
@@ -120,35 +152,20 @@ namespace iText.Html2pdf.Css.Resolve {
                         }
                     }
                     else {
-                        if (token.GetValue().StartsWith(CssConstants.COUNTER + "(")) {
-                            String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTER.Length + 1, token.GetValue().Length - 
-                                1);
+                        if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTER + "(")) {
+                            if (!context.IsTargetCounterEnabled()) {
+                                return ErrorFallback(contentStr);
+                            }
+                            String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTER.Length + 1, token.GetValue().Length
+                                 - 1);
                             String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
                             if (@params.Length == 0) {
                                 return ErrorFallback(contentStr);
                             }
-                            // Counters are denoted by case-sensitive identifiers
-                            String counterName = @params[0].Trim();
-                            String listStyleType = @params.Length > 1 ? @params[1].Trim() : null;
-                            CssCounterManager counterManager = context.GetCounterManager();
-                            INode scope = contentContainer;
+                            String counterName = @params[1].Trim();
+                            String target = CssUtils.ExtractUrl(@params[0]);
                             if (CssConstants.PAGE.Equals(counterName)) {
-                                result.Add(new PageCountElementNode(false, contentContainer));
-                            }
-                            else {
-                                if (CssConstants.PAGES.Equals(counterName)) {
-                                    result.Add(new PageCountElementNode(true, contentContainer));
-                                }
-                                else {
-                                    String resolvedCounter = counterManager.ResolveCounter(counterName, listStyleType, scope);
-                                    if (resolvedCounter == null) {
-                                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName
-                                            ));
-                                    }
-                                    else {
-                                        result.Add(new CssContentPropertyResolver.ContentTextNode(scope, resolvedCounter));
-                                    }
-                                }
+                                result.Add(new PageTargetCountElementNode(contentContainer, target));
                             }
                         }
                         else {

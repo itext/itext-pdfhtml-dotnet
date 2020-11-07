@@ -110,6 +110,14 @@ namespace iText.Html2pdf.Css.Util {
                                 String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
                                 pagesCounterPresent = pagesCounterPresent || CheckCounterFunctionParamsForPagesReferencePresence(@params);
                             }
+                            else {
+                                if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTER + "(")) {
+                                    String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTER.Length + 1, token.GetValue().Length
+                                         - 1);
+                                    String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
+                                    pagesCounterPresent = pagesCounterPresent || @params.Length > 0;
+                                }
+                            }
                         }
                     }
                 }
