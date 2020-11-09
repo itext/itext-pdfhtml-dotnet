@@ -42,8 +42,18 @@ address: sales@itextpdf.com
 */
 using System;
 using System.IO;
+using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl;
+using iText.Html2pdf.Resolver.Font;
 using iText.IO.Util;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
+using iText.Layout;
+using iText.Layout.Font;
+using iText.StyledXmlParser;
+using iText.StyledXmlParser.Css.Media;
+using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Node.Impl.Jsoup;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -147,6 +157,31 @@ namespace iText.Html2pdf {
                  + "objectTag_nestedTag.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "objectTag_nestedTag.pdf"
                 , sourceFolder + "cmp_objectTag_nestedTag.pdf", destinationFolder, "diff01_"));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.RULE_IS_NOT_SUPPORTED, Ignore = true)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Ignore = true)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED, Ignore = true)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED, Ignore = true)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Ignore = true)]
+        [LogMessage(iText.IO.LogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED, Ignore = true)]
+        public virtual void BatchConversionTest() {
+            ConverterProperties properties = new ConverterProperties().SetBaseUri(sourceFolder).SetMediaDeviceDescription
+                (new MediaDeviceDescription(MediaType.PRINT));
+            FontProvider fontProvider = new DefaultFontProvider(true, false, false);
+            fontProvider.AddDirectory(sourceFolder + "fonts/");
+            properties.SetFontProvider(fontProvider);
+            IHtmlProcessor processor = new DefaultHtmlProcessor(properties);
+            IXmlParser parser = new JsoupHtmlParser();
+            String outPdfPath = destinationFolder + "smashing1.pdf";
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outPdfPath));
+            IDocumentNode doc = parser.Parse(new FileStream(sourceFolder + "smashing01.html", FileMode.Open, FileAccess.Read
+                ), properties.GetCharset());
+            Document document = processor.ProcessDocument(doc, pdfDocument);
+            document.Close();
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, sourceFolder + "cmp_smashing1.pdf"
+                , destinationFolder, "diff01_"));
         }
 
         [NUnit.Framework.Test]
