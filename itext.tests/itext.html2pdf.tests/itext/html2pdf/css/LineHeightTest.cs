@@ -202,6 +202,11 @@ namespace iText.Html2pdf.Css {
             TestLineHeight("inlineBlockFloatAndLineHeight");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void LineHeightMathJaxMathFontNormalTest() {
+            TestLineHeight("lineHeightMathJaxMathFontNormalTest");
+        }
+
         internal virtual void TestLineHeight(String name) {
             String sourceHtml = SOURCE_FOLDER + name + ".html";
             String destinationPdf = DESTINATION_FOLDER + name + ".pdf";
