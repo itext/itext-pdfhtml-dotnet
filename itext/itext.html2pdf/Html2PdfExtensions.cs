@@ -411,6 +411,10 @@ internal static class Html2PdfExtensions {
     public static T JGetFirst<T>(this LinkedList<T> list) {
         return list.First.Value;
     }
+    
+    public static T JGetLast<T>(this LinkedList<T> list) {
+        return list.Last.Value;
+    }
 
     public static void EnsureCapacity<T>(this List<T> list, int capacity) {
         if (capacity > list.Count) {
