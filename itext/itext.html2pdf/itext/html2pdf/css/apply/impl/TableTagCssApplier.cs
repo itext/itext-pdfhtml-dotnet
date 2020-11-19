@@ -74,13 +74,13 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 if (null != borderSpacing) {
                     String[] props = iText.IO.Util.StringUtil.Split(borderSpacing, "\\s+");
                     if (1 == props.Length) {
-                        table.SetHorizontalBorderSpacing(CssUtils.ParseAbsoluteLength(props[0]));
-                        table.SetVerticalBorderSpacing(CssUtils.ParseAbsoluteLength(props[0]));
+                        table.SetHorizontalBorderSpacing(CssDimensionParsingUtils.ParseAbsoluteLength(props[0]));
+                        table.SetVerticalBorderSpacing(CssDimensionParsingUtils.ParseAbsoluteLength(props[0]));
                     }
                     else {
                         if (2 == props.Length) {
-                            table.SetHorizontalBorderSpacing(CssUtils.ParseAbsoluteLength(props[0]));
-                            table.SetVerticalBorderSpacing(CssUtils.ParseAbsoluteLength(props[1]));
+                            table.SetHorizontalBorderSpacing(CssDimensionParsingUtils.ParseAbsoluteLength(props[0]));
+                            table.SetVerticalBorderSpacing(CssDimensionParsingUtils.ParseAbsoluteLength(props[1]));
                         }
                     }
                 }

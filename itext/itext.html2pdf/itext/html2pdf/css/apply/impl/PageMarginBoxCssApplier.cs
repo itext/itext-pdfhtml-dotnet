@@ -140,7 +140,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         /// <param name="dimensionSize">the dimension size</param>
         /// <returns>a float value</returns>
         private static float? ParseBoxValue(String valString, float em, float rem, float dimensionSize) {
-            UnitValue marginUnitVal = CssUtils.ParseLengthValueToPt(valString, em, rem);
+            UnitValue marginUnitVal = CssDimensionParsingUtils.ParseLengthValueToPt(valString, em, rem);
             if (marginUnitVal != null) {
                 if (marginUnitVal.IsPointValue()) {
                     return marginUnitVal.GetValue();

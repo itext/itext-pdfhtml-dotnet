@@ -79,10 +79,10 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             bool isRtl = BaseDirection.RIGHT_TO_LEFT.Equals(list.GetProperty<BaseDirection?>(Property.BASE_DIRECTION));
             if ((isRtl && !list.HasProperty(Property.PADDING_RIGHT)) || (!isRtl && !list.HasProperty(Property.PADDING_LEFT
                 ))) {
-                float em = CssUtils.ParseAbsoluteLength(css.Get(CssConstants.FONT_SIZE));
+                float em = CssDimensionParsingUtils.ParseAbsoluteLength(css.Get(CssConstants.FONT_SIZE));
                 float rem = context.GetCssContext().GetRootFontSize();
-                UnitValue startPadding = CssUtils.ParseLengthValueToPt(css.Get(CssConstants.PADDING_INLINE_START), em, rem
-                    );
+                UnitValue startPadding = CssDimensionParsingUtils.ParseLengthValueToPt(css.Get(CssConstants.PADDING_INLINE_START
+                    ), em, rem);
                 list.SetProperty(isRtl ? Property.PADDING_RIGHT : Property.PADDING_LEFT, startPadding);
             }
         }

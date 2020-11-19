@@ -63,7 +63,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 for (int i = 0; i < @params.Length; i++) {
                     String counterName = @params[i];
                     int? possibleCounterValue;
-                    if (i + 1 < @params.Length && (possibleCounterValue = CssUtils.ParseInteger(@params[i + 1])) != null) {
+                    if (i + 1 < @params.Length && (possibleCounterValue = CssDimensionParsingUtils.ParseInteger(@params[i + 1]
+                        )) != null) {
                         counterManager.ResetCounter(counterName, (int)possibleCounterValue, scope);
                         i++;
                     }
@@ -79,7 +80,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 for (int i = 0; i < @params.Length; i++) {
                     String counterName = @params[i];
                     int? possibleIncrementValue;
-                    if (i + 1 < @params.Length && (possibleIncrementValue = CssUtils.ParseInteger(@params[i + 1])) != null) {
+                    if (i + 1 < @params.Length && (possibleIncrementValue = CssDimensionParsingUtils.ParseInteger(@params[i + 
+                        1])) != null) {
                         counterManager.IncrementCounter(counterName, (int)possibleIncrementValue, scope);
                         i++;
                     }

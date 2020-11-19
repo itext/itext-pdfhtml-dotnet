@@ -97,7 +97,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     int i = 0;
                     for (; i < 6; i++) {
                         if (i == 4 || i == 5) {
-                            matrix[i] = CssUtils.ParseAbsoluteLength(arg[i].Trim());
+                            matrix[i] = CssDimensionParsingUtils.ParseAbsoluteLength(arg[i].Trim());
                         }
                         else {
                             matrix[i] = float.Parse(arg[i].Trim(), System.Globalization.CultureInfo.InvariantCulture);
@@ -116,25 +116,25 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 float x;
                 float y = 0;
                 xPoint = arg[0].IndexOf('%') < 0;
-                x = xPoint ? CssUtils.ParseAbsoluteLength(arg[0].Trim()) : float.Parse(arg[0].Trim().JSubstring(0, arg[0].
-                    IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture);
+                x = xPoint ? CssDimensionParsingUtils.ParseAbsoluteLength(arg[0].Trim()) : float.Parse(arg[0].Trim().JSubstring
+                    (0, arg[0].IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture);
                 if (arg.Length == 2) {
                     yPoint = arg[1].IndexOf('%') < 0;
-                    y = -1 * (yPoint ? CssUtils.ParseAbsoluteLength(arg[1].Trim()) : float.Parse(arg[1].Trim().JSubstring(0, arg
-                        [1].IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture));
+                    y = -1 * (yPoint ? CssDimensionParsingUtils.ParseAbsoluteLength(arg[1].Trim()) : float.Parse(arg[1].Trim()
+                        .JSubstring(0, arg[1].IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture));
                 }
                 return GetSingleTransformTranslate(1, 0, 0, 1, x, y, xPoint, yPoint);
             }
             if (CssConstants.TRANSLATE_X.Equals(function)) {
                 bool xPoint = args.IndexOf('%') < 0;
-                float x = xPoint ? CssUtils.ParseAbsoluteLength(args.Trim()) : float.Parse(args.Trim().JSubstring(0, args.
-                    IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture);
+                float x = xPoint ? CssDimensionParsingUtils.ParseAbsoluteLength(args.Trim()) : float.Parse(args.Trim().JSubstring
+                    (0, args.IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture);
                 return GetSingleTransformTranslate(1, 0, 0, 1, x, 0, xPoint, true);
             }
             if (CssConstants.TRANSLATE_Y.Equals(function)) {
                 bool yPoint = args.IndexOf('%') < 0;
-                float y = -1 * (yPoint ? CssUtils.ParseAbsoluteLength(args.Trim()) : float.Parse(args.Trim().JSubstring(0, 
-                    args.IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture));
+                float y = -1 * (yPoint ? CssDimensionParsingUtils.ParseAbsoluteLength(args.Trim()) : float.Parse(args.Trim
+                    ().JSubstring(0, args.IndexOf('%')), System.Globalization.CultureInfo.InvariantCulture));
                 return GetSingleTransformTranslate(1, 0, 0, 1, 0, y, true, yPoint);
             }
             if (CssConstants.ROTATE.Equals(function)) {

@@ -78,7 +78,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="element">the element</param>
         public static void ApplyFontStyles(IDictionary<String, String> cssProps, ProcessorContext context, IStylesContainer
              stylesContainer, IPropertyContainer element) {
-            float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
             if (em != 0) {
                 element.SetProperty(Property.FONT_SIZE, UnitValue.CreatePointValue(em));
@@ -98,7 +98,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (cssColorPropValue != null) {
                 TransparentColor transparentColor;
                 if (!CssConstants.TRANSPARENT.Equals(cssColorPropValue)) {
-                    float[] rgbaColor = CssUtils.ParseRgbaColor(cssColorPropValue);
+                    float[] rgbaColor = CssDimensionParsingUtils.ParseRgbaColor(cssColorPropValue);
                     Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
                     float opacity = rgbaColor[3];
                     transparentColor = new TransparentColor(color, opacity);
@@ -170,7 +170,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     textDecorationColor = ColorConstants.BLACK;
                 }
                 else {
-                    colors = CssUtils.ParseRgbaColor(textDecorationColorProp);
+                    colors = CssDimensionParsingUtils.ParseRgbaColor(textDecorationColorProp);
                     textDecorationColor = new DeviceRgb(colors[0], colors[1], colors[2]);
                     opacity_1 = colors[3];
                 }
@@ -213,7 +213,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             String textIndent = cssProps.Get(CssConstants.TEXT_INDENT);
             if (textIndent != null) {
-                UnitValue textIndentValue = CssUtils.ParseLengthValueToPt(textIndent, em, rem);
+                UnitValue textIndentValue = CssDimensionParsingUtils.ParseLengthValueToPt(textIndent, em, rem);
                 if (textIndentValue != null) {
                     if (textIndentValue.IsPointValue()) {
                         element.SetProperty(Property.FIRST_LINE_INDENT, textIndentValue.GetValue());
@@ -226,7 +226,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             String letterSpacing = cssProps.Get(CssConstants.LETTER_SPACING);
             if (letterSpacing != null && !CssConstants.NORMAL.Equals(letterSpacing)) {
-                UnitValue letterSpacingValue = CssUtils.ParseLengthValueToPt(letterSpacing, em, rem);
+                UnitValue letterSpacingValue = CssDimensionParsingUtils.ParseLengthValueToPt(letterSpacing, em, rem);
                 if (letterSpacingValue.IsPointValue()) {
                     element.SetProperty(Property.CHARACTER_SPACING, letterSpacingValue.GetValue());
                 }
@@ -234,7 +234,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             // browsers ignore values in percents
             String wordSpacing = cssProps.Get(CssConstants.WORD_SPACING);
             if (wordSpacing != null) {
-                UnitValue wordSpacingValue = CssUtils.ParseLengthValueToPt(wordSpacing, em, rem);
+                UnitValue wordSpacingValue = CssDimensionParsingUtils.ParseLengthValueToPt(wordSpacing, em, rem);
                 if (wordSpacingValue != null) {
                     if (wordSpacingValue.IsPointValue()) {
                         element.SetProperty(Property.WORD_SPACING, wordSpacingValue.GetValue());
@@ -250,8 +250,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static void SetLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {
             if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight) && !CssConstants.AUTO.Equals(lineHeight)
                 ) {
-                if (CssUtils.IsNumericValue(lineHeight)) {
-                    float? number = CssUtils.ParseFloat(lineHeight);
+                if (CssTypesValidationUtils.IsNumericValue(lineHeight)) {
+                    float? number = CssDimensionParsingUtils.ParseFloat(lineHeight);
                     if (number != null) {
                         elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateMultipliedValue((float)number));
                     }
@@ -260,7 +260,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
                 else {
-                    UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em, rem);
+                    UnitValue lineHeightValue = CssDimensionParsingUtils.ParseLengthValueToPt(lineHeight, em, rem);
                     if (lineHeightValue != null && lineHeightValue.IsPointValue()) {
                         elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateFixedValue(lineHeightValue.GetValue()));
                     }
@@ -287,14 +287,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
             // What's more, it's basically the same thing as if lineHeight is not set in the first place
             if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight) && !CssConstants.AUTO.Equals(lineHeight)
                 ) {
-                if (CssUtils.IsNumericValue(lineHeight)) {
-                    float? mult = CssUtils.ParseFloat(lineHeight);
+                if (CssTypesValidationUtils.IsNumericValue(lineHeight)) {
+                    float? mult = CssDimensionParsingUtils.ParseFloat(lineHeight);
                     if (mult != null) {
                         element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));
                     }
                 }
                 else {
-                    UnitValue lineHeightValue = CssUtils.ParseLengthValueToPt(lineHeight, em, rem);
+                    UnitValue lineHeightValue = CssDimensionParsingUtils.ParseLengthValueToPt(lineHeight, em, rem);
                     if (lineHeightValue != null && lineHeightValue.IsPointValue()) {
                         element.SetProperty(Property.LEADING, new Leading(Leading.FIXED, lineHeightValue.GetValue()));
                     }

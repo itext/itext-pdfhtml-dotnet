@@ -51,8 +51,8 @@ namespace iText.Html2pdf.Css.Resolve {
     /// <summary>Class that bundles all the CSS context properties.</summary>
     public class CssContext : AbstractCssContext {
         /// <summary>The root font size value in pt.</summary>
-        private float rootFontSize = CssUtils.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants.FONT_SIZE
-            ));
+        private float rootFontSize = CssDimensionParsingUtils.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants
+            .FONT_SIZE));
 
         /// <summary>The counter manager.</summary>
         private CssCounterManager counterManager = new CssCounterManager();
@@ -99,7 +99,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>Sets the root font size.</summary>
         /// <param name="fontSizeStr">the new root font size</param>
         public virtual void SetRootFontSize(String fontSizeStr) {
-            this.rootFontSize = CssUtils.ParseAbsoluteFontSize(fontSizeStr);
+            this.rootFontSize = CssDimensionParsingUtils.ParseAbsoluteFontSize(fontSizeStr);
         }
 
         /// <summary>Gets the counter manager.</summary>

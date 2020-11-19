@@ -93,7 +93,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             // Default input type is text
             if (inputType == null || AttributeConstants.TEXT.Equals(inputType) || AttributeConstants.EMAIL.Equals(inputType
                 ) || AttributeConstants.PASSWORD.Equals(inputType) || AttributeConstants.NUMBER.Equals(inputType)) {
-                int? size = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.SIZE));
+                int? size = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.SIZE));
                 formElement = new InputField(name);
                 value = PreprocessInputValue(value, inputType);
                 // process placeholder instead

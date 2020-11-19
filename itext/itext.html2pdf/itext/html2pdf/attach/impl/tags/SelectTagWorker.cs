@@ -75,7 +75,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             String name = context.GetFormFieldNameResolver().ResolveFormName(element.GetAttribute(AttributeConstants.NAME
                 ));
             bool multipleAttr = element.GetAttribute(AttributeConstants.MULTIPLE) != null;
-            int? sizeAttr = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.SIZE));
+            int? sizeAttr = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.SIZE));
             int size = GetSelectSize(sizeAttr, multipleAttr);
             if (size > 1 || multipleAttr) {
                 selectElement = new ListBoxField(name, size, multipleAttr);

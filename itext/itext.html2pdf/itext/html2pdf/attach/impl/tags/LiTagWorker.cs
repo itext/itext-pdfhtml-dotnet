@@ -78,14 +78,15 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public LiTagWorker(IElementNode element, ProcessorContext context) {
             listItem = new ListItem();
             if (element.GetAttribute(AttributeConstants.VALUE) != null) {
-                int? indexValue = (int?)CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.VALUE));
+                int? indexValue = (int?)CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.VALUE
+                    ));
                 if (indexValue != null) {
                     listItem.SetListSymbolOrdinalValue(indexValue.Value);
                 }
             }
             if (!(context.GetState().Top() is UlOlTagWorker)) {
                 listItem.SetProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
-                float em = CssUtils.ParseAbsoluteLength(element.GetStyles().Get(CssConstants.FONT_SIZE));
+                float em = CssDimensionParsingUtils.ParseAbsoluteLength(element.GetStyles().Get(CssConstants.FONT_SIZE));
                 if (TagConstants.LI.Equals(element.Name())) {
                     ListStyleApplierUtil.SetDiscStyle(listItem, em);
                 }

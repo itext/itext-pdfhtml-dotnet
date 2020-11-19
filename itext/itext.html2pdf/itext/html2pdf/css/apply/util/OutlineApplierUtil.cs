@@ -72,7 +72,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="element">the element</param>
         public static void ApplyOutlines(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
-            float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
             Border outline = GetCertainBorder(cssProps.Get(CssConstants.OUTLINE_WIDTH), cssProps.Get(CssConstants.OUTLINE_STYLE
                 ), GetSpecificOutlineColorOrDefaultColor(cssProps, CssConstants.OUTLINE_COLOR), em, rem);
@@ -81,7 +81,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             if (cssProps.Get(CssConstants.OUTLINE_OFFSET) != null && element.GetProperty<Border>(Property.OUTLINE) != 
                 null) {
-                UnitValue unitValue = CssUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.OUTLINE_OFFSET), em, rem);
+                UnitValue unitValue = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.OUTLINE_OFFSET
+                    ), em, rem);
                 if (unitValue != null) {
                     if (unitValue.IsPercentValue()) {
                         LOGGER.Error("outline-width in percents is not supported");
@@ -130,7 +131,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
             }
-            UnitValue unitValue = CssUtils.ParseLengthValueToPt(outlineWidth, em, rem);
+            UnitValue unitValue = CssDimensionParsingUtils.ParseLengthValueToPt(outlineWidth, em, rem);
             if (unitValue == null) {
                 return null;
             }
@@ -145,7 +146,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 float opacity = 1f;
                 if (outlineColor != null) {
                     if (!CssConstants.TRANSPARENT.Equals(outlineColor)) {
-                        float[] rgbaColor = CssUtils.ParseRgbaColor(outlineColor);
+                        float[] rgbaColor = CssDimensionParsingUtils.ParseRgbaColor(outlineColor);
                         color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
                         opacity = rgbaColor[3];
                     }

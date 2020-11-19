@@ -170,7 +170,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="rem">the root em value</param>
         /// <returns>the value as a float</returns>
         private static float? TryParsePageLengthValue(String valueChunk, float em, float rem) {
-            UnitValue unitValue = CssUtils.ParseLengthValueToPt(valueChunk, em, rem);
+            UnitValue unitValue = CssDimensionParsingUtils.ParseLengthValueToPt(valueChunk, em, rem);
             if (unitValue == null || unitValue.IsPercentValue()) {
                 return null;
             }
@@ -181,7 +181,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="pageSizeChunk">the string that possibly represents a length value</param>
         /// <returns>true, if the string represents a length value</returns>
         private static bool IsLengthValue(String pageSizeChunk) {
-            return CssUtils.IsMetricValue(pageSizeChunk) || CssUtils.IsRelativeValue(pageSizeChunk);
+            return CssTypesValidationUtils.IsMetricValue(pageSizeChunk) || CssTypesValidationUtils.IsRelativeValue(pageSizeChunk
+                );
         }
 
         /// <summary>Checks if a string represents the CSS value for landscape or portrait orientation.</summary>

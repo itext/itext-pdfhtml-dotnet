@@ -71,21 +71,21 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="element">the element</param>
         public static void ApplyWidthHeight(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
-            float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
             String widthVal = cssProps.Get(CssConstants.WIDTH);
             if (!CssConstants.AUTO.Equals(widthVal) && widthVal != null) {
-                UnitValue width = CssUtils.ParseLengthValueToPt(widthVal, em, rem);
+                UnitValue width = CssDimensionParsingUtils.ParseLengthValueToPt(widthVal, em, rem);
                 element.SetProperty(Property.WIDTH, width);
             }
             String minWidthVal = cssProps.Get(CssConstants.MIN_WIDTH);
             if (!CssConstants.AUTO.Equals(minWidthVal) && minWidthVal != null) {
-                UnitValue minWidth = CssUtils.ParseLengthValueToPt(minWidthVal, em, rem);
+                UnitValue minWidth = CssDimensionParsingUtils.ParseLengthValueToPt(minWidthVal, em, rem);
                 element.SetProperty(Property.MIN_WIDTH, minWidth);
             }
             String maxWidthVal = cssProps.Get(CssConstants.MAX_WIDTH);
             if (!CssConstants.AUTO.Equals(maxWidthVal) && maxWidthVal != null) {
-                UnitValue maxWidth = CssUtils.ParseLengthValueToPt(maxWidthVal, em, rem);
+                UnitValue maxWidth = CssDimensionParsingUtils.ParseLengthValueToPt(maxWidthVal, em, rem);
                 element.SetProperty(Property.MAX_WIDTH, maxWidth);
             }
             bool applyToTable = element is Table;
@@ -94,7 +94,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String heightVal = cssProps.Get(CssConstants.HEIGHT);
             if (heightVal != null) {
                 if (!CssConstants.AUTO.Equals(heightVal)) {
-                    height = CssUtils.ParseLengthValueToPt(heightVal, em, rem);
+                    height = CssDimensionParsingUtils.ParseLengthValueToPt(heightVal, em, rem);
                     if (height != null) {
                         // For tables, height does not have any effect. The height value will be used when
                         // calculating effective min height value below
@@ -108,7 +108,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             float maxHeightToApply = 0;
             UnitValue maxHeight = new UnitValue(UnitValue.POINT, 0);
             if (maxHeightVal != null) {
-                maxHeight = CssUtils.ParseLengthValueToPt(maxHeightVal, em, rem);
+                maxHeight = CssDimensionParsingUtils.ParseLengthValueToPt(maxHeightVal, em, rem);
                 if (maxHeight != null) {
                     // For tables and cells, max height does not have any effect. See also comments below when MIN_HEIGHT is applied.
                     if (!applyToTable && !applyToCell) {
@@ -123,7 +123,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             float minHeightToApply = 0;
             UnitValue minHeight = new UnitValue(UnitValue.POINT, 0);
             if (minHeightVal != null) {
-                minHeight = CssUtils.ParseLengthValueToPt(minHeightVal, em, rem);
+                minHeight = CssDimensionParsingUtils.ParseLengthValueToPt(minHeightVal, em, rem);
                 if (minHeight != null) {
                     // For cells, min height does not have any effect. See also comments below when MIN_HEIGHT is applied.
                     if (!applyToCell) {

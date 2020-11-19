@@ -80,10 +80,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <returns>the width</returns>
         public static UnitValue GetWidth(IDictionary<String, String> resolvedCssProps, ProcessorContext context) {
             //The Width is a special case, casue it should be transferred from <colgroup> to <col> but it not applied to <td> or <th>
-            float em = CssUtils.ParseAbsoluteLength(resolvedCssProps.Get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.ParseAbsoluteLength(resolvedCssProps.Get(CssConstants.FONT_SIZE));
             String width = resolvedCssProps.Get(CssConstants.WIDTH);
-            return width != null ? CssUtils.ParseLengthValueToPt(width, em, context.GetCssContext().GetRootFontSize())
-                 : null;
+            return width != null ? CssDimensionParsingUtils.ParseLengthValueToPt(width, em, context.GetCssContext().GetRootFontSize
+                ()) : null;
         }
 
         /// <summary>Gets the cell properties.</summary>

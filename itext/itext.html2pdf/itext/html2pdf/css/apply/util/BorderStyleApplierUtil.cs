@@ -68,7 +68,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="element">the element</param>
         public static void ApplyBorders(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
-            float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
             Border[] bordersArray = GetBordersArray(cssProps, em, rem);
             if (bordersArray[0] != null) {
@@ -157,7 +157,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
             }
-            UnitValue unitValue = CssUtils.ParseLengthValueToPt(borderWidth, em, rem);
+            UnitValue unitValue = CssDimensionParsingUtils.ParseLengthValueToPt(borderWidth, em, rem);
             if (unitValue == null) {
                 return null;
             }
@@ -171,7 +171,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 float opacity = 1f;
                 if (borderColor != null) {
                     if (!CssConstants.TRANSPARENT.Equals(borderColor)) {
-                        float[] rgbaColor = CssUtils.ParseRgbaColor(borderColor);
+                        float[] rgbaColor = CssDimensionParsingUtils.ParseRgbaColor(borderColor);
                         color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
                         opacity = rgbaColor[3];
                     }
@@ -243,24 +243,25 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static BorderRadius[] GetBorderRadiiArray(IDictionary<String, String> styles, float em, float rem) {
             BorderRadius[] borderRadii = new BorderRadius[4];
             BorderRadius borderRadius = null;
-            UnitValue borderRadiusUV = CssUtils.ParseLengthValueToPt(styles.Get(CssConstants.BORDER_RADIUS), em, rem);
+            UnitValue borderRadiusUV = CssDimensionParsingUtils.ParseLengthValueToPt(styles.Get(CssConstants.BORDER_RADIUS
+                ), em, rem);
             if (null != borderRadiusUV) {
                 borderRadius = new BorderRadius(borderRadiusUV);
             }
-            UnitValue[] borderTopLeftRadiusUV = CssUtils.ParseSpecificCornerBorderRadius(styles.Get(CssConstants.BORDER_TOP_LEFT_RADIUS
-                ), em, rem);
+            UnitValue[] borderTopLeftRadiusUV = CssDimensionParsingUtils.ParseSpecificCornerBorderRadius(styles.Get(CssConstants
+                .BORDER_TOP_LEFT_RADIUS), em, rem);
             borderRadii[0] = null == borderTopLeftRadiusUV ? borderRadius : new BorderRadius(borderTopLeftRadiusUV[0], 
                 borderTopLeftRadiusUV[1]);
-            UnitValue[] borderTopRightRadiusUV = CssUtils.ParseSpecificCornerBorderRadius(styles.Get(CssConstants.BORDER_TOP_RIGHT_RADIUS
-                ), em, rem);
+            UnitValue[] borderTopRightRadiusUV = CssDimensionParsingUtils.ParseSpecificCornerBorderRadius(styles.Get(CssConstants
+                .BORDER_TOP_RIGHT_RADIUS), em, rem);
             borderRadii[1] = null == borderTopRightRadiusUV ? borderRadius : new BorderRadius(borderTopRightRadiusUV[0
                 ], borderTopRightRadiusUV[1]);
-            UnitValue[] borderBottomRightRadiusUV = CssUtils.ParseSpecificCornerBorderRadius(styles.Get(CssConstants.BORDER_BOTTOM_RIGHT_RADIUS
-                ), em, rem);
+            UnitValue[] borderBottomRightRadiusUV = CssDimensionParsingUtils.ParseSpecificCornerBorderRadius(styles.Get
+                (CssConstants.BORDER_BOTTOM_RIGHT_RADIUS), em, rem);
             borderRadii[2] = null == borderBottomRightRadiusUV ? borderRadius : new BorderRadius(borderBottomRightRadiusUV
                 [0], borderBottomRightRadiusUV[1]);
-            UnitValue[] borderBottomLeftRadiusUV = CssUtils.ParseSpecificCornerBorderRadius(styles.Get(CssConstants.BORDER_BOTTOM_LEFT_RADIUS
-                ), em, rem);
+            UnitValue[] borderBottomLeftRadiusUV = CssDimensionParsingUtils.ParseSpecificCornerBorderRadius(styles.Get
+                (CssConstants.BORDER_BOTTOM_LEFT_RADIUS), em, rem);
             borderRadii[3] = null == borderBottomLeftRadiusUV ? borderRadius : new BorderRadius(borderBottomLeftRadiusUV
                 [0], borderBottomLeftRadiusUV[1]);
             return borderRadii;

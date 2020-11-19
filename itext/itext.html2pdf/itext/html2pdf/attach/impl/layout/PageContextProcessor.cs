@@ -157,10 +157,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         internal virtual iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor Reset(PageSize defaultPageSize, float
             [] defaultPageMargins) {
             IDictionary<String, String> styles = properties.GetResolvedPageContextNode().GetStyles();
-            float em = CssUtils.ParseAbsoluteLength(styles.Get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.ParseAbsoluteLength(styles.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
             pageSize = PageSizeParser.FetchPageSize(styles.Get(CssConstants.SIZE), em, rem, defaultPageSize);
-            UnitValue bleedValue = CssUtils.ParseLengthValueToPt(styles.Get(CssConstants.BLEED), em, rem);
+            UnitValue bleedValue = CssDimensionParsingUtils.ParseLengthValueToPt(styles.Get(CssConstants.BLEED), em, rem
+                );
             if (bleedValue != null && bleedValue.IsPointValue()) {
                 bleed = bleedValue.GetValue();
             }

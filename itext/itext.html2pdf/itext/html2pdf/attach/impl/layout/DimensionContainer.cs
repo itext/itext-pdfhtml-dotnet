@@ -75,8 +75,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         internal virtual float ParseDimension(CssContextNode node, String content, float maxAvailableDimension, float
              additionalWidthFix) {
-            float fontSize = CssUtils.ParseAbsoluteFontSize(node.GetStyles().Get(CssConstants.FONT_SIZE));
-            UnitValue unitValue = CssUtils.ParseLengthValueToPt(content, fontSize, 0);
+            float fontSize = CssDimensionParsingUtils.ParseAbsoluteFontSize(node.GetStyles().Get(CssConstants.FONT_SIZE
+                ));
+            UnitValue unitValue = CssDimensionParsingUtils.ParseLengthValueToPt(content, fontSize, 0);
             if (unitValue == null) {
                 return 0;
             }

@@ -346,8 +346,8 @@ namespace iText.Html2pdf.Css {
             if (containsActual != null && containsExpected != null) {
                 containsActual = containsActual.Substring(propertyName.Length + 1).Trim();
                 containsExpected = containsExpected.Substring(propertyName.Length + 1).Trim();
-                float actual = CssUtils.ParseAbsoluteLength(containsActual, CssConstants.PT);
-                float expected = CssUtils.ParseAbsoluteLength(containsExpected, CssConstants.PT);
+                float actual = CssDimensionParsingUtils.ParseAbsoluteLength(containsActual, CssConstants.PT);
+                float expected = CssDimensionParsingUtils.ParseAbsoluteLength(containsExpected, CssConstants.PT);
                 return Math.Abs(actual - expected) < 0.0001;
             }
             else {
