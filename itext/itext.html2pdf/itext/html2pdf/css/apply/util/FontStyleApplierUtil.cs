@@ -148,8 +148,22 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             String whiteSpace = cssProps.Get(CssConstants.WHITE_SPACE);
-            element.SetProperty(Property.NO_SOFT_WRAP_INLINE, CssConstants.NOWRAP.Equals(whiteSpace) || CssConstants.PRE
-                .Equals(whiteSpace));
+            bool textWrappingDisabled = CssConstants.NOWRAP.Equals(whiteSpace) || CssConstants.PRE.Equals(whiteSpace);
+            element.SetProperty(Property.NO_SOFT_WRAP_INLINE, textWrappingDisabled);
+            if (!textWrappingDisabled) {
+                String overflowWrap = cssProps.Get(CssConstants.OVERFLOW_WRAP);
+                if (CssConstants.ANYWHERE.Equals(overflowWrap)) {
+                    element.SetProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.ANYWHERE);
+                }
+                else {
+                    if (CssConstants.BREAK_WORD.Equals(overflowWrap)) {
+                        element.SetProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.BREAK_WORD);
+                    }
+                    else {
+                        element.SetProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.NORMAL);
+                    }
+                }
+            }
             float[] colors = new float[4];
             Color textDecorationColor;
             float opacity_1 = 1f;

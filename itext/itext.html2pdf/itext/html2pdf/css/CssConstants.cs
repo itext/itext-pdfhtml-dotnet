@@ -124,6 +124,7 @@ namespace iText.Html2pdf.Css {
         public const String BLOCK = "block";
 
         /// <summary>The Constant BREAK_WORD.</summary>
+        [System.ObsoleteAttribute(@"use iText.StyledXmlParser.Css.CommonCssConstants.BREAK_WORD instead")]
         public const String BREAK_WORD = "break-word";
 
         /// <summary>The Constant CAPITALIZE.</summary>
