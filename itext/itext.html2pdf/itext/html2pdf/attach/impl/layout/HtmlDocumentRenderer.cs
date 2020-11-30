@@ -193,6 +193,17 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
+        /// <summary>
+        /// Removes event handlers that were added to pdf document when this
+        /// <see cref="HtmlDocumentRenderer"/>
+        /// was created.
+        /// </summary>
+        internal virtual void RemoveEventHandlers() {
+            document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, htmlBodyHandler);
+            // This handler is added in processPageRules method.
+            document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, marginBoxesHandler);
+        }
+
         /* (non-Javadoc)
         * @see com.itextpdf.layout.renderer.DocumentRenderer#getNextRenderer()
         */

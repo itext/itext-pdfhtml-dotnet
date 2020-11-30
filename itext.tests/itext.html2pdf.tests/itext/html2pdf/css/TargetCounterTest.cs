@@ -73,6 +73,49 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterNotExistingTarget");
         }
 
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        public virtual void PageTargetCounterTestWithLogMessageTest() {
+            ConvertToPdfWithTargetCounterEnabledAndCompare("pageTargetCounterTestWithLogMessage");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        public virtual void NonPageTargetCounterTestWithLogMessageTest() {
+            // There should be only one log message here, but we have two because we resolve css styles twice.
+            ConvertToPdfWithTargetCounterEnabledAndCompare("nonPageTargetCounterTestWithLogMessage");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TargetCounterSeveralCountersTest() {
+            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterSeveralCounters");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TargetCounterIDNotExistTest() {
+            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterIDNotExist");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TargetCounterNotCounterElementTest() {
+            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterNotCounterElement");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TargetCounterNestedCountersTest() {
+            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterNestedCounters");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TargetCounterUnusualStylesTest() {
+            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterUnusualStyles");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TargetCountersNestedCountersTest() {
+            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCountersNestedCounters");
+        }
+
         private void ConvertToPdfWithTargetCounterEnabledAndCompare(String name) {
             String sourceHtml = sourceFolder + name + ".html";
             String cmpPdf = sourceFolder + "cmp_" + name + ".pdf";

@@ -79,7 +79,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
             bool immediateFlush = context.IsImmediateFlush() && !context.GetCssContext().IsPagesCounterPresent();
             PdfDocument pdfDocument = context.GetPdfDocument();
-            document = new Document(pdfDocument, pdfDocument.GetDefaultPageSize(), immediateFlush);
+            document = new HtmlDocument(pdfDocument, pdfDocument.GetDefaultPageSize(), immediateFlush);
             document.SetRenderer(new HtmlDocumentRenderer(document, immediateFlush));
             DefaultHtmlProcessor.SetConvertedRootElementProperties(element.GetStyles(), context, document);
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.

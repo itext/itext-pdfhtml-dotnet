@@ -57,8 +57,11 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>The counter manager.</summary>
         private CssCounterManager counterManager = new CssCounterManager();
 
-        /// <summary>Indicates if a pages counter or target-counter is present.</summary>
+        /// <summary>Indicates if a pages counter or page(s) target-counter is present.</summary>
         private bool pagesCounterOrTargetCounterPresent = false;
+
+        /// <summary>Indicates if a non-page(s) target-counter(s) is present.</summary>
+        private bool nonPagesTargetCounterPresent = false;
 
         /// <summary>The running elements manager.</summary>
         private CssRunningManager runningManager = new CssRunningManager();
@@ -108,16 +111,28 @@ namespace iText.Html2pdf.Css.Resolve {
             return counterManager;
         }
 
-        /// <summary>Sets the presence of a page counter or target counter.</summary>
-        /// <param name="pagesCounterOrTargetCounterPresent">the new pages counter or target-counter present</param>
+        /// <summary>Sets the presence of a pages counter or page(s) target counter.</summary>
+        /// <param name="pagesCounterOrTargetCounterPresent">the new pages counter or page(s) target-counter present</param>
         public virtual void SetPagesCounterPresent(bool pagesCounterOrTargetCounterPresent) {
             this.pagesCounterOrTargetCounterPresent = pagesCounterOrTargetCounterPresent;
         }
 
-        /// <summary>Checks if a pages counter or target is present.</summary>
-        /// <returns>true, if pages counter or target-counter present</returns>
+        /// <summary>Checks if a pages counter or page(s) target-counter is present.</summary>
+        /// <returns>true, if pages counter or page(s) target-counter present</returns>
         public virtual bool IsPagesCounterPresent() {
             return pagesCounterOrTargetCounterPresent;
+        }
+
+        /// <summary>Sets the presence of a non-page(s) target-counter(s).</summary>
+        /// <param name="nonPagesTargetCounterPresent">the new non-page(s) target-counter(s) present</param>
+        public virtual void SetNonPagesTargetCounterPresent(bool nonPagesTargetCounterPresent) {
+            this.nonPagesTargetCounterPresent = nonPagesTargetCounterPresent;
+        }
+
+        /// <summary>Checks if a non-page(s) target-counter(s) is present.</summary>
+        /// <returns>true, if non-page(s) target-counter(s) present</returns>
+        public virtual bool IsNonPagesTargetCounterPresent() {
+            return nonPagesTargetCounterPresent;
         }
 
         public virtual CssRunningManager GetRunningManager() {

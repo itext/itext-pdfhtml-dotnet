@@ -31,7 +31,96 @@ using iText.StyledXmlParser.Css.Parse;
 namespace iText.Html2pdf.Css.Util {
     /// <summary>Helper class to analyze the CSS stylesheet, e.g. for presence of some constructs</summary>
     public class CssStyleSheetAnalyzer {
+        private const int TARGET_COUNTER_MIN_PARAMS_SIZE = 2;
+
+        private const int TARGET_COUNTERS_MIN_PARAMS_SIZE = 3;
+
         private CssStyleSheetAnalyzer() {
+        }
+
+        /// <summary>Helper method to check if non-page(s) target-counter(s) is present anywhere in the CSS.</summary>
+        /// <remarks>
+        /// Helper method to check if non-page(s) target-counter(s) is present anywhere in the CSS.
+        /// If presence is detected, it may require additional treatment
+        /// </remarks>
+        /// <param name="styleSheet">CSS stylesheet to analyze</param>
+        /// <returns>
+        /// <c>true</c> in case any non-page(s) target-counter(s) are present in CSS declarations,
+        /// or <c>false</c> otherwise
+        /// </returns>
+        public static bool CheckNonPagesTargetCounterPresence(CssStyleSheet styleSheet) {
+            return CheckNonPagesTargetCounterPresence(styleSheet.GetStatements());
+        }
+
+        private static bool CheckNonPagesTargetCounterPresence(ICollection<CssStatement> statements) {
+            bool nonPagesTargetCounterPresent = false;
+            foreach (CssStatement statement in statements) {
+                bool checkNonPagesTargetCounterPresenceResult = false;
+                if (statement is CssMarginRule) {
+                    checkNonPagesTargetCounterPresenceResult = CheckNonPagesTargetCounterPresence(((CssMarginRule)statement).GetStatements
+                        ());
+                }
+                else {
+                    if (statement is CssMediaRule) {
+                        checkNonPagesTargetCounterPresenceResult = CheckNonPagesTargetCounterPresence(((CssMediaRule)statement).GetStatements
+                            ());
+                    }
+                    else {
+                        if (statement is CssPageRule) {
+                            checkNonPagesTargetCounterPresenceResult = CheckNonPagesTargetCounterPresence(((CssPageRule)statement).GetStatements
+                                ());
+                        }
+                        else {
+                            if (statement is CssRuleSet) {
+                                checkNonPagesTargetCounterPresenceResult = CheckNonPagesTargetCounterPresence((CssRuleSet)statement);
+                            }
+                        }
+                    }
+                }
+                nonPagesTargetCounterPresent = nonPagesTargetCounterPresent || checkNonPagesTargetCounterPresenceResult;
+            }
+            return nonPagesTargetCounterPresent;
+        }
+
+        private static bool CheckNonPagesTargetCounterPresence(CssRuleSet ruleSet) {
+            bool pagesCounterPresent = false;
+            foreach (CssDeclaration declaration in ruleSet.GetImportantDeclarations()) {
+                pagesCounterPresent = pagesCounterPresent || CheckNonPagesTargetCounterPresence(declaration);
+            }
+            foreach (CssDeclaration declaration in ruleSet.GetNormalDeclarations()) {
+                pagesCounterPresent = pagesCounterPresent || CheckNonPagesTargetCounterPresence(declaration);
+            }
+            return pagesCounterPresent;
+        }
+
+        private static bool CheckNonPagesTargetCounterPresence(CssDeclaration declaration) {
+            bool nonPagesTargetCounterPresent = false;
+            if (CssConstants.CONTENT.Equals(declaration.GetProperty())) {
+                CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(declaration.GetExpression());
+                CssDeclarationValueTokenizer.Token token;
+                while ((token = tokenizer.GetNextValidToken()) != null) {
+                    if (token.IsString()) {
+                        continue;
+                    }
+                    if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTER + "(")) {
+                        String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTER.Length + 1, token.GetValue().Length
+                             - 1);
+                        String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
+                        nonPagesTargetCounterPresent = nonPagesTargetCounterPresent || (@params.Length >= TARGET_COUNTER_MIN_PARAMS_SIZE
+                             && !CheckTargetCounterParamsForPageOrPagesReferencePresence(@params));
+                    }
+                    else {
+                        if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTERS + "(")) {
+                            String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTERS.Length + 1, token.GetValue().Length
+                                 - 1);
+                            String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
+                            nonPagesTargetCounterPresent = nonPagesTargetCounterPresent || (@params.Length >= TARGET_COUNTERS_MIN_PARAMS_SIZE
+                                 && !CheckTargetCounterParamsForPageOrPagesReferencePresence(@params));
+                        }
+                    }
+                }
+            }
+            return nonPagesTargetCounterPresent;
         }
 
         /// <summary>Helper method to check if counter(pages) or counters(pages) is present anywhere in the CSS.</summary>
@@ -96,26 +185,37 @@ namespace iText.Html2pdf.Css.Util {
                 CssDeclarationValueTokenizer tokenizer = new CssDeclarationValueTokenizer(declaration.GetExpression());
                 CssDeclarationValueTokenizer.Token token;
                 while ((token = tokenizer.GetNextValidToken()) != null) {
-                    if (!token.IsString()) {
-                        if (token.GetValue().StartsWith(CssConstants.COUNTERS + "(")) {
-                            String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTERS.Length + 1, token.GetValue().Length -
-                                 1);
+                    if (token.IsString()) {
+                        continue;
+                    }
+                    if (token.GetValue().StartsWith(CssConstants.COUNTERS + "(")) {
+                        String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTERS.Length + 1, token.GetValue().Length -
+                             1);
+                        String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
+                        pagesCounterPresent = pagesCounterPresent || CheckCounterFunctionParamsForPagesReferencePresence(@params);
+                    }
+                    else {
+                        if (token.GetValue().StartsWith(CssConstants.COUNTER + "(")) {
+                            String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTER.Length + 1, token.GetValue().Length - 
+                                1);
                             String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
                             pagesCounterPresent = pagesCounterPresent || CheckCounterFunctionParamsForPagesReferencePresence(@params);
                         }
                         else {
-                            if (token.GetValue().StartsWith(CssConstants.COUNTER + "(")) {
-                                String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTER.Length + 1, token.GetValue().Length - 
-                                    1);
+                            if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTER + "(")) {
+                                String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTER.Length + 1, token.GetValue().Length
+                                     - 1);
                                 String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
-                                pagesCounterPresent = pagesCounterPresent || CheckCounterFunctionParamsForPagesReferencePresence(@params);
+                                pagesCounterPresent = pagesCounterPresent || (@params.Length >= TARGET_COUNTER_MIN_PARAMS_SIZE && CheckTargetCounterParamsForPageOrPagesReferencePresence
+                                    (@params));
                             }
                             else {
-                                if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTER + "(")) {
-                                    String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTER.Length + 1, token.GetValue().Length
+                                if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTERS + "(")) {
+                                    String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTERS.Length + 1, token.GetValue().Length
                                          - 1);
                                     String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
-                                    pagesCounterPresent = pagesCounterPresent || @params.Length > 0;
+                                    pagesCounterPresent = pagesCounterPresent || (@params.Length >= TARGET_COUNTERS_MIN_PARAMS_SIZE && CheckTargetCounterParamsForPageOrPagesReferencePresence
+                                        (@params));
                                 }
                             }
                         }
@@ -127,6 +227,10 @@ namespace iText.Html2pdf.Css.Util {
 
         private static bool CheckCounterFunctionParamsForPagesReferencePresence(String[] @params) {
             return @params.Length > 0 && CssConstants.PAGES.Equals(@params[0].Trim());
+        }
+
+        private static bool CheckTargetCounterParamsForPageOrPagesReferencePresence(String[] @params) {
+            return CssConstants.PAGE.Equals(@params[1].Trim()) || CssConstants.PAGES.Equals(@params[1].Trim());
         }
     }
 }
