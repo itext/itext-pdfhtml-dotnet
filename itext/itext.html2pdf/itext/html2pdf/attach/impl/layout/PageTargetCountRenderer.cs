@@ -23,6 +23,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using Common.Logging;
+using iText.Html2pdf.Css.Resolve.Func.Counter;
+using iText.Html2pdf.Html;
 using iText.IO.Util;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
@@ -41,6 +43,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         private readonly String target;
 
+        private readonly CounterDigitsGlyphStyle digitsGlyphStyle;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="PageTargetCountRenderer"/>.
@@ -48,6 +52,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="textElement">the text element</param>
         internal PageTargetCountRenderer(PageTargetCountElement textElement)
             : base(textElement) {
+            digitsGlyphStyle = textElement.GetDigitsGlyphStyle();
             target = textElement.GetTarget();
         }
 
@@ -59,7 +64,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 SetText(UNDEFINED_VALUE);
             }
             else {
-                SetText(page.ToString());
+                SetText(HtmlUtils.ConvertNumberAccordingToGlyphStyle(digitsGlyphStyle, (int)page));
             }
             LayoutResult result = base.Layout(layoutContext);
             SetText(previousText);
@@ -68,7 +73,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary><inheritDoc/></summary>
         public override void Draw(DrawContext drawContext) {
-            if (!TargetCounterHandler.IsValueDefinedForThisID(this, target)) {
+            if (!TargetCounterHandler.IsValueDefinedForThisId(this, target)) {
                 LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE
                     , target));
             }

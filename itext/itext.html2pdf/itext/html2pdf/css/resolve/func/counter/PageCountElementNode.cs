@@ -58,6 +58,8 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// <summary>The parent.</summary>
         private readonly INode parent;
 
+        private CounterDigitsGlyphStyle digitsGlyphStyle;
+
         /// <summary>Indicates if the node represents the total page count.</summary>
         private bool totalPageCount = false;
 
@@ -93,6 +95,25 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// <returns>true, if the node represents the total page count</returns>
         public virtual bool IsTotalPageCount() {
             return totalPageCount;
+        }
+
+        /// <summary>Gets glyph style for digits.</summary>
+        /// <returns>name of the glyph style</returns>
+        public virtual CounterDigitsGlyphStyle GetDigitsGlyphStyle() {
+            return digitsGlyphStyle;
+        }
+
+        /// <summary>Sets glyph style for digits.</summary>
+        /// <param name="digitsGlyphStyle">name of the glyph style</param>
+        /// <returns>
+        /// this
+        /// <see cref="PageCountElementNode"/>
+        /// instance
+        /// </returns>
+        public virtual iText.Html2pdf.Css.Resolve.Func.Counter.PageCountElementNode SetDigitsGlyphStyle(CounterDigitsGlyphStyle
+             digitsGlyphStyle) {
+            this.digitsGlyphStyle = digitsGlyphStyle;
+            return this;
         }
     }
 }

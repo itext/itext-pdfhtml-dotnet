@@ -35,7 +35,6 @@ namespace iText.Html2pdf.Css.Resolve {
             IDictionary<String, String> styles = new Dictionary<String, String>();
             styles.Put(CssConstants.CONTENT, "target-counter(url('#some_target'), page)");
             CssContext context = new CssContext();
-            context.SetTargetCounterEnabled(true);
             IList<INode> result = CssContentPropertyResolver.ResolveContent(styles, null, context);
             NUnit.Framework.Assert.IsNotNull(result);
             NUnit.Framework.Assert.AreEqual(1, result.Count);
@@ -48,24 +47,10 @@ namespace iText.Html2pdf.Css.Resolve {
             IDictionary<String, String> styles = new Dictionary<String, String>();
             styles.Put(CssConstants.CONTENT, "target-counter(url('#some_target'), some_counter)");
             CssContext context = new CssContext();
-            context.SetTargetCounterEnabled(true);
             IList<INode> result = CssContentPropertyResolver.ResolveContent(styles, null, context);
             NUnit.Framework.Assert.IsNotNull(result);
             NUnit.Framework.Assert.AreEqual(1, result.Count);
-        }
-
-        [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 2)]
-        public virtual void ResolveContentTargetCountersDisabledTest() {
-            IDictionary<String, String> styles = new Dictionary<String, String>();
-            styles.Put(CssConstants.CONTENT, "target-counter(url('#some_target'), some_counter)");
-            CssContext context = new CssContext();
-            context.SetTargetCounterEnabled(false);
-            IList<INode> result = CssContentPropertyResolver.ResolveContent(styles, null, context);
-            NUnit.Framework.Assert.IsNull(result);
-            styles.Put(CssConstants.CONTENT, "target-counter(url('#some_target'), some_counter, 'a')");
-            result = CssContentPropertyResolver.ResolveContent(styles, null, context);
-            NUnit.Framework.Assert.IsNull(result);
+            NUnit.Framework.Assert.IsTrue(result[0] is ITextNode);
         }
 
         [NUnit.Framework.Test]
@@ -74,7 +59,6 @@ namespace iText.Html2pdf.Css.Resolve {
             IDictionary<String, String> styles = new Dictionary<String, String>();
             styles.Put(CssConstants.CONTENT, "target-counter(url('#some_target'))");
             CssContext context = new CssContext();
-            context.SetTargetCounterEnabled(true);
             IList<INode> result = CssContentPropertyResolver.ResolveContent(styles, null, context);
             NUnit.Framework.Assert.IsNull(result);
             styles.Put(CssConstants.CONTENT, "target-counters(url('#some_target'), some_counter)");
@@ -89,17 +73,21 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 2)]
         public virtual void ResolveContentPagesTargetCountersTest() {
             IDictionary<String, String> styles = new Dictionary<String, String>();
             styles.Put(CssConstants.CONTENT, "target-counter(url('#some_target'), pages)");
             CssContext context = new CssContext();
-            context.SetTargetCounterEnabled(true);
             IList<INode> result = CssContentPropertyResolver.ResolveContent(styles, null, context);
-            NUnit.Framework.Assert.IsNull(result);
+            NUnit.Framework.Assert.IsNotNull(result);
+            NUnit.Framework.Assert.AreEqual(1, result.Count);
+            NUnit.Framework.Assert.IsTrue(result[0] is PageCountElementNode);
+            NUnit.Framework.Assert.IsTrue(((PageCountElementNode)result[0]).IsTotalPageCount());
             styles.Put(CssConstants.CONTENT, "target-counters(url('#some_target'), pages, '.')");
             result = CssContentPropertyResolver.ResolveContent(styles, null, context);
-            NUnit.Framework.Assert.IsNull(result);
+            NUnit.Framework.Assert.IsNotNull(result);
+            NUnit.Framework.Assert.AreEqual(1, result.Count);
+            NUnit.Framework.Assert.IsTrue(result[0] is PageCountElementNode);
+            NUnit.Framework.Assert.IsTrue(((PageCountElementNode)result[0]).IsTotalPageCount());
         }
 
         [NUnit.Framework.Test]
@@ -107,10 +95,10 @@ namespace iText.Html2pdf.Css.Resolve {
             IDictionary<String, String> styles = new Dictionary<String, String>();
             styles.Put(CssConstants.CONTENT, "counter(some_counter)");
             CssContext context = new CssContext();
-            context.SetTargetCounterEnabled(true);
             IList<INode> result = CssContentPropertyResolver.ResolveContent(styles, null, context);
             NUnit.Framework.Assert.IsNotNull(result);
             NUnit.Framework.Assert.AreEqual(1, result.Count);
+            NUnit.Framework.Assert.IsTrue(result[0] is ITextNode);
         }
     }
 }

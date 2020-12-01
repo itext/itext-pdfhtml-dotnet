@@ -43,31 +43,17 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.Text;
-using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
-using iText.Kernel.Numbering;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Resolve.Func.Counter {
     /// <summary>Class that manages counters (e.g. for list symbols).</summary>
     public class CssCounterManager {
-        /// <summary>The Constant DISC_SYMBOL.</summary>
-        private const String DISC_SYMBOL = "\u2022";
-
-        /// <summary>The Constant CIRCLE_SYMBOL.</summary>
-        private const String CIRCLE_SYMBOL = "\u25e6";
-
-        /// <summary>The Constant SQUARE_SYMBOL.</summary>
-        private const String SQUARE_SYMBOL = "\u25a0";
-
         /// <summary>The Constant DEFAULT_COUNTER_VALUE.</summary>
         private const int DEFAULT_COUNTER_VALUE = 0;
 
         /// <summary>The Constant DEFAULT_INCREMENT_VALUE.</summary>
         private const int DEFAULT_INCREMENT_VALUE = 1;
-
-        /// <summary>The Constant MAX_ROMAN_NUMBER.</summary>
-        private const int MAX_ROMAN_NUMBER = 3999;
 
         /// <summary>Map to store target-counter values.</summary>
         /// <remarks>Map to store target-counter values. First key is target-counter ID. Second key is counter name.</remarks>
@@ -93,6 +79,7 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         ///     </remarks>
         private readonly IDictionary<String, int?> counterValues = new Dictionary<String, int?>();
 
+        /// <summary>List of counters that were pushed before processing children of the corresponding element.</summary>
         private readonly IDictionary<IElementNode, IList<String>> pushedCountersMap = new Dictionary<IElementNode, 
             IList<String>>();
 
@@ -159,7 +146,8 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// <param name="listSymbolType">the list symbol type to convert counter's value. null if conversion is not required.
         ///     </param>
         /// <returns>target-counter value.</returns>
-        public virtual String ResolveTargetCounter(String id, String counterName, String listSymbolType) {
+        public virtual String ResolveTargetCounter(String id, String counterName, CounterDigitsGlyphStyle listSymbolType
+            ) {
             int? counterValue = null;
             if (targetCounterMap.ContainsKey(id)) {
                 IDictionary<String, int?> countersForThisId = targetCounterMap.Get(id);
@@ -174,7 +162,8 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 targetCounterMap.Put(id, new Dictionary<String, int?>());
                 targetCounterMap.Get(id).Put(counterName, null);
             }
-            return counterValue == null ? null : ConvertCounterToSymbol(listSymbolType, counterValue);
+            return counterValue == null ? null : HtmlUtils.ConvertNumberAccordingToGlyphStyle(listSymbolType, (int)counterValue
+                );
         }
 
         /// <summary>Gets target-counter value for specified ID and counterName.</summary>
@@ -194,7 +183,7 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// <param name="listSymbolType">the list symbol type to convert counter's value. null if conversion is not required.
         ///     </param>
         /// <returns>target-counter value.</returns>
-        public virtual String ResolveTargetCounters(String id, String counterName, String counterSeparatorStr, String
+        public virtual String ResolveTargetCounters(String id, String counterName, String counterSeparatorStr, CounterDigitsGlyphStyle
              listSymbolType) {
             String countersStr = null;
             if (targetCountersMap.ContainsKey(id)) {
@@ -217,8 +206,8 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 String[] resolvedCounters = iText.IO.Util.StringUtil.Split(countersStr, "\\.");
                 IList<String> convertedCounters = new List<String>();
                 foreach (String counter in resolvedCounters) {
-                    convertedCounters.Add(ConvertCounterToSymbol(listSymbolType, Convert.ToInt32(counter, System.Globalization.CultureInfo.InvariantCulture
-                        )));
+                    convertedCounters.Add(HtmlUtils.ConvertNumberAccordingToGlyphStyle(listSymbolType, Convert.ToInt32(counter
+                        , System.Globalization.CultureInfo.InvariantCulture)));
                 }
                 return BuildCountersStringFromList(convertedCounters, counterSeparatorStr);
             }
@@ -232,7 +221,7 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 foreach (KeyValuePair<String, int?> targetCounter in new HashSet<KeyValuePair<String, int?>>(targetCounterMap
                     .Get(id))) {
                     String counterName = targetCounter.Key;
-                    String counterStr = ResolveCounter(counterName, null);
+                    String counterStr = ResolveCounter(counterName, CounterDigitsGlyphStyle.DEFAULT);
                     if (counterStr != null) {
                         targetCounterMap.Get(id).Put(counterName, Convert.ToInt32(counterStr, System.Globalization.CultureInfo.InvariantCulture
                             ));
@@ -249,7 +238,7 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 foreach (KeyValuePair<String, String> targetCounter in new HashSet<KeyValuePair<String, String>>(targetCountersMap
                     .Get(id))) {
                     String counterName = targetCounter.Key;
-                    String resolvedCounters = ResolveCounters(counterName, ".", null);
+                    String resolvedCounters = ResolveCounters(counterName, ".", CounterDigitsGlyphStyle.DEFAULT);
                     if (resolvedCounters != null) {
                         targetCountersMap.Get(id).Put(counterName, resolvedCounters);
                     }
@@ -267,7 +256,7 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// </returns>
         [System.ObsoleteAttribute(@"Need to be removed in 7.2")]
         public virtual String ResolveCounter(String counterName, String listSymbolType, INode node) {
-            return ResolveCounter(counterName, listSymbolType);
+            return ResolveCounter(counterName, HtmlUtils.ConvertStringCounterGlyphStyleToEnum(listSymbolType));
         }
 
         /// <summary>Resolves a counter.</summary>
@@ -277,7 +266,7 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// the counter value as a
         /// <see cref="System.String"/>
         /// </returns>
-        public virtual String ResolveCounter(String counterName, String listSymbolType) {
+        public virtual String ResolveCounter(String counterName, CounterDigitsGlyphStyle listSymbolType) {
             int? result = counterValues.Get(counterName);
             if (result == null) {
                 if (!counters.ContainsKey(counterName) || counters.Get(counterName).IsEmpty()) {
@@ -287,7 +276,7 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                     result = counters.Get(counterName).JGetLast();
                 }
             }
-            return ConvertCounterToSymbol(listSymbolType, result);
+            return HtmlUtils.ConvertNumberAccordingToGlyphStyle(listSymbolType, (int)result);
         }
 
         /// <summary>Resolves counters.</summary>
@@ -302,7 +291,8 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         [System.ObsoleteAttribute(@"Need to be removed in 7.2")]
         public virtual String ResolveCounters(String counterName, String counterSeparatorStr, String listSymbolType
             , INode node) {
-            return ResolveCounters(counterName, counterSeparatorStr, listSymbolType);
+            return ResolveCounters(counterName, counterSeparatorStr, HtmlUtils.ConvertStringCounterGlyphStyleToEnum(listSymbolType
+                ));
         }
 
         /// <summary>Resolves counters.</summary>
@@ -313,20 +303,20 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// the counters as a
         /// <see cref="System.String"/>
         /// </returns>
-        public virtual String ResolveCounters(String counterName, String counterSeparatorStr, String listSymbolType
-            ) {
+        public virtual String ResolveCounters(String counterName, String counterSeparatorStr, CounterDigitsGlyphStyle
+             listSymbolType) {
             IList<String> resolvedCounters = new List<String>();
             if (counters.ContainsKey(counterName)) {
                 foreach (int? value in counters.Get(counterName)) {
-                    resolvedCounters.Add(ConvertCounterToSymbol(listSymbolType, value));
+                    resolvedCounters.Add(HtmlUtils.ConvertNumberAccordingToGlyphStyle(listSymbolType, (int)value));
                 }
             }
             int? currentValue = counterValues.Get(counterName);
             if (currentValue != null) {
-                resolvedCounters.Add(ConvertCounterToSymbol(listSymbolType, currentValue));
+                resolvedCounters.Add(HtmlUtils.ConvertNumberAccordingToGlyphStyle(listSymbolType, (int)currentValue));
             }
             if (resolvedCounters.IsEmpty()) {
-                return ConvertCounterToSymbol(listSymbolType, 0);
+                return HtmlUtils.ConvertNumberAccordingToGlyphStyle(listSymbolType, 0);
             }
             else {
                 return BuildCountersStringFromList(resolvedCounters, counterSeparatorStr);
@@ -438,80 +428,5 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
             }
             return sb.ToString();
         }
-
-        private static String ConvertCounterToSymbol(String listSymbolType, int? counterValue) {
-            if (listSymbolType == null) {
-                return counterValue.ToString();
-            }
-            else {
-                if (CssConstants.NONE.Equals(listSymbolType)) {
-                    return "";
-                }
-                else {
-                    if (CssConstants.DISC.Equals(listSymbolType)) {
-                        return DISC_SYMBOL;
-                    }
-                    else {
-                        if (CssConstants.SQUARE.Equals(listSymbolType)) {
-                            return SQUARE_SYMBOL;
-                        }
-                        else {
-                            if (CssConstants.CIRCLE.Equals(listSymbolType)) {
-                                return CIRCLE_SYMBOL;
-                            }
-                            else {
-                                if (CssConstants.UPPER_ALPHA.Equals(listSymbolType) || CssConstants.UPPER_LATIN.Equals(listSymbolType)) {
-                                    return counterValue > 0 ? EnglishAlphabetNumbering.ToLatinAlphabetNumberUpperCase((int)counterValue) : counterValue
-                                        .ToString();
-                                }
-                                else {
-                                    if (CssConstants.LOWER_ALPHA.Equals(listSymbolType) || CssConstants.LOWER_LATIN.Equals(listSymbolType)) {
-                                        return counterValue > 0 ? EnglishAlphabetNumbering.ToLatinAlphabetNumberLowerCase((int)counterValue) : counterValue
-                                            .ToString();
-                                    }
-                                    else {
-                                        if (CssConstants.LOWER_GREEK.Equals(listSymbolType)) {
-                                            return counterValue > 0 ? GreekAlphabetNumbering.ToGreekAlphabetNumberLowerCase((int)counterValue) : counterValue
-                                                .ToString();
-                                        }
-                                        else {
-                                            if (CssConstants.LOWER_ROMAN.Equals(listSymbolType)) {
-                                                return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.ToRomanLowerCase((int)counterValue) : counterValue
-                                                    .ToString();
-                                            }
-                                            else {
-                                                if (CssConstants.UPPER_ROMAN.Equals(listSymbolType)) {
-                                                    return counterValue <= MAX_ROMAN_NUMBER ? RomanNumbering.ToRomanUpperCase((int)counterValue) : counterValue
-                                                        .ToString();
-                                                }
-                                                else {
-                                                    if (CssConstants.DECIMAL_LEADING_ZERO.Equals(listSymbolType)) {
-                                                        return (counterValue < 10 ? "0" : "") + counterValue.ToString();
-                                                    }
-                                                    else {
-                                                        if (CssConstants.GEORGIAN.Equals(listSymbolType)) {
-                                                            return GeorgianNumbering.ToGeorgian((int)counterValue);
-                                                        }
-                                                        else {
-                                                            if (CssConstants.ARMENIAN.Equals(listSymbolType)) {
-                                                                return ArmenianNumbering.ToArmenian((int)counterValue);
-                                                            }
-                                                            else {
-                                                                return counterValue.ToString();
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        //TODO
     }
 }

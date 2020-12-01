@@ -42,6 +42,8 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using iText.Html2pdf.Css.Resolve.Func.Counter;
+using iText.Html2pdf.Html;
 using iText.Layout;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
@@ -53,10 +55,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     /// implementation for the page count.
     /// </summary>
     internal class PageCountRenderer : TextRenderer {
+        private readonly CounterDigitsGlyphStyle digitsGlyphStyle;
+
         /// <summary>Instantiates a new page count renderer.</summary>
         /// <param name="textElement">the text element</param>
         internal PageCountRenderer(PageCountElement textElement)
             : base(textElement) {
+            digitsGlyphStyle = textElement.GetDigitsGlyphStyle();
         }
 
         /* (non-Javadoc)
@@ -72,7 +77,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             // To solve this, this workaround has been implemented: the renderer's strToBeConverted shouldn't be updated by layout.
             bool textHasBeenReplaced = false;
             if (pageCountType == PageCountType.CURRENT_PAGE_NUMBER) {
-                SetText(layoutContext.GetArea().GetPageNumber().ToString());
+                SetText(HtmlUtils.ConvertNumberAccordingToGlyphStyle(digitsGlyphStyle, layoutContext.GetArea().GetPageNumber
+                    ()));
                 textHasBeenReplaced = true;
             }
             else {
@@ -83,12 +89,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     }
                     if (rootRenderer is HtmlDocumentRenderer && ((HtmlDocumentRenderer)rootRenderer).GetEstimatedNumberOfPages
                         () > 0) {
-                        SetText(((HtmlDocumentRenderer)rootRenderer).GetEstimatedNumberOfPages().ToString());
+                        SetText(HtmlUtils.ConvertNumberAccordingToGlyphStyle(digitsGlyphStyle, ((HtmlDocumentRenderer)rootRenderer
+                            ).GetEstimatedNumberOfPages()));
                         textHasBeenReplaced = true;
                     }
                     else {
                         if (rootRenderer is DocumentRenderer && rootRenderer.GetModelElement() is Document) {
-                            SetText(((Document)rootRenderer.GetModelElement()).GetPdfDocument().GetNumberOfPages().ToString());
+                            SetText(HtmlUtils.ConvertNumberAccordingToGlyphStyle(digitsGlyphStyle, ((Document)rootRenderer.GetModelElement
+                                ()).GetPdfDocument().GetNumberOfPages()));
                             textHasBeenReplaced = true;
                         }
                     }

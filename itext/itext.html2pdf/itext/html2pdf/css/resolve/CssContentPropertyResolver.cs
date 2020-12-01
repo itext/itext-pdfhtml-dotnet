@@ -106,16 +106,16 @@ namespace iText.Html2pdf.Css.Resolve {
                     String counterName = @params[0].Trim();
                     String counterSeparationStr = @params[1].Trim();
                     counterSeparationStr = counterSeparationStr.JSubstring(1, counterSeparationStr.Length - 1);
-                    String listStyleType = @params.Count > COUNTERS_MIN_PARAMS_SIZE ? @params[COUNTERS_MIN_PARAMS_SIZE].Trim()
-                         : null;
+                    CounterDigitsGlyphStyle listStyleType = HtmlUtils.ConvertStringCounterGlyphStyleToEnum(@params.Count > COUNTERS_MIN_PARAMS_SIZE
+                         ? @params[COUNTERS_MIN_PARAMS_SIZE].Trim() : null);
                     CssCounterManager counterManager = context.GetCounterManager();
                     INode scope = contentContainer;
                     if (CssConstants.PAGE.Equals(counterName)) {
-                        result.Add(new PageCountElementNode(false, contentContainer));
+                        result.Add(new PageCountElementNode(false, contentContainer).SetDigitsGlyphStyle(listStyleType));
                     }
                     else {
                         if (CssConstants.PAGES.Equals(counterName)) {
-                            result.Add(new PageCountElementNode(true, contentContainer));
+                            result.Add(new PageCountElementNode(true, contentContainer).SetDigitsGlyphStyle(listStyleType));
                         }
                         else {
                             String resolvedCounter = counterManager.ResolveCounters(counterName, counterSeparationStr, listStyleType);
@@ -133,16 +133,16 @@ namespace iText.Html2pdf.Css.Resolve {
                         }
                         // Counters are denoted by case-sensitive identifiers
                         String counterName = @params[0].Trim();
-                        String listStyleType = @params.Count > COUNTER_MIN_PARAMS_SIZE ? @params[COUNTER_MIN_PARAMS_SIZE].Trim() : 
-                            null;
+                        CounterDigitsGlyphStyle listStyleType = HtmlUtils.ConvertStringCounterGlyphStyleToEnum(@params.Count > COUNTER_MIN_PARAMS_SIZE
+                             ? @params[COUNTER_MIN_PARAMS_SIZE].Trim() : null);
                         CssCounterManager counterManager = context.GetCounterManager();
                         INode scope = contentContainer;
                         if (CssConstants.PAGE.Equals(counterName)) {
-                            result.Add(new PageCountElementNode(false, contentContainer));
+                            result.Add(new PageCountElementNode(false, contentContainer).SetDigitsGlyphStyle(listStyleType));
                         }
                         else {
                             if (CssConstants.PAGES.Equals(counterName)) {
-                                result.Add(new PageCountElementNode(true, contentContainer));
+                                result.Add(new PageCountElementNode(true, contentContainer).SetDigitsGlyphStyle(listStyleType));
                             }
                             else {
                                 String resolvedCounter = counterManager.ResolveCounter(counterName, listStyleType);
@@ -152,9 +152,6 @@ namespace iText.Html2pdf.Css.Resolve {
                     }
                     else {
                         if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTER + "(")) {
-                            if (!context.IsTargetCounterEnabled()) {
-                                return ErrorFallback(contentStr);
-                            }
                             String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTER.Length + 1, token.GetValue().Length
                                  - 1);
                             IList<String> @params = CssUtils.SplitString(paramsStr, ',', ALLOWED_ESCAPE_CHARACTERS);
@@ -163,15 +160,14 @@ namespace iText.Html2pdf.Css.Resolve {
                             }
                             String target = CssUtils.ExtractUrl(@params[0]);
                             String counterName = @params[1].Trim();
-                            String listStyleType = @params.Count > TARGET_COUNTER_MIN_PARAMS_SIZE ? @params[TARGET_COUNTER_MIN_PARAMS_SIZE
-                                ].Trim() : null;
+                            CounterDigitsGlyphStyle listStyleType = HtmlUtils.ConvertStringCounterGlyphStyleToEnum(@params.Count > TARGET_COUNTER_MIN_PARAMS_SIZE
+                                 ? @params[TARGET_COUNTER_MIN_PARAMS_SIZE].Trim() : null);
                             if (CssConstants.PAGE.Equals(counterName)) {
-                                result.Add(new PageTargetCountElementNode(contentContainer, target));
+                                result.Add(new PageTargetCountElementNode(contentContainer, target).SetDigitsGlyphStyle(listStyleType));
                             }
                             else {
                                 if (CssConstants.PAGES.Equals(counterName)) {
-                                    // TODO DEVSIX-4692 pages support.
-                                    return ErrorFallback(contentStr);
+                                    result.Add(new PageCountElementNode(true, contentContainer).SetDigitsGlyphStyle(listStyleType));
                                 }
                                 else {
                                     String counter = context.GetCounterManager().ResolveTargetCounter(target.Replace("'", "").Replace("#", "")
@@ -184,9 +180,6 @@ namespace iText.Html2pdf.Css.Resolve {
                         }
                         else {
                             if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTERS + "(")) {
-                                if (!context.IsTargetCounterEnabled()) {
-                                    return ErrorFallback(contentStr);
-                                }
                                 String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTERS.Length + 1, token.GetValue().Length
                                      - 1);
                                 IList<String> @params = CssUtils.SplitString(paramsStr, ',', ALLOWED_ESCAPE_CHARACTERS);
@@ -197,15 +190,14 @@ namespace iText.Html2pdf.Css.Resolve {
                                 String counterName = @params[1].Trim();
                                 String counterSeparator = @params[2].Trim();
                                 counterSeparator = counterSeparator.JSubstring(1, counterSeparator.Length - 1);
-                                String listStyleType = @params.Count > TARGET_COUNTERS_MIN_PARAMS_SIZE ? @params[TARGET_COUNTERS_MIN_PARAMS_SIZE
-                                    ].Trim() : null;
+                                CounterDigitsGlyphStyle listStyleType = HtmlUtils.ConvertStringCounterGlyphStyleToEnum(@params.Count > TARGET_COUNTERS_MIN_PARAMS_SIZE
+                                     ? @params[TARGET_COUNTERS_MIN_PARAMS_SIZE].Trim() : null);
                                 if (CssConstants.PAGE.Equals(counterName)) {
-                                    result.Add(new PageTargetCountElementNode(contentContainer, target));
+                                    result.Add(new PageTargetCountElementNode(contentContainer, target).SetDigitsGlyphStyle(listStyleType));
                                 }
                                 else {
                                     if (CssConstants.PAGES.Equals(counterName)) {
-                                        // TODO DEVSIX-4692 pages support.
-                                        return ErrorFallback(contentStr);
+                                        result.Add(new PageCountElementNode(true, contentContainer).SetDigitsGlyphStyle(listStyleType));
                                     }
                                     else {
                                         String counters = context.GetCounterManager().ResolveTargetCounters(target.Replace(",", "").Replace("#", ""

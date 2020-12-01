@@ -21,6 +21,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using iText.Html2pdf.Css.Resolve.Func.Counter;
+using iText.Html2pdf.Html;
 using iText.Layout.Element;
 using iText.Layout.Renderer;
 
@@ -32,6 +34,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     public class PageTargetCountElement : Text {
         private readonly String target;
 
+        private readonly CounterDigitsGlyphStyle digitsGlyphStyle;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="PageTargetCountElement"/>.
@@ -40,12 +44,31 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         public PageTargetCountElement(String target)
             : base("1234567890") {
             this.target = target.Replace("'", "").Replace("#", "");
+            this.digitsGlyphStyle = CounterDigitsGlyphStyle.DEFAULT;
+        }
+
+        /// <summary>
+        /// Instantiates a new
+        /// <see cref="PageTargetCountElement"/>.
+        /// </summary>
+        /// <param name="target">name of the corresponding target</param>
+        /// <param name="digitsGlyphStyle">digits glyph style</param>
+        public PageTargetCountElement(String target, CounterDigitsGlyphStyle digitsGlyphStyle)
+            : base(HtmlUtils.GetAllNumberGlyphsForStyle(digitsGlyphStyle)) {
+            this.target = target.Replace("'", "").Replace("#", "");
+            this.digitsGlyphStyle = digitsGlyphStyle;
         }
 
         /// <summary>Gets element's target.</summary>
         /// <returns>target which was specified for this element.</returns>
         public virtual String GetTarget() {
             return target;
+        }
+
+        /// <summary>Gets glyph style for digits.</summary>
+        /// <returns>name of the glyph style</returns>
+        public virtual CounterDigitsGlyphStyle GetDigitsGlyphStyle() {
+            return digitsGlyphStyle;
         }
 
         /// <summary><inheritDoc/></summary>

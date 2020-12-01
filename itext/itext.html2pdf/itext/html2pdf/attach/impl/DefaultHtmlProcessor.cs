@@ -191,22 +191,26 @@ namespace iText.Html2pdf.Attach.Impl {
                 context.GetCssContext().GetCounterManager().ClearManager();
             }
             Visit(root);
-            Document doc = (Document)roots[0];
+            HtmlDocument doc = (HtmlDocument)roots[0];
             // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
-            if (doc.GetRenderer() is HtmlDocumentRenderer && context.GetCssContext().IsPagesCounterPresent()) {
-                ((HtmlDocumentRenderer)doc.GetRenderer()).ProcessWaitingElement();
-                int counter = 0;
-                do {
-                    ++counter;
-                    doc.Relayout();
+            if (context.GetCssContext().IsPagesCounterPresent()) {
+                if (doc.GetRenderer() is HtmlDocumentRenderer) {
                     ((HtmlDocumentRenderer)doc.GetRenderer()).ProcessWaitingElement();
-                    if (counter >= context.GetLimitOfLayouts()) {
-                        logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS
-                            ));
-                        break;
+                    int counter = 0;
+                    do {
+                        ++counter;
+                        doc.Relayout();
+                        if (counter >= context.GetLimitOfLayouts()) {
+                            logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS
+                                ));
+                            break;
+                        }
                     }
+                    while (((DocumentRenderer)doc.GetRenderer()).IsRelayoutRequired());
                 }
-                while (((DocumentRenderer)doc.GetRenderer()).IsRelayoutRequired());
+                else {
+                    logger.Warn(iText.Html2pdf.LogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT);
+                }
             }
             cssResolver = null;
             roots = null;

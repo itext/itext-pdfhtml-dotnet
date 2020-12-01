@@ -88,9 +88,6 @@ namespace iText.Html2pdf {
         /// <summary>Indicates whether the document should be opened in immediate flush or not</summary>
         private bool immediateFlush = true;
 
-        /// <summary>Indicates whether the document shall process target-counter or not.</summary>
-        private bool targetCounterEnabled = false;
-
         /// <summary>Maximum number of layouts.</summary>
         private int limitOfLayouts = DEFAULT_LIMIT_OF_LAYOUTS;
 
@@ -129,7 +126,6 @@ namespace iText.Html2pdf {
             this.outlineHandler = other.outlineHandler;
             this.charset = other.charset;
             this.metaInfo = other.metaInfo;
-            this.targetCounterEnabled = other.targetCounterEnabled;
             this.limitOfLayouts = other.limitOfLayouts;
         }
 
@@ -219,24 +215,6 @@ namespace iText.Html2pdf {
         /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetLimitOfLayouts(int limitOfLayouts) {
             this.limitOfLayouts = limitOfLayouts;
-            return this;
-        }
-
-        /// <summary>Checks if target-counter is enabled.</summary>
-        /// <returns>true if target-counter shall be processed, false otherwise</returns>
-        public virtual bool IsTargetCounterEnabled() {
-            return targetCounterEnabled;
-        }
-
-        /// <summary>Sets the targetCounterEnabled flag.</summary>
-        /// <param name="targetCounterEnabled">true if target-counter shall be processed, false otherwise</param>
-        /// <returns>
-        /// the
-        /// <see cref="ConverterProperties"/>
-        /// instance
-        /// </returns>
-        public virtual iText.Html2pdf.ConverterProperties SetTargetCounterEnabled(bool targetCounterEnabled) {
-            this.targetCounterEnabled = targetCounterEnabled;
             return this;
         }
 

@@ -41,12 +41,45 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Resolve.Func.Counter;
+using iText.Kernel.Numbering;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Html {
     /// <summary>Utilities class with HTML-related functionality.</summary>
     public sealed class HtmlUtils {
+        /// <summary>The Constant DISC_SYMBOL.</summary>
+        private const String DISC_SYMBOL = "•";
+
+        /// <summary>The Constant CIRCLE_SYMBOL.</summary>
+        private const String CIRCLE_SYMBOL = "◦";
+
+        /// <summary>The Constant SQUARE_SYMBOL.</summary>
+        private const String SQUARE_SYMBOL = "■";
+
+        /// <summary>Symbols which are used to write numbers in Latin.</summary>
+        private const String LATIN_NUMERALS = "abcdefghijklmnopqrstuvwxyz";
+
+        /// <summary>Symbols which are used to write numbers in Greek.</summary>
+        private const String GREEK_NUMERALS = "αβγδεζηθικλμνξοπρστυφχψω";
+
+        /// <summary>Symbols which are used to write numbers in Roman.</summary>
+        private const String ROMAN_NUMERALS = "ivxlcdm";
+
+        /// <summary>Symbols which are used to write numbers in Georgian.</summary>
+        private const String GEORGIAN_NUMERALS = "აბგდევზჱთიკლმნჲოპჟრსტჳფქღყშჩცძწჭხჴჯჰჵ";
+
+        /// <summary>Symbols which are used to write numbers in Armenian.</summary>
+        private const String ARMENIAN_NUMERALS = "ԱԲԳԴԵԶԷԸԹԺԻԼԽԾԿՀՁՂՃՄՅՆՇՈՉՊՋՌՍՎՏՐՑՒՓՔ";
+
+        /// <summary>Symbols which are used to write numbers by default.</summary>
+        private const String DEFAULT_NUMERALS = "1234567890";
+
+        /// <summary>The Constant MAX_ROMAN_NUMBER.</summary>
+        private const int MAX_ROMAN_NUMBER = 3999;
+
         /// <summary>
         /// Creates a new
         /// <see cref="HtmlUtils"/>
@@ -66,6 +99,197 @@ namespace iText.Html2pdf.Html {
             )]
         public static bool IsStyleSheetLink(IElementNode headChildElement) {
             return CssUtils.IsStyleSheetLink(headChildElement);
+        }
+
+        /// <summary>Converts number according to given glyph style.</summary>
+        /// <param name="glyphStyle">style of the glyphs</param>
+        /// <param name="number">number to be converted</param>
+        /// <returns>converted number</returns>
+        public static String ConvertNumberAccordingToGlyphStyle(CounterDigitsGlyphStyle glyphStyle, int number) {
+            if (glyphStyle == null) {
+                return number.ToString();
+            }
+            switch (glyphStyle) {
+                case CounterDigitsGlyphStyle.NONE: {
+                    return "";
+                }
+
+                case CounterDigitsGlyphStyle.DISC: {
+                    return DISC_SYMBOL;
+                }
+
+                case CounterDigitsGlyphStyle.SQUARE: {
+                    return SQUARE_SYMBOL;
+                }
+
+                case CounterDigitsGlyphStyle.CIRCLE: {
+                    return CIRCLE_SYMBOL;
+                }
+
+                case CounterDigitsGlyphStyle.UPPER_ALPHA_AND_LATIN: {
+                    return number > 0 ? EnglishAlphabetNumbering.ToLatinAlphabetNumberUpperCase(number) : number.ToString();
+                }
+
+                case CounterDigitsGlyphStyle.LOWER_ALPHA_AND_LATIN: {
+                    return number > 0 ? EnglishAlphabetNumbering.ToLatinAlphabetNumberLowerCase(number) : number.ToString();
+                }
+
+                case CounterDigitsGlyphStyle.LOWER_GREEK: {
+                    return number > 0 ? GreekAlphabetNumbering.ToGreekAlphabetNumberLowerCase(number) : number.ToString();
+                }
+
+                case CounterDigitsGlyphStyle.LOWER_ROMAN: {
+                    return number <= MAX_ROMAN_NUMBER ? RomanNumbering.ToRomanLowerCase(number) : number.ToString();
+                }
+
+                case CounterDigitsGlyphStyle.UPPER_ROMAN: {
+                    return number <= MAX_ROMAN_NUMBER ? RomanNumbering.ToRomanUpperCase(number) : number.ToString();
+                }
+
+                case CounterDigitsGlyphStyle.DECIMAL_LEADING_ZERO: {
+                    return (number < 10 ? "0" : "") + number.ToString();
+                }
+
+                case CounterDigitsGlyphStyle.GEORGIAN: {
+                    return GeorgianNumbering.ToGeorgian(number);
+                }
+
+                case CounterDigitsGlyphStyle.ARMENIAN: {
+                    return ArmenianNumbering.ToArmenian(number);
+                }
+
+                default: {
+                    return number.ToString();
+                }
+            }
+        }
+
+        //TODO
+        /// <summary>Gets a string which contains all glyphs which can be used in number according to given glyph style.
+        ///     </summary>
+        /// <param name="glyphStyle">style of the glyphs</param>
+        /// <returns>string of all number glyphs</returns>
+        public static String GetAllNumberGlyphsForStyle(CounterDigitsGlyphStyle glyphStyle) {
+            if (glyphStyle == null) {
+                return DEFAULT_NUMERALS;
+            }
+            switch (glyphStyle) {
+                case CounterDigitsGlyphStyle.NONE: {
+                    return "";
+                }
+
+                case CounterDigitsGlyphStyle.DISC: {
+                    return DISC_SYMBOL;
+                }
+
+                case CounterDigitsGlyphStyle.SQUARE: {
+                    return SQUARE_SYMBOL;
+                }
+
+                case CounterDigitsGlyphStyle.CIRCLE: {
+                    return CIRCLE_SYMBOL;
+                }
+
+                case CounterDigitsGlyphStyle.UPPER_ALPHA_AND_LATIN: {
+                    return LATIN_NUMERALS.ToUpperInvariant();
+                }
+
+                case CounterDigitsGlyphStyle.LOWER_ALPHA_AND_LATIN: {
+                    return LATIN_NUMERALS;
+                }
+
+                case CounterDigitsGlyphStyle.LOWER_GREEK: {
+                    return GREEK_NUMERALS;
+                }
+
+                case CounterDigitsGlyphStyle.LOWER_ROMAN: {
+                    return ROMAN_NUMERALS;
+                }
+
+                case CounterDigitsGlyphStyle.UPPER_ROMAN: {
+                    return ROMAN_NUMERALS.ToUpperInvariant();
+                }
+
+                case CounterDigitsGlyphStyle.GEORGIAN: {
+                    return GEORGIAN_NUMERALS;
+                }
+
+                case CounterDigitsGlyphStyle.ARMENIAN: {
+                    return ARMENIAN_NUMERALS;
+                }
+
+                default: {
+                    return DEFAULT_NUMERALS;
+                }
+            }
+        }
+
+        /// <summary>Gets enum representation of given digits glyph style.</summary>
+        /// <param name="glyphStyle">style of the glyphs</param>
+        /// <returns>
+        /// 
+        /// <see cref="iText.Html2pdf.Css.Resolve.Func.Counter.CounterDigitsGlyphStyle"/>
+        /// equivalent of given glyph style
+        /// </returns>
+        public static CounterDigitsGlyphStyle ConvertStringCounterGlyphStyleToEnum(String glyphStyle) {
+            if (glyphStyle == null) {
+                return CounterDigitsGlyphStyle.DEFAULT;
+            }
+            switch (glyphStyle) {
+                case CssConstants.NONE: {
+                    return CounterDigitsGlyphStyle.NONE;
+                }
+
+                case CssConstants.DISC: {
+                    return CounterDigitsGlyphStyle.DISC;
+                }
+
+                case CssConstants.SQUARE: {
+                    return CounterDigitsGlyphStyle.SQUARE;
+                }
+
+                case CssConstants.CIRCLE: {
+                    return CounterDigitsGlyphStyle.CIRCLE;
+                }
+
+                case CssConstants.UPPER_ALPHA:
+                case CssConstants.UPPER_LATIN: {
+                    return CounterDigitsGlyphStyle.UPPER_ALPHA_AND_LATIN;
+                }
+
+                case CssConstants.LOWER_ALPHA:
+                case CssConstants.LOWER_LATIN: {
+                    return CounterDigitsGlyphStyle.LOWER_ALPHA_AND_LATIN;
+                }
+
+                case CssConstants.LOWER_GREEK: {
+                    return CounterDigitsGlyphStyle.LOWER_GREEK;
+                }
+
+                case CssConstants.LOWER_ROMAN: {
+                    return CounterDigitsGlyphStyle.LOWER_ROMAN;
+                }
+
+                case CssConstants.UPPER_ROMAN: {
+                    return CounterDigitsGlyphStyle.UPPER_ROMAN;
+                }
+
+                case CssConstants.GEORGIAN: {
+                    return CounterDigitsGlyphStyle.GEORGIAN;
+                }
+
+                case CssConstants.ARMENIAN: {
+                    return CounterDigitsGlyphStyle.ARMENIAN;
+                }
+
+                case CssConstants.DECIMAL_LEADING_ZERO: {
+                    return CounterDigitsGlyphStyle.DECIMAL_LEADING_ZERO;
+                }
+
+                default: {
+                    return CounterDigitsGlyphStyle.DEFAULT;
+                }
+            }
         }
     }
 }

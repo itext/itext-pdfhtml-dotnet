@@ -50,10 +50,15 @@ namespace iText.Html2pdf {
 
         public const String ANCHOR_LINK_NOT_HANDLED = "The anchor link was not handled. Could not create a destination for element \"{0}\" with ID \"{1}\", which is processed by \"{2}\" tag worker class.";
 
+        /// <summary>The Constant CANNOT_RESOLVE_TARGET_COUNTER_VALUE.</summary>
         public const String CANNOT_RESOLVE_TARGET_COUNTER_VALUE = "Cannot resolve target-counter value with given target \"{0}\"";
 
         /// <summary>The Constant CONTENT_PROPERTY_INVALID.</summary>
         public const String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
+
+        /// <summary>The Constant CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT.</summary>
+        public const String CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT = "A custom renderer which doesn't extend " +
+             "HtmlDocumentRenderer is set for HtmlDocument. Counters and target-counters may be displayed incorrectly.";
 
         /// <summary>The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED.</summary>
         public const String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";

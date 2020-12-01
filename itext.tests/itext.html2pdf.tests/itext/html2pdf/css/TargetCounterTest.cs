@@ -23,9 +23,17 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Html2pdf;
-using iText.IO.Util;
+using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl;
+using iText.Html2pdf.Attach.Impl.Tags;
+using iText.Html2pdf.Html;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
+using iText.Layout;
+using iText.Layout.Renderer;
+using iText.StyledXmlParser;
+using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Node.Impl.Jsoup;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
@@ -43,92 +51,143 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void TargetCounterPageUrlNameTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterPageUrlName");
+            ConvertToPdfAndCompare("targetCounterPageUrlName");
         }
 
         [NUnit.Framework.Test]
         public virtual void TargetCounterPageUrlIdTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterPageUrlId");
+            ConvertToPdfAndCompare("targetCounterPageUrlId");
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS)]
         public virtual void TargetCounterManyRelayoutsTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterManyRelayouts");
+            ConvertToPdfAndCompare("targetCounterManyRelayouts");
         }
 
         [NUnit.Framework.Test]
         public virtual void TargetCounterPageBigElementTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterPageBigElement");
+            ConvertToPdfAndCompare("targetCounterPageBigElement");
         }
 
         [NUnit.Framework.Test]
         public virtual void TargetCounterPageAllTagsTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterPageAllTags");
+            ConvertToPdfAndCompare("targetCounterPageAllTags");
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, Count = 2)]
         public virtual void TargetCounterNotExistingTargetTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterNotExistingTarget");
+            ConvertToPdfAndCompare("targetCounterNotExistingTarget");
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void PageTargetCounterTestWithLogMessageTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("pageTargetCounterTestWithLogMessage");
+            ConvertToPdfAndCompare("pageTargetCounterTestWithLogMessage");
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void NonPageTargetCounterTestWithLogMessageTest() {
             // There should be only one log message here, but we have two because we resolve css styles twice.
-            ConvertToPdfWithTargetCounterEnabledAndCompare("nonPageTargetCounterTestWithLogMessage");
+            ConvertToPdfAndCompare("nonPageTargetCounterTestWithLogMessage");
         }
 
         [NUnit.Framework.Test]
         public virtual void TargetCounterSeveralCountersTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterSeveralCounters");
+            ConvertToPdfAndCompare("targetCounterSeveralCounters");
         }
 
         [NUnit.Framework.Test]
         public virtual void TargetCounterIDNotExistTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterIDNotExist");
+            ConvertToPdfAndCompare("targetCounterIDNotExist");
         }
 
         [NUnit.Framework.Test]
         public virtual void TargetCounterNotCounterElementTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterNotCounterElement");
+            ConvertToPdfAndCompare("targetCounterNotCounterElement");
         }
 
         [NUnit.Framework.Test]
         public virtual void TargetCounterNestedCountersTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterNestedCounters");
+            ConvertToPdfAndCompare("targetCounterNestedCounters");
         }
 
         [NUnit.Framework.Test]
         public virtual void TargetCounterUnusualStylesTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCounterUnusualStyles");
+            ConvertToPdfAndCompare("targetCounterUnusualStyles");
         }
 
         [NUnit.Framework.Test]
         public virtual void TargetCountersNestedCountersTest() {
-            ConvertToPdfWithTargetCounterEnabledAndCompare("targetCountersNestedCounters");
+            ConvertToPdfAndCompare("targetCountersNestedCounters");
         }
 
-        private void ConvertToPdfWithTargetCounterEnabledAndCompare(String name) {
-            String sourceHtml = sourceFolder + name + ".html";
-            String cmpPdf = sourceFolder + "cmp_" + name + ".pdf";
-            String destinationPdf = destinationFolder + name + ".pdf";
-            ConverterProperties converterProperties = new ConverterProperties().SetBaseUri(sourceFolder).SetTargetCounterEnabled
-                (true);
-            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf));
-            using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
-                HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, converterProperties);
+        [NUnit.Framework.Test]
+        public virtual void TargetCounterNotDefaultStyleTest() {
+            // TODO DEVSIX-4789 Armenian and Georgian symbols are not drawn, but there is no log message.
+            ConvertToPdfAndCompare("targetCounterNotDefaultStyle");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS)]
+        public virtual void TargetCounterCannotBeResolvedTest() {
+            ConvertToPdfAndCompare("targetCounterCannotBeResolved");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT)]
+        public virtual void CustomRendererAndPageTargetCounterTest() {
+            ConvertToPdfWithCustomRendererAndCompare("customRendererAndPageTargetCounter");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CustomRendererAndNonPageTargetCounterTest() {
+            ConvertToPdfWithCustomRendererAndCompare("customRendererAndNonPageTargetCounter");
+        }
+
+        private void ConvertToPdfWithCustomRendererAndCompare(String name) {
+            ConverterProperties properties = new ConverterProperties().SetTagWorkerFactory(new _DefaultTagWorkerFactory_166
+                ());
+            DefaultHtmlProcessor processor = new DefaultHtmlProcessor(properties);
+            IXmlParser parser = new JsoupHtmlParser();
+            String outPdfPath = destinationFolder + name + ".pdf";
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outPdfPath));
+            IDocumentNode doc = parser.Parse(new FileStream(sourceFolder + name + ".html", FileMode.Open, FileAccess.Read
+                ), properties.GetCharset());
+            Document document = processor.ProcessDocument(doc, pdfDocument);
+            document.Close();
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, sourceFolder + "cmp_" + name 
+                + ".pdf", destinationFolder));
+        }
+
+        private sealed class _DefaultTagWorkerFactory_166 : DefaultTagWorkerFactory {
+            public _DefaultTagWorkerFactory_166() {
             }
-            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(sourceHtml) + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, destinationFolder
-                , "diff_" + name + "_"));
+
+            public override ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
+                if (TagConstants.HTML.Equals(tag.Name())) {
+                    return new _HtmlTagWorker_170(tag, context);
+                }
+                return null;
+            }
+
+            private sealed class _HtmlTagWorker_170 : HtmlTagWorker {
+                public _HtmlTagWorker_170(IElementNode baseArg1, ProcessorContext baseArg2)
+                    : base(baseArg1, baseArg2) {
+                }
+
+                public override IPropertyContainer GetElementResult() {
+                    Document document = (Document)base.GetElementResult();
+                    document.SetRenderer(new DocumentRenderer(document));
+                    return document;
+                }
+            }
+        }
+
+        private void ConvertToPdfAndCompare(String name) {
+            ConvertToPdfAndCompare(name, sourceFolder, destinationFolder);
         }
     }
 }

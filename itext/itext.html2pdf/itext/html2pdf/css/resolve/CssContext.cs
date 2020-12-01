@@ -66,31 +66,10 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>The running elements manager.</summary>
         private CssRunningManager runningManager = new CssRunningManager();
 
-        /// <summary>Indicates whether the document shall process target-counter or not.</summary>
-        private bool targetCounterEnabled = false;
-
         /// <summary>Gets the root font size.</summary>
         /// <returns>the root font size in pt</returns>
         public virtual float GetRootFontSize() {
             return rootFontSize;
-        }
-
-        /// <summary>Sets the targetCounterEnabled flag.</summary>
-        /// <param name="targetCounterEnabled">true if target-counter shall be processed, false otherwise</param>
-        /// <returns>
-        /// the
-        /// <see cref="CssContext"/>
-        /// instance
-        /// </returns>
-        public virtual CssContext SetTargetCounterEnabled(bool targetCounterEnabled) {
-            this.targetCounterEnabled = targetCounterEnabled;
-            return this;
-        }
-
-        /// <summary>Checks if target-counter is enabled.</summary>
-        /// <returns>true if target-counter shall be processed, false otherwise</returns>
-        public virtual bool IsTargetCounterEnabled() {
-            return targetCounterEnabled;
         }
 
         /// <summary>Sets the root font size.</summary>
