@@ -146,13 +146,13 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void PageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivWithShortTextTest() {
             // TODO: DEVSIX-4720 short text div invalid layout on page break
-            // TODO: DEVSIX-4721 simple text layout to the left of the left float
+            // TODO: DEVSIX-1270 simple text layout to the left of the left float
             RunTest("pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivWithShortTextTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void PageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivsWithShortAndLongTextsTest() {
-            // TODO: DEVSIX-4721 simple text layout to the left of the left float
+            // TODO: DEVSIX-1270 simple text layout to the left of the left float
             RunTest("pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivsWithShortAndLongTextsTest");
         }
 
