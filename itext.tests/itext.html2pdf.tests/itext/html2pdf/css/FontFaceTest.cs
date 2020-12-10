@@ -121,7 +121,7 @@ namespace iText.Html2pdf.Css {
             catch (Exception e) {
                 exception = e.Message;
             }
-            NUnit.Framework.Assert.AreEqual(Html2PdfException.FontProviderContainsZeroFonts, exception, "Font Provider with zero fonts shall fail"
+            NUnit.Framework.Assert.AreEqual(Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS, exception, "Font Provider with zero fonts shall fail"
                 );
         }
 

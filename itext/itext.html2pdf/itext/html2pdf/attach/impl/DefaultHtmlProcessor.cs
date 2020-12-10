@@ -180,7 +180,7 @@ namespace iText.Html2pdf.Attach.Impl {
             ReflectionUtils.ScheduledLicenseCheck();
             context.Reset(pdfDocument);
             if (!context.HasFonts()) {
-                throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
+                throw new Html2PdfException(Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS);
             }
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context);

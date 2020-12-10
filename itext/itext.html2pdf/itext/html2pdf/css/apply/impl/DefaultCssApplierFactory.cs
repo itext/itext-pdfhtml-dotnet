@@ -91,7 +91,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                         return (ICssApplier)System.Activator.CreateInstance(cssApplierClass);
                     }
                     catch (Exception) {
-                        throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass
+                        throw new CssApplierInitializationException(CssApplierInitializationException.REFLECTION_FAILED, cssApplierClass
                             .FullName, tag.Name());
                     }
                 }

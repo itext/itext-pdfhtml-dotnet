@@ -46,6 +46,9 @@ using iText.IO.Util;
 namespace iText.Html2pdf.Exceptions {
     /// <summary>Runtime exception that gets thrown if a tag worker can't be initialized.</summary>
     public class TagWorkerInitializationException : Exception {
+        /// <summary>Template for the error message in case a tag worker couldn't be instantiated.</summary>
+        public const String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not " + "instantiate TagWorker-class {0} for tag {1}.";
+
         /// <summary>
         /// Creates a
         /// <see cref="TagWorkerInitializationException"/>
@@ -70,8 +73,5 @@ namespace iText.Html2pdf.Exceptions {
         public TagWorkerInitializationException(String message, String classNames, String tag, Exception cause)
             : base(MessageFormatUtil.Format(message, classNames, tag), cause) {
         }
-
-        /// <summary>Template for the error message in case a tag worker couldn't be instantiated.</summary>
-        public const String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not instantiate TagWorker-class {0} for tag {1}.";
     }
 }

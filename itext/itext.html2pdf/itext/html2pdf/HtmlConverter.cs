@@ -572,7 +572,7 @@ namespace iText.Html2pdf {
             ) {
             ReflectionUtils.ScheduledLicenseCheck();
             if (pdfDocument.GetReader() != null) {
-                throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
+                throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
             }
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(html);
@@ -616,7 +616,7 @@ namespace iText.Html2pdf {
             ) {
             ReflectionUtils.ScheduledLicenseCheck();
             if (pdfDocument.GetReader() != null) {
-                throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
+                throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
             }
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
