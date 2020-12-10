@@ -44,6 +44,7 @@ using System;
 using System.IO;
 using iText.Forms;
 using iText.Html2pdf;
+using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Test;
@@ -175,6 +176,41 @@ namespace iText.Html2pdf.Element {
         [LogMessage(iText.Html2pdf.LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 3)]
         public virtual void SelectTest02() {
             RunTest("select02", false);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RadioButtonWithPageCounterAtBottonTest() {
+            //TODO: update cmpfile after DEVSIX-4772 will be fixed
+            String html = sourceFolder + "radioButtonWithPageCounterAtBotton.html";
+            String pdf = destinationFolder + "radioButtonWithPageCounterAtBotton.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(html), new FileInfo(pdf), new ConverterProperties().SetCreateAcroForm
+                (true));
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(html) + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdf, sourceFolder + "cmp_radioButtonWithPageCounterAtBotton.pdf"
+                , destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RadioButtonWithPageCounterOnTopTest() {
+            //TODO: update cmpfile after DEVSIX-4772 will be fixed
+            String html = sourceFolder + "radioButtonWithPageCounterOnTop.html";
+            String pdf = destinationFolder + "radioButtonWithPageCounterOnTop.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(html), new FileInfo(pdf), new ConverterProperties().SetCreateAcroForm
+                (true));
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(html) + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdf, sourceFolder + "cmp_radioButtonWithPageCounterOnTop.pdf"
+                , destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RadioButtonNoPageCounterTest() {
+            String html = sourceFolder + "radioButtonNoPageCounter.html";
+            String pdf = destinationFolder + "radioButtonNoPageCounter.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(html), new FileInfo(pdf), new ConverterProperties().SetCreateAcroForm
+                (true));
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(html) + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdf, sourceFolder + "cmp_radioButtonNoPageCounter.pdf"
+                , destinationFolder));
         }
 
         private void RunTest(String name) {
