@@ -52,7 +52,7 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI)]
         public virtual void RetrieveImageExtendedIncorrectBase64Test() {
             HtmlResourceResolver resourceResolver = CreateResolver();
             PdfXObject image = resourceResolver.RetrieveImageExtended(bLogoCorruptedData);
