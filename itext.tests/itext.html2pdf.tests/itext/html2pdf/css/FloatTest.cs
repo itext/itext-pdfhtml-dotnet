@@ -271,6 +271,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void Float39Test() {
+            // todo DEVSIX-1270, DEVSIX-1269
             RunTest("float39Test", "diff39_");
         }
 

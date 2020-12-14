@@ -131,7 +131,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void SpanTest08() {
-            // TODO DEVSIX-1438
             TestWithSuffix("08");
         }
 
