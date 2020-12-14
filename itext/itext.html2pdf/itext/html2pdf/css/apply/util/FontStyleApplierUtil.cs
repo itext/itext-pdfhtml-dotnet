@@ -51,6 +51,7 @@ using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
 using iText.Layout.Font;
 using iText.Layout.Properties;
+using iText.Layout.Splitting;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
@@ -161,6 +162,29 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                     else {
                         element.SetProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.NORMAL);
+                    }
+                }
+                String wordBreak = cssProps.Get(CssConstants.WORD_BREAK);
+                if (CssConstants.BREAK_ALL.Equals(wordBreak)) {
+                    element.SetProperty(Property.SPLIT_CHARACTERS, new BreakAllSplitCharacters());
+                }
+                else {
+                    if (CssConstants.KEEP_ALL.Equals(wordBreak)) {
+                        element.SetProperty(Property.SPLIT_CHARACTERS, new KeepAllSplitCharacters());
+                    }
+                    else {
+                        if (CssConstants.BREAK_WORD.Equals(wordBreak)) {
+                            // CSS specification cite that describes the reason for overflow-wrap overriding:
+                            // "For compatibility with legacy content, the word-break property also supports
+                            //  a deprecated break-word keyword. When specified, this has the same effect
+                            //  as word-break: normal and overflow-wrap: anywhere, regardless of the actual value
+                            //  of the overflow-wrap property."
+                            element.SetProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.BREAK_WORD);
+                            element.SetProperty(Property.SPLIT_CHARACTERS, new DefaultSplitCharacters());
+                        }
+                        else {
+                            element.SetProperty(Property.SPLIT_CHARACTERS, new DefaultSplitCharacters());
+                        }
                     }
                 }
             }
