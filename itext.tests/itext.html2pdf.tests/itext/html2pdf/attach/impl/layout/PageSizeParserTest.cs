@@ -40,8 +40,10 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
+using iText.Html2pdf.Logs;
 using iText.Kernel.Geom;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     public class PageSizeParserTest : ExtendedITextTest {
@@ -72,6 +74,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         public virtual void LedgerPortraitIsRotatedLedgerTest() {
             PageSize expected = PageSize.LEDGER.Rotate();
             PageSize actual = PageSizeParser.FetchPageSize("ledger portrait", 10, 10, PageSize.A0);
+            AssertSizesAreSame(expected, actual);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, Count = 1)]
+        public virtual void IncorrectPageSizeNameTest() {
+            PageSize expected = PageSize.LEDGER;
+            PageSize actual = PageSizeParser.FetchPageSize("INCORRECT_PAGE_SIZE", 10, 10, PageSize.LEDGER);
             AssertSizesAreSame(expected, actual);
         }
 

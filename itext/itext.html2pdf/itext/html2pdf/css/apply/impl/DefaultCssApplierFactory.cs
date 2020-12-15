@@ -58,7 +58,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             ();
 
         /// <summary>The default mapping of CSS keywords and CSS appliers.</summary>
-        private TagProcessorMapping defaultMapping;
+        internal TagProcessorMapping defaultMapping;
 
         /// <summary>
         /// Creates a new
