@@ -346,6 +346,39 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI, Count = 
+            3)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 3)]
+        public virtual void ResourceResolverSvgDifferentFormatsTest() {
+            String html = sourceFolder + "resourceResolverSvgDifferentFormats.html";
+            String outPdf = destinationFolder + "resourceResolverSvgDifferentFormats.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverSvgDifferentFormats.pdf";
+            using (FileStream htmlInput = new FileStream(html, FileMode.Open, FileAccess.Read)) {
+                using (FileStream pdfOutput = new FileStream(outPdf, FileMode.Create)) {
+                    HtmlConverter.ConvertToPdf(htmlInput, pdfOutput, new ConverterProperties().SetBaseUri(sourceFolder));
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffCorruptedSvg_"
+                ));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI)]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
+        public virtual void ResourceResolverNotValidInlineSvgTest() {
+            String html = sourceFolder + "resourceResolverNotValidInlineSvg.html";
+            String outPdf = destinationFolder + "resourceResolverNotValidInlineSvg.pdf";
+            String cmpPdf = sourceFolder + "cmp_resourceResolverNotValidInlineSvg.pdf";
+            using (FileStream htmlInput = new FileStream(html, FileMode.Open, FileAccess.Read)) {
+                using (FileStream pdfOutput = new FileStream(outPdf, FileMode.Create)) {
+                    HtmlConverter.ConvertToPdf(htmlInput, pdfOutput, new ConverterProperties().SetBaseUri(sourceFolder));
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diffCorruptedSvg_"
+                ));
+        }
+
+        [NUnit.Framework.Test]
         [LogMessage(SvgLogMessageConstant.NOROOT)]
         [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
         public virtual void ResourceResolverIncorrectSyntaxTest() {
