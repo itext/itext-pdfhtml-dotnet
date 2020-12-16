@@ -65,7 +65,7 @@ namespace iText.Html2pdf.Css.Resolve {
         static UserAgentCss() {
             CssStyleSheet parsedStylesheet = new CssStyleSheet();
             try {
-                parsedStylesheet = CssStyleSheetParser.Parse(ResourceUtil.GetResourceStream(DEFAULT_CSS_PATH));
+                parsedStylesheet = CssStyleSheetParser.Parse(ResourceUtil.GetResourceStream(DEFAULT_CSS_PATH, typeof(UserAgentCss)));
             }
             catch (Exception exc) {
                 ILog logger = LogManager.GetLogger(typeof(UserAgentCss));
