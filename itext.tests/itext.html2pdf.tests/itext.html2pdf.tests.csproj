@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <Import Project="$(SolutionDir)\packages\itext7.pdftest.7.1.14-SNAPSHOT\build\itext7.pdftest.props" Condition="Exists('$(SolutionDir)\packages\itext7.pdftest.7.1.14-SNAPSHOT\build\itext7.pdftest.props')" />
+  <Import Project="$(SolutionDir)\packages\itext7.pdftest.7.1.14\build\itext7.pdftest.props" Condition="Exists('$(SolutionDir)\packages\itext7.pdftest.7.1.14\build\itext7.pdftest.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -52,21 +52,21 @@
       <Name>itext.forms</Name>
     </ProjectReference>
     <Reference Include="itext.forms, Version=7.1.14.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" Condition="!Exists('..\..\..\itextcore\itext\itext.forms\itext.forms.csproj')">
-      <HintPath>$(SolutionDir)\packages\itext7.7.1.14-SNAPSHOT\lib\net40\itext.forms.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\itext7.7.1.14\lib\net40\itext.forms.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\..\..\itextcore\itext\itext.hyph\itext.hyph.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.hyph\itext.hyph.csproj')">
       <Project>{56137079-541A-425A-AB97-43AF63793C97}</Project>
       <Name>itext.hyph</Name>
     </ProjectReference>
     <Reference Include="itext.hyph, Version=7.1.14.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" Condition="!Exists('..\..\..\itextcore\itext\itext.hyph\itext.hyph.csproj')">
-      <HintPath>$(SolutionDir)\packages\itext7.hyph.7.1.14-SNAPSHOT\lib\net40\itext.hyph.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\itext7.hyph.7.1.14\lib\net40\itext.hyph.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\..\..\itextcore\itext\itext.io\itext.io.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.io\itext.io.csproj')">
       <Project>{cee5e7e1-1bf0-4be1-9941-903262ce2f83}</Project>
       <Name>itext.io</Name>
     </ProjectReference>
     <Reference Include="itext.io, Version=7.1.14.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" Condition="!Exists('..\..\..\itextcore\itext\itext.io\itext.io.csproj')">
-      <HintPath>$(SolutionDir)\packages\itext7.7.1.14-SNAPSHOT\lib\net40\itext.io.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\itext7.7.1.14\lib\net40\itext.io.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj')">
       <Project>{4e7819e8-7555-4e2e-9a01-d8718a2cfdda}</Project>
@@ -76,42 +76,42 @@
       <HintPath>$(SolutionDir)\packages\Portable.BouncyCastle.1.8.9\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="itext.kernel, Version=7.1.14.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" Condition="!Exists('..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj')">
-      <HintPath>$(SolutionDir)\packages\itext7.7.1.14-SNAPSHOT\lib\net40\itext.kernel.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\itext7.7.1.14\lib\net40\itext.kernel.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\..\..\itextcore\itext\itext.layout\itext.layout.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.layout\itext.layout.csproj')">
       <Project>{42173642-db52-44d3-9883-3e34c65c53bc}</Project>
       <Name>itext.layout</Name>
     </ProjectReference>
     <Reference Include="itext.layout, Version=7.1.14.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" Condition="!Exists('..\..\..\itextcore\itext\itext.layout\itext.layout.csproj')">
-      <HintPath>$(SolutionDir)\packages\itext7.7.1.14-SNAPSHOT\lib\net40\itext.layout.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\itext7.7.1.14\lib\net40\itext.layout.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.csproj')">
       <Project>{9fc2f0b3-a8d2-46da-8724-72e00e67a8fa}</Project>
       <Name>itext.pdfa</Name>
     </ProjectReference>
     <Reference Include="itext.pdfa, Version=7.1.14.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" Condition="!Exists('..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.csproj')">
-      <HintPath>$(SolutionDir)\packages\itext7.7.1.14-SNAPSHOT\lib\net40\itext.pdfa.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\itext7.7.1.14\lib\net40\itext.pdfa.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj')">
       <Project>{f9880dc4-f015-4413-af86-66d0e9512774}</Project>
       <Name>itext.pdftest</Name>
     </ProjectReference>
     <Reference Include="itext.pdftest, Version=7.1.14.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" Condition="!Exists('..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj')">
-      <HintPath>$(SolutionDir)\packages\itext7.pdftest.7.1.14-SNAPSHOT\lib\net40\itext.pdftest.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\itext7.pdftest.7.1.14\lib\net40\itext.pdftest.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj')">
       <Project>{8636f290-00df-403e-b841-e4bfd6d9ce7a}</Project>
       <Name>itext.styledxmlparser</Name>
     </ProjectReference>
     <Reference Include="itext.styledxmlparser, Version=7.1.14.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" Condition="!Exists('..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj')">
-      <HintPath>$(SolutionDir)\packages\itext7.7.1.14-SNAPSHOT\lib\net40\itext.styledxmlparser.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\itext7.7.1.14\lib\net40\itext.styledxmlparser.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\..\..\itextcore\itext\itext.svg\itext.svg.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.svg\itext.svg.csproj')">
       <Project>{ddec35d2-5781-471d-5ea1-a6e433eddb11}</Project>
       <Name>itext.svg</Name>
     </ProjectReference>
     <Reference Include="itext.svg, Version=7.1.14.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" Condition="!Exists('..\..\..\itextcore\itext\itext.svg\itext.svg.csproj')">
-      <HintPath>$(SolutionDir)\packages\itext7.7.1.14-SNAPSHOT\lib\net40\itext.svg.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\itext7.7.1.14\lib\net40\itext.svg.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\..\itext\itext.html2pdf\itext.html2pdf.csproj">
       <Project>{ff6ba09d-3655-466a-8c17-a7bfd3479ca1}</Project>
