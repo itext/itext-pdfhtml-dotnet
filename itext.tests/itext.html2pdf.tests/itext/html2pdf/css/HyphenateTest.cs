@@ -117,7 +117,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void Test09NonBreakingHyphen() {
-            // TODO DEVSIX-1438: Support word-break
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest09NonBreakingHyphen.html"), new FileInfo
                 (destinationFolder + "hyphenateTest09NonBreakingHyphen.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hyphenateTest09NonBreakingHyphen.pdf"
