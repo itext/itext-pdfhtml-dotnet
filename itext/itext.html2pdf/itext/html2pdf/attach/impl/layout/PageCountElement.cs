@@ -40,6 +40,8 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
+using iText.Html2pdf.Css.Resolve.Func.Counter;
+using iText.Html2pdf.Html;
 using iText.Layout.Element;
 using iText.Layout.Renderer;
 
@@ -49,6 +51,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     /// implementation to be used for the page count.
     /// </summary>
     public class PageCountElement : Text {
+        private readonly CounterDigitsGlyphStyle digitsGlyphStyle;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="PageCountElement"/>.
@@ -57,6 +61,25 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             : base(
                         // Workaround to match correct font containing number glyphs
                         "1234567890") {
+            digitsGlyphStyle = CounterDigitsGlyphStyle.DEFAULT;
+        }
+
+        /// <summary>
+        /// Instantiates a new
+        /// <see cref="PageCountElement"/>.
+        /// </summary>
+        /// <param name="digitsGlyphStyle">digits glyph style</param>
+        public PageCountElement(CounterDigitsGlyphStyle digitsGlyphStyle)
+            : base(HtmlUtils
+                        // Workaround to match correct font containing number glyphs
+                        .GetAllNumberGlyphsForStyle(digitsGlyphStyle)) {
+            this.digitsGlyphStyle = digitsGlyphStyle;
+        }
+
+        /// <summary>Gets glyph style for digits.</summary>
+        /// <returns>name of the glyph style</returns>
+        public virtual CounterDigitsGlyphStyle GetDigitsGlyphStyle() {
+            return digitsGlyphStyle;
         }
 
         /* (non-Javadoc)

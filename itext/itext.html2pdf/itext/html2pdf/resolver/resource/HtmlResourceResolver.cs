@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Util;
@@ -60,7 +61,10 @@ namespace iText.Html2pdf.Resolver.Resource {
     /// to also support SVG images
     /// </summary>
     public class HtmlResourceResolver : ResourceResolver {
-        private const String SVG_BASE64_PREFIX = "data:image/svg+xml";
+        private const String SVG_PREFIX = "data:image/svg+xml";
+
+        private static readonly Regex SVG_IDENTIFIER_PATTERN = iText.IO.Util.StringUtil.RegexCompile(",[\\s]*(<svg )"
+            );
 
         private ProcessorContext context;
 
@@ -123,15 +127,36 @@ namespace iText.Html2pdf.Resolver.Resource {
             this.context = context;
         }
 
+        public override PdfXObject RetrieveImageExtended(String src) {
+            if (src != null && src.Trim().StartsWith(SVG_PREFIX) && iText.IO.Util.Matcher.Match(SVG_IDENTIFIER_PATTERN
+                , src).Find()) {
+                PdfXObject imageXObject = TryResolveSvgImageSource(src);
+                if (imageXObject != null) {
+                    return imageXObject;
+                }
+            }
+            return base.RetrieveImageExtended(src);
+        }
+
+        /// <summary>
+        /// Retrieve image as either
+        /// <see cref="iText.Kernel.Pdf.Xobject.PdfImageXObject"/>
+        /// , or
+        /// <see cref="iText.Kernel.Pdf.Xobject.PdfFormXObject"/>.
+        /// </summary>
+        /// <param name="src">either link to file or base64 encoded stream</param>
+        /// <returns>PdfXObject on success, otherwise null</returns>
         protected override PdfXObject TryResolveBase64ImageSource(String src) {
             String fixedSrc = iText.IO.Util.StringUtil.ReplaceAll(src, "\\s", "");
-            if (fixedSrc.StartsWith(SVG_BASE64_PREFIX)) {
-                fixedSrc = fixedSrc.Substring(fixedSrc.IndexOf(BASE64IDENTIFIER, StringComparison.Ordinal) + 7);
+            if (fixedSrc.StartsWith(SVG_PREFIX)) {
+                fixedSrc = fixedSrc.Substring(fixedSrc.IndexOf(BASE64_IDENTIFIER, StringComparison.Ordinal) + BASE64_IDENTIFIER
+                    .Length + 1);
                 try {
-                    PdfXObject xObject = iText.Html2pdf.Resolver.Resource.HtmlResourceResolver.ProcessAsSvg(new MemoryStream(Convert.FromBase64String
-                        (fixedSrc)), context, null);
-                    if (xObject != null) {
-                        return xObject;
+                    using (MemoryStream stream = new MemoryStream(Convert.FromBase64String(fixedSrc))) {
+                        PdfFormXObject xObject = ProcessAsSvg(stream, context, null);
+                        if (xObject != null) {
+                            return xObject;
+                        }
                     }
                 }
                 catch (Exception) {
@@ -150,6 +175,21 @@ namespace iText.Html2pdf.Resolver.Resource {
                         , FileUtil.ParentDirectory(url));
                 }
             }
+        }
+
+        private PdfXObject TryResolveSvgImageSource(String src) {
+            try {
+                using (MemoryStream stream = new MemoryStream(src.GetBytes(System.Text.Encoding.UTF8))) {
+                    PdfFormXObject xObject = ProcessAsSvg(stream, context, null);
+                    if (xObject != null) {
+                        return xObject;
+                    }
+                }
+            }
+            catch (Exception) {
+            }
+            //Logs an error in a higher-level method if null is returned
+            return null;
         }
 
         private static PdfFormXObject ProcessAsSvg(Stream stream, ProcessorContext context, String parentDir) {

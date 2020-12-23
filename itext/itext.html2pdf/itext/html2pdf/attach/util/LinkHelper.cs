@@ -61,6 +61,8 @@ using iText.StyledXmlParser.Node;
 namespace iText.Html2pdf.Attach.Util {
     /// <summary>Helper class for links.</summary>
     public class LinkHelper {
+        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Util.LinkHelper));
+
         /// <summary>
         /// Creates a new
         /// <see cref="LinkHelper"/>
@@ -101,29 +103,34 @@ namespace iText.Html2pdf.Attach.Util {
             if (id == null) {
                 return;
             }
-            if (!context.GetLinkContext().IsUsedLinkDestination(id)) {
-                return;
+            IPropertyContainer propertyContainer = GetPropertyContainer(tagWorker);
+            if (context.GetLinkContext().IsUsedLinkDestination(id)) {
+                if (propertyContainer == null) {
+                    String tagWorkerClassName = tagWorker != null ? tagWorker.GetType().FullName : "null";
+                    LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.Name
+                        (), id, tagWorkerClassName));
+                    return;
+                }
+                propertyContainer.SetProperty(Property.DESTINATION, id);
             }
-            IPropertyContainer propertyContainer = null;
+            if (propertyContainer != null) {
+                propertyContainer.SetProperty(Property.ID, id);
+            }
+        }
+
+        private static IPropertyContainer GetPropertyContainer(ITagWorker tagWorker) {
             if (tagWorker != null) {
                 if (tagWorker is SpanTagWorker) {
                     IList<IPropertyContainer> spanElements = ((SpanTagWorker)tagWorker).GetAllElements();
                     if (!spanElements.IsEmpty()) {
-                        propertyContainer = spanElements[0];
+                        return spanElements[0];
                     }
                 }
                 else {
-                    propertyContainer = tagWorker.GetElementResult();
+                    return tagWorker.GetElementResult();
                 }
             }
-            if (propertyContainer == null) {
-                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Util.LinkHelper));
-                String tagWorkerClassName = tagWorker != null ? tagWorker.GetType().FullName : "null";
-                logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.Name
-                    (), id, tagWorkerClassName));
-                return;
-            }
-            propertyContainer.SetProperty(Property.DESTINATION, id);
+            return null;
         }
     }
 }

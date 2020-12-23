@@ -47,7 +47,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void WordBreakCommonScenarioTest() {
-            // TODO: update cmp file after implementing DEVSIX-1438
             FontProvider fontProvider = new DefaultFontProvider();
             fontProvider.AddFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
             ConverterProperties converterProperties = new ConverterProperties();
@@ -60,7 +59,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void OverflowXWordBreakTest() {
-            // TODO: update cmp file after implementing DEVSIX-1438
             FontProvider fontProvider = new DefaultFontProvider();
             fontProvider.AddFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
             ConverterProperties converterProperties = new ConverterProperties();
@@ -73,7 +71,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void WhiteSpaceAndWordBreakTest() {
-            // TODO: update cmp file after implementing DEVSIX-1438
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "whiteSpaceAndWordBreak.html"), new FileInfo(destinationFolder
                  + "whiteSpaceAndWordBreak.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "whiteSpaceAndWordBreak.pdf"
@@ -82,7 +79,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void WordBreakMidNumbersTest() {
-            // TODO: update cmp file after implementing DEVSIX-1438
             FontProvider fontProvider = new DefaultFontProvider();
             fontProvider.AddFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
             ConverterProperties converterProperties = new ConverterProperties();
@@ -95,7 +91,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void WordBreakMidPunctuationTest() {
-            // TODO: update cmp file after implementing DEVSIX-1438
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "wordBreakMidPunctuation.html"), new FileInfo(destinationFolder
                  + "wordBreakMidPunctuation.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "wordBreakMidPunctuation.pdf"
@@ -104,7 +99,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void WordBreakAllAndFloatTest() {
-            // TODO: update cmp file after implementing DEVSIX-1438
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "wordBreakAllAndFloat.html"), new FileInfo(destinationFolder
                  + "wordBreakAllAndFloat.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "wordBreakAllAndFloat.pdf"
@@ -114,7 +108,6 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 3)]
         public virtual void WordBreakTableScenarioTest() {
-            // TODO: update cmp file after implementing DEVSIX-1438
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "wordBreakTableScenario.html"), new FileInfo(destinationFolder
                  + "wordBreakTableScenario.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "wordBreakTableScenario.pdf"

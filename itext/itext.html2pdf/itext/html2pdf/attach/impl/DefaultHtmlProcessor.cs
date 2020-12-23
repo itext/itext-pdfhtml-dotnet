@@ -65,6 +65,7 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Font;
 using iText.Layout.Properties;
+using iText.Layout.Renderer;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Font;
 using iText.StyledXmlParser.Css.Pseudo;
@@ -185,17 +186,57 @@ namespace iText.Html2pdf.Attach.Impl {
             context.GetLinkContext().ScanForIds(root);
             AddFontFaceFonts();
             root = FindHtmlNode(root);
+            if (context.GetCssContext().IsNonPagesTargetCounterPresent()) {
+                VisitToProcessCounters(root);
+                context.GetCssContext().GetCounterManager().ClearManager();
+            }
             Visit(root);
-            Document doc = (Document)roots[0];
+            HtmlDocument doc = (HtmlDocument)roots[0];
             // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
-            if (context.GetCssContext().IsPagesCounterPresent() && doc.GetRenderer() is HtmlDocumentRenderer) {
-                doc.Relayout();
+            if (context.GetCssContext().IsPagesCounterPresent()) {
+                if (doc.GetRenderer() is HtmlDocumentRenderer) {
+                    ((HtmlDocumentRenderer)doc.GetRenderer()).ProcessWaitingElement();
+                    int counter = 0;
+                    do {
+                        ++counter;
+                        doc.Relayout();
+                        if (counter >= context.GetLimitOfLayouts()) {
+                            logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS
+                                ));
+                            break;
+                        }
+                    }
+                    while (((DocumentRenderer)doc.GetRenderer()).IsRelayoutRequired());
+                }
+                else {
+                    logger.Warn(iText.Html2pdf.LogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT);
+                }
             }
             cssResolver = null;
             roots = null;
             EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType
                 ());
             return doc;
+        }
+
+        /// <summary>Recursively processes a node to preprocess target-counters.</summary>
+        /// <param name="node">the node</param>
+        private void VisitToProcessCounters(INode node) {
+            if (node is IElementNode) {
+                IElementNode element = (IElementNode)node;
+                if (cssResolver is DefaultCssResolver) {
+                    ((DefaultCssResolver)cssResolver).ResolveContentAndCountersStyles(node, context.GetCssContext());
+                }
+                CounterProcessorUtil.StartProcessingCounters(context.GetCssContext(), element);
+                VisitToProcessCounters(CreatePseudoElement(element, null, CssConstants.BEFORE));
+                foreach (INode childNode in element.ChildNodes()) {
+                    if (!context.IsProcessingInlineSvg()) {
+                        VisitToProcessCounters(childNode);
+                    }
+                }
+                VisitToProcessCounters(CreatePseudoElement(element, null, CssConstants.AFTER));
+                CounterProcessorUtil.EndProcessingCounters(context.GetCssContext(), element);
+            }
         }
 
         /// <summary>Recursively processes a node converting HTML into PDF using tag workers.</summary>
@@ -224,14 +265,16 @@ namespace iText.Html2pdf.Attach.Impl {
                     RunApplier(element, tagWorker);
                 }
                 context.GetOutlineHandler().AddOutlineAndDestToDocument(tagWorker, element, context);
-                VisitPseudoElement(element, tagWorker, CssConstants.BEFORE);
-                VisitPseudoElement(element, tagWorker, CssConstants.PLACEHOLDER);
+                CounterProcessorUtil.StartProcessingCounters(context.GetCssContext(), element);
+                Visit(CreatePseudoElement(element, tagWorker, CssConstants.BEFORE));
+                Visit(CreatePseudoElement(element, tagWorker, CssConstants.PLACEHOLDER));
                 foreach (INode childNode in element.ChildNodes()) {
                     if (!context.IsProcessingInlineSvg()) {
                         Visit(childNode);
                     }
                 }
-                VisitPseudoElement(element, tagWorker, CssConstants.AFTER);
+                Visit(CreatePseudoElement(element, tagWorker, CssConstants.AFTER));
+                CounterProcessorUtil.EndProcessingCounters(context.GetCssContext(), element);
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
                     LinkHelper.CreateDestination(tagWorker, element, context);
@@ -389,15 +432,18 @@ namespace iText.Html2pdf.Attach.Impl {
             }
         }
 
-        /// <summary>Processes a pseudo element (before and after CSS).</summary>
+        /// <summary>Creates a pseudo element (before and after CSS).</summary>
         /// <param name="node">the node</param>
+        /// <param name="tagWorker">the tagWorker</param>
         /// <param name="pseudoElementName">the pseudo element name</param>
-        private void VisitPseudoElement(IElementNode node, ITagWorker tagWorker, String pseudoElementName) {
+        /// <returns>created pseudo element</returns>
+        private static CssPseudoElementNode CreatePseudoElement(IElementNode node, ITagWorker tagWorker, String pseudoElementName
+            ) {
             switch (pseudoElementName) {
                 case CssConstants.BEFORE:
                 case CssConstants.AFTER: {
                     if (!CssPseudoElementUtil.HasBeforeAfterElements(node)) {
-                        return;
+                        return null;
                     }
                     break;
                 }
@@ -407,16 +453,16 @@ namespace iText.Html2pdf.Attach.Impl {
                                         // TODO DEVSIX-1944: Resolve the issue and remove the line
                                         tagWorker || !(tagWorker.GetElementResult() is IPlaceholderable) || null == ((IPlaceholderable)tagWorker.GetElementResult
                         ()).GetPlaceholder()) {
-                        return;
+                        return null;
                     }
                     break;
                 }
 
                 default: {
-                    return;
+                    return null;
                 }
             }
-            Visit(new CssPseudoElementNode(node, pseudoElementName));
+            return new CssPseudoElementNode(node, pseudoElementName);
         }
 
         /// <summary>Find an element in a node.</summary>

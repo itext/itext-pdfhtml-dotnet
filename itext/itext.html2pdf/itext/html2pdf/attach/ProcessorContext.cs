@@ -114,6 +114,8 @@ namespace iText.Html2pdf.Attach {
         /// <summary>Internal state variable to keep track of whether the processor is currently inside an inlineSvg</summary>
         private bool processingInlineSvg;
 
+        private readonly int limitOfLayouts;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="ProcessorContext"/>
@@ -154,6 +156,7 @@ namespace iText.Html2pdf.Attach {
                 outlineHandler = new OutlineHandler();
             }
             resourceResolver = new HtmlResourceResolver(baseUri, this, converterProperties.GetResourceRetriever());
+            limitOfLayouts = converterProperties.GetLimitOfLayouts();
             cssContext = new CssContext();
             linkContext = new LinkContext();
             createAcroForm = converterProperties.IsCreateAcroForm();
@@ -162,6 +165,12 @@ namespace iText.Html2pdf.Attach {
             immediateFlush = converterProperties.IsImmediateFlush();
             metaInfo = converterProperties.GetEventCountingMetaInfo();
             processingInlineSvg = false;
+        }
+
+        /// <summary>Gets maximum number of layouts.</summary>
+        /// <returns>layouts limit</returns>
+        public virtual int GetLimitOfLayouts() {
+            return limitOfLayouts;
         }
 
         /// <summary>Sets the font provider.</summary>

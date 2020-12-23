@@ -101,13 +101,12 @@ namespace iText.Html2pdf.Resolver.Font {
         /// </summary>
         /// <param name="registerStandardPdfFonts">use true if you want to register the standard Type 1 fonts (can't be embedded)
         ///     </param>
-        /// <param name="registerShippedFreeFonts">use true if you want to register the shipped fonts (can be embedded)
-        ///     </param>
+        /// <param name="registerShippedFonts">use true if you want to register the shipped fonts (can be embedded)</param>
         /// <param name="registerSystemFonts">use true if you want to register the system fonts (can require quite some resources)
         ///     </param>
-        public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFreeFonts, bool registerSystemFonts
+        public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFonts, bool registerSystemFonts
             )
-            : this(registerStandardPdfFonts, registerShippedFreeFonts, registerSystemFonts, DEFAULT_FONT_FAMILY) {
+            : this(registerStandardPdfFonts, registerShippedFonts, registerSystemFonts, DEFAULT_FONT_FAMILY) {
         }
 
         /// <summary>
@@ -117,29 +116,33 @@ namespace iText.Html2pdf.Resolver.Font {
         /// </summary>
         /// <param name="registerStandardPdfFonts">use true if you want to register the standard Type 1 fonts (can't be embedded)
         ///     </param>
-        /// <param name="registerShippedFreeFonts">use true if you want to register the shipped fonts (can be embedded)
-        ///     </param>
+        /// <param name="registerShippedFonts">use true if you want to register the shipped fonts (can be embedded)</param>
         /// <param name="registerSystemFonts">use true if you want to register the system fonts (can require quite some resources)
         ///     </param>
         /// <param name="defaultFontFamily">default font family</param>
-        public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFreeFonts, bool registerSystemFonts
+        public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFonts, bool registerSystemFonts
             , String defaultFontFamily)
             : base(registerStandardPdfFonts, registerSystemFonts, defaultFontFamily) {
-            if (registerShippedFreeFonts) {
+            if (registerShippedFonts) {
                 AddAllAvailableFonts(AddCalligraphFonts());
             }
         }
 
         private void AddAllAvailableFonts(Range rangeToLoad) {
-            AddShippedFreeFonts(rangeToLoad);
+            AddShippedFonts(rangeToLoad);
             foreach (byte[] fontData in calligraphyFontsTempList) {
                 AddFont(fontData, null);
             }
             calligraphyFontsTempList = null;
         }
 
-        /// <summary>Adds the shipped free fonts.</summary>
-        private void AddShippedFreeFonts(Range rangeToLoad) {
+        /// <summary>Adds the shipped fonts.</summary>
+        /// <param name="rangeToLoad">
+        /// a unicode
+        /// <see cref="iText.Layout.Font.Range"/>
+        /// to load characters
+        /// </param>
+        private void AddShippedFonts(Range rangeToLoad) {
             foreach (String fontName in SHIPPED_FONT_NAMES) {
                 try {
                     using (Stream stream = ResourceUtil.GetResourceStream(SHIPPED_FONT_RESOURCE_PATH + fontName)) {

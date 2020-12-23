@@ -4,5 +4,6 @@
 def repoName = "pdfHtml"
 def dependencyRegex = "itextcore"
 def solutionFile = "itext.html2pdf.sln"
+def csprojFramework = "netcoreapp2.0"
 
-automaticDotnetBuild(repoName, dependencyRegex, solutionFile)
+automaticDotnetBuild(repoName, dependencyRegex, solutionFile, csprojFramework)

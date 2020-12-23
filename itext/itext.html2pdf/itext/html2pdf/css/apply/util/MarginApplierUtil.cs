@@ -89,7 +89,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             // The check for display is useful at least for images
             bool isBlock = element is IBlockElement || CssConstants.BLOCK.Equals(cssProps.Get(CssConstants.DISPLAY));
             bool isImage = element is Image;
-            float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
             if (isBlock || isImage) {
                 TrySetMarginIfNotAuto(Property.MARGIN_TOP, marginTop, element, em, rem, baseValueVertical);
@@ -150,7 +150,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <see cref="float?"/>
         /// </returns>
         private static float? ParseMarginValue(String marginValString, float em, float rem, float baseValue) {
-            UnitValue marginUnitVal = CssUtils.ParseLengthValueToPt(marginValString, em, rem);
+            UnitValue marginUnitVal = CssDimensionParsingUtils.ParseLengthValueToPt(marginValString, em, rem);
             if (marginUnitVal != null) {
                 if (!marginUnitVal.IsPointValue()) {
                     if (baseValue != 0.0f) {

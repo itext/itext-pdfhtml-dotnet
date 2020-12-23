@@ -26,6 +26,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Bg_size.Vector {
     // TODO DEVSIX-4388 percentage is not supported for rect's x, y, width and height
+    // TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
     [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED, Count = 7)]
     public class WiCovOWPHVbTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {

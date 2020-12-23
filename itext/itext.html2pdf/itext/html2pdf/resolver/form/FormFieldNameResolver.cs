@@ -97,7 +97,7 @@ namespace iText.Html2pdf.Resolver.Form {
             int? nameIndex = null;
             if (separatorIndex != -1 && separatorIndex < name.Length) {
                 String numberString = name.Substring(separatorIndex + 1);
-                nameIndex = CssUtils.ParseInteger(numberString);
+                nameIndex = CssDimensionParsingUtils.ParseInteger(numberString);
                 //Treat number as index only in case it is positive
                 if (nameIndex != null && nameIndex > 0) {
                     name = name.JSubstring(0, separatorIndex);

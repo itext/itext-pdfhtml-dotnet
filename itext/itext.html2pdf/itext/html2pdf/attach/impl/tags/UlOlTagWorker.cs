@@ -77,7 +77,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             list = new List().SetListSymbol("");
             //In the case of an ordered list, see if the start attribute can be found
             if (element.GetAttribute(AttributeConstants.START) != null) {
-                int? startValue = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.START));
+                int? startValue = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.START));
                 if (startValue != null) {
                     list.SetItemStartIndex((int)startValue);
                 }

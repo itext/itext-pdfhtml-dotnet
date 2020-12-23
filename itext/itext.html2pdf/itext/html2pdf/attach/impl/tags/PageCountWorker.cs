@@ -60,11 +60,19 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public PageCountWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {
-            bool totalPageCount = element is PageCountElementNode && ((PageCountElementNode)element).IsTotalPageCount(
-                );
-            pageCountElement = new PageCountElement();
-            pageCountElement.SetProperty(Html2PdfProperty.PAGE_COUNT_TYPE, totalPageCount ? PageCountType.TOTAL_PAGE_COUNT
-                 : PageCountType.CURRENT_PAGE_NUMBER);
+            if (element is PageCountElementNode) {
+                CounterDigitsGlyphStyle digitsStyle = ((PageCountElementNode)element).GetDigitsGlyphStyle();
+                if (element is PageTargetCountElementNode) {
+                    pageCountElement = new PageTargetCountElement(((PageTargetCountElementNode)element).GetTarget(), digitsStyle
+                        );
+                }
+                else {
+                    bool totalPageCount = ((PageCountElementNode)element).IsTotalPageCount();
+                    pageCountElement = new PageCountElement(digitsStyle);
+                    pageCountElement.SetProperty(Html2PdfProperty.PAGE_COUNT_TYPE, totalPageCount ? PageCountType.TOTAL_PAGE_COUNT
+                         : PageCountType.CURRENT_PAGE_NUMBER);
+                }
+            }
         }
 
         /* (non-Javadoc)

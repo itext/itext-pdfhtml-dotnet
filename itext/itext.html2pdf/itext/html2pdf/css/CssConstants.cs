@@ -124,6 +124,7 @@ namespace iText.Html2pdf.Css {
         public const String BLOCK = "block";
 
         /// <summary>The Constant BREAK_WORD.</summary>
+        [System.ObsoleteAttribute(@"use iText.StyledXmlParser.Css.CommonCssConstants.BREAK_WORD instead")]
         public const String BREAK_WORD = "break-word";
 
         /// <summary>The Constant CAPITALIZE.</summary>
@@ -245,8 +246,8 @@ namespace iText.Html2pdf.Css {
 
         // properties possible values
         /// <summary>The Constant OVERFLOW_VALUES.</summary>
-        public static readonly ICollection<String> OVERFLOW_VALUES = new HashSet<String>(JavaUtil.ArraysAsList(new 
-            String[] { CommonCssConstants.VISIBLE, HIDDEN, SCROLL, AUTO }));
+        public static readonly ICollection<String> OVERFLOW_VALUES = JavaCollectionsUtil.UnmodifiableSet(new HashSet
+            <String>(JavaUtil.ArraysAsList(CommonCssConstants.VISIBLE, HIDDEN, SCROLL, AUTO)));
 
         // pseudo-elements
         /// <summary>The Constant AFTER.</summary>
@@ -276,6 +277,12 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant RUNNING.</summary>
         public const String RUNNING = "running";
+
+        /// <summary>The Constant TARGET_COUNTER.</summary>
+        public const String TARGET_COUNTER = "target-counter";
+
+        /// <summary>The Constant TARGET_COUNTERS.</summary>
+        public const String TARGET_COUNTERS = "target-counters";
 
         // units of resolution
         /// <summary>The Constant DPI.</summary>

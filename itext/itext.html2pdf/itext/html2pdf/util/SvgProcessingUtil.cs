@@ -49,6 +49,7 @@ using iText.Layout.Element;
 using iText.StyledXmlParser.Resolver.Resource;
 using iText.Svg.Converter;
 using iText.Svg.Processors;
+using iText.Svg.Processors.Impl;
 using iText.Svg.Renderers;
 using iText.Svg.Renderers.Impl;
 
@@ -117,8 +118,10 @@ namespace iText.Html2pdf.Util {
             ResourceResolver tempResolver = new ResourceResolver(null, resourceResolver.GetRetriever());
             // TODO DEVSIX-4107 pass the resourceResolver variable (not tempResolver variable) to the
             //  SvgDrawContext constructor so that the SVG inside the SVG is processed.
-            SvgDrawContext context = new SvgDrawContext(tempResolver, result.GetFontProvider(), result.GetRootRenderer
-                ());
+            SvgDrawContext context = new SvgDrawContext(tempResolver, result.GetFontProvider());
+            if (result is SvgProcessorResult) {
+                context.SetCssContext(((SvgProcessorResult)result).GetContext().GetCssContext());
+            }
             context.AddNamedObjects(result.GetNamedObjects());
             context.PushCanvas(canvas);
             ISvgNodeRenderer root = new PdfRootSvgNodeRenderer(topSvgRenderer);

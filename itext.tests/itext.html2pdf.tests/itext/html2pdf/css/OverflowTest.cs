@@ -83,7 +83,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void DisplayOverflowAutoScroll() {
-            //TODO: update after DEVSIX-2502 fix
             ConvertToPdfAndCompare("displayOverflowAutoScroll", sourceFolder, destinationFolder);
         }
     }

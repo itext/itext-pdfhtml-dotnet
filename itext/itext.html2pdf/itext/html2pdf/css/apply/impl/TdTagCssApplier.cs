@@ -66,7 +66,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             if (cell != null) {
                 IDictionary<String, String> cssProps = stylesContainer.GetStyles();
                 VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForCells(cssProps, context, cell);
-                float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+                float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
                 float rem = context.GetCssContext().GetRootFontSize();
                 Border[] bordersArray = BorderStyleApplierUtil.GetBordersArray(cssProps, em, rem);
                 if (bordersArray[0] == null) {

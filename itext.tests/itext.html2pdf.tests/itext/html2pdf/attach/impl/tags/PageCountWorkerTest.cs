@@ -1,0 +1,58 @@
+/*
+This file is part of the iText (R) project.
+Copyright (c) 1998-2020 iText Group NV
+Authors: iText Software.
+
+This program is offered under a commercial and under the AGPL license.
+For commercial licensing, contact us at https://itextpdf.com/sales.  For AGPL licensing, see below.
+
+AGPL licensing:
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+using System;
+using iText.Html2pdf.Attach.Impl.Layout;
+using iText.Html2pdf.Css.Resolve.Func.Counter;
+using iText.Layout;
+using iText.Test;
+
+namespace iText.Html2pdf.Attach.Impl.Tags {
+    public class PageCountWorkerTest : ExtendedITextTest {
+        [NUnit.Framework.Test]
+        public virtual void PageTargetCountElementNodeTest() {
+            String target = "target";
+            PageCountWorker worker = new PageCountWorker(new PageTargetCountElementNode(null, target), null);
+            IPropertyContainer container = worker.GetElementResult();
+            NUnit.Framework.Assert.IsTrue(container is PageTargetCountElement);
+            NUnit.Framework.Assert.AreEqual(target, ((PageTargetCountElement)container).GetTarget());
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageCountElementNodeTest() {
+            PageCountWorker worker = new PageCountWorker(new PageCountElementNode(false, null), null);
+            IPropertyContainer container = worker.GetElementResult();
+            NUnit.Framework.Assert.IsTrue(container is PageCountElement);
+            NUnit.Framework.Assert.AreEqual(PageCountType.CURRENT_PAGE_NUMBER, container.GetProperty<PageCountType?>(Html2PdfProperty
+                .PAGE_COUNT_TYPE));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PagesCountElementNodeTest() {
+            PageCountWorker worker = new PageCountWorker(new PageCountElementNode(true, null), null);
+            IPropertyContainer container = worker.GetElementResult();
+            NUnit.Framework.Assert.IsTrue(container is PageCountElement);
+            NUnit.Framework.Assert.AreEqual(PageCountType.TOTAL_PAGE_COUNT, container.GetProperty<PageCountType?>(Html2PdfProperty
+                .PAGE_COUNT_TYPE));
+        }
+    }
+}

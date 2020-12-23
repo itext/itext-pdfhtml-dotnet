@@ -58,20 +58,21 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// These inheritable properties should be transferred from &lt;colgroup&gt;
         /// to &lt;col&gt; and then to &lt;td&gt; or &lt;th&gt;.
         /// </summary>
-        private static readonly ICollection<String> CELL_CSS_PROPERTIES = new HashSet<String>(JavaUtil.ArraysAsList
-            (CssConstants.BACKGROUND_COLOR, CssConstants.BACKGROUND_IMAGE, CssConstants.BACKGROUND_POSITION_X, CssConstants
-            .BACKGROUND_POSITION_Y, CssConstants.BACKGROUND_SIZE, CssConstants.BACKGROUND_REPEAT, CssConstants.BACKGROUND_ORIGIN
-            , CssConstants.BACKGROUND_CLIP, CssConstants.BACKGROUND_ATTACHMENT));
+        private static readonly ICollection<String> CELL_CSS_PROPERTIES = JavaCollectionsUtil.UnmodifiableSet(new 
+            HashSet<String>(JavaUtil.ArraysAsList(CssConstants.BACKGROUND_COLOR, CssConstants.BACKGROUND_IMAGE, CssConstants
+            .BACKGROUND_POSITION_X, CssConstants.BACKGROUND_POSITION_Y, CssConstants.BACKGROUND_SIZE, CssConstants
+            .BACKGROUND_REPEAT, CssConstants.BACKGROUND_ORIGIN, CssConstants.BACKGROUND_CLIP, CssConstants.BACKGROUND_ATTACHMENT
+            )));
 
         /// <summary>These properties don't need to be transferred from &lt;colgroup&gt; to &lt;col&gt;.</summary>
-        private static readonly ICollection<String> OWN_CSS_PROPERTIES = /*TODO DEVSIX-2090 visibility doesn't work on "chrome" or "safari" and it works on "firefox" but the results differ, 
+        private static readonly ICollection<String> OWN_CSS_PROPERTIES = JavaCollectionsUtil/*TODO DEVSIX-2090 visibility doesn't work on "chrome" or "safari" and it works on "firefox" but the results differ, 
             The supported values are 'collapse' and 'visible'. The expected behaviour for 'collapse' is not to render those cols 
             (the table layout should change ann the width should be diminished), and to clip cells that are spaned to none-collapsed one. 
-            The state of the content in clipped cells is not specified*/ new HashSet<String>(JavaUtil.ArraysAsList
+            The state of the content in clipped cells is not specified*/ .UnmodifiableSet(new HashSet<String>(JavaUtil.ArraysAsList
             (CssConstants.BORDER_BOTTOM_COLOR, CssConstants.BORDER_BOTTOM_STYLE, CssConstants.BORDER_BOTTOM_WIDTH, 
             CssConstants.BORDER_LEFT_COLOR, CssConstants.BORDER_LEFT_STYLE, CssConstants.BORDER_LEFT_WIDTH, CssConstants
             .BORDER_RIGHT_COLOR, CssConstants.BORDER_RIGHT_STYLE, CssConstants.BORDER_RIGHT_WIDTH, CssConstants.BORDER_TOP_COLOR
-            , CssConstants.BORDER_TOP_STYLE, CssConstants.BORDER_TOP_WIDTH, CssConstants.VISIBILITY));
+            , CssConstants.BORDER_TOP_STYLE, CssConstants.BORDER_TOP_WIDTH, CssConstants.VISIBILITY)));
 
         /// <summary>Gets the width.</summary>
         /// <param name="resolvedCssProps">the resolved CSS properties</param>
@@ -79,10 +80,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <returns>the width</returns>
         public static UnitValue GetWidth(IDictionary<String, String> resolvedCssProps, ProcessorContext context) {
             //The Width is a special case, casue it should be transferred from <colgroup> to <col> but it not applied to <td> or <th>
-            float em = CssUtils.ParseAbsoluteLength(resolvedCssProps.Get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.ParseAbsoluteLength(resolvedCssProps.Get(CssConstants.FONT_SIZE));
             String width = resolvedCssProps.Get(CssConstants.WIDTH);
-            return width != null ? CssUtils.ParseLengthValueToPt(width, em, context.GetCssContext().GetRootFontSize())
-                 : null;
+            return width != null ? CssDimensionParsingUtils.ParseLengthValueToPt(width, em, context.GetCssContext().GetRootFontSize
+                ()) : null;
         }
 
         /// <summary>Gets the cell properties.</summary>

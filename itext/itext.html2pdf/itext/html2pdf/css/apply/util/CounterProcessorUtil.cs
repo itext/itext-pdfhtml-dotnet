@@ -55,36 +55,78 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="cssProps">the CSS properties</param>
         /// <param name="context">the processor context</param>
         /// <param name="scope">the scope</param>
+        [System.ObsoleteAttribute(@"This method need to be removed in 7.2")]
         public static void ProcessCounters(IDictionary<String, String> cssProps, CssContext context, INode scope) {
+            ProcessCounters(cssProps, context);
+        }
+
+        /// <summary>Processes counters.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        public static void ProcessCounters(IDictionary<String, String> cssProps, CssContext context) {
             String counterReset = cssProps.Get(CssConstants.COUNTER_RESET);
+            ProcessReset(counterReset, context);
+            String counterIncrement = cssProps.Get(CssConstants.COUNTER_INCREMENT);
+            ProcessIncrement(counterIncrement, context);
+        }
+
+        /// <summary>Starts processing counters.</summary>
+        /// <remarks>
+        /// Starts processing counters. Pushes current counter values to counters if necessary.
+        /// Usually it is expected that this method should be called before processing children of the element.
+        /// </remarks>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element which counters shall be processed</param>
+        public static void StartProcessingCounters(CssContext context, IElementNode element) {
+            CssCounterManager counterManager = context.GetCounterManager();
+            counterManager.PushEveryCounterToCounters(element);
+        }
+
+        /// <summary>Ends processing counters.</summary>
+        /// <remarks>
+        /// Ends processing counters. Pops values of given counter list from counters if necessary.
+        /// Usually it is expected that this method should be called after processing cheldren of the element.
+        /// </remarks>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element which counters shall be processed</param>
+        public static void EndProcessingCounters(CssContext context, IElementNode element) {
+            CssCounterManager counterManager = context.GetCounterManager();
+            counterManager.PopEveryCounterFromCounters(element);
+        }
+
+        private static void ProcessReset(String counterReset, CssContext context) {
             if (counterReset != null) {
                 CssCounterManager counterManager = context.GetCounterManager();
                 String[] @params = iText.IO.Util.StringUtil.Split(counterReset, " ");
                 for (int i = 0; i < @params.Length; i++) {
                     String counterName = @params[i];
                     int? possibleCounterValue;
-                    if (i + 1 < @params.Length && (possibleCounterValue = CssUtils.ParseInteger(@params[i + 1])) != null) {
-                        counterManager.ResetCounter(counterName, (int)possibleCounterValue, scope);
+                    if (i + 1 < @params.Length && (possibleCounterValue = CssDimensionParsingUtils.ParseInteger(@params[i + 1]
+                        )) != null) {
+                        counterManager.ResetCounter(counterName, (int)possibleCounterValue);
                         i++;
                     }
                     else {
-                        counterManager.ResetCounter(counterName, scope);
+                        counterManager.ResetCounter(counterName);
                     }
                 }
             }
-            String counterIncrement = cssProps.Get(CssConstants.COUNTER_INCREMENT);
+        }
+
+        private static void ProcessIncrement(String counterIncrement, CssContext context) {
             if (counterIncrement != null) {
                 CssCounterManager counterManager = context.GetCounterManager();
                 String[] @params = iText.IO.Util.StringUtil.Split(counterIncrement, " ");
                 for (int i = 0; i < @params.Length; i++) {
                     String counterName = @params[i];
                     int? possibleIncrementValue;
-                    if (i + 1 < @params.Length && (possibleIncrementValue = CssUtils.ParseInteger(@params[i + 1])) != null) {
-                        counterManager.IncrementCounter(counterName, (int)possibleIncrementValue, scope);
+                    if (i + 1 < @params.Length && (possibleIncrementValue = CssDimensionParsingUtils.ParseInteger(@params[i + 
+                        1])) != null) {
+                        counterManager.IncrementCounter(counterName, (int)possibleIncrementValue);
                         i++;
                     }
                     else {
-                        counterManager.IncrementCounter(counterName, scope);
+                        counterManager.IncrementCounter(counterName);
                     }
                 }
             }

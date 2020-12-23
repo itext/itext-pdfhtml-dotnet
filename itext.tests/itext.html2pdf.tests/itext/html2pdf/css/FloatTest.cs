@@ -271,6 +271,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void Float39Test() {
+            // todo DEVSIX-1270, DEVSIX-1269
             RunTest("float39Test", "diff39_");
         }
 
@@ -517,7 +518,7 @@ namespace iText.Html2pdf.Css {
             foreach (PageSize pageSize in pageSizes) {
                 float? pxWidth = null;
                 if (pageSize != null) {
-                    pxWidth = CssUtils.ParseAbsoluteLength(pageSize.GetWidth().ToString());
+                    pxWidth = CssDimensionParsingUtils.ParseAbsoluteLength(pageSize.GetWidth().ToString());
                 }
                 String outName = "responsiveIText" + (pxWidth != null ? "_" + (int)(float)pxWidth : "") + ".pdf";
                 PdfWriter writer = new PdfWriter(destinationFolder + outName);
@@ -537,7 +538,7 @@ namespace iText.Html2pdf.Css {
             foreach (PageSize pageSize in pageSizes) {
                 float? pxWidth = null;
                 if (pageSize != null) {
-                    pxWidth = CssUtils.ParseAbsoluteLength(pageSize.GetWidth().ToString());
+                    pxWidth = CssDimensionParsingUtils.ParseAbsoluteLength(pageSize.GetWidth().ToString());
                 }
                 String outName = "responsiveIText" + (pxWidth != null ? "_" + (int)(float)pxWidth : "") + ".pdf";
                 String cmpName = "cmp_" + outName;

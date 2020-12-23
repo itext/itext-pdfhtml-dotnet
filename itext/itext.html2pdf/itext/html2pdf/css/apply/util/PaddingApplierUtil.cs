@@ -85,12 +85,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String paddingBottom = cssProps.Get(CssConstants.PADDING_BOTTOM);
             String paddingLeft = cssProps.Get(CssConstants.PADDING_LEFT);
             String paddingRight = cssProps.Get(CssConstants.PADDING_RIGHT);
-            float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
-            UnitValue paddingTopVal = CssUtils.ParseLengthValueToPt(paddingTop, em, rem);
-            UnitValue paddingBottomVal = CssUtils.ParseLengthValueToPt(paddingBottom, em, rem);
-            UnitValue paddingLeftVal = CssUtils.ParseLengthValueToPt(paddingLeft, em, rem);
-            UnitValue paddingRightVal = CssUtils.ParseLengthValueToPt(paddingRight, em, rem);
+            UnitValue paddingTopVal = CssDimensionParsingUtils.ParseLengthValueToPt(paddingTop, em, rem);
+            UnitValue paddingBottomVal = CssDimensionParsingUtils.ParseLengthValueToPt(paddingBottom, em, rem);
+            UnitValue paddingLeftVal = CssDimensionParsingUtils.ParseLengthValueToPt(paddingLeft, em, rem);
+            UnitValue paddingRightVal = CssDimensionParsingUtils.ParseLengthValueToPt(paddingRight, em, rem);
             if (paddingTopVal != null) {
                 if (paddingTopVal.IsPointValue()) {
                     element.SetProperty(Property.PADDING_TOP, paddingTopVal);

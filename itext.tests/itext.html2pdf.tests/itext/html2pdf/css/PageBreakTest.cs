@@ -123,9 +123,37 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        public virtual void PageBreakInsideAvoidTest01() {
-            //Test will fail after fix in DEVSIX-2332
-            RunTest("pageBreakInsideAvoidTest01");
+        public virtual void PageBreakInsideAvoidWithFloatsWidth100PercentAndInnerClearBothTest() {
+            RunTest("pageBreakInsideAvoidWithFloatsWidth100PercentAndInnerClearBothTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageBreakInsideAvoidWithFloatsWidth100PercentAndInnerClearBothWithTextTest() {
+            RunTest("pageBreakInsideAvoidWithFloatsWidth100PercentAndInnerClearBothWithTextTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageBreakInsideAvoidWithFloatsWidth100PercentAndInnerDivWithShortTextTest() {
+            // TODO: DEVSIX-4720 short text div invalid layout on page break
+            RunTest("pageBreakInsideAvoidWithFloatsWidth100PercentAndInnerDivWithShortTextTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageBreakInsideAvoidWithFloatsWidth100PercentAndInnerDivsWithShortAndLongTextsTest() {
+            RunTest("pageBreakInsideAvoidWithFloatsWidth100PercentAndInnerDivsWithShortAndLongTextsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivWithShortTextTest() {
+            // TODO: DEVSIX-4720 short text div invalid layout on page break
+            // TODO: DEVSIX-1270 simple text layout to the left of the left float
+            RunTest("pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivWithShortTextTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivsWithShortAndLongTextsTest() {
+            // TODO: DEVSIX-1270 simple text layout to the left of the left float
+            RunTest("pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivsWithShortAndLongTextsTest");
         }
 
         [NUnit.Framework.Test]

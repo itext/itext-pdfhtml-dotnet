@@ -58,8 +58,18 @@ using iText.StyledXmlParser.Node;
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>The Class CssContentPropertyResolver.</summary>
     internal class CssContentPropertyResolver {
-        /// <summary>The logger.</summary>
-        private static readonly ILog logger = LogManager.GetLogger(typeof(CssContentPropertyResolver));
+        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(CssContentPropertyResolver));
+
+        private static readonly EscapeGroup[] ALLOWED_ESCAPE_CHARACTERS = new EscapeGroup[] { new EscapeGroup('\''
+            ), new EscapeGroup('\"') };
+
+        private const int COUNTERS_MIN_PARAMS_SIZE = 2;
+
+        private const int COUNTER_MIN_PARAMS_SIZE = 1;
+
+        private const int TARGET_COUNTERS_MIN_PARAMS_SIZE = 3;
+
+        private const int TARGET_COUNTER_MIN_PARAMS_SIZE = 2;
 
         /// <summary>Resolves content.</summary>
         /// <param name="styles">the styles map</param>
@@ -83,131 +93,179 @@ namespace iText.Html2pdf.Css.Resolve {
             while ((token = tokenizer.GetNextValidToken()) != null) {
                 if (token.IsString()) {
                     result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, token.GetValue()));
+                    continue;
+                }
+                if (token.GetValue().StartsWith(CssConstants.COUNTERS + "(")) {
+                    String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTERS.Length + 1, token.GetValue().Length -
+                         1);
+                    IList<String> @params = CssUtils.SplitString(paramsStr, ',', ALLOWED_ESCAPE_CHARACTERS);
+                    if (@params.Count < COUNTERS_MIN_PARAMS_SIZE) {
+                        return ErrorFallback(contentStr);
+                    }
+                    // Counters are denoted by case-sensitive identifiers
+                    String counterName = @params[0].Trim();
+                    String counterSeparationStr = @params[1].Trim();
+                    counterSeparationStr = counterSeparationStr.JSubstring(1, counterSeparationStr.Length - 1);
+                    CounterDigitsGlyphStyle listStyleType = HtmlUtils.ConvertStringCounterGlyphStyleToEnum(@params.Count > COUNTERS_MIN_PARAMS_SIZE
+                         ? @params[COUNTERS_MIN_PARAMS_SIZE].Trim() : null);
+                    CssCounterManager counterManager = context.GetCounterManager();
+                    INode scope = contentContainer;
+                    if (CssConstants.PAGE.Equals(counterName)) {
+                        result.Add(new PageCountElementNode(false, contentContainer).SetDigitsGlyphStyle(listStyleType));
+                    }
+                    else {
+                        if (CssConstants.PAGES.Equals(counterName)) {
+                            result.Add(new PageCountElementNode(true, contentContainer).SetDigitsGlyphStyle(listStyleType));
+                        }
+                        else {
+                            String resolvedCounter = counterManager.ResolveCounters(counterName, counterSeparationStr, listStyleType);
+                            result.Add(new CssContentPropertyResolver.ContentTextNode(scope, resolvedCounter));
+                        }
+                    }
                 }
                 else {
-                    if (token.GetValue().StartsWith(CssConstants.COUNTERS + "(")) {
-                        String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTERS.Length + 1, token.GetValue().Length -
-                             1);
-                        String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
-                        if (@params.Length == 0) {
+                    if (token.GetValue().StartsWith(CssConstants.COUNTER + "(")) {
+                        String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTER.Length + 1, token.GetValue().Length - 
+                            1);
+                        IList<String> @params = CssUtils.SplitString(paramsStr, ',', ALLOWED_ESCAPE_CHARACTERS);
+                        if (@params.Count < COUNTER_MIN_PARAMS_SIZE) {
                             return ErrorFallback(contentStr);
                         }
                         // Counters are denoted by case-sensitive identifiers
                         String counterName = @params[0].Trim();
-                        String counterSeparationStr = @params[1].Trim();
-                        counterSeparationStr = counterSeparationStr.JSubstring(1, counterSeparationStr.Length - 1);
-                        String listStyleType = @params.Length > 2 ? @params[2].Trim() : null;
+                        CounterDigitsGlyphStyle listStyleType = HtmlUtils.ConvertStringCounterGlyphStyleToEnum(@params.Count > COUNTER_MIN_PARAMS_SIZE
+                             ? @params[COUNTER_MIN_PARAMS_SIZE].Trim() : null);
                         CssCounterManager counterManager = context.GetCounterManager();
                         INode scope = contentContainer;
                         if (CssConstants.PAGE.Equals(counterName)) {
-                            result.Add(new PageCountElementNode(false, contentContainer));
+                            result.Add(new PageCountElementNode(false, contentContainer).SetDigitsGlyphStyle(listStyleType));
                         }
                         else {
                             if (CssConstants.PAGES.Equals(counterName)) {
-                                result.Add(new PageCountElementNode(true, contentContainer));
+                                result.Add(new PageCountElementNode(true, contentContainer).SetDigitsGlyphStyle(listStyleType));
                             }
                             else {
-                                String resolvedCounter = counterManager.ResolveCounters(counterName, counterSeparationStr, listStyleType, 
-                                    scope);
-                                if (resolvedCounter == null) {
-                                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName
-                                        ));
-                                }
-                                else {
-                                    result.Add(new CssContentPropertyResolver.ContentTextNode(scope, resolvedCounter));
-                                }
+                                String resolvedCounter = counterManager.ResolveCounter(counterName, listStyleType);
+                                result.Add(new CssContentPropertyResolver.ContentTextNode(scope, resolvedCounter));
                             }
                         }
                     }
                     else {
-                        if (token.GetValue().StartsWith(CssConstants.COUNTER + "(")) {
-                            String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTER.Length + 1, token.GetValue().Length - 
-                                1);
-                            String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
-                            if (@params.Length == 0) {
+                        if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTER + "(")) {
+                            String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTER.Length + 1, token.GetValue().Length
+                                 - 1);
+                            IList<String> @params = CssUtils.SplitString(paramsStr, ',', ALLOWED_ESCAPE_CHARACTERS);
+                            if (@params.Count < TARGET_COUNTER_MIN_PARAMS_SIZE) {
                                 return ErrorFallback(contentStr);
                             }
-                            // Counters are denoted by case-sensitive identifiers
-                            String counterName = @params[0].Trim();
-                            String listStyleType = @params.Length > 1 ? @params[1].Trim() : null;
-                            CssCounterManager counterManager = context.GetCounterManager();
-                            INode scope = contentContainer;
+                            String target = CssUtils.ExtractUrl(@params[0]);
+                            String counterName = @params[1].Trim();
+                            CounterDigitsGlyphStyle listStyleType = HtmlUtils.ConvertStringCounterGlyphStyleToEnum(@params.Count > TARGET_COUNTER_MIN_PARAMS_SIZE
+                                 ? @params[TARGET_COUNTER_MIN_PARAMS_SIZE].Trim() : null);
                             if (CssConstants.PAGE.Equals(counterName)) {
-                                result.Add(new PageCountElementNode(false, contentContainer));
+                                result.Add(new PageTargetCountElementNode(contentContainer, target).SetDigitsGlyphStyle(listStyleType));
                             }
                             else {
                                 if (CssConstants.PAGES.Equals(counterName)) {
-                                    result.Add(new PageCountElementNode(true, contentContainer));
+                                    result.Add(new PageCountElementNode(true, contentContainer).SetDigitsGlyphStyle(listStyleType));
                                 }
                                 else {
-                                    String resolvedCounter = counterManager.ResolveCounter(counterName, listStyleType, scope);
-                                    if (resolvedCounter == null) {
-                                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RESOLVE_COUNTER, counterName
-                                            ));
-                                    }
-                                    else {
-                                        result.Add(new CssContentPropertyResolver.ContentTextNode(scope, resolvedCounter));
-                                    }
+                                    String counter = context.GetCounterManager().ResolveTargetCounter(target.Replace("'", "").Replace("#", "")
+                                        , counterName, listStyleType);
+                                    CssContentPropertyResolver.ContentTextNode node = new CssContentPropertyResolver.ContentTextNode(contentContainer
+                                        , counter == null ? "0" : counter);
+                                    result.Add(node);
                                 }
                             }
                         }
                         else {
-                            if (token.GetValue().StartsWith("url(")) {
-                                IDictionary<String, String> attributes = new Dictionary<String, String>();
-                                attributes.Put(AttributeConstants.SRC, CssUtils.ExtractUrl(token.GetValue()));
-                                //TODO: probably should add user agent styles on CssContentElementNode creation, not here.
-                                attributes.Put(AttributeConstants.STYLE, CssConstants.DISPLAY + ":" + CssConstants.INLINE_BLOCK);
-                                result.Add(new CssContentElementNode(contentContainer, TagConstants.IMG, attributes));
-                            }
-                            else {
-                                if (CssGradientUtil.IsCssLinearGradientValue(token.GetValue())) {
-                                    IDictionary<String, String> attributes = new Dictionary<String, String>();
-                                    attributes.Put(AttributeConstants.STYLE, CssConstants.BACKGROUND_IMAGE + ":" + token.GetValue() + ";" + CssConstants
-                                        .HEIGHT + ":" + CssConstants.INHERIT + ";" + CssConstants.WIDTH + ":" + CssConstants.INHERIT + ";");
-                                    result.Add(new CssContentElementNode(contentContainer, TagConstants.DIV, attributes));
+                            if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTERS + "(")) {
+                                String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTERS.Length + 1, token.GetValue().Length
+                                     - 1);
+                                IList<String> @params = CssUtils.SplitString(paramsStr, ',', ALLOWED_ESCAPE_CHARACTERS);
+                                if (@params.Count < TARGET_COUNTERS_MIN_PARAMS_SIZE) {
+                                    return ErrorFallback(contentStr);
+                                }
+                                String target = CssUtils.ExtractUrl(@params[0]);
+                                String counterName = @params[1].Trim();
+                                String counterSeparator = @params[2].Trim();
+                                counterSeparator = counterSeparator.JSubstring(1, counterSeparator.Length - 1);
+                                CounterDigitsGlyphStyle listStyleType = HtmlUtils.ConvertStringCounterGlyphStyleToEnum(@params.Count > TARGET_COUNTERS_MIN_PARAMS_SIZE
+                                     ? @params[TARGET_COUNTERS_MIN_PARAMS_SIZE].Trim() : null);
+                                if (CssConstants.PAGE.Equals(counterName)) {
+                                    result.Add(new PageTargetCountElementNode(contentContainer, target).SetDigitsGlyphStyle(listStyleType));
                                 }
                                 else {
-                                    if (token.GetValue().StartsWith("attr(") && contentContainer is CssPseudoElementNode) {
-                                        int endBracket = token.GetValue().IndexOf(')');
-                                        if (endBracket > 5) {
-                                            String attrName = token.GetValue().JSubstring(5, endBracket);
-                                            if (attrName.Contains("(") || attrName.Contains(" ") || attrName.Contains("'") || attrName.Contains("\"")) {
-                                                return ErrorFallback(contentStr);
-                                            }
-                                            IElementNode element = (IElementNode)contentContainer.ParentNode();
-                                            String value = element.GetAttribute(attrName);
-                                            result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value == null ? "" : value));
-                                        }
+                                    if (CssConstants.PAGES.Equals(counterName)) {
+                                        result.Add(new PageCountElementNode(true, contentContainer).SetDigitsGlyphStyle(listStyleType));
                                     }
                                     else {
-                                        if (token.GetValue().EndsWith("quote") && contentContainer is IStylesContainer) {
-                                            if (quotes == null) {
-                                                quotes = CssQuotes.CreateQuotes(styles.Get(CssConstants.QUOTES), true);
-                                            }
-                                            String value = quotes.ResolveQuote(token.GetValue(), context);
-                                            if (value == null) {
-                                                return ErrorFallback(contentStr);
-                                            }
-                                            result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value));
-                                        }
-                                        else {
-                                            if (token.GetValue().StartsWith(CssConstants.ELEMENT + "(") && contentContainer is PageMarginBoxContextNode
-                                                ) {
-                                                String paramsStr = token.GetValue().JSubstring(CssConstants.ELEMENT.Length + 1, token.GetValue().Length - 
-                                                    1);
-                                                String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
-                                                if (@params.Length == 0) {
+                                        String counters = context.GetCounterManager().ResolveTargetCounters(target.Replace(",", "").Replace("#", ""
+                                            ), counterName, counterSeparator, listStyleType);
+                                        CssContentPropertyResolver.ContentTextNode node = new CssContentPropertyResolver.ContentTextNode(contentContainer
+                                            , counters == null ? "0" : counters);
+                                        result.Add(node);
+                                    }
+                                }
+                            }
+                            else {
+                                if (token.GetValue().StartsWith("url(")) {
+                                    IDictionary<String, String> attributes = new Dictionary<String, String>();
+                                    attributes.Put(AttributeConstants.SRC, CssUtils.ExtractUrl(token.GetValue()));
+                                    //TODO: probably should add user agent styles on CssContentElementNode creation, not here.
+                                    attributes.Put(AttributeConstants.STYLE, CssConstants.DISPLAY + ":" + CssConstants.INLINE_BLOCK);
+                                    result.Add(new CssContentElementNode(contentContainer, TagConstants.IMG, attributes));
+                                }
+                                else {
+                                    if (CssGradientUtil.IsCssLinearGradientValue(token.GetValue())) {
+                                        IDictionary<String, String> attributes = new Dictionary<String, String>();
+                                        attributes.Put(AttributeConstants.STYLE, CssConstants.BACKGROUND_IMAGE + ":" + token.GetValue() + ";" + CssConstants
+                                            .HEIGHT + ":" + CssConstants.INHERIT + ";" + CssConstants.WIDTH + ":" + CssConstants.INHERIT + ";");
+                                        result.Add(new CssContentElementNode(contentContainer, TagConstants.DIV, attributes));
+                                    }
+                                    else {
+                                        if (token.GetValue().StartsWith("attr(") && contentContainer is CssPseudoElementNode) {
+                                            int endBracket = token.GetValue().IndexOf(')');
+                                            if (endBracket > 5) {
+                                                String attrName = token.GetValue().JSubstring(5, endBracket);
+                                                if (attrName.Contains("(") || attrName.Contains(" ") || attrName.Contains("'") || attrName.Contains("\"")) {
                                                     return ErrorFallback(contentStr);
                                                 }
-                                                String name = @params[0].Trim();
-                                                String runningElementOccurrence = null;
-                                                if (@params.Length > 1) {
-                                                    runningElementOccurrence = @params[1].Trim();
+                                                IElementNode element = (IElementNode)contentContainer.ParentNode();
+                                                String value = element.GetAttribute(attrName);
+                                                result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value == null ? "" : value));
+                                            }
+                                        }
+                                        else {
+                                            if (token.GetValue().EndsWith("quote") && contentContainer is IStylesContainer) {
+                                                if (quotes == null) {
+                                                    quotes = CssQuotes.CreateQuotes(styles.Get(CssConstants.QUOTES), true);
                                                 }
-                                                result.Add(new PageMarginRunningElementNode(name, runningElementOccurrence));
+                                                String value = quotes.ResolveQuote(token.GetValue(), context);
+                                                if (value == null) {
+                                                    return ErrorFallback(contentStr);
+                                                }
+                                                result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value));
                                             }
                                             else {
-                                                return ErrorFallback(contentStr);
+                                                if (token.GetValue().StartsWith(CssConstants.ELEMENT + "(") && contentContainer is PageMarginBoxContextNode
+                                                    ) {
+                                                    String paramsStr = token.GetValue().JSubstring(CssConstants.ELEMENT.Length + 1, token.GetValue().Length - 
+                                                        1);
+                                                    String[] @params = iText.IO.Util.StringUtil.Split(paramsStr, ",");
+                                                    if (@params.Length == 0) {
+                                                        return ErrorFallback(contentStr);
+                                                    }
+                                                    String name = @params[0].Trim();
+                                                    String runningElementOccurrence = null;
+                                                    if (@params.Length > 1) {
+                                                        runningElementOccurrence = @params[1].Trim();
+                                                    }
+                                                    result.Add(new PageMarginRunningElementNode(name, runningElementOccurrence));
+                                                }
+                                                else {
+                                                    return ErrorFallback(contentStr);
+                                                }
                                             }
                                         }
                                     }
@@ -228,12 +286,11 @@ namespace iText.Html2pdf.Css.Resolve {
         /// instances
         /// </returns>
         private static IList<INode> ErrorFallback(String contentStr) {
-            ILog logger = LogManager.GetLogger(typeof(CssContentPropertyResolver));
             int logMessageParameterMaxLength = 100;
             if (contentStr.Length > logMessageParameterMaxLength) {
                 contentStr = contentStr.JSubstring(0, logMessageParameterMaxLength) + ".....";
             }
-            logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr
+            LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr
                 ));
             return null;
         }

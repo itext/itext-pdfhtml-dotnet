@@ -176,7 +176,7 @@ namespace iText.Html2pdf.Css.Resolve {
             * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
-                float? width = CssUtils.ParseFloat(value);
+                float? width = CssDimensionParsingUtils.ParseFloat(value);
                 if (width != null) {
                     if (TagConstants.TABLE.Equals(element.Name()) && width != 0) {
                         IList<CssDeclaration> declarations = new BorderShorthandResolver().ResolveShorthand("1px solid");
@@ -228,7 +228,7 @@ namespace iText.Html2pdf.Css.Resolve {
             * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#convert(com.itextpdf.styledxmlparser.html.node.IElementNode, java.lang.String)
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
-                float? cellPadding = CssUtils.ParseFloat(value);
+                float? cellPadding = CssDimensionParsingUtils.ParseFloat(value);
                 if (cellPadding != null) {
                     if (TagConstants.TABLE.Equals(element.Name())) {
                         IDictionary<String, String> styles = new Dictionary<String, String>();
@@ -487,7 +487,8 @@ namespace iText.Html2pdf.Css.Resolve {
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 // Trim semicolons at the end because they seem to not affect the value in browsers
                 String cssEquivalent = iText.IO.Util.StringUtil.ReplaceAll(value, ";+$", "");
-                if (!CssUtils.IsMetricValue(cssEquivalent) && !cssEquivalent.EndsWith(CssConstants.PERCENTAGE)) {
+                if (!CssTypesValidationUtils.IsMetricValue(cssEquivalent) && !cssEquivalent.EndsWith(CssConstants.PERCENTAGE
+                    )) {
                     cssEquivalent += CssConstants.PX;
                 }
                 return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.WIDTH, cssEquivalent));
@@ -512,7 +513,8 @@ namespace iText.Html2pdf.Css.Resolve {
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 // Trim semicolons at the end because they seem to not affect the value in browsers
                 String cssEquivalent = iText.IO.Util.StringUtil.ReplaceAll(value, ";+$", "");
-                if (!CssUtils.IsMetricValue(cssEquivalent) && !cssEquivalent.EndsWith(CssConstants.PERCENTAGE)) {
+                if (!CssTypesValidationUtils.IsMetricValue(cssEquivalent) && !cssEquivalent.EndsWith(CssConstants.PERCENTAGE
+                    )) {
                     cssEquivalent += CssConstants.PX;
                 }
                 return JavaUtil.ArraysAsList(new CssDeclaration(CssConstants.HEIGHT, cssEquivalent));

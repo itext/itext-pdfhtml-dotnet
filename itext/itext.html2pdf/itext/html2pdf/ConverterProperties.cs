@@ -55,6 +55,9 @@ namespace iText.Html2pdf {
     /// <see cref="HtmlConverter"/>.
     /// </summary>
     public class ConverterProperties {
+        /// <summary>Default maximum number of layouts.</summary>
+        private const int DEFAULT_LIMIT_OF_LAYOUTS = 10;
+
         /// <summary>The media device description.</summary>
         private MediaDeviceDescription mediaDeviceDescription;
 
@@ -85,7 +88,10 @@ namespace iText.Html2pdf {
         /// <summary>Indicates whether the document should be opened in immediate flush or not</summary>
         private bool immediateFlush = true;
 
-        /// <summary>Meta info that will be added to the events thrown by html2Pdf</summary>
+        /// <summary>Maximum number of layouts.</summary>
+        private int limitOfLayouts = DEFAULT_LIMIT_OF_LAYOUTS;
+
+        /// <summary>Meta info that will be added to the events thrown by html2Pdf.</summary>
         private IMetaInfo metaInfo;
 
         /// <summary>
@@ -120,6 +126,7 @@ namespace iText.Html2pdf {
             this.outlineHandler = other.outlineHandler;
             this.charset = other.charset;
             this.metaInfo = other.metaInfo;
+            this.limitOfLayouts = other.limitOfLayouts;
         }
 
         /// <summary>Gets the media device description.</summary>
@@ -190,6 +197,24 @@ namespace iText.Html2pdf {
         /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetFontProvider(FontProvider fontProvider) {
             this.fontProvider = fontProvider;
+            return this;
+        }
+
+        /// <summary>Gets maximum number of layouts.</summary>
+        /// <returns>layouts limit</returns>
+        public virtual int GetLimitOfLayouts() {
+            return limitOfLayouts;
+        }
+
+        /// <summary>Sets maximum number of layouts.</summary>
+        /// <param name="limitOfLayouts">layouts limit</param>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
+        public virtual iText.Html2pdf.ConverterProperties SetLimitOfLayouts(int limitOfLayouts) {
+            this.limitOfLayouts = limitOfLayouts;
             return this;
         }
 

@@ -51,14 +51,17 @@ namespace iText.Html2pdf.Css.Resolve {
     /// <summary>Class that bundles all the CSS context properties.</summary>
     public class CssContext : AbstractCssContext {
         /// <summary>The root font size value in pt.</summary>
-        private float rootFontSize = CssUtils.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants.FONT_SIZE
-            ));
+        private float rootFontSize = CssDimensionParsingUtils.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants
+            .FONT_SIZE));
 
         /// <summary>The counter manager.</summary>
         private CssCounterManager counterManager = new CssCounterManager();
 
-        /// <summary>Indicates if a pages counter is present.</summary>
-        private bool pagesCounterPresent = false;
+        /// <summary>Indicates if a pages counter or page(s) target-counter is present.</summary>
+        private bool pagesCounterOrTargetCounterPresent = false;
+
+        /// <summary>Indicates if a non-page(s) target-counter(s) is present.</summary>
+        private bool nonPagesTargetCounterPresent = false;
 
         /// <summary>The running elements manager.</summary>
         private CssRunningManager runningManager = new CssRunningManager();
@@ -78,7 +81,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <summary>Sets the root font size.</summary>
         /// <param name="fontSizeStr">the new root font size</param>
         public virtual void SetRootFontSize(String fontSizeStr) {
-            this.rootFontSize = CssUtils.ParseAbsoluteFontSize(fontSizeStr);
+            this.rootFontSize = CssDimensionParsingUtils.ParseAbsoluteFontSize(fontSizeStr);
         }
 
         /// <summary>Gets the counter manager.</summary>
@@ -87,16 +90,28 @@ namespace iText.Html2pdf.Css.Resolve {
             return counterManager;
         }
 
-        /// <summary>Sets the presence of a page counter.</summary>
-        /// <param name="pagesCounterPresent">the new pages counter present</param>
-        public virtual void SetPagesCounterPresent(bool pagesCounterPresent) {
-            this.pagesCounterPresent = pagesCounterPresent;
+        /// <summary>Sets the presence of a pages counter or page(s) target counter.</summary>
+        /// <param name="pagesCounterOrTargetCounterPresent">the new pages counter or page(s) target-counter present</param>
+        public virtual void SetPagesCounterPresent(bool pagesCounterOrTargetCounterPresent) {
+            this.pagesCounterOrTargetCounterPresent = pagesCounterOrTargetCounterPresent;
         }
 
-        /// <summary>Checks if a pages counter is present.</summary>
-        /// <returns>true, if is pages counter present</returns>
+        /// <summary>Checks if a pages counter or page(s) target-counter is present.</summary>
+        /// <returns>true, if pages counter or page(s) target-counter present</returns>
         public virtual bool IsPagesCounterPresent() {
-            return pagesCounterPresent;
+            return pagesCounterOrTargetCounterPresent;
+        }
+
+        /// <summary>Sets the presence of a non-page(s) target-counter(s).</summary>
+        /// <param name="nonPagesTargetCounterPresent">the new non-page(s) target-counter(s) present</param>
+        public virtual void SetNonPagesTargetCounterPresent(bool nonPagesTargetCounterPresent) {
+            this.nonPagesTargetCounterPresent = nonPagesTargetCounterPresent;
+        }
+
+        /// <summary>Checks if a non-page(s) target-counter(s) is present.</summary>
+        /// <returns>true, if non-page(s) target-counter(s) present</returns>
+        public virtual bool IsNonPagesTargetCounterPresent() {
+            return nonPagesTargetCounterPresent;
         }
 
         public virtual CssRunningManager GetRunningManager() {

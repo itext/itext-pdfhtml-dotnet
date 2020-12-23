@@ -70,5 +70,11 @@ namespace iText.Html2pdf.Css {
         public virtual void CellPaddingTest02() {
             ConvertToPdfAndCompare("cellPaddingTest02", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void NegativePaddingsTest() {
+            // TODO DEVSIX-4623 process negative paddings
+            ConvertToPdfAndCompare("negativePaddings", sourceFolder, destinationFolder);
+        }
     }
 }

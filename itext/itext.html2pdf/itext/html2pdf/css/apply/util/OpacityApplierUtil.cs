@@ -65,7 +65,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="container">the container element</param>
         public static void ApplyOpacity(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              container) {
-            float? opacity = CssUtils.ParseFloat(cssProps.Get(CssConstants.OPACITY));
+            float? opacity = CssDimensionParsingUtils.ParseFloat(cssProps.Get(CssConstants.OPACITY));
             if (opacity != null) {
                 container.SetProperty(Property.OPACITY, opacity);
             }

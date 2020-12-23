@@ -58,8 +58,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void InnerOpacityTest() {
-            // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
-            //  i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
+            //TODO: DEVSIX-4679 invalid processing of opacity in kid elements
             ConvertToPdfAndCompare("innerOpacityTest", sourceFolder, destinationFolder);
         }
 

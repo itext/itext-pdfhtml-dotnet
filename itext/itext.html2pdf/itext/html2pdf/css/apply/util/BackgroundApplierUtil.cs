@@ -92,7 +92,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IList<String> backgroundPositionYArray = CssUtils.SplitStringWithComma(backgroundPositionYStr);
             IList<String> backgroundBlendModeArray = CssUtils.SplitStringWithComma(backgroundBlendModeStr);
             String fontSize = cssProps.Get(CssConstants.FONT_SIZE);
-            float em = fontSize == null ? 0 : CssUtils.ParseAbsoluteLength(fontSize);
+            float em = fontSize == null ? 0 : CssDimensionParsingUtils.ParseAbsoluteLength(fontSize);
             float rem = context.GetCssContext().GetRootFontSize();
             IList<String> backgroundClipArray = CssUtils.SplitStringWithComma(backgroundClipStr);
             IList<String> backgroundOriginArray = CssUtils.SplitStringWithComma(backgroundOriginStr);
@@ -245,7 +245,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
 
                     default: {
-                        UnitValue unitValue = CssUtils.ParseLengthValueToPt(value, em, rem);
+                        UnitValue unitValue = CssDimensionParsingUtils.ParseLengthValueToPt(value, em, rem);
                         if (unitValue != null) {
                             position.SetXShift(unitValue);
                         }
@@ -275,7 +275,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
 
                     default: {
-                        UnitValue unitValue = CssUtils.ParseLengthValueToPt(value, em, rem);
+                        UnitValue unitValue = CssDimensionParsingUtils.ParseLengthValueToPt(value, em, rem);
                         if (unitValue != null) {
                             position.SetYShift(unitValue);
                         }
@@ -300,14 +300,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
                                 .REPEAT);
                         }
                         else {
-                            BackgroundRepeat.BackgroundRepeatValue value = CssMappingUtils.ParseBackgroundRepeat(repeatProps[0]);
+                            BackgroundRepeat.BackgroundRepeatValue value = CssBackgroundUtils.ParseBackgroundRepeat(repeatProps[0]);
                             return new BackgroundRepeat(value);
                         }
                     }
                 }
                 else {
                     if (repeatProps.Length == 2) {
-                        return new BackgroundRepeat(CssMappingUtils.ParseBackgroundRepeat(repeatProps[0]), CssMappingUtils.ParseBackgroundRepeat
+                        return new BackgroundRepeat(CssBackgroundUtils.ParseBackgroundRepeat(repeatProps[0]), CssBackgroundUtils.ParseBackgroundRepeat
                             (repeatProps[1]));
                     }
                 }
@@ -329,7 +329,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static void ApplyBackgroundColor(String backgroundColorStr, IPropertyContainer element, BackgroundBox
              clip) {
             if (backgroundColorStr != null && !CssConstants.TRANSPARENT.Equals(backgroundColorStr)) {
-                float[] rgbaColor = CssUtils.ParseRgbaColor(backgroundColorStr);
+                float[] rgbaColor = CssDimensionParsingUtils.ParseRgbaColor(backgroundColorStr);
                 Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
                 float opacity = rgbaColor[3];
                 Background backgroundColor = new Background(color, opacity, clip);
@@ -412,8 +412,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
                 return;
             }
-            image.GetBackgroundSize().SetBackgroundSizeToValues(CssUtils.ParseLengthValueToPt(widthValue, em, rem), null
-                );
+            image.GetBackgroundSize().SetBackgroundSizeToValues(CssDimensionParsingUtils.ParseLengthValueToPt(widthValue
+                , em, rem), null);
         }
 
         private static void ApplyBackgroundWidthHeight(IList<String> backgroundSizeValues, BackgroundImage image, 
@@ -421,15 +421,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String widthValue = backgroundSizeValues[0];
             if (CommonCssConstants.BACKGROUND_SIZE_VALUES.Contains(widthValue)) {
                 if (widthValue.Equals(CommonCssConstants.AUTO)) {
-                    UnitValue height = CssUtils.ParseLengthValueToPt(backgroundSizeValues[1], em, rem);
+                    UnitValue height = CssDimensionParsingUtils.ParseLengthValueToPt(backgroundSizeValues[1], em, rem);
                     if (height != null) {
                         image.GetBackgroundSize().SetBackgroundSizeToValues(null, height);
                     }
                 }
                 return;
             }
-            image.GetBackgroundSize().SetBackgroundSizeToValues(CssUtils.ParseLengthValueToPt(backgroundSizeValues[0], 
-                em, rem), CssUtils.ParseLengthValueToPt(backgroundSizeValues[1], em, rem));
+            image.GetBackgroundSize().SetBackgroundSizeToValues(CssDimensionParsingUtils.ParseLengthValueToPt(backgroundSizeValues
+                [0], em, rem), CssDimensionParsingUtils.ParseLengthValueToPt(backgroundSizeValues[1], em, rem));
         }
 
         /// <summary>Implementation of the Image class when used in the context of HTML to PDF conversion.</summary>

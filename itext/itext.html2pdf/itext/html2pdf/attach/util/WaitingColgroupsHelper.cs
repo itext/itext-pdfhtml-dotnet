@@ -135,8 +135,8 @@ namespace iText.Html2pdf.Attach.Util {
                     }
                     else {
                         if (TagConstants.TH.Equals(element.Name()) || TagConstants.TD.Equals(element.Name())) {
-                            int? colspan = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.COLSPAN));
-                            int? rowspan = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.ROWSPAN));
+                            int? colspan = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.COLSPAN));
+                            int? rowspan = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.ROWSPAN));
                             colspan = colspan != null ? colspan : 1;
                             rowspan = rowspan != null ? rowspan : 1;
                             col = rowColHelper.MoveToNextEmptyCol();

@@ -80,8 +80,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             name = context.GetFormFieldNameResolver().ResolveFormName(name);
             textArea = new TextArea(name);
-            int? rows = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.ROWS));
-            int? cols = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.COLS));
+            int? rows = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.ROWS));
+            int? cols = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.COLS));
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
             textArea.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());

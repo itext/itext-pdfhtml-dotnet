@@ -62,7 +62,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public ColgroupTagWorker(IElementNode element, ProcessorContext context) {
-            int? span = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.SPAN));
+            int? span = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.SPAN));
             colgroup = new ColgroupWrapper(span != null ? (int)span : 1);
             colgroup.SetLang(element.GetAttribute(AttributeConstants.LANG));
         }

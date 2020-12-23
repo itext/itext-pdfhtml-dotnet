@@ -115,7 +115,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             PdfXObject imageXObject = null;
             if (listStyleImageStr != null && !CssConstants.NONE.Equals(listStyleImageStr)) {
                 if (CssGradientUtil.IsCssLinearGradientValue(listStyleImageStr)) {
-                    float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+                    float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
                     float rem = context.GetCssContext().GetRootFontSize();
                     try {
                         StrategyBasedLinearGradientBuilder gradientBuilder = CssGradientUtil.ParseCssLinearGradient(listStyleImageStr
@@ -166,7 +166,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="element">the element</param>
         public static void ApplyListStyleTypeProperty(IStylesContainer stylesContainer, IDictionary<String, String
             > cssProps, ProcessorContext context, IPropertyContainer element) {
-            float em = CssUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             String style = cssProps.Get(CssConstants.LIST_STYLE_TYPE);
             if (CssConstants.DISC.Equals(style)) {
                 SetDiscStyle(element, em);

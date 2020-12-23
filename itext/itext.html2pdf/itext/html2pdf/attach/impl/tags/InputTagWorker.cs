@@ -93,7 +93,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             // Default input type is text
             if (inputType == null || AttributeConstants.TEXT.Equals(inputType) || AttributeConstants.EMAIL.Equals(inputType
                 ) || AttributeConstants.PASSWORD.Equals(inputType) || AttributeConstants.NUMBER.Equals(inputType)) {
-                int? size = CssUtils.ParseInteger(element.GetAttribute(AttributeConstants.SIZE));
+                int? size = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.SIZE));
                 formElement = new InputField(name);
                 value = PreprocessInputValue(value, inputType);
                 // process placeholder instead
@@ -195,8 +195,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         internal static String PreprocessInputValue(String value, String inputType) {
-            if (AttributeConstants.NUMBER.Equals(inputType) && value != null && !iText.IO.Util.StringUtil.Match(NUMBER_INPUT_ALLOWED_VALUES
-                , value).Success) {
+            if (AttributeConstants.NUMBER.Equals(inputType) && value != null && !iText.IO.Util.Matcher.Match(NUMBER_INPUT_ALLOWED_VALUES
+                , value).Matches()) {
                 value = "";
             }
             return value;

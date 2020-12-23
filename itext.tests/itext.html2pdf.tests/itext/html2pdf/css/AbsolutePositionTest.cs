@@ -150,5 +150,11 @@ namespace iText.Html2pdf.Css {
         public virtual void AbsolutePositionTest18() {
             ConvertToPdfAndCompare("absolutePositionTest18", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosNoTopBottomTest01() {
+            // TODO DEVSIX-1950
+            ConvertToPdfAndCompare("absPosNoTopBottomTest01", sourceFolder, destinationFolder);
+        }
     }
 }

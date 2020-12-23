@@ -109,6 +109,26 @@ namespace iText.Html2pdf.Css.Resolve {
             CollectFonts();
         }
 
+        /// <summary>Gets the list of fonts.</summary>
+        /// <returns>
+        /// the list of
+        /// <see cref="iText.StyledXmlParser.Css.CssFontFaceRule"/>
+        /// instances
+        /// </returns>
+        public virtual IList<CssFontFaceRule> GetFonts() {
+            return fonts;
+        }
+
+        /// <summary>Resolves content and counter(s) styles of a node given the passed context.</summary>
+        /// <param name="node">the node</param>
+        /// <param name="context">the CSS context (RootFontSize, etc.)</param>
+        public virtual void ResolveContentAndCountersStyles(INode node, CssContext context) {
+            IDictionary<String, String> elementStyles = ResolveElementsStyles(node);
+            CounterProcessorUtil.ProcessCounters(elementStyles, context);
+            ResolveContentProperty(elementStyles, node, context);
+        }
+
+        /// <summary><inheritDoc/></summary>
         public virtual IDictionary<String, String> ResolveStyles(INode element, AbstractCssContext context) {
             if (context is CssContext) {
                 return ResolveStyles(element, (CssContext)context);
@@ -120,19 +140,7 @@ namespace iText.Html2pdf.Css.Resolve {
         * @see com.itextpdf.html2pdf.css.resolve.ICssResolver#resolveStyles(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.resolve.CssContext)
         */
         private IDictionary<String, String> ResolveStyles(INode element, CssContext context) {
-            IList<CssRuleSet> ruleSets = new List<CssRuleSet>();
-            ruleSets.Add(new CssRuleSet(null, UserAgentCss.GetStyles(element)));
-            if (element is IElementNode) {
-                ruleSets.Add(new CssRuleSet(null, HtmlStylesToCssConverter.Convert((IElementNode)element)));
-            }
-            ruleSets.AddAll(cssStyleSheet.GetCssRuleSets(element, deviceDescription));
-            if (element is IElementNode) {
-                String styleAttribute = ((IElementNode)element).GetAttribute(AttributeConstants.STYLE);
-                if (styleAttribute != null) {
-                    ruleSets.Add(new CssRuleSet(null, CssRuleSetParser.ParsePropertyDeclarations(styleAttribute)));
-                }
-            }
-            IDictionary<String, String> elementStyles = CssStyleSheet.ExtractStylesFromRuleSets(ruleSets);
+            IDictionary<String, String> elementStyles = ResolveElementsStyles(element);
             if (CssConstants.CURRENTCOLOR.Equals(elementStyles.Get(CssConstants.COLOR))) {
                 // css-color-3/#currentcolor:
                 // If the ‘currentColor’ keyword is set on the ‘color’ property itself, it is treated as ‘color: inherit’.
@@ -157,28 +165,29 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
             }
             String elementFontSize = elementStyles.Get(CssConstants.FONT_SIZE);
-            if (CssUtils.IsRelativeValue(elementFontSize) || CssConstants.LARGER.Equals(elementFontSize) || CssConstants
-                .SMALLER.Equals(elementFontSize)) {
+            if (CssTypesValidationUtils.IsRelativeValue(elementFontSize) || CssConstants.LARGER.Equals(elementFontSize
+                ) || CssConstants.SMALLER.Equals(elementFontSize)) {
                 float baseFontSize;
-                if (CssUtils.IsRemValue(elementFontSize)) {
+                if (CssTypesValidationUtils.IsRemValue(elementFontSize)) {
                     baseFontSize = context.GetRootFontSize();
                 }
                 else {
                     if (parentFontSizeStr == null) {
-                        baseFontSize = CssUtils.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants.FONT_SIZE));
+                        baseFontSize = CssDimensionParsingUtils.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants.FONT_SIZE
+                            ));
                     }
                     else {
-                        baseFontSize = CssUtils.ParseAbsoluteLength(parentFontSizeStr);
+                        baseFontSize = CssDimensionParsingUtils.ParseAbsoluteLength(parentFontSizeStr);
                     }
                 }
-                float absoluteFontSize = CssUtils.ParseRelativeFontSize(elementFontSize, baseFontSize);
+                float absoluteFontSize = CssDimensionParsingUtils.ParseRelativeFontSize(elementFontSize, baseFontSize);
                 // Format to 4 decimal places to prevent differences between Java and C#
                 elementStyles.Put(CssConstants.FONT_SIZE, DecimalFormatUtil.FormatNumber(absoluteFontSize, "0.####") + CssConstants
                     .PT);
             }
             else {
-                elementStyles.Put(CssConstants.FONT_SIZE, Convert.ToString(CssUtils.ParseAbsoluteFontSize(elementFontSize)
-                    , System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT);
+                elementStyles.Put(CssConstants.FONT_SIZE, Convert.ToString(CssDimensionParsingUtils.ParseAbsoluteFontSize(
+                    elementFontSize), System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT);
             }
             // Update root font size
             if (element is IElementNode && TagConstants.HTML.Equals(((IElementNode)element).Name())) {
@@ -195,19 +204,25 @@ namespace iText.Html2pdf.Css.Resolve {
                 elementStyles.Put(key, CssDefaults.GetDefaultValue(key));
             }
             // This is needed for correct resolving of content property, so doing it right here
-            CounterProcessorUtil.ProcessCounters(elementStyles, context, element);
+            CounterProcessorUtil.ProcessCounters(elementStyles, context);
             ResolveContentProperty(elementStyles, element, context);
             return elementStyles;
         }
 
-        /// <summary>Gets the list of fonts.</summary>
-        /// <returns>
-        /// the list of
-        /// <see cref="iText.StyledXmlParser.Css.CssFontFaceRule"/>
-        /// instances
-        /// </returns>
-        public virtual IList<CssFontFaceRule> GetFonts() {
-            return fonts;
+        private IDictionary<String, String> ResolveElementsStyles(INode element) {
+            IList<CssRuleSet> ruleSets = new List<CssRuleSet>();
+            ruleSets.Add(new CssRuleSet(null, UserAgentCss.GetStyles(element)));
+            if (element is IElementNode) {
+                ruleSets.Add(new CssRuleSet(null, HtmlStylesToCssConverter.Convert((IElementNode)element)));
+            }
+            ruleSets.AddAll(cssStyleSheet.GetCssRuleSets(element, deviceDescription));
+            if (element is IElementNode) {
+                String styleAttribute = ((IElementNode)element).GetAttribute(AttributeConstants.STYLE);
+                if (styleAttribute != null) {
+                    ruleSets.Add(new CssRuleSet(null, CssRuleSetParser.ParsePropertyDeclarations(styleAttribute)));
+                }
+            }
+            return CssStyleSheet.ExtractStylesFromRuleSets(ruleSets);
         }
 
         /// <summary>Resolves a content property.</summary>
@@ -224,6 +239,10 @@ namespace iText.Html2pdf.Css.Resolve {
                         contentContainer.AddChild(child);
                     }
                 }
+            }
+            if (contentContainer is IElementNode) {
+                context.GetCounterManager().AddTargetCounterIfRequired((IElementNode)contentContainer);
+                context.GetCounterManager().AddTargetCountersIfRequired((IElementNode)contentContainer);
             }
         }
 
@@ -275,13 +294,23 @@ namespace iText.Html2pdf.Css.Resolve {
                     }
                 }
             }
-            CheckIfPagesCounterMentioned(cssStyleSheet, cssContext);
+            EnablePagesCounterIfMentioned(cssStyleSheet, cssContext);
+            EnableNonPageTargetCounterIfMentioned(cssStyleSheet, cssContext);
         }
 
-        /// <summary>Check if a pages counter is mentioned.</summary>
+        /// <summary>Check if a non-page(s) target-counter(s) is mentioned and enables it.</summary>
         /// <param name="styleSheet">the stylesheet to analyze</param>
         /// <param name="cssContext">the CSS context</param>
-        private void CheckIfPagesCounterMentioned(CssStyleSheet styleSheet, CssContext cssContext) {
+        private static void EnableNonPageTargetCounterIfMentioned(CssStyleSheet styleSheet, CssContext cssContext) {
+            if (CssStyleSheetAnalyzer.CheckNonPagesTargetCounterPresence(styleSheet)) {
+                cssContext.SetNonPagesTargetCounterPresent(true);
+            }
+        }
+
+        /// <summary>Check if a pages counter is mentioned and enables it.</summary>
+        /// <param name="styleSheet">the stylesheet to analyze</param>
+        /// <param name="cssContext">the CSS context</param>
+        private static void EnablePagesCounterIfMentioned(CssStyleSheet styleSheet, CssContext cssContext) {
             // The presence of counter(pages) means that theoretically relayout may be needed.
             // We don't know it yet because that selector might not even be used, but
             // when we know it for sure, it's too late because the Document is created right in the start.

@@ -157,10 +157,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         internal virtual iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor Reset(PageSize defaultPageSize, float
             [] defaultPageMargins) {
             IDictionary<String, String> styles = properties.GetResolvedPageContextNode().GetStyles();
-            float em = CssUtils.ParseAbsoluteLength(styles.Get(CssConstants.FONT_SIZE));
+            float em = CssDimensionParsingUtils.ParseAbsoluteLength(styles.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
             pageSize = PageSizeParser.FetchPageSize(styles.Get(CssConstants.SIZE), em, rem, defaultPageSize);
-            UnitValue bleedValue = CssUtils.ParseLengthValueToPt(styles.Get(CssConstants.BLEED), em, rem);
+            UnitValue bleedValue = CssDimensionParsingUtils.ParseLengthValueToPt(styles.Get(CssConstants.BLEED), em, rem
+                );
             if (bleedValue != null && bleedValue.IsPointValue()) {
                 bleed = bleedValue.GetValue();
             }
@@ -214,7 +215,22 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         internal virtual void ProcessNewPage(PdfPage page) {
             SetBleed(page);
             DrawMarks(page);
-            DrawPageBackgroundAndBorders(page);
+            DrawPageBorders(page);
+        }
+
+        /// <summary>Draws page background.</summary>
+        /// <param name="page">the page</param>
+        /// <returns>pdfCanvas instance if there was a background to draw, otherwise returns null</returns>
+        internal virtual PdfCanvas DrawPageBackground(PdfPage page) {
+            PdfCanvas pdfCanvas = null;
+            if (pageBackgroundSimulation != null) {
+                pdfCanvas = new PdfCanvas(page.NewContentStreamBefore(), page.GetResources(), page.GetDocument());
+                iText.Layout.Canvas canvas = new iText.Layout.Canvas(pdfCanvas, page.GetBleedBox());
+                canvas.EnableAutoTagging(page);
+                canvas.Add(pageBackgroundSimulation);
+                canvas.Close();
+            }
+            return pdfCanvas;
         }
 
         /// <summary>Sets the bleed value for a page.</summary>
@@ -328,14 +344,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             canvas.Stroke();
         }
 
-        /// <summary>Draws page background and borders.</summary>
+        /// <summary>Draws page border.</summary>
         /// <param name="page">the page</param>
-        private void DrawPageBackgroundAndBorders(PdfPage page) {
-            iText.Layout.Canvas canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetBleedBox());
-            canvas.EnableAutoTagging(page);
-            canvas.Add(pageBackgroundSimulation);
-            canvas.Close();
-            canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetTrimBox());
+        private void DrawPageBorders(PdfPage page) {
+            if (pageBordersSimulation == null) {
+                return;
+            }
+            iText.Layout.Canvas canvas = new iText.Layout.Canvas(new PdfCanvas(page), page.GetTrimBox());
             canvas.EnableAutoTagging(page);
             canvas.Add(pageBordersSimulation);
             canvas.Close();
@@ -446,6 +461,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             pageBackgroundSimulation = new Div().SetFillAvailableArea(true);
             BackgroundApplierUtil.ApplyBackground(styles, context, pageBackgroundSimulation);
             pageBackgroundSimulation.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
+            if (!pageBackgroundSimulation.HasOwnProperty(Property.BACKGROUND) && !pageBackgroundSimulation.HasOwnProperty
+                (Property.BACKGROUND_IMAGE)) {
+                pageBackgroundSimulation = null;
+            }
+            if (borders[0] == null && borders[1] == null && borders[2] == null && borders[3] == null) {
+                pageBordersSimulation = null;
+                return;
+            }
             pageBordersSimulation = new Div().SetFillAvailableArea(true);
             pageBordersSimulation.SetMargins(margins[0], margins[1], margins[2], margins[3]);
             pageBordersSimulation.SetBorderTop(borders[0]);

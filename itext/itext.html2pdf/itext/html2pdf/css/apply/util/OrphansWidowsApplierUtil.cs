@@ -48,14 +48,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public static void ApplyOrphansAndWidows(IDictionary<String, String> cssProps, IPropertyContainer element) {
             if (cssProps != null) {
                 if (cssProps.ContainsKey(CssConstants.WIDOWS)) {
-                    int? minWidows = CssUtils.ParseInteger(cssProps.Get(CssConstants.WIDOWS));
+                    int? minWidows = CssDimensionParsingUtils.ParseInteger(cssProps.Get(CssConstants.WIDOWS));
                     if (minWidows != null && minWidows > 0) {
                         element.SetProperty(Property.WIDOWS_CONTROL, new ParagraphWidowsControl(minWidows.Value, MAX_LINES_TO_MOVE
                             , OVERFLOW_PARAGRAPH_ON_VIOLATION));
                     }
                 }
                 if (cssProps.ContainsKey(CssConstants.ORPHANS)) {
-                    int? minOrphans = CssUtils.ParseInteger(cssProps.Get(CssConstants.ORPHANS));
+                    int? minOrphans = CssDimensionParsingUtils.ParseInteger(cssProps.Get(CssConstants.ORPHANS));
                     if (minOrphans != null && minOrphans > 0) {
                         element.SetProperty(Property.ORPHANS_CONTROL, new ParagraphOrphansControl(minOrphans.Value));
                     }
