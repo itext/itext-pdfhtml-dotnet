@@ -145,8 +145,12 @@ namespace iText.Html2pdf {
         /// <summary>The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE.</summary>
         public const String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
 
-        /// <summary>The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG</summary>
+        /// <summary>The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG.</summary>
+        [System.ObsoleteAttribute(@"will be removed in iText 7.2, use UNABLE_TO_PROCESS_SVG_ELEMENT")]
         public const String UNABLE_TO_PROCESS_IMAGE_AS_SVG = "Unable to process image found at {0} as an SVG";
+
+        /// <summary>The Constant UNABLE_TO_PROCESS_SVG</summary>
+        public const String UNABLE_TO_PROCESS_SVG_ELEMENT = "Unable to process an SVG element";
 
         /// <summary>The Constant UNABLE_TO_RESOLVE_COUNTER.</summary>
         public const String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";
