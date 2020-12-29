@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>itext7.pdfhtml</id>
-    <version>3.0.3-SNAPSHOT</version>
+    <version>3.0.4-SNAPSHOT</version>
     <title>iText 7 pdfHTML</title>
     <authors>iText Software</authors>
     <owners>iText Software</owners>
@@ -16,14 +16,14 @@
     <copyright>Copyright (c) 1998-2020 iText Group NV</copyright>
     <language>en-US</language>
     <tags>itext itext7 itextsharp c# .net csharp pdf html pdfhtml htmltopdf html2pdf html-to-pdf html-to-pdf-converter svg acroform pdf-generation generation converter accessbility opensource open source</tags>
-	<repository type="git" url="https://github.com/itext/i7n-pdfhtml.git"/>
+	<repository type="git" url="https://github.com/itext/i7n-pdfhtml.git" />
     <dependencies>
       <group targetFramework="net40">
-        <dependency id="itext7" version="7.1.14-SNAPSHOT" />
+        <dependency id="itext7" version="7.1.15-SNAPSHOT" />
         <dependency id="Common.Logging" version="3.4.1" />
       </group>
       <group targetFramework="netstandard2.0">
-        <dependency id="itext7" version="7.1.14-SNAPSHOT" />
+        <dependency id="itext7" version="7.1.15-SNAPSHOT" />
         <dependency id="Common.Logging" version="3.4.1" />
       </group>
     </dependencies>

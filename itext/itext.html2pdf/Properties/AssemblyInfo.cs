@@ -30,8 +30,8 @@ using Versions.Attributes;
 
 [assembly: TypographyVersion("2.0.9.0")]
 
-[assembly: AssemblyVersion("3.0.3.0")]
-[assembly: AssemblyFileVersion("3.0.3.0")]
-[assembly: AssemblyInformationalVersion("3.0.3-SNAPSHOT")]
+[assembly: AssemblyVersion("3.0.4.0")]
+[assembly: AssemblyFileVersion("3.0.4.0")]
+[assembly: AssemblyInformationalVersion("3.0.4-SNAPSHOT")]
 
 [assembly: Versions.Attributes.KeyVersion("3.1.3.0")]
