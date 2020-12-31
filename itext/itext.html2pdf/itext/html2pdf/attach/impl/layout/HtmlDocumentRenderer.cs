@@ -218,7 +218,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             relayoutRenderer.firstPageProc = firstPageProc.Reset(defaultPageSize, defaultPageMargins);
             relayoutRenderer.leftPageProc = leftPageProc.Reset(defaultPageSize, defaultPageMargins);
             relayoutRenderer.rightPageProc = rightPageProc.Reset(defaultPageSize, defaultPageMargins);
-            relayoutRenderer.estimatedNumberOfPages = currentPageNumber - SimulateTrimLastPage();
+            relayoutRenderer.estimatedNumberOfPages = currentArea.GetPageNumber() - SimulateTrimLastPage();
             relayoutRenderer.marginBoxesHandler = marginBoxesHandler.SetHtmlDocumentRenderer(relayoutRenderer);
             relayoutRenderer.targetCounterHandler = new TargetCounterHandler(targetCounterHandler);
             return relayoutRenderer;
@@ -250,7 +250,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     // Remove blank page that was added just to have area for elements to layout on.
                     // Now we will add a page with dimensions and all the stuff that is requested by page-break-before
                     document.GetPdfDocument().RemovePage(1);
-                    currentPageNumber = 0;
                     overflowResult = null;
                     currentArea = null;
                     shouldTrimFirstBlankPagesCausedByBreakBeforeFirstElement = false;
@@ -273,11 +272,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 else {
                     if (HtmlPageBreakType.LEFT.Equals(htmlPageBreakType)) {
                         LayoutArea nextArea = currentArea;
-                        if (anythingAddedToCurrentArea || currentArea == null || !IsPageLeft(currentPageNumber)) {
+                        if (anythingAddedToCurrentArea || currentArea == null || !IsPageLeft(currentArea.GetPageNumber())) {
                             do {
                                 nextArea = base.UpdateCurrentArea(overflowResult);
                             }
-                            while (!IsPageLeft(currentPageNumber));
+                            while (!IsPageLeft(currentArea.GetPageNumber()));
                         }
                         anythingAddedToCurrentArea = false;
                         return nextArea;
@@ -285,11 +284,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     else {
                         if (HtmlPageBreakType.RIGHT.Equals(htmlPageBreakType)) {
                             LayoutArea nextArea = currentArea;
-                            if (anythingAddedToCurrentArea || currentArea == null || !IsPageRight(currentPageNumber)) {
+                            if (anythingAddedToCurrentArea || currentArea == null || !IsPageRight(currentArea.GetPageNumber())) {
                                 do {
                                     nextArea = base.UpdateCurrentArea(overflowResult);
                                 }
-                                while (!IsPageRight(currentPageNumber));
+                                while (!IsPageRight(currentArea.GetPageNumber()));
                             }
                             anythingAddedToCurrentArea = false;
                             return nextArea;
