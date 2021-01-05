@@ -13,7 +13,7 @@
     <description>pdfHTML is an iText 7 add-on for C# (.NET) that allows you to easily convert HTML and CSS into standards compliant PDFs that are accessible, searchable and usable for indexing.</description>
     <summary>pdfHTML is an iText 7 add-on that lets you to parse (X)HTML snippets and the associated CSS and converts them to PDF.</summary>
     <releaseNotes>https://itextpdf.com/itext7release</releaseNotes>
-    <copyright>Copyright (c) 1998-2020 iText Group NV</copyright>
+    <copyright>Copyright (c) 1998-2021 iText Group NV</copyright>
     <language>en-US</language>
     <tags>itext itext7 itextsharp c# .net csharp pdf html pdfhtml htmltopdf html2pdf html-to-pdf html-to-pdf-converter svg acroform pdf-generation generation converter accessbility opensource open source</tags>
 	<repository type="git" url="https://github.com/itext/i7n-pdfhtml.git" />
