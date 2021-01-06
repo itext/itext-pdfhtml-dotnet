@@ -108,8 +108,8 @@ namespace iText.Html2pdf.Attach.Util {
             if (context.GetLinkContext().IsUsedLinkDestination(id)) {
                 if (propertyContainer == null) {
                     String tagWorkerClassName = tagWorker != null ? tagWorker.GetType().FullName : "null";
-                    LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.Name
-                        (), id, tagWorkerClassName));
+                    LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.Name(), id
+                        , tagWorkerClassName));
                     return;
                 }
                 propertyContainer.SetProperty(Property.DESTINATION, id);

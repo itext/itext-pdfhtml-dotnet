@@ -25,8 +25,8 @@ using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
-using iText.IO.Font.Otf;
 using iText.Html2pdf.Logs;
+using iText.IO.Font.Otf;
 using iText.IO.Util;
 using iText.Kernel.Font;
 using iText.Layout.Layout;
@@ -83,8 +83,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary><inheritDoc/></summary>
         public override void Draw(DrawContext drawContext) {
             if (!TargetCounterHandler.IsValueDefinedForThisId(this, target)) {
-                LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE
-                    , target));
+                LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, target
+                    ));
             }
             base.Draw(drawContext);
         }

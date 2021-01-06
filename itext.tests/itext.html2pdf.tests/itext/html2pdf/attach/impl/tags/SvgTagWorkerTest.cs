@@ -32,26 +32,14 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Attach.Impl.Tags {
     public class SvgTagWorkerTest : ExtendedITextTest {
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, LogLevel = LogLevelConstants.
-            ERROR)]
-        public virtual void NoSvgRootTest() {
-            iText.StyledXmlParser.Jsoup.Nodes.Element element = new iText.StyledXmlParser.Jsoup.Nodes.Element(iText.StyledXmlParser.Jsoup.Parser.Tag
-                .ValueOf(TagConstants.FIGURE), TagConstants.FIGURE);
-            IElementNode elementNode = new JsoupElementNode(element);
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, Count = 1)]
+        public virtual void UnableToProcessSvgImageTest() {
+            IElementNode elementNode = new JsoupElementNode(new iText.StyledXmlParser.Jsoup.Nodes.Element(iText.StyledXmlParser.Jsoup.Parser.Tag
+                .ValueOf(TagConstants.FIGURE), TagConstants.FIGURE));
             ConverterProperties properties = new ConverterProperties();
             ProcessorContext context = new ProcessorContext(properties);
-            SvgTagWorker svgTagWorker = new SvgTagWorker(elementNode, context);
-            NUnit.Framework.Assert.IsNull(svgTagWorker.GetElementResult());
-        }
-
-        [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, LogLevel = LogLevelConstants.
-            ERROR)]
-        public virtual void NullElementTest() {
-            ConverterProperties properties = new ConverterProperties();
-            ProcessorContext context = new ProcessorContext(properties);
-            SvgTagWorker svgTagWorker = new SvgTagWorker(null, context);
-            NUnit.Framework.Assert.IsNull(svgTagWorker.GetElementResult());
+            SvgTagWorker tagWorker = new SvgTagWorker(elementNode, context);
+            NUnit.Framework.Assert.IsNull(tagWorker.GetElementResult());
         }
     }
 }

@@ -375,8 +375,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             catch (StyledXMLParserException) {
-                LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, image
-                    ));
+                LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, image));
             }
             return false;
         }

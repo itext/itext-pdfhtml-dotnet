@@ -297,8 +297,7 @@ namespace iText.Html2pdf.Css.Resolve {
             if (contentStr.Length > logMessageParameterMaxLength) {
                 contentStr = contentStr.JSubstring(0, logMessageParameterMaxLength) + ".....";
             }
-            LOGGER.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr
-                ));
+            LOGGER.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
             return null;
         }
 
