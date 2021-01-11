@@ -522,6 +522,12 @@ namespace iText.Html2pdf.Element {
             RunTest("tableRowAndCellBackgroundColorConflictTest");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void CellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths() {
+            // TODO DEVSIX-4806
+            RunTest("cellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths");
+        }
+
         private void RunTest(String testName) {
             RunTest(testName, false);
         }
