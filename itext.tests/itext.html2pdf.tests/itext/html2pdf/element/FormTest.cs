@@ -130,6 +130,21 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void ColsAttributeInTextareaTest() {
+            RunTest("colsTextArea01");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColsAttributeWithBigValueInTextareaTest() {
+            RunTest("colsTextArea02");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColsAttributeWithSmallValueInTextareaTest() {
+            RunTest("colsTextArea03");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void Checkbox1Test() {
             RunTest("checkbox1");
         }

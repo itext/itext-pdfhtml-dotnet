@@ -130,6 +130,19 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void LinkTest08() {
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest08.pdf"));
+            pdfDocument.SetTagged();
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "linkTest08.html", FileMode.Open, FileAccess.Read
+                )) {
+                HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, new ConverterProperties().SetBaseUri(sourceFolder
+                    ));
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest08.pdf", sourceFolder
+                 + "cmp_linkTest08.pdf", destinationFolder, "diff08_"));
+        }
+
+        [NUnit.Framework.Test]
         public virtual void LinkTest09() {
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest09.pdf"));
             pdfDocument.SetTagged();
