@@ -41,13 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class LabelTest : ExtendedITextTest {
+    public class LabelTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/LabelTest/";
 
@@ -61,34 +58,27 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void Label01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "labelTest01.html"), new FileInfo(destinationFolder
-                 + "labelTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "labelTest01.pdf", sourceFolder
-                 + "cmp_labelTest01.pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("labelTest01", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void LabelDisplayBlock01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "labelDisplayBlockTest01.html"), new FileInfo(destinationFolder
-                 + "labelDisplayBlockTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "labelDisplayBlockTest01.pdf"
-                , sourceFolder + "cmp_labelDisplayBlockTest01.pdf", destinationFolder, "diffBlock01_"));
+            ConvertToPdfAndCompare("labelDisplayBlockTest01", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void LabelDisplayBlock02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "labelDisplayBlockTest02.html"), new FileInfo(destinationFolder
-                 + "labelDisplayBlockTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "labelDisplayBlockTest02.pdf"
-                , sourceFolder + "cmp_labelDisplayBlockTest02.pdf", destinationFolder, "diffBlock02_"));
+            ConvertToPdfAndCompare("labelDisplayBlockTest02", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void LabelBackground01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "labelBackground01Test.html"), new FileInfo(destinationFolder
-                 + "labelBackground01Test.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "labelBackground01Test.pdf"
-                , sourceFolder + "cmp_labelBackground01Test.pdf", destinationFolder, "diffBackground01_"));
+            ConvertToPdfAndCompare("labelBackground01Test", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LabelInlineBlockRelativeWidthTest() {
+            ConvertToPdfAndCompare("labelInlineBlockRelativeWidthTest", sourceFolder, destinationFolder);
         }
     }
 }

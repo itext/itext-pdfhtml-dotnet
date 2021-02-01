@@ -159,6 +159,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.A, CssConstants.BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.A, CssConstants.TABLE_CELL, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.LABEL, CssConstants.BLOCK, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.LABEL, CssConstants.INLINE_BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE, typeof(TableTagCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_CELL, typeof(TdTagCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_ROW, typeof(DisplayTableRowTagCssApplier));
