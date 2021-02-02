@@ -97,5 +97,10 @@ namespace iText.Html2pdf.Css {
         public virtual void RelativeInlineBlockWidthWithTextIndentTest03() {
             ConvertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest03", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageWidthInPercentValueTest() {
+            ConvertToPdfAndCompare("imageWidthInPercentValue", sourceFolder, destinationFolder);
+        }
     }
 }

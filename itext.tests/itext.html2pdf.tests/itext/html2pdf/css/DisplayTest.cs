@@ -328,5 +328,10 @@ namespace iText.Html2pdf.Css {
                 , sourceFolder + "cmp_inlineBlockInsideTableCell.pdf", destinationFolder, "diffinlineBlockInsideTableCellTest_"
                 ));
         }
+
+        [NUnit.Framework.Test]
+        public virtual void DisplayValuesInsideImageTest() {
+            ConvertToPdfAndCompare("displayValuesInsideImage", sourceFolder, destinationFolder);
+        }
     }
 }
