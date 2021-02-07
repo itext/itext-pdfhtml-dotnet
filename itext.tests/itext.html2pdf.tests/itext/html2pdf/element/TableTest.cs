@@ -41,9 +41,11 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf;
 using iText.IO.Util;
+using iText.Kernel;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
@@ -526,6 +528,26 @@ namespace iText.Html2pdf.Element {
         public virtual void CellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths() {
             // TODO DEVSIX-4806
             RunTest("cellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TagsFlushingErrorWhenConvertedFromHtmlTest() {
+            String file = sourceFolder + "tagsFlushingErrorWhenConvertedFromHtml.html";
+            IList<IElement> elements = HtmlConverter.ConvertToElements(new FileStream(file, FileMode.Open, FileAccess.Read
+                ), new ConverterProperties().SetCreateAcroForm(true));
+            PdfDocument pdf = new PdfDocument(new PdfWriter(new FileStream(destinationFolder + "tagsFlushingErrorWhenConvertedFromHtml.pdf"
+                , FileMode.Create)));
+            pdf.SetTagged();
+            Document document = new Document(pdf);
+            document.SetMargins(10, 50, 10, 50);
+            foreach (IElement element in elements) {
+                document.Add((IBlockElement)element);
+            }
+            NUnit.Framework.Assert.That(() =>  {
+                document.Close();
+            }
+            , NUnit.Framework.Throws.InstanceOf<PdfException>().With.Message.EqualTo("Tag structure flushing failed: it might be corrupted."))
+;
         }
 
         private void RunTest(String testName) {
