@@ -22,12 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Kernel;
-using iText.Kernel.Exceptions;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
     // TODO DEVSIX-4384 box-shadow is not supported
-    // TODO DEVSIX-4383 remove expected exception after fixing
     public class BoxShadowBodyTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "box-shadow-body.html";
@@ -35,11 +32,7 @@ namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
 
         [NUnit.Framework.Test]
         public override void Test() {
-            NUnit.Framework.Assert.That(() =>  {
-                base.Test();
-            }
-            , NUnit.Framework.Throws.InstanceOf<PdfException>().With.Message.EqualTo(KernelExceptionMessageConstant.DOCUMENT_HAS_NO_PAGES))
-;
+            base.Test();
         }
     }
 }
