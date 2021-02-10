@@ -71,6 +71,7 @@ using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Font;
 using iText.StyledXmlParser.Css.Pseudo;
 using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Util;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>The default implementation to process HTML.</summary>
@@ -133,7 +134,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 propertyContainer.SetProperty(Property.FONT_SET, context.GetTempFonts());
             }
             // TODO DEVSIX-2534
-            IList<String> fontFamilies = FontFamilySplitter.SplitFontFamily(cssProperties.Get(CssConstants.FONT_FAMILY
+            IList<String> fontFamilies = FontFamilySplitterUtil.SplitFontFamily(cssProperties.Get(CssConstants.FONT_FAMILY
                 ));
             if (fontFamilies != null && !propertyContainer.HasOwnProperty(Property.FONT)) {
                 propertyContainer.SetProperty(Property.FONT, fontFamilies.ToArray(new String[0]));

@@ -533,14 +533,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             public override float GetImageHeight() {
                 return (float)(image.GetHeight() * dimensionMultiplier);
             }
-
-            public override float GetWidth() {
-                return (float)(image.GetWidth() * dimensionMultiplier);
-            }
-
-            public override float GetHeight() {
-                return (float)(image.GetHeight() * dimensionMultiplier);
-            }
         }
     }
 }
