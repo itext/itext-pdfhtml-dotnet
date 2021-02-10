@@ -83,6 +83,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void PageBreakAfter04Test() {
+            RunTest("page-break-after04");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void PageBreakAfter05Test() {
             RunTest("page-break-after05");
         }
@@ -103,6 +108,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void PageBreakBefore04Test() {
+            RunTest("page-break-before04");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void PageBreakBeforeAfter01Test() {
             RunTest("page-break-before-after01");
         }
@@ -120,6 +130,11 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void PageBreakBeforeTable01Test() {
             RunTest("page-break-before-table01");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageBreakInsideAvoidInParaTest() {
+            RunTest("pageBreakInsideAvoidInPara");
         }
 
         [NUnit.Framework.Test]
