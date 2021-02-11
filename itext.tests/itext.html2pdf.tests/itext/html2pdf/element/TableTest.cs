@@ -525,6 +525,16 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void CollapsedBorderWithWrongRowspanTableTest() {
+            NUnit.Framework.Assert.That(() =>  {
+                // TODO DEVSIX-5036
+                RunTest("collapsedBorderWithWrongRowspanTable", false, new PageSize(PageSize.A5).Rotate());
+            }
+            , NUnit.Framework.Throws.InstanceOf<Exception>())
+;
+        }
+
+        [NUnit.Framework.Test]
         public virtual void CellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths() {
             // TODO DEVSIX-4806
             RunTest("cellWithRowspanShouldBeConsideredWhileCalculatingColumnWidths");
