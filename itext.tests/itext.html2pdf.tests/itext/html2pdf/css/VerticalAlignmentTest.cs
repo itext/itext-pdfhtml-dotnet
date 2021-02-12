@@ -58,7 +58,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest01() {
-            // TODO 'top' and 'bottom' values are not supported for now
+            // TODO: DEVSIX-3757 ('top' and 'bottom' values are not supported)
             ConvertToPdfAndCompare("verticalAlignmentTest01", sourceFolder, destinationFolder);
         }
 
@@ -70,6 +70,12 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void VerticalAlignmentTest03() {
             ConvertToPdfAndCompare("verticalAlignmentTest03", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void VerticalAlignmentImgTest() {
+            // TODO: DEVSIX-3757 ('top' and 'bottom' values are not supported)
+            ConvertToPdfAndCompare("verticalAlignmentImgTest", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
