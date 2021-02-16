@@ -104,5 +104,55 @@ namespace iText.Html2pdf.Css {
         public virtual void Clear11Test() {
             ConvertToPdfAndCompare("clear11Test", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageFloatParagraphClearTest() {
+            ConvertToPdfAndCompare("imageFloatParagraphClear", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClearInTableWithImageTest() {
+            ConvertToPdfAndCompare("clearInTableWithImage", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgFloatAmongParaWithClearPropTest() {
+            ConvertToPdfAndCompare("imgFloatAmongParaWithClearProp", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgFloatAmongParaWithSpanTest() {
+            ConvertToPdfAndCompare("imgFloatAmongParaWithSpan", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ParaFloatLeftImgClearLeftTest() {
+            ConvertToPdfAndCompare("paraFloatLeftImgClearLeft", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ParaFloatImgClearAndDisplayBlockTest() {
+            ConvertToPdfAndCompare("paraFloatImgClearAndDisplayBlock", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ParaFloatImgWideBorderClearAndDisplayBlockTest() {
+            ConvertToPdfAndCompare("paraFloatImgWideBorderClearAndDisplayBlock", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgFloatWideBorderAmongParaWithClearTest() {
+            ConvertToPdfAndCompare("imgFloatWideBorderAmongParaWithClear", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgWideBorderFloatAmongParaWithSpanTest() {
+            ConvertToPdfAndCompare("imgWideBorderFloatAmongParaWithSpan", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgWideBorderClearAndDisplayBlockParaFloatTest() {
+            ConvertToPdfAndCompare("imgWideBorderClearAndDisplayBlockParaFloat", sourceFolder, destinationFolder);
+        }
     }
 }
