@@ -80,7 +80,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public ImgTagWorker(IElementNode element, ProcessorContext context) {
             String src = element.GetAttribute(AttributeConstants.SRC);
-            PdfXObject imageXObject = context.GetResourceResolver().RetrieveImageExtended(src);
+            PdfXObject imageXObject = context.GetResourceResolver().RetrieveImage(src);
             if (imageXObject != null) {
                 if (imageXObject is PdfImageXObject) {
                     image = new ImgTagWorker.HtmlImage((PdfImageXObject)imageXObject);

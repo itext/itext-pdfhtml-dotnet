@@ -166,8 +166,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         , clip, origin);
                 }
                 else {
-                    PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImage
-                        ));
+                    PdfXObject image = context.GetResourceResolver().RetrieveImage(CssUtils.ExtractUrl(backgroundImage));
                     imageApplied = ApplyBackgroundImage(image, backgroundImagesList, repeat, blendMode, position, clip, origin
                         );
                 }

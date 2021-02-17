@@ -38,24 +38,24 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
-        public virtual void RetrieveImageExtendedNullTest() {
+        public virtual void RetrieveImageNullTest() {
             HtmlResourceResolver resourceResolver = CreateResolver();
-            PdfXObject image = resourceResolver.RetrieveImageExtended(null);
+            PdfXObject image = resourceResolver.RetrieveImage(null);
             NUnit.Framework.Assert.IsNull(image);
         }
 
         [NUnit.Framework.Test]
-        public virtual void RetrieveImageExtendedBase64Test() {
+        public virtual void RetrieveImageBase64Test() {
             HtmlResourceResolver resourceResolver = CreateResolver();
-            PdfXObject image = resourceResolver.RetrieveImageExtended(bLogo);
+            PdfXObject image = resourceResolver.RetrieveImage(bLogo);
             NUnit.Framework.Assert.IsNotNull(image);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI)]
-        public virtual void RetrieveImageExtendedIncorrectBase64Test() {
+        public virtual void RetrieveImageIncorrectBase64Test() {
             HtmlResourceResolver resourceResolver = CreateResolver();
-            PdfXObject image = resourceResolver.RetrieveImageExtended(bLogoCorruptedData);
+            PdfXObject image = resourceResolver.RetrieveImage(bLogoCorruptedData);
             NUnit.Framework.Assert.IsNull(image);
         }
 

@@ -55,7 +55,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         [NUnit.Framework.Test]
         public virtual void Test() {
             ResourceResolver resourceResolver = new ResourceResolver("");
-            PdfXObject externalImage = resourceResolver.RetrieveImageExtended("https://raw.githubusercontent.com/itext/itext7/develop/layout/src/test/resources/com/itextpdf/layout/ImageTest/itis.jpg"
+            PdfXObject externalImage = resourceResolver.RetrieveImage("https://raw.githubusercontent.com/itext/itext7/develop/layout/src/test/resources/com/itextpdf/layout/ImageTest/itis.jpg"
                 );
             NUnit.Framework.Assert.IsNotNull(externalImage);
             ImageData imageData = ImageDataFactory.Create(sourceFolder + "itis.jpg");

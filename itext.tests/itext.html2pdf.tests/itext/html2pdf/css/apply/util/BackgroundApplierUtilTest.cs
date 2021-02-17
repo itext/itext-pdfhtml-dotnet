@@ -99,8 +99,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     BackgroundImage image = (BackgroundImage)value;
                     PdfImageXObject pdfImage = image.GetImage();
                     NUnit.Framework.Assert.IsNotNull(pdfImage);
-                    PdfXObject expectedImage = this.innerContext.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl
-                        (this.innerImage));
+                    PdfXObject expectedImage = this.innerContext.GetResourceResolver().RetrieveImage(CssUtils.ExtractUrl(this.
+                        innerImage));
                     NUnit.Framework.Assert.IsTrue(expectedImage is PdfImageXObject);
                     NUnit.Framework.Assert.AreEqual(JavaUtil.ArraysToString(((PdfImageXObject)expectedImage).GetImageBytes()), 
                         JavaUtil.ArraysToString(pdfImage.GetImageBytes()));
@@ -231,8 +231,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     BackgroundImage image = (BackgroundImage)value;
                     PdfImageXObject pdfImage = image.GetImage();
                     NUnit.Framework.Assert.IsNotNull(pdfImage);
-                    PdfXObject expectedImage = this.innerContext.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl
-                        (this.imagesArray[i]));
+                    PdfXObject expectedImage = this.innerContext.GetResourceResolver().RetrieveImage(CssUtils.ExtractUrl(this.
+                        imagesArray[i]));
                     NUnit.Framework.Assert.IsTrue(expectedImage is PdfImageXObject);
                     NUnit.Framework.Assert.AreEqual(JavaUtil.ArraysToString(((PdfImageXObject)expectedImage).GetImageBytes()), 
                         JavaUtil.ArraysToString(pdfImage.GetImageBytes()));

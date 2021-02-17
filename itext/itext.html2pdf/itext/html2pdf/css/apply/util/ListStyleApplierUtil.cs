@@ -139,7 +139,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
                 else {
-                    imageXObject = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(listStyleImageStr));
+                    imageXObject = context.GetResourceResolver().RetrieveImage(CssUtils.ExtractUrl(listStyleImageStr));
                 }
                 if (imageXObject != null) {
                     Image image = null;
