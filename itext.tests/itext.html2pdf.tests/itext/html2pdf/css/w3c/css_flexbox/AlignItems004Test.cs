@@ -22,14 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-        )]
+    //TODO DEVSIX-5040 support align-items
+    //TODO DEVSIX-5096 support flex-flow property
+    //TODO DEVSIX-5137 support margin collapse
     public class AlignItems004Test : W3CCssTest {
-        //TODO DEVSIX-1315 Initial support for flex display:flex CSS property
         protected internal override String GetHtmlFileName() {
             return "align-items-004.htm";
         }

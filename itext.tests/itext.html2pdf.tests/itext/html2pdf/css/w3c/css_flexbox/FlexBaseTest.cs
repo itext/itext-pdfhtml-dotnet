@@ -24,7 +24,8 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-1315 Initial support for flex display:flex CSS property
+    //TODO DEVSIX-5137 support margin collapse
+    //TODO DEVSIX-5040 fix height of flex-item
     public class FlexBaseTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flex-base.html";

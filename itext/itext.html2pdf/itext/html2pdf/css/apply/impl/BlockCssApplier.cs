@@ -43,10 +43,12 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Layout;
 using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     /// <summary>
@@ -69,7 +71,6 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 FontStyleApplierUtil.ApplyFontStyles(cssProps, context, stylesContainer, container);
                 BorderStyleApplierUtil.ApplyBorders(cssProps, context, container);
                 HyphenationApplierUtil.ApplyHyphenation(cssProps, context, stylesContainer, container);
-                FloatApplierUtil.ApplyFloating(cssProps, context, container);
                 PositionApplierUtil.ApplyPosition(cssProps, context, container);
                 OpacityApplierUtil.ApplyOpacity(cssProps, context, container);
                 PageBreakApplierUtil.ApplyPageBreakProperties(cssProps, context, container);
@@ -77,7 +78,26 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 TransformationApplierUtil.ApplyTransformation(cssProps, context, container);
                 OutlineApplierUtil.ApplyOutlines(cssProps, context, container);
                 OrphansWidowsApplierUtil.ApplyOrphansAndWidows(cssProps, container);
+                if (IsFlexItem(stylesContainer)) {
+                    FlexApplierUtil.ApplyFlexItemProperties(cssProps, context, container);
+                }
+                else {
+                    // Floating doesn't work for flex items.
+                    // See CSS Flexible Box Layout Module Level 1 W3C Candidate Recommendation, 19 November 2018,
+                    // 3. Flex Containers: the flex and inline-flex display values
+                    FloatApplierUtil.ApplyFloating(cssProps, context, container);
+                }
             }
+        }
+
+        private static bool IsFlexItem(IStylesContainer stylesContainer) {
+            if (stylesContainer is JsoupElementNode && ((JsoupElementNode)stylesContainer).ParentNode() is JsoupElementNode
+                ) {
+                IDictionary<String, String> parentStyles = ((JsoupElementNode)((JsoupElementNode)stylesContainer).ParentNode
+                    ()).GetStyles();
+                return CssConstants.FLEX.Equals(parentStyles.Get(CssConstants.DISPLAY));
+            }
+            return false;
         }
     }
 }

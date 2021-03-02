@@ -24,7 +24,9 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-1315 Initial support for flex display:flex CSS property
+    // TODO DEVSIX-5003 support case when flex-direction is vertical
+    // TODO DEVSIX-5040 support justify-content
+    //TODO DEVSIX-5137 support margin collapse
     public class JustifyContentVert005Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-justify-content-vert-005.xhtml";

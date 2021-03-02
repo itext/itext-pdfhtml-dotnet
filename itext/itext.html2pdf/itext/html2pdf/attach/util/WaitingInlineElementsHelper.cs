@@ -171,21 +171,28 @@ namespace iText.Html2pdf.Attach.Util {
                         }
                     }
                     else {
-                        if (container is Div) {
-                            ((Div)container).Add(p);
+                        if (container is FlexContainer) {
+                            Div div = new Div();
+                            div.Add(p);
+                            ((FlexContainer)container).Add(div);
                         }
                         else {
-                            if (container is Cell) {
-                                ((Cell)container).Add(p);
+                            if (container is Div) {
+                                ((Div)container).Add(p);
                             }
                             else {
-                                if (container is List) {
-                                    ListItem li = new ListItem();
-                                    li.Add(p);
-                                    ((List)container).Add(li);
+                                if (container is Cell) {
+                                    ((Cell)container).Add(p);
                                 }
                                 else {
-                                    throw new InvalidOperationException("Unable to process hanging inline content");
+                                    if (container is List) {
+                                        ListItem li = new ListItem();
+                                        li.Add(p);
+                                        ((List)container).Add(li);
+                                    }
+                                    else {
+                                        throw new InvalidOperationException("Unable to process hanging inline content");
+                                    }
                                 }
                             }
                         }

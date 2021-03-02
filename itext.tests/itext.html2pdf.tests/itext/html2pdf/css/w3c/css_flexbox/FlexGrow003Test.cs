@@ -25,9 +25,9 @@ using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-1315 Initial support for flex display:flex CSS property
     [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
     public class FlexGrow003Test : W3CCssTest {
+        //TODO DEVSIX-5137 support margin collapse
         protected internal override String GetHtmlFileName() {
             return "flex-grow-003.html";
         }

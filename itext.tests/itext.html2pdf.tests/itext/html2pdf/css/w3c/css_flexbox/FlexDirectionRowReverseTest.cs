@@ -25,9 +25,11 @@ using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-1315 Initial support for flex display:flex CSS property
-    [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 18)]
+    [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 54)]
     public class FlexDirectionRowReverseTest : W3CCssTest {
+        //TODO DEVSIX-5096 support flex-direction: row-reverse
+        //TODO DEVSIX-5086 support flex-wrap
+        //TODO DEVSIX-5137 support margin collapse
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-direction-row-reverse.htm";
         }

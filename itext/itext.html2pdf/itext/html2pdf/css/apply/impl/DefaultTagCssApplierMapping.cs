@@ -163,6 +163,8 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE, typeof(TableTagCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_CELL, typeof(TdTagCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_ROW, typeof(DisplayTableRowTagCssApplier));
+            mapping.PutMapping(TagConstants.DIV, CssConstants.FLEX, typeof(DisplayFlexTagCssApplier));
+            mapping.PutMapping(TagConstants.SPAN, CssConstants.FLEX, typeof(DisplayFlexTagCssApplier));
             // pseudo elements mapping
             String beforePseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.BEFORE);
             String afterPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.AFTER);

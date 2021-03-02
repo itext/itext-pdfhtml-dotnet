@@ -24,7 +24,9 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-1315 Initial support for flex display:flex CSS property
+    //TODO DEVSIX-5087 support layout properties for FlexContainerRenderer
+    //TODO DEVSIX-5137 support margin collapse
+    //TODO DEVSIX-5155 Fix processing of empty flex item
     public class OverflowHoriz001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-overflow-horiz-001.html";

@@ -22,11 +22,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-1315 Initial support for flex display:flex CSS property
-    [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
+    //TODO DEVSIX-5003 support case when flex-direction is vertical
+    //TODO DEVSIX-5040 support justify-content
+    //TODO DEVSIX-5137 support margin collapse
+    //TODO DEVSIX-5040 fix flex items height
+    //TODO DEVSIX-5149 Fix indent in element nested to the flex item
     public class FlexBasisContent002BTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-basis-content-002b.html";
