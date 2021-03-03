@@ -78,6 +78,13 @@ namespace iText.Html2pdf.Attribute {
         }
 
         [NUnit.Framework.Test]
+        //TODO: DEVSIX-2438 html2Pdf: float + rtl works incorrectly for element placement
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 16)]
+        public virtual void FloatedTableInRtlDocumentTest() {
+            ConvertToPdfAndCompare("floatedTableInRtlDocument", sourceFolder, destinationFolder, false);
+        }
+
+        [NUnit.Framework.Test]
         //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
         [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
         public virtual void ParagraphsOfDifferentDirsWithImageTest() {
@@ -119,6 +126,14 @@ namespace iText.Html2pdf.Attribute {
         public virtual void SpansOfDifferentDirsInsideParagraphTest() {
             //TODO DEVSIX-2437 dir ltr is ignored in rtl documents
             ConvertToPdfAndCompare("spansOfDifferentDirsInsideParagraph", sourceFolder, destinationFolder, false);
+        }
+
+        [NUnit.Framework.Test]
+        //TODO DEVSIX-3069 pdfHTML: RTL tables are not aligned correctly if there is no enough space
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 32)]
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        public virtual void TableAlignedToWrongSideInCaseOfNotEnoughSpaceTest() {
+            ConvertToPdfAndCompare("tableAlignedToWrongSideInCaseOfNotEnoughSpace", sourceFolder, destinationFolder);
         }
     }
 }
