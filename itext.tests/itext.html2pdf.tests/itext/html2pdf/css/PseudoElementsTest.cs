@@ -113,6 +113,17 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void BeforeAfterPseudoTest08() {
+            ConvertToPdfAndCompare("beforeAfterPseudoTest08", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
+        public virtual void BeforeAfterPseudoTest09() {
+            ConvertToPdfAndCompare("beforeAfterPseudoTest09", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest10() {
             ConvertToPdfAndCompare("beforeAfterPseudoTest10", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -260,6 +271,42 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void PseudoDisplayTable02Test() {
             ConvertToPdfAndCompare("pseudoDisplayTable02", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgPseudoBeforeDivTest() {
+            ConvertToPdfAndCompare("imgPseudoBeforeDiv", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgPseudoBeforeDivDisplayBlockTest() {
+            ConvertToPdfAndCompare("imgPseudoBeforeDivDisplayBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
+        public virtual void ImgPseudoBeforeImgTest() {
+            ConvertToPdfAndCompare("imgPseudoBeforeImg", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgPseudoBeforeWithTextTest() {
+            ConvertToPdfAndCompare("imgPseudoBeforeWithText", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgPseudoBeforeInSeveralDivsTest() {
+            ConvertToPdfAndCompare("imgPseudoBeforeInSeveralDivs", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgPseudoWithPageRuleTest() {
+            ConvertToPdfAndCompare("imgPseudoWithPageRule", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NonNormalizedAfterBeforeTest() {
+            ConvertToPdfAndCompare("nonNormalizedAfterBefore", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }
