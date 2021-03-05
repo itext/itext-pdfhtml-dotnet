@@ -172,6 +172,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void PageBreakAlwaysInsidePageBreakAvoidTest() {
+            RunTest("pageBreakAlwaysInsidePageBreakAvoidTest");
+        }
+
+        [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT)]
         public virtual void PageBreakInConstrainedDivTest() {
             NUnit.Framework.Assert.That(() =>  {
