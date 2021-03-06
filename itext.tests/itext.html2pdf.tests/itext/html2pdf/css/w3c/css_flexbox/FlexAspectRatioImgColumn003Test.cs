@@ -26,7 +26,7 @@ using iText.Html2pdf.Css.W3c;
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5096 support flex-direction: column
     //TODO DEVSIX-5004 improve support of flex-items with intrinsic aspect ratio
-    //TODO DEVSIX-5166 flex: Support aling-self property
+    //TODO DEVSIX-5166 flex: Support align-self property
     //TODO DEVSIX-5137 support margin collapse
     public class FlexAspectRatioImgColumn003Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {

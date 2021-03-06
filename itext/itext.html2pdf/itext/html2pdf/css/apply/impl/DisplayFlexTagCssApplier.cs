@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Css.Apply.Util;
 using iText.Layout;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Node;
@@ -56,6 +57,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             base.Apply(context, stylesContainer, tagWorker);
             IPropertyContainer container = tagWorker.GetElementResult();
             if (container != null) {
+                FlexApplierUtil.ApplyFlexContainerProperties(stylesContainer.GetStyles(), container);
                 //TODO DEVSIX-5087 remove these lines when working on a ticket
                 container.SetProperty(Property.COLLAPSING_MARGINS, null);
                 container.DeleteOwnProperty(Property.FLOAT);

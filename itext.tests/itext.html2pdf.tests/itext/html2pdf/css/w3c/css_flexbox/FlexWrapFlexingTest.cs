@@ -26,7 +26,6 @@ using iText.Html2pdf.Css.W3c;
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5086 support flex-wrap
     //TODO DEVSIX-5137 support margin collapse
-    //TODO DEVSIX-5150 Fix processing of min-width at flex item element
     public class FlexWrapFlexingTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-wrap-flexing.html";

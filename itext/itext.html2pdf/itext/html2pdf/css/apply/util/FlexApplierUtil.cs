@@ -94,7 +94,136 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
         }
+
         // The case when we don't set the flex-basis property should be identified
         // as flex-basis: content
+        /// <summary>Applies properties to a flex container.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="element">the element</param>
+        public static void ApplyFlexContainerProperties(IDictionary<String, String> cssProps, IPropertyContainer element
+            ) {
+            ApplyAlignItems(cssProps, element);
+            ApplyJustifyContent(cssProps, element);
+        }
+
+        private static void ApplyAlignItems(IDictionary<String, String> cssProps, IPropertyContainer element) {
+            String alignItemsString = cssProps.Get(CommonCssConstants.ALIGN_ITEMS);
+            if (alignItemsString != null) {
+                AlignmentPropertyValue alignItems;
+                switch (alignItemsString) {
+                    case CommonCssConstants.NORMAL: {
+                        alignItems = AlignmentPropertyValue.NORMAL;
+                        break;
+                    }
+
+                    case CommonCssConstants.START: {
+                        alignItems = AlignmentPropertyValue.START;
+                        break;
+                    }
+
+                    case CommonCssConstants.END: {
+                        alignItems = AlignmentPropertyValue.END;
+                        break;
+                    }
+
+                    case CommonCssConstants.FLEX_START: {
+                        alignItems = AlignmentPropertyValue.FLEX_START;
+                        break;
+                    }
+
+                    case CommonCssConstants.FLEX_END: {
+                        alignItems = AlignmentPropertyValue.FLEX_END;
+                        break;
+                    }
+
+                    case CommonCssConstants.CENTER: {
+                        alignItems = AlignmentPropertyValue.CENTER;
+                        break;
+                    }
+
+                    case CommonCssConstants.SELF_START: {
+                        alignItems = AlignmentPropertyValue.SELF_START;
+                        break;
+                    }
+
+                    case CommonCssConstants.SELF_END: {
+                        alignItems = AlignmentPropertyValue.SELF_END;
+                        break;
+                    }
+
+                    case CommonCssConstants.BASELINE: {
+                        alignItems = AlignmentPropertyValue.BASELINE;
+                        break;
+                    }
+
+                    case CommonCssConstants.STRETCH:
+                    default: {
+                        alignItems = AlignmentPropertyValue.STRETCH;
+                        break;
+                    }
+                }
+                element.SetProperty(Property.ALIGN_ITEMS, alignItems);
+            }
+        }
+
+        private static void ApplyJustifyContent(IDictionary<String, String> cssProps, IPropertyContainer element) {
+            String justifyContentString = cssProps.Get(CommonCssConstants.JUSTIFY_CONTENT);
+            if (justifyContentString != null) {
+                JustifyContent justifyContent;
+                switch (justifyContentString) {
+                    case CommonCssConstants.NORMAL: {
+                        justifyContent = JustifyContent.NORMAL;
+                        break;
+                    }
+
+                    case CommonCssConstants.START: {
+                        justifyContent = JustifyContent.START;
+                        break;
+                    }
+
+                    case CommonCssConstants.END: {
+                        justifyContent = JustifyContent.END;
+                        break;
+                    }
+
+                    case CommonCssConstants.FLEX_END: {
+                        justifyContent = JustifyContent.FLEX_END;
+                        break;
+                    }
+
+                    case CommonCssConstants.SELF_START: {
+                        justifyContent = JustifyContent.SELF_START;
+                        break;
+                    }
+
+                    case CommonCssConstants.SELF_END: {
+                        justifyContent = JustifyContent.SELF_END;
+                        break;
+                    }
+
+                    case CommonCssConstants.LEFT: {
+                        justifyContent = JustifyContent.LEFT;
+                        break;
+                    }
+
+                    case CommonCssConstants.RIGHT: {
+                        justifyContent = JustifyContent.RIGHT;
+                        break;
+                    }
+
+                    case CommonCssConstants.CENTER: {
+                        justifyContent = JustifyContent.CENTER;
+                        break;
+                    }
+
+                    case CommonCssConstants.FLEX_START:
+                    default: {
+                        justifyContent = JustifyContent.FLEX_START;
+                        break;
+                    }
+                }
+                element.SetProperty(Property.JUSTIFY_CONTENT, justifyContent);
+            }
+        }
     }
 }

@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5040 support align-items
+    //TODO DEVSIX-5167 support align-items: baseline
     //TODO DEVSIX-5137 support margin collapse
     public class AlignItemsBaselineOverflowNonVisibleTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {

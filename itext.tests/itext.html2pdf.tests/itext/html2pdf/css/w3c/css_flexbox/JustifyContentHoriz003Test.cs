@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5040 support justify-content
+    //TODO DEVSIX-5163 support more complex justify-content values
     //TODO DEVSIX-5137 support margin collapse
     public class JustifyContentHoriz003Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {

@@ -122,6 +122,45 @@ namespace iText.Html2pdf.Css.Apply.Util {
             FlexApplierUtil.ApplyFlexItemProperties(cssProps, context, element);
             NUnit.Framework.Assert.AreEqual(UnitValue.CreatePointValue(20.45f), element.GetProperty<UnitValue>(Property
                 .FLEX_BASIS));
+            NUnit.Framework.Assert.AreEqual(UnitValue.CreatePointValue(20.45f), element.GetProperty<UnitValue>(Property
+                .FLEX_BASIS));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ApplyAlignItemsTest() {
+            String[] alignItemsStrings = new String[] { CssConstants.START, CssConstants.END, CssConstants.CENTER, CssConstants
+                .FLEX_START, CssConstants.FLEX_END, CssConstants.SELF_START, CssConstants.SELF_END, CssConstants.BASELINE
+                , CssConstants.STRETCH, CssConstants.NORMAL };
+            AlignmentPropertyValue[] alignItemsValues = new AlignmentPropertyValue[] { AlignmentPropertyValue.START, AlignmentPropertyValue
+                .END, AlignmentPropertyValue.CENTER, AlignmentPropertyValue.FLEX_START, AlignmentPropertyValue.FLEX_END
+                , AlignmentPropertyValue.SELF_START, AlignmentPropertyValue.SELF_END, AlignmentPropertyValue.BASELINE, 
+                AlignmentPropertyValue.STRETCH, AlignmentPropertyValue.NORMAL };
+            for (int i = 0; i < alignItemsStrings.Length; ++i) {
+                IDictionary<String, String> cssProps = new Dictionary<String, String>();
+                cssProps.Put(CssConstants.ALIGN_ITEMS, alignItemsStrings[i]);
+                IElement element = new Div();
+                FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element);
+                NUnit.Framework.Assert.AreEqual(alignItemsValues[i], (AlignmentPropertyValue)element.GetProperty<AlignmentPropertyValue?
+                    >(Property.ALIGN_ITEMS));
+            }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ApplyJustifyContentTest() {
+            String[] justifyContentStrings = new String[] { CssConstants.START, CssConstants.END, CssConstants.CENTER, 
+                CssConstants.FLEX_START, CssConstants.FLEX_END, CssConstants.SELF_START, CssConstants.SELF_END, CssConstants
+                .LEFT, CssConstants.RIGHT, CssConstants.NORMAL };
+            JustifyContent[] justifyContentValues = new JustifyContent[] { JustifyContent.START, JustifyContent.END, JustifyContent
+                .CENTER, JustifyContent.FLEX_START, JustifyContent.FLEX_END, JustifyContent.SELF_START, JustifyContent
+                .SELF_END, JustifyContent.LEFT, JustifyContent.RIGHT, JustifyContent.NORMAL };
+            for (int i = 0; i < justifyContentStrings.Length; ++i) {
+                IDictionary<String, String> cssProps = new Dictionary<String, String>();
+                cssProps.Put(CssConstants.JUSTIFY_CONTENT, justifyContentStrings[i]);
+                IElement element = new Div();
+                FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element);
+                NUnit.Framework.Assert.AreEqual(justifyContentValues[i], (JustifyContent)element.GetProperty<JustifyContent?
+                    >(Property.JUSTIFY_CONTENT));
+            }
         }
     }
 }

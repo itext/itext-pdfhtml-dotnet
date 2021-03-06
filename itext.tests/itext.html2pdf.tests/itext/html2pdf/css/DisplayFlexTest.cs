@@ -338,6 +338,26 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void FlexJustifyContentAlignItemsFlexStartTest() {
+            ConvertToPdfAndCompare("flexJustifyContentAlignItemsFlexStart", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexJustifyContentAlignItemsFlexEndTest() {
+            ConvertToPdfAndCompare("flexJustifyContentAlignItemsFlexEnd", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexJustifyContentAlignItemsCenterTest() {
+            ConvertToPdfAndCompare("flexJustifyContentAlignItemsCenter", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexAlignItemsStretchTest() {
+            ConvertToPdfAndCompare("flexAlignItemsStretch", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void CheckboxTest() {
             // TODO DEVSIX-5137	flex: support margin collapse
             ConvertToPdfAndCompare("checkbox", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -345,31 +365,26 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void FlexItemHeightTest() {
-            // TODO DEVSIX-5040 change cmp after finishing this ticket
             ConvertToPdfAndCompare("flexItemHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void FlexItemContentTest() {
-            //TODO DEVSIX-5149 Fix indent in element nested to the flex item
             ConvertToPdfAndCompare("flexItemContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void FlexItemMinWidthTest() {
-            //TODO DEVSIX-5150 Fix processing of min-width at flex item element
             ConvertToPdfAndCompare("flexItemMinWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void FlexItemEmptyTest() {
-            //TODO DEVSIX-5155 Fix processing of empty flex item
             ConvertToPdfAndCompare("flexItemEmpty", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void FlexItemEmptyFlexBasisTest() {
-            //TODO DEVSIX-5155 Fix processing of empty flex item
             ConvertToPdfAndCompare("flexItemEmptyFlexBasis", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
