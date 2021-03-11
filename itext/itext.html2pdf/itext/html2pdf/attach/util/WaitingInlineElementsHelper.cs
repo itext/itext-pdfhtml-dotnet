@@ -49,6 +49,7 @@ using iText.Html2pdf.Css.Apply.Util;
 using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Renderer;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Util;
 
@@ -171,10 +172,10 @@ namespace iText.Html2pdf.Attach.Util {
                         }
                     }
                     else {
-                        if (container is FlexContainer) {
+                        if (((IElement)container).GetRenderer() is FlexContainerRenderer) {
                             Div div = new Div();
                             div.Add(p);
-                            ((FlexContainer)container).Add(div);
+                            ((Div)container).Add(div);
                         }
                         else {
                             if (container is Div) {

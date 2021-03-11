@@ -48,6 +48,7 @@ using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Renderer;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
@@ -59,7 +60,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     public class DisplayFlexTagWorker : ITagWorker, IDisplayAware {
         private static readonly Regex ANY_SYMBOL_PATTERN;
 
-        private readonly FlexContainer flexContainer;
+        private readonly Div flexContainer;
 
         private readonly WaitingInlineElementsHelper inlineHelper;
 
@@ -74,7 +75,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element with defined styles</param>
         /// <param name="context">the context of the converter processor</param>
         public DisplayFlexTagWorker(IElementNode element, ProcessorContext context) {
-            flexContainer = new FlexContainer();
+            flexContainer = new Div();
+            flexContainer.SetNextRenderer(new FlexContainerRenderer(flexContainer));
             IDictionary<String, String> styles = element.GetStyles();
             inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.Get(CssConstants.WHITE_SPACE
                 ), styles == null ? null : styles.Get(CssConstants.TEXT_TRANSFORM));

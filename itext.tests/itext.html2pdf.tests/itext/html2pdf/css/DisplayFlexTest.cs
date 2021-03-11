@@ -28,6 +28,7 @@ using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Css {
     public class DisplayFlexTest : ExtendedHtmlConversionITextTest {
@@ -49,8 +50,8 @@ namespace iText.Html2pdf.Css {
             String name = "displayFlexCommon";
             IList<IElement> elements = ConvertToElements(name);
             IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer is FlexContainer);
-            IList<IElement> flexContainerChildren = ((FlexContainer)flexContainer).GetChildren();
+            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
+            IList<IElement> flexContainerChildren = ((Div)flexContainer).GetChildren();
             NUnit.Framework.Assert.AreEqual(11, flexContainerChildren.Count);
             IElement element0 = flexContainerChildren[0];
             AssertDiv(element0, "block");
@@ -98,9 +99,9 @@ namespace iText.Html2pdf.Css {
                 elements = HtmlConverter.ConvertToElements(fileInputStream, converterProperties);
             }
             IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer is FlexContainer);
-            NUnit.Framework.Assert.AreEqual(1, ((FlexContainer)flexContainer).GetChildren().Count);
-            IElement element = ((FlexContainer)flexContainer).GetChildren()[0];
+            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
+            NUnit.Framework.Assert.AreEqual(1, ((Div)flexContainer).GetChildren().Count);
+            IElement element = ((Div)flexContainer).GetChildren()[0];
             NUnit.Framework.Assert.IsTrue(element is Div);
             NUnit.Framework.Assert.AreEqual(3, ((Div)element).GetChildren().Count);
             NUnit.Framework.Assert.IsTrue(((Div)element).GetChildren()[0] is Paragraph);
@@ -118,9 +119,9 @@ namespace iText.Html2pdf.Css {
                 elements = HtmlConverter.ConvertToElements(fileInputStream, converterProperties);
             }
             IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer is FlexContainer);
-            NUnit.Framework.Assert.AreEqual(1, ((FlexContainer)flexContainer).GetChildren().Count);
-            IElement element = ((FlexContainer)flexContainer).GetChildren()[0];
+            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
+            NUnit.Framework.Assert.AreEqual(1, ((Div)flexContainer).GetChildren().Count);
+            IElement element = ((Div)flexContainer).GetChildren()[0];
             AssertDiv(element, "\u200Dthe best   world");
         }
 
@@ -134,10 +135,10 @@ namespace iText.Html2pdf.Css {
                 elements = HtmlConverter.ConvertToElements(fileInputStream, converterProperties);
             }
             IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer is FlexContainer);
-            NUnit.Framework.Assert.AreEqual(2, ((FlexContainer)flexContainer).GetChildren().Count);
-            NUnit.Framework.Assert.IsTrue(((FlexContainer)flexContainer).GetChildren()[0] is Div);
-            IElement element = ((FlexContainer)flexContainer).GetChildren()[1];
+            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
+            NUnit.Framework.Assert.AreEqual(2, ((Div)flexContainer).GetChildren().Count);
+            NUnit.Framework.Assert.IsTrue(((Div)flexContainer).GetChildren()[0] is Div);
+            IElement element = ((Div)flexContainer).GetChildren()[1];
             AssertDiv(element, "anonymous block");
         }
 
@@ -151,9 +152,9 @@ namespace iText.Html2pdf.Css {
                 elements = HtmlConverter.ConvertToElements(fileInputStream, converterProperties);
             }
             IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer is FlexContainer);
-            NUnit.Framework.Assert.AreEqual(1, ((FlexContainer)flexContainer).GetChildren().Count);
-            IElement element = ((FlexContainer)flexContainer).GetChildren()[0];
+            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
+            NUnit.Framework.Assert.AreEqual(1, ((Div)flexContainer).GetChildren().Count);
+            IElement element = ((Div)flexContainer).GetChildren()[0];
             AssertDiv(element, "hello");
         }
 
@@ -168,7 +169,7 @@ namespace iText.Html2pdf.Css {
                 elements = HtmlConverter.ConvertToElements(fileInputStream, converterProperties);
             }
             IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer is FlexContainer);
+            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
             NUnit.Framework.Assert.IsFalse(flexContainer.HasProperty(Property.FLEX_WRAP));
         }
 
@@ -183,7 +184,7 @@ namespace iText.Html2pdf.Css {
                 elements = HtmlConverter.ConvertToElements(fileInputStream, converterProperties);
             }
             IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer is FlexContainer);
+            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
             NUnit.Framework.Assert.IsFalse(flexContainer.HasProperty(Property.FLOAT));
             NUnit.Framework.Assert.IsFalse(flexContainer.HasProperty(Property.CLEAR));
         }
@@ -199,7 +200,7 @@ namespace iText.Html2pdf.Css {
                 elements = HtmlConverter.ConvertToElements(fileInputStream, converterProperties);
             }
             IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer is FlexContainer);
+            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
             NUnit.Framework.Assert.IsFalse(flexContainer.HasProperty(Property.OVERFLOW_X));
             NUnit.Framework.Assert.IsFalse(flexContainer.HasProperty(Property.OVERFLOW_Y));
         }
@@ -214,7 +215,7 @@ namespace iText.Html2pdf.Css {
                 elements = HtmlConverter.ConvertToElements(fileInputStream, converterProperties);
             }
             IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer is FlexContainer);
+            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
             NUnit.Framework.Assert.IsTrue(flexContainer.HasProperty(Property.COLLAPSING_MARGINS));
         }
 
@@ -228,12 +229,10 @@ namespace iText.Html2pdf.Css {
                 elements = HtmlConverter.ConvertToElements(fileInputStream, converterProperties);
             }
             IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer is FlexContainer);
-            NUnit.Framework.Assert.AreEqual(1, ((FlexContainer)flexContainer).GetChildren().Count);
-            NUnit.Framework.Assert.IsTrue(((FlexContainer)flexContainer).GetChildren()[0].HasProperty(Property.OVERFLOW_X
-                ));
-            NUnit.Framework.Assert.IsTrue(((FlexContainer)flexContainer).GetChildren()[0].HasProperty(Property.OVERFLOW_Y
-                ));
+            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
+            NUnit.Framework.Assert.AreEqual(1, ((Div)flexContainer).GetChildren().Count);
+            NUnit.Framework.Assert.IsTrue(((Div)flexContainer).GetChildren()[0].HasProperty(Property.OVERFLOW_X));
+            NUnit.Framework.Assert.IsTrue(((Div)flexContainer).GetChildren()[0].HasProperty(Property.OVERFLOW_Y));
         }
 
         [NUnit.Framework.Test]
@@ -246,7 +245,7 @@ namespace iText.Html2pdf.Css {
                 elements = HtmlConverter.ConvertToElements(fileInputStream, converterProperties);
             }
             IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer is FlexContainer);
+            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
         }
 
         [NUnit.Framework.Test]
@@ -254,7 +253,7 @@ namespace iText.Html2pdf.Css {
             //TODO DEVSIX-5087 remove this test when working on the ticket
             IList<IElement> elements = ConvertToElements("tempDisableProperties");
             NUnit.Framework.Assert.AreEqual(1, elements.Count);
-            NUnit.Framework.Assert.IsTrue(elements[0] is FlexContainer);
+            NUnit.Framework.Assert.IsTrue(elements[0].GetRenderer() is FlexContainerRenderer);
             NUnit.Framework.Assert.IsFalse(elements[0].HasProperty(Property.OVERFLOW_X));
             NUnit.Framework.Assert.IsFalse(elements[0].HasProperty(Property.OVERFLOW_Y));
             NUnit.Framework.Assert.IsFalse(elements[0].HasProperty(Property.FLOAT));
@@ -266,7 +265,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void DisableFlexItemPropertiesTest() {
             IList<IElement> elements = ConvertToElements("disableFlexItemProperties");
-            IElement flexItem = ((FlexContainer)elements[0]).GetChildren()[0];
+            IElement flexItem = ((Div)elements[0]).GetChildren()[0];
             NUnit.Framework.Assert.IsFalse(flexItem.HasProperty(Property.FLOAT));
             NUnit.Framework.Assert.IsFalse(flexItem.HasProperty(Property.CLEAR));
             NUnit.Framework.Assert.IsFalse(flexItem.HasProperty(Property.VERTICAL_ALIGNMENT));
@@ -282,9 +281,9 @@ namespace iText.Html2pdf.Css {
                 elements = HtmlConverter.ConvertToElements(fileInputStream, converterProperties);
             }
             IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer is FlexContainer);
-            NUnit.Framework.Assert.AreEqual(1, ((FlexContainer)flexContainer).GetChildren().Count);
-            IElement flexItem = ((FlexContainer)flexContainer).GetChildren()[0];
+            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
+            NUnit.Framework.Assert.AreEqual(1, ((Div)flexContainer).GetChildren().Count);
+            IElement flexItem = ((Div)flexContainer).GetChildren()[0];
             float? flexGrow = flexItem.GetProperty<float?>(Property.FLEX_GROW);
             float? flexShrink = flexItem.GetProperty<float?>(Property.FLEX_SHRINK);
             NUnit.Framework.Assert.AreEqual(2f, (float)flexGrow, EPS);
