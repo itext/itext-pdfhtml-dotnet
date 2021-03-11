@@ -388,6 +388,26 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("flexItemEmptyFlexBasis", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
+        [NUnit.Framework.Test]
+        public virtual void FlexItemsContentHeightBiggerThanContainersTest() {
+            ConvertToPdfAndCompare("flexItemsContentHeightBiggerThanContainers", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexItemsOccupyByWidthMoreThanContainerTest() {
+            ConvertToPdfAndCompare("flexItemsOccupyByWidthMoreThanContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexEndOnFlexItemResultsInTopBeingOverflownTest() {
+            ConvertToPdfAndCompare("flexEndOnFlexItemResultsInTopBeingOverflown", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ParagraphAndDivItemsOverflowBottomTest() {
+            ConvertToPdfAndCompare("paragraphAndDivItemsOverflowBottom", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
         private static void AssertDiv(IElement element, String text) {
             NUnit.Framework.Assert.IsTrue(element is Div);
             NUnit.Framework.Assert.AreEqual(1, ((Div)element).GetChildren().Count);

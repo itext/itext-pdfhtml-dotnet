@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5098 container area shall not stretch vertically
     //TODO DEVSIX-5137 support margin collapse
     public class OverflowHoriz001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
