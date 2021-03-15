@@ -161,11 +161,10 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        public virtual void LtWidthGrow0Shrink1Item2MarginBorderPadding30JustifyContentFlexStartAndNotValidAlignItemsFlexStartAndNotValidTest01
-            () {
+        public virtual void LtWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest() {
             //TODO DEVSIX-5086 Support flex-wrap property
-            ConvertToPdfAndCompare("ltWidthGrow0Shrink1Item2MarginBorderPadding30JustifyContentFlexStartAndNotValidAlignItemsFlexStartAndNotValidTest01"
-                , SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
         }
 
         [NUnit.Framework.Test]
