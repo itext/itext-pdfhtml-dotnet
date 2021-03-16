@@ -68,6 +68,14 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void Test02() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest02.html"), new FileInfo(destinationFolder
+                 + "hyphenateTest02.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hyphenateTest02.pdf"
+                , sourceFolder + "cmp_hyphenateTest02.pdf", destinationFolder, "diff01_"));
+        }
+
+        [NUnit.Framework.Test]
         public virtual void Test03() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest03.html"), new FileInfo(destinationFolder
                  + "hyphenateTest03.pdf"));

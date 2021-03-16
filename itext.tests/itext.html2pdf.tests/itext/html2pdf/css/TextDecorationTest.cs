@@ -162,5 +162,20 @@ namespace iText.Html2pdf.Css {
             // TODO DEVSIX-4719 replace cmp files once the issue is fixed
             ConvertToPdfAndCompare("textDecorationColorEffectOnNestedElements03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationNoneOnNestedElementsTest() {
+            ConvertToPdfAndCompare("textDecorationNoneOnNestedElements", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationWithDisplayInlineBlockTest() {
+            ConvertToPdfAndCompare("textDecorationWithDisplayInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationInNodeStyleAttributeVsStyleTest() {
+            ConvertToPdfAndCompare("textDecorationInNodeStyleAttributeVsStyle", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
     }
 }

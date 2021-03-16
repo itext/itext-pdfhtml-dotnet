@@ -63,6 +63,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void AlignAttribute02() {
+            ConvertToPdfAndCompare("alignAttribute02", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void AlignAttribute03() {
             ConvertToPdfAndCompare("alignAttribute03", sourceFolder, destinationFolder);
         }
@@ -81,6 +86,11 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void MarginsAutoInlines() {
             ConvertToPdfAndCompare("marginsAutoInlines", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MarginsAutoImagesTest() {
+            ConvertToPdfAndCompare("marginsAutoImages", sourceFolder, destinationFolder);
         }
     }
 }
