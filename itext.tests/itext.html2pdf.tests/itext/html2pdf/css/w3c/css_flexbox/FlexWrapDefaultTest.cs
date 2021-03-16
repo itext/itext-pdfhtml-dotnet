@@ -25,7 +25,6 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5137 support margin collapse
-    //TODO DEVSIX-5040 empty divs are not stretched by default
     public class FlexWrapDefaultTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-wrap-default.htm";
