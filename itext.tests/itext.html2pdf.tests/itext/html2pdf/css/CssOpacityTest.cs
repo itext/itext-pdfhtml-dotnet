@@ -66,5 +66,40 @@ namespace iText.Html2pdf.Css {
         public virtual void NestedInSpanTest() {
             ConvertToPdfAndCompare("nestedInSpanTest", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void SpanOpacityTest() {
+            ConvertToPdfAndCompare("spanOpacity", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageOpacityTest() {
+            ConvertToPdfAndCompare("imageOpacity", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void POpacityTest() {
+            ConvertToPdfAndCompare("pOpacity", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DivOpacityTest() {
+            ConvertToPdfAndCompare("divOpacity", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableOpacityTest() {
+            ConvertToPdfAndCompare("tableOpacity", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void OpacityInListsTest() {
+            ConvertToPdfAndCompare("opacityInLists", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InnerDivOpacityTest() {
+            ConvertToPdfAndCompare("innerDivOpacity", sourceFolder, destinationFolder);
+        }
     }
 }
