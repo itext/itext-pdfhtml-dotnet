@@ -54,15 +54,15 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        public virtual void DifferentBasisGrow1Shrink0MarginBorderPaddingOnContainerTest01() {
-            ConvertToPdfAndCompare("differentBasisGrow1Shrink0MarginBorderPaddingOnContainerTest01", SOURCE_FOLDER, DESTINATION_FOLDER
+        public virtual void DifferentBasisGrow1Shrink0MBPOnContainerTest01() {
+            ConvertToPdfAndCompare("differentBasisGrow1Shrink0MBPOnContainerTest01", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        public virtual void DifferentBasisGrow1Shrink0MarginBorderPaddingOnContainerNoWidthTest01() {
-            ConvertToPdfAndCompare("differentBasisGrow1Shrink0MarginBorderPaddingOnContainerNoWidthTest01", SOURCE_FOLDER
-                , DESTINATION_FOLDER);
+        public virtual void DifferentBasisGrow1Shrink0MBPOnContainerNoWidthTest01() {
+            ConvertToPdfAndCompare("differentBasisGrow1Shrink0MBPOnContainerNoWidthTest01", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
         }
 
         [NUnit.Framework.Test]
@@ -126,38 +126,35 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        public virtual void DifferentBasisSumLtWidthGrow1Shrink0Item2MarginBorderPadding30Test01() {
-            ConvertToPdfAndCompare("differentBasisSumLtWidthGrow1Shrink0Item2MarginBorderPadding30Test01", SOURCE_FOLDER
-                , DESTINATION_FOLDER);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void DifferentBasisSumLtWidthGrow1Shrink1Item2MarginBorderPadding30Test01() {
-            ConvertToPdfAndCompare("differentBasisSumLtWidthGrow1Shrink1Item2MarginBorderPadding30Test01", SOURCE_FOLDER
-                , DESTINATION_FOLDER);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void LtWidthGrow0Shrink1Item2MarginBorderPadding30Test01() {
-            //TODO DEVSIX-5086 Support flex-wrap property
-            ConvertToPdfAndCompare("ltWidthGrow0Shrink1Item2MarginBorderPadding30Test01", SOURCE_FOLDER, DESTINATION_FOLDER
+        public virtual void DifferentBasisSumLtWidthGrow1Shrink0Item2MBP30Test01() {
+            ConvertToPdfAndCompare("differentBasisSumLtWidthGrow1Shrink0Item2MBP30Test01", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        public virtual void LtWidthGrow0Shrink1Item2MarginBorderPadding30JustifyContentCenterAlignItemsCenterTest01
-            () {
-            //TODO DEVSIX-5086 Support flex-wrap property
-            ConvertToPdfAndCompare("ltWidthGrow0Shrink1Item2MarginBorderPadding30JustifyContentCenterAlignItemsCenterTest01"
-                , SOURCE_FOLDER, DESTINATION_FOLDER);
+        public virtual void DifferentBasisSumLtWidthGrow1Shrink1Item2MBP30Test01() {
+            ConvertToPdfAndCompare("differentBasisSumLtWidthGrow1Shrink1Item2MBP30Test01", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
         }
 
         [NUnit.Framework.Test]
-        public virtual void LtWidthGrow0Shrink1Item2MarginBorderPadding30JustifyContentFlexEndAlignItemsFlexEndTest01
-            () {
+        public virtual void LtWidthGrow0Shrink1Item2MBP30Test01() {
             //TODO DEVSIX-5086 Support flex-wrap property
-            ConvertToPdfAndCompare("ltWidthGrow0Shrink1Item2MarginBorderPadding30JustifyContentFlexEndAlignItemsFlexEndTest01"
-                , SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30Test01", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LtWidthGrow0Shrink1Item2MBP30JustifyContentCenterAlignItemsCenterTest01() {
+            //TODO DEVSIX-5086 Support flex-wrap property
+            ConvertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentCenterAlignItemsCenterTest01", SOURCE_FOLDER
+                , DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LtWidthGrow0Shrink1Item2MBP30JustifyContentFlexEndAlignItemsFlexEndTest01() {
+            //TODO DEVSIX-5086 Support flex-wrap property
+            ConvertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexEndAlignItemsFlexEndTest01", SOURCE_FOLDER
+                , DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
@@ -168,17 +165,16 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        public virtual void LtWidthGrow0Shrink1Item2MarginBorderPadding30AlignItemsStretchAndNormalTest01() {
+        public virtual void LtWidthGrow0Shrink1Item2MBP30AlignItemsStretchAndNormalTest() {
             //TODO DEVSIX-5086 Support flex-wrap property
-            ConvertToPdfAndCompare("ltWidthGrow0Shrink1Item2MarginBorderPadding30AlignItemsStretchAndNormalTest01", SOURCE_FOLDER
-                , DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30AlignItemsStretchAndNormal", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
         }
 
         [NUnit.Framework.Test]
-        public virtual void LtWidthGrow0Shrink0Item2MarginBorderPadding30JustifyContentCenterAlignItemsCenterDontFitTest01
-            () {
-            ConvertToPdfAndCompare("ltWidthGrow0Shrink0Item2MarginBorderPadding30JustifyContentCenterAlignItemsCenterDontFitTest01"
-                , SOURCE_FOLDER, DESTINATION_FOLDER);
+        public virtual void LtWidthGrow0Shrink0Item2MBP30JustifyContentCenterAlignItemsCenterDontFitTest() {
+            ConvertToPdfAndCompare("ltWidthGrow0Shrink0Item2MBP30JustifyContentCenterAlignItemsCenterDontFit", SOURCE_FOLDER
+                , DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
