@@ -25,8 +25,6 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     // TODO DEVSIX-5137 support margin collapse
-    // TODO DEVSIX-5178 max-height (on the outer container) is handled incorrectly, thus flex-end
-    // is not respected
     public class DefiniteSizes003Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-definite-sizes-003.html";
