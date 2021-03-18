@@ -174,6 +174,7 @@ namespace iText.Html2pdf.Attach.Util {
                     else {
                         if (((IElement)container).GetRenderer() is FlexContainerRenderer) {
                             Div div = new Div();
+                            OverflowApplierUtil.ApplyOverflow(map, div);
                             div.Add(p);
                             ((Div)container).Add(div);
                         }
