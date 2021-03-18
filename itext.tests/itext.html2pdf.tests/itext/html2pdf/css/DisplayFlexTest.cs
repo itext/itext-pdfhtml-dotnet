@@ -407,6 +407,11 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("paragraphAndDivItemsOverflowBottom", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
+        [NUnit.Framework.Test]
+        public virtual void SmallHeightAndBigMaxHeightOnContainerTest() {
+            ConvertToPdfAndCompare("smallHeightAndBigMaxHeightOnContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
         private static void AssertDiv(IElement element, String text) {
             NUnit.Framework.Assert.IsTrue(element is Div);
             NUnit.Framework.Assert.AreEqual(1, ((Div)element).GetChildren().Count);
