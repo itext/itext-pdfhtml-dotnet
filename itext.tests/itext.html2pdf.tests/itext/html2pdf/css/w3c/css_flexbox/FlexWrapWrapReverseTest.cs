@@ -28,7 +28,6 @@ namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 54)]
     public class FlexWrapWrapReverseTest : W3CCssTest {
         //TODO DEVSIX-5086 Support flex-wrap property
-        //TODO DEVSIX-5137 support margin collapse
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-wrap-wrap-reverse.htm";
         }

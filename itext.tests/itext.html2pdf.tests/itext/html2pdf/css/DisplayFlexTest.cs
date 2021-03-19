@@ -29,6 +29,7 @@ using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class DisplayFlexTest : ExtendedHtmlConversionITextTest {
@@ -258,8 +259,6 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsFalse(elements[0].HasProperty(Property.OVERFLOW_Y));
             NUnit.Framework.Assert.IsFalse(elements[0].HasProperty(Property.FLOAT));
             NUnit.Framework.Assert.IsFalse(elements[0].HasProperty(Property.CLEAR));
-            NUnit.Framework.Assert.IsTrue(elements[0].HasProperty(Property.COLLAPSING_MARGINS));
-            NUnit.Framework.Assert.IsNull(elements[0].GetProperty<Object>(Property.COLLAPSING_MARGINS));
         }
 
         [NUnit.Framework.Test]
@@ -294,7 +293,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void FlexGrowTest() {
-            // TODO DEVSIX-5137	flex: support margin collapse
             String name = "flexGrow";
             ConvertToPdfAndCompare(name, SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -327,7 +325,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void FlexContainerHeightTest() {
-            // TODO DEVSIX-5135 flex item with nested floating element processed incorrectly
             ConvertToPdfAndCompare("flexContainerHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -358,7 +355,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void CheckboxTest() {
-            // TODO DEVSIX-5137	flex: support margin collapse
             ConvertToPdfAndCompare("checkbox", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -416,6 +412,39 @@ namespace iText.Html2pdf.Css {
         public virtual void SmallHeightAndBigMaxHeightOnContainerAnonymousFlexItemTest() {
             ConvertToPdfAndCompare("smallHeightAndBigMaxHeightOnContainerAnonymousFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MarginsCollapseFlexContainerAndFlexItemStretchTest() {
+            ConvertToPdfAndCompare("marginsCollapseFlexContainerAndFlexItemStretch", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MarginsCollapseFlexContainerAndSiblingsTest() {
+            ConvertToPdfAndCompare("marginsCollapseFlexContainerAndSiblings", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT)]
+        public virtual void MarginsCollapseFlexContainerAndParentTest() {
+            ConvertToPdfAndCompare("marginsCollapseFlexContainerAndParent", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MarginsCollapseInsideFlexContainerTest() {
+            ConvertToPdfAndCompare("marginsCollapseInsideFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MarginsCollapseFlexContainerAndItsChildTest() {
+            ConvertToPdfAndCompare("marginsCollapseFlexContainerAndItsChild", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MarginsCollapseInsideFlexItemTest() {
+            // TODO DEVSIX-5196 Support collapsing margins for flex item's children
+            ConvertToPdfAndCompare("marginsCollapseInsideFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         private static void AssertDiv(IElement element, String text) {

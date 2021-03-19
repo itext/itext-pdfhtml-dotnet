@@ -27,7 +27,6 @@ namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     // TODO DEVSIX-5003 support case when flex-direction is vertical
     //TODO DEVSIX-5163 support more complex justify-content values
     //TODO DEVSIX-5087 Support floating for FlexContainerRenderer
-    //TODO DEVSIX-5137 support margin collapse
     public class JustifyContentVert006Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-justify-content-vert-006.xhtml";

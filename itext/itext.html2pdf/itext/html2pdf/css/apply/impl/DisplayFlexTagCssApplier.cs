@@ -59,7 +59,6 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             if (container != null) {
                 FlexApplierUtil.ApplyFlexContainerProperties(stylesContainer.GetStyles(), container);
                 //TODO DEVSIX-5087 remove these lines when working on a ticket
-                container.SetProperty(Property.COLLAPSING_MARGINS, null);
                 container.DeleteOwnProperty(Property.FLOAT);
                 container.DeleteOwnProperty(Property.CLEAR);
                 container.DeleteOwnProperty(Property.OVERFLOW_X);

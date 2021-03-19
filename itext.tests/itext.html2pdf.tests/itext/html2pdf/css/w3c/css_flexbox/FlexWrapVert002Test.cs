@@ -26,7 +26,6 @@ using iText.Html2pdf.Css.W3c;
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5086 Support flex-wrap property
     //TODO DEVSIX-5003 support case when flex-direction is vertical
-    //TODO DEVSIX-5137 support margin collapse
     //TODO DEVSIX-5087 Support floating for FlexContainerRenderer
     public class FlexWrapVert002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {

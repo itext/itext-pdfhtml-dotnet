@@ -25,7 +25,6 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     // TODO DEVSIX-5003 support case when flex-direction is vertical
-    //TODO DEVSIX-5137 support margin collapse
     public class FlexBasis010Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flex-basis-010.html";

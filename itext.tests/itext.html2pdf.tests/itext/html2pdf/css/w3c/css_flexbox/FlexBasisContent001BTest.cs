@@ -25,7 +25,6 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5163 support more complex justify-content values
-    //TODO DEVSIX-5137 support margin collapse
     public class FlexBasisContent001BTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-basis-content-001b.html";

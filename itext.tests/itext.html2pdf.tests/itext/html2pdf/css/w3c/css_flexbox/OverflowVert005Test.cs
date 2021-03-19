@@ -25,7 +25,6 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5087 support layout properties for FlexContainerRenderer
-    //TODO DEVSIX-5137 support margin collapse
     //TODO DEVSIX-5163 support more complex justify-content values
     //TODO DEVSIX-5003 support case when flex-direction is vertical
     //TODO DEVSIX-5086 support flex-wrap property

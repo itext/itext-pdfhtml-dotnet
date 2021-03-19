@@ -25,7 +25,6 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5096 support flex-direction: row-reverse
-    //TODO DEVSIX-5137 support margin collapse
     //TODO DEVSIX-5163 support more complex justify-content values
     //TODO DEVSIX-5087 Support floating for FlexContainerRenderer
     public class JustifyContentWmvert001Test : W3CCssTest {

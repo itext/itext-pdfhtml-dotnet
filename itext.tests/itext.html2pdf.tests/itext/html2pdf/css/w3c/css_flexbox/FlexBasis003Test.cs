@@ -27,7 +27,6 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
     public class FlexBasis003Test : W3CCssTest {
-        //TODO DEVSIX-5137 support margin collapse
         protected internal override String GetHtmlFileName() {
             return "flex-basis-003.html";
         }

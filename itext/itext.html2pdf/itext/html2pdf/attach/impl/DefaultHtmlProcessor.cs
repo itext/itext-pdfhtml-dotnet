@@ -162,10 +162,6 @@ namespace iText.Html2pdf.Attach.Impl {
             foreach (IPropertyContainer propertyContainer in bodyDiv.GetChildren()) {
                 if (propertyContainer is IElement) {
                     SetConvertedRootElementProperties(body.GetStyles(), context, propertyContainer);
-                    // TODO DEVSIX-5087 remove this when working on a ticket
-                    if (((IElement)propertyContainer).GetRenderer() is FlexContainerRenderer) {
-                        propertyContainer.SetProperty(Property.COLLAPSING_MARGINS, null);
-                    }
                     elements.Add((IElement)propertyContainer);
                 }
             }
