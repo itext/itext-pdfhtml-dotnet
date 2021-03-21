@@ -22,10 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5096 support flex-flow
     //TODO DEVSIX-5087 Support floating for flex containers
+    [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 33)]
     public class FlexFlow001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-flow-001.html";

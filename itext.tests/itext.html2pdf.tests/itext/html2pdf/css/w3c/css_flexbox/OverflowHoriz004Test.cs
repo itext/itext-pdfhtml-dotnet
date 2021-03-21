@@ -22,10 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5087 support layout properties for FlexContainerRenderer
     //TODO DEVSIX-5086 support flex-wrap property
+    [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
     public class OverflowHoriz004Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-overflow-horiz-004.html";

@@ -26,6 +26,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 54)]
+    [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
     public class FlexWrapWrapTest : W3CCssTest {
         //TODO DEVSIX-5086 Support flex-wrap property
         protected internal override String GetHtmlFileName() {

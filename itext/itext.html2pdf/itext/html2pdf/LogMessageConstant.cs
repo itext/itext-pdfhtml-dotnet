@@ -84,6 +84,9 @@ namespace iText.Html2pdf {
         public const String EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS = "Exceeded the maximum number of relayouts. "
              + "The resultant document may look not as expected. " + "Because of the content being dynamic iText performs several relayouts to produce correct document.";
 
+        /// <summary>The constant FLEX_PROPERTY_IS_NOT_SUPPORTED_YET.</summary>
+        public const String FLEX_PROPERTY_IS_NOT_SUPPORTED_YET = "Flex related property {0}: {1} is not supported yet.";
+
         /// <summary>The Constant INPUT_FIELD_DOES_NOT_FIT.</summary>
         public const String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
 

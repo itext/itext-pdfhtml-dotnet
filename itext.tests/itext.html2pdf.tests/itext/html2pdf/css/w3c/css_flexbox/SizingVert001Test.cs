@@ -22,10 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5096 support flex-direction: column
     //TODO DEVSIX-5135 Flex item with nested floating element processed incorrectly
+    [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 9)]
     public class SizingVert001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-sizing-vert-001.xhtml";

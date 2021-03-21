@@ -160,6 +160,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void FlexWrapTest() {
             //TODO DEVSIX-5086 change this test when working on the ticket
             String name = "flexWrap";

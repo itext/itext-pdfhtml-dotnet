@@ -22,11 +22,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5096 support flex-direction: column
     //TODO DEVSIX-5004 improve support of flex-items with intrinsic aspect ratio
     //TODO DEVSIX-5166 flex: Support aling-self property
+    [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
     public class FlexAspectRatioImgColumn002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flex-aspect-ratio-img-column-002.html";
