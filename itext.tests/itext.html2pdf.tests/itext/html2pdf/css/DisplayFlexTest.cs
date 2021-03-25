@@ -458,6 +458,12 @@ namespace iText.Html2pdf.Css {
                 ).GetText());
         }
 
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)]
+        public virtual void ResultOccupiedAreaNullSplitRenderersNotTest() {
+            ConvertToPdfAndCompare("resultOccupiedAreaNullSplitRenderersNot", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
         private static IList<IElement> ConvertToElements(String name) {
             String sourceHtml = SOURCE_FOLDER + name + ".html";
             ConverterProperties converterProperties = new ConverterProperties().SetBaseUri(SOURCE_FOLDER);
