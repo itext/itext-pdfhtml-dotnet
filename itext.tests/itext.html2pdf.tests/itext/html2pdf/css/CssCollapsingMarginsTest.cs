@@ -344,6 +344,21 @@ namespace iText.Html2pdf.Css {
             Test("collapsingMarginsFloatTest09.html", "collapsingMarginsFloatTest09.pdf", "diff_");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void CollapsingMarginsImageTest() {
+            Test("collapsingMarginsImage.html", "collapsingMarginsImage.pdf", "diff_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CollapsingMarginsImgInNestedDivsTest() {
+            Test("collapsingMarginsImgInNestedDivs.html", "collapsingMarginsImgInNestedDivs.pdf", "diff_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SelfCollapsingWithImageTest() {
+            Test("selfCollapsingWithImage.html", "selfCollapsingWithImage.pdf", "diff_");
+        }
+
         private void Test(String @in, String @out, String diff) {
             String outPdf = destinationFolder + @out;
             String cmpPdf = sourceFolder + "cmp_" + @out;
