@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -158,11 +158,14 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.A, CssConstants.INLINE_BLOCK, typeof(ABlockTagWorker));
             workerMapping.PutMapping(TagConstants.A, CssConstants.TABLE_CELL, typeof(ABlockTagWorker));
             workerMapping.PutMapping(TagConstants.LABEL, CssConstants.BLOCK, typeof(DivTagWorker));
+            workerMapping.PutMapping(TagConstants.LABEL, CssConstants.INLINE_BLOCK, typeof(DivTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.TABLE, typeof(DisplayTableTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_ROW, typeof(DisplayTableRowTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.INLINE, typeof(SpanTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.INLINE_TABLE, typeof(DisplayTableTagWorker));
             workerMapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_CELL, typeof(TdTagWorker));
+            workerMapping.PutMapping(TagConstants.DIV, CssConstants.FLEX, typeof(DisplayFlexTagWorker));
+            workerMapping.PutMapping(TagConstants.SPAN, CssConstants.FLEX, typeof(DisplayFlexTagWorker));
             // pseudo elements mapping
             String beforePseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.BEFORE);
             String afterPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.AFTER);

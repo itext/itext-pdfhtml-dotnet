@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -68,6 +68,32 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void TextAlignJustifyTest() {
+            ConvertToPdfAndCompare("textAlignJustifyTest", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void JustifiedTextWithCharSpacingTest() {
+            ConvertToPdfAndCompare("justifiedTextWithCharSpacingTest", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void JustifiedTextWithCharAndWordSpacingTest() {
+            ConvertToPdfAndCompare("justifiedTextWithCharAndWordSpacingTest", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void JustifiedTextWithCharPositiveAndWordSpacingNegativeTest() {
+            ConvertToPdfAndCompare("justifiedTextWithCharPositiveAndWordSpacingNegativeTest", sourceFolder, destinationFolder
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void JustifiedTextWithCharAndWordSpacingNegativeTest() {
+            ConvertToPdfAndCompare("justifiedTextWithCharAndWordSpacingNegativeTest", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         [LogMessage(iText.Html2pdf.LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED)]
         public virtual void TextDecorationTest01() {
             ConvertToPdfAndCompare("textDecorationTest01", sourceFolder, destinationFolder);
@@ -104,6 +130,11 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void LineHeightTest03() {
             ConvertToPdfAndCompare("lineHeightTest03", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LineHeightInHyperlinkTest() {
+            ConvertToPdfAndCompare("lineHeightInHyperlink", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]

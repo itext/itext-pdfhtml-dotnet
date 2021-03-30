@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -103,6 +103,56 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void Clear11Test() {
             ConvertToPdfAndCompare("clear11Test", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageFloatParagraphClearTest() {
+            ConvertToPdfAndCompare("imageFloatParagraphClear", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClearInTableWithImageTest() {
+            ConvertToPdfAndCompare("clearInTableWithImage", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgFloatAmongParaWithClearPropTest() {
+            ConvertToPdfAndCompare("imgFloatAmongParaWithClearProp", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgFloatAmongParaWithSpanTest() {
+            ConvertToPdfAndCompare("imgFloatAmongParaWithSpan", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ParaFloatLeftImgClearLeftTest() {
+            ConvertToPdfAndCompare("paraFloatLeftImgClearLeft", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ParaFloatImgClearAndDisplayBlockTest() {
+            ConvertToPdfAndCompare("paraFloatImgClearAndDisplayBlock", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ParaFloatImgWideBorderClearAndDisplayBlockTest() {
+            ConvertToPdfAndCompare("paraFloatImgWideBorderClearAndDisplayBlock", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgFloatWideBorderAmongParaWithClearTest() {
+            ConvertToPdfAndCompare("imgFloatWideBorderAmongParaWithClear", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgWideBorderFloatAmongParaWithSpanTest() {
+            ConvertToPdfAndCompare("imgWideBorderFloatAmongParaWithSpan", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImgWideBorderClearAndDisplayBlockParaFloatTest() {
+            ConvertToPdfAndCompare("imgWideBorderClearAndDisplayBlockParaFloat", sourceFolder, destinationFolder);
         }
     }
 }

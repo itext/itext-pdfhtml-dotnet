@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -65,6 +65,23 @@ namespace iText.Html2pdf.Element {
                  + "captionTest01.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "captionTest01.pdf", 
                 sourceFolder + "cmp_captionTest01.pdf", destinationFolder, "diff01_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FigCaption01Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "figCaption01.html"), new FileInfo(destinationFolder
+                 + "figCaption01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "figCaption01.pdf", sourceFolder
+                 + "cmp_figCaption01.pdf", destinationFolder, "diff01_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FigCaption02Test() {
+            // TODO DEVSIX-5010 Incorrect offset of Caption after generating PDF from HTML
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "figCaption02.html"), new FileInfo(destinationFolder
+                 + "figCaption02.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "figCaption02.pdf", sourceFolder
+                 + "cmp_figCaption02.pdf", destinationFolder, "diff02_"));
         }
     }
 }

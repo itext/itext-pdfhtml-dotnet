@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -63,6 +63,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void AlignAttribute02() {
+            ConvertToPdfAndCompare("alignAttribute02", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void AlignAttribute03() {
             ConvertToPdfAndCompare("alignAttribute03", sourceFolder, destinationFolder);
         }
@@ -81,6 +86,11 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void MarginsAutoInlines() {
             ConvertToPdfAndCompare("marginsAutoInlines", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MarginsAutoImagesTest() {
+            ConvertToPdfAndCompare("marginsAutoImages", sourceFolder, destinationFolder);
         }
     }
 }

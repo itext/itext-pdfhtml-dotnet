@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -52,7 +52,7 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    /// <summary>This handler draws backgrounds and borders for html, body and @page styles.</summary>
+    /// <summary>This handler draws backgrounds and borders for html, body and page-annotation styles.</summary>
     internal class HtmlBodyStylesApplierHandler : IEventHandler {
         private readonly HtmlDocumentRenderer htmlDocumentRenderer;
 

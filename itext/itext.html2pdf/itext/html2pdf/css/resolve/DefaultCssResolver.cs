@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -160,6 +160,13 @@ namespace iText.Html2pdf.Css.Resolve {
                     foreach (KeyValuePair<String, String> entry in parentStyles) {
                         elementStyles = StyleUtil.MergeParentStyleDeclaration(elementStyles, entry.Key, entry.Value, parentStyles.
                             Get(CommonCssConstants.FONT_SIZE), inheritanceRules);
+                        // If the parent has display: flex, the flex item is blockified
+                        // no matter what display value is set for it.
+                        // See CSS Flexible Box Layout Module Level 1,
+                        // W3C Candidate Recommendation, 19 November 2018: 4. Flex Items.
+                        if (IsFlexItem(entry, elementStyles.Get(CssConstants.DISPLAY))) {
+                            elementStyles.Put(CssConstants.DISPLAY, CssConstants.BLOCK);
+                        }
                     }
                     parentFontSizeStr = parentStyles.Get(CssConstants.FONT_SIZE);
                 }
@@ -296,6 +303,11 @@ namespace iText.Html2pdf.Css.Resolve {
             }
             EnablePagesCounterIfMentioned(cssStyleSheet, cssContext);
             EnableNonPageTargetCounterIfMentioned(cssStyleSheet, cssContext);
+        }
+
+        private static bool IsFlexItem(KeyValuePair<String, String> parentEntry, String currentElementDisplay) {
+            return CssConstants.DISPLAY.Equals(parentEntry.Key) && CssConstants.FLEX.Equals(parentEntry.Value) && !CssConstants
+                .FLEX.Equals(currentElementDisplay);
         }
 
         /// <summary>Check if a non-page(s) target-counter(s) is mentioned and enables it.</summary>

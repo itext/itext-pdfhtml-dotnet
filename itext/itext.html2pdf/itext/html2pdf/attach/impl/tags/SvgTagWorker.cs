@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -59,6 +59,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// element.
     /// </summary>
     public class SvgTagWorker : ITagWorker {
+        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.SvgTagWorker
+            ));
+
         private Image svgImage;
 
         private ISvgProcessorResult processingResult;
@@ -72,15 +75,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public SvgTagWorker(IElementNode element, ProcessorContext context) {
             svgImage = null;
+            SvgConverterProperties props = ContextMappingHelper.MapToSvgConverterProperties(context);
             try {
-                SvgConverterProperties props = ContextMappingHelper.MapToSvgConverterProperties(context);
                 processingResult = new DefaultSvgProcessor().Process((INode)element, props);
-                context.StartProcessingInlineSvg();
             }
-            catch (SvgProcessingException pe) {
-                LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.SvgTagWorker)).Error(iText.Html2pdf.LogMessageConstant
-                    .UNABLE_TO_PROCESS_IMAGE_AS_SVG, pe);
+            catch (SvgProcessingException spe) {
+                LOGGER.Error(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, spe);
             }
+            context.StartProcessingInlineSvg();
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {

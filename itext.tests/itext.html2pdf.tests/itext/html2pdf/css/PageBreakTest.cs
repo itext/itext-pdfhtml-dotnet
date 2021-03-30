@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -83,6 +83,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void PageBreakAfter04Test() {
+            RunTest("page-break-after04");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void PageBreakAfter05Test() {
             RunTest("page-break-after05");
         }
@@ -103,6 +108,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void PageBreakBefore04Test() {
+            RunTest("page-break-before04");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void PageBreakBeforeAfter01Test() {
             RunTest("page-break-before-after01");
         }
@@ -120,6 +130,11 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void PageBreakBeforeTable01Test() {
             RunTest("page-break-before-table01");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageBreakInsideAvoidInParaTest() {
+            RunTest("pageBreakInsideAvoidInPara");
         }
 
         [NUnit.Framework.Test]
@@ -154,6 +169,11 @@ namespace iText.Html2pdf.Css {
         public virtual void PageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivsWithShortAndLongTextsTest() {
             // TODO: DEVSIX-1270 simple text layout to the left of the left float
             RunTest("pageBreakInsideAvoidWithFloatsWidth80PercentAndInnerDivsWithShortAndLongTextsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PageBreakAlwaysInsidePageBreakAvoidTest() {
+            RunTest("pageBreakAlwaysInsidePageBreakAvoidTest");
         }
 
         [NUnit.Framework.Test]

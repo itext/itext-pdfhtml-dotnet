@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -34,15 +34,13 @@ namespace iText.Html2pdf {
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/SurrogatePairsTests/";
 
-        private const String TYPOGRAPHY_WARNING = "Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties";
-
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(TYPOGRAPHY_WARNING, Count = 2)]
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2)]
         public virtual void SurrogatePairFrom2Chars() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairFrom2Chars.html"), new FileInfo(destinationFolder
                  + "surrogatePairFrom2Chars.pdf"));
@@ -51,7 +49,7 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(TYPOGRAPHY_WARNING, Count = 2)]
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2)]
         public virtual void SurrogatePair2Pairs() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePair2Pairs.html"), new FileInfo(destinationFolder
                  + "surrogatePair2Pairs.pdf"));
@@ -60,7 +58,7 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(TYPOGRAPHY_WARNING, Count = 2)]
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2)]
         public virtual void SurrogatePairFullCharacter() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairFullCharacter.html"), new FileInfo(destinationFolder
                  + "surrogatePairFullCharacter.pdf"));
@@ -70,7 +68,7 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         //TODO DEVSIX-3307: It is required to update cmp files when the ticket will be implemented.
-        [LogMessage(TYPOGRAPHY_WARNING, Count = 2)]
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2)]
         [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void SurrogatePairCombingFullSurrs() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairCombingFullSurrs.html"), new FileInfo
@@ -81,7 +79,7 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         //TODO DEVSIX-3307: It is required to update cmp files when the ticket will be implemented.
-        [LogMessage(TYPOGRAPHY_WARNING, Count = 2)]
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2)]
         [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void SurrogatePairCombingFullSurrsWithNoSurrs() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairCombingFullSurrsWithNoSurrs.html"), new 
@@ -91,7 +89,7 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(TYPOGRAPHY_WARNING, Count = 2)]
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2)]
         public virtual void SurrogatePairCombinationOf3TypesPairs() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairCombinationOf3TypesPairs.html"), new 
                 FileInfo(destinationFolder + "surrogatePairCombinationOf3TypesPairs.pdf"));

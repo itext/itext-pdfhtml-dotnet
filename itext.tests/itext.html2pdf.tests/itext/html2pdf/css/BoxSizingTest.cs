@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -68,6 +68,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void BoxSizingCellContentImgTest() {
+            ConvertToPdfAndCompare("boxSizingCellContentImg", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void BoxSizingCellTest01() {
             // TODO Result of processing of this html is different from what browsers show.
             // Height of cells is always border-box-like at least if DOCTYPE "html" is not specified.
@@ -121,6 +126,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void BoxSizingDivWithImgTest() {
+            ConvertToPdfAndCompare("boxSizingDivWithImg", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void BoxSizingDiv03Test() {
             ConvertToPdfAndCompare("boxSizingDiv03Test", sourceFolder, destinationFolder);
         }
@@ -138,6 +148,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void BoxSizingParaWithImgTest() {
+            ConvertToPdfAndCompare("boxSizingParaWithImg", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void BoxSizingPara03Test() {
             ConvertToPdfAndCompare("boxSizingPara03Test", sourceFolder, destinationFolder);
         }
@@ -151,6 +166,11 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void BoxSizingTable02Test() {
             ConvertToPdfAndCompare("boxSizingTable02Test", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BoxSizingTableWithImgTest() {
+            ConvertToPdfAndCompare("boxSizingTableWithImg", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
@@ -208,6 +228,11 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void BoxSizingLiTest02() {
             ConvertToPdfAndCompare("boxSizingLiTest02", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BoxSizingImageTest() {
+            ConvertToPdfAndCompare("boxSizingImage", sourceFolder, destinationFolder);
         }
     }
 }

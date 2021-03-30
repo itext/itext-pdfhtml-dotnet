@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Attribute {
     public class DirAttributeTest : ExtendedHtmlConversionITextTest {
@@ -57,6 +58,61 @@ namespace iText.Html2pdf.Attribute {
         }
 
         [NUnit.Framework.Test]
+        // TODO DEVSIX-5034 Direction of the contents of description list items with dir = "rtl" is wrong
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 8)]
+        public virtual void DifferentDirsOfDlsTest() {
+            ConvertToPdfAndCompare("differentDirsOfDls", sourceFolder, destinationFolder, false);
+        }
+
+        [NUnit.Framework.Test]
+        // TODO DEVSIX-5070 Process dots of ordered list items in the specified direction
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 18)]
+        public virtual void DifferentDirsOfOrderedListsTest() {
+            ConvertToPdfAndCompare("differentDirsOfOrderedLists", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 18)]
+        public virtual void DifferentDirsOfUnorderedListsTest() {
+            ConvertToPdfAndCompare("differentDirsOfUnorderedLists", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        //TODO: DEVSIX-2438 html2Pdf: float + rtl works incorrectly for element placement
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 16)]
+        public virtual void FloatedTableInRtlDocumentTest() {
+            ConvertToPdfAndCompare("floatedTableInRtlDocument", sourceFolder, destinationFolder, false);
+        }
+
+        [NUnit.Framework.Test]
+        //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
+        public virtual void ParagraphsOfDifferentDirsWithImageTest() {
+            ConvertToPdfAndCompare("paragraphsOfDifferentDirsWithImage", sourceFolder, destinationFolder, false);
+        }
+
+        [NUnit.Framework.Test]
+        //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
+        public virtual void RtlDirectionOfLinkTest() {
+            ConvertToPdfAndCompare("rtlDirectionOfLink", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 26)]
+        public virtual void RtlDirectionOfListInsideListTest() {
+            ConvertToPdfAndCompare("rtlDirectionOfListInsideList", sourceFolder, destinationFolder, false);
+        }
+
+        [NUnit.Framework.Test]
+        //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
+        public virtual void RtlDirectionOfSpanTest() {
+            ConvertToPdfAndCompare("rtlDirectionOfSpan", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void RtlDir01Test() {
             ConvertToPdfAndCompare("rtlDirTest01", sourceFolder, destinationFolder);
         }
@@ -64,6 +120,20 @@ namespace iText.Html2pdf.Attribute {
         [NUnit.Framework.Test]
         public virtual void RtlDir02Test() {
             ConvertToPdfAndCompare("rtlDirTest02", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SpansOfDifferentDirsInsideParagraphTest() {
+            //TODO DEVSIX-2437 dir ltr is ignored in rtl documents
+            ConvertToPdfAndCompare("spansOfDifferentDirsInsideParagraph", sourceFolder, destinationFolder, false);
+        }
+
+        [NUnit.Framework.Test]
+        //TODO DEVSIX-3069 pdfHTML: RTL tables are not aligned correctly if there is no enough space
+        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 32)]
+        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        public virtual void TableAlignedToWrongSideInCaseOfNotEnoughSpaceTest() {
+            ConvertToPdfAndCompare("tableAlignedToWrongSideInCaseOfNotEnoughSpace", sourceFolder, destinationFolder);
         }
     }
 }

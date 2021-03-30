@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -161,6 +161,21 @@ namespace iText.Html2pdf.Css {
         public virtual void TextDecorationColorEffectOnNestedElements03Test() {
             // TODO DEVSIX-4719 replace cmp files once the issue is fixed
             ConvertToPdfAndCompare("textDecorationColorEffectOnNestedElements03", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationNoneOnNestedElementsTest() {
+            ConvertToPdfAndCompare("textDecorationNoneOnNestedElements", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationWithDisplayInlineBlockTest() {
+            ConvertToPdfAndCompare("textDecorationWithDisplayInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationInNodeStyleAttributeVsStyleTest() {
+            ConvertToPdfAndCompare("textDecorationInNodeStyleAttributeVsStyle", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }

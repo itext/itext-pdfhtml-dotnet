@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Test;
 
@@ -107,6 +108,106 @@ namespace iText.Html2pdf.Element {
                  + "checkImageBorderRadius.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "checkImageBorderRadius.pdf"
                 , sourceFolder + "cmp_checkImageBorderRadius.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageFileDocumentTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "smallWidthImagePlacement.html"), new FileInfo(destinationFolder
+                 + "smallWidthImagePlacement.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "smallWidthImagePlacement.pdf"
+                , sourceFolder + "cmp_smallWidthImagePlacement.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageUrlDocumentTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imageUrl.html"), new FileInfo(destinationFolder + 
+                "imageUrlDocument.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imageUrlDocument.pdf"
+                , sourceFolder + "cmp_imageUrlDocument.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageWithIncorrectBase64Test() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imageWithIncorrectBase64.html"), new FileInfo(destinationFolder
+                 + "imageWithIncorrectBase64.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imageWithIncorrectBase64.pdf"
+                , sourceFolder + "cmp_imageWithIncorrectBase64.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageBase64DifferentFormatsTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imageBase64DifferentFormats.html"), new FileInfo(destinationFolder
+                 + "imageBase64DifferentFormats.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imageBase64DifferentFormats.pdf"
+                , sourceFolder + "cmp_imageBase64DifferentFormats.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SmallImageTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "smallImageTest.html"), new FileInfo(destinationFolder
+                 + "smallImageTest.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "smallImageTest.pdf", 
+                sourceFolder + "cmp_smallImageTest.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageInSpanTest() {
+            // TODO: DEVSIX-2485
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imageInSpan.html"), new FileInfo(destinationFolder
+                 + "imageInSpan.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imageInSpan.pdf", sourceFolder
+                 + "cmp_imageInSpan.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CaseSensitiveBase64DataInCssNormalizationTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "caseSensitiveBase64DataInCssNormalization.html"), 
+                new FileInfo(destinationFolder + "caseSensitiveBase64DataInCssNormalization.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "caseSensitiveBase64DataInCssNormalization.pdf"
+                , sourceFolder + "cmp_caseSensitiveBase64DataInCssNormalization.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockImageTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "inlineBlockImage.html"), new FileInfo(destinationFolder
+                 + "inlineBlockImage.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "inlineBlockImage.pdf"
+                , sourceFolder + "cmp_inlineBlockImage.pdf", destinationFolder));
+        }
+
+        /// <summary>Important: the name of the resource in this test is "base64.svg".</summary>
+        /// <remarks>
+        /// Important: the name of the resource in this test is "base64.svg".
+        /// This is done deliberately and tests for a bug that was present before -
+        /// image was only fetched as base64 value and not as resource link
+        /// </remarks>
+        [NUnit.Framework.Test]
+        public virtual void SvgExternalResourceCornerCaseTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "svgExternalResourceCornerCase.html"), new FileInfo
+                (destinationFolder + "svgExternalResourceCornerCase.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "svgExternalResourceCornerCase.pdf"
+                , sourceFolder + "cmp_svgExternalResourceCornerCase.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageAltTextTest() {
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "imageAltText.pdf"));
+            pdfDocument.SetTagged();
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "imageAltText.html", FileMode.Open, FileAccess.Read
+                )) {
+                HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, new ConverterProperties().SetBaseUri(sourceFolder
+                    ));
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imageAltText.pdf", sourceFolder
+                 + "cmp_imageAltText.pdf", destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageUrlExternalDocumentTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "externalUrlImage.html"), new FileInfo(destinationFolder
+                 + "externalUrlImage.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "externalUrlImage.pdf"
+                , sourceFolder + "cmp_externalUrlImage.pdf", destinationFolder));
         }
     }
 }

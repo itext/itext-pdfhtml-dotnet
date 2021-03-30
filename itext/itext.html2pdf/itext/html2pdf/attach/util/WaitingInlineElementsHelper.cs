@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -49,6 +49,7 @@ using iText.Html2pdf.Css.Apply.Util;
 using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Renderer;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Util;
 
@@ -171,21 +172,29 @@ namespace iText.Html2pdf.Attach.Util {
                         }
                     }
                     else {
-                        if (container is Div) {
-                            ((Div)container).Add(p);
+                        if (((IElement)container).GetRenderer() is FlexContainerRenderer) {
+                            Div div = new Div();
+                            OverflowApplierUtil.ApplyOverflow(map, div);
+                            div.Add(p);
+                            ((Div)container).Add(div);
                         }
                         else {
-                            if (container is Cell) {
-                                ((Cell)container).Add(p);
+                            if (container is Div) {
+                                ((Div)container).Add(p);
                             }
                             else {
-                                if (container is List) {
-                                    ListItem li = new ListItem();
-                                    li.Add(p);
-                                    ((List)container).Add(li);
+                                if (container is Cell) {
+                                    ((Cell)container).Add(p);
                                 }
                                 else {
-                                    throw new InvalidOperationException("Unable to process hanging inline content");
+                                    if (container is List) {
+                                        ListItem li = new ListItem();
+                                        li.Add(p);
+                                        ((List)container).Add(li);
+                                    }
+                                    else {
+                                        throw new InvalidOperationException("Unable to process hanging inline content");
+                                    }
                                 }
                             }
                         }

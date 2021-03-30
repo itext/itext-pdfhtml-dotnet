@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -65,6 +65,14 @@ namespace iText.Html2pdf.Css {
                  + "hyphenateTest01.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hyphenateTest01.pdf"
                 , sourceFolder + "cmp_hyphenateTest01.pdf", destinationFolder, "diff01_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Test02() {
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "hyphenateTest02.html"), new FileInfo(destinationFolder
+                 + "hyphenateTest02.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "hyphenateTest02.pdf"
+                , sourceFolder + "cmp_hyphenateTest02.pdf", destinationFolder, "diff01_"));
         }
 
         [NUnit.Framework.Test]

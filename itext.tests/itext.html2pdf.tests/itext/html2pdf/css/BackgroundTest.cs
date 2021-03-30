@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -302,6 +302,56 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void ClipOriginRepeatRoundTest() {
             ConvertToPdfAndCompare("clipOriginRepeatRound", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BckgImageInSimpleDivTest() {
+            ConvertToPdfAndCompare("bckgImageInSimpleDiv", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BckgImageRepeatInDivTest() {
+            ConvertToPdfAndCompare("bckgImageRepeatInDiv", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BckgImageNoRepeatInDivTest() {
+            ConvertToPdfAndCompare("bckgImageNoRepeatInDiv", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BckgImageRepeatYInDivTest() {
+            ConvertToPdfAndCompare("bckgImageRepeatYInDiv", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BckgImageRepeatXInDivTest() {
+            ConvertToPdfAndCompare("bckgImageRepeatXInDiv", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BckgBase64Test() {
+            ConvertToPdfAndCompare("bckgBase64", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BckgShorthandThreeSizedImagesRepeatPositionTest() {
+            ConvertToPdfAndCompare("bckgShorthandThreeSizedImagesRepeatPosition", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BckgPositionInDivTest() {
+            ConvertToPdfAndCompare("bckgPositionInDiv", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BckgPositionInDivDiffValuesTest() {
+            ConvertToPdfAndCompare("bckgPositionInDivDiffValues", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SvgBase64Test() {
+            ConvertToPdfAndCompare("svgBase64", sourceFolder, destinationFolder);
         }
     }
 }

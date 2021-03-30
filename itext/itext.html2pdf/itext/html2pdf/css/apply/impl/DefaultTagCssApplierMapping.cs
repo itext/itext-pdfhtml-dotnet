@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -159,9 +159,12 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.A, CssConstants.BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.A, CssConstants.TABLE_CELL, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.LABEL, CssConstants.BLOCK, typeof(BlockCssApplier));
+            mapping.PutMapping(TagConstants.LABEL, CssConstants.INLINE_BLOCK, typeof(BlockCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE, typeof(TableTagCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_CELL, typeof(TdTagCssApplier));
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_ROW, typeof(DisplayTableRowTagCssApplier));
+            mapping.PutMapping(TagConstants.DIV, CssConstants.FLEX, typeof(DisplayFlexTagCssApplier));
+            mapping.PutMapping(TagConstants.SPAN, CssConstants.FLEX, typeof(DisplayFlexTagCssApplier));
             // pseudo elements mapping
             String beforePseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.BEFORE);
             String afterPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.AFTER);

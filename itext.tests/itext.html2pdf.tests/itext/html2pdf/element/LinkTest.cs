@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -127,6 +127,19 @@ namespace iText.Html2pdf.Element {
             }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest07.pdf", sourceFolder
                  + "cmp_linkTest07.pdf", destinationFolder, "diff07_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LinkTest08() {
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest08.pdf"));
+            pdfDocument.SetTagged();
+            using (FileStream fileInputStream = new FileStream(sourceFolder + "linkTest08.html", FileMode.Open, FileAccess.Read
+                )) {
+                HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, new ConverterProperties().SetBaseUri(sourceFolder
+                    ));
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "linkTest08.pdf", sourceFolder
+                 + "cmp_linkTest08.pdf", destinationFolder, "diff08_"));
         }
 
         [NUnit.Framework.Test]

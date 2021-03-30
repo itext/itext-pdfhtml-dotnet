@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -126,9 +126,6 @@ namespace iText.Html2pdf {
             String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
             String cmpPdfPathAcro = sourceFolder + "cmp_" + name + "_acro.pdf";
             String cmpPdfPathAcroFlatten = sourceFolder + "cmp_" + name + "_acro_flatten.pdf";
-            String diff1 = "diff1_" + name;
-            String diff2 = "diff2_" + name;
-            String diff3 = "diff3_" + name;
             //convert tagged PDF without acroform (from html with form elements)
             PdfWriter taggedWriter = new PdfWriter(outPdfPath);
             PdfDocument pdfTagged = new PdfDocument(taggedWriter);
@@ -156,11 +153,11 @@ namespace iText.Html2pdf {
             document.Close();
             //compare with cmp
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
-                , diff1));
+                ));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPathAcro, cmpPdfPathAcro, destinationFolder
-                , diff2));
+                ));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPathFlatted, cmpPdfPathAcroFlatten, 
-                destinationFolder, diff3));
+                destinationFolder));
             //compare tags structure if tagged
             if (tagged) {
                 CompareTagStructure(outPdfPath, cmpPdfPath);

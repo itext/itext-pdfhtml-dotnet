@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -65,6 +65,41 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void NestedInSpanTest() {
             ConvertToPdfAndCompare("nestedInSpanTest", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SpanOpacityTest() {
+            ConvertToPdfAndCompare("spanOpacity", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageOpacityTest() {
+            ConvertToPdfAndCompare("imageOpacity", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void POpacityTest() {
+            ConvertToPdfAndCompare("pOpacity", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DivOpacityTest() {
+            ConvertToPdfAndCompare("divOpacity", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableOpacityTest() {
+            ConvertToPdfAndCompare("tableOpacity", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void OpacityInListsTest() {
+            ConvertToPdfAndCompare("opacityInLists", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InnerDivOpacityTest() {
+            ConvertToPdfAndCompare("innerDivOpacity", sourceFolder, destinationFolder);
         }
     }
 }

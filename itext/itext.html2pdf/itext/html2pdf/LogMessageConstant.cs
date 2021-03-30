@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2020 iText Group NV
+Copyright (c) 1998-2021 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -84,6 +84,9 @@ namespace iText.Html2pdf {
         public const String EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS = "Exceeded the maximum number of relayouts. "
              + "The resultant document may look not as expected. " + "Because of the content being dynamic iText performs several relayouts to produce correct document.";
 
+        /// <summary>The constant FLEX_PROPERTY_IS_NOT_SUPPORTED_YET.</summary>
+        public const String FLEX_PROPERTY_IS_NOT_SUPPORTED_YET = "Flex related property {0}: {1} is not supported yet.";
+
         /// <summary>The Constant INPUT_FIELD_DOES_NOT_FIT.</summary>
         public const String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
 
@@ -145,8 +148,12 @@ namespace iText.Html2pdf {
         /// <summary>The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE.</summary>
         public const String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
 
-        /// <summary>The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG</summary>
+        /// <summary>The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG.</summary>
+        [System.ObsoleteAttribute(@"will be removed in iText 7.2, use UNABLE_TO_PROCESS_SVG_ELEMENT")]
         public const String UNABLE_TO_PROCESS_IMAGE_AS_SVG = "Unable to process image found at {0} as an SVG";
+
+        /// <summary>The Constant UNABLE_TO_PROCESS_SVG</summary>
+        public const String UNABLE_TO_PROCESS_SVG_ELEMENT = "Unable to process an SVG element";
 
         /// <summary>The Constant UNABLE_TO_RESOLVE_COUNTER.</summary>
         public const String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";
