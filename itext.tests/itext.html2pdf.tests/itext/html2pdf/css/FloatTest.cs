@@ -153,6 +153,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void FloatRightClearRightInTableTest() {
+            RunTest("floatRightClearRightInTable", "diff18_");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void Float19Test() {
             RunTest("float19Test", "diff19_");
         }
@@ -200,9 +205,8 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float28Test() {
-            // TODO DEVSIX-1269
+            // TODO DEVSIX-1269 update cmp file after fixing
             RunTest("float28Test", "diff28_");
         }
 
@@ -212,43 +216,38 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float30Test() {
-            // TODO DEVSIX-1269 and DEVSIX-1270
+            // TODO DEVSIX-1269 and DEVSIX-1270 update cmp file after fixing
             RunTest("float30Test", "diff30_");
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float31Test() {
-            // TODO DEVSIX-1269 and DEVSIX-1270
+            // TODO DEVSIX-1269 and DEVSIX-1270 update cmp file after fixing
             RunTest("float31Test", "diff31_");
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float32Test() {
-            // TODO DEVSIX-1269
+            // TODO DEVSIX-1269 update cmp file after fixing
             RunTest("float32Test", "diff32_");
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float33Test() {
+            // TODO DEVSIX-1269 update cmp file after fixing
             RunTest("float33Test", "diff33_");
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float34Test() {
-            // TODO DEVSIX-1269
+            // TODO DEVSIX-1269 update cmp file after fixing
             RunTest("float34Test", "diff34_");
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float35Test() {
-            // TODO DEVSIX-1269
+            // TODO DEVSIX-1269 update cmp file after fixing
             RunTest("float35Test", "diff35_");
         }
 
@@ -271,14 +270,13 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void Float39Test() {
-            // todo DEVSIX-1270, DEVSIX-1269
+            // TODO DEVSIX-1270, DEVSIX-1269
             RunTest("float39Test", "diff39_");
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Float40Test() {
-            // TODO DEVSIX-1269
+            // TODO DEVSIX-1269 update cmp file after fixing
             RunTest("float40Test", "diff40_");
         }
 
@@ -339,6 +337,21 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void FloatLeftInNestedDivTest() {
+            // TODO: DEVSIX-1372 content of floating div is NOT below parent content top edge.
+            // This happens when parent's margin gets bigger from collapsing with it's first kid.
+            RunTest("floatLeftInNestedDiv", "diff52_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatedLeftDivTest() {
+            // TODO: DEVSIX-1372 both floating and first non-floating element are direct kids of the <body> tag.
+            // It seems that in html there is some kind of root block, and it's
+            // top margin and first kid's top-margin are collapsing. This is different from iText layout mechanism.
+            RunTest("floatedLeftDiv", "diff53_");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void Float54Test() {
             RunTest("float54Test", "diff54_");
         }
@@ -349,14 +362,24 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void FloatedRightNestedDivTest() {
+            RunTest("floatedRightNestedDiv", "diff56_");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void Float57Test() {
             RunTest("float57Test", "diff57_");
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1372")]
         public virtual void Float58Test() {
+            // TODO: DEVSIX-1372
             RunTest("float58Test", "diff58_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatedDivsPlacingTest() {
+            RunTest("floatedDivsPlacing", "diff59_");
         }
 
         [NUnit.Framework.Test]
@@ -370,6 +393,26 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void FloatPropertyInListTest() {
+            RunTest("floatPropertyInListTest", "diff62_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatLeftDisplayInlineBlockInListTest() {
+            RunTest("floatLeftDisplayInlineBlockInList", "diff63_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatLeftInListsNestedInDivsTest() {
+            RunTest("floatLeftInListsNestedInDivs", "diff64_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatedLeftParagraphsInFloatedRightDivsTest() {
+            RunTest("floatedLeftParagraphsInFloatedRightDivs", "diff65_");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void Float66Test() {
             RunTest("float66Test", "diff66_");
         }
@@ -377,6 +420,21 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void Float67Test() {
             RunTest("float67Test", "diff67_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DiffFloatValueInPInsideFloatedRightDivTest() {
+            RunTest("diffFloatValueInPInsideFloatedRightDiv", "diff68_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DiffFloatValuesInListsTest() {
+            RunTest("diffFloatValuesInLists", "diff69_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DisplayInlineBlockPInsideFloatedDivTest() {
+            RunTest("displayInlineBlockPInsideFloatedDiv", "diff70_");
         }
 
         [NUnit.Framework.Test]
@@ -430,15 +488,155 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1316")]
+        public virtual void FloatLeftImageTest() {
+            RunTest("floatLeftImage", "diffImages01_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatRightImageTest() {
+            RunTest("floatRightImage", "diffImages02_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatedImagesAmongParagraphsTest() {
+            RunTest("floatedImagesAmongParagraphs", "diffImages03_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SeveralFloatedImagesAmongParagraphsTest() {
+            RunTest("severalFloatedImagesAmongParagraphs", "diffImages04_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatedLeftImageInParagraphTest() {
+            RunTest("floatedLeftImageInParagraph", "diffImages05_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatedImagesInDivTest() {
+            RunTest("floatedImagesInDiv", "diffImages06_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NestedFloatedImagesWithDisplayBlockTest() {
+            RunTest("nestedFloatedImagesWithDisplayBlock", "diffImages07_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NestedFloatedImagesTest() {
+            RunTest("nestedFloatedImages", "diffImages08_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SeveralNestedFloatedImagesTest() {
+            RunTest("severalNestedFloatedImages", "diffImages09_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatedImageInsideLongTextTest() {
+            RunTest("floatedImageInsideLongText", "diffImages10_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LongTextAfterFloatedImageTest() {
+            RunTest("longTextAfterFloatedImage", "diffImages11_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NestedFloatedImagesInsideLongTextTest() {
+            RunTest("nestedFloatedImagesInsideLongText", "diffImages12_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatedImagesWithTextInNarrowDivTest() {
+            RunTest("floatedImagesWithTextInNarrowDiv", "diffImages13_");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void FloatImage14Test() {
+            //TODO: DEVSIX-1316 update cmp file after fixing
             RunTest("floatImage14Test", "diffImages14_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatLeftInSpanTest() {
+            RunTest("floatLeftInSpan", "diffInline01_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatSpanInNarrowPTest() {
+            RunTest("floatSpanInNarrowP", "diffInline02_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatSpanInWidePTest() {
+            RunTest("floatSpanInWideP", "diffInline03_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatSpanNestedInFloatDivTest() {
+            RunTest("floatSpanNestedInFloatDiv", "diffInline04_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatSpanNestedInBlockElementsOfDiffWidth01Test() {
+            RunTest("floatSpanNestedInBlockElementsOfDiffWidth01", "diffInline05_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatSpanNestedInBlockElementsOfDiffWidth02Test() {
+            RunTest("floatSpanNestedInBlockElementsOfDiffWidth02", "diffInline06_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatSpanNestedInBlockElementsOfDiffWidth03Test() {
+            RunTest("floatSpanNestedInBlockElementsOfDiffWidth03", "diffInline07_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatRightSpanInParagraphTest() {
+            RunTest("floatRightSpanInParagraph", "diffInline08_");
         }
 
         [NUnit.Framework.Test]
         public virtual void FloatInline09Test() {
             // TODO DEVSIX-1269
             RunTest("floatInline09Test", "diffImages09_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatImgInParagraphWIthMarginTest() {
+            RunTest("floatImgInParagraphWIthMargin", "diffInline10_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NestedFloatedSpansInParagraphTest() {
+            RunTest("nestedFloatedSpansInParagraph", "diffInline11_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatSpanInNonFloatedParagraphTest() {
+            RunTest("floatSpanInNonFloatedParagraph", "diffInline12_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatSpanInNonFloatedParagraphLongTextTest() {
+            RunTest("floatSpanInNonFloatedParagraphLongText", "diffInline13_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NestedFloatedSpansTest() {
+            RunTest("nestedFloatedSpans", "diffInline14_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NestedSpansWithDiffFloatCombinationTest() {
+            RunTest("nestedSpansWithDiffFloatCombination", "diffInline15_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatSpanNestedInBlockElementsOfDiffWidth04Test() {
+            RunTest("floatSpanNestedInBlockElementsOfDiffWidth04", "diffInline16_");
         }
 
         [NUnit.Framework.Test]
