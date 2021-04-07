@@ -26,6 +26,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5096 support flex-direction: column
+    //TODO DEVSIX-4395 Image should overflow position: absolute element
     [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
     public class AlignItems007Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
