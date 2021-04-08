@@ -41,9 +41,14 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
+using iText.Layout;
+using iText.Layout.Element;
 using iText.StyledXmlParser.Css.Media;
 using iText.Test.Attributes;
 
@@ -187,6 +192,48 @@ namespace iText.Html2pdf.Css {
 ;
         }
 
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void PageBreakInsideAvoidInTdWithBrInsideTest() {
+            // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
+            ConvertToElements("pageBreakInsideAvoidInTdWithBrInside");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void PageBreakInsideAvoidInTdWithSpanInsideTest() {
+            // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
+            ConvertToElements("pageBreakInsideAvoidInTdWithSpanInside");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void PageBreakInsideAvoidInTdWithHeadingsTest() {
+            // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
+            ConvertToElements("pageBreakInsideAvoidInTdWithHeadings");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void PageBreakInsideAvoidInTdWithParaTest() {
+            // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
+            ConvertToElements("pageBreakInsideAvoidInTdWithPara");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void PageBreakInsideAvoidInTdWithTableTest() {
+            // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
+            ConvertToElements("pageBreakInsideAvoidInTdWithTable");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void PageBreakInsideAvoidInTdWithDivTest() {
+            // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
+            ConvertToElements("pageBreakInsideAvoidInTdWithDiv");
+        }
+
         private void RunTest(String name) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";
@@ -196,6 +243,24 @@ namespace iText.Html2pdf.Css {
                 (new MediaDeviceDescription(MediaType.PRINT)));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
                 ));
+        }
+
+        private void ConvertToElements(String name) {
+            String html = sourceFolder + name + ".html";
+            String output = destinationFolder + name + ".pdf";
+            String cmp = sourceFolder + "cmp_" + name + ".pdf";
+            using (FileStream fileStream = new FileStream(html, FileMode.Open, FileAccess.Read)) {
+                using (PdfDocument pdf = new PdfDocument(new PdfWriter(output))) {
+                    using (Document document = new Document(pdf, PageSize.LETTER)) {
+                        document.SetMargins(55, 56, 57, 45.35f);
+                        IList<IElement> elements = HtmlConverter.ConvertToElements(fileStream);
+                        foreach (IElement element in elements) {
+                            document.Add((IBlockElement)element);
+                        }
+                    }
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(output, cmp, destinationFolder));
         }
     }
 }
