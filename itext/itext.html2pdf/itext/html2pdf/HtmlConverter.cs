@@ -176,9 +176,9 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts HTML obtained from an
-        /// <see cref="System.IO.Stream"/>
-        /// to objects that
+        /// Converts a
+        /// <see cref="System.String"/>
+        /// containing HTML to objects that
         /// will be added to a
         /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
         /// , using specific
@@ -419,9 +419,9 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts HTML obtained from an
-        /// <see cref="System.IO.Stream"/>
-        /// to content that
+        /// Converts a
+        /// <see cref="System.String"/>
+        /// containing HTML to content that
         /// will be written to a
         /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
         /// , returning a
@@ -476,9 +476,9 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts HTML obtained from an
-        /// <see cref="System.IO.Stream"/>
-        /// to content that
+        /// Converts a
+        /// <see cref="System.String"/>
+        /// containing HTML to content that
         /// will be written to a
         /// <see cref="iText.Kernel.Pdf.PdfWriter"/>
         /// , using specific
@@ -537,9 +537,9 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>
-        /// Converts HTML obtained from an
-        /// <see cref="System.IO.Stream"/>
-        /// to objects that
+        /// Converts a
+        /// <see cref="System.String"/>
+        /// containing HTML to objects that
         /// will be added to a
         /// <see cref="iText.Kernel.Pdf.PdfDocument"/>
         /// , using specific
