@@ -28,19 +28,17 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    public class PageTargetCountRendererTest : ExtendedITextTest {
+    public class PageCountRendererTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN)]
         public virtual void GetNextRendererShouldBeOverriddenTest() {
-            PageTargetCountRenderer pageTargetCountRenderer = new _PageTargetCountRenderer_51(new PageTargetCountElement
-                ("test"));
+            PageCountRenderer pageCountRenderer = new _PageCountRenderer_51(new PageCountElement());
             // Nothing is overridden
-            NUnit.Framework.Assert.AreEqual(typeof(PageTargetCountRenderer), pageTargetCountRenderer.GetNextRenderer()
-                .GetType());
+            NUnit.Framework.Assert.AreEqual(typeof(PageCountRenderer), pageCountRenderer.GetNextRenderer().GetType());
         }
 
-        private sealed class _PageTargetCountRenderer_51 : PageTargetCountRenderer {
-            public _PageTargetCountRenderer_51(PageTargetCountElement baseArg1)
+        private sealed class _PageCountRenderer_51 : PageCountRenderer {
+            public _PageCountRenderer_51(PageCountElement baseArg1)
                 : base(baseArg1) {
             }
         }
@@ -48,16 +46,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN)]
         public virtual void CreateCopyShouldBeOverriddenTest() {
-            PageTargetCountRenderer pageTargetCountRenderer = new PageTargetCountRendererTest.CustomPageTargetCountRenderer
-                (new PageTargetCountElement("test"));
-            NUnit.Framework.Assert.AreEqual(typeof(PageTargetCountRendererTest.CustomPageTargetCountRenderer), pageTargetCountRenderer
-                .GetNextRenderer().GetType());
+            PageCountRenderer pageCountRenderer = new PageCountRendererTest.CustomPageCountRenderer(new PageCountElement
+                ());
+            NUnit.Framework.Assert.AreEqual(typeof(PageCountRendererTest.CustomPageCountRenderer), pageCountRenderer.GetNextRenderer
+                ().GetType());
             // This test checks for the log message being sent, so we should get there
             NUnit.Framework.Assert.IsTrue(true);
         }
 
-        internal class CustomPageTargetCountRenderer : PageTargetCountRenderer {
-            public CustomPageTargetCountRenderer(PageTargetCountElement textElement)
+        internal class CustomPageCountRenderer : PageCountRenderer {
+            public CustomPageCountRenderer(PageCountElement textElement)
                 : base(textElement) {
             }
 
@@ -72,8 +70,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 catch (System.IO.IOException) {
                     NUnit.Framework.Assert.Fail("We do not expect PdfFontFactory#createFont() to throw an exception here.");
                 }
-                return new PageTargetCountRendererTest.CustomPageTargetCountRenderer((PageTargetCountElement)this.modelElement
-                    );
+                return new PageCountRendererTest.CustomPageCountRenderer((PageCountElement)this.modelElement);
             }
         }
     }
