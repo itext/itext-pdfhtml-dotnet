@@ -42,7 +42,10 @@ address: sales@itextpdf.com
 */
 using System;
 using System.IO;
+using iText.Html2pdf.Resolver.Font;
+using iText.IO.Font;
 using iText.Kernel.Utils;
+using iText.Layout.Font;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -100,6 +103,53 @@ namespace iText.Html2pdf {
                  + "notoSansMonoBoldItalic.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "notoSansMonoBoldItalic.pdf"
                 , sourceFolder + "cmp_notoSansMonoBoldItalic.pdf", destinationFolder, "diffnotoSansMonoBoldItalic_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ComparatorErrorTest() {
+            // TODO: DEVSIX-4017 (Combination of default and pdfCalligraph fonts with italic style and
+            // '"courier new", courier, monospace' family reproduces comparator exception.
+            ConverterProperties properties = new ConverterProperties();
+            FontProvider pro = new DefaultFontProvider();
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSansArabic-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSansArabic-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSansGurmukhi-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSansGurmukhi-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSansMyanmar-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSansMyanmar-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSansOriya-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSansOriya-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifBengali-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifBengali-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifDevanagari-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifDevanagari-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifGujarati-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifGujarati-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifHebrew-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifHebrew-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifKannada-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifKannada-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifKhmer-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifKhmer-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifMalayalam-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifMalayalam-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifMyanmar-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifMyanmar-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifTamil-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifTamil-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifTelugu-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifTelugu-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifThai-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(sourceFolder + "NotoSerifThai-Bold.ttf"));
+            properties.SetFontProvider(pro);
+            NUnit.Framework.Assert.That(() =>  {
+                HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "comparatorError.html"), new FileInfo(destinationFolder
+                     + "comparatorError.pdf"), properties);
+                NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "comparatorError.pdf"
+                    , sourceFolder + "cmp_comparatorError.pdf", destinationFolder));
+            }
+            , NUnit.Framework.Throws.InstanceOf<ArgumentException>().With.Message.EqualTo("Comparison method violates its general contract!"))
+;
         }
     }
 }
