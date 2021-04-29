@@ -22,8 +22,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.Collections.Generic;
-using iText.Html2pdf.Logs;
+using iText.Html2pdf;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Css;
+using iText.Html2pdf.Logs;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Css;
