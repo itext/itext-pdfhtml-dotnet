@@ -184,10 +184,8 @@ namespace iText.Html2pdf.Resolver.Font {
             if (klass != null) {
                 try {
                     MethodInfo m = klass.GetMethod(methodName);
-                    List<byte[]> fontStreams = (List<byte[]>)m.Invoke(null, null);
-                    foreach (byte[] font in fontStreams) {
-                        this.calligraphyFontsTempList.Add(font);
-                    }
+                    IDictionary<String, byte[]> fontStreams = (IDictionary<String, byte[]>)m.Invoke(null, null);
+                    this.calligraphyFontsTempList.AddAll(fontStreams.Values);
                     // here we return a unicode range that excludes the loaded from the calligraph module fonts
                     // i.e. the unicode range that is to be rendered with standard or shipped free fonts
                     return FREE_FONT_RANGE;
