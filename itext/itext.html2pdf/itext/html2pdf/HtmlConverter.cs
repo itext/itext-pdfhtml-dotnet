@@ -200,8 +200,8 @@ namespace iText.Html2pdf {
         /// </param>
         public static void ConvertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
-            Document document = ConvertToDocument(html, pdfDocument, converterProperties);
-            document.Close();
+            using (Document document = ConvertToDocument(html, pdfDocument, converterProperties)) {
+            }
         }
 
         /// <summary>
@@ -414,8 +414,8 @@ namespace iText.Html2pdf {
         /// </param>
         public static void ConvertToPdf(Stream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
-            Document document = ConvertToDocument(htmlStream, pdfDocument, converterProperties);
-            document.Close();
+            using (Document document = ConvertToDocument(htmlStream, pdfDocument, converterProperties)) {
+            }
         }
 
         /// <summary>
