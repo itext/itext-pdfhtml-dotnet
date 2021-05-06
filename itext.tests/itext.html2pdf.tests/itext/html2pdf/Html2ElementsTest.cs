@@ -43,9 +43,12 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Html2pdf.Actions.Events;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Logs;
 using iText.IO.Util;
+using iText.Kernel.Actions;
+using iText.Kernel.Actions.Sequence;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
@@ -246,6 +249,56 @@ namespace iText.Html2pdf {
             IElement normalParagraph = elements[1];
             NUnit.Framework.Assert.AreEqual(new Leading(Leading.MULTIPLIED, 1.2f), normalParagraph.GetProperty<Leading
                 >(Property.LEADING));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void EventGenerationTest() {
+            Html2ElementsTest.StoreEventsHandler handler = new Html2ElementsTest.StoreEventsHandler();
+            try {
+                EventManager.GetInstance().Register(handler);
+                String html = "<table><tr><td>123</td><td><456></td></tr><tr><td>789</td></tr></table><p>Hello world!</p>";
+                IList<IElement> elements = HtmlConverter.ConvertToElements(html);
+                NUnit.Framework.Assert.AreEqual(1, handler.GetEvents().Count);
+                NUnit.Framework.Assert.IsTrue(handler.GetEvents()[0] is PdfHtmlProductEvent);
+                SequenceId expectedSequenceId = ((PdfHtmlProductEvent)handler.GetEvents()[0]).GetSequenceId();
+                int validationsCount = ValidateSequenceIds(expectedSequenceId, elements);
+                // Table                                     1
+                //      Cell -> Paragraph -> Text [123]      3
+                //      Cell -> Paragraph -> Text [456]      3
+                //      Cell -> Paragraph -> Text [789]      3
+                // Paragraph -> Text [Hello world!]          2
+                //--------------------------------------------
+                //                                          12
+                NUnit.Framework.Assert.AreEqual(12, validationsCount);
+            }
+            finally {
+                EventManager.GetInstance().Unregister(handler);
+            }
+        }
+
+        private static int ValidateSequenceIds(SequenceId expectedSequenceId, IList<IElement> elements) {
+            int validationCount = 0;
+            foreach (IElement element in elements) {
+                NUnit.Framework.Assert.IsTrue(element is AbstractIdentifiableElement);
+                NUnit.Framework.Assert.IsTrue(element is IAbstractElement);
+                NUnit.Framework.Assert.AreEqual(expectedSequenceId, SequenceIdManager.GetSequenceId((AbstractIdentifiableElement
+                    )element));
+                validationCount += 1;
+                validationCount += ValidateSequenceIds(expectedSequenceId, ((IAbstractElement)element).GetChildren());
+            }
+            return validationCount;
+        }
+
+        private class StoreEventsHandler : IBaseEventHandler {
+            private IList<IBaseEvent> events = new List<IBaseEvent>();
+
+            public virtual IList<IBaseEvent> GetEvents() {
+                return events;
+            }
+
+            public virtual void OnEvent(IBaseEvent @event) {
+                events.Add(@event);
+            }
         }
     }
 }

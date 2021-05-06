@@ -44,6 +44,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using iText.Html2pdf;
+using iText.Html2pdf.Actions.Events;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
@@ -61,6 +62,8 @@ using iText.Html2pdf.Util;
 using iText.IO;
 using iText.IO.Font;
 using iText.IO.Util;
+using iText.Kernel.Actions;
+using iText.Kernel.Actions.Sequence;
 using iText.Kernel.Counter;
 using iText.Kernel.Pdf;
 using iText.Layout;
@@ -147,6 +150,7 @@ namespace iText.Html2pdf.Attach.Impl {
         */
         public virtual IList<IElement> ProcessElements(INode root) {
             ReflectionUtils.ScheduledLicenseCheck();
+            SequenceId sequenceId = new SequenceId();
             context.Reset();
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context);
@@ -170,6 +174,11 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             cssResolver = null;
             roots = null;
+            foreach (IElement element in elements) {
+                UpdateSequenceId(element, sequenceId);
+            }
+            EventManager.GetInstance().OnEvent(new PdfHtmlProductEvent(sequenceId, context.GetEventCountingMetaInfo(), 
+                PdfHtmlProductEvent.CONVERT_ELEMENTS));
             EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType
                 ());
             return elements;
@@ -543,6 +552,30 @@ namespace iText.Html2pdf.Attach.Impl {
         private bool IsPlaceholder(IElementNode element) {
             return element is CssPseudoElementNode && CssConstants.PLACEHOLDER.Equals(((CssPseudoElementNode)element).
                 GetPseudoElementName());
+        }
+
+        private static void UpdateSequenceId(IElement element, SequenceId sequenceId) {
+            if (element is AbstractIdentifiableElement) {
+                AbstractIdentifiableElement identifiableElement = (AbstractIdentifiableElement)element;
+                if (SequenceIdManager.GetSequenceId(identifiableElement) == sequenceId) {
+                    // potential cyclic reference case: element has been processed already
+                    return;
+                }
+                SequenceIdManager.SetSequenceId(identifiableElement, sequenceId);
+                if (identifiableElement is IAbstractElement) {
+                    IAbstractElement abstractElement = (IAbstractElement)identifiableElement;
+                    UpdateChildren(abstractElement.GetChildren(), sequenceId);
+                }
+            }
+        }
+
+        private static void UpdateChildren(IList<IElement> children, SequenceId sequenceId) {
+            if (children == null) {
+                return;
+            }
+            foreach (IElement child in children) {
+                UpdateSequenceId(child, sequenceId);
+            }
         }
     }
 }
