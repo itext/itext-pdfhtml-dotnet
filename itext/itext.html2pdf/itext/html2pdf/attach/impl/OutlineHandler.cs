@@ -190,9 +190,9 @@ namespace iText.Html2pdf.Attach.Impl {
             return GetUniqueID(destinationNamePrefix);
         }
 
-        /// <summary>Generate the unique outline name.</summary>
+        /// <summary>Generate the outline name.</summary>
         /// <remarks>
-        /// Generate the unique outline name.
+        /// Generate the outline name.
         /// This method is used in the
         /// <see cref="AddOutlineAndDestToDocument(iText.Html2pdf.Attach.ITagWorker, iText.StyledXmlParser.Node.IElementNode, iText.Html2pdf.Attach.ProcessorContext)
         ///     "/>
@@ -201,7 +201,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /// </remarks>
         /// <param name="element">the element</param>
         /// <returns>the unique destination name</returns>
-        protected internal virtual String GenerateUniqueOutlineName(IElementNode element) {
+        protected internal virtual String GenerateOutlineName(IElementNode element) {
             String tagName = element.Name();
             String content = ((JsoupElementNode)element).Text();
             if (String.IsNullOrEmpty(content)) {
@@ -233,7 +233,7 @@ namespace iText.Html2pdf.Attach.Impl {
                     parent = parent.GetParent();
                     levelsInProcess.JRemoveFirst();
                 }
-                PdfOutline outline = parent.AddOutline(GenerateUniqueOutlineName(element));
+                PdfOutline outline = parent.AddOutline(GenerateOutlineName(element));
                 String destination = GenerateUniqueDestinationName(element);
                 outline.AddDestination(PdfDestination.MakeDestination(new PdfString(destination)));
                 destinationsInProcess.AddFirst(destination);
@@ -278,7 +278,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <see cref="GenerateUniqueDestinationName(iText.StyledXmlParser.Node.IElementNode)"/>
         /// method to generate the unique
         /// destination names and in the
-        /// <see cref="GenerateUniqueOutlineName(iText.StyledXmlParser.Node.IElementNode)"/>
+        /// <see cref="GenerateOutlineName(iText.StyledXmlParser.Node.IElementNode)"/>
         /// method to generate the unique
         /// outline names. The
         /// <see cref="destCounter"/>

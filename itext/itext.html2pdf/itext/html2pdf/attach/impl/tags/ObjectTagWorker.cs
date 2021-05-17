@@ -53,6 +53,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Resolver.Resource;
 using iText.Svg.Converter;
 using iText.Svg.Exceptions;
 using iText.Svg.Processors;
@@ -97,7 +98,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     using (Stream svgStream = context.GetResourceResolver().RetrieveResourceAsInputStream(dataValue)) {
                         if (svgStream != null) {
                             SvgConverterProperties props = ContextMappingHelper.MapToSvgConverterProperties(context);
-                            if (!context.GetResourceResolver().IsDataSrc(dataValue)) {
+                            if (!ResourceResolver.IsDataSrc(dataValue)) {
                                 Uri fullURL = context.GetResourceResolver().ResolveAgainstBaseUri(dataValue);
                                 String dir = FileUtil.ParentDirectory(fullURL);
                                 props.SetBaseUri(dir);

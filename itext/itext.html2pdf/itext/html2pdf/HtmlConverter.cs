@@ -251,12 +251,12 @@ namespace iText.Html2pdf {
         public static void ConvertToPdf(FileInfo htmlFile, FileInfo pdfFile, ConverterProperties converterProperties
             ) {
             if (converterProperties == null) {
-                String baseUri = FileUtil.GetParentDirectory(htmlFile);
+                String baseUri = FileUtil.GetParentDirectoryUri(htmlFile);
                 converterProperties = new ConverterProperties().SetBaseUri(baseUri);
             }
             else {
                 if (converterProperties.GetBaseUri() == null) {
-                    String baseUri = FileUtil.GetParentDirectory(htmlFile);
+                    String baseUri = FileUtil.GetParentDirectoryUri(htmlFile);
                     converterProperties = new ConverterProperties(converterProperties).SetBaseUri(baseUri);
                 }
             }

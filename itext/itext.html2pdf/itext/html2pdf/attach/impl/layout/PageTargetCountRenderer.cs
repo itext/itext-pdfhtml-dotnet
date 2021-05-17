@@ -38,7 +38,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <see cref="iText.Layout.Renderer.TextRenderer"/>
     /// implementation for the page target-counter.
     /// </summary>
-    public class PageTargetCountRenderer : TextRenderer {
+    internal class PageTargetCountRenderer : TextRenderer {
         private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer
             ));
 
