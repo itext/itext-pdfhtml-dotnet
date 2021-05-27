@@ -153,7 +153,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest01() {
-            //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+            //In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
             //See BlocksMetadataPadding001Test in io for decompression details
             RunTest("w3cProblemTest01");
         }
@@ -172,7 +172,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest03() {
-            //TODO: silently omitted, decompression should fail.
+            //Silently omitted, decompression should fail.
             //See HeaderFlavor001Test in io for decompression details
             RunTest("w3cProblemTest03");
         }
@@ -180,7 +180,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void W3cProblemTest04() {
-            //TODO: silently omitted, decompression should fail. Browser loads font but don't draw glyph.
+            //Silently omitted, decompression should fail. Browser loads font but don't draw glyph.
             //See HeaderFlavor002Test in io for decompression details
             //NOTE, iText fails on subsetting as expected.
             RunTest("w3cProblemTest04");
@@ -188,14 +188,14 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest05() {
-            //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+            //In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
             //See HeaderReserved001Test in io for decompression details
             RunTest("w3cProblemTest05");
         }
 
         [NUnit.Framework.Test]
         public virtual void W3cProblemTest06() {
-            //TODO: In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
+            //In w3c test suite this font is labeled as invalid though it correctly parsers both in browser and iText
             //See TabledataHmtxTransform003Test in io for decompression details
             RunTest("w3cProblemTest06");
         }

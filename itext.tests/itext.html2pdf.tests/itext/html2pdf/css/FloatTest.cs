@@ -143,7 +143,6 @@ namespace iText.Html2pdf.Css {
         public virtual void Float16Test() {
             // TODO DEVSIX-1730: at the moment we always wrap inline text in paragraphs, thus when we process next floating element it's always on next line
             // see also float50Test and float51Test
-            // TODO as a possible solution in future we might consider adding floats blocks as inlines-blocks in inline helper
             RunTest("float16Test", "diff16_");
         }
 

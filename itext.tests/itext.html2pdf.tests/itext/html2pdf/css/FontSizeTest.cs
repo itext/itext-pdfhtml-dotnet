@@ -57,7 +57,6 @@ namespace iText.Html2pdf.Css {
             CreateDestinationFolder(destinationFolder);
         }
 
-        //TODO: Note that in case of font-size < 100% in browsers line-height stays the same as in 100%. We don't do it for now.
         [NUnit.Framework.Test]
         public virtual void FontSize01Test() {
             ConvertToPdfAndCompare("fontSizeTest01", sourceFolder, destinationFolder);
