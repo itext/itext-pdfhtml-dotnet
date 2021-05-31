@@ -246,7 +246,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 else {
                     UnitValue lineHeightValue = CssDimensionParsingUtils.ParseLengthValueToPt(lineHeightStr, fontSize, rootFontSize
                         );
-                    if (CssTypesValidationUtils.IsNumericValue(lineHeightStr)) {
+                    if (CssTypesValidationUtils.IsNumber(lineHeightStr)) {
                         lineHeightActualValue = fontSize * lineHeightValue.GetValue();
                     }
                     else {

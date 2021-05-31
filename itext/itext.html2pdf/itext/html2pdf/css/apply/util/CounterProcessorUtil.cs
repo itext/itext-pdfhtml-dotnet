@@ -54,15 +54,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <summary>Processes counters.</summary>
         /// <param name="cssProps">the CSS properties</param>
         /// <param name="context">the processor context</param>
-        /// <param name="scope">the scope</param>
-        [System.ObsoleteAttribute(@"This method need to be removed in 7.2")]
-        public static void ProcessCounters(IDictionary<String, String> cssProps, CssContext context, INode scope) {
-            ProcessCounters(cssProps, context);
-        }
-
-        /// <summary>Processes counters.</summary>
-        /// <param name="cssProps">the CSS properties</param>
-        /// <param name="context">the processor context</param>
         public static void ProcessCounters(IDictionary<String, String> cssProps, CssContext context) {
             String counterReset = cssProps.Get(CssConstants.COUNTER_RESET);
             ProcessReset(counterReset, context);

@@ -249,19 +249,6 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// <summary>Resolves a counter.</summary>
         /// <param name="counterName">the counter name</param>
         /// <param name="listSymbolType">the list symbol type</param>
-        /// <param name="node">current element</param>
-        /// <returns>
-        /// the counter value as a
-        /// <see cref="System.String"/>
-        /// </returns>
-        [System.ObsoleteAttribute(@"Need to be removed in 7.2")]
-        public virtual String ResolveCounter(String counterName, String listSymbolType, INode node) {
-            return ResolveCounter(counterName, HtmlUtils.ConvertStringCounterGlyphStyleToEnum(listSymbolType));
-        }
-
-        /// <summary>Resolves a counter.</summary>
-        /// <param name="counterName">the counter name</param>
-        /// <param name="listSymbolType">the list symbol type</param>
         /// <returns>
         /// the counter value as a
         /// <see cref="System.String"/>
@@ -277,22 +264,6 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 }
             }
             return HtmlUtils.ConvertNumberAccordingToGlyphStyle(listSymbolType, (int)result);
-        }
-
-        /// <summary>Resolves counters.</summary>
-        /// <param name="counterName">the counter name</param>
-        /// <param name="counterSeparatorStr">the counter separator</param>
-        /// <param name="listSymbolType">the list symbol type</param>
-        /// <param name="node">current element</param>
-        /// <returns>
-        /// the counters as a
-        /// <see cref="System.String"/>
-        /// </returns>
-        [System.ObsoleteAttribute(@"Need to be removed in 7.2")]
-        public virtual String ResolveCounters(String counterName, String counterSeparatorStr, String listSymbolType
-            , INode node) {
-            return ResolveCounters(counterName, counterSeparatorStr, HtmlUtils.ConvertStringCounterGlyphStyleToEnum(listSymbolType
-                ));
         }
 
         /// <summary>Resolves counters.</summary>
@@ -325,23 +296,6 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
 
         /// <summary>Resets the counter.</summary>
         /// <param name="counterName">the counter name</param>
-        /// <param name="node">current element</param>
-        [System.ObsoleteAttribute(@"Need to be removed in 7.2")]
-        public virtual void ResetCounter(String counterName, INode node) {
-            ResetCounter(counterName, DEFAULT_COUNTER_VALUE);
-        }
-
-        /// <summary>Resets the counter.</summary>
-        /// <param name="counterName">the counter name</param>
-        /// <param name="value">the new value</param>
-        /// <param name="node">current element</param>
-        [System.ObsoleteAttribute(@"Need to be removed in 7.2")]
-        public virtual void ResetCounter(String counterName, int value, INode node) {
-            ResetCounter(counterName, value);
-        }
-
-        /// <summary>Resets the counter.</summary>
-        /// <param name="counterName">the counter name</param>
         public virtual void ResetCounter(String counterName) {
             ResetCounter(counterName, DEFAULT_COUNTER_VALUE);
         }
@@ -351,23 +305,6 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         /// <param name="value">the new value</param>
         public virtual void ResetCounter(String counterName, int value) {
             counterValues.Put(counterName, value);
-        }
-
-        /// <summary>Increments the counter.</summary>
-        /// <param name="counterName">the counter name</param>
-        /// <param name="node">current element.</param>
-        [System.ObsoleteAttribute(@"Need to be removed in 7.2")]
-        public virtual void IncrementCounter(String counterName, INode node) {
-            IncrementCounter(counterName, DEFAULT_INCREMENT_VALUE);
-        }
-
-        /// <summary>Increments the counter.</summary>
-        /// <param name="counterName">the counter name</param>
-        /// <param name="incrementValue">the increment value</param>
-        /// <param name="node">current element</param>
-        [System.ObsoleteAttribute(@"Need to be removed in 7.2")]
-        public virtual void IncrementCounter(String counterName, int incrementValue, INode node) {
-            IncrementCounter(counterName, incrementValue);
         }
 
         /// <summary>Increments the counter.</summary>

@@ -290,7 +290,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static void SetLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {
             if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight) && !CssConstants.AUTO.Equals(lineHeight)
                 ) {
-                if (CssTypesValidationUtils.IsNumericValue(lineHeight)) {
+                if (CssTypesValidationUtils.IsNumber(lineHeight)) {
                     float? number = CssDimensionParsingUtils.ParseFloat(lineHeight);
                     if (number != null) {
                         elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateMultipliedValue((float)number));
@@ -327,7 +327,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             // What's more, it's basically the same thing as if lineHeight is not set in the first place
             if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight) && !CssConstants.AUTO.Equals(lineHeight)
                 ) {
-                if (CssTypesValidationUtils.IsNumericValue(lineHeight)) {
+                if (CssTypesValidationUtils.IsNumber(lineHeight)) {
                     float? mult = CssDimensionParsingUtils.ParseFloat(lineHeight);
                     if (mult != null) {
                         element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));
