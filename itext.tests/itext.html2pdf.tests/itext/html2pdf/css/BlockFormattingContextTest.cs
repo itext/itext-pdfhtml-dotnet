@@ -68,8 +68,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BfcOwnerAbsolute_floatsAndClear() {
-            // Positioning and handling floats and clearance is exactly correct,
-            // however TODO absolutely positioned elements shall be drawn on the same z-level as floats.
+            // TODO: DEVSIX-5470
             ConvertToPdfAndCompare("bfcOwnerAbsolute_floatsAndClear", sourceFolder, destinationFolder);
         }
 
@@ -92,13 +91,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BfcOwnerOverflowHidden_floatsAndClear() {
-            // TODO overflow:hidden with display:block behaves curiously: it completely moves away from float horizontally.
-            // We don't handle it in such way and it's unclear right now, based on what it behaves like this.
-            // How would it behave if it would have 100% width or width:auto?
-            //
-            // Now, we basically working incorrectly, since overflow:hidden requires it's inner floats to be placed
-            // not taking into account any other floats outside parent. However right now this would result in
-            // content overlap if we would behave like this.
+            // TODO: DEVSIX-5471
             ConvertToPdfAndCompare("bfcOwnerOverflowHidden_floatsAndClear", sourceFolder, destinationFolder);
         }
 
