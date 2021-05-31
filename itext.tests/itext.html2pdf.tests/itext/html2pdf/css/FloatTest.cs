@@ -696,6 +696,12 @@ namespace iText.Html2pdf.Css {
             RunTest("plainTextIndentAfterBlockAndFloat", "diff_plainTextIndentAfterBlockAndFloat_");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void FloatElementInDivTest() {
+            //TODO DEVSIX-5291 change cmp file
+            RunTest("floatElementInDiv", "diff_floatElementInDiv_");
+        }
+
         private void RunTest(String testName, String diff) {
             String htmlName = sourceFolder + testName + ".html";
             String outFileName = destinationFolder + testName + ".pdf";
