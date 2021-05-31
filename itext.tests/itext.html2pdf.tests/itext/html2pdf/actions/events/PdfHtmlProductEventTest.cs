@@ -22,19 +22,21 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using iText.Html2pdf.Actions.Data;
 using iText.Kernel.Actions;
+using iText.Kernel.Actions.Events;
 using iText.Kernel.Actions.Sequence;
 using iText.Test;
 
 namespace iText.Html2pdf.Actions.Events {
     public class PdfHtmlProductEventTest : ExtendedITextTest {
         [NUnit.Framework.Test]
-        public virtual void SequenceIdEventCreationTest() {
+        public virtual void ConvertElementsEventTest() {
             SequenceId sequenceId = new SequenceId();
-            PdfHtmlProductEvent @event = new PdfHtmlProductEvent(sequenceId, new PdfHtmlTestMetaInfo("meta data"), "test event"
-                );
-            NUnit.Framework.Assert.AreEqual("test event", @event.GetEventType());
+            PdfHtmlProductEvent @event = PdfHtmlProductEvent.CreateConvertHtmlEvent(sequenceId, new PdfHtmlTestMetaInfo
+                ("meta data"));
+            NUnit.Framework.Assert.AreEqual(PdfHtmlProductEvent.CONVERT_HTML, @event.GetEventType());
             NUnit.Framework.Assert.AreEqual(ProductNameConstant.PDF_HTML, @event.GetProductName());
             NUnit.Framework.Assert.AreEqual("meta data", ((PdfHtmlTestMetaInfo)@event.GetMetaInfo()).GetMetaData());
+            NUnit.Framework.Assert.AreEqual(EventConfirmationType.ON_CLOSE, @event.GetConfirmationType());
             NUnit.Framework.Assert.AreEqual(sequenceId, @event.GetSequenceId());
             NUnit.Framework.Assert.AreEqual(PdfHtmlProductData.GetInstance().GetPublicProductName(), @event.GetProductData
                 ().GetPublicProductName());

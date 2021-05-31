@@ -177,8 +177,8 @@ namespace iText.Html2pdf.Attach.Impl {
             foreach (IElement element in elements) {
                 UpdateSequenceId(element, sequenceId);
             }
-            EventManager.GetInstance().OnEvent(new PdfHtmlProductEvent(sequenceId, context.GetEventCountingMetaInfo(), 
-                PdfHtmlProductEvent.CONVERT_ELEMENTS));
+            EventManager.GetInstance().OnEvent(PdfHtmlProductEvent.CreateConvertHtmlEvent(sequenceId, context.GetEventCountingMetaInfo
+                ()));
             EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType
                 ());
             return elements;

@@ -29,9 +29,11 @@ using iText.Kernel.Counter.Event;
 
 namespace iText.Html2pdf.Actions.Events {
     /// <summary>Class represents events registered in iText pdfHTML module.</summary>
-    public class PdfHtmlProductEvent : AbstractITextProductEvent {
-        /// <summary>Convert elements event type.</summary>
-        public const String CONVERT_ELEMENTS = "convert-elements-event";
+    public class PdfHtmlProductEvent : AbstractProductProcessITextEvent {
+        /// <summary>Convert html event type.</summary>
+        public const String CONVERT_HTML = 
+                // TODO DEVSIX-5466 rename constant value
+                "convert-elements-event";
 
         private readonly String eventType;
 
@@ -39,9 +41,19 @@ namespace iText.Html2pdf.Actions.Events {
         /// <param name="sequenceId">is an identifier associated with the event</param>
         /// <param name="metaInfo">is an additional meta info</param>
         /// <param name="eventType">is a string description of the event</param>
-        public PdfHtmlProductEvent(SequenceId sequenceId, IMetaInfo metaInfo, String eventType)
-            : base(sequenceId, PdfHtmlProductData.GetInstance(), metaInfo) {
+        private PdfHtmlProductEvent(SequenceId sequenceId, IMetaInfo metaInfo, String eventType)
+            : base(sequenceId, PdfHtmlProductData.GetInstance(), metaInfo, EventConfirmationType.ON_CLOSE) {
             this.eventType = eventType;
+        }
+
+        /// <summary>Creates a convert html event which associated with a general identifier and additional meta data.
+        ///     </summary>
+        /// <param name="sequenceId">is an identifier associated with the event</param>
+        /// <param name="metaInfo">is an additional meta info</param>
+        /// <returns>the convert html event</returns>
+        public static iText.Html2pdf.Actions.Events.PdfHtmlProductEvent CreateConvertHtmlEvent(SequenceId sequenceId
+            , IMetaInfo metaInfo) {
+            return new iText.Html2pdf.Actions.Events.PdfHtmlProductEvent(sequenceId, metaInfo, CONVERT_HTML);
         }
 
         public override String GetProductName() {
