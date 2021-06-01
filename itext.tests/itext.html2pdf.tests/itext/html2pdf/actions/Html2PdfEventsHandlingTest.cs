@@ -26,8 +26,11 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Actions.Events;
 using iText.IO.Source;
+using iText.IO.Util;
 using iText.Kernel.Actions;
 using iText.Kernel.Actions.Events;
+using iText.Kernel.Actions.Processors;
+using iText.Kernel.Actions.Producer;
 using iText.Kernel.Actions.Sequence;
 using iText.Kernel.Counter.Event;
 using iText.Kernel.Pdf;
@@ -39,8 +42,33 @@ namespace iText.Html2pdf.Actions {
     public class Html2PdfEventsHandlingTest : ExtendedITextTest {
         private static readonly TestConfigurationEvent CONFIGURATION_ACCESS = new TestConfigurationEvent();
 
+        private static Html2PdfEventsHandlingTest.StoreEventsHandler handler;
+
+        private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/actions/Html2PdfEventsHandlingTest/";
+
+        private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+             + "/test/itext/html2pdf/actions/Html2PdfEventsHandlingTest/";
+
+        [NUnit.Framework.SetUp]
+        public virtual void SetUpHandler() {
+            handler = new Html2PdfEventsHandlingTest.StoreEventsHandler();
+            EventManager.GetInstance().Register(handler);
+        }
+
+        [NUnit.Framework.TearDown]
+        public virtual void ResetHandler() {
+            EventManager.GetInstance().Unregister(handler);
+            handler = null;
+        }
+
+        [NUnit.Framework.OneTimeSetUp]
+        public static void BeforeClass() {
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
+        }
+
         [NUnit.Framework.Test]
-        public virtual void TwoSetOfElementsToOneDocumentTest() {
+        public virtual void TwoDifferentElementsToOneDocumentTest() {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             SequenceId docSequenceId;
             using (PdfDocument pdfDocument = new PdfDocument(new PdfWriter(baos))) {
@@ -49,20 +77,14 @@ namespace iText.Html2pdf.Actions {
                     String firstHtml = "<p>Hello world first!</p>";
                     IList<IElement> lstFirst = HtmlConverter.ConvertToElements(firstHtml);
                     AddElementsToDocument(document, lstFirst);
-                    AbstractIdentifiableElement identifiableElement = (AbstractIdentifiableElement)lstFirst[0];
-                    // TODO DEVSIX-5304 remove LinkDocumentIdEvent after adding support linking in the scope of layout module
-                    EventManager.GetInstance().OnEvent(new LinkDocumentIdEvent(pdfDocument, SequenceIdManager.GetSequenceId(identifiableElement
-                        )));
                     String secondHtml = "<p>Hello world second!</p>";
                     IList<IElement> lstSecond = HtmlConverter.ConvertToElements(secondHtml);
                     AddElementsToDocument(document, lstSecond);
-                    identifiableElement = (AbstractIdentifiableElement)lstSecond[0];
-                    // TODO DEVSIX-5304 remove LinkDocumentIdEvent after adding support linking in the scope of layout module
-                    EventManager.GetInstance().OnEvent(new LinkDocumentIdEvent(pdfDocument, SequenceIdManager.GetSequenceId(identifiableElement
-                        )));
                 }
             }
             IList<AbstractProductProcessITextEvent> events = CONFIGURATION_ACCESS.GetPublicEvents(docSequenceId);
+            // Confirmed 3 events, but only 2 events (1 core + 1 pdfHtml) will be reported because
+            // ReportingHandler don't report similar events for one sequenceId
             NUnit.Framework.Assert.AreEqual(3, events.Count);
             NUnit.Framework.Assert.IsTrue(events[0] is ConfirmedEventWrapper);
             ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper)events[0];
@@ -80,13 +102,193 @@ namespace iText.Html2pdf.Actions {
             NUnit.Framework.Assert.AreEqual(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.GetEvent().GetEventType
                 ());
             using (PdfDocument pdfDocument_1 = new PdfDocument(new PdfReader(new MemoryStream(baos.ToArray())))) {
-                String producerLine = pdfDocument_1.GetDocumentInfo().GetProducer();
-                // TODO DEVSIX-5304 improve producer line check to check via some template
-                NUnit.Framework.Assert.AreNotEqual(-1, producerLine.IndexOf("pdfHTML", StringComparison.Ordinal));
-                NUnit.Framework.Assert.AreEqual(producerLine.IndexOf("pdfHTML", StringComparison.Ordinal), producerLine.LastIndexOf
-                    ("pdfHTML"));
-                NUnit.Framework.Assert.AreNotEqual(-1, producerLine.IndexOf("Core", StringComparison.Ordinal));
+                String expectedProdLine = CreateExpectedProducerLine(new ConfirmedEventWrapper[] { GetCoreEvent(), GetPdfHtmlEvent
+                    () });
+                NUnit.Framework.Assert.AreEqual(expectedProdLine, pdfDocument_1.GetDocumentInfo().GetProducer());
             }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SetOfElementsToOneDocumentTest() {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            SequenceId docSequenceId;
+            using (PdfDocument pdfDocument = new PdfDocument(new PdfWriter(baos))) {
+                using (Document document = new Document(pdfDocument)) {
+                    docSequenceId = pdfDocument.GetDocumentIdWrapper();
+                    String html = "<p>Hello world first!</p><span>Some text</span><p>Some second text</p>";
+                    IList<IElement> lstFirst = HtmlConverter.ConvertToElements(html);
+                    NUnit.Framework.Assert.AreEqual(3, lstFirst.Count);
+                    AddElementsToDocument(document, lstFirst);
+                }
+            }
+            IList<AbstractProductProcessITextEvent> events = CONFIGURATION_ACCESS.GetPublicEvents(docSequenceId);
+            NUnit.Framework.Assert.AreEqual(2, events.Count);
+            NUnit.Framework.Assert.IsTrue(events[0] is ConfirmedEventWrapper);
+            ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper)events[0];
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreEvent);
+            NUnit.Framework.Assert.AreEqual(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType(
+                ));
+            NUnit.Framework.Assert.IsTrue(events[1] is ConfirmedEventWrapper);
+            confirmedEventWrapper = (ConfirmedEventWrapper)events[1];
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is PdfHtmlProductEvent);
+            NUnit.Framework.Assert.AreEqual(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.GetEvent().GetEventType
+                ());
+            using (PdfDocument pdfDocument_1 = new PdfDocument(new PdfReader(new MemoryStream(baos.ToArray())))) {
+                String expectedProdLine = CreateExpectedProducerLine(new ConfirmedEventWrapper[] { GetCoreEvent(), GetPdfHtmlEvent
+                    () });
+                NUnit.Framework.Assert.AreEqual(expectedProdLine, pdfDocument_1.GetDocumentInfo().GetProducer());
+            }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertHtmlToDocumentTest() {
+            String outFileName = "helloWorld_to_doc.pdf";
+            SequenceId docId;
+            using (Document document = HtmlConverter.ConvertToDocument(SOURCE_FOLDER + "helloWorld.html", new PdfWriter
+                (DESTINATION_FOLDER + outFileName))) {
+                docId = document.GetPdfDocument().GetDocumentIdWrapper();
+            }
+            IList<AbstractProductProcessITextEvent> events = CONFIGURATION_ACCESS.GetPublicEvents(docId);
+            NUnit.Framework.Assert.AreEqual(2, events.Count);
+            NUnit.Framework.Assert.IsTrue(events[0] is ConfirmedEventWrapper);
+            ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper)events[0];
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreEvent);
+            NUnit.Framework.Assert.AreEqual(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType(
+                ));
+            NUnit.Framework.Assert.IsTrue(events[1] is ConfirmedEventWrapper);
+            confirmedEventWrapper = (ConfirmedEventWrapper)events[1];
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is PdfHtmlProductEvent);
+            NUnit.Framework.Assert.AreEqual(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.GetEvent().GetEventType
+                ());
+            using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(DESTINATION_FOLDER + outFileName))) {
+                String expectedProdLine = CreateExpectedProducerLine(new ConfirmedEventWrapper[] { GetCoreEvent(), GetPdfHtmlEvent
+                    () });
+                NUnit.Framework.Assert.AreEqual(expectedProdLine, pdfDocument.GetDocumentInfo().GetProducer());
+            }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertHtmlToDocAndAddElementsToDocTest() {
+            String outFileName = "helloWorld_to_doc_add_elem.pdf";
+            SequenceId docId;
+            using (Document document = HtmlConverter.ConvertToDocument(SOURCE_FOLDER + "helloWorld.html", new PdfWriter
+                (DESTINATION_FOLDER + outFileName))) {
+                docId = document.GetPdfDocument().GetDocumentIdWrapper();
+                String html = "<p>Hello world first!</p><span>Some text</span><p>Some second text</p>";
+                IList<IElement> lstFirst = HtmlConverter.ConvertToElements(html);
+                NUnit.Framework.Assert.AreEqual(3, lstFirst.Count);
+                AddElementsToDocument(document, lstFirst);
+            }
+            IList<AbstractProductProcessITextEvent> events = CONFIGURATION_ACCESS.GetPublicEvents(docId);
+            // Confirmed 3 events, but only 2 events (1 core + 1 pdfHtml) will be reported because
+            // ReportingHandler don't report similar events for one sequenceId
+            NUnit.Framework.Assert.AreEqual(3, events.Count);
+            NUnit.Framework.Assert.IsTrue(events[0] is ConfirmedEventWrapper);
+            ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper)events[0];
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreEvent);
+            NUnit.Framework.Assert.AreEqual(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType(
+                ));
+            NUnit.Framework.Assert.IsTrue(events[1] is ConfirmedEventWrapper);
+            confirmedEventWrapper = (ConfirmedEventWrapper)events[1];
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is PdfHtmlProductEvent);
+            NUnit.Framework.Assert.AreEqual(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.GetEvent().GetEventType
+                ());
+            NUnit.Framework.Assert.IsTrue(events[2] is ConfirmedEventWrapper);
+            confirmedEventWrapper = (ConfirmedEventWrapper)events[2];
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is PdfHtmlProductEvent);
+            NUnit.Framework.Assert.AreEqual(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.GetEvent().GetEventType
+                ());
+            using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(DESTINATION_FOLDER + outFileName))) {
+                String expectedProdLine = CreateExpectedProducerLine(new ConfirmedEventWrapper[] { GetCoreEvent(), GetPdfHtmlEvent
+                    () });
+                NUnit.Framework.Assert.AreEqual(expectedProdLine, pdfDocument.GetDocumentInfo().GetProducer());
+            }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertHtmlToPdfTest() {
+            String outFileName = "helloWorld_to_pdf.pdf";
+            HtmlConverter.ConvertToPdf(SOURCE_FOLDER + "helloWorld.html", new PdfWriter(DESTINATION_FOLDER + outFileName
+                ));
+            IList<ConfirmEvent> events = handler.GetEvents();
+            NUnit.Framework.Assert.AreEqual(1, events.Count);
+            AbstractProductProcessITextEvent @event = events[0].GetConfirmedEvent();
+            NUnit.Framework.Assert.AreEqual(PdfHtmlProductEvent.CONVERT_HTML, @event.GetEventType());
+            using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(DESTINATION_FOLDER + outFileName))) {
+                String expectedProdLine = CreateExpectedProducerLine(new ConfirmedEventWrapper[] { GetPdfHtmlEvent() });
+                NUnit.Framework.Assert.AreEqual(expectedProdLine, pdfDocument.GetDocumentInfo().GetProducer());
+            }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertHtmlToPdfWithExistPdfTest() {
+            String outFileName = "helloWorld_to_pdf.pdf";
+            using (PdfDocument pdfDocument = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + outFileName))) {
+                HtmlConverter.ConvertToPdf(SOURCE_FOLDER + "helloWorld.html", pdfDocument, new ConverterProperties());
+            }
+            IList<ConfirmEvent> events = handler.GetEvents();
+            NUnit.Framework.Assert.AreEqual(2, events.Count);
+            AbstractProductProcessITextEvent @event = events[0].GetConfirmedEvent();
+            NUnit.Framework.Assert.AreEqual(ITextCoreEvent.PROCESS_PDF, @event.GetEventType());
+            @event = events[1].GetConfirmedEvent();
+            NUnit.Framework.Assert.AreEqual(PdfHtmlProductEvent.CONVERT_HTML, @event.GetEventType());
+            using (PdfDocument pdfDocument_1 = new PdfDocument(new PdfReader(DESTINATION_FOLDER + outFileName))) {
+                String expectedProdLine = CreateExpectedProducerLine(new ConfirmedEventWrapper[] { GetCoreEvent(), GetPdfHtmlEvent
+                    () });
+                NUnit.Framework.Assert.AreEqual(expectedProdLine, pdfDocument_1.GetDocumentInfo().GetProducer());
+            }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NestedElementToDocumentTest() {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            SequenceId docSequenceId;
+            using (PdfDocument pdfDocument = new PdfDocument(new PdfWriter(baos))) {
+                using (Document document = new Document(pdfDocument)) {
+                    docSequenceId = pdfDocument.GetDocumentIdWrapper();
+                    String firstHtml = "<p>Hello world first!</p>";
+                    Paragraph pWithId = (Paragraph)HtmlConverter.ConvertToElements(firstHtml)[0];
+                    Paragraph pWithoutId = new Paragraph("");
+                    pWithoutId.Add(pWithId);
+                    Div divWithoutId = new Div();
+                    divWithoutId.Add(pWithoutId);
+                    document.Add(divWithoutId);
+                }
+            }
+            IList<AbstractProductProcessITextEvent> events = CONFIGURATION_ACCESS.GetPublicEvents(docSequenceId);
+            NUnit.Framework.Assert.AreEqual(2, events.Count);
+            NUnit.Framework.Assert.IsTrue(events[0] is ConfirmedEventWrapper);
+            ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper)events[0];
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreEvent);
+            NUnit.Framework.Assert.AreEqual(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType(
+                ));
+            NUnit.Framework.Assert.IsTrue(events[1] is ConfirmedEventWrapper);
+            confirmedEventWrapper = (ConfirmedEventWrapper)events[1];
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is PdfHtmlProductEvent);
+            NUnit.Framework.Assert.AreEqual(PdfHtmlProductEvent.CONVERT_HTML, confirmedEventWrapper.GetEvent().GetEventType
+                ());
+            using (PdfDocument pdfDocument_1 = new PdfDocument(new PdfReader(new MemoryStream(baos.ToArray())))) {
+                String expectedProdLine = CreateExpectedProducerLine(new ConfirmedEventWrapper[] { GetCoreEvent(), GetPdfHtmlEvent
+                    () });
+                NUnit.Framework.Assert.AreEqual(expectedProdLine, pdfDocument_1.GetDocumentInfo().GetProducer());
+            }
+        }
+
+        private static String CreateExpectedProducerLine(ConfirmedEventWrapper[] expectedEvents) {
+            IList<ConfirmedEventWrapper> listEvents = JavaUtil.ArraysAsList(expectedEvents);
+            return ProducerBuilder.ModifyProducer(listEvents, null);
+        }
+
+        private static ConfirmedEventWrapper GetPdfHtmlEvent() {
+            DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor("pdfHtml");
+            return new ConfirmedEventWrapper(PdfHtmlProductEvent.CreateConvertHtmlEvent(new SequenceId(), null), processor
+                .GetUsageType(), processor.GetProducer());
+        }
+
+        private static ConfirmedEventWrapper GetCoreEvent() {
+            DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor("itext7-core");
+            return new ConfirmedEventWrapper(ITextCoreEvent.CreateProcessPdfEvent(new SequenceId(), null, EventConfirmationType
+                .ON_CLOSE), processor.GetUsageType(), processor.GetProducer());
         }
 
         private static void AddElementsToDocument(Document document, IList<IElement> elements) {
@@ -107,6 +309,20 @@ namespace iText.Html2pdf.Actions {
                                 );
                         }
                     }
+                }
+            }
+        }
+
+        private class StoreEventsHandler : IBaseEventHandler {
+            private IList<ConfirmEvent> events = new List<ConfirmEvent>();
+
+            public virtual IList<ConfirmEvent> GetEvents() {
+                return events;
+            }
+
+            public virtual void OnEvent(IBaseEvent @event) {
+                if (@event is ConfirmEvent) {
+                    events.Add((ConfirmEvent)@event);
                 }
             }
         }

@@ -33,7 +33,6 @@ namespace iText.Html2pdf.Actions.Data {
     public class PdfHtmlProductData {
         private const String PDF_HTML_PUBLIC_PRODUCT_NAME = "pdfHTML";
 
-        // TODO: DEVSIX-5304 during integration new licensekey mechanism with html2pdf provide more flexible version setup
         private const String PDF_HTML_VERSION = "3.0.5-SNAPSHOT";
 
         private const int PDF_HTML_COPYRIGHT_SINCE = 1998;

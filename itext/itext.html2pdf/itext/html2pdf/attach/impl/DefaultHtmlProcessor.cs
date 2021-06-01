@@ -54,7 +54,6 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Resolve;
-using iText.Html2pdf.Events;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
@@ -64,7 +63,6 @@ using iText.IO.Font;
 using iText.IO.Util;
 using iText.Kernel.Actions;
 using iText.Kernel.Actions.Sequence;
-using iText.Kernel.Counter;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
@@ -149,8 +147,9 @@ namespace iText.Html2pdf.Attach.Impl {
         * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processElements(com.itextpdf.html2pdf.html.node.INode)
         */
         public virtual IList<IElement> ProcessElements(INode root) {
-            ReflectionUtils.ScheduledLicenseCheck();
             SequenceId sequenceId = new SequenceId();
+            EventManager.GetInstance().OnEvent(PdfHtmlProductEvent.CreateConvertHtmlEvent(sequenceId, context.GetEventCountingMetaInfo
+                ()));
             context.Reset();
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context);
@@ -177,10 +176,6 @@ namespace iText.Html2pdf.Attach.Impl {
             foreach (IElement element in elements) {
                 UpdateSequenceId(element, sequenceId);
             }
-            EventManager.GetInstance().OnEvent(PdfHtmlProductEvent.CreateConvertHtmlEvent(sequenceId, context.GetEventCountingMetaInfo
-                ()));
-            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType
-                ());
             return elements;
         }
 
@@ -188,7 +183,8 @@ namespace iText.Html2pdf.Attach.Impl {
         * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processDocument(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.kernel.pdf.PdfDocument)
         */
         public virtual Document ProcessDocument(INode root, PdfDocument pdfDocument) {
-            ReflectionUtils.ScheduledLicenseCheck();
+            EventManager.GetInstance().OnEvent(PdfHtmlProductEvent.CreateConvertHtmlEvent(pdfDocument.GetDocumentIdWrapper
+                (), context.GetEventCountingMetaInfo()));
             context.Reset(pdfDocument);
             if (!context.HasFonts()) {
                 throw new Html2PdfException(Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS);
@@ -226,8 +222,6 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             cssResolver = null;
             roots = null;
-            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType
-                ());
             return doc;
         }
 

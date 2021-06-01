@@ -342,11 +342,9 @@ namespace iText.Html2pdf.Attach {
 
         /// <summary>Gets html meta info.</summary>
         /// <remarks>
-        /// Gets html meta info. This meta info will be passed with to
-        /// <see cref="iText.Kernel.Counter.EventCounter"/>
-        /// with
-        /// <see cref="iText.Html2pdf.Events.PdfHtmlEvent"/>
-        /// and can be used to determine event origin.
+        /// Gets html meta info.
+        /// <para />
+        /// This meta info will be used to determine event origin.
         /// </remarks>
         /// <returns>html meta info</returns>
         public virtual IMetaInfo GetEventCountingMetaInfo() {

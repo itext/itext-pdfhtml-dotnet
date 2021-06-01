@@ -496,11 +496,7 @@ namespace iText.Html2pdf {
         /// <remarks>
         /// Gets html meta info.
         /// <para />
-        /// This meta info will be passed with to
-        /// <see cref="iText.Kernel.Counter.EventCounter"/>
-        /// with
-        /// <see cref="iText.Html2pdf.Events.PdfHtmlEvent"/>
-        /// and can be used to determine event origin.
+        /// This meta info will be used to determine event origin.
         /// </remarks>
         /// <returns>
         /// converter's
@@ -514,11 +510,7 @@ namespace iText.Html2pdf {
         /// <remarks>
         /// Sets html meta info.
         /// <para />
-        /// This meta info will be passed with to
-        /// <see cref="iText.Kernel.Counter.EventCounter"/>
-        /// with
-        /// <see cref="iText.Html2pdf.Events.PdfHtmlEvent"/>
-        /// and can be used to determine event origin.
+        /// This meta info will be used to determine event origin.
         /// </remarks>
         /// <param name="metaInfo">meta info to set</param>
         /// <returns>

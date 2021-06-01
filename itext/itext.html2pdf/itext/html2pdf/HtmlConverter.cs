@@ -45,7 +45,6 @@ using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Exceptions;
-using iText.Html2pdf.Util;
 using iText.IO.Util;
 using iText.Kernel.Counter.Event;
 using iText.Kernel.Pdf;
@@ -570,7 +569,6 @@ namespace iText.Html2pdf {
         /// </returns>
         public static Document ConvertToDocument(String html, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
-            ReflectionUtils.ScheduledLicenseCheck();
             if (pdfDocument.GetReader() != null) {
                 throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
             }
@@ -614,7 +612,6 @@ namespace iText.Html2pdf {
         /// </returns>
         public static Document ConvertToDocument(Stream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
-            ReflectionUtils.ScheduledLicenseCheck();
             if (pdfDocument.GetReader() != null) {
                 throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
             }
@@ -685,7 +682,6 @@ namespace iText.Html2pdf {
         /// </param>
         /// <returns>a list of iText building blocks</returns>
         public static IList<IElement> ConvertToElements(String html, ConverterProperties converterProperties) {
-            ReflectionUtils.ScheduledLicenseCheck();
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(html);
             return Attacher.Attach(doc, converterProperties);
@@ -715,7 +711,6 @@ namespace iText.Html2pdf {
         /// <returns>a list of iText building blocks</returns>
         public static IList<IElement> ConvertToElements(Stream htmlStream, ConverterProperties converterProperties
             ) {
-            ReflectionUtils.ScheduledLicenseCheck();
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
                 ) : null);
