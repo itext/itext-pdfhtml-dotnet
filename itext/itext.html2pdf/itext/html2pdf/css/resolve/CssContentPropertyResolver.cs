@@ -48,6 +48,7 @@ using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
 using iText.IO.Util;
+using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Page;
 using iText.StyledXmlParser.Css.Parse;
 using iText.StyledXmlParser.Css.Pseudo;
@@ -158,7 +159,11 @@ namespace iText.Html2pdf.Css.Resolve {
                             if (@params.Count < TARGET_COUNTER_MIN_PARAMS_SIZE) {
                                 return ErrorFallback(contentStr);
                             }
-                            String target = CssUtils.ExtractUrl(@params[0]);
+                            String target = @params[0].StartsWith(CommonCssConstants.ATTRIBUTE + "(") ? CssUtils.ExtractAttributeValue
+                                (@params[0], (IElementNode)contentContainer.ParentNode()) : CssUtils.ExtractUrl(@params[0]);
+                            if (target == null) {
+                                return ErrorFallback(contentStr);
+                            }
                             String counterName = @params[1].Trim();
                             CounterDigitsGlyphStyle listStyleType = HtmlUtils.ConvertStringCounterGlyphStyleToEnum(@params.Count > TARGET_COUNTER_MIN_PARAMS_SIZE
                                  ? @params[TARGET_COUNTER_MIN_PARAMS_SIZE].Trim() : null);
@@ -186,7 +191,11 @@ namespace iText.Html2pdf.Css.Resolve {
                                 if (@params.Count < TARGET_COUNTERS_MIN_PARAMS_SIZE) {
                                     return ErrorFallback(contentStr);
                                 }
-                                String target = CssUtils.ExtractUrl(@params[0]);
+                                String target = @params[0].StartsWith(CommonCssConstants.ATTRIBUTE + "(") ? CssUtils.ExtractAttributeValue
+                                    (@params[0], (IElementNode)contentContainer.ParentNode()) : CssUtils.ExtractUrl(@params[0]);
+                                if (target == null) {
+                                    return ErrorFallback(contentStr);
+                                }
                                 String counterName = @params[1].Trim();
                                 String counterSeparator = @params[2].Trim();
                                 counterSeparator = counterSeparator.JSubstring(1, counterSeparator.Length - 1);
@@ -224,17 +233,14 @@ namespace iText.Html2pdf.Css.Resolve {
                                         result.Add(new CssContentElementNode(contentContainer, TagConstants.DIV, attributes));
                                     }
                                     else {
-                                        if (token.GetValue().StartsWith("attr(") && contentContainer is CssPseudoElementNode) {
-                                            int endBracket = token.GetValue().IndexOf(')');
-                                            if (endBracket > 5) {
-                                                String attrName = token.GetValue().JSubstring(5, endBracket);
-                                                if (attrName.Contains("(") || attrName.Contains(" ") || attrName.Contains("'") || attrName.Contains("\"")) {
-                                                    return ErrorFallback(contentStr);
-                                                }
-                                                IElementNode element = (IElementNode)contentContainer.ParentNode();
-                                                String value = element.GetAttribute(attrName);
-                                                result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value == null ? "" : value));
+                                        if (token.GetValue().StartsWith(CommonCssConstants.ATTRIBUTE + "(") && contentContainer is CssPseudoElementNode
+                                            ) {
+                                            String value = CssUtils.ExtractAttributeValue(token.GetValue(), (IElementNode)contentContainer.ParentNode(
+                                                ));
+                                            if (value == null) {
+                                                return ErrorFallback(contentStr);
                                             }
+                                            result.Add(new CssContentPropertyResolver.ContentTextNode(contentContainer, value));
                                         }
                                         else {
                                             if (token.GetValue().EndsWith("quote") && contentContainer is IStylesContainer) {

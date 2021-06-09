@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
+using iText.StyledXmlParser.Css.Pseudo;
 using iText.StyledXmlParser.Node;
 using iText.Test;
 using iText.Test.Attributes;
@@ -99,6 +100,28 @@ namespace iText.Html2pdf.Css.Resolve {
             NUnit.Framework.Assert.IsNotNull(result);
             NUnit.Framework.Assert.AreEqual(1, result.Count);
             NUnit.Framework.Assert.IsTrue(result[0] is ITextNode);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 1)]
+        public virtual void ResolveContentWrongTargetCounterTest() {
+            IDictionary<String, String> styles = new Dictionary<String, String>();
+            styles.Put(CssConstants.CONTENT, "target-counter(attr(), pages)");
+            CssContext context = new CssContext();
+            IElementNode iNode = new CssPseudoElementNode(null, "test");
+            IList<INode> result = CssContentPropertyResolver.ResolveContent(styles, iNode, context);
+            NUnit.Framework.Assert.IsNull(result);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 1)]
+        public virtual void ResolveContentWrongTargetCountersTest() {
+            IDictionary<String, String> styles = new Dictionary<String, String>();
+            styles.Put(CssConstants.CONTENT, "target-counters(attr(), pages)");
+            CssContext context = new CssContext();
+            IElementNode iNode = new CssPseudoElementNode(null, "test");
+            IList<INode> result = CssContentPropertyResolver.ResolveContent(styles, iNode, context);
+            NUnit.Framework.Assert.IsNull(result);
         }
     }
 }
