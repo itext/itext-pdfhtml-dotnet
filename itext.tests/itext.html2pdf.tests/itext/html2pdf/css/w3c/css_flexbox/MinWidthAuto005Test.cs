@@ -24,8 +24,9 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5004 pdfHTML: improve support of flex-items with intrinsic aspect ratio
     //TODO DEVSIX-5087 Support layout properties for FlexContainerRenderer
+    //According to the specification stretch doesn't affect the main size of the flex item,
+    // even if it has an intrinsic aspect ratio. So we assume that browsers work incorrectly in this case
     public class MinWidthAuto005Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-min-width-auto-005.html";

@@ -82,21 +82,20 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1269")]
         public virtual void Clear08Test() {
-            // TODO behaving differently from browser in some cases of selfcollapsing margins
+            // TODO: DEVSIX-1269, DEVSIX-5474 update cmp file after fixing issues
             ConvertToPdfAndCompare("clear08Test", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void Clear09Test() {
-            // TODO behaving differently from browser in some cases of selfcollapsing margins
+            // TODO: DEVSIX-5474 update cmp file after fixing
             ConvertToPdfAndCompare("clear09Test", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void Clear10Test() {
-            // TODO behaving differently from browser in some cases of selfcollapsing margins
+            // TODO: DEVSIX-5474 update cmp file after fixing
             ConvertToPdfAndCompare("clear10Test", sourceFolder, destinationFolder);
         }
 

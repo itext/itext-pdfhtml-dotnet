@@ -29,11 +29,23 @@ using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Kernel.Pdf;
+using iText.Kernel.Utils;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 
 namespace iText.Html2pdf.Attach.Impl {
     public class OutlineHandlerTest : ExtendedHtmlConversionITextTest {
+        private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/attach/impl/OutlineHandlerTest/";
+
+        private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+             + "/test/itext/html2pdf/attach/impl/OutlineHandlerTest/";
+
+        [NUnit.Framework.OneTimeSetUp]
+        public static void BeforeClass() {
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
+        }
+
         [NUnit.Framework.Test]
         public virtual void DefaultDestinationPrefixTest() {
             IDictionary<String, int?> priorityMappings = new Dictionary<String, int?>();
@@ -78,6 +90,19 @@ namespace iText.Html2pdf.Attach.Impl {
             NUnit.Framework.Assert.AreEqual("p1", pdfOutline.GetTitle());
             PdfString pdfStringDest = (PdfString)pdfOutline.GetDestination().GetPdfObject();
             NUnit.Framework.Assert.AreEqual("prefix-1", pdfStringDest.ToUnicodeString());
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DefaultOutlineHandlerWithHTagHavingIdTest() {
+            // TODO DEVSIX-5195 fix cmp after fix is introduced
+            String inFile = SOURCE_FOLDER + "defaultOutlineHandlerWithHTagHavingIdTest.html";
+            String outFile = DESTINATION_FOLDER + "defaultOutlineHandlerWithHTagHavingIdTest.pdf";
+            String cmpFile = SOURCE_FOLDER + "cmp_defaultOutlineHandlerWithHTagHavingIdTest.pdf";
+            OutlineHandler outlineHandler = OutlineHandler.CreateStandardHandler();
+            HtmlConverter.ConvertToPdf(new FileInfo(inFile), new FileInfo(outFile), new ConverterProperties().SetOutlineHandler
+                (outlineHandler));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmpFile, DESTINATION_FOLDER, "diff_defaultOutlineHandlerWithHTagHavingIdTest"
+                ));
         }
     }
 }

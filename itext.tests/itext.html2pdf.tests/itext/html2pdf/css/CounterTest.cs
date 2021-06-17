@@ -85,5 +85,11 @@ namespace iText.Html2pdf.Css {
         public virtual void PageCounterSpacesInDeclarationTest() {
             ConvertToPdfAndCompare("page_counter_spaces_in_declaration", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void PageCounterWithTrimmedLastPageTest() {
+            // TODO fix cmp after DEVSIX-5509 is done; currently total page count is incorrect
+            ConvertToPdfAndCompare("page_counter_with_trimmed_last_page", sourceFolder, destinationFolder);
+        }
     }
 }

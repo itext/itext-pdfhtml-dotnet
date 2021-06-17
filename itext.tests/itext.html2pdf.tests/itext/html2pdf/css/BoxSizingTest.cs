@@ -74,9 +74,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BoxSizingCellTest01() {
-            // TODO Result of processing of this html is different from what browsers show.
-            // Height of cells is always border-box-like at least if DOCTYPE "html" is not specified.
-            // See also boxSizingCellTest03.
+            // TODO: DEVSIX-5468 update cmp file after fixing
             ConvertToPdfAndCompare("boxSizingCellTest01", sourceFolder, destinationFolder);
         }
 
@@ -87,11 +85,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BoxSizingCellTest03() {
-            // This test is exactly the same as boxSizingCellTest01, except DOCTYPE "html" is used:
-            // cells height is different in browsers depending on box-sizing.
-            // TODO: we don't include half of the borders in height calculation when border-box is set
-            // because we apply borders on table level. However, this seems to be not very important for heights,
-            // height will only be bigger and it's not that crucial in comparison to width calculations.
+            // TODO: DEVSIX-5468 update cmp file after fixing
             ConvertToPdfAndCompare("boxSizingCellTest03", sourceFolder, destinationFolder);
         }
 
@@ -137,8 +131,9 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BoxSizingDiv04Test() {
-            // TODO inner div still doesn't fit, because it's height is increased every time page split occurs by margins borders padding
-            // Thus, if parent height was manually fixed to include child with fixed height and if page split occurs - child might not fit.
+            // Inner div still doesn't fit, because it's height is increased every time page split occurs by margins
+            // borders padding. Thus, if parent height was manually fixed to include child with fixed height and if
+            // page split occurs - child might not fit.
             ConvertToPdfAndCompare("boxSizingDiv04Test", sourceFolder, destinationFolder);
         }
 
@@ -213,13 +208,12 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("boxSizingFormTest02", sourceFolder, destinationFolder);
         }
 
-        // TODO we don't apply height to textarea yet
         [NUnit.Framework.Test]
         public virtual void BoxSizingFormTest03() {
+            // At least in chrome, borders of buttons are always included to width and height (just as with border-box)
             ConvertToPdfAndCompare("boxSizingFormTest03", sourceFolder, destinationFolder);
         }
 
-        // TODO at least in chrome, borders of buttons are always included to width and height (just as with border-box)
         [NUnit.Framework.Test]
         public virtual void BoxSizingLiTest01() {
             ConvertToPdfAndCompare("boxSizingLiTest01", sourceFolder, destinationFolder);

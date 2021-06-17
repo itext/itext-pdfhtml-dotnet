@@ -148,6 +148,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void HeightWithCollapsingMarginsTest02() {
+            ConvertToPdfAndCompare("heightWithCollapsingMarginsTest02", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void HeightWithCollapsingMarginsTest03() {
             ConvertToPdfAndCompare("heightWithCollapsingMarginsTest03", sourceFolder, destinationFolder);
         }
@@ -156,6 +161,11 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightWithCollapsingMarginsTest04() {
             // second paragraph should not be drawn in pdf, as it doesn't fit with it's margins
             ConvertToPdfAndCompare("heightWithCollapsingMarginsTest04", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HeightWithCollapsingMarginsTest05() {
+            ConvertToPdfAndCompare("heightWithCollapsingMarginsTest05", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]

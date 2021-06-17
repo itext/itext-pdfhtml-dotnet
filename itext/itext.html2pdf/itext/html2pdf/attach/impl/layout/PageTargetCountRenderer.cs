@@ -25,7 +25,9 @@ using System.Collections.Generic;
 using Common.Logging;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
+using iText.IO.Font.Otf;
 using iText.IO.Util;
+using iText.Kernel.Font;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
@@ -56,6 +58,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             target = textElement.GetTarget();
         }
 
+        protected internal PageTargetCountRenderer(TextRenderer other)
+            : base(other) {
+            this.digitsGlyphStyle = ((iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer)other).digitsGlyphStyle;
+            this.target = ((iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer)other).target;
+        }
+
         /// <summary><inheritDoc/></summary>
         public override LayoutResult Layout(LayoutContext layoutContext) {
             String previousText = GetText().ToString();
@@ -82,7 +90,23 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         /// <summary><inheritDoc/></summary>
         public override IRenderer GetNextRenderer() {
-            return this;
+            if (typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer) != this.GetType()) {
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer));
+                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
+            }
+            return new iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer((PageTargetCountElement)modelElement);
+        }
+
+        /// <summary><inheritDoc/></summary>
+        protected override TextRenderer CreateCopy(GlyphLine gl, PdfFont font) {
+            if (typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer) != this.GetType()) {
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer));
+                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN));
+            }
+            iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer copy = new iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer
+                (this);
+            copy.SetProcessedGlyphLineAndFont(gl, font);
+            return copy;
         }
 
         /// <summary><inheritDoc/></summary>

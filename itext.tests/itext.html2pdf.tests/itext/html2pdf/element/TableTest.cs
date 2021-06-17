@@ -541,6 +541,12 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void EmptyTrRowspanBorderCollapsingTest() {
+            // TODO DEVSIX-5290 change cmp after the correction
+            RunTest("emptyTrRowspanBorderCollapsing");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void TagsFlushingErrorWhenConvertedFromHtmlTest() {
             String file = sourceFolder + "tagsFlushingErrorWhenConvertedFromHtml.html";
             IList<IElement> elements = HtmlConverter.ConvertToElements(new FileStream(file, FileMode.Open, FileAccess.Read

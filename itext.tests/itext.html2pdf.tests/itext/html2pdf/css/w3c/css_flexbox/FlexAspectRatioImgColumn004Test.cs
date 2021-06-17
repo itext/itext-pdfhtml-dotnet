@@ -26,7 +26,6 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5096 support flex-direction: column
-    //TODO DEVSIX-5004 pdfHTML: improve support of flex-items with intrinsic aspect ratio
     [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
     public class FlexAspectRatioImgColumn004Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {

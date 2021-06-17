@@ -42,8 +42,12 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using Common.Logging;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
+using iText.IO.Font.Otf;
+using iText.IO.Util;
+using iText.Kernel.Font;
 using iText.Layout;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
@@ -61,7 +65,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <param name="textElement">the text element</param>
         internal PageCountRenderer(PageCountElement textElement)
             : base(textElement) {
-            digitsGlyphStyle = textElement.GetDigitsGlyphStyle();
+            this.digitsGlyphStyle = textElement.GetDigitsGlyphStyle();
+        }
+
+        protected internal PageCountRenderer(TextRenderer other)
+            : base(other) {
+            this.digitsGlyphStyle = ((iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer)other).digitsGlyphStyle;
         }
 
         /* (non-Javadoc)
@@ -107,6 +116,27 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 SetText(previousText);
             }
             return result;
+        }
+
+        /// <summary><inheritDoc/></summary>
+        public override IRenderer GetNextRenderer() {
+            if (typeof(iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer) != this.GetType()) {
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer));
+                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
+            }
+            return new iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer((PageCountElement)modelElement);
+        }
+
+        /// <summary><inheritDoc/></summary>
+        protected override TextRenderer CreateCopy(GlyphLine gl, PdfFont font) {
+            if (typeof(iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer) != this.GetType()) {
+                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer));
+                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN));
+            }
+            iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer copy = new iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer
+                (this);
+            copy.SetProcessedGlyphLineAndFont(gl, font);
+            return copy;
         }
 
         /* (non-Javadoc)

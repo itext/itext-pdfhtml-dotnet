@@ -26,6 +26,8 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class FlexAlgoTest : ExtendedHtmlConversionITextTest {
+        private static bool s = true;
+
         /* To see unit tests for flex algorithm go to FlexUtilTest in layout module:
         - these test were created as unit tests for flex algo at first
         - the htmls were used to compare the widths, returned by the algo
@@ -37,7 +39,7 @@ namespace iText.Html2pdf.Css {
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/FlexAlgoTest/";
 
         public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/resources/itext/html2pdf/css/FlexAlgoTest/";
+             + "/test/itext/html2pdf/css/FlexAlgoTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
@@ -491,7 +493,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void DifferentBasisSumLtWidthGrow1Shrink1Item2MarginsTest01() {
-            //TODO
             ConvertToPdfAndCompare("differentBasisSumLtWidthGrow1Shrink1Item2MarginsTest01", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }

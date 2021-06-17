@@ -310,6 +310,12 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void FlexBasisContentMaxWidth() {
+            // TODO DEVSIX-5091 change cmp file when working on the thicket
+            ConvertToPdfAndCompare("flexBasisContentMaxWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void FloatAtFlexItemTest() {
             ConvertToPdfAndCompare("floatAtFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

@@ -20,14 +20,61 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+using System.Collections.Generic;
+using iText.IO.Font.Otf;
+using iText.Kernel.Font;
+using iText.Layout.Renderer;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     public class PageTargetCountRendererTest : ExtendedITextTest {
         [NUnit.Framework.Test]
-        public virtual void GetNextRendererTest() {
-            PageTargetCountRenderer renderer = new PageTargetCountRenderer(new PageTargetCountElement("target"));
-            NUnit.Framework.Assert.AreEqual(renderer, renderer.GetNextRenderer());
+        [LogMessage(iText.IO.LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN)]
+        public virtual void GetNextRendererShouldBeOverriddenTest() {
+            PageTargetCountRenderer pageTargetCountRenderer = new _PageTargetCountRenderer_51(new PageTargetCountElement
+                ("test"));
+            // Nothing is overridden
+            NUnit.Framework.Assert.AreEqual(typeof(PageTargetCountRenderer), pageTargetCountRenderer.GetNextRenderer()
+                .GetType());
+        }
+
+        private sealed class _PageTargetCountRenderer_51 : PageTargetCountRenderer {
+            public _PageTargetCountRenderer_51(PageTargetCountElement baseArg1)
+                : base(baseArg1) {
+            }
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN)]
+        public virtual void CreateCopyShouldBeOverriddenTest() {
+            PageTargetCountRenderer pageTargetCountRenderer = new PageTargetCountRendererTest.CustomPageTargetCountRenderer
+                (new PageTargetCountElement("test"));
+            NUnit.Framework.Assert.AreEqual(typeof(PageTargetCountRendererTest.CustomPageTargetCountRenderer), pageTargetCountRenderer
+                .GetNextRenderer().GetType());
+            // This test checks for the log message being sent, so we should get there
+            NUnit.Framework.Assert.IsTrue(true);
+        }
+
+        internal class CustomPageTargetCountRenderer : PageTargetCountRenderer {
+            public CustomPageTargetCountRenderer(PageTargetCountElement textElement)
+                : base(textElement) {
+            }
+
+            public override IRenderer GetNextRenderer() {
+                try {
+                    // In Java protected methods could be accessed within the same package as default ones,
+                    // but .NET works differently. Hence to test a log about #copyText being not overridden
+                    // we need to call it from inside the class.
+                    TextRenderer copy = CreateCopy(new GlyphLine(new List<Glyph>()), PdfFontFactory.CreateFont());
+                    NUnit.Framework.Assert.IsNotNull(copy);
+                }
+                catch (System.IO.IOException) {
+                    NUnit.Framework.Assert.Fail("We do not expect PdfFontFactory#createFont() to throw an exception here.");
+                }
+                return new PageTargetCountRendererTest.CustomPageTargetCountRenderer((PageTargetCountElement)this.modelElement
+                    );
+            }
         }
     }
 }
