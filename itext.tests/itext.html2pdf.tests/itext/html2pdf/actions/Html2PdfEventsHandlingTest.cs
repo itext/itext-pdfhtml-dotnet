@@ -32,6 +32,7 @@ using iText.Kernel.Actions.Events;
 using iText.Kernel.Actions.Processors;
 using iText.Kernel.Actions.Producer;
 using iText.Kernel.Actions.Sequence;
+using iText.Kernel.Counter;
 using iText.Kernel.Counter.Event;
 using iText.Kernel.Pdf;
 using iText.Layout;
@@ -280,13 +281,15 @@ namespace iText.Html2pdf.Actions {
         }
 
         private static ConfirmedEventWrapper GetPdfHtmlEvent() {
-            DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor("pdfHtml");
+            DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(NamespaceConstant.PDF_HTML
+                );
             return new ConfirmedEventWrapper(PdfHtmlProductEvent.CreateConvertHtmlEvent(new SequenceId(), null), processor
                 .GetUsageType(), processor.GetProducer());
         }
 
         private static ConfirmedEventWrapper GetCoreEvent() {
-            DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor("itext7-core");
+            DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(NamespaceConstant.ITEXT
+                );
             return new ConfirmedEventWrapper(ITextCoreEvent.CreateProcessPdfEvent(new SequenceId(), null, EventConfirmationType
                 .ON_CLOSE), processor.GetUsageType(), processor.GetProducer());
         }

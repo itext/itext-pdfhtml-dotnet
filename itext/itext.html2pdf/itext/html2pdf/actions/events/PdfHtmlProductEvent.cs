@@ -31,9 +31,7 @@ namespace iText.Html2pdf.Actions.Events {
     /// <summary>Class represents events registered in iText pdfHTML module.</summary>
     public class PdfHtmlProductEvent : AbstractProductProcessITextEvent {
         /// <summary>Convert html event type.</summary>
-        public const String CONVERT_HTML = 
-                // TODO DEVSIX-5466 rename constant value
-                "convert-elements-event";
+        public const String CONVERT_HTML = "convert-html";
 
         private readonly String eventType;
 
