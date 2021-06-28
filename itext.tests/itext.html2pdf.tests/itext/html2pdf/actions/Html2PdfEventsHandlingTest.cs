@@ -27,17 +27,18 @@ using iText.Html2pdf;
 using iText.Html2pdf.Actions.Events;
 using iText.IO.Source;
 using iText.IO.Util;
+using iText.Kernel;
 using iText.Kernel.Actions;
 using iText.Kernel.Actions.Events;
 using iText.Kernel.Actions.Processors;
 using iText.Kernel.Actions.Producer;
 using iText.Kernel.Actions.Sequence;
-using iText.Kernel.Counter;
 using iText.Kernel.Counter.Event;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Actions {
     public class Html2PdfEventsHandlingTest : ExtendedITextTest {
@@ -275,20 +276,61 @@ namespace iText.Html2pdf.Actions {
             }
         }
 
+        [NUnit.Framework.Test]
+        [LogMessage(KernelLogMessageConstant.UNCONFIRMED_EVENT)]
+        public virtual void UnreportedCoreEventTest() {
+            String outFileName = DESTINATION_FOLDER + "unreportedCoreEvent.pdf";
+            String html = "<html><head></head>" + "<body style=\"font-size:12.0pt; font-family:Arial\">" + "<p>Text in paragraph</p>"
+                 + "</body></html>";
+            using (PdfDocument document = new PdfDocument(new PdfWriter(outFileName), new DocumentProperties().SetEventCountingMetaInfo
+                (new Html2PdfEventsHandlingTest.HtmlTestMetaInfo()))) {
+                document.AddNewPage();
+                HtmlConverter.ConvertToDocument(html, document, new ConverterProperties());
+                ITextCoreEvent coreEvent = ITextCoreEvent.CreateProcessPdfEvent(document.GetDocumentIdWrapper(), null, EventConfirmationType
+                    .ON_DEMAND);
+                EventManager.GetInstance().OnEvent(coreEvent);
+            }
+            String expectedProdLine = CreateExpectedProducerLine(new ConfirmedEventWrapper[] { GetPdfHtmlEvent() });
+            ValidatePdfProducerLine(outFileName, expectedProdLine);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(KernelLogMessageConstant.UNCONFIRMED_EVENT)]
+        public virtual void UnreportedPdfHtmlEventTest() {
+            String outFileName = DESTINATION_FOLDER + "unreportedPdfHtmlEvent.pdf";
+            using (PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFileName))) {
+                pdfDocument.AddNewPage();
+                PdfHtmlTestProductEvent @event = new PdfHtmlTestProductEvent(pdfDocument.GetDocumentIdWrapper(), "event data"
+                    , EventConfirmationType.ON_DEMAND);
+                EventManager.GetInstance().OnEvent(@event);
+            }
+            String expectedProdLine = CreateExpectedProducerLine(new ConfirmedEventWrapper[] { GetCoreEvent() });
+            ValidatePdfProducerLine(outFileName, expectedProdLine);
+        }
+
+        private class HtmlTestMetaInfo : IMetaInfo {
+        }
+
+        private void ValidatePdfProducerLine(String filePath, String expected) {
+            using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(filePath))) {
+                NUnit.Framework.Assert.AreEqual(expected, pdfDocument.GetDocumentInfo().GetProducer());
+            }
+        }
+
         private static String CreateExpectedProducerLine(ConfirmedEventWrapper[] expectedEvents) {
             IList<ConfirmedEventWrapper> listEvents = JavaUtil.ArraysAsList(expectedEvents);
             return ProducerBuilder.ModifyProducer(listEvents, null);
         }
 
         private static ConfirmedEventWrapper GetPdfHtmlEvent() {
-            DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(NamespaceConstant.PDF_HTML
+            DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(ProductNameConstant.PDF_HTML
                 );
             return new ConfirmedEventWrapper(PdfHtmlProductEvent.CreateConvertHtmlEvent(new SequenceId(), null), processor
                 .GetUsageType(), processor.GetProducer());
         }
 
         private static ConfirmedEventWrapper GetCoreEvent() {
-            DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(NamespaceConstant.ITEXT
+            DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(ProductNameConstant.ITEXT_CORE
                 );
             return new ConfirmedEventWrapper(ITextCoreEvent.CreateProcessPdfEvent(new SequenceId(), null, EventConfirmationType
                 .ON_CLOSE), processor.GetUsageType(), processor.GetProducer());
