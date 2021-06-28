@@ -102,5 +102,10 @@ namespace iText.Html2pdf.Css {
         public virtual void ImageWidthInPercentValueTest() {
             ConvertToPdfAndCompare("imageWidthInPercentValue", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void MaxWidthInPixelForTableTest() {
+            ConvertToPdfAndCompare("maxWidthForChildTablesInPixels", sourceFolder, destinationFolder);
+        }
     }
 }
