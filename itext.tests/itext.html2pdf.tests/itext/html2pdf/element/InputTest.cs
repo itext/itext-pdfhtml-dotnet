@@ -261,11 +261,8 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-5572 iText gets into an infinite loop")]
+        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
         public virtual void LongInputValueCausesNothingTest() {
-            // TODO DEVSIX-5572 The test could be improved to a layout one without checkboxes, however,
-            // I suggest leaving it as it is until the ticket is picked up: perhaps there are some other
-            // points which one should pay attention to
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetTagWorkerFactory(new InputTest.CustomTextInputTagWorkerFactory());
             ConvertToPdfAndCompare("longInputValueCausesNothingTest", sourceFolder, destinationFolder, false, converterProperties
