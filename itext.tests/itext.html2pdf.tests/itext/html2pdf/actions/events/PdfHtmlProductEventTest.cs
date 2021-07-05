@@ -35,7 +35,6 @@ namespace iText.Html2pdf.Actions.Events {
                 ("meta data"));
             NUnit.Framework.Assert.AreEqual(PdfHtmlProductEvent.CONVERT_HTML, @event.GetEventType());
             NUnit.Framework.Assert.AreEqual(ProductNameConstant.PDF_HTML, @event.GetProductName());
-            NUnit.Framework.Assert.AreEqual("meta data", ((PdfHtmlTestMetaInfo)@event.GetMetaInfo()).GetMetaData());
             NUnit.Framework.Assert.AreEqual(EventConfirmationType.ON_CLOSE, @event.GetConfirmationType());
             NUnit.Framework.Assert.AreEqual(sequenceId, @event.GetSequenceId());
             NUnit.Framework.Assert.AreEqual(PdfHtmlProductData.GetInstance().GetPublicProductName(), @event.GetProductData

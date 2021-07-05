@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Actions.Data;
+using iText.Kernel.Actions;
 using iText.Kernel.Actions.Events;
 using iText.Kernel.Actions.Sequence;
 
