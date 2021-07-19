@@ -41,51 +41,27 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.Net;
+using iText.Html2pdf;
 using iText.IO.Image;
 using iText.Kernel.Pdf.Xobject;
 using iText.Kernel.Utils;
 using iText.StyledXmlParser.Resolver.Resource;
-using iText.Test;
 
-namespace iText.Html2pdf.Resolver.Resource
-{
-    public class ExternalImageTest : ExtendedITextTest
-    {
-        public static readonly String sourceFolder =
-            iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext.CurrentContext.TestDirectory)
-            + "/resources/itext/html2pdf/resolver/resource/ExternalImageTest/";
-
-        private const String IMAGE_URL =
-            "https://raw.githubusercontent.com/itext/itext7/develop/layout/src/test/resources/com/itextpdf/layout/ImageTest/itis.jpg";
-
-        private SecurityProtocolType defaultSecurityProtocol;
-
-        [NUnit.Framework.SetUp]
-        public void SetUpSecurityProtocol()
-        {
-            defaultSecurityProtocol = ServicePointManager.SecurityProtocol;
-
-            // Explicitly set TLS 1.2 security protocol to avoid connection issues
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType) 3072;
-        }
-
-        [NUnit.Framework.TearDown]
-        public void RestoreDefaultSecurityProtocol()
-        {
-            ServicePointManager.SecurityProtocol = defaultSecurityProtocol;
-        }
+namespace iText.Html2pdf.Resolver.Resource {
+    public class ExternalImageTest : ExternalExtendedITextTest {
+        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/resolver/resource/ExternalImageTest/";
 
         [NUnit.Framework.Test]
-        public virtual void Test()
-        {
+        public virtual void Test() {
             ResourceResolver resourceResolver = new ResourceResolver("");
-            PdfXObject externalImage = resourceResolver.RetrieveImageExtended(IMAGE_URL);
+            PdfXObject externalImage = resourceResolver.RetrieveImageExtended("https://raw.githubusercontent.com/itext/itext7/develop/layout/src/test/resources/com/itextpdf/layout/ImageTest/itis.jpg"
+                );
             NUnit.Framework.Assert.IsNotNull(externalImage);
             ImageData imageData = ImageDataFactory.Create(sourceFolder + "itis.jpg");
             iText.Layout.Element.Image localImage = new iText.Layout.Element.Image(imageData);
-            NUnit.Framework.Assert.IsTrue(new CompareTool().CompareStreams(externalImage.GetPdfObject(),
-                localImage.GetXObject().GetPdfObject()));
+            NUnit.Framework.Assert.IsTrue(new CompareTool().CompareStreams(externalImage.GetPdfObject(), localImage.GetXObject
+                ().GetPdfObject()));
         }
     }
 }
