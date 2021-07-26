@@ -39,8 +39,8 @@ namespace iText.Html2pdf.Actions.Events {
             NUnit.Framework.Assert.AreEqual(sequenceId, @event.GetSequenceId());
             NUnit.Framework.Assert.AreEqual(PdfHtmlProductData.GetInstance().GetPublicProductName(), @event.GetProductData
                 ().GetPublicProductName());
-            NUnit.Framework.Assert.AreEqual(PdfHtmlProductData.GetInstance().GetModuleName(), @event.GetProductData().
-                GetModuleName());
+            NUnit.Framework.Assert.AreEqual(PdfHtmlProductData.GetInstance().GetProductName(), @event.GetProductData()
+                .GetProductName());
             NUnit.Framework.Assert.AreEqual(PdfHtmlProductData.GetInstance().GetVersion(), @event.GetProductData().GetVersion
                 ());
             NUnit.Framework.Assert.AreEqual(PdfHtmlProductData.GetInstance().GetSinceCopyrightYear(), @event.GetProductData
