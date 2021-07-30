@@ -57,7 +57,6 @@ using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
-using iText.Html2pdf.Util;
 using iText.IO;
 using iText.IO.Font;
 using iText.IO.Util;
