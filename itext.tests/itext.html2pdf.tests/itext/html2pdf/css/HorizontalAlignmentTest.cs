@@ -58,7 +58,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void AlignAttribute01() {
-            // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
+            // TODO DEVSIX-5518 result is somewhat different from what browsers render
             ConvertToPdfAndCompare("alignAttribute01", sourceFolder, destinationFolder);
         }
 
@@ -74,7 +74,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void AlignAttribute04() {
-            // TODO result is somewhat different from what browsers render; see TODO in HtmlStylesToCssConverter.AlignAttributeConverter
             ConvertToPdfAndCompare("alignAttribute04", sourceFolder, destinationFolder);
         }
 

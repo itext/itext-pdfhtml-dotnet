@@ -78,8 +78,14 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void PercentMarginTest() {
-            //Todo: the width for table currently set incorrect.
+            // TODO DEVSIX-5726 the width for table currently set incorrect.
             ConvertToPdfAndCompare("percentMarginTest", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PercentMarginTableTest() {
+            // TODO DEVSIX-5726 the width for table currently set incorrect.
+            ConvertToPdfAndCompare("percentMarginTable", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
