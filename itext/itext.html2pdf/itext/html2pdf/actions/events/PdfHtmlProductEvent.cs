@@ -54,10 +54,6 @@ namespace iText.Html2pdf.Actions.Events {
             return new iText.Html2pdf.Actions.Events.PdfHtmlProductEvent(sequenceId, metaInfo, CONVERT_HTML);
         }
 
-        public override String GetProductName() {
-            return ProductNameConstant.PDF_HTML;
-        }
-
         public override String GetEventType() {
             return eventType;
         }
