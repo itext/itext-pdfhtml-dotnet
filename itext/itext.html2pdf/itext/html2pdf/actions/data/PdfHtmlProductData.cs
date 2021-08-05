@@ -21,13 +21,13 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using iText.Events.Data;
 using iText.Kernel.Actions;
-using iText.Kernel.Actions.Data;
 
 namespace iText.Html2pdf.Actions.Data {
     /// <summary>
     /// Stores an instance of
-    /// <see cref="iText.Kernel.Actions.Data.ProductData"/>
+    /// <see cref="iText.Events.Data.ProductData"/>
     /// related to iText pdfHTML module.
     /// </summary>
     public class PdfHtmlProductData {
@@ -44,7 +44,7 @@ namespace iText.Html2pdf.Actions.Data {
 
         /// <summary>
         /// Getter for an instance of
-        /// <see cref="iText.Kernel.Actions.Data.ProductData"/>
+        /// <see cref="iText.Events.Data.ProductData"/>
         /// related to iText pdfHTML module.
         /// </summary>
         /// <returns>iText pdfHTML product description</returns>
