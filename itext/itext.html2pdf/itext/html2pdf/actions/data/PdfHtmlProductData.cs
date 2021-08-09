@@ -35,7 +35,7 @@ namespace iText.Html2pdf.Actions.Data {
 
         private const String PDF_HTML_VERSION = "4.0.0-SNAPSHOT";
 
-        private const int PDF_HTML_COPYRIGHT_SINCE = 1998;
+        private const int PDF_HTML_COPYRIGHT_SINCE = 2000;
 
         private const int PDF_HTML_COPYRIGHT_TO = 2021;
 
