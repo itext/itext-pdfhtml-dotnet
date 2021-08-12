@@ -71,13 +71,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public override bool ProcessContent(String content, ProcessorContext context) {
             // It seems that browsers just skip first newline symbol, if any
             if (!anyContentProcessed) {
-                if (content.StartsWith("\n")) {
-                    content = content.Substring(1);
-                }
-                else {
-                    if (content.StartsWith("\r\n")) {
-                        content = content.Substring(2);
-                    }
+                if (content.StartsWith("\r\n")) {
+                    content = content.Substring(2);
                 }
             }
             anyContentProcessed = true;

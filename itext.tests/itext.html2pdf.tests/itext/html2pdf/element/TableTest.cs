@@ -259,7 +259,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, Count = 3)]
+        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)]
         public virtual void CheckFloatInTdTagged() {
             //TODO update after DEVSIX-2395 and DEVSIX-2399
             RunTest("checkFloatInTdTagged");
