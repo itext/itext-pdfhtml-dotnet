@@ -128,7 +128,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         public override PdfXObject RetrieveImage(String src) {
-            if (src != null && src.Trim().StartsWith(SVG_PREFIX) && iText.IO.Util.Matcher.Match(SVG_IDENTIFIER_PATTERN
+            if (src != null && src.Trim().StartsWith(SVG_PREFIX) && iText.Events.Util.Matcher.Match(SVG_IDENTIFIER_PATTERN
                 , src).Find()) {
                 PdfXObject imageXObject = TryResolveSvgImageSource(src);
                 if (imageXObject != null) {

@@ -41,7 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using iText.IO.Util;
+using iText.Events.Util;
 
 namespace iText.Html2pdf.Exceptions {
     /// <summary>Runtime exception in case a CSS applier can't be initialized.</summary>

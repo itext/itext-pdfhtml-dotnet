@@ -21,10 +21,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using iText.Events.Sequence;
 using iText.Html2pdf.Actions.Data;
 using iText.Kernel.Actions;
 using iText.Kernel.Actions.Events;
-using iText.Kernel.Actions.Sequence;
 using iText.Kernel.Counter.Event;
 
 namespace iText.Html2pdf.Actions.Events {

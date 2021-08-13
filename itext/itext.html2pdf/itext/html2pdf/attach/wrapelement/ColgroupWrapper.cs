@@ -42,7 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using iText.IO.Util;
+using iText.Events.Util;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Wrapelement {

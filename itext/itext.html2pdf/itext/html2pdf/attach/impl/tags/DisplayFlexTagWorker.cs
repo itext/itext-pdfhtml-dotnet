@@ -90,7 +90,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         public virtual bool ProcessContent(String content, ProcessorContext context) {
-            if (iText.IO.Util.Matcher.Match(ANY_SYMBOL_PATTERN, content).Find()) {
+            if (iText.Events.Util.Matcher.Match(ANY_SYMBOL_PATTERN, content).Find()) {
                 inlineHelper.Add(content);
             }
             return true;
@@ -141,7 +141,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private bool InlineHelperContainsText() {
             bool containsText = false;
             foreach (IElement element in inlineHelper.GetWaitingLeaves()) {
-                if (element is iText.Layout.Element.Text && iText.IO.Util.Matcher.Match(ANY_SYMBOL_PATTERN, ((iText.Layout.Element.Text
+                if (element is iText.Layout.Element.Text && iText.Events.Util.Matcher.Match(ANY_SYMBOL_PATTERN, ((iText.Layout.Element.Text
                     )element).GetText()).Find()) {
                     containsText = true;
                 }

@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
+using iText.Events.Util;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
@@ -50,7 +51,6 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
 using iText.IO;
-using iText.IO.Util;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Css.Util;
@@ -197,7 +197,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         internal static String PreprocessInputValue(String value, String inputType) {
-            if (AttributeConstants.NUMBER.Equals(inputType) && value != null && !iText.IO.Util.Matcher.Match(NUMBER_INPUT_ALLOWED_VALUES
+            if (AttributeConstants.NUMBER.Equals(inputType) && value != null && !iText.Events.Util.Matcher.Match(NUMBER_INPUT_ALLOWED_VALUES
                 , value).Matches()) {
                 value = "";
             }

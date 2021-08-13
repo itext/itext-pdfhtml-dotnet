@@ -43,12 +43,13 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Events;
+using iText.Events.Sequence;
 using iText.Html2pdf.Actions.Events;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Actions;
-using iText.Kernel.Actions.Sequence;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;

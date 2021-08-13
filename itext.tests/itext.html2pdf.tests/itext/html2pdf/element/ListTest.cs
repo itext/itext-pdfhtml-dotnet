@@ -42,10 +42,10 @@ address: sales@itextpdf.com
 */
 using System;
 using System.IO;
+using iText.Events.Util;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
 using iText.Html2pdf.Resolver.Font;
-using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Pdfa;

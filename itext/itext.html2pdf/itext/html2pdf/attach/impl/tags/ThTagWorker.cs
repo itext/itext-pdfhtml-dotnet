@@ -42,11 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using Microsoft.Extensions.Logging;
+using iText.Events.Util;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
 using iText.IO;
-using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Tagging;
 using iText.Kernel.Pdf.Tagutils;
