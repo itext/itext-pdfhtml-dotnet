@@ -157,7 +157,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             drawContext.GetCanvas().SaveState();
             bool flatten = IsFlatten();
             if (flatten) {
-                drawContext.GetCanvas().Rectangle(ApplyBorderBox(occupiedArea.GetBBox(), false)).Clip().NewPath();
+                drawContext.GetCanvas().Rectangle(ApplyBorderBox(occupiedArea.GetBBox(), false)).Clip().EndPath();
                 flatRenderer.Draw(drawContext);
             }
             else {
