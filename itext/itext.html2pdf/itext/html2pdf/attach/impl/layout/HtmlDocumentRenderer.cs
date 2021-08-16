@@ -218,7 +218,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             relayoutRenderer.firstPageProc = firstPageProc.Reset(defaultPageSize, defaultPageMargins);
             relayoutRenderer.leftPageProc = leftPageProc.Reset(defaultPageSize, defaultPageMargins);
             relayoutRenderer.rightPageProc = rightPageProc.Reset(defaultPageSize, defaultPageMargins);
-            relayoutRenderer.estimatedNumberOfPages = currentArea.GetPageNumber() - SimulateTrimLastPage();
+            relayoutRenderer.estimatedNumberOfPages = currentArea == null ? estimatedNumberOfPages : currentArea.GetPageNumber
+                () - SimulateTrimLastPage();
             relayoutRenderer.marginBoxesHandler = marginBoxesHandler.SetHtmlDocumentRenderer(relayoutRenderer);
             relayoutRenderer.targetCounterHandler = new TargetCounterHandler(targetCounterHandler);
             return relayoutRenderer;
