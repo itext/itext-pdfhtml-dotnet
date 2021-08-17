@@ -43,7 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using iText.Events.Util;
+using iText.Events.Utils;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
 using iText.IO;
@@ -87,7 +87,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             if (pageSizeStr == null || CssConstants.AUTO.Equals(pageSizeStr)) {
                 return pageSize;
             }
-            String[] pageSizeChunks = iText.IO.Util.StringUtil.Split(pageSizeStr, " ");
+            String[] pageSizeChunks = iText.Events.Utils.StringUtil.Split(pageSizeStr, " ");
             String firstChunk = pageSizeChunks[0];
             if (IsLengthValue(firstChunk)) {
                 PageSize pageSizeBasedOnLength = ParsePageLengthValue(pageSizeChunks, em, rem);

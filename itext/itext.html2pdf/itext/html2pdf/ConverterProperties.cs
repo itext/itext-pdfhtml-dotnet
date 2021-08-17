@@ -41,10 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Events.Contexts;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
-using iText.Kernel.Counter.Event;
 using iText.Layout.Font;
 using iText.StyledXmlParser.Css.Media;
 using iText.StyledXmlParser.Resolver.Resource;
@@ -500,7 +500,7 @@ namespace iText.Html2pdf {
         /// </remarks>
         /// <returns>
         /// converter's
-        /// <see cref="iText.Kernel.Counter.Event.IMetaInfo"/>
+        /// <see cref="iText.Events.Contexts.IMetaInfo"/>
         /// </returns>
         internal virtual IMetaInfo GetEventMetaInfo() {
             return metaInfo == null ? HtmlConverter.GetPdf2HtmlMetaInfo() : metaInfo;

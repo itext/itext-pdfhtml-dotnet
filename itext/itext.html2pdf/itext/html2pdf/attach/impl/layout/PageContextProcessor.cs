@@ -43,7 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using iText.Events.Util;
+using iText.Events.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Impl;
@@ -128,7 +128,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             if (marksStr == null) {
                 return marks;
             }
-            String[] split = iText.IO.Util.StringUtil.Split(marksStr, " ");
+            String[] split = iText.Events.Utils.StringUtil.Split(marksStr, " ");
             foreach (String mark in split) {
                 if (CssConstants.CROP.Equals(mark) || CssConstants.CROSS.Equals(mark)) {
                     marks.Add(mark);

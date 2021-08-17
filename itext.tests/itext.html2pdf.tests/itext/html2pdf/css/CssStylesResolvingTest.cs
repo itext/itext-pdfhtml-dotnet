@@ -44,7 +44,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using iText.Events.Util;
+using iText.Events.Utils;
 using iText.Html2pdf.Css.Resolve;
 using iText.Html2pdf.Html;
 using iText.StyledXmlParser;
@@ -245,7 +245,7 @@ namespace iText.Html2pdf.Css {
 
         private IElementNode FindElement(INode root, String ancestryPath) {
             INode currElement = root;
-            String[] ancestors = iText.IO.Util.StringUtil.Split(ancestryPath, " ");
+            String[] ancestors = iText.Events.Utils.StringUtil.Split(ancestryPath, " ");
             int ancestorPathIndex = 0;
             bool foundElement = false;
             while (ancestorPathIndex < ancestors.Length) {

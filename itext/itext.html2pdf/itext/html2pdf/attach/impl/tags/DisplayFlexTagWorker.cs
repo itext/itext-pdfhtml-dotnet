@@ -65,7 +65,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private readonly WaitingInlineElementsHelper inlineHelper;
 
         static DisplayFlexTagWorker() {
-            ANY_SYMBOL_PATTERN = iText.IO.Util.StringUtil.RegexCompile("\\S+");
+            ANY_SYMBOL_PATTERN = iText.Events.Utils.StringUtil.RegexCompile("\\S+");
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         public virtual bool ProcessContent(String content, ProcessorContext context) {
-            if (iText.Events.Util.Matcher.Match(ANY_SYMBOL_PATTERN, content).Find()) {
+            if (iText.Events.Utils.Matcher.Match(ANY_SYMBOL_PATTERN, content).Find()) {
                 inlineHelper.Add(content);
             }
             return true;
@@ -141,7 +141,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private bool InlineHelperContainsText() {
             bool containsText = false;
             foreach (IElement element in inlineHelper.GetWaitingLeaves()) {
-                if (element is iText.Layout.Element.Text && iText.Events.Util.Matcher.Match(ANY_SYMBOL_PATTERN, ((iText.Layout.Element.Text
+                if (element is iText.Layout.Element.Text && iText.Events.Utils.Matcher.Match(ANY_SYMBOL_PATTERN, ((iText.Layout.Element.Text
                     )element).GetText()).Find()) {
                     containsText = true;
                 }

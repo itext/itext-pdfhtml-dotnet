@@ -41,7 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using iText.Events;
-using iText.Kernel.Counter.Event;
+using iText.Events.Contexts;
 using iText.Test;
 
 namespace iText.Html2pdf {

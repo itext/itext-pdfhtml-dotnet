@@ -42,7 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using iText.Events.Util;
+using iText.Events.Utils;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.StyledXmlParser.Css;
@@ -486,7 +486,7 @@ namespace iText.Html2pdf.Css.Resolve {
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 // Trim semicolons at the end because they seem to not affect the value in browsers
-                String cssEquivalent = iText.IO.Util.StringUtil.ReplaceAll(value, ";+$", "");
+                String cssEquivalent = iText.Events.Utils.StringUtil.ReplaceAll(value, ";+$", "");
                 if (!CssTypesValidationUtils.IsMetricValue(cssEquivalent) && !cssEquivalent.EndsWith(CssConstants.PERCENTAGE
                     )) {
                     cssEquivalent += CssConstants.PX;
@@ -512,7 +512,7 @@ namespace iText.Html2pdf.Css.Resolve {
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 // Trim semicolons at the end because they seem to not affect the value in browsers
-                String cssEquivalent = iText.IO.Util.StringUtil.ReplaceAll(value, ";+$", "");
+                String cssEquivalent = iText.Events.Utils.StringUtil.ReplaceAll(value, ";+$", "");
                 if (!CssTypesValidationUtils.IsMetricValue(cssEquivalent) && !cssEquivalent.EndsWith(CssConstants.PERCENTAGE
                     )) {
                     cssEquivalent += CssConstants.PX;

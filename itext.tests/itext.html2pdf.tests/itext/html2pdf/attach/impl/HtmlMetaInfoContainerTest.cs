@@ -21,9 +21,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using iText.Events;
+using iText.Events.Contexts;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
-using iText.Kernel.Counter.Event;
 using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl {

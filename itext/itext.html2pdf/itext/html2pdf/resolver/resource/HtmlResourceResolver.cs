@@ -63,7 +63,7 @@ namespace iText.Html2pdf.Resolver.Resource {
     public class HtmlResourceResolver : ResourceResolver {
         private const String SVG_PREFIX = "data:image/svg+xml";
 
-        private static readonly Regex SVG_IDENTIFIER_PATTERN = iText.IO.Util.StringUtil.RegexCompile(",[\\s]*(<svg )"
+        private static readonly Regex SVG_IDENTIFIER_PATTERN = iText.Events.Utils.StringUtil.RegexCompile(",[\\s]*(<svg )"
             );
 
         private ProcessorContext context;
@@ -128,7 +128,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         public override PdfXObject RetrieveImage(String src) {
-            if (src != null && src.Trim().StartsWith(SVG_PREFIX) && iText.Events.Util.Matcher.Match(SVG_IDENTIFIER_PATTERN
+            if (src != null && src.Trim().StartsWith(SVG_PREFIX) && iText.Events.Utils.Matcher.Match(SVG_IDENTIFIER_PATTERN
                 , src).Find()) {
                 PdfXObject imageXObject = TryResolveSvgImageSource(src);
                 if (imageXObject != null) {
@@ -147,7 +147,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         /// <param name="src">either link to file or base64 encoded stream</param>
         /// <returns>PdfXObject on success, otherwise null</returns>
         protected override PdfXObject TryResolveBase64ImageSource(String src) {
-            String fixedSrc = iText.IO.Util.StringUtil.ReplaceAll(src, "\\s", "");
+            String fixedSrc = iText.Events.Utils.StringUtil.ReplaceAll(src, "\\s", "");
             if (fixedSrc.StartsWith(SVG_PREFIX)) {
                 fixedSrc = fixedSrc.Substring(fixedSrc.IndexOf(BASE64_IDENTIFIER, StringComparison.Ordinal) + BASE64_IDENTIFIER
                     .Length + 1);

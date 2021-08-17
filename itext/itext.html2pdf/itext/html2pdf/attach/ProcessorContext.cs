@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Events.Contexts;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
@@ -50,7 +51,6 @@ using iText.Html2pdf.Resolver.Font;
 using iText.Html2pdf.Resolver.Form;
 using iText.Html2pdf.Resolver.Resource;
 using iText.IO.Font;
-using iText.Kernel.Counter.Event;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
 using iText.StyledXmlParser.Css.Media;

@@ -51,7 +51,6 @@ using iText.Html2pdf.Logs;
 using iText.IO.Source;
 using iText.IO.Util;
 using iText.Kernel;
-using iText.Kernel.Actions;
 using iText.Kernel.Exceptions;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
