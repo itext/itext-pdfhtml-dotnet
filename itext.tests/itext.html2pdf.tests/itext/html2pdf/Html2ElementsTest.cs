@@ -48,8 +48,11 @@ using iText.Events.Sequence;
 using iText.Html2pdf.Actions.Events;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Logs;
+using iText.IO.Source;
 using iText.IO.Util;
+using iText.Kernel;
 using iText.Kernel.Actions;
+using iText.Kernel.Exceptions;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
@@ -274,6 +277,47 @@ namespace iText.Html2pdf {
             }
             finally {
                 EventManager.GetInstance().Unregister(handler);
+            }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertToElementsAndCreateTwoDocumentsTest() {
+            String html = "This text is directly in body. It should have the same default LEADING property as everything else.\n"
+                 + "<p>This text is in paragraph.</p>";
+            IList<IElement> iElementList = HtmlConverter.ConvertToElements(html);
+            using (PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()))) {
+                using (Document document = new Document(pdfDocument)) {
+                    AddElementsToDocument(document, iElementList);
+                }
+            }
+            PdfDocument pdfDocument_1 = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+            Document document_1 = new Document(pdfDocument_1);
+            AddElementsToDocument(document_1, iElementList);
+            // TODO DEVSIX-5753 error should not be thrown here
+            Exception e = NUnit.Framework.Assert.Catch(typeof(PdfException), () => document_1.Close());
+            NUnit.Framework.Assert.AreEqual(KernelExceptionMessageConstant.PDF_INDIRECT_OBJECT_BELONGS_TO_OTHER_PDF_DOCUMENT
+                , e.Message);
+        }
+
+        private static void AddElementsToDocument(Document document, IList<IElement> elements) {
+            foreach (IElement elem in elements) {
+                if (elem is IBlockElement) {
+                    document.Add((IBlockElement)elem);
+                }
+                else {
+                    if (elem is Image) {
+                        document.Add((Image)elem);
+                    }
+                    else {
+                        if (elem is AreaBreak) {
+                            document.Add((AreaBreak)elem);
+                        }
+                        else {
+                            NUnit.Framework.Assert.Fail("The #convertToElements method gave element which is unsupported as root element, it's unexpected."
+                                );
+                        }
+                    }
+                }
             }
         }
 

@@ -169,21 +169,41 @@ namespace iText.Html2pdf.Css {
 
             public override ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
                 if (TagConstants.HTML.Equals(tag.Name())) {
-                    return new _HtmlTagWorker_170(tag, context);
+                    return new _ITagWorker_170(tag, context);
                 }
                 return null;
             }
 
-            private sealed class _HtmlTagWorker_170 : HtmlTagWorker {
-                public _HtmlTagWorker_170(IElementNode baseArg1, ProcessorContext baseArg2)
-                    : base(baseArg1, baseArg2) {
+            private sealed class _ITagWorker_170 : ITagWorker {
+                public _ITagWorker_170(IElementNode tag, ProcessorContext context) {
+                    this.tag = tag;
+                    this.context = context;
+                    this.htmlTagWorker = new HtmlTagWorker(tag, context);
                 }
 
-                public override IPropertyContainer GetElementResult() {
-                    Document document = (Document)base.GetElementResult();
+                private HtmlTagWorker htmlTagWorker;
+
+                public void ProcessEnd(IElementNode element, ProcessorContext context) {
+                    this.htmlTagWorker.ProcessEnd(element, context);
+                }
+
+                public bool ProcessContent(String content, ProcessorContext context) {
+                    return this.htmlTagWorker.ProcessContent(content, context);
+                }
+
+                public bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+                    return this.htmlTagWorker.ProcessTagChild(childTagWorker, context);
+                }
+
+                public IPropertyContainer GetElementResult() {
+                    Document document = (Document)this.htmlTagWorker.GetElementResult();
                     document.SetRenderer(new DocumentRenderer(document));
                     return document;
                 }
+
+                private readonly IElementNode tag;
+
+                private readonly ProcessorContext context;
             }
         }
 

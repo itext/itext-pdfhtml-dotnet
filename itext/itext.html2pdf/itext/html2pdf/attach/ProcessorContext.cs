@@ -163,7 +163,6 @@ namespace iText.Html2pdf.Attach {
             formFieldNameResolver = new FormFieldNameResolver();
             radioCheckResolver = new RadioCheckResolver();
             immediateFlush = converterProperties.IsImmediateFlush();
-            metaInfo = converterProperties.GetEventCountingMetaInfo();
             processingInlineSvg = false;
         }
 
@@ -340,15 +339,21 @@ namespace iText.Html2pdf.Attach {
             return immediateFlush;
         }
 
-        /// <summary>Gets html meta info.</summary>
+        /// <summary>Gets html meta info container.</summary>
         /// <remarks>
-        /// Gets html meta info.
+        /// Gets html meta info container.
         /// <para />
-        /// This meta info will be used to determine event origin.
+        /// Meta info will be used to determine event origin.
         /// </remarks>
-        /// <returns>html meta info</returns>
-        public virtual IMetaInfo GetEventCountingMetaInfo() {
-            return metaInfo;
+        /// <returns>html meta info container</returns>
+        public virtual HtmlMetaInfoContainer GetMetaInfoContainer() {
+            return new HtmlMetaInfoContainer(metaInfo);
+        }
+
+        /// <summary>Sets IMetaInfo to processor context.</summary>
+        /// <param name="metaInfo">the IMetaInfo object</param>
+        public virtual void SetMetaInfo(IMetaInfo metaInfo) {
+            this.metaInfo = metaInfo;
         }
 
         /// <summary>Check if the processor is currently processing an inline svg</summary>

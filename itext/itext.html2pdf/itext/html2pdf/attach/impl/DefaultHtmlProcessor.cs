@@ -114,7 +114,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>Instantiates a new default html processor.</summary>
         /// <param name="converterProperties">the converter properties</param>
         public DefaultHtmlProcessor(ConverterProperties converterProperties) {
-            this.context = new ProcessorContext(converterProperties);
+            this.context = ProcessorContextCreator.CreateProcessorContext(converterProperties);
         }
 
         /// <summary>Sets properties to top-level layout elements converted from HTML.</summary>
@@ -147,8 +147,8 @@ namespace iText.Html2pdf.Attach.Impl {
         */
         public virtual IList<IElement> ProcessElements(INode root) {
             SequenceId sequenceId = new SequenceId();
-            EventManager.GetInstance().OnEvent(PdfHtmlProductEvent.CreateConvertHtmlEvent(sequenceId, context.GetEventCountingMetaInfo
-                ()));
+            EventManager.GetInstance().OnEvent(PdfHtmlProductEvent.CreateConvertHtmlEvent(sequenceId, context.GetMetaInfoContainer
+                ().GetMetaInfo()));
             context.Reset();
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context);
@@ -183,7 +183,7 @@ namespace iText.Html2pdf.Attach.Impl {
         */
         public virtual Document ProcessDocument(INode root, PdfDocument pdfDocument) {
             EventManager.GetInstance().OnEvent(PdfHtmlProductEvent.CreateConvertHtmlEvent(pdfDocument.GetDocumentIdWrapper
-                (), context.GetEventCountingMetaInfo()));
+                (), context.GetMetaInfoContainer().GetMetaInfo()));
             context.Reset(pdfDocument);
             if (!context.HasFonts()) {
                 throw new Html2PdfException(Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS);
@@ -263,6 +263,10 @@ namespace iText.Html2pdf.Attach.Impl {
                 else {
                     context.GetState().Push(tagWorker);
                 }
+                if (context.GetState().GetStack().Count == 1 && tagWorker != null && tagWorker.GetElementResult() != null) {
+                    tagWorker.GetElementResult().SetProperty(Property.META_INFO, new MetaInfoContainer(context.GetMetaInfoContainer
+                        ().GetMetaInfo()));
+                }
                 if (tagWorker is HtmlTagWorker) {
                     ((HtmlTagWorker)tagWorker).ProcessPageRules(node, cssResolver, context);
                 }
@@ -282,6 +286,9 @@ namespace iText.Html2pdf.Attach.Impl {
                 CounterProcessorUtil.EndProcessingCounters(context.GetCssContext(), element);
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
+                    if (context.GetState().GetStack().Count == 1 && tagWorker.GetElementResult() != null) {
+                        tagWorker.GetElementResult().DeleteOwnProperty(Property.META_INFO);
+                    }
                     LinkHelper.CreateDestination(tagWorker, element, context);
                     context.GetOutlineHandler().SetDestinationToElement(tagWorker, element);
                     context.GetState().Pop();

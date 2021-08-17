@@ -502,8 +502,8 @@ namespace iText.Html2pdf {
         /// converter's
         /// <see cref="iText.Kernel.Counter.Event.IMetaInfo"/>
         /// </returns>
-        public virtual IMetaInfo GetEventCountingMetaInfo() {
-            return metaInfo;
+        internal virtual IMetaInfo GetEventMetaInfo() {
+            return metaInfo == null ? HtmlConverter.GetPdf2HtmlMetaInfo() : metaInfo;
         }
 
         /// <summary>Sets html meta info.</summary>
@@ -518,7 +518,7 @@ namespace iText.Html2pdf {
         /// <see cref="ConverterProperties"/>
         /// instance
         /// </returns>
-        public virtual iText.Html2pdf.ConverterProperties SetEventCountingMetaInfo(IMetaInfo metaInfo) {
+        public virtual iText.Html2pdf.ConverterProperties SetEventMetaInfo(IMetaInfo metaInfo) {
             this.metaInfo = metaInfo;
             return this;
         }
