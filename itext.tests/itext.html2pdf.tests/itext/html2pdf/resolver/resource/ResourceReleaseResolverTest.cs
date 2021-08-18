@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using System.IO;
+using iText.Events.Utils;
 using iText.Html2pdf;
 using iText.Html2pdf.Resolver.Font;
-using iText.IO.Util;
 using iText.Test;
 
 namespace iText.Html2pdf.Resolver.Resource {

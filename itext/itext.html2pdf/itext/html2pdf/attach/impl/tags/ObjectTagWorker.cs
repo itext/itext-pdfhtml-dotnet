@@ -50,7 +50,6 @@ using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
 using iText.Html2pdf.Util;
 using iText.IO;
-using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
