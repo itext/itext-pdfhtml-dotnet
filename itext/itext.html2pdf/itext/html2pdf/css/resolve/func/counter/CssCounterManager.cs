@@ -203,7 +203,7 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 return null;
             }
             else {
-                String[] resolvedCounters = iText.Events.Utils.StringUtil.Split(countersStr, "\\.");
+                String[] resolvedCounters = iText.Commons.Utils.StringUtil.Split(countersStr, "\\.");
                 IList<String> convertedCounters = new List<String>();
                 foreach (String counter in resolvedCounters) {
                     convertedCounters.Add(HtmlUtils.ConvertNumberAccordingToGlyphStyle(listSymbolType, Convert.ToInt32(counter

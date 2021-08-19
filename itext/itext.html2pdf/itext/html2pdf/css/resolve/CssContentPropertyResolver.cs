@@ -43,7 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using iText.Events.Utils;
+using iText.Commons.Utils;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
@@ -260,7 +260,7 @@ namespace iText.Html2pdf.Css.Resolve {
                                                     ) {
                                                     String paramsStr = token.GetValue().JSubstring(CssConstants.ELEMENT.Length + 1, token.GetValue().Length - 
                                                         1);
-                                                    String[] @params = iText.Events.Utils.StringUtil.Split(paramsStr, ",");
+                                                    String[] @params = iText.Commons.Utils.StringUtil.Split(paramsStr, ",");
                                                     if (@params.Length == 0) {
                                                         return ErrorFallback(contentStr);
                                                     }

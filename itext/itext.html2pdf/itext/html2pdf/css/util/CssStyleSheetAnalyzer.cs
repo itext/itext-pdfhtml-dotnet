@@ -105,7 +105,7 @@ namespace iText.Html2pdf.Css.Util {
                     if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTER + "(")) {
                         String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTER.Length + 1, token.GetValue().Length
                              - 1);
-                        String[] @params = iText.Events.Utils.StringUtil.Split(paramsStr, ",");
+                        String[] @params = iText.Commons.Utils.StringUtil.Split(paramsStr, ",");
                         nonPagesTargetCounterPresent = nonPagesTargetCounterPresent || (@params.Length >= TARGET_COUNTER_MIN_PARAMS_SIZE
                              && !CheckTargetCounterParamsForPageOrPagesReferencePresence(@params));
                     }
@@ -113,7 +113,7 @@ namespace iText.Html2pdf.Css.Util {
                         if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTERS + "(")) {
                             String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTERS.Length + 1, token.GetValue().Length
                                  - 1);
-                            String[] @params = iText.Events.Utils.StringUtil.Split(paramsStr, ",");
+                            String[] @params = iText.Commons.Utils.StringUtil.Split(paramsStr, ",");
                             nonPagesTargetCounterPresent = nonPagesTargetCounterPresent || (@params.Length >= TARGET_COUNTERS_MIN_PARAMS_SIZE
                                  && !CheckTargetCounterParamsForPageOrPagesReferencePresence(@params));
                         }
@@ -191,21 +191,21 @@ namespace iText.Html2pdf.Css.Util {
                     if (token.GetValue().StartsWith(CssConstants.COUNTERS + "(")) {
                         String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTERS.Length + 1, token.GetValue().Length -
                              1);
-                        String[] @params = iText.Events.Utils.StringUtil.Split(paramsStr, ",");
+                        String[] @params = iText.Commons.Utils.StringUtil.Split(paramsStr, ",");
                         pagesCounterPresent = pagesCounterPresent || CheckCounterFunctionParamsForPagesReferencePresence(@params);
                     }
                     else {
                         if (token.GetValue().StartsWith(CssConstants.COUNTER + "(")) {
                             String paramsStr = token.GetValue().JSubstring(CssConstants.COUNTER.Length + 1, token.GetValue().Length - 
                                 1);
-                            String[] @params = iText.Events.Utils.StringUtil.Split(paramsStr, ",");
+                            String[] @params = iText.Commons.Utils.StringUtil.Split(paramsStr, ",");
                             pagesCounterPresent = pagesCounterPresent || CheckCounterFunctionParamsForPagesReferencePresence(@params);
                         }
                         else {
                             if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTER + "(")) {
                                 String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTER.Length + 1, token.GetValue().Length
                                      - 1);
-                                String[] @params = iText.Events.Utils.StringUtil.Split(paramsStr, ",");
+                                String[] @params = iText.Commons.Utils.StringUtil.Split(paramsStr, ",");
                                 pagesCounterPresent = pagesCounterPresent || (@params.Length >= TARGET_COUNTER_MIN_PARAMS_SIZE && CheckTargetCounterParamsForPageOrPagesReferencePresence
                                     (@params));
                             }
@@ -213,7 +213,7 @@ namespace iText.Html2pdf.Css.Util {
                                 if (token.GetValue().StartsWith(CssConstants.TARGET_COUNTERS + "(")) {
                                     String paramsStr = token.GetValue().JSubstring(CssConstants.TARGET_COUNTERS.Length + 1, token.GetValue().Length
                                          - 1);
-                                    String[] @params = iText.Events.Utils.StringUtil.Split(paramsStr, ",");
+                                    String[] @params = iText.Commons.Utils.StringUtil.Split(paramsStr, ",");
                                     pagesCounterPresent = pagesCounterPresent || (@params.Length >= TARGET_COUNTERS_MIN_PARAMS_SIZE && CheckTargetCounterParamsForPageOrPagesReferencePresence
                                         (@params));
                                 }

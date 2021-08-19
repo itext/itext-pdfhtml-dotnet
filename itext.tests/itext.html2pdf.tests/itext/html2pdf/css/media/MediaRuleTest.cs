@@ -189,7 +189,7 @@ namespace iText.Html2pdf.Css.Media {
         public virtual void Test07() {
             String htmlFileName = sourceFolder + "html07.html";
             byte[] bytes = StreamUtil.InputStreamToArray(new FileStream(htmlFileName, FileMode.Open, FileAccess.Read));
-            String html = iText.Events.Utils.JavaUtil.GetStringForBytes(bytes);
+            String html = iText.Commons.Utils.JavaUtil.GetStringForBytes(bytes);
             MediaDeviceDescription printDevice = new MediaDeviceDescription(MediaType.PRINT);
             MediaDeviceDescription screenDevice = new MediaDeviceDescription(MediaType.SCREEN).SetWidth(1000);
             IList<IElement> printElements = HtmlConverter.ConvertToElements(html, new ConverterProperties().SetMediaDeviceDescription

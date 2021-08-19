@@ -43,7 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using iText.Events.Utils;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
@@ -219,7 +219,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             String textDecorationLineProp = cssProps.Get(CssConstants.TEXT_DECORATION_LINE);
             if (textDecorationLineProp != null) {
-                String[] textDecorationLines = iText.Events.Utils.StringUtil.Split(textDecorationLineProp, "\\s+");
+                String[] textDecorationLines = iText.Commons.Utils.StringUtil.Split(textDecorationLineProp, "\\s+");
                 IList<Underline> underlineList = new List<Underline>();
                 foreach (String textDecorationLine in textDecorationLines) {
                     if (CssConstants.BLINK.Equals(textDecorationLine)) {

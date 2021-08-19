@@ -63,7 +63,7 @@ namespace iText.Html2pdf.Css {
 
         private String GetCssFileContents(String filePath) {
             byte[] bytes = StreamUtil.InputStreamToArray(new FileStream(filePath, FileMode.Open, FileAccess.Read));
-            String content = iText.Events.Utils.JavaUtil.GetStringForBytes(bytes);
+            String content = iText.Commons.Utils.JavaUtil.GetStringForBytes(bytes);
             content = content.Trim();
             content = content.Replace("\r\n", "\n");
             return content;

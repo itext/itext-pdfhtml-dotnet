@@ -43,7 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
-using iText.Events.Utils;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
@@ -63,7 +63,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// element.
     /// </summary>
     public class InputTagWorker : ITagWorker, IDisplayAware {
-        private static readonly Regex NUMBER_INPUT_ALLOWED_VALUES = iText.Events.Utils.StringUtil.RegexCompile("^(((-?[0-9]+)(\\.[0-9]+)?)|(-?\\.[0-9]+))$"
+        private static readonly Regex NUMBER_INPUT_ALLOWED_VALUES = iText.Commons.Utils.StringUtil.RegexCompile("^(((-?[0-9]+)(\\.[0-9]+)?)|(-?\\.[0-9]+))$"
             );
 
         /// <summary>The form element.</summary>
@@ -197,7 +197,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         internal static String PreprocessInputValue(String value, String inputType) {
-            if (AttributeConstants.NUMBER.Equals(inputType) && value != null && !iText.Events.Utils.Matcher.Match(NUMBER_INPUT_ALLOWED_VALUES
+            if (AttributeConstants.NUMBER.Equals(inputType) && value != null && !iText.Commons.Utils.Matcher.Match(NUMBER_INPUT_ALLOWED_VALUES
                 , value).Matches()) {
                 value = "";
             }

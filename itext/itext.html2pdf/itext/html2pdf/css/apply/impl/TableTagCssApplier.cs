@@ -72,7 +72,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 }
                 String borderSpacing = stylesContainer.GetStyles().Get(CssConstants.BORDER_SPACING);
                 if (null != borderSpacing) {
-                    String[] props = iText.Events.Utils.StringUtil.Split(borderSpacing, "\\s+");
+                    String[] props = iText.Commons.Utils.StringUtil.Split(borderSpacing, "\\s+");
                     if (1 == props.Length) {
                         table.SetHorizontalBorderSpacing(CssDimensionParsingUtils.ParseAbsoluteLength(props[0]));
                         table.SetVerticalBorderSpacing(CssDimensionParsingUtils.ParseAbsoluteLength(props[0]));

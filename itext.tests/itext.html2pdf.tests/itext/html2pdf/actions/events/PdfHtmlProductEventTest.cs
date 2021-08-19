@@ -20,9 +20,9 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-using iText.Events;
-using iText.Events.Confirmations;
-using iText.Events.Sequence;
+using iText.Commons.Actions;
+using iText.Commons.Actions.Confirmations;
+using iText.Commons.Actions.Sequence;
 using iText.Html2pdf.Actions.Data;
 using iText.Test;
 

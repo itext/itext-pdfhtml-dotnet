@@ -88,7 +88,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static void ProcessReset(String counterReset, CssContext context) {
             if (counterReset != null) {
                 CssCounterManager counterManager = context.GetCounterManager();
-                String[] @params = iText.Events.Utils.StringUtil.Split(counterReset, " ");
+                String[] @params = iText.Commons.Utils.StringUtil.Split(counterReset, " ");
                 for (int i = 0; i < @params.Length; i++) {
                     String counterName = @params[i];
                     int? possibleCounterValue;
@@ -107,7 +107,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static void ProcessIncrement(String counterIncrement, CssContext context) {
             if (counterIncrement != null) {
                 CssCounterManager counterManager = context.GetCounterManager();
-                String[] @params = iText.Events.Utils.StringUtil.Split(counterIncrement, " ");
+                String[] @params = iText.Commons.Utils.StringUtil.Split(counterIncrement, " ");
                 for (int i = 0; i < @params.Length; i++) {
                     String counterName = @params[i];
                     int? possibleIncrementValue;

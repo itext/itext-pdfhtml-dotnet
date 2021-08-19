@@ -42,7 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using Microsoft.Extensions.Logging;
-using iText.Events.Utils;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;

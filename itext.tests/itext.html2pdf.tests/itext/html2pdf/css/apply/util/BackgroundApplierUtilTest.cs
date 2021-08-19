@@ -23,7 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using iText.Events.Utils;
+using iText.Commons.Utils;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
@@ -213,7 +213,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.context = context;
                 this.images = images;
                 this.innerContext = context;
-                this.imagesArray = iText.Events.Utils.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly ProcessorContext innerContext;
@@ -259,7 +259,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_229 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_229(String images) {
                 this.images = images;
-                this.imagesArray = iText.Events.Utils.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -297,7 +297,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_258 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_258(String images) {
                 this.images = images;
-                this.imagesArray = iText.Events.Utils.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -539,7 +539,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_452 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_452(String images) {
                 this.images = images;
-                this.imagesArray = iText.Events.Utils.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -577,7 +577,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_482 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_482(String images) {
                 this.images = images;
-                this.imagesArray = iText.Events.Utils.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -615,7 +615,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_512 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_512(String images) {
                 this.images = images;
-                this.imagesArray = iText.Events.Utils.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -653,7 +653,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_542 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_542(String images) {
                 this.images = images;
-                this.imagesArray = iText.Events.Utils.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -694,7 +694,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_579 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_579(String images) {
                 this.images = images;
-                this.imagesArray = iText.Events.Utils.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -785,7 +785,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_659 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_659(String images) {
                 this.images = images;
-                this.imagesArray = iText.Events.Utils.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;

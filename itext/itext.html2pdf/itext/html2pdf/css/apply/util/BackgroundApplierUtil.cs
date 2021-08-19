@@ -43,7 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using iText.Events.Utils;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
@@ -192,7 +192,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         private static void ApplyBackgroundPositionX(BackgroundPosition position, String xPosition, float em, float
              rem) {
-            foreach (String value in iText.Events.Utils.StringUtil.Split(xPosition, " ")) {
+            foreach (String value in iText.Commons.Utils.StringUtil.Split(xPosition, " ")) {
                 switch (value) {
                     case CommonCssConstants.LEFT: {
                         position.SetPositionX(BackgroundPosition.PositionX.LEFT);
@@ -222,7 +222,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         private static void ApplyBackgroundPositionY(BackgroundPosition position, String yPosition, float em, float
              rem) {
-            foreach (String value in iText.Events.Utils.StringUtil.Split(yPosition, " ")) {
+            foreach (String value in iText.Commons.Utils.StringUtil.Split(yPosition, " ")) {
                 switch (value) {
                     case CommonCssConstants.TOP: {
                         position.SetPositionY(BackgroundPosition.PositionY.TOP);
@@ -253,7 +253,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static BackgroundRepeat ApplyBackgroundRepeat(IList<String> backgroundRepeatArray, int iteration) {
             int index = GetBackgroundSidePropertyIndex(backgroundRepeatArray.Count, iteration);
             if (index != -1) {
-                String[] repeatProps = iText.Events.Utils.StringUtil.Split(backgroundRepeatArray[index], " ");
+                String[] repeatProps = iText.Commons.Utils.StringUtil.Split(backgroundRepeatArray[index], " ");
                 if (repeatProps.Length == 1) {
                     if (CommonCssConstants.REPEAT_X.Equals(repeatProps[0])) {
                         return new BackgroundRepeat(BackgroundRepeat.BackgroundRepeatValue.REPEAT, BackgroundRepeat.BackgroundRepeatValue
