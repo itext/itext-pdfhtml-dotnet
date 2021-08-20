@@ -42,12 +42,13 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Page;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.IO.Util;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Page;
@@ -60,7 +61,7 @@ using iText.StyledXmlParser.Node;
 namespace iText.Html2pdf.Css.Resolve {
     /// <summary>The Class CssContentPropertyResolver.</summary>
     internal class CssContentPropertyResolver {
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(CssContentPropertyResolver));
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(CssContentPropertyResolver));
 
         private static readonly EscapeGroup[] ALLOWED_ESCAPE_CHARACTERS = new EscapeGroup[] { new EscapeGroup('\''
             ), new EscapeGroup('\"') };
@@ -297,7 +298,7 @@ namespace iText.Html2pdf.Css.Resolve {
             if (contentStr.Length > logMessageParameterMaxLength) {
                 contentStr = contentStr.JSubstring(0, logMessageParameterMaxLength) + ".....";
             }
-            LOGGER.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
+            LOGGER.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, contentStr));
             return null;
         }
 

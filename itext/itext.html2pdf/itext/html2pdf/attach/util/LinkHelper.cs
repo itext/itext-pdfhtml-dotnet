@@ -42,11 +42,12 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -62,7 +63,8 @@ using iText.StyledXmlParser.Node;
 namespace iText.Html2pdf.Attach.Util {
     /// <summary>Helper class for links.</summary>
     public class LinkHelper {
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Util.LinkHelper));
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Util.LinkHelper
+            ));
 
         /// <summary>
         /// Creates a new
@@ -108,8 +110,8 @@ namespace iText.Html2pdf.Attach.Util {
             if (context.GetLinkContext().IsUsedLinkDestination(id)) {
                 if (propertyContainer == null) {
                     String tagWorkerClassName = tagWorker != null ? tagWorker.GetType().FullName : "null";
-                    LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.Name(), id
-                        , tagWorkerClassName));
+                    LOGGER.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.ANCHOR_LINK_NOT_HANDLED, element.Name
+                        (), id, tagWorkerClassName));
                     return;
                 }
                 propertyContainer.SetProperty(Property.DESTINATION, id);

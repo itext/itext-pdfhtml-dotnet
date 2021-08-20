@@ -42,12 +42,13 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -96,7 +97,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private PageMarginBoxBuilder pageMarginBoxHelper;
 
         /// <summary>The logger.</summary>
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor
             ));
 
         /// <summary>Instantiates a new page context processor.</summary>
@@ -403,8 +404,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             else {
                 // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
                 // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
-                LOGGER.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN, 
-                    node.GetMarginBoxName()));
+                LOGGER.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN
+                    , node.GetMarginBoxName()));
             }
         }
 

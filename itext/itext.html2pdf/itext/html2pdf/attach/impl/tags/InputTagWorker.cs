@@ -42,13 +42,14 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Text.RegularExpressions;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.IO.Util;
 using iText.Layout;
 using iText.Layout.Element;
@@ -83,8 +84,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             String inputType = element.GetAttribute(AttributeConstants.TYPE);
             if (!AttributeConstants.INPUT_TYPE_VALUES.Contains(inputType)) {
                 if (null != inputType && 0 != inputType.Length) {
-                    ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
-                    logger.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_INVALID, inputType));
+                    ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
+                    logger.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_INVALID, inputType));
                 }
                 inputType = AttributeConstants.TEXT;
             }
@@ -147,8 +148,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         }
                         else {
                             // has attribute == is checked
-                            ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
-                            logger.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType));
+                            ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
+                            logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType
+                                ));
                         }
                     }
                 }

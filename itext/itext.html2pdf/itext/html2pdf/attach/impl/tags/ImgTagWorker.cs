@@ -41,12 +41,13 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.IO.Util;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
@@ -62,7 +63,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// </summary>
     public class ImgTagWorker : ITagWorker {
         /// <summary>The logger.</summary>
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.ImgTagWorker
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.ImgTagWorker
             ));
 
         /// <summary>The image.</summary>
@@ -174,7 +175,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
 
                 default: {
-                    LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.UNEXPECTED_VALUE_OF_OBJECT_FIT, objectFitValue
+                    LOGGER.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.UNEXPECTED_VALUE_OF_OBJECT_FIT, objectFitValue
                         ));
                     return ObjectFit.FILL;
                 }

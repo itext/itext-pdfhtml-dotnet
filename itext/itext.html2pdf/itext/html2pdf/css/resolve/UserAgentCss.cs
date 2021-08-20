@@ -42,7 +42,8 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.IO;
 using iText.IO.Util;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Media;
@@ -68,8 +69,8 @@ namespace iText.Html2pdf.Css.Resolve {
                 parsedStylesheet = CssStyleSheetParser.Parse(ResourceUtil.GetResourceStream(DEFAULT_CSS_PATH));
             }
             catch (Exception exc) {
-                ILog logger = LogManager.GetLogger(typeof(UserAgentCss));
-                logger.Error("Error parsing default.css", exc);
+                ILogger logger = ITextLogManager.GetLogger(typeof(UserAgentCss));
+                logger.LogError(exc, "Error parsing default.css");
             }
             finally {
                 defaultCss = parsedStylesheet;

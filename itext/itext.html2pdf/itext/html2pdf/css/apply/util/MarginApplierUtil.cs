@@ -42,10 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -55,7 +56,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply margins.</summary>
     public sealed class MarginApplierUtil {
         /// <summary>The logger.</summary>
-        private static readonly ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.MarginApplierUtil
+        private static readonly ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.MarginApplierUtil
             ));
 
         /// <summary>
@@ -158,7 +159,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         return System.Convert.ToSingle(baseValue * marginUnitVal.GetValue() * 0.01, System.Globalization.CultureInfo.InvariantCulture
                             );
                     }
-                    logger.Error(Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
+                    logger.LogError(Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED);
                     return null;
                 }
                 return marginUnitVal.GetValue();

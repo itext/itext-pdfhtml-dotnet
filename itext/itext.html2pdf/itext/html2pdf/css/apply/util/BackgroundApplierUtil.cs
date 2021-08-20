@@ -42,10 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Colors.Gradients;
@@ -59,7 +60,7 @@ using iText.StyledXmlParser.Exceptions;
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply backgrounds.</summary>
     public sealed class BackgroundApplierUtil {
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.BackgroundApplierUtil
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.BackgroundApplierUtil
             ));
 
         /// <summary>
@@ -338,7 +339,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             catch (StyledXMLParserException) {
-                LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, image));
+                LOGGER.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, image)
+                    );
             }
             return false;
         }

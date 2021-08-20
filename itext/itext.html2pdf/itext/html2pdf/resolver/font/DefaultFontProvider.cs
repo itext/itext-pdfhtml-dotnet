@@ -44,9 +44,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using Versions.Attributes;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.IO.Util;
 using iText.Layout.Font;
 using iText.StyledXmlParser.Resolver.Font;
@@ -69,7 +70,7 @@ namespace iText.Html2pdf.Resolver.Font {
             , "NotoSerif-Bold.ttf", "NotoSerif-BoldItalic.ttf", "NotoSerif-Italic.ttf" };
 
         /// <summary>The logger.</summary>
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Resolver.Font.DefaultFontProvider
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Resolver.Font.DefaultFontProvider
             ));
 
         private const String DEFAULT_FONT_FAMILY = "Times";
@@ -152,7 +153,7 @@ namespace iText.Html2pdf.Resolver.Font {
                     }
                 }
                 catch (Exception) {
-                    LOGGER.Error(Html2PdfLogMessageConstant.ERROR_LOADING_FONT);
+                    LOGGER.LogError(Html2PdfLogMessageConstant.ERROR_LOADING_FONT);
                 }
             }
         }
@@ -191,7 +192,7 @@ namespace iText.Html2pdf.Resolver.Font {
                     return FREE_FONT_RANGE;
                 }
                 catch (Exception) {
-                    LOGGER.Error(Html2PdfLogMessageConstant.ERROR_LOADING_FONT);
+                    LOGGER.LogError(Html2PdfLogMessageConstant.ERROR_LOADING_FONT);
                 }
             }
             return null;

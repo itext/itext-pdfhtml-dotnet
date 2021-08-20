@@ -42,9 +42,10 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Navigation;
@@ -263,9 +264,9 @@ namespace iText.Html2pdf.Attach.Impl {
                     tagWorker.GetElementResult().SetProperty(Property.DESTINATION, content);
                 }
                 else {
-                    ILog logger = LogManager.GetLogger(typeof(OutlineHandler));
-                    logger.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG, 
-                        tagName));
+                    ILogger logger = ITextLogManager.GetLogger(typeof(OutlineHandler));
+                    logger.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG
+                        , tagName));
                 }
             }
             return this;

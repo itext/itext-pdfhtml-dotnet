@@ -42,9 +42,10 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.IO.Util;
 using iText.Kernel.Geom;
 using iText.Layout.Properties;
@@ -94,8 +95,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     pageSize = pageSizeBasedOnLength;
                 }
                 else {
-                    ILog logger = LogManager.GetLogger(typeof(PageSizeParser));
-                    logger.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
+                    ILogger logger = ITextLogManager.GetLogger(typeof(PageSizeParser));
+                    logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr
+                        ));
                 }
             }
             else {
@@ -132,8 +134,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     }
                 }
                 else {
-                    ILog logger = LogManager.GetLogger(typeof(PageSizeParser));
-                    logger.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr));
+                    ILogger logger = ITextLogManager.GetLogger(typeof(PageSizeParser));
+                    logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr
+                        ));
                 }
             }
             return pageSize;

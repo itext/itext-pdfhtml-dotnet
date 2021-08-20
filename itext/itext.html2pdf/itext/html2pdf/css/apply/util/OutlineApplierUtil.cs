@@ -42,9 +42,10 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.IO;
 using iText.Kernel.Colors;
 using iText.Layout;
 using iText.Layout.Borders;
@@ -55,7 +56,7 @@ using iText.StyledXmlParser.Css.Util;
 namespace iText.Html2pdf.Css.Apply.Util {
     public class OutlineApplierUtil {
         /// <summary>The logger.</summary>
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.OutlineApplierUtil
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.OutlineApplierUtil
             ));
 
         /// <summary>
@@ -85,7 +86,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     ), em, rem);
                 if (unitValue != null) {
                     if (unitValue.IsPercentValue()) {
-                        LOGGER.Error("outline-width in percents is not supported");
+                        LOGGER.LogError("outline-width in percents is not supported");
                     }
                     else {
                         if (unitValue.GetValue() != 0) {
@@ -136,7 +137,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return null;
             }
             if (unitValue.IsPercentValue()) {
-                LOGGER.Error("outline-width in percents is not supported");
+                LOGGER.LogError("outline-width in percents is not supported");
                 return null;
             }
             outlineWidthValue = unitValue.GetValue();
@@ -219,7 +220,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             else {
                 if (CssConstants.INVERT.Equals(outlineColor)) {
-                    LOGGER.Warn("Invert color for outline is not supported");
+                    LOGGER.LogWarning("Invert color for outline is not supported");
                     outlineColor = styles.Get(CssConstants.COLOR);
                 }
             }

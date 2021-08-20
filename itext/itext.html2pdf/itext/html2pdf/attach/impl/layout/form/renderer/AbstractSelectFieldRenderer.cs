@@ -42,10 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.IO.Font.Otf;
 using iText.Kernel.Geom;
 using iText.Layout.Layout;
@@ -71,9 +72,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             AddChild(CreateFlatRenderer());
             if (!IsFlatten()) {
                 // TODO DEVSIX-1901
-                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.AbstractSelectFieldRenderer
+                ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.AbstractSelectFieldRenderer
                     ));
-                logger.Warn(Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT);
+                logger.LogWarning(Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT);
                 SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, true);
             }
         }

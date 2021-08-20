@@ -42,11 +42,12 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Colors.Gradients;
@@ -65,7 +66,7 @@ using iText.StyledXmlParser.Node;
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply list styles to an element.</summary>
     public sealed class ListStyleApplierUtil {
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.ListStyleApplierUtil
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.ListStyleApplierUtil
             ));
 
         /// <summary>The Constant LIST_ITEM_MARKER_SIZE_COEFFICIENT.</summary>
@@ -134,7 +135,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         }
                     }
                     catch (StyledXMLParserException) {
-                        LOGGER.Warn(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, listStyleImageStr
+                        LOGGER.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, listStyleImageStr
                             ));
                     }
                 }
@@ -215,8 +216,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                                                     }
                                                     else {
                                                         if (style != null) {
-                                                            ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.ListStyleApplierUtil));
-                                                            logger.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
+                                                            ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.ListStyleApplierUtil));
+                                                            logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, style));
                                                         }
                                                         // Fallback style
                                                         if (stylesContainer is IElementNode) {

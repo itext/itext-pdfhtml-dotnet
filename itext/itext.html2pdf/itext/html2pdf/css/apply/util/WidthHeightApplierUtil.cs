@@ -42,9 +42,10 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.IO;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -54,7 +55,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply a width or a height to an element.</summary>
     public sealed class WidthHeightApplierUtil {
         /// <summary>The logger.</summary>
-        private static readonly ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.WidthHeightApplierUtil
+        private static readonly ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.WidthHeightApplierUtil
             ));
 
         /// <summary>

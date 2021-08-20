@@ -42,10 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
+using iText.IO;
 using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Canvas;
@@ -61,7 +62,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply font styles.</summary>
     public sealed class FontStyleApplierUtil {
         /// <summary>The logger.</summary>
-        private static readonly ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.FontStyleApplierUtil
+        private static readonly ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.FontStyleApplierUtil
             ));
 
         private const float DEFAULT_LINE_HEIGHT = 1.2f;
@@ -207,7 +208,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             else {
                 if (textDecorationColorProp.StartsWith("hsl")) {
-                    logger.Error(Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
+                    logger.LogError(Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
                     textDecorationColor = ColorConstants.BLACK;
                 }
                 else {
@@ -222,7 +223,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 IList<Underline> underlineList = new List<Underline>();
                 foreach (String textDecorationLine in textDecorationLines) {
                     if (CssConstants.BLINK.Equals(textDecorationLine)) {
-                        logger.Error(Html2PdfLogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
+                        logger.LogError(Html2PdfLogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
                     }
                     else {
                         if (CssConstants.LINE_THROUGH.Equals(textDecorationLine)) {
@@ -260,8 +261,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         element.SetProperty(Property.FIRST_LINE_INDENT, textIndentValue.GetValue());
                     }
                     else {
-                        logger.Error(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, CssConstants
-                            .TEXT_INDENT));
+                        logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                            , CssConstants.TEXT_INDENT));
                     }
                 }
             }

@@ -45,7 +45,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Common.Logging;
+using iText.IO;
+using Microsoft.Extensions.Logging;
 using iText.IO.Util;
 using iText.Kernel.Counter;
 using Versions.Attributes;
@@ -126,7 +127,7 @@ namespace iText.Html2pdf.Util {
                     }
                     if (type == null && fileLoadExceptionMessage != null)
                     {
-                        LogManager.GetLogger(typeof(ReflectionUtils)).Error(fileLoadExceptionMessage);
+                        ITextLogManager.GetLogger(typeof(ReflectionUtils)).LogError(fileLoadExceptionMessage);
                     }
                 }
             }
