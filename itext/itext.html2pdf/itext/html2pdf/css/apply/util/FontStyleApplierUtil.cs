@@ -52,6 +52,7 @@ using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
 using iText.Layout.Properties;
 using iText.Layout.Splitting;
+using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Util;
@@ -159,7 +160,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.ANYWHERE);
                 }
                 else {
-                    if (CssConstants.BREAK_WORD.Equals(overflowWrap)) {
+                    if (CommonCssConstants.BREAK_WORD.Equals(overflowWrap)) {
                         element.SetProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.BREAK_WORD);
                     }
                     else {
@@ -175,7 +176,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         element.SetProperty(Property.SPLIT_CHARACTERS, new KeepAllSplitCharacters());
                     }
                     else {
-                        if (CssConstants.BREAK_WORD.Equals(wordBreak)) {
+                        if (CommonCssConstants.BREAK_WORD.Equals(wordBreak)) {
                             // CSS specification cite that describes the reason for overflow-wrap overriding:
                             // "For compatibility with legacy content, the word-break property also supports
                             //  a deprecated break-word keyword. When specified, this has the same effect

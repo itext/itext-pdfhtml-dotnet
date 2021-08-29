@@ -44,8 +44,6 @@ using System;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Kernel.Numbering;
-using iText.StyledXmlParser.Css.Util;
-using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Html {
     /// <summary>Utilities class with HTML-related functionality.</summary>
@@ -86,19 +84,6 @@ namespace iText.Html2pdf.Html {
         /// instance.
         /// </summary>
         private HtmlUtils() {
-        }
-
-        /// <summary>
-        /// Checks if an
-        /// <see cref="iText.StyledXmlParser.Node.IElementNode"/>
-        /// represents a style sheet link.
-        /// </summary>
-        /// <param name="headChildElement">the head child element</param>
-        /// <returns>true, if the element node represents a style sheet link</returns>
-        [System.ObsoleteAttribute(@"Will be replaced by theiText.StyledXmlParser.Css.Util.CssUtils.IsStyleSheetLink(iText.StyledXmlParser.Node.IElementNode) in update 7.2."
-            )]
-        public static bool IsStyleSheetLink(IElementNode headChildElement) {
-            return CssUtils.IsStyleSheetLink(headChildElement);
         }
 
         /// <summary>Converts number according to given glyph style.</summary>

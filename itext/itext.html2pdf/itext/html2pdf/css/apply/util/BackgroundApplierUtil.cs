@@ -108,42 +108,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        /// <summary>
-        /// Splits the provided
-        /// <see cref="System.String"/>
-        /// by comma with respect of brackets.
-        /// </summary>
-        /// <param name="value">to split</param>
-        /// <returns>the split result</returns>
-        [System.ObsoleteAttribute(@"use iText.StyledXmlParser.Css.Util.CssUtils.SplitStringWithComma(System.String)"
-            )]
-        internal static String[] SplitStringWithComma(String value) {
-            if (value == null) {
-                return new String[0];
-            }
-            IList<String> resultList = new List<String>();
-            int lastComma = 0;
-            int notClosedBrackets = 0;
-            for (int i = 0; i < value.Length; ++i) {
-                if (value[i] == ',' && notClosedBrackets == 0) {
-                    resultList.Add(value.JSubstring(lastComma, i).Trim());
-                    lastComma = i + 1;
-                }
-                if (value[i] == '(') {
-                    ++notClosedBrackets;
-                }
-                if (value[i] == ')') {
-                    --notClosedBrackets;
-                    notClosedBrackets = Math.Max(notClosedBrackets, 0);
-                }
-            }
-            String lastToken = value.Substring(lastComma);
-            if (!String.IsNullOrEmpty(lastToken)) {
-                resultList.Add(lastToken.Trim());
-            }
-            return resultList.ToArray(new String[0]);
-        }
-
         private static IList<BackgroundImage> GetBackgroundImagesList(IList<String> backgroundImagesArray, ProcessorContext
              context, float em, float rem, IList<String> backgroundPositionXArray, IList<String> backgroundPositionYArray
             , IList<IList<String>> backgroundSizeArray, IList<String> backgroundBlendModeArray, IList<String> backgroundRepeatArray
