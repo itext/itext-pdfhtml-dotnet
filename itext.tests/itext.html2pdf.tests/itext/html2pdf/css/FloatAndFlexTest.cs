@@ -14,6 +14,11 @@ namespace iText.Html2pdf.Css {
         private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/FloatAndFlexTest/";
 
+        [NUnit.Framework.OneTimeSetUp]
+        public static void BeforeClass() {
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
+        }
+
         [NUnit.Framework.Test]
         public virtual void FloatAtFlexContainerTest() {
             //TODO DEVSIX-5087 remove this test when working on the ticket
@@ -48,6 +53,12 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void FloatAtFlexItemNestedTest() {
             ConvertToPdfAndCompare("floatAtFlexItemNested", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatsPositioningInsideAndOutsideFlexTest() {
+            // TODO DEVSIX-5135 floating elements inside flex container are incorrectly positioned
+            ConvertToPdfAndCompare("floatsPositioningInsideAndOutsideFlex", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }
