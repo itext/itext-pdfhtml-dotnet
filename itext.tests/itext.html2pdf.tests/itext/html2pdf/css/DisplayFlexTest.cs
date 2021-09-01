@@ -177,22 +177,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        public virtual void FloatAtFlexContainerTest() {
-            //TODO DEVSIX-5087 remove this test when working on the ticket
-            String name = "floatAtFlexContainer";
-            String sourceHtml = SOURCE_FOLDER + name + ".html";
-            ConverterProperties converterProperties = new ConverterProperties().SetBaseUri(SOURCE_FOLDER);
-            IList<IElement> elements;
-            using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
-                elements = HtmlConverter.ConvertToElements(fileInputStream, converterProperties);
-            }
-            IElement flexContainer = elements[0];
-            NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
-            NUnit.Framework.Assert.IsFalse(flexContainer.HasProperty(Property.FLOAT));
-            NUnit.Framework.Assert.IsFalse(flexContainer.HasProperty(Property.CLEAR));
-        }
-
-        [NUnit.Framework.Test]
         public virtual void OverflowAtFlexContainerTest() {
             //TODO DEVSIX-5087 remove this test when working on the ticket
             String name = "overflowAtFlexContainer";
@@ -314,26 +298,6 @@ namespace iText.Html2pdf.Css {
         public virtual void FlexBasisContentMaxWidth() {
             // TODO DEVSIX-5091 change cmp file when working on the thicket
             ConvertToPdfAndCompare("flexBasisContentMaxWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void FloatAtFlexItemTest() {
-            ConvertToPdfAndCompare("floatAtFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ClearAtFlexItemTest() {
-            ConvertToPdfAndCompare("clearAtFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void FloatAtFlexItemNestedTest() {
-            ConvertToPdfAndCompare("floatAtFlexItemNested", SOURCE_FOLDER, DESTINATION_FOLDER);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void FlexContainerHeightTest() {
-            ConvertToPdfAndCompare("flexContainerHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
