@@ -172,8 +172,8 @@ namespace iText.Html2pdf {
         /// instance
         /// </param>
         public static void ConvertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
-            ConvertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(GetPdf2HtmlMetaInfo
-                ())), converterProperties);
+            ConvertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo
+                (converterProperties))), converterProperties);
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace iText.Html2pdf {
         public static void ConvertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
             Document document = ConvertToDocument(html, pdfDocument, converterProperties);
-            document.SetProperty(Property.META_INFO, new MetaInfoContainer(GetPdf2HtmlMetaInfo()));
+            document.SetProperty(Property.META_INFO, new MetaInfoContainer(ResolveMetaInfo(converterProperties)));
             document.Close();
         }
 
@@ -356,7 +356,7 @@ namespace iText.Html2pdf {
         /// containing the resulting PDF
         /// </param>
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter) {
-            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(GetPdf2HtmlMetaInfo
+            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(CreatePdf2HtmlMetaInfo
                 ())));
         }
 
@@ -386,8 +386,8 @@ namespace iText.Html2pdf {
         /// </param>
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
             ) {
-            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(GetPdf2HtmlMetaInfo
-                ())), converterProperties);
+            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo
+                (converterProperties))), converterProperties);
         }
 
         /// <summary>
@@ -417,7 +417,8 @@ namespace iText.Html2pdf {
         public static void ConvertToPdf(Stream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
             Document document = ConvertToDocument(htmlStream, pdfDocument, converterProperties);
-            document.SetProperty(Property.META_INFO, new MetaInfoContainer(GetPdf2HtmlMetaInfo()));
+            IMetaInfo metaInfo = ResolveMetaInfo(converterProperties);
+            document.SetProperty(Property.META_INFO, new MetaInfoContainer(metaInfo));
             document.Close();
         }
 
@@ -721,8 +722,12 @@ namespace iText.Html2pdf {
             return Attacher.Attach(doc, converterProperties);
         }
 
-        internal static IMetaInfo GetPdf2HtmlMetaInfo() {
+        internal static IMetaInfo CreatePdf2HtmlMetaInfo() {
             return new HtmlConverter.HtmlMetaInfo();
+        }
+
+        private static IMetaInfo ResolveMetaInfo(ConverterProperties converterProperties) {
+            return converterProperties == null ? CreatePdf2HtmlMetaInfo() : converterProperties.GetEventMetaInfo();
         }
 
         private class HtmlMetaInfo : IMetaInfo {

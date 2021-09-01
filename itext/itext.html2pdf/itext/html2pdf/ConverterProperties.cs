@@ -503,7 +503,7 @@ namespace iText.Html2pdf {
         /// <see cref="iText.Commons.Actions.Contexts.IMetaInfo"/>
         /// </returns>
         internal virtual IMetaInfo GetEventMetaInfo() {
-            return metaInfo == null ? HtmlConverter.GetPdf2HtmlMetaInfo() : metaInfo;
+            return metaInfo == null ? HtmlConverter.CreatePdf2HtmlMetaInfo() : metaInfo;
         }
 
         /// <summary>Sets html meta info.</summary>
