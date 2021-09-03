@@ -23,10 +23,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using iText.Html2pdf.Css.W3c;
 
-namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Reference {
-    public class BoxShadowOutsetSpreadWithoutBRTest : W3CCssTest {
+namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
+    // TODO DEVSIX-4384 box-shadow is not supported
+    public class BoxShadOutSpreadWithoutBRTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
-            return "box-shadow-outset-spread-without-border-radius.html";
+            return "box-shad-out-spread-without-b-r.html";
         }
     }
 }

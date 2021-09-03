@@ -24,9 +24,10 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
-    public class BgColorAppliedToRoundedInlineElementTest : W3CCssTest {
+    // TODO DEVSIX-4525 pdfHtml: calculate border-radius according to background-clip
+    public class BgClipPadBoxWithBRTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
-            return "background-color-applied-to-rounded-inline-element.htm";
+            return "bg-clip-pad-box-with-b-r.html";
         }
     }
 }

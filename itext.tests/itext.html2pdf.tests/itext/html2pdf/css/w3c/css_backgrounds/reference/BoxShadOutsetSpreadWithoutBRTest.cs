@@ -23,11 +23,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using iText.Html2pdf.Css.W3c;
 
-namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
-    // TODO DEVSIX-4525 pdfHtml: calculate border-radius according to background-clip
-    public class BackgroundClipPaddingBoxWithBorderRadiusTest : W3CCssTest {
+namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Reference {
+    public class BoxShadOutsetSpreadWithoutBRTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
-            return "background-clip-padding-box-with-border-radius.html";
+            return "box-shad-out-spread-without-b-r.html";
         }
     }
 }
