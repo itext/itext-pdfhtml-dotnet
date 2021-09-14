@@ -91,9 +91,9 @@ namespace iText.Html2pdf.Actions {
             NUnit.Framework.Assert.AreEqual(3, events.Count);
             NUnit.Framework.Assert.IsTrue(events[0] is ConfirmedEventWrapper);
             ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper)events[0];
-            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreEvent);
-            NUnit.Framework.Assert.AreEqual(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType(
-                ));
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreProductEvent);
+            NUnit.Framework.Assert.AreEqual(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType
+                ());
             NUnit.Framework.Assert.IsTrue(events[1] is ConfirmedEventWrapper);
             confirmedEventWrapper = (ConfirmedEventWrapper)events[1];
             NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is PdfHtmlProductEvent);
@@ -128,9 +128,9 @@ namespace iText.Html2pdf.Actions {
             NUnit.Framework.Assert.AreEqual(2, events.Count);
             NUnit.Framework.Assert.IsTrue(events[0] is ConfirmedEventWrapper);
             ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper)events[0];
-            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreEvent);
-            NUnit.Framework.Assert.AreEqual(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType(
-                ));
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreProductEvent);
+            NUnit.Framework.Assert.AreEqual(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType
+                ());
             NUnit.Framework.Assert.IsTrue(events[1] is ConfirmedEventWrapper);
             confirmedEventWrapper = (ConfirmedEventWrapper)events[1];
             NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is PdfHtmlProductEvent);
@@ -155,9 +155,9 @@ namespace iText.Html2pdf.Actions {
             NUnit.Framework.Assert.AreEqual(2, events.Count);
             NUnit.Framework.Assert.IsTrue(events[0] is ConfirmedEventWrapper);
             ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper)events[0];
-            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreEvent);
-            NUnit.Framework.Assert.AreEqual(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType(
-                ));
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreProductEvent);
+            NUnit.Framework.Assert.AreEqual(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType
+                ());
             NUnit.Framework.Assert.IsTrue(events[1] is ConfirmedEventWrapper);
             confirmedEventWrapper = (ConfirmedEventWrapper)events[1];
             NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is PdfHtmlProductEvent);
@@ -188,9 +188,9 @@ namespace iText.Html2pdf.Actions {
             NUnit.Framework.Assert.AreEqual(3, events.Count);
             NUnit.Framework.Assert.IsTrue(events[0] is ConfirmedEventWrapper);
             ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper)events[0];
-            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreEvent);
-            NUnit.Framework.Assert.AreEqual(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType(
-                ));
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreProductEvent);
+            NUnit.Framework.Assert.AreEqual(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType
+                ());
             NUnit.Framework.Assert.IsTrue(events[1] is ConfirmedEventWrapper);
             confirmedEventWrapper = (ConfirmedEventWrapper)events[1];
             NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is PdfHtmlProductEvent);
@@ -232,7 +232,7 @@ namespace iText.Html2pdf.Actions {
             IList<ConfirmEvent> events = handler.GetEvents();
             NUnit.Framework.Assert.AreEqual(2, events.Count);
             AbstractProductProcessITextEvent @event = events[0].GetConfirmedEvent();
-            NUnit.Framework.Assert.AreEqual(ITextCoreEvent.PROCESS_PDF, @event.GetEventType());
+            NUnit.Framework.Assert.AreEqual(ITextCoreProductEvent.PROCESS_PDF, @event.GetEventType());
             @event = events[1].GetConfirmedEvent();
             NUnit.Framework.Assert.AreEqual(PdfHtmlProductEvent.CONVERT_HTML, @event.GetEventType());
             using (PdfDocument pdfDocument_1 = new PdfDocument(new PdfReader(DESTINATION_FOLDER + outFileName))) {
@@ -262,9 +262,9 @@ namespace iText.Html2pdf.Actions {
             NUnit.Framework.Assert.AreEqual(2, events.Count);
             NUnit.Framework.Assert.IsTrue(events[0] is ConfirmedEventWrapper);
             ConfirmedEventWrapper confirmedEventWrapper = (ConfirmedEventWrapper)events[0];
-            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreEvent);
-            NUnit.Framework.Assert.AreEqual(ITextCoreEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType(
-                ));
+            NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is ITextCoreProductEvent);
+            NUnit.Framework.Assert.AreEqual(ITextCoreProductEvent.PROCESS_PDF, confirmedEventWrapper.GetEvent().GetEventType
+                ());
             NUnit.Framework.Assert.IsTrue(events[1] is ConfirmedEventWrapper);
             confirmedEventWrapper = (ConfirmedEventWrapper)events[1];
             NUnit.Framework.Assert.IsTrue(confirmedEventWrapper.GetEvent() is PdfHtmlProductEvent);
@@ -287,8 +287,8 @@ namespace iText.Html2pdf.Actions {
                 (new Html2PdfEventsHandlingTest.HtmlTestMetaInfo()))) {
                 document.AddNewPage();
                 HtmlConverter.ConvertToDocument(html, document, new ConverterProperties());
-                ITextCoreEvent coreEvent = ITextCoreEvent.CreateProcessPdfEvent(document.GetDocumentIdWrapper(), null, EventConfirmationType
-                    .ON_DEMAND);
+                ITextCoreProductEvent coreEvent = ITextCoreProductEvent.CreateProcessPdfEvent(document.GetDocumentIdWrapper
+                    (), null, EventConfirmationType.ON_DEMAND);
                 EventManager.GetInstance().OnEvent(coreEvent);
             }
             String expectedProdLine = CreateExpectedProducerLine(new ConfirmedEventWrapper[] { GetPdfHtmlEvent() });
@@ -333,7 +333,7 @@ namespace iText.Html2pdf.Actions {
         private static ConfirmedEventWrapper GetCoreEvent() {
             DefaultITextProductEventProcessor processor = new DefaultITextProductEventProcessor(ProductNameConstant.ITEXT_CORE
                 );
-            return new ConfirmedEventWrapper(ITextCoreEvent.CreateProcessPdfEvent(new SequenceId(), null, EventConfirmationType
+            return new ConfirmedEventWrapper(ITextCoreProductEvent.CreateProcessPdfEvent(new SequenceId(), null, EventConfirmationType
                 .ON_CLOSE), processor.GetUsageType(), processor.GetProducer());
         }
 
