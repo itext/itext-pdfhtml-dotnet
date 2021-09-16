@@ -43,13 +43,12 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using Microsoft.Extensions.Logging;
-using Versions.Attributes;
 using iText.Html2pdf.Logs;
 using iText.IO;
 using iText.IO.Util;
 using iText.Layout.Font;
+using iText.Layout.Renderer;
 using iText.StyledXmlParser.Resolver.Font;
 
 namespace iText.Html2pdf.Resolver.Font {
@@ -175,17 +174,9 @@ namespace iText.Html2pdf.Resolver.Font {
         /// i.e. the unicode range that is to be rendered with any other font contained in this FontProvider
         /// </returns>
         protected internal virtual Range AddCalligraphFonts() {
-            String methodName = "LoadShippedFonts";
-            Type klass = null;
-            try {
-                klass = GetTypographyUtilsClass();
-            }
-            catch (TypeLoadException) {
-            }
-            if (klass != null) {
+            if (TypographyUtils.IsPdfCalligraphAvailable()) {
                 try {
-                    MethodInfo m = klass.GetMethod(methodName);
-                    IDictionary<String, byte[]> fontStreams = (IDictionary<String, byte[]>)m.Invoke(null, null);
+                    IDictionary<String, byte[]> fontStreams = TypographyUtils.LoadShippedFonts();
                     this.calligraphyFontsTempList.AddAll(fontStreams.Values);
                     // here we return a unicode range that excludes the loaded from the calligraph module fonts
                     // i.e. the unicode range that is to be rendered with standard or shipped free fonts
@@ -196,54 +187,6 @@ namespace iText.Html2pdf.Resolver.Font {
                 }
             }
             return null;
-        }
-
-        private static Type GetTypographyUtilsClass() {
-            String partialName = "iText.Typography.Util.TypographyShippedFontsUtil, iText.Typography";
-            String classFullName = null;
-
-            Assembly html2pdfAssembly = typeof(DefaultFontProvider).GetAssembly();
-            try {
-                Attribute customAttribute = html2pdfAssembly.GetCustomAttribute(typeof(TypographyVersionAttribute));
-                if (customAttribute is TypographyVersionAttribute) {
-                    string typographyVersion = ((TypographyVersionAttribute) customAttribute).TypographyVersion;
-                    string format = "{0}, Version={1}, Culture=neutral, PublicKeyToken=8354ae6d2174ddca";
-                    classFullName = String.Format(format, partialName, typographyVersion);
-                }
-            } catch (Exception ignored) {
-            }
-
-            Type type = null;
-            if (classFullName != null) {
-                String fileLoadExceptionMessage = null;
-                try {
-                    type = System.Type.GetType(classFullName);
-                } catch (FileLoadException fileLoadException) {
-                    fileLoadExceptionMessage = fileLoadException.Message;
-                }
-                if (type == null) {
-                    // try to find typography assembly by it's partial name and check if it refers to current version of itext core
-                    try {
-                        type = System.Type.GetType(partialName);
-                    } catch {
-                        // ignore
-                    }
-                    if (type != null) {
-                        bool doesReferToCurrentVersionOfCore = false;
-                        foreach (AssemblyName assemblyName in type.GetAssembly().GetReferencedAssemblies()) {
-                            if ("itext.io".Equals(assemblyName.Name)) {
-                                doesReferToCurrentVersionOfCore = assemblyName.Version.Equals(html2pdfAssembly.GetName().Version);
-                                break;
-                            }
-                        }
-                        if (!doesReferToCurrentVersionOfCore) {
-                            type = null;
-                        }
-                    }
-                }
-            }
-
-            return type;
         }
     }
 }
