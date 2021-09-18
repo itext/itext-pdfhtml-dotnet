@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
+using iText.Commons;
 using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
@@ -50,7 +51,6 @@ using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
-using iText.IO;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Css.Util;
