@@ -33,7 +33,7 @@ using iText.Commons.Utils;
 using iText.Html2pdf;
 using iText.Html2pdf.Actions.Events;
 using iText.IO.Source;
-using iText.Kernel.Counter.Event;
+using iText.Kernel.Actions.Events;
 using iText.Kernel.Logs;
 using iText.Kernel.Pdf;
 using iText.Layout;
