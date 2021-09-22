@@ -333,14 +333,14 @@ namespace iText.Html2pdf {
             return validationCount;
         }
 
-        private class StoreEventsHandler : IBaseEventHandler {
-            private IList<IBaseEvent> events = new List<IBaseEvent>();
+        private class StoreEventsHandler : IEventHandler {
+            private IList<IEvent> events = new List<IEvent>();
 
-            public virtual IList<IBaseEvent> GetEvents() {
+            public virtual IList<IEvent> GetEvents() {
                 return events;
             }
 
-            public virtual void OnEvent(IBaseEvent @event) {
+            public virtual void OnEvent(IEvent @event) {
                 events.Add(@event);
             }
         }
