@@ -30,7 +30,7 @@ namespace iText.Html2pdf.Actions.Data {
     /// <see cref="iText.Commons.Actions.Data.ProductData"/>
     /// related to iText pdfHTML module.
     /// </summary>
-    public class PdfHtmlProductData {
+    public sealed class PdfHtmlProductData {
         private const String PDF_HTML_PUBLIC_PRODUCT_NAME = "pdfHTML";
 
         private const String PDF_HTML_VERSION = "4.0.0-SNAPSHOT";
@@ -42,6 +42,10 @@ namespace iText.Html2pdf.Actions.Data {
         private static readonly ProductData PDF_HTML_PRODUCT_DATA = new ProductData(PDF_HTML_PUBLIC_PRODUCT_NAME, 
             ProductNameConstant.PDF_HTML, PDF_HTML_VERSION, PDF_HTML_COPYRIGHT_SINCE, PDF_HTML_COPYRIGHT_TO);
 
+        private PdfHtmlProductData() {
+        }
+
+        // Empty constructor.
         /// <summary>
         /// Getter for an instance of
         /// <see cref="iText.Commons.Actions.Data.ProductData"/>

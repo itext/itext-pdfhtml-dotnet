@@ -58,7 +58,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             ();
 
         /// <summary>The default mapping of CSS keywords and CSS appliers.</summary>
-        internal TagProcessorMapping defaultMapping;
+        private readonly TagProcessorMapping defaultMapping;
 
         /// <summary>
         /// Creates a new
@@ -110,6 +110,10 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         /// <returns>the custom CSS applier</returns>
         public virtual ICssApplier GetCustomCssApplier(IElementNode tag) {
             return null;
+        }
+
+        internal virtual TagProcessorMapping GetDefaultMapping() {
+            return defaultMapping;
         }
 
         /// <summary>Gets the css applier class.</summary>

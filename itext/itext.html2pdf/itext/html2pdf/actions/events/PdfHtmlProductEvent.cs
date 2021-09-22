@@ -29,7 +29,7 @@ using iText.Html2pdf.Actions.Data;
 
 namespace iText.Html2pdf.Actions.Events {
     /// <summary>Class represents events registered in iText pdfHTML module.</summary>
-    public class PdfHtmlProductEvent : AbstractProductProcessITextEvent {
+    public sealed class PdfHtmlProductEvent : AbstractProductProcessITextEvent {
         /// <summary>Convert html event type.</summary>
         public const String CONVERT_HTML = "convert-html";
 

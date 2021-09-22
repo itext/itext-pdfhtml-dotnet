@@ -46,7 +46,7 @@ namespace iText.Html2pdf.Attach.Impl {
 
     internal class TestTagWorkerFactory : DefaultTagWorkerFactory {
         public TestTagWorkerFactory() {
-            defaultMapping.PutMapping("custom-tag", typeof(TestClass));
+            GetDefaultMapping().PutMapping("custom-tag", typeof(TestClass));
         }
     }
 

@@ -43,7 +43,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
 
     internal class TestCssApplierFactory : DefaultCssApplierFactory {
         public TestCssApplierFactory() {
-            defaultMapping.PutMapping("custom-tag", typeof(TestClass));
+            GetDefaultMapping().PutMapping("custom-tag", typeof(TestClass));
         }
     }
 

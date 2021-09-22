@@ -58,7 +58,7 @@ namespace iText.Html2pdf.Attach.Impl {
             ();
 
         /// <summary>The default mapping.</summary>
-        internal TagProcessorMapping defaultMapping;
+        private readonly TagProcessorMapping defaultMapping;
 
         /// <summary>Instantiates a new default tag worker factory.</summary>
         public DefaultTagWorkerFactory() {
@@ -98,6 +98,10 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
             }
             return tagWorker;
+        }
+
+        internal virtual TagProcessorMapping GetDefaultMapping() {
+            return defaultMapping;
         }
 
         /// <summary>Gets the tag worker class for a specific element node.</summary>

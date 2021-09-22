@@ -253,7 +253,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
                 element.SetProperty(Property.UNDERLINE, underlineList);
             }
-            String textIndent = cssProps.Get(CssConstants.TEXT_INDENT);
+            String textIndent = cssProps.Get(CommonCssConstants.TEXT_INDENT);
             if (textIndent != null) {
                 UnitValue textIndentValue = CssDimensionParsingUtils.ParseLengthValueToPt(textIndent, em, rem);
                 if (textIndentValue != null) {
@@ -262,7 +262,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                     else {
                         logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
-                            , CssConstants.TEXT_INDENT));
+                            , CommonCssConstants.TEXT_INDENT));
                     }
                 }
             }

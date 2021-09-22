@@ -33,7 +33,7 @@ namespace iText.Html2pdf.Attach.Impl {
             this.metaInfo = metaInfo;
         }
 
-        /// <summary>Return the IMetaInfo object</summary>
+        /// <summary>Return the IMetaInfo object.</summary>
         /// <returns>returns IMetaInfo</returns>
         internal virtual IMetaInfo GetMetaInfo() {
             return metaInfo;

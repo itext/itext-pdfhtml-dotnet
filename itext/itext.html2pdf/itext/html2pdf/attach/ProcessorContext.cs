@@ -342,8 +342,7 @@ namespace iText.Html2pdf.Attach {
         /// <summary>Gets html meta info container.</summary>
         /// <remarks>
         /// Gets html meta info container.
-        /// <para />
-        /// Meta info will be used to determine event origin.
+        /// <para />Meta info will be used to determine event origin.
         /// </remarks>
         /// <returns>html meta info container</returns>
         public virtual HtmlMetaInfoContainer GetMetaInfoContainer() {
