@@ -488,7 +488,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return !IsPageLeft(pageNum);
         }
 
-        private class PageMarginBoxesDrawingHandler : IEventHandler {
+        private class PageMarginBoxesDrawingHandler : iText.Kernel.Events.IEventHandler {
             private HtmlDocumentRenderer htmlDocumentRenderer;
 
             internal virtual HtmlDocumentRenderer.PageMarginBoxesDrawingHandler SetHtmlDocumentRenderer(HtmlDocumentRenderer

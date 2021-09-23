@@ -100,7 +100,7 @@ namespace iText.Html2pdf.Events {
         }
 
         //page X of Y
-        protected internal class PageXofY : IEventHandler {
+        protected internal class PageXofY : iText.Kernel.Events.IEventHandler {
             protected internal PdfFormXObject placeholder;
 
             protected internal float side = 20;

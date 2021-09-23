@@ -53,7 +53,7 @@ using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <summary>This handler draws backgrounds and borders for html, body and page-annotation styles.</summary>
-    internal class HtmlBodyStylesApplierHandler : IEventHandler {
+    internal class HtmlBodyStylesApplierHandler : iText.Kernel.Events.IEventHandler {
         private readonly HtmlDocumentRenderer htmlDocumentRenderer;
 
         private readonly IDictionary<int, HtmlBodyStylesApplierHandler.PageStylesProperties> pageStylesPropertiesMap;
