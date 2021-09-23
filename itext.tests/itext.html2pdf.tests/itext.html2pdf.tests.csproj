@@ -131,7 +131,7 @@
       <Name>itext.commons</Name>
     </ProjectReference>
     <Reference Include="itext.commons, Version=7.2.0.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" Condition="!Exists('..\..\..\itextcore\itext\itext.commons\itext.commons.csproj')">
-      <HintPath>$(SolutionDir)\packages\itext7.7.2.0-SNAPSHOT\lib\net461\itext.commons.dll</HintPath>
+      <HintPath>$(SolutionDir)\packages\itext7.commons.7.2.0-SNAPSHOT\lib\net461\itext.commons.dll</HintPath>
     </Reference>
     <ProjectReference Include="..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj')">
       <Project>{4e7819e8-7555-4e2e-9a01-d8718a2cfdda}</Project>
