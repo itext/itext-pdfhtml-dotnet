@@ -1,5 +1,4 @@
 using System.IO;
-using NUnit.Framework;
 using iText.Commons.Actions.Contexts;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
@@ -17,25 +16,19 @@ using iText.Test;
 namespace iText.Html2pdf {
     public class HtmlConverterMetaInfoTest : ExtendedITextTest {
         [NUnit.Framework.Test]
-        public virtual void TestMetaInfoShouldBePresent() {
-            DocumentProperties documentProperties = new DocumentProperties();
+        public virtual void MetaInfoShouldBePresentTest() {
             IMetaInfo o = new _IMetaInfo_34();
-            documentProperties.SetEventCountingMetaInfo(o);
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetEventMetaInfo(o);
             HtmlConverterMetaInfoTest.InvocationAssert invocationAssert = new HtmlConverterMetaInfoTest.InvocationAssert
                 ();
             converterProperties.SetTagWorkerFactory(new HtmlConverterMetaInfoTest.AssertMetaInfoTagWorkerFactory(invocationAssert
                 ));
-            // TODO DEVSIX-5790 fix assertion error - all assertions must pass
-            NUnit.Framework.Assert.Catch(typeof(AssertionException), () => {
-                HtmlConverter.ConvertToDocument("<!DOCTYPE html>\n" + "<html>\n" + "\n" + "<body>\n" + "<div>\n" + "The content of the div\n"
-                     + "</div>\n" + "</body>\n" + "\n" + "</html>\n", new PdfDocument(new PdfWriter(new MemoryStream())), 
-                    converterProperties).Close();
-            }
-            );
-            // TODO DEVSIX-5790 #isInvoked status must be true
-            NUnit.Framework.Assert.IsFalse(invocationAssert.IsInvoked());
+            Document document = HtmlConverter.ConvertToDocument("<!DOCTYPE html>\n" + "<html>\n" + "\n" + "<body>\n" +
+                 "<div>\n" + "The content of the div\n" + "</div>\n" + "</body>\n" + "\n" + "</html>\n", new PdfDocument
+                (new PdfWriter(new MemoryStream())), converterProperties);
+            document.Close();
+            NUnit.Framework.Assert.IsTrue(invocationAssert.IsInvoked());
         }
 
         private sealed class _IMetaInfo_34 : IMetaInfo {
@@ -46,7 +39,7 @@ namespace iText.Html2pdf {
         private class AssertMetaInfoTagWorkerFactory : DefaultTagWorkerFactory {
             private readonly HtmlConverterMetaInfoTest.InvocationAssert invocationAssert;
 
-            private AssertMetaInfoTagWorkerFactory(HtmlConverterMetaInfoTest.InvocationAssert invocationAssert) {
+            public AssertMetaInfoTagWorkerFactory(HtmlConverterMetaInfoTest.InvocationAssert invocationAssert) {
                 this.invocationAssert = invocationAssert;
             }
 
@@ -85,7 +78,7 @@ namespace iText.Html2pdf {
             }
 
             public override LayoutResult Layout(LayoutContext layoutContext) {
-                NUnit.Framework.Assert.IsNotNull(this.GetProperty(Property.META_INFO));
+                NUnit.Framework.Assert.IsNotNull(this.GetProperty<MetaInfoContainer>(Property.META_INFO));
                 invocationAssert.SetInvoked(true);
                 return base.Layout(layoutContext);
             }

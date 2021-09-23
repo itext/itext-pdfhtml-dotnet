@@ -286,9 +286,6 @@ namespace iText.Html2pdf.Attach.Impl {
                 CounterProcessorUtil.EndProcessingCounters(context.GetCssContext(), element);
                 if (tagWorker != null) {
                     tagWorker.ProcessEnd(element, context);
-                    if (context.GetState().GetStack().Count == 1 && tagWorker.GetElementResult() != null) {
-                        tagWorker.GetElementResult().DeleteOwnProperty(Property.META_INFO);
-                    }
                     LinkHelper.CreateDestination(tagWorker, element, context);
                     context.GetOutlineHandler().SetDestinationToElement(tagWorker, element);
                     context.GetState().Pop();
