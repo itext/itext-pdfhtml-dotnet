@@ -42,7 +42,6 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
-using iText.Kernel;
 using iText.Kernel.Exceptions;
 
 namespace iText.Html2pdf.Element {

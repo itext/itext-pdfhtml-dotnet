@@ -41,11 +41,12 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Commons.Exceptions;
 using iText.Commons.Utils;
 
 namespace iText.Html2pdf.Exceptions {
     /// <summary>Runtime exception in case a CSS applier can't be initialized.</summary>
-    public class CssApplierInitializationException : Exception {
+    public class CssApplierInitializationException : ITextException {
         /// <summary>The message template in case reflection failed.</summary>
         public const String REFLECTION_FAILED = "Could not instantiate CssApplier-class {0} for tag {1}.";
 

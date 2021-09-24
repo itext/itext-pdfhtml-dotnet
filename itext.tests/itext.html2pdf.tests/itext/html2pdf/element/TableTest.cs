@@ -46,7 +46,7 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
 using iText.IO.Util;
-using iText.Kernel;
+using iText.Kernel.Exceptions;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;

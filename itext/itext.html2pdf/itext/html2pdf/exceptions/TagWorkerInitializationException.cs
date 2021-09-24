@@ -41,11 +41,12 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Commons.Exceptions;
 using iText.Commons.Utils;
 
 namespace iText.Html2pdf.Exceptions {
     /// <summary>Runtime exception that gets thrown if a tag worker can't be initialized.</summary>
-    public class TagWorkerInitializationException : Exception {
+    public class TagWorkerInitializationException : ITextException {
         /// <summary>Template for the error message in case a tag worker couldn't be instantiated.</summary>
         public const String REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED = "Could not " + "instantiate TagWorker-class {0} for tag {1}.";
 

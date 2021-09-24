@@ -41,10 +41,11 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Commons.Exceptions;
 
 namespace iText.Html2pdf.Exceptions {
     /// <summary>Runtime exception that gets thrown if something goes wrong in the HTML to PDF conversion.</summary>
-    public class Html2PdfException : Exception {
+    public class Html2PdfException : ITextException {
         /// <summary>Message in case one tries to write to a PDF document that isn't in writing mode.</summary>
         public const String PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE = "PdfDocument should be created " + "in writing mode. Reading and stamping is not allowed";
 
