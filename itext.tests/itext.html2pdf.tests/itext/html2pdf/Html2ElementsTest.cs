@@ -176,8 +176,8 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, Count = 
-            1)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+            , Count = 1)]
         [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
         [LogMessage(Html2PdfLogMessageConstant.PDF_DOCUMENT_NOT_PRESENT, Count = 1)]
         public virtual void HtmlObjectMalformedUrlTest() {

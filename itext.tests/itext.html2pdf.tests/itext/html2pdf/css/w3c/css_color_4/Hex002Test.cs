@@ -47,7 +47,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_4 {
     // Color values as in this test are considered for now as invalid. E.g. Chrome does the same. 
-    [LogMessage(iText.IO.LogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB)]
+    [LogMessage(iText.IO.Logs.IoLogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB)]
     [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
     public class Hex002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {

@@ -47,6 +47,7 @@ using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Pdfa;
+using iText.Pdfa.Logs;
 using iText.Test;
 using iText.Test.Attributes;
 

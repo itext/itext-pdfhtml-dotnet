@@ -255,14 +255,14 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         // TODO DEVSIX-5571 Update cmp after the ticket is closed
-        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
         [LogMessage(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
         public virtual void CheckboxFullWidthDisplayBlockTest() {
             RunTest("checkboxFullWidthDisplayBlockTest");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
         public virtual void LongInputValueCausesNothingTest() {
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetTagWorkerFactory(new InputTest.CustomTextInputTagWorkerFactory());

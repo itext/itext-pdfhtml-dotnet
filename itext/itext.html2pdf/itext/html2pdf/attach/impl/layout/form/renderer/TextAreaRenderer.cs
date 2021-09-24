@@ -155,8 +155,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             if (!fontSize.IsPointValue()) {
                 ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.TextAreaRenderer
                     ));
-                logger.LogError(MessageFormatUtil.Format(iText.IO.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property
-                    .FONT_SIZE));
+                logger.LogError(MessageFormatUtil.Format(iText.IO.Logs.IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                    , Property.FONT_SIZE));
             }
             PdfDocument doc = drawContext.GetDocument();
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
@@ -177,8 +177,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                     if (!fontSize.IsPointValue()) {
                         ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.Form.Renderer.TextAreaRenderer
                             ));
-                        logger.LogError(MessageFormatUtil.Format(iText.IO.LogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Property
-                            .FONT_SIZE));
+                        logger.LogError(MessageFormatUtil.Format(iText.IO.Logs.IoLogMessageConstant.PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                            , Property.FONT_SIZE));
                     }
                     int cols = GetCols();
                     return (T1)(Object)UnitValue.CreatePointValue(UpdateHtmlColsSizeBasedWidth(fontSize.GetValue() * (cols * 0.5f

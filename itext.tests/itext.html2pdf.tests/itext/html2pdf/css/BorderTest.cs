@@ -200,7 +200,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         //TODO DEVSIX-2857 update cmp file after fix
-        [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
         public virtual void BorderStyleInTRwithTHTest() {
             ConvertToPdfAndCompare("borderStyleInTRwithTH", sourceFolder, destinationFolder);
         }

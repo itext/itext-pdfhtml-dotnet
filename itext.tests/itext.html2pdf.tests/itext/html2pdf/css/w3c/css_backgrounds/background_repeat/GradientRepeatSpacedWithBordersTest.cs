@@ -26,7 +26,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Background_repeat {
     // TODO DEVSIX-4396 background: radial-gradient is not supported
-    [LogMessage(iText.StyledXmlParser.LogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES
+    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES
         )]
     public class GradientRepeatSpacedWithBordersTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {

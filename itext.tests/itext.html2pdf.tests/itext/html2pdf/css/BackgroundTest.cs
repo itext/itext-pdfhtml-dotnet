@@ -118,7 +118,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.ONLY_THE_LAST_BACKGROUND_CAN_INCLUDE_BACKGROUND_COLOR
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.ONLY_THE_LAST_BACKGROUND_CAN_INCLUDE_BACKGROUND_COLOR
             )]
         public virtual void BackgroundImageAndColorNotLastTest() {
             ConvertToPdfAndCompare("background_image_and_color_not_last", sourceFolder, destinationFolder);

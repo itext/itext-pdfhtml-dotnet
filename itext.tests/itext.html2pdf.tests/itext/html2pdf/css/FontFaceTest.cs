@@ -179,7 +179,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void W3cProblemTest04() {
             //Silently omitted, decompression should fail. Browser loads font but don't draw glyph.
             //See HeaderFlavor002Test in io for decompression details

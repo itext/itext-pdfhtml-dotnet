@@ -45,7 +45,7 @@ using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Positioning {
-    [LogMessage(iText.IO.LogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 1)]
+    [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 1)]
     public class AbsoluteReplacedHeight001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "absolute-replaced-height-001.xht";

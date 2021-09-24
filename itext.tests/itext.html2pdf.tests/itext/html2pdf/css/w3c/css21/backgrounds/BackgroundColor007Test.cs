@@ -26,7 +26,7 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Backgrounds {
-    [LogMessage(iText.IO.LogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB)]
+    [LogMessage(iText.IO.Logs.IoLogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB)]
     [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
     public class BackgroundColor007Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {

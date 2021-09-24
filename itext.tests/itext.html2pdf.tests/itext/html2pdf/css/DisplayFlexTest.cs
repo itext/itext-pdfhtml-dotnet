@@ -398,7 +398,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT)]
         public virtual void MarginsCollapseFlexContainerAndParentTest() {
             ConvertToPdfAndCompare("marginsCollapseFlexContainerAndParent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -430,7 +430,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)]
         public virtual void ResultOccupiedAreaNullSplitRenderersNotTest() {
             ConvertToPdfAndCompare("resultOccupiedAreaNullSplitRenderersNot", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

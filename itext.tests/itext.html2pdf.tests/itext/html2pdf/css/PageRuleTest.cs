@@ -189,21 +189,21 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 4, LogLevel = LogLevelConstants.WARN)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 4, LogLevel = LogLevelConstants.WARN)]
         public virtual void LinearGradientOnPageMarginWithAutoWidthAndHeightTest() {
             RunTest("linearGradientOnPageMarginWithAutoWidthAndHeightTest", new ConverterProperties().SetTagWorkerFactory
                 (new PageRuleTest.PageMarginBoxImagesTagWorkerFactory()));
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 2, LogLevel = LogLevelConstants.WARN)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 2, LogLevel = LogLevelConstants.WARN)]
         public virtual void LinearGradientOnPageMarginWithPercentWidthAndHeightTest() {
             RunTest("linearGradientOnPageMarginWithPercentWidthAndHeightTest", new ConverterProperties().SetTagWorkerFactory
                 (new PageRuleTest.PageMarginBoxImagesTagWorkerFactory()));
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 2, LogLevel = LogLevelConstants.WARN)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 2, LogLevel = LogLevelConstants.WARN)]
         public virtual void LinearGradientOnPageMarginWithWidthAndHeightTest() {
             RunTest("linearGradientOnPageMarginWithWidthAndHeightTest", new ConverterProperties().SetTagWorkerFactory(
                 new PageRuleTest.PageMarginBoxImagesTagWorkerFactory()));
@@ -628,7 +628,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, Count = 6)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, Count = 6)]
         public virtual void MarginBoxRunningNoImmediateFlush04() {
             String name = "marginBoxRunningNoImmediateFlush04";
             String htmlPath = SOURCE_FOLDER + name + ".html";

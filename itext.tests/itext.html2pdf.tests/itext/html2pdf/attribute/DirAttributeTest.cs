@@ -59,55 +59,55 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         // TODO DEVSIX-5034 Direction of the contents of description list items with dir = "rtl" is wrong
-        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 8)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 8)]
         public virtual void DifferentDirsOfDlsTest() {
             ConvertToPdfAndCompare("differentDirsOfDls", sourceFolder, destinationFolder, false);
         }
 
         [NUnit.Framework.Test]
         // TODO DEVSIX-5070 Process dots of ordered list items in the specified direction
-        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 18)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 18)]
         public virtual void DifferentDirsOfOrderedListsTest() {
             ConvertToPdfAndCompare("differentDirsOfOrderedLists", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 18)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 18)]
         public virtual void DifferentDirsOfUnorderedListsTest() {
             ConvertToPdfAndCompare("differentDirsOfUnorderedLists", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         //TODO: DEVSIX-2438 html2Pdf: float + rtl works incorrectly for element placement
-        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 16)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 16)]
         public virtual void FloatedTableInRtlDocumentTest() {
             ConvertToPdfAndCompare("floatedTableInRtlDocument", sourceFolder, destinationFolder, false);
         }
 
         [NUnit.Framework.Test]
         //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
-        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
         public virtual void ParagraphsOfDifferentDirsWithImageTest() {
             ConvertToPdfAndCompare("paragraphsOfDifferentDirsWithImage", sourceFolder, destinationFolder, false);
         }
 
         [NUnit.Framework.Test]
         //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
-        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
         public virtual void RtlDirectionOfLinkTest() {
             ConvertToPdfAndCompare("rtlDirectionOfLink", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
-        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 26)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 26)]
         public virtual void RtlDirectionOfListInsideListTest() {
             ConvertToPdfAndCompare("rtlDirectionOfListInsideList", sourceFolder, destinationFolder, false);
         }
 
         [NUnit.Framework.Test]
         //TODO: DEVSIX-2435 Process several elements which do not respect the specified direction
-        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
         public virtual void RtlDirectionOfSpanTest() {
             ConvertToPdfAndCompare("rtlDirectionOfSpan", sourceFolder, destinationFolder);
         }
@@ -130,8 +130,8 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         //TODO DEVSIX-3069 pdfHTML: RTL tables are not aligned correctly if there is no enough space
-        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 32)]
-        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 32)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         public virtual void TableAlignedToWrongSideInCaseOfNotEnoughSpaceTest() {
             ConvertToPdfAndCompare("tableAlignedToWrongSideInCaseOfNotEnoughSpace", sourceFolder, destinationFolder);
         }

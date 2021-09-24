@@ -107,7 +107,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void LetterSpacingWithInvalidValuesTest() {
             ConvertToPdfAndCompare("letterSpacingWithInvalidValues", sourceFolder, destinationFolder);
         }
@@ -164,7 +164,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         public virtual void CheckWhiteSpaceCss() {
             //TODO: fix after DEVSIX-2447. To reproduce without error, remove "white-space: pre;" (pre-wrap, pre-line)
             ConvertToPdfAndCompare("checkWhiteSpaceCss", sourceFolder, destinationFolder);
@@ -203,7 +203,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         public virtual void WhiteSpaceNowrapTableCellTest01() {
             ConvertToPdfAndCompare("whiteSpaceNowrapTableCellTest01", sourceFolder, destinationFolder);
         }
@@ -214,7 +214,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         public virtual void WhiteSpaceNowrapTableCellTest03() {
             ConvertToPdfAndCompare("whiteSpaceNowrapTableCellTest03", sourceFolder, destinationFolder);
         }
