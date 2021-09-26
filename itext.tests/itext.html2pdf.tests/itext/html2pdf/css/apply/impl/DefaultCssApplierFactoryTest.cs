@@ -20,9 +20,9 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-using System;
-using iText.Commons.Utils;
-using iText.Html2pdf.Exceptions;
+using iText.Html2pdf.Attach;
+using iText.Html2pdf.Css.Apply;
+using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 using iText.Test;
 
@@ -30,23 +30,21 @@ namespace iText.Html2pdf.Css.Apply.Impl {
     public class DefaultCssApplierFactoryTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void CannotGetCssApplierForCustomTagViaReflection() {
-            String tag = "custom-tag";
-            String className = "iText.Html2pdf.Css.Apply.Impl.TestClass";
-            NUnit.Framework.Assert.That(() =>  {
-                new TestCssApplierFactory().GetCssApplier(new JsoupElementNode(new iText.StyledXmlParser.Jsoup.Nodes.Element
-                    (iText.StyledXmlParser.Jsoup.Parser.Tag.ValueOf("custom-tag"), "")));
-            }
-            , NUnit.Framework.Throws.InstanceOf<CssApplierInitializationException>().With.Message.EqualTo(MessageFormatUtil.Format(CssApplierInitializationException.REFLECTION_FAILED, className, tag)))
-;
+            ICssApplier cssApplier = new TestCssApplierFactory().GetCssApplier(new JsoupElementNode(new iText.StyledXmlParser.Jsoup.Nodes.Element
+                (iText.StyledXmlParser.Jsoup.Parser.Tag.ValueOf("custom-tag"), "")));
+            NUnit.Framework.Assert.AreEqual(typeof(TestClass), cssApplier.GetType());
         }
     }
 
     internal class TestCssApplierFactory : DefaultCssApplierFactory {
         public TestCssApplierFactory() {
-            GetDefaultMapping().PutMapping("custom-tag", typeof(TestClass));
+            GetDefaultMapping().PutMapping("custom-tag", () => new TestClass());
         }
     }
 
-    internal class TestClass {
+    internal class TestClass : ICssApplier {
+        public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
+            ) {
+        }
     }
 }

@@ -21,10 +21,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Commons.Utils;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Exceptions;
+using iText.Layout;
+using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 using iText.Test;
 
@@ -32,24 +32,33 @@ namespace iText.Html2pdf.Attach.Impl {
     public class DefaultTagWorkerFactoryTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void CannotGetTagWorkerForCustomTagViaReflection() {
-            String tag = "custom-tag";
-            String className = "iText.Html2pdf.Attach.Impl.TestClass";
-            NUnit.Framework.Assert.That(() =>  {
-                new TestTagWorkerFactory().GetTagWorker(new JsoupElementNode(new iText.StyledXmlParser.Jsoup.Nodes.Element
-                    (iText.StyledXmlParser.Jsoup.Parser.Tag.ValueOf("custom-tag"), "")), new ProcessorContext(new ConverterProperties
-                    ()));
-            }
-            , NUnit.Framework.Throws.InstanceOf<TagWorkerInitializationException>().With.Message.EqualTo(MessageFormatUtil.Format(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED, className, tag)))
-;
+            ITagWorker tagWorker = new TestTagWorkerFactory().GetTagWorker(new JsoupElementNode(new iText.StyledXmlParser.Jsoup.Nodes.Element
+                (iText.StyledXmlParser.Jsoup.Parser.Tag.ValueOf("custom-tag"), "")), new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(typeof(TestClass), tagWorker.GetType());
         }
     }
 
     internal class TestTagWorkerFactory : DefaultTagWorkerFactory {
         public TestTagWorkerFactory() {
-            GetDefaultMapping().PutMapping("custom-tag", typeof(TestClass));
+            GetDefaultMapping().PutMapping("custom-tag", (lhs, rhs) => new TestClass());
         }
     }
 
-    internal class TestClass {
+    internal class TestClass : ITagWorker {
+        public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
+        }
+
+        public virtual bool ProcessContent(String content, ProcessorContext context) {
+            return false;
+        }
+
+        public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
+            return false;
+        }
+
+        public virtual IPropertyContainer GetElementResult() {
+            return null;
+        }
     }
 }
