@@ -23,11 +23,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using iText.Commons.Utils;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Css;
-using iText.IO.Util;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Colors;
 using iText.Kernel.Colors.Gradients;
 using iText.Kernel.Pdf.Xobject;
@@ -98,8 +99,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     BackgroundImage image = (BackgroundImage)value;
                     PdfImageXObject pdfImage = image.GetImage();
                     NUnit.Framework.Assert.IsNotNull(pdfImage);
-                    PdfXObject expectedImage = this.innerContext.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl
-                        (this.innerImage));
+                    PdfXObject expectedImage = this.innerContext.GetResourceResolver().RetrieveImage(CssUtils.ExtractUrl(this.
+                        innerImage));
                     NUnit.Framework.Assert.IsTrue(expectedImage is PdfImageXObject);
                     NUnit.Framework.Assert.AreEqual(JavaUtil.ArraysToString(((PdfImageXObject)expectedImage).GetImageBytes()), 
                         JavaUtil.ArraysToString(pdfImage.GetImageBytes()));
@@ -112,7 +113,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
         public virtual void BackgroundInvalidImageTest() {
             String image = "url(img.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
@@ -212,7 +213,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.context = context;
                 this.images = images;
                 this.innerContext = context;
-                this.imagesArray = iText.IO.Util.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly ProcessorContext innerContext;
@@ -230,8 +231,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     BackgroundImage image = (BackgroundImage)value;
                     PdfImageXObject pdfImage = image.GetImage();
                     NUnit.Framework.Assert.IsNotNull(pdfImage);
-                    PdfXObject expectedImage = this.innerContext.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl
-                        (this.imagesArray[i]));
+                    PdfXObject expectedImage = this.innerContext.GetResourceResolver().RetrieveImage(CssUtils.ExtractUrl(this.
+                        imagesArray[i]));
                     NUnit.Framework.Assert.IsTrue(expectedImage is PdfImageXObject);
                     NUnit.Framework.Assert.AreEqual(JavaUtil.ArraysToString(((PdfImageXObject)expectedImage).GetImageBytes()), 
                         JavaUtil.ArraysToString(pdfImage.GetImageBytes()));
@@ -258,7 +259,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_229 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_229(String images) {
                 this.images = images;
-                this.imagesArray = iText.IO.Util.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -296,7 +297,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_258 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_258(String images) {
                 this.images = images;
-                this.imagesArray = iText.IO.Util.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -538,7 +539,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_452 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_452(String images) {
                 this.images = images;
-                this.imagesArray = iText.IO.Util.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -576,7 +577,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_482 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_482(String images) {
                 this.images = images;
-                this.imagesArray = iText.IO.Util.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -614,7 +615,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_512 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_512(String images) {
                 this.images = images;
-                this.imagesArray = iText.IO.Util.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -652,7 +653,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_542 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_542(String images) {
                 this.images = images;
-                this.imagesArray = iText.IO.Util.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -693,7 +694,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_579 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_579(String images) {
                 this.images = images;
-                this.imagesArray = iText.IO.Util.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;
@@ -784,7 +785,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private sealed class _BodyHtmlStylesContainer_659 : BodyHtmlStylesContainer {
             public _BodyHtmlStylesContainer_659(String images) {
                 this.images = images;
-                this.imagesArray = iText.IO.Util.StringUtil.Split(images, ",");
+                this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
             internal readonly String[] imagesArray;

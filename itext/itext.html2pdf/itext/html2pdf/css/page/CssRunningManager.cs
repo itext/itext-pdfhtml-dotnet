@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Css;
-using iText.IO.Util;
 
 namespace iText.Html2pdf.Css.Page {
     /// <summary>Class that manages running elements.</summary>

@@ -27,8 +27,8 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Bg_att_local {
     // TODO DEVSIX-4398 border-radius is not supported for double borders
     // TODO DEVSIX-4525 calculate border-radius according to background-clip
-    [LogMessage(iText.IO.LogMessageConstant.METHOD_IS_NOT_IMPLEMENTED_BY_DEFAULT_OTHER_METHOD_WILL_BE_USED, Count
-         = 4)]
+    [LogMessage(iText.IO.Logs.IoLogMessageConstant.METHOD_IS_NOT_IMPLEMENTED_BY_DEFAULT_OTHER_METHOD_WILL_BE_USED
+        , Count = 4)]
     public class AttLClipC4RefTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "attachment-local-clipping-color-4-ref.html";

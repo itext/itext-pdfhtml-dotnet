@@ -45,10 +45,9 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class ImageTest : ExtendedITextTest {
+    public class ImageTest : ExternalExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/ImageTest/";
 

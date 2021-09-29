@@ -51,6 +51,7 @@ using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Parser;
@@ -120,7 +121,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, Count = 3)]
+        [LogMessage(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, Count = 3)]
         public virtual void InvalidCompoundSizePageRuleTest() {
             RunTest("invalidCompoundSizePageRuleTest");
         }
@@ -141,7 +142,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 3)]
+        [LogMessage(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 3)]
         public virtual void MarginBoxTest01() {
             RunTest("marginBoxTest01");
         }
@@ -188,21 +189,21 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 4, LogLevel = LogLevelConstants.WARN)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 4, LogLevel = LogLevelConstants.WARN)]
         public virtual void LinearGradientOnPageMarginWithAutoWidthAndHeightTest() {
             RunTest("linearGradientOnPageMarginWithAutoWidthAndHeightTest", new ConverterProperties().SetTagWorkerFactory
                 (new PageRuleTest.PageMarginBoxImagesTagWorkerFactory()));
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 2, LogLevel = LogLevelConstants.WARN)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 2, LogLevel = LogLevelConstants.WARN)]
         public virtual void LinearGradientOnPageMarginWithPercentWidthAndHeightTest() {
             RunTest("linearGradientOnPageMarginWithPercentWidthAndHeightTest", new ConverterProperties().SetTagWorkerFactory
                 (new PageRuleTest.PageMarginBoxImagesTagWorkerFactory()));
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.CLIP_ELEMENT, Count = 2, LogLevel = LogLevelConstants.WARN)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 2, LogLevel = LogLevelConstants.WARN)]
         public virtual void LinearGradientOnPageMarginWithWidthAndHeightTest() {
             RunTest("linearGradientOnPageMarginWithWidthAndHeightTest", new ConverterProperties().SetTagWorkerFactory(
                 new PageRuleTest.PageMarginBoxImagesTagWorkerFactory()));
@@ -224,8 +225,6 @@ namespace iText.Html2pdf.Css {
 
             public override bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
                 if (childTagWorker.GetElementResult() is Image) {
-                    // TODO Since iText 7.2 release it is ("it will be" for now, see PageMarginBoxDummyElement class) possible
-                    // to get current page margin box name and dimensions from the "element" IElementNode passed to the constructor of this tag worker.
                     ((Image)childTagWorker.GetElementResult()).SetAutoScale(true);
                 }
                 return base.ProcessTagChild(childTagWorker, context);
@@ -275,8 +274,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void MarginBoxOutlinePropertyTest01() {
-            // TODO Outlines are currently not supported for page margin boxes, because of the outlines handling specificity (they are handled on renderer's parent level).
-            //      See com.itextpdf.html2pdf.attach.impl.layout.PageContextProcessor.
+            // TODO DEVSIX-5725 support 'ouline' property for page margin boxes
             RunTest("marginBoxOutlinePropertyTest01");
         }
 
@@ -297,7 +295,8 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void MarginBoxRunningTest04() {
-            // TODO This tests shows wrong result, because running element name is custom-ident which shall be case sensitive, while iText treats it as case-insensitive.
+            // TODO DEVSIX-2430 This tests shows wrong result, because running element name is custom-ident which
+            //  shall be case sensitive, while iText treats it as case-insensitive.
             RunTest("marginBoxRunningTest04");
         }
 
@@ -312,7 +311,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID)]
+        [LogMessage(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID)]
         public virtual void MarginBoxRunningTest07() {
             RunTest("marginBoxRunningTest07");
         }
@@ -612,7 +611,7 @@ namespace iText.Html2pdf.Css {
             ConverterProperties converterProperties = new ConverterProperties().SetImmediateFlush(false);
             Document doc = HtmlConverter.ConvertToDocument(new FileStream(htmlPath, FileMode.Open, FileAccess.Read), new 
                 PdfWriter(pdfPath), converterProperties);
-            // TODO This is kinda a workaround, because calling document.close() would close the whole document,
+            // This is kinda a workaround, because calling document.close() would close the whole document,
             // which would forbid any further operations with it, however in html2pdf some things are waiting for document to be closed and finished:
             // - adding last waiting element (connected with keep_with_previous functionality);
             // - drawing margin boxes for the last page.
@@ -629,7 +628,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, Count = 6)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.REMOVING_PAGE_HAS_ALREADY_BEEN_FLUSHED, Count = 6)]
         public virtual void MarginBoxRunningNoImmediateFlush04() {
             String name = "marginBoxRunningNoImmediateFlush04";
             String htmlPath = SOURCE_FOLDER + name + ".html";

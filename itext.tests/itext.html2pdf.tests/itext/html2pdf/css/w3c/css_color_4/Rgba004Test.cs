@@ -42,11 +42,12 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_4 {
     // Color values as in this test are considered for now as invalid. E.g. Chrome does the same.
-    [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+    [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
     public class Rgba004Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "rgba-004.html";

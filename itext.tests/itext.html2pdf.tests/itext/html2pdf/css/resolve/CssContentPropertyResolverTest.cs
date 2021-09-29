@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
+using iText.Html2pdf.Logs;
 using iText.StyledXmlParser.Css.Pseudo;
 using iText.StyledXmlParser.Node;
 using iText.Test;
@@ -55,7 +56,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 4)]
+        [LogMessage(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 4)]
         public virtual void ResolveContentInvalidParamsTest() {
             IDictionary<String, String> styles = new Dictionary<String, String>();
             styles.Put(CssConstants.CONTENT, "target-counter(url('#some_target'))");
@@ -103,7 +104,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 1)]
+        [LogMessage(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 1)]
         public virtual void ResolveContentWrongTargetCounterTest() {
             IDictionary<String, String> styles = new Dictionary<String, String>();
             styles.Put(CssConstants.CONTENT, "target-counter(attr(), pages)");
@@ -114,7 +115,7 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 1)]
+        [LogMessage(Html2PdfLogMessageConstant.CONTENT_PROPERTY_INVALID, Count = 1)]
         public virtual void ResolveContentWrongTargetCountersTest() {
             IDictionary<String, String> styles = new Dictionary<String, String>();
             styles.Put(CssConstants.CONTENT, "target-counters(attr(), pages)");

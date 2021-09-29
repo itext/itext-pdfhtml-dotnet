@@ -64,7 +64,7 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
         public virtual void HebrewTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "hebrew.html"), new FileInfo(DESTINATION_FOLDER + 
                 "hebrew.pdf"));

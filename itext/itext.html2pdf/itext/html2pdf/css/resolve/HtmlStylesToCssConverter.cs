@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
+using iText.Commons.Utils;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
-using iText.IO.Util;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Resolve.Shorthand.Impl;
 using iText.StyledXmlParser.Css.Util;
@@ -486,7 +486,7 @@ namespace iText.Html2pdf.Css.Resolve {
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 // Trim semicolons at the end because they seem to not affect the value in browsers
-                String cssEquivalent = iText.IO.Util.StringUtil.ReplaceAll(value, ";+$", "");
+                String cssEquivalent = iText.Commons.Utils.StringUtil.ReplaceAll(value, ";+$", "");
                 if (!CssTypesValidationUtils.IsMetricValue(cssEquivalent) && !cssEquivalent.EndsWith(CssConstants.PERCENTAGE
                     )) {
                     cssEquivalent += CssConstants.PX;
@@ -512,7 +512,7 @@ namespace iText.Html2pdf.Css.Resolve {
             */
             public virtual IList<CssDeclaration> Convert(IElementNode element, String value) {
                 // Trim semicolons at the end because they seem to not affect the value in browsers
-                String cssEquivalent = iText.IO.Util.StringUtil.ReplaceAll(value, ";+$", "");
+                String cssEquivalent = iText.Commons.Utils.StringUtil.ReplaceAll(value, ";+$", "");
                 if (!CssTypesValidationUtils.IsMetricValue(cssEquivalent) && !cssEquivalent.EndsWith(CssConstants.PERCENTAGE
                     )) {
                     cssEquivalent += CssConstants.PX;
@@ -583,9 +583,7 @@ namespace iText.Html2pdf.Css.Resolve {
                             result.Add(new CssDeclaration(CssConstants.CAPTION_SIDE, value));
                         }
                         else {
-                            // TODO in fact, align attribute also affects horizontal alignment of all child blocks (not only direct children),
-                            // however this effect conflicts in queer manner with 'text-align' property if it set on the same blocks explicitly via CSS
-                            // (see HorizontalAlignmentTest#alignAttribute01)
+                            // TODO DEVSIX-5518 fix conflicts of 'align' and 'text-align'
                             result.Add(new CssDeclaration(CssConstants.TEXT_ALIGN, value));
                         }
                     }

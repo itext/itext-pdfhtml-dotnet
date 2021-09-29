@@ -42,8 +42,13 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
+using iText.Commons.Actions;
+using iText.Commons.Actions.Sequence;
+using iText.Commons.Utils;
 using iText.Html2pdf;
+using iText.Html2pdf.Actions.Events;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
@@ -53,13 +58,10 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Resolve;
-using iText.Html2pdf.Events;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
-using iText.Html2pdf.Util;
+using iText.Html2pdf.Logs;
 using iText.IO.Font;
-using iText.IO.Util;
-using iText.Kernel.Counter;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
@@ -70,12 +72,13 @@ using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Font;
 using iText.StyledXmlParser.Css.Pseudo;
 using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Util;
 
 namespace iText.Html2pdf.Attach.Impl {
     /// <summary>The default implementation to process HTML.</summary>
     public class DefaultHtmlProcessor : IHtmlProcessor {
         /// <summary>The logger instance.</summary>
-        private static readonly ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.DefaultHtmlProcessor
+        private static readonly ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.DefaultHtmlProcessor
             ));
 
         /// <summary>Set of tags that do not map to any tag worker and that are deliberately excluded from the logging.
@@ -111,7 +114,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <summary>Instantiates a new default html processor.</summary>
         /// <param name="converterProperties">the converter properties</param>
         public DefaultHtmlProcessor(ConverterProperties converterProperties) {
-            this.context = new ProcessorContext(converterProperties);
+            this.context = ProcessorContextCreator.CreateProcessorContext(converterProperties);
         }
 
         /// <summary>Sets properties to top-level layout elements converted from HTML.</summary>
@@ -132,7 +135,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 propertyContainer.SetProperty(Property.FONT_SET, context.GetTempFonts());
             }
             // TODO DEVSIX-2534
-            IList<String> fontFamilies = FontFamilySplitter.SplitFontFamily(cssProperties.Get(CssConstants.FONT_FAMILY
+            IList<String> fontFamilies = FontFamilySplitterUtil.SplitFontFamily(cssProperties.Get(CssConstants.FONT_FAMILY
                 ));
             if (fontFamilies != null && !propertyContainer.HasOwnProperty(Property.FONT)) {
                 propertyContainer.SetProperty(Property.FONT, fontFamilies.ToArray(new String[0]));
@@ -143,7 +146,9 @@ namespace iText.Html2pdf.Attach.Impl {
         * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processElements(com.itextpdf.html2pdf.html.node.INode)
         */
         public virtual IList<IElement> ProcessElements(INode root) {
-            ReflectionUtils.ScheduledLicenseCheck();
+            SequenceId sequenceId = new SequenceId();
+            EventManager.GetInstance().OnEvent(PdfHtmlProductEvent.CreateConvertHtmlEvent(sequenceId, context.GetMetaInfoContainer
+                ().GetMetaInfo()));
             context.Reset();
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context);
@@ -167,8 +172,9 @@ namespace iText.Html2pdf.Attach.Impl {
             }
             cssResolver = null;
             roots = null;
-            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType
-                ());
+            foreach (IElement element in elements) {
+                UpdateSequenceId(element, sequenceId);
+            }
             return elements;
         }
 
@@ -176,10 +182,11 @@ namespace iText.Html2pdf.Attach.Impl {
         * @see com.itextpdf.html2pdf.attach.IHtmlProcessor#processDocument(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.kernel.pdf.PdfDocument)
         */
         public virtual Document ProcessDocument(INode root, PdfDocument pdfDocument) {
-            ReflectionUtils.ScheduledLicenseCheck();
+            EventManager.GetInstance().OnEvent(PdfHtmlProductEvent.CreateConvertHtmlEvent(pdfDocument.GetDocumentIdWrapper
+                (), context.GetMetaInfoContainer().GetMetaInfo()));
             context.Reset(pdfDocument);
             if (!context.HasFonts()) {
-                throw new Html2PdfException(Html2PdfException.FontProviderContainsZeroFonts);
+                throw new Html2PdfException(Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS);
             }
             roots = new List<IPropertyContainer>();
             cssResolver = new DefaultCssResolver(root, context);
@@ -201,7 +208,7 @@ namespace iText.Html2pdf.Attach.Impl {
                         ++counter;
                         doc.Relayout();
                         if (counter >= context.GetLimitOfLayouts()) {
-                            logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS
+                            logger.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS
                                 ));
                             break;
                         }
@@ -209,13 +216,11 @@ namespace iText.Html2pdf.Attach.Impl {
                     while (((DocumentRenderer)doc.GetRenderer()).IsRelayoutRequired());
                 }
                 else {
-                    logger.Warn(iText.Html2pdf.LogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT);
+                    logger.LogWarning(Html2PdfLogMessageConstant.CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT);
                 }
             }
             cssResolver = null;
             roots = null;
-            EventCounterHandler.GetInstance().OnEvent(PdfHtmlEvent.CONVERT, context.GetEventCountingMetaInfo(), GetType
-                ());
             return doc;
         }
 
@@ -251,12 +256,16 @@ namespace iText.Html2pdf.Attach.Impl {
                 ITagWorker tagWorker = context.GetTagWorkerFactory().GetTagWorker(element, context);
                 if (tagWorker == null) {
                     if (!ignoredTags.Contains(element.Name())) {
-                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, (element)
-                            .Name()));
+                        logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, element.Name(
+                            )));
                     }
                 }
                 else {
                     context.GetState().Push(tagWorker);
+                }
+                if (context.GetState().GetStack().Count == 1 && tagWorker != null && tagWorker.GetElementResult() != null) {
+                    tagWorker.GetElementResult().SetProperty(Property.META_INFO, new MetaInfoContainer(context.GetMetaInfoContainer
+                        ().GetMetaInfo()));
                 }
                 if (tagWorker is HtmlTagWorker) {
                     ((HtmlTagWorker)tagWorker).ProcessPageRules(node, cssResolver, context);
@@ -289,8 +298,8 @@ namespace iText.Html2pdf.Attach.Impl {
                         bool childProcessed = context.GetState().Top().ProcessTagChild(tagWorker, context);
                         PageBreakApplierUtil.AddPageBreakElementAfter(context, context.GetState().Top(), element, tagWorker);
                         if (!childProcessed && !ignoredChildTags.Contains(element.Name())) {
-                            logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER
-                                , context.GetState().Top().GetType().FullName, tagWorker.GetType().FullName));
+                            logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, 
+                                context.GetState().Top().GetType().FullName, tagWorker.GetType().FullName));
                         }
                     }
                     else {
@@ -308,12 +317,12 @@ namespace iText.Html2pdf.Attach.Impl {
                         if (!context.GetState().Empty()) {
                             bool contentProcessed = context.GetState().Top().ProcessContent(content, context);
                             if (!contentProcessed) {
-                                logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT
+                                logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_IT_S_TEXT_CONTENT
                                     , context.GetState().Top().GetType().FullName));
                             }
                         }
                         else {
-                            logger.Error(iText.Html2pdf.LogMessageConstant.NO_CONSUMER_FOUND_FOR_CONTENT);
+                            logger.LogError(Html2PdfLogMessageConstant.NO_CONSUMER_FOUND_FOR_CONTENT);
                         }
                     }
                 }
@@ -324,8 +333,8 @@ namespace iText.Html2pdf.Attach.Impl {
             ICssApplier cssApplier = context.GetCssApplierFactory().GetCssApplier(element);
             if (cssApplier == null) {
                 if (!ignoredCssTags.Contains(element.Name())) {
-                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element
-                        .Name()));
+                    logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.NO_CSS_APPLIER_FOUND_FOR_TAG, element.
+                        Name()));
                 }
             }
             else {
@@ -384,8 +393,7 @@ namespace iText.Html2pdf.Attach.Impl {
                         }
                     }
                     if (!findSupportedSrc) {
-                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace)
-                            );
+                        logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT, fontFace));
                     }
                 }
             }
@@ -541,6 +549,30 @@ namespace iText.Html2pdf.Attach.Impl {
         private bool IsPlaceholder(IElementNode element) {
             return element is CssPseudoElementNode && CssConstants.PLACEHOLDER.Equals(((CssPseudoElementNode)element).
                 GetPseudoElementName());
+        }
+
+        private static void UpdateSequenceId(IElement element, SequenceId sequenceId) {
+            if (element is AbstractIdentifiableElement) {
+                AbstractIdentifiableElement identifiableElement = (AbstractIdentifiableElement)element;
+                if (SequenceIdManager.GetSequenceId(identifiableElement) == sequenceId) {
+                    // potential cyclic reference case: element has been processed already
+                    return;
+                }
+                SequenceIdManager.SetSequenceId(identifiableElement, sequenceId);
+                if (identifiableElement is IAbstractElement) {
+                    IAbstractElement abstractElement = (IAbstractElement)identifiableElement;
+                    UpdateChildren(abstractElement.GetChildren(), sequenceId);
+                }
+            }
+        }
+
+        private static void UpdateChildren(IList<IElement> children, SequenceId sequenceId) {
+            if (children == null) {
+                return;
+            }
+            foreach (IElement child in children) {
+                UpdateSequenceId(child, sequenceId);
+            }
         }
     }
 }

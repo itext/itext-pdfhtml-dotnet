@@ -106,7 +106,8 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 3)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
+            3)]
         public virtual void WordBreakTableScenarioTest() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "wordBreakTableScenario.html"), new FileInfo(destinationFolder
                  + "wordBreakTableScenario.pdf"));

@@ -1,4 +1,4 @@
-/*
+﻿/*
 This file is part of the iText (R) project.
 Copyright (c) 1998-2021 iText Group NV
 Authors: iText Software.
@@ -40,15 +40,34 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-using System;
+using System.Net;
+using iText.Test;
+using NUnit.Framework;
 
-namespace Versions.Attributes {
-    [AttributeUsage(AttributeTargets.Assembly)]
-    internal class TypographyVersionAttribute : Attribute {
-        internal string TypographyVersion { get; private set; }
+namespace iText.Html2pdf
+{ 
+    //TODO DEVSIX-5699 Remove ExternalExtendedITextTest in java and .NET after upgrading of .netframework to 4.6 version
+    //This manually ported class was added to prevent problems with TLS12 version in .NET for netframework 4.5.
+    //In Java it will be empty class when in .NET it will not be empty because TLS12 is default for JDK7+ and netcoreapp2.0.
+    //But TLS12 is not default for netframework4.5 so we explicitly set TLS12 security protocol to avoid connection
+    //issues in ExternalExtendedITextTest in .NET
+    public class ExternalExtendedITextTest : ExtendedITextTest
+    {
+        private SecurityProtocolType defaultSecurityProtocol;
 
-        internal TypographyVersionAttribute(string typographyVersion) {
-            this.TypographyVersion = typographyVersion;
+        [SetUp]
+        public void SetUpSecurityProtocol()
+        {
+            defaultSecurityProtocol = ServicePointManager.SecurityProtocol;
+
+            // Explicitly set TLS 1.2 security protocol to avoid connection issues
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        }
+
+        [TearDown]
+        public void RestoreDefaultSecurityProtocol()
+        {
+            ServicePointManager.SecurityProtocol = defaultSecurityProtocol;
         }
     }
 }

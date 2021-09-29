@@ -42,9 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
-using iText.IO.Util;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Navigation;
 using iText.Layout.Element;
@@ -189,9 +191,9 @@ namespace iText.Html2pdf.Attach.Impl {
             return GetUniqueID(destinationNamePrefix);
         }
 
-        /// <summary>Generate the unique outline name.</summary>
+        /// <summary>Generate the outline name.</summary>
         /// <remarks>
-        /// Generate the unique outline name.
+        /// Generate the outline name.
         /// This method is used in the
         /// <see cref="AddOutlineAndDestToDocument(iText.Html2pdf.Attach.ITagWorker, iText.StyledXmlParser.Node.IElementNode, iText.Html2pdf.Attach.ProcessorContext)
         ///     "/>
@@ -200,7 +202,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /// </remarks>
         /// <param name="element">the element</param>
         /// <returns>the unique destination name</returns>
-        protected internal virtual String GenerateUniqueOutlineName(IElementNode element) {
+        protected internal virtual String GenerateOutlineName(IElementNode element) {
             String tagName = element.Name();
             String content = ((JsoupElementNode)element).Text();
             if (String.IsNullOrEmpty(content)) {
@@ -232,7 +234,7 @@ namespace iText.Html2pdf.Attach.Impl {
                     parent = parent.GetParent();
                     levelsInProcess.JRemoveFirst();
                 }
-                PdfOutline outline = parent.AddOutline(GenerateUniqueOutlineName(element));
+                PdfOutline outline = parent.AddOutline(GenerateOutlineName(element));
                 String destination = GenerateUniqueDestinationName(element);
                 outline.AddDestination(PdfDestination.MakeDestination(new PdfString(destination)));
                 destinationsInProcess.AddFirst(destination);
@@ -262,8 +264,8 @@ namespace iText.Html2pdf.Attach.Impl {
                     tagWorker.GetElementResult().SetProperty(Property.DESTINATION, content);
                 }
                 else {
-                    ILog logger = LogManager.GetLogger(typeof(OutlineHandler));
-                    logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG
+                    ILogger logger = ITextLogManager.GetLogger(typeof(OutlineHandler));
+                    logger.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG
                         , tagName));
                 }
             }
@@ -277,7 +279,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <see cref="GenerateUniqueDestinationName(iText.StyledXmlParser.Node.IElementNode)"/>
         /// method to generate the unique
         /// destination names and in the
-        /// <see cref="GenerateUniqueOutlineName(iText.StyledXmlParser.Node.IElementNode)"/>
+        /// <see cref="GenerateOutlineName(iText.StyledXmlParser.Node.IElementNode)"/>
         /// method to generate the unique
         /// outline names. The
         /// <see cref="destCounter"/>

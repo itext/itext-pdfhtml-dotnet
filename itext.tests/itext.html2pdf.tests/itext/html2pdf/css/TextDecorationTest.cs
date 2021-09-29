@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
@@ -108,7 +109,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         //TODO: DEVSIX-4201
-        [LogMessage(iText.Html2pdf.LogMessageConstant.HSL_COLOR_NOT_SUPPORTED)]
+        [LogMessage(Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED)]
         public virtual void TextDecorationColorTest() {
             ConvertToPdfAndCompare("textDecorationColor", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

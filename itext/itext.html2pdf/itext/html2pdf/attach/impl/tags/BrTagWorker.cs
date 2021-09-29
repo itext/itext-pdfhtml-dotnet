@@ -47,8 +47,8 @@ using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Layout;
 using iText.Layout.Element;
-using iText.Layout.Font;
 using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Util;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -72,7 +72,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             // because only font-family should be applied to <br /> element.
             String fontFamily = element.GetStyles().Get(CssConstants.FONT_FAMILY);
             // TODO DEVSIX-2534
-            IList<String> splitFontFamily = FontFamilySplitter.SplitFontFamily(fontFamily);
+            IList<String> splitFontFamily = FontFamilySplitterUtil.SplitFontFamily(fontFamily);
             newLine.SetFontFamily(splitFontFamily.ToArray(new String[splitFontFamily.Count]));
             AccessiblePropHelper.TrySetLangAttribute(newLine, element);
         }

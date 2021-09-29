@@ -81,7 +81,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (labelAttrVal != null) {
                 if (element.ChildNodes().IsEmpty()) {
                     // workaround to ensure that processContent method is called
-                    element.AddChild(new JsoupTextNode(new TextNode("", "")));
+                    element.AddChild(new JsoupTextNode(new TextNode("")));
                     fakedContent = true;
                 }
             }

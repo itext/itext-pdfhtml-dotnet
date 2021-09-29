@@ -42,16 +42,19 @@ address: sales@itextpdf.com
 */
 using System;
 using System.IO;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.Html2pdf.Util;
-using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Resolver.Resource;
 using iText.Svg.Converter;
 using iText.Svg.Exceptions;
 using iText.Svg.Processors;
@@ -65,7 +68,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// </summary>
     public class ObjectTagWorker : ITagWorker {
         /// <summary>The logger.</summary>
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.ObjectTagWorker
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.ObjectTagWorker
             ));
 
         /// <summary>Helper for conversion of SVG processing results.</summary>
@@ -96,7 +99,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     using (Stream svgStream = context.GetResourceResolver().RetrieveResourceAsInputStream(dataValue)) {
                         if (svgStream != null) {
                             SvgConverterProperties props = ContextMappingHelper.MapToSvgConverterProperties(context);
-                            if (!context.GetResourceResolver().IsDataSrc(dataValue)) {
+                            if (!ResourceResolver.IsDataSrc(dataValue)) {
                                 Uri fullURL = context.GetResourceResolver().ResolveAgainstBaseUri(dataValue);
                                 String dir = FileUtil.ParentDirectory(fullURL);
                                 props.SetBaseUri(dir);
@@ -106,14 +109,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     }
                 }
                 catch (SvgProcessingException spe) {
-                    LOGGER.Error(spe.Message);
+                    LOGGER.LogError(spe.Message);
                 }
                 catch (System.IO.IOException ie) {
-                    LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+                    LOGGER.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
                         , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA), ie));
                 }
                 catch (UriFormatException ie) {
-                    LOGGER.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+                    LOGGER.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
                         , context.GetBaseUri(), element.GetAttribute(AttributeConstants.DATA), ie));
                 }
             }
@@ -134,7 +137,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             else {
-                LOGGER.Error(iText.Html2pdf.LogMessageConstant.PDF_DOCUMENT_NOT_PRESENT);
+                LOGGER.LogError(Html2PdfLogMessageConstant.PDF_DOCUMENT_NOT_PRESENT);
             }
         }
 

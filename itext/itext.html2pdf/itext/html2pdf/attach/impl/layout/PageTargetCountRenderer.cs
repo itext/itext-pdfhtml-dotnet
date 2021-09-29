@@ -22,11 +22,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
+using iText.Commons.Utils;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.IO.Font.Otf;
-using iText.IO.Util;
 using iText.Kernel.Font;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
@@ -37,8 +39,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <see cref="iText.Layout.Renderer.TextRenderer"/>
     /// implementation for the page target-counter.
     /// </summary>
-    public class PageTargetCountRenderer : TextRenderer {
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer
+    internal class PageTargetCountRenderer : TextRenderer {
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer
             ));
 
         private const String UNDEFINED_VALUE = "0";
@@ -82,8 +84,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary><inheritDoc/></summary>
         public override void Draw(DrawContext drawContext) {
             if (!TargetCounterHandler.IsValueDefinedForThisId(this, target)) {
-                LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE
-                    , target));
+                LOGGER.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CANNOT_RESOLVE_TARGET_COUNTER_VALUE, 
+                    target));
             }
             base.Draw(drawContext);
         }
@@ -91,8 +93,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary><inheritDoc/></summary>
         public override IRenderer GetNextRenderer() {
             if (typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer) != this.GetType()) {
-                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer));
-                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
+                ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer
+                    ));
+                logger.LogError(MessageFormatUtil.Format(iText.IO.Logs.IoLogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN
+                    ));
             }
             return new iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer((PageTargetCountElement)modelElement);
         }
@@ -100,8 +104,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary><inheritDoc/></summary>
         protected override TextRenderer CreateCopy(GlyphLine gl, PdfFont font) {
             if (typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer) != this.GetType()) {
-                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer));
-                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN));
+                ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer
+                    ));
+                logger.LogError(MessageFormatUtil.Format(iText.IO.Logs.IoLogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN
+                    ));
             }
             iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer copy = new iText.Html2pdf.Attach.Impl.Layout.PageTargetCountRenderer
                 (this);

@@ -1,8 +1,7 @@
 /*
-
 This file is part of the iText (R) project.
 Copyright (c) 1998-2021 iText Group NV
-Authors: Bruno Lowagie, Paulo Soares, et al.
+Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License version 3
@@ -41,28 +40,29 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-using System;
-using iText.Kernel.Counter;
-using iText.Kernel.Counter.Event;
+using iText.Commons.Actions;
+using iText.Commons.Actions.Contexts;
+using iText.Test;
 
-namespace iText.Html2pdf.Events {
-    /// <summary>Class for html events</summary>
-    public class PdfHtmlEvent : IGenericEvent {
-        public static readonly iText.Html2pdf.Events.PdfHtmlEvent CONVERT = new iText.Html2pdf.Events.PdfHtmlEvent
-            ("convert");
-
-        private readonly String subtype;
-
-        private PdfHtmlEvent(String subtype) {
-            this.subtype = subtype;
+namespace iText.Html2pdf {
+    public class ConverterPropertiesTest : ExtendedITextTest {
+        [NUnit.Framework.Test]
+        public virtual void GetDefaultMetaInfoTest() {
+            ConverterProperties properties = new ConverterProperties();
+            IMetaInfo metaInfo = properties.GetEventMetaInfo();
+            NUnit.Framework.Assert.IsTrue(metaInfo.GetType().FullName.StartsWith(NamespaceConstant.PDF_HTML + "."));
         }
 
-        public virtual String GetEventType() {
-            return "html-" + subtype;
+        [NUnit.Framework.Test]
+        public virtual void SetEventMetaInfoAndGetTest() {
+            ConverterProperties properties = new ConverterProperties();
+            ConverterPropertiesTest.TestMetaInfo testMetaInfo = new ConverterPropertiesTest.TestMetaInfo();
+            properties.SetEventMetaInfo(testMetaInfo);
+            IMetaInfo metaInfo = properties.GetEventMetaInfo();
+            NUnit.Framework.Assert.AreSame(testMetaInfo, metaInfo);
         }
 
-        public virtual String GetOriginId() {
-            return NamespaceConstant.PDF_HTML;
+        private class TestMetaInfo : IMetaInfo {
         }
     }
 }

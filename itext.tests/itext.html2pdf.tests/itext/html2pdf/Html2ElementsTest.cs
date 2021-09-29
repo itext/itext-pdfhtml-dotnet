@@ -43,8 +43,14 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Commons.Actions;
+using iText.Commons.Actions.Sequence;
+using iText.Html2pdf.Actions.Events;
 using iText.Html2pdf.Attach.Impl;
+using iText.Html2pdf.Logs;
+using iText.IO.Source;
 using iText.IO.Util;
+using iText.Kernel.Exceptions;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
@@ -170,10 +176,10 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, Count = 
-            1)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.PDF_DOCUMENT_NOT_PRESENT, Count = 1)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+            , Count = 1)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
+        [LogMessage(Html2PdfLogMessageConstant.PDF_DOCUMENT_NOT_PRESENT, Count = 1)]
         public virtual void HtmlObjectMalformedUrlTest() {
             String html = "<object data ='htt://as' type='image/svg+xml'></object>";
             IList<IElement> lst = HtmlConverter.ConvertToElements(html);
@@ -245,6 +251,97 @@ namespace iText.Html2pdf {
             IElement normalParagraph = elements[1];
             NUnit.Framework.Assert.AreEqual(new Leading(Leading.MULTIPLIED, 1.2f), normalParagraph.GetProperty<Leading
                 >(Property.LEADING));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void EventGenerationTest() {
+            Html2ElementsTest.StoreEventsHandler handler = new Html2ElementsTest.StoreEventsHandler();
+            try {
+                EventManager.GetInstance().Register(handler);
+                String html = "<table><tr><td>123</td><td><456></td></tr><tr><td>789</td></tr></table><p>Hello world!</p>";
+                IList<IElement> elements = HtmlConverter.ConvertToElements(html);
+                NUnit.Framework.Assert.AreEqual(1, handler.GetEvents().Count);
+                NUnit.Framework.Assert.IsTrue(handler.GetEvents()[0] is PdfHtmlProductEvent);
+                SequenceId expectedSequenceId = ((PdfHtmlProductEvent)handler.GetEvents()[0]).GetSequenceId();
+                int validationsCount = ValidateSequenceIds(expectedSequenceId, elements);
+                // Table                                     1
+                //      Cell -> Paragraph -> Text [123]      3
+                //      Cell -> Paragraph -> Text [456]      3
+                //      Cell -> Paragraph -> Text [789]      3
+                // Paragraph -> Text [Hello world!]          2
+                //--------------------------------------------
+                //                                          12
+                NUnit.Framework.Assert.AreEqual(12, validationsCount);
+            }
+            finally {
+                EventManager.GetInstance().Unregister(handler);
+            }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertToElementsAndCreateTwoDocumentsTest() {
+            String html = "This text is directly in body. It should have the same default LEADING property as everything else.\n"
+                 + "<p>This text is in paragraph.</p>";
+            IList<IElement> iElementList = HtmlConverter.ConvertToElements(html);
+            using (PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()))) {
+                using (Document document = new Document(pdfDocument)) {
+                    AddElementsToDocument(document, iElementList);
+                }
+            }
+            PdfDocument pdfDocument_1 = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+            Document document_1 = new Document(pdfDocument_1);
+            AddElementsToDocument(document_1, iElementList);
+            // TODO DEVSIX-5753 error should not be thrown here
+            Exception e = NUnit.Framework.Assert.Catch(typeof(PdfException), () => document_1.Close());
+            NUnit.Framework.Assert.AreEqual(KernelExceptionMessageConstant.PDF_INDIRECT_OBJECT_BELONGS_TO_OTHER_PDF_DOCUMENT
+                , e.Message);
+        }
+
+        private static void AddElementsToDocument(Document document, IList<IElement> elements) {
+            foreach (IElement elem in elements) {
+                if (elem is IBlockElement) {
+                    document.Add((IBlockElement)elem);
+                }
+                else {
+                    if (elem is Image) {
+                        document.Add((Image)elem);
+                    }
+                    else {
+                        if (elem is AreaBreak) {
+                            document.Add((AreaBreak)elem);
+                        }
+                        else {
+                            NUnit.Framework.Assert.Fail("The #convertToElements method gave element which is unsupported as root element, it's unexpected."
+                                );
+                        }
+                    }
+                }
+            }
+        }
+
+        private static int ValidateSequenceIds(SequenceId expectedSequenceId, IList<IElement> elements) {
+            int validationCount = 0;
+            foreach (IElement element in elements) {
+                NUnit.Framework.Assert.IsTrue(element is AbstractIdentifiableElement);
+                NUnit.Framework.Assert.IsTrue(element is IAbstractElement);
+                NUnit.Framework.Assert.AreEqual(expectedSequenceId, SequenceIdManager.GetSequenceId((AbstractIdentifiableElement
+                    )element));
+                validationCount += 1;
+                validationCount += ValidateSequenceIds(expectedSequenceId, ((IAbstractElement)element).GetChildren());
+            }
+            return validationCount;
+        }
+
+        private class StoreEventsHandler : IEventHandler {
+            private IList<IEvent> events = new List<IEvent>();
+
+            public virtual IList<IEvent> GetEvents() {
+                return events;
+            }
+
+            public virtual void OnEvent(IEvent @event) {
+                events.Add(@event);
+            }
         }
     }
 }

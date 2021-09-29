@@ -32,7 +32,7 @@ namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
 
         [NUnit.Framework.Test]
         // TODO DEVSIX-3757 update cmp file after completing the ticket
-        [LogMessage(iText.IO.LogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 2)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 2)]
         public override void Test() {
             base.Test();
         }

@@ -41,10 +41,20 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Commons.Exceptions;
 
 namespace iText.Html2pdf.Exceptions {
     /// <summary>Runtime exception that gets thrown if something goes wrong in the HTML to PDF conversion.</summary>
-    public class Html2PdfException : Exception {
+    public class Html2PdfException : ITextException {
+        /// <summary>Message in case one tries to write to a PDF document that isn't in writing mode.</summary>
+        public const String PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE = "PdfDocument should be created " + "in writing mode. Reading and stamping is not allowed";
+
+        /// <summary>Message in case the font provider doesn't know about any fonts.</summary>
+        public const String FONT_PROVIDER_CONTAINS_ZERO_FONTS = "Font Provider contains zero fonts. " + "At least one font shall be present";
+
+        /// <summary>The Constant UnsupportedEncodingException.</summary>
+        public const String UNSUPPORTED_ENCODING_EXCEPTION = "Unsupported encoding exception.";
+
         /// <summary>
         /// Creates a new
         /// <see cref="Html2PdfException"/>
@@ -54,14 +64,5 @@ namespace iText.Html2pdf.Exceptions {
         public Html2PdfException(String message)
             : base(message) {
         }
-
-        /// <summary>Message in case one tries to write to a PDF document that isn't in writing mode.</summary>
-        public const String PdfDocumentShouldBeInWritingMode = "PdfDocument should be created in writing mode. Reading and stamping is not allowed";
-
-        /// <summary>Message in case the font provider doesn't know about any fonts.</summary>
-        public const String FontProviderContainsZeroFonts = "Font Provider contains zero fonts. At least one font shall be present";
-
-        /// <summary>The Constant UnsupportedEncodingException.</summary>
-        public const String UnsupportedEncodingException = "Unsupported encoding exception.";
     }
 }

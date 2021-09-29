@@ -42,10 +42,12 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.IO.Util;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Colors;
 using iText.Kernel.Colors.Gradients;
 using iText.Kernel.Pdf.Xobject;
@@ -58,7 +60,7 @@ using iText.StyledXmlParser.Exceptions;
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply backgrounds.</summary>
     public sealed class BackgroundApplierUtil {
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.BackgroundApplierUtil
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.BackgroundApplierUtil
             ));
 
         /// <summary>
@@ -107,42 +109,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        /// <summary>
-        /// Splits the provided
-        /// <see cref="System.String"/>
-        /// by comma with respect of brackets.
-        /// </summary>
-        /// <param name="value">to split</param>
-        /// <returns>the split result</returns>
-        [System.ObsoleteAttribute(@"use iText.StyledXmlParser.Css.Util.CssUtils.SplitStringWithComma(System.String)"
-            )]
-        internal static String[] SplitStringWithComma(String value) {
-            if (value == null) {
-                return new String[0];
-            }
-            IList<String> resultList = new List<String>();
-            int lastComma = 0;
-            int notClosedBrackets = 0;
-            for (int i = 0; i < value.Length; ++i) {
-                if (value[i] == ',' && notClosedBrackets == 0) {
-                    resultList.Add(value.JSubstring(lastComma, i).Trim());
-                    lastComma = i + 1;
-                }
-                if (value[i] == '(') {
-                    ++notClosedBrackets;
-                }
-                if (value[i] == ')') {
-                    --notClosedBrackets;
-                    notClosedBrackets = Math.Max(notClosedBrackets, 0);
-                }
-            }
-            String lastToken = value.Substring(lastComma);
-            if (!String.IsNullOrEmpty(lastToken)) {
-                resultList.Add(lastToken.Trim());
-            }
-            return resultList.ToArray(new String[0]);
-        }
-
         private static IList<BackgroundImage> GetBackgroundImagesList(IList<String> backgroundImagesArray, ProcessorContext
              context, float em, float rem, IList<String> backgroundPositionXArray, IList<String> backgroundPositionYArray
             , IList<IList<String>> backgroundSizeArray, IList<String> backgroundBlendModeArray, IList<String> backgroundRepeatArray
@@ -165,8 +131,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         , clip, origin);
                 }
                 else {
-                    PdfXObject image = context.GetResourceResolver().RetrieveImageExtended(CssUtils.ExtractUrl(backgroundImage
-                        ));
+                    PdfXObject image = context.GetResourceResolver().RetrieveImage(CssUtils.ExtractUrl(backgroundImage));
                     imageApplied = ApplyBackgroundImage(image, backgroundImagesList, repeat, blendMode, position, clip, origin
                         );
                 }
@@ -227,7 +192,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         private static void ApplyBackgroundPositionX(BackgroundPosition position, String xPosition, float em, float
              rem) {
-            foreach (String value in iText.IO.Util.StringUtil.Split(xPosition, " ")) {
+            foreach (String value in iText.Commons.Utils.StringUtil.Split(xPosition, " ")) {
                 switch (value) {
                     case CommonCssConstants.LEFT: {
                         position.SetPositionX(BackgroundPosition.PositionX.LEFT);
@@ -257,7 +222,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         private static void ApplyBackgroundPositionY(BackgroundPosition position, String yPosition, float em, float
              rem) {
-            foreach (String value in iText.IO.Util.StringUtil.Split(yPosition, " ")) {
+            foreach (String value in iText.Commons.Utils.StringUtil.Split(yPosition, " ")) {
                 switch (value) {
                     case CommonCssConstants.TOP: {
                         position.SetPositionY(BackgroundPosition.PositionY.TOP);
@@ -288,7 +253,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static BackgroundRepeat ApplyBackgroundRepeat(IList<String> backgroundRepeatArray, int iteration) {
             int index = GetBackgroundSidePropertyIndex(backgroundRepeatArray.Count, iteration);
             if (index != -1) {
-                String[] repeatProps = iText.IO.Util.StringUtil.Split(backgroundRepeatArray[index], " ");
+                String[] repeatProps = iText.Commons.Utils.StringUtil.Split(backgroundRepeatArray[index], " ");
                 if (repeatProps.Length == 1) {
                     if (CommonCssConstants.REPEAT_X.Equals(repeatProps[0])) {
                         return new BackgroundRepeat(BackgroundRepeat.BackgroundRepeatValue.REPEAT, BackgroundRepeat.BackgroundRepeatValue
@@ -374,8 +339,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             catch (StyledXMLParserException) {
-                LOGGER.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, image
-                    ));
+                LOGGER.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, image)
+                    );
             }
             return false;
         }
@@ -531,14 +496,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
 
             public override float GetImageHeight() {
-                return (float)(image.GetHeight() * dimensionMultiplier);
-            }
-
-            public override float GetWidth() {
-                return (float)(image.GetWidth() * dimensionMultiplier);
-            }
-
-            public override float GetHeight() {
                 return (float)(image.GetHeight() * dimensionMultiplier);
             }
         }

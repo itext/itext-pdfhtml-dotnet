@@ -45,8 +45,8 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_3 {
     public class T32OpacityOffscreenWithAlphaCTest : W3CCssTest {
-        // TODO itext "overwrites" parent's opacity while in css, opacity kinda "merges"
-        // i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
+        // TODO DEVSIX-4679 itext "overwrites" parent's opacity while in css, opacity kinda "merges"
+        //  i.e kids opacity could not be less than parent's, even though opacity doesn't inherit or merge in any way
         protected internal override String GetHtmlFileName() {
             return "t32-opacity-offscreen-with-alpha-c.xht";
         }

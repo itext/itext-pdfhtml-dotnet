@@ -48,41 +48,41 @@ namespace iText.Html2pdf.Util {
     /// Class that allows to map keys (html tags, css attributes) to the
     /// corresponding tag processors (a tag worker or a CSS applier).
     /// </summary>
-    public class TagProcessorMapping {
+    public class TagProcessorMapping<T> {
         /// <summary>The default display key.</summary>
         private static String DEFAULT_DISPLAY_KEY = "defaultKey";
 
         /// <summary>The actual mapping.</summary>
-        private IDictionary<String, IDictionary<String, Type>> mapping;
+        private IDictionary<String, IDictionary<String, T>> mapping;
 
         /// <summary>
         /// Creates a new
-        /// <see cref="TagProcessorMapping"/>
+        /// <see cref="TagProcessorMapping{T}"/>
         /// instance.
         /// </summary>
         public TagProcessorMapping() {
-            mapping = new Dictionary<String, IDictionary<String, Type>>();
+            mapping = new Dictionary<String, IDictionary<String, T>>();
         }
 
         /// <summary>Add a new tag to the map.</summary>
         /// <param name="tag">the key</param>
-        /// <param name="mappingClass">the class that maps to the tag</param>
-        public virtual void PutMapping(String tag, Type mappingClass) {
-            EnsureMappingExists(tag).Put(DEFAULT_DISPLAY_KEY, mappingClass);
+        /// <param name="mapping">the class instance that maps to the tag</param>
+        public virtual void PutMapping(String tag, T mapping) {
+            EnsureMappingExists(tag).Put(DEFAULT_DISPLAY_KEY, mapping);
         }
 
         /// <summary>Add a new tag to the map.</summary>
         /// <param name="tag">the key</param>
         /// <param name="display">the display value</param>
-        /// <param name="mappingClass">the class that maps to the tag</param>
-        public virtual void PutMapping(String tag, String display, Type mappingClass) {
-            EnsureMappingExists(tag).Put(display, mappingClass);
+        /// <param name="mapping">the class instance that maps to the tag</param>
+        public virtual void PutMapping(String tag, String display, T mapping) {
+            EnsureMappingExists(tag).Put(display, mapping);
         }
 
         /// <summary>Gets the class that maps to a specific tag.</summary>
         /// <param name="tag">the key</param>
         /// <returns>the class that maps to the tag</returns>
-        public virtual Type GetMapping(String tag) {
+        public virtual Object GetMapping(String tag) {
             return GetMapping(tag, DEFAULT_DISPLAY_KEY);
         }
 
@@ -90,8 +90,8 @@ namespace iText.Html2pdf.Util {
         /// <param name="tag">the key</param>
         /// <param name="display">the display value</param>
         /// <returns>the class that maps to the tag</returns>
-        public virtual Type GetMapping(String tag, String display) {
-            IDictionary<String, Type> tagMapping = mapping.Get(tag);
+        public virtual Object GetMapping(String tag, String display) {
+            IDictionary<String, T> tagMapping = mapping.Get(tag);
             if (tagMapping == null) {
                 return null;
             }
@@ -103,12 +103,12 @@ namespace iText.Html2pdf.Util {
         /// <summary>Ensure that a mapping for a specific key exists.</summary>
         /// <param name="tag">the key</param>
         /// <returns>the map</returns>
-        private IDictionary<String, Type> EnsureMappingExists(String tag) {
+        private IDictionary<String, T> EnsureMappingExists(String tag) {
             if (mapping.ContainsKey(tag)) {
                 return mapping.Get(tag);
             }
             else {
-                IDictionary<String, Type> tagMapping = new Dictionary<String, Type>();
+                IDictionary<String, T> tagMapping = new Dictionary<String, T>();
                 mapping.Put(tag, tagMapping);
                 return tagMapping;
             }

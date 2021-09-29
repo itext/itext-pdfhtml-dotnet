@@ -41,62 +41,49 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class DivTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+    public class DivTest : ExtendedHtmlConversionITextTest {
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/DivTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/element/DivTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void DivTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "divTest01.html"), new FileInfo(destinationFolder +
-                 "divTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "divTest01.pdf", sourceFolder
-                 + "cmp_divTest01.pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("divTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void DivTest02() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "divTest02.html"), new FileInfo(destinationFolder +
-                 "divTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "divTest02.pdf", sourceFolder
-                 + "cmp_divTest02.pdf", destinationFolder, "diff02_"));
+            ConvertToPdfAndCompare("divTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void DivTest03() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "divTest03.html"), new FileInfo(destinationFolder +
-                 "divTest03.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "divTest03.pdf", sourceFolder
-                 + "cmp_divTest03.pdf", destinationFolder, "diff03_"));
+            ConvertToPdfAndCompare("divTest03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void DivTest04() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "divTest04.html"), new FileInfo(destinationFolder +
-                 "divTest04.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "divTest04.pdf", sourceFolder
-                 + "cmp_divTest04.pdf", destinationFolder, "diff04_"));
+            ConvertToPdfAndCompare("divTest04", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void DivInTablePercentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "divInTablePercent.html"), new FileInfo(destinationFolder
-                 + "divInTablePercent.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "divInTablePercent.pdf"
-                , sourceFolder + "cmp_divInTablePercent.pdf", destinationFolder, "diff05_"));
+            ConvertToPdfAndCompare("divInTablePercent", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DivInTableDataCellTest() {
+            ConvertToPdfAndCompare("divInTableDataCell", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }

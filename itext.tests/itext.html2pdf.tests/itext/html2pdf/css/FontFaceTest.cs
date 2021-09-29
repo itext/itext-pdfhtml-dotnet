@@ -44,6 +44,7 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Exceptions;
+using iText.Html2pdf.Logs;
 using iText.Html2pdf.Resolver.Font;
 using iText.IO.Util;
 using iText.Kernel.Utils;
@@ -101,7 +102,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
         public virtual void FontFaceGrammarTest() {
             RunTest("fontFaceGrammarTest");
         }
@@ -120,7 +121,7 @@ namespace iText.Html2pdf.Css {
             catch (Exception e) {
                 exception = e.Message;
             }
-            NUnit.Framework.Assert.AreEqual(Html2PdfException.FontProviderContainsZeroFonts, exception, "Font Provider with zero fonts shall fail"
+            NUnit.Framework.Assert.AreEqual(Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS, exception, "Font Provider with zero fonts shall fail"
                 );
         }
 
@@ -135,7 +136,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
         public virtual void FontFaceTtcTest() {
             RunTest("fontFaceTtcTest");
         }
@@ -146,7 +147,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
         public virtual void FontFaceWoff2TtcTest() {
             RunTest("fontFaceWoff2TtcTest");
         }
@@ -178,7 +179,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.FONT_SUBSET_ISSUE)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void W3cProblemTest04() {
             //Silently omitted, decompression should fail. Browser loads font but don't draw glyph.
             //See HeaderFlavor002Test in io for decompression details

@@ -72,7 +72,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             else {
                 return;
             }
-            String[] components = iText.IO.Util.StringUtil.Split(transformationFunction, "\\)");
+            String[] components = iText.Commons.Utils.StringUtil.Split(transformationFunction, "\\)");
             Transform multipleFunction = new Transform(components.Length);
             foreach (String component in components) {
                 multipleFunction.AddSingleTransform(ParseSingleFunction(component));
@@ -91,7 +91,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return GetSingleTransform(1, 0, 0, 1, 0, 0);
             }
             if (CssConstants.MATRIX.Equals(function)) {
-                String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
+                String[] arg = iText.Commons.Utils.StringUtil.Split(args, ",");
                 if (arg.Length == 6) {
                     float[] matrix = new float[6];
                     int i = 0;
@@ -110,7 +110,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             if (CssConstants.TRANSLATE.Equals(function)) {
-                String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
+                String[] arg = iText.Commons.Utils.StringUtil.Split(args, ",");
                 bool xPoint;
                 bool yPoint = true;
                 float x;
@@ -144,7 +144,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return GetSingleTransform(cos, sin, -1 * sin, cos, 0, 0);
             }
             if (CssConstants.SKEW.Equals(function)) {
-                String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
+                String[] arg = iText.Commons.Utils.StringUtil.Split(args, ",");
                 double xAngleInRad = ParseAngleToRadians(arg[0]);
                 double yAngleInRad = arg.Length == 2 ? ParseAngleToRadians(arg[1]) : 0.0;
                 float tanX = (float)Math.Tan(xAngleInRad);
@@ -160,7 +160,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return GetSingleTransform(1, tanY, 0, 1, 0, 0);
             }
             if (CssConstants.SCALE.Equals(function)) {
-                String[] arg = iText.IO.Util.StringUtil.Split(args, ",");
+                String[] arg = iText.Commons.Utils.StringUtil.Split(args, ",");
                 float x;
                 float y;
                 if (arg.Length == 2) {

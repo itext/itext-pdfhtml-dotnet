@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
@@ -32,7 +33,7 @@ namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
 
         [NUnit.Framework.Test]
         // TODO DEVSIX-3757 update cmp file after completing the ticket
-        [LogMessage(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED)]
+        [LogMessage(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED)]
         public override void Test() {
             base.Test();
         }

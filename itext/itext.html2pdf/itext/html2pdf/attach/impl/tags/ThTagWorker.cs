@@ -41,10 +41,12 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html;
-using iText.IO.Util;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Tagging;
 using iText.Kernel.Pdf.Tagutils;
@@ -87,9 +89,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                             properties.AddAttributes(new PdfStructureAttributes(attributes));
                         }
                         else {
-                            ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.ThTagWorker));
-                            logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, scope)
-                                );
+                            ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.ThTagWorker));
+                            logger.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, scope));
                         }
                     }
                 }

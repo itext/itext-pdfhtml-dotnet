@@ -41,10 +41,8 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.Reflection;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Util;
 using iText.StyledXmlParser.Node;
 
@@ -58,11 +56,11 @@ namespace iText.Html2pdf.Attach.Impl {
             ();
 
         /// <summary>The default mapping.</summary>
-        private TagProcessorMapping defaultMapping;
+        private readonly TagProcessorMapping<DefaultTagWorkerMapping.ITagWorkerCreator> defaultMapping;
 
         /// <summary>Instantiates a new default tag worker factory.</summary>
         public DefaultTagWorkerFactory() {
-            this.defaultMapping = DefaultTagWorkerMapping.GetDefaultTagWorkerMapping();
+            this.defaultMapping = new DefaultTagWorkerMapping().GetDefaultTagWorkerMapping();
         }
 
         /// <summary>
@@ -81,39 +79,34 @@ namespace iText.Html2pdf.Attach.Impl {
         public ITagWorker GetTagWorker(IElementNode tag, ProcessorContext context) {
             ITagWorker tagWorker = GetCustomTagWorker(tag, context);
             if (tagWorker == null) {
-                Type tagWorkerClass = GetTagWorkerClass(this.defaultMapping, tag);
-                if (tagWorkerClass == null) {
+                DefaultTagWorkerMapping.ITagWorkerCreator tagWorkerCreator = GetTagWorkerCreator(this.defaultMapping, tag);
+                if (tagWorkerCreator == null) {
                     return null;
                 }
-                // Use reflection to create an instance
-                try {
-                    ConstructorInfo ctor = tagWorkerClass.GetConstructor(new Type[] { typeof(IElementNode), typeof(ProcessorContext
-                        ) });
-                    ITagWorker res = (ITagWorker)ctor.Invoke(new Object[] { tag, context });
-                    return res;
-                }
-                catch (Exception e) {
-                    throw new TagWorkerInitializationException(TagWorkerInitializationException.REFLECTION_IN_TAG_WORKER_FACTORY_IMPLEMENTATION_FAILED
-                        , tagWorkerClass.FullName, tag.Name(), e);
-                }
+                return tagWorkerCreator(tag, context);
             }
             return tagWorker;
         }
 
-        /// <summary>Gets the tag worker class for a specific element node.</summary>
+        internal virtual TagProcessorMapping<DefaultTagWorkerMapping.ITagWorkerCreator> GetDefaultMapping() {
+            return defaultMapping;
+        }
+
+        /// <summary>Gets the tag worker creator for a specific element node.</summary>
         /// <param name="mapping">the mapping</param>
         /// <param name="tag">the element node</param>
-        /// <returns>the tag worker class</returns>
-        private Type GetTagWorkerClass(TagProcessorMapping mapping, IElementNode tag) {
-            Type tagWorkerClass = null;
+        /// <returns>the tag worker class creator</returns>
+        private static DefaultTagWorkerMapping.ITagWorkerCreator GetTagWorkerCreator(TagProcessorMapping<DefaultTagWorkerMapping.ITagWorkerCreator
+            > mapping, IElementNode tag) {
+            DefaultTagWorkerMapping.ITagWorkerCreator tagWorkerCreator = null;
             String display = tag.GetStyles() != null ? tag.GetStyles().Get(CssConstants.DISPLAY) : null;
             if (display != null) {
-                tagWorkerClass = mapping.GetMapping(tag.Name(), display);
+                tagWorkerCreator = (DefaultTagWorkerMapping.ITagWorkerCreator)mapping.GetMapping(tag.Name(), display);
             }
-            if (tagWorkerClass == null) {
-                tagWorkerClass = mapping.GetMapping(tag.Name());
+            if (tagWorkerCreator == null) {
+                tagWorkerCreator = (DefaultTagWorkerMapping.ITagWorkerCreator)mapping.GetMapping(tag.Name());
             }
-            return tagWorkerClass;
+            return tagWorkerCreator;
         }
 
         /// <summary>This is a hook method.</summary>

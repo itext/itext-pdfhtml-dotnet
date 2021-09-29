@@ -44,8 +44,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
-using iText.Kernel;
+using iText.Kernel.Exceptions;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
@@ -145,13 +146,13 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, Count = 3)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, Count = 3)]
         public virtual void HelloTableFixedLackOfTableWidthTest03() {
             RunTest("helloTableFixedLackOfTableWidthTest03", false, new PageSize(PageSize.A3).Rotate());
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, Count = 3)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, Count = 3)]
         public virtual void HelloTableFixedLackOfTableWidthTest03A() {
             RunTest("helloTableFixedLackOfTableWidthTest03A", false, new PageSize(PageSize.A3).Rotate());
         }
@@ -250,15 +251,15 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)]
         public virtual void CheckHeaderFooterTaggedTables() {
             //TODO update after DEVSIX-2395 and DEVSIX-2399
             RunTest("checkHeaderFooterTaggedTables");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, Count = 3)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)]
         public virtual void CheckFloatInTdTagged() {
             //TODO update after DEVSIX-2395 and DEVSIX-2399
             RunTest("checkFloatInTdTagged");
@@ -271,8 +272,9 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 3)]
-        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
+            3)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
         public virtual void CheckLargeImagesInTable() {
             //TODO update after DEVSIX-2382
             RunTest("checkLargeImagesInTable");
@@ -319,13 +321,13 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
         public virtual void ThTagTest() {
             RunTest("thTag", true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
         public virtual void TheadTagTest() {
             RunTest("theadTagTest", true);
         }
@@ -496,14 +498,14 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, Count = 4)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.SUM_OF_TABLE_COLUMNS_IS_GREATER_THAN_100, Count = 4)]
         public virtual void TableWidthMoreThan100PercentTest() {
             //TODO: DEVSIX-2895 - inconsistency in table width between pdf and html
             RunTest("tableWidthMoreThan100Percent");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED, Count = 63)]
+        [LogMessage(Html2PdfLogMessageConstant.PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED, Count = 63)]
         public virtual void CheckResponsiveTableExample() {
             //https://codepen.io/heypablete/pen/qdIsm
             //TODO: update after DEVSIX-1101
@@ -511,8 +513,8 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Count = 2)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Count = 2)]
         public virtual void TableWithChildrenBiggerThanCellTest() {
             //TODO: DEVSIX-3022 - Inputs bigger than enclosing cell force table to split
             RunTest("tableWithChildrenBiggerThanCell");

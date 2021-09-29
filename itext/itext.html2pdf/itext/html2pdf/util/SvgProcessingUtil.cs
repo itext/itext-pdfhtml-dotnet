@@ -40,7 +40,6 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-using System;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
@@ -57,16 +56,6 @@ namespace iText.Html2pdf.Util {
     /// <summary>Utility class for handling operations related to SVG</summary>
     public class SvgProcessingUtil {
         private ResourceResolver resourceResolver;
-
-        /// <summary>
-        /// Creates a new
-        /// <see cref="SvgProcessingUtil"/>
-        /// instance.
-        /// </summary>
-        [System.ObsoleteAttribute(@"will be removed in next major release")]
-        public SvgProcessingUtil() {
-            resourceResolver = new ResourceResolver(null);
-        }
 
         /// <summary>
         /// Creates a new

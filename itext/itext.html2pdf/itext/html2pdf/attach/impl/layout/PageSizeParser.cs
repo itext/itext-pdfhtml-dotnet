@@ -42,9 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
+using iText.Commons.Utils;
 using iText.Html2pdf.Css;
-using iText.IO.Util;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Geom;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
@@ -85,7 +87,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             if (pageSizeStr == null || CssConstants.AUTO.Equals(pageSizeStr)) {
                 return pageSize;
             }
-            String[] pageSizeChunks = iText.IO.Util.StringUtil.Split(pageSizeStr, " ");
+            String[] pageSizeChunks = iText.Commons.Utils.StringUtil.Split(pageSizeStr, " ");
             String firstChunk = pageSizeChunks[0];
             if (IsLengthValue(firstChunk)) {
                 PageSize pageSizeBasedOnLength = ParsePageLengthValue(pageSizeChunks, em, rem);
@@ -93,8 +95,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     pageSize = pageSizeBasedOnLength;
                 }
                 else {
-                    ILog logger = LogManager.GetLogger(typeof(PageSizeParser));
-                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr
+                    ILogger logger = ITextLogManager.GetLogger(typeof(PageSizeParser));
+                    logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr
                         ));
                 }
             }
@@ -132,8 +134,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     }
                 }
                 else {
-                    ILog logger = LogManager.GetLogger(typeof(PageSizeParser));
-                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr
+                    ILogger logger = ITextLogManager.GetLogger(typeof(PageSizeParser));
+                    logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.PAGE_SIZE_VALUE_IS_INVALID, pageSizeStr
                         ));
                 }
             }

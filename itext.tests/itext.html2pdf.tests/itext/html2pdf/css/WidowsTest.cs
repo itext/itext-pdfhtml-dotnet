@@ -43,7 +43,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED)]
         public virtual void Widows5LinesViolationTest() {
             RunTest("widows5LinesViolationTest");
         }

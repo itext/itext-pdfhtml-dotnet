@@ -67,16 +67,22 @@ namespace iText.Html2pdf {
 
         public virtual void ConvertToPdfAndCompare(String name, String sourceFolder, String destinationFolder, bool
              tagged, String fontsFolder) {
+            ConverterProperties converterProperties = GetConverterProperties(fontsFolder);
+            ConvertToPdfAndCompare(name, sourceFolder, destinationFolder, tagged, converterProperties);
+        }
+
+        public virtual void ConvertToPdfAndCompare(String name, String sourceFolder, String destinationFolder, bool
+             tagged, ConverterProperties converterProperties) {
             String sourceHtml = sourceFolder + name + ".html";
             String cmpPdf = sourceFolder + "cmp_" + name + ".pdf";
             String destinationPdf = destinationFolder + name + ".pdf";
-            ConverterProperties converterProperties = GetConverterProperties(fontsFolder);
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf));
             if (tagged) {
                 pdfDocument.SetTagged();
             }
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
-                HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, converterProperties);
+                HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, null == converterProperties ? new ConverterProperties
+                    () : converterProperties);
             }
             System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(sourceHtml) + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, destinationFolder

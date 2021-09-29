@@ -160,8 +160,8 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, LogLevel = LogLevelConstants
-            .WARN, Count = 3)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            LogLevel = LogLevelConstants.WARN, Count = 3)]
         public virtual void InvalidBackgroundBlendModeTest() {
             ConvertToPdfAndCompare("invalidBackgroundBlendMode", sourceFolder, destinationFolder);
         }
@@ -179,8 +179,8 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, LogLevel = LogLevelConstants
-            .WARN)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidBackgroundBlendModeValueTest() {
             ConvertToPdfAndCompare("background-blend-mode-invalid", sourceFolder, destinationFolder);
         }

@@ -45,7 +45,7 @@ using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Pagination {
-    [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+    [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
     public class PageBreaks101Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "page-breaks-101.xht";

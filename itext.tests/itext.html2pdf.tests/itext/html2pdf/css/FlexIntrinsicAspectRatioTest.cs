@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
@@ -43,34 +44,34 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void AutoFixedHeightUnfixedWidthDefiniteContainerTest() {
             ConvertToPdfAndCompare("autoFixedHeightUnfixedWidthDefiniteContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void ContentFixedHeightFixedWidthIndefiniteContainerTest() {
             ConvertToPdfAndCompare("contentFixedHeightFixedWidthIndefiniteContainer", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void ContentFixedHeightUnfixedWidthIndefiniteContainerTest() {
             ConvertToPdfAndCompare("contentFixedHeightUnfixedWidthIndefiniteContainer", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void ContentUnfixedHeightUnfixedWidthDefiniteContainerStartTest() {
             ConvertToPdfAndCompare("contentUnfixedHeightUnfixedWidthDefiniteContainerStart", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void ContentUnfixedHeightUnfixedWidthDefiniteContainerStretchTest() {
             // Both firefox and chrome work incorrectly in this case.
             // Paragraph https://www.w3.org/TR/css-flexbox-1/#algo-stretch from the specification explicitly says,

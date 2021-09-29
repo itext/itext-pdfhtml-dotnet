@@ -42,10 +42,12 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Util;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Tagging;
@@ -124,7 +126,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 }
             }
             else {
-                LogManager.GetLogger(GetType()).Error(iText.Html2pdf.LogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD);
+                ITextLogManager.GetLogger(GetType()).LogError(Html2PdfLogMessageConstant.ERROR_WHILE_LAYOUT_OF_FORM_FIELD);
                 occupiedArea.GetBBox().SetWidth(0).SetHeight(0);
             }
             if (!true.Equals(GetPropertyAsBoolean(Property.FORCED_PLACEMENT)) && !IsRendererFit(parentWidth, parentHeight
@@ -134,7 +136,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                     MinMaxWidth());
             }
             if (result.GetStatus() != LayoutResult.FULL || !IsRendererFit(parentWidth, parentHeight)) {
-                LogManager.GetLogger(GetType()).Warn(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
+                ITextLogManager.GetLogger(GetType()).LogWarning(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT);
             }
             return new MinMaxWidthLayoutResult(LayoutResult.FULL, occupiedArea, this, null).SetMinMaxWidth(new MinMaxWidth
                 (occupiedArea.GetBBox().GetWidth(), occupiedArea.GetBBox().GetWidth(), 0));
@@ -156,7 +158,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             drawContext.GetCanvas().SaveState();
             bool flatten = IsFlatten();
             if (flatten) {
-                drawContext.GetCanvas().Rectangle(ApplyBorderBox(occupiedArea.GetBBox(), false)).Clip().NewPath();
+                drawContext.GetCanvas().Rectangle(ApplyBorderBox(occupiedArea.GetBBox(), false)).Clip().EndPath();
                 flatRenderer.Draw(drawContext);
             }
             else {

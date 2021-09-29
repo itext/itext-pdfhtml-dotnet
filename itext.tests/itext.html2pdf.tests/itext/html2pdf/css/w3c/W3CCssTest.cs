@@ -108,7 +108,7 @@ namespace iText.Html2pdf.Css.W3c {
 
         private String GetOutPdfFileName() {
             String htmlFileName = GetHtmlFileName();
-            return iText.IO.Util.StringUtil.ReplaceAll(htmlFileName, "\\.[a-zA-Z]+?$", ".pdf");
+            return iText.Commons.Utils.StringUtil.ReplaceAll(htmlFileName, "\\.[a-zA-Z]+?$", ".pdf");
         }
     }
 }

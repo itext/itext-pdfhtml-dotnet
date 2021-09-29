@@ -41,10 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Commons.Actions.Contexts;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
-using iText.Kernel.Counter.Event;
 using iText.Layout.Font;
 using iText.StyledXmlParser.Css.Media;
 using iText.StyledXmlParser.Resolver.Resource;
@@ -496,29 +496,21 @@ namespace iText.Html2pdf {
         /// <remarks>
         /// Gets html meta info.
         /// <para />
-        /// This meta info will be passed with to
-        /// <see cref="iText.Kernel.Counter.EventCounter"/>
-        /// with
-        /// <see cref="iText.Html2pdf.Events.PdfHtmlEvent"/>
-        /// and can be used to determine event origin.
+        /// This meta info will be used to determine event origin.
         /// </remarks>
         /// <returns>
         /// converter's
-        /// <see cref="iText.Kernel.Counter.Event.IMetaInfo"/>
+        /// <see cref="iText.Commons.Actions.Contexts.IMetaInfo"/>
         /// </returns>
-        public virtual IMetaInfo GetEventCountingMetaInfo() {
-            return metaInfo;
+        internal virtual IMetaInfo GetEventMetaInfo() {
+            return metaInfo == null ? HtmlConverter.CreatePdf2HtmlMetaInfo() : metaInfo;
         }
 
         /// <summary>Sets html meta info.</summary>
         /// <remarks>
         /// Sets html meta info.
         /// <para />
-        /// This meta info will be passed with to
-        /// <see cref="iText.Kernel.Counter.EventCounter"/>
-        /// with
-        /// <see cref="iText.Html2pdf.Events.PdfHtmlEvent"/>
-        /// and can be used to determine event origin.
+        /// This meta info will be used to determine event origin.
         /// </remarks>
         /// <param name="metaInfo">meta info to set</param>
         /// <returns>
@@ -526,7 +518,7 @@ namespace iText.Html2pdf {
         /// <see cref="ConverterProperties"/>
         /// instance
         /// </returns>
-        public virtual iText.Html2pdf.ConverterProperties SetEventCountingMetaInfo(IMetaInfo metaInfo) {
+        public virtual iText.Html2pdf.ConverterProperties SetEventMetaInfo(IMetaInfo metaInfo) {
             this.metaInfo = metaInfo;
             return this;
         }

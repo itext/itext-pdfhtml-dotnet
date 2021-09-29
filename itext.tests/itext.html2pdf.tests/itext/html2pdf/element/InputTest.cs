@@ -44,7 +44,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Html2pdf.Attach.Impl.Tags;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Colors;
 using iText.Kernel.Geom;
@@ -52,6 +56,7 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.StyledXmlParser.Node;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
@@ -93,7 +98,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
         public virtual void Input06Test() {
             String htmlPath = sourceFolder + "inputTest06.html";
             String outPdfPath = destinationFolder + "inputTest06.pdf";
@@ -161,7 +166,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_INVALID)]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_TYPE_IS_INVALID)]
         public virtual void InputDefaultTest01() {
             RunTest("inputDefaultTest01");
         }
@@ -187,8 +192,8 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, Ignore = true)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Ignore = true)]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, Ignore = true)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Ignore = true)]
         public virtual void PlaceholderTest04() {
             RunTest("placeholderTest04");
         }
@@ -246,6 +251,50 @@ namespace iText.Html2pdf.Element {
         public virtual void CheckboxTaggingTest() {
             // TODO fix after DEVSIX-3461 is done
             ConvertToPdfAndCompare("checkboxTagging", sourceFolder, destinationFolder, true);
+        }
+
+        [NUnit.Framework.Test]
+        // TODO DEVSIX-5571 Update cmp after the ticket is closed
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
+        public virtual void CheckboxFullWidthDisplayBlockTest() {
+            RunTest("checkboxFullWidthDisplayBlockTest");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
+        public virtual void LongInputValueCausesNothingTest() {
+            ConverterProperties converterProperties = new ConverterProperties();
+            converterProperties.SetTagWorkerFactory(new InputTest.CustomTextInputTagWorkerFactory());
+            ConvertToPdfAndCompare("longInputValueCausesNothingTest", sourceFolder, destinationFolder, false, converterProperties
+                );
+        }
+
+        private class CustomTextInputTagWorkerFactory : DefaultTagWorkerFactory {
+            public override ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
+                switch (tag.Name().ToLowerInvariant()) {
+                    case "input": {
+                        switch (tag.GetAttribute("type").ToLowerInvariant()) {
+                            case "text": {
+                                IDictionary<String, String> map = new Dictionary<String, String>();
+                                map.Put("page-break-inside", "avoid");
+                                tag.AddAdditionalHtmlStyles(map);
+                                return new InputTest.CustomInputDivTagWorker(tag, context);
+                            }
+                        }
+                        break;
+                    }
+                }
+                return null;
+            }
+        }
+
+        private class CustomInputDivTagWorker : DivTagWorker {
+            public CustomInputDivTagWorker(IElementNode element, ProcessorContext context)
+                : base(element, context) {
+                String value = element.GetAttribute("value");
+                ProcessContent(value, context);
+            }
         }
 
         private void RunTest(String name) {

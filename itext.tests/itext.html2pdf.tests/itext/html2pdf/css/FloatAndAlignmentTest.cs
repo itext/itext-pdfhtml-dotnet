@@ -42,6 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
@@ -58,7 +59,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void SingleBlockSingleParagraphRight() {
             /* this test shows different combinations of float values blocks and  paragraph align RIGHT within div container
             */
@@ -67,21 +68,21 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void SingleBlockSingleParagraphLeft() {
             //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
             ConvertToPdfAndCompare("singleBlockSingleParagraphLeft", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void SingleBlockSingleParagraphJustify() {
             //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
             ConvertToPdfAndCompare("singleBlockSingleParagraphJustify", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void SingleBlockSingleParagraphCenter() {
             //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
             ConvertToPdfAndCompare("singleBlockSingleParagraphCenter", sourceFolder, destinationFolder);

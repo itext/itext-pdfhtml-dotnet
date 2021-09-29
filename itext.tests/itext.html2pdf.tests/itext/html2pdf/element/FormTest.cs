@@ -44,6 +44,7 @@ using System;
 using System.IO;
 using iText.Forms;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
@@ -160,13 +161,13 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
         public virtual void ButtonSplit02Test() {
             RunTest("buttonSplit02");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
         public virtual void ButtonSplit03Test() {
             RunTest("buttonSplit03");
         }
@@ -182,13 +183,13 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 2)]
         public virtual void SelectTest01() {
             RunTest("select01", false);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 3)]
+        [LogMessage(Html2PdfLogMessageConstant.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 3)]
         public virtual void SelectTest02() {
             RunTest("select02", false);
         }

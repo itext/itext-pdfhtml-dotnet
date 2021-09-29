@@ -43,7 +43,6 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
-using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Util;
 using iText.StyledXmlParser.Node;
 
@@ -58,7 +57,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             ();
 
         /// <summary>The default mapping of CSS keywords and CSS appliers.</summary>
-        private TagProcessorMapping defaultMapping;
+        private readonly TagProcessorMapping<DefaultTagCssApplierMapping.ICssApplierCreator> defaultMapping;
 
         /// <summary>
         /// Creates a new
@@ -66,7 +65,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         /// instance.
         /// </summary>
         public DefaultCssApplierFactory() {
-            defaultMapping = DefaultTagCssApplierMapping.GetDefaultCssApplierMapping();
+            defaultMapping = new DefaultTagCssApplierMapping().GetDefaultCssApplierMapping();
         }
 
         /// <summary>
@@ -85,16 +84,12 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         public ICssApplier GetCssApplier(IElementNode tag) {
             ICssApplier cssApplier = GetCustomCssApplier(tag);
             if (cssApplier == null) {
-                Type cssApplierClass = GetCssApplierClass(defaultMapping, tag);
-                if (cssApplierClass != null) {
-                    try {
-                        return (ICssApplier)System.Activator.CreateInstance(cssApplierClass);
-                    }
-                    catch (Exception) {
-                        throw new CssApplierInitializationException(CssApplierInitializationException.ReflectionFailed, cssApplierClass
-                            .FullName, tag.Name());
-                    }
+                DefaultTagCssApplierMapping.ICssApplierCreator cssApplierCreator = GetCssApplierCreator(defaultMapping, tag
+                    );
+                if (cssApplierCreator == null) {
+                    return null;
                 }
+                return cssApplierCreator();
             }
             return cssApplier;
         }
@@ -112,20 +107,26 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             return null;
         }
 
+        internal virtual TagProcessorMapping<DefaultTagCssApplierMapping.ICssApplierCreator> GetDefaultMapping() {
+            return defaultMapping;
+        }
+
         /// <summary>Gets the css applier class.</summary>
         /// <param name="mapping">the mapping</param>
         /// <param name="tag">the tag</param>
-        /// <returns>the css applier class</returns>
-        private static Type GetCssApplierClass(TagProcessorMapping mapping, IElementNode tag) {
-            Type cssApplierClass = null;
+        /// <returns>the css applier class creator</returns>
+        private static DefaultTagCssApplierMapping.ICssApplierCreator GetCssApplierCreator(TagProcessorMapping<DefaultTagCssApplierMapping.ICssApplierCreator
+            > mapping, IElementNode tag) {
+            DefaultTagCssApplierMapping.ICssApplierCreator cssApplierCreator = null;
             String display = tag.GetStyles() != null ? tag.GetStyles().Get(CssConstants.DISPLAY) : null;
             if (display != null) {
-                cssApplierClass = mapping.GetMapping(tag.Name(), display);
+                cssApplierCreator = (DefaultTagCssApplierMapping.ICssApplierCreator)mapping.GetMapping(tag.Name(), display
+                    );
             }
-            if (cssApplierClass == null) {
-                cssApplierClass = mapping.GetMapping(tag.Name());
+            if (cssApplierCreator == null) {
+                cssApplierCreator = (DefaultTagCssApplierMapping.ICssApplierCreator)mapping.GetMapping(tag.Name());
             }
-            return cssApplierClass;
+            return cssApplierCreator;
         }
     }
 }

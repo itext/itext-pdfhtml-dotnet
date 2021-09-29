@@ -41,9 +41,11 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
+using iText.Html2pdf.Logs;
 using iText.Html2pdf.Util;
 using iText.Layout;
 using iText.Layout.Element;
@@ -59,7 +61,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// element.
     /// </summary>
     public class SvgTagWorker : ITagWorker {
-        private static readonly ILog LOGGER = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.SvgTagWorker
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.SvgTagWorker
             ));
 
         private Image svgImage;
@@ -80,7 +82,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 processingResult = new DefaultSvgProcessor().Process((INode)element, props);
             }
             catch (SvgProcessingException spe) {
-                LOGGER.Error(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, spe);
+                LOGGER.LogError(spe, Html2PdfLogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT);
             }
             context.StartProcessingInlineSvg();
         }

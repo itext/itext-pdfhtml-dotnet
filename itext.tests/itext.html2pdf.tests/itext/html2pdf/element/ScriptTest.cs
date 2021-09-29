@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Utils;
 using iText.Test;
 using iText.Test.Attributes;
@@ -61,7 +62,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
         public virtual void Script01Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "scriptTest01.html"), new FileInfo(destinationFolder
                  + "scriptTest01.pdf"));

@@ -42,24 +42,27 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.IO.Util;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
-using iText.Layout.Font;
 using iText.Layout.Properties;
 using iText.Layout.Splitting;
+using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Util;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply font styles.</summary>
     public sealed class FontStyleApplierUtil {
         /// <summary>The logger.</summary>
-        private static readonly ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.FontStyleApplierUtil
+        private static readonly ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.FontStyleApplierUtil
             ));
 
         private const float DEFAULT_LINE_HEIGHT = 1.2f;
@@ -86,7 +89,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             if (cssProps.Get(CssConstants.FONT_FAMILY) != null) {
                 // TODO DEVSIX-2534
-                IList<String> fontFamilies = FontFamilySplitter.SplitFontFamily(cssProps.Get(CssConstants.FONT_FAMILY));
+                IList<String> fontFamilies = FontFamilySplitterUtil.SplitFontFamily(cssProps.Get(CssConstants.FONT_FAMILY)
+                    );
                 element.SetProperty(Property.FONT, fontFamilies.ToArray(new String[fontFamilies.Count]));
             }
             if (cssProps.Get(CssConstants.FONT_WEIGHT) != null) {
@@ -157,7 +161,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.ANYWHERE);
                 }
                 else {
-                    if (CssConstants.BREAK_WORD.Equals(overflowWrap)) {
+                    if (CommonCssConstants.BREAK_WORD.Equals(overflowWrap)) {
                         element.SetProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.BREAK_WORD);
                     }
                     else {
@@ -173,7 +177,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         element.SetProperty(Property.SPLIT_CHARACTERS, new KeepAllSplitCharacters());
                     }
                     else {
-                        if (CssConstants.BREAK_WORD.Equals(wordBreak)) {
+                        if (CommonCssConstants.BREAK_WORD.Equals(wordBreak)) {
                             // CSS specification cite that describes the reason for overflow-wrap overriding:
                             // "For compatibility with legacy content, the word-break property also supports
                             //  a deprecated break-word keyword. When specified, this has the same effect
@@ -204,7 +208,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             else {
                 if (textDecorationColorProp.StartsWith("hsl")) {
-                    logger.Error(iText.Html2pdf.LogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
+                    logger.LogError(Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
                     textDecorationColor = ColorConstants.BLACK;
                 }
                 else {
@@ -215,11 +219,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             String textDecorationLineProp = cssProps.Get(CssConstants.TEXT_DECORATION_LINE);
             if (textDecorationLineProp != null) {
-                String[] textDecorationLines = iText.IO.Util.StringUtil.Split(textDecorationLineProp, "\\s+");
+                String[] textDecorationLines = iText.Commons.Utils.StringUtil.Split(textDecorationLineProp, "\\s+");
                 IList<Underline> underlineList = new List<Underline>();
                 foreach (String textDecorationLine in textDecorationLines) {
                     if (CssConstants.BLINK.Equals(textDecorationLine)) {
-                        logger.Error(iText.Html2pdf.LogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
+                        logger.LogError(Html2PdfLogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
                     }
                     else {
                         if (CssConstants.LINE_THROUGH.Equals(textDecorationLine)) {
@@ -249,7 +253,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
                 element.SetProperty(Property.UNDERLINE, underlineList);
             }
-            String textIndent = cssProps.Get(CssConstants.TEXT_INDENT);
+            String textIndent = cssProps.Get(CommonCssConstants.TEXT_INDENT);
             if (textIndent != null) {
                 UnitValue textIndentValue = CssDimensionParsingUtils.ParseLengthValueToPt(textIndent, em, rem);
                 if (textIndentValue != null) {
@@ -257,8 +261,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         element.SetProperty(Property.FIRST_LINE_INDENT, textIndentValue.GetValue());
                     }
                     else {
-                        logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
-                            , CssConstants.TEXT_INDENT));
+                        logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                            , CommonCssConstants.TEXT_INDENT));
                     }
                 }
             }
@@ -288,7 +292,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static void SetLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {
             if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight) && !CssConstants.AUTO.Equals(lineHeight)
                 ) {
-                if (CssTypesValidationUtils.IsNumericValue(lineHeight)) {
+                if (CssTypesValidationUtils.IsNumber(lineHeight)) {
                     float? number = CssDimensionParsingUtils.ParseFloat(lineHeight);
                     if (number != null) {
                         elementToSet.SetProperty(Property.LINE_HEIGHT, LineHeight.CreateMultipliedValue((float)number));
@@ -325,7 +329,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             // What's more, it's basically the same thing as if lineHeight is not set in the first place
             if (lineHeight != null && !CssConstants.NORMAL.Equals(lineHeight) && !CssConstants.AUTO.Equals(lineHeight)
                 ) {
-                if (CssTypesValidationUtils.IsNumericValue(lineHeight)) {
+                if (CssTypesValidationUtils.IsNumber(lineHeight)) {
                     float? mult = CssDimensionParsingUtils.ParseFloat(lineHeight);
                     if (mult != null) {
                         element.SetProperty(Property.LEADING, new Leading(Leading.MULTIPLIED, (float)mult));

@@ -45,7 +45,7 @@ using System.IO;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Resolver.Font;
-using iText.Kernel;
+using iText.Kernel.Exceptions;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.StyledXmlParser;

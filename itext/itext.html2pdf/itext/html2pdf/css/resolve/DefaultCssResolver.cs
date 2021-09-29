@@ -43,13 +43,15 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
 using iText.Html2pdf.Css.Util;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Media;
@@ -151,8 +153,8 @@ namespace iText.Html2pdf.Css.Resolve {
                 IStylesContainer parentNode = (IStylesContainer)element.ParentNode();
                 IDictionary<String, String> parentStyles = parentNode.GetStyles();
                 if (parentStyles == null && !(element.ParentNode() is IDocumentNode)) {
-                    ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
-                    logger.Error(iText.Html2pdf.LogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
+                    ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
+                    logger.LogError(Html2PdfLogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
                 }
                 if (parentStyles != null) {
                     ICollection<IStyleInheritance> inheritanceRules = new HashSet<IStyleInheritance>();
@@ -289,8 +291,8 @@ namespace iText.Html2pdf.Css.Resolve {
                                 }
                             }
                             catch (Exception exc) {
-                                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
-                                logger.Error(iText.Html2pdf.LogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE, exc);
+                                ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Resolve.DefaultCssResolver));
+                                logger.LogError(exc, Html2PdfLogMessageConstant.UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE);
                             }
                         }
                     }

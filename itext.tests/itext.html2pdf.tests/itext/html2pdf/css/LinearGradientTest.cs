@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -56,7 +57,7 @@ namespace iText.Html2pdf.Css {
 
         // TODO: DEVSIX-3595 update cmp_ after fix and remove log message expectation
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, Count = 3, LogLevel = LogLevelConstants
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, Count = 3, LogLevel = LogLevelConstants
             .WARN)]
         public virtual void BackgroundImageLinearGradientWithAnglesTest() {
             ConvertToPdfAndCompare("background-image-angles-linear-gradient", sourceFolder, destinationFolder);
@@ -64,7 +65,7 @@ namespace iText.Html2pdf.Css {
 
         // TODO: DEVSIX-3596 update cmp_ after fix and remove log message expectation
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, Count = 5, LogLevel = LogLevelConstants
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, Count = 5, LogLevel = LogLevelConstants
             .WARN)]
         public virtual void BackgroundImageLinearGradientWithMetricsTest() {
             ConvertToPdfAndCompare("background-image-metrics-linear-gradient", sourceFolder, destinationFolder);
@@ -87,7 +88,7 @@ namespace iText.Html2pdf.Css {
 
         // TODO: DEVSIX-3595 update cmp_ after fix and remove log message expectation
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, Count = 3, LogLevel = LogLevelConstants
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, Count = 3, LogLevel = LogLevelConstants
             .WARN)]
         public virtual void BackgroundImageRepeatingLinearGradientWithAnglesTest() {
             ConvertToPdfAndCompare("background-image-angles-repeating-linear-gradient", sourceFolder, destinationFolder
@@ -96,7 +97,7 @@ namespace iText.Html2pdf.Css {
 
         // TODO: DEVSIX-3596 update cmp_ after fix and remove log message expectation
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, Count = 5, LogLevel = LogLevelConstants
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, Count = 5, LogLevel = LogLevelConstants
             .WARN)]
         public virtual void BackgroundImageRepeatingLinearGradientWithMetricsTest() {
             ConvertToPdfAndCompare("background-image-metrics-repeating-linear-gradient", sourceFolder, destinationFolder
@@ -110,96 +111,83 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidFirstArgumentTest() {
             ConvertHtmlWithGradient("linear-gradient(not-angle-or-color, orange 100pt, red 150pt, green 200pt, blue 250pt)"
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidToSideTest0() {
             ConvertHtmlWithGradient("linear-gradient(to , orange 100pt, red 150pt, green 200pt, blue 250pt)");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidToSideTest1() {
             ConvertHtmlWithGradient("linear-gradient(to, orange 100pt, red 150pt, green 200pt, blue 250pt)");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidToSideTest2() {
             ConvertHtmlWithGradient("linear-gradient(to left left, orange 100pt, red 150pt, green 200pt, blue 250pt)");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidToSideTest3() {
             ConvertHtmlWithGradient("linear-gradient(to bottom top, orange 100pt, red 150pt, green 200pt, blue 250pt)"
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidToSideTest4() {
             ConvertHtmlWithGradient("linear-gradient(to left right, orange 100pt, red 150pt, green 200pt, blue 250pt)"
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidToSideTest5() {
             ConvertHtmlWithGradient("linear-gradient(to top right right, orange 100pt, red 150pt, green 200pt, blue 250pt)"
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidColorWithThreeOffsetsValueTest() {
             ConvertHtmlWithGradient("linear-gradient(red, orange 20pt 30pt 100pt, green 200pt, blue 250pt)");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidColorOffsetValueTest() {
             ConvertHtmlWithGradient("linear-gradient(red, orange 20, green 200pt, blue 250pt)");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidMultipleHintsInARowValueTest() {
             ConvertHtmlWithGradient("linear-gradient(red, orange, 20%, 30%, green 200pt, blue 250pt)");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidMultipleHintsInARowWithoutCommaValueTest() {
             ConvertHtmlWithGradient("linear-gradient(red, orange, 20% 30%, green 200pt, blue 250pt)");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidFirstElementIsAHintValueTest() {
             ConvertHtmlWithGradient("linear-gradient(5%, red, orange, 30%, green 200pt, blue 250pt)");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, LogLevel = LogLevelConstants.WARN)]
         public virtual void InvalidLastElementIsAHintValueTest() {
             ConvertHtmlWithGradient("linear-gradient(red, orange, 30%, green 200pt, blue 250pt, 120%)");
         }

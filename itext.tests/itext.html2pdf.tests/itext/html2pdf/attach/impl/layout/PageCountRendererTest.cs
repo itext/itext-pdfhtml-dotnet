@@ -30,7 +30,7 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Attach.Impl.Layout {
     public class PageCountRendererTest : ExtendedITextTest {
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN)]
         public virtual void GetNextRendererShouldBeOverriddenTest() {
             PageCountRenderer pageCountRenderer = new _PageCountRenderer_50(new PageCountElement());
             // Nothing is overridden
@@ -44,7 +44,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN)]
         public virtual void CreateCopyShouldBeOverriddenTest() {
             PageCountRenderer pageCountRenderer = new PageCountRendererTest.CustomPageCountRenderer(new PageCountElement
                 ());

@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Logs;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Css;
@@ -104,7 +105,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ApplyFlexBasisContentWidthTest() {
             ProcessorContext context = new ProcessorContext(new ConverterProperties());
             IDictionary<String, String> cssProps = new Dictionary<String, String>();
@@ -130,7 +131,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ApplyAlignItemsTest() {
             String[] alignItemsStrings = new String[] { CssConstants.START, CssConstants.END, CssConstants.CENTER, CssConstants
                 .FLEX_START, CssConstants.FLEX_END, CssConstants.SELF_START, CssConstants.SELF_END, CssConstants.BASELINE
@@ -168,7 +169,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ApplyAlignItemsUnsupportedValuesTest() {
             IDictionary<String, String> cssProps = new Dictionary<String, String>();
             cssProps.Put(CommonCssConstants.ALIGN_ITEMS, CssConstants.SAFE + " " + CommonCssConstants.FLEX_END);
@@ -179,7 +180,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ApplyJustifyContentUnsupportedValuesTest() {
             IDictionary<String, String> cssProps = new Dictionary<String, String>();
             cssProps.Put(CssConstants.JUSTIFY_CONTENT, CommonCssConstants.SPACE_BETWEEN);
@@ -190,7 +191,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 5)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 5)]
         public virtual void ApplyFlexContainerUnsupportedPropertiesUnsupportedValuesTest() {
             String[] unsupportedProperties = new String[] { CssConstants.FLEX_WRAP, CssConstants.FLEX_DIRECTION, CssConstants
                 .ROW_GAP, CssConstants.COLUMN_GAP, CssConstants.ALIGN_CONTENT };
@@ -207,7 +208,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void ApplyFlexItemUnsupportedPropertiesUnsupportedValuesTest() {
             ProcessorContext context = new ProcessorContext(new ConverterProperties());
             IDictionary<String, String> cssProps = new Dictionary<String, String>();

@@ -43,14 +43,15 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Commons.Actions.Contexts;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Exceptions;
-using iText.Html2pdf.Util;
-using iText.IO.Util;
-using iText.Kernel.Counter.Event;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Properties;
+using iText.Layout.Renderer;
 using iText.StyledXmlParser;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup;
@@ -171,8 +172,8 @@ namespace iText.Html2pdf {
         /// instance
         /// </param>
         public static void ConvertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
-            ConvertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(new HtmlConverter.HtmlMetaInfo
-                ())), converterProperties);
+            ConvertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo
+                (converterProperties))), converterProperties);
         }
 
         /// <summary>
@@ -201,6 +202,7 @@ namespace iText.Html2pdf {
         public static void ConvertToPdf(String html, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
             Document document = ConvertToDocument(html, pdfDocument, converterProperties);
+            document.SetProperty(Property.META_INFO, new MetaInfoContainer(ResolveMetaInfo(converterProperties)));
             document.Close();
         }
 
@@ -251,12 +253,12 @@ namespace iText.Html2pdf {
         public static void ConvertToPdf(FileInfo htmlFile, FileInfo pdfFile, ConverterProperties converterProperties
             ) {
             if (converterProperties == null) {
-                String baseUri = FileUtil.GetParentDirectory(htmlFile);
+                String baseUri = FileUtil.GetParentDirectoryUri(htmlFile);
                 converterProperties = new ConverterProperties().SetBaseUri(baseUri);
             }
             else {
                 if (converterProperties.GetBaseUri() == null) {
-                    String baseUri = FileUtil.GetParentDirectory(htmlFile);
+                    String baseUri = FileUtil.GetParentDirectoryUri(htmlFile);
                     converterProperties = new ConverterProperties(converterProperties).SetBaseUri(baseUri);
                 }
             }
@@ -354,8 +356,8 @@ namespace iText.Html2pdf {
         /// containing the resulting PDF
         /// </param>
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter) {
-            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(new 
-                HtmlConverter.HtmlMetaInfo())));
+            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(CreatePdf2HtmlMetaInfo
+                ())));
         }
 
         /// <summary>
@@ -384,8 +386,8 @@ namespace iText.Html2pdf {
         /// </param>
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
             ) {
-            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(new 
-                HtmlConverter.HtmlMetaInfo())), converterProperties);
+            ConvertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo
+                (converterProperties))), converterProperties);
         }
 
         /// <summary>
@@ -415,6 +417,8 @@ namespace iText.Html2pdf {
         public static void ConvertToPdf(Stream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
             Document document = ConvertToDocument(htmlStream, pdfDocument, converterProperties);
+            IMetaInfo metaInfo = ResolveMetaInfo(converterProperties);
+            document.SetProperty(Property.META_INFO, new MetaInfoContainer(metaInfo));
             document.Close();
         }
 
@@ -570,9 +574,8 @@ namespace iText.Html2pdf {
         /// </returns>
         public static Document ConvertToDocument(String html, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
-            ReflectionUtils.ScheduledLicenseCheck();
             if (pdfDocument.GetReader() != null) {
-                throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
+                throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
             }
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(html);
@@ -614,9 +617,8 @@ namespace iText.Html2pdf {
         /// </returns>
         public static Document ConvertToDocument(Stream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
-            ReflectionUtils.ScheduledLicenseCheck();
             if (pdfDocument.GetReader() != null) {
-                throw new Html2PdfException(Html2PdfException.PdfDocumentShouldBeInWritingMode);
+                throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
             }
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
@@ -685,7 +687,6 @@ namespace iText.Html2pdf {
         /// </param>
         /// <returns>a list of iText building blocks</returns>
         public static IList<IElement> ConvertToElements(String html, ConverterProperties converterProperties) {
-            ReflectionUtils.ScheduledLicenseCheck();
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(html);
             return Attacher.Attach(doc, converterProperties);
@@ -715,11 +716,18 @@ namespace iText.Html2pdf {
         /// <returns>a list of iText building blocks</returns>
         public static IList<IElement> ConvertToElements(Stream htmlStream, ConverterProperties converterProperties
             ) {
-            ReflectionUtils.ScheduledLicenseCheck();
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
                 ) : null);
             return Attacher.Attach(doc, converterProperties);
+        }
+
+        internal static IMetaInfo CreatePdf2HtmlMetaInfo() {
+            return new HtmlConverter.HtmlMetaInfo();
+        }
+
+        private static IMetaInfo ResolveMetaInfo(ConverterProperties converterProperties) {
+            return converterProperties == null ? CreatePdf2HtmlMetaInfo() : converterProperties.GetEventMetaInfo();
         }
 
         private class HtmlMetaInfo : IMetaInfo {

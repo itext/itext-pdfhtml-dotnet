@@ -32,7 +32,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = "pdfHTML 3.0.5 API"
+PROJECT_NAME           = "pdfHTML 4.0.0 API"
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -829,7 +829,7 @@ WARN_LOGFILE           =
 # spaces. See also FILE_PATTERNS and EXTENSION_MAPPING
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = 
+INPUT                  =
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -869,8 +869,7 @@ RECURSIVE              = YES
 # Note that relative paths are relative to the directory from which doxygen is
 # run.
 
-EXCLUDE                = itext/itext.html2pdf/itext/html2pdf/attach/impl/layout/BodyHtmlStylesContainer.cs /
-itext/itext.html2pdf/itext/html2pdf/Html2PdfProductInfo.cs
+EXCLUDE                = itext/itext.html2pdf/itext/html2pdf/attach/impl/layout/BodyHtmlStylesContainer.cs
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
@@ -890,8 +889,7 @@ EXCLUDE_PATTERNS       = */.git/* \
                          */bin/* \
                          */obj/* \
                          */itext.tests/* \
-                         */KeyVersionAttribute.cs \
-                         */TypographyVersionAttribute.cs
+                         */KeyVersionAttribute.cs
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names
 # (namespaces, classes, functions, etc.) that should be excluded from the
@@ -2527,4 +2525,3 @@ GENERATE_LEGEND        = YES
 # This tag requires that the tag HAVE_DOT is set to YES.
 
 DOT_CLEANUP            = YES
-     

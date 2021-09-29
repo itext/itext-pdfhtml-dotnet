@@ -54,15 +54,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <summary>Processes counters.</summary>
         /// <param name="cssProps">the CSS properties</param>
         /// <param name="context">the processor context</param>
-        /// <param name="scope">the scope</param>
-        [System.ObsoleteAttribute(@"This method need to be removed in 7.2")]
-        public static void ProcessCounters(IDictionary<String, String> cssProps, CssContext context, INode scope) {
-            ProcessCounters(cssProps, context);
-        }
-
-        /// <summary>Processes counters.</summary>
-        /// <param name="cssProps">the CSS properties</param>
-        /// <param name="context">the processor context</param>
         public static void ProcessCounters(IDictionary<String, String> cssProps, CssContext context) {
             String counterReset = cssProps.Get(CssConstants.COUNTER_RESET);
             ProcessReset(counterReset, context);
@@ -97,7 +88,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static void ProcessReset(String counterReset, CssContext context) {
             if (counterReset != null) {
                 CssCounterManager counterManager = context.GetCounterManager();
-                String[] @params = iText.IO.Util.StringUtil.Split(counterReset, " ");
+                String[] @params = iText.Commons.Utils.StringUtil.Split(counterReset, " ");
                 for (int i = 0; i < @params.Length; i++) {
                     String counterName = @params[i];
                     int? possibleCounterValue;
@@ -116,7 +107,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static void ProcessIncrement(String counterIncrement, CssContext context) {
             if (counterIncrement != null) {
                 CssCounterManager counterManager = context.GetCounterManager();
-                String[] @params = iText.IO.Util.StringUtil.Split(counterIncrement, " ");
+                String[] @params = iText.Commons.Utils.StringUtil.Split(counterIncrement, " ");
                 for (int i = 0; i < @params.Length; i++) {
                     String counterName = @params[i];
                     int? possibleIncrementValue;

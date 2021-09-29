@@ -40,6 +40,7 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
+using iText.Html2pdf;
 using iText.IO.Source;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
@@ -79,6 +80,24 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             NUnit.Framework.Assert.AreEqual(2, pdfDocument.GetNumberOfPages());
             documentRenderer.TrimLastPageIfNecessary();
             NUnit.Framework.Assert.AreEqual(2, pdfDocument.GetNumberOfPages());
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void EstimatedNumberOfPagesInNextRendererEmptyDocumentTest() {
+            Document document = HtmlConverter.ConvertToDocument("<html></html>", new PdfWriter(new ByteArrayOutputStream
+                ()));
+            HtmlDocumentRenderer documentRenderer = (HtmlDocumentRenderer)document.GetRenderer();
+            HtmlDocumentRenderer nextRenderer = (HtmlDocumentRenderer)documentRenderer.GetNextRenderer();
+            NUnit.Framework.Assert.AreEqual(0, nextRenderer.GetEstimatedNumberOfPages());
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void EstimatedNumberOfPagesInNextRendererDocumentWithTextChunkTest() {
+            Document document = HtmlConverter.ConvertToDocument("<html>text</html>", new PdfWriter(new ByteArrayOutputStream
+                ()));
+            HtmlDocumentRenderer documentRenderer = (HtmlDocumentRenderer)document.GetRenderer();
+            HtmlDocumentRenderer nextRenderer = (HtmlDocumentRenderer)documentRenderer.GetNextRenderer();
+            NUnit.Framework.Assert.AreEqual(1, nextRenderer.GetEstimatedNumberOfPages());
         }
     }
 }

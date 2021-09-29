@@ -42,11 +42,12 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
+using iText.Commons.Utils;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Html2pdf.Html;
 using iText.IO.Font.Otf;
-using iText.IO.Util;
 using iText.Kernel.Font;
 using iText.Layout;
 using iText.Layout.Layout;
@@ -121,8 +122,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary><inheritDoc/></summary>
         public override IRenderer GetNextRenderer() {
             if (typeof(iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer) != this.GetType()) {
-                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer));
-                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN));
+                ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer));
+                logger.LogError(MessageFormatUtil.Format(iText.IO.Logs.IoLogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN
+                    ));
             }
             return new iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer((PageCountElement)modelElement);
         }
@@ -130,8 +132,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary><inheritDoc/></summary>
         protected override TextRenderer CreateCopy(GlyphLine gl, PdfFont font) {
             if (typeof(iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer) != this.GetType()) {
-                ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer));
-                logger.Error(MessageFormatUtil.Format(iText.IO.LogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN));
+                ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer));
+                logger.LogError(MessageFormatUtil.Format(iText.IO.Logs.IoLogMessageConstant.CREATE_COPY_SHOULD_BE_OVERRIDDEN
+                    ));
             }
             iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer copy = new iText.Html2pdf.Attach.Impl.Layout.PageCountRenderer
                 (this);

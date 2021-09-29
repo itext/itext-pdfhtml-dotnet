@@ -41,6 +41,7 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Commons.Actions.Contexts;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
@@ -50,7 +51,6 @@ using iText.Html2pdf.Resolver.Font;
 using iText.Html2pdf.Resolver.Form;
 using iText.Html2pdf.Resolver.Resource;
 using iText.IO.Font;
-using iText.Kernel.Counter.Event;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
 using iText.StyledXmlParser.Css.Media;
@@ -163,7 +163,6 @@ namespace iText.Html2pdf.Attach {
             formFieldNameResolver = new FormFieldNameResolver();
             radioCheckResolver = new RadioCheckResolver();
             immediateFlush = converterProperties.IsImmediateFlush();
-            metaInfo = converterProperties.GetEventCountingMetaInfo();
             processingInlineSvg = false;
         }
 
@@ -340,17 +339,20 @@ namespace iText.Html2pdf.Attach {
             return immediateFlush;
         }
 
-        /// <summary>Gets html meta info.</summary>
+        /// <summary>Gets html meta info container.</summary>
         /// <remarks>
-        /// Gets html meta info. This meta info will be passed with to
-        /// <see cref="iText.Kernel.Counter.EventCounter"/>
-        /// with
-        /// <see cref="iText.Html2pdf.Events.PdfHtmlEvent"/>
-        /// and can be used to determine event origin.
+        /// Gets html meta info container.
+        /// <para />Meta info will be used to determine event origin.
         /// </remarks>
-        /// <returns>html meta info</returns>
-        public virtual IMetaInfo GetEventCountingMetaInfo() {
-            return metaInfo;
+        /// <returns>html meta info container</returns>
+        public virtual HtmlMetaInfoContainer GetMetaInfoContainer() {
+            return new HtmlMetaInfoContainer(metaInfo);
+        }
+
+        /// <summary>Sets IMetaInfo to processor context.</summary>
+        /// <param name="metaInfo">the IMetaInfo object</param>
+        public virtual void SetMetaInfo(IMetaInfo metaInfo) {
+            this.metaInfo = metaInfo;
         }
 
         /// <summary>Check if the processor is currently processing an inline svg</summary>

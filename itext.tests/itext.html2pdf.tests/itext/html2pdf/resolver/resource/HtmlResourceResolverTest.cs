@@ -45,6 +45,7 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
+using iText.Html2pdf.Logs;
 using iText.Html2pdf.Util;
 using iText.IO.Source;
 using iText.Kernel.Pdf;
@@ -82,8 +83,8 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, Count = 2)]
         public virtual void ResourceResolverHtmlWithSvgTest02() {
             String baseUri = sourceFolder + "%23r%e%2525s@o%25urces/";
             String outPdf = destinationFolder + "resourceResolverHtmlWithSvgTest02.pdf";
@@ -109,7 +110,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
         public virtual void ResourceResolverTest07A() {
             String baseUri = sourceFolder + "%23r%e%2525s@o%25urces/";
             String outPdf = destinationFolder + "resourceResolverTest07A.pdf";
@@ -136,7 +137,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 1)]
         public virtual void ResourceResolverTest07C() {
             String outPdf = destinationFolder + "resourceResolverTest07C.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest07C.pdf";
@@ -186,9 +187,11 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
+            )]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+            )]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
         public virtual void ResourceResolverHtmlWithSvgDifferentLevels() {
             String outPdf = destinationFolder + "resourceResolverHtmlWithSvgDifferentLevels.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverHtmlWithSvgDifferentLevels.pdf";
@@ -203,7 +206,8 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
+            )]
         public virtual void AttemptToProcessBySvgProcessingUtilSvgWithImageTest() {
             // TODO review this test in the scope of DEVSIX-4107
             String fileName = "svgWithImage.svg";
@@ -226,7 +230,8 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
+            )]
         public virtual void AttemptToProcessBySvgProcessingUtilSvgWithSvgTest() {
             // TODO review this test in the scope of DEVSIX-4107
             String fileName = "svgWithSvg.svg";
@@ -251,7 +256,8 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
+            )]
         public virtual void ResourceResolverSvgEmbeddedSvg() {
             // TODO review this test in the scope of DEVSIX-4107
             String baseUri = sourceFolder;
@@ -269,7 +275,8 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
+            )]
         public virtual void ResourceResolverObjectWithSvgEmbeddedSvg() {
             // TODO review this test in the scope of DEVSIX-4107
             String baseUri = sourceFolder;
@@ -288,7 +295,7 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         [NUnit.Framework.Test]
         // TODO DEVSIX-1595
-        [LogMessage(iText.Html2pdf.LogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
         public virtual void ResourceResolverTest11() {
             String outPdf = destinationFolder + "resourceResolverTest11.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverTest11.pdf";
@@ -346,9 +353,9 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI, Count = 
-            3)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 3)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI
+            , Count = 3)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 3)]
         public virtual void ResourceResolverSvgDifferentFormatsTest() {
             String html = sourceFolder + "resourceResolverSvgDifferentFormats.html";
             String outPdf = destinationFolder + "resourceResolverSvgDifferentFormats.pdf";
@@ -363,8 +370,9 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.LogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI
+            )]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
         public virtual void ResourceResolverNotValidInlineSvgTest() {
             String html = sourceFolder + "resourceResolverNotValidInlineSvg.html";
             String outPdf = destinationFolder + "resourceResolverNotValidInlineSvg.pdf";
@@ -379,8 +387,8 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(SvgLogMessageConstant.NOROOT)]
-        [LogMessage(iText.Html2pdf.LogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
+        [LogMessage(SvgExceptionMessageConstant.NO_ROOT)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
         public virtual void ResourceResolverIncorrectSyntaxTest() {
             String outPdf = destinationFolder + "resourceResolverIncorrectSyntaxObject.pdf";
             String cmpPdf = sourceFolder + "cmp_resourceResolverIncorrectSyntaxObject.pdf";

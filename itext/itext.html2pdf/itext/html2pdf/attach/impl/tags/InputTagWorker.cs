@@ -42,13 +42,15 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Text.RegularExpressions;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
-using iText.IO.Util;
+using iText.Html2pdf.Logs;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Css.Util;
@@ -61,7 +63,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// element.
     /// </summary>
     public class InputTagWorker : ITagWorker, IDisplayAware {
-        private static readonly Regex NUMBER_INPUT_ALLOWED_VALUES = iText.IO.Util.StringUtil.RegexCompile("^(((-?[0-9]+)(\\.[0-9]+)?)|(-?\\.[0-9]+))$"
+        private static readonly Regex NUMBER_INPUT_ALLOWED_VALUES = iText.Commons.Utils.StringUtil.RegexCompile("^(((-?[0-9]+)(\\.[0-9]+)?)|(-?\\.[0-9]+))$"
             );
 
         /// <summary>The form element.</summary>
@@ -82,8 +84,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             String inputType = element.GetAttribute(AttributeConstants.TYPE);
             if (!AttributeConstants.INPUT_TYPE_VALUES.Contains(inputType)) {
                 if (null != inputType && 0 != inputType.Length) {
-                    ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
-                    logger.Warn(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_INVALID, inputType));
+                    ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
+                    logger.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_INVALID, inputType));
                 }
                 inputType = AttributeConstants.TEXT;
             }
@@ -146,8 +148,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         }
                         else {
                             // has attribute == is checked
-                            ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
-                            logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType
+                            ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
+                            logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType
                                 ));
                         }
                     }
@@ -195,7 +197,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         internal static String PreprocessInputValue(String value, String inputType) {
-            if (AttributeConstants.NUMBER.Equals(inputType) && value != null && !iText.IO.Util.Matcher.Match(NUMBER_INPUT_ALLOWED_VALUES
+            if (AttributeConstants.NUMBER.Equals(inputType) && value != null && !iText.Commons.Utils.Matcher.Match(NUMBER_INPUT_ALLOWED_VALUES
                 , value).Matches()) {
                 value = "";
             }

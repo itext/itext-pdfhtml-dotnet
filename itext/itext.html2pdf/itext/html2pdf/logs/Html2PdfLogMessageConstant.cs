@@ -42,23 +42,25 @@ address: sales@itextpdf.com
 */
 using System;
 
-namespace iText.Html2pdf {
+namespace iText.Html2pdf.Logs {
     /// <summary>Class that bundles all the error message templates as constants.</summary>
-    public sealed class LogMessageConstant {
-        /// <summary>The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT.</summary>
-        public const String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will be flattened instead.";
-
-        public const String ANCHOR_LINK_NOT_HANDLED = "The anchor link was not handled. Could not create a destination for element \"{0}\" with ID \"{1}\", which is processed by \"{2}\" tag worker class.";
-
+    public sealed class Html2PdfLogMessageConstant {
         /// <summary>The Constant CANNOT_RESOLVE_TARGET_COUNTER_VALUE.</summary>
         public const String CANNOT_RESOLVE_TARGET_COUNTER_VALUE = "Cannot resolve target-counter value with given target \"{0}\"";
 
+        /// <summary>The Constant CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT.</summary>
+        public const String CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT = "A custom renderer which doesn't extend HtmlDocumentRenderer is set for HtmlDocument. Counters and "
+             + "target-counters may be displayed incorrectly.";
+
+        /// <summary>The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT.</summary>
+        public const String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will "
+             + "be flattened instead.";
+
+        public const String ANCHOR_LINK_NOT_HANDLED = "The anchor link was not handled. Could not create a destination for element \"{0}\" with ID \"{1}\", "
+             + "which is processed by \"{2}\" tag worker class.";
+
         /// <summary>The Constant CONTENT_PROPERTY_INVALID.</summary>
         public const String CONTENT_PROPERTY_INVALID = "Content property \"{0}\" is either invalid or uses unsupported function.";
-
-        /// <summary>The Constant CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT.</summary>
-        public const String CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT = "A custom renderer which doesn't extend " +
-             "HtmlDocumentRenderer is set for HtmlDocument. Counters and target-counters may be displayed incorrectly.";
 
         /// <summary>The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED.</summary>
         public const String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
@@ -77,15 +79,15 @@ namespace iText.Html2pdf {
         /// <summary>The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD.</summary>
         public const String ERROR_WHILE_LAYOUT_OF_FORM_FIELD = "Cannot layout form field field. It won't be displayed";
 
-        /// <summary>The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE.</summary>
-        public const String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE = "Error during layout of form filed with type {0}.";
-
         /// <summary>The Constant EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS.</summary>
-        public const String EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS = "Exceeded the maximum number of relayouts. "
-             + "The resultant document may look not as expected. " + "Because of the content being dynamic iText performs several relayouts to produce correct document.";
+        public const String EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS = "Exceeded the maximum number of relayouts. The resultant document may look not as expected. Because of the"
+             + " content being dynamic iText performs several relayouts to produce correct document.";
 
         /// <summary>The constant FLEX_PROPERTY_IS_NOT_SUPPORTED_YET.</summary>
         public const String FLEX_PROPERTY_IS_NOT_SUPPORTED_YET = "Flex related property {0}: {1} is not supported yet.";
+
+        /// <summary>The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE.</summary>
+        public const String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE = "Error during layout of form filed with type {0}.";
 
         /// <summary>The Constant INPUT_FIELD_DOES_NOT_FIT.</summary>
         public const String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
@@ -118,7 +120,8 @@ namespace iText.Html2pdf {
         public const String NO_CSS_APPLIER_FOUND_FOR_TAG = "No css applier found for tag {0}";
 
         /// <summary>The Constant NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG.</summary>
-        public const String NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG = "Tag worker does not produce IPropertyContainer for \"{0}\" tag. An outline for \"{0}\" tag will not be created.";
+        public const String NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG = "Tag worker does not produce IPropertyContainer for \"{0}\" tag. An outline for \"{0}\" tag will not be "
+             + "created.";
 
         /// <summary>The Constant NO_WORKER_FOUND_FOR_TAG.</summary>
         public const String NO_WORKER_FOUND_FOR_TAG = "No worker found for tag {0}";
@@ -128,12 +131,13 @@ namespace iText.Html2pdf {
 
         public const String PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN = "Page margin box {0} content cannot be drawn.";
 
-        public const String PAGE_MARGIN_BOX_SOME_PROPERTIES_NOT_PROCESSED = "Page margin box margin, padding, height and width properties are not processed. Passed styles container shall be of PageMarginBoxContextNode type.";
+        public const String PAGE_MARGIN_BOX_SOME_PROPERTIES_NOT_PROCESSED = "Page margin box margin, padding, height and width properties are not processed. Passed styles container "
+             + "shall be of PageMarginBoxContextNode type.";
 
         /// <summary>The Constant PAGE_SIZE_VALUE_IS_INVALID.</summary>
         public const String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
 
-        /// <summary>The Constant PDF_DOCUMENT_NOT_PRESENT</summary>
+        /// <summary>The Constant PDF_DOCUMENT_NOT_PRESENT.</summary>
         public const String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
 
         /// <summary>The Constant QUOTES_PROPERTY_INVALID.</summary>
@@ -148,11 +152,7 @@ namespace iText.Html2pdf {
         /// <summary>The Constant UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE.</summary>
         public const String UNABLE_TO_PROCESS_EXTERNAL_CSS_FILE = "Unable to process external css file";
 
-        /// <summary>The Constant UNABLE_TO_PROCESS_IMAGE_AS_SVG.</summary>
-        [System.ObsoleteAttribute(@"will be removed in iText 7.2, use UNABLE_TO_PROCESS_SVG_ELEMENT")]
-        public const String UNABLE_TO_PROCESS_IMAGE_AS_SVG = "Unable to process image found at {0} as an SVG";
-
-        /// <summary>The Constant UNABLE_TO_PROCESS_SVG</summary>
+        /// <summary>The Constant UNABLE_TO_PROCESS_SVG.</summary>
         public const String UNABLE_TO_PROCESS_SVG_ELEMENT = "Unable to process an SVG element";
 
         /// <summary>The Constant UNABLE_TO_RESOLVE_COUNTER.</summary>
@@ -179,7 +179,8 @@ namespace iText.Html2pdf {
         /// <summary>The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER.</summary>
         public const String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
 
-        private LogMessageConstant() {
+        private Html2PdfLogMessageConstant() {
         }
+        //Private constructor will prevent the instantiation of this class directly
     }
 }

@@ -42,20 +42,23 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using Common.Logging;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
-using iText.IO.Util;
+using iText.Html2pdf.Logs;
 using iText.Layout;
 using iText.Layout.Layout;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply a position.</summary>
     public sealed class PositionApplierUtil {
         /// <summary>The logger.</summary>
-        private static readonly ILog logger = LogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.PositionApplierUtil
+        private static readonly ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.PositionApplierUtil
             ));
 
         /// <summary>
@@ -139,8 +142,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(layoutPropertyMapping, leftVal.GetValue());
                 }
                 else {
-                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
-                        , CssConstants.LEFT));
+                    logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                        , CommonCssConstants.LEFT));
                 }
             }
         }
@@ -160,8 +163,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(layoutPropertyMapping, rightVal.GetValue());
                 }
                 else {
-                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
-                        , CssConstants.RIGHT));
+                    logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                        , CommonCssConstants.RIGHT));
                 }
             }
         }
@@ -181,8 +184,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(layoutPropertyMapping, topVal.GetValue());
                 }
                 else {
-                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
-                        , CssConstants.TOP));
+                    logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                        , CommonCssConstants.TOP));
                 }
             }
         }
@@ -202,8 +205,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     element.SetProperty(layoutPropertyMapping, bottomVal.GetValue());
                 }
                 else {
-                    logger.Error(MessageFormatUtil.Format(iText.Html2pdf.LogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
-                        , CssConstants.BOTTOM));
+                    logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED
+                        , CommonCssConstants.BOTTOM));
                 }
             }
         }

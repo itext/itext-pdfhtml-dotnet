@@ -78,8 +78,14 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void PercentMarginTest() {
-            //Todo: the width for table currently set incorrect.
+            // TODO DEVSIX-5726 the width for table currently set incorrect.
             ConvertToPdfAndCompare("percentMarginTest", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PercentMarginTableTest() {
+            // TODO DEVSIX-5726 the width for table currently set incorrect.
+            ConvertToPdfAndCompare("percentMarginTable", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
@@ -101,6 +107,11 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void ImageWidthInPercentValueTest() {
             ConvertToPdfAndCompare("imageWidthInPercentValue", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MaxWidthInPixelForTableTest() {
+            ConvertToPdfAndCompare("maxWidthForChildTablesInPixels", sourceFolder, destinationFolder);
         }
     }
 }

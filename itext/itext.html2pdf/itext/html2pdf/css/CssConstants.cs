@@ -42,7 +42,7 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Collections.Generic;
-using iText.IO.Util;
+using iText.Commons.Utils;
 using iText.StyledXmlParser.Css;
 
 namespace iText.Html2pdf.Css {
@@ -122,10 +122,6 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant BLOCK.</summary>
         public const String BLOCK = "block";
-
-        /// <summary>The Constant BREAK_WORD.</summary>
-        [System.ObsoleteAttribute(@"use iText.StyledXmlParser.Css.CommonCssConstants.BREAK_WORD instead")]
-        public const String BREAK_WORD = "break-word";
 
         /// <summary>The Constant CAPITALIZE.</summary>
         public const String CAPITALIZE = "capitalize";

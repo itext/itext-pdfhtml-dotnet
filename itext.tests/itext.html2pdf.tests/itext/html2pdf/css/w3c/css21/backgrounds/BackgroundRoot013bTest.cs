@@ -22,11 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Backgrounds {
     // TODO DEVSIX-4413. Background-color special keyword values isn't supported
-    [LogMessage(iText.Html2pdf.LogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED, Count = 6)]
+    [LogMessage(Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED, Count = 6)]
     public class BackgroundRoot013bTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "background-root-013b.xht";
