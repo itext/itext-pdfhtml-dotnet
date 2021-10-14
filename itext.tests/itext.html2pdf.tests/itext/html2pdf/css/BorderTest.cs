@@ -228,5 +228,105 @@ namespace iText.Html2pdf.Css {
             //TODO DEVSIX-4119 update cmp file after fix
             ConvertToPdfAndCompare("tfootBorderCollapse", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void TableBorderStyleHiddenTest() {
+            // TODO DEVSIX-5914 Currently border-style: hidden works like border-style: none
+            ConvertToPdfAndCompare("tableBorderStyleHidden", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableBorderStyleNoneTest() {
+            // TODO DEVSIX-5914 This test could be used as a reference while testing border-style: hidden
+            ConvertToPdfAndCompare("tableBorderStyleNone", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableBorderStyleCollapsingPriorityTest() {
+            // TODO DEVSIX-5915 border-style is not considered while collapsing: in browsers one can see,
+            //  that top border of the cell below always wins the bottom border of the cell above
+            ConvertToPdfAndCompare("tableBorderStyleCollapsingPriority", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableWithCellsOfDifferentBorderColorsTest() {
+            // TODO DEVSIX-5524 Left border is drawn underneath, but should overlap top and bottom
+            ConvertToPdfAndCompare("tableWithCellsOfDifferentBorderColors", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CellDifferentBorderColorsTest() {
+            // TODO DEVSIX-5524 Left border is drawn underneath, but should overlap top and bottom
+            ConvertToPdfAndCompare("cellDifferentBorderColors", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderCollapseWithZeroWidthBorderTest() {
+            ConvertToPdfAndCompare("borderCollapseWithZeroWidthBorder", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BigRowspanCollapseTest() {
+            ConvertToPdfAndCompare("bigRowspanCollapse", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CellBorderCollapseTest() {
+            ConvertToPdfAndCompare("cellBorderCollapse", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HeaderBodyFooterTest() {
+            ConvertToPdfAndCompare("headerBodyFooter", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BodyCellContentOverlapsBorder2Test() {
+            // TODO DEVSIX-5524 Content should be placed over rather than under overlapped border
+            ConvertToPdfAndCompare("bodyCellContentOverlapsBorder2", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BordersOfDifferentWidthsTest() {
+            ConvertToPdfAndCompare("bordersOfDifferentWidths", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HeaderBodyFooterBottomBorderCollapseTest() {
+            ConvertToPdfAndCompare("headerBodyFooterBottomBorderCollapse", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BodyCellContentOverlapsBorderTest() {
+            // TODO DEVSIX-5524 ?
+            ConvertToPdfAndCompare("bodyCellContentOverlapsBorder", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BottomBorderCellAndTableCollapseTest() {
+            // TODO DEVSIX-5524 Left border is drawn underneath, but should overlap top and bottom
+            ConvertToPdfAndCompare("bottomBorderCellAndTableCollapse", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FooterContentOverlapsFooterBorderTest() {
+            ConvertToPdfAndCompare("footerContentOverlapsFooterBorder", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CellBordersDifferentWidthsTest() {
+            // TODO DEVSIX-5524 min-width is not respected
+            ConvertToPdfAndCompare("cellBordersDifferentWidths", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CornerWidthHorizontalBorderWinsTest() {
+            ConvertToPdfAndCompare("cornerWidthHorizontalBorderWins", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CornerWidthVerticalBorderWinsTest() {
+            ConvertToPdfAndCompare("cornerWidthVerticalBorderWins", sourceFolder, destinationFolder);
+        }
     }
 }
