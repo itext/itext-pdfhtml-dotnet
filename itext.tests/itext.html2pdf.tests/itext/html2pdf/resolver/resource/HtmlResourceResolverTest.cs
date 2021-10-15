@@ -61,6 +61,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Resolver.Resource {
+    // TODO: DEVSIX-5968 Add new tests in HtmlResourceResolverTest
     public class HtmlResourceResolverTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/resolver/resource/HtmlResourceResolverTest/";
@@ -430,7 +431,5 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
         }
-        // TODO test with absolute http links for resources?
-        // TODO test with http base URI?
     }
 }

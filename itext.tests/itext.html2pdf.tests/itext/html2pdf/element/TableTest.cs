@@ -111,7 +111,7 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void HelloTableFixed6DocumentTest() {
-            //TODO this test could be improved, somehow.
+            //TODO: DEVSIX-5967 Incorrect cell content layout for 'table-layout: fixed' tag.
             RunTest("hello_table_fixed6");
         }
 
@@ -179,7 +179,7 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void HelloTableAuto5DocumentTest() {
-            //TODO this test should be improved, incorrect widths. Each cell shall have its max width.
+            //TODO: DEVSIX-5969 Incorrect text wrapping for 'table-layout: auto' tag.
             RunTest("hello_table_auto5");
         }
 
@@ -205,7 +205,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void HelloTableAuto10DocumentTest() {
-            //TODO this test should be improved, incorrect widths.
             RunTest("hello_table_auto10");
         }
 
