@@ -92,7 +92,7 @@ namespace iText.Html2pdf.Html {
         /// <returns>converted number</returns>
         public static String ConvertNumberAccordingToGlyphStyle(CounterDigitsGlyphStyle glyphStyle, int number) {
             if (glyphStyle == null) {
-                return number.ToString();
+                return ConvertNumberDefault(number);
             }
             switch (glyphStyle) {
                 case CounterDigitsGlyphStyle.NONE: {
@@ -112,27 +112,30 @@ namespace iText.Html2pdf.Html {
                 }
 
                 case CounterDigitsGlyphStyle.UPPER_ALPHA_AND_LATIN: {
-                    return number > 0 ? EnglishAlphabetNumbering.ToLatinAlphabetNumberUpperCase(number) : number.ToString();
+                    return number > 0 ? EnglishAlphabetNumbering.ToLatinAlphabetNumberUpperCase(number) : ConvertNumberDefault
+                        (number);
                 }
 
                 case CounterDigitsGlyphStyle.LOWER_ALPHA_AND_LATIN: {
-                    return number > 0 ? EnglishAlphabetNumbering.ToLatinAlphabetNumberLowerCase(number) : number.ToString();
+                    return number > 0 ? EnglishAlphabetNumbering.ToLatinAlphabetNumberLowerCase(number) : ConvertNumberDefault
+                        (number);
                 }
 
                 case CounterDigitsGlyphStyle.LOWER_GREEK: {
-                    return number > 0 ? GreekAlphabetNumbering.ToGreekAlphabetNumberLowerCase(number) : number.ToString();
+                    return number > 0 ? GreekAlphabetNumbering.ToGreekAlphabetNumberLowerCase(number) : ConvertNumberDefault(number
+                        );
                 }
 
                 case CounterDigitsGlyphStyle.LOWER_ROMAN: {
-                    return number <= MAX_ROMAN_NUMBER ? RomanNumbering.ToRomanLowerCase(number) : number.ToString();
+                    return number <= MAX_ROMAN_NUMBER ? RomanNumbering.ToRomanLowerCase(number) : ConvertNumberDefault(number);
                 }
 
                 case CounterDigitsGlyphStyle.UPPER_ROMAN: {
-                    return number <= MAX_ROMAN_NUMBER ? RomanNumbering.ToRomanUpperCase(number) : number.ToString();
+                    return number <= MAX_ROMAN_NUMBER ? RomanNumbering.ToRomanUpperCase(number) : ConvertNumberDefault(number);
                 }
 
                 case CounterDigitsGlyphStyle.DECIMAL_LEADING_ZERO: {
-                    return (number < 10 ? "0" : "") + number.ToString();
+                    return (number < 10 ? "0" : "") + ConvertNumberDefault(number);
                 }
 
                 case CounterDigitsGlyphStyle.GEORGIAN: {
@@ -143,13 +146,17 @@ namespace iText.Html2pdf.Html {
                     return ArmenianNumbering.ToArmenian(number);
                 }
 
+                case CounterDigitsGlyphStyle.DEFAULT:
                 default: {
-                    return number.ToString();
+                    return ConvertNumberDefault(number);
                 }
             }
         }
 
-        //TODO
+        private static String ConvertNumberDefault(int number) {
+            return number.ToString();
+        }
+
         /// <summary>Gets a string which contains all glyphs which can be used in number according to given glyph style.
         ///     </summary>
         /// <param name="glyphStyle">style of the glyphs</param>
