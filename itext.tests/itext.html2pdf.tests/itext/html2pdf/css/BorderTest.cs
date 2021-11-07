@@ -328,5 +328,25 @@ namespace iText.Html2pdf.Css {
         public virtual void CornerWidthVerticalBorderWinsTest() {
             ConvertToPdfAndCompare("cornerWidthVerticalBorderWins", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void ShorthandBorderBottomInThTdTest() {
+            ConvertToPdfAndCompare("shorthandBorderBottomInThTd", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ShorthandBorderTopInThTdTest() {
+            ConvertToPdfAndCompare("shorthandBorderTopInThTd", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ShorthandBorderRightInThTdTest() {
+            ConvertToPdfAndCompare("shorthandBorderRightInThTd", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ShorthandBorderLeftInThTdTest() {
+            ConvertToPdfAndCompare("shorthandBorderLeftInThTd", sourceFolder, destinationFolder);
+        }
     }
 }
