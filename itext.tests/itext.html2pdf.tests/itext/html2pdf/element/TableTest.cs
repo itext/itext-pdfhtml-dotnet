@@ -548,6 +548,19 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void EmptyTdTest() {
+            // TODO DEVSIX-6068 support empty td tag
+            RunTest("emptyTd");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING, Count = 2
+            )]
+        public virtual void EmptyTrTest() {
+            RunTest("emptyTr");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void TagsFlushingErrorWhenConvertedFromHtmlTest() {
             String file = sourceFolder + "tagsFlushingErrorWhenConvertedFromHtml.html";
             IList<IElement> elements = HtmlConverter.ConvertToElements(new FileStream(file, FileMode.Open, FileAccess.Read
@@ -565,6 +578,11 @@ namespace iText.Html2pdf.Element {
             }
             , NUnit.Framework.Throws.InstanceOf<PdfException>().With.Message.EqualTo("Tag structure flushing failed: it might be corrupted."))
 ;
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageScaleTest() {
+            RunTest("imageScale");
         }
 
         private void RunTest(String testName) {

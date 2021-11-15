@@ -46,10 +46,9 @@ using iText.Html2pdf;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class BrTest : ExtendedITextTest {
+    public class BrTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/BrTest/";
 
@@ -95,6 +94,17 @@ namespace iText.Html2pdf.Element {
                  + "brInsideDifferentTagsTest01.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "brInsideDifferentTagsTest01.pdf"
                 , sourceFolder + "cmp_brInsideDifferentTagsTest01.pdf", destinationFolder, "diff04_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BrSmallFontSizeTest() {
+            // TODO DEVSIX-6070 <br> tag create too much space with a small font size
+            ConvertToPdfAndCompare("brSmallFontSize", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BrClearNoneTest() {
+            ConvertToPdfAndCompare("brClearNone", sourceFolder, destinationFolder);
         }
     }
 }
