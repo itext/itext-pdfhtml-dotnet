@@ -585,6 +585,30 @@ namespace iText.Html2pdf.Element {
             RunTest("imageScale");
         }
 
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        public virtual void TableSplitAndNotInitializedAreaTest() {
+            // TODO This test should be considered during DEVSIX-1655. After the ticket is fixed, the cmp might get updated
+            RunTest("tableSplitAndNotInitializedArea");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RepeatFooterHeaderInComplexTableTest() {
+            RunTest("repeatFooterHeaderInComplexTable");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
+        public virtual void ThTagConvertToElementTest() {
+            RunConvertToElements("thTagConvertToElement", false);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ThTagConvertToPdfTest() {
+            RunTest("thTagConvertToPdf");
+        }
+
         private void RunTest(String testName) {
             RunTest(testName, false);
         }

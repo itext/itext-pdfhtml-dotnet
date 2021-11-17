@@ -79,7 +79,6 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         public virtual void HelloParagraphTableTest() {
-            // TODO DEVSIX-1124
             ConvertAndCompare(sourceFolder + "hello_paragraph_table.html", destinationFolder + "hello_paragraph_table.pdf"
                 , sourceFolder + "cmp_hello_paragraph_table.pdf", destinationFolder, "diff02_");
         }
@@ -98,7 +97,6 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         public virtual void HelloParagraphNestedInTableDocumentTest() {
-            // TODO DEVSIX-1124
             ConvertAndCompare(sourceFolder + "hello_paragraph_nested_in_table.html", destinationFolder + "hello_paragraph_nested_in_table.pdf"
                 , sourceFolder + "cmp_hello_paragraph_nested_in_table.pdf", destinationFolder, "diff03_");
         }
