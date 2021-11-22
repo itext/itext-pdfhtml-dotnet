@@ -126,6 +126,7 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void SpanTest07() {
+            //TODO DEVSIX-2485: Margins-applying currently doesn't work in html way for spans inside other spans.
             TestWithSuffix("07");
         }
 
@@ -199,6 +200,42 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void SpanWithBackgroundImageTest() {
             Test("spanWithBackgroundImageTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SpanBorderDottedInsideSolidSpanTest() {
+            //TODO DEVSIX-2485: Border-applying currently doesn't work in html way for spans inside other spans.
+            Test("spanBorderDottedInsideSolidSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SpanBorderNoneInsideDoubleSpanTest() {
+            //TODO DEVSIX-2485: Border-applying currently doesn't work in html way for spans inside other spans.
+            Test("spanBorderNoneInsideDoubleSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SpanBorderMixedInsideSolidSpanTest() {
+            //TODO DEVSIX-2485: Border-applying currently doesn't work in html way for spans inside other spans.
+            Test("spanBorderMixedInsideSolidSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SpanMarginRightInsideSpanTest() {
+            //TODO DEVSIX-2485: Margins-applying currently doesn't work in html way for spans inside other spans.
+            Test("spanMarginRightInsideSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SpanMarginLeftInsideSpanTest() {
+            //TODO DEVSIX-2485: Margins-applying currently doesn't work in html way for spans inside other spans.
+            Test("spanMarginLeftInsideSpanTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SpanMarginLeftInsideRightSpanTest() {
+            //TODO DEVSIX-2485: Margins-applying currently doesn't work in html way for spans inside other spans.
+            Test("spanMarginLeftInsideRightSpan");
         }
     }
 }
