@@ -43,5 +43,13 @@ namespace iText.Html2pdf.Css.Media {
                 (MediaType.PRINT));
             ConvertToPdfAndCompare("mediaPrint", SOURCE_FOLDER, DESTINATION_FOLDER, false, converterProperties);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void MediaPrintAttributeTest() {
+            ConverterProperties converterProperties = new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription
+                (MediaType.PRINT));
+            ConvertToPdfAndCompare("mediaPrintAttribute", SOURCE_FOLDER, DESTINATION_FOLDER, false, converterProperties
+                );
+        }
     }
 }
