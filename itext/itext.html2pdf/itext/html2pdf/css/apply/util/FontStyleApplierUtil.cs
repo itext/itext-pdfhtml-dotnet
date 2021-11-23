@@ -117,12 +117,18 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String direction = cssProps.Get(CssConstants.DIRECTION);
             if (CssConstants.RTL.Equals(direction)) {
                 element.SetProperty(Property.BASE_DIRECTION, BaseDirection.RIGHT_TO_LEFT);
-                element.SetProperty(Property.TEXT_ALIGNMENT, TextAlignment.RIGHT);
+                // For list items default behaviour differs from other elements:
+                // only the list symbol should be aligned differently
+                if (!CssConstants.LIST_ITEM.Equals(cssProps.Get(CssConstants.DISPLAY))) {
+                    element.SetProperty(Property.TEXT_ALIGNMENT, TextAlignment.RIGHT);
+                }
             }
             else {
                 if (CssConstants.LTR.Equals(direction)) {
                     element.SetProperty(Property.BASE_DIRECTION, BaseDirection.LEFT_TO_RIGHT);
-                    element.SetProperty(Property.TEXT_ALIGNMENT, TextAlignment.LEFT);
+                    if (!CssConstants.LIST_ITEM.Equals(cssProps.Get(CssConstants.DISPLAY))) {
+                        element.SetProperty(Property.TEXT_ALIGNMENT, TextAlignment.LEFT);
+                    }
                 }
             }
             if (stylesContainer is IElementNode && ((IElementNode)stylesContainer).ParentNode() is IElementNode && CssConstants

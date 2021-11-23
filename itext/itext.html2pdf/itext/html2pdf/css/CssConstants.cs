@@ -71,6 +71,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant DISPLAY.</summary>
         public const String DISPLAY = "display";
 
+        /// <summary>The Constant LIST_ITEM.</summary>
+        public const String LIST_ITEM = "list-item";
+
         /// <summary>The Constant MARKS.</summary>
         public const String MARKS = "marks";
 
