@@ -44,27 +44,58 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    public class ListCssTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+    public class ListCssTest : ExtendedHtmlConversionITextTest {
+        private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/ListCSSTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/ListCSSTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListCSSStartTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "orderedList.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "orderedList.html"), new FileInfo(DESTINATION_FOLDER
                  + "orderedList01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "orderedList01.pdf", 
-                sourceFolder + "cmp_orderedList01.pdf", destinationFolder, "diff02_"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "orderedList01.pdf", 
+                SOURCE_FOLDER + "cmp_orderedList01.pdf", DESTINATION_FOLDER, "diff02_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LowercaseATypeTest() {
+            ConvertToPdfAndCompare("aType", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void UppercaseATypeTest() {
+            ConvertToPdfAndCompare("aAType", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LowercaseITypeTest() {
+            ConvertToPdfAndCompare("iType", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void UppercaseITypeTest() {
+            ConvertToPdfAndCompare("iIType", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DigitTypeTest() {
+            ConvertToPdfAndCompare("1Type", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO: DEVSIX-6128 NullPointerException when trying to convert html with non-existing ol type.
+        [NUnit.Framework.Test]
+        public virtual void UnsupportedType() {
+            NUnit.Framework.Assert.Catch(typeof(NullReferenceException), () => ConvertToPdfAndCompare("unsupportedType"
+                , SOURCE_FOLDER, DESTINATION_FOLDER));
         }
     }
 }
