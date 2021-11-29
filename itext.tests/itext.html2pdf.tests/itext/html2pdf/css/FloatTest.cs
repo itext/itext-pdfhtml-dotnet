@@ -53,15 +53,15 @@ using iText.Test;
 
 namespace iText.Html2pdf.Css {
     public class FloatTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/FloatTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/FloatTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateOrClearDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
@@ -702,29 +702,19 @@ namespace iText.Html2pdf.Css {
             RunTest("floatElementInDiv", "diff_floatElementInDiv_");
         }
 
-        private void RunTest(String testName, String diff) {
-            String htmlName = sourceFolder + testName + ".html";
-            String outFileName = destinationFolder + testName + ".pdf";
-            String cmpFileName = sourceFolder + "cmp_" + testName + ".pdf";
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlName), new FileInfo(outFileName));
-            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlName) + "\n");
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, destinationFolder
-                , diff));
-        }
-
         [NUnit.Framework.Test]
         public virtual void ResponsiveIText() {
             PageSize[] pageSizes = new PageSize[] { null, new PageSize(PageSize.A3.GetHeight(), PageSize.A4.GetHeight(
                 )), new PageSize(760, PageSize.A4.GetHeight()), new PageSize(PageSize.A5.GetWidth(), PageSize.A4.GetHeight
                 ()) };
-            String htmlSource = sourceFolder + "responsiveIText.html";
+            String htmlSource = SOURCE_FOLDER + "responsiveIText.html";
             foreach (PageSize pageSize in pageSizes) {
                 float? pxWidth = null;
                 if (pageSize != null) {
                     pxWidth = CssDimensionParsingUtils.ParseAbsoluteLength(pageSize.GetWidth().ToString());
                 }
                 String outName = "responsiveIText" + (pxWidth != null ? "_" + (int)(float)pxWidth : "") + ".pdf";
-                PdfWriter writer = new PdfWriter(destinationFolder + outName);
+                PdfWriter writer = new PdfWriter(DESTINATION_FOLDER + outName);
                 PdfDocument pdfDoc = new PdfDocument(writer);
                 ConverterProperties converterProperties = new ConverterProperties();
                 if (pageSize != null) {
@@ -745,9 +735,33 @@ namespace iText.Html2pdf.Css {
                 }
                 String outName = "responsiveIText" + (pxWidth != null ? "_" + (int)(float)pxWidth : "") + ".pdf";
                 String cmpName = "cmp_" + outName;
-                NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + outName, sourceFolder
-                     + cmpName, destinationFolder, "diffResponsive_"));
+                NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + outName, SOURCE_FOLDER
+                     + cmpName, DESTINATION_FOLDER, "diffResponsive_"));
             }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitFloatedListsTest() {
+            String htmlName = SOURCE_FOLDER + "splitFloatedLists.html";
+            String outFileName = DESTINATION_FOLDER + "splitFloatedLists.pdf";
+            String cmpFileName = SOURCE_FOLDER + "cmp_splitFloatedLists.pdf";
+            PdfDocument doc = new PdfDocument(new PdfWriter(outFileName));
+            doc.SetDefaultPageSize(PageSize.A5.Rotate());
+            HtmlConverter.ConvertToPdf(new FileStream(htmlName, FileMode.Open, FileAccess.Read), doc, new ConverterProperties
+                ().SetBaseUri(SOURCE_FOLDER));
+            PrintPathToConsole(htmlName, "html: ");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, DESTINATION_FOLDER
+                ));
+        }
+
+        private void RunTest(String testName, String diff) {
+            String htmlName = SOURCE_FOLDER + testName + ".html";
+            String outFileName = DESTINATION_FOLDER + testName + ".pdf";
+            String cmpFileName = SOURCE_FOLDER + "cmp_" + testName + ".pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlName), new FileInfo(outFileName));
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlName) + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, DESTINATION_FOLDER
+                , diff));
         }
     }
 }

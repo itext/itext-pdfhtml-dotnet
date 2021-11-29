@@ -43,7 +43,6 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
-using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Test;
 using iText.Test.Attributes;
@@ -141,12 +140,17 @@ namespace iText.Html2pdf.Css {
             RunTest("styledButtons");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void IconsInButtonsOfDifferentSizeTest() {
+            RunTest("iconsInButtonsOfDifferentSize");
+        }
+
         private void RunTest(String testName) {
             String htmlName = SOURCE_FOLDER + testName + ".html";
             String outFileName = DESTINATION_FOLDER + testName + ".pdf";
             String cmpFileName = SOURCE_FOLDER + "cmp_" + testName + ".pdf";
             HtmlConverter.ConvertToPdf(new FileInfo(htmlName), new FileInfo(outFileName));
-            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlName) + "\n");
+            PrintPathToConsole(htmlName, "html: ");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, DESTINATION_FOLDER
                 ));
         }
