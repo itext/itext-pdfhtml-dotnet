@@ -116,6 +116,31 @@ namespace iText.Html2pdf.Css {
             RunTest("readOnlyInput");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void ActiveAndDisabledStateOfButtonTest() {
+            RunTest("activeAndDisabledStateOfButton");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BlockLevelButtonsTest() {
+            RunTest("blockLevelButtons");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ButtonOnElementsTest() {
+            RunTest("buttonOnElements");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ButtonSizesTest() {
+            RunTest("buttonSizes");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void StyledButtonsTest() {
+            RunTest("styledButtons");
+        }
+
         private void RunTest(String testName) {
             String htmlName = SOURCE_FOLDER + testName + ".html";
             String outFileName = DESTINATION_FOLDER + testName + ".pdf";
