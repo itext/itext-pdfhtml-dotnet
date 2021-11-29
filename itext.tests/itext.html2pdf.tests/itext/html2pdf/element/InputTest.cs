@@ -270,6 +270,11 @@ namespace iText.Html2pdf.Element {
                 );
         }
 
+        [NUnit.Framework.Test]
+        public virtual void InputMinWidthTest() {
+            RunTest("inputMinWidth");
+        }
+
         private class CustomTextInputTagWorkerFactory : DefaultTagWorkerFactory {
             public override ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
                 switch (tag.Name().ToLowerInvariant()) {
