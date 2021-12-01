@@ -42,28 +42,37 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     public class MarginTest : ExtendedHtmlConversionITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/MarginTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/MarginTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void MarginAutoImageInsideDiv01Test() {
-            ConvertToPdfAndCompare("marginAutoImageInsideDiv01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("marginAutoImageInsideDiv01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void MarginAutoImageInsideDiv02Test() {
-            ConvertToPdfAndCompare("marginAutoImageInsideDiv02", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("marginAutoImageInsideDiv02", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        //TODO DEVSIX-1101 Layout + Html2pdf: Support margin value in percents
+        [LogMessage(Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED)]
+        public virtual void MarginLeftInPercentRelativeDivWidthTest() {
+            ConvertToPdfAndCompare("marginLeftInPercentRelativeDivWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }
