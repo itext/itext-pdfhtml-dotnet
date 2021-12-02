@@ -152,6 +152,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.UL, CssConstants.INLINE, () => new SpanTagCssApplier());
             mapping.PutMapping(TagConstants.LI, CssConstants.INLINE, () => new SpanTagCssApplier());
             mapping.PutMapping(TagConstants.LI, CssConstants.INLINE_BLOCK, () => new BlockCssApplier());
+            mapping.PutMapping(TagConstants.LI, CssConstants.BLOCK, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.DD, CssConstants.INLINE, () => new SpanTagCssApplier());
             mapping.PutMapping(TagConstants.DT, CssConstants.INLINE, () => new SpanTagCssApplier());
             mapping.PutMapping(TagConstants.SPAN, CssConstants.BLOCK, () => new BlockCssApplier());
