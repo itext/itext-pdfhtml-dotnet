@@ -152,6 +152,12 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void DisplayBlockInsideImageTest() {
+            //TODO DEVSIX-6163 Image is converted in outPdf as inline element when display: block is set
+            ConvertToPdfAndCompare("displayBlockInsideImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void DisplayInline01Test() {
             ConvertToPdfAndCompare("display_inline01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
