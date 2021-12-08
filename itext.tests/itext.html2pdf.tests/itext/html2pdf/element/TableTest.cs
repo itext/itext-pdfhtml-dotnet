@@ -609,6 +609,16 @@ namespace iText.Html2pdf.Element {
             RunTest("thTagConvertToPdf");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void InlineWithInlineBlockAsTdChildTest() {
+            RunTest("inlineWithInlineBlockAsTdChild");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineWithInlineBlockAsTdChildWrappedTest() {
+            RunTest("inlineWithInlineBlockAsTdChildWrapped");
+        }
+
         private void RunTest(String testName) {
             RunTest(testName, false);
         }
