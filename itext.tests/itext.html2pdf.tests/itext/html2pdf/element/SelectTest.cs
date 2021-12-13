@@ -46,6 +46,7 @@ using iText.Html2pdf;
 using iText.Html2pdf.Logs;
 using iText.IO.Util;
 using iText.Kernel.Utils;
+using iText.Layout.Logs;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -267,13 +268,13 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void SelectNotFittingTest02() {
             RunTest("selectNotFittingTest02");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void SelectNotFittingTest03() {
             RunTest("selectNotFittingTest03");
         }

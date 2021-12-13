@@ -42,10 +42,11 @@ address: sales@itextpdf.com
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Layout.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Pagination {
-    [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
+    [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
     public class PageBreakMargins002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "page-break-margins-002.xht";
