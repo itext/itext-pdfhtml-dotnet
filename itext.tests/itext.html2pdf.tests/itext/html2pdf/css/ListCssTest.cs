@@ -97,5 +97,10 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.Catch(typeof(NullReferenceException), () => ConvertToPdfAndCompare("unsupportedType"
                 , SOURCE_FOLDER, DESTINATION_FOLDER));
         }
+
+        [NUnit.Framework.Test]
+        public virtual void HorizontalDescriptionListTest() {
+            ConvertToPdfAndCompare("horizontalDescriptionList", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
     }
 }
