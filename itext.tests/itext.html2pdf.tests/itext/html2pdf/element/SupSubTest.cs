@@ -43,44 +43,63 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Test;
 
 namespace iText.Html2pdf.Element {
     public class SupSubTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/SupSubTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/element/SupSubTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void SupSub01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "supSubTest01.html"), new FileInfo(destinationFolder
-                 + "supSubTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "supSubTest01.pdf", sourceFolder
-                 + "cmp_supSubTest01.pdf", destinationFolder, "diff01_"));
+            RunTest("supSubTest01");
         }
 
         [NUnit.Framework.Test]
         public virtual void SupSub02Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "supSubTest02.html"), new FileInfo(destinationFolder
-                 + "supSubTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "supSubTest02.pdf", sourceFolder
-                 + "cmp_supSubTest02.pdf", destinationFolder, "diff02_"));
+            RunTest("supSubTest02");
         }
 
         [NUnit.Framework.Test]
         public virtual void SupSub03Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "supSubTest03.html"), new FileInfo(destinationFolder
-                 + "supSubTest03.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "supSubTest03.pdf", sourceFolder
-                 + "cmp_supSubTest03.pdf", destinationFolder, "diff03_"));
+            RunTest("supSubTest03");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SupWithTopVerticalAlignForImageTest() {
+            // TODO: update cmp file after DEVSIX-6193 will be fixed
+            RunTest("supWithTopVerticalAlignForImage");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SupWithTopVerticalAlignForLinkTest() {
+            // TODO: update cmp file after DEVSIX-6193 will be fixed
+            RunTest("supWithTopVerticalAlignForLink");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SupWithDisplayNoneTest() {
+            RunTest("supWithDisplayNone");
+        }
+
+        private void RunTest(String testName) {
+            String htmlName = SOURCE_FOLDER + testName + ".html";
+            String outFileName = DESTINATION_FOLDER + testName + ".pdf";
+            String cmpFileName = SOURCE_FOLDER + "cmp_" + testName + ".pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlName), new FileInfo(outFileName));
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlName) + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, DESTINATION_FOLDER
+                ));
         }
     }
 }

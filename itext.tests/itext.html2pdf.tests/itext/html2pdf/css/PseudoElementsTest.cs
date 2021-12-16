@@ -309,5 +309,11 @@ namespace iText.Html2pdf.Css {
         public virtual void NonNormalizedAfterBeforeTest() {
             ConvertToPdfAndCompare("nonNormalizedAfterBefore", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void PseudoElementsWithMarginTest() {
+            // TODO: update cmp file after DEVSIX-6192 will be fixed
+            ConvertToPdfAndCompare("pseudoElementsWithMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
     }
 }

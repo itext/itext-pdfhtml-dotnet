@@ -754,6 +754,12 @@ namespace iText.Html2pdf.Css {
                 ));
         }
 
+        [NUnit.Framework.Test]
+        public virtual void FloatLeftWithPaddingInLiTest() {
+            // TODO: update cmp file after DEVSIX-4381 will be fixed
+            RunTest("floatLeftWithPaddingInLi", "diff_floatLeftWithPaddingInLi_");
+        }
+
         private void RunTest(String testName, String diff) {
             String htmlName = SOURCE_FOLDER + testName + ".html";
             String outFileName = DESTINATION_FOLDER + testName + ".pdf";
