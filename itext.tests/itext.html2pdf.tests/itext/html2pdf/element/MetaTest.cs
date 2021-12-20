@@ -45,10 +45,9 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    public class MetaTest : ExtendedITextTest {
+    public class MetaTest : ExtendedHtmlConversionITextTest {
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/MetaTest/";
 
@@ -104,6 +103,19 @@ namespace iText.Html2pdf.Element {
                  + "cmp_metaTest03.pdf", DESTINATION_FOLDER, "diff03_"));
             NUnit.Framework.Assert.IsNull(compareTool.CompareDocumentInfo(DESTINATION_FOLDER + "metaTest03.pdf", SOURCE_FOLDER
                  + "cmp_metaTest03.pdf"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MetaApplicationNameTest() {
+            String srcHtml = SOURCE_FOLDER + "metaApplicationName.html";
+            String outPdf = DESTINATION_FOLDER + "metaApplicationName.pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_metaApplicationName.pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(srcHtml), new FileInfo(outPdf));
+            PdfDocumentInfo pdfDocInfo = new PdfDocument(new PdfReader(outPdf)).GetDocumentInfo();
+            CompareTool compareTool = new CompareTool();
+            NUnit.Framework.Assert.IsNull(compareTool.CompareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "metaAppName_"
+                ));
+            NUnit.Framework.Assert.AreEqual("iText", pdfDocInfo.GetCreator());
         }
     }
 }

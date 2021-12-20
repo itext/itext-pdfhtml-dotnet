@@ -40,11 +40,11 @@ source product.
 For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
-using iText.Html2pdf;
 using iText.StyledXmlParser.Resolver.Resource;
+using iText.Test;
 
 namespace iText.Html2pdf.Resolver.Resource {
-    public class ExternalResourcesTest : ExternalExtendedITextTest {
+    public class ExternalResourcesTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void ExternalStylesheetTest() {
             ResourceResolver resourceResolver = new ResourceResolver("");

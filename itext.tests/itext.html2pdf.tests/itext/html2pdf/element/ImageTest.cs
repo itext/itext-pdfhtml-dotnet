@@ -41,137 +41,100 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Pdf;
-using iText.Kernel.Utils;
+using iText.Html2pdf.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
-    public class ImageTest : ExternalExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+    public class ImageTest : ExtendedHtmlConversionITextTest {
+        private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/ImageTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/element/ImageTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImagesInBodyTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imagesInBody.html"), new FileInfo(destinationFolder
-                 + "imagesInBody.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imagesInBody.pdf", sourceFolder
-                 + "cmp_imagesInBody.pdf", destinationFolder, "diff18_"));
+            ConvertToPdfAndCompare("imagesInBody", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImagesWithWideBorders() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imagesWithWideBorders.html"), new FileInfo(destinationFolder
-                 + "imagesWithWideBorders.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imagesWithWideBorders.pdf"
-                , sourceFolder + "cmp_imagesWithWideBorders.pdf", destinationFolder));
+            ConvertToPdfAndCompare("imagesWithWideBorders", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImagesWithWideMargins() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imagesWithWideMargins.html"), new FileInfo(destinationFolder
-                 + "imagesWithWideMargins.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imagesWithWideMargins.pdf"
-                , sourceFolder + "cmp_imagesWithWideMargins.pdf", destinationFolder));
+            ConvertToPdfAndCompare("imagesWithWideMargins", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImagesWithWidePaddings() {
             // TODO DEVSIX-2467
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imagesWithWidePaddings.html"), new FileInfo(destinationFolder
-                 + "imagesWithWidePaddings.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imagesWithWidePaddings.pdf"
-                , sourceFolder + "cmp_imagesWithWidePaddings.pdf", destinationFolder));
+            ConvertToPdfAndCompare("imagesWithWidePaddings", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImagesWithWidePaddingsBordersMargins() {
             // TODO DEVSIX-2467
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imagesWithWidePaddingsBordersMargins.html"), new FileInfo
-                (destinationFolder + "imagesWithWidePaddingsBordersMargins.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imagesWithWidePaddingsBordersMargins.pdf"
-                , sourceFolder + "cmp_imagesWithWidePaddingsBordersMargins.pdf", destinationFolder));
+            ConvertToPdfAndCompare("imagesWithWidePaddingsBordersMargins", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CheckImageBorderRadius() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "checkImageBorderRadius.html"), new FileInfo(destinationFolder
-                 + "checkImageBorderRadius.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "checkImageBorderRadius.pdf"
-                , sourceFolder + "cmp_checkImageBorderRadius.pdf", destinationFolder));
+            ConvertToPdfAndCompare("checkImageBorderRadius", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageFileDocumentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "smallWidthImagePlacement.html"), new FileInfo(destinationFolder
-                 + "smallWidthImagePlacement.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "smallWidthImagePlacement.pdf"
-                , sourceFolder + "cmp_smallWidthImagePlacement.pdf", destinationFolder));
+            ConvertToPdfAndCompare("smallWidthImagePlacement", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageUrlDocumentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imageUrl.html"), new FileInfo(destinationFolder + 
-                "imageUrlDocument.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imageUrlDocument.pdf"
-                , sourceFolder + "cmp_imageUrlDocument.pdf", destinationFolder));
+            ConvertToPdfAndCompare("imageUrlDocument", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageWithIncorrectBase64Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imageWithIncorrectBase64.html"), new FileInfo(destinationFolder
-                 + "imageWithIncorrectBase64.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imageWithIncorrectBase64.pdf"
-                , sourceFolder + "cmp_imageWithIncorrectBase64.pdf", destinationFolder));
+            ConvertToPdfAndCompare("imageWithIncorrectBase64", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void EmbeddedImageBase64Test() {
+            //TODO DEVSIX-6190 pdfHtml: Embedded image from html doesn't present in out pdf
+            ConvertToPdfAndCompare("embeddedImageBase64", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageBase64DifferentFormatsTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imageBase64DifferentFormats.html"), new FileInfo(destinationFolder
-                 + "imageBase64DifferentFormats.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imageBase64DifferentFormats.pdf"
-                , sourceFolder + "cmp_imageBase64DifferentFormats.pdf", destinationFolder));
+            ConvertToPdfAndCompare("imageBase64DifferentFormats", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void SmallImageTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "smallImageTest.html"), new FileInfo(destinationFolder
-                 + "smallImageTest.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "smallImageTest.pdf", 
-                sourceFolder + "cmp_smallImageTest.pdf", destinationFolder));
+            ConvertToPdfAndCompare("smallImageTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageInSpanTest() {
             // TODO: DEVSIX-2485
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imageInSpan.html"), new FileInfo(destinationFolder
-                 + "imageInSpan.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imageInSpan.pdf", sourceFolder
-                 + "cmp_imageInSpan.pdf", destinationFolder));
+            ConvertToPdfAndCompare("imageInSpan", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CaseSensitiveBase64DataInCssNormalizationTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "caseSensitiveBase64DataInCssNormalization.html"), 
-                new FileInfo(destinationFolder + "caseSensitiveBase64DataInCssNormalization.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "caseSensitiveBase64DataInCssNormalization.pdf"
-                , sourceFolder + "cmp_caseSensitiveBase64DataInCssNormalization.pdf", destinationFolder));
+            ConvertToPdfAndCompare("caseSensitiveBase64DataInCssNormalization", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void InlineBlockImageTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "inlineBlockImage.html"), new FileInfo(destinationFolder
-                 + "inlineBlockImage.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "inlineBlockImage.pdf"
-                , sourceFolder + "cmp_inlineBlockImage.pdf", destinationFolder));
+            ConvertToPdfAndCompare("inlineBlockImage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         /// <summary>Important: the name of the resource in this test is "base64.svg".</summary>
@@ -182,31 +145,24 @@ namespace iText.Html2pdf.Element {
         /// </remarks>
         [NUnit.Framework.Test]
         public virtual void SvgExternalResourceCornerCaseTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "svgExternalResourceCornerCase.html"), new FileInfo
-                (destinationFolder + "svgExternalResourceCornerCase.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "svgExternalResourceCornerCase.pdf"
-                , sourceFolder + "cmp_svgExternalResourceCornerCase.pdf", destinationFolder));
+            ConvertToPdfAndCompare("svgExternalResourceCornerCase", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageAltTextTest() {
-            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "imageAltText.pdf"));
-            pdfDocument.SetTagged();
-            using (FileStream fileInputStream = new FileStream(sourceFolder + "imageAltText.html", FileMode.Open, FileAccess.Read
-                )) {
-                HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, new ConverterProperties().SetBaseUri(sourceFolder
-                    ));
-            }
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "imageAltText.pdf", sourceFolder
-                 + "cmp_imageAltText.pdf", destinationFolder));
+            ConvertToPdfAndCompare("imageAltText", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageUrlExternalDocumentTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "externalUrlImage.html"), new FileInfo(destinationFolder
-                 + "externalUrlImage.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "externalUrlImage.pdf"
-                , sourceFolder + "cmp_externalUrlImage.pdf", destinationFolder));
+            ConvertToPdfAndCompare("externalUrlImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
+        public virtual void SourceMediaTest() {
+            //To see the result in html, just increase the size
+            ConvertToPdfAndCompare("sourceMedia", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }

@@ -50,204 +50,201 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Pdfa;
 using iText.StyledXmlParser.Css.Media;
-using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
-    public class ListTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+    public class ListTest : ExtendedHtmlConversionITextTest {
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/ListTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/element/ListTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateOrClearDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest01() {
-            RunTest("listTest01");
+            ConvertToPdfAndCompare("listTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest02() {
-            RunTest("listTest02");
+            ConvertToPdfAndCompare("listTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest03() {
-            RunTest("listTest03");
+            ConvertToPdfAndCompare("listTest03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest04() {
-            RunTest("listTest04");
+            ConvertToPdfAndCompare("listTest04", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, Count = 32)]
         public virtual void ListTest05() {
-            RunTest("listTest05");
+            ConvertToPdfAndCompare("listTest05", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest06() {
-            RunTest("listTest06");
+            ConvertToPdfAndCompare("listTest06", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest07() {
-            RunTest("listTest07");
+            ConvertToPdfAndCompare("listTest07", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest08() {
-            RunTest("listTest08");
+            ConvertToPdfAndCompare("listTest08", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest09() {
-            RunTest("listTest09");
+            ConvertToPdfAndCompare("listTest09", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest10() {
-            RunTest("listTest10");
+            ConvertToPdfAndCompare("listTest10", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest11() {
-            RunTest("listTest11");
+            ConvertToPdfAndCompare("listTest11", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest12() {
-            RunTest("listTest12");
+            ConvertToPdfAndCompare("listTest12", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest13() {
-            RunTest("listTest13");
+            ConvertToPdfAndCompare("listTest13", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest14() {
-            RunTest("listTest14");
+            ConvertToPdfAndCompare("listTest14", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest15() {
-            RunTest("listTest15");
+            ConvertToPdfAndCompare("listTest15", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest16() {
-            RunTest("listTest16");
+            ConvertToPdfAndCompare("listTest16", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest17() {
-            RunTest("listTest17");
+            ConvertToPdfAndCompare("listTest17", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest18() {
-            RunTest("listTest18");
+            ConvertToPdfAndCompare("listTest18", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest19() {
-            RunTest("listTest19");
+            ConvertToPdfAndCompare("listTest19", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListTest20() {
-            RunTest("listTest20");
+            ConvertToPdfAndCompare("listTest20", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListLiValuePropertyTest() {
-            RunTest("listLiValuePropertyTest");
+            ConvertToPdfAndCompare("listLiValuePropertyTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListStartPropertyTest() {
-            RunTest("listStartPropertyTest");
+            ConvertToPdfAndCompare("listStartPropertyTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListItemValueTest() {
-            RunTest("listItemValueTest");
+            ConvertToPdfAndCompare("listItemValueTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListItemValueTest01() {
-            RunTest("listItemValueTest01");
+            ConvertToPdfAndCompare("listItemValueTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ListItemValueTest02() {
-            RunTest("listItemValueTest02");
+            ConvertToPdfAndCompare("listItemValueTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void DescendingListTest() {
-            RunTest("descendingListTest");
+            ConvertToPdfAndCompare("descendingListTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-2431")]
         public virtual void ListItemAbsolutePositionTest() {
-            RunTest("list-item-absolute");
+            //TODO DEVSIX-2431 Positioned elements (e.g. absolute positioning) are lost when block is split across pages
+            ConvertToPdfAndCompare("list-item-absolute", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CheckOrderedListStartAndValue() {
             //TODO: update after fix of DEVSIX-2537
             //http://www.timrivera.com/tests/ol-start.html
-            RunTest("checkOrderedListStartAndValue");
+            ConvertToPdfAndCompare("checkOrderedListStartAndValue", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CheckOrderedListNestedLists() {
-            NUnit.Framework.Assert.That(() =>  {
-                //TODO: update after fix of DEVSIX-2538
-                RunTest("checkOrderedListNestedLists");
-            }
-            , NUnit.Framework.Throws.InstanceOf<ArgumentException>().With.Message.EqualTo(MessageFormatUtil.Format("The parameter must be a positive integer")))
-;
+            //TODO: update after fix of DEVSIX-2538
+            String expectedMessage = MessageFormatUtil.Format("The parameter must be a positive integer");
+            Exception exception = NUnit.Framework.Assert.Catch(typeof(ArgumentException), () => ConvertToPdfAndCompare
+                ("checkOrderedListNestedLists", SOURCE_FOLDER, DESTINATION_FOLDER));
+            NUnit.Framework.Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 6)]
         public virtual void ListsWithInlineChildren() {
             //TODO: update after DEVSIX-2093, DEVSIX-2092, DEVSIX-2091 fixes
-            RunTest("listsWithInlineChildren");
+            ConvertToPdfAndCompare("listsWithInlineChildren", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineWithInlineBlockAsLiChildTest() {
+            ConvertToPdfAndCompare("inlineWithInlineBlockAsLiChild", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, Count = 32)]
         public virtual void ListToPdfaTest() {
-            Stream @is = new FileStream(sourceFolder + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read);
-            PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "listToPdfa.pdf"), PdfAConformanceLevel
+            Stream @is = new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read
+                );
+            PdfADocument pdfADocument = new PdfADocument(new PdfWriter(DESTINATION_FOLDER + "listToPdfa.pdf"), PdfAConformanceLevel
                 .PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", @is));
-            using (FileStream fileInputStream = new FileStream(sourceFolder + "listToPdfa.html", FileMode.Open, FileAccess.Read
+            using (FileStream fileInputStream = new FileStream(SOURCE_FOLDER + "listToPdfa.html", FileMode.Open, FileAccess.Read
                 )) {
                 HtmlConverter.ConvertToPdf(fileInputStream, pdfADocument, new ConverterProperties().SetMediaDeviceDescription
                     (new MediaDeviceDescription(MediaType.PRINT)).SetFontProvider(new DefaultFontProvider(false, true, false
                     )));
             }
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "listToPdfa.pdf", sourceFolder
-                 + "cmp_listToPdfa.pdf", destinationFolder, "diff99_"));
-        }
-
-        private void RunTest(String testName) {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + testName + ".html"), new FileInfo(destinationFolder
-                 + testName + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + testName + ".pdf", sourceFolder
-                 + "cmp_" + testName + ".pdf", destinationFolder, "diff_" + testName));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "listToPdfa.pdf", SOURCE_FOLDER
+                 + "cmp_listToPdfa.pdf", DESTINATION_FOLDER, "diff99_"));
         }
     }
 }
