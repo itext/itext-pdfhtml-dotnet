@@ -352,5 +352,10 @@ namespace iText.Html2pdf.Css.Media.Page {
             , NUnit.Framework.Throws.InstanceOf<NullReferenceException>())
 ;
         }
+
+        [NUnit.Framework.Test]
+        public virtual void PageSizeLetterMarginZeroTest() {
+            ConvertToPdfAndCompare("pageSizeLetterMarginZero", sourceFolder, destinationFolder);
+        }
     }
 }

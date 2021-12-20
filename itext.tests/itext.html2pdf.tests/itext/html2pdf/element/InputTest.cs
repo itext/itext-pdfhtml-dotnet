@@ -56,6 +56,7 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Logs;
 using iText.StyledXmlParser.Node;
 using iText.Test.Attributes;
 
@@ -255,19 +256,24 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         // TODO DEVSIX-5571 Update cmp after the ticket is closed
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
         [LogMessage(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
         public virtual void CheckboxFullWidthDisplayBlockTest() {
             RunTest("checkboxFullWidthDisplayBlockTest");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
         public virtual void LongInputValueCausesNothingTest() {
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetTagWorkerFactory(new InputTest.CustomTextInputTagWorkerFactory());
             ConvertToPdfAndCompare("longInputValueCausesNothingTest", sourceFolder, destinationFolder, false, converterProperties
                 );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InputMinWidthTest() {
+            RunTest("inputMinWidth");
         }
 
         private class CustomTextInputTagWorkerFactory : DefaultTagWorkerFactory {

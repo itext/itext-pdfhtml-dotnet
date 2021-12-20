@@ -83,5 +83,10 @@ namespace iText.Html2pdf.Css {
         public virtual void SpacesInFontSizeValueTest() {
             ConvertToPdfAndCompare("spacesInFontSizeValueTest", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void DefaultFontDiffFontSizeSpanTest() {
+            ConvertToPdfAndCompare("defaultFontDiffFontSizeSpan", sourceFolder, destinationFolder);
+        }
     }
 }

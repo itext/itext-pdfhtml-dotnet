@@ -46,6 +46,7 @@ using iText.Html2pdf;
 using iText.Html2pdf.Logs;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
+using iText.Layout.Logs;
 using iText.Svg.Logs;
 using iText.Test;
 using iText.Test.Attributes;
@@ -101,7 +102,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void Convert_inline_Svg_path_in_HTML() {
             String name = "HTML_with_inline_svg_path";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
@@ -111,7 +112,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void Convert_inline_Svg_polygon_in_HTML() {
             // TODO: Update cmp_ file when DEVSIX-2719 resolved
             String name = "HTML_with_inline_svg_polygon";
@@ -122,7 +123,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void Convert_namespace_Svg_in_HTML() {
             String name = "namespace_svg";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
@@ -244,7 +245,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 66)]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 66)]
         public virtual void ExternalObjectWithGoogleCharts() {
             //TODO update after DEVSIX-2239
             String name = "inlineSvg_googleCharts";

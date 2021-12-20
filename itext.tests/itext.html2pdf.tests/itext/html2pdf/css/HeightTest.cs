@@ -179,5 +179,11 @@ namespace iText.Html2pdf.Css {
             // TODO DEVSIX-1895: height differs from the browser rendering due to incorrect resolving of max-height/height properties
             ConvertToPdfAndCompare("heightLesserThanMaxHeight01", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void HeightNumberWithoutUnitTest() {
+            // TODO DEVSIX-6078 print log message about invalid height
+            ConvertToPdfAndCompare("heightNumberWithoutUnit", sourceFolder, destinationFolder);
+        }
     }
 }

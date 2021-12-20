@@ -104,5 +104,19 @@ namespace iText.Html2pdf.Attach.Impl {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmpFile, DESTINATION_FOLDER, "diff_defaultOutlineHandlerWithHTagHavingIdTest"
                 ));
         }
+
+        [NUnit.Framework.Test]
+        public virtual void ResetOutlineHandlerTest() {
+            OutlineHandler outlineHandler = OutlineHandler.CreateStandardHandler();
+            for (int i = 1; i <= 3; i++) {
+                String srcHtml = SOURCE_FOLDER + "outlines0" + i + ".html";
+                String outPdf = DESTINATION_FOLDER + "outlines0" + i + ".pdf";
+                String cmpPdf = SOURCE_FOLDER + "cmp_outlines0" + i + ".pdf";
+                HtmlConverter.ConvertToPdf(new FileInfo(srcHtml), new FileInfo(outPdf), new ConverterProperties().SetOutlineHandler
+                    (outlineHandler));
+                NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "diff_"
+                     + i));
+            }
+        }
     }
 }

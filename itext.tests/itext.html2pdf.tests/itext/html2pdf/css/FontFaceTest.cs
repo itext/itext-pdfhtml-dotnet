@@ -275,6 +275,14 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
+        public virtual void DoNotDownloadUnusedFontTest() {
+            // TODO DEVSIX-2054
+            RunTest("doNotDownloadUnusedFontTest");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void CorrectUrlWithUsedUnicodeRangeTest() {
             //TODO: update after DEVSIX-2052
             RunTest("correctUrlWithUsedUnicodeRangeTest");
@@ -284,6 +292,32 @@ namespace iText.Html2pdf.Css {
         public virtual void CorrectUnicodeRangeSignificantTest() {
             //TODO: update after DEVSIX-2052
             RunTest("correctUnicodeRangeSignificantTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void OverwrittenUnicodeRangeTextInLineTest() {
+            // TODO DEVSIX-2052
+            RunTest("overwrittenUnicodeRangeTextInLineTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void OverwrittenUnicodeRangeTextInSomeLinesTest() {
+            RunTest("overwrittenUnicodeRangeTextInSomeLinesTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FontFaceWithUnicodeRangeTest() {
+            RunTest("fontFaceWithUnicodeRangeTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void IncorrectUnicodeRangesTest() {
+            RunTest("incorrectUnicodeRangesTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void UnusedFontWithUnicodeRangeTest() {
+            RunTest("unusedFontWithUnicodeRangeTest");
         }
 
         private void RunTest(String name) {

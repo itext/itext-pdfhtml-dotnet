@@ -52,6 +52,7 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Logs;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -111,7 +112,7 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void HelloTableFixed6DocumentTest() {
-            //TODO this test could be improved, somehow.
+            //TODO: DEVSIX-5967 Incorrect cell content layout for 'table-layout: fixed' tag.
             RunTest("hello_table_fixed6");
         }
 
@@ -179,7 +180,7 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void HelloTableAuto5DocumentTest() {
-            //TODO this test should be improved, incorrect widths. Each cell shall have its max width.
+            //TODO: DEVSIX-5969 Incorrect text wrapping for 'table-layout: auto' tag.
             RunTest("hello_table_auto5");
         }
 
@@ -205,7 +206,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void HelloTableAuto10DocumentTest() {
-            //TODO this test should be improved, incorrect widths.
             RunTest("hello_table_auto10");
         }
 
@@ -274,7 +274,7 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
             3)]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
         public virtual void CheckLargeImagesInTable() {
             //TODO update after DEVSIX-2382
             RunTest("checkLargeImagesInTable");
@@ -513,7 +513,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 2)]
         [LogMessage(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Count = 2)]
         public virtual void TableWithChildrenBiggerThanCellTest() {
             //TODO: DEVSIX-3022 - Inputs bigger than enclosing cell force table to split
@@ -549,6 +549,19 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void EmptyTdTest() {
+            // TODO DEVSIX-6068 support empty td tag
+            RunTest("emptyTd");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING, Count = 2
+            )]
+        public virtual void EmptyTrTest() {
+            RunTest("emptyTr");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void TagsFlushingErrorWhenConvertedFromHtmlTest() {
             String file = sourceFolder + "tagsFlushingErrorWhenConvertedFromHtml.html";
             IList<IElement> elements = HtmlConverter.ConvertToElements(new FileStream(file, FileMode.Open, FileAccess.Read
@@ -566,6 +579,45 @@ namespace iText.Html2pdf.Element {
             }
             , NUnit.Framework.Throws.InstanceOf<PdfException>().With.Message.EqualTo("Tag structure flushing failed: it might be corrupted."))
 ;
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageScaleTest() {
+            RunTest("imageScale");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
+        public virtual void TableSplitAndNotInitializedAreaTest() {
+            // TODO This test should be considered during DEVSIX-1655. After the ticket is fixed, the cmp might get updated
+            RunTest("tableSplitAndNotInitializedArea");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RepeatFooterHeaderInComplexTableTest() {
+            RunTest("repeatFooterHeaderInComplexTable");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.NOT_SUPPORTED_TH_SCOPE_TYPE, Count = 2)]
+        public virtual void ThTagConvertToElementTest() {
+            RunConvertToElements("thTagConvertToElement", false);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ThTagConvertToPdfTest() {
+            RunTest("thTagConvertToPdf");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineWithInlineBlockAsTdChildTest() {
+            RunTest("inlineWithInlineBlockAsTdChild");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineWithInlineBlockAsTdChildWrappedTest() {
+            RunTest("inlineWithInlineBlockAsTdChildWrapped");
         }
 
         private void RunTest(String testName) {

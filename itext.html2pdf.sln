@@ -1,8 +1,8 @@
 
 Microsoft Visual Studio Solution File, Format Version 11.00
-Project("{28A44613-21BB-46E2-BB98-23808869FDDE}") = "itext.html2pdf", "itext\itext.html2pdf\itext.html2pdf.netstandard.csproj", "{FF6BA09D-3655-466A-8C17-A7BFD3479CA1}"
+Project("{28A44613-21BB-46E2-BB98-23808869FDDE}") = "itext.html2pdf", "itext\itext.html2pdf\itext.html2pdf.csproj", "{FF6BA09D-3655-466A-8C17-A7BFD3479CA1}"
 EndProject
-Project("{28A44613-21BB-46E2-BB98-23808869FDDE}") = "itext.html2pdf.tests", "itext.tests\itext.html2pdf.tests\itext.html2pdf.tests.netstandard.csproj", "{AE4E5743-0665-4705-9A33-07EA57CDD269}"
+Project("{28A44613-21BB-46E2-BB98-23808869FDDE}") = "itext.html2pdf.tests", "itext.tests\itext.html2pdf.tests\itext.html2pdf.tests.csproj", "{AE4E5743-0665-4705-9A33-07EA57CDD269}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

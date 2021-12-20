@@ -65,7 +65,6 @@ namespace iText.Html2pdf.Attribute {
         }
 
         [NUnit.Framework.Test]
-        // TODO DEVSIX-5070 Process dots of ordered list items in the specified direction
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 18)]
         public virtual void DifferentDirsOfOrderedListsTest() {
             ConvertToPdfAndCompare("differentDirsOfOrderedLists", sourceFolder, destinationFolder);
