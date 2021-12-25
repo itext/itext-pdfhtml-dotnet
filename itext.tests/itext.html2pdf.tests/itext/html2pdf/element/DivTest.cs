@@ -85,5 +85,10 @@ namespace iText.Html2pdf.Element {
         public virtual void DivInTableDataCellTest() {
             ConvertToPdfAndCompare("divInTableDataCell", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void DivColumnCountTest() {
+            ConvertToPdfAndCompare("divColumnCount", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
     }
 }
