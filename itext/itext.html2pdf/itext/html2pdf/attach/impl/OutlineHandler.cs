@@ -46,6 +46,7 @@ using Microsoft.Extensions.Logging;
 using iText.Commons;
 using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Navigation;
@@ -98,12 +99,12 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <returns>the outline handler</returns>
         public static OutlineHandler CreateStandardHandler() {
             OutlineHandler handler = new OutlineHandler();
-            handler.PutTagPriorityMapping("h1", 1);
-            handler.PutTagPriorityMapping("h2", 2);
-            handler.PutTagPriorityMapping("h3", 3);
-            handler.PutTagPriorityMapping("h4", 4);
-            handler.PutTagPriorityMapping("h5", 5);
-            handler.PutTagPriorityMapping("h6", 6);
+            handler.PutTagPriorityMapping(TagConstants.H1, 1);
+            handler.PutTagPriorityMapping(TagConstants.H2, 2);
+            handler.PutTagPriorityMapping(TagConstants.H3, 3);
+            handler.PutTagPriorityMapping(TagConstants.H4, 4);
+            handler.PutTagPriorityMapping(TagConstants.H5, 5);
+            handler.PutTagPriorityMapping(TagConstants.H6, 6);
             return handler;
         }
 

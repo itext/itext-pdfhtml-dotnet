@@ -118,5 +118,17 @@ namespace iText.Html2pdf.Attach.Impl {
                      + i));
             }
         }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalHeadingLevelTest() {
+            String inFile = SOURCE_FOLDER + "capitalHeadingLevel.html";
+            String outFile = DESTINATION_FOLDER + "capitalHeadingLevel.pdf";
+            String cmpFile = SOURCE_FOLDER + "cmp_capitalHeadingLevel.pdf";
+            OutlineHandler outlineHandler = OutlineHandler.CreateStandardHandler();
+            HtmlConverter.ConvertToPdf(new FileInfo(inFile), new FileInfo(outFile), new ConverterProperties().SetOutlineHandler
+                (outlineHandler));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmpFile, DESTINATION_FOLDER, "diff_capitalHeadingLevelOne"
+                ));
+        }
     }
 }
