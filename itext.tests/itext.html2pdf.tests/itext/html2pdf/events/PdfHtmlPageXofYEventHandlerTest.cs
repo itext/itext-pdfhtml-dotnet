@@ -118,7 +118,7 @@ namespace iText.Html2pdf.Events {
                 this.placeholder = new PdfFormXObject(new Rectangle(0, 0, this.side, this.side));
             }
 
-            public virtual void HandleEvent(iText.Kernel.Events.Event @event) {
+            public virtual void HandleEvent(Event @event) {
                 PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
                 PdfDocument pdf = docEvent.GetDocument();
                 PdfPage page = docEvent.GetPage();

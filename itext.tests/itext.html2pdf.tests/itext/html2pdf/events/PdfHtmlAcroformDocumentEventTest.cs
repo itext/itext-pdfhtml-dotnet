@@ -103,7 +103,7 @@ namespace iText.Html2pdf.Events {
                 this.footer = footer;
             }
 
-            public void HandleEvent(iText.Kernel.Events.Event @event) {
+            public void HandleEvent(Event @event) {
                 PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
                 PdfPage page = docEvent.GetPage();
                 PdfCanvas pdfCanvas = new PdfCanvas(page);

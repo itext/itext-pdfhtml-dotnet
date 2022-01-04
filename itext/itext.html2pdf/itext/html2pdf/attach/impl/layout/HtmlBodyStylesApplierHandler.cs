@@ -76,7 +76,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             this.pageStylesPropertiesMap = pageStylesPropertiesMap;
         }
 
-        public virtual void HandleEvent(iText.Kernel.Events.Event @event) {
+        public virtual void HandleEvent(Event @event) {
             if (!(@event is PdfDocumentEvent)) {
                 return;
             }
