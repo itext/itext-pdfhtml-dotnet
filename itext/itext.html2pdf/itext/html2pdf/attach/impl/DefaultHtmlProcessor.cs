@@ -94,14 +94,12 @@ namespace iText.Html2pdf.Attach.Impl {
             <String>(JavaUtil.ArraysAsList(TagConstants.BR, TagConstants.LINK, TagConstants.META, TagConstants.TITLE
             , TagConstants.TR)));
 
-        // Content from <tr> is thrown upwards to parent, in other cases CSS is inherited anyway
         /// <summary>Set of tags that might be not processed by some tag workers and that are deliberately excluded from the logging.
         ///     </summary>
         private static readonly ICollection<String> ignoredChildTags = JavaCollectionsUtil.UnmodifiableSet(new HashSet
             <String>(JavaUtil.ArraysAsList(TagConstants.BODY, TagConstants.LINK, TagConstants.META, TagConstants.SCRIPT
             , TagConstants.TITLE)));
 
-        // TODO implement
         /// <summary>The processor context.</summary>
         private ProcessorContext context;
 
