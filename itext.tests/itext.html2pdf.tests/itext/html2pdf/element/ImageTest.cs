@@ -164,5 +164,10 @@ namespace iText.Html2pdf.Element {
             //To see the result in html, just increase the size
             ConvertToPdfAndCompare("sourceMedia", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void ResolutionInfoStructOf8bimHeaderImageTest() {
+            ConvertToPdfAndCompare("resolutionInfoStructOf8bimHeaderImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
     }
 }
