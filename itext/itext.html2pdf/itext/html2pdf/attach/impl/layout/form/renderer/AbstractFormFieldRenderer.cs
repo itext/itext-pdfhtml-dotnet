@@ -205,8 +205,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             if (occupiedArea == null) {
                 return false;
             }
-            return availableHeight >= occupiedArea.GetBBox().GetHeight() && availableWidth >= occupiedArea.GetBBox().GetWidth
-                ();
+            return availableHeight >= occupiedArea.GetBBox().GetHeight() && ((availableWidth >= occupiedArea.GetBBox()
+                .GetWidth()) || (this.GetProperty<OverflowPropertyValue?>(Property.OVERFLOW_X) == OverflowPropertyValue
+                .VISIBLE));
         }
 
         /// <summary>Gets the accessibility language.</summary>

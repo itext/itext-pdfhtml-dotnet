@@ -92,7 +92,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
 
         protected internal override IRenderer CreateFlatRenderer() {
             Paragraph paragraph = new Paragraph().SetWidth(DEFAULT_SIZE).SetHeight(DEFAULT_SIZE).SetBorder(new SolidBorder
-                (DEFAULT_BORDER_COLOR, DEFAULT_BORDER_WIDTH)).SetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
+                (DEFAULT_BORDER_COLOR, DEFAULT_BORDER_WIDTH)).SetBackgroundColor(DEFAULT_BACKGROUND_COLOR).SetHorizontalAlignment
+                (HorizontalAlignment.CENTER);
             return new CheckBoxRenderer.FlatParagraphRenderer(this, paragraph);
         }
 
