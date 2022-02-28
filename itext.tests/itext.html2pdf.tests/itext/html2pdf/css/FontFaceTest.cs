@@ -66,6 +66,12 @@ namespace iText.Html2pdf.Css {
             CreateOrClearDestinationFolder(destinationFolder);
         }
 
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
+        [NUnit.Framework.Test]
+        public virtual void EmptyFontDefinitionTest() {
+            RunTest("emptyWebFontCssTest");
+        }
+
         [NUnit.Framework.Test]
         public virtual void DroidSerifWebFontTest() {
             RunTest("droidSerifWebFontTest");
