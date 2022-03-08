@@ -224,7 +224,6 @@ namespace iText.Html2pdf.Attach.Impl {
         internal DefaultTagWorkerMapping() {
         }
 
-        internal delegate ITagWorker ITagWorkerCreator(IElementNode elementNode, ProcessorContext processorContext
-            );
+        public delegate ITagWorker ITagWorkerCreator(IElementNode elementNode, ProcessorContext processorContext);
     }
 }

@@ -195,6 +195,6 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             return mapping;
         }
 
-        internal delegate ICssApplier ICssApplierCreator();
+        public delegate ICssApplier ICssApplierCreator();
     }
 }
