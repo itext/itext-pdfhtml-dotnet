@@ -145,7 +145,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         */
         protected internal override void ApplyAcroField(DrawContext drawContext) {
             font.SetSubset(false);
-            String value = GetDefaultValue();
+            bool password = IsPassword();
+            String value = password ? "" : GetDefaultValue();
             String name = GetModelId();
             UnitValue fontSize = (UnitValue)this.GetPropertyAsUnitValue(Property.FONT_SIZE);
             if (!fontSize.IsPointValue()) {
@@ -157,19 +158,19 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             PdfDocument doc = drawContext.GetDocument();
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
-            bool password = IsPassword();
-            if (password) {
-                value = "";
+            float fontSizeValue = fontSize.GetValue();
+            FormsMetaInfoStaticContainer.UseMetaInfoDuringTheAction(GetMetaInfo(), () => {
+                PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSizeValue);
+                if (password) {
+                    inputField.SetFieldFlag(PdfFormField.FF_PASSWORD, true);
+                }
+                else {
+                    inputField.SetDefaultValue(new PdfString(value));
+                }
+                ApplyDefaultFieldProperties(inputField);
+                PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
             }
-            PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSize.GetValue());
-            if (password) {
-                inputField.SetFieldFlag(PdfFormField.FF_PASSWORD, true);
-            }
-            else {
-                inputField.SetDefaultValue(new PdfString(value));
-            }
-            ApplyDefaultFieldProperties(inputField);
-            PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
+            );
             WriteAcroFormFieldLangAttribute(doc);
         }
 

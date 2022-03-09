@@ -233,6 +233,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             }
         }
 
+        internal virtual MetaInfoContainer GetMetaInfo() {
+            return this.GetProperty<MetaInfoContainer>(Property.META_INFO);
+        }
+
         private void ProcessLangAttribute() {
             IPropertyContainer propertyContainer = flatRenderer.GetModelElement();
             if (propertyContainer is IAccessibleElement) {
