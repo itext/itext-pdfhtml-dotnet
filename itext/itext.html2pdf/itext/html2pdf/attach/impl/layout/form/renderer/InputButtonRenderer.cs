@@ -139,7 +139,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             Color backgroundColor = background == null ? null : background.GetColor();
             float fontSizeValue = fontSize.GetValue();
             FormsMetaInfoStaticContainer.UseMetaInfoDuringTheAction(GetMetaInfo(), () => {
-                PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSizeValue);
+                PdfButtonFormField button = new PushButtonFormFieldBuilder(doc, name).SetWidgetRectangle(area).SetCaption(
+                    value).CreatePushButton();
+                button.SetFont(font).SetFontSize(fontSizeValue);
                 if (backgroundColor != null) {
                     button.SetBackgroundColor(backgroundColor);
                 }

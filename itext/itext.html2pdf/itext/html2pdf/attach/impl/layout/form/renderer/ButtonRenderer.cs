@@ -88,7 +88,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 PdfFont font = doc.GetDefaultFont();
                 FormsMetaInfoStaticContainer.UseMetaInfoDuringTheAction(this.GetProperty<MetaInfoContainer>(Property.META_INFO
                     ), () => {
-                    PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSizeValue);
+                    PdfButtonFormField button = new PushButtonFormFieldBuilder(doc, name).SetWidgetRectangle(area).SetCaption(
+                        value).CreatePushButton();
+                    button.SetFont(font).SetFontSize(fontSizeValue);
                     button.GetWidgets()[0].SetHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
                     button.SetBorderWidth(0);
                     button.SetBackgroundColor(null);

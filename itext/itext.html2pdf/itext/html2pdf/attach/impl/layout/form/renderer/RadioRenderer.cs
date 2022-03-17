@@ -127,13 +127,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             PdfButtonFormField radioGroup = (PdfButtonFormField)form.GetField(groupName);
             bool addNew = false;
             if (null == radioGroup) {
-                radioGroup = PdfFormField.CreateRadioGroup(doc, groupName, "on");
+                radioGroup = new RadioFormFieldBuilder(doc, groupName).CreateRadioGroup();
+                radioGroup.SetValue("on");
                 addNew = true;
             }
             if (IsBoxChecked()) {
                 radioGroup.SetValue(GetModelId());
             }
-            PdfFormField radio = PdfFormField.CreateRadioButton(doc, area, radioGroup, GetModelId());
+            PdfFormField radio = new RadioFormFieldBuilder(doc).SetWidgetRectangle(area).CreateRadioButton(radioGroup, 
+                GetModelId());
             radio.SetCheckType(PdfFormField.TYPE_CIRCLE);
             if (addNew) {
                 form.AddField(radioGroup, page);

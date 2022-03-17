@@ -160,7 +160,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
             float fontSizeValue = fontSize.GetValue();
             FormsMetaInfoStaticContainer.UseMetaInfoDuringTheAction(GetMetaInfo(), () => {
-                PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSizeValue);
+                PdfFormField inputField = new TextFormFieldBuilder(doc, name).SetWidgetRectangle(area).CreateText().SetFont
+                    (font).SetFontSize(fontSizeValue).SetValue(value);
                 if (password) {
                     inputField.SetFieldFlag(PdfFormField.FF_PASSWORD, true);
                 }
