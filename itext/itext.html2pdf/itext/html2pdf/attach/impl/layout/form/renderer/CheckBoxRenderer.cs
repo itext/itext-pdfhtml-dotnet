@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -92,7 +92,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
 
         protected internal override IRenderer CreateFlatRenderer() {
             Paragraph paragraph = new Paragraph().SetWidth(DEFAULT_SIZE).SetHeight(DEFAULT_SIZE).SetBorder(new SolidBorder
-                (DEFAULT_BORDER_COLOR, DEFAULT_BORDER_WIDTH)).SetBackgroundColor(DEFAULT_BACKGROUND_COLOR);
+                (DEFAULT_BORDER_COLOR, DEFAULT_BORDER_WIDTH)).SetBackgroundColor(DEFAULT_BACKGROUND_COLOR).SetHorizontalAlignment
+                (HorizontalAlignment.CENTER);
             return new CheckBoxRenderer.FlatParagraphRenderer(this, paragraph);
         }
 

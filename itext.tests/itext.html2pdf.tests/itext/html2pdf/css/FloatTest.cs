@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -752,6 +752,12 @@ namespace iText.Html2pdf.Css {
             PrintPathToConsole(htmlName, "html: ");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, DESTINATION_FOLDER
                 ));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatLeftWithPaddingInLiTest() {
+            // TODO: update cmp file after DEVSIX-4381 will be fixed
+            RunTest("floatLeftWithPaddingInLi", "diff_floatLeftWithPaddingInLi_");
         }
 
         private void RunTest(String testName, String diff) {

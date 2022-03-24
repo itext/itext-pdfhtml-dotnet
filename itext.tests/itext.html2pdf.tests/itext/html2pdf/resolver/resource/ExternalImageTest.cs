@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -41,14 +41,14 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
-using iText.Html2pdf;
 using iText.IO.Image;
 using iText.Kernel.Pdf.Xobject;
 using iText.Kernel.Utils;
 using iText.StyledXmlParser.Resolver.Resource;
+using iText.Test;
 
 namespace iText.Html2pdf.Resolver.Resource {
-    public class ExternalImageTest : ExternalExtendedITextTest {
+    public class ExternalImageTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/resolver/resource/ExternalImageTest/";
 

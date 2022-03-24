@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,28 +43,41 @@ address: sales@itextpdf.com
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Test;
 
 namespace iText.Html2pdf.Element {
     public class EmTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/EmTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/element/EmTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void Em01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "emTest01.html"), new FileInfo(destinationFolder + 
-                "emTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "emTest01.pdf", sourceFolder
-                 + "cmp_emTest01.pdf", destinationFolder, "diff01_"));
+            RunTest("emTest01");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void EmWithNotLocallyLoadedFontTest() {
+            RunTest("emWithNotLocallyLoadedFont");
+        }
+
+        private void RunTest(String testName) {
+            String htmlName = SOURCE_FOLDER + testName + ".html";
+            String outFileName = DESTINATION_FOLDER + testName + ".pdf";
+            String cmpFileName = SOURCE_FOLDER + "cmp_" + testName + ".pdf";
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlName), new FileInfo(outFileName));
+            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlName) + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, DESTINATION_FOLDER
+                ));
         }
     }
 }

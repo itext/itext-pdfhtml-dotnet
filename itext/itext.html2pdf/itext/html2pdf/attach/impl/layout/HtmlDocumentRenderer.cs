@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -497,7 +497,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 return this;
             }
 
-            public virtual void HandleEvent(iText.Kernel.Events.Event @event) {
+            public virtual void HandleEvent(Event @event) {
                 if (@event is PdfDocumentEvent) {
                     PdfPage page = ((PdfDocumentEvent)@event).GetPage();
                     PdfDocument pdfDoc = ((PdfDocumentEvent)@event).GetDocument();

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -46,6 +46,8 @@ using iText.Forms;
 using iText.Forms.Fields;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Kernel.Colors;
+using iText.Kernel.Font;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Annot;
@@ -80,20 +82,26 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 Rectangle area = GetOccupiedArea().GetBBox().Clone();
                 ApplyMargins(area, false);
                 PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
-                PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, doc.GetDefaultFont(), fontSize
-                    .GetValue());
-                button.GetWidgets()[0].SetHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
-                button.SetBorderWidth(0);
-                button.SetBackgroundColor(null);
-                TransparentColor color = GetPropertyAsTransparentColor(Property.FONT_COLOR);
-                if (color != null) {
-                    button.SetColor(color.GetColor());
+                TransparentColor transparentColor = GetPropertyAsTransparentColor(Property.FONT_COLOR);
+                Color color = transparentColor == null ? null : transparentColor.GetColor();
+                float fontSizeValue = fontSize.GetValue();
+                PdfFont font = doc.GetDefaultFont();
+                FormsMetaInfoStaticContainer.UseMetaInfoDuringTheAction(this.GetProperty<MetaInfoContainer>(Property.META_INFO
+                    ), () => {
+                    PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSizeValue);
+                    button.GetWidgets()[0].SetHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
+                    button.SetBorderWidth(0);
+                    button.SetBackgroundColor(null);
+                    if (color != null) {
+                        button.SetColor(color);
+                    }
+                    PdfAcroForm forms = PdfAcroForm.GetAcroForm(doc, true);
+                    //Add fields only if it isn't already added. This can happen on split.
+                    if (forms.GetField(name) == null) {
+                        forms.AddField(button, page);
+                    }
                 }
-                PdfAcroForm forms = PdfAcroForm.GetAcroForm(doc, true);
-                //Add fields only if it isn't already added. This can happen on split.
-                if (forms.GetField(name) == null) {
-                    forms.AddField(button, page);
-                }
+                );
                 if (doc.IsTagged()) {
                     TagTreePointer formParentPointer = doc.GetTagStructureContext().GetAutoTaggingPointer();
                     IList<String> kidsRoles = formParentPointer.GetKidsRoles();

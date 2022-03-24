@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -50,6 +50,7 @@ using iText.Forms.Fields;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Logs;
+using iText.Kernel.Colors;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Layout.Layout;
@@ -134,14 +135,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
             ApplyPaddings(area, true);
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
-            PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSize.GetValue(
-                ));
             Background background = this.GetProperty<Background>(Property.BACKGROUND);
-            if (background != null && background.GetColor() != null) {
-                button.SetBackgroundColor(background.GetColor());
+            Color backgroundColor = background == null ? null : background.GetColor();
+            float fontSizeValue = fontSize.GetValue();
+            FormsMetaInfoStaticContainer.UseMetaInfoDuringTheAction(GetMetaInfo(), () => {
+                PdfButtonFormField button = PdfFormField.CreatePushButton(doc, area, name, value, font, fontSizeValue);
+                if (backgroundColor != null) {
+                    button.SetBackgroundColor(backgroundColor);
+                }
+                ApplyDefaultFieldProperties(button);
+                PdfAcroForm.GetAcroForm(doc, true).AddField(button, page);
             }
-            ApplyDefaultFieldProperties(button);
-            PdfAcroForm.GetAcroForm(doc, true).AddField(button, page);
+            );
             WriteAcroFormFieldLangAttribute(doc);
         }
 

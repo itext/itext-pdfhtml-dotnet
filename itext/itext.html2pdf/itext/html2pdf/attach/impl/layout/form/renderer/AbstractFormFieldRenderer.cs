@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -205,8 +205,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             if (occupiedArea == null) {
                 return false;
             }
-            return availableHeight >= occupiedArea.GetBBox().GetHeight() && availableWidth >= occupiedArea.GetBBox().GetWidth
-                ();
+            return availableHeight >= occupiedArea.GetBBox().GetHeight() && ((availableWidth >= occupiedArea.GetBBox()
+                .GetWidth()) || (this.GetProperty<OverflowPropertyValue?>(Property.OVERFLOW_X) == OverflowPropertyValue
+                .VISIBLE));
         }
 
         /// <summary>Gets the accessibility language.</summary>
@@ -230,6 +231,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                 }
                 formParentPointer.MoveToParent();
             }
+        }
+
+        internal virtual MetaInfoContainer GetMetaInfo() {
+            return this.GetProperty<MetaInfoContainer>(Property.META_INFO);
         }
 
         private void ProcessLangAttribute() {

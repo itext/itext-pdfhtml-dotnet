@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -50,24 +50,33 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     public class ScriptTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/ScriptTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/element/ScriptTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
         public virtual void Script01Test() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "scriptTest01.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "scriptTest01.html"), new FileInfo(DESTINATION_FOLDER
                  + "scriptTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "scriptTest01.pdf", sourceFolder
-                 + "cmp_scriptTest01.pdf", destinationFolder, "diff01_"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "scriptTest01.pdf", 
+                SOURCE_FOLDER + "cmp_scriptTest01.pdf", DESTINATION_FOLDER, "diff01_"));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
+        public virtual void NoScriptTagTest() {
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "noScriptTag.html"), new FileInfo(DESTINATION_FOLDER
+                 + "noScriptTag.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "noScriptTag.pdf", SOURCE_FOLDER
+                 + "cmp_noScriptTag.pdf", DESTINATION_FOLDER, "diff01_"));
         }
     }
 }

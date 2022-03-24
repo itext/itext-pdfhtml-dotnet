@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -118,7 +118,7 @@ namespace iText.Html2pdf.Events {
                 this.placeholder = new PdfFormXObject(new Rectangle(0, 0, this.side, this.side));
             }
 
-            public virtual void HandleEvent(iText.Kernel.Events.Event @event) {
+            public virtual void HandleEvent(Event @event) {
                 PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
                 PdfDocument pdf = docEvent.GetDocument();
                 PdfPage page = docEvent.GetPage();

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: iText Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -117,6 +117,18 @@ namespace iText.Html2pdf.Attach.Impl {
                 NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, DESTINATION_FOLDER, "diff_"
                      + i));
             }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CapitalHeadingLevelTest() {
+            String inFile = SOURCE_FOLDER + "capitalHeadingLevel.html";
+            String outFile = DESTINATION_FOLDER + "capitalHeadingLevel.pdf";
+            String cmpFile = SOURCE_FOLDER + "cmp_capitalHeadingLevel.pdf";
+            OutlineHandler outlineHandler = OutlineHandler.CreateStandardHandler();
+            HtmlConverter.ConvertToPdf(new FileInfo(inFile), new FileInfo(outFile), new ConverterProperties().SetOutlineHandler
+                (outlineHandler));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmpFile, DESTINATION_FOLDER, "diff_capitalHeadingLevelOne"
+                ));
         }
     }
 }

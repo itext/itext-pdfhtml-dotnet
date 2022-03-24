@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -383,6 +383,28 @@ namespace iText.Html2pdf.Resolver.Resource {
             String cmpPdf = SOURCE_FOLDER + "cmp_convertToPdfWithBaseUriFromUriTest.pdf";
             ConvertHtmlFileToPdf(SOURCE_FOLDER + "textWithStyleAndImageWithIncompletePath.html", outPdf, cmpPdf, new ConverterProperties
                 ().SetBaseUri(baseUri));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
+        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
+        public virtual void BaseHrefViaHtmlResourceReferenceTest() {
+            // TODO DEVSIX-6410 base href on html level is not supported
+            String outPdf = DESTINATION_FOLDER + "baseHrefViaHtmlResourceReferenceTest.pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_baseHrefViaHtmlResourceReferenceTest.pdf";
+            ConvertHtmlFileToPdf(SOURCE_FOLDER + "baseHrefViaHtmlResourceReferenceTest.html", outPdf, cmpPdf, new ConverterProperties
+                ());
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
+        public virtual void BaseHrefViaHtmlStylesheetReferenceTest() {
+            // TODO DEVSIX-6410 base href on html level is not supported
+            String outPdf = DESTINATION_FOLDER + "baseHrefViaHtmlStylesheetReferenceTest.pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_baseHrefViaHtmlStylesheetReferenceTest.pdf";
+            ConvertHtmlFileToPdf(SOURCE_FOLDER + "baseHrefViaHtmlStylesheetReferenceTest.html", outPdf, cmpPdf, new ConverterProperties
+                ());
         }
 
         private void ConvertHtmlStreamToPdf(String htmlPath, String outPdf, String cmpPdf, String baseUri) {

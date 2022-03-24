@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -161,11 +161,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             PdfDocument doc = drawContext.GetDocument();
             Rectangle area = flatRenderer.GetOccupiedArea().GetBBox().Clone();
             PdfPage page = doc.GetPage(occupiedArea.GetPageNumber());
-            PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSize.GetValue());
-            inputField.SetFieldFlag(PdfFormField.FF_MULTILINE, true);
-            inputField.SetDefaultValue(new PdfString(GetDefaultValue()));
-            ApplyDefaultFieldProperties(inputField);
-            PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
+            float fontSizeValue = fontSize.GetValue();
+            PdfString defaultValue = new PdfString(GetDefaultValue());
+            FormsMetaInfoStaticContainer.UseMetaInfoDuringTheAction(GetMetaInfo(), () => {
+                PdfFormField inputField = PdfFormField.CreateText(doc, area, name, value, font, fontSizeValue);
+                inputField.SetFieldFlag(PdfFormField.FF_MULTILINE, true);
+                inputField.SetDefaultValue(defaultValue);
+                ApplyDefaultFieldProperties(inputField);
+                PdfAcroForm.GetAcroForm(doc, true).AddField(inputField, page);
+            }
+            );
             WriteAcroFormFieldLangAttribute(doc);
         }
 

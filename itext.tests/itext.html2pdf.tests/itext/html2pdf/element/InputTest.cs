@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2021 iText Group NV
+Copyright (c) 1998-2022 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -255,11 +255,43 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        // TODO DEVSIX-5571 Update cmp after the ticket is closed
-        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
-        [LogMessage(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
+        public virtual void CheckboxInTableTest() {
+            RunTest("checkboxInTable");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CheckboxDisplayBlockInTableTest() {
+            RunTest("checkboxDisplayBlockInTable");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CheckboxFullWidthDisplayBlockInTableTest() {
+            RunTest("checkboxFullWidthDisplayBlockInTable");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CheckboxDiffWidthDisplayBlockInTableTest() {
+            RunTest("checkboxDiffWidthDisplayBlockInTable");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CheckboxTest() {
+            RunTest("checkbox");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CheckboxDisplayBlockTest() {
+            RunTest("checkboxDisplayBlock");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void CheckboxFullWidthDisplayBlockTest() {
-            RunTest("checkboxFullWidthDisplayBlockTest");
+            RunTest("checkboxFullWidthDisplayBlock");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CheckboxDiffWidthDisplayBlockTest() {
+            RunTest("checkboxDiffWidthDisplayBlock");
         }
 
         [NUnit.Framework.Test]
