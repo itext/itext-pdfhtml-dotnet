@@ -69,6 +69,12 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void AutoMarginTest() {
+            //TODO DEVSIX-5002 pdfHTML: support 'margin: auto'
+            ConvertToPdfAndCompare("autoMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         //TODO DEVSIX-1101 Layout + Html2pdf: Support margin value in percents
         [LogMessage(Html2PdfLogMessageConstant.MARGIN_VALUE_IN_PERCENT_NOT_SUPPORTED)]
         public virtual void MarginLeftInPercentRelativeDivWidthTest() {

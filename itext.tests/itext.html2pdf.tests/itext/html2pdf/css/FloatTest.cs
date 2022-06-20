@@ -711,7 +711,8 @@ namespace iText.Html2pdf.Css {
             foreach (PageSize pageSize in pageSizes) {
                 float? pxWidth = null;
                 if (pageSize != null) {
-                    pxWidth = CssDimensionParsingUtils.ParseAbsoluteLength(pageSize.GetWidth().ToString());
+                    pxWidth = CssDimensionParsingUtils.ParseAbsoluteLength(pageSize.GetWidth().ToString(System.Globalization.CultureInfo.InvariantCulture
+                        ));
                 }
                 String outName = "responsiveIText" + (pxWidth != null ? "_" + (int)(float)pxWidth : "") + ".pdf";
                 PdfWriter writer = new PdfWriter(DESTINATION_FOLDER + outName);
@@ -731,7 +732,8 @@ namespace iText.Html2pdf.Css {
             foreach (PageSize pageSize in pageSizes) {
                 float? pxWidth = null;
                 if (pageSize != null) {
-                    pxWidth = CssDimensionParsingUtils.ParseAbsoluteLength(pageSize.GetWidth().ToString());
+                    pxWidth = CssDimensionParsingUtils.ParseAbsoluteLength(pageSize.GetWidth().ToString(System.Globalization.CultureInfo.InvariantCulture
+                        ));
                 }
                 String outName = "responsiveIText" + (pxWidth != null ? "_" + (int)(float)pxWidth : "") + ".pdf";
                 String cmpName = "cmp_" + outName;

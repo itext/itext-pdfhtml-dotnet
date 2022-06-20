@@ -82,7 +82,6 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                     }
                 }
             }
-            // TODO as for now spans are flattened, let's at least make kids of floating spans floating too
             String floatVal = cssStyles.Get(CssConstants.FLOAT);
             if (floatVal != null && !CssConstants.NONE.Equals(floatVal)) {
                 foreach (IPropertyContainer elem in spanTagWorker.GetAllElements()) {

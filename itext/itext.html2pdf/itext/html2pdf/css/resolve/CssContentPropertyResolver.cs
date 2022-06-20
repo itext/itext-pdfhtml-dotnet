@@ -223,7 +223,6 @@ namespace iText.Html2pdf.Css.Resolve {
                                 if (token.GetValue().StartsWith("url(")) {
                                     IDictionary<String, String> attributes = new Dictionary<String, String>();
                                     attributes.Put(AttributeConstants.SRC, CssUtils.ExtractUrl(token.GetValue()));
-                                    //TODO: probably should add user agent styles on CssContentElementNode creation, not here.
                                     attributes.Put(AttributeConstants.STYLE, CssConstants.DISPLAY + ":" + CssConstants.INLINE_BLOCK);
                                     result.Add(new CssContentElementNode(contentContainer, TagConstants.IMG, attributes));
                                 }
