@@ -28,6 +28,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Resolver {
+    [NUnit.Framework.Category("Integration test")]
     public class UriResolverTest : ExtendedITextTest {
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/resolver/UriResolverTest/";

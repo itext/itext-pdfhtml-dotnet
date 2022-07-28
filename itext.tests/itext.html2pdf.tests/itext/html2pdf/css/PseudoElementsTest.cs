@@ -46,6 +46,7 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
+    [NUnit.Framework.Category("Integration test")]
     public class PseudoElementsTest : ExtendedHtmlConversionITextTest {
         public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/PseudoElementsTest/";

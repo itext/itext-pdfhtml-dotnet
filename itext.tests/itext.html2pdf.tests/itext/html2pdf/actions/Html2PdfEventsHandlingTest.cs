@@ -42,6 +42,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Actions {
+    [NUnit.Framework.Category("Integration test")]
     public class Html2PdfEventsHandlingTest : ExtendedITextTest {
         private static readonly TestConfigurationEvent CONFIGURATION_ACCESS = new TestConfigurationEvent();
 

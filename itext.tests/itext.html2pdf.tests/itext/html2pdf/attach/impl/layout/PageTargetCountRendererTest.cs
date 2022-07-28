@@ -28,6 +28,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    [NUnit.Framework.Category("Unit test")]
     public class PageTargetCountRendererTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN)]

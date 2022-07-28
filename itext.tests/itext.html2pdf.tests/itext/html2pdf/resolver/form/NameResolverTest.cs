@@ -44,6 +44,7 @@ using System;
 using iText.Test;
 
 namespace iText.Html2pdf.Resolver.Form {
+    [NUnit.Framework.Category("Unit test")]
     public class NameResolverTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void NormalizationTest() {

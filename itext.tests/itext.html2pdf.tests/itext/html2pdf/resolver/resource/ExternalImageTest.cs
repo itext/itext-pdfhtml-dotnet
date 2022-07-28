@@ -48,6 +48,7 @@ using iText.StyledXmlParser.Resolver.Resource;
 using iText.Test;
 
 namespace iText.Html2pdf.Resolver.Resource {
+    [NUnit.Framework.Category("Integration test")]
     public class ExternalImageTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/resolver/resource/ExternalImageTest/";

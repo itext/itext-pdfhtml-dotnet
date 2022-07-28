@@ -44,6 +44,7 @@ using iText.StyledXmlParser.Resolver.Resource;
 using iText.Test;
 
 namespace iText.Html2pdf.Resolver.Resource {
+    [NUnit.Framework.Category("Integration test")]
     public class ExternalResourcesTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void ExternalStylesheetTest() {

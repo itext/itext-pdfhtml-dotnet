@@ -30,6 +30,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    [NUnit.Framework.Category("Unit test")]
     public class SvgTagWorkerTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_PROCESS_SVG_ELEMENT, LogLevel = LogLevelConstants.ERROR)]

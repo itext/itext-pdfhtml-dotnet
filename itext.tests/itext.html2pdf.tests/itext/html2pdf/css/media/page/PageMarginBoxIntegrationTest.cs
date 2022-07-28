@@ -45,6 +45,7 @@ using iText.Html2pdf;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Media.Page {
+    [NUnit.Framework.Category("Integration test")]
     public class PageMarginBoxIntegrationTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/media/page/PageMarginBoxIntegrationTest/";

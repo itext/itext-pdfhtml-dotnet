@@ -47,6 +47,7 @@ using iText.Kernel.Utils;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
+    [NUnit.Framework.Category("Integration test")]
     public class ImagesDpiTest : ExtendedITextTest {
         private static readonly String SRC = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/ImagesDpiTest/";

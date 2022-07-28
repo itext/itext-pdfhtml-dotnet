@@ -45,6 +45,7 @@ using iText.Commons.Actions.Contexts;
 using iText.Test;
 
 namespace iText.Html2pdf {
+    [NUnit.Framework.Category("Unit test")]
     public class ConverterPropertiesTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void GetDefaultMetaInfoTest() {

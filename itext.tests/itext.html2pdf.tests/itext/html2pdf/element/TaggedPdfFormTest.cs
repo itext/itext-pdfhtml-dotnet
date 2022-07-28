@@ -45,6 +45,7 @@ using iText.Html2pdf;
 using iText.Kernel.Exceptions;
 
 namespace iText.Html2pdf.Element {
+    [NUnit.Framework.Category("Integration test")]
     public class TaggedPdfFormTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/TaggedPdfFormTest/";

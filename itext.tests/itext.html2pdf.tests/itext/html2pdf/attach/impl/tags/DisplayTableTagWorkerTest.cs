@@ -34,6 +34,7 @@ using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    [NUnit.Framework.Category("Unit test")]
     public class DisplayTableTagWorkerTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void LangAttrInDisplayTableForTaggedPdfTest() {

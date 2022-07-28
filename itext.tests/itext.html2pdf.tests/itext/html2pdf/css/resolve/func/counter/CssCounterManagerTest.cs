@@ -28,6 +28,7 @@ using iText.StyledXmlParser.Node;
 using iText.Test;
 
 namespace iText.Html2pdf.Css.Resolve.Func.Counter {
+    [NUnit.Framework.Category("Unit test")]
     public class CssCounterManagerTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void PushPopEveryCounterToCountersTest() {

@@ -24,6 +24,7 @@ using System;
 using iText.Test;
 
 namespace iText.Html2pdf.Css.Resolve.Func.Counter {
+    [NUnit.Framework.Category("Unit test")]
     public class PageTargetCountElementNodeTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void ConstructorTest() {

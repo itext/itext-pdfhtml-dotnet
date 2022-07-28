@@ -33,6 +33,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    [NUnit.Framework.Category("Unit test")]
     public class FlexApplierUtilTest : ExtendedITextTest {
         private const float EPS = 1e-6f;
 

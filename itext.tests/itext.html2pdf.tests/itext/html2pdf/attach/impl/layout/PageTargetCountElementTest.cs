@@ -24,6 +24,7 @@ using iText.Layout.Renderer;
 using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    [NUnit.Framework.Category("Unit test")]
     public class PageTargetCountElementTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void ConstructorTest() {
