@@ -48,7 +48,6 @@ using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
-using iText.Kernel.Colors;
 using iText.Kernel.Colors.Gradients;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
@@ -294,10 +293,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static void ApplyBackgroundColor(String backgroundColorStr, IPropertyContainer element, BackgroundBox
              clip) {
             if (backgroundColorStr != null && !CssConstants.TRANSPARENT.Equals(backgroundColorStr)) {
-                float[] rgbaColor = CssDimensionParsingUtils.ParseRgbaColor(backgroundColorStr);
-                Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
-                float opacity = rgbaColor[3];
-                Background backgroundColor = new Background(color, opacity, clip);
+                TransparentColor color = CssDimensionParsingUtils.ParseColor(backgroundColorStr);
+                Background backgroundColor = new Background(color.GetColor(), color.GetOpacity(), clip);
                 element.SetProperty(Property.BACKGROUND, backgroundColor);
             }
         }
