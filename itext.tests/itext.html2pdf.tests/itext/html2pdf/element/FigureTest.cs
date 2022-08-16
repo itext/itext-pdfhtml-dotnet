@@ -23,6 +23,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Html2pdf;
+using iText.Html2pdf.Utils;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Parser;
+using iText.Kernel.Pdf.Xobject;
 using iText.Kernel.Utils;
 using iText.Test;
 
@@ -62,6 +66,23 @@ namespace iText.Html2pdf.Element {
                  + "figureInSpan.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "figureInSpan.pdf", sourceFolder
                  + "cmp_figureInSpan.pdf", destinationFolder, "diff04_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CheckImageRemainsUncutWithFigureTagTest() {
+            //TODO DEVSIX-6985: change 1 to 2 in "PdfImageXObject image = doc.getPage(1).getResources()", change the assert
+            //  from "Assert.assertTrue(isImageCropped)" to assertFalse
+            FileInfo pdfFile = new FileInfo(destinationFolder + "imageInFigure.pdf");
+            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imageInFigure.html"), pdfFile);
+            using (PdfDocument doc = new PdfDocument(new PdfReader(pdfFile))) {
+                PdfImageXObject image = doc.GetPage(1).GetResources().GetImage(new PdfName("Im1"));
+                NUnit.Framework.Assert.IsNotNull(image);
+                ImageSizeMeasuringListener listener = new ImageSizeMeasuringListener(1);
+                PdfCanvasProcessor processor = new PdfCanvasProcessor(listener);
+                processor.ProcessPageContent(doc.GetPage(1));
+                bool isImageCropped = listener.bbox.GetY() < 0;
+                NUnit.Framework.Assert.IsTrue(isImageCropped);
+            }
         }
     }
 }
