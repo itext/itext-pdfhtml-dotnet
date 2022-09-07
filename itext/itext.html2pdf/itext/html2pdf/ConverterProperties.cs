@@ -127,6 +127,7 @@ namespace iText.Html2pdf {
             this.charset = other.charset;
             this.metaInfo = other.metaInfo;
             this.limitOfLayouts = other.limitOfLayouts;
+            this.immediateFlush = other.immediateFlush;
         }
 
         /// <summary>Gets the media device description.</summary>
