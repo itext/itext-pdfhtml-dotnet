@@ -52,6 +52,7 @@ using iText.StyledXmlParser.Css.Util;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
+    [NUnit.Framework.Category("Integration test")]
     public class FloatTest : ExtendedITextTest {
         public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/FloatTest/";

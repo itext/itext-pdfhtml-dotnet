@@ -43,9 +43,12 @@ address: sales@itextpdf.com
 using System;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
+using iText.StyledXmlParser.Css.Validate;
+using iText.StyledXmlParser.Css.Validate.Impl;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
+    [NUnit.Framework.Category("Integration test")]
     public class BorderTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/BorderTest/";
@@ -120,6 +123,17 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void Border3DTest02() {
             ConvertToPdfAndCompare("border3DTest02", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Border3DCmykTest() {
+            try {
+                CssDeclarationValidationMaster.SetValidator(new CssDeviceCmykAwareValidator());
+                ConvertToPdfAndCompare("border3DCmykTest", sourceFolder, destinationFolder);
+            }
+            finally {
+                CssDeclarationValidationMaster.SetValidator(new CssDefaultValidator());
+            }
         }
 
         [NUnit.Framework.Test]

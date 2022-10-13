@@ -39,6 +39,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    [NUnit.Framework.Category("Unit test")]
     public class BackgroundApplierUtilTest : ExtendedITextTest {
         private const double EPS = 0.000001;
 

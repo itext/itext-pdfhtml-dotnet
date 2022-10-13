@@ -167,13 +167,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
             borderWidthValue = unitValue.GetValue();
             Border border = null;
             if (borderWidthValue > 0) {
-                DeviceRgb color = (DeviceRgb)ColorConstants.BLACK;
+                Color color = ColorConstants.BLACK;
                 float opacity = 1f;
                 if (borderColor != null) {
                     if (!CssConstants.TRANSPARENT.Equals(borderColor)) {
-                        float[] rgbaColor = CssDimensionParsingUtils.ParseRgbaColor(borderColor);
-                        color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
-                        opacity = rgbaColor[3];
+                        TransparentColor tColor = CssDimensionParsingUtils.ParseColor(borderColor);
+                        color = tColor.GetColor();
+                        opacity = tColor.GetOpacity();
                     }
                     else {
                         opacity = 0f;
@@ -207,22 +207,42 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
 
                     case CssConstants.GROOVE: {
-                        border = new GrooveBorder(color, borderWidthValue, opacity);
+                        if (color is DeviceRgb) {
+                            border = new GrooveBorder((DeviceRgb)color, borderWidthValue, opacity);
+                        }
+                        if (color is DeviceCmyk) {
+                            border = new GrooveBorder((DeviceCmyk)color, borderWidthValue, opacity);
+                        }
                         break;
                     }
 
                     case CssConstants.RIDGE: {
-                        border = new RidgeBorder(color, borderWidthValue, opacity);
+                        if (color is DeviceRgb) {
+                            border = new RidgeBorder((DeviceRgb)color, borderWidthValue, opacity);
+                        }
+                        if (color is DeviceCmyk) {
+                            border = new RidgeBorder((DeviceCmyk)color, borderWidthValue, opacity);
+                        }
                         break;
                     }
 
                     case CssConstants.INSET: {
-                        border = new InsetBorder(color, borderWidthValue, opacity);
+                        if (color is DeviceRgb) {
+                            border = new InsetBorder((DeviceRgb)color, borderWidthValue, opacity);
+                        }
+                        if (color is DeviceCmyk) {
+                            border = new InsetBorder((DeviceCmyk)color, borderWidthValue, opacity);
+                        }
                         break;
                     }
 
                     case CssConstants.OUTSET: {
-                        border = new OutsetBorder(color, borderWidthValue, opacity);
+                        if (color is DeviceRgb) {
+                            border = new OutsetBorder((DeviceRgb)color, borderWidthValue, opacity);
+                        }
+                        if (color is DeviceCmyk) {
+                            border = new OutsetBorder((DeviceCmyk)color, borderWidthValue, opacity);
+                        }
                         break;
                     }
 

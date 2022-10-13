@@ -119,7 +119,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             else {
                 marginBox.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);
             }
-            // TODO outlines are currently not supported for page margin boxes, because of the outlines handling specificity (they are handled on renderer's parent level)
+            //TODO DEVSIX-7024 Support outlines for page margin boxes
             OutlineApplierUtil.ApplyOutlines(boxStyles, context, marginBox);
             marginBox.SetProperty(Property.FONT_PROVIDER, context.GetFontProvider());
             marginBox.SetProperty(Property.FONT_SET, context.GetTempFonts());

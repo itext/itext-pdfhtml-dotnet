@@ -47,6 +47,7 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 
 namespace iText.Html2pdf.Element {
+    [NUnit.Framework.Category("Integration test")]
     public class MetaTest : ExtendedHtmlConversionITextTest {
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/MetaTest/";

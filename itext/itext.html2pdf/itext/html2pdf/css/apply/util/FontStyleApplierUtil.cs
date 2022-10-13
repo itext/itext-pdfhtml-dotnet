@@ -103,9 +103,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (cssColorPropValue != null) {
                 TransparentColor transparentColor;
                 if (!CssConstants.TRANSPARENT.Equals(cssColorPropValue)) {
-                    float[] rgbaColor = CssDimensionParsingUtils.ParseRgbaColor(cssColorPropValue);
-                    Color color = new DeviceRgb(rgbaColor[0], rgbaColor[1], rgbaColor[2]);
-                    float opacity = rgbaColor[3];
+                    TransparentColor tColor = CssDimensionParsingUtils.ParseColor(cssColorPropValue);
+                    Color color = tColor.GetColor();
+                    float opacity = tColor.GetOpacity();
                     transparentColor = new TransparentColor(color, opacity);
                 }
                 else {
@@ -198,7 +198,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
             }
-            float[] colors = new float[4];
+            TransparentColor tColor_1;
             Color textDecorationColor;
             float opacity_1 = 1f;
             String textDecorationColorProp = cssProps.Get(CssConstants.TEXT_DECORATION_COLOR);
@@ -218,9 +218,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     textDecorationColor = ColorConstants.BLACK;
                 }
                 else {
-                    colors = CssDimensionParsingUtils.ParseRgbaColor(textDecorationColorProp);
-                    textDecorationColor = new DeviceRgb(colors[0], colors[1], colors[2]);
-                    opacity_1 = colors[3];
+                    tColor_1 = CssDimensionParsingUtils.ParseColor(textDecorationColorProp);
+                    textDecorationColor = tColor_1.GetColor();
+                    opacity_1 = tColor_1.GetOpacity();
                 }
             }
             String textDecorationLineProp = cssProps.Get(CssConstants.TEXT_DECORATION_LINE);

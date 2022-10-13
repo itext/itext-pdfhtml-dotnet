@@ -27,6 +27,7 @@ using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 using iText.Test;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
+    [NUnit.Framework.Category("Unit test")]
     public class DefaultCssApplierFactoryTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void CannotGetCssApplierForCustomTagViaReflection() {

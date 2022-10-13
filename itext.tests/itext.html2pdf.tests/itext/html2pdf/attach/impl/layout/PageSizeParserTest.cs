@@ -46,6 +46,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+    [NUnit.Framework.Category("Unit test")]
     public class PageSizeParserTest : ExtendedITextTest {
         private const double EPS = 1e-9;
 

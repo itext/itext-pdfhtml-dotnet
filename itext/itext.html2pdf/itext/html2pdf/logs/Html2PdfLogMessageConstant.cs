@@ -179,6 +179,9 @@ namespace iText.Html2pdf.Logs {
         /// <summary>The Constant WORKER_UNABLE_TO_PROCESS_OTHER_WORKER.</summary>
         public const String WORKER_UNABLE_TO_PROCESS_OTHER_WORKER = "Worker of type {0} unable to process {1}";
 
+        /// <summary>The Constant ELEMENT_DOES_NOT_FIT_CURRENT_AREA.</summary>
+        public const String ELEMENT_DOES_NOT_FIT_CURRENT_AREA = "Element does not fit current area";
+
         private Html2PdfLogMessageConstant() {
         }
         //Private constructor will prevent the instantiation of this class directly

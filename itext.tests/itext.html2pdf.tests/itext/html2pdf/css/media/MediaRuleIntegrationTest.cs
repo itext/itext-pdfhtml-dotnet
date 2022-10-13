@@ -25,6 +25,7 @@ using iText.Html2pdf;
 using iText.StyledXmlParser.Css.Media;
 
 namespace iText.Html2pdf.Css.Media {
+    [NUnit.Framework.Category("Integration test")]
     public class MediaRuleIntegrationTest : ExtendedHtmlConversionITextTest {
         public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/media/MediaRuleIntegrationTest/";

@@ -28,6 +28,7 @@ using iText.Kernel.Font;
 using iText.Test;
 
 namespace iText.Html2pdf.Resolver.Font {
+    [NUnit.Framework.Category("Unit test")]
     public class FontsUnicodeCoverageTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void CompareShippedFontsCoverageTest() {

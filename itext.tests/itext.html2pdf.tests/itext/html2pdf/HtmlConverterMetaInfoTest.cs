@@ -36,6 +36,7 @@ using iText.StyledXmlParser.Node;
 using iText.Test;
 
 namespace iText.Html2pdf {
+    [NUnit.Framework.Category("Unit test")]
     public class HtmlConverterMetaInfoTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void MetaInfoShouldBePresentTest() {

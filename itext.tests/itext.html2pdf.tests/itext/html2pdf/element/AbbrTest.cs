@@ -44,6 +44,7 @@ using System;
 using iText.Html2pdf;
 
 namespace iText.Html2pdf.Element {
+    [NUnit.Framework.Category("Integration test")]
     public class AbbrTest : ExtendedHtmlConversionITextTest {
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/element/AbbrTest/";

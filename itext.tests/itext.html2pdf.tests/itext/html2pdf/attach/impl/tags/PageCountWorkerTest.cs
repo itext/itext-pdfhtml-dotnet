@@ -27,6 +27,7 @@ using iText.Layout;
 using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    [NUnit.Framework.Category("Unit test")]
     public class PageCountWorkerTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void PageTargetCountElementNodeTest() {

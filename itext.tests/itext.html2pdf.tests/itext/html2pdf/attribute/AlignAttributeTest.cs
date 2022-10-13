@@ -47,6 +47,7 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 
 namespace iText.Html2pdf.Attribute {
+    [NUnit.Framework.Category("Integration test")]
     public class AlignAttributeTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/attribute/AlignAttributeTest/";

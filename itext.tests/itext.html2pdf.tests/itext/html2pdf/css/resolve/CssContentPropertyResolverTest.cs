@@ -31,6 +31,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Resolve {
+    [NUnit.Framework.Category("Unit test")]
     public class CssContentPropertyResolverTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void ResolveContentTargetCounterEnabledTest() {

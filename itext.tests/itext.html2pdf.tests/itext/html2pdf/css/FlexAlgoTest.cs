@@ -26,6 +26,7 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
+    [NUnit.Framework.Category("Integration test")]
     public class FlexAlgoTest : ExtendedHtmlConversionITextTest {
         private static bool s = true;
 

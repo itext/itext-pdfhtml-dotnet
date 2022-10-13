@@ -47,6 +47,7 @@ using iText.Kernel.Utils;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
+    [NUnit.Framework.Category("Integration test")]
     public class RelativeCssPathTest : ExtendedITextTest {
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/RelativeCssPathTest/";

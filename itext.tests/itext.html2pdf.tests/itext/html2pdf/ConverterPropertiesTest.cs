@@ -45,6 +45,7 @@ using iText.Commons.Actions.Contexts;
 using iText.Test;
 
 namespace iText.Html2pdf {
+    [NUnit.Framework.Category("Unit test")]
     public class ConverterPropertiesTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void GetDefaultMetaInfoTest() {
@@ -60,6 +61,21 @@ namespace iText.Html2pdf {
             properties.SetEventMetaInfo(testMetaInfo);
             IMetaInfo metaInfo = properties.GetEventMetaInfo();
             NUnit.Framework.Assert.AreSame(testMetaInfo, metaInfo);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CheckDefaultsTest() {
+            ConverterProperties properties = new ConverterProperties();
+            NUnit.Framework.Assert.IsTrue(properties.IsImmediateFlush());
+            NUnit.Framework.Assert.IsFalse(properties.IsCreateAcroForm());
+            NUnit.Framework.Assert.AreEqual(10, properties.GetLimitOfLayouts());
+            properties.SetImmediateFlush(false);
+            properties.SetCreateAcroForm(true);
+            properties.SetLimitOfLayouts(20);
+            ConverterProperties propertiesCopied = new ConverterProperties(properties);
+            NUnit.Framework.Assert.IsFalse(propertiesCopied.IsImmediateFlush());
+            NUnit.Framework.Assert.IsTrue(propertiesCopied.IsCreateAcroForm());
+            NUnit.Framework.Assert.AreEqual(20, propertiesCopied.GetLimitOfLayouts());
         }
 
         private class TestMetaInfo : IMetaInfo {
