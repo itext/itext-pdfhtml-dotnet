@@ -70,18 +70,17 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void CheckImageRemainsUncutWithFigureTagTest() {
-            //TODO DEVSIX-6985: change 1 to 2 in "PdfImageXObject image = doc.getPage(1).getResources()", change the assert
-            //  from "Assert.assertTrue(isImageCropped)" to assertFalse
             FileInfo pdfFile = new FileInfo(destinationFolder + "imageInFigure.pdf");
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "imageInFigure.html"), pdfFile);
             using (PdfDocument doc = new PdfDocument(new PdfReader(pdfFile))) {
-                PdfImageXObject image = doc.GetPage(1).GetResources().GetImage(new PdfName("Im1"));
+                int pageNr = 2;
+                PdfImageXObject image = doc.GetPage(pageNr).GetResources().GetImage(new PdfName("Im1"));
                 NUnit.Framework.Assert.IsNotNull(image);
-                ImageSizeMeasuringListener listener = new ImageSizeMeasuringListener(1);
+                ImageSizeMeasuringListener listener = new ImageSizeMeasuringListener(pageNr);
                 PdfCanvasProcessor processor = new PdfCanvasProcessor(listener);
-                processor.ProcessPageContent(doc.GetPage(1));
+                processor.ProcessPageContent(doc.GetPage(pageNr));
                 bool isImageCropped = listener.bbox.GetY() < 0;
-                NUnit.Framework.Assert.IsTrue(isImageCropped);
+                NUnit.Framework.Assert.IsFalse(isImageCropped);
             }
         }
     }
