@@ -478,7 +478,8 @@ namespace iText.Html2pdf.Css.Resolve {
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.HR.Equals(elementName) || TagConstants.IMG.Equals(elementName) || TagConstants.TABLE.Equals
                     (elementName) || TagConstants.TD.Equals(elementName) || TagConstants.TH.Equals(elementName) || TagConstants
-                    .COLGROUP.Equals(elementName) || TagConstants.COL.Equals(elementName);
+                    .COLGROUP.Equals(elementName) || TagConstants.COL.Equals(elementName) || TagConstants.OBJECT.Equals(elementName
+                    );
             }
 
             /* (non-Javadoc)
@@ -504,7 +505,8 @@ namespace iText.Html2pdf.Css.Resolve {
             * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
             */
             public virtual bool IsSupportedForElement(String elementName) {
-                return TagConstants.IMG.Equals(elementName) || TagConstants.TD.Equals(elementName);
+                return TagConstants.IMG.Equals(elementName) || TagConstants.TD.Equals(elementName) || TagConstants.OBJECT.
+                    Equals(elementName);
             }
 
             /* (non-Javadoc)
