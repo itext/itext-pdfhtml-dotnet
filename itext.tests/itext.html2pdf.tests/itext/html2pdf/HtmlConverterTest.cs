@@ -27,7 +27,7 @@ using iText.Layout;
 using iText.Test;
 
 namespace iText.Html2pdf {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class HtmlConverterTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void CannotConvertHtmlToDocumentInReadingModeTest() {

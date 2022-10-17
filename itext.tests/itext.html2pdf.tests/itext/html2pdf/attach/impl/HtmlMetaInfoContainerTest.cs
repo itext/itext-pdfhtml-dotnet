@@ -27,7 +27,7 @@ using iText.Html2pdf.Attach;
 using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl {
-    [NUnit.Framework.Category("Unit test")]
+    [NUnit.Framework.Category("UnitTest")]
     public class HtmlMetaInfoContainerTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void CreateAndGetMetaInfoTest() {

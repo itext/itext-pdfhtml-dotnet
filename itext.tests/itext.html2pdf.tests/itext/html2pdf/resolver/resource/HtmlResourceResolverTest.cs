@@ -63,7 +63,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Resolver.Resource {
     // TODO: DEVSIX-5968 Add new tests in HtmlResourceResolverTest
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class HtmlResourceResolverTest : ExtendedITextTest {
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/resolver/resource/HtmlResourceResolverTest/";

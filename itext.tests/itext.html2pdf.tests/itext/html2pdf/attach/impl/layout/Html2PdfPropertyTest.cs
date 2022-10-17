@@ -47,7 +47,7 @@ using iText.Commons.Utils;
 using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    [NUnit.Framework.Category("Unit test")]
+    [NUnit.Framework.Category("UnitTest")]
     public class Html2PdfPropertyTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void PropertyUniquenessTest() {

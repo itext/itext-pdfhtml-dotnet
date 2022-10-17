@@ -44,7 +44,7 @@ using System;
 using iText.Html2pdf;
 
 namespace iText.Html2pdf.Attach.Impl.Util {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class WhiteSpaceCollapsingAndTrimmingTest : ExtendedHtmlConversionITextTest {
         private static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/attacher/impl/WhiteSpaceCollapsingAndTrimmingTest/";

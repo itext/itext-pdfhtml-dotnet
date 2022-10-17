@@ -49,7 +49,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class ParagraphTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/ParagraphTest/";

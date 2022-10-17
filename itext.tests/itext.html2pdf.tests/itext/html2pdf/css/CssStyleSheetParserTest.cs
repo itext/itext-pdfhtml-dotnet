@@ -48,7 +48,7 @@ using iText.StyledXmlParser.Css.Parse;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    [NUnit.Framework.Category("Unit test")]
+    [NUnit.Framework.Category("UnitTest")]
     public class CssStyleSheetParserTest : ExtendedITextTest {
         private static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CssStyleSheetParserTest/";

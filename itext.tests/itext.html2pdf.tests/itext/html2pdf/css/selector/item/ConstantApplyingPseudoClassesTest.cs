@@ -44,7 +44,7 @@ using System;
 using iText.Html2pdf;
 
 namespace iText.Html2pdf.Css.Selector.Item {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class ConstantApplyingPseudoClassesTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/selector/item/ConstantApplyingPseudoClassesTest/";

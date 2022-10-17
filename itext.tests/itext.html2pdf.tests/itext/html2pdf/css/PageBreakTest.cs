@@ -54,7 +54,7 @@ using iText.StyledXmlParser.Css.Media;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class PageBreakTest : ExtendedHtmlConversionITextTest {
         //Member of testing class. Add if it isn't there.
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext

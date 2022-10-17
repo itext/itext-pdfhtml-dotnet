@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class HtmlDocumentRendererIntegrationTest : ExtendedHtmlConversionITextTest {
         private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/attach/impl/layout/HtmlDocumentRendererIntegrationTest/";

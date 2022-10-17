@@ -27,7 +27,7 @@ using iText.Html2pdf.Actions.Data;
 using iText.Test;
 
 namespace iText.Html2pdf.Actions.Events {
-    [NUnit.Framework.Category("Unit test")]
+    [NUnit.Framework.Category("UnitTest")]
     public class PdfHtmlProductEventTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void ConvertElementsEventTest() {

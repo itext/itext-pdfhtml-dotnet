@@ -56,7 +56,7 @@ using iText.Layout.Properties;
 using iText.Test;
 
 namespace iText.Html2pdf.Events {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class PdfHtmlPageXofYEventHandlerTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/events/PdfHtmlPageXofYEventHandlerTest/";

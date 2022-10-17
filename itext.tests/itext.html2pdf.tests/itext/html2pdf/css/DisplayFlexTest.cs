@@ -33,7 +33,7 @@ using iText.Layout.Renderer;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class DisplayFlexTest : ExtendedHtmlConversionITextTest {
         private const float EPS = 1e-6f;
 

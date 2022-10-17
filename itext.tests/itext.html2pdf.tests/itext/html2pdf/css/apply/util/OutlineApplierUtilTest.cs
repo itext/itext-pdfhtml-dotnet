@@ -25,7 +25,7 @@ using iText.Layout.Borders;
 using iText.Test;
 
 namespace iText.Html2pdf.Css.Apply.Util {
-    [NUnit.Framework.Category("Unit test")]
+    [NUnit.Framework.Category("UnitTest")]
     public class OutlineApplierUtilTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void GrooveBorderColorTest() {

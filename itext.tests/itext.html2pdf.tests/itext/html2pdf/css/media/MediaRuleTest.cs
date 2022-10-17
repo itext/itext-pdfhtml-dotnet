@@ -58,7 +58,7 @@ using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 using iText.Test;
 
 namespace iText.Html2pdf.Css.Media {
-    [NUnit.Framework.Category("Unit test")]
+    [NUnit.Framework.Category("UnitTest")]
     public class MediaRuleTest : ExtendedITextTest {
         private static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/media/MediaRuleTest/";

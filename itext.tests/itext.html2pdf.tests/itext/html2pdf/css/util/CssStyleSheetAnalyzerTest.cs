@@ -25,7 +25,7 @@ using iText.StyledXmlParser.Css.Parse;
 using iText.Test;
 
 namespace iText.Html2pdf.Css.Util {
-    [NUnit.Framework.Category("Unit test")]
+    [NUnit.Framework.Category("UnitTest")]
     public class CssStyleSheetAnalyzerTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void SimpleNegativeTest() {

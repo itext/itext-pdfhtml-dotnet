@@ -28,7 +28,7 @@ using iText.StyledXmlParser.Node;
 using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    [NUnit.Framework.Category("Unit test")]
+    [NUnit.Framework.Category("UnitTest")]
     public class WidthDimensionContainerTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void MinFixContentDimensionTest() {

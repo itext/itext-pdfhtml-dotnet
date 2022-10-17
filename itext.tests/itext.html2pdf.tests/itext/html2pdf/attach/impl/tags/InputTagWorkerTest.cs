@@ -24,7 +24,7 @@ using iText.Html2pdf.Html;
 using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
-    [NUnit.Framework.Category("Unit test")]
+    [NUnit.Framework.Category("UnitTest")]
     public class InputTagWorkerTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void TestNumberInputPreprocessing() {

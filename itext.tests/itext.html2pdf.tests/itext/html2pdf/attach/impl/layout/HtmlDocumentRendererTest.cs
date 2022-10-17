@@ -48,7 +48,7 @@ using iText.Layout;
 using iText.Test;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
-    [NUnit.Framework.Category("Unit test")]
+    [NUnit.Framework.Category("UnitTest")]
     public class HtmlDocumentRendererTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void ShouldAttemptTrimLastPageTest() {

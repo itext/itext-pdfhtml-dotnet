@@ -49,7 +49,7 @@ using iText.Test;
 
 namespace iText.Html2pdf.Css.W3c {
     /// <seealso><a href="https://github.com/w3c/csswg-test">https://github.com/w3c/csswg-test</a></seealso>
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public abstract class W3CCssTest : ExtendedITextTest {
         private static readonly String baseSourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/w3c/";

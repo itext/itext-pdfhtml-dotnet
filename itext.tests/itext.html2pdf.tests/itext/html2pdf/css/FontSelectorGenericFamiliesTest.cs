@@ -49,7 +49,7 @@ using iText.Layout.Font;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class FontSelectorGenericFamiliesTest : ExtendedITextTest {
         //TODO(DEVSIX-1034): serif, sans-serif font families are not supported
         //TODO(DEVSIX-1036): cursive, fantasy, system-ui font-families are not supported
