@@ -96,7 +96,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void RelativeInlineBlockWidthWithTextIndentTest02() {
-            // TODO DEVSIX-1823: inline blocks with relative widths (width:100%) do not wrap to the next line
             ConvertToPdfAndCompare("relativeInlineBlockWidthWithTextIndentTest02", sourceFolder, destinationFolder);
         }
 

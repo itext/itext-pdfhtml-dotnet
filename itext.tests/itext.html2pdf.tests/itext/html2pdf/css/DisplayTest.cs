@@ -256,7 +256,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlockAndWidthInDivTest() {
-            //TODO DEVSIX-6143 Elements with display: inline-block and width: 100% are not wrapped on a new line
             ConvertToPdfAndCompare("displayInlineBlockAndWidthInDiv", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
