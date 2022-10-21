@@ -189,7 +189,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                             //  a deprecated break-word keyword. When specified, this has the same effect
                             //  as word-break: normal and overflow-wrap: anywhere, regardless of the actual value
                             //  of the overflow-wrap property."
-                            element.SetProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.BREAK_WORD);
+                            element.SetProperty(Property.OVERFLOW_WRAP, OverflowWrapPropertyValue.ANYWHERE);
                             element.SetProperty(Property.SPLIT_CHARACTERS, new DefaultSplitCharacters());
                         }
                         else {
