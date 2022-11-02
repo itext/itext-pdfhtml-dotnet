@@ -54,6 +54,8 @@
     <PackageReference Include="itext7.hyph" Version="8.0.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.hyph\itext.hyph.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj')" />
     <PackageReference Include="itext7.pdftest" Version="8.0.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj')" />
+	<ProjectReference Include="..\..\..\itextcore\itext\itext.bouncy-castle-adapter\itext.bouncy-castle-adapter.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.bouncy-castle-adapter\itext.bouncy-castle-adapter.csproj')" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.bouncy-castle-adapter\itext.bouncy-castle-adapter.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.svg\itext.svg.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.svg\itext.svg.csproj')" />
     <ProjectReference Include="..\..\itext\itext.html2pdf\itext.html2pdf.csproj" />
