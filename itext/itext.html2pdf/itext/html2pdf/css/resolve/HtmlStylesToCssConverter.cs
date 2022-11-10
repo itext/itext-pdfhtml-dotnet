@@ -571,7 +571,8 @@ namespace iText.Html2pdf.Css.Resolve {
                 else {
                     if (TagConstants.TABLE.Equals(element.Name()) || TagConstants.IMG.Equals(element.Name())) {
                         if (TagConstants.IMG.Equals(element.Name()) && (AttributeConstants.TOP.Equals(value) || AttributeConstants
-                            .MIDDLE.Equals(value) || AttributeConstants.BOTTOM.Equals(value))) {
+                            .MIDDLE.Equals(value))) {
+                            // No BOTTOM here because VERTICAL_ALIGN is deprecated and BOTTOM is translated to nothing
                             result.Add(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
                         }
                         else {
