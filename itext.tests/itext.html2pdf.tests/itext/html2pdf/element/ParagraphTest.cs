@@ -45,102 +45,101 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
 using iText.Kernel.Utils;
-using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     [NUnit.Framework.Category("IntegrationTest")]
-    public class ParagraphTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+    public class ParagraphTest : ExtendedHtmlConversionITextTest {
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/ParagraphTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/element/ParagraphTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphTest01.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphTest01.html"), new FileInfo(DESTINATION_FOLDER
                  + "paragraphTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphTest01.pdf"
-                , sourceFolder + "cmp_paragraphTest01.pdf", destinationFolder, "diff01_"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphTest01.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphTest01.pdf", DESTINATION_FOLDER, "diff01_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithBordersTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithBordersTest01.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithBordersTest01.html"), new FileInfo(DESTINATION_FOLDER
                  + "paragraphWithBordersTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithBordersTest01.pdf"
-                , sourceFolder + "cmp_paragraphWithBordersTest01.pdf", destinationFolder, "diff02_"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithBordersTest01.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithBordersTest01.pdf", DESTINATION_FOLDER, "diff02_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithMarginsTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithMarginsTest01.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithMarginsTest01.html"), new FileInfo(DESTINATION_FOLDER
                  + "paragraphWithMarginsTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithMarginsTest01.pdf"
-                , sourceFolder + "cmp_paragraphWithMarginsTest01.pdf", destinationFolder, "diff03_"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithMarginsTest01.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithMarginsTest01.pdf", DESTINATION_FOLDER, "diff03_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithPaddingTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithPaddingTest01.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithPaddingTest01.html"), new FileInfo(DESTINATION_FOLDER
                  + "paragraphWithPaddingTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithPaddingTest01.pdf"
-                , sourceFolder + "cmp_paragraphWithPaddingTest01.pdf", destinationFolder, "diff04_"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithPaddingTest01.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithPaddingTest01.pdf", DESTINATION_FOLDER, "diff04_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithFontAttributesTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithFontAttributesTest01.html"), new FileInfo
-                (destinationFolder + "paragraphWithFontAttributesTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithFontAttributesTest01.pdf"
-                , sourceFolder + "cmp_paragraphWithFontAttributesTest01.pdf", destinationFolder, "diff05_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithFontAttributesTest01.html"), new FileInfo
+                (DESTINATION_FOLDER + "paragraphWithFontAttributesTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithFontAttributesTest01.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithFontAttributesTest01.pdf", DESTINATION_FOLDER, "diff05_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithNonBreakableSpaceTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithNonBreakableSpaceTest01.html"), new FileInfo
-                (destinationFolder + "paragraphWithNonBreakableSpaceTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithNonBreakableSpaceTest01.pdf"
-                , sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest01.pdf", destinationFolder, "diff06_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithNonBreakableSpaceTest01.html"), new 
+                FileInfo(DESTINATION_FOLDER + "paragraphWithNonBreakableSpaceTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithNonBreakableSpaceTest01.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithNonBreakableSpaceTest01.pdf", DESTINATION_FOLDER, "diff06_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithNonBreakableSpaceTest02() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithNonBreakableSpaceTest02.html"), new FileInfo
-                (destinationFolder + "paragraphWithNonBreakableSpaceTest02.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithNonBreakableSpaceTest02.pdf"
-                , sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest02.pdf", destinationFolder, "diff07_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithNonBreakableSpaceTest02.html"), new 
+                FileInfo(DESTINATION_FOLDER + "paragraphWithNonBreakableSpaceTest02.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithNonBreakableSpaceTest02.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithNonBreakableSpaceTest02.pdf", DESTINATION_FOLDER, "diff07_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithNonBreakableSpaceTest03() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithNonBreakableSpaceTest03.html"), new FileInfo
-                (destinationFolder + "paragraphWithNonBreakableSpaceTest03.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithNonBreakableSpaceTest03.pdf"
-                , sourceFolder + "cmp_paragraphWithNonBreakableSpaceTest03.pdf", destinationFolder, "diff08_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithNonBreakableSpaceTest03.html"), new 
+                FileInfo(DESTINATION_FOLDER + "paragraphWithNonBreakableSpaceTest03.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithNonBreakableSpaceTest03.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithNonBreakableSpaceTest03.pdf", DESTINATION_FOLDER, "diff08_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphInTablePercentTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphInTablePercentTest01.html"), new FileInfo
-                (destinationFolder + "paragraphInTablePercentTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphInTablePercentTest01.pdf"
-                , sourceFolder + "cmp_paragraphInTablePercentTest01.pdf", destinationFolder, "diff09_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphInTablePercentTest01.html"), new FileInfo
+                (DESTINATION_FOLDER + "paragraphInTablePercentTest01.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphInTablePercentTest01.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphInTablePercentTest01.pdf", DESTINATION_FOLDER, "diff09_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithButtonInputLabelSelectTextareaTest() {
             //TODO: update after DEVSIX-2445 fix
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithButtonInputLabelSelectTextareaTest.html"
-                ), new FileInfo(destinationFolder + "paragraphWithButtonInputLabelSelectTextareaTest.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithButtonInputLabelSelectTextareaTest.pdf"
-                , sourceFolder + "cmp_paragraphWithButtonInputLabelSelectTextareaTest.pdf", destinationFolder, "diff11_"
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithButtonInputLabelSelectTextareaTest.html"
+                ), new FileInfo(DESTINATION_FOLDER + "paragraphWithButtonInputLabelSelectTextareaTest.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithButtonInputLabelSelectTextareaTest.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithButtonInputLabelSelectTextareaTest.pdf", DESTINATION_FOLDER, "diff11_"
                 ));
         }
 
@@ -148,91 +147,122 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void ParagraphWithBdoBrImgMapQSubSupTest() {
             //TODO: update after DEVSIX-2445 fix
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithBdoBrImgMapQSubSupTest.html"), new FileInfo
-                (destinationFolder + "paragraphWithBdoBrImgMapQSubSupTest.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithBdoBrImgMapQSubSupTest.pdf"
-                , sourceFolder + "cmp_paragraphWithBdoBrImgMapQSubSupTest.pdf", destinationFolder, "diff12_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithBdoBrImgMapQSubSupTest.html"), new FileInfo
+                (DESTINATION_FOLDER + "paragraphWithBdoBrImgMapQSubSupTest.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithBdoBrImgMapQSubSupTest.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithBdoBrImgMapQSubSupTest.pdf", DESTINATION_FOLDER, "diff12_"));
         }
 
         [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 2)]
         [NUnit.Framework.Test]
         public virtual void ParagraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest() {
             //TODO: update after DEVSIX-2445 fix
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.html"
-                ), new FileInfo(destinationFolder + "paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.pdf"
-                , sourceFolder + "cmp_paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.pdf", destinationFolder, "diff13_"
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.html"
+                ), new FileInfo(DESTINATION_FOLDER + "paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithAbbrAcronymCireCodeDfnEmKbdSampVarTest.pdf", DESTINATION_FOLDER, "diff13_"
                 ));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithAParagraphSpanDivTest() {
             //TODO: update after DEVSIX-2445 fix
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithAParagraphSpanDivTest.html"), new FileInfo
-                (destinationFolder + "paragraphWithAParagraphSpanDivTest.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithAParagraphSpanDivTest.pdf"
-                , sourceFolder + "cmp_paragraphWithAParagraphSpanDivTest.pdf", destinationFolder, "diff14_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithAParagraphSpanDivTest.html"), new FileInfo
+                (DESTINATION_FOLDER + "paragraphWithAParagraphSpanDivTest.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithAParagraphSpanDivTest.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithAParagraphSpanDivTest.pdf", DESTINATION_FOLDER, "diff14_"));
         }
 
         [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 2)]
         [NUnit.Framework.Test]
         public virtual void ParagraphWithBBigISmallTtStrongTest() {
             //TODO: update after DEVSIX-2445 fix
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithBBigISmallTtStrongTest.html"), new FileInfo
-                (destinationFolder + "paragraphWithBBigISmallTtStrongTest.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithBBigISmallTtStrongTest.pdf"
-                , sourceFolder + "cmp_paragraphWithBBigISmallTtStrongTest.pdf", destinationFolder, "diff15_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithBBigISmallTtStrongTest.html"), new FileInfo
+                (DESTINATION_FOLDER + "paragraphWithBBigISmallTtStrongTest.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithBBigISmallTtStrongTest.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithBBigISmallTtStrongTest.pdf", DESTINATION_FOLDER, "diff15_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithPDisplayTableTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithPDisplayTableTest.html"), new FileInfo
-                (destinationFolder + "paragraphWithPDisplayTableTest.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithPDisplayTableTest.pdf"
-                , sourceFolder + "cmp_paragraphWithPDisplayTableTest.pdf", destinationFolder, "diff15_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithPDisplayTableTest.html"), new FileInfo
+                (DESTINATION_FOLDER + "paragraphWithPDisplayTableTest.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithPDisplayTableTest.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithPDisplayTableTest.pdf", DESTINATION_FOLDER, "diff15_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithDifferentSpansTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithDifferentSpansTest.html"), new FileInfo
-                (destinationFolder + "paragraphWithDifferentSpansTest.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithDifferentSpansTest.pdf"
-                , sourceFolder + "cmp_paragraphWithDifferentSpansTest.pdf", destinationFolder, "diff15_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithDifferentSpansTest.html"), new FileInfo
+                (DESTINATION_FOLDER + "paragraphWithDifferentSpansTest.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithDifferentSpansTest.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithDifferentSpansTest.pdf", DESTINATION_FOLDER, "diff15_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithDifferentBlocksAndDisplaysTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithDifferentBlocksAndDisplaysTest.html")
-                , new FileInfo(destinationFolder + "paragraphWithDifferentBlocksAndDisplaysTest.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithDifferentBlocksAndDisplaysTest.pdf"
-                , sourceFolder + "cmp_paragraphWithDifferentBlocksAndDisplaysTest.pdf", destinationFolder, "diff15_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithDifferentBlocksAndDisplaysTest.html"
+                ), new FileInfo(DESTINATION_FOLDER + "paragraphWithDifferentBlocksAndDisplaysTest.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithDifferentBlocksAndDisplaysTest.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithDifferentBlocksAndDisplaysTest.pdf", DESTINATION_FOLDER, "diff15_"
+                ));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithLabelSpanDisplayBlockTest() {
             //TODO: update after DEVSIX-2619 fix
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithLabelSpanDisplayBlockTest.html"), new 
-                FileInfo(destinationFolder + "paragraphWithLabelSpanDisplayBlockTest.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithLabelSpanDisplayBlockTest.pdf"
-                , sourceFolder + "cmp_paragraphWithLabelSpanDisplayBlockTest.pdf", destinationFolder, "diff15_"));
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithLabelSpanDisplayBlockTest.html"), new 
+                FileInfo(DESTINATION_FOLDER + "paragraphWithLabelSpanDisplayBlockTest.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithLabelSpanDisplayBlockTest.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithLabelSpanDisplayBlockTest.pdf", DESTINATION_FOLDER, "diff15_"));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithImageTest01() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithImageTest01.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithImageTest01.html"), new FileInfo(DESTINATION_FOLDER
                  + "paragraphWithImageTest01.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithImageTest01.pdf"
-                , sourceFolder + "cmp_paragraphWithImageTest01.pdf", destinationFolder, "diff_paragraphWithImageTest01_"
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithImageTest01.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithImageTest01.pdf", DESTINATION_FOLDER, "diff_paragraphWithImageTest01_"
                 ));
         }
 
         [NUnit.Framework.Test]
         public virtual void ParagraphWithImageTest01RTL() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "paragraphWithImageTest01RTL.html"), new FileInfo(destinationFolder
-                 + "paragraphWithImageTest01RTL.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "paragraphWithImageTest01RTL.pdf"
-                , sourceFolder + "cmp_paragraphWithImageTest01RTL.pdf", destinationFolder, "diff_paragraphWithImageTest01_"
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithImageTest01RTL.html"), new FileInfo(
+                DESTINATION_FOLDER + "paragraphWithImageTest01RTL.pdf"));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "paragraphWithImageTest01RTL.pdf"
+                , SOURCE_FOLDER + "cmp_paragraphWithImageTest01RTL.pdf", DESTINATION_FOLDER, "diff_paragraphWithImageTest01_"
                 ));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HelloWorldParagraphTest() {
+            ConvertToPdfAndCompare("hello_paragraph", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HelloParagraphTableTest() {
+            ConvertToPdfAndCompare("hello_paragraph_table", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HelloParagraphJunkSpacesDocumentTest() {
+            ConvertToPdfAndCompare("hello_paragraph_junk_spaces", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HelloParagraphNestedInTableDocumentTest() {
+            ConvertToPdfAndCompare("hello_paragraph_nested_in_table", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HelloParagraphWithSpansDocumentTest() {
+            ConvertToPdfAndCompare("hello_paragraph_with_span", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ABlockInPTagTest() {
+            ConvertToPdfAndCompare("aBlockInPTag", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }

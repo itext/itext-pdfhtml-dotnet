@@ -170,5 +170,10 @@ namespace iText.Html2pdf.Element {
         public virtual void ResolutionInfoStructOf8bimHeaderImageTest() {
             ConvertToPdfAndCompare("resolutionInfoStructOf8bimHeaderImage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void HtmlImgBase64SVGTest() {
+            ConvertToPdfAndCompare("imgTag_base64svg", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
     }
 }
