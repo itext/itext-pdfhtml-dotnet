@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: iText Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -25,7 +25,7 @@ using iText.Html2pdf;
 using iText.StyledXmlParser.Css.Media;
 
 namespace iText.Html2pdf.Css.Media {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class MediaRuleIntegrationTest : ExtendedHtmlConversionITextTest {
         public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/media/MediaRuleIntegrationTest/";

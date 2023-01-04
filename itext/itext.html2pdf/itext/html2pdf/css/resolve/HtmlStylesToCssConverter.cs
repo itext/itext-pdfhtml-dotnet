@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -478,7 +478,8 @@ namespace iText.Html2pdf.Css.Resolve {
             public virtual bool IsSupportedForElement(String elementName) {
                 return TagConstants.HR.Equals(elementName) || TagConstants.IMG.Equals(elementName) || TagConstants.TABLE.Equals
                     (elementName) || TagConstants.TD.Equals(elementName) || TagConstants.TH.Equals(elementName) || TagConstants
-                    .COLGROUP.Equals(elementName) || TagConstants.COL.Equals(elementName);
+                    .COLGROUP.Equals(elementName) || TagConstants.COL.Equals(elementName) || TagConstants.OBJECT.Equals(elementName
+                    );
             }
 
             /* (non-Javadoc)
@@ -504,7 +505,8 @@ namespace iText.Html2pdf.Css.Resolve {
             * @see com.itextpdf.html2pdf.css.resolve.HtmlStylesToCssConverter.IAttributeConverter#isSupportedForElement(java.lang.String)
             */
             public virtual bool IsSupportedForElement(String elementName) {
-                return TagConstants.IMG.Equals(elementName) || TagConstants.TD.Equals(elementName);
+                return TagConstants.IMG.Equals(elementName) || TagConstants.TD.Equals(elementName) || TagConstants.OBJECT.
+                    Equals(elementName);
             }
 
             /* (non-Javadoc)
@@ -569,7 +571,8 @@ namespace iText.Html2pdf.Css.Resolve {
                 else {
                     if (TagConstants.TABLE.Equals(element.Name()) || TagConstants.IMG.Equals(element.Name())) {
                         if (TagConstants.IMG.Equals(element.Name()) && (AttributeConstants.TOP.Equals(value) || AttributeConstants
-                            .MIDDLE.Equals(value) || AttributeConstants.BOTTOM.Equals(value))) {
+                            .MIDDLE.Equals(value))) {
+                            // No BOTTOM here because VERTICAL_ALIGN is deprecated and BOTTOM is translated to nothing
                             result.Add(new CssDeclaration(CssConstants.VERTICAL_ALIGN, value));
                         }
                         else {

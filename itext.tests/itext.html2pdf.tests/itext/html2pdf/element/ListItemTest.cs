@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: iText Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -28,7 +28,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class ListItemTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/ListItemTest/";

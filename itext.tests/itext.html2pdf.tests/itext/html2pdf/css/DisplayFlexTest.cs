@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: iText Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -33,7 +33,7 @@ using iText.Layout.Renderer;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class DisplayFlexTest : ExtendedHtmlConversionITextTest {
         private const float EPS = 1e-6f;
 
@@ -439,6 +439,11 @@ namespace iText.Html2pdf.Css {
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)]
         public virtual void ResultOccupiedAreaNullSplitRenderersNotTest() {
             ConvertToPdfAndCompare("resultOccupiedAreaNullSplitRenderersNot", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitFlexContainersTest() {
+            ConvertToPdfAndCompare("flexSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         private static IList<IElement> ConvertToElements(String name) {

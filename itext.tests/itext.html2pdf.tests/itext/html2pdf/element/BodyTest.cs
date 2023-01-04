@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -44,11 +44,10 @@ using System;
 using System.IO;
 using iText.Html2pdf;
 using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
-    [NUnit.Framework.Category("Integration test")]
-    public class BodyTest : ExtendedITextTest {
+    [NUnit.Framework.Category("IntegrationTest")]
+    public class BodyTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/BodyTest/";
 
@@ -133,6 +132,11 @@ namespace iText.Html2pdf.Element {
                 + "bodyTest09.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "bodyTest09.pdf", sourceFolder
                  + "cmp_bodyTest09.pdf", destinationFolder, "diff09_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HelloMalformedDocumentTest() {
+            ConvertToPdfAndCompare("hello_malformed", sourceFolder, destinationFolder);
         }
     }
 }

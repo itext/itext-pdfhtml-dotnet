@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -50,7 +50,7 @@ using iText.Kernel.Utils;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class DisplayTest : ExtendedHtmlConversionITextTest {
         public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/DisplayTest/";
@@ -256,7 +256,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void DisplayInlineBlockAndWidthInDivTest() {
-            //TODO DEVSIX-6143 Elements with display: inline-block and width: 100% are not wrapped on a new line
             ConvertToPdfAndCompare("displayInlineBlockAndWidthInDiv", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

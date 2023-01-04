@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -57,7 +57,7 @@ namespace iText.Html2pdf.Css {
     /// The underlying problem turns out to be that the inserted Text IElement has no font, and uses the default (Helvetica) font.
     /// The font does not get embedded, and as such, it breaks the compliancy.
     /// </remarks>
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class BrTagTest : ExtendedITextTest {
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {

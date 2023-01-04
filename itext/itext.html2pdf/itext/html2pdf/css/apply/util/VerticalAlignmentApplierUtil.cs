@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -83,6 +83,74 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 else {
                     if (CssConstants.BOTTOM.Equals(vAlignVal)) {
                         element.SetProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
+                    }
+                }
+            }
+        }
+
+        /// <summary>Apply vertical alignment to inline elements.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="element">the styles container</param>
+        /// <param name="isInlineTag">whether the origin is a tag that defaults to inline</param>
+        public static void ApplyVerticalAlignmentForBlocks(IDictionary<String, String> cssProps, IPropertyContainer
+             element, bool isInlineTag) {
+            String display = cssProps.Get(CssConstants.DISPLAY);
+            if (isInlineTag || CssConstants.INLINE_BLOCK.Equals(display)) {
+                String vAlignVal = cssProps.Get(CssConstants.VERTICAL_ALIGN);
+                if (CssConstants.MIDDLE.Equals(vAlignVal)) {
+                    element.SetProperty(Property.INLINE_VERTICAL_ALIGNMENT, new InlineVerticalAlignment(InlineVerticalAlignmentType
+                        .MIDDLE));
+                }
+                else {
+                    if (CssConstants.BOTTOM.Equals(vAlignVal)) {
+                        element.SetProperty(Property.INLINE_VERTICAL_ALIGNMENT, new InlineVerticalAlignment(InlineVerticalAlignmentType
+                            .BOTTOM));
+                    }
+                    else {
+                        if (CssConstants.TOP.Equals(vAlignVal)) {
+                            element.SetProperty(Property.INLINE_VERTICAL_ALIGNMENT, new InlineVerticalAlignment(InlineVerticalAlignmentType
+                                .TOP));
+                        }
+                        else {
+                            if (CssConstants.TEXT_BOTTOM.Equals(vAlignVal)) {
+                                element.SetProperty(Property.INLINE_VERTICAL_ALIGNMENT, new InlineVerticalAlignment(InlineVerticalAlignmentType
+                                    .TEXT_BOTTOM));
+                            }
+                            else {
+                                if (CssConstants.TEXT_TOP.Equals(vAlignVal)) {
+                                    element.SetProperty(Property.INLINE_VERTICAL_ALIGNMENT, new InlineVerticalAlignment(InlineVerticalAlignmentType
+                                        .TEXT_TOP));
+                                }
+                                else {
+                                    if (CssConstants.SUPER.Equals((vAlignVal))) {
+                                        element.SetProperty(Property.INLINE_VERTICAL_ALIGNMENT, new InlineVerticalAlignment(InlineVerticalAlignmentType
+                                            .SUPER));
+                                    }
+                                    else {
+                                        if (CssConstants.SUB.Equals((vAlignVal))) {
+                                            element.SetProperty(Property.INLINE_VERTICAL_ALIGNMENT, new InlineVerticalAlignment(InlineVerticalAlignmentType
+                                                .SUB));
+                                        }
+                                        else {
+                                            if (CssTypesValidationUtils.IsPercentageValue(vAlignVal)) {
+                                                element.SetProperty(Property.INLINE_VERTICAL_ALIGNMENT, new InlineVerticalAlignment(InlineVerticalAlignmentType
+                                                    .FRACTION, CssDimensionParsingUtils.ParseRelativeValue(vAlignVal, 1)));
+                                            }
+                                            else {
+                                                if (CssTypesValidationUtils.IsValidNumericValue(vAlignVal)) {
+                                                    element.SetProperty(Property.INLINE_VERTICAL_ALIGNMENT, new InlineVerticalAlignment(InlineVerticalAlignmentType
+                                                        .FIXED, CssDimensionParsingUtils.ParseAbsoluteLength(vAlignVal)));
+                                                }
+                                                else {
+                                                    element.SetProperty(Property.INLINE_VERTICAL_ALIGNMENT, new InlineVerticalAlignment(InlineVerticalAlignmentType
+                                                        .BASELINE));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

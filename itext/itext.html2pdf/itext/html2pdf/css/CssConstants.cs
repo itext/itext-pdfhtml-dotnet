@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -129,6 +129,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant CAPITALIZE.</summary>
         public const String CAPITALIZE = "capitalize";
 
+        /// <summary>The Constant CONTENTS.</summary>
+        public const String CONTENTS = "contents";
+
         /// <summary>The Constant COLLAPSE.</summary>
         public const String COLLAPSE = "collapse";
 
@@ -147,11 +150,20 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant FIRST_EXCEPT.</summary>
         public const String FIRST_EXCEPT = "first-except";
 
+        /// <summary>The Constant GRID.</summary>
+        public const String GRID = "grid";
+
         /// <summary>The Constant INLINE.</summary>
         public const String INLINE = "inline";
 
         /// <summary>The Constant INLINE_BLOCK.</summary>
         public const String INLINE_BLOCK = "inline-block";
+
+        /// <summary>The Constant INLINE_FLEX.</summary>
+        public const String INLINE_FLEX = "INLINE_FLEX";
+
+        /// <summary>The Constant INLINE_GRID.</summary>
+        public const String INLINE_GRID = "INLINE_GRID";
 
         /// <summary>The Constant INLINE_TABLE.</summary>
         public const String INLINE_TABLE = "inline-table";
@@ -207,6 +219,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant RELATIVE.</summary>
         public const String RELATIVE = "relative";
 
+        /// <summary>The Constant RUN_IN.</summary>
+        public const String RUN_IN = "run-in";
+
         /// <summary>The Constant RTL.</summary>
         public const String RTL = "rtl";
 
@@ -225,11 +240,29 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant TABLE.</summary>
         public const String TABLE = "table";
 
+        /// <summary>The Constant TABLE_CAPTION.</summary>
+        public const String TABLE_CAPTION = "table-caption";
+
         /// <summary>The Constant TABLE_CELL.</summary>
         public const String TABLE_CELL = "table-cell";
 
+        /// <summary>The Constant TABLE_COLUMN.</summary>
+        public const String TABLE_COLUMN = "table-column";
+
+        /// <summary>The Constant TABLE_COLUMN_GROUP.</summary>
+        public const String TABLE_COLUMN_GROUP = "table-column-group";
+
+        /// <summary>The Constant TABLE_FOOTER_GROUP.</summary>
+        public const String TABLE_FOOTER_GROUP = "table-footer-group";
+
+        /// <summary>The Constant TABLE_HEADER_GROUP.</summary>
+        public const String TABLE_HEADER_GROUP = "table-header-group";
+
         /// <summary>The Constant TABLE_ROW.</summary>
         public const String TABLE_ROW = "table-row";
+
+        /// <summary>The Constant TABLE_ROW_GROUP.</summary>
+        public const String TABLE_ROW_GROUP = "table-row-group";
 
         /// <summary>The Constant TEXT_BOTTOM.</summary>
         public const String TEXT_BOTTOM = "text-bottom";

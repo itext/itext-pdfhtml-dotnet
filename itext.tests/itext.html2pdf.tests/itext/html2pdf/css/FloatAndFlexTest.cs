@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: iText Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -29,7 +29,7 @@ using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Css {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class FloatAndFlexTest : ExtendedHtmlConversionITextTest {
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/FloatAndFlexTest/";

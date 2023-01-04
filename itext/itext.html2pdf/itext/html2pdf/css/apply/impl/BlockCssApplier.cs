@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: Bruno Lowagie, Paulo Soares, et al.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,6 +43,7 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Apply.Util;
@@ -78,6 +79,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 TransformationApplierUtil.ApplyTransformation(cssProps, context, container);
                 OutlineApplierUtil.ApplyOutlines(cssProps, context, container);
                 OrphansWidowsApplierUtil.ApplyOrphansAndWidows(cssProps, container);
+                VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForBlocks(cssProps, container, IsInlineItem(tagWorker));
                 if (IsFlexItem(stylesContainer)) {
                     FlexApplierUtil.ApplyFlexItemProperties(cssProps, context, container);
                 }
@@ -88,6 +90,10 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                     FloatApplierUtil.ApplyFloating(cssProps, context, container);
                 }
             }
+        }
+
+        private static bool IsInlineItem(ITagWorker tagWorker) {
+            return tagWorker is SpanTagWorker || tagWorker is ImgTagWorker;
         }
 
         private static bool IsFlexItem(IStylesContainer stylesContainer) {

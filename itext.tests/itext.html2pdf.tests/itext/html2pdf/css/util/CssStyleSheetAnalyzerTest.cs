@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: iText Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -25,7 +25,7 @@ using iText.StyledXmlParser.Css.Parse;
 using iText.Test;
 
 namespace iText.Html2pdf.Css.Util {
-    [NUnit.Framework.Category("Unit test")]
+    [NUnit.Framework.Category("UnitTest")]
     public class CssStyleSheetAnalyzerTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void SimpleNegativeTest() {

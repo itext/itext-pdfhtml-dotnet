@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2022 iText Group NV
+Copyright (c) 1998-2023 iText Group NV
 Authors: iText Software.
 
 This program is free software; you can redistribute it and/or modify
@@ -44,7 +44,7 @@ using System;
 using iText.Html2pdf;
 
 namespace iText.Html2pdf.Css.Media.Page.Max_dimension {
-    [NUnit.Framework.Category("Integration test")]
+    [NUnit.Framework.Category("IntegrationTest")]
     public class PageMarginBoxMaxDimensionTest : ExtendedHtmlConversionITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/media/page/max_dimension/";
