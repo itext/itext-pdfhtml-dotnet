@@ -30,4 +30,4 @@ using Versions.Attributes;
 
 [assembly: AssemblyVersion("4.0.5.0")]
 [assembly: AssemblyFileVersion("4.0.5.0")]
-[assembly: AssemblyInformationalVersion("4.0.5-SNAPSHOT")]
+[assembly: AssemblyInformationalVersion("4.0.5")]
