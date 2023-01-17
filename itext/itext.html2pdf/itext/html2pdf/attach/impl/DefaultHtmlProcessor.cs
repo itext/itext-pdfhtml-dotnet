@@ -272,6 +272,7 @@ namespace iText.Html2pdf.Attach.Impl {
                     RunApplier(element, tagWorker);
                 }
                 context.GetOutlineHandler().AddOutlineAndDestToDocument(tagWorker, element, context);
+                TextDecorationApplierUtil.PropagateTextDecorationProperties(element);
                 CounterProcessorUtil.StartProcessingCounters(context.GetCssContext(), element);
                 Visit(CreatePseudoElement(element, tagWorker, CssConstants.BEFORE));
                 Visit(CreatePseudoElement(element, tagWorker, CssConstants.PLACEHOLDER));

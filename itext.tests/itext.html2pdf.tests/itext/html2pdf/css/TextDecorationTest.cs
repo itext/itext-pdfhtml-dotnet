@@ -149,20 +149,22 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationColorEffectOnNestedElements01Test() {
-            // TODO DEVSIX-4719 replace cmp files once the issue is fixed
             ConvertToPdfAndCompare("textDecorationColorEffectOnNestedElements01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationColorEffectOnNestedElements02Test() {
-            // TODO DEVSIX-4719 replace cmp files once the issue is fixed
             ConvertToPdfAndCompare("textDecorationColorEffectOnNestedElements02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TextDecorationColorEffectOnNestedElements03Test() {
-            // TODO DEVSIX-4719 replace cmp files once the issue is fixed
             ConvertToPdfAndCompare("textDecorationColorEffectOnNestedElements03", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextDecorationColorEffectOnNestedElements04Test() {
+            ConvertToPdfAndCompare("textDecorationColorEffectOnNestedElements04", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]

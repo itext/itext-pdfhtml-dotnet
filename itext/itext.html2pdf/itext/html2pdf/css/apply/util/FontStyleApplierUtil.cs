@@ -67,6 +67,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         private const float DEFAULT_LINE_HEIGHT = 1.2f;
 
+        private const float TEXT_DECORATION_LINE_DEFAULT_THICKNESS = .75F;
+
+        private const float TEXT_DECORATION_LINE_THROUGH_Y_POS = 1 / 4F;
+
+        private const float TEXT_DECORATION_LINE_OVER_Y_POS = 9 / 10F;
+
+        private const float TEXT_DECORATION_LIN_UNDER_Y_POS = -1 / 10F;
+
         /// <summary>
         /// Creates a
         /// <see cref="FontStyleApplierUtil"/>
@@ -198,67 +206,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
             }
-            TransparentColor tColor_1;
-            Color textDecorationColor;
-            float opacity_1 = 1f;
-            String textDecorationColorProp = cssProps.Get(CssConstants.TEXT_DECORATION_COLOR);
-            if (textDecorationColorProp == null || CssConstants.CURRENTCOLOR.Equals(textDecorationColorProp)) {
-                if (element.GetProperty<TransparentColor>(Property.FONT_COLOR) != null) {
-                    TransparentColor transparentColor = element.GetProperty<TransparentColor>(Property.FONT_COLOR);
-                    textDecorationColor = transparentColor.GetColor();
-                    opacity_1 = transparentColor.GetOpacity();
-                }
-                else {
-                    textDecorationColor = ColorConstants.BLACK;
-                }
-            }
-            else {
-                if (textDecorationColorProp.StartsWith("hsl")) {
-                    logger.LogError(Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
-                    textDecorationColor = ColorConstants.BLACK;
-                }
-                else {
-                    tColor_1 = CssDimensionParsingUtils.ParseColor(textDecorationColorProp);
-                    textDecorationColor = tColor_1.GetColor();
-                    opacity_1 = tColor_1.GetOpacity();
-                }
-            }
-            String textDecorationLineProp = cssProps.Get(CssConstants.TEXT_DECORATION_LINE);
-            if (textDecorationLineProp != null) {
-                String[] textDecorationLines = iText.Commons.Utils.StringUtil.Split(textDecorationLineProp, "\\s+");
-                IList<Underline> underlineList = new List<Underline>();
-                foreach (String textDecorationLine in textDecorationLines) {
-                    if (CssConstants.BLINK.Equals(textDecorationLine)) {
-                        logger.LogError(Html2PdfLogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
-                    }
-                    else {
-                        if (CssConstants.LINE_THROUGH.Equals(textDecorationLine)) {
-                            underlineList.Add(new Underline(textDecorationColor, opacity_1, .75f, 0, 0, 1 / 4f, PdfCanvasConstants.LineCapStyle
-                                .BUTT));
-                        }
-                        else {
-                            if (CssConstants.OVERLINE.Equals(textDecorationLine)) {
-                                underlineList.Add(new Underline(textDecorationColor, opacity_1, .75f, 0, 0, 9 / 10f, PdfCanvasConstants.LineCapStyle
-                                    .BUTT));
-                            }
-                            else {
-                                if (CssConstants.UNDERLINE.Equals(textDecorationLine)) {
-                                    underlineList.Add(new Underline(textDecorationColor, opacity_1, .75f, 0, 0, -1 / 10f, PdfCanvasConstants.LineCapStyle
-                                        .BUTT));
-                                }
-                                else {
-                                    if (CssConstants.NONE.Equals(textDecorationLine)) {
-                                        underlineList = null;
-                                        // if none and any other decoration are used together, none is displayed
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                element.SetProperty(Property.UNDERLINE, underlineList);
-            }
+            SetTextDecoration(element, cssProps);
             String textIndent = cssProps.Get(CommonCssConstants.TEXT_INDENT);
             if (textIndent != null) {
                 UnitValue textIndentValue = CssDimensionParsingUtils.ParseLengthValueToPt(textIndent, em, rem);
@@ -293,6 +241,87 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String lineHeight = cssProps.Get(CssConstants.LINE_HEIGHT);
             SetLineHeight(element, lineHeight, em, rem);
             SetLineHeightByLeading(element, lineHeight, em, rem);
+        }
+
+        private static void SetTextDecoration(IPropertyContainer element, IDictionary<String, String> cssProps) {
+            String[] props = new String[] { null };
+            String unparsedProps = cssProps.Get(CommonCssConstants.TEXT_DECORATION_COLOR);
+            if (unparsedProps != null && !String.IsNullOrEmpty(unparsedProps.Trim())) {
+                props = iText.Commons.Utils.StringUtil.Split(cssProps.Get(CommonCssConstants.TEXT_DECORATION_COLOR), "\\s+"
+                    );
+            }
+            IList<float> opacityList = new List<float>(props.Length);
+            IList<Color> colorList = new List<Color>(props.Length);
+            foreach (String textDecorationColorProp in props) {
+                TransparentColor tColor;
+                Color textDecorationColor;
+                float opacity = 1f;
+                if (textDecorationColorProp == null || CommonCssConstants.CURRENTCOLOR.Equals(textDecorationColorProp)) {
+                    if (element.GetProperty<TransparentColor>(Property.FONT_COLOR) != null) {
+                        TransparentColor transparentColor = element.GetProperty<TransparentColor>(Property.FONT_COLOR);
+                        textDecorationColor = transparentColor.GetColor();
+                        opacity = transparentColor.GetOpacity();
+                    }
+                    else {
+                        textDecorationColor = ColorConstants.BLACK;
+                    }
+                }
+                else {
+                    if (textDecorationColorProp.StartsWith("hsl")) {
+                        logger.LogError(Html2PdfLogMessageConstant.HSL_COLOR_NOT_SUPPORTED);
+                        textDecorationColor = ColorConstants.BLACK;
+                    }
+                    else {
+                        tColor = CssDimensionParsingUtils.ParseColor(textDecorationColorProp);
+                        textDecorationColor = tColor.GetColor();
+                        opacity = tColor.GetOpacity();
+                    }
+                }
+                opacityList.Add(opacity);
+                colorList.Add(textDecorationColor);
+            }
+            String textDecorationLineProp = cssProps.Get(CommonCssConstants.TEXT_DECORATION_LINE);
+            if (textDecorationLineProp == null) {
+                return;
+            }
+            String[] textDecorationArray = iText.Commons.Utils.StringUtil.Split(textDecorationLineProp, "\\s+");
+            IList<Underline> underlineList = new List<Underline>();
+            for (int currentIndex = 0; currentIndex < textDecorationArray.Length; currentIndex++) {
+                float opacity = opacityList.Count - 1 > currentIndex ? opacityList[currentIndex] : opacityList[opacityList
+                    .Count - 1];
+                Color color = colorList.Count - 1 > currentIndex ? colorList[currentIndex] : colorList[colorList.Count - 1
+                    ];
+                String line = textDecorationArray[currentIndex];
+                if (CommonCssConstants.BLINK.Equals(line)) {
+                    logger.LogError(Html2PdfLogMessageConstant.TEXT_DECORATION_BLINK_NOT_SUPPORTED);
+                }
+                else {
+                    if (CommonCssConstants.LINE_THROUGH.Equals(line)) {
+                        underlineList.Add(new Underline(color, opacity, TEXT_DECORATION_LINE_DEFAULT_THICKNESS, 0, 0, TEXT_DECORATION_LINE_THROUGH_Y_POS
+                            , PdfCanvasConstants.LineCapStyle.BUTT));
+                    }
+                    else {
+                        if (CommonCssConstants.OVERLINE.Equals(line)) {
+                            underlineList.Add(new Underline(color, opacity, TEXT_DECORATION_LINE_DEFAULT_THICKNESS, 0, 0, TEXT_DECORATION_LINE_OVER_Y_POS
+                                , PdfCanvasConstants.LineCapStyle.BUTT));
+                        }
+                        else {
+                            if (CommonCssConstants.UNDERLINE.Equals(line)) {
+                                underlineList.Add(new Underline(color, opacity, TEXT_DECORATION_LINE_DEFAULT_THICKNESS, 0, 0, TEXT_DECORATION_LIN_UNDER_Y_POS
+                                    , PdfCanvasConstants.LineCapStyle.BUTT));
+                            }
+                            else {
+                                if (CommonCssConstants.NONE.Equals(line)) {
+                                    underlineList = null;
+                                    // if none and any other decoration are used together, none is displayed
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            element.SetProperty(Property.UNDERLINE, underlineList);
         }
 
         private static void SetLineHeight(IPropertyContainer elementToSet, String lineHeight, float em, float rem) {

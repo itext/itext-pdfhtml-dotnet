@@ -130,6 +130,7 @@ namespace iText.Html2pdf.Element {
                  + "cmp_htmlTest08.pdf", destinationFolder, "diff08_"));
         }
 
+        //TODO replace cmp file when fixing DEVSIX-7303
         [NUnit.Framework.Test]
         public virtual void Html09Test() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "htmlTest09.html"), new FileInfo(destinationFolder 
