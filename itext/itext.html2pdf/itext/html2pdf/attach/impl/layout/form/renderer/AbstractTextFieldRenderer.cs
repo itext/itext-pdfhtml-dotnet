@@ -107,7 +107,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
         /// <param name="inputField">the input field</param>
         internal virtual void ApplyDefaultFieldProperties(PdfFormField inputField) {
             inputField.GetWidgets()[0].SetHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
-            inputField.SetBorderWidth(0);
+            inputField.GetFirstFormAnnotation().SetBorderWidth(0);
             TransparentColor color = GetPropertyAsTransparentColor(Property.FONT_COLOR);
             if (color != null) {
                 inputField.SetColor(color.GetColor());

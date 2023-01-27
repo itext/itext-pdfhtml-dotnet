@@ -92,8 +92,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                         value).CreatePushButton();
                     button.SetFont(font).SetFontSize(fontSizeValue);
                     button.GetWidgets()[0].SetHighlightMode(PdfAnnotation.HIGHLIGHT_NONE);
-                    button.SetBorderWidth(0);
-                    button.SetBackgroundColor(null);
+                    button.GetFirstFormAnnotation().SetBorderWidth(0);
+                    button.GetFirstFormAnnotation().SetBackgroundColor(null);
                     if (color != null) {
                         button.SetColor(color);
                     }

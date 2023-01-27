@@ -143,7 +143,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
                     value).CreatePushButton();
                 button.SetFont(font).SetFontSize(fontSizeValue);
                 if (backgroundColor != null) {
-                    button.SetBackgroundColor(backgroundColor);
+                    button.GetFirstFormAnnotation().SetBackgroundColor(backgroundColor);
                 }
                 ApplyDefaultFieldProperties(button);
                 PdfAcroForm.GetAcroForm(doc, true).AddField(button, page);
