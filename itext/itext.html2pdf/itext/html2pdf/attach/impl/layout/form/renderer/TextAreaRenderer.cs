@@ -164,8 +164,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout.Form.Renderer {
             float fontSizeValue = fontSize.GetValue();
             PdfString defaultValue = new PdfString(GetDefaultValue());
             FormsMetaInfoStaticContainer.UseMetaInfoDuringTheAction(GetMetaInfo(), () => {
-                PdfFormField inputField = new TextFormFieldBuilder(doc, name).SetWidgetRectangle(area).CreateText().SetFont
-                    (font).SetFontSize(fontSizeValue).SetValue(value);
+                PdfFormField inputField = new TextFormFieldBuilder(doc, name).SetWidgetRectangle(area).CreateText().SetValue
+                    (value);
+                inputField.SetFont(font).SetFontSize(fontSizeValue);
                 inputField.SetFieldFlag(PdfFormField.FF_MULTILINE, true);
                 inputField.SetDefaultValue(defaultValue);
                 ApplyDefaultFieldProperties(inputField);
