@@ -86,9 +86,9 @@ namespace iText.Html2pdf.Events {
         private PdfDocument AddEventHandlersToPdfDocument(String pdfOutput, ConverterProperties converterProperties
             ) {
             FileStream pdfStream = new FileStream(pdfOutput, FileMode.Create);
-            IList<IElement> elements = HtmlConverter.ConvertToElements("<input type='text' name='h' value='test header field value here'/>"
+            IList<IElement> elements = HtmlConverter.ConvertToElements("<input type='text' name='header' value='test header field value here'/>"
                 , converterProperties);
-            IList<IElement> footer = HtmlConverter.ConvertToElements("<input type='text' name='h' value='test footer field value here'/>"
+            IList<IElement> footer = HtmlConverter.ConvertToElements("<input type='text' name='footer' value='test footer field value here'/>"
                 , converterProperties);
             PdfWriter writer = new PdfWriter(pdfStream);
             PdfDocument pdfDocument = new PdfDocument(writer);
