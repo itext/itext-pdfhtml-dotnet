@@ -52,9 +52,8 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
-    // Android-Skip
-    // Android-Skip
-    // Android-Skip
+    // Android-Conversion-Skip-Line (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
+    // Android-Conversion-Skip-Line (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
     [NUnit.Framework.Category("IntegrationTest")]
     public class LinkTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
@@ -160,7 +159,7 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest09.pdf", destinationFolder, "diff09_"));
         }
 
-        // Android-Excise-Start
+        // Android-Conversion-Skip-Block-Start (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
         [NUnit.Framework.Test]
         [LogMessage(PdfAConformanceLogMessageConstant.CATALOG_SHOULD_CONTAIN_LANG_ENTRY)]
         public virtual void LinkTest10ToPdfa() {
@@ -176,7 +175,7 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest10.pdf", destinationFolder, "diff10_"));
         }
 
-        // Android-Excise-End
+        // Android-Conversion-Skip-Block-End
         [NUnit.Framework.Test]
         public virtual void LinkTest11() {
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest11.pdf"));
