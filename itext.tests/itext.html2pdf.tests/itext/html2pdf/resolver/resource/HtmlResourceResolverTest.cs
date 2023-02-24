@@ -110,7 +110,6 @@ namespace iText.Html2pdf.Resolver.Resource {
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
         public virtual void ResourceResolverTest07A() {
-            // Android-Ignore (TODO DEVSIX-6460 fix different behavior of java.net.URL#URL)
             String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
             String outPdf = DESTINATION_FOLDER + "resourceResolverTest07A.pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverTest07A.pdf";
@@ -142,7 +141,6 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         [NUnit.Framework.Test]
         public virtual void ResourceResolverHtmlWithSvgTest03() {
-            // Android-Ignore (TODO DEVSIX-6460 fix different behavior of java.net.URL#URL)
             String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
             String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest03.pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverHtmlWithSvgTest03.pdf";
@@ -378,7 +376,6 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         [NUnit.Framework.Test]
         public virtual void ConvertToPdfWithAbsoluteBaseUriTest() {
-            // Android-Ignore (TODO DEVSIX-6460 fix different behavior of java.net.URL#URL)
             String baseUri = PathUtil.GetAbsolutePathToResourcesForHtmlResourceResolverTest();
             String outPdf = DESTINATION_FOLDER + "convertToPdfWithAbsoluteBaseUriTest.pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_convertToPdfWithAbsoluteBaseUriTest.pdf";
@@ -388,7 +385,6 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         [NUnit.Framework.Test]
         public virtual void ConvertToPdfWithBaseUriFromUriTest() {
-            // Android-Ignore (TODO DEVSIX-6460 fix different behavior of java.net.URL#URL)
             String baseUri = PathUtil.GetUriToResourcesForHtmlResourceResolverTest();
             String outPdf = DESTINATION_FOLDER + "convertToPdfWithBaseUriFromUriTest.pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_convertToPdfWithBaseUriFromUriTest.pdf";
