@@ -156,6 +156,7 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void ImageUrlExternalDocumentTest() {
+            // Android-Ignore (TODO DEVSIX-6459 fix the SecurityException(Permission denied) from UrlUtil method)
             ConvertToPdfAndCompare("externalUrlImage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

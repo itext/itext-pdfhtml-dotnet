@@ -55,6 +55,7 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         [NUnit.Framework.Test]
         public virtual void Test() {
+            // Android-Ignore (TODO DEVSIX-6459 fix the SecurityException(Permission denied) from UrlUtil method)
             ResourceResolver resourceResolver = new ResourceResolver("");
             PdfXObject externalImage = resourceResolver.RetrieveImage("https://raw.githubusercontent.com/itext/itext7/develop/layout/src/test/resources/com/itextpdf/layout/ImageTest/itis.jpg"
                 );
