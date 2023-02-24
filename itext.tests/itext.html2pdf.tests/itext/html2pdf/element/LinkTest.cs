@@ -52,6 +52,9 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
+    // Android-Skip
+    // Android-Skip
+    // Android-Skip
     [NUnit.Framework.Category("IntegrationTest")]
     public class LinkTest : ExtendedITextTest {
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
@@ -157,6 +160,7 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest09.pdf", destinationFolder, "diff09_"));
         }
 
+        // Android-Excise-Start
         [NUnit.Framework.Test]
         [LogMessage(PdfAConformanceLogMessageConstant.CATALOG_SHOULD_CONTAIN_LANG_ENTRY)]
         public virtual void LinkTest10ToPdfa() {
@@ -172,6 +176,7 @@ namespace iText.Html2pdf.Element {
                  + "cmp_linkTest10.pdf", destinationFolder, "diff10_"));
         }
 
+        // Android-Excise-End
         [NUnit.Framework.Test]
         public virtual void LinkTest11() {
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "linkTest11.pdf"));

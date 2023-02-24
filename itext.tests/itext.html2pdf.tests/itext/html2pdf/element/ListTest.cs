@@ -53,6 +53,7 @@ using iText.StyledXmlParser.Css.Media;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
+    // Android-Skip
     [NUnit.Framework.Category("IntegrationTest")]
     public class ListTest : ExtendedHtmlConversionITextTest {
         public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
@@ -231,6 +232,7 @@ namespace iText.Html2pdf.Element {
             ConvertToPdfAndCompare("inlineWithInlineBlockAsLiChild", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
+        // Android-Excise-Start
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, Count = 32)]
         public virtual void ListToPdfaTest() {
@@ -247,5 +249,6 @@ namespace iText.Html2pdf.Element {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "listToPdfa.pdf", SOURCE_FOLDER
                  + "cmp_listToPdfa.pdf", DESTINATION_FOLDER, "diff99_"));
         }
+        // Android-Excise-End
     }
 }

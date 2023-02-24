@@ -54,7 +54,7 @@ namespace iText.Html2pdf.Resolver.Resource {
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/resolver/resource/";
 
         public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/resolver/resource/";
+             + "/test/itext/html2pdf/resolver/resource/release/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
