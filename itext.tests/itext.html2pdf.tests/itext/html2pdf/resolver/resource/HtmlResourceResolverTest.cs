@@ -89,7 +89,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
         [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI, Count = 2)]
         public virtual void ResourceResolverHtmlWithSvgTest02() {
-            // Android-Ignore (TODO DEVSIX-6456 fix the java.net.URLConnection#getHeaderField which is used by UrlUtil)
+            // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
             String baseUri = SOURCE_FOLDER + "%23r%e%2525s@o%25urces/";
             String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest02.pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverHtmlWithSvgTest02.pdf";
@@ -98,7 +98,7 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         [NUnit.Framework.Test]
         public virtual void ResourceResolverTest07() {
-            // Android-Ignore (TODO DEVSIX-6456 fix the java.net.URLConnection#getHeaderField which is used by UrlUtil)
+            // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
             String outPdf = DESTINATION_FOLDER + "resourceResolverTest07.pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverTest07.pdf";
             HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "resourceResolverTest07.html"), new FileInfo(outPdf
@@ -122,7 +122,7 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         [NUnit.Framework.Test]
         public virtual void ResourceResolverTest07B() {
-            // Android-Ignore (TODO DEVSIX-6456 fix the java.net.URLConnection#getHeaderField which is used by UrlUtil)
+            // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
             String outPdf = DESTINATION_FOLDER + "resourceResolverTest07B.pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverTest07B.pdf";
             HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "#r%e%25s@o%urces/resourceResolverTest07B.html"), 
@@ -132,7 +132,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        // Android-Ignore (TODO DEVSIX-6456 fix the java.net.URLConnection#getHeaderField which is used by UrlUtil)
+        // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
         [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
         public virtual void ResourceResolverTest07C() {
             String outPdf = DESTINATION_FOLDER + "resourceResolverTest07C.pdf";
@@ -157,7 +157,7 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         [NUnit.Framework.Test]
         public virtual void ResourceResolverHtmlWithSvgTest04() {
-            // Android-Ignore (TODO DEVSIX-6456 fix the java.net.URLConnection#getHeaderField which is used by UrlUtil)
+            // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
             String outPdf = DESTINATION_FOLDER + "resourceResolverHtmlWithSvgTest04.pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverHtmlWithSvgTest04.pdf";
             ConvertHtmlStreamToPdf(SOURCE_FOLDER + "resourceResolverHtmlWithSvgTest04.html", outPdf, cmpPdf, SOURCE_FOLDER
@@ -167,7 +167,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         [NUnit.Framework.Test]
         public virtual void ResourceResolverCssWithSvg() {
             //TODO: update after DEVSIX-2239 fix
-            // Android-Ignore (TODO DEVSIX-6456 fix the java.net.URLConnection#getHeaderField which is used by UrlUtil)
+            // Android-Ignore (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
             String outPdf = DESTINATION_FOLDER + "resourceResolverCssWithSvg.pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverCssWithSvg.pdf";
             HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "resourceResolverCssWithSvg.html"), new FileInfo(outPdf
