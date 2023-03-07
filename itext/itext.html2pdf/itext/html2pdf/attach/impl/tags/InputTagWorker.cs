@@ -45,9 +45,9 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
 using iText.Commons.Utils;
+using iText.Forms.Form;
+using iText.Forms.Form.Element;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Layout;
-using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
@@ -115,23 +115,23 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     }
                     ((InputField)formElement).SetPlaceholder(paragraph.SetMargin(0));
                 }
-                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
-                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_SIZE, size);
+                formElement.SetProperty(FormProperty.FORM_FIELD_VALUE, value);
+                formElement.SetProperty(FormProperty.FORM_FIELD_SIZE, size);
                 if (AttributeConstants.PASSWORD.Equals(inputType)) {
-                    formElement.SetProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG, true);
+                    formElement.SetProperty(FormProperty.FORM_FIELD_PASSWORD_FLAG, true);
                 }
             }
             else {
                 if (AttributeConstants.SUBMIT.Equals(inputType) || AttributeConstants.BUTTON.Equals(inputType)) {
                     formElement = new InputButton(name);
-                    formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
+                    formElement.SetProperty(FormProperty.FORM_FIELD_VALUE, value);
                 }
                 else {
                     if (AttributeConstants.CHECKBOX.Equals(inputType)) {
                         formElement = new CheckBox(name);
                         String @checked = element.GetAttribute(AttributeConstants.CHECKED);
                         if (null != @checked) {
-                            formElement.SetProperty(Html2PdfProperty.FORM_FIELD_CHECKED, @checked);
+                            formElement.SetProperty(FormProperty.FORM_FIELD_CHECKED, @checked);
                         }
                     }
                     else {
@@ -139,11 +139,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         if (AttributeConstants.RADIO.Equals(inputType)) {
                             formElement = new Radio(name);
                             String radioGroupName = element.GetAttribute(AttributeConstants.NAME);
-                            formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, radioGroupName);
+                            formElement.SetProperty(FormProperty.FORM_FIELD_VALUE, radioGroupName);
                             String @checked = element.GetAttribute(AttributeConstants.CHECKED);
                             if (null != @checked) {
                                 context.GetRadioCheckResolver().CheckField(radioGroupName, (Radio)formElement);
-                                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_CHECKED, @checked);
+                                formElement.SetProperty(FormProperty.FORM_FIELD_CHECKED, @checked);
                             }
                         }
                         else {
@@ -156,8 +156,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             if (formElement != null) {
-                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
-                formElement.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+                formElement.SetProperty(FormProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
+                formElement.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
             }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }

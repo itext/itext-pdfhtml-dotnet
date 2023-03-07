@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using iText.Html2pdf.Attach.Impl.Layout;
-using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
+using iText.Forms.Form;
+using iText.Forms.Form.Element;
 
 namespace iText.Html2pdf.Resolver.Form {
     /*
@@ -65,7 +65,7 @@ namespace iText.Html2pdf.Resolver.Form {
         public virtual void CheckField(String radioGroupName, Radio checkedField) {
             Radio previouslyChecked = @checked.Get(radioGroupName);
             if (null != previouslyChecked) {
-                previouslyChecked.DeleteOwnProperty(Html2PdfProperty.FORM_FIELD_CHECKED);
+                previouslyChecked.DeleteOwnProperty(FormProperty.FORM_FIELD_CHECKED);
             }
             @checked.Put(radioGroupName, checkedField);
         }

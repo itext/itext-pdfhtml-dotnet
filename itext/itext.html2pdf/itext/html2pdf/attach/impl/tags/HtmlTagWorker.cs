@@ -41,10 +41,10 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Forms.Form.Element;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Attach.Impl.Layout;
-using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;

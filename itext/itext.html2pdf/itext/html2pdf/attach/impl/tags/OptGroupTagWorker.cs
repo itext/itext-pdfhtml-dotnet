@@ -41,8 +41,8 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Forms.Form;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
 using iText.Layout;
@@ -71,7 +71,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (label == null || String.IsNullOrEmpty(label)) {
                 label = "\u00A0";
             }
-            GetElementResult().SetProperty(Html2PdfProperty.FORM_FIELD_LABEL, label);
+            GetElementResult().SetProperty(FormProperty.FORM_FIELD_LABEL, label);
             Paragraph p = new Paragraph(label).SetMargin(0);
             p.SetProperty(Property.OVERFLOW_X, OverflowPropertyValue.VISIBLE);
             p.SetProperty(Property.OVERFLOW_Y, OverflowPropertyValue.VISIBLE);

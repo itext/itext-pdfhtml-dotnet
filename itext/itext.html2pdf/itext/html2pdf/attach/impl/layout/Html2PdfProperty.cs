@@ -53,46 +53,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary>The Constant PAGE_COUNT_TYPE.</summary>
         public const int PAGE_COUNT_TYPE = PROPERTY_START + 2;
 
-        /// <summary>The Constant FORM_FIELD_FLATTEN for form related properties.</summary>
-        public const int FORM_FIELD_FLATTEN = PROPERTY_START + 3;
-
-        /// <summary>The Constant FORM_FIELD_SIZE.</summary>
-        public const int FORM_FIELD_SIZE = PROPERTY_START + 4;
-
-        /// <summary>The Constant FORM_FIELD_VALUE.</summary>
-        public const int FORM_FIELD_VALUE = PROPERTY_START + 5;
-
-        /// <summary>The Constant FORM_FIELD_PASSWORD_FLAG.</summary>
-        public const int FORM_FIELD_PASSWORD_FLAG = PROPERTY_START + 6;
-
-        /// <summary>The Constant FORM_FIELD_COLS.</summary>
-        public const int FORM_FIELD_COLS = PROPERTY_START + 7;
-
-        /// <summary>The Constant FORM_FIELD_ROWS.</summary>
-        public const int FORM_FIELD_ROWS = PROPERTY_START + 8;
-
-        /// <summary>The Constant FORM_FIELD_CHECKED.</summary>
-        public const int FORM_FIELD_CHECKED = PROPERTY_START + 9;
-
         /// <summary>The Constant BODY_STYLING.</summary>
-        public const int BODY_STYLING = PROPERTY_START + 10;
+        public const int BODY_STYLING = PROPERTY_START + 3;
 
         /// <summary>The Constant HTML_STYLING.</summary>
-        public const int HTML_STYLING = PROPERTY_START + 11;
-
-        /// <summary>The Constant FORM_FIELD_MULTIPLE.</summary>
-        public const int FORM_FIELD_MULTIPLE = PROPERTY_START + 12;
-
-        /// <summary>The Constant FORM_FIELD_SELECTED.</summary>
-        public const int FORM_FIELD_SELECTED = PROPERTY_START + 13;
-
-        /// <summary>The Constant FORM_FIELD_SELECTED.</summary>
-        public const int FORM_FIELD_LABEL = PROPERTY_START + 14;
-
-        /// <summary>The Constant FORM_ACCESSIBILITY_LANGUAGE.</summary>
-        public const int FORM_ACCESSIBILITY_LANGUAGE = PROPERTY_START + 15;
+        public const int HTML_STYLING = PROPERTY_START + 4;
 
         /// <summary>The Constant CAPITALIZE_ELEMENT indicates if an inline element needs to be capitalized.</summary>
-        public const int CAPITALIZE_ELEMENT = PROPERTY_START + 16;
+        public const int CAPITALIZE_ELEMENT = PROPERTY_START + 5;
     }
 }

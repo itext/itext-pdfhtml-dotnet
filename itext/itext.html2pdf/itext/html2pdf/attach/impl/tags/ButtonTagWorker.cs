@@ -42,9 +42,9 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Text;
+using iText.Forms.Form;
+using iText.Forms.Form.Element;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Layout;
-using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
 using iText.Layout;
@@ -113,7 +113,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (formField == null) {
                 if (hasChildren) {
                     Button button = new Button(name);
-                    button.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+                    button.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
                     Div div = (Div)base.GetElementResult();
                     foreach (IElement element in div.GetChildren()) {
                         if (element is IAccessibleElement) {
@@ -133,12 +133,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
                 else {
                     InputButton inputButton = new InputButton(name);
-                    inputButton.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
-                    inputButton.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, fallbackContent.ToString().Trim());
+                    inputButton.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+                    inputButton.SetProperty(FormProperty.FORM_FIELD_VALUE, fallbackContent.ToString().Trim());
                     formField = inputButton;
                 }
             }
-            formField.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, flatten);
+            formField.SetProperty(FormProperty.FORM_FIELD_FLATTEN, flatten);
             return formField;
         }
     }

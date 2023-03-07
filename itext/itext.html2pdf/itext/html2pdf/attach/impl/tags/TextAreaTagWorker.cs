@@ -41,9 +41,9 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Forms.Form;
+using iText.Forms.Form.Element;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Layout;
-using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Layout;
@@ -82,11 +82,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             textArea = new TextArea(name);
             int? rows = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.ROWS));
             int? cols = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.COLS));
-            textArea.SetProperty(Html2PdfProperty.FORM_FIELD_ROWS, rows);
-            textArea.SetProperty(Html2PdfProperty.FORM_FIELD_COLS, cols);
-            textArea.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
-            textArea.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, element.GetAttribute(AttributeConstants
-                .LANG));
+            textArea.SetProperty(FormProperty.FORM_FIELD_ROWS, rows);
+            textArea.SetProperty(FormProperty.FORM_FIELD_COLS, cols);
+            textArea.SetProperty(FormProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
+            textArea.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, element.GetAttribute(AttributeConstants.LANG
+                ));
             String placeholder = element.GetAttribute(AttributeConstants.PLACEHOLDER);
             if (null != placeholder) {
                 Paragraph paragraph;
@@ -124,7 +124,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     content = content.Substring(1);
                 }
             }
-            textArea.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, content);
+            textArea.SetProperty(FormProperty.FORM_FIELD_VALUE, content);
             return true;
         }
 

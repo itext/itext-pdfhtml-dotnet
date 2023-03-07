@@ -41,9 +41,9 @@ For more information, please contact iText Software Corp. at this
 address: sales@itextpdf.com
 */
 using System;
+using iText.Forms.Form;
+using iText.Forms.Form.Element;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Layout;
-using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Layout;
@@ -84,8 +84,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 selectElement = new ComboBoxField(name);
             }
             String lang = element.GetAttribute(AttributeConstants.LANG);
-            selectElement.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
-            selectElement.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
+            selectElement.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+            selectElement.SetProperty(FormProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 

@@ -52,10 +52,6 @@ namespace iText.Html2pdf.Logs {
         public const String CUSTOM_RENDERER_IS_SET_FOR_HTML_DOCUMENT = "A custom renderer which doesn't extend HtmlDocumentRenderer is set for HtmlDocument. Counters and "
              + "target-counters may be displayed incorrectly.";
 
-        /// <summary>The Constant ACROFORM_NOT_SUPPORTED_FOR_SELECT.</summary>
-        public const String ACROFORM_NOT_SUPPORTED_FOR_SELECT = "AcroForm fields creation for select fields (ComboBoxField and ListBoxField) is not supported. They will "
-             + "be flattened instead.";
-
         public const String ANCHOR_LINK_NOT_HANDLED = "The anchor link was not handled. Could not create a destination for element \"{0}\" with ID \"{1}\", "
              + "which is processed by \"{2}\" tag worker class.";
 
@@ -76,21 +72,12 @@ namespace iText.Html2pdf.Logs {
         /// <summary>The Constant ERROR_RESOLVING_PARENT_STYLES.</summary>
         public const String ERROR_RESOLVING_PARENT_STYLES = "Element parent styles are not resolved. Styles for current element might be incorrect.";
 
-        /// <summary>The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD.</summary>
-        public const String ERROR_WHILE_LAYOUT_OF_FORM_FIELD = "Cannot layout form field field. It won't be displayed";
-
         /// <summary>The Constant EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS.</summary>
         public const String EXCEEDED_THE_MAXIMUM_NUMBER_OF_RELAYOUTS = "Exceeded the maximum number of relayouts. The resultant document may look not as expected. Because of the"
              + " content being dynamic iText performs several relayouts to produce correct document.";
 
         /// <summary>The constant FLEX_PROPERTY_IS_NOT_SUPPORTED_YET.</summary>
         public const String FLEX_PROPERTY_IS_NOT_SUPPORTED_YET = "Flex related property {0}: {1} is not supported yet.";
-
-        /// <summary>The Constant ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE.</summary>
-        public const String ERROR_WHILE_LAYOUT_OF_FORM_FIELD_WITH_TYPE = "Error during layout of form filed with type {0}.";
-
-        /// <summary>The Constant INPUT_FIELD_DOES_NOT_FIT.</summary>
-        public const String INPUT_FIELD_DOES_NOT_FIT = "Input field doesn't fit in outer object. It will be clipped";
 
         /// <summary>The Constant INPUT_TYPE_IS_INVALID.</summary>
         public const String INPUT_TYPE_IS_INVALID = "Input type {0} is invalid. The default text type will be used instead.";

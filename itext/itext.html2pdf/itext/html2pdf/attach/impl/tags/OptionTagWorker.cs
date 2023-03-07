@@ -42,8 +42,8 @@ address: sales@itextpdf.com
 */
 using System;
 using System.Text;
+using iText.Forms.Form;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Html;
 using iText.StyledXmlParser.Jsoup.Nodes;
 using iText.StyledXmlParser.Node;
@@ -75,7 +75,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public OptionTagWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {
             bool selectedAttr = element.GetAttribute(AttributeConstants.SELECTED) != null;
-            GetElementResult().SetProperty(Html2PdfProperty.FORM_FIELD_SELECTED, selectedAttr);
+            GetElementResult().SetProperty(FormProperty.FORM_FIELD_SELECTED, selectedAttr);
             actualOptionTextContent = new StringBuilder();
             labelAttrVal = element.GetAttribute(AttributeConstants.LABEL);
             if (labelAttrVal != null) {
@@ -98,8 +98,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (valueAttr == null) {
                 valueAttr = content;
             }
-            GetElementResult().SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, valueAttr);
-            GetElementResult().SetProperty(Html2PdfProperty.FORM_FIELD_LABEL, labelAttr);
+            GetElementResult().SetProperty(FormProperty.FORM_FIELD_VALUE, valueAttr);
+            GetElementResult().SetProperty(FormProperty.FORM_FIELD_LABEL, labelAttr);
         }
 
         public override bool ProcessContent(String content, ProcessorContext context) {

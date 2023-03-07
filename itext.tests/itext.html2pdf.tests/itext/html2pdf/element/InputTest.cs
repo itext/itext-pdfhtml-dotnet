@@ -43,10 +43,11 @@ address: sales@itextpdf.com
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Forms.Form.Element;
+using iText.Forms.Logs;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
-using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Logs;
 using iText.IO.Util;
@@ -100,7 +101,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
+        [LogMessage(FormsLogMessageConstants.INPUT_FIELD_DOES_NOT_FIT, Ignore = true)]
         public virtual void Input06Test() {
             String htmlPath = sourceFolder + "inputTest06.html";
             String outPdfPath = destinationFolder + "inputTest06.pdf";
