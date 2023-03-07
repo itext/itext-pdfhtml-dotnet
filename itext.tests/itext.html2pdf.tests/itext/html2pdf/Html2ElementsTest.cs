@@ -298,6 +298,17 @@ namespace iText.Html2pdf {
                 , e.Message);
         }
 
+        [NUnit.Framework.Test]
+        //TODO: DEVSIX-3891 change the Assert after supporting the svg tag
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, LogLevel = LogLevelConstants
+            .ERROR)]
+        public virtual void HtmlToElementsSvgTest() {
+            String html = "<svg height=\"100\" width=\"100\">" + "<circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" />"
+                 + "</svg>";
+            IList<IElement> lst = HtmlConverter.ConvertToElements(html);
+            NUnit.Framework.Assert.AreEqual(0, lst.Count);
+        }
+
         private static void AddElementsToDocument(Document document, IList<IElement> elements) {
             foreach (IElement elem in elements) {
                 if (elem is IBlockElement) {
