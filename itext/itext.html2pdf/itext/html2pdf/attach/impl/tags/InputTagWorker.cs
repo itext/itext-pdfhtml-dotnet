@@ -51,7 +51,9 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
+using iText.Kernel.Colors;
 using iText.Layout;
+using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
@@ -65,6 +67,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     public class InputTagWorker : ITagWorker, IDisplayAware {
         private static readonly Regex NUMBER_INPUT_ALLOWED_VALUES = iText.Commons.Utils.StringUtil.RegexCompile("^(((-?[0-9]+)(\\.[0-9]+)?)|(-?\\.[0-9]+))$"
             );
+
+        private static int radioNameIdx = 0;
 
         /// <summary>The form element.</summary>
         private IElement formElement;
@@ -131,23 +135,30 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         formElement = new CheckBox(name);
                         String @checked = element.GetAttribute(AttributeConstants.CHECKED);
                         if (null != @checked) {
-                            formElement.SetProperty(FormProperty.FORM_FIELD_CHECKED, @checked);
+                            formElement.SetProperty(FormProperty.FORM_FIELD_CHECKED, true);
                         }
                     }
                     else {
                         // has attribute == is checked
                         if (AttributeConstants.RADIO.Equals(inputType)) {
-                            formElement = new Radio(name);
                             String radioGroupName = element.GetAttribute(AttributeConstants.NAME);
-                            formElement.SetProperty(FormProperty.FORM_FIELD_VALUE, radioGroupName);
+                            if (radioGroupName == null || String.IsNullOrEmpty(radioGroupName)) {
+                                ++radioNameIdx;
+                                radioGroupName = "radio" + radioNameIdx;
+                            }
+                            Radio radio = new Radio(name, radioGroupName);
+                            // Gray circle border
+                            Border border = new SolidBorder(1);
+                            border.SetColor(ColorConstants.LIGHT_GRAY);
+                            radio.SetBorder(border);
                             String @checked = element.GetAttribute(AttributeConstants.CHECKED);
                             if (null != @checked) {
-                                context.GetRadioCheckResolver().CheckField(radioGroupName, (Radio)formElement);
-                                formElement.SetProperty(FormProperty.FORM_FIELD_CHECKED, @checked);
+                                context.GetRadioCheckResolver().CheckField(radioGroupName, radio);
+                                radio.SetChecked(true);
                             }
+                            formElement = radio;
                         }
                         else {
-                            // has attribute == is checked
                             ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
                             logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType
                                 ));
