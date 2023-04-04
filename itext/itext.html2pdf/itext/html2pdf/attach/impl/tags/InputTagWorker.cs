@@ -55,6 +55,7 @@ using iText.Kernel.Colors;
 using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
@@ -101,6 +102,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 ) || AttributeConstants.PASSWORD.Equals(inputType) || AttributeConstants.NUMBER.Equals(inputType)) {
                 int? size = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.SIZE));
                 formElement = new InputField(name);
+                // Default html2pdf input field appearance differs from the default one for form fields.
+                // That's why we need to get rid of all properties we set by default during InputField instance creation.
+                formElement.DeleteOwnProperty(Property.BOX_SIZING);
                 value = PreprocessInputValue(value, inputType);
                 // process placeholder instead
                 String placeholder = element.GetAttribute(AttributeConstants.PLACEHOLDER);
