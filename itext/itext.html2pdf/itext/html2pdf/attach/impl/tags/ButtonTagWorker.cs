@@ -132,9 +132,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     formField = button;
                 }
                 else {
-                    InputButton inputButton = new InputButton(name);
+                    Button inputButton = new Button(name);
                     inputButton.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
-                    inputButton.SetProperty(FormProperty.FORM_FIELD_VALUE, fallbackContent.ToString().Trim());
+                    inputButton.SetValue(fallbackContent.ToString().Trim());
                     formField = inputButton;
                 }
             }

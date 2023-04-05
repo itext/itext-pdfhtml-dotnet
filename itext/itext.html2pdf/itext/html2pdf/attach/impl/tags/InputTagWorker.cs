@@ -131,8 +131,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             else {
                 if (AttributeConstants.SUBMIT.Equals(inputType) || AttributeConstants.BUTTON.Equals(inputType)) {
-                    formElement = new InputButton(name);
-                    formElement.SetProperty(FormProperty.FORM_FIELD_VALUE, value);
+                    formElement = new Button(name).SetSingleLineValue(value);
                 }
                 else {
                     if (AttributeConstants.CHECKBOX.Equals(inputType)) {
