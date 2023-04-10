@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.IO;
+using iText.Commons.Utils;
 using iText.Forms;
 using iText.Forms.Logs;
 using iText.Html2pdf;
@@ -83,12 +84,28 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void FieldsetTest() {
-            RunTest("fieldset");
+            // TODO: DEVSIX-7423 - remove flag
+            bool experimentalRenderingPreviousValue = ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING;
+            ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = false;
+            try {
+                RunTest("fieldset");
+            }
+            finally {
+                ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = experimentalRenderingPreviousValue;
+            }
         }
 
         [NUnit.Framework.Test]
         public virtual void FieldsetLegendTest() {
-            RunTest("fieldsetLegend");
+            // TODO: DEVSIX-7423 - remove flag
+            bool experimentalRenderingPreviousValue = ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING;
+            ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = false;
+            try {
+                RunTest("fieldsetLegend");
+            }
+            finally {
+                ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = experimentalRenderingPreviousValue;
+            }
         }
 
         [NUnit.Framework.Test]
@@ -104,7 +121,15 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void InputDisplayTest() {
-            RunTest("inputDisplay");
+            // TODO: DEVSIX-7423 - remove flag
+            bool experimentalRenderingPreviousValue = ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING;
+            ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = false;
+            try {
+                RunTest("inputDisplay");
+            }
+            finally {
+                ExperimentalFeatures.ENABLE_EXPERIMENTAL_TEXT_FORM_RENDERING = experimentalRenderingPreviousValue;
+            }
         }
 
         [NUnit.Framework.Test]
