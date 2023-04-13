@@ -69,7 +69,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             textArea.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, element.GetAttribute(AttributeConstants.LANG
                 ));
             // Default html2pdf text area appearance differs from the default one for form fields.
-            // That's why we need to get rid of all properties we set by default during TextArea instance creation.
+            // That's why we need to get rid of several properties we set by default during TextArea instance creation.
             textArea.DeleteOwnProperty(Property.BOX_SIZING);
             String placeholder = element.GetAttribute(AttributeConstants.PLACEHOLDER);
             if (null != placeholder) {
