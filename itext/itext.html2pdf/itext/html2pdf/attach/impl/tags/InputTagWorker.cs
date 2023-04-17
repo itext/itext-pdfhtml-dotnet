@@ -117,16 +117,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     if (AttributeConstants.CHECKBOX.Equals(inputType)) {
                         CheckBox cb = new CheckBox(name);
                         String @checked = element.GetAttribute(AttributeConstants.CHECKED);
-                        if (ExperimentalFeatures.ENABLE_EXPERIMENTAL_CHECKBOX_RENDERING) {
-                            // so in the previous implementation the width was 8.25 and the borders .75,
-                            // but the borders got drawn on the outside of the box, so the actual size was 9.75
-                            // because 8.25 + 2 * .75 = 9.75
-                            float widthWithBordersOnTheInside = 9.75f;
-                            float defaultBorderWith = 0.75f;
-                            cb.SetSize(widthWithBordersOnTheInside);
-                            cb.SetBorder(new SolidBorder(ColorConstants.DARK_GRAY, defaultBorderWith));
-                            cb.SetBackgroundColor(ColorConstants.WHITE);
-                        }
+                        // so in the previous implementation the width was 8.25 and the borders .75,
+                        // but the borders got drawn on the outside of the box, so the actual size was 9.75
+                        // because 8.25 + 2 * .75 = 9.75
+                        float widthWithBordersOnTheInside = 9.75f;
+                        float defaultBorderWith = .75f;
+                        cb.SetSize(widthWithBordersOnTheInside);
+                        cb.SetBorder(new SolidBorder(ColorConstants.DARK_GRAY, defaultBorderWith));
+                        cb.SetBackgroundColor(ColorConstants.WHITE);
                         // has attribute == is checked
                         cb.SetChecked(@checked != null);
                         formElement = cb;
