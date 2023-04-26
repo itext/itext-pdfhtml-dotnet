@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>itext7.pdfhtml</id>
-    <version>5.0.0-SNAPSHOT</version>
+    <version>5.0.1-SNAPSHOT</version>
     <title>iText 7 pdfHTML</title>
     <authors>Apryse Software</authors>
     <owners>Apryse Software</owners>
@@ -19,10 +19,10 @@
 	<repository type="git" url="https://github.com/itext/i7n-pdfhtml.git" />
     <dependencies>
       <group targetFramework="net461">
-        <dependency id="itext7" version="8.0.0-SNAPSHOT" />
+        <dependency id="itext7" version="8.0.1-SNAPSHOT" />
       </group>
       <group targetFramework="netstandard2.0">
-        <dependency id="itext7" version="8.0.0-SNAPSHOT" />
+        <dependency id="itext7" version="8.0.1-SNAPSHOT" />
       </group>
     </dependencies>
   </metadata>
