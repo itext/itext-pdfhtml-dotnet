@@ -1,7 +1,7 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2023 iText Group NV
-Authors: iText Software.
+Copyright (c) 1998-2023 Apryse Group NV
+Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
 For commercial licensing, contact us at https://itextpdf.com/sales.  For AGPL licensing, see below.
@@ -33,7 +33,7 @@ namespace iText.Html2pdf.Actions.Data {
     public sealed class PdfHtmlProductData {
         private const String PDF_HTML_PUBLIC_PRODUCT_NAME = "pdfHTML";
 
-        private const String PDF_HTML_VERSION = "4.0.5";
+        private const String PDF_HTML_VERSION = "5.0.0";
 
         private const int PDF_HTML_COPYRIGHT_SINCE = 2000;
 

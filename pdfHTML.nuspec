@@ -2,10 +2,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>itext7.pdfhtml</id>
-    <version>4.0.5</version>
+    <version>5.0.0</version>
     <title>iText 7 pdfHTML</title>
-    <authors>iText Software</authors>
-    <owners>iText Software</owners>
+    <authors>Apryse Software</authors>
+    <owners>Apryse Software</owners>
     <licenseUrl>https://www.gnu.org/licenses/agpl.html</licenseUrl>
     <projectUrl>https://itextpdf.com/en/products/itext-7/pdfhtml</projectUrl>
     <icon>ITSC-avatar.png</icon>
@@ -13,16 +13,16 @@
     <description>pdfHTML is an iText 7 add-on for C# (.NET) that allows you to easily convert HTML and CSS into standards compliant PDFs that are accessible, searchable and usable for indexing.</description>
     <summary>pdfHTML is an iText 7 add-on that lets you to parse (X)HTML snippets and the associated CSS and converts them to PDF.</summary>
     <releaseNotes>https://itextpdf.com/itext7release</releaseNotes>
-    <copyright>Copyright (c) 1998-2023 iText Group NV</copyright>
+    <copyright>Copyright (c) 1998-2023 Apryse Group NV</copyright>
     <language>en-US</language>
     <tags>itext itext7 itextsharp c# .net csharp pdf html pdfhtml htmltopdf html2pdf html-to-pdf html-to-pdf-converter svg acroform pdf-generation generation converter accessbility opensource open source</tags>
 	<repository type="git" url="https://github.com/itext/i7n-pdfhtml.git" />
     <dependencies>
       <group targetFramework="net461">
-        <dependency id="itext7" version="7.2.5" />
+        <dependency id="itext7" version="8.0.0" />
       </group>
       <group targetFramework="netstandard2.0">
-        <dependency id="itext7" version="7.2.5" />
+        <dependency id="itext7" version="8.0.0" />
       </group>
     </dependencies>
   </metadata>

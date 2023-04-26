@@ -1,58 +1,41 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2023 iText Group NV
-Authors: Bruno Lowagie, Paulo Soares, et al.
+Copyright (c) 1998-2023 Apryse Group NV
+Authors: Apryse Software.
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License version 3
-as published by the Free Software Foundation with the addition of the
-following permission added to Section 15 as permitted in Section 7(a):
-FOR ANY PART OF THE COVERED WORK IN WHICH THE COPYRIGHT IS OWNED BY
-ITEXT GROUP. ITEXT GROUP DISCLAIMS THE WARRANTY OF NON INFRINGEMENT
-OF THIRD PARTY RIGHTS
+This program is offered under a commercial and under the AGPL license.
+For commercial licensing, contact us at https://itextpdf.com/sales.  For AGPL licensing, see below.
 
-This program is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-or FITNESS FOR A PARTICULAR PURPOSE.
-See the GNU Affero General Public License for more details.
+AGPL licensing:
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
 You should have received a copy of the GNU Affero General Public License
-along with this program; if not, see http://www.gnu.org/licenses or write to
-the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-Boston, MA, 02110-1301 USA, or download the license from the following URL:
-http://itextpdf.com/terms-of-use/
-
-The interactive user interfaces in modified source and object code versions
-of this program must display Appropriate Legal Notices, as required under
-Section 5 of the GNU Affero General Public License.
-
-In accordance with Section 7(b) of the GNU Affero General Public License,
-a covered work must retain the producer line in every PDF that is created
-or manipulated using iText.
-
-You can be released from the requirements of the license by purchasing
-a commercial license. Buying such a license is mandatory as soon as you
-develop commercial activities involving the iText software without
-disclosing the source code of your own applications.
-These activities include: offering paid services to customers as an ASP,
-serving PDFs on the fly in a web application, shipping iText with a closed
-source product.
-
-For more information, please contact iText Software Corp. at this
-address: sales@itextpdf.com
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
 using iText.Commons.Utils;
+using iText.Forms.Form;
+using iText.Forms.Form.Element;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Attach.Impl.Layout;
-using iText.Html2pdf.Attach.Impl.Layout.Form.Element;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
+using iText.Kernel.Colors;
 using iText.Layout;
+using iText.Layout.Borders;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
@@ -65,6 +48,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     public class InputTagWorker : ITagWorker, IDisplayAware {
         private static readonly Regex NUMBER_INPUT_ALLOWED_VALUES = iText.Commons.Utils.StringUtil.RegexCompile("^(((-?[0-9]+)(\\.[0-9]+)?)|(-?\\.[0-9]+))$"
             );
+
+        private static int radioNameIdx = 0;
 
         /// <summary>The form element.</summary>
         private IElement formElement;
@@ -97,6 +82,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 ) || AttributeConstants.PASSWORD.Equals(inputType) || AttributeConstants.NUMBER.Equals(inputType)) {
                 int? size = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.SIZE));
                 formElement = new InputField(name);
+                // Default html2pdf input field appearance differs from the default one for form fields.
+                // That's why we need to get rid of several properties we set by default during InputField instance creation.
+                formElement.DeleteOwnProperty(Property.BOX_SIZING);
                 value = PreprocessInputValue(value, inputType);
                 // process placeholder instead
                 String placeholder = element.GetAttribute(AttributeConstants.PLACEHOLDER);
@@ -115,39 +103,52 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     }
                     ((InputField)formElement).SetPlaceholder(paragraph.SetMargin(0));
                 }
-                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
-                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_SIZE, size);
+                formElement.SetProperty(FormProperty.FORM_FIELD_VALUE, value);
+                formElement.SetProperty(FormProperty.FORM_FIELD_SIZE, size);
                 if (AttributeConstants.PASSWORD.Equals(inputType)) {
-                    formElement.SetProperty(Html2PdfProperty.FORM_FIELD_PASSWORD_FLAG, true);
+                    formElement.SetProperty(FormProperty.FORM_FIELD_PASSWORD_FLAG, true);
                 }
             }
             else {
                 if (AttributeConstants.SUBMIT.Equals(inputType) || AttributeConstants.BUTTON.Equals(inputType)) {
-                    formElement = new InputButton(name);
-                    formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, value);
+                    formElement = new Button(name).SetSingleLineValue(value);
                 }
                 else {
                     if (AttributeConstants.CHECKBOX.Equals(inputType)) {
-                        formElement = new CheckBox(name);
+                        CheckBox cb = new CheckBox(name);
                         String @checked = element.GetAttribute(AttributeConstants.CHECKED);
-                        if (null != @checked) {
-                            formElement.SetProperty(Html2PdfProperty.FORM_FIELD_CHECKED, @checked);
-                        }
+                        // so in the previous implementation the width was 8.25 and the borders .75,
+                        // but the borders got drawn on the outside of the box, so the actual size was 9.75
+                        // because 8.25 + 2 * .75 = 9.75
+                        float widthWithBordersOnTheInside = 9.75f;
+                        float defaultBorderWith = .75f;
+                        cb.SetSize(widthWithBordersOnTheInside);
+                        cb.SetBorder(new SolidBorder(ColorConstants.DARK_GRAY, defaultBorderWith));
+                        cb.SetBackgroundColor(ColorConstants.WHITE);
+                        // has attribute == is checked
+                        cb.SetChecked(@checked != null);
+                        formElement = cb;
                     }
                     else {
-                        // has attribute == is checked
                         if (AttributeConstants.RADIO.Equals(inputType)) {
-                            formElement = new Radio(name);
                             String radioGroupName = element.GetAttribute(AttributeConstants.NAME);
-                            formElement.SetProperty(Html2PdfProperty.FORM_FIELD_VALUE, radioGroupName);
+                            if (radioGroupName == null || String.IsNullOrEmpty(radioGroupName)) {
+                                ++radioNameIdx;
+                                radioGroupName = "radio" + radioNameIdx;
+                            }
+                            Radio radio = new Radio(name, radioGroupName);
+                            // Gray circle border
+                            Border border = new SolidBorder(1);
+                            border.SetColor(ColorConstants.LIGHT_GRAY);
+                            radio.SetBorder(border);
                             String @checked = element.GetAttribute(AttributeConstants.CHECKED);
                             if (null != @checked) {
-                                context.GetRadioCheckResolver().CheckField(radioGroupName, (Radio)formElement);
-                                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_CHECKED, @checked);
+                                context.GetRadioCheckResolver().CheckField(radioGroupName, radio);
+                                radio.SetChecked(true);
                             }
+                            formElement = radio;
                         }
                         else {
-                            // has attribute == is checked
                             ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker));
                             logger.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.INPUT_TYPE_IS_NOT_SUPPORTED, inputType
                                 ));
@@ -156,8 +157,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             if (formElement != null) {
-                formElement.SetProperty(Html2PdfProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
-                formElement.SetProperty(Html2PdfProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+                formElement.SetProperty(FormProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
+                formElement.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
             }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
