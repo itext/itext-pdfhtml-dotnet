@@ -28,6 +28,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
@@ -59,6 +60,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             int size = GetSelectSize(sizeAttr, multipleAttr);
             if (size > 1 || multipleAttr) {
                 selectElement = new ListBoxField(name, size, multipleAttr);
+                // Remove some properties which are set in ListBoxField constructor
+                selectElement.DeleteOwnProperty(Property.PADDING_LEFT);
+                selectElement.DeleteOwnProperty(Property.PADDING_RIGHT);
+                selectElement.DeleteOwnProperty(Property.PADDING_TOP);
+                selectElement.DeleteOwnProperty(Property.PADDING_BOTTOM);
             }
             else {
                 selectElement = new ComboBoxField(name);

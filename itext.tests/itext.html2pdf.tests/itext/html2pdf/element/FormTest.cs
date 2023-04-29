@@ -167,15 +167,15 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 2)]
+        [LogMessage(FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.MULTIPLE_VALUES_ON_A_NON_MULTISELECT_FIELD)]
         public virtual void SelectTest01() {
-            RunTest("select01", false);
+            RunTest("select01", true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 3)]
         public virtual void SelectTest02() {
-            RunTest("select02", false);
+            RunTest("select02", true);
         }
 
         [NUnit.Framework.Test]
