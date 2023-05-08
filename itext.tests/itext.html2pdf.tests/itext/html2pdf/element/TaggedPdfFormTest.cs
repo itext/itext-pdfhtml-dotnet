@@ -22,7 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Exceptions;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -74,6 +76,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT, Count = 2)]
         public virtual void ListBoxOptGroupSelectTagged() {
             ConvertToPdfAcroformFlattenAndCompare("listBoxOptGroupSelect", sourceFolder, destinationFolder, true);
         }
