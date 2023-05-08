@@ -89,7 +89,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void VisiblePropertyInFormDropdownListTest() {
-            //TODO update cmp-file after DEVSIX-2090 and DEVSIX-1901 done
+            //TODO update cmp-file after DEVSIX-2090
             String htmlFile = sourceFolder + "visiblePropertyInFormDropdownListTest.html";
             String outAcroPdf = destinationFolder + "visiblePropertyInFormDropdownListTest.pdf";
             ConverterProperties properties = new ConverterProperties();

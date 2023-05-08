@@ -64,25 +64,22 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void SimpleSelectTagged() {
             ConvertToPdfAcroformFlattenAndCompare("simpleSelect", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void ListBoxSelectTagged() {
             ConvertToPdfAcroformFlattenAndCompare("listBoxSelect", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void ListBoxOptGroupSelectTagged() {
             ConvertToPdfAcroformFlattenAndCompare("listBoxOptGroupSelect", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1901")]
+        [NUnit.Framework.Ignore("DEVSIX-7523 5px padding causes the radiobutton to be clipped")]
         public virtual void SimpleRadioFormTagged() {
             ConvertToPdfAcroformFlattenAndCompare("simpleRadioForm", sourceFolder, destinationFolder, true);
         }
