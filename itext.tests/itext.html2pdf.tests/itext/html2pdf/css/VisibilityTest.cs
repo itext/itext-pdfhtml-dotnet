@@ -22,10 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.IO;
-using iText.Forms.Logs;
 using iText.Html2pdf;
 using iText.Kernel.Utils;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -90,7 +88,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT)]
         public virtual void VisiblePropertyInFormDropdownListTest() {
             //TODO update cmp-file after DEVSIX-2090 and DEVSIX-1901 done
             String htmlFile = sourceFolder + "visiblePropertyInFormDropdownListTest.html";

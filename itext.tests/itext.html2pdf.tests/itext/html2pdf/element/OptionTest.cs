@@ -21,7 +21,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using iText.Forms.Logs;
 using iText.Html2pdf;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -53,6 +55,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(FormsLogMessageConstants.DUPLICATE_EXPORT_VALUE, Count = 1)]
         public virtual void OptionLabelValueTest01() {
             ConvertToPdfAndCompare("optionLabelValueTest01", sourceFolder, destinationFolder);
         }

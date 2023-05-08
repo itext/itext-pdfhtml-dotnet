@@ -85,7 +85,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             if (childTagWorker is OptionTagWorker || childTagWorker is OptGroupTagWorker) {
                 if (childTagWorker.GetElementResult() is IBlockElement) {
-                    selectElement.AddOption((IBlockElement)childTagWorker.GetElementResult());
+                    IBlockElement blockElement = (IBlockElement)childTagWorker.GetElementResult();
+                    String label = blockElement.GetProperty(FormProperty.FORM_FIELD_LABEL);
+                    SelectFieldItem item = new SelectFieldItem(label, blockElement);
+                    selectElement.AddOption(item);
                     return true;
                 }
             }

@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.IO;
+using iText.Forms.Logs;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
 using iText.Kernel.Utils;
@@ -114,6 +115,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(FormsLogMessageConstants.DUPLICATE_EXPORT_VALUE, Count = 2)]
         public virtual void ParagraphWithButtonInputLabelSelectTextareaTest() {
             //TODO: update after DEVSIX-2445 fix
             HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "paragraphWithButtonInputLabelSelectTextareaTest.html"

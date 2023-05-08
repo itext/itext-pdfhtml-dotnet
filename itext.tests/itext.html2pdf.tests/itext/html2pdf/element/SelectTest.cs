@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.IO;
+using iText.Forms.Logs;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
 using iText.IO.Util;
@@ -105,6 +106,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(FormsLogMessageConstants.DUPLICATE_EXPORT_VALUE, Count = 2)]
         public virtual void SelectPlaceholderTest01() {
             RunTest("selectPlaceholderTest01");
         }
