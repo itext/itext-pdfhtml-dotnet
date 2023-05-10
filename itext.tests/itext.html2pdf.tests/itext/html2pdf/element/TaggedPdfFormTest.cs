@@ -82,7 +82,6 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-7523 5px padding causes the radiobutton to be clipped")]
         public virtual void SimpleRadioFormTagged() {
             ConvertToPdfAcroformFlattenAndCompare("simpleRadioForm", sourceFolder, destinationFolder, true);
         }
