@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Forms;
+using iText.Forms.Fields;
 using iText.Forms.Logs;
 using iText.Html2pdf;
 using iText.IO.Util;
@@ -231,7 +232,7 @@ namespace iText.Html2pdf.Element {
             if (flattenPdfAcroFormFields) {
                 PdfDocument document = new PdfDocument(new PdfReader(outAcroPdfPath), new PdfWriter(outAcroFlattenPdfPath)
                     );
-                PdfAcroForm acroForm = PdfAcroForm.GetAcroForm(document, false);
+                PdfAcroForm acroForm = PdfFormCreator.GetAcroForm(document, false);
                 acroForm.FlattenFields();
                 document.Close();
             }

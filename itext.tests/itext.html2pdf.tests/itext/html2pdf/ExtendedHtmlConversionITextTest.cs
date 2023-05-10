@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Forms;
+using iText.Forms.Fields;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
@@ -134,7 +135,7 @@ namespace iText.Html2pdf {
             System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(sourceHtml) + "\n");
             //flatted created tagged PDF with acroform
             PdfDocument document = new PdfDocument(new PdfReader(outPdfPathAcro), new PdfWriter(outPdfPathFlatted));
-            PdfAcroForm acroForm = PdfAcroForm.GetAcroForm(document, false);
+            PdfAcroForm acroForm = PdfFormCreator.GetAcroForm(document, false);
             acroForm.FlattenFields();
             document.Close();
             //compare with cmp
