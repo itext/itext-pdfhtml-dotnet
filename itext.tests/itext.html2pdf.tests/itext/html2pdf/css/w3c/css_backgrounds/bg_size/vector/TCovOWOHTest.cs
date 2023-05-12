@@ -29,7 +29,7 @@ namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Bg_size.Vector {
     // TODO DEVSIX-4388 percentage is not supported for rect's x, y, width and height
     [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED
         , Count = 5)]
-    [LogMessage(SvgLogMessageConstant.MISSING_HEIGHT)]
+    [LogMessage(SvgLogMessageConstant.MISSING_WIDTH)]
     [LogMessage(SvgLogMessageConstant.MISSING_HEIGHT)]
     public class TCovOWOHTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
