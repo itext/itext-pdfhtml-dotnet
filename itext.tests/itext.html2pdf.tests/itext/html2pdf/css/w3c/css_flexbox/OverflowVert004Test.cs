@@ -28,8 +28,7 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5087 support layout properties for FlexContainerRenderer
     //TODO DEVSIX-5003 support case when flex-direction is vertical
-    //TODO DEVSIX-5086 support flex-wrap property
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
+    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
     public class OverflowVert004Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-overflow-vert-004.html";

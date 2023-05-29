@@ -99,6 +99,36 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 );
             ApplyAlignItems(cssProps, element);
             ApplyJustifyContent(cssProps, element);
+            ApplyWrap(cssProps, element);
+        }
+
+        private static void ApplyWrap(IDictionary<String, String> cssProps, IPropertyContainer element) {
+            String wrapString = cssProps.Get(CommonCssConstants.FLEX_WRAP);
+            if (wrapString != null) {
+                FlexWrapPropertyValue wrap;
+                switch (wrapString) {
+                    case CommonCssConstants.WRAP: {
+                        wrap = FlexWrapPropertyValue.WRAP;
+                        break;
+                    }
+
+                    case CommonCssConstants.WRAP_REVERSE: {
+                        wrap = FlexWrapPropertyValue.WRAP_REVERSE;
+                        break;
+                    }
+
+                    case CommonCssConstants.NOWRAP: {
+                        wrap = FlexWrapPropertyValue.NOWRAP;
+                        break;
+                    }
+
+                    default: {
+                        wrap = FlexWrapPropertyValue.NOWRAP;
+                        break;
+                    }
+                }
+                element.SetProperty(Property.FLEX_WRAP, wrap);
+            }
         }
 
         private static void ApplyAlignItems(IDictionary<String, String> cssProps, IPropertyContainer element) {
@@ -262,9 +292,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             ICollection<String> supportedFlexDirectionValues = new HashSet<String>();
             supportedFlexDirectionValues.Add(CommonCssConstants.ROW);
             supportedPairs.Put(CommonCssConstants.FLEX_DIRECTION, supportedFlexDirectionValues);
-            ICollection<String> supportedFlexWrapValues = new HashSet<String>();
-            supportedFlexWrapValues.Add(CommonCssConstants.NOWRAP);
-            supportedPairs.Put(CommonCssConstants.FLEX_WRAP, supportedFlexWrapValues);
             ICollection<String> supportedAlignContentValues = new HashSet<String>();
             supportedAlignContentValues.Add(CommonCssConstants.STRETCH);
             supportedAlignContentValues.Add(CommonCssConstants.NORMAL);

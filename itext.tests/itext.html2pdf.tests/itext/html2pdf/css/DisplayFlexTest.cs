@@ -26,7 +26,6 @@ using System.IO;
 using iText.Forms.Form.Element;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl.Layout;
-using iText.Html2pdf.Logs;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
@@ -162,9 +161,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void FlexWrapTest() {
-            //TODO DEVSIX-5086 change this test when working on the ticket
             String name = "flexWrap";
             String sourceHtml = SOURCE_FOLDER + name + ".html";
             ConverterProperties converterProperties = new ConverterProperties().SetBaseUri(SOURCE_FOLDER);
@@ -174,7 +171,7 @@ namespace iText.Html2pdf.Css {
             }
             IElement flexContainer = elements[0];
             NUnit.Framework.Assert.IsTrue(flexContainer.GetRenderer() is FlexContainerRenderer);
-            NUnit.Framework.Assert.IsFalse(flexContainer.HasProperty(Property.FLEX_WRAP));
+            NUnit.Framework.Assert.IsTrue(flexContainer.HasProperty(Property.FLEX_WRAP));
         }
 
         [NUnit.Framework.Test]
@@ -444,6 +441,36 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void SplitFlexContainersTest() {
             ConvertToPdfAndCompare("flexSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitWrappedFlexContainersTest1() {
+            ConvertToPdfAndCompare("wrappedFlexStretchSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitWrappedFlexContainersTest2() {
+            ConvertToPdfAndCompare("wrappedFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitWrappedFlexContainersTest3() {
+            ConvertToPdfAndCompare("wrappedFlexEndSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitWrappedFlexContainersTest4() {
+            ConvertToPdfAndCompare("wrappedFlexCenterSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitWrappedFlexContainersTest5() {
+            ConvertToPdfAndCompare("wrappedReverseFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitWrappedFlexContainersTest6() {
+            ConvertToPdfAndCompare("wrappedReverseFlexEndSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         private static IList<IElement> ConvertToElements(String name) {

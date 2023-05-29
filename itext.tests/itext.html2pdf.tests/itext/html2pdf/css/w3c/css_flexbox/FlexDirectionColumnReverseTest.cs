@@ -27,10 +27,9 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 54)]
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 1)]
     public class FlexDirectionColumnReverseTest : W3CCssTest {
         // TODO DEVSIX-5003 support case when flex-direction is vertical
-        // TODO DEVSIX-5086 support flex-wrap
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-direction-column-reverse.htm";
         }

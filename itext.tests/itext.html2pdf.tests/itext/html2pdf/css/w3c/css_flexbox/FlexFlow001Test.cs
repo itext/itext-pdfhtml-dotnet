@@ -28,7 +28,7 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5096 support flex-flow
     //TODO DEVSIX-5087 Support floating for flex containers
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 33)]
+    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 15)]
     public class FlexFlow001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-flow-001.html";
