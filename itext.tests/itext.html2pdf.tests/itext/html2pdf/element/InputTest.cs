@@ -144,6 +144,11 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void FlexWithButtonsTest() {
+            RunTest("flexWithButtons");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void ButtonWithDisplayBlockTest() {
             RunTest("buttonWithDisplayBlock");
         }
