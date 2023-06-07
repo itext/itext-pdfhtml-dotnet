@@ -473,6 +473,28 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("wrappedReverseFlexEndSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
+        [NUnit.Framework.Test]
+        public virtual void SplitWrappedFlexContainersTest7() {
+            ConvertToPdfAndCompare("wrappedRowReverseFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitWrappedFlexContainersTest8() {
+            ConvertToPdfAndCompare("wrappedRowReverseFlexEndSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Ignore = true)]
+        public virtual void SplitWrappedFlexContainersTest9() {
+            ConvertToPdfAndCompare("wrappedRowReverseRtlFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Ignore = true)]
+        public virtual void SplitWrappedFlexContainersTest10() {
+            ConvertToPdfAndCompare("wrappedRowRtlFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
         private static IList<IElement> ConvertToElements(String name) {
             String sourceHtml = SOURCE_FOLDER + name + ".html";
             ConverterProperties converterProperties = new ConverterProperties().SetBaseUri(SOURCE_FOLDER);

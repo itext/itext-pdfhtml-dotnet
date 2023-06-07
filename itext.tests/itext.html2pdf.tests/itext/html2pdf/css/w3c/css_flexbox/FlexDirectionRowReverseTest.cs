@@ -22,14 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 54)]
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 1)]
     public class FlexDirectionRowReverseTest : W3CCssTest {
-        //TODO DEVSIX-5096 support flex-direction: row-reverse
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-direction-row-reverse.htm";
         }

@@ -100,6 +100,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             ApplyAlignItems(cssProps, element);
             ApplyJustifyContent(cssProps, element);
             ApplyWrap(cssProps, element);
+            ApplyDirection(cssProps, element);
         }
 
         private static void ApplyWrap(IDictionary<String, String> cssProps, IPropertyContainer element) {
@@ -128,6 +129,30 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
                 }
                 element.SetProperty(Property.FLEX_WRAP, wrap);
+            }
+        }
+
+        private static void ApplyDirection(IDictionary<String, String> cssProps, IPropertyContainer element) {
+            String directionString = cssProps.Get(CommonCssConstants.FLEX_DIRECTION);
+            if (directionString != null) {
+                FlexDirectionPropertyValue direction;
+                switch (directionString) {
+                    case CommonCssConstants.ROW: {
+                        direction = FlexDirectionPropertyValue.ROW;
+                        break;
+                    }
+
+                    case CommonCssConstants.ROW_REVERSE: {
+                        direction = FlexDirectionPropertyValue.ROW_REVERSE;
+                        break;
+                    }
+
+                    default: {
+                        direction = FlexDirectionPropertyValue.ROW;
+                        break;
+                    }
+                }
+                element.SetProperty(Property.FLEX_DIRECTION, direction);
             }
         }
 
@@ -291,6 +316,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IDictionary<String, ICollection<String>> supportedPairs = new Dictionary<String, ICollection<String>>();
             ICollection<String> supportedFlexDirectionValues = new HashSet<String>();
             supportedFlexDirectionValues.Add(CommonCssConstants.ROW);
+            supportedFlexDirectionValues.Add(CommonCssConstants.ROW_REVERSE);
             supportedPairs.Put(CommonCssConstants.FLEX_DIRECTION, supportedFlexDirectionValues);
             ICollection<String> supportedAlignContentValues = new HashSet<String>();
             supportedAlignContentValues.Add(CommonCssConstants.STRETCH);
