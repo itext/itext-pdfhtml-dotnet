@@ -80,6 +80,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public PTagWorker(IElementNode element, ProcessorContext context) {
             lastParagraph = new Paragraph();
+            if (element.GetStyles().Get(CssConstants.COLUMN_COUNT) != null) {
+                elementsContainer = new ColumnContainer();
+                elementsContainer.Add(lastParagraph);
+            }
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
@@ -184,6 +188,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return display;
         }
 
+        //TODO: DEVSIX-7592 rework column count support when elements container is not empty and contains several elements
         private void ProcessBlockElement(IElement propertyContainer) {
             if (elementsContainer == null) {
                 elementsContainer = new Div();

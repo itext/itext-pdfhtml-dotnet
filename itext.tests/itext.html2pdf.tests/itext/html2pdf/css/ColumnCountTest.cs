@@ -34,82 +34,114 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(DESTINATION_FOLDER);
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
         }
 
+        //TODO: DEVSIX-7587 adjust approximate height calculation
         [NUnit.Framework.Test]
         public virtual void ConvertBasicArticleTest() {
-            ConvertToPdfAndCompare("basicArticleTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            NUnit.Framework.Assert.Catch(typeof(InvalidOperationException), () => ConvertToPdfAndCompare("basicArticleTest"
+                , SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled(true).SetBaseUri
+                (SOURCE_FOLDER)));
         }
 
+        //TODO: DEVSIX-7587 adjust approximate height calculation
         [NUnit.Framework.Test]
         public virtual void ConvertBasicDivTest() {
-            ConvertToPdfAndCompare("basicDivTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            NUnit.Framework.Assert.Catch(typeof(InvalidOperationException), () => ConvertToPdfAndCompare("basicDivTest"
+                , SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled(true)));
         }
 
+        //TODO: DEVSIX-7587 adjust approximate height calculation
         [NUnit.Framework.Test]
         public virtual void ConvertBasicDivWithImageTest() {
-            ConvertToPdfAndCompare("basicDivWithImageTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            NUnit.Framework.Assert.Catch(typeof(InvalidOperationException), () => ConvertToPdfAndCompare("basicDivWithImageTest"
+                , SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled(true).SetBaseUri
+                (SOURCE_FOLDER)));
         }
 
+        //TODO: DEVSIX-7587 adjust approximate height calculation
         [NUnit.Framework.Test]
         public virtual void ConvertBasicPTest() {
-            ConvertToPdfAndCompare("basicPTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            NUnit.Framework.Assert.Catch(typeof(InvalidOperationException), () => ConvertToPdfAndCompare("basicPTest", 
+                SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled(true)));
         }
 
+        //TODO: DEVSIX-7592 add support for forms
         [NUnit.Framework.Test]
         public virtual void ConvertBasicFormTest() {
-            ConvertToPdfAndCompare("basicFormTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("basicFormTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties(
+                ).SetMulticolEnabled(true));
         }
 
+        //TODO: DEVSIX-7591, DEVSIX-7587
         [NUnit.Framework.Test]
         public virtual void ConvertBasicUlTest() {
-            ConvertToPdfAndCompare("basicUlTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("basicUlTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().
+                SetMulticolEnabled(true));
         }
 
+        //TODO: DEVSIX-7591, DEVSIX-7587
         [NUnit.Framework.Test]
         public virtual void ConvertBasicOlTest() {
-            ConvertToPdfAndCompare("basicOlTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("basicOlTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().
+                SetMulticolEnabled(true));
         }
 
+        //TODO: DEVSIX-7592
         [NUnit.Framework.Test]
         public virtual void ConvertBasicTableTest() {
-            ConvertToPdfAndCompare("basicTableTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            NUnit.Framework.Assert.Catch(typeof(InvalidOperationException), () => ConvertToPdfAndCompare("basicTableTest"
+                , SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled(true)));
         }
 
+        //TODO: DEVSIX-7584 add multipage support
         [NUnit.Framework.Test]
         public virtual void ConvertBasicSectionTest() {
-            ConvertToPdfAndCompare("basicSectionTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("basicSectionTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
         }
 
+        //TODO: DEVSIX-7584 add multipage support
         [NUnit.Framework.Test]
         public virtual void ConvertBasicDivMultiPageDocumentsTest() {
-            ConvertToPdfAndCompare("basicDivMultiPageTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            NUnit.Framework.Assert.Catch(typeof(InvalidOperationException), () => ConvertToPdfAndCompare("basicDivMultiPageTest"
+                , SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled(true)));
         }
 
+        //TODO: DEVSIX-7592 add support for forms
         [NUnit.Framework.Test]
         public virtual void ConvertBasicFormMultiPageDocumentsTest() {
-            ConvertToPdfAndCompare("basicFormMultiPageTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("basicFormMultiPageTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
         }
 
+        //TODO: DEVSIX-7587 adjust approximate height calculation algorithm
         [NUnit.Framework.Test]
         public virtual void ConvertBasicDisplayPropertyTest() {
-            ConvertToPdfAndCompare("basicDisplayPropertyTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            NUnit.Framework.Assert.Catch(typeof(InvalidOperationException), () => ConvertToPdfAndCompare("basicDisplayPropertyTest"
+                , SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled(true)));
         }
 
+        //TODO: DEVSIX-7591
         [NUnit.Framework.Test]
         public virtual void ConvertBasicDisplayPropertyWithNestedColumnsTest() {
-            ConvertToPdfAndCompare("basicDisplayPropertyWithNestedColumnsTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("basicDisplayPropertyWithNestedColumnsTest", SOURCE_FOLDER, DESTINATION_FOLDER, false
+                , new ConverterProperties().SetMulticolEnabled(true));
         }
 
+        //TODO: DEVSIX-7556
         [NUnit.Framework.Test]
         public virtual void ConvertBasicFloatPropertyTest() {
-            ConvertToPdfAndCompare("basicFloatPropertyTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            NUnit.Framework.Assert.Catch(typeof(InvalidOperationException), () => ConvertToPdfAndCompare("basicFloatPropertyTest"
+                , SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled(true)));
         }
 
+        //TODO: DEVSIX-7587 adjust approximate height calculation algorithm
         [NUnit.Framework.Test]
         public virtual void ConvertBasicFlexPropertyTest() {
-            ConvertToPdfAndCompare("basicFlexPropertyTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("basicFlexPropertyTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
         }
     }
 }

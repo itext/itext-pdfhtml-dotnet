@@ -69,7 +69,8 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void DivColumnCountTest() {
-            ConvertToPdfAndCompare("divColumnCount", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("divColumnCount", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
         }
 
         [NUnit.Framework.Test]

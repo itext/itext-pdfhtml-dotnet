@@ -74,6 +74,9 @@ namespace iText.Html2pdf {
         /// <summary>Meta info that will be added to the events thrown by html2Pdf.</summary>
         private IMetaInfo metaInfo;
 
+        //TODO: DEVSIX-7594 remove this property
+        private bool multicolEnabled = true;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="ConverterProperties"/>
@@ -108,6 +111,7 @@ namespace iText.Html2pdf {
             this.metaInfo = other.metaInfo;
             this.limitOfLayouts = other.limitOfLayouts;
             this.immediateFlush = other.immediateFlush;
+            this.multicolEnabled = other.multicolEnabled;
         }
 
         /// <summary>Gets the media device description.</summary>
@@ -501,6 +505,20 @@ namespace iText.Html2pdf {
         /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetEventMetaInfo(IMetaInfo metaInfo) {
             this.metaInfo = metaInfo;
+            return this;
+        }
+
+        //TODO: DEVSIX-7594 remove this property
+        /// <summary>check if multi-column layout is enabled</summary>
+        /// <returns>true if enabled, false otherwise</returns>
+        public virtual bool IsMulticolEnabled() {
+            return multicolEnabled;
+        }
+
+        //TODO: DEVSIX-7594 remove this property
+        /// <summary>set multi-column layout support</summary>
+        public virtual iText.Html2pdf.ConverterProperties SetMulticolEnabled(bool multicolEnabled) {
+            this.multicolEnabled = multicolEnabled;
             return this;
         }
     }

@@ -96,6 +96,9 @@ namespace iText.Html2pdf.Attach {
 
         private readonly int limitOfLayouts;
 
+        //TODO: DEVSIX-7594 remove this property
+        private bool multicolEnabled;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="ProcessorContext"/>
@@ -144,6 +147,7 @@ namespace iText.Html2pdf.Attach {
             radioCheckResolver = new RadioCheckResolver();
             immediateFlush = converterProperties.IsImmediateFlush();
             processingInlineSvg = false;
+            multicolEnabled = converterProperties.IsMulticolEnabled();
         }
 
         /// <summary>Gets maximum number of layouts.</summary>
@@ -349,6 +353,12 @@ namespace iText.Html2pdf.Attach {
         /// <summary>End the processing Svg State</summary>
         public virtual void EndProcessingInlineSvg() {
             processingInlineSvg = false;
+        }
+
+        /// <summary>check if multicol layout is enabled</summary>
+        /// <returns>true if it's enabled, false otherwise</returns>
+        public virtual bool IsMulticolEnabled() {
+            return multicolEnabled;
         }
     }
 }
