@@ -75,7 +75,7 @@ namespace iText.Html2pdf {
         private IMetaInfo metaInfo;
 
         //TODO: DEVSIX-7594 remove this property
-        private bool multicolEnabled = true;
+        private bool multicolEnabled = false;
 
         /// <summary>
         /// Instantiates a new
@@ -517,6 +517,8 @@ namespace iText.Html2pdf {
 
         //TODO: DEVSIX-7594 remove this property
         /// <summary>set multi-column layout support</summary>
+        /// <param name="multicolEnabled">sets multi-column layout support</param>
+        /// <returns>ConverterProperties</returns>
         public virtual iText.Html2pdf.ConverterProperties SetMulticolEnabled(bool multicolEnabled) {
             this.multicolEnabled = multicolEnabled;
             return this;
