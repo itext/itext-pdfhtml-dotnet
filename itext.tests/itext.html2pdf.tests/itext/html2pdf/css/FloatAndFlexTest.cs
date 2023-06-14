@@ -80,8 +80,13 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void FloatsPositioningInsideAndOutsideFlexTest() {
-            // TODO DEVSIX-5135 floating elements inside flex container are incorrectly positioned
             ConvertToPdfAndCompare("floatsPositioningInsideAndOutsideFlex", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatFlexContainerTest() {
+            // TODO DEVSIX-7603 Flex container float property is ignored, so width is incorrect
+            ConvertToPdfAndCompare("floatFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }

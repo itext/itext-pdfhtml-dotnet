@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5135 flex container width shall be different according to float properties
+    // TODO DEVSIX-7603 Flex container float property is ignored, width shall be different according to float properties
     public class FlexWrapHoriz002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-wrap-horiz-002.html";
