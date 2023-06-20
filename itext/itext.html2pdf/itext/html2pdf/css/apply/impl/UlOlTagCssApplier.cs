@@ -42,7 +42,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         */
         public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
             ) {
-            if (!(tagWorker.GetElementResult() is List || tagWorker.GetElementResult() is ColumnContainer)) {
+            if (!(tagWorker.GetElementResult() is List || tagWorker.GetElementResult() is MulticolContainer)) {
                 return;
             }
             IDictionary<String, String> css = stylesContainer.GetStyles();

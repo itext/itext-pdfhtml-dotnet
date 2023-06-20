@@ -26,7 +26,6 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [NUnit.Framework.Ignore("DEVSIX-7587")]
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
     public class MulticolSpanAll005Test : W3CCssMulticolTest {
         protected internal override String GetHtmlFileName() {

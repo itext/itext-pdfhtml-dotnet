@@ -58,7 +58,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public UlOlTagWorker(IElementNode element, ProcessorContext context) {
             list = new List().SetListSymbol("");
             if (element.GetStyles().Get(CssConstants.COLUMN_COUNT) != null) {
-                elementsContainer = new ColumnContainer();
+                elementsContainer = new MulticolContainer();
                 elementsContainer.Add(list);
             }
             //In the case of an ordered list, see if the start attribute can be found

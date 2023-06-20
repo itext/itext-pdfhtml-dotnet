@@ -25,6 +25,7 @@ using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
+    [NUnit.Framework.Ignore("DEVSIX-7609")]
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED)]
     public class MulticolFillBalance001Test : W3CCssMulticolTest {
         protected internal override String GetHtmlFileName() {

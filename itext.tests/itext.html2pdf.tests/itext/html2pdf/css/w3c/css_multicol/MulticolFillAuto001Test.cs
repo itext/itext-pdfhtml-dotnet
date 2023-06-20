@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [NUnit.Framework.Ignore("DEVSIX-7587")]
+    [NUnit.Framework.Ignore("DEVSIX-7609")]
     public class MulticolFillAuto001Test : W3CCssMulticolTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-fill-auto-001.xht";

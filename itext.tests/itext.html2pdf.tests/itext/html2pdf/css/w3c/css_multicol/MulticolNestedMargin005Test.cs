@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [NUnit.Framework.Ignore("DEVSIX-7587")]
     public class MulticolNestedMargin005Test : W3CCssMulticolTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-nested-margin-005.xht";
