@@ -134,5 +134,29 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("basicFlexPropertyTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
                 ().SetMulticolEnabled(true));
         }
+
+        [NUnit.Framework.Test]
+        public virtual void PaddingsMarginsBorderBackgrounds() {
+            ConvertToPdfAndCompare("paddingsMarginsBorderBackgrounds", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderOnlyTest() {
+            ConvertToPdfAndCompare("borderOnly", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
+                (true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PaddingOnlyTest() {
+            ConvertToPdfAndCompare("paddingOnly", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().
+                SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MarginOnlyTest() {
+            ConvertToPdfAndCompare("marginOnly", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
+                (true));
+        }
     }
 }
