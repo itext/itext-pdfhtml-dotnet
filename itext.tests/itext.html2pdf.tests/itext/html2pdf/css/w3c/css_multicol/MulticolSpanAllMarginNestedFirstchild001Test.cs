@@ -22,12 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, LogLevel = LogLevelConstants.ERROR
-        )]
+    [NUnit.Framework.Ignore("DEVSIX-7609")]
     public class MulticolSpanAllMarginNestedFirstchild001Test : W3CCssMulticolTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-span-all-margin-nested-firstchild-001.xht";

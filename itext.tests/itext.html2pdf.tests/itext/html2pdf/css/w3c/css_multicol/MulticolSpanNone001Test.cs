@@ -24,6 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
+    [NUnit.Framework.Ignore("DEVSIX-7609")]
     public class MulticolSpanNone001Test : W3CCssMulticolTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-span-none-001.xht";

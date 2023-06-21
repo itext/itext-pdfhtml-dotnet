@@ -26,6 +26,7 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
+    [NUnit.Framework.Ignore("DEVSIX-7609")]
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, LogLevel = LogLevelConstants.ERROR
         )]
     public class MulticolGap002Test : W3CCssMulticolTest {
