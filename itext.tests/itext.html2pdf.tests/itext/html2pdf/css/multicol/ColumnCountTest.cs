@@ -154,5 +154,35 @@ namespace iText.Html2pdf.Css.Multicol {
             ConvertToPdfAndCompare("marginOnly", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
                 (true));
         }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitInnerParagraphBetweenColumns() {
+            ConvertToPdfAndCompare("splitInnerParagraphBetweenColumns", SOURCE_FOLDER, DESTINATION_FOLDER, false, new 
+                ConverterProperties().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitInnerParagraphWithoutMarginBetweenColumns() {
+            ConvertToPdfAndCompare("splitInnerParagraphWithoutMarginBetweenColumns", SOURCE_FOLDER, DESTINATION_FOLDER
+                , false, new ConverterProperties().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitEmptyBlockElementsBetweenColumns() {
+            ConvertToPdfAndCompare("splitEmptyBlockElementsBetweenColumns", SOURCE_FOLDER, DESTINATION_FOLDER, false, 
+                new ConverterProperties().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitEmptyParagraphElementsBetweenColumns() {
+            ConvertToPdfAndCompare("splitEmptyParagraphElementsBetweenColumns", SOURCE_FOLDER, DESTINATION_FOLDER, false
+                , new ConverterProperties().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitEmptyContinuousBlockElementBetweenColumns() {
+            ConvertToPdfAndCompare("splitEmptyContinuousBlockElementBetweenColumns", SOURCE_FOLDER, DESTINATION_FOLDER
+                , false, new ConverterProperties().SetMulticolEnabled(true));
+        }
     }
 }

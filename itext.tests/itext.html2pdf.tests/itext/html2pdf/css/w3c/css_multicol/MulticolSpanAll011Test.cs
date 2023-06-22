@@ -25,7 +25,7 @@ using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 11)]
+    [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 10)]
     public class MulticolSpanAll011Test : W3CCssMulticolTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-span-all-011.html";
