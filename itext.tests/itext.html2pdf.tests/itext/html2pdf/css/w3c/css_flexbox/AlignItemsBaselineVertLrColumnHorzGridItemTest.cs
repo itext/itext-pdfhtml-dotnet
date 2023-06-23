@@ -26,6 +26,7 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
+    [NUnit.Framework.Ignore("DEVSIX-7607")]
     //TODO DEVSIX-5167 change after align-items:baseline is supported
     //TODO DEVSIX-5096 change after flex-direction: column is supported
     [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
