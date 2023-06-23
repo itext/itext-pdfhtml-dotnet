@@ -65,6 +65,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The container which handles the elements that are present in the &lt;p&gt; tag.</summary>
         private Div elementsContainer;
 
+        /// <summary>Container for the result in case of multicol layouting</summary>
+        private MulticolContainer multicolContainer;
+
         /// <summary>Helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
@@ -81,8 +84,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public PTagWorker(IElementNode element, ProcessorContext context) {
             lastParagraph = new Paragraph();
             if (element.GetStyles().Get(CssConstants.COLUMN_COUNT) != null) {
-                elementsContainer = new MulticolContainer();
-                elementsContainer.Add(lastParagraph);
+                multicolContainer = new MulticolContainer();
+                multicolContainer.Add(lastParagraph);
             }
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
@@ -181,18 +184,24 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
         */
         public virtual IPropertyContainer GetElementResult() {
-            return null == elementsContainer ? (IPropertyContainer)lastParagraph : (IPropertyContainer)elementsContainer;
+            if (multicolContainer == null) {
+                return null == elementsContainer ? (IPropertyContainer)lastParagraph : (IPropertyContainer)elementsContainer;
+            }
+            return multicolContainer;
         }
 
         public virtual String GetDisplay() {
             return display;
         }
 
-        //TODO: DEVSIX-7592 rework column count support when elements container is not empty and contains several elements
         private void ProcessBlockElement(IElement propertyContainer) {
             if (elementsContainer == null) {
                 elementsContainer = new Div();
                 elementsContainer.Add(lastParagraph);
+                if (multicolContainer != null) {
+                    multicolContainer.GetChildren().Clear();
+                    multicolContainer.Add(elementsContainer);
+                }
             }
             inlineHelper.FlushHangingLeaves(lastParagraph);
             if (propertyContainer is Image) {

@@ -212,6 +212,51 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("columnWidthEqualsImagesTest");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void DiffElementsInsidePTest() {
+            RunTest("diffElementsInsidePTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableColspanTest() {
+            RunTest("tableColspanTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableRowspanTest() {
+            RunTest("tableRowspanTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableColspanRowspanTest() {
+            RunTest("tableColspanRowspanTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicHiTest() {
+            RunTest("basicHiTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicFooterHeaderTest() {
+            RunTest("basicFooterHeaderTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicDlTest() {
+            RunTest("basicDlTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicInlineElementsTest() {
+            RunTest("basicInlineElementsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicBlockquoteTest() {
+            RunTest("basicBlockquoteTest");
+        }
+
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
                 (true).SetBaseUri(SOURCE_FOLDER));

@@ -57,7 +57,13 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("basicPTest");
         }
 
-        //TODO: DEVSIX-7592 add support for forms
+        [NUnit.Framework.Test]
+        public virtual void DiffElementsInsidePTest() {
+            ConvertToPdfAndCompare("diffElementsInsidePTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true).SetBaseUri(SOURCE_FOLDER));
+        }
+
+        //TODO: DEVSIX-7591 support nested multicol layouting
         [NUnit.Framework.Test]
         public virtual void ConvertBasicFormTest() {
             RunTest("basicFormTest");
@@ -68,19 +74,36 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("basicUlTest");
         }
 
-        //TODO: DEVSIX-7591
+        //TODO: DEVSIX-7591 Support nested multicol layouting
         [NUnit.Framework.Test]
         public virtual void ConvertBasicOlTest() {
             RunTest("basicOlTest");
         }
 
-        //TODO: DEVSIX-7592
         [NUnit.Framework.Test]
         public virtual void ConvertBasicTableTest() {
             RunTest("basicTableTest");
         }
 
-        //TODO: DEVSIX-7584 add multipage support
+        [NUnit.Framework.Test]
+        public virtual void TableColspanTest() {
+            ConvertToPdfAndCompare("tableColspanTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableRowspanTest() {
+            ConvertToPdfAndCompare("tableRowspanTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableColspanRowspanTest() {
+            ConvertToPdfAndCompare("tableColspanRowspanTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
+        }
+
+        //TODO: DEVSIX-7591 Support nested multicol layouting
         [NUnit.Framework.Test]
         public virtual void ConvertBasicSectionTest() {
             RunTest("basicSectionTest");
@@ -92,7 +115,7 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("basicDivMultiPageTest");
         }
 
-        //TODO: DEVSIX-7592 add support for forms
+        //TODO: DEVSIX-7584 add multipage support
         [NUnit.Framework.Test]
         public virtual void ConvertBasicFormMultiPageDocumentsTest() {
             RunTest("basicFormMultiPageTest");
@@ -103,7 +126,7 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("basicDisplayPropertyTest");
         }
 
-        //TODO: DEVSIX-7591
+        //TODO: DEVSIX-7591 Support nested multicol layouting
         [NUnit.Framework.Test]
         public virtual void ConvertBasicDisplayPropertyWithNestedColumnsTest() {
             RunTest("basicDisplayPropertyWithNestedColumnsTest");
@@ -183,6 +206,36 @@ namespace iText.Html2pdf.Css.Multicol {
         public virtual void SplitEmptyContinuousBlockElementBetweenColumns() {
             ConvertToPdfAndCompare("splitEmptyContinuousBlockElementBetweenColumns", SOURCE_FOLDER, DESTINATION_FOLDER
                 , false, new ConverterProperties().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicHiTest() {
+            ConvertToPdfAndCompare("basicHiTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().
+                SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicFooterHeaderTest() {
+            ConvertToPdfAndCompare("basicFooterHeaderTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicDlTest() {
+            ConvertToPdfAndCompare("basicDlTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().
+                SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicInlineElementsTest() {
+            ConvertToPdfAndCompare("basicInlineElementsTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicBlockquoteTest() {
+            ConvertToPdfAndCompare("basicBlockquoteTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
         }
     }
 }

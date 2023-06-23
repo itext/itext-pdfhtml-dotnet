@@ -24,9 +24,9 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class FixedInNestedMulticolWithTransformContainerTest : W3CCssMulticolTest {
+    public class NestedMulticolWithTransformContainerTest : W3CCssMulticolTest {
         protected internal override String GetHtmlFileName() {
-            return "fixed-in-nested-multicol-with-transform-container.html";
+            return "nested-multicol-with-transform-container.html";
         }
     }
 }
