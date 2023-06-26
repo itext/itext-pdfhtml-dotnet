@@ -59,8 +59,7 @@ namespace iText.Html2pdf.Css.Multicol {
 
         [NUnit.Framework.Test]
         public virtual void DiffElementsInsidePTest() {
-            ConvertToPdfAndCompare("diffElementsInsidePTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetMulticolEnabled(true).SetBaseUri(SOURCE_FOLDER));
+            RunTest("diffElementsInsidePTest");
         }
 
         //TODO: DEVSIX-7591 support nested multicol layouting
@@ -87,20 +86,17 @@ namespace iText.Html2pdf.Css.Multicol {
 
         [NUnit.Framework.Test]
         public virtual void TableColspanTest() {
-            ConvertToPdfAndCompare("tableColspanTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetMulticolEnabled(true));
+            RunTest("tableColspanTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void TableRowspanTest() {
-            ConvertToPdfAndCompare("tableRowspanTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetMulticolEnabled(true));
+            RunTest("tableRowspanTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void TableColspanRowspanTest() {
-            ConvertToPdfAndCompare("tableColspanRowspanTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetMulticolEnabled(true));
+            RunTest("tableColspanRowspanTest");
         }
 
         //TODO: DEVSIX-7591 Support nested multicol layouting
@@ -149,93 +145,79 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("imagesWithDifferentColValuesTest");
         }
 
-        private void RunTest(String testName) {
-            ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
-                (true).SetBaseUri(SOURCE_FOLDER));
-        }
-
         [NUnit.Framework.Test]
         public virtual void PaddingsMarginsBorderBackgrounds() {
-            ConvertToPdfAndCompare("paddingsMarginsBorderBackgrounds", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetMulticolEnabled(true));
+            RunTest("paddingsMarginsBorderBackgrounds");
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderOnlyTest() {
-            ConvertToPdfAndCompare("borderOnly", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
-                (true));
+            RunTest("borderOnly");
         }
 
         [NUnit.Framework.Test]
         public virtual void PaddingOnlyTest() {
-            ConvertToPdfAndCompare("paddingOnly", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().
-                SetMulticolEnabled(true));
+            RunTest("paddingOnly");
         }
 
         [NUnit.Framework.Test]
         public virtual void MarginOnlyTest() {
-            ConvertToPdfAndCompare("marginOnly", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
-                (true));
+            RunTest("marginOnly");
         }
 
         [NUnit.Framework.Test]
         public virtual void SplitInnerParagraphBetweenColumns() {
-            ConvertToPdfAndCompare("splitInnerParagraphBetweenColumns", SOURCE_FOLDER, DESTINATION_FOLDER, false, new 
-                ConverterProperties().SetMulticolEnabled(true));
+            RunTest("splitInnerParagraphBetweenColumns");
         }
 
         [NUnit.Framework.Test]
         public virtual void SplitInnerParagraphWithoutMarginBetweenColumns() {
-            ConvertToPdfAndCompare("splitInnerParagraphWithoutMarginBetweenColumns", SOURCE_FOLDER, DESTINATION_FOLDER
-                , false, new ConverterProperties().SetMulticolEnabled(true));
+            RunTest("splitInnerParagraphWithoutMarginBetweenColumns");
         }
 
         [NUnit.Framework.Test]
         public virtual void SplitEmptyBlockElementsBetweenColumns() {
-            ConvertToPdfAndCompare("splitEmptyBlockElementsBetweenColumns", SOURCE_FOLDER, DESTINATION_FOLDER, false, 
-                new ConverterProperties().SetMulticolEnabled(true));
+            RunTest("splitEmptyBlockElementsBetweenColumns");
         }
 
         [NUnit.Framework.Test]
         public virtual void SplitEmptyParagraphElementsBetweenColumns() {
-            ConvertToPdfAndCompare("splitEmptyParagraphElementsBetweenColumns", SOURCE_FOLDER, DESTINATION_FOLDER, false
-                , new ConverterProperties().SetMulticolEnabled(true));
+            RunTest("splitEmptyParagraphElementsBetweenColumns");
         }
 
         [NUnit.Framework.Test]
         public virtual void SplitEmptyContinuousBlockElementBetweenColumns() {
-            ConvertToPdfAndCompare("splitEmptyContinuousBlockElementBetweenColumns", SOURCE_FOLDER, DESTINATION_FOLDER
-                , false, new ConverterProperties().SetMulticolEnabled(true));
+            RunTest("splitEmptyContinuousBlockElementBetweenColumns");
         }
 
         [NUnit.Framework.Test]
         public virtual void BasicHiTest() {
-            ConvertToPdfAndCompare("basicHiTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().
-                SetMulticolEnabled(true));
+            RunTest("basicHiTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void BasicFooterHeaderTest() {
-            ConvertToPdfAndCompare("basicFooterHeaderTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetMulticolEnabled(true));
+            RunTest("basicFooterHeaderTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void BasicDlTest() {
-            ConvertToPdfAndCompare("basicDlTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().
-                SetMulticolEnabled(true));
+            RunTest("basicDlTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void BasicInlineElementsTest() {
-            ConvertToPdfAndCompare("basicInlineElementsTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetMulticolEnabled(true));
+            RunTest("basicInlineElementsTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void BasicBlockquoteTest() {
-            ConvertToPdfAndCompare("basicBlockquoteTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetMulticolEnabled(true));
+            RunTest("basicBlockquoteTest");
+        }
+
+        private void RunTest(String testName) {
+            ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
+                (true).SetBaseUri(SOURCE_FOLDER));
         }
     }
 }
