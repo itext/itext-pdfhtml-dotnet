@@ -214,7 +214,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void ConvertingListOver2PagesTest() {
-            //TODO: update after DEVSIX-6982 is fixed
             ConvertToPdfAndCompare("listOver2Pages", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
