@@ -22,6 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Layout.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Multicol {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -105,16 +107,19 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("basicSectionTest");
         }
 
-        //TODO: DEVSIX-7584 add multipage support
         [NUnit.Framework.Test]
         public virtual void ConvertBasicDivMultiPageDocumentsTest() {
             RunTest("basicDivMultiPageTest");
         }
 
-        //TODO: DEVSIX-7584 add multipage support
         [NUnit.Framework.Test]
         public virtual void ConvertBasicFormMultiPageDocumentsTest() {
             RunTest("basicFormMultiPageTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertBigFormMultiPageDocumentsTest() {
+            RunTest("bigFormMultiPageTest");
         }
 
         [NUnit.Framework.Test]
@@ -130,6 +135,7 @@ namespace iText.Html2pdf.Css.Multicol {
 
         //TODO: DEVSIX-7556
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void ConvertBasicFloatPropertyTest() {
             RunTest("basicFloatPropertyTest");
         }
@@ -139,7 +145,6 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("basicFlexPropertyTest");
         }
 
-        //TODO: DEVSIX-7587 adjust approximate height calculation
         [NUnit.Framework.Test]
         public virtual void ConvertImagesWithDifferentColValuesTest() {
             RunTest("imagesWithDifferentColValuesTest");
@@ -218,6 +223,16 @@ namespace iText.Html2pdf.Css.Multicol {
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
                 (true).SetBaseUri(SOURCE_FOLDER));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImagesMultipageTest() {
+            RunTest("imagesMultipageTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImagesWithParagraphMultipageTest() {
+            RunTest("imagesWithParagraphMultipageTest");
         }
     }
 }
