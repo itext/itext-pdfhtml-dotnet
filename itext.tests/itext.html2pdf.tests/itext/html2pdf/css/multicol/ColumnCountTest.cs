@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using iText.Html2pdf;
 using iText.Layout.Logs;
+using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Multicol {
@@ -233,6 +234,32 @@ namespace iText.Html2pdf.Css.Multicol {
         [NUnit.Framework.Test]
         public virtual void ImagesWithParagraphMultipageTest() {
             RunTest("imagesWithParagraphMultipageTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicOrphans1Test() {
+            ConvertToPdfAndCompare("basicOrphans1Test", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicOrphans2Test() {
+            ConvertToPdfAndCompare("basicOrphans2Test", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED, LogLevel = LogLevelConstants.WARN
+            , Count = 2)]
+        public virtual void BasicWidows1Test() {
+            ConvertToPdfAndCompare("basicWidows1Test", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicWidows2Test() {
+            ConvertToPdfAndCompare("basicWidows2Test", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
+                ().SetMulticolEnabled(true));
         }
     }
 }

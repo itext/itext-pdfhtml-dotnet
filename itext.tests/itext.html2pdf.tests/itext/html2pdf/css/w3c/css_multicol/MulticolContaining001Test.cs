@@ -26,10 +26,8 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [NUnit.Framework.Ignore("DEVSIX-7609")]
-    [LogMessage(iText.IO.Logs.IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT)]
-    [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, LogLevel = LogLevelConstants.ERROR
-        )]
+    [LogMessage(iText.IO.Logs.IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT, LogLevel = LogLevelConstants
+        .ERROR)]
     public class MulticolContaining001Test : W3CCssMulticolTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-containing-001.xht";

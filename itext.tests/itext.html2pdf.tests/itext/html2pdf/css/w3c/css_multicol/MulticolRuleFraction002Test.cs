@@ -22,13 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [NUnit.Framework.Ignore("DEVSIX-7609")]
-    [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, LogLevel = LogLevelConstants.ERROR
-        )]
     public class MulticolRuleFraction002Test : W3CCssMulticolTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-rule-fraction-002.xht";
