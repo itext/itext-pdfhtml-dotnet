@@ -65,7 +65,6 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("diffElementsInsidePTest");
         }
 
-        //TODO: DEVSIX-7591 support nested multicol layouting
         [NUnit.Framework.Test]
         public virtual void ConvertBasicFormTest() {
             RunTest("basicFormTest");
@@ -76,7 +75,6 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("basicUlTest");
         }
 
-        //TODO: DEVSIX-7591 Support nested multicol layouting
         [NUnit.Framework.Test]
         public virtual void ConvertBasicOlTest() {
             RunTest("basicOlTest");
@@ -102,7 +100,6 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("tableColspanRowspanTest");
         }
 
-        //TODO: DEVSIX-7591 Support nested multicol layouting
         [NUnit.Framework.Test]
         public virtual void ConvertBasicSectionTest() {
             RunTest("basicSectionTest");
@@ -128,7 +125,6 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("basicDisplayPropertyTest");
         }
 
-        //TODO: DEVSIX-7591 Support nested multicol layouting
         [NUnit.Framework.Test]
         public virtual void ConvertBasicDisplayPropertyWithNestedColumnsTest() {
             RunTest("basicDisplayPropertyWithNestedColumnsTest");
@@ -207,6 +203,22 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
+        public virtual void TripleNestingTest() {
+            RunTest("tripleNestingTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NestingBetweenPagesTest() {
+            RunTest("nestingBetweenPagesTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TripleNestingBetweenPagesTest() {
+            // TODO DEVSIX-7628 Investigate problem with border near to end of the page in multicol layouting
+            RunTest("tripleNestingBetweenPagesTest");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void BasicDlTest() {
             RunTest("basicDlTest");
         }
@@ -221,11 +233,6 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("basicBlockquoteTest");
         }
 
-        private void RunTest(String testName) {
-            ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
-                (true).SetBaseUri(SOURCE_FOLDER));
-        }
-
         [NUnit.Framework.Test]
         public virtual void ImagesMultipageTest() {
             RunTest("imagesMultipageTest");
@@ -238,28 +245,29 @@ namespace iText.Html2pdf.Css.Multicol {
 
         [NUnit.Framework.Test]
         public virtual void BasicOrphans1Test() {
-            ConvertToPdfAndCompare("basicOrphans1Test", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetMulticolEnabled(true));
+            RunTest("basicOrphans1Test");
         }
 
         [NUnit.Framework.Test]
         public virtual void BasicOrphans2Test() {
-            ConvertToPdfAndCompare("basicOrphans2Test", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetMulticolEnabled(true));
+            RunTest("basicOrphans2Test");
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED, LogLevel = LogLevelConstants.WARN
             , Count = 2)]
         public virtual void BasicWidows1Test() {
-            ConvertToPdfAndCompare("basicWidows1Test", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetMulticolEnabled(true));
+            RunTest("basicWidows1Test");
         }
 
         [NUnit.Framework.Test]
         public virtual void BasicWidows2Test() {
-            ConvertToPdfAndCompare("basicWidows2Test", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetMulticolEnabled(true));
+            RunTest("basicWidows2Test");
+        }
+
+        private void RunTest(String testName) {
+            ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
+                (true).SetBaseUri(SOURCE_FOLDER));
         }
     }
 }
