@@ -38,7 +38,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// </summary>
     public class DivTagWorker : ITagWorker, IDisplayAware {
         /// <summary>Column container element.</summary>
-        private MulticolContainer columnContainer;
+        protected internal MulticolContainer multicolContainer;
 
         /// <summary>The div element.</summary>
         private Div div;
@@ -60,8 +60,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             div = new Div();
             IDictionary<String, String> styles = element.GetStyles();
             if (styles != null && styles.ContainsKey(CssConstants.COLUMN_COUNT)) {
-                columnContainer = new MulticolContainer();
-                columnContainer.Add(div);
+                multicolContainer = new MulticolContainer();
+                multicolContainer.Add(div);
             }
             inlineHelper = new WaitingInlineElementsHelper(styles == null ? null : styles.Get(CssConstants.WHITE_SPACE
                 ), styles == null ? null : styles.Get(CssConstants.TEXT_TRANSFORM));
@@ -156,7 +156,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
         */
         public virtual IPropertyContainer GetElementResult() {
-            return columnContainer == null ? div : columnContainer;
+            return multicolContainer == null ? div : multicolContainer;
         }
 
         /* (non-Javadoc)

@@ -43,7 +43,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The list object.</summary>
         private List list;
 
-        private MulticolContainer multicolContainer;
+        protected internal MulticolContainer multicolContainer;
 
         /// <summary>Helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;

@@ -66,7 +66,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         private Div elementsContainer;
 
         /// <summary>Container for the result in case of multicol layouting</summary>
-        private MulticolContainer multicolContainer;
+        protected internal MulticolContainer multicolContainer;
 
         /// <summary>Helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;

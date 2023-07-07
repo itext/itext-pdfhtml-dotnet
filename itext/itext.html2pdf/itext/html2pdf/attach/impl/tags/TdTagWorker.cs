@@ -45,6 +45,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>Container for cell children in case of multicol layouting</summary>
         private Div childOfMulticolContainer;
 
+        /// <summary>Container for children in case of multicol layouting</summary>
+        protected internal MulticolContainer multicolContainer;
+
         /// <summary>The inline helper.</summary>
         private readonly WaitingInlineElementsHelper inlineHelper;
 
@@ -67,7 +70,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             cell.SetPadding(0);
             IDictionary<String, String> styles = element.GetStyles();
             if (styles.ContainsKey(CssConstants.COLUMN_COUNT)) {
-                MulticolContainer multicolContainer = new MulticolContainer();
+                multicolContainer = new MulticolContainer();
                 childOfMulticolContainer = new Div();
                 multicolContainer.Add(childOfMulticolContainer);
                 // TODO DEVSIX-7564, DEVSIX-7562 apply other multicol properties
