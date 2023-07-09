@@ -22,12 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5166 change after align-self: baseline is implemented
-    [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI, Count = 1)]
     public class FlexboxBaselineAlignSelfBaselineVert001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-baseline-align-self-baseline-vert-001.html";
