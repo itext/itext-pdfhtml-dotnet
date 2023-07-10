@@ -30,7 +30,7 @@ namespace iText.Html2pdf.Css.Multicol {
     [NUnit.Framework.Category("IntegrationTest")]
     public class ColumnCountTest : ExtendedHtmlConversionITextTest {
         public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/multicol/ColumnCountTest/";
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/multicol" + "/ColumnCountTest/";
 
         public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/multicol/ColumnCountTest/";
@@ -263,6 +263,110 @@ namespace iText.Html2pdf.Css.Multicol {
         [NUnit.Framework.Test]
         public virtual void BasicWidows2Test() {
             RunTest("basicWidows2Test");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HeightTest() {
+            RunTest("height");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HeightToSmallToFitAllClipped() {
+            RunTest("heightToSmallToFitAllClipped");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinHeightToSmallSoEverythingShows() {
+            RunTest("minHeightToSmallSoEverythingShows");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinHeightBiggerSoExtraGap() {
+            RunTest("minHeightBiggerSoExtraGap");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void WidthTest() {
+            RunTest("width");
+        }
+
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-7630")]
+        public virtual void WidthToBigSoOverflowsOnXAxisIntoInfinity() {
+            RunTest("widthToBigSoOverflowsOnXAxisIntoInfinity");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinWidthBigJustOverflows() {
+            RunTest("minWidthBigJustOverflows");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinWidthContained() {
+            RunTest("minWidthToLittleSoJustNormalWidth");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MaxWidthToBig() {
+            RunTest("maxWidthToBig");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MaxWidthToSmall() {
+            RunTest("maxWidthToSmall");
+        }
+
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-7630")]
+        public virtual void WidthToBigWrapped() {
+            RunTest("widthToBigWrapped");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MaxWidthToBigWrapped() {
+            RunTest("maxWidthToBigWrapped");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MultiColLimitedArea() {
+            RunTest("multicolLimitedArea");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MultiColLimitedArea2() {
+            RunTest("multicolLimitedArea2");
+        }
+
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-7630")]
+        public virtual void MultiColLimitedArea3() {
+            RunTest("multicolLimitedArea3");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MultiColLimitedArea4() {
+            RunTest("multicolLimitedArea4");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MultipleAttributes() {
+            RunTest("multiple_attributes");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MultipleAttributes1() {
+            RunTest("multiple_attributes1");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MultipleAttributes2() {
+            RunTest("multiple_attributes2");
+        }
+
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-7630")]
+        public virtual void HeightMultiPage() {
+            RunTest("height_multipage");
         }
 
         private void RunTest(String testName) {
