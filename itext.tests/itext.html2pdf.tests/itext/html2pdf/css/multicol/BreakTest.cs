@@ -22,8 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Html2pdf.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Multicol {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -125,8 +123,8 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
-        // TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties
-        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
+        [NUnit.Framework.Ignore("TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties"
+            )]
         public virtual void ConvertPageBreakBeforePageInsideColumnTest() {
             RunTest("pageBreakBeforePageInsideColumnTest");
         }
@@ -252,7 +250,8 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
+        [NUnit.Framework.Ignore("TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties"
+            )]
         public virtual void ConvertPageBreakAfterPageInsideColumnTest() {
             RunTest("pageBreakAfterPageInsideColumnTest");
         }

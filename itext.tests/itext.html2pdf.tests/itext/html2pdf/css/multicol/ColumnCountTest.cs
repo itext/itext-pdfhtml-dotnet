@@ -291,8 +291,8 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-7630")]
         public virtual void WidthToBigSoOverflowsOnXAxisIntoInfinity() {
+            // TODO DEVSIX-7630 Multicol width&height advanced support
             RunTest("widthToBigSoOverflowsOnXAxisIntoInfinity");
         }
 
@@ -317,7 +317,6 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-7630")]
         public virtual void WidthToBigWrapped() {
             RunTest("widthToBigWrapped");
         }
@@ -338,8 +337,8 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-7630")]
         public virtual void MultiColLimitedArea3() {
+            // TODO DEVSIX-7630 Multicol width&height advanced support
             RunTest("multicolLimitedArea3");
         }
 
@@ -364,9 +363,34 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-7630")]
         public virtual void HeightMultiPage() {
+            // TODO DEVSIX-7630 Multicol width&height advanced support
             RunTest("height_multipage");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BiggerThanColumnDivTest() {
+            RunTest("biggerThanColumnDivTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BiggerThanColumnImageTest() {
+            RunTest("biggerThanColumnImageTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BiggerThanColumnImageOverflowHiddenTest() {
+            RunTest("biggerThanColumnImageOverflowHiddenTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BiggerThanColumnImageOverflowScrollTest() {
+            RunTest("biggerThanColumnImageOverflowScrollTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void OverflowOnMulticolContainerTest() {
+            RunTest("overflowOnMulticolContainerTest");
         }
 
         private void RunTest(String testName) {
