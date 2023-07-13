@@ -22,6 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
+using iText.Layout.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Multicol {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -47,6 +50,8 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("columnWidthAutoTest");
         }
 
+        //TODO: DEVSIX-3596 add support of relative units that currently are not supported
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         [NUnit.Framework.Test]
         public virtual void ConvertDifferentUnitsTest() {
             RunTest("differentUnitsTest");
@@ -127,6 +132,7 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("overlaidFlexContentInColumnContainerTest");
         }
 
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         [NUnit.Framework.Test]
         public virtual void ConvertBasicFloatPropertyTest() {
             RunTest("basicFloatPropertyTest");
@@ -217,16 +223,19 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("diffElementsInsidePTest");
         }
 
+        //TODO: DEVSIX-7630
         [NUnit.Framework.Test]
         public virtual void TableColspanTest() {
             RunTest("tableColspanTest");
         }
 
+        //TODO: DEVSIX-7630
         [NUnit.Framework.Test]
         public virtual void TableRowspanTest() {
             RunTest("tableRowspanTest");
         }
 
+        //TODO: DEVSIX-7630
         [NUnit.Framework.Test]
         public virtual void TableColspanRowspanTest() {
             RunTest("tableColspanRowspanTest");
@@ -255,6 +264,17 @@ namespace iText.Html2pdf.Css.Multicol {
         [NUnit.Framework.Test]
         public virtual void BasicBlockquoteTest() {
             RunTest("basicBlockquoteTest");
+        }
+
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 3)]
+        [NUnit.Framework.Test]
+        public virtual void InvalidMulticolValuesTest() {
+            RunTest("invalidMulticolValuesTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnWidthPercentageTest() {
+            RunTest("columnWidthPercentageTest");
         }
 
         private void RunTest(String testName) {

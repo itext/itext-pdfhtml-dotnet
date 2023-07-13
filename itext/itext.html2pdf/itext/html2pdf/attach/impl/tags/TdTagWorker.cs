@@ -69,7 +69,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             cell = new Cell((int)rowspan, (int)colspan);
             cell.SetPadding(0);
             IDictionary<String, String> styles = element.GetStyles();
-            if (styles.ContainsKey(CssConstants.COLUMN_COUNT)) {
+            if (styles.ContainsKey(CssConstants.COLUMN_COUNT) || styles.ContainsKey(CssConstants.COLUMN_WIDTH)) {
                 multicolContainer = new MulticolContainer();
                 childOfMulticolContainer = new Div();
                 multicolContainer.Add(childOfMulticolContainer);

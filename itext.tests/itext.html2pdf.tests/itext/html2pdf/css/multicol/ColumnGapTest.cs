@@ -65,6 +65,7 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("floatColumnGapValueTest");
         }
 
+        //TODO: DEVSIX-3596 add support of relative units that currently are not supported
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void ConvertDifferentUnitsTest() {

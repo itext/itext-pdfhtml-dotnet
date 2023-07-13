@@ -255,7 +255,7 @@ namespace iText.Html2pdf.Css.Multicol {
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED, LogLevel = LogLevelConstants.WARN
-            , Count = 2)]
+            )]
         public virtual void BasicWidows1Test() {
             RunTest("basicWidows1Test");
         }

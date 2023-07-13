@@ -83,7 +83,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public PTagWorker(IElementNode element, ProcessorContext context) {
             lastParagraph = new Paragraph();
-            if (element.GetStyles().Get(CssConstants.COLUMN_COUNT) != null) {
+            if (element.GetStyles().Get(CssConstants.COLUMN_COUNT) != null || element.GetStyles().Get(CssConstants.COLUMN_WIDTH
+                ) != null) {
                 multicolContainer = new MulticolContainer();
                 multicolContainer.Add(lastParagraph);
             }

@@ -57,7 +57,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public UlOlTagWorker(IElementNode element, ProcessorContext context) {
             list = new List().SetListSymbol("");
-            if (element.GetStyles().Get(CssConstants.COLUMN_COUNT) != null) {
+            if (element.GetStyles().Get(CssConstants.COLUMN_COUNT) != null || element.GetStyles().ContainsKey(CssConstants
+                .COLUMN_WIDTH)) {
                 multicolContainer = new MulticolContainer();
                 multicolContainer.Add(list);
             }

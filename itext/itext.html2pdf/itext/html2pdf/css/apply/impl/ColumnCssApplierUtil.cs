@@ -26,6 +26,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Layout;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
@@ -44,6 +45,27 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 int? columnCount = CssDimensionParsingUtils.ParseInteger(cssProps.Get(CssConstants.COLUMN_COUNT));
                 if (columnCount != null) {
                     element.SetProperty(Property.COLUMN_COUNT, columnCount);
+                }
+                float emValue = CssDimensionParsingUtils.ParseAbsoluteFontSize(cssProps.Get(CssConstants.FONT_SIZE));
+                float remValue = context.GetCssContext().GetRootFontSize();
+                UnitValue width = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.COLUMN_WIDTH), emValue
+                    , remValue);
+                if (width != null) {
+                    element.SetProperty(Property.COLUMN_WIDTH, width.GetValue());
+                }
+                UnitValue gap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.COLUMN_GAP), emValue
+                    , remValue);
+                if (gap != null) {
+                    element.SetProperty(Property.COLUMN_GAP, gap.GetValue());
+                }
+                //Set default colum-gap to 1em
+                if (!element.HasProperty(Property.COLUMN_GAP)) {
+                    element.SetProperty(Property.COLUMN_GAP, CssDimensionParsingUtils.ParseRelativeValue("1em", emValue));
+                }
+                if (!element.HasProperty(Property.COLUMN_COUNT) && !element.HasProperty(Property.COLUMN_WIDTH) && (CommonCssConstants
+                    .AUTO.Equals(cssProps.Get(CssConstants.COLUMN_COUNT)) || CommonCssConstants.AUTO.Equals(cssProps.Get(CssConstants
+                    .COLUMN_WIDTH)))) {
+                    element.SetProperty(Property.COLUMN_COUNT, 1);
                 }
             }
         }
