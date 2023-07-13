@@ -393,6 +393,11 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("overflowOnMulticolContainerTest");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void ShortHandResolverTest01() {
+            RunTest("shortHandResolverTest01");
+        }
+
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
                 (true).SetBaseUri(SOURCE_FOLDER));

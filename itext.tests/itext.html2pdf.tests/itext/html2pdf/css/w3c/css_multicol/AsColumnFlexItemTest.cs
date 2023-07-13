@@ -27,6 +27,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
     [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
+    [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)]
     public class AsColumnFlexItemTest : W3CCssMulticolTest {
         protected internal override String GetHtmlFileName() {
             return "as-column-flex-item.html";
