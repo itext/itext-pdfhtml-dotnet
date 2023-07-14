@@ -26,10 +26,9 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5096 change after flex-direction: column is supported
     //TODO DEVSIX-5164 change after align-content: flex-start is supported
     //TODO DEVSIX-5166 change after align-self: center is implemented
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 3)]
+    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
     public class FlexWrap005Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flex-wrap-005.html";

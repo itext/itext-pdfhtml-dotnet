@@ -27,11 +27,8 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5167 change after align-items:baseline is supported
-    //TODO DEVSIX-5096 change after flex-direction: column is supported
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 1)]
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
-    [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
-        2)]
     public class AlignItemsBaselineColumnVertLrTableItemTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "align-items-baseline-column-vert-lr-table-item.html";

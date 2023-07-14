@@ -22,8 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Html2pdf.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -59,165 +57,139 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void Basis100Grow0Shrink0ColumnTest() {
             ConvertToPdfAndCompare("basis100Grow0Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void Basis100Grow1Shrink0ColumnTest() {
             ConvertToPdfAndCompare("basis100Grow1Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void Basis100Grow01Shrink0ColumnTest() {
             ConvertToPdfAndCompare("basis100Grow01Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void Basis200Grow0Shrink1ColumnTest() {
             ConvertToPdfAndCompare("basis200Grow0Shrink1ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void Basis100Grow0CustomShrinkContainerHeight50ColumnTest() {
             ConvertToPdfAndCompare("basis100Grow0CustomShrinkContainerHeight50ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void Basis200Grow0CustomShrinkColumnTest1() {
             ConvertToPdfAndCompare("basis200Grow0CustomShrinkColumnTest1", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void Basis200Grow0Shrink01ColumnTest() {
             ConvertToPdfAndCompare("basis200Grow0Shrink01ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void Basis200Height150Grow0Shrink1ColumnTest() {
             ConvertToPdfAndCompare("basis200Height150Grow0Shrink1ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void Basis100Height150Grow1Shrink0ColumnTest() {
             ConvertToPdfAndCompare("basis100Height150Grow1Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void Basis100Height50Grow1Shrink0ColumnTest() {
             ConvertToPdfAndCompare("basis100Height50Grow1Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void Basis100MaxHeight100Grow1Shrink0ColumnTest() {
             ConvertToPdfAndCompare("basis100MaxHeight100Grow1Shrink0ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void Basis200MinHeight150Grow0Shrink1ColumnTest() {
             ConvertToPdfAndCompare("basis200MinHeight150Grow0Shrink1ColumnTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void UsualDirectionColumnWithDefiniteWidthTest() {
             ConvertToPdfAndCompare("usualDirectionColumnWithDefiniteWidthTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void UsualDirectionColumnWithDefiniteMaxWidthTest() {
             ConvertToPdfAndCompare("usualDirectionColumnWithDefiniteMaxWidthTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void UsualDirectionColumnWithDefiniteMinWidthTest() {
             ConvertToPdfAndCompare("usualDirectionColumnWithDefiniteMinWidthTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void DirectionColumnWithoutBasisWithDefiniteHeightTest() {
             ConvertToPdfAndCompare("directionColumnWithoutBasisWithDefiniteHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void DirectionColumnWithWrapElementsToGrowTest() {
             ConvertToPdfAndCompare("directionColumnWithWrapElementsToGrowTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void DirectionColumnWithWrapElementsNotToGrowTest() {
             ConvertToPdfAndCompare("directionColumnWithWrapElementsNotToGrowTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void DirectionColumnWithWrapElementsToShrinkTest() {
             ConvertToPdfAndCompare("directionColumnWithWrapElementsToShrinkTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void DirectionColumnWithWrapElementsNotToShrinkTest() {
             ConvertToPdfAndCompare("directionColumnWithWrapElementsNotToShrinkTest", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void DirectionColumnWithWrapDefiniteWidthAndHeightTest() {
             ConvertToPdfAndCompare("directionColumnWithWrapDefiniteWidthAndHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void DirectionColumnWithWrapWithAlignItemsAndJustifyContentTest() {
             ConvertToPdfAndCompare("directionColumnWithWrapWithAlignItemsAndJustifyContentTest", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void DirectionColumnWithAlignItemsAndJustifyContentTest1() {
             ConvertToPdfAndCompare("directionColumnWithAlignItemsAndJustifyContentTest1", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void DirectionColumnWithAlignItemsAndJustifyContentTest2() {
             ConvertToPdfAndCompare("directionColumnWithAlignItemsAndJustifyContentTest2", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void DirectionColumnWithAlignItemsAndJustifyContentTest3() {
             ConvertToPdfAndCompare("directionColumnWithAlignItemsAndJustifyContentTest3", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ImgAsFlexItemTest01() {
             ConvertToPdfAndCompare("imgAsFlexItemTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

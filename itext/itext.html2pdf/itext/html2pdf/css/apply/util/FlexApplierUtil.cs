@@ -61,20 +61,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 element.SetProperty(Property.FLEX_SHRINK, flexShrinkValue);
             }
             String flexBasis = cssProps.Get(CommonCssConstants.FLEX_BASIS);
-            if (flexBasis == null || CommonCssConstants.AUTO.Equals(flexBasis)) {
-                // TODO DEVSIX-5003 use height as the main size if flex-direction: column.
-                // we use main size property as a flex-basis value (when flex-basis: auto) in
-                // corresponding with documentation https://www.w3.org/TR/css-flexbox-1/#valdef-flex-flex-basis
-                String flexElementWidth = cssProps.Get(CommonCssConstants.WIDTH);
-                if (flexElementWidth != null) {
-                    float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
-                    float rem = context.GetCssContext().GetRootFontSize();
-                    UnitValue flexElementWidthAbsoluteLength = CssDimensionParsingUtils.ParseLengthValueToPt(flexElementWidth, 
-                        em, rem);
-                    element.SetProperty(Property.FLEX_BASIS, flexElementWidthAbsoluteLength);
-                }
-            }
-            else {
+            if (flexBasis != null && !CommonCssConstants.AUTO.Equals(flexBasis)) {
                 if (!CommonCssConstants.CONTENT.Equals(flexBasis)) {
                     float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
                     float rem = context.GetCssContext().GetRootFontSize();
@@ -144,6 +131,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
                     case CommonCssConstants.ROW_REVERSE: {
                         direction = FlexDirectionPropertyValue.ROW_REVERSE;
+                        break;
+                    }
+
+                    case CommonCssConstants.COLUMN: {
+                        direction = FlexDirectionPropertyValue.COLUMN;
+                        break;
+                    }
+
+                    case CommonCssConstants.COLUMN_REVERSE: {
+                        direction = FlexDirectionPropertyValue.COLUMN_REVERSE;
                         break;
                     }
 
@@ -317,6 +314,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             ICollection<String> supportedFlexDirectionValues = new HashSet<String>();
             supportedFlexDirectionValues.Add(CommonCssConstants.ROW);
             supportedFlexDirectionValues.Add(CommonCssConstants.ROW_REVERSE);
+            supportedFlexDirectionValues.Add(CommonCssConstants.COLUMN);
+            supportedFlexDirectionValues.Add(CommonCssConstants.COLUMN_REVERSE);
             supportedPairs.Put(CommonCssConstants.FLEX_DIRECTION, supportedFlexDirectionValues);
             ICollection<String> supportedAlignContentValues = new HashSet<String>();
             supportedAlignContentValues.Add(CommonCssConstants.STRETCH);

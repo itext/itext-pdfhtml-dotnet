@@ -26,10 +26,9 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5096 support flex-direction: column
     //TODO DEVSIX-5166 flex: Support aling-self property
     //TODO DEVSIX-5087 Image is not displayed correctly when overflow happens
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 1)]
     public class FlexAspectRatioImgColumn002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flex-aspect-ratio-img-column-002.html";

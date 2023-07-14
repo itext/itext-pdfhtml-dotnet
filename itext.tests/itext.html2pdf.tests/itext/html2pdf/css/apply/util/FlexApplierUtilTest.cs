@@ -70,19 +70,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
-        public virtual void ApplyFlexBasisNullWidthTest() {
-            ProcessorContext context = new ProcessorContext(new ConverterProperties());
-            IDictionary<String, String> cssProps = new Dictionary<String, String>();
-            cssProps.Put(CssConstants.FLEX_BASIS, null);
-            cssProps.Put(CssConstants.WIDTH, "20.45pt");
-            cssProps.Put(CssConstants.FONT_SIZE, "0");
-            IElement element = new Div();
-            FlexApplierUtil.ApplyFlexItemProperties(cssProps, context, element);
-            NUnit.Framework.Assert.AreEqual(UnitValue.CreatePointValue(20.45f), element.GetProperty<UnitValue>(Property
-                .FLEX_BASIS));
-        }
-
-        [NUnit.Framework.Test]
         public virtual void ApplyFlexBasisAutoTest() {
             ProcessorContext context = new ProcessorContext(new ConverterProperties());
             IDictionary<String, String> cssProps = new Dictionary<String, String>();
@@ -90,19 +77,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IElement element = new Div();
             FlexApplierUtil.ApplyFlexItemProperties(cssProps, context, element);
             NUnit.Framework.Assert.IsNull(element.GetProperty<UnitValue>(Property.FLEX_BASIS));
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ApplyFlexBasisAutoWidthTest() {
-            ProcessorContext context = new ProcessorContext(new ConverterProperties());
-            IDictionary<String, String> cssProps = new Dictionary<String, String>();
-            cssProps.Put(CssConstants.FLEX_BASIS, CssConstants.AUTO);
-            cssProps.Put(CssConstants.WIDTH, "20.45pt");
-            cssProps.Put(CssConstants.FONT_SIZE, "0");
-            IElement element = new Div();
-            FlexApplierUtil.ApplyFlexItemProperties(cssProps, context, element);
-            NUnit.Framework.Assert.AreEqual(UnitValue.CreatePointValue(20.45f), element.GetProperty<UnitValue>(Property
-                .FLEX_BASIS));
         }
 
         [NUnit.Framework.Test]
@@ -207,7 +181,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 3)]
         public virtual void ApplyFlexContainerUnsupportedPropertiesUnsupportedValuesTest() {
             String[] unsupportedProperties = new String[] { CssConstants.FLEX_DIRECTION, CssConstants.ROW_GAP, CssConstants
                 .COLUMN_GAP, CssConstants.ALIGN_CONTENT };
