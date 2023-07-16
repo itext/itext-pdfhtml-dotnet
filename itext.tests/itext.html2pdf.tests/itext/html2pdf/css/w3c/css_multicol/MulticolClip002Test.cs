@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class MulticolClip002Test : W3CCssMulticolTest {
+    public class MulticolClip002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-clip-002.xht";
         }

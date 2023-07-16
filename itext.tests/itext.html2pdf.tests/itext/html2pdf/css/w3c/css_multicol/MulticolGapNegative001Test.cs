@@ -29,7 +29,7 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
     [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, LogLevel = LogLevelConstants.WARN
         )]
-    public class MulticolGapNegative001Test : W3CCssMulticolTest {
+    public class MulticolGapNegative001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-gap-negative-001.xht";
         }

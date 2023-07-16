@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class SubpixelColumnRuleWidthTentativeTest : W3CCssMulticolTest {
+    public class SubpixelColumnRuleWidthTentativeTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "subpixel-column-rule-width-tentative.html";
         }

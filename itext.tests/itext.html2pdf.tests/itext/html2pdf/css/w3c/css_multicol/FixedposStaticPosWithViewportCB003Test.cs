@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class FixedposStaticPosWithViewportCB003Test : W3CCssMulticolTest {
+    public class FixedposStaticPosWithViewportCB003Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "fixedpos-static-pos-with-viewport-cb-003.html";
         }

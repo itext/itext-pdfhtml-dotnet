@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class BalanceGridContainerRefTest : W3CCssMulticolTest {
+    public class BalanceGridContainerRefTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "balance-grid-container-ref.html";
         }

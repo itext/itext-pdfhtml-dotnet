@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class ColumnBalancingWithSpanAndOOF002Test : W3CCssMulticolTest {
+    public class ColumnBalancingWithSpanAndOOF002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "column-balancing-with-span-and-oof-002.html";
         }

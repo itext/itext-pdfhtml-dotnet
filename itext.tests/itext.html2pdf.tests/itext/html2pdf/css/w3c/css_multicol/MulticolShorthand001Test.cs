@@ -26,7 +26,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
     [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
-    public class MulticolShorthand001Test : W3CCssMulticolTest {
+    public class MulticolShorthand001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-shorthand-001.xht";
         }

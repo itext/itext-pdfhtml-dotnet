@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class MulticolSpanAllDynamicAdd004RefTest : W3CCssMulticolTest {
+    public class MulticolSpanAllDynamicAdd004RefTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-span-all-dynamic-add-004-ref.html";
         }

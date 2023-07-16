@@ -26,7 +26,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED)]
-    public class NestedOofsInRelativeMulticolTest : W3CCssMulticolTest {
+    public class NestedOofsInRelativeMulticolTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "nested-oofs-in-relative-multicol.html";
         }

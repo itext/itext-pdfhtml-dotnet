@@ -28,7 +28,7 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
     [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 5)]
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
-    public class FileControlCrashTest : W3CCssMulticolTest {
+    public class FileControlCrashTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "file-control-crash.html";
         }

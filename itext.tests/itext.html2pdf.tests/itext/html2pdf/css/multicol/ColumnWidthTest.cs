@@ -278,8 +278,8 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         private void RunTest(String testName) {
-            ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetMulticolEnabled
-                (true).SetBaseUri(SOURCE_FOLDER));
+            ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
+                (SOURCE_FOLDER));
         }
     }
 }

@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class MozMulticol3ColumnBalancingBreakInsideAvoid1RefTest : W3CCssMulticolTest {
+    public class MozMulticol3ColumnBalancingBreakInsideAvoid1RefTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "column-break-inside-avoid-1-ref.html";
         }

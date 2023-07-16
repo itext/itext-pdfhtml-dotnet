@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class MulticolFillBalance001RefTest : W3CCssMulticolTest {
+    public class MulticolFillBalance001RefTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-fill-balance-001-ref.xht";
         }

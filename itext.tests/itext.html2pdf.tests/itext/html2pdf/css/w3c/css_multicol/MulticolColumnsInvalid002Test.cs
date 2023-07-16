@@ -26,7 +26,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
     [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
-    public class MulticolColumnsInvalid002Test : W3CCssMulticolTest {
+    public class MulticolColumnsInvalid002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-columns-invalid-002.xht";
         }

@@ -29,7 +29,7 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
     [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, LogLevel = LogLevelConstants.WARN
         )]
-    public class Baseline006Test : W3CCssMulticolTest {
+    public class Baseline006Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "baseline-006.html";
         }

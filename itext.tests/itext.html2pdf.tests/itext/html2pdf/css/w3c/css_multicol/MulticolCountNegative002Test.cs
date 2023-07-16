@@ -25,7 +25,7 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
     [NUnit.Framework.Ignore("DEVSIX-7565")]
-    public class MulticolCountNegative002Test : W3CCssMulticolTest {
+    public class MulticolCountNegative002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-count-negative-002.xht";
         }

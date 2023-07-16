@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class MulticolRuleColor001Test : W3CCssMulticolTest {
+    public class MulticolRuleColor001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-rule-color-001.xht";
         }

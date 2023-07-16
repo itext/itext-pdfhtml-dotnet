@@ -28,7 +28,7 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
     [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED
         , LogLevel = LogLevelConstants.ERROR, Count = 2)]
-    public class MulticolFill000Test : W3CCssMulticolTest {
+    public class MulticolFill000Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-fill-000.xht";
         }

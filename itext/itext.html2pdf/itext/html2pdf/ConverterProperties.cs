@@ -74,8 +74,8 @@ namespace iText.Html2pdf {
         /// <summary>Meta info that will be added to the events thrown by html2Pdf.</summary>
         private IMetaInfo metaInfo;
 
-        //TODO: DEVSIX-7594 remove this property
-        private bool multicolEnabled = false;
+        /// <summary>enables continuous container for all elements.</summary>
+        private bool continuousContainerEnabled;
 
         /// <summary>
         /// Instantiates a new
@@ -111,7 +111,7 @@ namespace iText.Html2pdf {
             this.metaInfo = other.metaInfo;
             this.limitOfLayouts = other.limitOfLayouts;
             this.immediateFlush = other.immediateFlush;
-            this.multicolEnabled = other.multicolEnabled;
+            this.continuousContainerEnabled = other.continuousContainerEnabled;
         }
 
         /// <summary>Gets the media device description.</summary>
@@ -508,19 +508,21 @@ namespace iText.Html2pdf {
             return this;
         }
 
-        //TODO: DEVSIX-7594 remove this property
-        /// <summary>check if multi-column layout is enabled</summary>
+        /// <summary>check if continuous container is enabled.</summary>
         /// <returns>true if enabled, false otherwise</returns>
-        public virtual bool IsMulticolEnabled() {
-            return multicolEnabled;
+        public virtual bool IsContinuousContainerEnabled() {
+            return continuousContainerEnabled;
         }
 
-        //TODO: DEVSIX-7594 remove this property
-        /// <summary>set multi-column layout support</summary>
-        /// <param name="multicolEnabled">sets multi-column layout support</param>
-        /// <returns>ConverterProperties</returns>
-        public virtual iText.Html2pdf.ConverterProperties SetMulticolEnabled(bool multicolEnabled) {
-            this.multicolEnabled = multicolEnabled;
+        /// <summary>Sets continuous container support.</summary>
+        /// <param name="value">true to set continuous container, false otherwise</param>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
+        public virtual iText.Html2pdf.ConverterProperties SetContinuousContainerEnabled(bool value) {
+            continuousContainerEnabled = value;
             return this;
         }
     }

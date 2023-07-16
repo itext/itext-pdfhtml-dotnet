@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class ColumnBalancingPaged001PrintRefTest : W3CCssMulticolTest {
+    public class ColumnBalancingPaged001PrintRefTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "column-balancing-paged-001-print-ref.html";
         }

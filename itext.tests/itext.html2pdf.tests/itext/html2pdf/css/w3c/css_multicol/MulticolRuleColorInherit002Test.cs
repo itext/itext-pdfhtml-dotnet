@@ -27,7 +27,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
     [LogMessage(Html2PdfLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN, Count = 3)]
-    public class MulticolRuleColorInherit002Test : W3CCssMulticolTest {
+    public class MulticolRuleColorInherit002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-rule-color-inherit-002.xht";
         }

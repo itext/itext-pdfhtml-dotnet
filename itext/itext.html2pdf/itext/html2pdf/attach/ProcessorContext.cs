@@ -96,8 +96,8 @@ namespace iText.Html2pdf.Attach {
 
         private readonly int limitOfLayouts;
 
-        //TODO: DEVSIX-7594 remove this property
-        private bool multicolEnabled;
+        /// <summary>enables continuous container for all elements.</summary>
+        private bool continuousContainerEnabled;
 
         /// <summary>
         /// Instantiates a new
@@ -147,7 +147,7 @@ namespace iText.Html2pdf.Attach {
             radioCheckResolver = new RadioCheckResolver();
             immediateFlush = converterProperties.IsImmediateFlush();
             processingInlineSvg = false;
-            multicolEnabled = converterProperties.IsMulticolEnabled();
+            continuousContainerEnabled = converterProperties.IsContinuousContainerEnabled();
         }
 
         /// <summary>Gets maximum number of layouts.</summary>
@@ -355,10 +355,10 @@ namespace iText.Html2pdf.Attach {
             processingInlineSvg = false;
         }
 
-        /// <summary>check if multicol layout is enabled</summary>
-        /// <returns>true if it's enabled, false otherwise</returns>
-        public virtual bool IsMulticolEnabled() {
-            return multicolEnabled;
+        /// <summary>check if continuous container is enabled.</summary>
+        /// <returns>true if enabled, false otherwise</returns>
+        public virtual bool IsContinuousContainerEnabled() {
+            return continuousContainerEnabled;
         }
     }
 }

@@ -27,7 +27,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
     [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
-    public class MulticolSpanFloat002Test : W3CCssMulticolTest {
+    public class MulticolSpanFloat002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-span-float-002.html";
         }

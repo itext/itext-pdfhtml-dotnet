@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class AutoFillAutoSize002printTest : W3CCssMulticolTest {
+    public class AutoFillAutoSize002printTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "auto-fill-auto-size-002-print.html";
         }

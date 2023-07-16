@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class MulticolSpanAllRestyle002RefTest : W3CCssMulticolTest {
+    public class MulticolSpanAllRestyle002RefTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-span-all-restyle-002-ref.html";
         }

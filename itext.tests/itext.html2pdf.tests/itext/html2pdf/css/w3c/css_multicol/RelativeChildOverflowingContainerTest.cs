@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class RelativeChildOverflowingContainerTest : W3CCssMulticolTest {
+    public class RelativeChildOverflowingContainerTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "relative-child-overflowing-container.html";
         }

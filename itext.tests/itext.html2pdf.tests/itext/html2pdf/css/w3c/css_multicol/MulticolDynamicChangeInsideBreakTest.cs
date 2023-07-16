@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class MulticolDynamicChangeInsideBreakTest : W3CCssMulticolTest {
+    public class MulticolDynamicChangeInsideBreakTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-dynamic-change-inside-break.html";
         }

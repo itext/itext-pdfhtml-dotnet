@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class AbsposAutoposContainedByViewportTest : W3CCssMulticolTest {
+    public class AbsposAutoposContainedByViewportTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "abspos-autopos-contained-by-viewport-000.html";
         }

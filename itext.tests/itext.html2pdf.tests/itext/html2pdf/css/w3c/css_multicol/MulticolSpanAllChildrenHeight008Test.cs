@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class MulticolSpanAllChildrenHeight008Test : W3CCssMulticolTest {
+    public class MulticolSpanAllChildrenHeight008Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-span-all-children-height-008.html";
         }

@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    public class ColumnfillAutoMaxHeight001Test : W3CCssMulticolTest {
+    public class ColumnfillAutoMaxHeight001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "columnfill-auto-max-height-001.html";
         }

@@ -27,7 +27,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 2)]
-    public class MulticolSpanAllDynamicAdd013RefTest : W3CCssMulticolTest {
+    public class MulticolSpanAllDynamicAdd013RefTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-span-all-dynamic-add-013-ref.html";
         }
