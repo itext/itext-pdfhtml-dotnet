@@ -24,6 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
+    [NUnit.Framework.Ignore("DEVSIX-7556 Support multicol+float elements on basic level")]
     public class MulticolGapFraction002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-gap-fraction-002.html";

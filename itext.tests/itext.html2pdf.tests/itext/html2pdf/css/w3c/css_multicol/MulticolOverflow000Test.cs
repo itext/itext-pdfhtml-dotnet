@@ -22,15 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
-using iText.Test;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA, LogLevel = LogLevelConstants.WARN
-        )]
-    [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, LogLevel = LogLevelConstants
-        .ERROR, Count = 9)]
     public class MulticolOverflow000Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-overflow-000.xht";
