@@ -33,7 +33,7 @@ using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     /// <summary>Utility class to apply column-count values.</summary>
-    public class MultiColumnCssApplierUtil {
+    public sealed class MultiColumnCssApplierUtil {
         private MultiColumnCssApplierUtil() {
         }
 
@@ -68,7 +68,6 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 .COLUMN_WIDTH)))) {
                 element.SetProperty(Property.COLUMN_COUNT, 1);
             }
-            String cssPropsColumnRuleWidth = cssProps.Get(CssConstants.COLUMN_RULE_WIDTH);
             Border borderFromCssProperties = BorderStyleApplierUtil.GetCertainBorder(cssProps.Get(CssConstants.COLUMN_RULE_WIDTH
                 ), cssProps.Get(CssConstants.COLUMN_RULE_STYLE), GetColumnGapColorOrDefault(cssProps), emValue, remValue
                 );
