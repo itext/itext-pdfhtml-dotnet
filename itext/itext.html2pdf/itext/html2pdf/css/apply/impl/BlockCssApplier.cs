@@ -60,7 +60,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 OutlineApplierUtil.ApplyOutlines(cssProps, context, container);
                 OrphansWidowsApplierUtil.ApplyOrphansAndWidows(cssProps, container);
                 VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForBlocks(cssProps, container, IsInlineItem(tagWorker));
-                ColumnCssApplierUtil.ApplyColumnCount(cssProps, context, container);
+                MultiColumnCssApplierUtil.ApplyMultiCol(cssProps, context, container);
                 if (IsFlexItem(stylesContainer)) {
                     FlexApplierUtil.ApplyFlexItemProperties(cssProps, context, container);
                 }

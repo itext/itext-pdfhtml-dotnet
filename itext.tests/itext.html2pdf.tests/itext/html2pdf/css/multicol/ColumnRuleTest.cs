@@ -22,6 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Multicol {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -98,6 +100,7 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
         public virtual void ConvertRuleWidthIncorrectValuesTest() {
             RunTest("ruleWidthIncorrectValuesTest");
         }
@@ -113,6 +116,7 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 5)]
         public virtual void ConvertRuleColorHslaTest() {
             RunTest("ruleColorHslaTest");
         }
@@ -125,6 +129,26 @@ namespace iText.Html2pdf.Css.Multicol {
         [NUnit.Framework.Test]
         public virtual void ConvertRuleShorthandTest() {
             RunTest("ruleShorthandTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicWidthTest() {
+            RunTest("basicWidthTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ThinMediumThickTest() {
+            RunTest("thinMediumThick");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicColorTest() {
+            RunTest("basicColorTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicStyleTest() {
+            RunTest("basicStyleTest");
         }
 
         private void RunTest(String testName) {

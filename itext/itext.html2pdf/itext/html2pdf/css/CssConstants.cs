@@ -48,6 +48,15 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant COUNTER_RESET.</summary>
         public const String COUNTER_RESET = "counter-reset";
 
+        /// <summary>The Constant COLUMN_RULE_WIDTH.</summary>
+        public const String COLUMN_RULE_WIDTH = "column-rule-width";
+
+        /// <summary>The Constant COLUMN_RULE_STYLE.</summary>
+        public const String COLUMN_RULE_STYLE = "column-rule-style";
+
+        /// <summary>The Constant COLUMN_RULE_COLOR.</summary>
+        public const String COLUMN_RULE_COLOR = "column-rule-color";
+
         /// <summary>The Constant DISPLAY.</summary>
         public const String DISPLAY = "display";
 

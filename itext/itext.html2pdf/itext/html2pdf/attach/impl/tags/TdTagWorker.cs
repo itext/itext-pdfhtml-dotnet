@@ -74,7 +74,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 childOfMulticolContainer = new Div();
                 multicolContainer.Add(childOfMulticolContainer);
                 // TODO DEVSIX-7564, DEVSIX-7562 apply other multicol properties
-                ColumnCssApplierUtil.ApplyColumnCount(styles, context, multicolContainer);
+                MultiColumnCssApplierUtil.ApplyMultiCol(styles, context, multicolContainer);
                 cell.Add(multicolContainer);
             }
             inlineHelper = new WaitingInlineElementsHelper(styles.Get(CssConstants.WHITE_SPACE), styles.Get(CssConstants

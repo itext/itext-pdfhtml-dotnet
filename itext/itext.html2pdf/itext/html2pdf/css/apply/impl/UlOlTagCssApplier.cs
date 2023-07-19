@@ -55,7 +55,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             }
             ListStyleApplierUtil.ApplyListStyleTypeProperty(stylesContainer, css, context, list);
             ListStyleApplierUtil.ApplyListStyleImageProperty(css, context, list);
-            ColumnCssApplierUtil.ApplyColumnCount(css, context, list);
+            MultiColumnCssApplierUtil.ApplyMultiCol(css, context, list);
             base.Apply(context, stylesContainer, tagWorker);
             // process the padding considering the direction
             bool isRtl = BaseDirection.RIGHT_TO_LEFT.Equals(list.GetProperty<BaseDirection?>(Property.BASE_DIRECTION));

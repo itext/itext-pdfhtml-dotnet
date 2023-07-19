@@ -24,22 +24,24 @@ using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Apply.Util;
 using iText.Layout;
+using iText.Layout.Borders;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
     /// <summary>Utility class to apply column-count values.</summary>
-    public class ColumnCssApplierUtil {
-        private ColumnCssApplierUtil() {
+    public class MultiColumnCssApplierUtil {
+        private MultiColumnCssApplierUtil() {
         }
 
         /// <summary>Apply column-count to an element.</summary>
         /// <param name="cssProps">the CSS properties</param>
         /// <param name="context">the Processor context</param>
         /// <param name="element">the styles container</param>
-        public static void ApplyColumnCount(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
+        public static void ApplyMultiCol(IDictionary<String, String> cssProps, ProcessorContext context, IPropertyContainer
              element) {
             int? columnCount = CssDimensionParsingUtils.ParseInteger(cssProps.Get(CssConstants.COLUMN_COUNT));
             if (columnCount != null) {
@@ -66,6 +68,19 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 .COLUMN_WIDTH)))) {
                 element.SetProperty(Property.COLUMN_COUNT, 1);
             }
+            String cssPropsColumnRuleWidth = cssProps.Get(CssConstants.COLUMN_RULE_WIDTH);
+            Border borderFromCssProperties = BorderStyleApplierUtil.GetCertainBorder(cssProps.Get(CssConstants.COLUMN_RULE_WIDTH
+                ), cssProps.Get(CssConstants.COLUMN_RULE_STYLE), GetColumnGapColorOrDefault(cssProps), emValue, remValue
+                );
+            element.SetProperty(Property.COLUMN_GAP_BORDER, borderFromCssProperties);
+        }
+
+        private static String GetColumnGapColorOrDefault(IDictionary<String, String> styles) {
+            String borderColor = styles.Get(CssConstants.COLUMN_RULE_COLOR);
+            if (borderColor == null || CommonCssConstants.CURRENTCOLOR.Equals(borderColor)) {
+                borderColor = styles.Get(CommonCssConstants.COLOR);
+            }
+            return borderColor;
         }
     }
 }
