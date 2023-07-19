@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [NUnit.Framework.Ignore("DEVSIX-7565")]
     public class MulticolCountComputed004Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-count-computed-004.xht";

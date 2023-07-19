@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [NUnit.Framework.Ignore("DEVSIX-7630 Multicol width&height advanced support")]
+    [NUnit.Framework.Ignore("DEVSIX-7556 Support multicol+float elements on basic level")]
     public class MulticolZeroHeight001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-zero-height-001.xht";

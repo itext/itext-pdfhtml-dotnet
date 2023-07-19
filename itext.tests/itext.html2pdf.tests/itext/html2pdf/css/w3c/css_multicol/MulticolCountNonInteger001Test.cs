@@ -22,9 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [NUnit.Framework.Ignore("DEVSIX-7565")]
+    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+        LogLevel = LogLevelConstants.WARN)]
     public class MulticolCountNonInteger001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-count-non-integer-001.xht";
