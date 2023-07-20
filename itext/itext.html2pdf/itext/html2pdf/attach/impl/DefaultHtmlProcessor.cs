@@ -286,6 +286,10 @@ namespace iText.Html2pdf.Attach.Impl {
                             roots.Add(tagWorker.GetElementResult());
                         }
                     }
+                    if (tagWorker.GetElementResult() != null && context.IsContinuousContainerEnabled()) {
+                        tagWorker.GetElementResult().SetProperty(Property.COLLAPSING_MARGINS, false);
+                        tagWorker.GetElementResult().SetProperty(Property.TREAT_AS_CONTINUOUS_CONTAINER, true);
+                    }
                 }
                 element.SetStyles(null);
             }

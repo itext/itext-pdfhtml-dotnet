@@ -134,5 +134,23 @@ namespace iText.Html2pdf.Css {
         public virtual void ImgWideBorderClearAndDisplayBlockParaFloatTest() {
             ConvertToPdfAndCompare("imgWideBorderClearAndDisplayBlockParaFloat", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatsPositioningOutsideDivWithClearTest() {
+            // TODO DEVSIX-7602 Css right and left clear property is processed incorrectly if floats "intersect" by x
+            ConvertToPdfAndCompare("floatsPositioningOutsideDivWithClear", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void WideFloatsPositioningOutsideDivWithClearTest() {
+            // TODO DEVSIX-7602 Css right and left clear property is processed incorrectly for wide floats
+            ConvertToPdfAndCompare("wideFloatsPositioningOutsideDivWithClear", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FloatsWithClearInsideFlexElementTest() {
+            // TODO DEVSIX-7602 Flex element width is incorrect in case clear property is applied to floats inside it
+            ConvertToPdfAndCompare("floatsWithClearInsideFlexElement", sourceFolder, destinationFolder);
+        }
     }
 }

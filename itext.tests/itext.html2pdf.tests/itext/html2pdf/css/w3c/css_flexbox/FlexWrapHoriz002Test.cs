@@ -22,13 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5086 support flex-wrap
-    //TODO DEVSIX-5135 flex container width shall be different according to float properties
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
+    // TODO DEVSIX-7603 Flex container float property is ignored, width shall be different according to float properties
     public class FlexWrapHoriz002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-wrap-horiz-002.html";

@@ -21,9 +21,11 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Html;
 using iText.Layout;
 using iText.Layout.Element;
@@ -38,13 +40,19 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// </summary>
     public class TdTagWorker : ITagWorker, IDisplayAware {
         /// <summary>The cell.</summary>
-        private Cell cell;
+        private readonly Cell cell;
+
+        /// <summary>Container for cell children in case of multicol layouting</summary>
+        private Div childOfMulticolContainer;
+
+        /// <summary>Container for children in case of multicol layouting</summary>
+        protected internal MulticolContainer multicolContainer;
 
         /// <summary>The inline helper.</summary>
-        private WaitingInlineElementsHelper inlineHelper;
+        private readonly WaitingInlineElementsHelper inlineHelper;
 
         /// <summary>The display.</summary>
-        private String display;
+        private readonly String display;
 
         /// <summary>
         /// Creates a new
@@ -60,9 +68,17 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             rowspan = rowspan != null ? rowspan : 1;
             cell = new Cell((int)rowspan, (int)colspan);
             cell.SetPadding(0);
-            inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
-                GetStyles().Get(CssConstants.TEXT_TRANSFORM));
-            display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
+            IDictionary<String, String> styles = element.GetStyles();
+            if (styles.ContainsKey(CssConstants.COLUMN_COUNT) || styles.ContainsKey(CssConstants.COLUMN_WIDTH)) {
+                multicolContainer = new MulticolContainer();
+                childOfMulticolContainer = new Div();
+                multicolContainer.Add(childOfMulticolContainer);
+                MultiColumnCssApplierUtil.ApplyMultiCol(styles, context, multicolContainer);
+                cell.Add(multicolContainer);
+            }
+            inlineHelper = new WaitingInlineElementsHelper(styles.Get(CssConstants.WHITE_SPACE), styles.Get(CssConstants
+                .TEXT_TRANSFORM));
+            display = styles.Get(CssConstants.DISPLAY);
             AccessiblePropHelper.TrySetLangAttribute(cell, element);
         }
 
@@ -70,7 +86,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)
         */
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
-            inlineHelper.FlushHangingLeaves(cell);
+            inlineHelper.FlushHangingLeaves(GetCellContainer());
         }
 
         /* (non-Javadoc)
@@ -127,7 +143,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
         */
         public virtual IPropertyContainer GetElementResult() {
-            return cell;
+            return (IPropertyContainer)cell;
         }
 
         /* (non-Javadoc)
@@ -142,12 +158,21 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <returns>true, if successful</returns>
         private bool ProcessChild(IPropertyContainer propertyContainer) {
             bool processed = false;
-            inlineHelper.FlushHangingLeaves(cell);
+            inlineHelper.FlushHangingLeaves(GetCellContainer());
             if (propertyContainer is IBlockElement) {
-                cell.Add((IBlockElement)propertyContainer);
+                if (childOfMulticolContainer == null) {
+                    cell.Add((IBlockElement)propertyContainer);
+                }
+                else {
+                    childOfMulticolContainer.Add((IBlockElement)propertyContainer);
+                }
                 processed = true;
             }
             return processed;
+        }
+
+        private IPropertyContainer GetCellContainer() {
+            return childOfMulticolContainer == null ? (IPropertyContainer)cell : (IPropertyContainer)childOfMulticolContainer;
         }
     }
 }

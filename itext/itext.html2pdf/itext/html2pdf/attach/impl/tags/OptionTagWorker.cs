@@ -95,9 +95,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 base.ProcessContent(content, context);
             }
             if (!fakedContent) {
+                // TODO DEVSIX-2443: spaces are not collapsed according to white-space property in here
                 actualOptionTextContent.Append(content);
             }
-            // TODO DEVSIX-1901: spaces are not collapsed according to white-space property in here
             return true;
         }
 

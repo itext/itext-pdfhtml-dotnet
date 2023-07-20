@@ -22,10 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.IO;
+using iText.Forms.Logs;
 using iText.Html2pdf;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -69,6 +71,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(FormsLogMessageConstants.DUPLICATE_EXPORT_VALUE, Count = 1)]
         public virtual void BrInsideDifferentTagsTest01() {
             // TODO DEVSIX-2092
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "brInsideDifferentTagsTest01.html"), new FileInfo(destinationFolder

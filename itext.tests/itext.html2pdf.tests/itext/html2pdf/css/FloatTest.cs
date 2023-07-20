@@ -743,6 +743,11 @@ namespace iText.Html2pdf.Css {
             RunTest("floatLeftWithPaddingInLi", "diff_floatLeftWithPaddingInLi_");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void FloatsPositioningOutsideBfcTest() {
+            RunTest("floatsPositioningOutsideBfc", "diff_floatsPositioningOutsideBfc_");
+        }
+
         private void RunTest(String testName, String diff) {
             String htmlName = SOURCE_FOLDER + testName + ".html";
             String outFileName = DESTINATION_FOLDER + testName + ".pdf";

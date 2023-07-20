@@ -149,6 +149,9 @@ namespace iText.Html2pdf.Logs {
         /// <summary>The Constant ELEMENT_DOES_NOT_FIT_CURRENT_AREA.</summary>
         public const String ELEMENT_DOES_NOT_FIT_CURRENT_AREA = "Element does not fit current area";
 
+        public const String OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT = "Option groups are not supported in " +
+             "interactive mode";
+
         private Html2PdfLogMessageConstant() {
         }
         //Private constructor will prevent the instantiation of this class directly

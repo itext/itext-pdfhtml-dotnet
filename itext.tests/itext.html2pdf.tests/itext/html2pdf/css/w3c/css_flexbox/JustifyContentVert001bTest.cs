@@ -26,11 +26,10 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    // TODO DEVSIX-5003 support case when flex-direction is vertical
     //TODO DEVSIX-5163 support more complex justify-content values
     //TODO DEVSIX-5087 support floating for FlexContainerRenderer
     //This test should be verified in firefox as far as chrome doesn't support some justify-content values
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 36)]
+    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 9)]
     public class JustifyContentVert001bTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-justify-content-vert-001b.xhtml";

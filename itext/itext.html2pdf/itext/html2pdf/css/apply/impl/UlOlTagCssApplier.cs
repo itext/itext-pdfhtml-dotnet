@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
+using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
@@ -41,11 +42,11 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         */
         public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
             ) {
-            if (!(tagWorker.GetElementResult() is List)) {
+            if (!(tagWorker.GetElementResult() is List || tagWorker.GetElementResult() is MulticolContainer)) {
                 return;
             }
             IDictionary<String, String> css = stylesContainer.GetStyles();
-            List list = (List)tagWorker.GetElementResult();
+            IPropertyContainer list = tagWorker.GetElementResult();
             if (CssConstants.INSIDE.Equals(css.Get(CssConstants.LIST_STYLE_POSITION))) {
                 list.SetProperty(Property.LIST_SYMBOL_POSITION, ListSymbolPosition.INSIDE);
             }
@@ -54,6 +55,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             }
             ListStyleApplierUtil.ApplyListStyleTypeProperty(stylesContainer, css, context, list);
             ListStyleApplierUtil.ApplyListStyleImageProperty(css, context, list);
+            MultiColumnCssApplierUtil.ApplyMultiCol(css, context, list);
             base.Apply(context, stylesContainer, tagWorker);
             // process the padding considering the direction
             bool isRtl = BaseDirection.RIGHT_TO_LEFT.Equals(list.GetProperty<BaseDirection?>(Property.BASE_DIRECTION));

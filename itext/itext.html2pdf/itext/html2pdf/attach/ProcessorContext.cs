@@ -96,6 +96,9 @@ namespace iText.Html2pdf.Attach {
 
         private readonly int limitOfLayouts;
 
+        /// <summary>enables continuous container for all elements.</summary>
+        private bool continuousContainerEnabled;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="ProcessorContext"/>
@@ -144,6 +147,7 @@ namespace iText.Html2pdf.Attach {
             radioCheckResolver = new RadioCheckResolver();
             immediateFlush = converterProperties.IsImmediateFlush();
             processingInlineSvg = false;
+            continuousContainerEnabled = converterProperties.IsContinuousContainerEnabled();
         }
 
         /// <summary>Gets maximum number of layouts.</summary>
@@ -349,6 +353,12 @@ namespace iText.Html2pdf.Attach {
         /// <summary>End the processing Svg State</summary>
         public virtual void EndProcessingInlineSvg() {
             processingInlineSvg = false;
+        }
+
+        /// <summary>check if continuous container is enabled.</summary>
+        /// <returns>true if enabled, false otherwise</returns>
+        public virtual bool IsContinuousContainerEnabled() {
+            return continuousContainerEnabled;
         }
     }
 }

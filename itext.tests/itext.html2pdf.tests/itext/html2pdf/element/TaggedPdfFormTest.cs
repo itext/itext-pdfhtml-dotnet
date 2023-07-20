@@ -22,7 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Exceptions;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -64,25 +66,22 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void SimpleSelectTagged() {
             ConvertToPdfAcroformFlattenAndCompare("simpleSelect", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void ListBoxSelectTagged() {
             ConvertToPdfAcroformFlattenAndCompare("listBoxSelect", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1901")]
+        [LogMessage(Html2PdfLogMessageConstant.OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT, Count = 2)]
         public virtual void ListBoxOptGroupSelectTagged() {
             ConvertToPdfAcroformFlattenAndCompare("listBoxOptGroupSelect", sourceFolder, destinationFolder, true);
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1901")]
         public virtual void SimpleRadioFormTagged() {
             ConvertToPdfAcroformFlattenAndCompare("simpleRadioForm", sourceFolder, destinationFolder, true);
         }

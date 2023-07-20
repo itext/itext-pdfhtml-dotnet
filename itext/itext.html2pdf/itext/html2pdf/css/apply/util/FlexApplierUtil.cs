@@ -61,20 +61,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 element.SetProperty(Property.FLEX_SHRINK, flexShrinkValue);
             }
             String flexBasis = cssProps.Get(CommonCssConstants.FLEX_BASIS);
-            if (flexBasis == null || CommonCssConstants.AUTO.Equals(flexBasis)) {
-                // TODO DEVSIX-5003 use height as the main size if flex-direction: column.
-                // we use main size property as a flex-basis value (when flex-basis: auto) in
-                // corresponding with documentation https://www.w3.org/TR/css-flexbox-1/#valdef-flex-flex-basis
-                String flexElementWidth = cssProps.Get(CommonCssConstants.WIDTH);
-                if (flexElementWidth != null) {
-                    float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
-                    float rem = context.GetCssContext().GetRootFontSize();
-                    UnitValue flexElementWidthAbsoluteLength = CssDimensionParsingUtils.ParseLengthValueToPt(flexElementWidth, 
-                        em, rem);
-                    element.SetProperty(Property.FLEX_BASIS, flexElementWidthAbsoluteLength);
-                }
-            }
-            else {
+            if (flexBasis != null && !CommonCssConstants.AUTO.Equals(flexBasis)) {
                 if (!CommonCssConstants.CONTENT.Equals(flexBasis)) {
                     float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
                     float rem = context.GetCssContext().GetRootFontSize();
@@ -99,6 +86,71 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 );
             ApplyAlignItems(cssProps, element);
             ApplyJustifyContent(cssProps, element);
+            ApplyWrap(cssProps, element);
+            ApplyDirection(cssProps, element);
+        }
+
+        private static void ApplyWrap(IDictionary<String, String> cssProps, IPropertyContainer element) {
+            String wrapString = cssProps.Get(CommonCssConstants.FLEX_WRAP);
+            if (wrapString != null) {
+                FlexWrapPropertyValue wrap;
+                switch (wrapString) {
+                    case CommonCssConstants.WRAP: {
+                        wrap = FlexWrapPropertyValue.WRAP;
+                        break;
+                    }
+
+                    case CommonCssConstants.WRAP_REVERSE: {
+                        wrap = FlexWrapPropertyValue.WRAP_REVERSE;
+                        break;
+                    }
+
+                    case CommonCssConstants.NOWRAP: {
+                        wrap = FlexWrapPropertyValue.NOWRAP;
+                        break;
+                    }
+
+                    default: {
+                        wrap = FlexWrapPropertyValue.NOWRAP;
+                        break;
+                    }
+                }
+                element.SetProperty(Property.FLEX_WRAP, wrap);
+            }
+        }
+
+        private static void ApplyDirection(IDictionary<String, String> cssProps, IPropertyContainer element) {
+            String directionString = cssProps.Get(CommonCssConstants.FLEX_DIRECTION);
+            if (directionString != null) {
+                FlexDirectionPropertyValue direction;
+                switch (directionString) {
+                    case CommonCssConstants.ROW: {
+                        direction = FlexDirectionPropertyValue.ROW;
+                        break;
+                    }
+
+                    case CommonCssConstants.ROW_REVERSE: {
+                        direction = FlexDirectionPropertyValue.ROW_REVERSE;
+                        break;
+                    }
+
+                    case CommonCssConstants.COLUMN: {
+                        direction = FlexDirectionPropertyValue.COLUMN;
+                        break;
+                    }
+
+                    case CommonCssConstants.COLUMN_REVERSE: {
+                        direction = FlexDirectionPropertyValue.COLUMN_REVERSE;
+                        break;
+                    }
+
+                    default: {
+                        direction = FlexDirectionPropertyValue.ROW;
+                        break;
+                    }
+                }
+                element.SetProperty(Property.FLEX_DIRECTION, direction);
+            }
         }
 
         private static void ApplyAlignItems(IDictionary<String, String> cssProps, IPropertyContainer element) {
@@ -261,10 +313,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IDictionary<String, ICollection<String>> supportedPairs = new Dictionary<String, ICollection<String>>();
             ICollection<String> supportedFlexDirectionValues = new HashSet<String>();
             supportedFlexDirectionValues.Add(CommonCssConstants.ROW);
+            supportedFlexDirectionValues.Add(CommonCssConstants.ROW_REVERSE);
+            supportedFlexDirectionValues.Add(CommonCssConstants.COLUMN);
+            supportedFlexDirectionValues.Add(CommonCssConstants.COLUMN_REVERSE);
             supportedPairs.Put(CommonCssConstants.FLEX_DIRECTION, supportedFlexDirectionValues);
-            ICollection<String> supportedFlexWrapValues = new HashSet<String>();
-            supportedFlexWrapValues.Add(CommonCssConstants.NOWRAP);
-            supportedPairs.Put(CommonCssConstants.FLEX_WRAP, supportedFlexWrapValues);
             ICollection<String> supportedAlignContentValues = new HashSet<String>();
             supportedAlignContentValues.Add(CommonCssConstants.STRETCH);
             supportedAlignContentValues.Add(CommonCssConstants.NORMAL);

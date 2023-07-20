@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.IO;
+using iText.Forms.Logs;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
 using iText.Kernel.Geom;
@@ -128,6 +129,7 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         //TODO: update after DEVSIX-2445 fix
         [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 6)]
+        [LogMessage(FormsLogMessageConstants.DUPLICATE_EXPORT_VALUE, Count = 2)]
         public virtual void DisplayBlockInsideParagraphTest() {
             ConvertToPdfAndCompare("displayBlockInsideParagraph", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

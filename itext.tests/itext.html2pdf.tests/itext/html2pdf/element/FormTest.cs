@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Forms;
+using iText.Forms.Fields;
 using iText.Forms.Logs;
 using iText.Html2pdf;
 using iText.IO.Util;
@@ -167,15 +168,14 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 2)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.MULTIPLE_VALUES_ON_A_NON_MULTISELECT_FIELD)]
         public virtual void SelectTest01() {
-            RunTest("select01", false);
+            RunTest("select01", true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(FormsLogMessageConstants.ACROFORM_NOT_SUPPORTED_FOR_SELECT, Count = 3)]
         public virtual void SelectTest02() {
-            RunTest("select02", false);
+            RunTest("select02", true);
         }
 
         [NUnit.Framework.Test]
@@ -232,7 +232,7 @@ namespace iText.Html2pdf.Element {
             if (flattenPdfAcroFormFields) {
                 PdfDocument document = new PdfDocument(new PdfReader(outAcroPdfPath), new PdfWriter(outAcroFlattenPdfPath)
                     );
-                PdfAcroForm acroForm = PdfAcroForm.GetAcroForm(document, false);
+                PdfAcroForm acroForm = PdfFormCreator.GetAcroForm(document, false);
                 acroForm.FlattenFields();
                 document.Close();
             }

@@ -21,13 +21,17 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
 using iText.Forms.Form;
 using iText.Forms.Form.Element;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.Layout;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
@@ -38,6 +42,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// element.
     /// </summary>
     public class SelectTagWorker : ITagWorker, IDisplayAware {
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.SelectTagWorker
+            ));
+
         /// <summary>The form element.</summary>
         private AbstractSelectField selectElement;
 
@@ -59,6 +66,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             int size = GetSelectSize(sizeAttr, multipleAttr);
             if (size > 1 || multipleAttr) {
                 selectElement = new ListBoxField(name, size, multipleAttr);
+                // Remove some properties which are set in ListBoxField constructor
+                selectElement.DeleteOwnProperty(Property.PADDING_LEFT);
+                selectElement.DeleteOwnProperty(Property.PADDING_RIGHT);
+                selectElement.DeleteOwnProperty(Property.PADDING_TOP);
+                selectElement.DeleteOwnProperty(Property.PADDING_BOTTOM);
             }
             else {
                 selectElement = new ComboBoxField(name);
@@ -79,7 +91,14 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public virtual bool ProcessTagChild(ITagWorker childTagWorker, ProcessorContext context) {
             if (childTagWorker is OptionTagWorker || childTagWorker is OptGroupTagWorker) {
                 if (childTagWorker.GetElementResult() is IBlockElement) {
-                    selectElement.AddOption((IBlockElement)childTagWorker.GetElementResult());
+                    IBlockElement blockElement = (IBlockElement)childTagWorker.GetElementResult();
+                    String label = blockElement.GetProperty<String>(FormProperty.FORM_FIELD_LABEL);
+                    SelectFieldItem item = new SelectFieldItem(label, blockElement);
+                    selectElement.AddOption(item);
+                    bool? isFlattenFromProperty = selectElement.GetProperty<bool?>(FormProperty.FORM_FIELD_FLATTEN);
+                    if (childTagWorker is OptGroupTagWorker && !true.Equals(isFlattenFromProperty)) {
+                        LOGGER.LogWarning(Html2PdfLogMessageConstant.OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT);
+                    }
                     return true;
                 }
             }

@@ -74,6 +74,9 @@ namespace iText.Html2pdf {
         /// <summary>Meta info that will be added to the events thrown by html2Pdf.</summary>
         private IMetaInfo metaInfo;
 
+        /// <summary>enables continuous container for all elements.</summary>
+        private bool continuousContainerEnabled;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="ConverterProperties"/>
@@ -108,6 +111,7 @@ namespace iText.Html2pdf {
             this.metaInfo = other.metaInfo;
             this.limitOfLayouts = other.limitOfLayouts;
             this.immediateFlush = other.immediateFlush;
+            this.continuousContainerEnabled = other.continuousContainerEnabled;
         }
 
         /// <summary>Gets the media device description.</summary>
@@ -501,6 +505,24 @@ namespace iText.Html2pdf {
         /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetEventMetaInfo(IMetaInfo metaInfo) {
             this.metaInfo = metaInfo;
+            return this;
+        }
+
+        /// <summary>check if continuous container is enabled.</summary>
+        /// <returns>true if enabled, false otherwise</returns>
+        public virtual bool IsContinuousContainerEnabled() {
+            return continuousContainerEnabled;
+        }
+
+        /// <summary>Sets continuous container support.</summary>
+        /// <param name="value">true to set continuous container, false otherwise</param>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
+        public virtual iText.Html2pdf.ConverterProperties SetContinuousContainerEnabled(bool value) {
+            continuousContainerEnabled = value;
             return this;
         }
     }

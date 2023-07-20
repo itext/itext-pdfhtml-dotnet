@@ -65,6 +65,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The container which handles the elements that are present in the &lt;p&gt; tag.</summary>
         private Div elementsContainer;
 
+        /// <summary>Container for the result in case of multicol layouting</summary>
+        protected internal MulticolContainer multicolContainer;
+
         /// <summary>Helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
@@ -80,6 +83,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public PTagWorker(IElementNode element, ProcessorContext context) {
             lastParagraph = new Paragraph();
+            if (element.GetStyles().Get(CssConstants.COLUMN_COUNT) != null || element.GetStyles().Get(CssConstants.COLUMN_WIDTH
+                ) != null) {
+                multicolContainer = new MulticolContainer();
+                multicolContainer.Add(lastParagraph);
+            }
             inlineHelper = new WaitingInlineElementsHelper(element.GetStyles().Get(CssConstants.WHITE_SPACE), element.
                 GetStyles().Get(CssConstants.TEXT_TRANSFORM));
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
@@ -177,7 +185,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
         */
         public virtual IPropertyContainer GetElementResult() {
-            return null == elementsContainer ? (IPropertyContainer)lastParagraph : (IPropertyContainer)elementsContainer;
+            if (multicolContainer == null) {
+                return null == elementsContainer ? (IPropertyContainer)lastParagraph : (IPropertyContainer)elementsContainer;
+            }
+            return multicolContainer;
         }
 
         public virtual String GetDisplay() {
@@ -188,6 +199,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (elementsContainer == null) {
                 elementsContainer = new Div();
                 elementsContainer.Add(lastParagraph);
+                if (multicolContainer != null) {
+                    multicolContainer.GetChildren().Clear();
+                    multicolContainer.Add(elementsContainer);
+                }
             }
             inlineHelper.FlushHangingLeaves(lastParagraph);
             if (propertyContainer is Image) {

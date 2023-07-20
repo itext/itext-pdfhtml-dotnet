@@ -27,7 +27,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5096 support flex-flow property
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 1)]
     public class AlignItems004Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "align-items-004.htm";

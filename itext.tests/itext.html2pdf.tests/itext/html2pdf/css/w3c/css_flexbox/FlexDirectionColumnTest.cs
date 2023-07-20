@@ -22,15 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 54)]
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+    [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 36)]
     public class FlexDirectionColumnTest : W3CCssTest {
-        //TODO DEVSIX-5003 support case when flex-direction is vertical
-        //TODO DEVSIX-5086 support flex-wrap
         protected internal override String GetHtmlFileName() {
             return "flexbox-flex-direction-column.htm";
         }

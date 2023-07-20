@@ -43,6 +43,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <summary>The list object.</summary>
         private List list;
 
+        protected internal MulticolContainer multicolContainer;
+
         /// <summary>Helper class for waiting inline elements.</summary>
         private WaitingInlineElementsHelper inlineHelper;
 
@@ -55,6 +57,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public UlOlTagWorker(IElementNode element, ProcessorContext context) {
             list = new List().SetListSymbol("");
+            if (element.GetStyles().Get(CssConstants.COLUMN_COUNT) != null || element.GetStyles().ContainsKey(CssConstants
+                .COLUMN_WIDTH)) {
+                multicolContainer = new MulticolContainer();
+                multicolContainer.Add(list);
+            }
             //In the case of an ordered list, see if the start attribute can be found
             if (element.GetAttribute(AttributeConstants.START) != null) {
                 int? startValue = CssDimensionParsingUtils.ParseInteger(element.GetAttribute(AttributeConstants.START));
@@ -127,7 +134,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         * @see com.itextpdf.html2pdf.attach.ITagWorker#getElementResult()
         */
         public virtual IPropertyContainer GetElementResult() {
-            return list;
+            return multicolContainer == null ? (IPropertyContainer)list : (IPropertyContainer)multicolContainer;
         }
 
         /// <summary>Processes an unlabeled list item.</summary>
