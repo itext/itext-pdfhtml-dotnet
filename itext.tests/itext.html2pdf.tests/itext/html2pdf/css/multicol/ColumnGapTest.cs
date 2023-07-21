@@ -57,11 +57,13 @@ namespace iText.Html2pdf.Css.Multicol {
 
         [NUnit.Framework.Test]
         public virtual void ConvertSmallColumnGapValueTest() {
+            // TODO DEVSIX-7631 Provide advanced support of percentage values for column-gap\width
             RunTest("smallColumnGapValueTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void ConvertFloatColumnGapValueTest() {
+            // TODO DEVSIX-7631 Provide advanced support of percentage values for column-gap\width
             RunTest("floatColumnGapValueTest");
         }
 

@@ -130,7 +130,7 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("basicDisplayPropertyWithNestedColumnsTest");
         }
 
-        //TODO: DEVSIX-7556
+        //TODO: DEVSIX-7556 Support multicol+float elements on basic level
         [NUnit.Framework.Test]
         [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void ConvertBasicFloatPropertyTest() {
@@ -214,8 +214,26 @@ namespace iText.Html2pdf.Css.Multicol {
 
         [NUnit.Framework.Test]
         public virtual void TripleNestingBetweenPagesTest() {
-            // TODO DEVSIX-7628 Investigate problem with border near to end of the page in multicol layouting
+            // TODO DEVSIX-7628 During calculating occupied area of multicol container take into account children border\padding\margin
             RunTest("tripleNestingBetweenPagesTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ChildBorderTest() {
+            // TODO DEVSIX-7628 During calculating occupied area of multicol container take into account children border\padding\margin
+            RunTest("childBorderTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ChildMarginTest() {
+            // TODO DEVSIX-7628 During calculating occupied area of multicol container take into account children border\padding\margin
+            RunTest("childMarginTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ChildPaddingTest() {
+            // TODO DEVSIX-7628 During calculating occupied area of multicol container take into account children border\padding\margin
+            RunTest("childPaddingTest");
         }
 
         [NUnit.Framework.Test]
@@ -328,6 +346,7 @@ namespace iText.Html2pdf.Css.Multicol {
 
         [NUnit.Framework.Test]
         public virtual void MultiColLimitedArea() {
+            // TODO DEVSIX-7702 Support content overflowing for multicol layouting in case of limited available area
             RunTest("multicolLimitedArea");
         }
 
@@ -344,11 +363,13 @@ namespace iText.Html2pdf.Css.Multicol {
 
         [NUnit.Framework.Test]
         public virtual void MultiColLimitedArea4() {
+            // TODO DEVSIX-7702 Support content overflowing for multicol layouting in case of limited available area
             RunTest("multicolLimitedArea4");
         }
 
         [NUnit.Framework.Test]
         public virtual void MultipleAttributes() {
+            // TODO DEVSIX-7702 Support content overflowing for multicol layouting in case of limited available area
             RunTest("multiple_attributes");
         }
 
