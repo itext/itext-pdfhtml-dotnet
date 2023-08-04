@@ -30,7 +30,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         public virtual void ExternalStylesheetTest() {
             // Android-Conversion-Ignore-Test (TODO DEVSIX-6459 fix the SecurityException(Permission denied) from UrlUtil method)
             ResourceResolver resourceResolver = new ResourceResolver("");
-            byte[] exByteArray = resourceResolver.RetrieveBytesFromResource("https://git.itextsupport.com/projects/I7J/repos/html2pdf/browse/src/test/resources/com/itextpdf/html2pdf/styles.css"
+            byte[] exByteArray = resourceResolver.RetrieveBytesFromResource("https://raw.githubusercontent.com/itext/i7j-pdfhtml/develop/src/test/resources/com/itextpdf/html2pdf/styles.css"
                 );
             NUnit.Framework.Assert.IsNotNull(exByteArray);
         }
