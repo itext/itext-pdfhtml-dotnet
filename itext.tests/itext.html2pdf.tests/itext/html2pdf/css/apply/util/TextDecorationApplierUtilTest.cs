@@ -27,6 +27,7 @@ using iText.StyledXmlParser.Node;
 using iText.Test;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    [NUnit.Framework.Category("UnitTest")]
     public class TextDecorationApplierUtilTest : ExtendedITextTest {
         private static IElementNode CreateNewNode(IElementNode parent, String color, String line, String decorationStyle
             ) {
