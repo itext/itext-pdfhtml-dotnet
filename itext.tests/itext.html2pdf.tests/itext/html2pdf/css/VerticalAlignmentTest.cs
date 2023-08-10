@@ -101,19 +101,16 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1750")]
         public virtual void VerticalAlignmentTest13() {
             ConvertToPdfAndCompare("verticalAlignmentTest13", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1750")]
         public virtual void VerticalAlignmentTest14() {
             ConvertToPdfAndCompare("verticalAlignmentTest14", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1750")]
         public virtual void VerticalAlignmentTest15() {
             ConvertToPdfAndCompare("verticalAlignmentTest15", sourceFolder, destinationFolder);
         }
