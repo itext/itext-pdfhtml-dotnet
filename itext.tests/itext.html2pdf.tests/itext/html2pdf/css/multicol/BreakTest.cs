@@ -22,6 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Multicol {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -63,6 +65,18 @@ namespace iText.Html2pdf.Css.Multicol {
         [NUnit.Framework.Test]
         public virtual void ConvertPageBreakBeforeAlwaysTest() {
             RunTest("pageBreakBeforeAlwaysTest");
+        }
+
+        //TODO: DEVSIX-7740 Support page-break inside multicol container
+        [NUnit.Framework.Test]
+        public virtual void ConvertPageBreakBeforeInnerElementAlwaysTest() {
+            RunTest("pageBreakBeforeInnerElementAlwaysTest");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
+        public virtual void ConvertPageBreakBeforeInnerElementDivAlwaysTest() {
+            RunTest("pageBreakBeforeInnerElementDivAlwaysTest");
         }
 
         [NUnit.Framework.Test]
@@ -123,10 +137,14 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties"
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
         public virtual void ConvertPageBreakBeforePageInsideColumnTest() {
             RunTest("pageBreakBeforePageInsideColumnTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertPageBreakBeforePageColumnTest() {
+            RunTest("pageBreakBeforePageColumnTest");
         }
 
         [NUnit.Framework.Test]
@@ -191,6 +209,18 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("pageBreakAfterAlwaysTest");
         }
 
+        //TODO: DEVSIX-7740 Support page-break inside multicol container
+        [NUnit.Framework.Test]
+        public virtual void ConvertPageBreakAfterInnerElementAlwaysTest() {
+            RunTest("pageBreakAfterInnerElementAlwaysTest");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
+        public virtual void ConvertPageBreakAfterInnerElementDivAlwaysTest() {
+            RunTest("pageBreakAfterInnerElementDivAlwaysTest");
+        }
+
         [NUnit.Framework.Test]
         public virtual void ConvertBreakAfterAvoidTest() {
             // TODO DEVSIX-3819 support break-after, break-before, break-inside CSS properties
@@ -199,7 +229,6 @@ namespace iText.Html2pdf.Css.Multicol {
 
         [NUnit.Framework.Test]
         public virtual void ConvertPageBreakAfterAvoidTest() {
-            // TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties
             RunTest("pageBreakAfterAvoidTest");
         }
 
@@ -250,10 +279,14 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties"
-            )]
+        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
         public virtual void ConvertPageBreakAfterPageInsideColumnTest() {
             RunTest("pageBreakAfterPageInsideColumnTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertPageBreakAfterPageColumnTest() {
+            RunTest("pageBreakAfterPageColumnTest");
         }
 
         [NUnit.Framework.Test]
@@ -308,9 +341,9 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("breakInsideAvoidTest");
         }
 
+        //TODO: DEVSIX-7740 Support page-break inside multicol container
         [NUnit.Framework.Test]
         public virtual void ConvertPageBreakInsideAvoidTest() {
-            // TODO DEVSIX-7552 Column-count: support break-inside, break-after and break-before properties
             RunTest("pageBreakInsideAvoidTest");
         }
 
