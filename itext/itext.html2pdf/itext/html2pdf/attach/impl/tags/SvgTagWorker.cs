@@ -68,9 +68,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
-            if (context.GetPdfDocument() != null && processingResult != null) {
+            if (processingResult != null) {
                 SvgProcessingUtil util = new SvgProcessingUtil(context.GetResourceResolver());
-                svgImage = util.CreateImageFromProcessingResult(processingResult, context.GetPdfDocument());
+                svgImage = util.CreateSvgImageFromProcessingResult(processingResult);
                 AccessiblePropHelper.TrySetLangAttribute(svgImage, element);
                 context.EndProcessingInlineSvg();
             }

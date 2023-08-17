@@ -32,6 +32,7 @@ using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Xobject;
 using iText.Kernel.Utils;
+using iText.Layout;
 using iText.Svg;
 using iText.Svg.Converter;
 using iText.Svg.Exceptions;
@@ -198,8 +199,6 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
-            )]
         public virtual void AttemptToProcessBySvgProcessingUtilSvgWithImageTest() {
             // TODO review this test in the scope of DEVSIX-4107
             String fileName = "svgWithImage.svg";
@@ -209,21 +208,19 @@ namespace iText.Html2pdf.Resolver.Resource {
             ISvgProcessorResult res = SvgConverter.ParseAndProcess(resourceResolver.RetrieveResourceAsInputStream(fileName
                 ), svgConverterProperties);
             ISvgNodeRenderer imageRenderer = ((SvgTagSvgNodeRenderer)res.GetRootRenderer()).GetChildren()[0];
-            // Remove the previous result of the resource resolving in order to demonstrate that the resource will not be
-            // resolved due to not setting of baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method.
-            imageRenderer.SetAttribute(SvgConstants.Attributes.XLINK_HREF, "doggo.jpg");
+            // Remove the previous result of the resource resolving in order to demonstrate that the resource will be
+            // resolved due to setting of baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method.
+            imageRenderer.SetAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/doggo.jpg");
             SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
-            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
-            PdfFormXObject pdfFormXObject = processingUtil.CreateXObjectFromProcessingResult(res, pdfDocument);
+            PdfDocument document = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+            PdfFormXObject pdfFormXObject = processingUtil.CreateXObjectFromProcessingResult(res, document);
             PdfDictionary resources = (PdfDictionary)pdfFormXObject.GetResources().GetPdfObject().Get(PdfName.XObject);
             PdfDictionary fm1Dict = (PdfDictionary)resources.Get(new PdfName("Fm1"));
-            NUnit.Framework.Assert.IsFalse(((PdfDictionary)fm1Dict.Get(PdfName.Resources)).ContainsKey(PdfName.XObject
-                ));
+            NUnit.Framework.Assert.IsTrue(((PdfDictionary)fm1Dict.Get(PdfName.Resources)).ContainsKey(PdfName.XObject)
+                );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
-            )]
         public virtual void AttemptToProcessBySvgProcessingUtilSvgWithSvgTest() {
             // TODO review this test in the scope of DEVSIX-4107
             String fileName = "svgWithSvg.svg";
@@ -233,23 +230,45 @@ namespace iText.Html2pdf.Resolver.Resource {
             ISvgProcessorResult res = SvgConverter.ParseAndProcess(resourceResolver.RetrieveResourceAsInputStream(fileName
                 ), svgConverterProperties);
             ISvgNodeRenderer imageRenderer = ((SvgTagSvgNodeRenderer)res.GetRootRenderer()).GetChildren()[1];
-            // Remove the previous result of the resource resolving in order to demonstrate that the resource will not be
-            // resolved due to not setting of baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method.
-            // But even if set baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method, the SVG will not
-            // be processed, because in the createXObjectFromProcessingResult method we create ResourceResolver, not HtmlResourceResolver.
-            imageRenderer.SetAttribute(SvgConstants.Attributes.XLINK_HREF, "res\\itextpdf.com\\lines.svg");
+            // Remove the previous result of the resource resolving in order to demonstrate that the resource will be
+            // resolved due to setting of baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method.
+            imageRenderer.SetAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/lines.svg");
             SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
-            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
-            PdfFormXObject pdfFormXObject = processingUtil.CreateXObjectFromProcessingResult(res, pdfDocument);
+            PdfDocument document = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
+            PdfFormXObject pdfFormXObject = processingUtil.CreateXObjectFromProcessingResult(res, document);
             PdfDictionary resources = (PdfDictionary)pdfFormXObject.GetResources().GetPdfObject().Get(PdfName.XObject);
             PdfDictionary fm1Dict = (PdfDictionary)resources.Get(new PdfName("Fm1"));
-            NUnit.Framework.Assert.IsFalse(((PdfDictionary)fm1Dict.Get(PdfName.Resources)).ContainsKey(PdfName.XObject
-                ));
+            NUnit.Framework.Assert.IsTrue(((PdfDictionary)fm1Dict.Get(PdfName.Resources)).ContainsKey(PdfName.XObject)
+                );
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
-            )]
+        public virtual void SvgInsideSvgTest() {
+            String svgFileName = "svgInsideSvg.svg";
+            String cmpFileName = SOURCE_FOLDER + "cmp_svgInsideSvg.pdf";
+            String outFileName = DESTINATION_FOLDER + "svgInsideSvg.pdf";
+            using (Document document = new Document(new PdfDocument(new PdfWriter(outFileName)))) {
+                ProcessorContext context = new ProcessorContext(new ConverterProperties());
+                HtmlResourceResolver resourceResolver = new HtmlResourceResolver(SOURCE_FOLDER, context);
+                ISvgConverterProperties svgConverterProperties = ContextMappingHelper.MapToSvgConverterProperties(context);
+                ISvgProcessorResult result = SvgConverter.ParseAndProcess(resourceResolver.RetrieveResourceAsInputStream(svgFileName
+                    ), svgConverterProperties);
+                ISvgNodeRenderer imageRenderer = ((SvgTagSvgNodeRenderer)result.GetRootRenderer()).GetChildren()[0];
+                ISvgNodeRenderer svgRenderer = ((SvgTagSvgNodeRenderer)result.GetRootRenderer()).GetChildren()[2];
+                // Remove the previous result of the resource resolving in order to demonstrate that the resource will be
+                // resolved due to setting of baseUri in the SvgProcessingUtil#createXObjectFromProcessingResult method.
+                // TODO DEVSIX-4107 However the SVG will not be displayed since it is expected to be drawn during
+                //  HtmlResourceResolver#processAsSvg call, but document is null, so SvgProcessingUtil#
+                //  createSvgImageFromProcessingResult method is called instead of createXObjectFromProcessingResult.
+                imageRenderer.SetAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/doggo.jpg");
+                svgRenderer.SetAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/lines.svg");
+                document.Add(new SvgProcessingUtil(resourceResolver).CreateSvgImageFromProcessingResult(result));
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, DESTINATION_FOLDER
+                , "diff"));
+        }
+
+        [NUnit.Framework.Test]
         public virtual void ResourceResolverSvgEmbeddedSvg() {
             // TODO review this test in the scope of DEVSIX-4107
             String outPdf = DESTINATION_FOLDER + "resourceResolverSvgEmbeddedSvg.pdf";
@@ -259,8 +278,6 @@ namespace iText.Html2pdf.Resolver.Resource {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
-            )]
         public virtual void ResourceResolverObjectWithSvgEmbeddedSvg() {
             // TODO review this test in the scope of DEVSIX-4107
             String outPdf = DESTINATION_FOLDER + "resourceResolverObjectWithSvgEmbeddedSvg.pdf";

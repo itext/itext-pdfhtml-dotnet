@@ -42,6 +42,8 @@ using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Exceptions;
 using iText.StyledXmlParser.Node;
+using iText.Svg.Element;
+using iText.Svg.Xobject;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply list styles to an element.</summary>
@@ -128,11 +130,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         image = new Image((PdfImageXObject)imageXObject);
                     }
                     else {
-                        if (imageXObject is PdfFormXObject) {
-                            image = new Image((PdfFormXObject)imageXObject);
+                        if (imageXObject is SvgImageXObject) {
+                            image = new SvgImage((SvgImageXObject)imageXObject);
                         }
                         else {
-                            throw new InvalidOperationException();
+                            if (imageXObject is PdfFormXObject) {
+                                image = new Image((PdfFormXObject)imageXObject);
+                            }
+                            else {
+                                throw new InvalidOperationException();
+                            }
                         }
                     }
                     element.SetProperty(Property.LIST_SYMBOL, image);

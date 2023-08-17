@@ -22,15 +22,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Resolver.Resource;
 using iText.Svg.Converter;
+using iText.Svg.Element;
 using iText.Svg.Processors;
-using iText.Svg.Processors.Impl;
 using iText.Svg.Renderers;
-using iText.Svg.Renderers.Impl;
+using iText.Svg.Xobject;
 
 namespace iText.Html2pdf.Util {
     /// <summary>Utility class for handling operations related to SVG</summary>
@@ -50,18 +49,29 @@ namespace iText.Html2pdf.Util {
         }
 
         /// <summary>
-        /// Create an
-        /// <c>Image</c>
+        /// Create
+        /// <c>SvgImage</c>
         /// layout object tied to the passed
         /// <c>PdfDocument</c>
         /// using the SVG processing result.
         /// </summary>
-        /// <param name="result">Processing result containing the SVG information</param>
+        /// <param name="result">processing result containing the SVG information</param>
         /// <param name="pdfDocument">pdf that shall contain the image</param>
-        /// <returns>image layout object</returns>
+        /// <returns>SVG image layout object</returns>
         public virtual Image CreateImageFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument) {
-            PdfFormXObject xObject = CreateXObjectFromProcessingResult(result, pdfDocument);
-            return new Image(xObject);
+            SvgImageXObject xObject = (SvgImageXObject)CreateXObjectFromProcessingResult(result, pdfDocument);
+            return new SvgImage(xObject);
+        }
+
+        /// <summary>
+        /// Create
+        /// <c>SvgImage</c>
+        /// layout object using the SVG processing result.
+        /// </summary>
+        /// <param name="result">processing result containing the SVG information</param>
+        /// <returns>SVG image layout object</returns>
+        public virtual Image CreateSvgImageFromProcessingResult(ISvgProcessorResult result) {
+            return CreateImageFromProcessingResult(result, null);
         }
 
         /// <summary>
@@ -71,9 +81,13 @@ namespace iText.Html2pdf.Util {
         /// <c>PdfDocument</c>
         /// using the SVG processing result.
         /// </summary>
-        /// <param name="result">Processing result containing the SVG information</param>
-        /// <param name="pdfDocument">pdf that shall contain the image</param>
-        /// <returns>PdfFormXObject instance</returns>
+        /// <param name="result">processing result containing the SVG information</param>
+        /// <param name="pdfDocument">pdf that shall contain the SVG image</param>
+        /// <returns>
+        /// 
+        /// <see cref="iText.Svg.Xobject.SvgImageXObject"/>
+        /// instance
+        /// </returns>
         public virtual PdfFormXObject CreateXObjectFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument
             ) {
             ISvgNodeRenderer topSvgRenderer = result.GetRootRenderer();
@@ -82,20 +96,12 @@ namespace iText.Html2pdf.Util {
             float[] wh = SvgConverter.ExtractWidthAndHeight(topSvgRenderer);
             width = wh[0];
             height = wh[1];
-            PdfFormXObject pdfForm = new PdfFormXObject(new Rectangle(0, 0, width, height));
-            PdfCanvas canvas = new PdfCanvas(pdfForm, pdfDocument);
-            ResourceResolver tempResolver = new ResourceResolver(null, resourceResolver.GetRetriever());
-            // TODO DEVSIX-4107 pass the resourceResolver variable (not tempResolver variable) to the
-            //  SvgDrawContext constructor so that the SVG inside the SVG is processed.
-            SvgDrawContext context = new SvgDrawContext(tempResolver, result.GetFontProvider());
-            if (result is SvgProcessorResult) {
-                context.SetCssContext(((SvgProcessorResult)result).GetContext().GetCssContext());
+            SvgImageXObject svgImageXObject = new SvgImageXObject(new Rectangle(0, 0, width, height), result, resourceResolver
+                );
+            if (pdfDocument != null) {
+                svgImageXObject.Generate(pdfDocument);
             }
-            context.AddNamedObjects(result.GetNamedObjects());
-            context.PushCanvas(canvas);
-            ISvgNodeRenderer root = new PdfRootSvgNodeRenderer(topSvgRenderer);
-            root.Draw(context);
-            return pdfForm;
+            return svgImageXObject;
         }
     }
 }

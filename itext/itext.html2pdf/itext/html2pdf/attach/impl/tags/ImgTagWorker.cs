@@ -34,6 +34,8 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Node;
+using iText.Svg.Element;
+using iText.Svg.Xobject;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -67,11 +69,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     image = new ImgTagWorker.HtmlImage((PdfImageXObject)imageXObject);
                 }
                 else {
-                    if (imageXObject is PdfFormXObject) {
-                        image = new ImgTagWorker.HtmlImage((PdfFormXObject)imageXObject);
+                    if (imageXObject is SvgImageXObject) {
+                        image = new SvgImage((SvgImageXObject)imageXObject);
                     }
                     else {
-                        throw new InvalidOperationException();
+                        if (imageXObject is PdfFormXObject) {
+                            image = new ImgTagWorker.HtmlImage((PdfFormXObject)imageXObject);
+                        }
+                        else {
+                            throw new InvalidOperationException();
+                        }
                     }
                 }
             }
