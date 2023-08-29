@@ -53,6 +53,11 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void TextFieldWithPlaceholderTest() {
+            RunTest("textFieldWithPlaceholder");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void SplitTextFieldTest() {
             RunTest("splitTextField");
         }
