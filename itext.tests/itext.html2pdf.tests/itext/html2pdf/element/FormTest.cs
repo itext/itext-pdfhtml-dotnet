@@ -26,6 +26,8 @@ using iText.Forms;
 using iText.Forms.Fields;
 using iText.Forms.Logs;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
+using iText.IO.Source;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
@@ -55,6 +57,38 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void TextFieldWithPlaceholderTest() {
             RunTest("textFieldWithPlaceholder");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextFieldHeadersFootersTest() {
+            RunTest("textFieldHeadersFooters");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextFieldHeadersFootersWithValueTest() {
+            RunTest("textFieldHeadersFootersWithValue");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextAreaHeadersFootersWithValueTest() {
+            RunTest("textAreaHeadersFooters");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CheckBoxHeadersFootersWithValueTest() {
+            //TODO DEVSIX-7760 Adding formfield elements to header generates strange results
+            RunTest("checkBoxHeadersFooters");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RadioHeadersFootersWithValueTest() {
+            //TODO DEVSIX-7760 Adding formfield elements to header generates strange results
+            RunTest("radioHeadersFooters");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DropDownHeadersFootersWithValueTest() {
+            RunTest("dropDownHeadersFooters");
         }
 
         [NUnit.Framework.Test]
@@ -216,6 +250,54 @@ namespace iText.Html2pdf.Element {
             System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(html) + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdf, sourceFolder + "cmp_radioButtonNoPageCounter.pdf"
                 , destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.IMMEDIATE_FLUSH_DISABLED, LogLevel = LogLevelConstants.INFO)]
+        public virtual void CheckLogInfo() {
+            String html = sourceFolder + "radiobox1.html";
+            using (FileStream fileInputStream = new FileStream(html, FileMode.Open, FileAccess.Read)) {
+                using (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+                    HtmlConverter.ConvertToPdf(fileInputStream, baos, new ConverterProperties().SetCreateAcroForm(true));
+                }
+            }
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.IMMEDIATE_FLUSH_DISABLED, LogLevel = LogLevelConstants.INFO, Count = 
+            0)]
+        public virtual void CheckLogInfoNoAcroForm() {
+            String html = sourceFolder + "radiobox1.html";
+            using (FileStream fileInputStream = new FileStream(html, FileMode.Open, FileAccess.Read)) {
+                using (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+                    HtmlConverter.ConvertToPdf(fileInputStream, baos, new ConverterProperties().SetCreateAcroForm(false));
+                }
+            }
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.IMMEDIATE_FLUSH_DISABLED, LogLevel = LogLevelConstants.INFO, Count = 
+            0)]
+        public virtual void CheckLogInfoAcroFormFlushDisabled() {
+            String html = sourceFolder + "radiobox1.html";
+            using (FileStream fileInputStream = new FileStream(html, FileMode.Open, FileAccess.Read)) {
+                using (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+                    HtmlConverter.ConvertToPdf(fileInputStream, baos, new ConverterProperties().SetCreateAcroForm(true).SetImmediateFlush
+                        (false));
+                }
+            }
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.IMMEDIATE_FLUSH_DISABLED, LogLevel = LogLevelConstants.INFO, Count = 
+            0)]
+        public virtual void CheckLogInfoDefault() {
+            String html = sourceFolder + "radiobox1.html";
+            using (FileStream fileInputStream = new FileStream(html, FileMode.Open, FileAccess.Read)) {
+                using (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+                    HtmlConverter.ConvertToPdf(fileInputStream, baos);
+                }
+            }
         }
 
         private void RunTest(String name) {

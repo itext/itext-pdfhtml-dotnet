@@ -153,6 +153,8 @@ namespace iText.Html2pdf.Logs {
         public const String OPTGROUP_NOT_SUPPORTED_IN_INTERACTIVE_SELECT = "Option groups are not supported in " +
              "interactive mode";
 
+        public const String IMMEDIATE_FLUSH_DISABLED = "Setting createAcroForm disables immediateFlush property";
+
         private Html2PdfLogMessageConstant() {
         }
         //Private constructor will prevent the instantiation of this class directly

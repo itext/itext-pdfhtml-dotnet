@@ -349,6 +349,8 @@ namespace iText.Html2pdf {
         /// If createAcroForm is set, then when the form is encountered in HTML, AcroForm will be created, otherwise
         /// a visually identical, but not functional element will be created. Please bare in mind that the created
         /// Acroform may visually differ a bit from the HTML one.
+        /// <para />
+        /// When enabling this acroform creation, it will disable the immediateFlushing property.
         /// </remarks>
         /// <param name="createAcroForm">true if an AcroForm needs to be created</param>
         /// <returns>

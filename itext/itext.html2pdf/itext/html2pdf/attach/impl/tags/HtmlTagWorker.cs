@@ -21,6 +21,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
 using iText.Forms.Form.Element;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
@@ -28,6 +30,7 @@ using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
+using iText.Html2pdf.Logs;
 using iText.IO.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
@@ -42,6 +45,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// element.
     /// </summary>
     public class HtmlTagWorker : ITagWorker {
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.HtmlTagWorker
+            ));
+
         /// <summary>The iText document instance.</summary>
         private Document document;
 
@@ -57,7 +63,11 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public HtmlTagWorker(IElementNode element, ProcessorContext context) {
             // TODO DEVSIX-4261 more precise check if a counter was actually added to the document
-            bool immediateFlush = context.IsImmediateFlush() && !context.GetCssContext().IsPagesCounterPresent();
+            bool immediateFlush = context.IsImmediateFlush() && !context.GetCssContext().IsPagesCounterPresent() && !context
+                .IsCreateAcroForm();
+            if (context.IsImmediateFlush() && context.IsCreateAcroForm()) {
+                LOGGER.LogInformation(Html2PdfLogMessageConstant.IMMEDIATE_FLUSH_DISABLED);
+            }
             PdfDocument pdfDocument = context.GetPdfDocument();
             document = new HtmlDocument(pdfDocument, pdfDocument.GetDefaultPageSize(), immediateFlush);
             document.SetRenderer(new HtmlDocumentRenderer(document, immediateFlush));
