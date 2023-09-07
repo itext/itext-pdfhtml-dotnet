@@ -76,13 +76,16 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void CheckBoxHeadersFootersWithValueTest() {
-            //TODO DEVSIX-7760 Adding formfield elements to header generates strange results
             RunTest("checkBoxHeadersFooters");
         }
 
         [NUnit.Framework.Test]
+        public virtual void RunningFormFieldsInHeader() {
+            RunTest("runningFormFieldsInHeader");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void RadioHeadersFootersWithValueTest() {
-            //TODO DEVSIX-7760 Adding formfield elements to header generates strange results
             RunTest("radioHeadersFooters");
         }
 
