@@ -36,7 +36,7 @@ namespace iText.Html2pdf.Resolver.Font {
     /// The default
     /// <see cref="iText.StyledXmlParser.Resolver.Font.BasicFontProvider"/>
     /// for pdfHTML, that, as opposed to
-    /// the font provider in iText 7's styled-xml-parser, also includes a
+    /// the font provider in iText's styled-xml-parser, also includes a
     /// series of fonts that are shipped with the add-on.
     /// </summary>
     public class DefaultFontProvider : BasicFontProvider {

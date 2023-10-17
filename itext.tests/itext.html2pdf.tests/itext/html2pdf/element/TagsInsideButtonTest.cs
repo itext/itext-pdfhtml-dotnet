@@ -22,7 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Kernel.Exceptions;
 
 namespace iText.Html2pdf.Element {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -65,12 +64,8 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void ButtonInsideMoreThanTwoAreas() {
-            NUnit.Framework.Assert.That(() =>  {
-                ConvertToPdfAcroformFlattenAndCompare("buttonInsideMoreThanTwoAreas", sourceFolder, destinationFolder, true
-                    );
-            }
-            , NUnit.Framework.Throws.InstanceOf<PdfException>())
-;
+            ConvertToPdfAcroformFlattenAndCompare("buttonInsideMoreThanTwoAreas", sourceFolder, destinationFolder, true
+                );
         }
     }
 }

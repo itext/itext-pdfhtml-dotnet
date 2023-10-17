@@ -159,8 +159,7 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
             , Count = 1)]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 1)]
-        [LogMessage(Html2PdfLogMessageConstant.PDF_DOCUMENT_NOT_PRESENT, Count = 1)]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
         public virtual void HtmlObjectMalformedUrlTest() {
             String html = "<object data ='htt://as' type='image/svg+xml'></object>";
             IList<IElement> lst = HtmlConverter.ConvertToElements(html);
@@ -279,14 +278,66 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        //TODO: DEVSIX-3891 change the Assert after supporting the svg tag
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, LogLevel = LogLevelConstants
-            .ERROR)]
         public virtual void HtmlToElementsSvgTest() {
             String html = "<svg height=\"100\" width=\"100\">" + "<circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" />"
                  + "</svg>";
+            String cmpPdf = sourceFolder + "cmp_htmlToElementsSvg.pdf";
+            String outPdf = destinationFolder + "htmlToElementsSvg.pdf";
             IList<IElement> lst = HtmlConverter.ConvertToElements(html);
-            NUnit.Framework.Assert.AreEqual(0, lst.Count);
+            NUnit.Framework.Assert.AreEqual(1, lst.Count);
+            using (Document document = new Document(new PdfDocument(new PdfWriter(outPdf)))) {
+                foreach (IElement element in lst) {
+                    document.Add((Image)element);
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HtmlToElementsSvgInTheTableTest() {
+            String html = "<table style=\"border: 1pt solid black\">\n" + "  <tr>\n" + "     <td>\n" + "        <svg height=\"100\" width=\"100\">\n"
+                 + "          <circle cx=\"50\" cy=\"50\" r=\"40\" stroke=\"black\" stroke-width=\"3\" fill=\"red\" />\n"
+                 + "        </svg>\n" + "     </td>\n" + "     <td>\n" + "        test\n" + "     </td>\n" + "  </tr>\n"
+                 + "</table>";
+            String cmpPdf = sourceFolder + "cmp_htmlToElementsSvgInTheTable.pdf";
+            String outPdf = destinationFolder + "htmlToElementsSvgInTheTable.pdf";
+            IList<IElement> elements = HtmlConverter.ConvertToElements(html);
+            using (Document document = new Document(new PdfDocument(new PdfWriter(outPdf)))) {
+                foreach (IElement element in elements) {
+                    document.Add((IBlockElement)element);
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HtmlToElementsSvgImgTest() {
+            String html = "<img src=\"lines.svg\" height=\"500\" width=\"500\"/>";
+            String cmpPdf = sourceFolder + "cmp_htmlToElementsSvgImg.pdf";
+            String outPdf = destinationFolder + "htmlToElementsSvgImg.pdf";
+            IList<IElement> elements = HtmlConverter.ConvertToElements(html, new ConverterProperties().SetBaseUri(sourceFolder
+                ));
+            using (Document document = new Document(new PdfDocument(new PdfWriter(outPdf)))) {
+                foreach (IElement element in elements) {
+                    document.Add((IBlockElement)element);
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HtmlToElementsSvgObjectTest() {
+            String html = "<object data ='lines.svg' type='image/svg+xml'></object>";
+            String cmpPdf = sourceFolder + "cmp_htmlToElementsSvgObject.pdf";
+            String outPdf = destinationFolder + "htmlToElementsSvgObject.pdf";
+            IList<IElement> elements = HtmlConverter.ConvertToElements(html, new ConverterProperties().SetBaseUri(sourceFolder
+                ));
+            using (Document document = new Document(new PdfDocument(new PdfWriter(outPdf)))) {
+                foreach (IElement element in elements) {
+                    document.Add((Image)element);
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
         }
 
         private static void AddElementsToDocument(Document document, IList<IElement> elements) {

@@ -45,7 +45,7 @@ namespace iText.Html2pdf.Resolver.Resource {
         private static readonly Regex SVG_IDENTIFIER_PATTERN = iText.Commons.Utils.StringUtil.RegexCompile(",[\\s]*(<svg )"
             );
 
-        private ProcessorContext context;
+        private readonly ProcessorContext context;
 
         /// <summary>
         /// Creates a new
@@ -132,7 +132,8 @@ namespace iText.Html2pdf.Resolver.Resource {
                     .Length + 1);
                 try {
                     using (MemoryStream stream = new MemoryStream(Convert.FromBase64String(fixedSrc))) {
-                        PdfFormXObject xObject = ProcessAsSvg(stream, context, null);
+                        PdfFormXObject xObject = iText.Html2pdf.Resolver.Resource.HtmlResourceResolver.ProcessAsSvg(stream, context
+                            , null);
                         if (xObject != null) {
                             return xObject;
                         }
@@ -159,7 +160,8 @@ namespace iText.Html2pdf.Resolver.Resource {
         private PdfXObject TryResolveSvgImageSource(String src) {
             try {
                 using (MemoryStream stream = new MemoryStream(src.GetBytes(System.Text.Encoding.UTF8))) {
-                    PdfFormXObject xObject = ProcessAsSvg(stream, context, null);
+                    PdfFormXObject xObject = iText.Html2pdf.Resolver.Resource.HtmlResourceResolver.ProcessAsSvg(stream, context
+                        , null);
                     if (xObject != null) {
                         return xObject;
                     }
@@ -177,13 +179,8 @@ namespace iText.Html2pdf.Resolver.Resource {
                 svgConverterProperties.SetBaseUri(parentDir);
             }
             ISvgProcessorResult res = SvgConverter.ParseAndProcess(stream, svgConverterProperties);
-            if (context.GetPdfDocument() != null) {
-                SvgProcessingUtil processingUtil = new SvgProcessingUtil(context.GetResourceResolver());
-                return processingUtil.CreateXObjectFromProcessingResult(res, context.GetPdfDocument());
-            }
-            else {
-                return null;
-            }
+            SvgProcessingUtil processingUtil = new SvgProcessingUtil(context.GetResourceResolver());
+            return processingUtil.CreateXObjectFromProcessingResult(res, context.GetPdfDocument());
         }
     }
 }

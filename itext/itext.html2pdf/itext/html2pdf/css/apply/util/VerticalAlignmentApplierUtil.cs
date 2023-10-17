@@ -145,7 +145,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
              context, IStylesContainer stylesContainer, IList<IPropertyContainer> childElements) {
             String vAlignVal = cssProps.Get(CssConstants.VERTICAL_ALIGN);
             if (vAlignVal != null) {
-                // TODO DEVSIX-1750 for inline images and tables (inline-blocks) v-align is not supported
+                // TODO DEVSIX-1961 for inline images and tables (inline-blocks) v-align is not supported
                 float textRise = 0;
                 // TODO DEVSIX-3757 'top' and 'bottom' values are not supported;
                 // 'top' and 'bottom' require information of actual line height, therefore should be applied at layout level;

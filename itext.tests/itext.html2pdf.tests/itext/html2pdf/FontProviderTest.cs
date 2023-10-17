@@ -67,7 +67,7 @@ namespace iText.Html2pdf {
             HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "convertStandardFonts.html"), new FileInfo(DESTINATION_FOLDER
                  + "convertStandardFonts.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "convertStandardFonts.pdf"
-                , SOURCE_FOLDER + "cmp_convertStandardFonts", DESTINATION_FOLDER, "difffontstand_"));
+                , SOURCE_FOLDER + "cmp_convertStandardFonts.pdf", DESTINATION_FOLDER, "difffontstand_"));
         }
 
         [NUnit.Framework.Test]
@@ -137,6 +137,18 @@ namespace iText.Html2pdf {
                 NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "comparatorError.pdf"
                     , SOURCE_FOLDER + "cmp_comparatorError.pdf", DESTINATION_FOLDER));
             }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DifferentFontFamiliesTest() {
+            ConverterProperties properties = new ConverterProperties();
+            FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            fontProvider.AddDirectory(SOURCE_FOLDER + "Lato_fonts");
+            properties.SetFontProvider(fontProvider);
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "differentFontFamilies.html"), new FileInfo(DESTINATION_FOLDER
+                 + "differentFontFamilies.pdf"), properties);
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "differentFontFamilies.pdf"
+                , SOURCE_FOLDER + "cmp_differentFontFamilies.pdf", DESTINATION_FOLDER, "diff_"));
         }
     }
 }

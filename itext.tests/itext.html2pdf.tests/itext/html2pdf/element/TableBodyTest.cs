@@ -48,5 +48,25 @@ namespace iText.Html2pdf.Element {
             // TODO fix cmp file after DEVSIX-4258
             ConvertToPdfAndCompare("transparentBackgroundOfTableBody", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void BigRowspanWithRowsSplitBetweenPages1Test() {
+            ConvertToPdfAndCompare("bigRowspanWithRowsSplitBetweenPages1", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BigRowspanWithRowsSplitBetweenPages2Test() {
+            ConvertToPdfAndCompare("bigRowspanWithRowsSplitBetweenPages2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BigRowspanWithRowsSplitBetweenPages3Test() {
+            ConvertToPdfAndCompare("bigRowspanWithRowsSplitBetweenPages3", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BigRowspanWithRowsSplitBetweenPages4Test() {
+            ConvertToPdfAndCompare("bigRowspanWithRowsSplitBetweenPages4", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
     }
 }

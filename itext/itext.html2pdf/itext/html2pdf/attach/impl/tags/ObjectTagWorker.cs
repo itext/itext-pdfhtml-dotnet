@@ -30,7 +30,6 @@ using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
 using iText.Html2pdf.Util;
-using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Node;
@@ -108,16 +107,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         }
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
-            if (context.GetPdfDocument() != null) {
-                PdfDocument document = context.GetPdfDocument();
-                //Create Image object
-                if (res != null) {
-                    image = processUtil.CreateImageFromProcessingResult(res, document);
-                    AccessiblePropHelper.TrySetLangAttribute(image, element);
-                }
-            }
-            else {
-                LOGGER.LogError(Html2PdfLogMessageConstant.PDF_DOCUMENT_NOT_PRESENT);
+            // Create Image object
+            if (res != null) {
+                image = processUtil.CreateSvgImageFromProcessingResult(res);
+                AccessiblePropHelper.TrySetLangAttribute(image, element);
             }
         }
 

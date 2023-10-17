@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -49,13 +50,11 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void ColumnPagingTest() {
-            //TODO DEVSIX-7622 change files after paging is introduced
             ConvertToPdfAndCompare("column-paging", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnPagingMultiColumnTest() {
-            //TODO DEVSIX-7622 change files after paging is introduced
             ConvertToPdfAndCompare("column-paging-multi-column", sourceFolder, destinationFolder);
         }
 
@@ -66,19 +65,75 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void ColumnReversePagingTest() {
-            //TODO DEVSIX-7622 change files after paging is introduced
             ConvertToPdfAndCompare("column-reverse-paging", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReversePagingMultiColumnTest() {
-            //TODO DEVSIX-7622 change files after paging is introduced
             ConvertToPdfAndCompare("column-reverse-paging-multi-column", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnPagingLargeElementTest() {
+            ConvertToPdfAndCompare("column-paging-large-element", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnPagingLargeElementFlexEndJustificationTest() {
+            ConvertToPdfAndCompare("column-paging-large-element-flex-end-justification", sourceFolder, destinationFolder
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnPagingLargeElementCenterJustificationTest() {
+            ConvertToPdfAndCompare("column-paging-large-element-center-justification", sourceFolder, destinationFolder
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnPagingLargeElementFixedHeightTest() {
+            ConvertToPdfAndCompare("column-paging-large-element-fixed-height", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnReversePagingLargeElementTest() {
+            ConvertToPdfAndCompare("column-reverse-paging-large-element", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnWrapReverseNonPagingTest() {
             ConvertToPdfAndCompare("column-wrap-reverse-non-paging", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT)]
+        public virtual void ColumnPagingInDivTest() {
+            ConvertToPdfAndCompare("column-paging-in-div", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnPagingFixedHeightTest() {
+            ConvertToPdfAndCompare("column-paging-fixed-height", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnNoWrapPagingTest() {
+            ConvertToPdfAndCompare("column-nowrap-paging", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnFlexShrinkPagingTest() {
+            ConvertToPdfAndCompare("column-flex-shrink-paging", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnFlexGrowPagingTest() {
+            ConvertToPdfAndCompare("column-flex-grow-paging", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnFlexGrowPaging2Test() {
+            ConvertToPdfAndCompare("column-flex-grow-paging-2", sourceFolder, destinationFolder);
         }
     }
 }
