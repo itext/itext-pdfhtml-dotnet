@@ -33,7 +33,7 @@ namespace iText.Html2pdf.Actions.Data {
     public sealed class PdfHtmlProductData {
         private const String PDF_HTML_PUBLIC_PRODUCT_NAME = "pdfHTML";
 
-        private const String PDF_HTML_VERSION = "5.0.2-SNAPSHOT";
+        private const String PDF_HTML_VERSION = "5.0.2";
 
         private const int PDF_HTML_COPYRIGHT_SINCE = 2000;
 
