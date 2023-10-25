@@ -78,6 +78,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             String lang = element.GetAttribute(AttributeConstants.LANG);
             selectElement.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
             selectElement.SetProperty(FormProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
+            if (context.GetPdfDocument() != null) {
+                selectElement.SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.GetPdfDocument().GetConformanceLevel
+                    ());
+            }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }
 

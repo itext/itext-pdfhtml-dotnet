@@ -27,6 +27,7 @@ using iText.Forms.Form.Element;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
+using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Tagging;
@@ -52,6 +53,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         private bool hasChildren = false;
 
+        private readonly PdfAConformanceLevel pdfAConformanceLevel;
+
         /// <summary>
         /// Creates a new
         /// <see cref="ButtonTagWorker"/>
@@ -67,6 +70,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             this.name = context.GetFormFieldNameResolver().ResolveFormName(name);
             flatten = !context.IsCreateAcroForm();
+            pdfAConformanceLevel = context.GetPdfDocument().GetConformanceLevel();
             lang = element.GetAttribute(AttributeConstants.LANG);
         }
 
@@ -119,6 +123,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             formField.SetProperty(FormProperty.FORM_FIELD_FLATTEN, flatten);
+            formField.SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, pdfAConformanceLevel);
             return formField;
         }
     }
