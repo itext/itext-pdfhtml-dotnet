@@ -39,7 +39,6 @@ using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Font;
 using iText.Layout.Logs;
-using iText.Pdfa;
 using iText.StyledXmlParser.Node;
 using iText.Test.Attributes;
 using iText.Test.Pdfa;
@@ -331,16 +330,12 @@ namespace iText.Html2pdf.Element {
             String cmpPdf = sourceFolder + "cmp_" + name + ".pdf";
             String destinationPdf = destinationFolder + name + ".pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetCreateAcroForm(true);
-            InputTest.PdfAFontProvider fontProvider = new InputTest.PdfAFontProvider();
-            fontProvider.AddFont(sourceFolderResources + "NotoSans-Regular.ttf");
-            converterProperties.SetFontProvider(fontProvider);
-            PdfWriter writer = new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion(PdfVersion.PDF_2_0));
-            PdfADocument pdfDocument = new PdfADocument(writer, PdfAConformanceLevel.PDF_A_4E, new PdfOutputIntent("Custom"
-                , "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(sourceFolder + "sRGB Color Space Profile.icm"
-                , FileMode.Open, FileAccess.Read)));
+            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
+            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
+                , new FileStream(sourceFolder + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
-                HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, converterProperties);
+                HtmlConverter.ConvertToPdf(fileInputStream, new FileStream(destinationPdf, FileMode.Create), converterProperties
+                    );
             }
             System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(sourceHtml) + "\n");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, destinationFolder
