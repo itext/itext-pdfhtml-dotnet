@@ -37,6 +37,7 @@
     <ProjectReference Include="..\..\..\itextcore\itext\itext.forms\itext.forms.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.forms\itext.forms.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.svg\itext.svg.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.svg\itext.svg.csproj')" />
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.csproj')" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="resources\default.css">
