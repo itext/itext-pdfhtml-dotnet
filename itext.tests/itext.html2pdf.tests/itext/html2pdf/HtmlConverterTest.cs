@@ -24,8 +24,6 @@ using System;
 using System.IO;
 using iText.Commons.Utils;
 using iText.Html2pdf.Exceptions;
-using iText.Html2pdf.Resolver.Font;
-using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
@@ -40,9 +38,6 @@ namespace iText.Html2pdf {
         public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/HtmlConverterTest/";
 
-        public static readonly String RESOURCES_SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/fonts/";
-
         public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/HtmlConverterTest/";
 
@@ -52,164 +47,33 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        public virtual void ConvertToPdfA3USimpleTest() {
+        public virtual void ConvertToPdfA2SimpleTest() {
             String sourceHtml = SOURCE_FOLDER + "simple.html";
             String cmpPdf = SOURCE_FOLDER + "cmp_simple.pdf";
             String destinationPdf = DESTINATION_FOLDER + "simple.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_2B);
             converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
                 HtmlConverter.ConvertToPdf(fileInputStream, new PdfWriter(destinationPdf), converterProperties);
             }
-            CompareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
+            CompareAndCheckCompliance(destinationPdf, cmpPdf);
         }
 
         [NUnit.Framework.Test]
-        public virtual void ConvertToPdfA3USimpleFromStringTest() {
+        public virtual void ConvertToPdfASimpleTest() {
             String sourceHtml = SOURCE_FOLDER + "simple.html";
             String cmpPdf = SOURCE_FOLDER + "cmp_simple.pdf";
             String destinationPdf = DESTINATION_FOLDER + "simple.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
-            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
-                , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            HtmlConverter.ConvertToPdf("<html>\n" + "<head><title>Test</title></head>\n" + "<body >\n" + "<form>\n" + 
-                "    <p>Hello world!</p>\n" + "</form>\n" + "</body>\n" + "</html>", new PdfWriter(destinationPdf), converterProperties
-                );
-            CompareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ConvertToPdfA4LinearGradientTest() {
-            String sourceHtml = SOURCE_FOLDER + "gradient.html";
-            String cmpPdf = SOURCE_FOLDER + "cmp_pdfA4LinGradient.pdf";
-            String destinationPdf = DESTINATION_FOLDER + "pdfA4LinGradient.pdf";
-            ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
-            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
-                , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
-                HtmlConverter.ConvertToPdf(fileInputStream, new FileStream(destinationPdf, FileMode.Create), converterProperties
-                    );
-            }
-            CompareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ConvertToPdfA3ASimpleTest() {
-            String sourceHtml = SOURCE_FOLDER + "simple.html";
-            String cmpPdf = SOURCE_FOLDER + "cmp_simple_a.pdf";
-            String destinationPdf = DESTINATION_FOLDER + "simple_a.pdf";
-            ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_1B);
             converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
                 HtmlConverter.ConvertToPdf(fileInputStream, new PdfWriter(destinationPdf), converterProperties);
             }
-            CompareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ConvertToPdfA3UWithCustomFontProviderTest() {
-            String sourceHtml = SOURCE_FOLDER + "simple.html";
-            String cmpPdf = SOURCE_FOLDER + "cmp_simple_custom_font.pdf";
-            String destinationPdf = DESTINATION_FOLDER + "simple_custom_font.pdf";
-            ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
-            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
-                , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
-            fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
-            converterProperties.SetFontProvider(fontProvider);
-            using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
-                HtmlConverter.ConvertToPdf(fileInputStream, new PdfWriter(destinationPdf), converterProperties);
-            }
-            CompareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ConvertToPdfA4SimpleTest() {
-            String sourceHtml = SOURCE_FOLDER + "simple.html";
-            String cmpPdf = SOURCE_FOLDER + "cmp_simpleA4.pdf";
-            String destinationPdf = DESTINATION_FOLDER + "simpleA4.pdf";
-            ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
-            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
-                , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
-                HtmlConverter.ConvertToPdf(fileInputStream, new FileStream(destinationPdf, FileMode.Create), converterProperties
-                    );
-            }
-            CompareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ConvertToPdfAWithProvidingPdADocumentInstanceTest() {
-            String sourceHtml = SOURCE_FOLDER + "simple.html";
-            String cmpPdf = SOURCE_FOLDER + "cmp_simple_doc.pdf";
-            String destinationPdf = DESTINATION_FOLDER + "simple_doc.pdf";
-            PdfWriter writer = new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion(PdfVersion.PDF_2_0));
-            PdfADocument pdfDocument = new PdfADocument(writer, PdfAConformanceLevel.PDF_A_4E, new PdfOutputIntent("Custom"
-                , "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm"
-                , FileMode.Open, FileAccess.Read)));
-            using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
-                HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument);
-            }
-            CompareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ConvertToPdfAWithoutIcmProfileTest() {
-            String sourceHtml = SOURCE_FOLDER + "simple.html";
-            String destinationPdf = DESTINATION_FOLDER + "simple_without_icm.pdf";
-            ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
-            Exception e = NUnit.Framework.Assert.Catch(typeof(PdfAConformanceException), () => HtmlConverter.ConvertToPdf
-                (new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), new FileStream(destinationPdf, FileMode.Create
-                ), converterProperties));
-            NUnit.Framework.Assert.AreEqual(MessageFormatUtil.Format(PdfaExceptionMessageConstant.DEVICEGRAY_SHALL_ONLY_BE_USED_IF_CURRENT_PDFA_OUTPUT_INTENT_OR_DEFAULTGRAY_IN_USAGE_CONTEXT
-                ), e.Message);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ConvertToPdfAWithProvidingPdADocumentAndCustomFontProviderTest() {
-            String sourceHtml = SOURCE_FOLDER + "simple.html";
-            String cmpPdf = SOURCE_FOLDER + "cmp_simple_doc_custom_font.pdf";
-            String destinationPdf = DESTINATION_FOLDER + "simple_doc_custom_font.pdf";
-            ConverterProperties properties = new ConverterProperties();
-            DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
-            fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
-            properties.SetFontProvider(fontProvider);
-            PdfWriter writer = new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion(PdfVersion.PDF_2_0));
-            PdfADocument pdfDocument = new PdfADocument(writer, PdfAConformanceLevel.PDF_A_4E, new PdfOutputIntent("Custom"
-                , "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm"
-                , FileMode.Open, FileAccess.Read)));
-            using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
-                HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, properties);
-            }
-            CompareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ConvertToPdfAWithProvidingPdADocumentInstanceWithDefinedConformanceTest() {
-            String sourceHtml = SOURCE_FOLDER + "simple.html";
-            String cmpPdf = SOURCE_FOLDER + "cmp_simple_doc.pdf";
-            String destinationPdf = DESTINATION_FOLDER + "simple_doc.pdf";
-            ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
-            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
-                , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            PdfWriter writer = new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion(PdfVersion.PDF_2_0));
-            PdfADocument pdfDocument = new PdfADocument(writer, PdfAConformanceLevel.PDF_A_4E, new PdfOutputIntent("Custom"
-                , "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm"
-                , FileMode.Open, FileAccess.Read)));
-            using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
-                HtmlConverter.ConvertToPdf(fileInputStream, pdfDocument, converterProperties);
-            }
-            CompareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
+            CompareAndCheckCompliance(destinationPdf, cmpPdf);
         }
 
         [NUnit.Framework.Test]
@@ -223,6 +87,44 @@ namespace iText.Html2pdf {
 ;
         }
 
+        [NUnit.Framework.Test]
+        public virtual void ConvertHtmlToDocumentIncorrectConverterPropertiesTest() {
+            String sourceHtml = SOURCE_FOLDER + "simple.html";
+            String destinationPdf = DESTINATION_FOLDER + "simpleA4.pdf";
+            ConverterProperties converterProperties = new ConverterProperties();
+            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
+                , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
+            PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformanceLevel.PDF_A_4E, 
+                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER
+                 + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
+            Exception e = NUnit.Framework.Assert.Catch(typeof(PdfAConformanceException), () => {
+                HtmlConverter.ConvertToPdf(sourceHtml, pdfDocument, converterProperties);
+            }
+            );
+            NUnit.Framework.Assert.AreEqual(MessageFormatUtil.Format(PdfaExceptionMessageConstant.THE_FILE_HEADER_SHALL_CONTAIN_RIGHT_PDF_VERSION
+                , "2"), e.Message);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertHtmlToDocumentWithDifferentColorProfileTest() {
+            String sourceHtml = SOURCE_FOLDER + "simple.html";
+            String destinationPdf = DESTINATION_FOLDER + "simpleA4.pdf";
+            ConverterProperties converterProperties = new ConverterProperties();
+            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4E);
+            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
+                , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
+            PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformanceLevel.PDF_A_4E, 
+                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER
+                 + "USWebUncoated.icc", FileMode.Open, FileAccess.Read)));
+            Exception e = NUnit.Framework.Assert.Catch(typeof(PdfAConformanceException), () => {
+                HtmlConverter.ConvertToPdf(sourceHtml, pdfDocument, converterProperties);
+            }
+            );
+            NUnit.Framework.Assert.AreEqual(MessageFormatUtil.Format(PdfaExceptionMessageConstant.THE_FILE_HEADER_SHALL_CONTAIN_RIGHT_PDF_VERSION
+                , "2"), e.Message);
+        }
+
         private static PdfDocument CreateTempDoc() {
             MemoryStream outputStream = new MemoryStream();
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outputStream));
@@ -232,8 +134,7 @@ namespace iText.Html2pdf {
             return pdfDocument;
         }
 
-        private static void CompareAndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf) {
-            System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(sourceHtml) + "\n");
+        protected internal static void CompareAndCheckCompliance(String destinationPdf, String cmpPdf) {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER
                 , "diff_simple_"));
             VeraPdfValidator veraPdfValidator = new VeraPdfValidator();
