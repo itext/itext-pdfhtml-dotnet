@@ -211,6 +211,7 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         public virtual void ConvertToPdfA3EmojiTest() {
             String destinationPdf = DESTINATION_FOLDER + "pdfA3EmojiTest.pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_pdfA3EmojiTest.pdf";
             String html = "<html>\n" + "<head>" + "<title>Test</title></head>\n" + "<body>\n" + "<p>\uD83D\uDE09</p>" 
                 + "</body>\n" + "</html>";
             ConverterProperties converterProperties = new ConverterProperties();
@@ -220,15 +221,9 @@ namespace iText.Html2pdf {
             DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
             fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoEmoji-Regular.ttf");
             converterProperties.SetFontProvider(fontProvider);
-            //TODO DEVSIX-7924 change assertion when fixed
-            using (FileStream fOutput = new FileStream(destinationPdf, FileMode.Create)) {
-                Exception e = NUnit.Framework.Assert.Catch(typeof(PdfAConformanceException), () => {
-                    HtmlConverter.ConvertToPdf(html, fOutput, converterProperties);
-                }
-                );
-                NUnit.Framework.Assert.AreEqual(MessageFormatUtil.Format(PdfaExceptionMessageConstant.EMBEDDED_FONTS_SHALL_DEFINE_ALL_REFERENCED_GLYPHS
-                    ), e.Message);
-            }
+            FileStream fOutput = new FileStream(destinationPdf, FileMode.Create);
+            HtmlConverter.ConvertToPdf(html, fOutput, converterProperties);
+            HtmlConverterTest.CompareAndCheckCompliance(destinationPdf, cmpPdf);
         }
     }
 }
