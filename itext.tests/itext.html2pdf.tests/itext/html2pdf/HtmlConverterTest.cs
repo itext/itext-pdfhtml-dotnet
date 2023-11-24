@@ -82,6 +82,22 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
+        public virtual void ConvertToPdfA4LinearGradientTest() {
+            String sourceHtml = SOURCE_FOLDER + "gradient.html";
+            String cmpPdf = SOURCE_FOLDER + "cmp_pdfA4LinGradient.pdf";
+            String destinationPdf = DESTINATION_FOLDER + "pdfA4LinGradient.pdf";
+            ConverterProperties converterProperties = new ConverterProperties();
+            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
+            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
+                , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
+            using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
+                HtmlConverter.ConvertToPdf(fileInputStream, new FileStream(destinationPdf, FileMode.Create), converterProperties
+                    );
+            }
+            CompareAndCheckCompliance(sourceHtml, destinationPdf, cmpPdf);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void ConvertToPdfA3ASimpleTest() {
             String sourceHtml = SOURCE_FOLDER + "simple.html";
             String cmpPdf = SOURCE_FOLDER + "cmp_simple_a.pdf";
