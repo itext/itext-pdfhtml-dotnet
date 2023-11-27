@@ -340,6 +340,21 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
         }
 
+        [NUnit.Framework.Test]
+        public virtual void HtmlToElementsFormTest() {
+            FileStream htmlFile = new FileStream(sourceFolder + "formelements.html", FileMode.Open, FileAccess.Read);
+            String cmpPdf = sourceFolder + "cmp_htmlToElementsForms.pdf";
+            String outPdf = destinationFolder + "htmlToElementsForms.pdf";
+            IList<IElement> elements = HtmlConverter.ConvertToElements(htmlFile, new ConverterProperties().SetBaseUri(
+                sourceFolder));
+            using (Document document = new Document(new PdfDocument(new PdfWriter(outPdf)))) {
+                foreach (IElement element in elements) {
+                    document.Add((IBlockElement)element);
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
+        }
+
         private static void AddElementsToDocument(Document document, IList<IElement> elements) {
             foreach (IElement elem in elements) {
                 if (elem is IBlockElement) {

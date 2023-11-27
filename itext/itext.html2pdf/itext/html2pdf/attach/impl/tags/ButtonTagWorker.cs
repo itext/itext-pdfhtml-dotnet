@@ -53,7 +53,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         private bool hasChildren = false;
 
-        private readonly PdfAConformanceLevel pdfAConformanceLevel;
+        private PdfAConformanceLevel pdfAConformanceLevel;
 
         /// <summary>
         /// Creates a new
@@ -70,7 +70,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             this.name = context.GetFormFieldNameResolver().ResolveFormName(name);
             flatten = !context.IsCreateAcroForm();
-            pdfAConformanceLevel = context.GetPdfDocument().GetConformanceLevel();
+            if (context.GetPdfDocument() != null) {
+                pdfAConformanceLevel = context.GetPdfDocument().GetConformanceLevel();
+            }
             lang = element.GetAttribute(AttributeConstants.LANG);
         }
 

@@ -169,7 +169,8 @@ namespace iText.Html2pdf.Attach {
         }
 
         /// <summary>Gets the PDF document.</summary>
-        /// <returns>the PDF document</returns>
+        /// <remarks>Gets the PDF document. If the PDF document is not set, null is returned.</remarks>
+        /// <returns>the PDF document or null</returns>
         public virtual PdfDocument GetPdfDocument() {
             return pdfDocument;
         }
