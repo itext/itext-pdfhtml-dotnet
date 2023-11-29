@@ -36,8 +36,10 @@ using iText.Kernel.Utils;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.Pdfa;
 using iText.Test;
 using iText.Test.Attributes;
+using iText.Test.Pdfa;
 
 namespace iText.Html2pdf {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -352,6 +354,25 @@ namespace iText.Html2pdf {
                     document.Add((IBlockElement)element);
                 }
             }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HtmlToElementsToPDFATest() {
+            FileStream htmlFile = new FileStream(sourceFolder + "formelements.html", FileMode.Open, FileAccess.Read);
+            String cmpPdf = sourceFolder + "cmp_htmlToElementsFormsPDFA.pdf";
+            String outPdf = destinationFolder + "htmlToElementsFormsPDFA.pdf";
+            PdfOutputIntent intent = new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new 
+                FileStream(sourceFolder + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read));
+            IList<IElement> elements = HtmlConverter.ConvertToElements(htmlFile, new ConverterProperties().SetBaseUri(
+                sourceFolder).SetCreateAcroForm(true).SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4));
+            using (Document document = new Document(new PdfADocument(new PdfWriter(outPdf, new WriterProperties().SetPdfVersion
+                (PdfVersion.PDF_2_0)), PdfAConformanceLevel.PDF_A_4, intent))) {
+                foreach (IElement element in elements) {
+                    document.Add((IBlockElement)element);
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new VeraPdfValidator().Validate(outPdf));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
         }
 

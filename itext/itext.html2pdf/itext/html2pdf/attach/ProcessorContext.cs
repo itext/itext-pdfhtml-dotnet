@@ -88,6 +88,13 @@ namespace iText.Html2pdf.Attach {
         /// <summary>The PDF document.</summary>
         private PdfDocument pdfDocument;
 
+        /// <summary>
+        /// PDF/A conformance level from
+        /// <see cref="iText.Html2pdf.ConverterProperties"/>
+        /// instance.
+        /// </summary>
+        private readonly PdfAConformanceLevel pdfAConformanceLevelFromProperties;
+
         /// <summary>The Processor meta info</summary>
         private IMetaInfo metaInfo;
 
@@ -146,6 +153,7 @@ namespace iText.Html2pdf.Attach {
             formFieldNameResolver = new FormFieldNameResolver();
             radioCheckResolver = new RadioCheckResolver();
             immediateFlush = converterProperties.IsImmediateFlush();
+            pdfAConformanceLevelFromProperties = converterProperties.GetConformanceLevel();
             processingInlineSvg = false;
             continuousContainerEnabled = converterProperties.IsContinuousContainerEnabled();
         }
@@ -173,6 +181,16 @@ namespace iText.Html2pdf.Attach {
         /// <returns>the PDF document or null</returns>
         public virtual PdfDocument GetPdfDocument() {
             return pdfDocument;
+        }
+
+        /// <summary>Get the PDF document conformance level if specified.</summary>
+        /// <returns>
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfAConformanceLevel"/>
+        /// will be null if the processing result won't follow PDF/A strictness
+        /// </returns>
+        public virtual PdfAConformanceLevel GetConformanceLevel() {
+            return pdfDocument == null ? pdfAConformanceLevelFromProperties : pdfDocument.GetConformanceLevel();
         }
 
         /// <summary>Gets the font provider.</summary>

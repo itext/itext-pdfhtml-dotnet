@@ -170,7 +170,7 @@ namespace iText.Html2pdf {
                 return;
             }
             PdfDocument document = new PdfADocument(pdfWriter, converterProperties.GetConformanceLevel(), converterProperties
-                .GetOutputIntent(), new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo(converterProperties
+                .GetDocumentOutputIntent(), new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo(converterProperties
                 )));
             converterProperties = SetDefaultFontProviderForPdfA(document, converterProperties);
             if ("A".Equals(converterProperties.GetConformanceLevel().GetConformance())) {
@@ -401,7 +401,7 @@ namespace iText.Html2pdf {
                 return;
             }
             PdfDocument document = new PdfADocument(pdfWriter, converterProperties.GetConformanceLevel(), converterProperties
-                .GetOutputIntent(), new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo(converterProperties
+                .GetDocumentOutputIntent(), new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo(converterProperties
                 )));
             converterProperties = SetDefaultFontProviderForPdfA(document, converterProperties);
             if ("A".Equals(converterProperties.GetConformanceLevel().GetConformance())) {
@@ -710,6 +710,7 @@ namespace iText.Html2pdf {
         /// </param>
         /// <returns>a list of iText building blocks</returns>
         public static IList<IElement> ConvertToElements(String html, ConverterProperties converterProperties) {
+            converterProperties = SetDefaultFontProviderForPdfA(null, converterProperties);
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(html);
             return Attacher.Attach(doc, converterProperties);
@@ -739,6 +740,7 @@ namespace iText.Html2pdf {
         /// <returns>a list of iText building blocks</returns>
         public static IList<IElement> ConvertToElements(Stream htmlStream, ConverterProperties converterProperties
             ) {
+            converterProperties = SetDefaultFontProviderForPdfA(null, converterProperties);
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
                 ) : null);
@@ -761,6 +763,13 @@ namespace iText.Html2pdf {
                 }
                 if (properties.GetFontProvider() == null) {
                     properties.SetFontProvider(new DefaultFontProvider(false, true, false));
+                }
+            }
+            else {
+                if (document == null && properties != null && properties.GetConformanceLevel() != null) {
+                    if (properties.GetFontProvider() == null) {
+                        properties.SetFontProvider(new DefaultFontProvider(false, true, false));
+                    }
                 }
             }
             return properties;

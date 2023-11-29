@@ -444,10 +444,15 @@ namespace iText.Html2pdf {
             return this;
         }
 
-        /// <summary>Sets pdf output intent (final destination device) to reproduce the color in the PDF.</summary>
+        /// <summary>Sets pdf document output intent (final destination device) to reproduce the color in the PDF.</summary>
         /// <remarks>
-        /// Sets pdf output intent (final destination device) to reproduce the color in the PDF.
+        /// Sets pdf document output intent (final destination device) to reproduce the color in the PDF.
         /// Required parameter, when converting to pdf/a one have to specify an explicit output intent.
+        /// <para />
+        /// Note, output intent isn't applicable for HtmlConverter#convertToElements methods
+        /// (e.g.
+        /// <see cref="HtmlConverter.ConvertToElements(System.IO.Stream, ConverterProperties)"/>
+        /// )
         /// </remarks>
         /// <param name="outputIntent">
         /// a
@@ -459,7 +464,7 @@ namespace iText.Html2pdf {
         /// <see cref="ConverterProperties"/>
         /// instance
         /// </returns>
-        public virtual iText.Html2pdf.ConverterProperties SetOutputIntent(PdfOutputIntent outputIntent) {
+        public virtual iText.Html2pdf.ConverterProperties SetDocumentOutputIntent(PdfOutputIntent outputIntent) {
             this.outputIntent = outputIntent;
             return this;
         }
@@ -485,9 +490,17 @@ namespace iText.Html2pdf {
             return this;
         }
 
-        /// <summary>Gets pdf output intent (final destination device) to reproduce the color in the PDF.</summary>
+        /// <summary>Gets pdf document output intent (final destination device) to reproduce the color in the PDF.</summary>
+        /// <remarks>
+        /// Gets pdf document output intent (final destination device) to reproduce the color in the PDF.
+        /// <para />
+        /// Note, output intent isn't applicable for HtmlConverter#convertToElements methods
+        /// (e.g.
+        /// <see cref="HtmlConverter.ConvertToElements(System.IO.Stream, ConverterProperties)"/>
+        /// )
+        /// </remarks>
         /// <returns>pdf output intent</returns>
-        public virtual PdfOutputIntent GetOutputIntent() {
+        public virtual PdfOutputIntent GetDocumentOutputIntent() {
             return outputIntent;
         }
 

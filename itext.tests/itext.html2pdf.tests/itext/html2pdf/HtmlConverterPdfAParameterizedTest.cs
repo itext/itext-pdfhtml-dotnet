@@ -116,7 +116,7 @@ namespace iText.Html2pdf {
             String cmpPdf = SOURCE_FOLDER + "cmp_" + testName + ".pdf";
             ConverterProperties converterProperties = new ConverterProperties().SetBaseUri(SOURCE_FOLDER);
             converterProperties.SetPdfAConformanceLevel(conformanceLevel);
-            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
+            converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
                 HtmlConverter.ConvertToPdf(fileInputStream, new FileStream(destinationPdf, FileMode.Create), converterProperties

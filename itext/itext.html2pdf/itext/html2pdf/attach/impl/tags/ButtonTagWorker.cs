@@ -70,8 +70,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             this.name = context.GetFormFieldNameResolver().ResolveFormName(name);
             flatten = !context.IsCreateAcroForm();
-            if (context.GetPdfDocument() != null) {
-                pdfAConformanceLevel = context.GetPdfDocument().GetConformanceLevel();
+            if (context.GetConformanceLevel() != null) {
+                pdfAConformanceLevel = context.GetConformanceLevel();
             }
             lang = element.GetAttribute(AttributeConstants.LANG);
         }

@@ -53,7 +53,7 @@ namespace iText.Html2pdf {
             String destinationPdf = DESTINATION_FOLDER + "simple.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_2B);
-            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
+            converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
                 HtmlConverter.ConvertToPdf(fileInputStream, new PdfWriter(destinationPdf), converterProperties);
@@ -68,7 +68,7 @@ namespace iText.Html2pdf {
             String destinationPdf = DESTINATION_FOLDER + "simple.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_1B);
-            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
+            converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
                 HtmlConverter.ConvertToPdf(fileInputStream, new PdfWriter(destinationPdf), converterProperties);
@@ -93,7 +93,7 @@ namespace iText.Html2pdf {
             String destinationPdf = DESTINATION_FOLDER + "simpleA4.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
-            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
+            converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformanceLevel.PDF_A_4E, 
                 new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER
@@ -112,7 +112,7 @@ namespace iText.Html2pdf {
             String destinationPdf = DESTINATION_FOLDER + "simpleA4.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4E);
-            converterProperties.SetOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
+            converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformanceLevel.PDF_A_4E, 
                 new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER
