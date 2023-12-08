@@ -53,7 +53,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         private bool hasChildren = false;
 
-        private PdfAConformanceLevel pdfAConformanceLevel;
+        private IConformanceLevel pdfAConformanceLevel;
 
         /// <summary>
         /// Creates a new

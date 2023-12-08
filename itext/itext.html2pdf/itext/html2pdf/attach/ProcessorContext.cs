@@ -189,7 +189,7 @@ namespace iText.Html2pdf.Attach {
         /// <see cref="iText.Kernel.Pdf.PdfAConformanceLevel"/>
         /// will be null if the processing result won't follow PDF/A strictness
         /// </returns>
-        public virtual PdfAConformanceLevel GetConformanceLevel() {
+        public virtual IConformanceLevel GetConformanceLevel() {
             return pdfDocument == null ? pdfAConformanceLevelFromProperties : pdfDocument.GetConformanceLevel();
         }
 
