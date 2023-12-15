@@ -69,7 +69,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     }
                 }
                 ((Div)GetElementResult()).GetAccessibilityProperties().SetRole(StandardRoles.LINK);
-                LinkHelper.ApplyLinkAnnotation(GetElementResult(), url);
+                LinkHelper.ApplyLinkAnnotation(GetElementResult(), url, context);
             }
             if (GetElementResult() != null) {
                 String name = element.GetAttribute(AttributeConstants.NAME);

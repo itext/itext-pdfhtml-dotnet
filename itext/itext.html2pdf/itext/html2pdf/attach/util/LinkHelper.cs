@@ -24,7 +24,9 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
+using iText.Commons.Datastructures;
 using iText.Commons.Utils;
+using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Html;
@@ -57,13 +59,28 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Applies a link annotation.</summary>
         /// <param name="container">the containing object</param>
         /// <param name="url">the destination</param>
+        [System.ObsoleteAttribute(@"in favour ofapplyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context)"
+            )]
         public static void ApplyLinkAnnotation(IPropertyContainer container, String url) {
+            // Fake context here
+            ApplyLinkAnnotation(container, url, new ProcessorContext(new ConverterProperties()));
+        }
+
+        /// <summary>Applies a link annotation.</summary>
+        /// <param name="container">the containing object.</param>
+        /// <param name="url">the destination.</param>
+        /// <param name="context">the processor context.</param>
+        public static void ApplyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context) {
             if (container != null) {
                 PdfLinkAnnotation linkAnnotation;
                 if (url.StartsWith("#")) {
-                    String name = url.Substring(1);
-                    linkAnnotation = (PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.CreateGoTo
-                        (name)).SetFlags(PdfAnnotation.PRINT);
+                    String id = url.Substring(1);
+                    linkAnnotation = context.GetLinkContext().GetLinkAnnotation(id);
+                    if (linkAnnotation == null) {
+                        linkAnnotation = (PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.CreateGoTo
+                            (id)).SetFlags(PdfAnnotation.PRINT);
+                        context.GetLinkContext().AddLinkAnnotation(id, linkAnnotation);
+                    }
                 }
                 else {
                     linkAnnotation = (PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.CreateURI
@@ -94,7 +111,14 @@ namespace iText.Html2pdf.Attach.Util {
                         (), id, tagWorkerClassName));
                     return;
                 }
-                propertyContainer.SetProperty(Property.DESTINATION, id);
+                PdfLinkAnnotation linkAnnotation = context.GetLinkContext().GetLinkAnnotation(id);
+                if (linkAnnotation == null) {
+                    linkAnnotation = (PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.CreateGoTo
+                        (id)).SetFlags(PdfAnnotation.PRINT);
+                    context.GetLinkContext().AddLinkAnnotation(id, linkAnnotation);
+                }
+                propertyContainer.SetProperty(Property.DESTINATION, new Tuple2<String, PdfDictionary>(id, linkAnnotation.GetAction
+                    ()));
             }
             if (propertyContainer != null) {
                 propertyContainer.SetProperty(Property.ID, id);
