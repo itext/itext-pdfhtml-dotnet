@@ -24,12 +24,13 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
+using iText.Commons.Datastructures;
 using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
 using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Navigation;
+using iText.Kernel.Pdf.Action;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Node;
@@ -64,7 +65,8 @@ namespace iText.Html2pdf.Attach.Impl {
         private PdfOutline currentOutline;
 
         /// <summary>The destinations in process.</summary>
-        private LinkedList<String> destinationsInProcess = new LinkedList<String>();
+        private LinkedList<Tuple2<String, PdfDictionary>> destinationsInProcess = new LinkedList<Tuple2<String, PdfDictionary
+            >>();
 
         /// <summary>The levels in process.</summary>
         private LinkedList<int> levelsInProcess = new LinkedList<int>();
@@ -217,8 +219,9 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
                 PdfOutline outline = parent.AddOutline(GenerateOutlineName(element));
                 String destination = GenerateUniqueDestinationName(element);
-                outline.AddDestination(PdfDestination.MakeDestination(new PdfString(destination)));
-                destinationsInProcess.AddFirst(destination);
+                PdfAction action = PdfAction.CreateGoTo(destination);
+                outline.AddAction(action);
+                destinationsInProcess.AddFirst(new Tuple2<String, PdfDictionary>(destination, action.GetPdfObject()));
                 levelsInProcess.AddFirst(level);
                 currentOutline = outline;
             }
@@ -240,7 +243,7 @@ namespace iText.Html2pdf.Attach.Impl {
         internal virtual OutlineHandler SetDestinationToElement(ITagWorker tagWorker, IElementNode element) {
             String tagName = element.Name();
             if (null != tagWorker && HasTagPriorityMapping(tagName) && destinationsInProcess.Count > 0) {
-                String content = destinationsInProcess.JRemoveFirst();
+                Tuple2<String, PdfDictionary> content = destinationsInProcess.JRemoveFirst();
                 if (tagWorker.GetElementResult() is IElement) {
                     tagWorker.GetElementResult().SetProperty(Property.DESTINATION, content);
                 }

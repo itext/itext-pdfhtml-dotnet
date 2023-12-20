@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.IO;
+using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
@@ -86,6 +87,23 @@ namespace iText.Html2pdf {
             *    an alternate textual representation is not enclosed within Figure or Formula structure elements.
             */
             CompareAndCheckCompliance(destinationPdf, cmpPdf, false);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SimpleOutlineTest() {
+            String sourceHtml = SOURCE_FOLDER + "simpleOutline.html";
+            String destinationPdf = DESTINATION_FOLDER + "simpleOutline.pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_simpleOutline.pdf";
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion
+                (PdfVersion.PDF_2_0)));
+            CreateSimplePdfUA2Document(pdfDocument);
+            ConverterProperties converterProperties = new ConverterProperties();
+            FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+            converterProperties.SetFontProvider(fontProvider);
+            converterProperties.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
+            HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
+                );
+            CompareAndCheckCompliance(destinationPdf, cmpPdf, true);
         }
 
         private void CreateSimplePdfUA2Document(PdfDocument pdfDocument) {
