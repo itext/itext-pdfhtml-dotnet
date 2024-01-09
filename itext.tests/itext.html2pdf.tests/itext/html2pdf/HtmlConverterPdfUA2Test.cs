@@ -58,10 +58,9 @@ namespace iText.Html2pdf {
             converterProperties.SetFontProvider(fontProvider);
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
-            /* TODO: DEVSIX-7996 - Links created from html2pdf are not ua-2 compliant
-            * Two verapdf errors are generated here:
-            * 1. clause="8.9.4.1", Link annotation neither has a Contents entry nor alternate description.
-            * 2. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
+            /* TODO: DEVSIX-5700 - Links created from html2pdf are not ua-2 compliant
+            * One verapdf error is generated here:
+            * 1. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
             *    an alternate textual representation is not enclosed within Figure or Formula structure elements.
             */
             CompareAndCheckCompliance(destinationPdf, cmpPdf, false);
@@ -80,10 +79,31 @@ namespace iText.Html2pdf {
             converterProperties.SetFontProvider(fontProvider);
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
-            /* TODO: DEVSIX-7996 - Links created from html2pdf are not ua-2 compliant
-            * Two verapdf errors are generated here:
-            * 1. clause="8.9.4.1", Link annotation neither has a Contents entry nor alternate description.
-            * 2. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
+            /* TODO: DEVSIX-5700 - Links created from html2pdf are not ua-2 compliant
+            * One verapdf error is generated here:
+            * 1. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
+            *    an alternate textual representation is not enclosed within Figure or Formula structure elements.
+            */
+            CompareAndCheckCompliance(destinationPdf, cmpPdf, false);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageLinkTest() {
+            String sourceHtml = SOURCE_FOLDER + "imageLink.html";
+            String cmpPdf = SOURCE_FOLDER + "cmp_imageLink.pdf";
+            String destinationPdf = DESTINATION_FOLDER + "imageLink.pdf";
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion
+                (PdfVersion.PDF_2_0)));
+            CreateSimplePdfUA2Document(pdfDocument);
+            ConverterProperties converterProperties = new ConverterProperties();
+            FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+            converterProperties.SetFontProvider(fontProvider);
+            converterProperties.SetBaseUri(SOURCE_FOLDER);
+            HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
+                );
+            /* TODO: DEVSIX-5700 - Links created from html2pdf are not ua-2 compliant
+            * One verapdf error is generated here:
+            * 1. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
             *    an alternate textual representation is not enclosed within Figure or Formula structure elements.
             */
             CompareAndCheckCompliance(destinationPdf, cmpPdf, false);

@@ -98,7 +98,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         }
                         GetAllElements()[i] = simulatedDiv;
                     }
-                    LinkHelper.ApplyLinkAnnotation(GetAllElements()[i], url, context);
+                    LinkHelper.ApplyLinkAnnotation(GetAllElements()[i], url, context, element);
                 }
             }
             if (!GetAllElements().IsEmpty()) {
