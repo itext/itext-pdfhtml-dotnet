@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2023 Apryse Group NV
+Copyright (c) 1998-2024 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -24,7 +24,9 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
+using iText.Commons.Datastructures;
 using iText.Commons.Utils;
+using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Html;
@@ -39,6 +41,7 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout.Tagging;
 using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 
 namespace iText.Html2pdf.Attach.Util {
     /// <summary>Helper class for links.</summary>
@@ -57,17 +60,58 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Applies a link annotation.</summary>
         /// <param name="container">the containing object</param>
         /// <param name="url">the destination</param>
+        [System.ObsoleteAttribute(@"in favour ofapplyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context)"
+            )]
         public static void ApplyLinkAnnotation(IPropertyContainer container, String url) {
+            // Fake context here
+            ApplyLinkAnnotation(container, url, new ProcessorContext(new ConverterProperties()));
+        }
+
+        /// <summary>Applies a link annotation.</summary>
+        /// <param name="container">the containing object.</param>
+        /// <param name="url">the destination.</param>
+        /// <param name="context">the processor context.</param>
+        [Obsolete]
+        public static void ApplyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context) {
+            ApplyLinkAnnotation(container, url, context, "");
+        }
+
+        private static String RetrieveAlternativeDescription(IElementNode element) {
+            IList<INode> children = element.ChildNodes();
+            //if there is an img tag under the link then prefer the alt attribute as a link description
+            if (children.Count == 1 && children[0].ChildNodes().IsEmpty() && children[0] is JsoupElementNode && ((JsoupElementNode
+                )children[0]).GetAttribute(AttributeConstants.ALT) != null) {
+                return ((JsoupElementNode)children[0]).GetAttribute(AttributeConstants.ALT);
+            }
+            //return title attribute value in case of regular link
+            return element.GetAttribute(AttributeConstants.TITLE);
+        }
+
+        /// <summary>Applies a link annotation.</summary>
+        /// <param name="container">the containing object.</param>
+        /// <param name="url">the destination.</param>
+        /// <param name="context">the processor context.</param>
+        /// <param name="alternateDescription">description for a link.</param>
+        [Obsolete]
+        public static void ApplyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context, 
+            String alternateDescription) {
             if (container != null) {
                 PdfLinkAnnotation linkAnnotation;
                 if (url.StartsWith("#")) {
-                    String name = url.Substring(1);
-                    linkAnnotation = (PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.CreateGoTo
-                        (name)).SetFlags(PdfAnnotation.PRINT);
+                    String id = url.Substring(1);
+                    linkAnnotation = context.GetLinkContext().GetLinkAnnotation(id);
+                    if (linkAnnotation == null) {
+                        linkAnnotation = (PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.CreateGoTo
+                            (id)).SetFlags(PdfAnnotation.PRINT);
+                        context.GetLinkContext().AddLinkAnnotation(id, linkAnnotation);
+                    }
                 }
                 else {
                     linkAnnotation = (PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.CreateURI
                         (url)).SetFlags(PdfAnnotation.PRINT);
+                }
+                if (container is IAccessibleElement && alternateDescription != null) {
+                    ((IAccessibleElement)container).GetAccessibilityProperties().SetAlternateDescription(alternateDescription);
                 }
                 linkAnnotation.SetBorder(new PdfArray(new float[] { 0, 0, 0 }));
                 container.SetProperty(Property.LINK_ANNOTATION, linkAnnotation);
@@ -75,6 +119,17 @@ namespace iText.Html2pdf.Attach.Util {
                     ((IAccessibleElement)container).GetAccessibilityProperties().SetRole(StandardRoles.LINK);
                 }
             }
+        }
+
+        /// <summary>Applies a link annotation.</summary>
+        /// <param name="container">the containing object.</param>
+        /// <param name="url">the destination.</param>
+        /// <param name="context">the processor context.</param>
+        /// <param name="element">the element node.</param>
+        public static void ApplyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context, 
+            IElementNode element) {
+            iText.Html2pdf.Attach.Util.LinkHelper.ApplyLinkAnnotation(container, url, context, RetrieveAlternativeDescription
+                (element));
         }
 
         /// <summary>Creates a destination</summary>
@@ -94,7 +149,14 @@ namespace iText.Html2pdf.Attach.Util {
                         (), id, tagWorkerClassName));
                     return;
                 }
-                propertyContainer.SetProperty(Property.DESTINATION, id);
+                PdfLinkAnnotation linkAnnotation = context.GetLinkContext().GetLinkAnnotation(id);
+                if (linkAnnotation == null) {
+                    linkAnnotation = (PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.CreateGoTo
+                        (id)).SetFlags(PdfAnnotation.PRINT);
+                    context.GetLinkContext().AddLinkAnnotation(id, linkAnnotation);
+                }
+                propertyContainer.SetProperty(Property.DESTINATION, new Tuple2<String, PdfDictionary>(id, linkAnnotation.GetAction
+                    ()));
             }
             if (propertyContainer != null) {
                 propertyContainer.SetProperty(Property.ID, id);

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2023 Apryse Group NV
+Copyright (c) 1998-2024 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -27,6 +27,7 @@ using iText.Forms.Form.Element;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
+using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Tagging;
@@ -52,6 +53,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         private bool hasChildren = false;
 
+        private IConformanceLevel pdfAConformanceLevel;
+
         /// <summary>
         /// Creates a new
         /// <see cref="ButtonTagWorker"/>
@@ -67,6 +70,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             this.name = context.GetFormFieldNameResolver().ResolveFormName(name);
             flatten = !context.IsCreateAcroForm();
+            if (context.GetConformanceLevel() != null) {
+                pdfAConformanceLevel = context.GetConformanceLevel();
+            }
             lang = element.GetAttribute(AttributeConstants.LANG);
         }
 
@@ -119,6 +125,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             formField.SetProperty(FormProperty.FORM_FIELD_FLATTEN, flatten);
+            formField.SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, pdfAConformanceLevel);
             return formField;
         }
     }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2023 Apryse Group NV
+Copyright (c) 1998-2024 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -88,6 +88,13 @@ namespace iText.Html2pdf.Attach {
         /// <summary>The PDF document.</summary>
         private PdfDocument pdfDocument;
 
+        /// <summary>
+        /// PDF/A conformance level from
+        /// <see cref="iText.Html2pdf.ConverterProperties"/>
+        /// instance.
+        /// </summary>
+        private readonly PdfAConformanceLevel pdfAConformanceLevelFromProperties;
+
         /// <summary>The Processor meta info</summary>
         private IMetaInfo metaInfo;
 
@@ -146,6 +153,7 @@ namespace iText.Html2pdf.Attach {
             formFieldNameResolver = new FormFieldNameResolver();
             radioCheckResolver = new RadioCheckResolver();
             immediateFlush = converterProperties.IsImmediateFlush();
+            pdfAConformanceLevelFromProperties = converterProperties.GetConformanceLevel();
             processingInlineSvg = false;
             continuousContainerEnabled = converterProperties.IsContinuousContainerEnabled();
         }
@@ -169,9 +177,20 @@ namespace iText.Html2pdf.Attach {
         }
 
         /// <summary>Gets the PDF document.</summary>
-        /// <returns>the PDF document</returns>
+        /// <remarks>Gets the PDF document. If the PDF document is not set, null is returned.</remarks>
+        /// <returns>the PDF document or null</returns>
         public virtual PdfDocument GetPdfDocument() {
             return pdfDocument;
+        }
+
+        /// <summary>Get the PDF document conformance level if specified.</summary>
+        /// <returns>
+        /// the
+        /// <see cref="iText.Kernel.Pdf.PdfAConformanceLevel"/>
+        /// will be null if the processing result won't follow PDF/A strictness
+        /// </returns>
+        public virtual IConformanceLevel GetConformanceLevel() {
+            return pdfDocument == null ? pdfAConformanceLevelFromProperties : pdfDocument.GetConformanceLevel();
         }
 
         /// <summary>Gets the font provider.</summary>

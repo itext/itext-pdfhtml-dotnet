@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2023 Apryse Group NV
+Copyright (c) 1998-2024 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -22,6 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -165,6 +167,12 @@ namespace iText.Html2pdf.Css {
         public virtual void HeightNumberWithoutUnitTest() {
             // TODO DEVSIX-6078 print log message about invalid height
             ConvertToPdfAndCompare("heightNumberWithoutUnit", sourceFolder, destinationFolder);
+        }
+
+        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
+        [NUnit.Framework.Test]
+        public virtual void EmptyTableOnCustomPageSizedDocumentTest() {
+            ConvertToPdfAndCompare("emptyTableOnCustomPageSizedDocument", sourceFolder, destinationFolder);
         }
     }
 }

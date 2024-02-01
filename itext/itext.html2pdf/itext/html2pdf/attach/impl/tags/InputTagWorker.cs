@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2023 Apryse Group NV
+Copyright (c) 1998-2024 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -159,6 +159,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (formElement != null) {
                 formElement.SetProperty(FormProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
                 formElement.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+                if (context.GetConformanceLevel() != null) {
+                    formElement.SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.GetConformanceLevel());
+                }
             }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2023 Apryse Group NV
+Copyright (c) 1998-2024 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Html;
+using iText.Kernel.Pdf.Annot;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl {
@@ -38,6 +39,14 @@ namespace iText.Html2pdf.Attach.Impl {
     public class LinkContext {
         /// <summary>the ids currently in use as valid link destinations</summary>
         private ICollection<String> linkDestinations = new HashSet<String>();
+
+        /// <summary>Link annotations per destination id.</summary>
+        /// <remarks>
+        /// Link annotations per destination id. Used to cache link annotations to be able to pass the same annotation
+        /// to different model elements.
+        /// </remarks>
+        private IDictionary<String, PdfLinkAnnotation> linkAnnotations = new Dictionary<String, PdfLinkAnnotation>
+            ();
 
         /// <summary>Construct an (empty) LinkContext</summary>
         public LinkContext() {
@@ -79,6 +88,20 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <returns>whether a given (internal) link destination is used by at least one href element in the document</returns>
         public virtual bool IsUsedLinkDestination(String linkDestination) {
             return linkDestinations.Contains(linkDestination);
+        }
+
+        /// <summary>Add link annotation to the context.</summary>
+        /// <param name="id">link destination.</param>
+        /// <param name="annot">link annotation to store.</param>
+        public virtual void AddLinkAnnotation(String id, PdfLinkAnnotation annot) {
+            linkAnnotations.Put(id, annot);
+        }
+
+        /// <summary>Get link annotation.</summary>
+        /// <param name="id">link destination.</param>
+        /// <returns>link annotation for the given link destination.</returns>
+        public virtual PdfLinkAnnotation GetLinkAnnotation(String id) {
+            return linkAnnotations.Get(id);
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2023 Apryse Group NV
+Copyright (c) 1998-2024 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -25,6 +25,7 @@ using iText.Commons.Actions.Contexts;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
+using iText.Kernel.Pdf;
 using iText.Layout.Font;
 using iText.StyledXmlParser.Css.Media;
 using iText.StyledXmlParser.Resolver.Resource;
@@ -76,6 +77,12 @@ namespace iText.Html2pdf {
 
         /// <summary>enables continuous container for all elements.</summary>
         private bool continuousContainerEnabled;
+
+        /// <summary>Output intent for final destination device.</summary>
+        private PdfOutputIntent outputIntent;
+
+        /// <summary>Conformance level for conversion to pdf/a.</summary>
+        private PdfAConformanceLevel conformanceLevel;
 
         /// <summary>
         /// Instantiates a new
@@ -435,6 +442,72 @@ namespace iText.Html2pdf {
         public virtual iText.Html2pdf.ConverterProperties SetCharset(String charset) {
             this.charset = charset;
             return this;
+        }
+
+        /// <summary>Sets pdf document output intent (final destination device) to reproduce the color in the PDF.</summary>
+        /// <remarks>
+        /// Sets pdf document output intent (final destination device) to reproduce the color in the PDF.
+        /// Required parameter, when converting to pdf/a one have to specify an explicit output intent.
+        /// <para />
+        /// Note, output intent isn't applicable for HtmlConverter#convertToElements methods
+        /// (e.g.
+        /// <see cref="HtmlConverter.ConvertToElements(System.IO.Stream, ConverterProperties)"/>
+        /// )
+        /// </remarks>
+        /// <param name="outputIntent">
+        /// a
+        /// <see cref="iText.Kernel.Pdf.PdfOutputIntent"/>
+        /// instance
+        /// </param>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
+        public virtual iText.Html2pdf.ConverterProperties SetDocumentOutputIntent(PdfOutputIntent outputIntent) {
+            this.outputIntent = outputIntent;
+            return this;
+        }
+
+        /// <summary>Sets the generation and strictness level of the PDF/A that must be followed.</summary>
+        /// <remarks>
+        /// Sets the generation and strictness level of the PDF/A that must be followed.
+        /// Required parameter, when converting to pdf/a one have to specify an explicit pdf/a conformance level.
+        /// </remarks>
+        /// <param name="conformanceLevel">
+        /// a
+        /// <see cref="iText.Kernel.Pdf.PdfAConformanceLevel"/>
+        /// constant
+        /// </param>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
+        public virtual iText.Html2pdf.ConverterProperties SetPdfAConformanceLevel(PdfAConformanceLevel conformanceLevel
+            ) {
+            this.conformanceLevel = conformanceLevel;
+            return this;
+        }
+
+        /// <summary>Gets pdf document output intent (final destination device) to reproduce the color in the PDF.</summary>
+        /// <remarks>
+        /// Gets pdf document output intent (final destination device) to reproduce the color in the PDF.
+        /// <para />
+        /// Note, output intent isn't applicable for HtmlConverter#convertToElements methods
+        /// (e.g.
+        /// <see cref="HtmlConverter.ConvertToElements(System.IO.Stream, ConverterProperties)"/>
+        /// )
+        /// </remarks>
+        /// <returns>pdf output intent</returns>
+        public virtual PdfOutputIntent GetDocumentOutputIntent() {
+            return outputIntent;
+        }
+
+        /// <summary>Gets the generation and strictness level of the PDF/A that must be followed.</summary>
+        /// <returns>pdf/a conformance level</returns>
+        public virtual PdfAConformanceLevel GetConformanceLevel() {
+            return conformanceLevel;
         }
 
         /// <summary>Checks if immediateFlush is set.</summary>
