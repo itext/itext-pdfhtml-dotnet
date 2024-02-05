@@ -344,7 +344,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1851")]
         public virtual void WordCharSpacingJustifiedTest01() {
             ConvertToPdfAndCompare("wordCharSpacingJustifiedTest01", sourceFolder, destinationFolder);
         }
