@@ -37,6 +37,7 @@ namespace iText.Html2pdf.Element {
             CreateDestinationFolder(destinationFolder);
         }
 
+        //TODO DEVSIX-2091: Change after fixing
         [NUnit.Framework.Test]
         public virtual void Bdo01Test() {
             ConvertToPdfAndCompare("bdoTest01", sourceFolder, destinationFolder);
