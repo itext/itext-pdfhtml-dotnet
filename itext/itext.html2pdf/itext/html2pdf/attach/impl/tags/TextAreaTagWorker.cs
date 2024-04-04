@@ -66,8 +66,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             textArea.SetProperty(FormProperty.FORM_FIELD_ROWS, rows);
             textArea.SetProperty(FormProperty.FORM_FIELD_COLS, cols);
             textArea.SetProperty(FormProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
-            textArea.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, element.GetAttribute(AttributeConstants.LANG
-                ));
+            textArea.GetAccessibilityProperties().SetLanguage(element.GetAttribute(AttributeConstants.LANG));
             // Default html2pdf text area appearance differs from the default one for form fields.
             // That's why we need to get rid of several properties we set by default during TextArea instance creation.
             textArea.DeleteOwnProperty(Property.BOX_SIZING);

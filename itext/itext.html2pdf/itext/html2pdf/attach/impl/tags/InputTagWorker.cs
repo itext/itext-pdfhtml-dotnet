@@ -36,6 +36,7 @@ using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.Layout.Tagging;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
@@ -158,7 +159,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             if (formElement != null) {
                 formElement.SetProperty(FormProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
-                formElement.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+                ((IAccessibleElement)formElement).GetAccessibilityProperties().SetLanguage(lang);
                 if (context.GetConformanceLevel() != null) {
                     formElement.SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.GetConformanceLevel());
                 }

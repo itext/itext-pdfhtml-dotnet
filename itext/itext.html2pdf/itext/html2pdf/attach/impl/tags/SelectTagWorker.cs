@@ -76,7 +76,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 selectElement = new ComboBoxField(name);
             }
             String lang = element.GetAttribute(AttributeConstants.LANG);
-            selectElement.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+            selectElement.GetAccessibilityProperties().SetLanguage(lang);
             selectElement.SetProperty(FormProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
             if (context.GetConformanceLevel() != null) {
                 selectElement.SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.GetConformanceLevel());
