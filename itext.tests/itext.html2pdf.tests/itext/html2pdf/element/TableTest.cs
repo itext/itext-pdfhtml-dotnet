@@ -522,7 +522,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void EmptyTrRowspanBorderCollapsingTest() {
-            // TODO DEVSIX-5290 change cmp after the correction
             RunTest("emptyTrRowspanBorderCollapsing");
         }
 
@@ -533,8 +532,6 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.UNEXPECTED_BEHAVIOUR_DURING_TABLE_ROW_COLLAPSING, Count = 2
-            )]
         public virtual void EmptyTrTest() {
             RunTest("emptyTr");
         }
@@ -596,6 +593,18 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void InlineWithInlineBlockAsTdChildWrappedTest() {
             RunTest("inlineWithInlineBlockAsTdChildWrapped");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE, Count = 2)]
+        public virtual void EmptyRowEliminationTest1() {
+            RunTest("emptyRowElimination1");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
+        public virtual void EmptyRowEliminationTest2() {
+            RunTest("emptyRowElimination2");
         }
 
         private void RunTest(String testName) {
