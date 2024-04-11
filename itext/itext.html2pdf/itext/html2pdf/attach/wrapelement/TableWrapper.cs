@@ -242,14 +242,12 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             }
             if (rows != null) {
                 for (int i = 0; i < rows.Count; i++) {
+                    table.StartNewRow();
                     if (isRtl) {
                         JavaCollectionsUtil.Reverse(rows[i]);
                     }
                     for (int j = 0; j < rows[i].Count; j++) {
                         table.AddCell(rows[i][j].cell);
-                    }
-                    if (i != rows.Count - 1) {
-                        table.StartNewRow();
                     }
                 }
             }

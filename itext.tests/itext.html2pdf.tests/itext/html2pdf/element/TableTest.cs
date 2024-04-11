@@ -581,6 +581,16 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void EmptyRowsConvertToElementTest() {
+            FileStream source = new FileStream(sourceFolder + "emptyRowsConvertToElement.html", FileMode.Open, FileAccess.Read
+                );
+            foreach (IElement element in HtmlConverter.ConvertToElements(source)) {
+                NUnit.Framework.Assert.IsTrue(element is Table);
+                NUnit.Framework.Assert.AreEqual(4, ((Table)element).GetNumberOfRows());
+            }
+        }
+
+        [NUnit.Framework.Test]
         public virtual void ThTagConvertToPdfTest() {
             RunTest("thTagConvertToPdf");
         }
