@@ -99,7 +99,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (formField == null) {
                 if (hasChildren) {
                     Button button = new Button(name);
-                    button.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+                    button.GetAccessibilityProperties().SetLanguage(lang);
                     Div div = (Div)base.GetElementResult();
                     foreach (IElement element in div.GetChildren()) {
                         if (element is IAccessibleElement) {
@@ -119,7 +119,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
                 else {
                     Button inputButton = new Button(name);
-                    inputButton.SetProperty(FormProperty.FORM_ACCESSIBILITY_LANGUAGE, lang);
+                    inputButton.GetAccessibilityProperties().SetLanguage(lang);
                     inputButton.SetValue(fallbackContent.ToString().Trim());
                     formField = inputButton;
                 }

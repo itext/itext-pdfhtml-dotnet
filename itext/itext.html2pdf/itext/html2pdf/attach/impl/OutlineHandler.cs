@@ -40,12 +40,14 @@ namespace iText.Html2pdf.Attach.Impl {
     /// <summary>
     /// A
     /// <see cref="OutlineHandler"/>
-    /// handles creating outlines for tags.
+    /// handles creating outlines for marks.
     /// </summary>
     /// <remarks>
     /// A
     /// <see cref="OutlineHandler"/>
-    /// handles creating outlines for tags.
+    /// handles creating outlines for marks.
+    /// Marks are extracted via interface
+    /// <see cref="iText.Html2pdf.Attach.IOutlineMarkExtractor"/>.
     /// <para />
     /// This class is not reusable and a new instance shall be created for every new conversion process.
     /// </remarks>
@@ -62,63 +64,149 @@ namespace iText.Html2pdf.Attach.Impl {
         private IDictionary<String, int?> destCounter = new Dictionary<String, int?>();
 
         /// <summary>The current outline.</summary>
-        private PdfOutline currentOutline;
+        protected internal PdfOutline currentOutline;
 
         /// <summary>The destinations in process.</summary>
-        private LinkedList<Tuple2<String, PdfDictionary>> destinationsInProcess = new LinkedList<Tuple2<String, PdfDictionary
-            >>();
+        protected internal LinkedList<Tuple2<String, PdfDictionary>> destinationsInProcess = new LinkedList<Tuple2
+            <String, PdfDictionary>>();
 
         /// <summary>The levels in process.</summary>
-        private LinkedList<int> levelsInProcess = new LinkedList<int>();
+        protected internal LinkedList<int> levelsInProcess = new LinkedList<int>();
 
-        /// <summary>The tag priorities mapping.</summary>
-        private IDictionary<String, int?> tagPrioritiesMapping = new Dictionary<String, int?>();
+        /// <summary>The mark priorities mapping.</summary>
+        private IDictionary<String, int?> markPrioritiesMapping = new Dictionary<String, int?>();
 
         /// <summary>The destination prefix.</summary>
         private String destinationNamePrefix = DEFAULT_DESTINATION_NAME_PREFIX;
 
-        /// <summary>Creates an OutlineHandler with standard predefined mappings.</summary>
+        /// <summary>The mark extractor defines what part of element will be used to create outline</summary>
+        protected internal IOutlineMarkExtractor markExtractor;
+
+        /// <summary>
+        /// Creates an OutlineHandler with standard
+        /// <see cref="TagOutlineMarkExtractor"/>.
+        /// </summary>
+        public OutlineHandler() {
+            markExtractor = new TagOutlineMarkExtractor();
+        }
+
+        /// <summary>
+        /// Creates an OutlineHandler with standard
+        /// <see cref="TagOutlineMarkExtractor"/>
+        /// and predefined mappings.
+        /// </summary>
         /// <returns>the outline handler</returns>
-        public static OutlineHandler CreateStandardHandler() {
-            OutlineHandler handler = new OutlineHandler();
-            handler.PutTagPriorityMapping(TagConstants.H1, 1);
-            handler.PutTagPriorityMapping(TagConstants.H2, 2);
-            handler.PutTagPriorityMapping(TagConstants.H3, 3);
-            handler.PutTagPriorityMapping(TagConstants.H4, 4);
-            handler.PutTagPriorityMapping(TagConstants.H5, 5);
-            handler.PutTagPriorityMapping(TagConstants.H6, 6);
+        public static iText.Html2pdf.Attach.Impl.OutlineHandler CreateStandardHandler() {
+            iText.Html2pdf.Attach.Impl.OutlineHandler handler = new iText.Html2pdf.Attach.Impl.OutlineHandler();
+            handler.PutMarkPriorityMapping(TagConstants.H1, 1);
+            handler.PutMarkPriorityMapping(TagConstants.H2, 2);
+            handler.PutMarkPriorityMapping(TagConstants.H3, 3);
+            handler.PutMarkPriorityMapping(TagConstants.H4, 4);
+            handler.PutMarkPriorityMapping(TagConstants.H5, 5);
+            handler.PutMarkPriorityMapping(TagConstants.H6, 6);
             return handler;
         }
 
-        /// <summary>Put tag priority mapping.</summary>
+        /// <summary>
+        /// Creates an OutlineHandler with custom
+        /// <see cref="iText.Html2pdf.Attach.IOutlineMarkExtractor"/>
+        /// </summary>
+        /// <param name="extractor">the mark extractor</param>
+        /// <returns>the outline handler</returns>
+        public static iText.Html2pdf.Attach.Impl.OutlineHandler CreateHandler(IOutlineMarkExtractor extractor) {
+            iText.Html2pdf.Attach.Impl.OutlineHandler handler = new iText.Html2pdf.Attach.Impl.OutlineHandler();
+            handler.markExtractor = extractor;
+            return handler;
+        }
+
+        /// <summary>Get mark extractor.</summary>
+        /// <returns>the mark extractor</returns>
+        public virtual IOutlineMarkExtractor GetMarkExtractor() {
+            return markExtractor;
+        }
+
+        /// <summary>Set mark extractor.</summary>
+        /// <param name="extractor">the mark extractor</param>
+        /// <returns>the outline handler</returns>
+        public virtual iText.Html2pdf.Attach.Impl.OutlineHandler SetMarkExtractor(IOutlineMarkExtractor extractor) {
+            markExtractor = extractor;
+            return this;
+        }
+
+        /// <summary>Put tag into priority mapping.</summary>
         /// <param name="tagName">the tag name</param>
         /// <param name="priority">the priority</param>
         /// <returns>the outline handler</returns>
-        public virtual OutlineHandler PutTagPriorityMapping(String tagName, int? priority) {
-            tagPrioritiesMapping.Put(tagName, priority);
+        [System.ObsoleteAttribute(@"use PutMarkPriorityMapping(System.String, int?) instead")]
+        public virtual iText.Html2pdf.Attach.Impl.OutlineHandler PutTagPriorityMapping(String tagName, int? priority
+            ) {
+            PutMarkPriorityMapping(tagName, priority);
             return this;
         }
 
-        /// <summary>Put all tag priority mappings.</summary>
+        /// <summary>Put mark into priority mapping.</summary>
+        /// <param name="markName">the mark name</param>
+        /// <param name="priority">the priority</param>
+        /// <returns>the outline handler</returns>
+        public virtual iText.Html2pdf.Attach.Impl.OutlineHandler PutMarkPriorityMapping(String markName, int? priority
+            ) {
+            markPrioritiesMapping.Put(markName, priority);
+            return this;
+        }
+
+        /// <summary>Put all tags into priority mappings.</summary>
         /// <param name="mappings">the mappings</param>
         /// <returns>the outline handler</returns>
-        public virtual OutlineHandler PutAllTagPriorityMappings(IDictionary<String, int?> mappings) {
-            tagPrioritiesMapping.AddAll(mappings);
+        [System.ObsoleteAttribute(@"ue PutAllMarksPriorityMappings(System.Collections.Generic.IDictionary{K, V}) instead"
+            )]
+        public virtual iText.Html2pdf.Attach.Impl.OutlineHandler PutAllTagPriorityMappings(IDictionary<String, int?
+            > mappings) {
+            PutAllMarksPriorityMappings(mappings);
             return this;
         }
 
-        /// <summary>Gets the tag priority mapping.</summary>
-        /// <param name="tagName">the tag name</param>
-        /// <returns>the tag priority mapping</returns>
-        public virtual int? GetTagPriorityMapping(String tagName) {
-            return tagPrioritiesMapping.Get(tagName);
+        /// <summary>Put all marks into priority mappings.</summary>
+        /// <param name="mappings">the mappings</param>
+        /// <returns>the outline handler</returns>
+        public virtual iText.Html2pdf.Attach.Impl.OutlineHandler PutAllMarksPriorityMappings(IDictionary<String, int?
+            > mappings) {
+            markPrioritiesMapping.AddAll(mappings);
+            return this;
         }
 
-        /// <summary>Checks for tag priority mapping.</summary>
+        /// <summary>Gets the marks from priority mapping.</summary>
+        /// <param name="tagName">the tag name</param>
+        /// <returns>the tag priority mapping</returns>
+        [System.ObsoleteAttribute(@"use GetMarkPriorityMapping(System.String) instead")]
+        public virtual int? GetTagPriorityMapping(String tagName) {
+            return GetMarkPriorityMapping(tagName);
+        }
+
+        /// <summary>Gets the mark from priority mapping.</summary>
+        /// <param name="markName">the mark name</param>
+        /// <returns>the tag priority mapping</returns>
+        public virtual int? GetMarkPriorityMapping(String markName) {
+            return markPrioritiesMapping.Get(markName);
+        }
+
+        /// <summary>Checks for tag in priority mapping.</summary>
         /// <param name="tagName">the tag name</param>
         /// <returns>true, if the tag name is listed in the tag priorities mapping</returns>
+        [System.ObsoleteAttribute(@"use HasMarkPriorityMapping(System.String) instead")]
         public virtual bool HasTagPriorityMapping(String tagName) {
-            return tagPrioritiesMapping.ContainsKey(tagName);
+            return HasMarkPriorityMapping(tagName);
+        }
+
+        /// <summary>Checks for tag in priority mapping.</summary>
+        /// <param name="markName">the mark name</param>
+        /// <returns>true, if the tag name is listed in the tag priorities mapping</returns>
+        public virtual bool HasMarkPriorityMapping(String markName) {
+            if (markName == null) {
+                return false;
+            }
+            else {
+                return markPrioritiesMapping.ContainsKey(markName);
+            }
         }
 
         /// <summary>
@@ -186,10 +274,10 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <param name="element">the element</param>
         /// <returns>the unique destination name</returns>
         protected internal virtual String GenerateOutlineName(IElementNode element) {
-            String tagName = element.Name();
+            String markName = markExtractor.GetMark(element);
             String content = ((JsoupElementNode)element).Text();
             if (String.IsNullOrEmpty(content)) {
-                content = GetUniqueID(tagName);
+                content = GetUniqueID(markName);
             }
             return content;
         }
@@ -204,11 +292,11 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <param name="element">the element</param>
         /// <param name="context">the processor context</param>
         /// <returns>the outline handler</returns>
-        internal virtual OutlineHandler AddOutlineAndDestToDocument(ITagWorker tagWorker, IElementNode element, ProcessorContext
-             context) {
-            String tagName = element.Name();
-            if (null != tagWorker && HasTagPriorityMapping(tagName) && context.GetPdfDocument() != null) {
-                int level = (int)GetTagPriorityMapping(tagName);
+        protected internal virtual iText.Html2pdf.Attach.Impl.OutlineHandler AddOutlineAndDestToDocument(ITagWorker
+             tagWorker, IElementNode element, ProcessorContext context) {
+            String markName = markExtractor.GetMark(element);
+            if (null != tagWorker && HasMarkPriorityMapping(markName) && context.GetPdfDocument() != null) {
+                int level = (int)GetMarkPriorityMapping(markName);
                 if (null == currentOutline) {
                     currentOutline = context.GetPdfDocument().GetOutlines(false);
                 }
@@ -240,17 +328,18 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <param name="tagWorker">the tag worker</param>
         /// <param name="element">the element</param>
         /// <returns>the outline handler</returns>
-        internal virtual OutlineHandler SetDestinationToElement(ITagWorker tagWorker, IElementNode element) {
-            String tagName = element.Name();
-            if (null != tagWorker && HasTagPriorityMapping(tagName) && destinationsInProcess.Count > 0) {
+        protected internal virtual iText.Html2pdf.Attach.Impl.OutlineHandler SetDestinationToElement(ITagWorker tagWorker
+            , IElementNode element) {
+            String markName = markExtractor.GetMark(element);
+            if (null != tagWorker && HasMarkPriorityMapping(markName) && destinationsInProcess.Count > 0) {
                 Tuple2<String, PdfDictionary> content = destinationsInProcess.JRemoveFirst();
                 if (tagWorker.GetElementResult() is IElement) {
                     tagWorker.GetElementResult().SetProperty(Property.DESTINATION, content);
                 }
                 else {
-                    ILogger logger = ITextLogManager.GetLogger(typeof(OutlineHandler));
+                    ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.OutlineHandler));
                     logger.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.NO_IPROPERTYCONTAINER_RESULT_FOR_THE_TAG
-                        , tagName));
+                        , markName));
                 }
             }
             return this;

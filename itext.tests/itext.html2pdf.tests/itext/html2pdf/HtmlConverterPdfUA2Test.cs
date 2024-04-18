@@ -58,12 +58,7 @@ namespace iText.Html2pdf {
             converterProperties.SetFontProvider(fontProvider);
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
-            /* TODO: DEVSIX-5700 - Links created from html2pdf are not ua-2 compliant
-            * One verapdf error is generated here:
-            * 1. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
-            *    an alternate textual representation is not enclosed within Figure or Formula structure elements.
-            */
-            CompareAndCheckCompliance(destinationPdf, cmpPdf, false);
+            CompareAndCheckCompliance(destinationPdf, cmpPdf, true);
         }
 
         [NUnit.Framework.Test]
@@ -79,12 +74,7 @@ namespace iText.Html2pdf {
             converterProperties.SetFontProvider(fontProvider);
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
-            /* TODO: DEVSIX-5700 - Links created from html2pdf are not ua-2 compliant
-            * One verapdf error is generated here:
-            * 1. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
-            *    an alternate textual representation is not enclosed within Figure or Formula structure elements.
-            */
-            CompareAndCheckCompliance(destinationPdf, cmpPdf, false);
+            CompareAndCheckCompliance(destinationPdf, cmpPdf, true);
         }
 
         [NUnit.Framework.Test]
@@ -101,11 +91,13 @@ namespace iText.Html2pdf {
             converterProperties.SetBaseUri(SOURCE_FOLDER);
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
-            /* TODO: DEVSIX-5700 - Links created from html2pdf are not ua-2 compliant
-            * One verapdf error is generated here:
-            * 1. clause="8.5.1", Real content that does not possess the semantics of text objects and does not have
-            *    an alternate textual representation is not enclosed within Figure or Formula structure elements.
-            */
+            // The VeraPDF check fails probably to its internal bug. It checks that /ActualText != null, but the
+            // pdf/ua-2 documentation states the following:
+            // 8.5.1 General
+            // Real content that does not possess the semantics of text objects and does not have an alternate
+            // textual representation shall be enclosed within Figure structure elements in accordance with
+            // ISO 32000-2:2020, 14.8.4.8.5
+            // So probably VeraPDF should've checked for /Alt instead of /ActualText
             CompareAndCheckCompliance(destinationPdf, cmpPdf, false);
         }
 

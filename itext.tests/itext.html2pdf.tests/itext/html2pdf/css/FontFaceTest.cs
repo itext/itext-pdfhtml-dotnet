@@ -29,6 +29,7 @@ using iText.Html2pdf.Resolver.Font;
 using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Layout.Font;
+using iText.Layout.Font.Selectorstrategy;
 using iText.StyledXmlParser.Css.Media;
 using iText.Test;
 using iText.Test.Attributes;
@@ -271,19 +272,22 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void CorrectUrlWithUsedUnicodeRangeTest() {
-            //TODO: update after DEVSIX-2052
-            RunTest("correctUrlWithUsedUnicodeRangeTest");
+            FontProvider fontProvider = new DefaultFontProvider();
+            fontProvider.SetFontSelectorStrategyFactory(new BestMatchFontSelectorStrategy.BestMatchFontSelectorStrategyFactory
+                ());
+            RunTest("correctUrlWithUsedUnicodeRangeTest", fontProvider);
         }
 
         [NUnit.Framework.Test]
         public virtual void CorrectUnicodeRangeSignificantTest() {
-            //TODO: update after DEVSIX-2052
-            RunTest("correctUnicodeRangeSignificantTest");
+            FontProvider fontProvider = new DefaultFontProvider();
+            fontProvider.SetFontSelectorStrategyFactory(new BestMatchFontSelectorStrategy.BestMatchFontSelectorStrategyFactory
+                ());
+            RunTest("correctUnicodeRangeSignificantTest", fontProvider);
         }
 
         [NUnit.Framework.Test]
         public virtual void OverwrittenUnicodeRangeTextInLineTest() {
-            // TODO DEVSIX-2052
             RunTest("overwrittenUnicodeRangeTextInLineTest");
         }
 
@@ -307,19 +311,23 @@ namespace iText.Html2pdf.Css {
             RunTest("unusedFontWithUnicodeRangeTest");
         }
 
-        private void RunTest(String name) {
+        private void RunTest(String name, FontProvider fontProvider) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";
             String cmpPdfPath = sourceFolder + "cmp_" + name + ".pdf";
             String diffPrefix = "diff_" + name + "_";
             System.Console.Out.WriteLine("html: " + UrlUtil.GetNormalizedFileUriString(htmlPath) + "\n");
             ConverterProperties converterProperties = new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription
-                (MediaType.PRINT)).SetFontProvider(new DefaultFontProvider());
+                (MediaType.PRINT)).SetFontProvider(fontProvider);
             HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath), converterProperties);
             NUnit.Framework.Assert.IsFalse(converterProperties.GetFontProvider().GetFontSet().Contains("droid serif"), 
                 "Temporary font was found.");
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, destinationFolder, diffPrefix
                 ));
+        }
+
+        private void RunTest(String name) {
+            RunTest(name, new DefaultFontProvider());
         }
     }
 }

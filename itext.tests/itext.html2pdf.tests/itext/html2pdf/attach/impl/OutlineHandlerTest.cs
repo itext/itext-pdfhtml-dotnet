@@ -23,12 +23,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Commons.Datastructures;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Action;
 using iText.Kernel.Utils;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
@@ -51,7 +53,7 @@ namespace iText.Html2pdf.Attach.Impl {
         public virtual void DefaultDestinationPrefixTest() {
             IDictionary<String, int?> priorityMappings = new Dictionary<String, int?>();
             priorityMappings.Put("p", 1);
-            OutlineHandler outlineHandler = new OutlineHandler().PutAllTagPriorityMappings(priorityMappings);
+            OutlineHandler outlineHandler = new OutlineHandler().PutAllMarksPriorityMappings(priorityMappings);
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetOutlineHandler(outlineHandler
                 ));
             context.Reset(new PdfDocument(new PdfWriter(new MemoryStream())));
@@ -73,7 +75,7 @@ namespace iText.Html2pdf.Attach.Impl {
         public virtual void CustomDestinationPrefixTest() {
             IDictionary<String, int?> priorityMappings = new Dictionary<String, int?>();
             priorityMappings.Put("p", 1);
-            OutlineHandler outlineHandler = new OutlineHandler().PutAllTagPriorityMappings(priorityMappings);
+            OutlineHandler outlineHandler = new OutlineHandler().PutAllMarksPriorityMappings(priorityMappings);
             outlineHandler.SetDestinationNamePrefix("prefix-");
             NUnit.Framework.Assert.AreEqual("prefix-", outlineHandler.GetDestinationNamePrefix());
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetOutlineHandler(outlineHandler
@@ -130,6 +132,71 @@ namespace iText.Html2pdf.Attach.Impl {
                 (outlineHandler));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmpFile, DESTINATION_FOLDER, "diff_capitalHeadingLevelOne"
                 ));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ClassBasedOutlineTest() {
+            String inFile = SOURCE_FOLDER + "htmlForClassBasedOutline.html";
+            String outFile = DESTINATION_FOLDER + "pdfWithClassBasedOutline.pdf";
+            String cmpFile = SOURCE_FOLDER + "cmp_pdfWithClassBasedOutline.pdf";
+            IDictionary<String, int?> priorityMappings = new Dictionary<String, int?>();
+            priorityMappings.Put("heading1", 1);
+            priorityMappings.Put("heading2", 2);
+            OutlineHandler handler = OutlineHandler.CreateHandler(new ClassOutlineMarkExtractor()).PutAllMarksPriorityMappings
+                (priorityMappings);
+            HtmlConverter.ConvertToPdf(new FileInfo(inFile), new FileInfo(outFile), new ConverterProperties().SetOutlineHandler
+                (handler));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmpFile, DESTINATION_FOLDER, "diff_ClassBasedOutline"
+                ));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void OverrideOutlineHandlerTest() {
+            String inFile = SOURCE_FOLDER + "htmlForChangedOutlineHandler.html";
+            String outFile = DESTINATION_FOLDER + "changedOutlineHandlerDoc.pdf";
+            String cmpFile = SOURCE_FOLDER + "cmp_changedOutlineHandlerDoc.pdf";
+            OutlineHandler handler = new OutlineHandlerTest.ChangedOutlineHandler();
+            HtmlConverter.ConvertToPdf(new FileInfo(inFile), new FileInfo(outFile), new ConverterProperties().SetOutlineHandler
+                (handler));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmpFile, DESTINATION_FOLDER, "diff_ChangedOutlineHandler"
+                ));
+        }
+
+        public class ChangedOutlineHandler : OutlineHandler {
+            protected internal override OutlineHandler AddOutlineAndDestToDocument(ITagWorker tagWorker, IElementNode 
+                element, ProcessorContext context) {
+                String markName = markExtractor.GetMark(element);
+                if (null != tagWorker && HasMarkPriorityMapping(markName) && context.GetPdfDocument() != null && "customMark"
+                    .Equals(element.GetAttribute("class"))) {
+                    int level = (int)GetMarkPriorityMapping(markName);
+                    if (null == currentOutline) {
+                        currentOutline = context.GetPdfDocument().GetOutlines(false);
+                    }
+                    PdfOutline parent = currentOutline;
+                    while (!levelsInProcess.IsEmpty() && level <= levelsInProcess.JGetFirst()) {
+                        parent = parent.GetParent();
+                        levelsInProcess.JRemoveFirst();
+                    }
+                    PdfOutline outline = parent.AddOutline(GenerateOutlineName(element));
+                    String destination = GenerateUniqueDestinationName(element);
+                    PdfAction action = PdfAction.CreateGoTo(destination);
+                    outline.AddAction(action);
+                    destinationsInProcess.AddFirst(new Tuple2<String, PdfDictionary>(destination, action.GetPdfObject()));
+                    levelsInProcess.AddFirst(level);
+                    currentOutline = outline;
+                }
+                return this;
+            }
+
+            public ChangedOutlineHandler() {
+                markExtractor = new TagOutlineMarkExtractor();
+                PutMarkPriorityMapping(TagConstants.H1, 1);
+                PutMarkPriorityMapping(TagConstants.H2, 2);
+                PutMarkPriorityMapping(TagConstants.H3, 3);
+                PutMarkPriorityMapping(TagConstants.H4, 4);
+                PutMarkPriorityMapping(TagConstants.H5, 5);
+                PutMarkPriorityMapping(TagConstants.H6, 6);
+            }
         }
     }
 }
