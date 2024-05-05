@@ -72,14 +72,14 @@ namespace iText.Html2pdf.Events {
                 , converterProperties);
             PdfWriter writer = new PdfWriter(pdfStream);
             PdfDocument pdfDocument = new PdfDocument(writer);
-            iText.Kernel.Events.IEventHandler handler = new _IEventHandler_95(elements, footer);
+            iText.Kernel.Events.IEventHandler handler = new _IEventHandler_94(elements, footer);
             pdfDocument.AddEventHandler(PdfDocumentEvent.START_PAGE, handler);
             pdfDocument.AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
             return pdfDocument;
         }
 
-        private sealed class _IEventHandler_95 : iText.Kernel.Events.IEventHandler {
-            public _IEventHandler_95(IList<IElement> elements, IList<IElement> footer) {
+        private sealed class _IEventHandler_94 : iText.Kernel.Events.IEventHandler {
+            public _IEventHandler_94(IList<IElement> elements, IList<IElement> footer) {
                 this.elements = elements;
                 this.footer = footer;
             }

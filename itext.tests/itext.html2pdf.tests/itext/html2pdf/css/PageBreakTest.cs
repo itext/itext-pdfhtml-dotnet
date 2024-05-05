@@ -36,7 +36,6 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css {
     [NUnit.Framework.Category("IntegrationTest")]
     public class PageBreakTest : ExtendedHtmlConversionITextTest {
-        //Member of testing class. Add if it isn't there.
         public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/PageBreakTest/";
 
@@ -166,12 +165,9 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT)]
         public virtual void PageBreakInConstrainedDivTest() {
-            NUnit.Framework.Assert.That(() =>  {
-                /* Test will fail after fix in DEVSIX-2024 */
-                RunTest("pageBreakInConstrainedDivTest");
-            }
-            , NUnit.Framework.Throws.InstanceOf<NotSupportedException>())
-;
+            /* Test will fail after fix in DEVSIX-2024 */
+            NUnit.Framework.Assert.Catch(typeof(NotSupportedException), () => RunTest("pageBreakInConstrainedDivTest")
+                );
         }
 
         [NUnit.Framework.Test]

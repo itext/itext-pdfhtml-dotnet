@@ -326,12 +326,8 @@ namespace iText.Html2pdf.Css.Media.Page {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT)]
         public virtual void TableInsideOfPageMarginNotFittingIntoDedicatedSpace() {
-            NUnit.Framework.Assert.That(() =>  {
-                ConvertToPdfAndCompare("tableInsideOfPageMarginNotFittingIntoDedicatedSpace", sourceFolder, destinationFolder
-                    );
-            }
-            , NUnit.Framework.Throws.InstanceOf<NullReferenceException>())
-;
+            NUnit.Framework.Assert.Catch(typeof(NullReferenceException), () => ConvertToPdfAndCompare("tableInsideOfPageMarginNotFittingIntoDedicatedSpace"
+                , sourceFolder, destinationFolder));
         }
 
         [NUnit.Framework.Test]

@@ -660,17 +660,13 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void WrongPageRuleCssStructureTest() {
-            NUnit.Framework.Assert.That(() =>  {
-                RunTest("wrongPageRuleCssStructureTest");
-            }
-            , NUnit.Framework.Throws.InstanceOf<Exception>())
-;
+            NUnit.Framework.Assert.Catch(typeof(Exception), () => RunTest("wrongPageRuleCssStructureTest"));
         }
 
         [NUnit.Framework.Test]
         public virtual void PageCountTestTableAlignLeft() {
-            NUnit.Framework.Assert.That(() =>  {
-                //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
+            //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
+            NUnit.Framework.Assert.Catch(typeof(AssertionException), () => {
                 String expectedText = "Page 1 of 3";
                 String nameAlignLeft = "htmlWithTableAlignLeft.html";
                 String pdfOutputName = DESTINATION_FOLDER + nameAlignLeft + ".pdf";
@@ -683,14 +679,13 @@ namespace iText.Html2pdf.Css {
                 NUnit.Framework.Assert.IsTrue(textFromPage.Contains(expectedText), "Page doesn't contain text " + expectedText
                     );
             }
-            , NUnit.Framework.Throws.InstanceOf<AssertionException>())
-;
+            );
         }
 
         [NUnit.Framework.Test]
         public virtual void PageCountTestTableFloatLeft() {
-            NUnit.Framework.Assert.That(() =>  {
-                //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
+            //TODO: DEVSIX-1570, SUP-2322. Remove junitExpectedException after the fix.
+            NUnit.Framework.Assert.Catch(typeof(AssertionException), () => {
                 String expectedText = "Page 3 of 3";
                 String nameFloatLeft = "htmlWithTableFloatLeft.html";
                 String pdfOutputName = DESTINATION_FOLDER + nameFloatLeft + ".pdf";
@@ -703,8 +698,7 @@ namespace iText.Html2pdf.Css {
                 NUnit.Framework.Assert.IsTrue(textFromPage.Contains(expectedText), "Page doesn't contain text " + expectedText
                     );
             }
-            , NUnit.Framework.Throws.InstanceOf<AssertionException>())
-;
+            );
         }
 
         private class CustomFlushingTagWorkerFactory : DefaultTagWorkerFactory {

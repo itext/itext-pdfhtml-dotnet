@@ -48,14 +48,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         [NUnit.Framework.Test]
         public virtual void BackgroundColorTest() {
-            IPropertyContainer container = new _BodyHtmlStylesContainer_69();
+            IPropertyContainer container = new _BodyHtmlStylesContainer_68();
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_COLOR, "red");
             BackgroundApplierUtil.ApplyBackground(props, new ProcessorContext(new ConverterProperties()), container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_69 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_69() {
+        private sealed class _BodyHtmlStylesContainer_68 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_68() {
             }
 
             public override void SetProperty(int property, Object value) {
@@ -71,15 +71,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImageTest() {
             String image = "url(rock_texture.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_88(context, image);
+            IPropertyContainer container = new _BodyHtmlStylesContainer_87(context, image);
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, image);
             props.Put(CssConstants.FONT_SIZE, "15pt");
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_88 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_88(ProcessorContext context, String image) {
+        private sealed class _BodyHtmlStylesContainer_87 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_87(ProcessorContext context, String image) {
                 this.context = context;
                 this.image = image;
                 this.innerContext = context;
@@ -118,15 +118,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundInvalidImageTest() {
             String image = "url(img.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_124();
+            IPropertyContainer container = new _BodyHtmlStylesContainer_123();
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, image);
             props.Put(CssConstants.FONT_SIZE, "15pt");
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_124 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_124() {
+        private sealed class _BodyHtmlStylesContainer_123 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_123() {
             }
 
             public override void SetProperty(int property, Object propertyValue) {
@@ -138,7 +138,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImageRepeatTest() {
             String image = "url(rock_texture.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_141();
+            IPropertyContainer container = new _BodyHtmlStylesContainer_140();
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, image);
             props.Put(CssConstants.BACKGROUND_REPEAT, "no-repeat");
@@ -146,8 +146,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_141 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_141() {
+        private sealed class _BodyHtmlStylesContainer_140 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_140() {
             }
 
             public override void SetProperty(int property, Object propertyValue) {
@@ -170,7 +170,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImageInvalidRepeatTest() {
             String image = "url(rock_texture.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_168();
+            IPropertyContainer container = new _BodyHtmlStylesContainer_167();
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, image);
             props.Put(CssConstants.BACKGROUND_REPEAT, "j");
@@ -178,8 +178,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_168 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_168() {
+        private sealed class _BodyHtmlStylesContainer_167 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_167() {
             }
 
             public override void SetProperty(int property, Object propertyValue) {
@@ -202,15 +202,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImagesTest() {
             String images = "url(rock_texture.jpg),url(rock_texture2.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_195(context, images);
+            IPropertyContainer container = new _BodyHtmlStylesContainer_194(context, images);
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, images);
             props.Put(CssConstants.FONT_SIZE, "15pt");
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_195 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_195(ProcessorContext context, String images) {
+        private sealed class _BodyHtmlStylesContainer_194 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_194(ProcessorContext context, String images) {
                 this.context = context;
                 this.images = images;
                 this.innerContext = context;
@@ -249,7 +249,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImagesRepeatTest() {
             String images = "url(rock_texture.jpg),url(rock_texture2.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_229(images);
+            IPropertyContainer container = new _BodyHtmlStylesContainer_228(images);
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, images);
             props.Put(CssConstants.BACKGROUND_REPEAT, "no-repeat");
@@ -257,8 +257,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_229 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_229(String images) {
+        private sealed class _BodyHtmlStylesContainer_228 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_228(String images) {
                 this.images = images;
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
@@ -288,15 +288,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImagesRepeatsTest() {
             String images = "url(rock_texture.jpg),url(rock_texture2.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_258(images);
+            IPropertyContainer container = new _BodyHtmlStylesContainer_257(images);
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, images);
             props.Put(CssConstants.BACKGROUND_REPEAT, "no-repeat,repeat");
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_258 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_258(String images) {
+        private sealed class _BodyHtmlStylesContainer_257 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_257(String images) {
                 this.images = images;
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
@@ -334,15 +334,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundLinearGradientsTest() {
             String gradients = "linear-gradient(red),linear-gradient(green),linear-gradient(blue)";
             String otterFontSize = "15px";
-            IPropertyContainer container = new _BodyHtmlStylesContainer_292(gradients, otterFontSize);
+            IPropertyContainer container = new _BodyHtmlStylesContainer_291(gradients, otterFontSize);
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, gradients);
             props.Put(CssConstants.FONT_SIZE, "15px");
             BackgroundApplierUtil.ApplyBackground(props, new ProcessorContext(new ConverterProperties()), container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_292 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_292(String gradients, String otterFontSize) {
+        private sealed class _BodyHtmlStylesContainer_291 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_291(String gradients, String otterFontSize) {
                 this.gradients = gradients;
                 this.otterFontSize = otterFontSize;
                 this.gradientsArray = CssUtils.SplitStringWithComma(gradients);
@@ -382,15 +382,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundLinearGradientTest() {
             String otterGradient = "linear-gradient(red)";
             String otterFontSize = "15px";
-            IPropertyContainer container = new _BodyHtmlStylesContainer_329(otterGradient, otterFontSize);
+            IPropertyContainer container = new _BodyHtmlStylesContainer_328(otterGradient, otterFontSize);
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, otterGradient);
             props.Put(CssConstants.FONT_SIZE, "15px");
             BackgroundApplierUtil.ApplyBackground(props, new ProcessorContext(new ConverterProperties()), container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_329 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_329(String otterGradient, String otterFontSize) {
+        private sealed class _BodyHtmlStylesContainer_328 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_328(String otterGradient, String otterFontSize) {
                 this.otterGradient = otterGradient;
                 this.otterFontSize = otterFontSize;
                 this.gradient = otterGradient;
@@ -430,7 +430,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImagePositionTest() {
             String image = "url(rock_texture.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_365();
+            IPropertyContainer container = new _BodyHtmlStylesContainer_364();
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, image);
             props.Put(CssConstants.BACKGROUND_POSITION_X, "right");
@@ -439,8 +439,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_365 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_365() {
+        private sealed class _BodyHtmlStylesContainer_364 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_364() {
             }
 
             public override void SetProperty(int property, Object propertyValue) {
@@ -463,7 +463,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImageInvalidPositionTest() {
             String image = "url(rock_texture.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_395();
+            IPropertyContainer container = new _BodyHtmlStylesContainer_394();
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, image);
             props.Put(CssConstants.BACKGROUND_POSITION_X, "j");
@@ -471,8 +471,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_395 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_395() {
+        private sealed class _BodyHtmlStylesContainer_394 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_394() {
             }
 
             public override void SetProperty(int property, Object propertyValue) {
@@ -495,7 +495,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImageEmptyPositionTest() {
             String image = "url(rock_texture.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_423();
+            IPropertyContainer container = new _BodyHtmlStylesContainer_422();
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, image);
             props.Put(CssConstants.BACKGROUND_POSITION_X, "");
@@ -504,8 +504,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_423 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_423() {
+        private sealed class _BodyHtmlStylesContainer_422 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_422() {
             }
 
             public override void SetProperty(int property, Object propertyValue) {
@@ -528,7 +528,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImagesLeftBottomPositionTest() {
             String images = "url(rock_texture.jpg),url(rock_texture2.jpg),url(rock_texture.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_452(images);
+            IPropertyContainer container = new _BodyHtmlStylesContainer_451(images);
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, images);
             props.Put(CssConstants.BACKGROUND_POSITION_X, "left");
@@ -537,8 +537,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_452 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_452(String images) {
+        private sealed class _BodyHtmlStylesContainer_451 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_451(String images) {
                 this.images = images;
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
@@ -566,7 +566,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImagesRightTopPositionTest() {
             String images = "url(rock_texture.jpg),url(rock_texture2.jpg),url(rock_texture.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_482(images);
+            IPropertyContainer container = new _BodyHtmlStylesContainer_481(images);
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, images);
             props.Put(CssConstants.BACKGROUND_POSITION_X, "right 30pt");
@@ -575,8 +575,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_482 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_482(String images) {
+        private sealed class _BodyHtmlStylesContainer_481 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_481(String images) {
                 this.images = images;
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
@@ -604,7 +604,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImagesCenterCenterPositionTest() {
             String images = "url(rock_texture.jpg),url(rock_texture2.jpg),url(rock_texture.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_512(images);
+            IPropertyContainer container = new _BodyHtmlStylesContainer_511(images);
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, images);
             props.Put(CssConstants.BACKGROUND_POSITION_X, "center");
@@ -613,8 +613,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_512 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_512(String images) {
+        private sealed class _BodyHtmlStylesContainer_511 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_511(String images) {
                 this.images = images;
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
@@ -642,7 +642,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImagesPositionMissedTest() {
             String images = "url(rock_texture.jpg),url(rock_texture2.jpg),url(rock_texture.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_542(images);
+            IPropertyContainer container = new _BodyHtmlStylesContainer_541(images);
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, images);
             props.Put(CssConstants.BACKGROUND_POSITION_X, "left, center");
@@ -651,8 +651,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_542 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_542(String images) {
+        private sealed class _BodyHtmlStylesContainer_541 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_541(String images) {
                 this.images = images;
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
@@ -683,7 +683,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundImagesPositionsTest() {
             String images = "url(rock_texture.jpg),url(rock_texture2.jpg),url(rock_texture.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_579(images);
+            IPropertyContainer container = new _BodyHtmlStylesContainer_578(images);
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, images);
             props.Put(CssConstants.BACKGROUND_POSITION_X, "left,left,right");
@@ -692,8 +692,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_579 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_579(String images) {
+        private sealed class _BodyHtmlStylesContainer_578 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_578(String images) {
                 this.images = images;
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
@@ -723,7 +723,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundClipOriginImageTest() {
             String image = "url(rock_texture.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_613();
+            IPropertyContainer container = new _BodyHtmlStylesContainer_612();
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, image);
             props.Put(CssConstants.BACKGROUND_CLIP, CssConstants.CONTENT_BOX);
@@ -731,8 +731,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_613 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_613() {
+        private sealed class _BodyHtmlStylesContainer_612 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_612() {
             }
 
             public override void SetProperty(int property, Object propertyValue) {
@@ -752,15 +752,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         [NUnit.Framework.Test]
         public virtual void BackgroundClipColorTest() {
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_639();
+            IPropertyContainer container = new _BodyHtmlStylesContainer_638();
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_COLOR, "blue");
             props.Put(CssConstants.BACKGROUND_CLIP, CssConstants.CONTENT_BOX);
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_639 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_639() {
+        private sealed class _BodyHtmlStylesContainer_638 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_638() {
             }
 
             public override void SetProperty(int property, Object propertyValue) {
@@ -775,7 +775,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void BackgroundClipOriginImagesTest() {
             String images = "url(rock_texture.jpg),url(rock_texture2.jpg)";
             ProcessorContext context = new ProcessorContext(new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            IPropertyContainer container = new _BodyHtmlStylesContainer_659(images);
+            IPropertyContainer container = new _BodyHtmlStylesContainer_658(images);
             IDictionary<String, String> props = new Dictionary<String, String>();
             props.Put(CssConstants.BACKGROUND_IMAGE, images);
             props.Put(CssConstants.BACKGROUND_CLIP, CssConstants.CONTENT_BOX);
@@ -783,8 +783,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             BackgroundApplierUtil.ApplyBackground(props, context, container);
         }
 
-        private sealed class _BodyHtmlStylesContainer_659 : BodyHtmlStylesContainer {
-            public _BodyHtmlStylesContainer_659(String images) {
+        private sealed class _BodyHtmlStylesContainer_658 : BodyHtmlStylesContainer {
+            public _BodyHtmlStylesContainer_658(String images) {
                 this.images = images;
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
