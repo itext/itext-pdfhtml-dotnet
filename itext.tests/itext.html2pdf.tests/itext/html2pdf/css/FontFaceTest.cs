@@ -311,6 +311,12 @@ namespace iText.Html2pdf.Css {
             RunTest("unusedFontWithUnicodeRangeTest");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void BolderAndLighterFontWeightTest() {
+            //TODO DEVSIX-2114: Support bolder / Lighter font weight
+            RunTest("bolderLighterFontWeightTest");
+        }
+
         private void RunTest(String name, FontProvider fontProvider) {
             String htmlPath = sourceFolder + name + ".html";
             String pdfPath = destinationFolder + name + ".pdf";
