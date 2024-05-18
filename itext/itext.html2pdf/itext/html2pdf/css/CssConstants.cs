@@ -133,6 +133,22 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant GRID.</summary>
         public const String GRID = "grid";
 
+        public const String GRID_COLUMN_END = "grid-column-end";
+
+        public const String GRID_COLUMN_START = "grid-column-start";
+
+        public const String GRID_ROW_END = "grid-row-end";
+
+        public const String GRID_ROW_START = "grid-row-start";
+
+        public const String GRID_TEMPLATE_COLUMNS = "grid-template-columns";
+
+        public const String GRID_TEMPLATE_ROWS = "grid-template-rows";
+
+        public const String GRID_AUTO_ROWS = "grid-auto-rows";
+
+        public const String GRID_AUTO_COLUMNS = "grid-auto-columns";
+
         /// <summary>The Constant INLINE.</summary>
         public const String INLINE = "inline";
 

@@ -56,8 +56,20 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// </summary>
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
-        public DivTagWorker(IElementNode element, ProcessorContext context) {
-            div = new Div();
+        public DivTagWorker(IElementNode element, ProcessorContext context)
+            : this(element, context, new Div()) {
+        }
+
+        /// <summary>
+        /// Creates a new
+        /// <see cref="DivTagWorker"/>
+        /// instance.
+        /// </summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
+        /// <param name="container">div element container</param>
+        protected internal DivTagWorker(IElementNode element, ProcessorContext context, Div container) {
+            div = container;
             IDictionary<String, String> styles = element.GetStyles();
             if (styles != null && (styles.ContainsKey(CssConstants.COLUMN_COUNT) || styles.ContainsKey(CssConstants.COLUMN_WIDTH
                 ))) {

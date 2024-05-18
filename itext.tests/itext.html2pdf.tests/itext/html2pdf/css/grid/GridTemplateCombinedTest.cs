@@ -22,6 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Layout.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Grid {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -45,11 +47,13 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateCombinedGridColAndRowGapTest() {
+            // TODO DEVSIX-8126
             RunTest("template-combined-grid-row-col-gap");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateCombinedGridStartEndTest() {
+            // TODO DEVSIX-8126
             RunTest("template-combined-grid-start-end");
         }
 
@@ -60,16 +64,20 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateCombinedMinMaxTest() {
+            // TODO DEVSIX-8324
             RunTest("template-combined-minmax");
         }
 
         [NUnit.Framework.Test]
+        // TODO DEVSIX-8324
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void TemplateCombinedMixedTest() {
             RunTest("template-combined-mixed");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateCombinedMultiPageTest() {
+            // TODO DEVSIX-8331
             RunTest("template-combined-multipage");
         }
 
@@ -80,6 +88,7 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateCombinedRepeatMinMaxTest() {
+            // TODO DEVSIX-8324
             RunTest("template-combined-repeat-minmax");
         }
 
@@ -100,7 +109,7 @@ namespace iText.Html2pdf.Css.Grid {
 
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
-                (SOURCE_FOLDER));
+                (SOURCE_FOLDER).SetCssGridEnabled(true));
         }
     }
 }

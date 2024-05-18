@@ -106,6 +106,11 @@ namespace iText.Html2pdf.Attach {
         /// <summary>enables continuous container for all elements.</summary>
         private bool continuousContainerEnabled;
 
+        /// <summary>enables css grid processing for all elements.</summary>
+        private bool cssGridEnabled = 
+                //TODO DEVSIX-8335 remove this property
+                false;
+
         /// <summary>
         /// Instantiates a new
         /// <see cref="ProcessorContext"/>
@@ -156,6 +161,7 @@ namespace iText.Html2pdf.Attach {
             pdfAConformanceLevelFromProperties = converterProperties.GetConformanceLevel();
             processingInlineSvg = false;
             continuousContainerEnabled = converterProperties.IsContinuousContainerEnabled();
+            cssGridEnabled = converterProperties.IsCssGridEnabled();
         }
 
         /// <summary>Gets maximum number of layouts.</summary>
@@ -378,6 +384,13 @@ namespace iText.Html2pdf.Attach {
         /// <returns>true if enabled, false otherwise</returns>
         public virtual bool IsContinuousContainerEnabled() {
             return continuousContainerEnabled;
+        }
+
+        /// <summary>check if css grid support is enabled.</summary>
+        /// <returns>true if enabled, false otherwise</returns>
+        public virtual bool IsCssGridEnabled() {
+            //TODO DEVSIX-8335 remove this method
+            return cssGridEnabled;
         }
     }
 }

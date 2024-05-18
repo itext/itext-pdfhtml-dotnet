@@ -22,6 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Layout.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Grid {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -44,32 +46,43 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
+        public virtual void AutoRowFixedTest() {
+            RunTest("auto-cols-fixed");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void TemplateColumnStartEndTest() {
+            // TODO DEVSIX-8323
             RunTest("template-cols-column-start-end");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnWidthUnitsTest() {
+            // TODO DEVSIX-8324
             RunTest("template-cols-different-width-units");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnFitContentTest() {
+            // TODO DEVSIX-8324
             RunTest("template-cols-fit-content");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnFitContentAutoTest() {
+            // TODO DEVSIX-8324
             RunTest("template-cols-fit-content-auto");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnFrTest() {
+            // TODO DEVSIX-8324
             RunTest("template-cols-fr");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnGridGapTest() {
+            // TODO DEVSIX-8126
             RunTest("template-cols-grid-gap");
         }
 
@@ -85,16 +98,20 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnMinMaxTest() {
+            // TODO DEVSIX-8324
             RunTest("template-cols-minmax");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnMixedTest() {
+            // TODO DEVSIX-8324
             RunTest("template-cols-mixed");
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void TemplateColumnMultiPageTest() {
+            // TODO DEVSIX-8324
             RunTest("template-cols-enormous-size");
         }
 
@@ -110,16 +127,19 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnRepeatTest() {
+            // TODO DEVSIX-8324
             RunTest("template-cols-repeat");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnRepeatMinMaxTest() {
+            // TODO DEVSIX-8324
             RunTest("template-cols-repeat-minmax");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnColumnGapTest() {
+            // TODO DEVSIX-8126
             RunTest("template-cols-column-gap");
         }
 
@@ -128,9 +148,14 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("template-cols-without-other-props");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void TemplateColumnBasicTest2() {
+            RunTest("template-cols-without-other-props-2");
+        }
+
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
-                (SOURCE_FOLDER));
+                (SOURCE_FOLDER).SetCssGridEnabled(true));
         }
     }
 }

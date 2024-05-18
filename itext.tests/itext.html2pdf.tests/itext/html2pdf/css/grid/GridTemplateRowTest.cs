@@ -44,17 +44,24 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
+        public virtual void AutoRowFixedTest() {
+            RunTest("auto-rows-fixed");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void TemplateRowBordersTest() {
             RunTest("template-rows-borders");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowStartEndTest() {
+            // TODO DEVSIX-8126
             RunTest("template-rows-start-end");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowWidthUnitsTest() {
+            // TODO DEVSIX-8324
             RunTest("template-rows-different-width-units");
         }
 
@@ -70,11 +77,13 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowFrTest() {
+            // TODO DEVSIX-8324
             RunTest("template-rows-fr");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowGridGapTest() {
+            // TODO DEVSIX-8126
             RunTest("template-rows-grid-gap");
         }
 
@@ -90,16 +99,19 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowMinMaxTest() {
+            // TODO DEVSIX-8324
             RunTest("template-rows-minmax");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowMixedTest() {
+            // TODO DEVSIX-8324
             RunTest("template-rows-mixed");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowMultiPageTest() {
+            // TODO DEVSIX-8331
             RunTest("template-rows-multipage");
         }
 
@@ -115,16 +127,19 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowRepeatTest() {
+            // TODO DEVSIX-8324
             RunTest("template-rows-repeat");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowRepeatMinMaxTest() {
+            // TODO DEVSIX-8324
             RunTest("template-rows-repeat-minmax");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowRowGapTest() {
+            // TODO DEVSIX-8126
             RunTest("template-rows-row-gap");
         }
 
@@ -135,7 +150,7 @@ namespace iText.Html2pdf.Css.Grid {
 
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
-                (SOURCE_FOLDER));
+                (SOURCE_FOLDER).SetCssGridEnabled(true));
         }
     }
 }
