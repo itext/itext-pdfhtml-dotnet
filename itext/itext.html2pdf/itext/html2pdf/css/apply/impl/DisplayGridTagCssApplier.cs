@@ -58,6 +58,16 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 if (autoColumnsUnit != null) {
                     container.SetProperty(Property.GRID_AUTO_COLUMNS, autoColumnsUnit);
                 }
+                UnitValue columnGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.COLUMN_GAP), 
+                    emValue, remValue);
+                if (columnGap != null) {
+                    container.SetProperty(Property.COLUMN_GAP, columnGap.GetValue());
+                }
+                UnitValue rowGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.ROW_GAP), emValue
+                    , remValue);
+                if (rowGap != null) {
+                    container.SetProperty(Property.ROW_GAP, rowGap.GetValue());
+                }
             }
             MultiColumnCssApplierUtil.ApplyMultiCol(stylesContainer.GetStyles(), context, container);
         }

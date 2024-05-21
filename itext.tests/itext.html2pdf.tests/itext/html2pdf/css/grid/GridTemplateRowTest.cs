@@ -55,7 +55,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowStartEndTest() {
-            // TODO DEVSIX-8126
             RunTest("template-rows-start-end");
         }
 
@@ -83,7 +82,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowGridGapTest() {
-            // TODO DEVSIX-8126
             RunTest("template-rows-grid-gap");
         }
 
@@ -139,7 +137,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateRowRowGapTest() {
-            // TODO DEVSIX-8126
             RunTest("template-rows-row-gap");
         }
 

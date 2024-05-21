@@ -82,7 +82,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnGridGapTest() {
-            // TODO DEVSIX-8126
             RunTest("template-cols-grid-gap");
         }
 
@@ -139,7 +138,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnColumnGapTest() {
-            // TODO DEVSIX-8126
             RunTest("template-cols-column-gap");
         }
 

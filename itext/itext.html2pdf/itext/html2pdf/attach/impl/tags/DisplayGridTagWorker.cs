@@ -31,6 +31,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <c>display: grid</c>.
     /// </summary>
     public class DisplayGridTagWorker : DivTagWorker {
+        /// <summary>
+        /// Creates a new
+        /// <see cref="DisplayGridTagWorker"/>
+        /// instance.
+        /// </summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public DisplayGridTagWorker(IElementNode element, ProcessorContext context)
             : base(element, context, new GridContainer()) {
         }

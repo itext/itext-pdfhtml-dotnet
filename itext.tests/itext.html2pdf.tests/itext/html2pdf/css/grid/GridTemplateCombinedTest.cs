@@ -47,13 +47,11 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateCombinedGridColAndRowGapTest() {
-            // TODO DEVSIX-8126
             RunTest("template-combined-grid-row-col-gap");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateCombinedGridStartEndTest() {
-            // TODO DEVSIX-8126
             RunTest("template-combined-grid-start-end");
         }
 
