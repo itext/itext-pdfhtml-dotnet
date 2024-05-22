@@ -155,6 +155,8 @@ namespace iText.Html2pdf.Logs {
 
         public const String IMMEDIATE_FLUSH_DISABLED = "Setting createAcroForm disables immediateFlush property";
 
+        public const String GRID_TEMPLATE_AREAS_IS_INVALID = "grid-template-areas property is invalid. " + "The result is nondeterministic";
+
         private Html2PdfLogMessageConstant() {
         }
         //Private constructor will prevent the instantiation of this class directly

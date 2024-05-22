@@ -141,6 +141,8 @@ namespace iText.Html2pdf.Css {
 
         public const String GRID_ROW_START = "grid-row-start";
 
+        public const String GRID_TEMPLATE_AREAS = "grid-template-areas";
+
         public const String GRID_TEMPLATE_COLUMNS = "grid-template-columns";
 
         public const String GRID_TEMPLATE_ROWS = "grid-template-rows";
@@ -148,6 +150,8 @@ namespace iText.Html2pdf.Css {
         public const String GRID_AUTO_ROWS = "grid-auto-rows";
 
         public const String GRID_AUTO_COLUMNS = "grid-auto-columns";
+
+        public const String GRID_AREA = "grid-area";
 
         /// <summary>The Constant INLINE.</summary>
         public const String INLINE = "inline";

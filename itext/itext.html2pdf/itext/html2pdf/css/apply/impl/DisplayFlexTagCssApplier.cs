@@ -44,7 +44,6 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                 container.DeleteOwnProperty(Property.OVERFLOW_X);
                 container.DeleteOwnProperty(Property.OVERFLOW_Y);
             }
-            MultiColumnCssApplierUtil.ApplyMultiCol(stylesContainer.GetStyles(), context, container);
         }
     }
 }

@@ -23,10 +23,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
-using iText.Html2pdf.Css;
+using iText.Html2pdf.Css.Apply.Util;
 using iText.Layout;
-using iText.Layout.Properties;
-using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
@@ -42,50 +40,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             IPropertyContainer container = tagWorker.GetElementResult();
             if (container != null) {
                 IDictionary<String, String> cssProps = stylesContainer.GetStyles();
-                float emValue = CssDimensionParsingUtils.ParseAbsoluteFontSize(cssProps.Get(CssConstants.FONT_SIZE));
-                float remValue = context.GetCssContext().GetRootFontSize();
-                String templateColumnsStr = cssProps.Get(CssConstants.GRID_TEMPLATE_COLUMNS);
-                ParseAndSetTemplate(templateColumnsStr, container, Property.GRID_TEMPLATE_COLUMNS, emValue, remValue);
-                String templateRowsStr = cssProps.Get(CssConstants.GRID_TEMPLATE_ROWS);
-                ParseAndSetTemplate(templateRowsStr, container, Property.GRID_TEMPLATE_ROWS, emValue, remValue);
-                String autoRows = cssProps.Get(CssConstants.GRID_AUTO_ROWS);
-                UnitValue autoRowsUnit = CssDimensionParsingUtils.ParseLengthValueToPt(autoRows, emValue, remValue);
-                if (autoRowsUnit != null) {
-                    container.SetProperty(Property.GRID_AUTO_ROWS, autoRowsUnit);
-                }
-                String autoColumns = cssProps.Get(CssConstants.GRID_AUTO_COLUMNS);
-                UnitValue autoColumnsUnit = CssDimensionParsingUtils.ParseLengthValueToPt(autoColumns, emValue, remValue);
-                if (autoColumnsUnit != null) {
-                    container.SetProperty(Property.GRID_AUTO_COLUMNS, autoColumnsUnit);
-                }
-                UnitValue columnGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.COLUMN_GAP), 
-                    emValue, remValue);
-                if (columnGap != null) {
-                    container.SetProperty(Property.COLUMN_GAP, columnGap.GetValue());
-                }
-                UnitValue rowGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.ROW_GAP), emValue
-                    , remValue);
-                if (rowGap != null) {
-                    container.SetProperty(Property.ROW_GAP, rowGap.GetValue());
-                }
-            }
-            MultiColumnCssApplierUtil.ApplyMultiCol(stylesContainer.GetStyles(), context, container);
-        }
-
-        private static void ParseAndSetTemplate(String templateStr, IPropertyContainer container, int property, float
-             emValue, float remValue) {
-            if (templateStr != null) {
-                IList<String> templateStrArray = CssUtils.ExtractShorthandProperties(templateStr)[0];
-                IList<UnitValue> templateResult = new List<UnitValue>();
-                foreach (String s in templateStrArray) {
-                    UnitValue trackUnit = CssDimensionParsingUtils.ParseLengthValueToPt(s, emValue, remValue);
-                    if (trackUnit != null) {
-                        templateResult.Add(trackUnit);
-                    }
-                }
-                if (!templateResult.IsEmpty()) {
-                    container.SetProperty(property, templateResult);
-                }
+                GridApplierUtil.ApplyGridContainerProperties(cssProps, context, container);
             }
         }
     }

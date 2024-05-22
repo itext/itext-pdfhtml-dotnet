@@ -21,39 +21,287 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
+using iText.Commons;
+using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
+using iText.Html2pdf.Logs;
 using iText.Layout;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Util;
+using iText.StyledXmlParser.Node;
+using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply css grid properties and styles.</summary>
     public sealed class GridApplierUtil {
+        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.GridApplierUtil
+            ));
+
+        private static readonly IDictionary<String, GridApplierUtil.NamedAreas> namedAreasCache = new ConcurrentDictionary
+            <String, GridApplierUtil.NamedAreas>();
+
+        private const int NAMED_AREAS_CACHE_CAPACITY = 10;
+
+        /// <summary>Property map which maps property order in grid-area css prop to layout property</summary>
+        private static readonly IDictionary<int, int?> propsMap = new Dictionary<int, int?>();
+
+        static GridApplierUtil() {
+            propsMap.Put(0, Property.GRID_ROW_START);
+            propsMap.Put(1, Property.GRID_COLUMN_START);
+            propsMap.Put(2, Property.GRID_ROW_END);
+            propsMap.Put(3, Property.GRID_COLUMN_END);
+        }
+
         private GridApplierUtil() {
         }
 
         // empty constructor
         /// <summary>Applies grid properties to an element.</summary>
         /// <param name="cssProps">the CSS properties</param>
+        /// <param name="stylesContainer">the styles container</param>
         /// <param name="element">the element</param>
-        public static void ApplyGridItemProperties(IDictionary<String, String> cssProps, IPropertyContainer element
-            ) {
-            int? columnStart = CssDimensionParsingUtils.ParseInteger(cssProps.Get(CssConstants.GRID_COLUMN_START));
-            if (columnStart != null) {
-                element.SetProperty(Property.GRID_COLUMN_START, columnStart);
+        public static void ApplyGridItemProperties(IDictionary<String, String> cssProps, IStylesContainer stylesContainer
+            , IPropertyContainer element) {
+            if (!(stylesContainer is JsoupElementNode) || !(((JsoupElementNode)stylesContainer).ParentNode() is JsoupElementNode
+                )) {
+                return;
             }
-            int? columnEnd = CssDimensionParsingUtils.ParseInteger(cssProps.Get(CssConstants.GRID_COLUMN_END));
-            if (columnEnd != null) {
-                element.SetProperty(Property.GRID_COLUMN_END, columnEnd);
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)((JsoupElementNode)stylesContainer).ParentNode
+                ()).GetStyles();
+            if (!CssConstants.GRID.Equals(parentStyles.Get(CssConstants.DISPLAY))) {
+                // Not a grid - return
+                return;
             }
-            int? rowStart = CssDimensionParsingUtils.ParseInteger(cssProps.Get(CssConstants.GRID_ROW_START));
-            if (rowStart != null) {
-                element.SetProperty(Property.GRID_ROW_START, rowStart);
+            // Let's parse grid-template-areas here on child level as we need it here
+            String gridTemplateAreas = parentStyles.Get(CssConstants.GRID_TEMPLATE_AREAS);
+            GridApplierUtil.NamedAreas namedAreas = null;
+            if (gridTemplateAreas != null && !CommonCssConstants.NONE.Equals(gridTemplateAreas)) {
+                namedAreas = ParseGridTemplateAreas(gridTemplateAreas);
             }
-            int? rowEnd = CssDimensionParsingUtils.ParseInteger(cssProps.Get(CssConstants.GRID_ROW_END));
-            if (rowEnd != null) {
-                element.SetProperty(Property.GRID_ROW_END, rowEnd);
+            foreach (KeyValuePair<String, String> entry in cssProps) {
+                if (CssConstants.GRID_AREA.Equals(entry.Key)) {
+                    String gridArea = entry.Value;
+                    String[] gridAreaParts = iText.Commons.Utils.StringUtil.Split(gridArea, "/");
+                    for (int i = 0; i < gridAreaParts.Length; ++i) {
+                        String part = gridAreaParts[i].Trim();
+                        if (CommonCssConstants.AUTO.Equals(part)) {
+                            // We override already set value if any
+                            element.DeleteOwnProperty(propsMap.Get(i).Value);
+                            continue;
+                        }
+                        int? partInt = CssDimensionParsingUtils.ParseInteger(part);
+                        if (partInt != null) {
+                            element.SetProperty(propsMap.Get(i).Value, partInt);
+                        }
+                        else {
+                            if (namedAreas != null && i == 0) {
+                                // We are interested in the 1st element in grid area for now
+                                // so let's even break immediately
+                                namedAreas.SetPlaceToElement(part, element);
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (CssConstants.GRID_COLUMN_START.Equals(entry.Key)) {
+                    int? columnStart = CssDimensionParsingUtils.ParseInteger(entry.Value);
+                    if (columnStart != null) {
+                        element.SetProperty(Property.GRID_COLUMN_START, columnStart);
+                    }
+                }
+                if (CssConstants.GRID_COLUMN_END.Equals(entry.Key)) {
+                    int? columnStart = CssDimensionParsingUtils.ParseInteger(entry.Value);
+                    if (columnStart != null) {
+                        element.SetProperty(Property.GRID_COLUMN_END, columnStart);
+                    }
+                }
+                if (CssConstants.GRID_ROW_START.Equals(entry.Key)) {
+                    int? columnStart = CssDimensionParsingUtils.ParseInteger(entry.Value);
+                    if (columnStart != null) {
+                        element.SetProperty(Property.GRID_ROW_START, columnStart);
+                    }
+                }
+                if (CssConstants.GRID_ROW_END.Equals(entry.Key)) {
+                    int? columnStart = CssDimensionParsingUtils.ParseInteger(entry.Value);
+                    if (columnStart != null) {
+                        element.SetProperty(Property.GRID_ROW_END, columnStart);
+                    }
+                }
+            }
+        }
+
+        /// <summary>Applies properties to a grid container.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element</param>
+        public static void ApplyGridContainerProperties(IDictionary<String, String> cssProps, ProcessorContext context
+            , IPropertyContainer element) {
+            float emValue = CssDimensionParsingUtils.ParseAbsoluteFontSize(cssProps.Get(CommonCssConstants.FONT_SIZE));
+            float remValue = context.GetCssContext().GetRootFontSize();
+            String templateColumnsStr = cssProps.Get(CssConstants.GRID_TEMPLATE_COLUMNS);
+            ParseAndSetTemplate(templateColumnsStr, element, Property.GRID_TEMPLATE_COLUMNS, emValue, remValue);
+            String templateRowsStr = cssProps.Get(CssConstants.GRID_TEMPLATE_ROWS);
+            ParseAndSetTemplate(templateRowsStr, element, Property.GRID_TEMPLATE_ROWS, emValue, remValue);
+            String autoRows = cssProps.Get(CssConstants.GRID_AUTO_ROWS);
+            UnitValue autoRowsUnit = CssDimensionParsingUtils.ParseLengthValueToPt(autoRows, emValue, remValue);
+            if (autoRowsUnit != null) {
+                element.SetProperty(Property.GRID_AUTO_ROWS, autoRowsUnit);
+            }
+            String autoColumns = cssProps.Get(CssConstants.GRID_AUTO_COLUMNS);
+            UnitValue autoColumnsUnit = CssDimensionParsingUtils.ParseLengthValueToPt(autoColumns, emValue, remValue);
+            if (autoColumnsUnit != null) {
+                element.SetProperty(Property.GRID_AUTO_COLUMNS, autoColumnsUnit);
+            }
+            UnitValue columnGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CommonCssConstants.COLUMN_GAP
+                ), emValue, remValue);
+            if (columnGap != null) {
+                element.SetProperty(Property.COLUMN_GAP, columnGap.GetValue());
+            }
+            UnitValue rowGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CommonCssConstants.ROW_GAP), 
+                emValue, remValue);
+            if (rowGap != null) {
+                element.SetProperty(Property.ROW_GAP, rowGap.GetValue());
+            }
+        }
+
+        private static void ParseAndSetTemplate(String templateStr, IPropertyContainer container, int property, float
+             emValue, float remValue) {
+            if (templateStr != null) {
+                IList<String> templateStrArray = CssUtils.ExtractShorthandProperties(templateStr)[0];
+                IList<UnitValue> templateResult = new List<UnitValue>();
+                foreach (String s in templateStrArray) {
+                    UnitValue trackUnit = CssDimensionParsingUtils.ParseLengthValueToPt(s, emValue, remValue);
+                    if (trackUnit != null) {
+                        templateResult.Add(trackUnit);
+                    }
+                }
+                if (!templateResult.IsEmpty()) {
+                    container.SetProperty(property, templateResult);
+                }
+            }
+        }
+
+        private static GridApplierUtil.NamedAreas ParseGridTemplateAreas(String templateAreas) {
+            GridApplierUtil.NamedAreas res = namedAreasCache.Get(templateAreas);
+            if (res != null) {
+                return res;
+            }
+            res = new GridApplierUtil.NamedAreas();
+            String[] rows = iText.Commons.Utils.StringUtil.Split(templateAreas, "[\\\"|']");
+            int rowIdx = 0;
+            foreach (String row in rows) {
+                String rowTrimmed = row.Trim();
+                if (String.IsNullOrEmpty(rowTrimmed)) {
+                    continue;
+                }
+                ++rowIdx;
+                int columnIdx = 0;
+                String[] names = iText.Commons.Utils.StringUtil.Split(rowTrimmed, "\\s+");
+                foreach (String name in names) {
+                    if (String.IsNullOrEmpty(name)) {
+                        continue;
+                    }
+                    ++columnIdx;
+                    res.AddName(name, rowIdx, columnIdx);
+                }
+            }
+            if (namedAreasCache.Count >= NAMED_AREAS_CACHE_CAPACITY) {
+                namedAreasCache.Clear();
+            }
+            namedAreasCache.Put(templateAreas, res);
+            return res;
+        }
+
+        private sealed class NamedAreas {
+            private const String DOT_PLACEHOLDER = ".";
+
+            private readonly IDictionary<String, GridApplierUtil.Placement> areas = new Dictionary<String, GridApplierUtil.Placement
+                >();
+
+            internal NamedAreas() {
+            }
+
+            // Empty constructor
+            public void AddName(String name, int row, int column) {
+                // It has a special meaning saying this area is not named and grid-template-areas doesn't work for it
+                if (DOT_PLACEHOLDER.Equals(name)) {
+                    return;
+                }
+                GridApplierUtil.Placement placement = areas.Get(name);
+                if (placement == null) {
+                    areas.Put(name, new GridApplierUtil.Placement(row, row, column, column));
+                }
+                else {
+                    placement.IncreaseSpansTill(row, column);
+                }
+            }
+
+            public void SetPlaceToElement(String name, IPropertyContainer element) {
+                GridApplierUtil.Placement placement = areas.Get(name);
+                if (placement == null) {
+                    return;
+                }
+                element.SetProperty(Property.GRID_ROW_START, placement.GetRowStart());
+                element.SetProperty(Property.GRID_ROW_END, placement.GetRowEnd() + 1);
+                element.SetProperty(Property.GRID_COLUMN_START, placement.GetColumnStart());
+                element.SetProperty(Property.GRID_COLUMN_END, placement.GetColumnEnd() + 1);
+            }
+        }
+
+        private sealed class Placement {
+            // 1-based indexes.
+            private int rowStart;
+
+            private int rowEnd;
+
+            private int columnStart;
+
+            private int columnEnd;
+
+            public Placement(int rowStart, int rowEnd, int columnStart, int columnEnd) {
+                this.rowStart = rowStart;
+                this.rowEnd = rowEnd;
+                this.columnStart = columnStart;
+                this.columnEnd = columnEnd;
+            }
+
+            public void IncreaseSpansTill(int row, int column) {
+                bool valid = false;
+                if (row == rowEnd + 1) {
+                    valid = column == columnEnd;
+                }
+                else {
+                    if (column == columnEnd + 1) {
+                        valid = row == rowEnd;
+                    }
+                }
+                // valid stays false
+                if (!valid) {
+                    LOGGER.LogError(Html2PdfLogMessageConstant.GRID_TEMPLATE_AREAS_IS_INVALID);
+                    return;
+                }
+                rowEnd = row;
+                columnEnd = column;
+            }
+
+            public int GetRowStart() {
+                return rowStart;
+            }
+
+            public int GetRowEnd() {
+                return rowEnd;
+            }
+
+            public int GetColumnStart() {
+                return columnStart;
+            }
+
+            public int GetColumnEnd() {
+                return columnEnd;
             }
         }
     }
