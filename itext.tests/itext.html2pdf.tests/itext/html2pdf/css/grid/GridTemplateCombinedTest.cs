@@ -22,8 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Layout.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Grid {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -67,9 +65,8 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
-        // TODO DEVSIX-8324
-        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void TemplateCombinedMixedTest() {
+            // TODO DEVSIX-8324
             RunTest("template-combined-mixed");
         }
 

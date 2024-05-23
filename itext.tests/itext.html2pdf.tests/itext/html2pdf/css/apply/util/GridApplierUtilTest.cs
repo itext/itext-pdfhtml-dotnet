@@ -89,26 +89,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
-        public virtual void ApplyGridContainerPropertiesTest() {
-            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
-            cssProps.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "100px 100px");
-            cssProps.Put(CssConstants.GRID_TEMPLATE_ROWS, "100pt 100pt");
-            IElement element = new Div();
-            GridApplierUtil.ApplyGridContainerProperties(cssProps, new ProcessorContext(new ConverterProperties()), element
-                );
-            IList<UnitValue> expectedResult = new List<UnitValue>();
-            expectedResult.Add(UnitValue.CreatePointValue(75));
-            expectedResult.Add(UnitValue.CreatePointValue(75));
-            NUnit.Framework.Assert.AreEqual(expectedResult, element.GetProperty<IList<UnitValue>>(Property.GRID_TEMPLATE_COLUMNS
-                ));
-            expectedResult.Clear();
-            expectedResult.Add(UnitValue.CreatePointValue(100));
-            expectedResult.Add(UnitValue.CreatePointValue(100));
-            NUnit.Framework.Assert.AreEqual(expectedResult, element.GetProperty<IList<UnitValue>>(Property.GRID_TEMPLATE_ROWS
-                ));
-        }
-
-        [NUnit.Framework.Test]
         public virtual void ApplyGridAreaBasicTest() {
             IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
             cssProps.Put(CssConstants.GRID_AREA, "1 / 2 /  3  / 4");
@@ -324,6 +304,51 @@ namespace iText.Html2pdf.Css.Apply.Util {
             NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_COLUMN_START));
             NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_ROW_END));
             NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        // ------------------ Grid container tests ------------------
+        [NUnit.Framework.Test]
+        public virtual void ContainerAutoValuesTest() {
+            IDictionary<String, String> cssProps = new Dictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_AUTO_COLUMNS, "11px");
+            cssProps.Put(CssConstants.GRID_AUTO_ROWS, "30%");
+            IElement element = new Div();
+            GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(8.25, element.GetProperty<GridValue>(Property.GRID_AUTO_COLUMNS).GetAbsoluteValue
+                (), 0.00001);
+            NUnit.Framework.Assert.IsNull(element.GetProperty<GridValue>(Property.GRID_AUTO_ROWS));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ContainerTemplateValuesTest() {
+            IDictionary<String, String> cssProps = new Dictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "min-content 1.5fr auto 2fr 100px 20%");
+            cssProps.Put(CssConstants.GRID_TEMPLATE_ROWS, "10px 20pt 3em 5rem");
+            IElement element = new Div();
+            GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
+                ()));
+            IList<GridValue> actualColValues = element.GetProperty<IList<GridValue>>(Property.GRID_TEMPLATE_COLUMNS);
+            NUnit.Framework.Assert.AreEqual(1, actualColValues.Count);
+            NUnit.Framework.Assert.AreEqual(75, actualColValues[0].GetAbsoluteValue());
+            IList<GridValue> actualRowValues = element.GetProperty<IList<GridValue>>(Property.GRID_TEMPLATE_ROWS);
+            NUnit.Framework.Assert.AreEqual(4, actualRowValues.Count);
+            NUnit.Framework.Assert.AreEqual(7.5f, actualRowValues[0].GetAbsoluteValue());
+            NUnit.Framework.Assert.AreEqual(20, actualRowValues[1].GetAbsoluteValue());
+            NUnit.Framework.Assert.AreEqual(0, actualRowValues[2].GetAbsoluteValue());
+            NUnit.Framework.Assert.AreEqual(60, actualRowValues[3].GetAbsoluteValue());
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ContainerGapValuesTest() {
+            IDictionary<String, String> cssProps = new Dictionary<String, String>();
+            cssProps.Put(CssConstants.COLUMN_GAP, "11px");
+            cssProps.Put(CssConstants.ROW_GAP, "30%");
+            IElement element = new Div();
+            GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(8.25f, element.GetProperty<float?>(Property.COLUMN_GAP));
+            NUnit.Framework.Assert.AreEqual(30, element.GetProperty<float?>(Property.ROW_GAP));
         }
 
         private IElementNode CreateStylesContainer() {

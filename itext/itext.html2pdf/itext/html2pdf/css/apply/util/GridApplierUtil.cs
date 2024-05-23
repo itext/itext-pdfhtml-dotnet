@@ -60,7 +60,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         // empty constructor
-        /// <summary>Applies grid properties to an element.</summary>
+        /// <summary>Applies grid properties to a grid item.</summary>
         /// <param name="cssProps">the CSS properties</param>
         /// <param name="stylesContainer">the styles container</param>
         /// <param name="element">the element</param>
@@ -134,55 +134,91 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        /// <summary>Applies properties to a grid container.</summary>
+        /// <summary>Applies grid properties to a grid container.</summary>
         /// <param name="cssProps">the CSS properties</param>
-        /// <param name="context">the processor context</param>
-        /// <param name="element">the element</param>
-        public static void ApplyGridContainerProperties(IDictionary<String, String> cssProps, ProcessorContext context
-            , IPropertyContainer element) {
-            float emValue = CssDimensionParsingUtils.ParseAbsoluteFontSize(cssProps.Get(CommonCssConstants.FONT_SIZE));
+        /// <param name="container">the grid container</param>
+        /// <param name="context">the context</param>
+        public static void ApplyGridContainerProperties(IDictionary<String, String> cssProps, IPropertyContainer container
+            , ProcessorContext context) {
+            float emValue = CssDimensionParsingUtils.ParseAbsoluteFontSize(cssProps.Get(CssConstants.FONT_SIZE));
             float remValue = context.GetCssContext().GetRootFontSize();
-            String templateColumnsStr = cssProps.Get(CssConstants.GRID_TEMPLATE_COLUMNS);
-            ParseAndSetTemplate(templateColumnsStr, element, Property.GRID_TEMPLATE_COLUMNS, emValue, remValue);
-            String templateRowsStr = cssProps.Get(CssConstants.GRID_TEMPLATE_ROWS);
-            ParseAndSetTemplate(templateRowsStr, element, Property.GRID_TEMPLATE_ROWS, emValue, remValue);
-            String autoRows = cssProps.Get(CssConstants.GRID_AUTO_ROWS);
-            UnitValue autoRowsUnit = CssDimensionParsingUtils.ParseLengthValueToPt(autoRows, emValue, remValue);
-            if (autoRowsUnit != null) {
-                element.SetProperty(Property.GRID_AUTO_ROWS, autoRowsUnit);
-            }
-            String autoColumns = cssProps.Get(CssConstants.GRID_AUTO_COLUMNS);
-            UnitValue autoColumnsUnit = CssDimensionParsingUtils.ParseLengthValueToPt(autoColumns, emValue, remValue);
-            if (autoColumnsUnit != null) {
-                element.SetProperty(Property.GRID_AUTO_COLUMNS, autoColumnsUnit);
-            }
-            UnitValue columnGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CommonCssConstants.COLUMN_GAP
-                ), emValue, remValue);
-            if (columnGap != null) {
-                element.SetProperty(Property.COLUMN_GAP, columnGap.GetValue());
-            }
-            UnitValue rowGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CommonCssConstants.ROW_GAP), 
+            ApplyTemplate(cssProps.Get(CssConstants.GRID_TEMPLATE_COLUMNS), container, Property.GRID_TEMPLATE_COLUMNS, 
                 emValue, remValue);
+            ApplyTemplate(cssProps.Get(CssConstants.GRID_TEMPLATE_ROWS), container, Property.GRID_TEMPLATE_ROWS, emValue
+                , remValue);
+            ApplyAuto(cssProps.Get(CssConstants.GRID_AUTO_ROWS), container, Property.GRID_AUTO_ROWS, emValue, remValue
+                );
+            ApplyAuto(cssProps.Get(CssConstants.GRID_AUTO_COLUMNS), container, Property.GRID_AUTO_COLUMNS, emValue, remValue
+                );
+            UnitValue columnGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.COLUMN_GAP), 
+                emValue, remValue);
+            if (columnGap != null) {
+                container.SetProperty(Property.COLUMN_GAP, columnGap.GetValue());
+            }
+            UnitValue rowGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.ROW_GAP), emValue
+                , remValue);
             if (rowGap != null) {
-                element.SetProperty(Property.ROW_GAP, rowGap.GetValue());
+                container.SetProperty(Property.ROW_GAP, rowGap.GetValue());
             }
         }
 
-        private static void ParseAndSetTemplate(String templateStr, IPropertyContainer container, int property, float
-             emValue, float remValue) {
+        private static void ApplyAuto(String autoStr, IPropertyContainer container, int property, float emValue, float
+             remValue) {
+            if (autoStr != null) {
+                GridValue value = GetGridValue(autoStr, emValue, remValue);
+                // TODO DEVSIX-8324 - we support only absolute values for now
+                // If some relative values are not supported after DEVSIX-8324, add the corresponding warning message
+                if (value != null && value.IsAbsoluteValue()) {
+                    container.SetProperty(property, value);
+                }
+            }
+        }
+
+        private static void ApplyTemplate(String templateStr, IPropertyContainer container, int property, float emValue
+            , float remValue) {
             if (templateStr != null) {
                 IList<String> templateStrArray = CssUtils.ExtractShorthandProperties(templateStr)[0];
-                IList<UnitValue> templateResult = new List<UnitValue>();
-                foreach (String s in templateStrArray) {
-                    UnitValue trackUnit = CssDimensionParsingUtils.ParseLengthValueToPt(s, emValue, remValue);
-                    if (trackUnit != null) {
-                        templateResult.Add(trackUnit);
+                IList<GridValue> templateResult = new List<GridValue>();
+                foreach (String str in templateStrArray) {
+                    GridValue value = GetGridValue(str, emValue, remValue);
+                    // TODO DEVSIX-8324 - we support only absolute values for now
+                    // If some relative values are not supported after DEVSIX-8324, add the corresponding warning message
+                    if (value != null && value.IsAbsoluteValue()) {
+                        templateResult.Add(value);
                     }
                 }
                 if (!templateResult.IsEmpty()) {
                     container.SetProperty(property, templateResult);
                 }
             }
+        }
+
+        private static GridValue GetGridValue(String str, float emValue, float remValue) {
+            UnitValue unit = CssDimensionParsingUtils.ParseLengthValueToPt(str, emValue, remValue);
+            if (unit != null) {
+                return GridValue.CreateUnitValue(unit);
+            }
+            else {
+                if (CommonCssConstants.MIN_CONTENT.Equals(str)) {
+                    return GridValue.CreateSizeValue(SizingValue.CreateMinContentValue());
+                }
+                else {
+                    if (CommonCssConstants.MAX_CONTENT.Equals(str)) {
+                        return GridValue.CreateSizeValue(SizingValue.CreateMaxContentValue());
+                    }
+                    else {
+                        if (CommonCssConstants.AUTO.Equals(str)) {
+                            return GridValue.CreateSizeValue(SizingValue.CreateAutoValue());
+                        }
+                    }
+                }
+            }
+            float? fr = CssDimensionParsingUtils.ParseFlex(str);
+            if (fr != null) {
+                return GridValue.CreateFlexValue((float)fr);
+            }
+            // TODO DEVSIX-8324 - add a warning for the values we do not support yet
+            return null;
         }
 
         private static GridApplierUtil.NamedAreas ParseGridTemplateAreas(String templateAreas) {

@@ -40,7 +40,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             IPropertyContainer container = tagWorker.GetElementResult();
             if (container != null) {
                 IDictionary<String, String> cssProps = stylesContainer.GetStyles();
-                GridApplierUtil.ApplyGridContainerProperties(cssProps, context, container);
+                GridApplierUtil.ApplyGridContainerProperties(cssProps, container, context);
             }
         }
     }
