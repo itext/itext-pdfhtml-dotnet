@@ -133,25 +133,41 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant GRID.</summary>
         public const String GRID = "grid";
 
+        /// <summary>The Constant GRID_COLUMN_END.</summary>
         public const String GRID_COLUMN_END = "grid-column-end";
 
+        /// <summary>The Constant GRID_COLUMN_START.</summary>
         public const String GRID_COLUMN_START = "grid-column-start";
 
+        /// <summary>The Constant GRID_ROW_END.</summary>
         public const String GRID_ROW_END = "grid-row-end";
 
+        /// <summary>The Constant GRID_ROW_START.</summary>
         public const String GRID_ROW_START = "grid-row-start";
 
+        /// <summary>The Constant GRID_TEMPLATE_AREAS.</summary>
         public const String GRID_TEMPLATE_AREAS = "grid-template-areas";
 
+        /// <summary>The Constant GRID_TEMPLATE_COLUMNS.</summary>
         public const String GRID_TEMPLATE_COLUMNS = "grid-template-columns";
 
+        /// <summary>The Constant GRID_TEMPLATE_ROWS.</summary>
         public const String GRID_TEMPLATE_ROWS = "grid-template-rows";
 
+        /// <summary>The Constant GRID_AUTO_ROWS.</summary>
         public const String GRID_AUTO_ROWS = "grid-auto-rows";
 
+        /// <summary>The Constant GRID_AUTO_COLUMNS.</summary>
         public const String GRID_AUTO_COLUMNS = "grid-auto-columns";
 
+        /// <summary>The Constant GRID_AUTO_FLOW.</summary>
+        public const String GRID_AUTO_FLOW = "grid-auto-flow";
+
+        /// <summary>The Constant GRID_AREA.</summary>
         public const String GRID_AREA = "grid-area";
+
+        /// <summary>The Constant DENSE.</summary>
+        public const String DENSE = "dense";
 
         /// <summary>The Constant INLINE.</summary>
         public const String INLINE = "inline";

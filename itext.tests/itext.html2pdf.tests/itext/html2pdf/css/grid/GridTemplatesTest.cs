@@ -72,7 +72,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void BasicColumnStartEnd2Test() {
-            // TODO DEVSIX-8323
             RunTest("basicColumnStartEnd2Test");
         }
 
@@ -161,7 +160,6 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("basicColumnRowStartEnd7Test");
         }
 
-        //TODO DEVSIX-8323
         [NUnit.Framework.Test]
         public virtual void BasicColumnRowStartEnd8Test() {
             RunTest("basicColumnRowStartEnd8Test");
@@ -230,6 +228,31 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void BasicGridAfterParagraphTest() {
             RunTest("basicGridAfterParagraphTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicRowFlowTest() {
+            RunTest("basicRowFlowTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicRowDenseFlowTest() {
+            RunTest("basicRowDenseFlowTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicColumnFlowTest() {
+            RunTest("basicColumnFlowTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicColumnDenseFlowTest() {
+            RunTest("basicColumnDenseFlowTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FixedTemplatesAndCellDoesNotHaveDirectNeighborTest() {
+            RunTest("fixedTemplatesAndCellDoesNotHaveDirectNeighborTest");
         }
 
         [NUnit.Framework.Test]

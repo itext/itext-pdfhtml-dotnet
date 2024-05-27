@@ -52,7 +52,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnStartEndTest() {
-            // TODO DEVSIX-8323
             RunTest("template-cols-column-start-end");
         }
 

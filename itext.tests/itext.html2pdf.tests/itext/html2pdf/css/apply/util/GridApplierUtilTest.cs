@@ -351,6 +351,55 @@ namespace iText.Html2pdf.Css.Apply.Util {
             NUnit.Framework.Assert.AreEqual(30, element.GetProperty<float?>(Property.ROW_GAP));
         }
 
+        [NUnit.Framework.Test]
+        public virtual void ColumnFlowTest() {
+            IDictionary<String, String> cssProps = new Dictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_AUTO_FLOW, CommonCssConstants.COLUMN);
+            IElement element = new Div();
+            GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(GridFlow.COLUMN, element.GetProperty<GridFlow?>(Property.GRID_FLOW));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NullFlowTest() {
+            IDictionary<String, String> cssProps = new Dictionary<String, String>();
+            IElement element = new Div();
+            GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(GridFlow.ROW, element.GetProperty<GridFlow?>(Property.GRID_FLOW));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DenseFlowTest() {
+            IDictionary<String, String> cssProps = new Dictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_AUTO_FLOW, CssConstants.DENSE);
+            IElement element = new Div();
+            GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(GridFlow.ROW_DENSE, element.GetProperty<GridFlow?>(Property.GRID_FLOW));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnDenseFlowTest() {
+            IDictionary<String, String> cssProps = new Dictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_AUTO_FLOW, CommonCssConstants.COLUMN + " " + CssConstants.DENSE);
+            IElement element = new Div();
+            GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(GridFlow.COLUMN_DENSE, element.GetProperty<GridFlow?>(Property.GRID_FLOW));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InvalidFlowTest() {
+            IDictionary<String, String> cssProps = new Dictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_AUTO_FLOW, "some text");
+            IElement element = new Div();
+            GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(GridFlow.ROW, element.GetProperty<GridFlow?>(Property.GRID_FLOW));
+        }
+
         private IElementNode CreateStylesContainer() {
             iText.StyledXmlParser.Jsoup.Nodes.Element element = new iText.StyledXmlParser.Jsoup.Nodes.Element(iText.StyledXmlParser.Jsoup.Parser.Tag
                 .ValueOf("div"), "");

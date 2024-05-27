@@ -150,6 +150,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 );
             ApplyAuto(cssProps.Get(CssConstants.GRID_AUTO_COLUMNS), container, Property.GRID_AUTO_COLUMNS, emValue, remValue
                 );
+            ApplyFlow(cssProps.Get(CssConstants.GRID_AUTO_FLOW), container);
             UnitValue columnGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.COLUMN_GAP), 
                 emValue, remValue);
             if (columnGap != null) {
@@ -172,6 +173,26 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     container.SetProperty(property, value);
                 }
             }
+        }
+
+        private static void ApplyFlow(String flow, IPropertyContainer container) {
+            GridFlow value = GridFlow.ROW;
+            if (flow != null) {
+                if (flow.Contains(CommonCssConstants.COLUMN)) {
+                    if (flow.Contains(CssConstants.DENSE)) {
+                        value = GridFlow.COLUMN_DENSE;
+                    }
+                    else {
+                        value = GridFlow.COLUMN;
+                    }
+                }
+                else {
+                    if (flow.Contains(CssConstants.DENSE)) {
+                        value = GridFlow.ROW_DENSE;
+                    }
+                }
+            }
+            container.SetProperty(Property.GRID_FLOW, value);
         }
 
         private static void ApplyTemplate(String templateStr, IPropertyContainer container, int property, float emValue
