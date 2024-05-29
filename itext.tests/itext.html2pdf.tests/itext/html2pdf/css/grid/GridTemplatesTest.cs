@@ -22,6 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Layout.Logs;
+using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Grid {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -253,6 +256,77 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void FixedTemplatesAndCellDoesNotHaveDirectNeighborTest() {
             RunTest("fixedTemplatesAndCellDoesNotHaveDirectNeighborTest");
+        }
+
+        public virtual void GridInsideGridTest() {
+            RunTest("gridInsideGridTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridInsideGridOnPageBreakTest() {
+            RunTest("gridInsideGridOnPageBreakTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ElementDoesntFitContentTest() {
+            // TODO DEVSIX-8340 - inner grid doesn't adjust its size
+            RunTest("elementDoesntFitContentTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ElementDoesntFitTest() {
+            RunTest("elementDoesntFitTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ElementDoesntFitHorizontallyTest() {
+            RunTest("elementDoesntFitHorizontallyTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ElementDoesntFitOverflowingToNextPageTest() {
+            // TODO DEVSIX-8340 - columns are not preserved
+            RunTest("elementDoesntFitOverflowingToNextPageTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ElementDoesntFitContentOverflowingToNextPageTest() {
+            // TODO DEVSIX-8340 - We don't try to split the cell.
+            // TODO DEVSIX-8340 - We put the original amount of rows into overflow container.
+            RunTest("elementDoesntFitContentOverflowingToNextPageTest");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, LogLevel = LogLevelConstants.WARN)]
+        public virtual void ImageElementDoesntFitTest() {
+            RunTest("imageElementDoesntFitTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ManyImageElementsTest() {
+            RunTest("manyImageElementsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ImageElementsOn2ndPageTest() {
+            RunTest("imageElementsOn2ndPageTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridWithBrTest() {
+            RunTest("gridWithBrTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridWithPageBreakTest() {
+            RunTest("gridWithPageBreakTest");
+        }
+
+        // TODO DEVSIX-8340 - table size is not recalculated on the next page
+        // Same as in DEVSIX-8318
+        [NUnit.Framework.Test]
+        public virtual void GridWithTableTest() {
+            RunTest("gridWithTableTest");
         }
 
         [NUnit.Framework.Test]

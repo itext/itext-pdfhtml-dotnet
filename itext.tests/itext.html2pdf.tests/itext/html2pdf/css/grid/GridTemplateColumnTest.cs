@@ -22,8 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Layout.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Grid {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -34,7 +32,6 @@ namespace iText.Html2pdf.Css.Grid {
         public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/grid/GridTemplateColumnTest/";
 
-        //TODO DEVSIX-3340 change cmp files when GRID LAYOUT is supported
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateOrClearDestinationFolder(DESTINATION_FOLDER);
@@ -107,7 +104,6 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void TemplateColumnMultiPageTest() {
             // TODO DEVSIX-8324
             RunTest("template-cols-enormous-size");

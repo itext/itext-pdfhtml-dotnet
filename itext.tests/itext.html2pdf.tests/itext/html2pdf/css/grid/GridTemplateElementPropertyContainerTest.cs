@@ -61,7 +61,6 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-TODO")]
         public virtual void PaddingOverflowX() {
             RunTest("padding_overflow_x");
         }
