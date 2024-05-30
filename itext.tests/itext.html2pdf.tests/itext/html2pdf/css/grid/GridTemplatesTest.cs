@@ -330,6 +330,16 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
+        public virtual void BasicGridRemValuesTest() {
+            RunTest("grid-layout-rem");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BasicGridEmValuesTest() {
+            RunTest("grid-layout-em");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void GridLayoutDisablingTest() {
             ConvertToPdfAndCompare("basicColumnFewDivsTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
                 ().SetBaseUri(SOURCE_FOLDER).SetCssGridEnabled(true));

@@ -65,6 +65,11 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
+        public virtual void TemplateAreasSwitchedPlacesTest() {
+            RunTest("grid-area-switched-places");
+        }
+
+        [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.GRID_TEMPLATE_AREAS_IS_INVALID)]
         public virtual void InvalidTemplateAreasTest() {
             RunTest("invalidTemplateAreas");
