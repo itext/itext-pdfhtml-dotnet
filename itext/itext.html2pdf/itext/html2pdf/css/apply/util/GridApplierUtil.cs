@@ -167,9 +167,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
              remValue) {
             if (autoStr != null) {
                 GridValue value = GetGridValue(autoStr, emValue, remValue);
-                // TODO DEVSIX-8324 - we support only absolute values for now
-                // If some relative values are not supported after DEVSIX-8324, add the corresponding warning message
-                if (value != null && value.IsAbsoluteValue()) {
+                if (value != null) {
                     container.SetProperty(property, value);
                 }
             }
@@ -202,9 +200,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 IList<GridValue> templateResult = new List<GridValue>();
                 foreach (String str in templateStrArray) {
                     GridValue value = GetGridValue(str, emValue, remValue);
-                    // TODO DEVSIX-8324 - we support only absolute values for now
-                    // If some relative values are not supported after DEVSIX-8324, add the corresponding warning message
-                    if (value != null && value.IsAbsoluteValue()) {
+                    if (value != null) {
                         templateResult.Add(value);
                     }
                 }
@@ -217,19 +213,24 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static GridValue GetGridValue(String str, float emValue, float remValue) {
             UnitValue unit = CssDimensionParsingUtils.ParseLengthValueToPt(str, emValue, remValue);
             if (unit != null) {
-                return GridValue.CreateUnitValue(unit);
+                if (unit.IsPointValue()) {
+                    return GridValue.CreatePointValue(unit.GetValue());
+                }
+                else {
+                    return GridValue.CreatePercentValue(unit.GetValue());
+                }
             }
             else {
                 if (CommonCssConstants.MIN_CONTENT.Equals(str)) {
-                    return GridValue.CreateSizeValue(SizingValue.CreateMinContentValue());
+                    return GridValue.CreateMinContentValue();
                 }
                 else {
                     if (CommonCssConstants.MAX_CONTENT.Equals(str)) {
-                        return GridValue.CreateSizeValue(SizingValue.CreateMaxContentValue());
+                        return GridValue.CreateMaxContentValue();
                     }
                     else {
                         if (CommonCssConstants.AUTO.Equals(str)) {
-                            return GridValue.CreateSizeValue(SizingValue.CreateAutoValue());
+                            return GridValue.CreateAutoValue();
                         }
                     }
                 }
@@ -238,7 +239,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (fr != null) {
                 return GridValue.CreateFlexValue((float)fr);
             }
-            // TODO DEVSIX-8324 - add a warning for the values we do not support yet
             return null;
         }
 

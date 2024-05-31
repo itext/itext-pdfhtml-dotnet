@@ -52,7 +52,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void BasicColumnFewDivsWithFrTest() {
-            // TODO DEVSIX-8324
             RunTest("basicColumnFewDivsWithFrTest");
         }
 

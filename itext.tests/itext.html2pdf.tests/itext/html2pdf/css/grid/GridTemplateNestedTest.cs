@@ -41,7 +41,13 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateNestedAreasTest() {
+            // TODO DEVSIX-8382 Investigate weird background height in templateNestedAreasTest
             RunTest("grid-nested-areas");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TemplateNestedAreasWithBorderTest() {
+            RunTest("grid-nested-areas-with-border");
         }
 
         [NUnit.Framework.Test]
@@ -90,7 +96,7 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
-            2)]
+            3)]
         [NUnit.Framework.Test]
         public virtual void TemplateNestedTableNestedGridTest() {
             RunTest("grid-nested-table-nested-grid");
@@ -106,7 +112,7 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("grid-nested-2-levels-areas");
         }
 
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 5)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 3)]
         [NUnit.Framework.Test]
         public virtual void TemplateNested3LevelsFormsTest() {
             RunTest("grid-nested-3-forms");

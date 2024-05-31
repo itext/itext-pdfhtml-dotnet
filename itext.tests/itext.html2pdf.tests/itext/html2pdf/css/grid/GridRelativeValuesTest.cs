@@ -38,8 +38,228 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
-        public virtual void AllRelativeSingleValuesTest() {
-            RunTest("allRelativeSingleValues");
+        public virtual void BothAxis1Test() {
+            RunTest("bothAxis1");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis2Test() {
+            RunTest("bothAxis2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis3Test() {
+            RunTest("bothAxis3");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis4Test() {
+            RunTest("bothAxis4");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis5Test() {
+            RunTest("bothAxis5");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis6Test() {
+            RunTest("bothAxis6");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis7Test() {
+            RunTest("bothAxis7");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis8Test() {
+            RunTest("bothAxis8");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis9Test() {
+            RunTest("bothAxis9");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis10Test() {
+            RunTest("bothAxis10");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis11Test() {
+            RunTest("bothAxis11");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis12Test() {
+            RunTest("bothAxis12");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis13Test() {
+            RunTest("bothAxis13");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis14Test() {
+            RunTest("bothAxis14");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis15Test() {
+            RunTest("bothAxis15");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis16Test() {
+            RunTest("bothAxis16");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis17Test() {
+            RunTest("bothAxis17");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis18Test() {
+            RunTest("bothAxis18");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis19Test() {
+            RunTest("bothAxis19");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis20Test() {
+            RunTest("bothAxis20");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxis21Test() {
+            RunTest("bothAxis21");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxisOnlyFr1Test() {
+            RunTest("bothAxisOnlyFr1");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxisOnlyFr2Test() {
+            RunTest("bothAxisOnlyFr2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxisOnlyFr3Test() {
+            RunTest("bothAxisOnlyFr3");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxisOnlyFr4Test() {
+            RunTest("bothAxisOnlyFr4");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxisOnlyFr5Test() {
+            RunTest("bothAxisOnlyFr5");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BothAxisOnlyFr6Test() {
+            RunTest("bothAxisOnlyFr6");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColAxis1Test() {
+            RunTest("colAxis1");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColAxis2Test() {
+            RunTest("colAxis2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColAxis3Test() {
+            RunTest("colAxis3");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColAxis4Test() {
+            RunTest("colAxis4");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColAxis5Test() {
+            RunTest("colAxis5");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColAxis6Test() {
+            RunTest("colAxis6");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColAxis7Test() {
+            RunTest("colAxis7");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColAxis8Test() {
+            RunTest("colAxis8");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColAxis9Test() {
+            RunTest("colAxis9");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColAxis10Test() {
+            RunTest("colAxis10");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColAxis11Test() {
+            RunTest("colAxis11");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowAxis1Test() {
+            RunTest("rowAxis1");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowAxis2Test() {
+            RunTest("rowAxis2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowAxis3Test() {
+            RunTest("rowAxis3");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowAxis4Test() {
+            RunTest("rowAxis4");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowAxis5Test() {
+            RunTest("rowAxis5");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowAxis6Test() {
+            RunTest("rowAxis6");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowAxis7Test() {
+            RunTest("rowAxis7");
         }
 
         private void RunTest(String testName) {

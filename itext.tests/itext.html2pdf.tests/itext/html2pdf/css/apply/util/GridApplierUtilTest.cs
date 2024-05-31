@@ -315,9 +315,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IElement element = new Div();
             GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
                 ()));
-            NUnit.Framework.Assert.AreEqual(8.25, element.GetProperty<GridValue>(Property.GRID_AUTO_COLUMNS).GetAbsoluteValue
-                (), 0.00001);
-            NUnit.Framework.Assert.IsNull(element.GetProperty<GridValue>(Property.GRID_AUTO_ROWS));
+            NUnit.Framework.Assert.AreEqual(8.25, element.GetProperty<GridValue>(Property.GRID_AUTO_COLUMNS).GetValue(
+                ), 0.00001);
+            NUnit.Framework.Assert.AreEqual(30, element.GetProperty<GridValue>(Property.GRID_AUTO_ROWS).GetValue());
         }
 
         [NUnit.Framework.Test]
@@ -329,14 +329,19 @@ namespace iText.Html2pdf.Css.Apply.Util {
             GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
                 ()));
             IList<GridValue> actualColValues = element.GetProperty<IList<GridValue>>(Property.GRID_TEMPLATE_COLUMNS);
-            NUnit.Framework.Assert.AreEqual(1, actualColValues.Count);
-            NUnit.Framework.Assert.AreEqual(75, actualColValues[0].GetAbsoluteValue());
+            NUnit.Framework.Assert.AreEqual(6, actualColValues.Count);
+            NUnit.Framework.Assert.IsTrue(actualColValues[0].IsMinContentValue());
+            NUnit.Framework.Assert.IsTrue(actualColValues[1].IsFlexibleValue());
+            NUnit.Framework.Assert.IsTrue(actualColValues[2].IsAutoValue());
+            NUnit.Framework.Assert.IsTrue(actualColValues[3].IsFlexibleValue());
+            NUnit.Framework.Assert.AreEqual(75, actualColValues[4].GetValue());
+            NUnit.Framework.Assert.AreEqual(20, actualColValues[5].GetValue());
             IList<GridValue> actualRowValues = element.GetProperty<IList<GridValue>>(Property.GRID_TEMPLATE_ROWS);
             NUnit.Framework.Assert.AreEqual(4, actualRowValues.Count);
-            NUnit.Framework.Assert.AreEqual(7.5f, actualRowValues[0].GetAbsoluteValue());
-            NUnit.Framework.Assert.AreEqual(20, actualRowValues[1].GetAbsoluteValue());
-            NUnit.Framework.Assert.AreEqual(0, actualRowValues[2].GetAbsoluteValue());
-            NUnit.Framework.Assert.AreEqual(60, actualRowValues[3].GetAbsoluteValue());
+            NUnit.Framework.Assert.AreEqual(7.5f, actualRowValues[0].GetValue());
+            NUnit.Framework.Assert.AreEqual(20, actualRowValues[1].GetValue());
+            NUnit.Framework.Assert.AreEqual(0, actualRowValues[2].GetValue());
+            NUnit.Framework.Assert.AreEqual(60, actualRowValues[3].GetValue());
         }
 
         [NUnit.Framework.Test]

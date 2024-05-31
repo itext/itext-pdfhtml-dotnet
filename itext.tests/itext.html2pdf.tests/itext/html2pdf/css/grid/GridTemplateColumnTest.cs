@@ -54,25 +54,23 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnWidthUnitsTest() {
-            // TODO DEVSIX-8324
             RunTest("template-cols-different-width-units");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnFitContentTest() {
-            // TODO DEVSIX-8324
+            // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-content support)
             RunTest("template-cols-fit-content");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnFitContentAutoTest() {
-            // TODO DEVSIX-8324
+            // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-content support)
             RunTest("template-cols-fit-content-auto");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnFrTest() {
-            // TODO DEVSIX-8324
             RunTest("template-cols-fr");
         }
 
@@ -93,19 +91,17 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnMinMaxTest() {
-            // TODO DEVSIX-8324
+            // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-content support)
             RunTest("template-cols-minmax");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnMixedTest() {
-            // TODO DEVSIX-8324
             RunTest("template-cols-mixed");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnMultiPageTest() {
-            // TODO DEVSIX-8324
             RunTest("template-cols-enormous-size");
         }
 
@@ -121,13 +117,13 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnRepeatTest() {
-            // TODO DEVSIX-8324
+            // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-content support)
             RunTest("template-cols-repeat");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnRepeatMinMaxTest() {
-            // TODO DEVSIX-8324
+            // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-content support)
             RunTest("template-cols-repeat-minmax");
         }
 
