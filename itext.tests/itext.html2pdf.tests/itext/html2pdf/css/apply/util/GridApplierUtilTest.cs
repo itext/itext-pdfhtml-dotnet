@@ -133,7 +133,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IElement element = new Div();
             GridApplierUtil.ApplyGridItemProperties(cssProps, CreateStylesContainer(), element);
             NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_ROW_START));
-            NUnit.Framework.Assert.AreEqual(2, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
             NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_ROW_END));
             NUnit.Framework.Assert.AreEqual(4, element.GetProperty<int?>(Property.GRID_COLUMN_END));
         }
@@ -158,7 +158,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             cssProps.Put(CssConstants.GRID_AREA, "auto  / 2 /  3  / 4");
             IElement element = new Div();
             GridApplierUtil.ApplyGridItemProperties(cssProps, CreateStylesContainer(), element);
-            NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_ROW_START));
             NUnit.Framework.Assert.AreEqual(2, element.GetProperty<int?>(Property.GRID_COLUMN_START));
             NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_ROW_END));
             NUnit.Framework.Assert.AreEqual(4, element.GetProperty<int?>(Property.GRID_COLUMN_END));
@@ -223,7 +223,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
             NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_ROW_START));
             NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
-            NUnit.Framework.Assert.AreEqual(4, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_ROW_END));
             NUnit.Framework.Assert.AreEqual(2, element.GetProperty<int?>(Property.GRID_COLUMN_END));
         }
 

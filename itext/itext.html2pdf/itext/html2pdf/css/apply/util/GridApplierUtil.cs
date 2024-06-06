@@ -23,8 +23,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
@@ -40,6 +42,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
     public sealed class GridApplierUtil {
         private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.GridApplierUtil
             ));
+
+        private static readonly Regex SPAN_PLACEMENT = iText.Commons.Utils.StringUtil.RegexCompile("^span (\\d+)$"
+            );
 
         private static readonly IDictionary<String, GridApplierUtil.NamedAreas> namedAreasCache = new ConcurrentDictionary
             <String, GridApplierUtil.NamedAreas>();
@@ -82,53 +87,55 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (gridTemplateAreas != null && !CommonCssConstants.NONE.Equals(gridTemplateAreas)) {
                 namedAreas = ParseGridTemplateAreas(gridTemplateAreas);
             }
-            foreach (KeyValuePair<String, String> entry in cssProps) {
-                if (CssConstants.GRID_AREA.Equals(entry.Key)) {
-                    String gridArea = entry.Value;
-                    String[] gridAreaParts = iText.Commons.Utils.StringUtil.Split(gridArea, "/");
-                    for (int i = 0; i < gridAreaParts.Length; ++i) {
-                        String part = gridAreaParts[i].Trim();
-                        if (CommonCssConstants.AUTO.Equals(part)) {
-                            // We override already set value if any
-                            element.DeleteOwnProperty(propsMap.Get(i).Value);
-                            continue;
-                        }
-                        int? partInt = CssDimensionParsingUtils.ParseInteger(part);
-                        if (partInt != null) {
-                            element.SetProperty(propsMap.Get(i).Value, partInt);
-                        }
-                        else {
-                            if (namedAreas != null && i == 0) {
-                                // We are interested in the 1st element in grid area for now
-                                // so let's even break immediately
-                                namedAreas.SetPlaceToElement(part, element);
-                                break;
-                            }
+            if (cssProps.Get(CssConstants.GRID_AREA) != null) {
+                String gridArea = cssProps.Get(CssConstants.GRID_AREA);
+                String[] gridAreaParts = iText.Commons.Utils.StringUtil.Split(gridArea, "/");
+                for (int i = 0; i < gridAreaParts.Length; ++i) {
+                    String part = gridAreaParts[i].Trim();
+                    if (CommonCssConstants.AUTO.Equals(part)) {
+                        // We override already set value if any
+                        element.DeleteOwnProperty(propsMap.Get(i).Value);
+                        continue;
+                    }
+                    int? partInt = CssDimensionParsingUtils.ParseInteger(part);
+                    if (partInt != null) {
+                        element.SetProperty(propsMap.Get(i).Value, partInt);
+                    }
+                    else {
+                        if (namedAreas != null && i == 0) {
+                            // We are interested in the 1st element in grid area for now
+                            // so let's even break immediately
+                            namedAreas.SetPlaceToElement(part, element);
+                            break;
                         }
                     }
                 }
-                if (CssConstants.GRID_COLUMN_START.Equals(entry.Key)) {
-                    int? columnStart = CssDimensionParsingUtils.ParseInteger(entry.Value);
-                    if (columnStart != null) {
-                        element.SetProperty(Property.GRID_COLUMN_START, columnStart);
-                    }
-                }
-                if (CssConstants.GRID_COLUMN_END.Equals(entry.Key)) {
-                    int? columnStart = CssDimensionParsingUtils.ParseInteger(entry.Value);
-                    if (columnStart != null) {
-                        element.SetProperty(Property.GRID_COLUMN_END, columnStart);
-                    }
-                }
-                if (CssConstants.GRID_ROW_START.Equals(entry.Key)) {
-                    int? columnStart = CssDimensionParsingUtils.ParseInteger(entry.Value);
-                    if (columnStart != null) {
-                        element.SetProperty(Property.GRID_ROW_START, columnStart);
-                    }
-                }
-                if (CssConstants.GRID_ROW_END.Equals(entry.Key)) {
-                    int? columnStart = CssDimensionParsingUtils.ParseInteger(entry.Value);
-                    if (columnStart != null) {
-                        element.SetProperty(Property.GRID_ROW_END, columnStart);
+            }
+            ApplyGridItemPlacement(cssProps.Get(CssConstants.GRID_COLUMN_END), element, Property.GRID_COLUMN_END, Property
+                .GRID_COLUMN_SPAN);
+            ApplyGridItemPlacement(cssProps.Get(CssConstants.GRID_COLUMN_START), element, Property.GRID_COLUMN_START, 
+                Property.GRID_COLUMN_SPAN);
+            ApplyGridItemPlacement(cssProps.Get(CssConstants.GRID_ROW_END), element, Property.GRID_ROW_END, Property.GRID_ROW_SPAN
+                );
+            ApplyGridItemPlacement(cssProps.Get(CssConstants.GRID_ROW_START), element, Property.GRID_ROW_START, Property
+                .GRID_ROW_SPAN);
+        }
+
+        private static void ApplyGridItemPlacement(String value, IPropertyContainer element, int property, int spanProperty
+            ) {
+            if (value == null) {
+                return;
+            }
+            int? intValue = CssDimensionParsingUtils.ParseInteger(value);
+            if (intValue != null) {
+                element.SetProperty(property, intValue);
+            }
+            else {
+                Matcher matcher = iText.Commons.Utils.Matcher.Match(SPAN_PLACEMENT, value.Trim());
+                if (matcher.Matches()) {
+                    int? spanValue = CssDimensionParsingUtils.ParseInteger(matcher.Group(1));
+                    if (spanValue != null) {
+                        element.SetProperty(spanProperty, spanValue);
                     }
                 }
             }
