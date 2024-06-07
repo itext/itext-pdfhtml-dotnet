@@ -257,6 +257,7 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("fixedTemplatesAndCellDoesNotHaveDirectNeighborTest");
         }
 
+        [NUnit.Framework.Test]
         public virtual void GridInsideGridTest() {
             RunTest("gridInsideGridTest");
         }
@@ -268,7 +269,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void ElementDoesntFitContentTest() {
-            // TODO DEVSIX-8340 - inner grid doesn't adjust its size
             RunTest("elementDoesntFitContentTest");
         }
 
@@ -284,15 +284,17 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void ElementDoesntFitOverflowingToNextPageTest() {
-            // TODO DEVSIX-8340 - columns are not preserved
             RunTest("elementDoesntFitOverflowingToNextPageTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void ElementDoesntFitContentOverflowingToNextPageTest() {
-            // TODO DEVSIX-8340 - We don't try to split the cell.
-            // TODO DEVSIX-8340 - We put the original amount of rows into overflow container.
             RunTest("elementDoesntFitContentOverflowingToNextPageTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextsWithOverflowTest() {
+            RunTest("textsWithOverflowTest");
         }
 
         [NUnit.Framework.Test]
@@ -321,11 +323,14 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("gridWithPageBreakTest");
         }
 
-        // TODO DEVSIX-8340 - table size is not recalculated on the next page
-        // Same as in DEVSIX-8318
         [NUnit.Framework.Test]
         public virtual void GridWithTableTest() {
             RunTest("gridWithTableTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnFlowOnSplitTest() {
+            RunTest("columnFlowOnSplitTest");
         }
 
         [NUnit.Framework.Test]

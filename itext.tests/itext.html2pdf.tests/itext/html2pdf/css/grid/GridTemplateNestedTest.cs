@@ -33,7 +33,6 @@ namespace iText.Html2pdf.Css.Grid {
         public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/grid" + "/GridTemplateNestedTest/";
 
-        //TODO DEVSIX-3340 change cmp files when GRID LAYOUT is supported
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateOrClearDestinationFolder(DESTINATION_FOLDER);
@@ -41,7 +40,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateNestedAreasTest() {
-            // TODO DEVSIX-8382 Investigate weird background height in templateNestedAreasTest
             RunTest("grid-nested-areas");
         }
 

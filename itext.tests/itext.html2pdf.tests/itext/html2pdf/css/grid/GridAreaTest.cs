@@ -70,6 +70,43 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
+        public virtual void DifferentRowSpanTest() {
+            // TODO DEVSIX-8387
+            RunTest("differentRowSpanTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderBoxTest() {
+            RunTest("borderBoxTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DifferentRowSpanOnSplitTest() {
+            RunTest("differentRowSpanOnSplitTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DifferentRowSpanOnSplitTest2() {
+            // TODO DEVSIX-8387
+            RunTest("differentRowSpanOnSplitTest2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DifferentRowSpanWithGaps50OnSplitTest() {
+            RunTest("differentRowSpanWithGaps50OnSplitTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DifferentRowSpanWithGaps100OnSplitTest() {
+            RunTest("differentRowSpanWithGaps100OnSplitTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SplitOn2ndRowGapTest() {
+            RunTest("splitOn2ndRowGapTest");
+        }
+
+        [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.GRID_TEMPLATE_AREAS_IS_INVALID)]
         public virtual void InvalidTemplateAreasTest() {
             RunTest("invalidTemplateAreas");
