@@ -40,13 +40,17 @@ namespace iText.Html2pdf.Resolver.Font {
     /// series of fonts that are shipped with the add-on.
     /// </summary>
     public class DefaultFontProvider : BasicFontProvider {
+//\cond DO_NOT_DOCUMENT
         /// <summary>The path to the shipped fonts.</summary>
         internal const String SHIPPED_FONT_RESOURCE_PATH = "iText.Html2Pdf.font.";
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>The file names of the shipped fonts.</summary>
         internal static readonly String[] SHIPPED_FONT_NAMES = new String[] { "NotoSansMono-Regular.ttf", "NotoSansMono-Bold.ttf"
             , "NotoSans-Regular.ttf", "NotoSans-Bold.ttf", "NotoSans-BoldItalic.ttf", "NotoSans-Italic.ttf", "NotoSerif-Regular.ttf"
             , "NotoSerif-Bold.ttf", "NotoSerif-BoldItalic.ttf", "NotoSerif-Italic.ttf" };
+//\endcond
 
         /// <summary>The logger.</summary>
         private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Resolver.Font.DefaultFontProvider

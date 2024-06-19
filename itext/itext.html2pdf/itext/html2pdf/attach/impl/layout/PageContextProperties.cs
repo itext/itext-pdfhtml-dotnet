@@ -29,6 +29,7 @@ using iText.StyledXmlParser.Css.Page;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+//\cond DO_NOT_DOCUMENT
     /// <summary>
     /// Properties class for the
     /// <see cref="PageContextProcessor"/>.
@@ -117,16 +118,21 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return pagesClassNode;
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Gets the resolved page context node.</summary>
         /// <returns>the resolved page context node</returns>
         internal virtual PageContextNode GetResolvedPageContextNode() {
             return pageContextNode;
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Gets the resolved page margin boxes.</summary>
         /// <returns>the resolved page margin boxes</returns>
         internal virtual IList<PageMarginBoxContextNode> GetResolvedPageMarginBoxes() {
             return pageMarginBoxes;
         }
+//\endcond
     }
+//\endcond
 }

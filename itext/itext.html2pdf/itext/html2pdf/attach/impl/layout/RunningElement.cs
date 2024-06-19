@@ -57,6 +57,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return new RunningElement.RunningElementRenderer(this, runningElementContainer);
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>It's an empty div so it's not expected to be ever split between areas.</summary>
         internal class RunningElementRenderer : DivRenderer {
             private RunningElementContainer runningElementContainer;
@@ -82,5 +83,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 base.Draw(drawContext);
             }
         }
+//\endcond
     }
 }

@@ -28,9 +28,11 @@ using iText.Layout.Renderer;
 using iText.StyledXmlParser.Css;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+//\cond DO_NOT_DOCUMENT
     internal class HeightDimensionContainer : DimensionContainer {
         private const float infHeight = 1e6f;
 
+//\cond DO_NOT_DOCUMENT
         internal HeightDimensionContainer(CssContextNode pmbcNode, float width, float maxHeight, IRenderer renderer
             , float additionalWidthFix) {
             String height = pmbcNode.GetStyles().Get(CssConstants.HEIGHT);
@@ -53,6 +55,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 }
             }
         }
+//\endcond
 
         private float GetMinHeight(CssContextNode node, float maxAvailableHeight, float additionalWidthFix) {
             String content = node.GetStyles().Get(CssConstants.MIN_HEIGHT);
@@ -74,4 +77,5 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return dim;
         }
     }
+//\endcond
 }

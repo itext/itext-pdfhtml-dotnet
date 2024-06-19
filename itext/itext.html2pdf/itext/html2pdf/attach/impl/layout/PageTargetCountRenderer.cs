@@ -35,6 +35,7 @@ using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+//\cond DO_NOT_DOCUMENT
     /// <summary>
     /// <see cref="iText.Layout.Renderer.TextRenderer"/>
     /// implementation for the page target-counter.
@@ -49,6 +50,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         private readonly CounterDigitsGlyphStyle digitsGlyphStyle;
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>
         /// Instantiates a new
         /// <see cref="PageTargetCountRenderer"/>.
@@ -59,6 +61,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             digitsGlyphStyle = textElement.GetDigitsGlyphStyle();
             target = textElement.GetTarget();
         }
+//\endcond
 
         protected internal PageTargetCountRenderer(TextRenderer other)
             : base(other) {
@@ -124,4 +127,5 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return true;
         }
     }
+//\endcond
 }

@@ -228,6 +228,7 @@ namespace iText.Html2pdf.Css {
             return HtmlConverter.ConvertToElements(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read));
         }
 
+//\cond DO_NOT_DOCUMENT
         internal class CustomBlockCssApplierFactory : DefaultCssApplierFactory {
             public override ICssApplier GetCustomCssApplier(IElementNode tag) {
                 if (TagConstants.P.Equals(tag.Name())) {
@@ -236,7 +237,9 @@ namespace iText.Html2pdf.Css {
                 return null;
             }
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal class CustomBlockCssApplier : BlockCssApplier {
             public override void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
                 ) {
@@ -250,5 +253,6 @@ namespace iText.Html2pdf.Css {
                 }
             }
         }
+//\endcond
     }
 }

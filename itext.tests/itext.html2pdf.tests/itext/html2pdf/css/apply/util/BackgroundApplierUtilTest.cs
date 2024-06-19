@@ -86,9 +86,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.innerImage = image;
             }
 
+//\cond DO_NOT_DOCUMENT
             internal readonly ProcessorContext innerContext;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
             internal readonly String innerImage;
+//\endcond
 
             public override void SetProperty(int property, Object propertyValue) {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);
@@ -217,9 +221,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
+//\cond DO_NOT_DOCUMENT
             internal readonly ProcessorContext innerContext;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
             internal readonly String[] imagesArray;
+//\endcond
 
             public override void SetProperty(int property, Object propertyValue) {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);
@@ -263,7 +271,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
+//\cond DO_NOT_DOCUMENT
             internal readonly String[] imagesArray;
+//\endcond
 
             public override void SetProperty(int property, Object propertyValue) {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);
@@ -301,7 +311,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
+//\cond DO_NOT_DOCUMENT
             internal readonly String[] imagesArray;
+//\endcond
 
             public override void SetProperty(int property, Object propertyValue) {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);
@@ -349,9 +361,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.fontSize = CssDimensionParsingUtils.ParseAbsoluteLength(otterFontSize);
             }
 
+//\cond DO_NOT_DOCUMENT
             internal readonly IList<String> gradientsArray;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
             internal readonly float fontSize;
+//\endcond
 
             public override void SetProperty(int property, Object value) {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);
@@ -397,9 +413,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.fontSize = CssDimensionParsingUtils.ParseAbsoluteLength(otterFontSize);
             }
 
+//\cond DO_NOT_DOCUMENT
             internal readonly String gradient;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
             internal readonly float fontSize;
+//\endcond
 
             public override void SetProperty(int property, Object propertyValue) {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);
@@ -543,7 +563,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
+//\cond DO_NOT_DOCUMENT
             internal readonly String[] imagesArray;
+//\endcond
 
             public override void SetProperty(int property, Object propertyValue) {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);
@@ -581,7 +603,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
+//\cond DO_NOT_DOCUMENT
             internal readonly String[] imagesArray;
+//\endcond
 
             public override void SetProperty(int property, Object propertyValue) {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);
@@ -619,7 +643,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
+//\cond DO_NOT_DOCUMENT
             internal readonly String[] imagesArray;
+//\endcond
 
             public override void SetProperty(int property, Object propertyValue) {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);
@@ -657,7 +683,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
+//\cond DO_NOT_DOCUMENT
             internal readonly String[] imagesArray;
+//\endcond
 
             public override void SetProperty(int property, Object propertyValue) {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);
@@ -698,7 +726,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
+//\cond DO_NOT_DOCUMENT
             internal readonly String[] imagesArray;
+//\endcond
 
             public override void SetProperty(int property, Object propertyValue) {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);
@@ -789,7 +819,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 this.imagesArray = iText.Commons.Utils.StringUtil.Split(images, ",");
             }
 
+//\cond DO_NOT_DOCUMENT
             internal readonly String[] imagesArray;
+//\endcond
 
             public override void SetProperty(int property, Object propertyValue) {
                 NUnit.Framework.Assert.AreEqual(Property.BACKGROUND_IMAGE, property);

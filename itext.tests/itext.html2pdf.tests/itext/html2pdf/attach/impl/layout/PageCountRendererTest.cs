@@ -55,6 +55,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             NUnit.Framework.Assert.IsTrue(true);
         }
 
+//\cond DO_NOT_DOCUMENT
         internal class CustomPageCountRenderer : PageCountRenderer {
             public CustomPageCountRenderer(PageCountElement textElement)
                 : base(textElement) {
@@ -74,5 +75,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 return new PageCountRendererTest.CustomPageCountRenderer((PageCountElement)this.modelElement);
             }
         }
+//\endcond
     }
 }

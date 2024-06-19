@@ -44,6 +44,7 @@ using iText.StyledXmlParser.Css.Page;
 using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+//\cond DO_NOT_DOCUMENT
     /// <summary>Context processor for specific types of pages: first, left, or right page.</summary>
     internal class PageContextProcessor {
         /// <summary>The page size.</summary>
@@ -80,6 +81,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.Layout.PageContextProcessor
             ));
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Instantiates a new page context processor.</summary>
         /// <param name="properties">the page context properties</param>
         /// <param name="context">the processor context</param>
@@ -91,6 +93,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             this.context = context;
             Reset(defaultPageSize, defaultPageMargins);
         }
+//\endcond
 
         /// <summary>Parses the marks.</summary>
         /// <param name="marksStr">
@@ -121,6 +124,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return marks;
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>
         /// Re-initializes page context processor based on default current page size and page margins
         /// and on properties from css page at-rules.
@@ -155,13 +159,17 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             pageMarginBoxHelper = new PageMarginBoxBuilder(properties.GetResolvedPageMarginBoxes(), margins, pageSize);
             return this;
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Gets the page size.</summary>
         /// <returns>the page size</returns>
         internal virtual PageSize GetPageSize() {
             return pageSize;
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Compute layout margins.</summary>
         /// <returns>the float values of the margins</returns>
         internal virtual float[] ComputeLayoutMargins() {
@@ -175,7 +183,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
             return layoutMargins;
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Finalizes page processing by drawing margins if necessary.</summary>
         /// <param name="pageNum">the page to process</param>
         /// <param name="pdfDocument">
@@ -188,7 +198,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             ) {
             DrawMarginBoxes(pageNum, pdfDocument, documentRenderer);
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>
         /// Processes a new page by setting the bleed value, adding marks, drawing
         /// page backgrounds and borders.
@@ -199,7 +211,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             DrawMarks(page);
             DrawPageBorders(page);
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Draws page background.</summary>
         /// <param name="page">the page</param>
         /// <returns>pdfCanvas instance if there was a background to draw, otherwise returns null</returns>
@@ -214,6 +228,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
             return pdfCanvas;
         }
+//\endcond
 
         /// <summary>Sets the bleed value for a page.</summary>
         /// <param name="page">the new bleed</param>
@@ -460,4 +475,5 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             pageBordersSimulation.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
         }
     }
+//\endcond
 }

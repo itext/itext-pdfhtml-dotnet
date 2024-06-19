@@ -32,6 +32,7 @@ using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+//\cond DO_NOT_DOCUMENT
     /// <summary>The Class PageSizeParser.</summary>
     internal class PageSizeParser {
         /// <summary>A Map mapping page size names to page size values.</summary>
@@ -56,6 +57,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             pageSizeConstants.Put("ledger", PageSize.LEDGER.Rotate());
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Fetch the page size.</summary>
         /// <param name="pageSizeStr">the name of the page size ("a4", "letter",...)</param>
         /// <param name="em">the em value</param>
@@ -121,6 +123,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
             return pageSize;
         }
+//\endcond
 
         /// <summary>Parses a page length value into a page size.</summary>
         /// <param name="pageSizeChunks">array of string values that represent the page size</param>
@@ -174,4 +177,5 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return CssConstants.LANDSCAPE.Equals(pageSizeChunk) || CssConstants.PORTRAIT.Equals(pageSizeChunk);
         }
     }
+//\endcond
 }

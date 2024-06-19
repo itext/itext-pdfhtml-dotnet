@@ -201,6 +201,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return formElement;
         }
 
+//\cond DO_NOT_DOCUMENT
         internal static String PreprocessInputValue(String value, String inputType) {
             if (AttributeConstants.NUMBER.Equals(inputType) && value != null && !iText.Commons.Utils.Matcher.Match(NUMBER_INPUT_ALLOWED_VALUES
                 , value).Matches()) {
@@ -208,5 +209,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             return value;
         }
+//\endcond
     }
 }

@@ -39,14 +39,18 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// tag.
     /// </summary>
     public class SpanTagWorker : ITagWorker, IDisplayAware {
+//\cond DO_NOT_DOCUMENT
         /// <summary>The span wrapper.</summary>
         internal SpanWrapper spanWrapper;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         // TODO DEVSIX-2445. Ideally, this should be refactored. For now, I don't see a beautiful way
         //  of passing this information to other workers.
         // Also, we probably should wait a bit until the display support is more or less stable
         internal IDictionary<IPropertyContainer, String> childrenDisplayMap = new Dictionary<IPropertyContainer, String
             >();
+//\endcond
 
         /// <summary>A list of elements belonging to the span.</summary>
         private IList<IPropertyContainer> elements;
@@ -163,6 +167,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return display;
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>
         /// The child shall be one from
         /// <see cref="GetAllElements()"/>
@@ -171,6 +176,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         internal virtual String GetElementDisplay(IPropertyContainer child) {
             return childrenDisplayMap.Get(child);
         }
+//\endcond
 
         /// <summary>Flushes the waiting leaf elements.</summary>
         private void FlushInlineHelper() {

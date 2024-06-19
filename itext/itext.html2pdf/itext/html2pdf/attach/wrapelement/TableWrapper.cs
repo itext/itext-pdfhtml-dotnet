@@ -283,12 +283,17 @@ namespace iText.Html2pdf.Attach.Wrapelement {
         /// element.
         /// </summary>
         private class CellWrapper {
+//\cond DO_NOT_DOCUMENT
             /// <summary>The column index.</summary>
             internal int col;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
             /// <summary>The cell.</summary>
             internal Cell cell;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
             /// <summary>
             /// Creates a new
             /// <see cref="CellWrapper"/>
@@ -300,6 +305,7 @@ namespace iText.Html2pdf.Attach.Wrapelement {
                 this.col = col;
                 this.cell = cell;
             }
+//\endcond
         }
     }
 }

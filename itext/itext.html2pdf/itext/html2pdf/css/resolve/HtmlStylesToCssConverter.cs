@@ -31,6 +31,7 @@ using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Resolve {
+//\cond DO_NOT_DOCUMENT
     /// <summary>Utilities class that converts HTML styles to CSS.</summary>
     internal class HtmlStylesToCssConverter {
         /// <summary>Maps HTML styles to a specific converter.</summary>
@@ -638,4 +639,5 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
     }
+//\endcond
 }

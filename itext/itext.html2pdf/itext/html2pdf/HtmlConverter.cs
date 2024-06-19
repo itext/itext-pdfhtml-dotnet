@@ -747,9 +747,11 @@ namespace iText.Html2pdf {
             return Attacher.Attach(doc, converterProperties);
         }
 
+//\cond DO_NOT_DOCUMENT
         internal static IMetaInfo CreatePdf2HtmlMetaInfo() {
             return new HtmlConverter.HtmlMetaInfo();
         }
+//\endcond
 
         private static IMetaInfo ResolveMetaInfo(ConverterProperties converterProperties) {
             return converterProperties == null ? CreatePdf2HtmlMetaInfo() : converterProperties.GetEventMetaInfo();

@@ -286,8 +286,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
             private readonly IDictionary<String, GridApplierUtil.Placement> areas = new Dictionary<String, GridApplierUtil.Placement
                 >();
 
+//\cond DO_NOT_DOCUMENT
             internal NamedAreas() {
             }
+//\endcond
 
             // Empty constructor
             public void AddName(String name, int row, int column) {

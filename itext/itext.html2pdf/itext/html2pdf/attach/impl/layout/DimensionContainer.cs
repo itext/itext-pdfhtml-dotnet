@@ -27,18 +27,30 @@ using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+//\cond DO_NOT_DOCUMENT
     /// <summary>Container class for grouping necessary values used in dimension calculation</summary>
     internal abstract class DimensionContainer {
+//\cond DO_NOT_DOCUMENT
         internal float dimension;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal float minDimension;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal float maxDimension;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal float minContentDimension;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal float maxContentDimension;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal DimensionContainer() {
             dimension = -1;
             minDimension = 0;
@@ -46,13 +58,17 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             maxDimension = float.MaxValue;
             maxContentDimension = float.MaxValue;
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Check if this dimension is auto</summary>
         /// <returns>True if the dimension is to be automatically calculated, false if it was set via a property</returns>
         internal virtual bool IsAutoDimension() {
             return dimension == -1;
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal virtual float ParseDimension(CssContextNode node, String content, float maxAvailableDimension, float
              additionalWidthFix) {
             float fontSize = CssDimensionParsingUtils.ParseAbsoluteFontSize(node.GetStyles().Get(CssConstants.FONT_SIZE
@@ -66,5 +82,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
             return maxAvailableDimension * unitValue.GetValue() / 100f;
         }
+//\endcond
     }
+//\endcond
 }

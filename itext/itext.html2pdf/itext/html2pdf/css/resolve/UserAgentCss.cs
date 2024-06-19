@@ -31,6 +31,7 @@ using iText.StyledXmlParser.Css.Parse;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Resolve {
+//\cond DO_NOT_DOCUMENT
     /// <summary>Utilities class to get the styles of a node.</summary>
     internal class UserAgentCss {
         /// <summary>The path to the default CSS file.</summary>
@@ -68,4 +69,5 @@ namespace iText.Html2pdf.Css.Resolve {
             return defaultCss.GetCssDeclarations(node, MediaDeviceDescription.CreateDefault());
         }
     }
+//\endcond
 }
