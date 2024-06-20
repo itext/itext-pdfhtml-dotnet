@@ -30,6 +30,7 @@ using System.Reflection;
 using iText.Commons.Utils;
 using iText.Html2pdf;
 
+//\cond DO_NOT_DOCUMENT
 internal static class Html2PdfExtensions {
     public static String Name(this Encoding e) {
         return e.WebName.ToUpperInvariant();
@@ -488,3 +489,4 @@ internal static class Html2PdfExtensions {
     }
 #endif
 }
+//\endcond
