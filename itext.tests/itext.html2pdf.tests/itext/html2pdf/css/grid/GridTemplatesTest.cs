@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Layout.Exceptions;
 using iText.Layout.Logs;
 using iText.Test;
 using iText.Test.Attributes;
@@ -341,6 +342,191 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void BasicGridEmValuesTest() {
             RunTest("grid-layout-em");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PercentageTemplateHeightTest() {
+            RunTest("percentageTemplateHeightTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PercentageTemplateHeightWithFixedHeightTest() {
+            RunTest("percentageTemplateHeightWithFixedHeightTest");
+        }
+
+        //TODO DEVSIX-8387
+        [NUnit.Framework.Test]
+        public virtual void PercentageFitContentWithFrTest() {
+            RunTest("percentageFitContentWithFrTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AutoFillRepeatWithGapsTest() {
+            RunTest("autoFillRepeatWithGapsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AutoFitWithSingleCellTest() {
+            RunTest("autoFitWithSingleCellTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnFlowAutoFillTest() {
+            RunTest("columnFlowAutoFillTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FitContentAndFrTest() {
+            RunTest("fitContentAndFrTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FixedFitContentTest() {
+            RunTest("fixedFitContentTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FixedRepeatWithGapsTest() {
+            RunTest("fixedRepeatWithGapsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineAutoFillTest() {
+            RunTest("inlineAutoFillTest");
+        }
+
+        [LogMessage(LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES)]
+        [NUnit.Framework.Test]
+        public virtual void InvalidAutoRepeatTest() {
+            RunTest("invalidAutoRepeatTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InvalidParameterRepeatTest() {
+            RunTest("invalidParameterRepeatTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinMaxAutoFillTest() {
+            RunTest("minMaxAutoFillTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MixedRepeatsTest() {
+            RunTest("mixedRepeatsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ResolvableAutoFillSimpleTest() {
+            RunTest("resolvableAutoFillSimpleTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ResolvableAutoFitWithMinMaxTest() {
+            RunTest("resolvableAutoFitWithMinMaxTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SeveralValuesAutoFillTest() {
+            RunTest("severalValuesAutoFillTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AutoFitOnIntrinsicAreaTest() {
+            RunTest("autoFitOnIntrinsicAreaTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AutoFillWithDefiniteMinMaxTest() {
+            RunTest("autoFillWithDefiniteMinMaxTest");
+        }
+
+        //TODO DEVSIX-8387
+        [NUnit.Framework.Test]
+        public virtual void AutoFillWithIndefiniteMinMaxTest() {
+            RunTest("autoFillWithIndefiniteMinMaxTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinMaxWithIndefiniteMinTest() {
+            RunTest("minMaxWithIndefiniteMinTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PointZeroFlexTest() {
+            RunTest("pointZeroFlexTest");
+        }
+
+        //TODO DEVSIX-8418
+        [NUnit.Framework.Test]
+        public virtual void AutoFitOnIntrinsicAreaWithLargeBorderTest() {
+            RunTest("autoFitOnIntrinsicAreaWithLargeBorderTest");
+        }
+
+        //TODO DEVSIX-8418
+        [NUnit.Framework.Test]
+        public virtual void AutoFitOnIntrinsicAreaWithLargeMarginPaddingTest() {
+            RunTest("autoFitOnIntrinsicAreaWithLargeMarginPaddingTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AutoRepeatOnIntrinsicAreaTest() {
+            RunTest("autoRepeatOnIntrinsicAreaTest");
+        }
+
+        [LogMessage(LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES)]
+        [NUnit.Framework.Test]
+        public virtual void AutoRepeatWithIntrinsicArgumentTest() {
+            RunTest("autoRepeatWithIntrinsicArgumentTest");
+        }
+
+        [LogMessage(LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CAN_BE_USED_ONLY_ONCE)]
+        [NUnit.Framework.Test]
+        public virtual void TwoAutoRepeatsTest() {
+            RunTest("twoAutoRepeatsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AutoFillRepeatWithFlexMinMaxTest() {
+            RunTest("autoFillRepeatWithFlexMinMaxTest");
+        }
+
+        //TODO: DEVSIX-8387
+        [NUnit.Framework.Test]
+        public virtual void AutoFitRepeatWithFlexMinMaxTest() {
+            RunTest("autoFitRepeatWithFlexMinMaxTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RepeatInsideMinMaxTest() {
+            RunTest("repeatInsideMinMaxTest");
+        }
+
+        [LogMessage(LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES)]
+        [NUnit.Framework.Test]
+        public virtual void AutoRepeatWithFitContentTest() {
+            RunTest("autoRepeatWithFitContentTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FixedRepeatWithFitContentTest() {
+            RunTest("fixedRepeatWithFitContentTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FixedRepeatWithMinMaxContentTest() {
+            RunTest("fixedRepeatWithMinMaxContentTest");
+        }
+
+        [LogMessage(LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES)]
+        [NUnit.Framework.Test]
+        public virtual void AutoRepeatWithLeadingMaxContentTest() {
+            RunTest("autoRepeatWithLeadingMaxContentTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AutoFitWithGapsTest() {
+            RunTest("autoFitWithGapsTest");
         }
 
         [NUnit.Framework.Test]

@@ -29,6 +29,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.Layout.Properties.Grid;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
@@ -315,9 +316,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IElement element = new Div();
             GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
                 ()));
-            NUnit.Framework.Assert.AreEqual(8.25, element.GetProperty<GridValue>(Property.GRID_AUTO_COLUMNS).GetValue(
-                ), 0.00001);
-            NUnit.Framework.Assert.AreEqual(30, element.GetProperty<GridValue>(Property.GRID_AUTO_ROWS).GetValue());
+            NUnit.Framework.Assert.AreEqual(8.25f, element.GetProperty<LengthValue>(Property.GRID_AUTO_COLUMNS).GetValue
+                ());
+            NUnit.Framework.Assert.AreEqual(30.0f, element.GetProperty<LengthValue>(Property.GRID_AUTO_ROWS).GetValue(
+                ));
         }
 
         [NUnit.Framework.Test]
@@ -328,20 +330,59 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IElement element = new Div();
             GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
                 ()));
-            IList<GridValue> actualColValues = element.GetProperty<IList<GridValue>>(Property.GRID_TEMPLATE_COLUMNS);
+            IList<TemplateValue> actualColValues = element.GetProperty<IList<TemplateValue>>(Property.GRID_TEMPLATE_COLUMNS
+                );
             NUnit.Framework.Assert.AreEqual(6, actualColValues.Count);
-            NUnit.Framework.Assert.IsTrue(actualColValues[0].IsMinContentValue());
-            NUnit.Framework.Assert.IsTrue(actualColValues[1].IsFlexibleValue());
-            NUnit.Framework.Assert.IsTrue(actualColValues[2].IsAutoValue());
-            NUnit.Framework.Assert.IsTrue(actualColValues[3].IsFlexibleValue());
-            NUnit.Framework.Assert.AreEqual(75, actualColValues[4].GetValue());
-            NUnit.Framework.Assert.AreEqual(20, actualColValues[5].GetValue());
-            IList<GridValue> actualRowValues = element.GetProperty<IList<GridValue>>(Property.GRID_TEMPLATE_ROWS);
+            NUnit.Framework.Assert.AreEqual(actualColValues[0].GetType(), TemplateValue.ValueType.MIN_CONTENT);
+            NUnit.Framework.Assert.AreEqual(actualColValues[1].GetType(), TemplateValue.ValueType.FLEX);
+            NUnit.Framework.Assert.AreEqual(actualColValues[2].GetType(), TemplateValue.ValueType.AUTO);
+            NUnit.Framework.Assert.AreEqual(actualColValues[3].GetType(), TemplateValue.ValueType.FLEX);
+            NUnit.Framework.Assert.AreEqual(75.0f, ((PointValue)actualColValues[4]).GetValue());
+            NUnit.Framework.Assert.AreEqual(20.0f, ((PercentValue)actualColValues[5]).GetValue());
+            IList<TemplateValue> actualRowValues = element.GetProperty<IList<TemplateValue>>(Property.GRID_TEMPLATE_ROWS
+                );
             NUnit.Framework.Assert.AreEqual(4, actualRowValues.Count);
-            NUnit.Framework.Assert.AreEqual(7.5f, actualRowValues[0].GetValue());
-            NUnit.Framework.Assert.AreEqual(20, actualRowValues[1].GetValue());
-            NUnit.Framework.Assert.AreEqual(0, actualRowValues[2].GetValue());
-            NUnit.Framework.Assert.AreEqual(60, actualRowValues[3].GetValue());
+            NUnit.Framework.Assert.AreEqual(7.5f, ((PointValue)actualRowValues[0]).GetValue());
+            NUnit.Framework.Assert.AreEqual(20.0f, ((PointValue)actualRowValues[1]).GetValue());
+            NUnit.Framework.Assert.AreEqual(0.0f, ((PointValue)actualRowValues[2]).GetValue());
+            NUnit.Framework.Assert.AreEqual(60.0f, ((PointValue)actualRowValues[3]).GetValue());
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ContainerComplexTemplateValuesTest() {
+            IDictionary<String, String> cssProps = new Dictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "minmax(min-content, 1fr) fit-content(40%) fit-content(20px) repeat(2, fit-content(200px))"
+                );
+            cssProps.Put(CssConstants.GRID_TEMPLATE_ROWS, "repeat(3, 100px) repeat(auto-fit, minmax(100px, auto))");
+            IElement element = new Div();
+            GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
+                ()));
+            IList<TemplateValue> actualColValues = element.GetProperty<IList<TemplateValue>>(Property.GRID_TEMPLATE_COLUMNS
+                );
+            NUnit.Framework.Assert.AreEqual(4, actualColValues.Count);
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.MINMAX, actualColValues[0].GetType());
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.MIN_CONTENT, ((MinMaxValue)actualColValues[0]).GetMin
+                ().GetType());
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.FLEX, ((MinMaxValue)actualColValues[0]).GetMax().GetType
+                ());
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.FIT_CONTENT, actualColValues[1].GetType());
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.PERCENT, ((FitContentValue)actualColValues[1]).GetLength
+                ().GetType());
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.FIT_CONTENT, actualColValues[2].GetType());
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.POINT, ((FitContentValue)actualColValues[2]).GetLength
+                ().GetType());
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.FIXED_REPEAT, actualColValues[3].GetType());
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.FIT_CONTENT, ((FixedRepeatValue)actualColValues[3]
+                ).GetValues()[0].GetType());
+            IList<TemplateValue> actualRowValues = element.GetProperty<IList<TemplateValue>>(Property.GRID_TEMPLATE_ROWS
+                );
+            NUnit.Framework.Assert.AreEqual(2, actualRowValues.Count);
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.FIXED_REPEAT, actualRowValues[0].GetType());
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.POINT, ((FixedRepeatValue)actualRowValues[0]).GetValues
+                ()[0].GetType());
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.AUTO_REPEAT, actualRowValues[1].GetType());
+            NUnit.Framework.Assert.AreEqual(TemplateValue.ValueType.MINMAX, ((AutoRepeatValue)actualRowValues[1]).GetValues
+                ()[0].GetType());
         }
 
         [NUnit.Framework.Test]

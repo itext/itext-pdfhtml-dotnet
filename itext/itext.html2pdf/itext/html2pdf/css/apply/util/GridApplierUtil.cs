@@ -32,6 +32,7 @@ using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
 using iText.Layout;
 using iText.Layout.Properties;
+using iText.Layout.Properties.Grid;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
@@ -173,7 +174,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private static void ApplyAuto(String autoStr, IPropertyContainer container, int property, float emValue, float
              remValue) {
             if (autoStr != null) {
-                GridValue value = GetGridValue(autoStr, emValue, remValue);
+                TemplateValue value = ParseTemplateValue(autoStr, emValue, remValue);
                 if (value != null) {
                     container.SetProperty(property, value);
                 }
@@ -204,9 +205,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             , float remValue) {
             if (templateStr != null) {
                 IList<String> templateStrArray = CssUtils.ExtractShorthandProperties(templateStr)[0];
-                IList<GridValue> templateResult = new List<GridValue>();
+                IList<TemplateValue> templateResult = new List<TemplateValue>();
                 foreach (String str in templateStrArray) {
-                    GridValue value = GetGridValue(str, emValue, remValue);
+                    TemplateValue value = ParseTemplateValue(str, emValue, remValue);
                     if (value != null) {
                         templateResult.Add(value);
                     }
@@ -217,34 +218,109 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        private static GridValue GetGridValue(String str, float emValue, float remValue) {
+        private static TemplateValue ParseTemplateValue(String str, float emValue, float remValue) {
+            if (str == null) {
+                return null;
+            }
             UnitValue unit = CssDimensionParsingUtils.ParseLengthValueToPt(str, emValue, remValue);
             if (unit != null) {
                 if (unit.IsPointValue()) {
-                    return GridValue.CreatePointValue(unit.GetValue());
+                    return new PointValue(unit.GetValue());
                 }
                 else {
-                    return GridValue.CreatePercentValue(unit.GetValue());
+                    return new PercentValue(unit.GetValue());
                 }
             }
-            else {
-                if (CommonCssConstants.MIN_CONTENT.Equals(str)) {
-                    return GridValue.CreateMinContentValue();
-                }
-                else {
-                    if (CommonCssConstants.MAX_CONTENT.Equals(str)) {
-                        return GridValue.CreateMaxContentValue();
-                    }
-                    else {
-                        if (CommonCssConstants.AUTO.Equals(str)) {
-                            return GridValue.CreateAutoValue();
-                        }
-                    }
-                }
+            if (CommonCssConstants.MIN_CONTENT.Equals(str)) {
+                return MinContentValue.VALUE;
+            }
+            if (CommonCssConstants.MAX_CONTENT.Equals(str)) {
+                return MaxContentValue.VALUE;
+            }
+            if (CommonCssConstants.AUTO.Equals(str)) {
+                return AutoValue.VALUE;
             }
             float? fr = CssDimensionParsingUtils.ParseFlex(str);
             if (fr != null) {
-                return GridValue.CreateFlexValue((float)fr);
+                return new FlexValue((float)fr);
+            }
+            if (DetermineFunction(str, CommonCssConstants.FIT_CONTENT)) {
+                return ParseFitContent(str, emValue, remValue);
+            }
+            if (DetermineFunction(str, CommonCssConstants.REPEAT)) {
+                return ParseRepeat(str, emValue, remValue);
+            }
+            if (DetermineFunction(str, CssConstants.MINMAX)) {
+                return ParseMinMax(str, emValue, remValue);
+            }
+            return null;
+        }
+
+        private static FitContentValue ParseFitContent(String str, float emValue, float remValue) {
+            UnitValue length = CssDimensionParsingUtils.ParseLengthValueToPt(str.JSubstring(CommonCssConstants.FIT_CONTENT
+                .Length + 1, str.Length - 1), emValue, remValue);
+            if (length == null) {
+                return null;
+            }
+            return new FitContentValue(length);
+        }
+
+        private static bool DetermineFunction(String str, String function) {
+            return str.StartsWith(function) && str.Length > function.Length + 2;
+        }
+
+        private static TemplateValue ParseMinMax(String str, float emValue, float remValue) {
+            int parameterSeparator = str.IndexOf(',');
+            if (parameterSeparator < 0) {
+                return null;
+            }
+            TemplateValue min = ParseTemplateValue(str.JSubstring(CssConstants.MINMAX.Length + 1, parameterSeparator).
+                Trim(), emValue, remValue);
+            TemplateValue max = ParseTemplateValue(str.JSubstring(parameterSeparator + 1, str.Length - 1).Trim(), emValue
+                , remValue);
+            if (!(min is BreadthValue) || !(max is BreadthValue)) {
+                return null;
+            }
+            return new MinMaxValue((BreadthValue)min, (BreadthValue)max);
+        }
+
+        private static TemplateValue ParseRepeat(String str, float emValue, float remValue) {
+            IList<GridValue> repeatList = new List<GridValue>();
+            int repeatCount = -1;
+            int repeatTypeEndIndex = str.IndexOf(',');
+            if (repeatTypeEndIndex < 0) {
+                return null;
+            }
+            String repeatType = str.JSubstring(CommonCssConstants.REPEAT.Length + 1, repeatTypeEndIndex).Trim();
+            try {
+                repeatCount = Convert.ToInt32(repeatType, System.Globalization.CultureInfo.InvariantCulture);
+            }
+            catch (FormatException) {
+            }
+            //do nothing
+            IList<String> repeatStr = CssUtils.ExtractShorthandProperties(str.JSubstring(repeatTypeEndIndex + 1, str.Length
+                 - 1))[0];
+            foreach (String strValue in repeatStr) {
+                TemplateValue value = ParseTemplateValue(strValue, emValue, remValue);
+                if (value is GridValue) {
+                    repeatList.Add((GridValue)value);
+                }
+                else {
+                    return null;
+                }
+            }
+            if (repeatCount > 0) {
+                return new FixedRepeatValue(repeatCount, repeatList);
+            }
+            else {
+                if (CssConstants.AUTO_FILL.Equals(repeatType)) {
+                    return new AutoRepeatValue(false, repeatList);
+                }
+                else {
+                    if (CssConstants.AUTO_FIT.Equals(repeatType)) {
+                        return new AutoRepeatValue(true, repeatList);
+                    }
+                }
             }
             return null;
         }

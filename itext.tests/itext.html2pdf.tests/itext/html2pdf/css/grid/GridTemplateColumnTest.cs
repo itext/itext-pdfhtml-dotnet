@@ -59,13 +59,11 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnFitContentTest() {
-            // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-content support)
             RunTest("template-cols-fit-content");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnFitContentAutoTest() {
-            // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-content support)
             RunTest("template-cols-fit-content-auto");
         }
 
@@ -91,7 +89,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnMinMaxTest() {
-            // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-content support)
             RunTest("template-cols-minmax");
         }
 
@@ -117,13 +114,11 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnRepeatTest() {
-            // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-content support)
             RunTest("template-cols-repeat");
         }
 
         [NUnit.Framework.Test]
         public virtual void TemplateColumnRepeatMinMaxTest() {
-            // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat&fit-content support)
             RunTest("template-cols-repeat-minmax");
         }
 

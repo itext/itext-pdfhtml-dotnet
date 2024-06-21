@@ -27,6 +27,12 @@ using iText.StyledXmlParser.Css;
 
 namespace iText.Html2pdf.Css {
     public class CssConstants : CommonCssConstants {
+        /// <summary>The Constant AUTO_FIT.</summary>
+        public const String AUTO_FIT = "auto-fit";
+
+        /// <summary>The Constant AUTO_FILL.</summary>
+        public const String AUTO_FILL = "auto-fill";
+
         /// <summary>The Constant BLEED.</summary>
         public const String BLEED = "bleed";
 
@@ -65,6 +71,9 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant MIN_WIDTH.</summary>
         public const String MIN_WIDTH = "min-width";
+
+        /// <summary>The Constant MIN_MAX.</summary>
+        public const String MINMAX = "minmax";
 
         /// <summary>The Constant OBJECT_FIT.</summary>
         public const String OBJECT_FIT = "object-fit";

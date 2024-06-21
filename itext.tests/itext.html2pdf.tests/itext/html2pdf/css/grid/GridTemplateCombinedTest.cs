@@ -59,7 +59,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateCombinedMinMaxTest() {
-            // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat support)
             RunTest("template-combined-minmax");
         }
 
@@ -81,7 +80,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateCombinedRepeatMinMaxTest() {
-            // TODO DEVSIX-8383 (assign to the ticket about minmax&repeat support)
             RunTest("template-combined-repeat-minmax");
         }
 
