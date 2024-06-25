@@ -70,6 +70,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
+        public virtual void ApplyRowStartSpanTest() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_ROW_START, "span  3");
+            IElement element = new Div();
+            GridApplierUtil.ApplyGridItemProperties(cssProps, CreateStylesContainer(), element);
+            int? rowSpan = element.GetProperty<int?>(Property.GRID_ROW_SPAN);
+            NUnit.Framework.Assert.AreEqual(3, rowSpan);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void ApplyRowEndTest() {
             IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
             cssProps.Put(CssConstants.GRID_ROW_END, "11");
@@ -83,8 +93,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void ApplyInvalidColumnStartTest() {
             IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
             cssProps.Put(CssConstants.GRID_COLUMN_START, CssConstants.AUTO);
-            IElement element = new Div();
+            Div element = new Div();
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
             GridApplierUtil.ApplyGridItemProperties(cssProps, CreateStylesContainer(), element);
+            GridApplierUtil.ApplyGridContainerProperties(new Dictionary<String, String>(), grid, new ProcessorContext(
+                new ConverterProperties()));
             int? columnStart = element.GetProperty<int?>(Property.GRID_COLUMN_START);
             NUnit.Framework.Assert.IsNull(columnStart);
         }
@@ -184,11 +198,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void ApplyNoneGridTemplateAreasTest() {
             IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
             cssProps.Put(CssConstants.GRID_AREA, CommonCssConstants.NONE);
-            IElement element = new Div();
+            Div element = new Div();
             IElementNode stylesContainer = CreateStylesContainer();
             IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
             parentStyles.Put(CssConstants.GRID_TEMPLATE_AREAS, CommonCssConstants.NONE);
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
             GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(new Dictionary<String, String>(), grid, new ProcessorContext(
+                new ConverterProperties()));
             NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_ROW_START));
             NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_COLUMN_START));
             NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_ROW_END));
@@ -199,12 +217,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void ApplyGridTemplateAreas1Test() {
             IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
             cssProps.Put(CssConstants.GRID_AREA, "somename1");
-            IElement element = new Div();
+            Div element = new Div();
             IElementNode stylesContainer = CreateStylesContainer();
             IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
             parentStyles.Put(CssConstants.GRID_TEMPLATE_AREAS, "\"somename1 Somename1\" ' somename1     Somename1' ' somename1     Somename1'"
                 );
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
             GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
             NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_ROW_START));
             NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
             NUnit.Framework.Assert.AreEqual(4, element.GetProperty<int?>(Property.GRID_ROW_END));
@@ -216,15 +238,19 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
             cssProps.Put(CssConstants.GRID_ROW_END, "3");
             cssProps.Put(CssConstants.GRID_AREA, "somename1");
-            IElement element = new Div();
+            Div element = new Div();
             IElementNode stylesContainer = CreateStylesContainer();
             IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
             parentStyles.Put(CssConstants.GRID_TEMPLATE_AREAS, "\"somename1 Somename1\" ' somename1     Somename1' ' somename1     Somename1'"
                 );
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
             GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
             NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_ROW_START));
             NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
-            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(4, element.GetProperty<int?>(Property.GRID_ROW_END));
             NUnit.Framework.Assert.AreEqual(2, element.GetProperty<int?>(Property.GRID_COLUMN_END));
         }
 
@@ -233,15 +259,19 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
             cssProps.Put(CssConstants.GRID_AREA, "somename1");
             cssProps.Put(CssConstants.GRID_ROW_END, "3");
-            IElement element = new Div();
+            Div element = new Div();
             IElementNode stylesContainer = CreateStylesContainer();
             IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
             parentStyles.Put(CssConstants.GRID_TEMPLATE_AREAS, "\"somename1 Somename1\" ' somename1     Somename1' ' somename1     Somename1'"
                 );
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
             GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
             NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_ROW_START));
             NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
-            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(4, element.GetProperty<int?>(Property.GRID_ROW_END));
             NUnit.Framework.Assert.AreEqual(2, element.GetProperty<int?>(Property.GRID_COLUMN_END));
         }
 
@@ -265,11 +295,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void ApplyInvalidGridTemplateAreas1Test() {
             IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
             cssProps.Put(CssConstants.GRID_AREA, "b");
-            IElement element = new Div();
+            Div element = new Div();
             IElementNode stylesContainer = CreateStylesContainer();
             IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
             parentStyles.Put(CssConstants.GRID_TEMPLATE_AREAS, "'a b' 'b a'");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
             GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
             NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_ROW_START));
             NUnit.Framework.Assert.AreEqual(2, element.GetProperty<int?>(Property.GRID_COLUMN_START));
             NUnit.Framework.Assert.AreEqual(2, element.GetProperty<int?>(Property.GRID_ROW_END));
@@ -281,11 +315,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void ApplyInvalidGridTemplateAreas2Test() {
             IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
             cssProps.Put(CssConstants.GRID_AREA, "a");
-            IElement element = new Div();
+            Div element = new Div();
             IElementNode stylesContainer = CreateStylesContainer();
             IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
             parentStyles.Put(CssConstants.GRID_TEMPLATE_AREAS, "'a b a' 'a b a'");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
             GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
             NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_ROW_START));
             NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
             NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_ROW_END));
@@ -296,11 +334,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         public virtual void ApplyGridTemplateAreasWithDotsTest() {
             IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
             cssProps.Put(CssConstants.GRID_AREA, ".");
-            IElement element = new Div();
+            Div element = new Div();
             IElementNode stylesContainer = CreateStylesContainer();
             IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
             parentStyles.Put(CssConstants.GRID_TEMPLATE_AREAS, "'. . a' '. . a'");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
             GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(new Dictionary<String, String>(), grid, new ProcessorContext(
+                new ConverterProperties()));
             NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_ROW_START));
             NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_COLUMN_START));
             NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_ROW_END));
@@ -444,6 +486,306 @@ namespace iText.Html2pdf.Css.Apply.Util {
             GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
                 ()));
             NUnit.Framework.Assert.AreEqual(GridFlow.ROW, element.GetProperty<GridFlow?>(Property.GRID_FLOW));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CustomIndentTest() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_START, " a ");
+            cssProps.Put(CssConstants.GRID_COLUMN_END, "c");
+            cssProps.Put(CssConstants.GRID_ROW_START, " a ");
+            cssProps.Put(CssConstants.GRID_ROW_END, "c");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px [ b  c  d  ] 10px [e f]");
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_ROWS, "[f] 10px [ e  d  c  ] 10px [b a]");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(2, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(2, element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CustomIndentNthTest() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_START, "2 a");
+            cssProps.Put(CssConstants.GRID_COLUMN_END, "3 a");
+            cssProps.Put(CssConstants.GRID_ROW_START, "2 c");
+            cssProps.Put(CssConstants.GRID_ROW_END, "d");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px [b] 10px [a] 10px [a]");
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_ROWS, "[c] 10px [c] 10px [c]");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(2, element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(4, element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CustomIndentNegativeTest() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_START, "-3 a");
+            cssProps.Put(CssConstants.GRID_COLUMN_END, "-1 a");
+            cssProps.Put(CssConstants.GRID_ROW_START, "-3 c");
+            cssProps.Put(CssConstants.GRID_ROW_END, "-1 c");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px [b] 10px [a] 10px [a]");
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_ROWS, "[c] 10px [c] 10px [c]");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(4, element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.ADDING_GRID_LINES_TO_THE_LEFT_OR_TOP_IS_NOT_SUPPORTED)]
+        public virtual void CustomIndentOutOfBoundsTest() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_START, "a");
+            cssProps.Put(CssConstants.GRID_COLUMN_END, "5 a");
+            cssProps.Put(CssConstants.GRID_ROW_START, "-5 c");
+            cssProps.Put(CssConstants.GRID_ROW_END, "-1 c");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px [b] 10px [a] 10px [a]");
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_ROWS, "[c] 10px [c] 10px [c]");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            // Null for row start as we don't support negative starts
+            NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(6, element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CustomIndentOutOfBounds2Test() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_START, "a");
+            cssProps.Put(CssConstants.GRID_COLUMN_END, "5 a");
+            cssProps.Put(CssConstants.GRID_ROW_START, "c");
+            cssProps.Put(CssConstants.GRID_ROW_END, "2 c");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px 10px [a] 10px [b]");
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_ROWS, "10px 10px [c] 10px [a]");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(5, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(7, element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CustomIndentGridAreaTest() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_AREA, "c / a 2 / c -2 / 5 a");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px [b] 10px [a] 10px [a]");
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_ROWS, "[c] 10px [c] 10px [c]");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(2, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(6, element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CustomIndentSpan1Test() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_START, "a");
+            cssProps.Put(CssConstants.GRID_COLUMN_END, "span 2 a");
+            cssProps.Put(CssConstants.GRID_ROW_START, "span c");
+            cssProps.Put(CssConstants.GRID_ROW_END, "4");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px 10px [a] 10px [b]");
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_ROWS, "10px 10px [c] 10px [a]");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(4, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(5, element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CustomIndentSpan2Test() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_START, "2 a");
+            cssProps.Put(CssConstants.GRID_COLUMN_END, "span 2 a");
+            cssProps.Put(CssConstants.GRID_ROW_START, "span 2 c");
+            cssProps.Put(CssConstants.GRID_ROW_END, "4");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px 10px [a] 10px [b]");
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_ROWS, "10px 10px [c] 10px [a]");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            // Null for row start as we don't support negative starts
+            NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(4, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(6, element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CustomIndentSpan3Test() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_START, " 2  a-a");
+            cssProps.Put(CssConstants.GRID_COLUMN_END, "span  2  a-a");
+            cssProps.Put(CssConstants.GRID_ROW_START, "span  2  c");
+            cssProps.Put(CssConstants.GRID_ROW_END, "4");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a-a] 10px 10px [a-a] 10px [b-a]");
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_ROWS, "10px 10px [c] 10px [a]");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            // Null for row start as we don't support negative starts
+            NUnit.Framework.Assert.IsNull(element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(4, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(6, element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridAreaLinenamesTest() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_START, "a-start");
+            cssProps.Put(CssConstants.GRID_COLUMN_END, "span c-end 2");
+            cssProps.Put(CssConstants.GRID_ROW_START, "span a-start");
+            cssProps.Put(CssConstants.GRID_ROW_END, "c-end -1");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_AREAS, "'a a a b b c c c' 'a a a b b c c c' 'a a a b b c c c'"
+                );
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            // Null for row start as we don't support negative starts
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(4, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(10, element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LineNamesInRepeatTest() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_START, "4 a");
+            cssProps.Put(CssConstants.GRID_COLUMN_END, "b 4");
+            cssProps.Put(CssConstants.GRID_ROW_START, "span start");
+            cssProps.Put(CssConstants.GRID_ROW_END, "c 2");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] repeat(3, [a st] 10px 10px [a] 10px [b])");
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_ROWS, "[start] repeat(2, 10px 10px [c] 10px [a])");
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(6, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(6, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(11, element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LineNamesInRepeat2Test() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_START, "3 a");
+            cssProps.Put(CssConstants.GRID_COLUMN_END, "span nd 3");
+            cssProps.Put(CssConstants.GRID_ROW_START, "span c");
+            cssProps.Put(CssConstants.GRID_ROW_END, "a 8");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "[a] 10px repeat( 2, 10px 10px [a] 10px [b]) repeat(3, [nd] auto)"
+                );
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_ROWS, "[start] 10px repeat( 5, 10px 10px [c] 10px [a]) auto [a] auto [a]"
+                );
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(16, element.GetProperty<int?>(Property.GRID_ROW_START));
+            NUnit.Framework.Assert.AreEqual(7, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(20, element.GetProperty<int?>(Property.GRID_ROW_END));
+            NUnit.Framework.Assert.AreEqual(10, element.GetProperty<int?>(Property.GRID_COLUMN_END));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.LINENAMES_ARE_NOT_SUPPORTED_WITHIN_AUTO_REPEAT, Count = 2)]
+        public virtual void LineNamesInAutoRepeatTest() {
+            IDictionary<String, String> cssProps = new LinkedDictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_START, "a");
+            cssProps.Put(CssConstants.GRID_COLUMN_END, "c");
+            Div element = new Div();
+            IElementNode stylesContainer = CreateStylesContainer();
+            IDictionary<String, String> parentStyles = ((JsoupElementNode)stylesContainer.ParentNode()).GetStyles();
+            parentStyles.Put(CssConstants.GRID_TEMPLATE_COLUMNS, "repeat(auto-fill, [a] 10%) [b] repeat(auto-fit, 1fr) [c]"
+                );
+            GridContainer grid = new GridContainer();
+            grid.Add(element);
+            GridApplierUtil.ApplyGridItemProperties(cssProps, stylesContainer, element);
+            GridApplierUtil.ApplyGridContainerProperties(parentStyles, grid, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(1, element.GetProperty<int?>(Property.GRID_COLUMN_START));
+            NUnit.Framework.Assert.AreEqual(3, element.GetProperty<int?>(Property.GRID_COLUMN_END));
         }
 
         private IElementNode CreateStylesContainer() {

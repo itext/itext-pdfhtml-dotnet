@@ -112,6 +112,23 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("invalidTemplateAreas");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void TemplateAreasStartAutoTest() {
+            RunTest("templateAreasStartAuto");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TemplateAreasStartTest() {
+            // Here browser result seems strange. We specified only row starts but it somehow applies to column starts also.
+            // I'd expect the same result as for templateAreasStartAutoTest
+            RunTest("templateAreasStart");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TemplateAreasStartEndTest() {
+            RunTest("templateAreasStartEnd");
+        }
+
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
                 (SOURCE_FOLDER).SetCssGridEnabled(true));
