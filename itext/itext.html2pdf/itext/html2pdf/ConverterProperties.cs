@@ -124,6 +124,7 @@ namespace iText.Html2pdf {
             this.limitOfLayouts = other.limitOfLayouts;
             this.immediateFlush = other.immediateFlush;
             this.continuousContainerEnabled = other.continuousContainerEnabled;
+            this.cssGridEnabled = other.cssGridEnabled;
         }
 
         /// <summary>Gets the media device description.</summary>
