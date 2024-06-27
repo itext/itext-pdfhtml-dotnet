@@ -73,6 +73,11 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
+        public virtual void RowFitContentPercentTest() {
+            RunTest("row-fit-content-percent");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void TemplateRowFrTest() {
             RunTest("template-rows-fr");
         }

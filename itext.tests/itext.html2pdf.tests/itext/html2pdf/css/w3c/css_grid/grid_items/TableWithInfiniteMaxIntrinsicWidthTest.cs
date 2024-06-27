@@ -26,7 +26,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_items {
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
-        5)]
+        9)]
     public class TableWithInfiniteMaxIntrinsicWidthTest : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
             return "table-with-infinite-max-intrinsic-width.html";

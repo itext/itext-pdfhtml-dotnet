@@ -63,7 +63,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void BasicColumnMultiPageTest() {
-            // TODO DEVSIX-8330
             // TODO DEVSIX-8331
             RunTest("basicColumnMultiPageTest");
         }
@@ -152,7 +151,6 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("basicColumnRowStartEnd5Test");
         }
 
-        //TODO DEVSIX-8325 null rows/cols not terminated, causes error in layout
         [NUnit.Framework.Test]
         public virtual void BasicColumnRowStartEnd6Test() {
             RunTest("basicColumnRowStartEnd6Test");
@@ -354,7 +352,6 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("percentageTemplateHeightWithFixedHeightTest");
         }
 
-        //TODO DEVSIX-8387
         [NUnit.Framework.Test]
         public virtual void PercentageFitContentWithFrTest() {
             RunTest("percentageFitContentWithFrTest");
@@ -412,6 +409,16 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
+        public virtual void MinMaxAutoFillWithHeightTest() {
+            RunTest("minMaxAutoFillWithHeightTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinMaxAutoFillWithMaxHeightTest() {
+            RunTest("minMaxAutoFillWithMaxHeightTest");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void MixedRepeatsTest() {
             RunTest("mixedRepeatsTest");
         }
@@ -441,10 +448,20 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("autoFillWithDefiniteMinMaxTest");
         }
 
-        //TODO DEVSIX-8387
         [NUnit.Framework.Test]
         public virtual void AutoFillWithIndefiniteMinMaxTest() {
             RunTest("autoFillWithIndefiniteMinMaxTest");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutExceptionMessageConstant.FLEXIBLE_ARENT_ALLOWED_AS_MINIMUM_IN_MINMAX)]
+        public virtual void MinmaxWithMinFrTest() {
+            RunTest("minmaxWithMinFrTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinmaxWithMaxFrTest() {
+            RunTest("minmaxWithMaxFrTest");
         }
 
         [NUnit.Framework.Test]
@@ -455,6 +472,36 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void PointZeroFlexTest() {
             RunTest("pointZeroFlexTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PointZeroFlexTest2() {
+            RunTest("pointZeroFlexTest2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PointZeroFlexTest3() {
+            RunTest("pointZeroFlexTest3");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PointZeroFlexTest4() {
+            RunTest("pointZeroFlexTest4");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PointZeroFlexTest5() {
+            RunTest("pointZeroFlexTest5");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PointZeroFlexTest6() {
+            RunTest("pointZeroFlexTest6");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SpanOnlyFrTest() {
+            RunTest("spanOnlyFrTest");
         }
 
         //TODO DEVSIX-8418
@@ -491,7 +538,6 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("autoFillRepeatWithFlexMinMaxTest");
         }
 
-        //TODO: DEVSIX-8387
         [NUnit.Framework.Test]
         public virtual void AutoFitRepeatWithFlexMinMaxTest() {
             RunTest("autoFitRepeatWithFlexMinMaxTest");

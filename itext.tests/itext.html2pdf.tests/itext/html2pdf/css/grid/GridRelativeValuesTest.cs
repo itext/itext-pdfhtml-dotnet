@@ -22,6 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Layout.Exceptions;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Grid {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -260,6 +262,81 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void RowAxis7Test() {
             RunTest("rowAxis7");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES, Count
+             = 2)]
+        public virtual void MinmaxAutoRepeat1Test() {
+            RunTest("minmaxAutoRepeat1");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES, Count
+             = 2)]
+        public virtual void MinmaxAutoRepeat2Test() {
+            RunTest("minmaxAutoRepeat2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinmaxFitContent1Test() {
+            RunTest("minmaxFitContent1");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinmaxFitContent2Test() {
+            RunTest("minmaxFitContent2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinmaxFitContentAutoRepeat1Test() {
+            RunTest("minmaxFitContentAutoRepeat1");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutExceptionMessageConstant.GRID_AUTO_REPEAT_CANNOT_BE_COMBINED_WITH_INDEFINITE_SIZES)]
+        public virtual void MinmaxFitContentAutoRepeat2Test() {
+            RunTest("minmaxFitContentAutoRepeat2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinmaxWithBothAxisSpan1Test() {
+            RunTest("minmaxWithBothAxisSpan1");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinmaxWithBothAxisSpan2Test() {
+            RunTest("minmaxWithBothAxisSpan2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinmaxWithBothAxisSpan3Test() {
+            RunTest("minmaxWithBothAxisSpan3");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinmaxWithContentAndFrTest() {
+            RunTest("minmaxWithContentAndFr");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinmaxWithSpan1Test() {
+            RunTest("minmaxWithSpan1");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinmaxWithSpan2Test() {
+            RunTest("minmaxWithSpan2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinmaxWithSpan3Test() {
+            RunTest("minmaxWithSpan3");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinmaxWithSpan4Test() {
+            RunTest("minmaxWithSpan4");
         }
 
         private void RunTest(String testName) {

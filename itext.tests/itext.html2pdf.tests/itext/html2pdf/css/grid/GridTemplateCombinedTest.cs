@@ -64,6 +64,7 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateCombinedMixedTest() {
+            // TODO DEVSIX-8418 seems margins\paddings don't take into account correctly
             RunTest("template-combined-mixed");
         }
 

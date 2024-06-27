@@ -71,7 +71,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void DifferentRowSpanTest() {
-            // TODO DEVSIX-8387
             RunTest("differentRowSpanTest");
         }
 
@@ -87,7 +86,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void DifferentRowSpanOnSplitTest2() {
-            // TODO DEVSIX-8387
             RunTest("differentRowSpanOnSplitTest2");
         }
 
