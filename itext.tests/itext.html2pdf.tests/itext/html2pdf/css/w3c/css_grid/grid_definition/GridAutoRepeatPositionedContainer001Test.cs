@@ -22,15 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c.Css_grid;
-using iText.Html2pdf.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_definition {
     //TODO DEVSIX-8358: Support short-hands
-    [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
     public class GridAutoRepeatPositionedContainer001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
-            return "grid-auto-repeat-positioned-container-001.html";
+            return "auto-repeat-pos-container-001.html";
         }
     }
 }

@@ -22,15 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c.Css_grid;
-using iText.Html2pdf.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
     //TODO DEVSIX-8358: Support shorthands
-    [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 4)]
     public class AbsolutePositioningGridContainerParent001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
-            return "absolute-positioning-grid-container-parent-001.html";
+            return "abs-pos-grid-container-parent-001.html";
         }
     }
 }

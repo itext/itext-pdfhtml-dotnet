@@ -27,7 +27,7 @@ namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_items {
     //TODO DEVSIX-8358: Support short-hands
     public class GridItemOverflowAutoMaxHeightPercentageTest : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
-            return "grid-item-overflow-auto-max-height-percentage.html";
+            return "overflow-auto-max-height-percentage.html";
         }
     }
 }
