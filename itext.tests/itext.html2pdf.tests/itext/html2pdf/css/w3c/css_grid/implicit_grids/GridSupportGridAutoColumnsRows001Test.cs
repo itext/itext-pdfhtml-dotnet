@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c.Css_grid;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Implicit_grids {
-    //TODO DEVSIX-8358: Support short-hands
     public class GridSupportGridAutoColumnsRows001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
             return "grid-support-grid-auto-columns-rows-001.html";

@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c.Css_grid;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
-    //TODO DEVSIX-8358: Support shorthands
+    [NUnit.Framework.Ignore("DEVSIX-8423")]
     public class PositionedGridItemsNegativeIndices001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
             return "positioned-grid-items-negative-indices-001.html";

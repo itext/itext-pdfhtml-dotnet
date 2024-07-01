@@ -25,7 +25,6 @@ using iText.Html2pdf.Css.W3c.Css_grid;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
-    //TODO DEVSIX-8358: Support shorthands
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, Count = 6)]
     public class DescendantStaticPosition002Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {

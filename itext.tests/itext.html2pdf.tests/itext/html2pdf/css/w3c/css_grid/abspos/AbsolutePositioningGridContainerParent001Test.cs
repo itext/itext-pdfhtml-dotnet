@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c.Css_grid;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
-    //TODO DEVSIX-8358: Support shorthands
     public class AbsolutePositioningGridContainerParent001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
             return "abs-pos-grid-container-parent-001.html";

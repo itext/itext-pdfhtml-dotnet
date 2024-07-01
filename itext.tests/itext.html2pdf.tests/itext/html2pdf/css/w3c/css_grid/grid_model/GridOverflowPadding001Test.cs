@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c.Css_grid;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_model {
-    //TODO DEVSIX-8358: Support short-hands
     public class GridOverflowPadding001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
             return "grid-overflow-padding-001.html";

@@ -576,6 +576,26 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
+        public virtual void RowColumnShorthandSimpleTest() {
+            RunTest("rowColumnShorthandSimpleTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridShorthandColumnAutoFlowTest() {
+            RunTest("gridShorthandColumnAutoFlowTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridShorthandRowAutoFlowTest() {
+            RunTest("gridShorthandRowAutoFlowTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ShrankTemplateAfterAutoFitTest() {
+            RunTest("shrankTemplateAfterAutoFitTest");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void GridLayoutDisablingTest() {
             ConvertToPdfAndCompare("basicColumnFewDivsTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
                 ().SetBaseUri(SOURCE_FOLDER).SetCssGridEnabled(true));

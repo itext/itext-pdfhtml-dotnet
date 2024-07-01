@@ -55,6 +55,26 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
+        public virtual void TemplateAreasShorthandBasicTest() {
+            RunTest("templateAreasShorthandBasic");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TemplateAreasShorthandAdvancedTest() {
+            RunTest("templateAreasShorthandAdvanced");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridShorthandAdvancedTest() {
+            RunTest("gridShorthandAdvanced");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TemplateShorthandWithoutLineNamesTest() {
+            RunTest("templateShorthandWithoutLineNames");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void TemplateAreasInvalidNameTest() {
             RunTest("templateAreasInvalidName");
         }

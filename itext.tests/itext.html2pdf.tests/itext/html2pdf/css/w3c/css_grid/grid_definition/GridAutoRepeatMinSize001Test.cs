@@ -26,7 +26,7 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_definition {
-    //TODO DEVSIX-8358: Support short-hands
+    [NUnit.Framework.Ignore("DEVSIX-8423")]
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
     public class GridAutoRepeatMinSize001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {

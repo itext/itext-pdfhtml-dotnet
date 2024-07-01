@@ -26,7 +26,6 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
-    //TODO DEVSIX-8358: Support shorthands
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 4)]
     public class AbsolutePositioningDefiniteSizes001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {

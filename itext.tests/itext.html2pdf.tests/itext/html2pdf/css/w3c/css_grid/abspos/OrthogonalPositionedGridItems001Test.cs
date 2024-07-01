@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c.Css_grid;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
-    //TODO DEVSIX-8358: Support shorthands
     public class OrthogonalPositionedGridItems001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
             return "orthogonal-positioned-grid-items-001.html";

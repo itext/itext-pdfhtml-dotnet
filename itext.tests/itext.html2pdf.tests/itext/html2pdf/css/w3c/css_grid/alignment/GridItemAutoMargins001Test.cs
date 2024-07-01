@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c.Css_grid;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Alignment {
-    //TODO DEVSIX-8358: Support short-hands
     public class GridItemAutoMargins001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
             return "grid-item-auto-margins-001.html";

@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c.Css_grid;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_items {
-    //TODO DEVSIX-8358: Support short-hands
     public class GridImgItemPercentMaxHeight001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
             return "grid-img-item-percent-max-height-001.html";

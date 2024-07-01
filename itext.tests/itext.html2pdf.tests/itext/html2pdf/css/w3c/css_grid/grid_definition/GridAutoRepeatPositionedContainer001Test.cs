@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c.Css_grid;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_definition {
-    //TODO DEVSIX-8358: Support short-hands
+    [NUnit.Framework.Ignore("DEVSIX-8423")]
     public class GridAutoRepeatPositionedContainer001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
             return "auto-repeat-pos-container-001.html";

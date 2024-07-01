@@ -25,7 +25,6 @@ using iText.Html2pdf.Css.W3c.Css_grid;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
-    //TODO DEVSIX-8358: Support shorthands
     //TODO DEVSIX-5163: Support more justify-content values
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, Count = 13)]
     public class GridAbsposStaticposJustifySelfRtl001Test : W3CCssGridTest {

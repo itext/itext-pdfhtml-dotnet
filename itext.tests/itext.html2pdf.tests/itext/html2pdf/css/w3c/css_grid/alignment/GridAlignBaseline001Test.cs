@@ -26,7 +26,6 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Alignment {
-    //TODO DEVSIX-8358: Support short-hands
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
     public class GridAlignBaseline001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {

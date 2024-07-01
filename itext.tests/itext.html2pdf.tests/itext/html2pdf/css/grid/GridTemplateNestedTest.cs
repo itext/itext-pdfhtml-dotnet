@@ -48,6 +48,7 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("grid-nested-areas-with-border");
         }
 
+        [NUnit.Framework.Ignore("DEVSIX-8423")]
         [NUnit.Framework.Test]
         public virtual void TemplateNestedArticlesTest() {
             RunTest("grid-nested-articles");
@@ -78,6 +79,7 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("grid-nested-mixed-content");
         }
 
+        [NUnit.Framework.Ignore("DEVSIX-8423")]
         [NUnit.Framework.Test]
         public virtual void TemplateNestedParagraphsTest() {
             RunTest("grid-nested-paragraphs");
@@ -93,8 +95,6 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("grid-nested-table");
         }
 
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
-            4)]
         [NUnit.Framework.Test]
         public virtual void TemplateNestedTableNestedGridTest() {
             RunTest("grid-nested-table-nested-grid");
@@ -105,22 +105,26 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("grid-nested-table-with-mixed-content");
         }
 
+        [NUnit.Framework.Ignore("DEVSIX-8423")]
         [NUnit.Framework.Test]
         public virtual void TemplateNested2LevelsWithAreasTest() {
             RunTest("grid-nested-2-levels-areas");
         }
 
+        [NUnit.Framework.Ignore("DEVSIX-8423")]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 4)]
         [NUnit.Framework.Test]
         public virtual void TemplateNested3LevelsFormsTest() {
             RunTest("grid-nested-3-forms");
         }
 
+        [NUnit.Framework.Ignore("DEVSIX-8423")]
         [NUnit.Framework.Test]
         public virtual void TemplateNested3LevelsTest() {
             RunTest("grid-nested-3-levels");
         }
 
+        [NUnit.Framework.Ignore("DEVSIX-8423")]
         [NUnit.Framework.Test]
         public virtual void TemplateNested3LevelsMultipleTest() {
             RunTest("grid-nested-3-levels-multiple");

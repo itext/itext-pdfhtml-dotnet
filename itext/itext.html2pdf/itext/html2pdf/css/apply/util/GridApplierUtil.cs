@@ -225,8 +225,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
             IList<IElement> children = ((IAbstractElement)container).GetChildren();
             foreach (IElement child in children) {
-                SubstituteLinename(lineNumbersPerName, startProperty, child, Math.Max(namedAreaLength + 1, currentLine));
-                SubstituteLinename(lineNumbersPerName, endProperty, child, Math.Max(namedAreaLength + 1, currentLine));
+                SubstituteLinename(lineNumbersPerName, startProperty, child, Math.Max(namedAreaLength + 1, currentLine), "-start"
+                    );
+                SubstituteLinename(lineNumbersPerName, endProperty, child, Math.Max(namedAreaLength + 1, currentLine), "-end"
+                    );
                 SubstituteLinenameInSpan(lineNumbersPerName, startProperty, endProperty, spanProperty, child, Math.Max(namedAreaLength
                      + 1, currentLine));
             }
@@ -292,7 +294,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         private static void SubstituteLinename(IDictionary<String, IList<int>> lineNumbersPerName, int property, IElement
-             child, int lastLineNumber) {
+             child, int lastLineNumber, String alternateLineNameSuffix) {
             Object propValue = child.GetProperty<Object>(property);
             if (!(propValue is String)) {
                 // It means it's null or we processed it earlier
@@ -302,8 +304,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
             Tuple2<int, String> parsedValue = ParseStringValue((String)propValue);
             int idx = parsedValue.GetFirst();
             String strValue = parsedValue.GetSecond();
+            if (idx == 0 || strValue == null) {
+                return;
+            }
             IList<int> lineNumbers = lineNumbersPerName.Get(strValue);
-            if (lineNumbers == null || idx == 0 || strValue == null) {
+            if (lineNumbers == null) {
+                lineNumbers = lineNumbersPerName.Get(strValue + alternateLineNameSuffix);
+            }
+            if (lineNumbers == null) {
                 return;
             }
             if (idx > lineNumbers.Count) {

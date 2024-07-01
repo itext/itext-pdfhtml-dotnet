@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c.Css_grid;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_definition {
-    //TODO DEVSIX-8358: Support short-hands
     public class GridAutoRepeatMinmaxTest : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
             return "grid-auto-repeat-minmax.html";
