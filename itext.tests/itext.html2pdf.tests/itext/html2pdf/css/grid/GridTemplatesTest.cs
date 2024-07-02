@@ -504,13 +504,16 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("spanOnlyFrTest");
         }
 
-        //TODO DEVSIX-8418
         [NUnit.Framework.Test]
         public virtual void AutoFitOnIntrinsicAreaWithLargeBorderTest() {
             RunTest("autoFitOnIntrinsicAreaWithLargeBorderTest");
         }
 
-        //TODO DEVSIX-8418
+        [NUnit.Framework.Test]
+        public virtual void AutoFitWithLargeBorderTest() {
+            RunTest("autoFitWithLargeBorderTest");
+        }
+
         [NUnit.Framework.Test]
         public virtual void AutoFitOnIntrinsicAreaWithLargeMarginPaddingTest() {
             RunTest("autoFitOnIntrinsicAreaWithLargeMarginPaddingTest");
@@ -593,6 +596,33 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void ShrankTemplateAfterAutoFitTest() {
             RunTest("shrankTemplateAfterAutoFitTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinHeightTest() {
+            RunTest("minHeightTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MinHeightFlexRowsTest() {
+            RunTest("minHeightFlexRowsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MaxHeightTest() {
+            // TODO DEVSIX-8426 Fix working with min\max-height\width on grid container
+            RunTest("maxHeightTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MaxHeightFlexRowsTest() {
+            // TODO DEVSIX-8426 Fix working with min\max-height\width on grid container
+            RunTest("maxHeightFlexRowsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MaxHeightFlexRowsTest2() {
+            RunTest("maxHeightFlexRowsTest2");
         }
 
         [NUnit.Framework.Test]

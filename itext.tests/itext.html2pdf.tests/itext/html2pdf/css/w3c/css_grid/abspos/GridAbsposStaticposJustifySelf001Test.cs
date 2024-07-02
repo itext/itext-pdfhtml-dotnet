@@ -22,11 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c.Css_grid;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
     //TODO DEVSIX-5163: Support more justify-content values
-    [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, Count = 13)]
     public class GridAbsposStaticposJustifySelf001Test : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
             return "grid-abspos-staticpos-justify-self-001.html";
