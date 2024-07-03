@@ -26,8 +26,6 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Alignment {
-    //TODO DEVSIX-8419: Enable and fix after NPE has been fixed
-    [NUnit.Framework.Ignore("DEVSIX-8419")]
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 4)]
     public class GridAlignContentDistributionTest : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {

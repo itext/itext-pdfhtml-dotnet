@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Layout.Exceptions;
 using iText.Layout.Logs;
 using iText.Test;
@@ -623,6 +624,12 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void MaxHeightFlexRowsTest2() {
             RunTest("maxHeightFlexRowsTest2");
+        }
+
+        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, LogLevel = LogLevelConstants.WARN
+            )]
+        public virtual void DivNestingTest() {
+            RunTest("divNestingTest");
         }
 
         [NUnit.Framework.Test]
