@@ -28,7 +28,7 @@ namespace iText.Html2pdf.Css.W3c.Css_grid {
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
     public class GridTracksStretchedWithDifferentFlexFactorsSumTest : W3CCssGridTest {
         protected internal override String GetHtmlFileName() {
-            return "grid-tracks-stretched-with-different-flex-factors-sum.html";
+            return "tracks-stretched-diff-flex-factors-sum.html";
         }
     }
 }
