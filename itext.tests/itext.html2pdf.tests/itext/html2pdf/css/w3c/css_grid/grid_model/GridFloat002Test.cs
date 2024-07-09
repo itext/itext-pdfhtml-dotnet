@@ -27,8 +27,6 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_model {
     //TODO DEVSIX-2449 z-index is not supported
-    //TODO DEVSIX-8427: Fix LayoutExceptionMessageConstant.INVALID_CELL_INDEXES exception
-    [NUnit.Framework.Ignore("DEVSIX-8427")]
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
     public class GridFloat002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {

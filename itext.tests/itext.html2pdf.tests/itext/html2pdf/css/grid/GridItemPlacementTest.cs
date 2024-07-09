@@ -22,7 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Layout.Exceptions;
 
 namespace iText.Html2pdf.Css.Grid {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -85,13 +84,17 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void FewCellsPlacement5Test() {
-            Exception e = NUnit.Framework.Assert.Catch(typeof(ArgumentException), () => RunTest("fewCellsPlacement5"));
-            NUnit.Framework.Assert.AreEqual(LayoutExceptionMessageConstant.INVALID_CELL_INDEXES, e.Message);
+            RunTest("fewCellsPlacement5");
         }
 
         [NUnit.Framework.Test]
         public virtual void FewCellsPlacement6Test() {
             RunTest("fewCellsPlacement6");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FewCellsPlacement7Test() {
+            RunTest("fewCellsPlacement7");
         }
 
         [NUnit.Framework.Test]

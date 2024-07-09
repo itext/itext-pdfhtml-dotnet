@@ -102,7 +102,6 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("nestedElementsTest");
         }
 
-        [NUnit.Framework.Ignore("DEVSIX-8427")]
         [NUnit.Framework.Test]
         public virtual void ConvertBasicDisplayPropertyTest() {
             RunTest("basicDisplayPropertyTest");
