@@ -21,11 +21,11 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Html2pdf.Css.W3c.Css_grid;
+using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
     [NUnit.Framework.Ignore("DEVSIX-8423")]
-    public class PositionedGridItemsNegativeIndices001Test : W3CCssGridTest {
+    public class PositionedGridItemsNegativeIndices001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "positioned-grid-items-negative-indices-001.html";
         }

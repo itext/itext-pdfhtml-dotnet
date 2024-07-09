@@ -21,10 +21,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Html2pdf.Css.W3c.Css_grid;
+using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
-    public class AbsolutePositioningGridContainerParent001Test : W3CCssGridTest {
+    public class AbsolutePositioningGridContainerParent001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "abs-pos-grid-container-parent-001.html";
         }

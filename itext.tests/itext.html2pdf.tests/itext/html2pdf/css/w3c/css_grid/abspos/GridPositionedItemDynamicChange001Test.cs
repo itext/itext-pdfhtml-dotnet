@@ -21,13 +21,13 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Html2pdf.Css.W3c.Css_grid;
+using iText.Html2pdf.Css.W3c;
 using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG)]
-    public class GridPositionedItemDynamicChange001Test : W3CCssGridTest {
+    public class GridPositionedItemDynamicChange001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-positioned-item-dynamic-change-001.html";
         }

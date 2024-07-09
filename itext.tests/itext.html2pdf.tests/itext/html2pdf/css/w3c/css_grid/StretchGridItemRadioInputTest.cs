@@ -21,9 +21,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid {
-    public class StretchGridItemRadioInputTest : W3CCssGridTest {
+    public class StretchGridItemRadioInputTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "stretch-grid-item-radio-input.html";
         }

@@ -21,13 +21,13 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Html2pdf.Css.W3c.Css_grid;
+using iText.Html2pdf.Css.W3c;
 using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_definition {
     [LogMessage(Html2PdfLogMessageConstant.LINENAMES_ARE_NOT_SUPPORTED_WITHIN_AUTO_REPEAT, Count = 38)]
-    public class GridSupportNamedGridLines002Test : W3CCssGridTest {
+    public class GridSupportNamedGridLines002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-support-named-grid-lines-002.html";
         }

@@ -97,7 +97,7 @@ namespace iText.Html2pdf.Css.Grid {
 
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
-                (SOURCE_FOLDER).SetCssGridEnabled(true));
+                (SOURCE_FOLDER));
         }
     }
 }

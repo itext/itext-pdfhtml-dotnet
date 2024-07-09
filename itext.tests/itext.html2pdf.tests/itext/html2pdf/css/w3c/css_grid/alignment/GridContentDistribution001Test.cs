@@ -21,11 +21,11 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Html2pdf.Css.W3c.Css_grid;
+using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Alignment {
     //TODO DEVSIX-5163 Support more complex justify-content values
-    public class GridContentDistribution001Test : W3CCssGridTest {
+    public class GridContentDistribution001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-content-distribution-001.html";
         }

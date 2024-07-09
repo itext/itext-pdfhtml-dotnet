@@ -21,7 +21,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Html2pdf.Css.W3c.Css_grid;
+using iText.Html2pdf.Css.W3c;
 using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
@@ -30,7 +30,7 @@ namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_model {
     //TODO DEVSIX-8427: Fix LayoutExceptionMessageConstant.INVALID_CELL_INDEXES exception
     [NUnit.Framework.Ignore("DEVSIX-8427")]
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
-    public class GridFloat002Test : W3CCssGridTest {
+    public class GridFloat002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-float-002.html";
         }

@@ -161,9 +161,8 @@ namespace iText.Html2pdf.Attach.Impl {
                 rhs));
             workerMapping.PutMapping(TagConstants.SPAN, CssConstants.FLEX, (lhs, rhs) => new DisplayFlexTagWorker(lhs, 
                 rhs));
-            //TODO DEVSIX-8335 remove check for css grid enabled logic
-            workerMapping.PutMapping(TagConstants.DIV, CssConstants.GRID, (lhs, rhs) => rhs.IsCssGridEnabled() ? new DisplayGridTagWorker
-                (lhs, rhs) : new DivTagWorker(lhs, rhs));
+            workerMapping.PutMapping(TagConstants.DIV, CssConstants.GRID, (lhs, rhs) => new DisplayGridTagWorker(lhs, 
+                rhs));
             // pseudo elements mapping
             String beforePseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.BEFORE);
             String afterPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.AFTER);

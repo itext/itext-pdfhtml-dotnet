@@ -21,13 +21,13 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Html2pdf.Css.W3c.Css_grid;
+using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
     //TODO DEVSIX-5163: Support more justify-content values
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 26)]
-    public class GridAbsposStaticposJustifySelfImg001Test : W3CCssGridTest {
+    public class GridAbsposStaticposJustifySelfImg001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-abspos-staticpos-justify-self-img-001.html";
         }

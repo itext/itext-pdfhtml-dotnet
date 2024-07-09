@@ -78,11 +78,6 @@ namespace iText.Html2pdf {
         /// <summary>enables continuous container for all elements.</summary>
         private bool continuousContainerEnabled;
 
-        /// <summary>enables css grid processing for all elements.</summary>
-        private bool cssGridEnabled = 
-                //TODO DEVSIX-8335 remove this property
-                false;
-
         /// <summary>Output intent for final destination device.</summary>
         private PdfOutputIntent outputIntent;
 
@@ -124,7 +119,6 @@ namespace iText.Html2pdf {
             this.limitOfLayouts = other.limitOfLayouts;
             this.immediateFlush = other.immediateFlush;
             this.continuousContainerEnabled = other.continuousContainerEnabled;
-            this.cssGridEnabled = other.cssGridEnabled;
         }
 
         /// <summary>Gets the media device description.</summary>
@@ -597,13 +591,6 @@ namespace iText.Html2pdf {
             return continuousContainerEnabled;
         }
 
-        /// <summary>check if css grid support is enabled.</summary>
-        /// <returns>true if enabled, false otherwise</returns>
-        public virtual bool IsCssGridEnabled() {
-            //TODO DEVSIX-8335
-            return cssGridEnabled;
-        }
-
         /// <summary>Sets continuous container support.</summary>
         /// <param name="value">true to set continuous container, false otherwise</param>
         /// <returns>
@@ -613,19 +600,6 @@ namespace iText.Html2pdf {
         /// </returns>
         public virtual iText.Html2pdf.ConverterProperties SetContinuousContainerEnabled(bool value) {
             continuousContainerEnabled = value;
-            return this;
-        }
-
-        //TODO DEVSIX-8335 remove this method
-        /// <summary>Sets css grid support.</summary>
-        /// <param name="value">true to enable css grid support, false otherwise</param>
-        /// <returns>
-        /// the
-        /// <see cref="ConverterProperties"/>
-        /// instance
-        /// </returns>
-        public virtual iText.Html2pdf.ConverterProperties SetCssGridEnabled(bool value) {
-            cssGridEnabled = value;
             return this;
         }
     }

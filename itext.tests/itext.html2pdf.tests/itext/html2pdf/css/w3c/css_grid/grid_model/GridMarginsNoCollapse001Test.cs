@@ -21,10 +21,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Html2pdf.Css.W3c.Css_grid;
+using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_model {
-    public class GridMarginsNoCollapse001Test : W3CCssGridTest {
+    public class GridMarginsNoCollapse001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-margins-no-collapse-001.html";
         }

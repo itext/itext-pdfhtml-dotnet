@@ -21,13 +21,13 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Html2pdf.Css.W3c.Css_grid;
+using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
     [NUnit.Framework.Ignore("DEVSIX-8423")]
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 2)]
-    public class PositionedGridItems025Test : W3CCssGridTest {
+    public class PositionedGridItems025Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "positioned-grid-items-025.html";
         }

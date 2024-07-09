@@ -632,17 +632,9 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("divNestingTest");
         }
 
-        [NUnit.Framework.Test]
-        public virtual void GridLayoutDisablingTest() {
-            ConvertToPdfAndCompare("basicColumnFewDivsTest", SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties
-                ().SetBaseUri(SOURCE_FOLDER).SetCssGridEnabled(true));
-            ConvertToPdfAndCompare("basicColumnFewDivsWithDisabledGridLayoutTest", SOURCE_FOLDER, DESTINATION_FOLDER, 
-                false, new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-        }
-
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
-                (SOURCE_FOLDER).SetCssGridEnabled(true));
+                (SOURCE_FOLDER));
         }
     }
 }

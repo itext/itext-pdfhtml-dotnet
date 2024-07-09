@@ -21,13 +21,13 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Html2pdf.Css.W3c.Css_grid;
+using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_items {
     //TODO DEVSIX-2449 z-index is not supported
     //TODO DEVSIX-5163 Support more complex justify-content values
     //TODO DEVSIX-5164 change after align-content is supported
-    public class GridOrderPropertyAutoPlacement001Test : W3CCssGridTest {
+    public class GridOrderPropertyAutoPlacement001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-order-property-auto-placement-001.html";
         }

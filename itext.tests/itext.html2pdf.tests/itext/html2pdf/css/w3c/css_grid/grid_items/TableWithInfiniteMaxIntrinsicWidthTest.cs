@@ -21,13 +21,13 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Html2pdf.Css.W3c.Css_grid;
+using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_items {
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
         9)]
-    public class TableWithInfiniteMaxIntrinsicWidthTest : W3CCssGridTest {
+    public class TableWithInfiniteMaxIntrinsicWidthTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "table-with-infinite-max-intrinsic-width.html";
         }
