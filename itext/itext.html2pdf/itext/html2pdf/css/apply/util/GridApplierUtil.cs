@@ -115,15 +115,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
             ApplyAuto(cssProps.Get(CssConstants.GRID_AUTO_COLUMNS), container, Property.GRID_AUTO_COLUMNS, emValue, remValue
                 );
             ApplyFlow(cssProps.Get(CssConstants.GRID_AUTO_FLOW), container);
-            UnitValue columnGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.COLUMN_GAP), 
-                emValue, remValue);
-            if (columnGap != null) {
-                container.SetProperty(Property.COLUMN_GAP, columnGap.GetValue());
-            }
-            UnitValue rowGap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.ROW_GAP), emValue
-                , remValue);
-            if (rowGap != null) {
-                container.SetProperty(Property.ROW_GAP, rowGap.GetValue());
+            ApplyGap(container, emValue, remValue, cssProps.Get(CssConstants.COLUMN_GAP), Property.COLUMN_GAP);
+            ApplyGap(container, emValue, remValue, cssProps.Get(CssConstants.GRID_COLUMN_GAP), Property.COLUMN_GAP);
+            ApplyGap(container, emValue, remValue, cssProps.Get(CssConstants.ROW_GAP), Property.ROW_GAP);
+            ApplyGap(container, emValue, remValue, cssProps.Get(CssConstants.GRID_ROW_GAP), Property.ROW_GAP);
+        }
+
+        private static void ApplyGap(IPropertyContainer container, float emValue, float remValue, String gap, int 
+            property) {
+            UnitValue gapValue = CssDimensionParsingUtils.ParseLengthValueToPt(gap, emValue, remValue);
+            if (gapValue != null) {
+                container.SetProperty(property, gapValue.GetValue());
             }
         }
 
@@ -177,10 +179,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         private static void ApplyTemplate(String templateStr, IPropertyContainer container, int property, float emValue
             , float remValue, GridApplierUtil.NamedAreas namedAreas) {
+            if (templateStr != null && templateStr.Contains(CssConstants.SUBGRID)) {
+                LOGGER.LogWarning(Html2PdfLogMessageConstant.SUBGRID_VALUE_IS_NOT_SUPPORTED);
+            }
             IDictionary<String, IList<int>> lineNumbersPerName = new Dictionary<String, IList<int>>();
             int namedAreaLength = 0;
+            bool applyColumns = property == Property.GRID_TEMPLATE_COLUMNS;
             if (namedAreas != null) {
-                if (property == Property.GRID_TEMPLATE_COLUMNS) {
+                if (applyColumns) {
                     lineNumbersPerName = namedAreas.GetNamedColumnNumbers();
                     namedAreaLength = namedAreas.GetColumnsCount();
                 }
@@ -205,7 +211,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         }
                     }
                 }
-                if (!templateResult.IsEmpty()) {
+                if (templateResult.IsEmpty()) {
+                    LOGGER.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.GRID_TEMPLATE_WAS_NOT_RECOGNISED, applyColumns
+                         ? "columns" : "rows"));
+                }
+                else {
                     container.SetProperty(property, templateResult);
                 }
             }
@@ -213,7 +223,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             int startProperty;
             int endProperty;
             int spanProperty;
-            if (property == Property.GRID_TEMPLATE_COLUMNS) {
+            if (applyColumns) {
                 startProperty = Property.GRID_COLUMN_START;
                 endProperty = Property.GRID_COLUMN_END;
                 spanProperty = Property.GRID_COLUMN_SPAN;

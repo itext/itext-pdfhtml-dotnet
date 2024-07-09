@@ -440,6 +440,18 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
+        public virtual void ContainerGridGapValuesTest() {
+            IDictionary<String, String> cssProps = new Dictionary<String, String>();
+            cssProps.Put(CssConstants.GRID_COLUMN_GAP, "11px");
+            cssProps.Put(CssConstants.GRID_ROW_GAP, "30%");
+            IElement element = new Div();
+            GridApplierUtil.ApplyGridContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties
+                ()));
+            NUnit.Framework.Assert.AreEqual(8.25f, element.GetProperty<float?>(Property.COLUMN_GAP));
+            NUnit.Framework.Assert.AreEqual(30, element.GetProperty<float?>(Property.ROW_GAP));
+        }
+
+        [NUnit.Framework.Test]
         public virtual void ColumnFlowTest() {
             IDictionary<String, String> cssProps = new Dictionary<String, String>();
             cssProps.Put(CssConstants.GRID_AUTO_FLOW, CommonCssConstants.COLUMN);

@@ -26,7 +26,6 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-7554 change after column-gap is supported
     //TODO DEVSIX-7616 change after row-gap is supported
     //TODO DEVSIX-5164 change after align-content: space-around is supported
     //TODO DEVSIX-5163 change after more complex justify-content values are supported

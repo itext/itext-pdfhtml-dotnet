@@ -547,6 +547,8 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("autoFitRepeatWithFlexMinMaxTest");
         }
 
+        [LogMessage(Html2PdfLogMessageConstant.GRID_TEMPLATE_WAS_NOT_RECOGNISED, LogLevel = LogLevelConstants.WARN
+            )]
         [NUnit.Framework.Test]
         public virtual void RepeatInsideMinMaxTest() {
             RunTest("repeatInsideMinMaxTest");
@@ -626,11 +628,33 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("maxHeightFlexRowsTest2");
         }
 
-        [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, LogLevel = LogLevelConstants.WARN
             )]
+        [NUnit.Framework.Test]
         public virtual void DivNestingTest() {
             RunTest("divNestingTest");
+        }
+
+        [LogMessage(Html2PdfLogMessageConstant.SUBGRID_VALUE_IS_NOT_SUPPORTED, LogLevel = LogLevelConstants.WARN)]
+        [LogMessage(Html2PdfLogMessageConstant.GRID_TEMPLATE_WAS_NOT_RECOGNISED, LogLevel = LogLevelConstants.WARN
+            )]
+        [NUnit.Framework.Test]
+        public virtual void SubgridTest() {
+            RunTest("subgridTest");
+        }
+
+        [LogMessage(Html2PdfLogMessageConstant.GRID_TEMPLATE_WAS_NOT_RECOGNISED, LogLevel = LogLevelConstants.WARN
+            )]
+        [NUnit.Framework.Test]
+        public virtual void InvalidTemplateColumns() {
+            RunTest("invalidTemplateColumns");
+        }
+
+        [LogMessage(Html2PdfLogMessageConstant.GRID_TEMPLATE_WAS_NOT_RECOGNISED, LogLevel = LogLevelConstants.WARN
+            )]
+        [NUnit.Framework.Test]
+        public virtual void InvalidTemplateRows() {
+            RunTest("invalidTemplateRows");
         }
 
         private void RunTest(String testName) {

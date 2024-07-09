@@ -223,6 +223,9 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant SUB.</summary>
         public const String SUB = "sub";
 
+        /// <summary>The Constant SUBGRID.</summary>
+        public const String SUBGRID = "subgrid";
+
         /// <summary>The Constant SUPER.</summary>
         public const String SUPER = "super";
 

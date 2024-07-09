@@ -173,6 +173,31 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("small_values_gap");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void DifferentRowsColsGapTest() {
+            RunTest("different_rows_cols_gap");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridGapTest1() {
+            RunTest("gridGapTest1");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridGapTest2() {
+            RunTest("gridGapTest2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridColumnGapTest() {
+            RunTest("gridColumnGapTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridRowGapTest() {
+            RunTest("gridRowGapTest");
+        }
+
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
                 (SOURCE_FOLDER));
