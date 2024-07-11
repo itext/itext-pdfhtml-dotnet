@@ -100,6 +100,11 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
+        public virtual void BorderBoxTest2() {
+            RunTest("borderBoxTest2");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void DifferentRowSpanOnSplitTest() {
             RunTest("differentRowSpanOnSplitTest");
         }

@@ -69,7 +69,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void TemplateCombinedMultiPageTest() {
-            // TODO DEVSIX-8331
             RunTest("template-combined-multipage");
         }
 

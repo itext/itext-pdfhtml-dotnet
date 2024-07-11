@@ -64,7 +64,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void BasicColumnMultiPageTest() {
-            // TODO DEVSIX-8331
             RunTest("basicColumnMultiPageTest");
         }
 
@@ -655,6 +654,47 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void InvalidTemplateRows() {
             RunTest("invalidTemplateRows");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridSplitPaddingMarginBorderTest() {
+            RunTest("gridSplitPaddingMarginBorderTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridSplitPaddingMarginBorderTest2() {
+            RunTest("gridSplitPaddingMarginBorderTest2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridSplitPaddingMarginBorderTest3() {
+            RunTest("gridSplitPaddingMarginBorderTest3");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridSplitPaddingMarginBorderTest4() {
+            RunTest("gridSplitPaddingMarginBorderTest4");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, LogLevel = LogLevelConstants.WARN)]
+        public virtual void GridSplitPaddingMarginBorderTest5() {
+            RunTest("gridSplitPaddingMarginBorderTest5");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridSplitPaddingMarginBorderTest6() {
+            RunTest("gridSplitPaddingMarginBorderTest6");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridSplitPaddingMarginBorderTest7() {
+            RunTest("gridSplitPaddingMarginBorderTest7");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GridSplitPaddingMarginBorderTest8() {
+            RunTest("gridSplitPaddingMarginBorderTest8");
         }
 
         private void RunTest(String testName) {
