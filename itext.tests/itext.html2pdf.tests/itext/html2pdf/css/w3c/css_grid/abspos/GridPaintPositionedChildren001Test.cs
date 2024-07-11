@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
-    [NUnit.Framework.Ignore("DEVSIX-8423")]
     public class GridPaintPositionedChildren001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-paint-positioned-children-001.html";

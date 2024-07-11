@@ -137,6 +137,11 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("template-cols-without-other-props-2");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void TemplateColumnWithFlexAndGapsTest() {
+            RunTest("template-cols-with-flex-and-gaps");
+        }
+
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
                 (SOURCE_FOLDER));

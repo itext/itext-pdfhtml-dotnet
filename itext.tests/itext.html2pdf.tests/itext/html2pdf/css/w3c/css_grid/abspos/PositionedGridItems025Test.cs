@@ -25,7 +25,6 @@ using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
-    [NUnit.Framework.Ignore("DEVSIX-8423")]
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 2)]
     public class PositionedGridItems025Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {

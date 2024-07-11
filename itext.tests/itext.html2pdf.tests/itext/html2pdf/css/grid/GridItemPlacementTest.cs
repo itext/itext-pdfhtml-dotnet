@@ -148,28 +148,63 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
-        public virtual void Invalid1Test() {
-            RunTest("invalid1");
+        public virtual void SpanToNegativeStartTest() {
+            RunTest("spanToNegativeStartTest");
         }
 
         [NUnit.Framework.Test]
-        public virtual void Invalid2Test() {
-            RunTest("invalid2");
+        public virtual void SpanToNegativeStartWithExplicitTemplatesTest() {
+            RunTest("spanToNegativeStartWithExplicitTemplatesTest");
         }
 
         [NUnit.Framework.Test]
-        public virtual void Invalid3Test() {
-            RunTest("invalid3");
+        public virtual void SpanToNegativeStartWithoutTemplatesTest() {
+            RunTest("spanToNegativeStartWithoutTemplatesTest");
         }
 
         [NUnit.Framework.Test]
-        public virtual void Invalid4Test() {
-            RunTest("invalid4");
+        public virtual void SpanToNegativeStartWithoutTemplatesTest2() {
+            RunTest("spanToNegativeStartWithoutTemplatesTest2");
         }
 
         [NUnit.Framework.Test]
-        public virtual void Invalid5Test() {
-            RunTest("invalid5");
+        public virtual void SpanToNegativeStartWithSingleTemplateTest() {
+            RunTest("spanToNegativeStartWithSingleTemplateTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnSpanExpandsStartToNegativeTest() {
+            RunTest("columnSpanExpandsStartToNegativeTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NegativeIndexOutOfTemplateTest() {
+            RunTest("negativeIndexOutOfTemplateTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NegativeIndexWithImplicitLinesTest() {
+            RunTest("negativeIndexWithImplicitLinesTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NegativeIndexWithoutTemplateTest() {
+            RunTest("negativeIndexWithoutTemplateTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NegativeIndexShorthandTest() {
+            RunTest("negativeIndexShorthandTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NegativeAndPositiveIndexShorthandTest() {
+            RunTest("negativeAndPositiveIndexShorthandTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SpanToNegativeIndexWithoutTemplateTest() {
+            RunTest("spanToNegativeIndexWithoutTemplateTest");
         }
 
         [NUnit.Framework.Test]

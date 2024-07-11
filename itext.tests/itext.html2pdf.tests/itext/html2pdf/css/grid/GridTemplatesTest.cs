@@ -132,6 +132,11 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
+        public virtual void BasicColumnRowStartEnd1Test() {
+            RunTest("basicColumnRowStartEnd1Test");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void BasicColumnRowStartEnd2Test() {
             RunTest("basicColumnRowStartEnd2Test");
         }
