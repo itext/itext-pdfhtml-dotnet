@@ -40,12 +40,15 @@ namespace iText.Html2pdf.Attach.Impl {
         }
     }
 
+//\cond DO_NOT_DOCUMENT
     internal class TestTagWorkerFactory : DefaultTagWorkerFactory {
         public TestTagWorkerFactory() {
             GetDefaultMapping().PutMapping("custom-tag", (lhs, rhs) => new TestClass());
         }
     }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
     internal class TestClass : ITagWorker {
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
         }
@@ -62,4 +65,5 @@ namespace iText.Html2pdf.Attach.Impl {
             return null;
         }
     }
+//\endcond
 }

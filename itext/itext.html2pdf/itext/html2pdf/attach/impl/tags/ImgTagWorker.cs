@@ -130,11 +130,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             return image;
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Gets the display value.</summary>
         /// <returns>the display value</returns>
         internal virtual String GetDisplay() {
             return display;
         }
+//\endcond
 
         private ObjectFit GetObjectFitValue(String objectFitValue) {
             if (objectFitValue == null) {

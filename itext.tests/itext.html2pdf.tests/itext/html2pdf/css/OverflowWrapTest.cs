@@ -153,7 +153,7 @@ namespace iText.Html2pdf.Css {
         }
 
         // todo DEVSIX-4723 replace assertNull above with the commented lines below
-        //        Assert.assertEquals(OverflowWrapPropertyValue.ANYWHERE,
+        //        Assertions.assertEquals(OverflowWrapPropertyValue.ANYWHERE,
         //                paragraph.<OverflowWrapPropertyValue>getProperty(Property.OVERFLOW_WRAP));
         [NUnit.Framework.Test]
         public virtual void ChosenOverflowWrapValueUnset02() {

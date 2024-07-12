@@ -31,11 +31,15 @@ using iText.Kernel.Pdf.Canvas.Parser.Listener;
 
 namespace iText.Html2pdf.Utils {
     public class ImageSizeMeasuringListener : IEventListener {
+//\cond DO_NOT_DOCUMENT
         internal Rectangle cropbox;
+//\endcond
 
         public Rectangle bbox;
 
+//\cond DO_NOT_DOCUMENT
         internal int page;
+//\endcond
 
         public ImageSizeMeasuringListener(int page) {
             if (cropbox == null) {

@@ -78,13 +78,14 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         public virtual void CannotConvertHtmlToDocumentInReadingModeTest() {
-            NUnit.Framework.Assert.That(() =>  {
+            Exception exception = NUnit.Framework.Assert.Catch(typeof(Html2PdfException), () => {
                 PdfDocument pdfDocument = CreateTempDoc();
                 ConverterProperties properties = new ConverterProperties();
                 Document document = HtmlConverter.ConvertToDocument("", pdfDocument, properties);
             }
-            , NUnit.Framework.Throws.InstanceOf<Html2PdfException>().With.Message.EqualTo(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE))
-;
+            );
+            NUnit.Framework.Assert.AreEqual(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE, exception.Message
+                );
         }
 
         [NUnit.Framework.Test]

@@ -32,6 +32,7 @@ using iText.StyledXmlParser.Css.Pseudo;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl {
+//\cond DO_NOT_DOCUMENT
     /// <summary>
     /// Contains the actual mapping of the
     /// <see cref="DefaultTagWorkerFactory"/>.
@@ -160,6 +161,8 @@ namespace iText.Html2pdf.Attach.Impl {
                 rhs));
             workerMapping.PutMapping(TagConstants.SPAN, CssConstants.FLEX, (lhs, rhs) => new DisplayFlexTagWorker(lhs, 
                 rhs));
+            workerMapping.PutMapping(TagConstants.DIV, CssConstants.GRID, (lhs, rhs) => new DisplayGridTagWorker(lhs, 
+                rhs));
             // pseudo elements mapping
             String beforePseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.BEFORE);
             String afterPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.AFTER);
@@ -189,13 +192,16 @@ namespace iText.Html2pdf.Attach.Impl {
                 (lhs, rhs));
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Gets the default tag worker mapping.</summary>
         /// <returns>the default mapping</returns>
         internal virtual TagProcessorMapping<DefaultTagWorkerMapping.ITagWorkerCreator> GetDefaultTagWorkerMapping
             () {
             return workerMapping;
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>
         /// Instantiates a new
         /// <see cref="DefaultTagWorkerMapping"/>
@@ -203,7 +209,9 @@ namespace iText.Html2pdf.Attach.Impl {
         /// </summary>
         internal DefaultTagWorkerMapping() {
         }
+//\endcond
 
         public delegate ITagWorker ITagWorkerCreator(IElementNode elementNode, ProcessorContext processorContext);
     }
+//\endcond
 }

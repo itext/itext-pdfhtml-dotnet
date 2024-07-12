@@ -506,12 +506,9 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void CollapsedBorderWithWrongRowspanTableTest() {
-            NUnit.Framework.Assert.That(() =>  {
-                // TODO DEVSIX-5036
-                RunTest("collapsedBorderWithWrongRowspanTable", false, new PageSize(PageSize.A5).Rotate());
-            }
-            , NUnit.Framework.Throws.InstanceOf<Exception>())
-;
+            // TODO DEVSIX-5036
+            NUnit.Framework.Assert.Catch(typeof(Exception), () => RunTest("collapsedBorderWithWrongRowspanTable", false
+                , new PageSize(PageSize.A5).Rotate()));
         }
 
         [NUnit.Framework.Test]
@@ -549,11 +546,9 @@ namespace iText.Html2pdf.Element {
             foreach (IElement element in elements) {
                 document.Add((IBlockElement)element);
             }
-            NUnit.Framework.Assert.That(() =>  {
-                document.Close();
-            }
-            , NUnit.Framework.Throws.InstanceOf<PdfException>().With.Message.EqualTo("Tag structure flushing failed: it might be corrupted."))
-;
+            Exception exception = NUnit.Framework.Assert.Catch(typeof(PdfException), () => document.Close());
+            NUnit.Framework.Assert.AreEqual("Tag structure flushing failed: it might be corrupted.", exception.Message
+                );
         }
 
         [NUnit.Framework.Test]

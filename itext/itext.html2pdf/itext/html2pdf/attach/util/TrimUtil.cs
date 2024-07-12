@@ -39,6 +39,7 @@ namespace iText.Html2pdf.Attach.Util {
         private TrimUtil() {
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Trim leaf elements, and sanitize.</summary>
         /// <param name="leafElements">the leaf elements</param>
         /// <returns>the trimmed and sanitized list</returns>
@@ -66,13 +67,16 @@ namespace iText.Html2pdf.Attach.Util {
             }
             return waitingLeaves;
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Checks if a character is white space value that doesn't cause a newline.</summary>
         /// <param name="ch">the character</param>
         /// <returns>true, if the character is a white space character, but no newline</returns>
         internal static bool IsNonLineBreakSpace(char ch) {
             return WhiteSpaceUtil.IsNonEmSpace(ch) && ch != '\n';
         }
+//\endcond
 
         /// <summary>Trims a sub list of leaf elements.</summary>
         /// <param name="list">the list of leaf elements</param>

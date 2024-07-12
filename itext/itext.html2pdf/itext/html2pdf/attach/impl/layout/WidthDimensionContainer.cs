@@ -27,6 +27,7 @@ using iText.Layout.Renderer;
 using iText.StyledXmlParser.Css;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+//\cond DO_NOT_DOCUMENT
     internal class WidthDimensionContainer : DimensionContainer {
         public WidthDimensionContainer(CssContextNode node, float maxWidth, IRenderer renderer, float additionalWidthFix
             ) {
@@ -71,4 +72,5 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return dim;
         }
     }
+//\endcond
 }

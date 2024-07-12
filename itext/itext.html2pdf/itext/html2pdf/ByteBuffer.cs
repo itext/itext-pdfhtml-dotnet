@@ -24,6 +24,7 @@ using System;
 
 namespace iText.Html2pdf
 {
+//\cond DO_NOT_DOCUMENT
     internal class ByteBuffer {
         internal byte[] buffer;
         internal int position = 0;
@@ -88,4 +89,6 @@ namespace iText.Html2pdf
             return new ByteBuffer(new byte[0]);
         }
     }
+    
+//\endcond
 }

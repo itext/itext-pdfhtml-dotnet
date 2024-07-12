@@ -28,11 +28,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     /// <see cref="iText.Layout.Element.AreaBreak"/>.
     /// </summary>
     public class HtmlPageBreak : AreaBreak {
+//\cond DO_NOT_DOCUMENT
         /// <summary>
         /// The
         /// <see cref="HtmlPageBreakType"/>.
         /// </summary>
         internal HtmlPageBreakType breakType;
+//\endcond
 
         /// <summary>Instantiates a new html page break.</summary>
         /// <param name="type">the page break type</param>
@@ -40,6 +42,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             this.breakType = type;
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>
         /// Gets the
         /// <see cref="HtmlPageBreakType"/>.
@@ -48,5 +51,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         internal virtual HtmlPageBreakType GetBreakType() {
             return breakType;
         }
+//\endcond
     }
 }

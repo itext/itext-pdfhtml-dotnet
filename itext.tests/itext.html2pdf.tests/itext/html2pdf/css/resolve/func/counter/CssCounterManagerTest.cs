@@ -87,7 +87,7 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 ));
             NUnit.Framework.Assert.IsNull(manager.ResolveTargetCounter("id", "counter", CounterDigitsGlyphStyle.DEFAULT
                 ));
-            IElementNode node = new _CssPseudoElementNode_96(null, "name");
+            IElementNode node = new _CssPseudoElementNode_95(null, "name");
             manager.AddTargetCounterIfRequired(node);
             NUnit.Framework.Assert.AreEqual("5", manager.ResolveTargetCounter("id", "counter", CounterDigitsGlyphStyle
                 .DEFAULT));
@@ -99,8 +99,8 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 .DEFAULT));
         }
 
-        private sealed class _CssPseudoElementNode_96 : CssPseudoElementNode {
-            public _CssPseudoElementNode_96(INode baseArg1, String baseArg2)
+        private sealed class _CssPseudoElementNode_95 : CssPseudoElementNode {
+            public _CssPseudoElementNode_95(INode baseArg1, String baseArg2)
                 : base(baseArg1, baseArg2) {
             }
 
@@ -121,7 +121,7 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 DEFAULT));
             NUnit.Framework.Assert.IsNull(manager.ResolveTargetCounters("id", "counter", ".", CounterDigitsGlyphStyle.
                 DEFAULT));
-            IElementNode node = new _CssPseudoElementNode_127(null, "name");
+            IElementNode node = new _CssPseudoElementNode_126(null, "name");
             manager.AddTargetCountersIfRequired(node);
             NUnit.Framework.Assert.AreEqual("5", manager.ResolveTargetCounters("id", "counter", ".", CounterDigitsGlyphStyle
                 .DEFAULT));
@@ -140,8 +140,8 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 .DEFAULT));
         }
 
-        private sealed class _CssPseudoElementNode_127 : CssPseudoElementNode {
-            public _CssPseudoElementNode_127(INode baseArg1, String baseArg2)
+        private sealed class _CssPseudoElementNode_126 : CssPseudoElementNode {
+            public _CssPseudoElementNode_126(INode baseArg1, String baseArg2)
                 : base(baseArg1, baseArg2) {
             }
 
@@ -158,8 +158,8 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
             CssCounterManager manager = new CssCounterManager();
             NUnit.Framework.Assert.IsNull(manager.ResolveTargetCounter("id1", "counter", CounterDigitsGlyphStyle.DEFAULT
                 ));
-            IElementNode node1 = new _CssPseudoElementNode_161(null, "name");
-            IElementNode node2 = new _CssPseudoElementNode_170(null, "name");
+            IElementNode node1 = new _CssPseudoElementNode_160(null, "name");
+            IElementNode node2 = new _CssPseudoElementNode_169(null, "name");
             IElementNode node3 = new CssPseudoElementNode(null, "name");
             manager.AddTargetCounterIfRequired(node1);
             manager.AddTargetCounterIfRequired(node2);
@@ -175,8 +175,8 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 .DEFAULT));
         }
 
-        private sealed class _CssPseudoElementNode_161 : CssPseudoElementNode {
-            public _CssPseudoElementNode_161(INode baseArg1, String baseArg2)
+        private sealed class _CssPseudoElementNode_160 : CssPseudoElementNode {
+            public _CssPseudoElementNode_160(INode baseArg1, String baseArg2)
                 : base(baseArg1, baseArg2) {
             }
 
@@ -188,8 +188,8 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
             }
         }
 
-        private sealed class _CssPseudoElementNode_170 : CssPseudoElementNode {
-            public _CssPseudoElementNode_170(INode baseArg1, String baseArg2)
+        private sealed class _CssPseudoElementNode_169 : CssPseudoElementNode {
+            public _CssPseudoElementNode_169(INode baseArg1, String baseArg2)
                 : base(baseArg1, baseArg2) {
             }
 
@@ -270,7 +270,7 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
         [NUnit.Framework.Test]
         public virtual void ResolveEveryCounterWithNotDefaultSymbolsTest() {
             CssCounterManager manager = new CssCounterManager();
-            IElementNode node = new _CssPseudoElementNode_272(null, "name");
+            IElementNode node = new _CssPseudoElementNode_271(null, "name");
             manager.ResetCounter("counter", 3);
             manager.PushEveryCounterToCounters(node);
             NUnit.Framework.Assert.AreEqual("III", manager.ResolveCounter("counter", HtmlUtils.ConvertStringCounterGlyphStyleToEnum
@@ -290,8 +290,8 @@ namespace iText.Html2pdf.Css.Resolve.Func.Counter {
                 (CssConstants.UPPER_ROMAN)));
         }
 
-        private sealed class _CssPseudoElementNode_272 : CssPseudoElementNode {
-            public _CssPseudoElementNode_272(INode baseArg1, String baseArg2)
+        private sealed class _CssPseudoElementNode_271 : CssPseudoElementNode {
+            public _CssPseudoElementNode_271(INode baseArg1, String baseArg2)
                 : base(baseArg1, baseArg2) {
             }
 

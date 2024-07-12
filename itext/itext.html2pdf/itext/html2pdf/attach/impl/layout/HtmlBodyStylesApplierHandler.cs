@@ -32,6 +32,7 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+//\cond DO_NOT_DOCUMENT
     /// <summary>This handler draws backgrounds and borders for html, body and page-annotation styles.</summary>
     internal class HtmlBodyStylesApplierHandler : iText.Kernel.Events.IEventHandler {
         private readonly HtmlDocumentRenderer htmlDocumentRenderer;
@@ -65,6 +66,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             ProcessPage(page, pageNumber);
         }
 
+//\cond DO_NOT_DOCUMENT
         internal virtual void ProcessPage(PdfPage page, int pageNumber) {
             HtmlBodyStylesApplierHandler.PageStylesProperties pageProperties = pageStylesPropertiesMap.Get(pageNumber);
             if (pageProperties == null) {
@@ -75,6 +77,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             ApplyHtmlBodyStyles(page, contextProcessor.ComputeLayoutMargins(), pageProperties.styles, pageNumber);
             pdfCanvas = null;
         }
+//\endcond
 
         private void ApplyHtmlBodyStyles(PdfPage page, float[] margins, BodyHtmlStylesContainer[] styles, int pageNumber
             ) {
@@ -179,25 +182,38 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
+//\cond DO_NOT_DOCUMENT
         internal class LowestAndHighest {
+//\cond DO_NOT_DOCUMENT
             internal float lowest;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
             internal float highest;
+//\endcond
 
             public LowestAndHighest(float lowest, float highest) {
                 this.lowest = lowest;
                 this.highest = highest;
             }
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal class PageStylesProperties {
+//\cond DO_NOT_DOCUMENT
             internal BodyHtmlStylesContainer[] styles;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
             internal HtmlBodyStylesApplierHandler.LowestAndHighest lowestAndHighest;
+//\endcond
 
             public PageStylesProperties(BodyHtmlStylesContainer[] styles) {
                 this.styles = styles;
             }
         }
+//\endcond
     }
+//\endcond
 }

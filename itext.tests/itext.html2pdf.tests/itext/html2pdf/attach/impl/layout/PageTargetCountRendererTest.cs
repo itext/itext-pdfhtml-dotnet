@@ -33,15 +33,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN)]
         public virtual void GetNextRendererShouldBeOverriddenTest() {
-            PageTargetCountRenderer pageTargetCountRenderer = new _PageTargetCountRenderer_51(new PageTargetCountElement
+            PageTargetCountRenderer pageTargetCountRenderer = new _PageTargetCountRenderer_50(new PageTargetCountElement
                 ("test"));
             // Nothing is overridden
             NUnit.Framework.Assert.AreEqual(typeof(PageTargetCountRenderer), pageTargetCountRenderer.GetNextRenderer()
                 .GetType());
         }
 
-        private sealed class _PageTargetCountRenderer_51 : PageTargetCountRenderer {
-            public _PageTargetCountRenderer_51(PageTargetCountElement baseArg1)
+        private sealed class _PageTargetCountRenderer_50 : PageTargetCountRenderer {
+            public _PageTargetCountRenderer_50(PageTargetCountElement baseArg1)
                 : base(baseArg1) {
             }
         }
@@ -57,6 +57,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             NUnit.Framework.Assert.IsTrue(true);
         }
 
+//\cond DO_NOT_DOCUMENT
         internal class CustomPageTargetCountRenderer : PageTargetCountRenderer {
             public CustomPageTargetCountRenderer(PageTargetCountElement textElement)
                 : base(textElement) {
@@ -77,5 +78,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     );
             }
         }
+//\endcond
     }
 }

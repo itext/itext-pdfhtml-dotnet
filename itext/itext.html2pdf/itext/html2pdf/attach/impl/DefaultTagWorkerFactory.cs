@@ -68,9 +68,11 @@ namespace iText.Html2pdf.Attach.Impl {
             return tagWorker;
         }
 
+//\cond DO_NOT_DOCUMENT
         internal virtual TagProcessorMapping<DefaultTagWorkerMapping.ITagWorkerCreator> GetDefaultMapping() {
             return defaultMapping;
         }
+//\endcond
 
         /// <summary>Gets the tag worker creator for a specific element node.</summary>
         /// <param name="mapping">the mapping</param>

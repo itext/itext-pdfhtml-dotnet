@@ -100,11 +100,10 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         [NUnit.Framework.Ignore("DEVSIX-4601 exception is thrown on \"convert tagged PDF with acroform\" stage")]
         public virtual void InputFormPrematureFlush() {
-            NUnit.Framework.Assert.That(() =>  {
-                ConvertToPdfAcroformFlattenAndCompare("inputFormPrematureFlush", sourceFolder, destinationFolder, true);
-            }
-            , NUnit.Framework.Throws.InstanceOf<PdfException>().With.Message.EqualTo(KernelExceptionMessageConstant.TAG_STRUCTURE_FLUSHING_FAILED_IT_MIGHT_BE_CORRUPTED))
-;
+            Exception exception = NUnit.Framework.Assert.Catch(typeof(PdfException), () => ConvertToPdfAcroformFlattenAndCompare
+                ("inputFormPrematureFlush", sourceFolder, destinationFolder, true));
+            NUnit.Framework.Assert.AreEqual(KernelExceptionMessageConstant.TAG_STRUCTURE_FLUSHING_FAILED_IT_MIGHT_BE_CORRUPTED
+                , exception);
         }
     }
 }

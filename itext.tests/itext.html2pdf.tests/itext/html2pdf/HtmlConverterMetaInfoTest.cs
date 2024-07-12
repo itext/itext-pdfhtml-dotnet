@@ -40,7 +40,7 @@ namespace iText.Html2pdf {
     public class HtmlConverterMetaInfoTest : ExtendedITextTest {
         [NUnit.Framework.Test]
         public virtual void MetaInfoShouldBePresentTest() {
-            IMetaInfo o = new _IMetaInfo_56();
+            IMetaInfo o = new _IMetaInfo_55();
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetEventMetaInfo(o);
             HtmlConverterMetaInfoTest.InvocationAssert invocationAssert = new HtmlConverterMetaInfoTest.InvocationAssert
@@ -54,8 +54,8 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.IsTrue(invocationAssert.IsInvoked());
         }
 
-        private sealed class _IMetaInfo_56 : IMetaInfo {
-            public _IMetaInfo_56() {
+        private sealed class _IMetaInfo_55 : IMetaInfo {
+            public _IMetaInfo_55() {
             }
         }
 

@@ -35,6 +35,7 @@ using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+//\cond DO_NOT_DOCUMENT
     /// <summary>
     /// <see cref="iText.Layout.Renderer.TextRenderer"/>
     /// implementation for the page count.
@@ -42,12 +43,14 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     internal class PageCountRenderer : TextRenderer {
         private readonly CounterDigitsGlyphStyle digitsGlyphStyle;
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Instantiates a new page count renderer.</summary>
         /// <param name="textElement">the text element</param>
         internal PageCountRenderer(PageCountElement textElement)
             : base(textElement) {
             this.digitsGlyphStyle = textElement.GetDigitsGlyphStyle();
         }
+//\endcond
 
         protected internal PageCountRenderer(TextRenderer other)
             : base(other) {
@@ -133,4 +136,5 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return true;
         }
     }
+//\endcond
 }

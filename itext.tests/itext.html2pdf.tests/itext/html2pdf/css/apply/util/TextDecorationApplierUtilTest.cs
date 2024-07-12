@@ -276,12 +276,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 ));
         }
 
+//\cond DO_NOT_DOCUMENT
         internal class TextDecorationTestElementNode : IElementNode {
             private readonly INode parent;
 
+//\cond DO_NOT_DOCUMENT
             internal TextDecorationTestElementNode(INode parent) {
                 this.parent = parent;
             }
+//\endcond
 
             public virtual String Name() {
                 return "testnode";
@@ -310,7 +313,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return children;
             }
 
+//\cond DO_NOT_DOCUMENT
             internal IList<INode> children = new List<INode>();
+//\endcond
 
             public virtual void AddChild(INode node) {
                 children.Add(node);
@@ -323,11 +328,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
             public virtual void SetStyles(IDictionary<String, String> stringStringMap) {
             }
 
+//\cond DO_NOT_DOCUMENT
             internal Dictionary<String, String> styles = new Dictionary<String, String>();
+//\endcond
 
             public virtual IDictionary<String, String> GetStyles() {
                 return styles;
             }
         }
+//\endcond
     }
 }

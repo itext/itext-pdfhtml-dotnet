@@ -32,7 +32,6 @@ namespace iText.Html2pdf.Css.Grid {
         public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/grid/GridTemplateColumnTest/";
 
-        //TODO DEVSIX-3340 change cmp files when GRID LAYOUT is supported
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateOrClearDestinationFolder(DESTINATION_FOLDER);
@@ -41,6 +40,11 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void TemplateColumnBordersTest() {
             RunTest("template-cols-borders");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AutoRowFixedTest() {
+            RunTest("auto-cols-fixed");
         }
 
         [NUnit.Framework.Test]
@@ -126,6 +130,16 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void TemplateColumnBasicTest() {
             RunTest("template-cols-without-other-props");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TemplateColumnBasicTest2() {
+            RunTest("template-cols-without-other-props-2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TemplateColumnWithFlexAndGapsTest() {
+            RunTest("template-cols-with-flex-and-gaps");
         }
 
         private void RunTest(String testName) {

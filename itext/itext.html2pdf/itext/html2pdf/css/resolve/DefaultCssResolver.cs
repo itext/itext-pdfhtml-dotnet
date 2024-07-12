@@ -143,11 +143,12 @@ namespace iText.Html2pdf.Css.Resolve {
                         elementStyles = StyleUtil.MergeParentStyleDeclaration(elementStyles, entry.Key, entry.Value, parentStyles.
                             Get(CommonCssConstants.FONT_SIZE), inheritanceRules);
                         // If the parent has display: flex, the flex item is blockified
-                        // no matter what display value is set for it (except 'none' value).
+                        // no matter what display value is set for it (except 'none' and 'grid' values).
                         // See CSS Flexible Box Layout Module Level 1,
                         // W3C Candidate Recommendation, 19 November 2018: 4. Flex Items.
                         String currentElementDisplay = elementStyles.Get(CssConstants.DISPLAY);
-                        if (IsFlexItem(entry, currentElementDisplay) && !CommonCssConstants.NONE.Equals(currentElementDisplay)) {
+                        if (IsFlexItem(entry, currentElementDisplay) && !CommonCssConstants.NONE.Equals(currentElementDisplay) && 
+                            !CommonCssConstants.GRID.Equals(currentElementDisplay)) {
                             elementStyles.Put(CssConstants.DISPLAY, CssConstants.BLOCK);
                         }
                     }

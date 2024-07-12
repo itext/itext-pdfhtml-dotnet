@@ -87,9 +87,11 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             return null;
         }
 
+//\cond DO_NOT_DOCUMENT
         internal virtual TagProcessorMapping<DefaultTagCssApplierMapping.ICssApplierCreator> GetDefaultMapping() {
             return defaultMapping;
         }
+//\endcond
 
         /// <summary>Gets the css applier class.</summary>
         /// <param name="mapping">the mapping</param>

@@ -49,13 +49,13 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         public virtual void DoNotResetFontProviderTest() {
-            NUnit.Framework.Assert.That(() =>  {
+            NUnit.Framework.Assert.Catch(typeof(PdfException), () => {
                 FileStream fileInputStream = new FileStream(sourceFolder + "justHelloWorld.html", FileMode.Open, FileAccess.Read
                     );
                 IXmlParser parser = new JsoupHtmlParser();
                 IDocumentNode documentNode = parser.Parse(fileInputStream, null);
                 ConverterProperties converterProperties = new ConverterProperties();
-                converterProperties.SetFontProvider(new _DefaultFontProvider_71(false, true, false));
+                converterProperties.SetFontProvider(new _DefaultFontProvider_66(false, true, false));
                 // Do nothing here. That should result in an exception.
                 IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);
                 Document doc1 = processor.ProcessDocument(documentNode, new PdfDocument(new PdfWriter(new MemoryStream()))
@@ -67,12 +67,11 @@ namespace iText.Html2pdf {
                 NUnit.Framework.Assert.IsTrue(false, "The test should have failed before that assert, since it's strictly forbidden not to reset the FontProvider instance after each html to pdf conversion."
                     );
             }
-            , NUnit.Framework.Throws.InstanceOf<PdfException>())
-;
+            );
         }
 
-        private sealed class _DefaultFontProvider_71 : DefaultFontProvider {
-            public _DefaultFontProvider_71(bool baseArg1, bool baseArg2, bool baseArg3)
+        private sealed class _DefaultFontProvider_66 : DefaultFontProvider {
+            public _DefaultFontProvider_66(bool baseArg1, bool baseArg2, bool baseArg3)
                 : base(baseArg1, baseArg2, baseArg3) {
             }
 

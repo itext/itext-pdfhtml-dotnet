@@ -39,6 +39,7 @@ using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Resolve {
+//\cond DO_NOT_DOCUMENT
     /// <summary>The Class CssContentPropertyResolver.</summary>
     internal class CssContentPropertyResolver {
         private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(CssContentPropertyResolver));
@@ -54,6 +55,7 @@ namespace iText.Html2pdf.Css.Resolve {
 
         private const int TARGET_COUNTER_MIN_PARAMS_SIZE = 2;
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Resolves content.</summary>
         /// <param name="styles">the styles map</param>
         /// <param name="contentContainer">the content container</param>
@@ -264,6 +266,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
             return result;
         }
+//\endcond
 
         /// <summary>Resolves content in case of errors.</summary>
         /// <param name="contentStr">the content</param>
@@ -292,6 +295,7 @@ namespace iText.Html2pdf.Css.Resolve {
             /// <summary>The content.</summary>
             private String content;
 
+//\cond DO_NOT_DOCUMENT
             /// <summary>
             /// Creates a new
             /// <see cref="ContentTextNode"/>
@@ -303,6 +307,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 this.parent = parent;
                 this.content = content;
             }
+//\endcond
 
             /* (non-Javadoc)
             * @see com.itextpdf.html2pdf.html.node.INode#childNodes()
@@ -333,4 +338,5 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
     }
+//\endcond
 }

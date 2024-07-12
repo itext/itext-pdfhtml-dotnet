@@ -54,6 +54,15 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             if (width != null) {
                 element.SetProperty(Property.COLUMN_WIDTH, width.GetValue());
             }
+            if (!element.HasProperty(Property.COLUMN_WIDTH) && !element.HasProperty(Property.COLUMN_COUNT)) {
+                if (CommonCssConstants.AUTO.Equals(cssProps.Get(CssConstants.COLUMN_COUNT)) || CommonCssConstants.AUTO.Equals
+                    (cssProps.Get(CssConstants.COLUMN_WIDTH))) {
+                    element.SetProperty(Property.COLUMN_COUNT, 1);
+                }
+                else {
+                    return;
+                }
+            }
             UnitValue gap = CssDimensionParsingUtils.ParseLengthValueToPt(cssProps.Get(CssConstants.COLUMN_GAP), emValue
                 , remValue);
             if (gap != null) {
@@ -62,11 +71,6 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             //Set default colum-gap to 1em
             if (!element.HasProperty(Property.COLUMN_GAP)) {
                 element.SetProperty(Property.COLUMN_GAP, CssDimensionParsingUtils.ParseRelativeValue("1em", emValue));
-            }
-            if (!element.HasProperty(Property.COLUMN_COUNT) && !element.HasProperty(Property.COLUMN_WIDTH) && (CommonCssConstants
-                .AUTO.Equals(cssProps.Get(CssConstants.COLUMN_COUNT)) || CommonCssConstants.AUTO.Equals(cssProps.Get(CssConstants
-                .COLUMN_WIDTH)))) {
-                element.SetProperty(Property.COLUMN_COUNT, 1);
             }
             Border borderFromCssProperties = BorderStyleApplierUtil.GetCertainBorder(cssProps.Get(CssConstants.COLUMN_RULE_WIDTH
                 ), cssProps.Get(CssConstants.COLUMN_RULE_STYLE), GetColumnGapColorOrDefault(cssProps), emValue, remValue

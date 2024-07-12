@@ -173,6 +173,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>
         /// Removes event handlers that were added to pdf document when this
         /// <see cref="HtmlDocumentRenderer"/>
@@ -183,6 +184,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             // This handler is added in processPageRules method.
             document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, marginBoxesHandler);
         }
+//\endcond
 
         /* (non-Javadoc)
         * @see com.itextpdf.layout.renderer.DocumentRenderer#getNextRenderer()
@@ -327,10 +329,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return new PageSize(addedPage.GetTrimBox());
         }
 
+//\cond DO_NOT_DOCUMENT
         internal virtual bool ShouldAttemptTrimLastPage() {
             return TRIM_LAST_BLANK_PAGE && document.GetPdfDocument().GetNumberOfPages() > 1;
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal virtual void TrimLastPageIfNecessary() {
             if (ShouldAttemptTrimLastPage()) {
                 PdfDocument pdfDocument = document.GetPdfDocument();
@@ -342,7 +347,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 }
             }
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>
         /// Returns the number of pages that will be trimmed on
         /// <see cref="Close()"/>
@@ -373,7 +380,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 return 0;
             }
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Gets a page processor for the page.</summary>
         /// <param name="pageNum">
         /// the number of the page for which the
@@ -395,12 +404,15 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 }
             }
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Gets the estimated number of pages.</summary>
         /// <returns>the estimated number of pages</returns>
         internal virtual int GetEstimatedNumberOfPages() {
             return estimatedNumberOfPages;
         }
+//\endcond
 
         private void UpdateDefaultMargins(BodyHtmlStylesContainer[] styles, float[] defaultMargins) {
             for (int i = 0; i < 2; i++) {
@@ -471,11 +483,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         private class PageMarginBoxesDrawingHandler : iText.Kernel.Events.IEventHandler {
             private HtmlDocumentRenderer htmlDocumentRenderer;
 
+//\cond DO_NOT_DOCUMENT
             internal virtual HtmlDocumentRenderer.PageMarginBoxesDrawingHandler SetHtmlDocumentRenderer(HtmlDocumentRenderer
                  htmlDocumentRenderer) {
                 this.htmlDocumentRenderer = htmlDocumentRenderer;
                 return this;
             }
+//\endcond
 
             public virtual void HandleEvent(Event @event) {
                 if (@event is PdfDocumentEvent) {
@@ -486,10 +500,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 }
             }
 
+//\cond DO_NOT_DOCUMENT
             internal virtual void ProcessPage(PdfDocument pdfDoc, int pageNumber) {
                 PageContextProcessor pageProcessor = htmlDocumentRenderer.GetPageProcessor(pageNumber);
                 pageProcessor.ProcessPageEnd(pageNumber, pdfDoc, htmlDocumentRenderer);
             }
+//\endcond
         }
     }
 }

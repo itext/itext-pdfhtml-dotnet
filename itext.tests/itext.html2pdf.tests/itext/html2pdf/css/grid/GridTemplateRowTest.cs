@@ -32,7 +32,6 @@ namespace iText.Html2pdf.Css.Grid {
         public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/grid/GridTemplateRowTest/";
 
-        //TODO DEVSIX-3340 change cmp files when GRID LAYOUT is supported
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateOrClearDestinationFolder(DESTINATION_FOLDER);
@@ -41,6 +40,11 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void TemplateRowAutoTest() {
             RunTest("template-rows-auto");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AutoRowFixedTest() {
+            RunTest("auto-rows-fixed");
         }
 
         [NUnit.Framework.Test]
@@ -66,6 +70,11 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void TemplateRowFitContentAutoTest() {
             RunTest("template-rows-fit-content-auto");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowFitContentPercentTest() {
+            RunTest("row-fit-content-percent");
         }
 
         [NUnit.Framework.Test]

@@ -552,6 +552,7 @@ namespace iText.Html2pdf {
             return this;
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Gets html meta info.</summary>
         /// <remarks>
         /// Gets html meta info.
@@ -565,6 +566,7 @@ namespace iText.Html2pdf {
         internal virtual IMetaInfo GetEventMetaInfo() {
             return metaInfo == null ? HtmlConverter.CreatePdf2HtmlMetaInfo() : metaInfo;
         }
+//\endcond
 
         /// <summary>Sets html meta info.</summary>
         /// <remarks>

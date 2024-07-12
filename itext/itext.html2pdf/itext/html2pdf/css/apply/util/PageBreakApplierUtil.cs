@@ -166,6 +166,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             /// </summary>
             private HtmlPageBreak pageBreak;
 
+//\cond DO_NOT_DOCUMENT
             /// <summary>
             /// Creates a new
             /// <see cref="HtmlPageBreakWorker"/>
@@ -175,6 +176,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             internal HtmlPageBreakWorker(HtmlPageBreak pageBreak) {
                 this.pageBreak = pageBreak;
             }
+//\endcond
 
             /* (non-Javadoc)
             * @see com.itextpdf.html2pdf.attach.ITagWorker#processEnd(com.itextpdf.html2pdf.html.node.IElementNode, com.itextpdf.html2pdf.attach.ProcessorContext)

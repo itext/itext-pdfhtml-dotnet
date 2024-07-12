@@ -23,13 +23,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using iText.Commons.Utils;
 using iText.Kernel.Pdf;
 
 namespace iText.Html2pdf {
     [NUnit.Framework.Category("IntegrationTest")]
-    [NUnit.Framework.TestFixtureSource("RotationRelatedPropertiesTestFixtureData")]
     public class HtmlConverterPdfAParameterizedTest : ExtendedHtmlConversionITextTest {
         public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/HtmlConverterPdfAParameterizedTest/";
@@ -37,25 +35,9 @@ namespace iText.Html2pdf {
         public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/HtmlConverterPdfAParameterizedTest/";
 
-        private readonly String htmlName;
-
-        private readonly String testName;
-
-        private readonly PdfAConformanceLevel conformanceLevel;
-
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateDestinationFolder(DESTINATION_FOLDER);
-        }
-
-        public HtmlConverterPdfAParameterizedTest(Object htmlName, Object testName, Object conformance) {
-            this.conformanceLevel = (PdfAConformanceLevel)conformance;
-            this.htmlName = (String)htmlName;
-            this.testName = (String)testName;
-        }
-
-        public HtmlConverterPdfAParameterizedTest(Object[] array)
-            : this(array[0], array[1], array[2]) {
         }
 
         // TODO DEVSIX-2449 z-index is not supported (zindex.html)
@@ -105,12 +87,9 @@ namespace iText.Html2pdf {
                  }, new Object[] { "zIndex.html", "pdfA1ZIndexTest", PdfAConformanceLevel.PDF_A_1B } });
         }
 
-        public static ICollection<NUnit.Framework.TestFixtureData> RotationRelatedPropertiesTestFixtureData() {
-            return RotationRelatedProperties().Select(array => new NUnit.Framework.TestFixtureData(array)).ToList();
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ConvertToPdfA4Test() {
+        [NUnit.Framework.TestCaseSource("RotationRelatedProperties")]
+        public virtual void ConvertToPdfA4Test(Object htmlName, Object testName, PdfAConformanceLevel conformanceLevel
+            ) {
             String sourceHtml = SOURCE_FOLDER + htmlName;
             String destinationPdf = DESTINATION_FOLDER + testName + ".pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_" + testName + ".pdf";

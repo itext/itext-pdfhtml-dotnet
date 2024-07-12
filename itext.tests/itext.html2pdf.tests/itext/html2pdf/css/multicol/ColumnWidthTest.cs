@@ -277,6 +277,31 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("columnWidthPercentageTest");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void BigPaddingsTest() {
+            RunTest("bigPaddingsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BigBordersTest() {
+            RunTest("bigBordersTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BigMarginsTest() {
+            RunTest("bigMarginsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BigMargingsPaddingsBordersTest() {
+            RunTest("bigMargingsPaddingsBordersTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BigBordersWithoutWidtConstraintTest() {
+            RunTest("bigBordersWithoutWidtConstraintTest");
+        }
+
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
                 (SOURCE_FOLDER));

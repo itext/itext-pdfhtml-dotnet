@@ -208,6 +208,7 @@ namespace iText.Html2pdf.Css {
             TestLineHeight("lineHeightMathJaxMathFontNormalTest");
         }
 
+//\cond DO_NOT_DOCUMENT
         internal virtual void TestLineHeight(String name) {
             String sourceHtml = SOURCE_FOLDER + name + ".html";
             String destinationPdf = DESTINATION_FOLDER + name + ".pdf";
@@ -221,7 +222,9 @@ namespace iText.Html2pdf.Css {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER
                 , "diff_" + name + "_"));
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal static ConverterProperties InitConverterProperties() {
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetBaseUri(SOURCE_FOLDER);
@@ -231,5 +234,6 @@ namespace iText.Html2pdf.Css {
             converterProperties.SetFontProvider(fontProvider);
             return converterProperties;
         }
+//\endcond
     }
 }

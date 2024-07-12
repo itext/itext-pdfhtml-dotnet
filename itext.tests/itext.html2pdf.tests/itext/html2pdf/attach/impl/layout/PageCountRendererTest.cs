@@ -33,13 +33,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.GET_NEXT_RENDERER_SHOULD_BE_OVERRIDDEN)]
         public virtual void GetNextRendererShouldBeOverriddenTest() {
-            PageCountRenderer pageCountRenderer = new _PageCountRenderer_50(new PageCountElement());
+            PageCountRenderer pageCountRenderer = new _PageCountRenderer_49(new PageCountElement());
             // Nothing is overridden
             NUnit.Framework.Assert.AreEqual(typeof(PageCountRenderer), pageCountRenderer.GetNextRenderer().GetType());
         }
 
-        private sealed class _PageCountRenderer_50 : PageCountRenderer {
-            public _PageCountRenderer_50(PageCountElement baseArg1)
+        private sealed class _PageCountRenderer_49 : PageCountRenderer {
+            public _PageCountRenderer_49(PageCountElement baseArg1)
                 : base(baseArg1) {
             }
         }
@@ -55,6 +55,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             NUnit.Framework.Assert.IsTrue(true);
         }
 
+//\cond DO_NOT_DOCUMENT
         internal class CustomPageCountRenderer : PageCountRenderer {
             public CustomPageCountRenderer(PageCountElement textElement)
                 : base(textElement) {
@@ -74,5 +75,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 return new PageCountRendererTest.CustomPageCountRenderer((PageCountElement)this.modelElement);
             }
         }
+//\endcond
     }
 }

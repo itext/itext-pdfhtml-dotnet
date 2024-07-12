@@ -37,15 +37,19 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         }
     }
 
+//\cond DO_NOT_DOCUMENT
     internal class TestCssApplierFactory : DefaultCssApplierFactory {
         public TestCssApplierFactory() {
             GetDefaultMapping().PutMapping("custom-tag", () => new TestClass());
         }
     }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
     internal class TestClass : ICssApplier {
         public virtual void Apply(ProcessorContext context, IStylesContainer stylesContainer, ITagWorker tagWorker
             ) {
         }
     }
+//\endcond
 }

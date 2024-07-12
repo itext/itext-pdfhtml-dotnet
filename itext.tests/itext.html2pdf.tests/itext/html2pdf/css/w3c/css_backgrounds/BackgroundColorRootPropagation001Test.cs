@@ -32,11 +32,7 @@ namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
 
         [NUnit.Framework.Test]
         public override void Test() {
-            NUnit.Framework.Assert.That(() =>  {
-                base.Test();
-            }
-            , NUnit.Framework.Throws.InstanceOf<Exception>())
-;
+            NUnit.Framework.Assert.Catch(typeof(Exception), () => base.Test());
         }
     }
 }

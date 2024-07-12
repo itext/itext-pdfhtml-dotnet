@@ -27,6 +27,12 @@ using iText.StyledXmlParser.Css;
 
 namespace iText.Html2pdf.Css {
     public class CssConstants : CommonCssConstants {
+        /// <summary>The Constant AUTO_FIT.</summary>
+        public const String AUTO_FIT = "auto-fit";
+
+        /// <summary>The Constant AUTO_FILL.</summary>
+        public const String AUTO_FILL = "auto-fill";
+
         /// <summary>The Constant BLEED.</summary>
         public const String BLEED = "bleed";
 
@@ -65,6 +71,9 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant MIN_WIDTH.</summary>
         public const String MIN_WIDTH = "min-width";
+
+        /// <summary>The Constant MIN_MAX.</summary>
+        public const String MINMAX = "minmax";
 
         /// <summary>The Constant OBJECT_FIT.</summary>
         public const String OBJECT_FIT = "object-fit";
@@ -130,8 +139,8 @@ namespace iText.Html2pdf.Css {
         /// <summary>The Constant FIRST_EXCEPT.</summary>
         public const String FIRST_EXCEPT = "first-except";
 
-        /// <summary>The Constant GRID.</summary>
-        public const String GRID = "grid";
+        /// <summary>The Constant GRID_AREA.</summary>
+        public const String GRID_AREA = "grid-area";
 
         /// <summary>The Constant INLINE.</summary>
         public const String INLINE = "inline";
@@ -213,6 +222,9 @@ namespace iText.Html2pdf.Css {
 
         /// <summary>The Constant SUB.</summary>
         public const String SUB = "sub";
+
+        /// <summary>The Constant SUBGRID.</summary>
+        public const String SUBGRID = "subgrid";
 
         /// <summary>The Constant SUPER.</summary>
         public const String SUPER = "super";

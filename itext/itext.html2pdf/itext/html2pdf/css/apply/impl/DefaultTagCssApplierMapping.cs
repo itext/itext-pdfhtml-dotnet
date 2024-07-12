@@ -30,8 +30,10 @@ using iText.StyledXmlParser.Css.Page;
 using iText.StyledXmlParser.Css.Pseudo;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
+//\cond DO_NOT_DOCUMENT
     /// <summary>Class that contains the default mapping between CSS keys and CSS appliers.</summary>
     internal class DefaultTagCssApplierMapping {
+//\cond DO_NOT_DOCUMENT
         /// <summary>
         /// Creates a new
         /// <see cref="DefaultTagCssApplierMapping"/>
@@ -39,6 +41,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
         /// </summary>
         internal DefaultTagCssApplierMapping() {
         }
+//\endcond
 
         /// <summary>The default mapping.</summary>
         private static TagProcessorMapping<DefaultTagCssApplierMapping.ICssApplierCreator> mapping;
@@ -147,6 +150,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_ROW, () => new DisplayTableRowTagCssApplier());
             mapping.PutMapping(TagConstants.DIV, CssConstants.FLEX, () => new DisplayFlexTagCssApplier());
             mapping.PutMapping(TagConstants.SPAN, CssConstants.FLEX, () => new DisplayFlexTagCssApplier());
+            mapping.PutMapping(TagConstants.DIV, CssConstants.GRID, () => new DisplayGridTagCssApplier());
             // pseudo elements mapping
             String beforePseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.BEFORE);
             String afterPseudoElemName = CssPseudoElementUtil.CreatePseudoElementTagName(CssConstants.AFTER);
@@ -168,13 +172,16 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(PageMarginBoxContextNode.PAGE_MARGIN_BOX_TAG, () => new PageMarginBoxCssApplier());
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Gets the default CSS applier mapping.</summary>
         /// <returns>the default CSS applier mapping</returns>
         internal virtual TagProcessorMapping<DefaultTagCssApplierMapping.ICssApplierCreator> GetDefaultCssApplierMapping
             () {
             return mapping;
         }
+//\endcond
 
         public delegate ICssApplier ICssApplierCreator();
     }
+//\endcond
 }

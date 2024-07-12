@@ -35,7 +35,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             INode iNode = null;
             IDictionary<String, String> styles = new Dictionary<String, String>();
             styles.Put("width", "20pt");
-            CssContextNode cssContextNode = new _CssContextNode_46(iNode);
+            CssContextNode cssContextNode = new _CssContextNode_45(iNode);
             cssContextNode.SetStyles(styles);
             Paragraph paragraph = new Paragraph("Paragraph");
             WidthDimensionContainer widthDimensionContainer = new WidthDimensionContainer(cssContextNode, 500, paragraph
@@ -43,8 +43,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             NUnit.Framework.Assert.AreEqual(widthDimensionContainer.minContentDimension, 20, 0.0);
         }
 
-        private sealed class _CssContextNode_46 : CssContextNode {
-            public _CssContextNode_46(INode baseArg1)
+        private sealed class _CssContextNode_45 : CssContextNode {
+            public _CssContextNode_45(INode baseArg1)
                 : base(baseArg1) {
             }
 

@@ -43,17 +43,28 @@ using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Layout {
+//\cond DO_NOT_DOCUMENT
     // implementation of algorithm specified in https://drafts.csswg.org/css-page-3/#margin-dimension
     internal class PageMarginBoxBuilder {
+//\cond DO_NOT_DOCUMENT
         internal IRenderer[] renderers;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal PageMarginBoxContextNode[] nodes;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal float[] margins;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal PageSize pageSize;
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal IList<PageMarginBoxContextNode> resolvedPageMarginBoxes;
+//\endcond
 
         private const float EPSILON = 0.00001f;
 
@@ -663,6 +674,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Maps a margin box name to an index.</summary>
         /// <param name="marginBoxName">the margin box name</param>
         /// <returns>the index corresponding with the margin box name</returns>
@@ -734,5 +746,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
             return -1;
         }
+//\endcond
     }
+//\endcond
 }

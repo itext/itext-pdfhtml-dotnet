@@ -88,12 +88,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return this.firstOnPage;
         }
 
+//\cond DO_NOT_DOCUMENT
         internal virtual IElementNode GetRunningElement() {
             return runningElement;
         }
+//\endcond
 
+//\cond DO_NOT_DOCUMENT
         internal virtual ITagWorker GetProcessedElementWorker() {
             return processedElementWorker;
         }
+//\endcond
     }
 }
