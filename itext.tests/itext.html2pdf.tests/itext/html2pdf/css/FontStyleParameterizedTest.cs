@@ -23,7 +23,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using iText.Commons.Utils;
 using iText.Html2pdf;
 using iText.Kernel.Utils;
@@ -31,7 +30,6 @@ using iText.Test;
 
 namespace iText.Html2pdf.Css {
     [NUnit.Framework.Category("IntegrationTest")]
-    [NUnit.Framework.TestFixtureSource("RotationRelatedPropertiesTestFixtureData")]
     public class FontStyleParameterizedTest : ExtendedITextTest {
         public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/FontStyleParameterizedTest/";
@@ -39,19 +37,9 @@ namespace iText.Html2pdf.Css {
         public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/FontStyleParameterizedTest/";
 
-        private readonly String htmlName;
-
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateDestinationFolder(DESTINATION_FOLDER);
-        }
-
-        public FontStyleParameterizedTest(String htmlName) {
-            this.htmlName = htmlName;
-        }
-
-        public FontStyleParameterizedTest(String[] array)
-            : this(array[0]) {
         }
 
         public static IEnumerable<Object[]> RotationRelatedProperties() {
@@ -60,12 +48,8 @@ namespace iText.Html2pdf.Css {
                  } });
         }
 
-        public static ICollection<NUnit.Framework.TestFixtureData> RotationRelatedPropertiesTestFixtureData() {
-            return RotationRelatedProperties().Select(array => new NUnit.Framework.TestFixtureData(array)).ToList();
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ConvertToPdfA4Test() {
+        [NUnit.Framework.TestCaseSource("RotationRelatedProperties")]
+        public virtual void ConvertToPdfA4Test(String htmlName) {
             String htmlPath = SOURCE_FOLDER + htmlName + ".html";
             String pdfPath = DESTINATION_FOLDER + htmlName + ".pdf";
             String cmpPdfPath = SOURCE_FOLDER + "cmp_" + htmlName + ".pdf";
