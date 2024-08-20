@@ -26,7 +26,6 @@ using Microsoft.Extensions.Logging;
 using iText.Commons;
 using iText.Commons.Datastructures;
 using iText.Commons.Utils;
-using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags;
 using iText.Html2pdf.Html;
@@ -60,41 +59,10 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Applies a link annotation.</summary>
         /// <param name="container">the containing object</param>
         /// <param name="url">the destination</param>
-        [System.ObsoleteAttribute(@"in favour ofapplyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context)"
-            )]
-        public static void ApplyLinkAnnotation(IPropertyContainer container, String url) {
-            // Fake context here
-            ApplyLinkAnnotation(container, url, new ProcessorContext(new ConverterProperties()));
-        }
-
-        /// <summary>Applies a link annotation.</summary>
-        /// <param name="container">the containing object.</param>
-        /// <param name="url">the destination.</param>
-        /// <param name="context">the processor context.</param>
-        [Obsolete]
-        public static void ApplyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context) {
-            ApplyLinkAnnotation(container, url, context, "");
-        }
-
-        private static String RetrieveAlternativeDescription(IElementNode element) {
-            IList<INode> children = element.ChildNodes();
-            //if there is an img tag under the link then prefer the alt attribute as a link description
-            if (children.Count == 1 && children[0].ChildNodes().IsEmpty() && children[0] is JsoupElementNode && ((JsoupElementNode
-                )children[0]).GetAttribute(AttributeConstants.ALT) != null) {
-                return ((JsoupElementNode)children[0]).GetAttribute(AttributeConstants.ALT);
-            }
-            //return title attribute value in case of regular link
-            return element.GetAttribute(AttributeConstants.TITLE);
-        }
-
-        /// <summary>Applies a link annotation.</summary>
-        /// <param name="container">the containing object.</param>
-        /// <param name="url">the destination.</param>
-        /// <param name="context">the processor context.</param>
-        /// <param name="alternateDescription">description for a link.</param>
-        [Obsolete]
+        /// <param name="context">the processor context</param>
+        /// <param name="element">the element node</param>
         public static void ApplyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context, 
-            String alternateDescription) {
+            IElementNode element) {
             if (container != null) {
                 PdfLinkAnnotation linkAnnotation;
                 if (url.StartsWith("#")) {
@@ -110,6 +78,7 @@ namespace iText.Html2pdf.Attach.Util {
                     linkAnnotation = (PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.CreateURI
                         (url)).SetFlags(PdfAnnotation.PRINT);
                 }
+                String alternateDescription = RetrieveAlternativeDescription(element);
                 if (container is IAccessibleElement && alternateDescription != null) {
                     ((IAccessibleElement)container).GetAccessibilityProperties().SetAlternateDescription(alternateDescription);
                 }
@@ -119,17 +88,6 @@ namespace iText.Html2pdf.Attach.Util {
                     ((IAccessibleElement)container).GetAccessibilityProperties().SetRole(StandardRoles.LINK);
                 }
             }
-        }
-
-        /// <summary>Applies a link annotation.</summary>
-        /// <param name="container">the containing object.</param>
-        /// <param name="url">the destination.</param>
-        /// <param name="context">the processor context.</param>
-        /// <param name="element">the element node.</param>
-        public static void ApplyLinkAnnotation(IPropertyContainer container, String url, ProcessorContext context, 
-            IElementNode element) {
-            iText.Html2pdf.Attach.Util.LinkHelper.ApplyLinkAnnotation(container, url, context, RetrieveAlternativeDescription
-                (element));
         }
 
         /// <summary>Creates a destination</summary>
@@ -161,6 +119,17 @@ namespace iText.Html2pdf.Attach.Util {
             if (propertyContainer != null) {
                 propertyContainer.SetProperty(Property.ID, id);
             }
+        }
+
+        private static String RetrieveAlternativeDescription(IElementNode element) {
+            IList<INode> children = element.ChildNodes();
+            // If there is an img tag under the link then prefer the alt attribute as a link description.
+            if (children.Count == 1 && children[0].ChildNodes().IsEmpty() && children[0] is JsoupElementNode && ((JsoupElementNode
+                )children[0]).GetAttribute(AttributeConstants.ALT) != null) {
+                return ((JsoupElementNode)children[0]).GetAttribute(AttributeConstants.ALT);
+            }
+            // Return title attribute value in case of regular link.
+            return element.GetAttribute(AttributeConstants.TITLE);
         }
 
         private static IPropertyContainer GetPropertyContainer(ITagWorker tagWorker) {

@@ -104,10 +104,6 @@ namespace iText.Html2pdf.Logs {
         /// <summary>The Constant PAGE_SIZE_VALUE_IS_INVALID.</summary>
         public const String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
 
-        /// <summary>The Constant PDF_DOCUMENT_NOT_PRESENT.</summary>
-        [Obsolete]
-        public const String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
-
         /// <summary>The Constant QUOTES_PROPERTY_INVALID.</summary>
         public const String QUOTES_PROPERTY_INVALID = "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
 

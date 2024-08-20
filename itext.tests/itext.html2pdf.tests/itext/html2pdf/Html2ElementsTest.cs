@@ -151,9 +151,8 @@ namespace iText.Html2pdf {
             String html = "<html><p>Hello world!</p><meta name=\"author\" content=\"Bruno\"><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p></html>";
             ConverterProperties props = new ConverterProperties();
             OutlineHandler outlineHandler = new OutlineHandler();
-            outlineHandler.PutTagPriorityMapping("h1", 1);
-            outlineHandler.PutTagPriorityMapping("h3", 2);
-            outlineHandler.PutTagPriorityMapping("p", 3);
+            outlineHandler.PutMarkPriorityMapping("h1", 1).PutMarkPriorityMapping("h3", 2).PutMarkPriorityMapping("p", 
+                3);
             props.SetOutlineHandler(outlineHandler);
             HtmlConverter.ConvertToElements(html);
         }

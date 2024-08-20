@@ -133,17 +133,6 @@ namespace iText.Html2pdf.Attach.Impl {
             return this;
         }
 
-        /// <summary>Put tag into priority mapping.</summary>
-        /// <param name="tagName">the tag name</param>
-        /// <param name="priority">the priority</param>
-        /// <returns>the outline handler</returns>
-        [System.ObsoleteAttribute(@"use PutMarkPriorityMapping(System.String, int?) instead")]
-        public virtual iText.Html2pdf.Attach.Impl.OutlineHandler PutTagPriorityMapping(String tagName, int? priority
-            ) {
-            PutMarkPriorityMapping(tagName, priority);
-            return this;
-        }
-
         /// <summary>Put mark into priority mapping.</summary>
         /// <param name="markName">the mark name</param>
         /// <param name="priority">the priority</param>
@@ -151,17 +140,6 @@ namespace iText.Html2pdf.Attach.Impl {
         public virtual iText.Html2pdf.Attach.Impl.OutlineHandler PutMarkPriorityMapping(String markName, int? priority
             ) {
             markPrioritiesMapping.Put(markName, priority);
-            return this;
-        }
-
-        /// <summary>Put all tags into priority mappings.</summary>
-        /// <param name="mappings">the mappings</param>
-        /// <returns>the outline handler</returns>
-        [System.ObsoleteAttribute(@"ue PutAllMarksPriorityMappings(System.Collections.Generic.IDictionary{K, V}) instead"
-            )]
-        public virtual iText.Html2pdf.Attach.Impl.OutlineHandler PutAllTagPriorityMappings(IDictionary<String, int?
-            > mappings) {
-            PutAllMarksPriorityMappings(mappings);
             return this;
         }
 
@@ -174,27 +152,11 @@ namespace iText.Html2pdf.Attach.Impl {
             return this;
         }
 
-        /// <summary>Gets the marks from priority mapping.</summary>
-        /// <param name="tagName">the tag name</param>
-        /// <returns>the tag priority mapping</returns>
-        [System.ObsoleteAttribute(@"use GetMarkPriorityMapping(System.String) instead")]
-        public virtual int? GetTagPriorityMapping(String tagName) {
-            return GetMarkPriorityMapping(tagName);
-        }
-
         /// <summary>Gets the mark from priority mapping.</summary>
         /// <param name="markName">the mark name</param>
         /// <returns>the tag priority mapping</returns>
         public virtual int? GetMarkPriorityMapping(String markName) {
             return markPrioritiesMapping.Get(markName);
-        }
-
-        /// <summary>Checks for tag in priority mapping.</summary>
-        /// <param name="tagName">the tag name</param>
-        /// <returns>true, if the tag name is listed in the tag priorities mapping</returns>
-        [System.ObsoleteAttribute(@"use HasMarkPriorityMapping(System.String) instead")]
-        public virtual bool HasTagPriorityMapping(String tagName) {
-            return HasMarkPriorityMapping(tagName);
         }
 
         /// <summary>Checks for tag in priority mapping.</summary>
