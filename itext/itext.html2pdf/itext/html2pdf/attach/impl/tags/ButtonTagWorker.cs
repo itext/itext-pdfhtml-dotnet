@@ -53,7 +53,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         private bool hasChildren = false;
 
-        private IConformanceLevel pdfAConformanceLevel;
+        private readonly PdfConformance pdfConformance;
 
         /// <summary>
         /// Creates a new
@@ -70,9 +70,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             this.name = context.GetFormFieldNameResolver().ResolveFormName(name);
             flatten = !context.IsCreateAcroForm();
-            if (context.GetConformanceLevel() != null) {
-                pdfAConformanceLevel = context.GetConformanceLevel();
-            }
+            pdfConformance = context.GetConformance();
             lang = element.GetAttribute(AttributeConstants.LANG);
         }
 
@@ -125,7 +123,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
             }
             formField.SetProperty(FormProperty.FORM_FIELD_FLATTEN, flatten);
-            formField.SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, pdfAConformanceLevel);
+            formField.SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, pdfConformance);
             return formField;
         }
     }

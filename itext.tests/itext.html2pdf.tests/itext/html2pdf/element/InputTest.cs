@@ -330,7 +330,7 @@ namespace iText.Html2pdf.Element {
             String cmpPdf = sourceFolder + "cmp_" + name + ".pdf";
             String destinationPdf = destinationFolder + name + ".pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_4);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(sourceFolder + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {

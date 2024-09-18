@@ -81,8 +81,8 @@ namespace iText.Html2pdf {
         /// <summary>Output intent for final destination device.</summary>
         private PdfOutputIntent outputIntent;
 
-        /// <summary>Conformance level for conversion to pdf/a.</summary>
-        private PdfAConformanceLevel conformanceLevel;
+        /// <summary>Conformance for conversion to pdf/a.</summary>
+        private PdfAConformance aConformance;
 
         /// <summary>
         /// Instantiates a new
@@ -472,11 +472,11 @@ namespace iText.Html2pdf {
         /// <summary>Sets the generation and strictness level of the PDF/A that must be followed.</summary>
         /// <remarks>
         /// Sets the generation and strictness level of the PDF/A that must be followed.
-        /// Required parameter, when converting to pdf/a one have to specify an explicit pdf/a conformance level.
+        /// Required parameter, when converting to pdf/a one have to specify an explicit pdf/a conformance.
         /// </remarks>
-        /// <param name="conformanceLevel">
+        /// <param name="conformance">
         /// a
-        /// <see cref="iText.Kernel.Pdf.PdfAConformanceLevel"/>
+        /// <see cref="iText.Kernel.Pdf.PdfAConformance"/>
         /// constant
         /// </param>
         /// <returns>
@@ -484,9 +484,8 @@ namespace iText.Html2pdf {
         /// <see cref="ConverterProperties"/>
         /// instance
         /// </returns>
-        public virtual iText.Html2pdf.ConverterProperties SetPdfAConformanceLevel(PdfAConformanceLevel conformanceLevel
-            ) {
-            this.conformanceLevel = conformanceLevel;
+        public virtual iText.Html2pdf.ConverterProperties SetPdfAConformance(PdfAConformance conformance) {
+            this.aConformance = conformance;
             return this;
         }
 
@@ -505,9 +504,9 @@ namespace iText.Html2pdf {
         }
 
         /// <summary>Gets the generation and strictness level of the PDF/A that must be followed.</summary>
-        /// <returns>pdf/a conformance level</returns>
-        public virtual PdfAConformanceLevel GetConformanceLevel() {
-            return conformanceLevel;
+        /// <returns>pdf/a conformance</returns>
+        public virtual PdfAConformance GetPdfAConformance() {
+            return aConformance;
         }
 
         /// <summary>Checks if immediateFlush is set.</summary>

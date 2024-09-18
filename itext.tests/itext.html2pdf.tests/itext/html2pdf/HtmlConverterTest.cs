@@ -52,7 +52,7 @@ namespace iText.Html2pdf {
             String cmpPdf = SOURCE_FOLDER + "cmp_simple.pdf";
             String destinationPdf = DESTINATION_FOLDER + "simple.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_2B);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_2B);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
@@ -67,7 +67,7 @@ namespace iText.Html2pdf {
             String cmpPdf = SOURCE_FOLDER + "cmp_simple.pdf";
             String destinationPdf = DESTINATION_FOLDER + "simple.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_1B);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_1B);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
@@ -93,12 +93,12 @@ namespace iText.Html2pdf {
             String sourceHtml = SOURCE_FOLDER + "simple.html";
             String destinationPdf = DESTINATION_FOLDER + "simpleA4.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformanceLevel.PDF_A_4E, 
-                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER
-                 + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
+            PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformance.PDF_A_4E, new PdfOutputIntent
+                ("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm"
+                , FileMode.Open, FileAccess.Read)));
             Exception e = NUnit.Framework.Assert.Catch(typeof(PdfAConformanceException), () => {
                 HtmlConverter.ConvertToPdf(sourceHtml, pdfDocument, converterProperties);
             }
@@ -112,12 +112,12 @@ namespace iText.Html2pdf {
             String sourceHtml = SOURCE_FOLDER + "simple.html";
             String destinationPdf = DESTINATION_FOLDER + "simpleA4.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4E);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_4E);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformanceLevel.PDF_A_4E, 
-                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER
-                 + "USWebUncoated.icc", FileMode.Open, FileAccess.Read)));
+            PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformance.PDF_A_4E, new PdfOutputIntent
+                ("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER + "USWebUncoated.icc"
+                , FileMode.Open, FileAccess.Read)));
             Exception e = NUnit.Framework.Assert.Catch(typeof(PdfAConformanceException), () => {
                 HtmlConverter.ConvertToPdf(sourceHtml, pdfDocument, converterProperties);
             }
