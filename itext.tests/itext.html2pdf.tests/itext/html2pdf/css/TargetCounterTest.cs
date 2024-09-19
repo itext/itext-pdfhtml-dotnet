@@ -84,13 +84,14 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void PageTargetCounterTestWithLogMessageTest() {
             ConvertToPdfAndCompare("pageTargetCounterTestWithLogMessage");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2)]
         public virtual void NonPageTargetCounterTestWithLogMessageTest() {
             // There should be only one log message here, but we have two because we resolve css styles twice.
             ConvertToPdfAndCompare("nonPageTargetCounterTestWithLogMessage");
@@ -150,7 +151,7 @@ namespace iText.Html2pdf.Css {
         }
 
         private void ConvertToPdfWithCustomRendererAndCompare(String name) {
-            ConverterProperties properties = new ConverterProperties().SetTagWorkerFactory(new _DefaultTagWorkerFactory_165
+            ConverterProperties properties = new ConverterProperties().SetTagWorkerFactory(new _DefaultTagWorkerFactory_166
                 ());
             DefaultHtmlProcessor processor = new DefaultHtmlProcessor(properties);
             IXmlParser parser = new JsoupHtmlParser();
@@ -164,19 +165,19 @@ namespace iText.Html2pdf.Css {
                 + ".pdf", destinationFolder));
         }
 
-        private sealed class _DefaultTagWorkerFactory_165 : DefaultTagWorkerFactory {
-            public _DefaultTagWorkerFactory_165() {
+        private sealed class _DefaultTagWorkerFactory_166 : DefaultTagWorkerFactory {
+            public _DefaultTagWorkerFactory_166() {
             }
 
             public override ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
                 if (TagConstants.HTML.Equals(tag.Name())) {
-                    return new _ITagWorker_169(tag, context);
+                    return new _ITagWorker_170(tag, context);
                 }
                 return null;
             }
 
-            private sealed class _ITagWorker_169 : ITagWorker {
-                public _ITagWorker_169(IElementNode tag, ProcessorContext context) {
+            private sealed class _ITagWorker_170 : ITagWorker {
+                public _ITagWorker_170(IElementNode tag, ProcessorContext context) {
                     this.tag = tag;
                     this.context = context;
                     this.htmlTagWorker = new HtmlTagWorker(tag, context);

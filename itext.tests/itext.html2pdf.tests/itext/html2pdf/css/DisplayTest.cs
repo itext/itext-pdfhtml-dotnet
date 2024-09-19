@@ -308,7 +308,8 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 7)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 7)]
         public virtual void InlineBlockInsideTableCellTest() {
             // IO setup
             PdfWriter writer = new PdfWriter(new FileInfo(DESTINATION_FOLDER + "inlineBlockInsideTableCellTest.pdf"));

@@ -22,7 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Multicol {
@@ -50,7 +49,8 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2)]
         public virtual void ConvertNegativeColumnGapValueTest() {
             RunTest("negativeColumnGapValueTest");
         }
@@ -69,7 +69,8 @@ namespace iText.Html2pdf.Css.Multicol {
 
         //TODO: DEVSIX-3596 add support of relative units that currently are not supported
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2)]
         public virtual void ConvertDifferentUnitsTest() {
             RunTest("differentUnitsTest");
         }

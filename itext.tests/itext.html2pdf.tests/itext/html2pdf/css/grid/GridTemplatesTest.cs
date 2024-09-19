@@ -632,8 +632,8 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("maxHeightFlexRowsTest2");
         }
 
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, LogLevel = LogLevelConstants.WARN
-            )]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            LogLevel = LogLevelConstants.WARN)]
         [NUnit.Framework.Test]
         public virtual void DivNestingTest() {
             RunTest("divNestingTest");

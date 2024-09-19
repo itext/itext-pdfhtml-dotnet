@@ -23,7 +23,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Commons.Utils;
-using iText.Html2pdf.Logs;
 using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Pdf;
 using iText.Pdfa;
@@ -95,8 +94,8 @@ namespace iText.Html2pdf {
 
         //TODO DEVSIX-4201 adapt test when property is added
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2, LogLevel = LogLevelConstants
-            .WARN)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2, LogLevel = LogLevelConstants.WARN)]
         public virtual void ConvertToPdfA3ColorsTest() {
             String sourceHtml = SOURCE_FOLDER + "colors.html";
             String destinationPdf = DESTINATION_FOLDER + "pdfA3ColorTest.pdf";

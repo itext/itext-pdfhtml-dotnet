@@ -22,13 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
 using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, LogLevel = LogLevelConstants.WARN
-        , Count = 2)]
+    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+        LogLevel = LogLevelConstants.WARN, Count = 2)]
     public class MulticolWidthCh001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-width-ch-001.xht";
