@@ -22,13 +22,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.IO;
-using iText.Commons.Utils;
 using iText.Html2pdf.Exceptions;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
-using iText.Pdfa;
-using iText.Pdfa.Exceptions;
 using iText.Test;
 using iText.Test.Pdfa;
 
@@ -86,44 +83,6 @@ namespace iText.Html2pdf {
             );
             NUnit.Framework.Assert.AreEqual(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE, exception.Message
                 );
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ConvertHtmlToDocumentIncorrectConverterPropertiesTest() {
-            String sourceHtml = SOURCE_FOLDER + "simple.html";
-            String destinationPdf = DESTINATION_FOLDER + "simpleA4.pdf";
-            ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
-            converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
-                , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformance.PDF_A_4E, new PdfOutputIntent
-                ("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm"
-                , FileMode.Open, FileAccess.Read)));
-            Exception e = NUnit.Framework.Assert.Catch(typeof(PdfAConformanceException), () => {
-                HtmlConverter.ConvertToPdf(sourceHtml, pdfDocument, converterProperties);
-            }
-            );
-            NUnit.Framework.Assert.AreEqual(MessageFormatUtil.Format(PdfaExceptionMessageConstant.THE_FILE_HEADER_SHALL_CONTAIN_RIGHT_PDF_VERSION
-                , "2"), e.Message);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void ConvertHtmlToDocumentWithDifferentColorProfileTest() {
-            String sourceHtml = SOURCE_FOLDER + "simple.html";
-            String destinationPdf = DESTINATION_FOLDER + "simpleA4.pdf";
-            ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_4E);
-            converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
-                , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            PdfADocument pdfDocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformance.PDF_A_4E, new PdfOutputIntent
-                ("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER + "USWebUncoated.icc"
-                , FileMode.Open, FileAccess.Read)));
-            Exception e = NUnit.Framework.Assert.Catch(typeof(PdfAConformanceException), () => {
-                HtmlConverter.ConvertToPdf(sourceHtml, pdfDocument, converterProperties);
-            }
-            );
-            NUnit.Framework.Assert.AreEqual(MessageFormatUtil.Format(PdfaExceptionMessageConstant.THE_FILE_HEADER_SHALL_CONTAIN_RIGHT_PDF_VERSION
-                , "2"), e.Message);
         }
 
         private static PdfDocument CreateTempDoc() {

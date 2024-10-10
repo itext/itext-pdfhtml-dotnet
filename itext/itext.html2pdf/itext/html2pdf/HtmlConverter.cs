@@ -61,9 +61,6 @@ namespace iText.Html2pdf {
     /// instance.
     /// </remarks>
     public class HtmlConverter {
-        private static readonly IList<PdfAConformance> pdf2Conformances = new List<PdfAConformance>(JavaUtil.ArraysAsList
-            (PdfAConformance.PDF_A_4, PdfAConformance.PDF_A_4E, PdfAConformance.PDF_A_4F));
-
         /// <summary>Instantiates a new HtmlConverter instance.</summary>
         private HtmlConverter() {
         }
@@ -109,11 +106,6 @@ namespace iText.Html2pdf {
         /// instance
         /// </param>
         public static void ConvertToPdf(String html, Stream pdfStream, ConverterProperties converterProperties) {
-            if (converterProperties != null && pdf2Conformances.Contains(converterProperties.GetPdfAConformance())) {
-                ConvertToPdf(html, new PdfWriter(pdfStream, new WriterProperties().SetPdfVersion(PdfVersion.PDF_2_0)), converterProperties
-                    );
-                return;
-            }
             ConvertToPdf(html, new PdfWriter(pdfStream), converterProperties);
         }
 
@@ -315,11 +307,6 @@ namespace iText.Html2pdf {
         /// </param>
         public static void ConvertToPdf(Stream htmlStream, Stream pdfStream, ConverterProperties converterProperties
             ) {
-            if (converterProperties != null && pdf2Conformances.Contains(converterProperties.GetPdfAConformance())) {
-                ConvertToPdf(htmlStream, new PdfWriter(pdfStream, new WriterProperties().SetPdfVersion(PdfVersion.PDF_2_0)
-                    ), converterProperties);
-                return;
-            }
             ConvertToPdf(htmlStream, new PdfWriter(pdfStream), converterProperties);
         }
 

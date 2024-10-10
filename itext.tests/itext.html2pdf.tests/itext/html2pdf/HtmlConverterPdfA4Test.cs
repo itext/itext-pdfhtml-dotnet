@@ -28,6 +28,7 @@ using iText.Kernel.Pdf;
 using iText.Pdfa;
 using iText.Pdfa.Checker;
 using iText.Pdfa.Exceptions;
+using iText.Pdfa.Logs;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -85,24 +86,24 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(PdfALogMessageConstant.WRITER_PROPERTIES_PDF_VERSION_WAS_OVERRIDDEN, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void ConvertToPdfA4MetaDataInvalidTest() {
             String sourceHtml = SOURCE_FOLDER + "simple.html";
             String destinationPdf = DESTINATION_FOLDER + "pdfA4InvalidMetadataTest.pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_pdfA4InvalidMetadataTest.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_4);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             converterProperties.SetBaseUri("no_link");
             using (FileStream fOutput = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
-                using (PdfWriter pdfWriter = new PdfWriter(destinationPdf)) {
-                    Exception e = NUnit.Framework.Assert.Catch(typeof(PdfAConformanceException), () => {
-                        HtmlConverter.ConvertToPdf(fOutput, pdfWriter, converterProperties);
-                    }
-                    );
-                    NUnit.Framework.Assert.AreEqual(MessageFormatUtil.Format(PdfaExceptionMessageConstant.THE_FILE_HEADER_SHALL_CONTAIN_RIGHT_PDF_VERSION
-                        , "2"), e.Message);
+                using (PdfWriter pdfWriter = new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion(PdfVersion
+                    .PDF_1_7))) {
+                    HtmlConverter.ConvertToPdf(fOutput, pdfWriter, converterProperties);
                 }
             }
+            HtmlConverterTest.CompareAndCheckCompliance(destinationPdf, cmpPdf);
         }
 
         [NUnit.Framework.Test]
