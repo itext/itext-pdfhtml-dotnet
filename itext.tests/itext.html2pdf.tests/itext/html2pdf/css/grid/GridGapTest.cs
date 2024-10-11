@@ -22,7 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Grid {
@@ -115,7 +114,8 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2)]
         public virtual void DiffUnitsTest() {
             RunTest("diff_units");
         }
@@ -151,19 +151,19 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void NegativeColGapValueTest() {
             RunTest("negative_col_gap_value");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void NegativeRowGapValueTest() {
             RunTest("negative_row_gap_value");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void NegativeGapValueTest() {
             RunTest("negative_gap_value");
         }

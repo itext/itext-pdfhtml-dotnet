@@ -89,11 +89,11 @@ namespace iText.Html2pdf.Attach {
         private PdfDocument pdfDocument;
 
         /// <summary>
-        /// PDF/A conformance level from
+        /// PDF/A conformance from
         /// <see cref="iText.Html2pdf.ConverterProperties"/>
         /// instance.
         /// </summary>
-        private readonly PdfAConformanceLevel pdfAConformanceLevelFromProperties;
+        private readonly PdfConformance pdfAConformanceFromProperties;
 
         /// <summary>The Processor meta info</summary>
         private IMetaInfo metaInfo;
@@ -153,7 +153,7 @@ namespace iText.Html2pdf.Attach {
             formFieldNameResolver = new FormFieldNameResolver();
             radioCheckResolver = new RadioCheckResolver();
             immediateFlush = converterProperties.IsImmediateFlush();
-            pdfAConformanceLevelFromProperties = converterProperties.GetConformanceLevel();
+            pdfAConformanceFromProperties = new PdfConformance(converterProperties.GetPdfAConformance());
             processingInlineSvg = false;
             continuousContainerEnabled = converterProperties.IsContinuousContainerEnabled();
         }
@@ -183,14 +183,13 @@ namespace iText.Html2pdf.Attach {
             return pdfDocument;
         }
 
-        /// <summary>Get the PDF document conformance level if specified.</summary>
+        /// <summary>Get the PDF document conformance.</summary>
         /// <returns>
         /// the
-        /// <see cref="iText.Kernel.Pdf.PdfAConformanceLevel"/>
-        /// will be null if the processing result won't follow PDF/A strictness
+        /// <see cref="iText.Kernel.Pdf.PdfConformance"/>
         /// </returns>
-        public virtual IConformanceLevel GetConformanceLevel() {
-            return pdfDocument == null ? pdfAConformanceLevelFromProperties : pdfDocument.GetConformanceLevel();
+        public virtual PdfConformance GetConformance() {
+            return pdfDocument == null ? pdfAConformanceFromProperties : pdfDocument.GetConformance();
         }
 
         /// <summary>Gets the font provider.</summary>

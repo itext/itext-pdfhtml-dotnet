@@ -22,12 +22,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.IO;
+using iText.Commons.Utils;
 using iText.Html2pdf;
 using iText.IO.Util;
-using iText.Kernel.Events;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Event;
 using iText.Kernel.Pdf.Xobject;
 using iText.Kernel.Utils;
 using iText.Layout;
@@ -66,14 +67,13 @@ namespace iText.Html2pdf.Events {
             PdfWriter writer = new PdfWriter(pdfDest);
             PdfDocument pdfDocument = new PdfDocument(writer);
             //Create event-handlers
-            PdfHtmlPageXofYEventHandlerTest.PageXofY footerHandler = new PdfHtmlPageXofYEventHandlerTest.PageXofY(this
-                , pdfDocument);
+            PdfHtmlPageXofYEventHandlerTest.PageXofY footerHandler = new PdfHtmlPageXofYEventHandlerTest.PageXofY();
             //Assign event-handlers
             pdfDocument.AddEventHandler(PdfDocumentEvent.END_PAGE, footerHandler);
             //Convert
             ConverterProperties converterProperties = new ConverterProperties().SetBaseUri(resoureLoc);
-            Document doc = HtmlConverter.ConvertToDocument(new FileStream(new FileInfo(htmlSource).FullName, FileMode.Open
-                , FileAccess.Read), pdfDocument, converterProperties);
+            Document doc = HtmlConverter.ConvertToDocument(FileUtil.GetInputStreamForFile(new FileInfo(htmlSource).FullName
+                ), pdfDocument, converterProperties);
             //Write the total number of pages to the placeholder
             doc.Flush();
             footerHandler.WriteTotal(pdfDocument);
@@ -81,7 +81,7 @@ namespace iText.Html2pdf.Events {
         }
 
         //page X of Y
-        protected internal class PageXofY : iText.Kernel.Events.IEventHandler {
+        protected internal class PageXofY : AbstractPdfDocumentEventHandler {
             protected internal PdfFormXObject placeholder;
 
             protected internal float side = 20;
@@ -94,12 +94,11 @@ namespace iText.Html2pdf.Events {
 
             protected internal float descent = 3;
 
-            public PageXofY(PdfHtmlPageXofYEventHandlerTest _enclosing, PdfDocument pdf) {
-                this._enclosing = _enclosing;
-                this.placeholder = new PdfFormXObject(new Rectangle(0, 0, this.side, this.side));
+            public PageXofY() {
+                placeholder = new PdfFormXObject(new Rectangle(0, 0, side, side));
             }
 
-            public virtual void HandleEvent(Event @event) {
+            protected override void OnAcceptedEvent(AbstractPdfDocumentEvent @event) {
                 PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
                 PdfDocument pdf = docEvent.GetDocument();
                 PdfPage page = docEvent.GetPage();
@@ -108,17 +107,15 @@ namespace iText.Html2pdf.Events {
                 PdfCanvas pdfCanvas = new PdfCanvas(page.GetLastContentStream(), page.GetResources(), pdf);
                 iText.Layout.Canvas canvas = new iText.Layout.Canvas(pdfCanvas, pageSize);
                 Paragraph p = new Paragraph().Add("Page ").Add(pageNumber.ToString()).Add(" of");
-                canvas.ShowTextAligned(p, this.x, this.y, TextAlignment.RIGHT);
-                pdfCanvas.AddXObjectAt(this.placeholder, this.x + this.space, this.y - this.descent);
+                canvas.ShowTextAligned(p, x, y, TextAlignment.RIGHT);
+                pdfCanvas.AddXObjectAt(placeholder, x + space, y - descent);
                 canvas.Close();
             }
 
             public virtual void WriteTotal(PdfDocument pdf) {
-                iText.Layout.Canvas canvas = new iText.Layout.Canvas(this.placeholder, pdf);
-                canvas.ShowTextAligned(pdf.GetNumberOfPages().ToString(), 0, this.descent, TextAlignment.LEFT);
+                iText.Layout.Canvas canvas = new iText.Layout.Canvas(placeholder, pdf);
+                canvas.ShowTextAligned(pdf.GetNumberOfPages().ToString(), 0, descent, TextAlignment.LEFT);
             }
-
-            private readonly PdfHtmlPageXofYEventHandlerTest _enclosing;
         }
     }
 }

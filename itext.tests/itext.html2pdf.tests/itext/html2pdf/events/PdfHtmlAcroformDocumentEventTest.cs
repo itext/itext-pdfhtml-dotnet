@@ -24,10 +24,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Events;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Event;
 using iText.Kernel.Utils;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -72,48 +72,52 @@ namespace iText.Html2pdf.Events {
                 , converterProperties);
             PdfWriter writer = new PdfWriter(pdfStream);
             PdfDocument pdfDocument = new PdfDocument(writer);
-            iText.Kernel.Events.IEventHandler handler = new _IEventHandler_94(elements, footer);
+            AbstractPdfDocumentEventHandler handler = new _AbstractPdfDocumentEventHandler_94(elements, footer);
             pdfDocument.AddEventHandler(PdfDocumentEvent.START_PAGE, handler);
             pdfDocument.AddEventHandler(PdfDocumentEvent.END_PAGE, handler);
             return pdfDocument;
         }
 
-        private sealed class _IEventHandler_94 : iText.Kernel.Events.IEventHandler {
-            public _IEventHandler_94(IList<IElement> elements, IList<IElement> footer) {
+        private sealed class _AbstractPdfDocumentEventHandler_94 : AbstractPdfDocumentEventHandler {
+            public _AbstractPdfDocumentEventHandler_94(IList<IElement> elements, IList<IElement> footer) {
                 this.elements = elements;
                 this.footer = footer;
             }
 
-            public void HandleEvent(Event @event) {
+            protected override void OnAcceptedEvent(AbstractPdfDocumentEvent @event) {
+                if (!(@event is PdfDocumentEvent)) {
+                    return;
+                }
                 PdfDocumentEvent docEvent = (PdfDocumentEvent)@event;
                 PdfPage page = docEvent.GetPage();
                 PdfCanvas pdfCanvas = new PdfCanvas(page);
                 Rectangle pageSize = page.GetPageSize();
-                iText.Layout.Canvas canvas = new iText.Layout.Canvas(pdfCanvas, pageSize);
-                Paragraph headerP = new Paragraph();
-                foreach (IElement elem in elements) {
-                    if (elem is IBlockElement) {
-                        headerP.Add((IBlockElement)elem);
-                    }
-                    else {
-                        if (elem is Image) {
-                            headerP.Add((Image)elem);
+                using (iText.Layout.Canvas canvas = new iText.Layout.Canvas(pdfCanvas, pageSize)) {
+                    Paragraph headerP = new Paragraph();
+                    foreach (IElement elem in elements) {
+                        if (elem is IBlockElement) {
+                            headerP.Add((IBlockElement)elem);
+                        }
+                        else {
+                            if (elem is Image) {
+                                headerP.Add((Image)elem);
+                            }
                         }
                     }
-                }
-                Paragraph footerP = new Paragraph();
-                foreach (IElement elem in footer) {
-                    if (elem is IBlockElement) {
-                        footerP.Add((IBlockElement)elem);
-                    }
-                    else {
-                        if (elem is Image) {
-                            footerP.Add((Image)elem);
+                    Paragraph footerP = new Paragraph();
+                    foreach (IElement elem in footer) {
+                        if (elem is IBlockElement) {
+                            footerP.Add((IBlockElement)elem);
+                        }
+                        else {
+                            if (elem is Image) {
+                                footerP.Add((Image)elem);
+                            }
                         }
                     }
+                    canvas.ShowTextAligned(headerP, pageSize.GetWidth() / 2, pageSize.GetTop() - 30, TextAlignment.LEFT);
+                    canvas.ShowTextAligned(footerP, 0, 0, TextAlignment.LEFT);
                 }
-                canvas.ShowTextAligned(headerP, pageSize.GetWidth() / 2, pageSize.GetTop() - 30, TextAlignment.LEFT);
-                canvas.ShowTextAligned(footerP, 0, 0, TextAlignment.LEFT);
             }
 
             private readonly IList<IElement> elements;

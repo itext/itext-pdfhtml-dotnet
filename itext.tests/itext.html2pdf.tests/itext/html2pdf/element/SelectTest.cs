@@ -157,7 +157,6 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         public virtual void SelectMinMaxWidthCalculationTest01() {
             RunTest("selectMinMaxWidthCalculationTest01");
         }

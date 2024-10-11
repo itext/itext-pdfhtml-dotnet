@@ -26,7 +26,8 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI)]
+    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
+        )]
     [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
     public class ImgAltAsMulticolCrashTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {

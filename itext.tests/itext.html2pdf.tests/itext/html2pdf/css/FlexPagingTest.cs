@@ -135,5 +135,15 @@ namespace iText.Html2pdf.Css {
         public virtual void ColumnFlexGrowPaging2Test() {
             ConvertToPdfAndCompare("column-flex-grow-paging-2", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void TableInFlexOnSplitTest() {
+            ConvertToPdfAndCompare("table-in-flex-on-split", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableInFlexColumnOnSplitTest() {
+            ConvertToPdfAndCompare("table-in-flex-column-on-split", sourceFolder, destinationFolder);
+        }
     }
 }

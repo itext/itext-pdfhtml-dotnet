@@ -22,12 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_items {
     //TODO DEVSIX-2449 z-index is not supported
-    [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
     public class GridMinimumSizeGridItems006Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-minimum-size-grid-items-006.html";

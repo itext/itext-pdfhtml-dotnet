@@ -23,9 +23,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using iText.Html2pdf.Attach;
-using iText.Kernel.Events;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Event;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Layout;
@@ -162,8 +162,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             ProcessWaitingElement();
             base.Close();
             TrimLastPageIfNecessary();
-            document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, marginBoxesHandler);
-            document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, htmlBodyHandler);
+            RemoveEventHandlers();
             for (int i = 1; i <= document.GetPdfDocument().GetNumberOfPages(); ++i) {
                 PdfPage page = document.GetPdfDocument().GetPage(i);
                 if (!page.IsFlushed()) {
@@ -180,9 +179,9 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// was created.
         /// </summary>
         internal virtual void RemoveEventHandlers() {
-            document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, htmlBodyHandler);
             // This handler is added in processPageRules method.
-            document.GetPdfDocument().RemoveEventHandler(PdfDocumentEvent.END_PAGE, marginBoxesHandler);
+            document.GetPdfDocument().RemoveEventHandler(marginBoxesHandler);
+            document.GetPdfDocument().RemoveEventHandler(htmlBodyHandler);
         }
 //\endcond
 
@@ -480,7 +479,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return !IsPageLeft(pageNum);
         }
 
-        private class PageMarginBoxesDrawingHandler : iText.Kernel.Events.IEventHandler {
+        private class PageMarginBoxesDrawingHandler : AbstractPdfDocumentEventHandler {
             private HtmlDocumentRenderer htmlDocumentRenderer;
 
 //\cond DO_NOT_DOCUMENT
@@ -491,10 +490,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
 //\endcond
 
-            public virtual void HandleEvent(Event @event) {
+            protected override void OnAcceptedEvent(AbstractPdfDocumentEvent @event) {
                 if (@event is PdfDocumentEvent) {
                     PdfPage page = ((PdfDocumentEvent)@event).GetPage();
-                    PdfDocument pdfDoc = ((PdfDocumentEvent)@event).GetDocument();
+                    PdfDocument pdfDoc = @event.GetDocument();
                     int pageNumber = pdfDoc.GetPageNumber(page);
                     ProcessPage(pdfDoc, pageNumber);
                 }

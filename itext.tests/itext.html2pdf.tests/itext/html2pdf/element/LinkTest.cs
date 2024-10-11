@@ -144,7 +144,7 @@ namespace iText.Html2pdf.Element {
         [LogMessage(PdfAConformanceLogMessageConstant.CATALOG_SHOULD_CONTAIN_LANG_ENTRY)]
         public virtual void LinkTest10ToPdfa() {
             Stream @is = new FileStream(sourceFolder + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read);
-            PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "linkTest10.pdf"), PdfAConformanceLevel
+            PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationFolder + "linkTest10.pdf"), PdfAConformance
                 .PDF_A_2A, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", @is));
             pdfADocument.SetTagged();
             using (FileStream fileInputStream = new FileStream(sourceFolder + "linkTest10.html", FileMode.Open, FileAccess.Read

@@ -22,7 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Html2pdf.Logs;
 using iText.Layout.Logs;
 using iText.Test.Attributes;
 
@@ -51,7 +50,8 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         //TODO: DEVSIX-3596 add support of relative units that currently are not supported
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2)]
         [NUnit.Framework.Test]
         public virtual void ConvertDifferentUnitsTest() {
             RunTest("differentUnitsTest");
@@ -266,7 +266,8 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("basicBlockquoteTest");
         }
 
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 3)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 3)]
         [NUnit.Framework.Test]
         public virtual void InvalidMulticolValuesTest() {
             RunTest("invalidMulticolValuesTest");

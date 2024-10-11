@@ -22,7 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
@@ -40,7 +39,8 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2)]
         public virtual void SingleBlockSingleParagraphRight() {
             /* this test shows different combinations of float values blocks and  paragraph align RIGHT within div container
             */
@@ -49,21 +49,24 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2)]
         public virtual void SingleBlockSingleParagraphLeft() {
             //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
             ConvertToPdfAndCompare("singleBlockSingleParagraphLeft", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2)]
         public virtual void SingleBlockSingleParagraphJustify() {
             //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
             ConvertToPdfAndCompare("singleBlockSingleParagraphJustify", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2)]
         public virtual void SingleBlockSingleParagraphCenter() {
             //TODO: update test after ticket DEVSIX-1720  fix (WARN Invalid css property declaration: float: initial)
             ConvertToPdfAndCompare("singleBlockSingleParagraphCenter", sourceFolder, destinationFolder);

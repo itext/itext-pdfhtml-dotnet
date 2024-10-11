@@ -160,9 +160,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (formElement != null) {
                 formElement.SetProperty(FormProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
                 ((IAccessibleElement)formElement).GetAccessibilityProperties().SetLanguage(lang);
-                if (context.GetConformanceLevel() != null) {
-                    formElement.SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.GetConformanceLevel());
-                }
+                formElement.SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.GetConformance());
             }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }

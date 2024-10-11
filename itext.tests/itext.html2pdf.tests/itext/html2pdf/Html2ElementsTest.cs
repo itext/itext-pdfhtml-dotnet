@@ -151,9 +151,8 @@ namespace iText.Html2pdf {
             String html = "<html><p>Hello world!</p><meta name=\"author\" content=\"Bruno\"><table><tr><td>123</td><td><456></td></tr><tr><td>Long cell</td></tr></table><p>Hello world!</p></html>";
             ConverterProperties props = new ConverterProperties();
             OutlineHandler outlineHandler = new OutlineHandler();
-            outlineHandler.PutTagPriorityMapping("h1", 1);
-            outlineHandler.PutTagPriorityMapping("h3", 2);
-            outlineHandler.PutTagPriorityMapping("p", 3);
+            outlineHandler.PutMarkPriorityMapping("h1", 1).PutMarkPriorityMapping("h3", 2).PutMarkPriorityMapping("p", 
+                3);
             props.SetOutlineHandler(outlineHandler);
             HtmlConverter.ConvertToElements(html);
         }
@@ -365,9 +364,9 @@ namespace iText.Html2pdf {
             PdfOutputIntent intent = new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new 
                 FileStream(sourceFolder + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read));
             IList<IElement> elements = HtmlConverter.ConvertToElements(htmlFile, new ConverterProperties().SetBaseUri(
-                sourceFolder).SetCreateAcroForm(true).SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_4));
+                sourceFolder).SetCreateAcroForm(true).SetPdfAConformance(PdfAConformance.PDF_A_4));
             using (Document document = new Document(new PdfADocument(new PdfWriter(outPdf, new WriterProperties().SetPdfVersion
-                (PdfVersion.PDF_2_0)), PdfAConformanceLevel.PDF_A_4, intent))) {
+                (PdfVersion.PDF_2_0)), PdfAConformance.PDF_A_4, intent))) {
                 foreach (IElement element in elements) {
                     document.Add((IBlockElement)element);
                 }

@@ -223,7 +223,7 @@ namespace iText.Html2pdf.Element {
         public virtual void ListToPdfaTest() {
             Stream @is = new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read
                 );
-            PdfADocument pdfADocument = new PdfADocument(new PdfWriter(DESTINATION_FOLDER + "listToPdfa.pdf"), PdfAConformanceLevel
+            PdfADocument pdfADocument = new PdfADocument(new PdfWriter(DESTINATION_FOLDER + "listToPdfa.pdf"), PdfAConformance
                 .PDF_A_1B, new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", @is));
             using (FileStream fileInputStream = new FileStream(SOURCE_FOLDER + "listToPdfa.html", FileMode.Open, FileAccess.Read
                 )) {

@@ -41,8 +41,6 @@ namespace iText.Html2pdf.Logs {
         /// <summary>The Constant CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED.</summary>
         public const String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
 
-        public const String DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN = "Default value of the css property \"{0}\" is unknown.";
-
         /// <summary>The Constant ERROR_LOADING_FONT.</summary>
         public const String ERROR_LOADING_FONT = "Error while loading font";
 
@@ -104,13 +102,6 @@ namespace iText.Html2pdf.Logs {
         /// <summary>The Constant PAGE_SIZE_VALUE_IS_INVALID.</summary>
         public const String PAGE_SIZE_VALUE_IS_INVALID = "Page size value {0} is invalid.";
 
-        /// <summary>The Constant PDF_DOCUMENT_NOT_PRESENT.</summary>
-        [Obsolete]
-        public const String PDF_DOCUMENT_NOT_PRESENT = "PdfDocument is not present";
-
-        /// <summary>The Constant QUOTES_PROPERTY_INVALID.</summary>
-        public const String QUOTES_PROPERTY_INVALID = "Quote property \"{0}\" is invalid. It should contain even number of <string> values.";
-
         /// <summary>The Constant TEXT_DECORATION_BLINK_NOT_SUPPORTED.</summary>
         public const String TEXT_DECORATION_BLINK_NOT_SUPPORTED = "text-decoration: blink not supported";
 
@@ -123,14 +114,8 @@ namespace iText.Html2pdf.Logs {
         /// <summary>The Constant UNABLE_TO_PROCESS_SVG.</summary>
         public const String UNABLE_TO_PROCESS_SVG_ELEMENT = "Unable to process an SVG element";
 
-        /// <summary>The Constant UNABLE_TO_RESOLVE_COUNTER.</summary>
-        public const String UNABLE_TO_RESOLVE_COUNTER = "Unable to resolve counter \"{0}\"";
-
         /// <summary>The Constant UNABLE_TO_RETRIEVE_FONT.</summary>
         public const String UNABLE_TO_RETRIEVE_FONT = "Unable to retrieve font:\n {0}";
-
-        /// <summary>The Constant UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI.</summary>
-        public const String UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI = "Unable to retrieve image with given base URI ({0}) and image source path ({1})";
 
         /// <summary>The Constant UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI.</summary>
         public const String UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI = "Unable to retrieve stream with given base URI ({0}) and source path ({1})";

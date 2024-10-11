@@ -90,7 +90,8 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+            )]
         public virtual void FontFaceGrammarTest() {
             RunTest("fontFaceGrammarTest");
         }
@@ -263,7 +264,8 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_STREAM_WITH_GIVEN_BASE_URI
+            )]
         [LogMessage(Html2PdfLogMessageConstant.UNABLE_TO_RETRIEVE_FONT)]
         public virtual void DoNotDownloadUnusedFontTest() {
             // TODO DEVSIX-2054

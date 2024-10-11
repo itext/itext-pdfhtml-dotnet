@@ -22,11 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css3_selectors {
-    [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 6)]
+    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count
+         = 6)]
     public class Css3Modsel27aTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "css3-modsel-27a.html";

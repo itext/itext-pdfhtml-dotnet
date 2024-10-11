@@ -22,10 +22,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.Collections.Generic;
-using iText.Kernel.Events;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Event;
 using iText.Kernel.Pdf.Tagging;
 using iText.Layout.Borders;
 using iText.Layout.Element;
@@ -34,7 +34,7 @@ using iText.Layout.Properties;
 namespace iText.Html2pdf.Attach.Impl.Layout {
 //\cond DO_NOT_DOCUMENT
     /// <summary>This handler draws backgrounds and borders for html, body and page-annotation styles.</summary>
-    internal class HtmlBodyStylesApplierHandler : iText.Kernel.Events.IEventHandler {
+    internal class HtmlBodyStylesApplierHandler : AbstractPdfDocumentEventHandler {
         private readonly HtmlDocumentRenderer htmlDocumentRenderer;
 
         private readonly IDictionary<int, HtmlBodyStylesApplierHandler.PageStylesProperties> pageStylesPropertiesMap;
@@ -57,12 +57,12 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             this.pageStylesPropertiesMap = pageStylesPropertiesMap;
         }
 
-        public virtual void HandleEvent(Event @event) {
+        protected override void OnAcceptedEvent(AbstractPdfDocumentEvent @event) {
             if (!(@event is PdfDocumentEvent)) {
                 return;
             }
             PdfPage page = ((PdfDocumentEvent)@event).GetPage();
-            int pageNumber = ((PdfDocumentEvent)@event).GetDocument().GetPageNumber(page);
+            int pageNumber = @event.GetDocument().GetPageNumber(page);
             ProcessPage(page, pageNumber);
         }
 

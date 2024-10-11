@@ -82,7 +82,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void LetterSpacingTest01() {
             ConvertToPdfAndCompare("letterSpacingTest01", sourceFolder, destinationFolder);
         }
@@ -94,7 +94,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void WordSpacingTest01() {
             ConvertToPdfAndCompare("wordSpacingTest01", sourceFolder, destinationFolder);
         }

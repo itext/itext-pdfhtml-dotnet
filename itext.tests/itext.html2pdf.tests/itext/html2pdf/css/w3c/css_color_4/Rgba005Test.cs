@@ -22,12 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_4 {
     // Color values as in this test are considered for now as invalid. E.g. Chrome does the same.
-    [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
     public class Rgba005Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "rgba-005.html";

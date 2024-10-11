@@ -23,7 +23,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Commons.Utils;
-using iText.Html2pdf.Logs;
 using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Pdf;
 using iText.Pdfa;
@@ -54,7 +53,7 @@ namespace iText.Html2pdf {
             String cmpPdf = SOURCE_FOLDER + "cmp_simple.pdf";
             String destinationPdf = DESTINATION_FOLDER + "simple.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
@@ -69,7 +68,7 @@ namespace iText.Html2pdf {
             String cmpPdf = SOURCE_FOLDER + "cmp_simple.pdf";
             String destinationPdf = DESTINATION_FOLDER + "simple.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             HtmlConverter.ConvertToPdf("<html>\n" + "<head><title>Test</title></head>\n" + "<body >\n" + "<form>\n" + 
@@ -84,7 +83,7 @@ namespace iText.Html2pdf {
             String cmpPdf = SOURCE_FOLDER + "cmp_simple_a.pdf";
             String destinationPdf = DESTINATION_FOLDER + "simple_a.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
@@ -95,14 +94,14 @@ namespace iText.Html2pdf {
 
         //TODO DEVSIX-4201 adapt test when property is added
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2, LogLevel = LogLevelConstants
-            .WARN)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2, LogLevel = LogLevelConstants.WARN)]
         public virtual void ConvertToPdfA3ColorsTest() {
             String sourceHtml = SOURCE_FOLDER + "colors.html";
             String destinationPdf = DESTINATION_FOLDER + "pdfA3ColorTest.pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_pdfA3ColorTest.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
@@ -118,7 +117,7 @@ namespace iText.Html2pdf {
             String cmpPdf = SOURCE_FOLDER + "cmp_simple_custom_font.pdf";
             String destinationPdf = DESTINATION_FOLDER + "simple_custom_font.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
@@ -137,8 +136,8 @@ namespace iText.Html2pdf {
             String cmpPdf = SOURCE_FOLDER + "cmp_pdfA3TaggedTest.pdf";
             String destinationPdf = DESTINATION_FOLDER + "pdfA3TaggedTest.pdf";
             ConverterProperties converterProperties = new ConverterProperties().SetBaseUri(SOURCE_FOLDER);
-            PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformanceLevel.PDF_A_3U, 
-                new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER
+            PdfADocument pdfADocument = new PdfADocument(new PdfWriter(destinationPdf), PdfAConformance.PDF_A_3U, new 
+                PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1", new FileStream(SOURCE_FOLDER
                  + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             pdfADocument.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfADocument, converterProperties
@@ -152,7 +151,7 @@ namespace iText.Html2pdf {
             String html = "<html>\n" + "<head>" + "<title>Test</title></head>\n" + "<body >\n" + "<p>أميرة</p>" + "</body>\n"
                  + "</html>";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
@@ -175,7 +174,7 @@ namespace iText.Html2pdf {
             String html = "<html>\n" + "<head>" + "<title>Test</title></head>\n" + "<body >\n" + "<p>أميرة</p>" + "</body>\n"
                  + "</html>";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
@@ -192,7 +191,7 @@ namespace iText.Html2pdf {
             String html = "<html>\n" + "<head>" + "<title>Test</title></head>\n" + "<body >\n" + "<p>\uD83D\uDE09</p>"
                  + "</body>\n" + "</html>";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
@@ -215,7 +214,7 @@ namespace iText.Html2pdf {
             String html = "<html>\n" + "<head>" + "<title>Test</title></head>\n" + "<body>\n" + "<p>\uD83D\uDE09</p>" 
                 + "</body>\n" + "</html>";
             ConverterProperties converterProperties = new ConverterProperties();
-            converterProperties.SetPdfAConformanceLevel(PdfAConformanceLevel.PDF_A_3U);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
             DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);

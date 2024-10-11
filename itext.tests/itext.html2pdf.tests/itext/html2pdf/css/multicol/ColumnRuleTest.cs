@@ -22,7 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Multicol {
@@ -100,7 +99,8 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 2)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2)]
         public virtual void ConvertRuleWidthIncorrectValuesTest() {
             RunTest("ruleWidthIncorrectValuesTest");
         }
@@ -116,7 +116,8 @@ namespace iText.Html2pdf.Css.Multicol {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, Count = 5)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 5)]
         public virtual void ConvertRuleColorHslaTest() {
             RunTest("ruleColorHslaTest");
         }

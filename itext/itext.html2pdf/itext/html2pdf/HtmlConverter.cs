@@ -61,10 +61,6 @@ namespace iText.Html2pdf {
     /// instance.
     /// </remarks>
     public class HtmlConverter {
-        private static readonly IList<PdfAConformanceLevel> pdf2ConformanceLevels = new List<PdfAConformanceLevel>
-            (JavaUtil.ArraysAsList(PdfAConformanceLevel.PDF_A_4, PdfAConformanceLevel.PDF_A_4E, PdfAConformanceLevel
-            .PDF_A_4F));
-
         /// <summary>Instantiates a new HtmlConverter instance.</summary>
         private HtmlConverter() {
         }
@@ -110,12 +106,6 @@ namespace iText.Html2pdf {
         /// instance
         /// </param>
         public static void ConvertToPdf(String html, Stream pdfStream, ConverterProperties converterProperties) {
-            if (converterProperties != null && pdf2ConformanceLevels.Contains(converterProperties.GetConformanceLevel(
-                ))) {
-                ConvertToPdf(html, new PdfWriter(pdfStream, new WriterProperties().SetPdfVersion(PdfVersion.PDF_2_0)), converterProperties
-                    );
-                return;
-            }
             ConvertToPdf(html, new PdfWriter(pdfStream), converterProperties);
         }
 
@@ -164,16 +154,16 @@ namespace iText.Html2pdf {
         /// instance
         /// </param>
         public static void ConvertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
-            if (converterProperties == null || converterProperties.GetConformanceLevel() == null) {
+            if (converterProperties == null || converterProperties.GetPdfAConformance() == null) {
                 ConvertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo
                     (converterProperties))), converterProperties);
                 return;
             }
-            PdfDocument document = new PdfADocument(pdfWriter, converterProperties.GetConformanceLevel(), converterProperties
+            PdfDocument document = new PdfADocument(pdfWriter, converterProperties.GetPdfAConformance(), converterProperties
                 .GetDocumentOutputIntent(), new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo(converterProperties
                 )));
             converterProperties = SetDefaultFontProviderForPdfA(document, converterProperties);
-            if ("A".Equals(converterProperties.GetConformanceLevel().GetConformance())) {
+            if ("A".Equals(converterProperties.GetPdfAConformance().GetLevel())) {
                 document.SetTagged();
             }
             ConvertToPdf(html, document, converterProperties);
@@ -317,12 +307,6 @@ namespace iText.Html2pdf {
         /// </param>
         public static void ConvertToPdf(Stream htmlStream, Stream pdfStream, ConverterProperties converterProperties
             ) {
-            if (converterProperties != null && pdf2ConformanceLevels.Contains(converterProperties.GetConformanceLevel(
-                ))) {
-                ConvertToPdf(htmlStream, new PdfWriter(pdfStream, new WriterProperties().SetPdfVersion(PdfVersion.PDF_2_0)
-                    ), converterProperties);
-                return;
-            }
             ConvertToPdf(htmlStream, new PdfWriter(pdfStream), converterProperties);
         }
 
@@ -395,16 +379,16 @@ namespace iText.Html2pdf {
         /// </param>
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
             ) {
-            if (converterProperties == null || converterProperties.GetConformanceLevel() == null) {
+            if (converterProperties == null || converterProperties.GetPdfAConformance() == null) {
                 ConvertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo
                     (converterProperties))), converterProperties);
                 return;
             }
-            PdfDocument document = new PdfADocument(pdfWriter, converterProperties.GetConformanceLevel(), converterProperties
+            PdfDocument document = new PdfADocument(pdfWriter, converterProperties.GetPdfAConformance(), converterProperties
                 .GetDocumentOutputIntent(), new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo(converterProperties
                 )));
             converterProperties = SetDefaultFontProviderForPdfA(document, converterProperties);
-            if ("A".Equals(converterProperties.GetConformanceLevel().GetConformance())) {
+            if ("A".Equals(converterProperties.GetPdfAConformance().GetLevel())) {
                 document.SetTagged();
             }
             ConvertToPdf(htmlStream, document, converterProperties);
@@ -768,7 +752,7 @@ namespace iText.Html2pdf {
                 }
             }
             else {
-                if (document == null && properties != null && properties.GetConformanceLevel() != null) {
+                if (document == null && properties != null && properties.GetPdfAConformance() != null) {
                     if (properties.GetFontProvider() == null) {
                         properties.SetFontProvider(new DefaultFontProvider(false, true, false));
                     }
