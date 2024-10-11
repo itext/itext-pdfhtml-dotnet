@@ -28,6 +28,6 @@ using Versions.Attributes;
 
 [assembly: Guid("ff6ba09d-3655-466a-8c17-a7bfd3479ca1")]
 
-[assembly: AssemblyVersion("6.0.0.0")]
-[assembly: AssemblyFileVersion("6.0.0.0")]
-[assembly: AssemblyInformationalVersion("6.0.0-SNAPSHOT")]
+[assembly: AssemblyVersion("6.0.1.0")]
+[assembly: AssemblyFileVersion("6.0.1.0")]
+[assembly: AssemblyInformationalVersion("6.0.1-SNAPSHOT")]
