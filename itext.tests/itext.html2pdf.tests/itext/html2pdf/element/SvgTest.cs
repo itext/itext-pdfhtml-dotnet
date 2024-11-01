@@ -217,7 +217,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void ExternalObjectWithResourceTest() {
-            //TODO update after DEVSIX-2239
             String name = "external_object_with_resource";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));
@@ -228,7 +227,6 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Count = 66)]
         public virtual void ExternalObjectWithGoogleCharts() {
-            //TODO update after DEVSIX-2239
             String name = "inlineSvg_googleCharts";
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
                  + ".pdf"));

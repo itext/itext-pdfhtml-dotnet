@@ -177,7 +177,6 @@ namespace iText.Html2pdf.Resolver.Resource {
 
         [NUnit.Framework.Test]
         public virtual void ResourceResolverCssWithSvg() {
-            //TODO: update after DEVSIX-2239 fix
             // Android-Conversion-Ignore-Test (TODO DEVSIX-6612 Unignore tests related to "#" symbol in URL path)
             String outPdf = DESTINATION_FOLDER + "resourceResolverCssWithSvg.pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_resourceResolverCssWithSvg.pdf";
