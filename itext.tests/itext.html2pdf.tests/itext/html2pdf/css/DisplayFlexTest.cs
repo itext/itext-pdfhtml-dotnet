@@ -23,9 +23,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Commons.Utils;
 using iText.Forms.Form.Element;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl.Layout;
+using iText.Kernel.Pdf;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
@@ -510,6 +512,17 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void ImageStretchColumnFlexContainerTest() {
             ConvertToPdfAndCompare("imageStretchColumnFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8693: Change test after fix.
+        [NUnit.Framework.Test]
+        public virtual void UnorderedListFlexTest() {
+            String htmlFileName = "UnorderedListWithFlex";
+            Stream inputStream = FileUtil.GetInputStreamForFile(SOURCE_FOLDER + htmlFileName + ".html");
+            ConverterProperties converterProperties = new ConverterProperties();
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + htmlFileName + ".pdf"));
+            NUnit.Framework.Assert.Catch(typeof(NullReferenceException), () => HtmlConverter.ConvertToPdf(inputStream, 
+                pdfDocument, converterProperties));
         }
 
         private static IList<IElement> ConvertToElements(String name) {
