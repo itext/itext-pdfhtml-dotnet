@@ -89,7 +89,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void InlineSvgImageTest() {
-            // TODO DEVSIX-5265 Inline svg images don't work correctly if they are flex-items.
             ConvertToPdfAndCompare("inlineSvgImage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

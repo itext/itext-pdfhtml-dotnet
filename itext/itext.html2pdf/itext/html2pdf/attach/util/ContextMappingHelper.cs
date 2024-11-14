@@ -28,7 +28,8 @@ namespace iText.Html2pdf.Attach.Util {
         public static SvgConverterProperties MapToSvgConverterProperties(ProcessorContext context) {
             SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
             svgConverterProperties.SetFontProvider(context.GetFontProvider()).SetBaseUri(context.GetBaseUri()).SetMediaDeviceDescription
-                (context.GetDeviceDescription()).SetResourceRetriever(context.GetResourceResolver().GetRetriever());
+                (context.GetDeviceDescription()).SetResourceRetriever(context.GetResourceResolver().GetRetriever()).SetCssStyleSheet
+                (context.GetCssStyleSheet());
             return svgConverterProperties;
         }
     }

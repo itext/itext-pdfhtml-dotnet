@@ -118,6 +118,12 @@ namespace iText.Html2pdf.Css.Resolve {
             throw new Html2PdfException("custom AbstractCssContext implementations are not supported yet");
         }
 
+        /// <summary>Gets the CSS style sheet.</summary>
+        /// <returns>the CSS style sheet</returns>
+        public virtual CssStyleSheet GetCssStyleSheet() {
+            return cssStyleSheet;
+        }
+
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.css.resolve.ICssResolver#resolveStyles(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.resolve.CssContext)
         */
