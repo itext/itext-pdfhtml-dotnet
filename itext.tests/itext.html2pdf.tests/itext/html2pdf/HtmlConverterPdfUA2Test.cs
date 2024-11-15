@@ -29,6 +29,7 @@ using iText.Kernel.Utils;
 using iText.Kernel.XMP;
 using iText.Layout.Font;
 using iText.Test;
+using iText.Test.Attributes;
 using iText.Test.Pdfa;
 
 namespace iText.Html2pdf {
@@ -116,6 +117,28 @@ namespace iText.Html2pdf {
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
             CompareAndCheckCompliance(destinationPdf, cmpPdf, true);
+        }
+
+        [NUnit.Framework.Test]
+        // TODO DEVSIX-8707 Handle html2pdf pdfua conversion handle missing glyphs
+        // TODO DEVSIX-8706 Incorrect tagging structure when using one span with glyph that doesn't have a mapping in the font
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ATTEMPT_TO_CREATE_A_TAG_FOR_FINISHED_HINT)]
+        public virtual void UnsupportedGlyphTest() {
+            String sourceHtml = SOURCE_FOLDER + "unsupportedGlyph.html";
+            String destinationPdf = DESTINATION_FOLDER + "unsupportedGlyph.pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_unsupportedGlyph.pdf";
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion
+                (PdfVersion.PDF_2_0)));
+            CreateSimplePdfUA2Document(pdfDocument);
+            ConverterProperties converterProperties = new ConverterProperties();
+            FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+            converterProperties.SetFontProvider(fontProvider);
+            converterProperties.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
+            HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
+                );
+            NUnit.Framework.Assert.IsNotNull(new VeraPdfValidator().Validate(destinationPdf));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER
+                , "diff_unsupportedGlyph_"));
         }
 
         private void CreateSimplePdfUA2Document(PdfDocument pdfDocument) {

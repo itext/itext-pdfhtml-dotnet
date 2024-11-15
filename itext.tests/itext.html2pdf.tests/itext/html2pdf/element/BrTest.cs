@@ -90,5 +90,16 @@ namespace iText.Html2pdf.Element {
         public virtual void BrClearNoneTest() {
             ConvertToPdfAndCompare("brClearNone", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void TaggedBrTest() {
+            // TODO: DEVSIX-8698 creates an empty tag for the br tag
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "taggedBr.pdf"));
+            pdfDocument.SetTagged();
+            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "taggedBr.html", FileMode.Open, FileAccess.Read), 
+                pdfDocument, new ConverterProperties());
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "taggedBr.pdf", sourceFolder
+                 + "cmp_taggedBr.pdf", destinationFolder, "diff05_"));
+        }
     }
 }
