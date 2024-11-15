@@ -142,6 +142,13 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
+            4)]
+        public virtual void TableInFlexOnSplit2Test() {
+            ConvertToPdfAndCompare("table-in-flex-on-split2", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void TableInFlexColumnOnSplitTest() {
             ConvertToPdfAndCompare("table-in-flex-column-on-split", sourceFolder, destinationFolder);
         }
