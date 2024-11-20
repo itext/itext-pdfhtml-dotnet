@@ -26,7 +26,11 @@ using System.IO;
 using iText.Forms.Form.Element;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl.Layout;
+using iText.Html2pdf.Resolver.Font;
+using iText.Kernel.Pdf;
+using iText.Kernel.Utils;
 using iText.Layout.Element;
+using iText.Layout.Font;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
 using iText.Test.Attributes;
@@ -516,6 +520,26 @@ namespace iText.Html2pdf.Css {
         public virtual void UnorderedListFlexTest() {
             //TODO: DEVSIX-8730 bullet is not drawn
             ConvertToPdfAndCompare("UnorderedListWithFlex", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        //TODO DEVSIX-6892 The List element is clipped when Display:flex and Roboto font are used
+        [LogMessage("Element content was clipped because some height properties are set.")]
+        public virtual void DisplayFlexWithRobotoFontTest() {
+            String outFile = DESTINATION_FOLDER + "displayFlexWithRobotoFont.pdf";
+            String cmpFile = SOURCE_FOLDER + "cmp_displayFlexWithRobotoFont.pdf";
+            String htmlFile = SOURCE_FOLDER + "displayFlexWithRobotoFont.html";
+            String robotoFont = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext.CurrentContext
+                .TestDirectory) + "/resources/itext/html2pdf/fonts/Roboto-Regular.ttf";
+            PdfWriter writer = new PdfWriter(new FileInfo(outFile));
+            PdfDocument pdfDocument = new PdfDocument(writer);
+            ConverterProperties props = new ConverterProperties();
+            FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            fontProvider.AddFont(robotoFont);
+            props.SetFontProvider(fontProvider);
+            HtmlConverter.ConvertToPdf(new FileStream(htmlFile, FileMode.Open, FileAccess.Read), pdfDocument, props);
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmpFile, DESTINATION_FOLDER, "diff_displayFlexWithRobotoFont_"
+                ));
         }
 
         private static IList<IElement> ConvertToElements(String name) {
