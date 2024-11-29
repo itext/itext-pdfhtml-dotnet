@@ -246,5 +246,13 @@ namespace iText.Html2pdf.Element {
         public virtual void ABlockInPTagTest() {
             ConvertToPdfAndCompare("aBlockInPTag", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
+            )]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
+        public virtual void NotAvailableImageDisplayBlockTest() {
+            ConvertToPdfAndCompare("notAvailableImageDisplayBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
     }
 }
