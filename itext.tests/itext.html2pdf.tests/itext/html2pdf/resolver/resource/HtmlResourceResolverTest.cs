@@ -35,6 +35,7 @@ using iText.Kernel.Utils;
 using iText.Layout;
 using iText.Svg;
 using iText.Svg.Converter;
+using iText.Svg.Element;
 using iText.Svg.Exceptions;
 using iText.Svg.Processors;
 using iText.Svg.Renderers;
@@ -213,7 +214,8 @@ namespace iText.Html2pdf.Resolver.Resource {
             imageRenderer.SetAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/doggo.jpg");
             SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
             PdfDocument document = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
-            PdfFormXObject pdfFormXObject = processingUtil.CreateXObjectFromProcessingResult(res, document);
+            context.Reset(document);
+            PdfFormXObject pdfFormXObject = processingUtil.CreateXObjectFromProcessingResult(res, context);
             PdfDictionary resources = (PdfDictionary)pdfFormXObject.GetResources().GetPdfObject().Get(PdfName.XObject);
             PdfDictionary fm1Dict = (PdfDictionary)resources.Get(new PdfName("Fm1"));
             NUnit.Framework.Assert.IsTrue(((PdfDictionary)fm1Dict.Get(PdfName.Resources)).ContainsKey(PdfName.XObject)
@@ -235,7 +237,8 @@ namespace iText.Html2pdf.Resolver.Resource {
             imageRenderer.SetAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/lines.svg");
             SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
             PdfDocument document = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
-            PdfFormXObject pdfFormXObject = processingUtil.CreateXObjectFromProcessingResult(res, document);
+            context.Reset(document);
+            PdfFormXObject pdfFormXObject = processingUtil.CreateXObjectFromProcessingResult(res, context);
             PdfDictionary resources = (PdfDictionary)pdfFormXObject.GetResources().GetPdfObject().Get(PdfName.XObject);
             PdfDictionary fm1Dict = (PdfDictionary)resources.Get(new PdfName("Fm1"));
             NUnit.Framework.Assert.IsTrue(((PdfDictionary)fm1Dict.Get(PdfName.Resources)).ContainsKey(PdfName.XObject)
@@ -262,7 +265,8 @@ namespace iText.Html2pdf.Resolver.Resource {
                 //  createSvgImageFromProcessingResult method is called instead of createXObjectFromProcessingResult.
                 imageRenderer.SetAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/doggo.jpg");
                 svgRenderer.SetAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/lines.svg");
-                document.Add(new SvgProcessingUtil(resourceResolver).CreateSvgImageFromProcessingResult(result));
+                document.Add(new SvgImage(new SvgProcessingUtil(resourceResolver).CreateXObjectFromProcessingResult(result
+                    , context)));
             }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, DESTINATION_FOLDER
                 , "diff"));

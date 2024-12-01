@@ -30,6 +30,7 @@ using iText.Html2pdf.Util;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Node;
+using iText.Svg.Element;
 using iText.Svg.Exceptions;
 using iText.Svg.Processors;
 using iText.Svg.Processors.Impl;
@@ -69,8 +70,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             if (processingResult != null) {
-                SvgProcessingUtil util = new SvgProcessingUtil(context.GetResourceResolver());
-                svgImage = util.CreateSvgImageFromProcessingResult(processingResult);
+                svgImage = new SvgImage(new SvgProcessingUtil(context.GetResourceResolver()).CreateXObjectFromProcessingResult
+                    (processingResult, context));
                 AccessiblePropHelper.TrySetLangAttribute(svgImage, element);
                 context.EndProcessingInlineSvg();
             }

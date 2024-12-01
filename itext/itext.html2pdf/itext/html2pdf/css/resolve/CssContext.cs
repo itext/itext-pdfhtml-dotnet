@@ -34,6 +34,9 @@ namespace iText.Html2pdf.Css.Resolve {
         private float rootFontSize = CssDimensionParsingUtils.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants
             .FONT_SIZE));
 
+        /// <summary>Current element font size in pt.</summary>
+        private float currentFontSize = -1.0F;
+
         /// <summary>The counter manager.</summary>
         private CssCounterManager counterManager = new CssCounterManager();
 
@@ -56,6 +59,18 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <param name="fontSize">the new root font size</param>
         public virtual void SetRootFontSize(float fontSize) {
             this.rootFontSize = fontSize;
+        }
+
+        /// <summary>Gets the current element font size.</summary>
+        /// <returns>the current element font size in pt</returns>
+        public virtual float GetCurrentFontSize() {
+            return currentFontSize;
+        }
+
+        /// <summary>Sets the current font size.</summary>
+        /// <param name="fontSize">the new current element font size</param>
+        public virtual void SetCurrentFontSize(float fontSize) {
+            this.currentFontSize = fontSize;
         }
 
         /// <summary>Sets the root font size.</summary>

@@ -27,7 +27,7 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Bg_size.Vector {
     // TODO DEVSIX-4388 percentage is not supported for rect's x, y, width and height
     [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED
-        , Count = 9)]
+        , Count = 4)]
     public class WiAPWPHTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "wide--auto--percent-width-percent-height.html";

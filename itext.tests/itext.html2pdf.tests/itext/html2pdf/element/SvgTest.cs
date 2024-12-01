@@ -50,6 +50,14 @@ namespace iText.Html2pdf.Element {
             ConvertAndCompare("inline_svg");
         }
 
+        //TODO: DEVSIX-8775 support percent values for root svg
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED
+            , Count = 4)]
+        public virtual void InlineSvgWithPercentSizesTest() {
+            ConvertAndCompare("inline_svg_percent_sizes");
+        }
+
         [NUnit.Framework.Test]
         public virtual void InlineNestedSvgTest() {
             ConvertAndCompare("inline_nested_svg");
@@ -258,6 +266,14 @@ namespace iText.Html2pdf.Element {
         [LogMessage(SvgLogMessageConstant.UNMAPPED_TAG, LogLevel = LogLevelConstants.WARN)]
         public virtual void InlineSvgStyleResolvingOrder5Test() {
             ConvertAndCompare("inlineSvgStyleResolvingOrder5");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED
+            , Count = 2)]
+        public virtual void SvgWithEmRemTest() {
+            //TODO: DEVSIX-8775 resolve problem with AbstractContainerSvgNodeRenderer#calculateViewPort()
+            ConvertAndCompare("svgWithEmRem");
         }
 
         private static void ConvertAndCompare(String name) {

@@ -190,6 +190,8 @@ namespace iText.Html2pdf.Css.Resolve {
             if (element is IElementNode && TagConstants.HTML.Equals(((IElementNode)element).Name())) {
                 context.SetRootFontSize(elementStyles.Get(CssConstants.FONT_SIZE));
             }
+            context.SetCurrentFontSize(CssDimensionParsingUtils.ParseAbsoluteFontSize(elementStyles.Get(CssConstants.FONT_SIZE
+                )));
             ICollection<String> keys = new HashSet<String>();
             foreach (KeyValuePair<String, String> entry in elementStyles) {
                 if (CssConstants.INITIAL.Equals(entry.Value) || CssConstants.INHERIT.Equals(entry.Value)) {
