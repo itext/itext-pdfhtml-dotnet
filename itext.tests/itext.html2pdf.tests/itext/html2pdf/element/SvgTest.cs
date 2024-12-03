@@ -70,7 +70,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void InlineSvgExternalFontUrlTest() {
-            // TODO DEVSIX-2264 external font loading in SVG via @import
             ConvertAndCompare("inline_svg_external_font_url");
         }
 

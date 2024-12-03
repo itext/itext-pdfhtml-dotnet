@@ -255,27 +255,26 @@ namespace iText.Html2pdf.Css.Resolve {
             LinkedList<INode> q = new LinkedList<INode>();
             q.Add(rootNode);
             while (!q.IsEmpty()) {
-                INode currentNode = q.JGetFirst();
-                q.RemoveFirst();
+                INode currentNode = q.JRemoveFirst();
                 if (currentNode is IElementNode) {
-                    IElementNode headChildElement = (IElementNode)currentNode;
-                    if (TagConstants.STYLE.Equals(headChildElement.Name())) {
-                        if (currentNode.ChildNodes().Count > 0 && currentNode.ChildNodes()[0] is IDataNode) {
-                            String styleData = ((IDataNode)currentNode.ChildNodes()[0]).GetWholeData();
-                            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(styleData);
-                            styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                    IElementNode element = (IElementNode)currentNode;
+                    if (TagConstants.STYLE.Equals(element.Name())) {
+                        if (!element.ChildNodes().IsEmpty() && element.ChildNodes()[0] is IDataNode) {
+                            String styleData = ((IDataNode)element.ChildNodes()[0]).GetWholeData();
+                            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(styleData, resourceResolver.GetBaseUri());
+                            styleSheet = WrapStyleSheetInMediaQueryIfNecessary(element, styleSheet);
                             cssStyleSheet.AppendCssStyleSheet(styleSheet);
                         }
                     }
                     else {
-                        if (CssUtils.IsStyleSheetLink(headChildElement)) {
-                            String styleSheetUri = headChildElement.GetAttribute(AttributeConstants.HREF);
+                        if (CssUtils.IsStyleSheetLink(element)) {
+                            String styleSheetUri = element.GetAttribute(AttributeConstants.HREF);
                             try {
                                 using (Stream stream = resourceResolver.RetrieveResourceAsInputStream(styleSheetUri)) {
                                     if (stream != null) {
-                                        CssStyleSheet styleSheet = CssStyleSheetParser.Parse(stream, resourceResolver.ResolveAgainstBaseUri(styleSheetUri
-                                            ).ToExternalForm());
-                                        styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                                        String baseUri = resourceResolver.ResolveAgainstBaseUri(styleSheetUri).ToExternalForm();
+                                        CssStyleSheet styleSheet = CssStyleSheetParser.Parse(stream, baseUri);
+                                        styleSheet = WrapStyleSheetInMediaQueryIfNecessary(element, styleSheet);
                                         cssStyleSheet.AppendCssStyleSheet(styleSheet);
                                     }
                                 }
