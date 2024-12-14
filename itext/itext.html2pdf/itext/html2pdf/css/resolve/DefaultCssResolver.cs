@@ -199,6 +199,10 @@ namespace iText.Html2pdf.Css.Resolve {
                     keys.Add(entry.Key);
                 }
             }
+
+            // Resolve CSS variables
+            ResolveCssVariables(elementStyles);
+
             foreach (String key in keys) {
                 elementStyles.Put(key, CssDefaults.GetDefaultValue(key));
             }
@@ -206,6 +210,41 @@ namespace iText.Html2pdf.Css.Resolve {
             CounterProcessorUtil.ProcessCounters(elementStyles, context);
             ResolveContentProperty(elementStyles, element, context);
             return elementStyles;
+        }
+
+        private static void ResolveCssVariables(IDictionary<string, string> elementStyles) {
+            var varOverrides = new Dictionary<string, string>();
+
+            foreach (KeyValuePair<String, String> entry in elementStyles) {
+                if (entry.Value?.StartsWith("var(--") ?? false) {
+                    var value = ResolveVariable(entry.Value.Substring(4, entry.Value.Length - 5));
+                    varOverrides.Add(entry.Key, value);
+                }
+                continue;
+
+                string ResolveVariable(string substring) {
+                    var hasDefault = substring.IndexOf(',');
+                    var varName = hasDefault == -1 ? substring : substring.Substring(0, hasDefault);
+                    var dfltVal = hasDefault == -1 ? null : substring.Substring(hasDefault + 1).Trim();
+                    if (elementStyles.TryGetValue(varName, out var variable)) {
+                        return variable;
+                    }
+
+                    if (dfltVal is null) {
+                        return null;
+                    }
+
+                    if (dfltVal.StartsWith("var(--")) {
+                        return ResolveVariable(dfltVal.Substring(4, dfltVal.Length - 5));
+                    }
+
+                    return dfltVal;
+                }
+            }
+
+            foreach (var varOverride in varOverrides) {
+                elementStyles.Put(varOverride.Key, varOverride.Value);
+            }
         }
 
         private IDictionary<String, String> ResolveElementsStyles(INode element) {
