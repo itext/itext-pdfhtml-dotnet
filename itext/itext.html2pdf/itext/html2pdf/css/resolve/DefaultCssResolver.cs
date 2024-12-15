@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
 using iText.Html2pdf.Attach;
@@ -51,6 +52,8 @@ namespace iText.Html2pdf.Css.Resolve {
     /// interface.
     /// </summary>
     public class DefaultCssResolver : ICssResolver {
+        private static readonly Regex CssVarDecl = new Regex(@"^\s*var\(\s*(?<decl>--.*)\)\s*$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         /// <summary>The CSS style sheet.</summary>
         private CssStyleSheet cssStyleSheet;
 
@@ -212,12 +215,28 @@ namespace iText.Html2pdf.Css.Resolve {
             return elementStyles;
         }
 
+        private static bool IsCssVarDecl(string decl, out string innerDecl) {
+            if (decl == null) {
+                innerDecl = null;
+                return false;
+            }
+
+            var cssVarDecl = CssVarDecl.Match(decl);
+            if (cssVarDecl.Success) {
+                innerDecl = cssVarDecl.Groups["decl"].Value;
+                return true;
+            }
+
+            innerDecl = null;
+            return false;
+        }
+
         private static void ResolveCssVariables(IDictionary<string, string> elementStyles) {
             var varOverrides = new Dictionary<string, string>();
 
             foreach (KeyValuePair<String, String> entry in elementStyles) {
-                if (entry.Value?.StartsWith("var(--") ?? false) {
-                    var value = ResolveVariable(entry.Value.Substring(4, entry.Value.Length - 5));
+                if (IsCssVarDecl(entry.Value, out var decl)) {
+                    var value = ResolveVariable(decl);
                     varOverrides.Add(entry.Key, value);
                 }
                 continue;
@@ -234,8 +253,8 @@ namespace iText.Html2pdf.Css.Resolve {
                         return null;
                     }
 
-                    if (dfltVal.StartsWith("var(--")) {
-                        return ResolveVariable(dfltVal.Substring(4, dfltVal.Length - 5));
+                    if (IsCssVarDecl(dfltVal, out var innerDecl)) {
+                        return ResolveVariable(innerDecl);
                     }
 
                     return dfltVal;
