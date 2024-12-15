@@ -191,6 +191,22 @@ namespace iText.Html2pdf.Css {
                 , "font-family: times");
         }
 
+        [NUnit.Framework.TestCase("cssVariablesTest01.html", "30px", "30px")]
+        [NUnit.Framework.TestCase("cssVariablesTest02.html", "50px", "30px")]
+        [NUnit.Framework.TestCase("cssVariablesTest03.html", "35px", "35px")]
+        public virtual void CssVariablesTest1(string fileName, string expectedMargin, string expectedVarValue) {
+            Test(fileName, "html body div",
+                "display: block",
+                $"--test-var: {expectedVarValue}",
+                $"margin-top: {expectedMargin}",
+                $"margin-right: {expectedMargin}",
+                $"margin-bottom: {expectedMargin}",
+                $"margin-left: {expectedMargin}",
+                "font-family: times",
+                "font-size: 12pt"
+                );
+        }
+
         private void ResolveStylesForTree(INode node, ICssResolver cssResolver, CssContext context) {
             if (node is IElementNode) {
                 IElementNode element = (IElementNode)node;
