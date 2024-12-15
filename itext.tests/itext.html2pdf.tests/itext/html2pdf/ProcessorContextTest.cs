@@ -24,13 +24,13 @@ using System;
 using System.IO;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
-using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Exceptions;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.StyledXmlParser;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 
 namespace iText.Html2pdf {
@@ -55,7 +55,7 @@ namespace iText.Html2pdf {
                 IXmlParser parser = new JsoupHtmlParser();
                 IDocumentNode documentNode = parser.Parse(fileInputStream, null);
                 ConverterProperties converterProperties = new ConverterProperties();
-                converterProperties.SetFontProvider(new _DefaultFontProvider_66(false, true, false));
+                converterProperties.SetFontProvider(new _BasicFontProvider_66(false, true, false));
                 // Do nothing here. That should result in an exception.
                 IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);
                 Document doc1 = processor.ProcessDocument(documentNode, new PdfDocument(new PdfWriter(new MemoryStream()))
@@ -70,8 +70,8 @@ namespace iText.Html2pdf {
             );
         }
 
-        private sealed class _DefaultFontProvider_66 : DefaultFontProvider {
-            public _DefaultFontProvider_66(bool baseArg1, bool baseArg2, bool baseArg3)
+        private sealed class _BasicFontProvider_66 : BasicFontProvider {
+            public _BasicFontProvider_66(bool baseArg1, bool baseArg2, bool baseArg3)
                 : base(baseArg1, baseArg2, baseArg3) {
             }
 

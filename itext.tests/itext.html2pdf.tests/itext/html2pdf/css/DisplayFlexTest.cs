@@ -26,13 +26,13 @@ using System.IO;
 using iText.Forms.Form.Element;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl.Layout;
-using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout.Element;
 using iText.Layout.Font;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
@@ -534,7 +534,7 @@ namespace iText.Html2pdf.Css {
             PdfWriter writer = new PdfWriter(new FileInfo(outFile));
             PdfDocument pdfDocument = new PdfDocument(writer);
             ConverterProperties props = new ConverterProperties();
-            FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            FontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddFont(robotoFont);
             props.SetFontProvider(fontProvider);
             HtmlConverter.ConvertToPdf(new FileStream(htmlFile, FileMode.Open, FileAccess.Read), pdfDocument, props);

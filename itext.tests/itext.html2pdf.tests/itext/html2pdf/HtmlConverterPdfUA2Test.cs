@@ -23,11 +23,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Html2pdf.Attach.Impl;
-using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Kernel.XMP;
 using iText.Layout.Font;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 using iText.Test.Attributes;
 using iText.Test.Pdfa;
@@ -55,7 +55,7 @@ namespace iText.Html2pdf {
                 (PdfVersion.PDF_2_0)));
             CreateSimplePdfUA2Document(pdfDocument);
             ConverterProperties converterProperties = new ConverterProperties();
-            FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+            FontProvider fontProvider = new BasicFontProvider(false, true, false);
             converterProperties.SetFontProvider(fontProvider);
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
@@ -71,7 +71,7 @@ namespace iText.Html2pdf {
                 (PdfVersion.PDF_2_0)));
             CreateSimplePdfUA2Document(pdfDocument);
             ConverterProperties converterProperties = new ConverterProperties();
-            FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+            FontProvider fontProvider = new BasicFontProvider(false, true, false);
             converterProperties.SetFontProvider(fontProvider);
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
@@ -87,7 +87,7 @@ namespace iText.Html2pdf {
                 (PdfVersion.PDF_2_0)));
             CreateSimplePdfUA2Document(pdfDocument);
             ConverterProperties converterProperties = new ConverterProperties();
-            FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+            FontProvider fontProvider = new BasicFontProvider(false, true, false);
             converterProperties.SetFontProvider(fontProvider);
             converterProperties.SetBaseUri(SOURCE_FOLDER);
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
@@ -111,7 +111,7 @@ namespace iText.Html2pdf {
                 (PdfVersion.PDF_2_0)));
             CreateSimplePdfUA2Document(pdfDocument);
             ConverterProperties converterProperties = new ConverterProperties();
-            FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+            FontProvider fontProvider = new BasicFontProvider(false, true, false);
             converterProperties.SetFontProvider(fontProvider);
             converterProperties.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
@@ -131,7 +131,7 @@ namespace iText.Html2pdf {
                 (PdfVersion.PDF_2_0)));
             CreateSimplePdfUA2Document(pdfDocument);
             ConverterProperties converterProperties = new ConverterProperties();
-            FontProvider fontProvider = new DefaultFontProvider(false, true, false);
+            FontProvider fontProvider = new BasicFontProvider(false, true, false);
             converterProperties.SetFontProvider(fontProvider);
             converterProperties.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties

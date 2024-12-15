@@ -24,7 +24,7 @@ using System;
 using System.IO;
 using iText.Commons.Utils;
 using iText.Html2pdf;
-using iText.Html2pdf.Resolver.Font;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 
 namespace iText.Html2pdf.Resolver.Resource {
@@ -112,7 +112,7 @@ namespace iText.Html2pdf.Resolver.Resource {
             String targetPdfFile = workDir + "target.pdf";
             String workDirFontFile = workDir + fontFileName;
             File.Copy(System.IO.Path.Combine(sourceFontFile), System.IO.Path.Combine(workDirFontFile));
-            DefaultFontProvider fontProvider = new DefaultFontProvider(true, false, false);
+            BasicFontProvider fontProvider = new BasicFontProvider(true, false, false);
             fontProvider.AddDirectory(workDir);
             ConverterProperties properties = new ConverterProperties().SetBaseUri(sourceFolder).SetFontProvider(fontProvider
                 );

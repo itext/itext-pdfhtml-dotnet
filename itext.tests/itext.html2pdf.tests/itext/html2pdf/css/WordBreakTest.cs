@@ -23,9 +23,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Html2pdf;
-using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Utils;
 using iText.Layout.Font;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -48,7 +48,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void WordBreakCommonScenarioTest() {
-            FontProvider fontProvider = new DefaultFontProvider();
+            FontProvider fontProvider = new BasicFontProvider();
             fontProvider.AddFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetFontProvider(fontProvider);
@@ -60,7 +60,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void OverflowXWordBreakTest() {
-            FontProvider fontProvider = new DefaultFontProvider();
+            FontProvider fontProvider = new BasicFontProvider();
             fontProvider.AddFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetFontProvider(fontProvider);
@@ -80,7 +80,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void WordBreakMidNumbersTest() {
-            FontProvider fontProvider = new DefaultFontProvider();
+            FontProvider fontProvider = new BasicFontProvider();
             fontProvider.AddFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetFontProvider(fontProvider);

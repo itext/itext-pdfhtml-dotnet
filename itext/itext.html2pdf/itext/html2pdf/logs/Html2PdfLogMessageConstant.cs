@@ -42,6 +42,12 @@ namespace iText.Html2pdf.Logs {
         public const String CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED = "Css property {0} in percents is not supported";
 
         /// <summary>The Constant ERROR_LOADING_FONT.</summary>
+        /// <remarks>
+        /// The Constant ERROR_LOADING_FONT.
+        /// Deprecated in favour of
+        /// <see cref="iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.ERROR_LOADING_FONT"/>
+        /// </remarks>
+        [Obsolete]
         public const String ERROR_LOADING_FONT = "Error while loading font";
 
         /// <summary>The Constant ERROR_PARSING_CSS_SELECTOR.</summary>

@@ -25,12 +25,12 @@ using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Exceptions;
 using iText.Html2pdf.Logs;
-using iText.Html2pdf.Resolver.Font;
 using iText.IO.Util;
 using iText.Kernel.Utils;
 using iText.Layout.Font;
 using iText.Layout.Font.Selectorstrategy;
 using iText.StyledXmlParser.Css.Media;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -274,7 +274,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void CorrectUrlWithUsedUnicodeRangeTest() {
-            FontProvider fontProvider = new DefaultFontProvider();
+            FontProvider fontProvider = new BasicFontProvider();
             fontProvider.SetFontSelectorStrategyFactory(new BestMatchFontSelectorStrategy.BestMatchFontSelectorStrategyFactory
                 ());
             RunTest("correctUrlWithUsedUnicodeRangeTest", fontProvider);
@@ -282,7 +282,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void CorrectUnicodeRangeSignificantTest() {
-            FontProvider fontProvider = new DefaultFontProvider();
+            FontProvider fontProvider = new BasicFontProvider();
             fontProvider.SetFontSelectorStrategyFactory(new BestMatchFontSelectorStrategy.BestMatchFontSelectorStrategyFactory
                 ());
             RunTest("correctUnicodeRangeSignificantTest", fontProvider);
@@ -335,7 +335,7 @@ namespace iText.Html2pdf.Css {
         }
 
         private void RunTest(String name) {
-            RunTest(name, new DefaultFontProvider());
+            RunTest(name, new BasicFontProvider());
         }
     }
 }

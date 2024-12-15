@@ -22,12 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Html2pdf.Resolver.Font;
 using iText.IO.Font;
 using iText.IO.Font.Constants;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
 using iText.Layout.Font.Selectorstrategy;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
@@ -53,7 +53,7 @@ namespace iText.Html2pdf.Css {
             String HTML = "<!DOCTYPE html><html lang=en><head></head><body>Hello" + glyph + "World</body></html>";
             String font = FONTS_FOLDER + "Bokor-Regular.ttf";
             String dest = DESTINATION_FOLDER + "fontRangeTest.pdf";
-            FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            FontProvider fontProvider = new BasicFontProvider(false, false, false);
             FontProgram fontProgram = FontProgramFactory.CreateFont(font);
             fontProvider.SetFontSelectorStrategyFactory(new BestMatchFontSelectorStrategy.BestMatchFontSelectorStrategyFactory
                 ());

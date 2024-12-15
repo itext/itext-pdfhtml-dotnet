@@ -26,7 +26,10 @@ using iText.Html2pdf;
 using iText.Html2pdf.Logs;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
+using iText.Layout;
+using iText.Layout.Element;
 using iText.Layout.Logs;
+using iText.Svg.Converter;
 using iText.Svg.Logs;
 using iText.Test;
 using iText.Test.Attributes;
@@ -160,6 +163,33 @@ namespace iText.Html2pdf.Element {
             HtmlConverter.ConvertToPdf(string_file, pdfDoc, new ConverterProperties());
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + html + ".pdf", SOURCE_FOLDER
                  + "cmp_" + html + ".pdf", DESTINATION_FOLDER));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertInlineSvgWithCustomFont() {
+            String html = "inline_svg_custom_font";
+            PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + html + ".pdf"));
+            pdfDoc.AddNewPage();
+            String string_file = "<!DOCTYPE html>\n" + "<html>\n" + "  <body>\n" + "    <svg viewBox=\"0 0 240 80\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+                 + "      <text x=\"20\" y=\"35\" font-family=\"Noto Sans Mono\" font-size=\"1.5em\">Hello World!</text>\n"
+                 + "    </svg>\n" + "  </body>\n" + "</html>\n";
+            HtmlConverter.ConvertToPdf(string_file, pdfDoc, new ConverterProperties());
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + html + ".pdf", SOURCE_FOLDER
+                 + "cmp_" + html + ".pdf", DESTINATION_FOLDER));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertSvgWithSvgConverterCustomFont() {
+            String filename = "svg_custom_font";
+            String svg = "<svg viewBox=\"0 0 240 80\" xmlns=\"http://www.w3.org/2000/svg\">\n" + "<text x=\"20\" y=\"35\" font-family=\"Noto Sans Mono\" font-size=\"1.5em\">Hello World!</text>\n"
+                 + "</svg>\n";
+            Document document = new Document(new PdfDocument(new PdfWriter(DESTINATION_FOLDER + filename + ".pdf")));
+            Image image = SvgConverter.ConvertToImage(new MemoryStream(svg.GetBytes(System.Text.Encoding.UTF8)), document
+                .GetPdfDocument());
+            document.Add(image);
+            document.Close();
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + filename + ".pdf", SOURCE_FOLDER
+                 + "cmp_" + filename + ".pdf", DESTINATION_FOLDER));
         }
 
         [NUnit.Framework.Test]

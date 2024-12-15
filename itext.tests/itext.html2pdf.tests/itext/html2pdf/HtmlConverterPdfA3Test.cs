@@ -23,10 +23,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Commons.Utils;
-using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Pdf;
 using iText.Pdfa;
 using iText.Pdfa.Exceptions;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -120,7 +120,7 @@ namespace iText.Html2pdf {
             converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
             converterProperties.SetFontProvider(fontProvider);
             using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
@@ -154,7 +154,7 @@ namespace iText.Html2pdf {
             converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
             converterProperties.SetFontProvider(fontProvider);
             using (FileStream fOutput = new FileStream(destinationPdf, FileMode.Create)) {
@@ -177,7 +177,7 @@ namespace iText.Html2pdf {
             converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoNaskhArabic-Regular.ttf");
             converterProperties.SetFontProvider(fontProvider);
             FileStream fOutput = new FileStream(destinationPdf, FileMode.Create);
@@ -194,7 +194,7 @@ namespace iText.Html2pdf {
             converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
             converterProperties.SetFontProvider(fontProvider);
             using (FileStream fOutput = new FileStream(destinationPdf, FileMode.Create)) {
@@ -217,7 +217,7 @@ namespace iText.Html2pdf {
             converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_3U);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoEmoji-Regular.ttf");
             converterProperties.SetFontProvider(fontProvider);
             FileStream fOutput = new FileStream(destinationPdf, FileMode.Create);

@@ -23,10 +23,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Html2pdf;
-using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Utils;
 using iText.Layout.Font;
 using iText.StyledXmlParser.Css.Media;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
@@ -50,14 +50,14 @@ namespace iText.Html2pdf.Css {
         public virtual void TestArial() {
             String fileName = "testArial";
             ConverterProperties converterProperties = new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription
-                (MediaType.PRINT)).SetFontProvider(new DefaultFontProvider());
+                (MediaType.PRINT)).SetFontProvider(new BasicFontProvider());
             RunTest(fileName, converterProperties);
         }
 
         [NUnit.Framework.Test]
         public virtual void TestArialWithHelveticaAsAnAlias() {
             String fileName = "testArialWithHelveticaAsAnAlias";
-            FontProvider fontProvider = new DefaultFontProvider();
+            FontProvider fontProvider = new BasicFontProvider();
             fontProvider.GetFontSet().AddFont(sourceFolder + "FreeSans.ttf", null, "Arial");
             ConverterProperties converterProperties = new ConverterProperties().SetMediaDeviceDescription(new MediaDeviceDescription
                 (MediaType.PRINT)).SetFontProvider(fontProvider);
