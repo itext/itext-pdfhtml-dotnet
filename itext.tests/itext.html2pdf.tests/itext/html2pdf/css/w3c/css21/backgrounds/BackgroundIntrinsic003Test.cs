@@ -22,12 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Svg.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Backgrounds {
-    // TODO DEVSIX-2654. Svg width values in percents aren't supported
-    [LogMessage(SvgLogMessageConstant.MISSING_WIDTH, Count = 2)]
+    // TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
     public class BackgroundIntrinsic003Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "background-intrinsic-003.xht";

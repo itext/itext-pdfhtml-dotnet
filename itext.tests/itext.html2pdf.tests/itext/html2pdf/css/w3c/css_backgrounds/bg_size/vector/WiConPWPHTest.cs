@@ -22,12 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Bg_size.Vector {
-    // TODO DEVSIX-4388 percentage is not supported for rect's x, y, width and height
-    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED
-        , Count = 4)]
+    // TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
     public class WiConPWPHTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "wide--contain--percent-width-percent-height.html";

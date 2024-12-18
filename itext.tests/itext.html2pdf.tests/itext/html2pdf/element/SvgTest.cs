@@ -53,10 +53,8 @@ namespace iText.Html2pdf.Element {
             ConvertAndCompare("inline_svg");
         }
 
-        //TODO: DEVSIX-8775 support percent values for root svg
+        // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED
-            , Count = 4)]
         public virtual void InlineSvgWithPercentSizesTest() {
             ConvertAndCompare("inline_svg_percent_sizes");
         }
@@ -246,8 +244,6 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(SvgLogMessageConstant.MISSING_WIDTH)]
-        [LogMessage(SvgLogMessageConstant.MISSING_HEIGHT)]
         public virtual void SvgWithoutDimensionsTest() {
             ConvertAndCompare("svg_without_dimensions");
         }
@@ -258,8 +254,6 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(SvgLogMessageConstant.MISSING_WIDTH, Count = 2)]
-        [LogMessage(SvgLogMessageConstant.MISSING_HEIGHT, Count = 2)]
         public virtual void SvgWithoutDimensionsImageAndObjectRef() {
             ConvertAndCompare("svgWithoutDimensionsImageAndObjectRef");
         }
@@ -298,11 +292,38 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED
-            , Count = 2)]
         public virtual void SvgWithEmRemTest() {
-            //TODO: DEVSIX-8775 resolve problem with AbstractContainerSvgNodeRenderer#calculateViewPort()
             ConvertAndCompare("svgWithEmRem");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SvgRelativeDimenstionsInInlineBlockTest() {
+            // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+            ConvertAndCompare("svgRelativeDimenstionsInInlineBlockTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SvgRelativeDimenstionsInTableTest() {
+            // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+            ConvertAndCompare("svgRelativeDimenstionsInTableTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SvgWidthHeightPercentUnitsTest() {
+            // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+            ConvertAndCompare("svgWidthHeightPercentUnitsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SvgSimpleWidthHeightPercentUnitsTest() {
+            // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+            ConvertAndCompare("svgSimpleWidthHeightPercentUnitsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SvgNestedWidthHeightPercentUnitsTest() {
+            // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+            ConvertAndCompare("svgNestedWidthHeightPercentUnitsTest");
         }
 
         private static void ConvertAndCompare(String name) {

@@ -126,9 +126,11 @@ namespace iText.Html2pdf.Util {
         /// </returns>
         public virtual SvgImageXObject CreateXObjectFromProcessingResult(ISvgProcessorResult result, ProcessorContext
              context) {
-            float rem = context.GetCssContext().GetRootFontSize();
             float em = context.GetCssContext().GetCurrentFontSize();
-            Rectangle bbox = SvgCssUtils.ExtractWidthAndHeight(result.GetRootRenderer(), em, rem);
+            SvgDrawContext svgContext = new SvgDrawContext(null, null);
+            svgContext.GetCssContext().SetRootFontSize(Convert.ToString(context.GetCssContext().GetRootFontSize(), System.Globalization.CultureInfo.InvariantCulture
+                ));
+            Rectangle bbox = SvgCssUtils.ExtractWidthAndHeight(result.GetRootRenderer(), em, svgContext);
             SvgImageXObject svgImageXObject = new SvgImageXObject(bbox, result, resourceResolver);
             if (context.GetPdfDocument() != null) {
                 svgImageXObject.Generate(context.GetPdfDocument());

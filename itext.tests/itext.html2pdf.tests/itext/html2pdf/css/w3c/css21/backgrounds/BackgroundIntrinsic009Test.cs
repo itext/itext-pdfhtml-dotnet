@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Backgrounds {
-    // TODO DEVSIX-2654. Svg width, height values in percents aren't supported
+    // TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
     public class BackgroundIntrinsic009Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "background-intrinsic-009.xht";
