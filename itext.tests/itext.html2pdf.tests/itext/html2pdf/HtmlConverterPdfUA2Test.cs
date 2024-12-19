@@ -136,9 +136,7 @@ namespace iText.Html2pdf {
             converterProperties.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
-            NUnit.Framework.Assert.IsNotNull(new VeraPdfValidator().Validate(destinationPdf));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER
-                , "diff_unsupportedGlyph_"));
+            CompareAndCheckCompliance(destinationPdf, cmpPdf, false);
         }
 
         private void CreateSimplePdfUA2Document(PdfDocument pdfDocument) {
@@ -157,7 +155,7 @@ namespace iText.Html2pdf {
                 NUnit.Framework.Assert.IsNull(new VeraPdfValidator().Validate(destinationPdf));
             }
             else {
-                NUnit.Framework.Assert.IsNotNull(new VeraPdfValidator().Validate(destinationPdf));
+                new VeraPdfValidator().ValidateFailure(destinationPdf);
             }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER
                 , "diff_simple_"));
