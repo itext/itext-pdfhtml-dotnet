@@ -92,18 +92,12 @@ namespace iText.Html2pdf {
             converterProperties.SetBaseUri(SOURCE_FOLDER);
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
-            // The VeraPDF check fails probably to its internal bug. It checks that /ActualText != null, but the
-            // pdf/ua-2 documentation states the following:
-            // 8.5.1 General
-            // Real content that does not possess the semantics of text objects and does not have an alternate
-            // textual representation shall be enclosed within Figure structure elements in accordance with
-            // ISO 32000-2:2020, 14.8.4.8.5
-            // So probably VeraPDF should've checked for /Alt instead of /ActualText
-            CompareAndCheckCompliance(destinationPdf, cmpPdf, false);
+            CompareAndCheckCompliance(destinationPdf, cmpPdf, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void SimpleOutlineTest() {
+            // TODO DEVSIX-8476 PDF 2.0 doesn't allow P tag be a child of H tag
             String sourceHtml = SOURCE_FOLDER + "simpleOutline.html";
             String destinationPdf = DESTINATION_FOLDER + "simpleOutline.pdf";
             String cmpPdf = SOURCE_FOLDER + "cmp_simpleOutline.pdf";
@@ -116,7 +110,7 @@ namespace iText.Html2pdf {
             converterProperties.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
             HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
-            CompareAndCheckCompliance(destinationPdf, cmpPdf, true);
+            CompareAndCheckCompliance(destinationPdf, cmpPdf, false);
         }
 
         [NUnit.Framework.Test]
