@@ -22,6 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Kernel.Pdf;
+using iText.Kernel.Utils;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Resolve {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -40,6 +43,21 @@ namespace iText.Html2pdf.Css.Resolve {
         [NUnit.Framework.Test]
         public virtual void ObjectTagWidthAndHeightTest() {
             ConvertToPdfAndCompare("objectTagWidthAndHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.URL_IS_NOT_CLOSED_IN_CSS_EXPRESSION
+            )]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.URL_IS_EMPTY_IN_CSS_EXPRESSION)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.WAS_NOT_ABLE_TO_DEFINE_BACKGROUND_CSS_SHORTHAND_PROPERTIES
+            )]
+        [NUnit.Framework.Test]
+        public virtual void NotClosedUrlTest() {
+            String cmpPdfPath = SOURCE_FOLDER + "cmp_notClosedUrl.pdf";
+            String outPdfPath = DESTINATION_FOLDER + "notClosedUrl.pdf";
+            String input = "PDF TEST<p></p><div\n" + "style=\"background:url(http://google.com/\">X</div>";
+            HtmlConverter.ConvertToPdf(input, new PdfWriter(outPdfPath));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, DESTINATION_FOLDER
+                ));
         }
     }
 }
