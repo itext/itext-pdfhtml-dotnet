@@ -156,5 +156,123 @@ namespace iText.Html2pdf.Element {
         public virtual void HtmlImgBase64SVGTest() {
             ConvertToPdfAndCompare("imgTag_base64svg", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg1Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg1", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg1_2Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg1_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg1_3Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg1_3", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg1_4Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg1_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg1_5Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg1_5", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg1_6Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg1_6", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg2Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg2_3Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg2_3", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg2_4Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg2_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg2_5Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg2_5", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg2_6Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg2_6", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg4Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg4", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg4_2Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg4_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg4_4Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg4_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg5_2Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg5_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineRelativeImageTest() {
+            // TODO DEVSIX-1316 make percent width doesn't affect elements min max width
+            ConvertToPdfAndCompare("inlineRelativeImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableRelativeImageTest() {
+            // TODO DEVSIX-1316 make percent width doesn't affect elements min max width
+            // TODO DEVSIX-7003 Problem with layouting image with relative size in the table
+            ConvertToPdfAndCompare("tableRelativeImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeImageInRelativeContainerTest() {
+            ConvertToPdfAndCompare("relativeImageInRelativeContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageWithSizeAndDivContent1Test() {
+            ConvertToPdfAndCompare("backgroundImageWithSizeAndDivContent1", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageWithSizeAndDivContent2Test() {
+            ConvertToPdfAndCompare("backgroundImageWithSizeAndDivContent2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageWithSizeAndDivContent3Test() {
+            ConvertToPdfAndCompare("backgroundImageWithSizeAndDivContent3", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BackgroundImageWithSizeAndDivContent4Test() {
+            ConvertToPdfAndCompare("backgroundImageWithSizeAndDivContent4", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
     }
 }

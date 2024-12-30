@@ -70,7 +70,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
                 else {
                     if (imageXObject is SvgImageXObject) {
-                        image = new SvgImage((SvgImageXObject)imageXObject);
+                        SvgImageXObject svgImageXObject = (SvgImageXObject)imageXObject;
+                        // TODO DEVSIX-8829 remove relative sized SVG generating after adding support in object element
+                        if (svgImageXObject.IsRelativeSized()) {
+                            svgImageXObject.UpdateBBox(null, null);
+                            if (context.GetPdfDocument() != null) {
+                                svgImageXObject.Generate(context.GetPdfDocument());
+                            }
+                            svgImageXObject.SetRelativeSized(false);
+                        }
+                        image = new SvgImage(svgImageXObject);
                     }
                     else {
                         if (imageXObject is PdfFormXObject) {

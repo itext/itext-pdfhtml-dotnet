@@ -65,5 +65,110 @@ namespace iText.Html2pdf.Element {
         public virtual void HtmlObjectNestedObjectTest() {
             ConvertToPdfAndCompare("objectTag_nestedTag", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg1Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg1", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg1_3Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg1_3", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg1_4Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg1_4", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg1_5Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg1_5", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg2Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg2", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg2_3Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg2_3", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_2Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_2", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg4Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg4", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg4_3Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg4_3", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg5_3Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg5_3", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInlineBlock1() {
+            ConvertToPdfAndCompare("relativeSizeSvgInlineBlock1", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInlineBlock2() {
+            ConvertToPdfAndCompare("relativeSizeSvgInlineBlock2", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInlineBlock2_2() {
+            ConvertToPdfAndCompare("relativeSizeSvgInlineBlock2_2", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInlineBlock3() {
+            ConvertToPdfAndCompare("relativeSizeSvgInlineBlock3", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInlineBlock4() {
+            ConvertToPdfAndCompare("relativeSizeSvgInlineBlock4", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInlineBlock5() {
+            ConvertToPdfAndCompare("relativeSizeSvgInlineBlock5", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInTable1() {
+            ConvertToPdfAndCompare("relativeSizeSvgInTable1", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInTable2() {
+            ConvertToPdfAndCompare("relativeSizeSvgInTable2", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInTable3() {
+            ConvertToPdfAndCompare("relativeSizeSvgInTable3", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInTable3_2() {
+            ConvertToPdfAndCompare("relativeSizeSvgInTable3_2", sourceFolder, destinationFolder);
+        }
     }
 }

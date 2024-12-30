@@ -26,6 +26,9 @@ using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout.Element;
+using iText.Layout.Properties;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Resolver.Resource;
 using iText.Svg.Converter;
 using iText.Svg.Element;
@@ -37,7 +40,7 @@ using iText.Svg.Xobject;
 namespace iText.Html2pdf.Util {
     /// <summary>Utility class for handling operations related to SVG</summary>
     public class SvgProcessingUtil {
-        private ResourceResolver resourceResolver;
+        private readonly ResourceResolver resourceResolver;
 
         /// <summary>
         /// Creates a new
@@ -127,15 +130,29 @@ namespace iText.Html2pdf.Util {
         public virtual SvgImageXObject CreateXObjectFromProcessingResult(ISvgProcessorResult result, ProcessorContext
              context) {
             float em = context.GetCssContext().GetCurrentFontSize();
-            SvgDrawContext svgContext = new SvgDrawContext(null, null);
-            svgContext.GetCssContext().SetRootFontSize(Convert.ToString(context.GetCssContext().GetRootFontSize(), System.Globalization.CultureInfo.InvariantCulture
-                ));
-            Rectangle bbox = SvgCssUtils.ExtractWidthAndHeight(result.GetRootRenderer(), em, svgContext);
-            SvgImageXObject svgImageXObject = new SvgImageXObject(bbox, result, resourceResolver);
-            if (context.GetPdfDocument() != null) {
-                svgImageXObject.Generate(context.GetPdfDocument());
+            SvgDrawContext svgContext = new SvgDrawContext(resourceResolver, result.GetFontProvider());
+            svgContext.GetCssContext().SetRootFontSize(context.GetCssContext().GetRootFontSize());
+            if (IsSvgRelativeSized(result.GetRootRenderer(), context)) {
+                return new SvgImageXObject(result, svgContext, em, context.GetPdfDocument());
             }
-            return svgImageXObject;
+            else {
+                Rectangle bbox = SvgCssUtils.ExtractWidthAndHeight(result.GetRootRenderer(), em, svgContext);
+                SvgImageXObject svgImageXObject = new SvgImageXObject(bbox, result, resourceResolver);
+                if (context.GetPdfDocument() != null) {
+                    svgImageXObject.Generate(context.GetPdfDocument());
+                }
+                return svgImageXObject;
+            }
+        }
+
+        private static bool IsSvgRelativeSized(ISvgNodeRenderer rootRenderer, ProcessorContext context) {
+            float em = context.GetCssContext().GetCurrentFontSize();
+            float rem = context.GetCssContext().GetRootFontSize();
+            String widthStr = rootRenderer.GetAttribute(CommonCssConstants.WIDTH);
+            UnitValue width = CssDimensionParsingUtils.ParseLengthValueToPt(widthStr, em, rem);
+            String heightStr = rootRenderer.GetAttribute(CommonCssConstants.HEIGHT);
+            UnitValue height = CssDimensionParsingUtils.ParseLengthValueToPt(heightStr, em, rem);
+            return width == null || width.IsPercentValue() || height == null || height.IsPercentValue();
         }
     }
 }

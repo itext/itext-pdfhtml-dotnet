@@ -35,6 +35,10 @@ using iText.Layout.Properties;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Exceptions;
+using iText.Svg;
+using iText.Svg.Renderers;
+using iText.Svg.Utils;
+using iText.Svg.Xobject;
 
 namespace iText.Html2pdf.Css.Apply.Util {
     /// <summary>Utilities class to apply backgrounds.</summary>
@@ -291,13 +295,25 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return true;
             }
             else {
-                if (image is PdfFormXObject) {
+                if (image is SvgImageXObject) {
+                    SvgImageXObject svgImageXObject = (SvgImageXObject)image;
+                    UnitValue width = svgImageXObject.GetElementWidth();
+                    bool isRelativeWidthSvg = width == null || width.IsPercentValue();
+                    UnitValue height = svgImageXObject.GetElementHeight();
+                    bool isRelativeHeightSvg = height == null || height.IsPercentValue();
                     backgroundImagesList.Add(new BackgroundApplierUtil.HtmlBackgroundImage((PdfFormXObject)image, repeat, position
-                        , backgroundBlendMode, clip, origin));
+                        , backgroundBlendMode, clip, origin, isRelativeWidthSvg || isRelativeHeightSvg));
                     return true;
                 }
                 else {
-                    throw new InvalidOperationException();
+                    if (image is PdfFormXObject) {
+                        backgroundImagesList.Add(new BackgroundApplierUtil.HtmlBackgroundImage((PdfFormXObject)image, repeat, position
+                            , backgroundBlendMode, clip, origin));
+                        return true;
+                    }
+                    else {
+                        throw new InvalidOperationException();
+                    }
                 }
             }
         }
@@ -328,7 +344,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return;
             }
             if (image.GetForm() != null && (image.GetImageHeight() == 0f || image.GetImageWidth() == 0f)) {
-                return;
+                if (!(image.GetForm() is SvgImageXObject && ((SvgImageXObject)image.GetForm()).IsRelativeSized())) {
+                    // For relative sized SVG images it is expected that getImageWidth and
+                    // getImageHeight can be null, they will be resolved later on drawing
+                    return;
+                }
             }
             IList<String> backgroundSizeValues = backgroundProperties[GetBackgroundSidePropertyIndex(backgroundProperties
                 .Count, imageIndex)];
@@ -384,6 +404,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             /// in pixels.
             /// </summary>
             private double dimensionMultiplier = 1;
+
+            private bool isRelativeSizedSvg = false;
 
             /// <summary>
             /// Creates a new
@@ -466,6 +488,146 @@ namespace iText.Html2pdf.Css.Apply.Util {
                  blendMode, BackgroundBox clip, BackgroundBox origin)
                 : base(new BackgroundImage.Builder().SetImage(xObject).SetBackgroundRepeat(repeat).SetBackgroundPosition(position
                     ).SetBackgroundBlendMode(blendMode).SetBackgroundClip(clip).SetBackgroundOrigin(origin).Build()) {
+            }
+
+            public HtmlBackgroundImage(PdfFormXObject xObject, BackgroundRepeat repeat, BackgroundPosition position, BlendMode
+                 blendMode, BackgroundBox clip, BackgroundBox origin, bool isRelativeSizedSvg)
+                : base(new BackgroundImage.Builder().SetImage(xObject).SetBackgroundRepeat(repeat).SetBackgroundPosition(position
+                    ).SetBackgroundBlendMode(blendMode).SetBackgroundClip(clip).SetBackgroundOrigin(origin).Build()) {
+                this.isRelativeSizedSvg = isRelativeSizedSvg;
+            }
+
+            protected override float[] ResolveWidthAndHeight(float? width, float? height, float areaWidth, float areaHeight
+                ) {
+                if (!isRelativeSizedSvg) {
+                    return base.ResolveWidthAndHeight(width, height, areaWidth, areaHeight);
+                }
+                SvgImageXObject svgImageXObject = (SvgImageXObject)image;
+                ISvgNodeRenderer svgRootRenderer = svgImageXObject.GetResult().GetRootRenderer();
+                float? aspectRatio = null;
+                bool isAspectRatioNone = false;
+                float[] viewBoxValues = SvgCssUtils.ParseViewBox(svgRootRenderer);
+                String preserveAspectRatio = svgRootRenderer.GetAttribute(SvgConstants.Attributes.PRESERVE_ASPECT_RATIO);
+                if (SvgConstants.Values.NONE.Equals(preserveAspectRatio)) {
+                    isAspectRatioNone = true;
+                }
+                else {
+                    if (viewBoxValues != null && viewBoxValues.Length == SvgConstants.Values.VIEWBOX_VALUES_NUMBER) {
+                        // aspectRatio can also be specified by absolute height and width,
+                        // but in that case SVG isn't relative and processed as usual image
+                        aspectRatio = viewBoxValues[2] / viewBoxValues[3];
+                    }
+                }
+                // The code below is based on the following algorithm (with modifications to follow real browsers behavior)
+                // https://developer.mozilla.org/en-US/docs/Web/CSS/Scaling_of_SVG_backgrounds
+                float? finalWidth = null;
+                float? finalHeight = null;
+                if (GetBackgroundSize().IsSpecificSize()) {
+                    if (aspectRatio == null) {
+                        finalWidth = areaWidth;
+                        finalHeight = areaHeight;
+                    }
+                    else {
+                        if (GetBackgroundSize().IsCover()) {
+                            if (aspectRatio < areaWidth / areaHeight) {
+                                finalWidth = areaWidth;
+                                finalHeight = finalWidth / aspectRatio;
+                            }
+                            else {
+                                finalHeight = areaHeight;
+                                finalWidth = finalHeight * aspectRatio;
+                            }
+                        }
+                        else {
+                            // isContain
+                            if (aspectRatio > areaWidth / areaHeight) {
+                                finalWidth = areaWidth;
+                                finalHeight = finalWidth / aspectRatio;
+                            }
+                            else {
+                                finalHeight = areaHeight;
+                                finalWidth = finalHeight * aspectRatio;
+                            }
+                        }
+                    }
+                }
+                else {
+                    UnitValue svgWidthUV = svgImageXObject.GetElementWidth();
+                    UnitValue svgHeightUV = svgImageXObject.GetElementHeight();
+                    if (width != null) {
+                        finalWidth = width;
+                    }
+                    else {
+                        if (svgWidthUV != null && svgWidthUV.IsPointValue()) {
+                            finalWidth = svgWidthUV.GetValue();
+                        }
+                    }
+                    if (height != null) {
+                        finalHeight = height;
+                    }
+                    else {
+                        if (svgHeightUV != null && svgHeightUV.IsPointValue()) {
+                            finalHeight = svgHeightUV.GetValue();
+                        }
+                    }
+                    if (isAspectRatioNone) {
+                        // if aspect ratio is none, then if the svg specifies the final size, ignore it and use the whole area size
+                        if (width == null && finalWidth != null) {
+                            finalWidth = areaWidth;
+                        }
+                        if (height == null && finalHeight != null) {
+                            finalHeight = areaHeight;
+                        }
+                    }
+                    else {
+                        if (aspectRatio != null && (width == null || height == null)) {
+                            // svg aspectRatio affects only if there is at least one background size dimension which isn't defined
+                            if (finalWidth == null && finalHeight == null) {
+                                if (aspectRatio < areaWidth / areaHeight) {
+                                    finalHeight = areaHeight;
+                                    finalWidth = finalHeight * aspectRatio;
+                                }
+                                else {
+                                    finalWidth = areaWidth;
+                                    finalHeight = finalWidth / aspectRatio;
+                                }
+                            }
+                            else {
+                                if (finalWidth != null && finalHeight != null) {
+                                    if (aspectRatio < finalWidth / finalHeight) {
+                                        finalHeight = finalWidth / aspectRatio;
+                                    }
+                                    else {
+                                        finalWidth = finalHeight / aspectRatio;
+                                    }
+                                }
+                                else {
+                                    if (finalWidth == null) {
+                                        finalWidth = finalHeight * aspectRatio;
+                                    }
+                                    else {
+                                        // finalHeight == null
+                                        finalHeight = finalWidth / aspectRatio;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // if no background or svg size, no aspect ratio or ratio=none, then just get the whole available area
+                    if (finalWidth == null) {
+                        finalWidth = areaWidth;
+                    }
+                    if (finalHeight == null) {
+                        finalHeight = areaHeight;
+                    }
+                }
+                if (aspectRatio != null) {
+                    svgRootRenderer.SetAttribute(SvgConstants.Attributes.WIDTH, null);
+                    svgRootRenderer.SetAttribute(SvgConstants.Attributes.HEIGHT, null);
+                }
+                svgImageXObject.UpdateBBox(finalWidth, finalHeight);
+                svgImageXObject.Generate(null);
+                return new float[] { (float)finalWidth, (float)finalHeight };
             }
 
             public override float GetImageWidth() {

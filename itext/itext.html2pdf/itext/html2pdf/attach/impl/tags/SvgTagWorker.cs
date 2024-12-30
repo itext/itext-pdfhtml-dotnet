@@ -34,6 +34,7 @@ using iText.Svg.Element;
 using iText.Svg.Exceptions;
 using iText.Svg.Processors;
 using iText.Svg.Processors.Impl;
+using iText.Svg.Xobject;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -70,8 +71,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             if (processingResult != null) {
-                svgImage = new SvgImage(new SvgProcessingUtil(context.GetResourceResolver()).CreateXObjectFromProcessingResult
-                    (processingResult, context));
+                SvgImageXObject svgImageXObject = new SvgProcessingUtil(context.GetResourceResolver()).CreateXObjectFromProcessingResult
+                    (processingResult, context);
+                svgImage = new SvgImage(svgImageXObject);
                 AccessiblePropHelper.TrySetLangAttribute(svgImage, element);
                 context.EndProcessingInlineSvg();
             }

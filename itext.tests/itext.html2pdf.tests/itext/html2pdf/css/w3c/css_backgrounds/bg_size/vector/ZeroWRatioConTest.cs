@@ -22,9 +22,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Svg.Logs;
+using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Bg_size.Vector {
-    // TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
+    [LogMessage(SvgLogMessageConstant.VIEWBOX_WIDTH_OR_HEIGHT_IS_ZERO, LogLevel = LogLevelConstants.INFO)]
     public class ZeroWRatioConTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "zero-width-ratio-contain.html";

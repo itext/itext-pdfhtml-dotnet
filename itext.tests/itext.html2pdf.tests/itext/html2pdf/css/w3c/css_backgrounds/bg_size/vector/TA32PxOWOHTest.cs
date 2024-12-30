@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Bg_size.Vector {
-    // TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
     public class TA32PxOWOHTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "tall--auto-32px--omitted-width-omitted-height.html";

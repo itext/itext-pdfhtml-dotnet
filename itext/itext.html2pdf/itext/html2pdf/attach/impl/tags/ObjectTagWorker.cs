@@ -39,6 +39,7 @@ using iText.Svg.Element;
 using iText.Svg.Exceptions;
 using iText.Svg.Processors;
 using iText.Svg.Processors.Impl;
+using iText.Svg.Xobject;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -110,7 +111,16 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             // Create Image object
             if (res != null) {
-                image = new SvgImage(processUtil.CreateXObjectFromProcessingResult(res, context));
+                SvgImageXObject svgImageXObject = processUtil.CreateXObjectFromProcessingResult(res, context);
+                // TODO DEVSIX-8829 remove relative sized SVG generating after adding support in object element
+                if (svgImageXObject.IsRelativeSized()) {
+                    svgImageXObject.UpdateBBox(null, null);
+                    if (context.GetPdfDocument() != null) {
+                        svgImageXObject.Generate(context.GetPdfDocument());
+                    }
+                    svgImageXObject.SetRelativeSized(false);
+                }
+                image = new SvgImage(svgImageXObject);
                 AccessiblePropHelper.TrySetLangAttribute(image, element);
             }
         }

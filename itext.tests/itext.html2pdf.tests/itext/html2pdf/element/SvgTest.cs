@@ -21,15 +21,20 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
 using System.IO;
+using iText.Commons.Utils;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
+using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout;
+using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Logs;
 using iText.Svg.Converter;
+using iText.Svg.Element;
 using iText.Svg.Logs;
 using iText.Test;
 using iText.Test.Attributes;
@@ -53,10 +58,37 @@ namespace iText.Html2pdf.Element {
             ConvertAndCompare("inline_svg");
         }
 
-        // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
         [NUnit.Framework.Test]
-        public virtual void InlineSvgWithPercentSizesTest() {
-            ConvertAndCompare("inline_svg_percent_sizes");
+        public virtual void Inline_svg_percent_sizes_quirk_mode_1Test() {
+            // TODO DEVSIX-4629 pdfHTML: simulate browsers behavior for quirks and standards modes
+            ConvertAndCompare("inline_svg_percent_sizes_quirk_mode_1");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Inline_svg_percent_sizes_quirk_mode_2Test() {
+            // TODO DEVSIX-4629 pdfHTML: simulate browsers behavior for quirks and standards modes
+            ConvertAndCompare("inline_svg_percent_sizes_quirk_mode_2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Inline_svg_percent_sizes_quirk_mode_3Test() {
+            // TODO DEVSIX-4629 pdfHTML: simulate browsers behavior for quirks and standards modes
+            ConvertAndCompare("inline_svg_percent_sizes_quirk_mode_3");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Inline_svg_percent_sizes_standard_mode_1Test() {
+            ConvertAndCompare("inline_svg_percent_sizes_standard_mode_1");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Inline_svg_percent_sizes_standard_mode_2Test() {
+            ConvertAndCompare("inline_svg_percent_sizes_standard_mode_2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Inline_svg_percent_sizes_standard_mode_3Test() {
+            ConvertAndCompare("inline_svg_percent_sizes_standard_mode_3");
         }
 
         [NUnit.Framework.Test]
@@ -75,20 +107,17 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void Convert_inline_Svg_path_in_HTML() {
             ConvertAndCompare("HTML_with_inline_svg_path");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void Convert_inline_Svg_polygon_in_HTML() {
-            // TODO: Update cmp_ file when DEVSIX-2719 resolved
+            // TODO: DEVSIX-2719 SVG<polygon>: tops of figures are cut
             ConvertAndCompare("HTML_with_inline_svg_polygon");
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void Convert_namespace_Svg_in_HTML() {
             ConvertAndCompare("namespace_svg");
         }
@@ -134,7 +163,7 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void ConvertInlineSvgStar() {
-            // TODO: Update cmp_ file when DEVSIX-2719 resolved
+            // TODO: DEVSIX-2719 SVG<polygon>: tops of figures are cut
             String html = "inline_svg_star";
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + html + ".pdf"));
             pdfDoc.AddNewPage();
@@ -204,7 +233,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        //TODO update after DEVSIX-3034
+        //TODO DEVSIX-3034 Moving the end tag of <object> causes ERROR
         [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 2)]
         public virtual void ExternalObjectSuccessTest() {
             ConvertAndCompare("external_object");
@@ -230,17 +259,34 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        //TODO: Update cmp_ file when DEVSIX-2731 resolved
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
-        public virtual void HtmlWithSvgBackground() {
+        public virtual void HtmlWithSvgBackgroundTest() {
+            // The diff with browser is expected, because we parse "width: 600;", when
+            // browsers ignore such declaration. See htmlWithSvgBackground3Test
             ConvertAndCompare("HTML_with_svg_background");
         }
 
         [NUnit.Framework.Test]
-        //TODO: Update cmp_ file when DEVSIX-2731 resolved
+        public virtual void HtmlWithSvgBackground2Test() {
+            ConvertAndCompare("HTML_with_svg_background_2");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HtmlWithSvgBackground3Test() {
+            ConvertAndCompare("HTML_with_svg_background_3");
+        }
+
+        [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void HtmlWithSvgBackgroundNoViewbox() {
+            // The diff with browser is expected, because we parse "width: 600;", when
+            // browsers ignore such declaration. See htmlWithSvgBackgroundNoViewbox2
             ConvertAndCompare("Html_with_svg_background_no_viewbox");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HtmlWithSvgBackgroundNoViewbox2() {
+            ConvertAndCompare("Html_with_svg_background_no_viewbox_2");
         }
 
         [NUnit.Framework.Test]
@@ -249,6 +295,7 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
         public virtual void SvgWithoutDimensionsWithViewboxTest() {
             ConvertAndCompare("svg_without_dimensions_with_viewbox");
         }
@@ -298,37 +345,122 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void SvgRelativeDimenstionsInInlineBlockTest() {
-            // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+            // TODO DEVSIX-1316 make percent width doesn't affect elements min max width
             ConvertAndCompare("svgRelativeDimenstionsInInlineBlockTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void SvgRelativeDimenstionsInTableTest() {
-            // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
+            // TODO DEVSIX-1316 make percent width doesn't affect elements min max width
+            // TODO DEVSIX-7003 Problem with layouting image with relative size in the table
             ConvertAndCompare("svgRelativeDimenstionsInTableTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void SvgWidthHeightPercentUnitsTest() {
-            // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
             ConvertAndCompare("svgWidthHeightPercentUnitsTest");
         }
 
         [NUnit.Framework.Test]
         public virtual void SvgSimpleWidthHeightPercentUnitsTest() {
-            // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
             ConvertAndCompare("svgSimpleWidthHeightPercentUnitsTest");
         }
 
         [NUnit.Framework.Test]
+        public virtual void SvgToElementsSimpleWidthHeightPercentUnitsTest() {
+            ConvertToElementsAndCompare("svgSimpleWidthHeightPercentUnitsTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SvgToLayoutWidthHeightPercentTest() {
+            String name = "svgToLayoutWidthHeightPercentTest";
+            IList<IElement> elements = HtmlConverter.ConvertToElements(FileUtil.GetInputStreamForFile(SOURCE_FOLDER + 
+                name + ".html"));
+            Document document = new Document(new PdfDocument(new PdfWriter(DESTINATION_FOLDER + name + ".pdf")));
+            SvgImage svgImage = (SvgImage)((BlockElement<Div>)elements[0]).GetChildren()[0];
+            Div div = new Div();
+            div.SetWidth(100);
+            div.SetHeight(300);
+            div.SetBorder(new SolidBorder(5));
+            div.Add(svgImage);
+            document.Add(div);
+            document.Close();
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + name + ".pdf", SOURCE_FOLDER
+                 + "cmp_" + name + ".pdf", DESTINATION_FOLDER, "diff_" + name + "_"));
+        }
+
+        [NUnit.Framework.Test]
         public virtual void SvgNestedWidthHeightPercentUnitsTest() {
-            // TODO DEVSIX-5711 pdfHTML: Support relative values for width/height SVG element attributes
             ConvertAndCompare("svgNestedWidthHeightPercentUnitsTest");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void RelativeSvgParentWithoutWidthAndHeightTest() {
+            ConvertAndCompare("relativeSvgParentWithoutWidthAndHeight");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSvgParentIsBoundedTest() {
+            ConvertAndCompare("relativeSvgParentIsBounded");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSvgParentWithWidthTest() {
+            ConvertAndCompare("relativeSvgParentWithWidth");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSvgParentWithHeightTest() {
+            ConvertAndCompare("relativeSvgParentWithHeight");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSvgParentWithWidthViewboxTest() {
+            ConvertAndCompare("relativeSvgParentWithWidthViewbox");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSvgParentWithHeightViewboxTest() {
+            ConvertAndCompare("relativeSvgParentWithHeightViewbox");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSvgDifferentGrandparentTest() {
+            ConvertAndCompare("relativeSvgDifferentGrandparent");
+        }
+
         private static void ConvertAndCompare(String name) {
-            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + name + ".html"), new FileInfo(DESTINATION_FOLDER +
-                 name + ".pdf"));
+            String htmlPath = SOURCE_FOLDER + name + ".html";
+            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(DESTINATION_FOLDER + name + ".pdf"));
+            System.Console.Out.WriteLine("Input html: " + UrlUtil.GetNormalizedFileUriString(htmlPath) + "\n");
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + name + ".pdf", SOURCE_FOLDER
+                 + "cmp_" + name + ".pdf", DESTINATION_FOLDER, "diff_" + name + "_"));
+        }
+
+        private static void ConvertToElementsAndCompare(String name) {
+            IList<IElement> elements = HtmlConverter.ConvertToElements(FileUtil.GetInputStreamForFile(SOURCE_FOLDER + 
+                name + ".html"));
+            Document document = new Document(new PdfDocument(new PdfWriter(DESTINATION_FOLDER + name + ".pdf")));
+            foreach (IElement elem in elements) {
+                if (elem is IBlockElement) {
+                    document.Add((IBlockElement)elem);
+                }
+                else {
+                    if (elem is Image) {
+                        document.Add((Image)elem);
+                    }
+                    else {
+                        if (elem is AreaBreak) {
+                            document.Add((AreaBreak)elem);
+                        }
+                        else {
+                            NUnit.Framework.Assert.Fail("The #convertToElements method gave element which is unsupported as root element, it's unexpected."
+                                );
+                        }
+                    }
+                }
+            }
+            document.Close();
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + name + ".pdf", SOURCE_FOLDER
                  + "cmp_" + name + ".pdf", DESTINATION_FOLDER, "diff_" + name + "_"));
         }

@@ -22,7 +22,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
-using iText.Html2pdf.Logs;
 using iText.StyledXmlParser.Css.Validate;
 using iText.StyledXmlParser.Css.Validate.Impl;
 using iText.Test.Attributes;
@@ -104,7 +103,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
         public virtual void SimpleSvgColorTest() {
             ConvertToPdfAndCompare("simpleSvgColor", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
