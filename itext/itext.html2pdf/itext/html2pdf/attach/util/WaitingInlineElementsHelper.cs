@@ -65,41 +65,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Adds text to the waiting leaves.</summary>
         /// <param name="text">the text</param>
         public virtual void Add(String text) {
-            if (!keepLineBreaks && collapseSpaces) {
-                text = WhiteSpaceUtil.CollapseConsecutiveSpaces(text);
-            }
-            else {
-                if (keepLineBreaks && collapseSpaces) {
-                    StringBuilder sb = new StringBuilder(text.Length);
-                    for (int i = 0; i < text.Length; i++) {
-                        if (TrimUtil.IsNonLineBreakSpace(text[i])) {
-                            if (sb.Length == 0 || sb[sb.Length - 1] != ' ') {
-                                sb.Append(" ");
-                            }
-                        }
-                        else {
-                            sb.Append(text[i]);
-                        }
-                    }
-                    text = sb.ToString();
-                }
-                else {
-                    // false == collapseSpaces
-                    // prohibit trimming first and last spaces
-                    StringBuilder sb = new StringBuilder(text.Length);
-                    sb.Append('\u200d');
-                    for (int i = 0; i < text.Length; i++) {
-                        sb.Append(text[i]);
-                        if ('\n' == text[i] || ('\r' == text[i] && i + 1 < text.Length && '\n' != text[i + 1])) {
-                            sb.Append('\u200d');
-                        }
-                    }
-                    if ('\u200d' == sb[sb.Length - 1]) {
-                        sb.Delete(sb.Length - 1, sb.Length);
-                    }
-                    text = sb.ToString();
-                }
-            }
+            text = WhiteSpaceUtil.ProcessWhitespaces(text, keepLineBreaks, collapseSpaces);
             if (CssConstants.UPPERCASE.Equals(textTransform)) {
                 text = text.ToUpperInvariant();
             }
@@ -108,7 +74,7 @@ namespace iText.Html2pdf.Attach.Util {
                     text = text.ToLowerInvariant();
                 }
             }
-            waitingLeaves.Add(new iText.Layout.Element.Text(text));
+            waitingLeaves.Add(new Text(text));
         }
 
         /// <summary>Adds a leaf element to the waiting leaves.</summary>
@@ -259,14 +225,12 @@ namespace iText.Html2pdf.Attach.Util {
                     previousProcessed = false;
                     continue;
                 }
-                if (element is iText.Layout.Element.Text && (CssConstants.CAPITALIZE.Equals(textTransform) || needCapitalize
-                    )) {
-                    String text = ((iText.Layout.Element.Text)element).GetText();
+                if (element is Text && (CssConstants.CAPITALIZE.Equals(textTransform) || needCapitalize)) {
+                    String text = ((Text)element).GetText();
                     if (!previousProcessed && i > 0) {
                         previousLetter = IsLastCharAlphabetic(leaves[i - 1]);
                     }
-                    previousLetter = CapitalizeAndReturnIsLastAlphabetic((iText.Layout.Element.Text)element, text, previousLetter
-                        );
+                    previousLetter = CapitalizeAndReturnIsLastAlphabetic((Text)element, text, previousLetter);
                     previousProcessed = true;
                 }
                 else {
@@ -277,15 +241,14 @@ namespace iText.Html2pdf.Attach.Util {
         }
 
         private bool IsLastCharAlphabetic(IElement element) {
-            if (!(element is iText.Layout.Element.Text)) {
+            if (!(element is Text)) {
                 return false;
             }
-            String text = ((iText.Layout.Element.Text)element).GetText();
+            String text = ((Text)element).GetText();
             return text.Length > 0 && char.IsLetter(text[text.Length - 1]);
         }
 
-        private bool CapitalizeAndReturnIsLastAlphabetic(iText.Layout.Element.Text element, String text, bool previousAlphabetic
-            ) {
+        private bool CapitalizeAndReturnIsLastAlphabetic(Text element, String text, bool previousAlphabetic) {
             StringBuilder sb = new StringBuilder();
             bool previousLetter = previousAlphabetic;
             for (int i = 0; i < text.Length; i++) {
