@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -37,7 +37,7 @@ namespace iText.Html2pdf.Actions.Data {
 
         private const int PDF_HTML_COPYRIGHT_SINCE = 2000;
 
-        private const int PDF_HTML_COPYRIGHT_TO = 2024;
+        private const int PDF_HTML_COPYRIGHT_TO = 2025;
 
         private static readonly ProductData PDF_HTML_PRODUCT_DATA = new ProductData(PDF_HTML_PUBLIC_PRODUCT_NAME, 
             ProductNameConstant.PDF_HTML, PDF_HTML_VERSION, PDF_HTML_COPYRIGHT_SINCE, PDF_HTML_COPYRIGHT_TO);
