@@ -612,6 +612,14 @@ namespace iText.Html2pdf.Element {
             RunTest("emptyRowElimination2");
         }
 
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
+            2)]
+        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
+        public virtual void BreakRendererTreeOnSplitupTest() {
+            RunTest("breakRendererTreeOnSplitup");
+        }
+
         private void RunTest(String testName) {
             RunTest(testName, false);
         }
