@@ -523,8 +523,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        //TODO DEVSIX-6892 The List element is clipped when Display:flex and Roboto font are used
-        [LogMessage("Element content was clipped because some height properties are set.")]
         public virtual void DisplayFlexWithRobotoFontTest() {
             String outFile = DESTINATION_FOLDER + "displayFlexWithRobotoFont.pdf";
             String cmpFile = SOURCE_FOLDER + "cmp_displayFlexWithRobotoFont.pdf";
