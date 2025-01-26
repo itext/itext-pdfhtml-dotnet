@@ -21,23 +21,20 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 
 namespace iText.Html2pdf.Element {
     [NUnit.Framework.Category("IntegrationTest")]
-    public class HrTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+    public class HrTest : ExtendedHtmlConversionITextTest {
+        private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/HrTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/element/HrTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
@@ -80,6 +77,8 @@ namespace iText.Html2pdf.Element {
             RunHrTest("07");
         }
 
+        //It is expected that in the resulting PDF and firefox the border on the right is visible,
+        //but not in Chrome. This is simply because the border in Chrome has the same color as the BG.
         [NUnit.Framework.Test]
         public virtual void HrTest08() {
             RunHrTest("08");
@@ -107,7 +106,7 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void HrTest13() {
-            //box-shadow property is not supported in iText
+            //TODO DEVSIX-4384: support box-shadow
             RunHrTest("13");
         }
 
@@ -118,22 +117,40 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void HrTest15() {
+            //TODO DEVSIX-8856: HR tag should have overflow: hidden by default
             RunHrTest("15");
         }
 
         [NUnit.Framework.Test]
+        public virtual void HrTest15WihtOverflow() {
+            //TODO DEVSIX-8856: HR tag should have overflow: hidden by default
+            RunHrTest("15WithOverflow");
+        }
+
+        [NUnit.Framework.Test]
         public virtual void HrTest16() {
+            //TODO DEVSIX-8856: HR tag should have overflow: hidden by default
             RunHrTest("16");
         }
 
         [NUnit.Framework.Test]
         public virtual void HrTest17() {
+            //TODO DEVSIX-8856: HR tag should have overflow: hidden by default
             RunHrTest("17");
         }
 
         [NUnit.Framework.Test]
         public virtual void HrTest18() {
+            //TODO DEVSIX-8856: HR tag should have overflow: hidden by default
+            //TODO DEVSIX-4400: overflow: hidden is not working with border-radius
             RunHrTest("18");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void HrTest18WithOverflow() {
+            //TODO DEVSIX-8856: HR tag should have overflow: hidden by default
+            //TODO DEVSIX-4400: overflow: hidden is not working with border-radius
+            RunHrTest("18WithOverflow");
         }
 
         [NUnit.Framework.Test]
@@ -152,13 +169,7 @@ namespace iText.Html2pdf.Element {
         }
 
         private void RunHrTest(String id) {
-            String htmlPath = sourceFolder + "hrTest" + id + ".html";
-            String outPdfPath = destinationFolder + "hrTest" + id + ".pdf";
-            String cmpPdfPath = sourceFolder + "cmp_hrTest" + id + ".pdf";
-            String diff = "diff" + id + "_";
-            HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(outPdfPath));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdfPath, cmpPdfPath, destinationFolder
-                , diff));
+            ConvertToPdfAndCompare("hrTest" + id, SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }
