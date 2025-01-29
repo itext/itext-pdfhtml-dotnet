@@ -57,6 +57,7 @@
     <PackageReference Include="itext.bouncy-castle-adapter" Version="9.1.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.bouncy-castle-adapter\itext.bouncy-castle-adapter.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.svg\itext.svg.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.svg\itext.svg.csproj')" />
+    <ProjectReference Include="..\..\..\itextcore\itext\itext.pdfua\itext.pdfua.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdfua\itext.pdfua.csproj')" />
     <ProjectReference Include="..\..\itext\itext.html2pdf\itext.html2pdf.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
