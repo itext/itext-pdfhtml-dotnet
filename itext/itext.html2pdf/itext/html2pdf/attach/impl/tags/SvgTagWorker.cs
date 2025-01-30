@@ -72,7 +72,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             if (processingResult != null) {
                 SvgImageXObject svgImageXObject = new SvgProcessingUtil(context.GetResourceResolver()).CreateXObjectFromProcessingResult
-                    (processingResult, context);
+                    (processingResult, context, true);
                 svgImage = new SvgImage(svgImageXObject);
                 AccessiblePropHelper.TrySetLangAttribute(svgImage, element);
                 context.EndProcessingInlineSvg();

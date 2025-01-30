@@ -180,7 +180,7 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
             ISvgProcessorResult res = SvgConverter.ParseAndProcess(stream, svgConverterProperties);
             SvgProcessingUtil processingUtil = new SvgProcessingUtil(context.GetResourceResolver());
-            return processingUtil.CreateXObjectFromProcessingResult(res, context);
+            return processingUtil.CreateXObjectFromProcessingResult(res, context, true);
         }
     }
 }

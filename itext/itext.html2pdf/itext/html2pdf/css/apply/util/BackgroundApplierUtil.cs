@@ -625,7 +625,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     svgRootRenderer.SetAttribute(SvgConstants.Attributes.WIDTH, null);
                     svgRootRenderer.SetAttribute(SvgConstants.Attributes.HEIGHT, null);
                 }
-                svgImageXObject.UpdateBBox(finalWidth, finalHeight);
+                svgImageXObject.UpdateBBox((float)finalWidth, (float)finalHeight);
                 svgImageXObject.Generate(null);
                 return new float[] { (float)finalWidth, (float)finalHeight };
             }

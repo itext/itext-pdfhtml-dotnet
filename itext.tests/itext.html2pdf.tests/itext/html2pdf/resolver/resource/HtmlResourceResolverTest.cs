@@ -215,7 +215,7 @@ namespace iText.Html2pdf.Resolver.Resource {
             SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
             PdfDocument document = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
             context.Reset(document);
-            PdfFormXObject pdfFormXObject = processingUtil.CreateXObjectFromProcessingResult(res, context);
+            PdfFormXObject pdfFormXObject = processingUtil.CreateXObjectFromProcessingResult(res, context, true);
             PdfDictionary resources = (PdfDictionary)pdfFormXObject.GetResources().GetPdfObject().Get(PdfName.XObject);
             PdfDictionary fm1Dict = (PdfDictionary)resources.Get(new PdfName("Fm1"));
             NUnit.Framework.Assert.IsTrue(((PdfDictionary)fm1Dict.Get(PdfName.Resources)).ContainsKey(PdfName.XObject)
@@ -238,7 +238,7 @@ namespace iText.Html2pdf.Resolver.Resource {
             SvgProcessingUtil processingUtil = new SvgProcessingUtil(resourceResolver);
             PdfDocument document = new PdfDocument(new PdfWriter(new ByteArrayOutputStream()));
             context.Reset(document);
-            PdfFormXObject pdfFormXObject = processingUtil.CreateXObjectFromProcessingResult(res, context);
+            PdfFormXObject pdfFormXObject = processingUtil.CreateXObjectFromProcessingResult(res, context, true);
             PdfDictionary resources = (PdfDictionary)pdfFormXObject.GetResources().GetPdfObject().Get(PdfName.XObject);
             PdfDictionary fm1Dict = (PdfDictionary)resources.Get(new PdfName("Fm1"));
             NUnit.Framework.Assert.IsTrue(((PdfDictionary)fm1Dict.Get(PdfName.Resources)).ContainsKey(PdfName.XObject)
@@ -266,7 +266,7 @@ namespace iText.Html2pdf.Resolver.Resource {
                 imageRenderer.SetAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/doggo.jpg");
                 svgRenderer.SetAttribute(SvgConstants.Attributes.XLINK_HREF, "res/itextpdf.com/lines.svg");
                 document.Add(new SvgImage(new SvgProcessingUtil(resourceResolver).CreateXObjectFromProcessingResult(result
-                    , context)));
+                    , context, true)));
             }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, DESTINATION_FOLDER
                 , "diff"));

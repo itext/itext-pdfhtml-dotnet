@@ -44,6 +44,12 @@ namespace iText.Html2pdf.Element {
             ConvertToPdfAndCompare("imagesInBody", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void RelativeImageInStaticContainerTest() {
+            ConvertToPdfAndCompare("relativeImageInStaticContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
         [NUnit.Framework.Test]
         public virtual void ImagesWithWideBorders() {
             ConvertToPdfAndCompare("imagesWithWideBorders", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -213,20 +219,264 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg2_7Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg2_7", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg2_8Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg2_8", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg2_9Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg2_9", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void RelativeSizeSvg3Test() {
             ConvertToPdfAndCompare("relativeSizeSvg3", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_2_2Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_2_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_3Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_3", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_4Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_5Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_5", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8870 improve support of relative sized SVG in img HTML elements
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_6Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_6", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_7Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_7", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_8Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_8", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_9Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_9", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_10Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_10", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_11Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_11", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_12Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_12", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_13Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_13", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_14Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_14", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg3_15Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg3_15", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_2Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_3Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_3", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_4Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_5Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_5", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        //TODO DEVSIX-8870 improve support of relative sized SVG in img HTML elements
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_6Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_6", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_7Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_7", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_8Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_8", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_9Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_9", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_10Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_10", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_11Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_11", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_12Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_12", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_13Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_13", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_14Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_14", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
+        public virtual void FixedImgRelativeSizeSvg3_15Test() {
+            ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_15", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_2Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_3Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_3", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_4Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_4", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_5Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_5", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8870 improve support of relative sized SVG in img HTML elements
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_6Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_6", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_7Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_7", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_8Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_8", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_9Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_9", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_10Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_10", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_11Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_11", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_12Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_12", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_13Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_13", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_14Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_14", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeHeightImgRelativeSizeSvg3_15Test() {
+            ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_15", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
+        [NUnit.Framework.Test]
         public virtual void RelativeSizeSvg4Test() {
             ConvertToPdfAndCompare("relativeSizeSvg4", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void RelativeSizeSvg4_2Test() {
             ConvertToPdfAndCompare("relativeSizeSvg4_2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
+        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void RelativeSizeSvg4_4Test() {
             ConvertToPdfAndCompare("relativeSizeSvg4_4", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -235,6 +485,11 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void RelativeSizeSvg5_2Test() {
             ConvertToPdfAndCompare("relativeSizeSvg5_2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvg6_1Test() {
+            ConvertToPdfAndCompare("relativeSizeSvg6_1", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
@@ -273,6 +528,73 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void BackgroundImageWithSizeAndDivContent4Test() {
             ConvertToPdfAndCompare("backgroundImageWithSizeAndDivContent4", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInFixedImg() {
+            ConvertToPdfAndCompare("relativeSizeSvgInFixedImg", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInFixedImg2() {
+            ConvertToPdfAndCompare("relativeSizeSvgInFixedImg2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInRelativeImg() {
+            ConvertToPdfAndCompare("relativeSizeSvgInRelativeImg", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInRelativeImgWithCustomViewbox2() {
+            ConvertToPdfAndCompare("relativeSizeSvgInRelativeImgWithCustomViewbox2", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgInRelativeImgWithCustomViewbox() {
+            ConvertToPdfAndCompare("relativeSizeSvgInRelativeImgWithCustomViewbox", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
+        public virtual void GiantSvgInRelativeImg() {
+            ConvertToPdfAndCompare("giantSvgInRelativeImg", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InvalidSizeSvgInRelativeImg() {
+            ConvertToPdfAndCompare("invalidSizeSvgInRelativeImg", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FixedSizeSvgInRelativeImg() {
+            ConvertToPdfAndCompare("fixedSizeSvgInRelativeImg", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSizeSvgFixedInlineBlock() {
+            ConvertToPdfAndCompare("relativeSizeSvgFixedInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSvgInSeveralImages() {
+            ConvertToPdfAndCompare("relativeSvgInSeveralImages", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativeSvgInImgAndBackground() {
+            ConvertToPdfAndCompare("relativeSvgInImgAndBackground", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PercentHeightImgContainer() {
+            ConvertToPdfAndCompare("percentHeightImgContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PercentHeightImgContainer2() {
+            ConvertToPdfAndCompare("percentHeightImgContainer2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }

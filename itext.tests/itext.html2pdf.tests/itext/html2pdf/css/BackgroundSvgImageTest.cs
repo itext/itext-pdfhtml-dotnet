@@ -622,6 +622,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void Contain_fixed_height_percent_same_svg_widthTest() {
+            ConvertToPdfAndCompare("contain_fixed_height_percent_width_same_svg", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void Contain_fixed_height_percent_width_prRatio_noneTest() {
             ConvertToPdfAndCompare("contain_fixed_height_percent_width_prRatio_none", SOURCE_FOLDER, DESTINATION_FOLDER
                 );

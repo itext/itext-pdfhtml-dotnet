@@ -71,15 +71,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 else {
                     if (imageXObject is SvgImageXObject) {
                         SvgImageXObject svgImageXObject = (SvgImageXObject)imageXObject;
-                        // TODO DEVSIX-8829 remove relative sized SVG generating after adding support in object element
-                        if (svgImageXObject.IsRelativeSized()) {
-                            svgImageXObject.UpdateBBox(null, null);
-                            if (context.GetPdfDocument() != null) {
-                                svgImageXObject.Generate(context.GetPdfDocument());
-                            }
-                            svgImageXObject.SetRelativeSized(false);
-                        }
                         image = new SvgImage(svgImageXObject);
+                        svgImageXObject.SetIsCreatedByImg(true);
                     }
                     else {
                         if (imageXObject is PdfFormXObject) {

@@ -111,15 +111,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             // Create Image object
             if (res != null) {
-                SvgImageXObject svgImageXObject = processUtil.CreateXObjectFromProcessingResult(res, context);
-                // TODO DEVSIX-8829 remove relative sized SVG generating after adding support in object element
-                if (svgImageXObject.IsRelativeSized()) {
-                    svgImageXObject.UpdateBBox(null, null);
-                    if (context.GetPdfDocument() != null) {
-                        svgImageXObject.Generate(context.GetPdfDocument());
-                    }
-                    svgImageXObject.SetRelativeSized(false);
-                }
+                SvgImageXObject svgImageXObject = processUtil.CreateXObjectFromProcessingResult(res, context, false);
+                svgImageXObject.SetIsCreatedByObject(true);
                 image = new SvgImage(svgImageXObject);
                 AccessiblePropHelper.TrySetLangAttribute(image, element);
             }

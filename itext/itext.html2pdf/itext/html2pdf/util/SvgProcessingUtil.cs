@@ -122,13 +122,17 @@ namespace iText.Html2pdf.Util {
         /// </summary>
         /// <param name="result">processing result containing the SVG information</param>
         /// <param name="context">html2pdf processor context</param>
+        /// <param name="generateAbsolutelySizedSvg">
+        /// if true and context has pdf document and svg is not relative sized, it will be immediately
+        /// generated, otherwise no generation will be performed
+        /// </param>
         /// <returns>
         /// new
         /// <see cref="iText.Svg.Xobject.SvgImageXObject"/>
         /// instance
         /// </returns>
         public virtual SvgImageXObject CreateXObjectFromProcessingResult(ISvgProcessorResult result, ProcessorContext
-             context) {
+             context, bool generateAbsolutelySizedSvg) {
             float em = context.GetCssContext().GetCurrentFontSize();
             SvgDrawContext svgContext = new SvgDrawContext(resourceResolver, result.GetFontProvider());
             svgContext.GetCssContext().SetRootFontSize(context.GetCssContext().GetRootFontSize());
@@ -138,7 +142,7 @@ namespace iText.Html2pdf.Util {
             else {
                 Rectangle bbox = SvgCssUtils.ExtractWidthAndHeight(result.GetRootRenderer(), em, svgContext);
                 SvgImageXObject svgImageXObject = new SvgImageXObject(bbox, result, resourceResolver);
-                if (context.GetPdfDocument() != null) {
+                if (context.GetPdfDocument() != null && generateAbsolutelySizedSvg) {
                     svgImageXObject.Generate(context.GetPdfDocument());
                 }
                 return svgImageXObject;
