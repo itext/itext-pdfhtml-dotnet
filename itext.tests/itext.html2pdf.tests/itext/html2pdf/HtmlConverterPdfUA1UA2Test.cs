@@ -211,6 +211,20 @@ namespace iText.Html2pdf {
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
         }
 
+        [NUnit.Framework.Test]
+        public virtual void InputWithTitleTagTest() {
+            String sourceHtml = SOURCE_FOLDER + "inputWithTitleTag.html";
+            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_inputWithTitleTagUa1.pdf";
+            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_inputWithTitleTagUa2.pdf";
+            String destinationPdfUa1 = DESTINATION_FOLDER + "inputWithTitleTagUa1.pdf";
+            String destinationPdfUa2 = DESTINATION_FOLDER + "inputWithTitleTagUa2.pdf";
+            ConverterProperties converterProperties = new ConverterProperties();
+            converterProperties.SetCreateAcroForm(true);
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, converterProperties, true, null);
+            // TODO DEVSIX-8868 Change this test when fixed
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, false);
+        }
+
         private void CreateSimplePdfUA2Document(PdfDocument pdfDocument) {
             byte[] bytes = File.ReadAllBytes(System.IO.Path.Combine(SOURCE_FOLDER + "simplePdfUA2.xmp"));
             XMPMeta xmpMeta = XMPMetaFactory.Parse(new MemoryStream(bytes));
@@ -235,36 +249,60 @@ namespace iText.Html2pdf {
 
         private void ConvertToUa1AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, bool 
             isExpectedOk, String expectedErrorMessage) {
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk
+                , expectedErrorMessage);
+        }
+
+        private void ConvertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, bool 
+            isExpectedOk) {
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk
+                );
+        }
+
+        private void ConvertToUa1AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, ConverterProperties
+             converterProperties, bool isExpectedOk, String expectedErrorMessage) {
             PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(destinationPdf), new PdfUAConfig(PdfUAConformance
                 .PDF_UA_1, "simple doc", "eng"));
-            ConverterProperties converterProperties = new ConverterProperties();
+            ConverterProperties converterPropertiesCopy;
+            if (converterProperties == null) {
+                converterPropertiesCopy = new ConverterProperties();
+            }
+            else {
+                converterPropertiesCopy = new ConverterProperties(converterProperties);
+            }
             FontProvider fontProvider = new BasicFontProvider(false, true, false);
-            converterProperties.SetFontProvider(fontProvider);
-            converterProperties.SetBaseUri(SOURCE_FOLDER);
-            converterProperties.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
+            converterPropertiesCopy.SetFontProvider(fontProvider);
+            converterPropertiesCopy.SetBaseUri(SOURCE_FOLDER);
+            converterPropertiesCopy.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
             if (expectedErrorMessage != null) {
                 Exception e = NUnit.Framework.Assert.Catch(typeof(PdfUAConformanceException), () => HtmlConverter.ConvertToPdf
-                    (new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties));
+                    (new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterPropertiesCopy));
                 NUnit.Framework.Assert.AreEqual(expectedErrorMessage, e.Message);
             }
             else {
-                HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
+                HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterPropertiesCopy
                     );
                 CompareAndCheckCompliance(destinationPdf, cmpPdf, isExpectedOk);
             }
         }
 
-        private void ConvertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, bool 
-            isExpectedOk) {
+        private void ConvertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, ConverterProperties
+             converterProperties, bool isExpectedOk) {
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion
                 (PdfVersion.PDF_2_0)));
             CreateSimplePdfUA2Document(pdfDocument);
-            ConverterProperties converterProperties = new ConverterProperties();
+            ConverterProperties converterPropertiesCopy;
+            if (converterProperties == null) {
+                converterPropertiesCopy = new ConverterProperties();
+            }
+            else {
+                converterPropertiesCopy = new ConverterProperties(converterProperties);
+            }
             FontProvider fontProvider = new BasicFontProvider(false, true, false);
-            converterProperties.SetFontProvider(fontProvider);
-            converterProperties.SetBaseUri(SOURCE_FOLDER);
-            converterProperties.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
-            HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
+            converterPropertiesCopy.SetFontProvider(fontProvider);
+            converterPropertiesCopy.SetBaseUri(SOURCE_FOLDER);
+            converterPropertiesCopy.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
+            HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterPropertiesCopy
                 );
             CompareAndCheckCompliance(destinationPdf, cmpPdf, isExpectedOk);
         }

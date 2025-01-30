@@ -287,6 +287,12 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_TYPE_IS_INVALID, Ignore = true)]
+        public virtual void InputImageTest() {
+            RunTest("inputImage");
+        }
+
+        [NUnit.Framework.Test]
         [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA, Ignore = true)]
         public virtual void LongInputValueCausesNothingTest() {
             ConverterProperties converterProperties = new ConverterProperties();
