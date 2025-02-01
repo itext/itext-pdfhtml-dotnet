@@ -225,6 +225,31 @@ namespace iText.Html2pdf {
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, false);
         }
 
+        [NUnit.Framework.Test]
+        public virtual void SvgBase64Test() {
+            // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
+            String sourceHtml = SOURCE_FOLDER + "svgBase64.html";
+            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_svgBase64Ua1.pdf";
+            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_svgBase64Ua2.pdf";
+            String destinationPdfUa1 = DESTINATION_FOLDER + "svgBase64Ua1.pdf";
+            String destinationPdfUa2 = DESTINATION_FOLDER + "svgBase64Ua2.pdf";
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, null);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PngInDivStyleTest() {
+            // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
+            String sourceHtml = SOURCE_FOLDER + "pngInDivStyle.html";
+            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_pngInDivStyleUa1.pdf";
+            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_pngInDivStyleUa2.pdf";
+            String destinationPdfUa1 = DESTINATION_FOLDER + "pngInDivStyleUa1.pdf";
+            String destinationPdfUa2 = DESTINATION_FOLDER + "pngInDivStyleUa2.pdf";
+            // Investigate why VeraPdf doesn't complain about the missing tag.
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+        }
+
         private void CreateSimplePdfUA2Document(PdfDocument pdfDocument) {
             byte[] bytes = File.ReadAllBytes(System.IO.Path.Combine(SOURCE_FOLDER + "simplePdfUA2.xmp"));
             XMPMeta xmpMeta = XMPMetaFactory.Parse(new MemoryStream(bytes));
