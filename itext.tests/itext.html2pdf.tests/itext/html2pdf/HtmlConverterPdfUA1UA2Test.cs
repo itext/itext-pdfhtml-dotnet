@@ -51,46 +51,45 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         public virtual void SimpleLinkTest() {
-            // TODO DEVSIX-8679 Apply links alternate description according to UA standard
             String sourceHtml = SOURCE_FOLDER + "simpleLink.html";
             String cmpPdfUa1 = SOURCE_FOLDER + "cmp_simpleLinkUa1.pdf";
             String cmpPdfUa2 = SOURCE_FOLDER + "cmp_simpleLinkUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "simpleLink.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "simpleLink.pdf";
-            String expectedUa1Message = MessageFormatUtil.Format(PdfUAExceptionMessageConstants.ANNOTATION_OF_TYPE_0_SHOULD_HAVE_CONTENTS_OR_ALT_KEY
-                , PdfName.Link.GetValue());
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
-            // Expected valid UA-2 document because PDF/UA-2 does not require Contents in Link annotations
+            String destinationPdfUa1 = DESTINATION_FOLDER + "simpleLinkUa1.pdf";
+            String destinationPdfUa2 = DESTINATION_FOLDER + "simpleLinkUa2.pdf";
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void BackwardLinkTest() {
-            // TODO DEVSIX-8679 Apply links alternate description according to UA standard
             String sourceHtml = SOURCE_FOLDER + "backwardLink.html";
             String cmpPdfUa1 = SOURCE_FOLDER + "cmp_backwardLinkUa1.pdf";
             String cmpPdfUa2 = SOURCE_FOLDER + "cmp_backwardLinkUa2.pdf";
             String destinationPdfUa1 = DESTINATION_FOLDER + "backwardLinkUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "backwardLinkUa2.pdf";
-            String expectedUa1Message = MessageFormatUtil.Format(PdfUAExceptionMessageConstants.ANNOTATION_OF_TYPE_0_SHOULD_HAVE_CONTENTS_OR_ALT_KEY
-                , PdfName.Link.GetValue());
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
-            // Expected valid UA-2 document because PDF/UA-2 does not require Contents in Link annotations
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void ImageLinkTest() {
-            // TODO DEVSIX-8679 Apply links alternate description according to UA standard
             String sourceHtml = SOURCE_FOLDER + "imageLink.html";
             String cmpPdfUa1 = SOURCE_FOLDER + "cmp_imageLinkUa1.pdf";
             String cmpPdfUa2 = SOURCE_FOLDER + "cmp_imageLinkUa2.pdf";
             String destinationPdfUa1 = DESTINATION_FOLDER + "imageLinkUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "imageLinkUa2.pdf";
-            String expectedUa1Message = MessageFormatUtil.Format(PdfUAExceptionMessageConstants.ANNOTATION_OF_TYPE_0_SHOULD_HAVE_CONTENTS_OR_ALT_KEY
-                , PdfName.Link.GetValue());
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
-            // Expected valid UA-2 document because PDF/UA-2 does not require Contents in Link annotations
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ExternalLinkTest() {
+            String sourceHtml = SOURCE_FOLDER + "externalLink.html";
+            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_externalLinkUa1.pdf";
+            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_externalLinkUa2.pdf";
+            String destinationPdfUa1 = DESTINATION_FOLDER + "externalLinkUa1.pdf";
+            String destinationPdfUa2 = DESTINATION_FOLDER + "externalLinkUa2.pdf";
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
@@ -187,15 +186,12 @@ namespace iText.Html2pdf {
         public virtual void LinkWithPageBreakBeforeTest() {
             // TODO DEVSIX-8864 PDF 2.0: Destination in GoTo action is not a structure destination
             // TODO DEVSIX-8476 PDF 2.0 doesn't allow P tag be a child of H tag
-            // TODO DEVSIX-8679 Apply links alternate description according to UA standard
             String sourceHtml = SOURCE_FOLDER + "linkWithPageBreakBefore.html";
             String cmpPdfUa1 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa1.pdf";
             String cmpPdfUa2 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa2.pdf";
             String destinationPdfUa1 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa2.pdf";
-            String expectedUa1Message = MessageFormatUtil.Format(PdfUAExceptionMessageConstants.ANNOTATION_OF_TYPE_0_SHOULD_HAVE_CONTENTS_OR_ALT_KEY
-                , PdfName.Link.GetValue());
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
         }
 
