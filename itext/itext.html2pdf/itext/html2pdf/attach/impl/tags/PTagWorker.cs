@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -121,10 +121,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             // Child might be inline, however still have display:block; it behaves like a block,
             // however p includes it in own occupied area
             IPropertyContainer element = childTagWorker.GetElementResult();
-            if (childTagWorker is ImgTagWorker && CssConstants.BLOCK.Equals(((ImgTagWorker)childTagWorker).GetDisplay(
-                ))) {
-                IPropertyContainer propertyContainer = childTagWorker.GetElementResult();
-                ProcessBlockElement((Image)propertyContainer);
+            if (childTagWorker is ImgTagWorker && element is Image && CssConstants.BLOCK.Equals(((ImgTagWorker)childTagWorker
+                ).GetDisplay())) {
+                ProcessBlockElement((Image)element);
                 return true;
             }
             else {

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -27,7 +27,6 @@ using iText.Commons.Actions.Contexts;
 using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Exceptions;
-using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
@@ -37,6 +36,7 @@ using iText.Pdfa;
 using iText.StyledXmlParser;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup;
+using iText.StyledXmlParser.Resolver.Font;
 
 namespace iText.Html2pdf {
     /// <summary>The HtmlConverter is the class you will use most when converting HTML to PDF.</summary>
@@ -748,13 +748,13 @@ namespace iText.Html2pdf {
                     properties = new ConverterProperties();
                 }
                 if (properties.GetFontProvider() == null) {
-                    properties.SetFontProvider(new DefaultFontProvider(false, true, false));
+                    properties.SetFontProvider(new BasicFontProvider(false, true, false));
                 }
             }
             else {
                 if (document == null && properties != null && properties.GetPdfAConformance() != null) {
                     if (properties.GetFontProvider() == null) {
-                        properties.SetFontProvider(new DefaultFontProvider(false, true, false));
+                        properties.SetFontProvider(new BasicFontProvider(false, true, false));
                     }
                 }
             }

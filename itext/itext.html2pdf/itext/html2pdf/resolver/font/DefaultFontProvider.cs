@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -21,14 +21,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using System.Collections.Generic;
-using System.IO;
-using Microsoft.Extensions.Logging;
-using iText.Commons;
-using iText.Html2pdf.Logs;
-using iText.IO.Util;
 using iText.Layout.Font;
-using iText.Layout.Renderer;
 using iText.StyledXmlParser.Resolver.Font;
 
 namespace iText.Html2pdf.Resolver.Font {
@@ -39,37 +32,23 @@ namespace iText.Html2pdf.Resolver.Font {
     /// the font provider in iText's styled-xml-parser, also includes a
     /// series of fonts that are shipped with the add-on.
     /// </summary>
+    /// <remarks>
+    /// The default
+    /// <see cref="iText.StyledXmlParser.Resolver.Font.BasicFontProvider"/>
+    /// for pdfHTML, that, as opposed to
+    /// the font provider in iText's styled-xml-parser, also includes a
+    /// series of fonts that are shipped with the add-on.
+    /// <para />
+    /// Deprecated in favour of
+    /// <see cref="iText.StyledXmlParser.Resolver.Font.BasicFontProvider"/>
+    /// since it has the same functionality
+    /// This class will be removed and
+    /// <see cref="iText.StyledXmlParser.Resolver.Font.BasicFontProvider"/>
+    /// will be renamed to
+    /// <c>DefaultFontProvider</c>
+    /// </remarks>
+    [Obsolete]
     public class DefaultFontProvider : BasicFontProvider {
-//\cond DO_NOT_DOCUMENT
-        /// <summary>The path to the shipped fonts.</summary>
-        internal const String SHIPPED_FONT_RESOURCE_PATH = "iText.Html2Pdf.font.";
-//\endcond
-
-//\cond DO_NOT_DOCUMENT
-        /// <summary>The file names of the shipped fonts.</summary>
-        internal static readonly String[] SHIPPED_FONT_NAMES = new String[] { "NotoSansMono-Regular.ttf", "NotoSansMono-Bold.ttf"
-            , "NotoSans-Regular.ttf", "NotoSans-Bold.ttf", "NotoSans-BoldItalic.ttf", "NotoSans-Italic.ttf", "NotoSerif-Regular.ttf"
-            , "NotoSerif-Bold.ttf", "NotoSerif-BoldItalic.ttf", "NotoSerif-Italic.ttf" };
-//\endcond
-
-        /// <summary>The logger.</summary>
-        private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Resolver.Font.DefaultFontProvider
-            ));
-
-        private const String DEFAULT_FONT_FAMILY = "Times";
-
-        // This range exclude Hebrew, Arabic, Syriac, Arabic Supplement, Thaana, NKo, Samaritan,
-        // Mandaic, Syriac Supplement, Arabic Extended-A, Devanagari, Bengali, Gurmukhi, Gujarati,
-        // Oriya, Tamil, Telugu, Kannada, Malayalam, Sinhala, Thai unicode blocks.
-        // Those blocks either require pdfCalligraph or do not supported by GNU Free Fonts.
-        private static readonly Range FREE_FONT_RANGE = new RangeBuilder().AddRange(0, 0x058F).AddRange(0x0E80, int.MaxValue
-            ).Create();
-
-        //we want to add free fonts to font provider before calligraph fonts. However, the existing public API states
-        // that addCalligraphFonts() should be used first to load calligraph fonts and to define the range for loading free fonts.
-        // In order to maintain backward compatibility, this temporary field is used to stash calligraph fonts before free fonts are loaded.
-        private IList<byte[]> calligraphyFontsTempList = new List<byte[]>();
-
         /// <summary>
         /// Creates a new
         /// <see cref="DefaultFontProvider"/>
@@ -91,7 +70,7 @@ namespace iText.Html2pdf.Resolver.Font {
         ///     </param>
         public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFonts, bool registerSystemFonts
             )
-            : this(registerStandardPdfFonts, registerShippedFonts, registerSystemFonts, DEFAULT_FONT_FAMILY) {
+            : base(registerStandardPdfFonts, registerShippedFonts, registerSystemFonts) {
         }
 
         /// <summary>
@@ -107,38 +86,23 @@ namespace iText.Html2pdf.Resolver.Font {
         /// <param name="defaultFontFamily">default font family</param>
         public DefaultFontProvider(bool registerStandardPdfFonts, bool registerShippedFonts, bool registerSystemFonts
             , String defaultFontFamily)
-            : base(registerStandardPdfFonts, registerSystemFonts, defaultFontFamily) {
-            if (registerShippedFonts) {
-                AddAllAvailableFonts(AddCalligraphFonts());
-            }
-        }
-
-        private void AddAllAvailableFonts(Range rangeToLoad) {
-            AddShippedFonts(rangeToLoad);
-            foreach (byte[] fontData in calligraphyFontsTempList) {
-                AddFont(fontData, null);
-            }
-            calligraphyFontsTempList = null;
+            : base(registerStandardPdfFonts, registerShippedFonts, registerSystemFonts, defaultFontFamily) {
         }
 
         /// <summary>Adds the shipped fonts.</summary>
+        /// <remarks>
+        /// Adds the shipped fonts.
+        /// <para />
+        /// Deprecated since similar method was added to parent class.
+        /// </remarks>
         /// <param name="rangeToLoad">
         /// a unicode
         /// <see cref="iText.Layout.Font.Range"/>
         /// to load characters
         /// </param>
-        private void AddShippedFonts(Range rangeToLoad) {
-            foreach (String fontName in SHIPPED_FONT_NAMES) {
-                try {
-                    using (Stream stream = ResourceUtil.GetResourceStream(SHIPPED_FONT_RESOURCE_PATH + fontName)) {
-                        byte[] fontProgramBytes = StreamUtil.InputStreamToArray(stream);
-                        AddFont(fontProgramBytes, null, rangeToLoad);
-                    }
-                }
-                catch (Exception) {
-                    LOGGER.LogError(Html2PdfLogMessageConstant.ERROR_LOADING_FONT);
-                }
-            }
+        [Obsolete]
+        protected override void AddShippedFonts(Range rangeToLoad) {
+            base.AddShippedFonts(rangeToLoad);
         }
 
         /// <summary>This method loads a list of noto fonts from pdfCalligraph (if present in the classpath!) into FontProvider.
@@ -150,6 +114,8 @@ namespace iText.Html2pdf.Resolver.Font {
         /// NotoSerifKhmer, NotoSerifMalayalam, NotoSerifTamil, NotoSerifTelugu, NotoSerifThai.
         /// If it's needed to have a DefaultFontProvider without typography fonts loaded,
         /// create an extension of DefaultFontProvider and override this method so it does nothing and only returns null.
+        /// <para />
+        /// Deprecated since similar method was added to parent class.
         /// </remarks>
         /// <returns>
         /// a unicode
@@ -157,20 +123,9 @@ namespace iText.Html2pdf.Resolver.Font {
         /// that excludes the loaded from pdfCalligraph fonts,
         /// i.e. the unicode range that is to be rendered with any other font contained in this FontProvider
         /// </returns>
-        protected internal virtual Range AddCalligraphFonts() {
-            if (TypographyUtils.IsPdfCalligraphAvailable()) {
-                try {
-                    IDictionary<String, byte[]> fontStreams = TypographyUtils.LoadShippedFonts();
-                    this.calligraphyFontsTempList.AddAll(fontStreams.Values);
-                    // here we return a unicode range that excludes the loaded from the calligraph module fonts
-                    // i.e. the unicode range that is to be rendered with standard or shipped free fonts
-                    return FREE_FONT_RANGE;
-                }
-                catch (Exception) {
-                    LOGGER.LogError(Html2PdfLogMessageConstant.ERROR_LOADING_FONT);
-                }
-            }
-            return null;
+        [Obsolete]
+        protected override Range AddCalligraphFonts() {
+            return base.AddCalligraphFonts();
         }
     }
 }

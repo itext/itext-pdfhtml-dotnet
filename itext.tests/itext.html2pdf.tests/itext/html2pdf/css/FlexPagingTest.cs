@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -139,6 +139,13 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void TableInFlexOnSplitTest() {
             ConvertToPdfAndCompare("table-in-flex-on-split", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
+            4)]
+        public virtual void TableInFlexOnSplit2Test() {
+            ConvertToPdfAndCompare("table-in-flex-on-split2", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]

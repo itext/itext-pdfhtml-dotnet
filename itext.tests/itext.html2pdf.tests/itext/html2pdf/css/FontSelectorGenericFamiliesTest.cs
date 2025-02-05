@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -23,9 +23,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Html2pdf;
-using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Utils;
 using iText.Layout.Font;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 
 namespace iText.Html2pdf.Css {
@@ -46,12 +46,12 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void StandardFontsTest() {
-            RunTest("standardFonts", new DefaultFontProvider(true, false, false));
+            RunTest("standardFonts", new BasicFontProvider(true, false, false));
         }
 
         [NUnit.Framework.Test]
         public virtual void EmbeddedFontsTest() {
-            RunTest("embeddedFonts", new DefaultFontProvider(false, true, false));
+            RunTest("embeddedFonts", new BasicFontProvider(false, true, false));
         }
 
         public virtual void RunTest(String testName, FontProvider fontProvider) {

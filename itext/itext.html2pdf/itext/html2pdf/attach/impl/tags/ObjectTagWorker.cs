@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -35,9 +35,11 @@ using iText.Layout.Element;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Resolver.Resource;
 using iText.Svg.Converter;
+using iText.Svg.Element;
 using iText.Svg.Exceptions;
 using iText.Svg.Processors;
 using iText.Svg.Processors.Impl;
+using iText.Svg.Xobject;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>
@@ -109,7 +111,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         public virtual void ProcessEnd(IElementNode element, ProcessorContext context) {
             // Create Image object
             if (res != null) {
-                image = processUtil.CreateSvgImageFromProcessingResult(res);
+                SvgImageXObject svgImageXObject = processUtil.CreateXObjectFromProcessingResult(res, context, false);
+                svgImageXObject.SetIsCreatedByObject(true);
+                image = new SvgImage(svgImageXObject);
                 AccessiblePropHelper.TrySetLangAttribute(image, element);
             }
         }

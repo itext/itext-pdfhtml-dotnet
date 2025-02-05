@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -69,15 +69,6 @@ namespace iText.Html2pdf.Attach.Util {
         }
 //\endcond
 
-//\cond DO_NOT_DOCUMENT
-        /// <summary>Checks if a character is white space value that doesn't cause a newline.</summary>
-        /// <param name="ch">the character</param>
-        /// <returns>true, if the character is a white space character, but no newline</returns>
-        internal static bool IsNonLineBreakSpace(char ch) {
-            return WhiteSpaceUtil.IsNonEmSpace(ch) && ch != '\n';
-        }
-//\endcond
-
         /// <summary>Trims a sub list of leaf elements.</summary>
         /// <param name="list">the list of leaf elements</param>
         /// <param name="begin">the index where to begin</param>
@@ -129,7 +120,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <returns>the index of first character that isn't white space</returns>
         private static int GetIndexOfFirstNonSpace(Text text) {
             int pos = 0;
-            while (pos < text.GetText().Length && IsNonLineBreakSpace(text.GetText()[pos])) {
+            while (pos < text.GetText().Length && WhiteSpaceUtil.IsNonLineBreakSpace(text.GetText()[pos])) {
                 pos++;
             }
             return pos;
@@ -144,7 +135,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <returns>the index following the last character that isn't white space</returns>
         private static int GetIndexAfterLastNonSpace(Text text) {
             int pos = text.GetText().Length;
-            while (pos > 0 && IsNonLineBreakSpace(text.GetText()[pos - 1])) {
+            while (pos > 0 && WhiteSpaceUtil.IsNonLineBreakSpace(text.GetText()[pos - 1])) {
                 pos--;
             }
             return pos;

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -25,11 +25,11 @@ using System.IO;
 using iText.Commons.Utils;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
-using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Pdfa;
 using iText.StyledXmlParser.Css.Media;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
@@ -228,7 +228,7 @@ namespace iText.Html2pdf.Element {
             using (FileStream fileInputStream = new FileStream(SOURCE_FOLDER + "listToPdfa.html", FileMode.Open, FileAccess.Read
                 )) {
                 HtmlConverter.ConvertToPdf(fileInputStream, pdfADocument, new ConverterProperties().SetMediaDeviceDescription
-                    (new MediaDeviceDescription(MediaType.PRINT)).SetFontProvider(new DefaultFontProvider(false, true, false
+                    (new MediaDeviceDescription(MediaType.PRINT)).SetFontProvider(new BasicFontProvider(false, true, false
                     )));
             }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "listToPdfa.pdf", SOURCE_FOLDER

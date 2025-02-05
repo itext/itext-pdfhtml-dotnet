@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css3_selectors {
-    [NUnit.Framework.Ignore("DEVSIX-1440")]
     public class Css3Modsel_79_NegatedFirstOfTypePseudoClassTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "css3-modsel-79.html";

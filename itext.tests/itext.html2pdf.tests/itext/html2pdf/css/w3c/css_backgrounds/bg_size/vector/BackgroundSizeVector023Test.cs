@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -22,13 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds.Bg_size.Vector {
-    // TODO DEVSIX-4388 percentage is not supported for rect's x, y, width and height
-    // TODO DEVSIX-4625 the resolution of auto dimensions of div with background-size and svg height is not clear
-    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNKNOWN_ABSOLUTE_METRIC_LENGTH_PARSED
-        , Count = 7)]
     public class BackgroundSizeVector023Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "background-size-vector-023.html";

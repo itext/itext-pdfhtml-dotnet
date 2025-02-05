@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -29,7 +29,6 @@ using iText.Kernel.Pdf.Tagging;
 using iText.Kernel.Pdf.Tagutils;
 using iText.Kernel.Utils;
 using iText.Layout.Element;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Attribute {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -238,7 +237,6 @@ namespace iText.Html2pdf.Attribute {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ATTEMPT_TO_CREATE_A_TAG_FOR_FINISHED_HINT, Count = 1)]
         public virtual void LangAttrInDivAndSpanForTagPdfTest() {
             PdfDocument doc = CompareResultWithDocument("langAttrInDivAndSpanForTagPdfTest");
             NUnit.Framework.Assert.AreEqual("ru", doc.GetCatalog().GetLang().ToUnicodeString());

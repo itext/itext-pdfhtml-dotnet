@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -20,21 +20,27 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+using System;
+using iText.Html2pdf.Attach;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout.Element;
+using iText.Layout.Properties;
+using iText.StyledXmlParser.Css;
+using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Resolver.Resource;
 using iText.Svg.Converter;
 using iText.Svg.Element;
 using iText.Svg.Processors;
 using iText.Svg.Renderers;
+using iText.Svg.Utils;
 using iText.Svg.Xobject;
 
 namespace iText.Html2pdf.Util {
     /// <summary>Utility class for handling operations related to SVG</summary>
     public class SvgProcessingUtil {
-        private ResourceResolver resourceResolver;
+        private readonly ResourceResolver resourceResolver;
 
         /// <summary>
         /// Creates a new
@@ -58,6 +64,7 @@ namespace iText.Html2pdf.Util {
         /// <param name="result">processing result containing the SVG information</param>
         /// <param name="pdfDocument">pdf that shall contain the image</param>
         /// <returns>SVG image layout object</returns>
+        [Obsolete]
         public virtual Image CreateImageFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument) {
             SvgImageXObject xObject = (SvgImageXObject)CreateXObjectFromProcessingResult(result, pdfDocument);
             return new SvgImage(xObject);
@@ -70,6 +77,7 @@ namespace iText.Html2pdf.Util {
         /// </summary>
         /// <param name="result">processing result containing the SVG information</param>
         /// <returns>SVG image layout object</returns>
+        [Obsolete]
         public virtual Image CreateSvgImageFromProcessingResult(ISvgProcessorResult result) {
             return CreateImageFromProcessingResult(result, null);
         }
@@ -88,6 +96,7 @@ namespace iText.Html2pdf.Util {
         /// <see cref="iText.Svg.Xobject.SvgImageXObject"/>
         /// instance
         /// </returns>
+        [Obsolete]
         public virtual PdfFormXObject CreateXObjectFromProcessingResult(ISvgProcessorResult result, PdfDocument pdfDocument
             ) {
             ISvgNodeRenderer topSvgRenderer = result.GetRootRenderer();
@@ -102,6 +111,52 @@ namespace iText.Html2pdf.Util {
                 svgImageXObject.Generate(pdfDocument);
             }
             return svgImageXObject;
+        }
+
+        /// <summary>
+        /// Create an
+        /// <see cref="iText.Kernel.Pdf.Xobject.PdfFormXObject"/>
+        /// tied to the passed
+        /// <see cref="iText.Html2pdf.Attach.ProcessorContext"/>
+        /// using the SVG processing result.
+        /// </summary>
+        /// <param name="result">processing result containing the SVG information</param>
+        /// <param name="context">html2pdf processor context</param>
+        /// <param name="generateAbsolutelySizedSvg">
+        /// if true and context has pdf document and svg is not relative sized, it will be immediately
+        /// generated, otherwise no generation will be performed
+        /// </param>
+        /// <returns>
+        /// new
+        /// <see cref="iText.Svg.Xobject.SvgImageXObject"/>
+        /// instance
+        /// </returns>
+        public virtual SvgImageXObject CreateXObjectFromProcessingResult(ISvgProcessorResult result, ProcessorContext
+             context, bool generateAbsolutelySizedSvg) {
+            float em = context.GetCssContext().GetCurrentFontSize();
+            SvgDrawContext svgContext = new SvgDrawContext(resourceResolver, result.GetFontProvider());
+            svgContext.GetCssContext().SetRootFontSize(context.GetCssContext().GetRootFontSize());
+            if (IsSvgRelativeSized(result.GetRootRenderer(), context)) {
+                return new SvgImageXObject(result, svgContext, em, context.GetPdfDocument());
+            }
+            else {
+                Rectangle bbox = SvgCssUtils.ExtractWidthAndHeight(result.GetRootRenderer(), em, svgContext);
+                SvgImageXObject svgImageXObject = new SvgImageXObject(bbox, result, resourceResolver);
+                if (context.GetPdfDocument() != null && generateAbsolutelySizedSvg) {
+                    svgImageXObject.Generate(context.GetPdfDocument());
+                }
+                return svgImageXObject;
+            }
+        }
+
+        private static bool IsSvgRelativeSized(ISvgNodeRenderer rootRenderer, ProcessorContext context) {
+            float em = context.GetCssContext().GetCurrentFontSize();
+            float rem = context.GetCssContext().GetRootFontSize();
+            String widthStr = rootRenderer.GetAttribute(CommonCssConstants.WIDTH);
+            UnitValue width = CssDimensionParsingUtils.ParseLengthValueToPt(widthStr, em, rem);
+            String heightStr = rootRenderer.GetAttribute(CommonCssConstants.HEIGHT);
+            UnitValue height = CssDimensionParsingUtils.ParseLengthValueToPt(heightStr, em, rem);
+            return width == null || width.IsPercentValue() || height == null || height.IsPercentValue();
         }
     }
 }

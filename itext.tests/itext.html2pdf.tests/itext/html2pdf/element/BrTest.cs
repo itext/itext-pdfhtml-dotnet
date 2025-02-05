@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -89,6 +89,17 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void BrClearNoneTest() {
             ConvertToPdfAndCompare("brClearNone", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TaggedBrTest() {
+            // TODO: DEVSIX-8698 creates an empty tag for the br tag
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "taggedBr.pdf"));
+            pdfDocument.SetTagged();
+            HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "taggedBr.html", FileMode.Open, FileAccess.Read), 
+                pdfDocument, new ConverterProperties());
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "taggedBr.pdf", sourceFolder
+                 + "cmp_taggedBr.pdf", destinationFolder, "diff05_"));
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -284,6 +284,12 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void CheckboxDiffWidthDisplayBlockTest() {
             RunTest("checkboxDiffWidthDisplayBlock");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_TYPE_IS_INVALID, Ignore = true)]
+        public virtual void InputImageTest() {
+            RunTest("inputImage");
         }
 
         [NUnit.Framework.Test]

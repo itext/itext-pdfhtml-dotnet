@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -70,7 +70,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 }
                 else {
                     if (imageXObject is SvgImageXObject) {
-                        image = new SvgImage((SvgImageXObject)imageXObject);
+                        SvgImageXObject svgImageXObject = (SvgImageXObject)imageXObject;
+                        image = new SvgImage(svgImageXObject);
+                        svgImageXObject.SetIsCreatedByImg(true);
                     }
                     else {
                         if (imageXObject is PdfFormXObject) {

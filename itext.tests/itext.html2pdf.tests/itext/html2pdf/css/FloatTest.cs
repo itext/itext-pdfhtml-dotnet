@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -746,6 +746,20 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void FloatsPositioningOutsideBfcTest() {
             RunTest("floatsPositioningOutsideBfc", "diff_floatsPositioningOutsideBfc_");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TagFloatedButtonsTest() {
+            // TODO: update cmp file after DEVSIX-8703 will be fixed
+            String htmlName = SOURCE_FOLDER + "tagFloatedButtons.html";
+            String outFileName = DESTINATION_FOLDER + "tagFloatedButtons.pdf";
+            String cmpFileName = SOURCE_FOLDER + "cmp_tagFloatedButtons.pdf";
+            PdfDocument doc = new PdfDocument(new PdfWriter(outFileName));
+            doc.SetTagged();
+            HtmlConverter.ConvertToPdf(new FileStream(htmlName, FileMode.Open, FileAccess.Read), doc, new ConverterProperties
+                ().SetBaseUri(SOURCE_FOLDER).SetCreateAcroForm(true));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFileName, cmpFileName, DESTINATION_FOLDER
+                ));
         }
 
         private void RunTest(String testName, String diff) {

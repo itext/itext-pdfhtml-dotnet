@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -180,7 +180,7 @@ namespace iText.Html2pdf.Resolver.Resource {
             }
             ISvgProcessorResult res = SvgConverter.ParseAndProcess(stream, svgConverterProperties);
             SvgProcessingUtil processingUtil = new SvgProcessingUtil(context.GetResourceResolver());
-            return processingUtil.CreateXObjectFromProcessingResult(res, context.GetPdfDocument());
+            return processingUtil.CreateXObjectFromProcessingResult(res, context, true);
         }
     }
 }

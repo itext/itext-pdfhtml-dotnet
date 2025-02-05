@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -28,7 +28,8 @@ namespace iText.Html2pdf.Attach.Util {
         public static SvgConverterProperties MapToSvgConverterProperties(ProcessorContext context) {
             SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
             svgConverterProperties.SetFontProvider(context.GetFontProvider()).SetBaseUri(context.GetBaseUri()).SetMediaDeviceDescription
-                (context.GetDeviceDescription()).SetResourceRetriever(context.GetResourceResolver().GetRetriever());
+                (context.GetDeviceDescription()).SetResourceRetriever(context.GetResourceResolver().GetRetriever()).SetCssStyleSheet
+                (context.GetCssStyleSheet());
             return svgConverterProperties;
         }
     }

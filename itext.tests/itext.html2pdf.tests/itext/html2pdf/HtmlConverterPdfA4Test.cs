@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -23,12 +23,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Commons.Utils;
-using iText.Html2pdf.Resolver.Font;
 using iText.Kernel.Pdf;
 using iText.Pdfa;
 using iText.Pdfa.Checker;
 using iText.Pdfa.Exceptions;
 using iText.Pdfa.Logs;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -116,7 +116,7 @@ namespace iText.Html2pdf {
             converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_4);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoNaskhArabic-Regular.ttf");
             converterProperties.SetFontProvider(fontProvider);
             FileStream fOutput = new FileStream(destinationPdf, FileMode.Create);
@@ -133,7 +133,7 @@ namespace iText.Html2pdf {
             converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_4);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
             converterProperties.SetFontProvider(fontProvider);
             using (FileStream fOutput = new FileStream(destinationPdf, FileMode.Create)) {
@@ -155,7 +155,7 @@ namespace iText.Html2pdf {
             converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_4);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
             converterProperties.SetFontProvider(fontProvider);
             using (FileStream fOutput = new FileStream(destinationPdf, FileMode.Create)) {
@@ -178,7 +178,7 @@ namespace iText.Html2pdf {
             converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_4);
             converterProperties.SetDocumentOutputIntent(new PdfOutputIntent("Custom", "", "http://www.color.org", "sRGB IEC61966-2.1"
                 , new FileStream(SOURCE_FOLDER + "sRGB Color Space Profile.icm", FileMode.Open, FileAccess.Read)));
-            DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoEmoji-Regular.ttf");
             converterProperties.SetFontProvider(fontProvider);
             FileStream fOutput = new FileStream(destinationPdf, FileMode.Create);
@@ -223,7 +223,7 @@ namespace iText.Html2pdf {
             String cmpPdf = SOURCE_FOLDER + "cmp_simple_doc_custom_font.pdf";
             String destinationPdf = DESTINATION_FOLDER + "simple_doc_custom_font.pdf";
             ConverterProperties properties = new ConverterProperties();
-            DefaultFontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            BasicFontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddFont(RESOURCES_SOURCE_FOLDER + "NotoSans-Regular.ttf");
             properties.SetFontProvider(fontProvider);
             PdfWriter writer = new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion(PdfVersion.PDF_2_0));

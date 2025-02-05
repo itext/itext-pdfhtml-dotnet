@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -245,6 +245,14 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void ABlockInPTagTest() {
             ConvertToPdfAndCompare("aBlockInPTag", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
+            )]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
+        public virtual void NotAvailableImageDisplayBlockTest() {
+            ConvertToPdfAndCompare("notAvailableImageDisplayBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }

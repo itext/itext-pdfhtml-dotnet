@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using iText.Commons.Utils;
 using iText.IO.Font;
 using iText.Kernel.Font;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 
 namespace iText.Html2pdf.Resolver.Font {
@@ -145,12 +146,23 @@ namespace iText.Html2pdf.Resolver.Font {
         private static IList<PdfFont> ReadFontCollection() {
             PdfFont font;
             IList<PdfFont> pdfFontList = new List<PdfFont>();
-            foreach (String file in DefaultFontProvider.SHIPPED_FONT_NAMES) {
-                font = PdfFontFactory.CreateFont(DefaultFontProvider.SHIPPED_FONT_RESOURCE_PATH + file, PdfEncodings.IDENTITY_H
-                    );
+            FontsUnicodeCoverageTest.TestDefaultFontProvider provider = new FontsUnicodeCoverageTest.TestDefaultFontProvider
+                ();
+            foreach (String file in provider.GetShippedFontNames()) {
+                font = PdfFontFactory.CreateFont(provider.GetShippedFontResourcePath() + file, PdfEncodings.IDENTITY_H);
                 pdfFontList.Add(font);
             }
             return pdfFontList;
+        }
+
+        private class TestDefaultFontProvider : BasicFontProvider {
+            public virtual ICollection<String> GetShippedFontNames() {
+                return shippedFontNames;
+            }
+
+            public virtual String GetShippedFontResourcePath() {
+                return shippedFontResourcePath;
+            }
         }
     }
 }

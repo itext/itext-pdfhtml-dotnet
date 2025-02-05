@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -33,6 +33,7 @@ using iText.Html2pdf.Resolver.Resource;
 using iText.IO.Font;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
+using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Media;
 using iText.StyledXmlParser.Resolver.Resource;
 
@@ -81,6 +82,9 @@ namespace iText.Html2pdf.Attach {
 
         /// <summary>The CSS context.</summary>
         private CssContext cssContext;
+
+        /// <summary>The CSS style sheet.</summary>
+        private CssStyleSheet cssStyleSheet;
 
         /// <summary>The link context</summary>
         private LinkContext linkContext;
@@ -148,6 +152,7 @@ namespace iText.Html2pdf.Attach {
             resourceResolver = new HtmlResourceResolver(baseUri, this, converterProperties.GetResourceRetriever());
             limitOfLayouts = converterProperties.GetLimitOfLayouts();
             cssContext = new CssContext();
+            cssStyleSheet = null;
             linkContext = new LinkContext();
             createAcroForm = converterProperties.IsCreateAcroForm();
             formFieldNameResolver = new FormFieldNameResolver();
@@ -312,6 +317,7 @@ namespace iText.Html2pdf.Attach {
             this.state = new State();
             this.resourceResolver.ResetCache();
             this.cssContext = new CssContext();
+            this.cssStyleSheet = null;
             this.linkContext = new LinkContext();
             this.formFieldNameResolver.Reset();
             //Reset font provider. PdfFonts shall be reseted.
@@ -377,6 +383,26 @@ namespace iText.Html2pdf.Attach {
         /// <returns>true if enabled, false otherwise</returns>
         public virtual bool IsContinuousContainerEnabled() {
             return continuousContainerEnabled;
+        }
+
+        /// <summary>Sets the CSS style sheet.</summary>
+        /// <remarks>
+        /// Sets the CSS style sheet.
+        /// Style sheet is used to apply CSS statements to elements.
+        /// </remarks>
+        /// <param name="cssStyleSheet">the CSS style sheet</param>
+        public virtual void SetCssStyleSheet(CssStyleSheet cssStyleSheet) {
+            this.cssStyleSheet = cssStyleSheet;
+        }
+
+        /// <summary>Gets the CSS style sheet.</summary>
+        /// <remarks>
+        /// Gets the CSS style sheet.
+        /// Style sheet is used to apply CSS statements to elements.
+        /// </remarks>
+        /// <returns>the CSS style sheet</returns>
+        public virtual CssStyleSheet GetCssStyleSheet() {
+            return cssStyleSheet;
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.IO;
+using iText.Commons.Utils;
 using iText.Html2pdf;
 using iText.Kernel.Utils;
 using iText.Test;
@@ -62,6 +63,15 @@ namespace iText.Html2pdf.Element {
                  "preTest03.pdf"));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "preTest03.pdf", sourceFolder
                  + "cmp_preTest03.pdf", destinationFolder, "diff03_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void Pre04Test() {
+            String html = "<html>\r\n\r\n<body>\r\n    " + "<pre style=\"background-color: mistyrose\">Write your text here and convert it to PDF.\r\n    </pre>"
+                 + "\r\n</body>\r\n\r\n</html>";
+            HtmlConverter.ConvertToPdf(html, FileUtil.GetFileOutputStream((destinationFolder + "preTest04.pdf")));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "preTest04.pdf", sourceFolder
+                 + "cmp_preTest04.pdf", destinationFolder, "diff04_"));
         }
     }
 }

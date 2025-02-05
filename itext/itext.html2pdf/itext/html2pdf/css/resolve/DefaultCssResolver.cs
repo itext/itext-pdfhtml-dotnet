@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -118,6 +118,12 @@ namespace iText.Html2pdf.Css.Resolve {
             throw new Html2PdfException("custom AbstractCssContext implementations are not supported yet");
         }
 
+        /// <summary>Gets the CSS style sheet.</summary>
+        /// <returns>the CSS style sheet</returns>
+        public virtual CssStyleSheet GetCssStyleSheet() {
+            return cssStyleSheet;
+        }
+
         /* (non-Javadoc)
         * @see com.itextpdf.html2pdf.css.resolve.ICssResolver#resolveStyles(com.itextpdf.html2pdf.html.node.INode, com.itextpdf.html2pdf.css.resolve.CssContext)
         */
@@ -184,6 +190,8 @@ namespace iText.Html2pdf.Css.Resolve {
             if (element is IElementNode && TagConstants.HTML.Equals(((IElementNode)element).Name())) {
                 context.SetRootFontSize(elementStyles.Get(CssConstants.FONT_SIZE));
             }
+            context.SetCurrentFontSize(CssDimensionParsingUtils.ParseAbsoluteFontSize(elementStyles.Get(CssConstants.FONT_SIZE
+                )));
             ICollection<String> keys = new HashSet<String>();
             foreach (KeyValuePair<String, String> entry in elementStyles) {
                 if (CssConstants.INITIAL.Equals(entry.Value) || CssConstants.INHERIT.Equals(entry.Value)) {
@@ -247,27 +255,26 @@ namespace iText.Html2pdf.Css.Resolve {
             LinkedList<INode> q = new LinkedList<INode>();
             q.Add(rootNode);
             while (!q.IsEmpty()) {
-                INode currentNode = q.JGetFirst();
-                q.RemoveFirst();
+                INode currentNode = q.JRemoveFirst();
                 if (currentNode is IElementNode) {
-                    IElementNode headChildElement = (IElementNode)currentNode;
-                    if (TagConstants.STYLE.Equals(headChildElement.Name())) {
-                        if (currentNode.ChildNodes().Count > 0 && currentNode.ChildNodes()[0] is IDataNode) {
-                            String styleData = ((IDataNode)currentNode.ChildNodes()[0]).GetWholeData();
-                            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(styleData);
-                            styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                    IElementNode element = (IElementNode)currentNode;
+                    if (TagConstants.STYLE.Equals(element.Name())) {
+                        if (!element.ChildNodes().IsEmpty() && element.ChildNodes()[0] is IDataNode) {
+                            String styleData = ((IDataNode)element.ChildNodes()[0]).GetWholeData();
+                            CssStyleSheet styleSheet = CssStyleSheetParser.Parse(styleData, resourceResolver.GetBaseUri());
+                            styleSheet = WrapStyleSheetInMediaQueryIfNecessary(element, styleSheet);
                             cssStyleSheet.AppendCssStyleSheet(styleSheet);
                         }
                     }
                     else {
-                        if (CssUtils.IsStyleSheetLink(headChildElement)) {
-                            String styleSheetUri = headChildElement.GetAttribute(AttributeConstants.HREF);
+                        if (CssUtils.IsStyleSheetLink(element)) {
+                            String styleSheetUri = element.GetAttribute(AttributeConstants.HREF);
                             try {
                                 using (Stream stream = resourceResolver.RetrieveResourceAsInputStream(styleSheetUri)) {
                                     if (stream != null) {
-                                        CssStyleSheet styleSheet = CssStyleSheetParser.Parse(stream, resourceResolver.ResolveAgainstBaseUri(styleSheetUri
-                                            ).ToExternalForm());
-                                        styleSheet = WrapStyleSheetInMediaQueryIfNecessary(headChildElement, styleSheet);
+                                        String baseUri = resourceResolver.ResolveAgainstBaseUri(styleSheetUri).ToExternalForm();
+                                        CssStyleSheet styleSheet = CssStyleSheetParser.Parse(stream, baseUri);
+                                        styleSheet = WrapStyleSheetInMediaQueryIfNecessary(element, styleSheet);
                                         cssStyleSheet.AppendCssStyleSheet(styleSheet);
                                     }
                                 }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -89,7 +89,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void InlineSvgImageTest() {
-            // TODO DEVSIX-5265 Inline svg images don't work correctly if they are flex-items.
             ConvertToPdfAndCompare("inlineSvgImage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

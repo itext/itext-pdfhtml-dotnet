@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2024 Apryse Group NV
+Copyright (c) 1998-2025 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -22,10 +22,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.IO;
-using iText.Html2pdf.Resolver.Font;
 using iText.IO.Font;
 using iText.Kernel.Utils;
 using iText.Layout.Font;
+using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 using iText.Test.Attributes;
 
@@ -92,7 +92,7 @@ namespace iText.Html2pdf {
             // TODO: DEVSIX-4017 (Combination of default and pdfCalligraph fonts with italic style and '"courier new", courier,
             // monospace' family reproduces comparator exception. Update test after fixing.)
             ConverterProperties properties = new ConverterProperties();
-            FontProvider pro = new DefaultFontProvider();
+            FontProvider pro = new BasicFontProvider();
             pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSansArabic-Regular.ttf"));
             pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSansArabic-Bold.ttf"));
             pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSansGurmukhi-Regular.ttf"));
@@ -142,7 +142,7 @@ namespace iText.Html2pdf {
         [NUnit.Framework.Test]
         public virtual void DifferentFontFamiliesTest() {
             ConverterProperties properties = new ConverterProperties();
-            FontProvider fontProvider = new DefaultFontProvider(false, false, false);
+            FontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddDirectory(SOURCE_FOLDER + "Lato_fonts");
             properties.SetFontProvider(fontProvider);
             HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "differentFontFamilies.html"), new FileInfo(DESTINATION_FOLDER
