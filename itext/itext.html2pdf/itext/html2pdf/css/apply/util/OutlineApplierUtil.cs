@@ -34,6 +34,7 @@ using iText.StyledXmlParser.Css.Resolve;
 using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utility class to apply outline properties.</summary>
     public class OutlineApplierUtil {
         /// <summary>The logger.</summary>
         private static readonly ILogger LOGGER = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Css.Apply.Util.OutlineApplierUtil

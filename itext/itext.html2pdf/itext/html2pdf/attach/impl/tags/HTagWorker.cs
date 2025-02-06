@@ -27,6 +27,11 @@ using iText.Layout.Tagging;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
+    /// <summary>
+    /// TagWorker class for the
+    /// <c>h</c>
+    /// element.
+    /// </summary>
     public class HTagWorker : DivTagWorker {
         private String role;
 

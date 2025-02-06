@@ -30,6 +30,7 @@ using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utility class to apply transform properties.</summary>
     public class TransformationApplierUtil {
         /// <summary>
         /// Creates a new

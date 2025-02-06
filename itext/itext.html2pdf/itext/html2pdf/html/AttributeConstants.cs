@@ -296,6 +296,7 @@ namespace iText.Html2pdf.Html {
             , URL, WEEK })));
 
         // iText custom attributes
+        /// <summary>Class that holds object MIME types.</summary>
         public sealed class ObjectTypes {
             public const String SVGIMAGE = "image/svg+xml";
         }

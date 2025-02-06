@@ -24,7 +24,29 @@ using iText.Html2pdf.Attach;
 using iText.Svg.Processors.Impl;
 
 namespace iText.Html2pdf.Attach.Util {
+    /// <summary>
+    /// Utility class which helps to map
+    /// <see cref="iText.Html2pdf.Attach.ProcessorContext"/>
+    /// properties on
+    /// <see cref="iText.Svg.Processors.Impl.SvgConverterProperties"/>.
+    /// </summary>
     public class ContextMappingHelper {
+        /// <summary>
+        /// Map
+        /// <see cref="iText.Html2pdf.Attach.ProcessorContext"/>
+        /// properties to
+        /// <see cref="iText.Svg.Processors.Impl.SvgConverterProperties"/>.
+        /// </summary>
+        /// <param name="context">
+        /// 
+        /// <see cref="iText.Html2pdf.Attach.ProcessorContext"/>
+        /// instance
+        /// </param>
+        /// <returns>
+        /// 
+        /// <see cref="iText.Svg.Processors.Impl.SvgConverterProperties"/>
+        /// filled with necessary data for svg convertion
+        /// </returns>
         public static SvgConverterProperties MapToSvgConverterProperties(ProcessorContext context) {
             SvgConverterProperties svgConverterProperties = new SvgConverterProperties();
             svgConverterProperties.SetFontProvider(context.GetFontProvider()).SetBaseUri(context.GetBaseUri()).SetMediaDeviceDescription

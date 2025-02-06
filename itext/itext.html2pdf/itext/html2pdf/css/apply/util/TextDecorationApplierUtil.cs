@@ -28,6 +28,7 @@ using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utility class which processes text decoration properties.</summary>
     public sealed class TextDecorationApplierUtil {
         private const String IGNORED = "__ignored__";
 
@@ -42,6 +43,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private TextDecorationApplierUtil() {
         }
 
+        /// <summary>Expand text decoration properties to the element if needed.</summary>
+        /// <remarks>
+        /// Expand text decoration properties to the element if needed.
+        /// <para />
+        /// E.g. the following:
+        /// <c>text-decoration-line: overline underline; text-decoration-color: pink</c>
+        /// will be translated to:
+        /// <c>text-decoration-line: overline underline; text-decoration-color: pink pink</c>
+        /// </remarks>
+        /// <param name="currentNode">the element which decoration properties shall be expanded</param>
         public static void PropagateTextDecorationProperties(IElementNode currentNode) {
             ExpandTextDecorationProperties(currentNode);
             if (!ShouldPropagateTextDecorationProperties(currentNode)) {

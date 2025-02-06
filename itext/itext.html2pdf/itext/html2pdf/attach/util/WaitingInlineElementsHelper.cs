@@ -83,6 +83,8 @@ namespace iText.Html2pdf.Attach.Util {
             waitingLeaves.Add(element);
         }
 
+        /// <summary>Adds a block element to the waiting leaves.</summary>
+        /// <param name="element">the element</param>
         public virtual void Add(IBlockElement element) {
             waitingLeaves.Add(element);
         }

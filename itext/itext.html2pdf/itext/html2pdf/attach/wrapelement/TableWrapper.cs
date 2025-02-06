@@ -70,9 +70,20 @@ namespace iText.Html2pdf.Attach.Wrapelement {
         /// <summary>The header lang attribute value.</summary>
         private String headerLang;
 
+        /// <summary>
+        /// Create new
+        /// <see cref="TableWrapper"/>
+        /// instance.
+        /// </summary>
         public TableWrapper() {
         }
 
+        /// <summary>
+        /// Create new
+        /// <see cref="TableWrapper"/>
+        /// instance.
+        /// </summary>
+        /// <param name="isRtl">table direction value, true for right to left direction, false for left to right</param>
         public TableWrapper(bool isRtl) {
             this.isRtl = isRtl;
         }
@@ -146,14 +157,20 @@ namespace iText.Html2pdf.Attach.Wrapelement {
             AddCellToTable(cell, rows, rowShift);
         }
 
+        /// <summary>Set language attribute of the table.</summary>
+        /// <param name="lang">language code string value (e.g en-us)</param>
         public virtual void SetLang(String lang) {
             this.lang = lang;
         }
 
+        /// <summary>Set footer language attribute of the table.</summary>
+        /// <param name="footerLang">language code string value (e.g en-us)</param>
         public virtual void SetFooterLang(String footerLang) {
             this.footerLang = footerLang;
         }
 
+        /// <summary>Set header language attribute of the table.</summary>
+        /// <param name="headerLang">language code string value (e.g en-us)</param>
         public virtual void SetHeaderLang(String headerLang) {
             this.headerLang = headerLang;
         }
