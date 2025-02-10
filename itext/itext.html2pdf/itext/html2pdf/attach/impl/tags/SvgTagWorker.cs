@@ -75,6 +75,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     (processingResult, context, true);
                 svgImage = new SvgImage(svgImageXObject);
                 AccessiblePropHelper.TrySetLangAttribute(svgImage, element);
+                context.GetDIContainer().GetInstance<AlternateDescriptionResolver>().Resolve(svgImage, element);
                 context.EndProcessingInlineSvg();
             }
         }

@@ -21,9 +21,11 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
 using iText.Commons.Actions.Contexts;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css.Apply;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
@@ -38,6 +40,8 @@ namespace iText.Html2pdf {
     public class ConverterProperties {
         /// <summary>Default maximum number of layouts.</summary>
         private const int DEFAULT_LIMIT_OF_LAYOUTS = 10;
+
+        private readonly Dictionary<Type, Object> dependencies = new Dictionary<Type, Object>();
 
         /// <summary>The media device description.</summary>
         private MediaDeviceDescription mediaDeviceDescription;
@@ -90,6 +94,7 @@ namespace iText.Html2pdf {
         /// instance.
         /// </summary>
         public ConverterProperties() {
+            this.dependencies.Put(typeof(AlternateDescriptionResolver), new AlternateDescriptionResolver());
         }
 
         /// <summary>
@@ -119,6 +124,9 @@ namespace iText.Html2pdf {
             this.limitOfLayouts = other.limitOfLayouts;
             this.immediateFlush = other.immediateFlush;
             this.continuousContainerEnabled = other.continuousContainerEnabled;
+            foreach (Type aClass in other.dependencies.Keys) {
+                this.dependencies.Put(aClass, other.dependencies.Get(aClass));
+            }
         }
 
         /// <summary>Gets the media device description.</summary>
@@ -600,6 +608,12 @@ namespace iText.Html2pdf {
         public virtual iText.Html2pdf.ConverterProperties SetContinuousContainerEnabled(bool value) {
             continuousContainerEnabled = value;
             return this;
+        }
+
+        /// <summary>Gets the dependencies.</summary>
+        /// <returns>the dependencies</returns>
+        public virtual IDictionary<Type, Object> GetDependencies() {
+            return dependencies;
         }
     }
 }

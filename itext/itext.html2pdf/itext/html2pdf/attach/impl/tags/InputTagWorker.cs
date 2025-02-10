@@ -28,6 +28,7 @@ using iText.Commons.Utils;
 using iText.Forms.Form;
 using iText.Forms.Form.Element;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Html2pdf.Logs;
@@ -161,10 +162,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 formElement.SetProperty(FormProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
                 ((IAccessibleElement)formElement).GetAccessibilityProperties().SetLanguage(lang);
                 formElement.SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.GetConformance());
-                String altText = element.GetAttribute(AttributeConstants.TITLE);
-                if (altText != null) {
-                    ((IAccessibleElement)formElement).GetAccessibilityProperties().SetAlternateDescription(altText);
-                }
+                context.GetDIContainer().GetInstance<AlternateDescriptionResolver>().Resolve((IAccessibleElement)formElement
+                    , element);
             }
             display = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.DISPLAY) : null;
         }

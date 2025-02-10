@@ -21,7 +21,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
 using iText.Commons.Actions.Contexts;
+using iText.Commons.Utils;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Css.Apply;
@@ -40,6 +42,8 @@ using iText.StyledXmlParser.Resolver.Resource;
 namespace iText.Html2pdf.Attach {
     /// <summary>Keeps track of the context of the processor.</summary>
     public class ProcessorContext {
+        private readonly DIContainer diContainer = new DIContainer();
+
         /// <summary>The font provider.</summary>
         private FontProvider fontProvider;
 
@@ -161,6 +165,9 @@ namespace iText.Html2pdf.Attach {
             pdfAConformanceFromProperties = new PdfConformance(converterProperties.GetPdfAConformance());
             processingInlineSvg = false;
             continuousContainerEnabled = converterProperties.IsContinuousContainerEnabled();
+            foreach (KeyValuePair<Type, Object> entry in converterProperties.GetDependencies()) {
+                diContainer.Register(entry.Key, entry.Value);
+            }
         }
 
         /// <summary>Gets maximum number of layouts.</summary>
@@ -403,6 +410,12 @@ namespace iText.Html2pdf.Attach {
         /// <returns>the CSS style sheet</returns>
         public virtual CssStyleSheet GetCssStyleSheet() {
             return cssStyleSheet;
+        }
+
+        /// <summary>Gets the DIContainer.</summary>
+        /// <returns>the DIContainer.</returns>
+        public virtual DIContainer GetDIContainer() {
+            return diContainer;
         }
     }
 }

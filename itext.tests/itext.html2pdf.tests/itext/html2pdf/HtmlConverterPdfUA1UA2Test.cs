@@ -246,6 +246,17 @@ namespace iText.Html2pdf {
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
+        [NUnit.Framework.Test]
+        public virtual void SvgAlternativeDescription() {
+            String sourceHtml = SOURCE_FOLDER + "svgSimpleAlternateDescription.html";
+            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_svgSimpleAlternateDescriptionUa1.pdf";
+            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_svgSimpleAlternateDescriptionUa2.pdf";
+            String destinationPdfUa1 = DESTINATION_FOLDER + "svgSimpleAlternateDescriptionUa1.pdf";
+            String destinationPdfUa2 = DESTINATION_FOLDER + "svgSimpleAlternateDescriptionUa2.pdf";
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+        }
+
         private void CreateSimplePdfUA2Document(PdfDocument pdfDocument) {
             byte[] bytes = File.ReadAllBytes(System.IO.Path.Combine(SOURCE_FOLDER + "simplePdfUA2.xmp"));
             XMPMeta xmpMeta = XMPMetaFactory.Parse(new MemoryStream(bytes));
