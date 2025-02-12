@@ -98,13 +98,13 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Flush hanging leaves.</summary>
         /// <param name="container">a container element</param>
         public virtual void FlushHangingLeaves(IPropertyContainer container) {
-            Paragraph p = CreateLeavesContainer();
-            if (p != null) {
+            AnonymousBox ab = CreateLeavesContainer();
+            if (ab != null) {
                 IDictionary<String, String> map = new Dictionary<String, String>();
                 map.Put(CssConstants.OVERFLOW, CommonCssConstants.VISIBLE);
-                OverflowApplierUtil.ApplyOverflow(map, p);
+                OverflowApplierUtil.ApplyOverflow(map, ab);
                 if (container is Document) {
-                    ((Document)container).Add(p);
+                    ((Document)container).Add(ab);
                 }
                 else {
                     if (container is Paragraph) {
@@ -123,21 +123,21 @@ namespace iText.Html2pdf.Attach.Util {
                         if (((IElement)container).GetRenderer() is FlexContainerRenderer) {
                             Div div = new Div();
                             OverflowApplierUtil.ApplyOverflow(map, div);
-                            div.Add(p);
+                            div.Add(ab);
                             ((Div)container).Add(div);
                         }
                         else {
                             if (container is Div) {
-                                ((Div)container).Add(p);
+                                ((Div)container).Add(ab);
                             }
                             else {
                                 if (container is Cell) {
-                                    ((Cell)container).Add(p);
+                                    ((Cell)container).Add(ab);
                                 }
                                 else {
                                     if (container is List) {
                                         ListItem li = new ListItem();
-                                        li.Add(p);
+                                        li.Add(ab);
                                         ((List)container).Add(li);
                                     }
                                     else {
@@ -153,32 +153,35 @@ namespace iText.Html2pdf.Attach.Util {
         }
 
         /// <summary>Creates the leaves container.</summary>
-        /// <returns>a paragraph</returns>
-        private Paragraph CreateLeavesContainer() {
+        /// <returns>
+        /// an
+        /// <see cref="iText.Layout.Element.AnonymousBox"/>
+        /// </returns>
+        private AnonymousBox CreateLeavesContainer() {
             if (collapseSpaces) {
                 waitingLeaves = TrimUtil.TrimLeafElementsAndSanitize(waitingLeaves);
             }
             Capitalize(waitingLeaves);
             if (waitingLeaves.Count > 0) {
-                Paragraph p = CreateParagraphContainer();
+                AnonymousBox ab = new AnonymousBox();
                 bool runningElementsOnly = true;
                 foreach (IElement leaf in waitingLeaves) {
                     if (leaf is ILeafElement) {
                         runningElementsOnly = false;
-                        p.Add((ILeafElement)leaf);
+                        ab.Add((ILeafElement)leaf);
                     }
                     else {
                         if (leaf is IBlockElement) {
                             runningElementsOnly = runningElementsOnly && leaf is RunningElement;
-                            p.Add((IBlockElement)leaf);
+                            ab.Add((IBlockElement)leaf);
                         }
                     }
                 }
                 if (runningElementsOnly) {
                     // TODO DEVSIX-7008 Remove completely empty tags from logical structure of resultant PDF documents
-                    p.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
+                    ab.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
                 }
-                return p;
+                return ab;
             }
             else {
                 return null;
@@ -209,6 +212,7 @@ namespace iText.Html2pdf.Attach.Util {
 
         /// <summary>Creates a paragraph container.</summary>
         /// <returns>the paragraph container</returns>
+        [System.ObsoleteAttribute(@"to remove as it is not used anywhere anymore")]
         public virtual Paragraph CreateParagraphContainer() {
             return new Paragraph().SetMargin(0);
         }

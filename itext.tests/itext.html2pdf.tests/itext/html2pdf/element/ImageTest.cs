@@ -44,7 +44,6 @@ namespace iText.Html2pdf.Element {
             ConvertToPdfAndCompare("imagesInBody", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void RelativeImageInStaticContainerTest() {
             ConvertToPdfAndCompare("relativeImageInStaticContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -309,62 +308,52 @@ namespace iText.Html2pdf.Element {
             ConvertToPdfAndCompare("relativeSizeSvg3_15", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_2Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_3Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_3", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_4Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_4", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_5Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_5", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         //TODO DEVSIX-8870 improve support of relative sized SVG in img HTML elements
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_6Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_6", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_7Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_7", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_8Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_8", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_9Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_9", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_10Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_10", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_11Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_11", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -375,19 +364,16 @@ namespace iText.Html2pdf.Element {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_12", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_13Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_13", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_14Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_14", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void FixedImgRelativeSizeSvg3_15Test() {
             ConvertToPdfAndCompare("fixedImgRelativeSizeSvg3_15", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -464,19 +450,16 @@ namespace iText.Html2pdf.Element {
             ConvertToPdfAndCompare("relativeHeightImgRelativeSizeSvg3_15", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void RelativeSizeSvg4Test() {
             ConvertToPdfAndCompare("relativeSizeSvg4", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void RelativeSizeSvg4_2Test() {
             ConvertToPdfAndCompare("relativeSizeSvg4_2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8869 Percent height is not resolved in fixed size container
         [NUnit.Framework.Test]
         public virtual void RelativeSizeSvg4_4Test() {
             ConvertToPdfAndCompare("relativeSizeSvg4_4", SOURCE_FOLDER, DESTINATION_FOLDER);
