@@ -100,11 +100,11 @@ namespace iText.Html2pdf.Attribute {
             NUnit.Framework.Assert.AreEqual("", tagPointer.GetProperties().GetLanguage());
             tagPointer.MoveToRoot().MoveToKid(1).MoveToKid(0).MoveToKid(StandardRoles.P);
             NUnit.Framework.Assert.AreEqual("", tagPointer.GetProperties().GetLanguage());
-            tagPointer.MoveToRoot().MoveToKid(1).MoveToKid(2).MoveToKid(StandardRoles.P);
+            tagPointer.MoveToRoot().MoveToKid(3).MoveToKid(0).MoveToKid(StandardRoles.P);
             NUnit.Framework.Assert.AreEqual("", tagPointer.GetProperties().GetLanguage());
-            tagPointer.MoveToRoot().MoveToKid(2).MoveToKid(0).MoveToKid(StandardRoles.TD);
+            tagPointer.MoveToRoot().MoveToKid(4).MoveToKid(0).MoveToKid(StandardRoles.TD);
             NUnit.Framework.Assert.AreEqual("", tagPointer.GetProperties().GetLanguage());
-            tagPointer.MoveToRoot().MoveToKid(2).MoveToKid(1).MoveToKid(StandardRoles.TD);
+            tagPointer.MoveToRoot().MoveToKid(4).MoveToKid(1).MoveToKid(StandardRoles.TD);
             NUnit.Framework.Assert.AreEqual("", tagPointer.GetProperties().GetLanguage());
             NUnit.Framework.Assert.IsNull(document.GetCatalog().GetLang());
             document.Close();
@@ -181,9 +181,9 @@ namespace iText.Html2pdf.Attribute {
             TagTreePointer tagPointer = new TagTreePointer(document);
             tagPointer.MoveToKid(StandardRoles.FIGURE);
             NUnit.Framework.Assert.AreEqual("en", tagPointer.GetProperties().GetLanguage());
-            tagPointer.MoveToRoot().MoveToKid(2, StandardRoles.P).MoveToKid(StandardRoles.FIGURE);
+            tagPointer.MoveToRoot().MoveToKid(1, StandardRoles.FIGURE);
             NUnit.Framework.Assert.AreEqual("fr", tagPointer.GetProperties().GetLanguage());
-            tagPointer.MoveToRoot().MoveToKid(3, StandardRoles.P).MoveToKid(StandardRoles.FIGURE);
+            tagPointer.MoveToRoot().MoveToKid(2, StandardRoles.P).MoveToKid(StandardRoles.FIGURE);
             NUnit.Framework.Assert.AreEqual("ru", tagPointer.GetProperties().GetLanguage());
             NUnit.Framework.Assert.IsNull(document.GetCatalog().GetLang());
             document.Close();
@@ -229,7 +229,7 @@ namespace iText.Html2pdf.Attribute {
             TagTreePointer tagPointer = new TagTreePointer(document);
             tagPointer.MoveToKid(0, StandardRoles.L).MoveToKid(1, StandardRoles.LI).MoveToKid(0, StandardRoles.LBODY);
             NUnit.Framework.Assert.AreEqual("de", tagPointer.GetProperties().GetLanguage());
-            IList<String> kidsRoles = tagPointer.MoveToKid(StandardRoles.P).GetKidsRoles();
+            IList<String> kidsRoles = tagPointer.GetKidsRoles();
             NUnit.Framework.Assert.IsTrue(StandardRoles.SPAN.Equals(kidsRoles[0]) && StandardRoles.SPAN.Equals(kidsRoles
                 [1]));
             NUnit.Framework.Assert.IsNull(document.GetCatalog().GetLang());
