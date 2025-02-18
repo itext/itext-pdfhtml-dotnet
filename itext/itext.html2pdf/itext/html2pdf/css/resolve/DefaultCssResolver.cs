@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
 using iText.Html2pdf.Attach;
@@ -51,6 +52,8 @@ namespace iText.Html2pdf.Css.Resolve {
     /// interface.
     /// </summary>
     public class DefaultCssResolver : ICssResolver {
+        private static readonly Regex CssVarDecl = new Regex(@"^\s*var\(\s*(?<decl>--.*)\)\s*$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
         /// <summary>The CSS style sheet.</summary>
         private CssStyleSheet cssStyleSheet;
 
@@ -199,6 +202,10 @@ namespace iText.Html2pdf.Css.Resolve {
                     keys.Add(entry.Key);
                 }
             }
+
+            // Resolve CSS variables
+            ResolveCssVariables(elementStyles);
+
             foreach (String key in keys) {
                 elementStyles.Put(key, CssDefaults.GetDefaultValue(key));
             }
@@ -206,6 +213,57 @@ namespace iText.Html2pdf.Css.Resolve {
             CounterProcessorUtil.ProcessCounters(elementStyles, context);
             ResolveContentProperty(elementStyles, element, context);
             return elementStyles;
+        }
+
+        private static bool IsCssVarDecl(string decl, out string innerDecl) {
+            if (decl == null) {
+                innerDecl = null;
+                return false;
+            }
+
+            var cssVarDecl = CssVarDecl.Match(decl);
+            if (cssVarDecl.Success) {
+                innerDecl = cssVarDecl.Groups["decl"].Value;
+                return true;
+            }
+
+            innerDecl = null;
+            return false;
+        }
+
+        private static void ResolveCssVariables(IDictionary<string, string> elementStyles) {
+            var varOverrides = new Dictionary<string, string>();
+
+            foreach (KeyValuePair<String, String> entry in elementStyles) {
+                if (IsCssVarDecl(entry.Value, out var decl)) {
+                    var value = ResolveVariable(decl);
+                    varOverrides.Add(entry.Key, value);
+                }
+                continue;
+
+                string ResolveVariable(string substring) {
+                    var hasDefault = substring.IndexOf(',');
+                    var varName = hasDefault == -1 ? substring : substring.Substring(0, hasDefault);
+                    var dfltVal = hasDefault == -1 ? null : substring.Substring(hasDefault + 1).Trim();
+                    if (elementStyles.TryGetValue(varName, out var variable)) {
+                        return variable;
+                    }
+
+                    if (dfltVal is null) {
+                        return null;
+                    }
+
+                    if (IsCssVarDecl(dfltVal, out var innerDecl)) {
+                        return ResolveVariable(innerDecl);
+                    }
+
+                    return dfltVal;
+                }
+            }
+
+            foreach (var varOverride in varOverrides) {
+                elementStyles.Put(varOverride.Key, varOverride.Value);
+            }
         }
 
         private IDictionary<String, String> ResolveElementsStyles(INode element) {

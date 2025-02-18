@@ -1,0 +1,30 @@
+<html>
+<head>
+    <style type="text/css">
+    div {
+        --test-var: 30px;
+    }
+
+        div.a {
+            margin: var(--test-var,40px);
+        }
+
+        div.b {
+            margin: var(--other-var,50px);
+        }
+
+        div.c {
+            --test-var: 35px;
+        }
+
+            div.c.d {
+                margin: var(--test-var,40px);
+            }
+</style>
+</head>
+<body>
+    <div class="a">
+        This is a div text with margin 30px
+    </div>
+</body>
+</html>
