@@ -32,7 +32,6 @@ using iText.Pdfua;
 using iText.Pdfua.Exceptions;
 using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
-using iText.Test.Attributes;
 using iText.Test.Pdfa;
 
 namespace iText.Html2pdf {
@@ -120,8 +119,6 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        // TODO DEVSIX-8706 Incorrect tagging structure when using one span with glyph that doesn't have a mapping in the font
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.ATTEMPT_TO_CREATE_A_TAG_FOR_FINISHED_HINT)]
         public virtual void UnsupportedGlyphTest() {
             String sourceHtml = SOURCE_FOLDER + "unsupportedGlyph.html";
             String cmpPdfUa1 = SOURCE_FOLDER + "cmp_unsupportedGlyphUa1.pdf";
@@ -131,8 +128,7 @@ namespace iText.Html2pdf {
             String expectedUa1Message = MessageFormatUtil.Format(PdfUAExceptionMessageConstants.GLYPH_IS_NOT_DEFINED_OR_WITHOUT_UNICODE
                 , '中');
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
-            // Next to the ticket TODO DEVSIX-8706, Verapdf reports '<Document> contains <Span>'
-            // The fix for '<Document> contains <Span>' will be implemented as part of
+            // Verapdf reports '<Document> contains <Span>'. The fix for that will be implemented as part of
             // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
         }
