@@ -232,7 +232,9 @@ namespace iText.Html2pdf {
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetCreateAcroForm(true);
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, converterProperties, true, null);
-            // TODO DEVSIX-8868 Change this test when fixed
+            // Now Verapdf reports '<Document> contains <Span>'
+            // The fix for '<Document> contains <Span>' will be implemented as part of
+            // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, false);
         }
 
