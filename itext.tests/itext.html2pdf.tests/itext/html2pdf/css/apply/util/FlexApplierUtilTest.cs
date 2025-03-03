@@ -181,7 +181,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 3)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void ApplyFlexContainerUnsupportedPropertiesUnsupportedValuesTest() {
             String[] unsupportedProperties = new String[] { CssConstants.FLEX_DIRECTION, CssConstants.ROW_GAP, CssConstants
                 .COLUMN_GAP, CssConstants.ALIGN_CONTENT };

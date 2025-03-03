@@ -29,7 +29,7 @@ namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-7616 change after row-gap is supported
     //TODO DEVSIX-5164 change after align-content: space-around is supported
     //TODO DEVSIX-5163 change after more complex justify-content values are supported
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 8)]
+    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 6)]
     public class FlexboxColumnRowGap001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-column-row-gap-001.html";
