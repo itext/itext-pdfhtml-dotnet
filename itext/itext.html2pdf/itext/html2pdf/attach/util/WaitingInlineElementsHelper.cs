@@ -98,7 +98,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Flush hanging leaves.</summary>
         /// <param name="container">a container element</param>
         public virtual void FlushHangingLeaves(IPropertyContainer container) {
-            AnonymousBox ab = CreateLeavesContainer();
+            AnonymousInlineBox ab = CreateLeavesContainer();
             if (ab != null) {
                 IDictionary<String, String> map = new Dictionary<String, String>();
                 map.Put(CssConstants.OVERFLOW, CommonCssConstants.VISIBLE);
@@ -155,37 +155,36 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Creates the leaves container.</summary>
         /// <returns>
         /// an
-        /// <see cref="iText.Layout.Element.AnonymousBox"/>
+        /// <see cref="iText.Layout.Element.AnonymousInlineBox"/>
         /// </returns>
-        private AnonymousBox CreateLeavesContainer() {
+        private AnonymousInlineBox CreateLeavesContainer() {
             if (collapseSpaces) {
                 waitingLeaves = TrimUtil.TrimLeafElementsAndSanitize(waitingLeaves);
             }
             Capitalize(waitingLeaves);
-            if (waitingLeaves.Count > 0) {
-                AnonymousBox ab = new AnonymousBox();
-                bool runningElementsOnly = true;
-                foreach (IElement leaf in waitingLeaves) {
-                    if (leaf is ILeafElement) {
-                        runningElementsOnly = false;
-                        ab.Add((ILeafElement)leaf);
-                    }
-                    else {
-                        if (leaf is IBlockElement) {
-                            runningElementsOnly = runningElementsOnly && leaf is RunningElement;
-                            ab.Add((IBlockElement)leaf);
-                        }
-                    }
-                }
-                if (runningElementsOnly) {
-                    // TODO DEVSIX-7008 Remove completely empty tags from logical structure of resultant PDF documents
-                    ab.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
-                }
-                return ab;
-            }
-            else {
+            if (waitingLeaves.IsEmpty()) {
                 return null;
             }
+            AnonymousInlineBox ab = new AnonymousInlineBox();
+            ab.GetAccessibilityProperties().SetRole(StandardRoles.P);
+            bool runningElementsOnly = true;
+            foreach (IElement leaf in waitingLeaves) {
+                if (leaf is ILeafElement) {
+                    runningElementsOnly = false;
+                    ab.Add((ILeafElement)leaf);
+                }
+                else {
+                    if (leaf is IBlockElement) {
+                        runningElementsOnly = runningElementsOnly && leaf is RunningElement;
+                        ab.Add((IBlockElement)leaf);
+                    }
+                }
+            }
+            if (runningElementsOnly) {
+                // TODO DEVSIX-7008 Remove completely empty tags from logical structure of resultant PDF documents
+                ab.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
+            }
+            return ab;
         }
 
         /// <summary>Gets the waiting leaves.</summary>

@@ -26,19 +26,20 @@ using iText.Commons.Utils;
 using iText.Html2pdf.Attach.Impl;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
-using iText.Kernel.XMP;
 using iText.Layout.Font;
 using iText.Pdfua;
 using iText.Pdfua.Exceptions;
+using iText.Pdfua.Logs;
 using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
+using iText.Test.Attributes;
 using iText.Test.Pdfa;
 
 namespace iText.Html2pdf {
     [NUnit.Framework.Category("IntegrationTest")]
     public class HtmlConverterPdfUA1UA2Test : ExtendedITextTest {
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/HtmlConverterPdfUA1UA2Test/";
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf" + "/HtmlConverterPdfUA1UA2Test/";
 
         private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/HtmlConverterPdfUA1UA2Test/";
@@ -56,10 +57,7 @@ namespace iText.Html2pdf {
             String destinationPdfUa1 = DESTINATION_FOLDER + "simpleLinkUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "simpleLinkUa2.pdf";
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            // Now Verapdf reports '<Document> contains <Span>'
-            // The fix for '<Document> contains <Span>' will be implemented as part of
-            // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
         [NUnit.Framework.Test]
@@ -70,10 +68,7 @@ namespace iText.Html2pdf {
             String destinationPdfUa1 = DESTINATION_FOLDER + "backwardLinkUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "backwardLinkUa2.pdf";
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            // Now Verapdf reports '<Document> contains <Span>'
-            // The fix for '<Document> contains <Span>' will be implemented as part of
-            // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
         [NUnit.Framework.Test]
@@ -84,10 +79,7 @@ namespace iText.Html2pdf {
             String destinationPdfUa1 = DESTINATION_FOLDER + "imageLinkUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "imageLinkUa2.pdf";
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            // Now Verapdf reports '<Document> contains <Span>'
-            // The fix for '<Document> contains <Span>' will be implemented as part of
-            // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
         [NUnit.Framework.Test]
@@ -103,7 +95,6 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         public virtual void SimpleOutlineTest() {
-            // TODO DEVSIX-8476 PDF 2.0 doesn't allow P tag be a child of H tag
             String sourceHtmlUa1 = SOURCE_FOLDER + "simpleOutlineUa1.html";
             String sourceHtmlUa2 = SOURCE_FOLDER + "simpleOutlineUa2.html";
             String cmpPdfUa1 = SOURCE_FOLDER + "cmp_simpleOutlineUa1.pdf";
@@ -111,11 +102,7 @@ namespace iText.Html2pdf {
             String destinationPdfUa1 = DESTINATION_FOLDER + "simpleOutlineUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "simpleOutlineUa2.pdf";
             ConvertToUa1AndCheckCompliance(sourceHtmlUa1, destinationPdfUa1, cmpPdfUa1, true, null);
-            // Now Verapdf reports '<Document> contains <Span>' and DEVSIX-8476 seems to be fixed
-            // But the fix still can be reconsidered later.
-            // The fix for '<Document> contains <Span>' will be implemented as part of
-            // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
-            ConvertToUa2AndCheckCompliance(sourceHtmlUa2, destinationPdfUa2, cmpPdfUa2, false);
+            ConvertToUa2AndCheckCompliance(sourceHtmlUa2, destinationPdfUa2, cmpPdfUa2, true);
         }
 
         [NUnit.Framework.Test]
@@ -128,58 +115,51 @@ namespace iText.Html2pdf {
             String expectedUa1Message = MessageFormatUtil.Format(PdfUAExceptionMessageConstants.GLYPH_IS_NOT_DEFINED_OR_WITHOUT_UNICODE
                 , '中');
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
-            // Verapdf reports '<Document> contains <Span>'. The fix for that will be implemented as part of
-            // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
         }
 
         [NUnit.Framework.Test]
         public virtual void EmptyElementsTest() {
-            // TODO DEVSIX-8862 PDF 2.0 does not allow DIV, P tags to be children of the P tag
             String sourceHtml = SOURCE_FOLDER + "emptyElements.html";
             String cmpPdfUa1 = SOURCE_FOLDER + "cmp_emptyElementsUa1.pdf";
             String cmpPdfUa2 = SOURCE_FOLDER + "cmp_emptyElementsUa2.pdf";
             String destinationPdfUa1 = DESTINATION_FOLDER + "emptyElementsUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "emptyElementsUa2.pdf";
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void BoxSizingInlineBlockTest() {
-            // TODO DEVSIX-8862 PDF 2.0 does not allow DIV, P tags to be children of the P tag
             String sourceHtml = SOURCE_FOLDER + "boxSizingInlineBlock.html";
             String cmpPdfUa1 = SOURCE_FOLDER + "cmp_boxSizingInlineBlockUa1.pdf";
             String cmpPdfUa2 = SOURCE_FOLDER + "cmp_boxSizingInlineBlockUa2.pdf";
             String destinationPdfUa1 = DESTINATION_FOLDER + "boxSizingInlineBlockUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "boxSizingInlineBlockUa2.pdf";
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void DivInButtonTest() {
-            // TODO DEVSIX-8863 PDF 2.0 does not allow P, Hn tags to be children of the Form tag
             String sourceHtml = SOURCE_FOLDER + "divInButton.html";
             String cmpPdfUa1 = SOURCE_FOLDER + "cmp_divInButtonUa1.pdf";
             String cmpPdfUa2 = SOURCE_FOLDER + "cmp_divInButtonUa2.pdf";
             String destinationPdfUa1 = DESTINATION_FOLDER + "divInButtonUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "divInButtonUa2.pdf";
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void HeadingInButtonTest() {
-            // TODO DEVSIX-8863 PDF 2.0 does not allow P, Hn tags to be children of the Form tag
-            // TODO DEVSIX-8476 PDF 2.0 doesn't allow P tag be a child of H tag
             String sourceHtml = SOURCE_FOLDER + "headingInButton.html";
             String cmpPdfUa1 = SOURCE_FOLDER + "cmp_headingInButtonUa1.pdf";
             String cmpPdfUa2 = SOURCE_FOLDER + "cmp_headingInButtonUa2.pdf";
             String destinationPdfUa1 = DESTINATION_FOLDER + "headingInButtonUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "headingInButtonUa2.pdf";
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
         [NUnit.Framework.Test]
@@ -191,16 +171,12 @@ namespace iText.Html2pdf {
             String destinationPdfUa1 = DESTINATION_FOLDER + "pageBreakAfterAvoidUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "pageBreakAfterAvoidUa2.pdf";
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            // Next to the ticket TODO DEVSIX-8864, Verapdf reports '<Document> contains <Span>'
-            // The fix for '<Document> contains <Span>' will be implemented as part of
-            // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
         }
 
         [NUnit.Framework.Test]
         public virtual void LinkWithPageBreakBeforeTest() {
             // TODO DEVSIX-8864 PDF 2.0: Destination in GoTo action is not a structure destination
-            // TODO DEVSIX-8476 PDF 2.0 doesn't allow P tag be a child of H tag
             String sourceHtml = SOURCE_FOLDER + "linkWithPageBreakBefore.html";
             String cmpPdfUa1 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa1.pdf";
             String cmpPdfUa2 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa2.pdf";
@@ -232,10 +208,7 @@ namespace iText.Html2pdf {
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetCreateAcroForm(true);
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, converterProperties, true, null);
-            // Now Verapdf reports '<Document> contains <Span>'
-            // The fix for '<Document> contains <Span>' will be implemented as part of
-            // TODO DEVSIX-8862 - PDF 2.0 does not allow DIV, P tags to be children of the P tag
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, false);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, true);
         }
 
         [NUnit.Framework.Test]
@@ -274,15 +247,50 @@ namespace iText.Html2pdf {
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
-        private void CreateSimplePdfUA2Document(PdfDocument pdfDocument) {
-            byte[] bytes = File.ReadAllBytes(System.IO.Path.Combine(SOURCE_FOLDER + "simplePdfUA2.xmp"));
-            XMPMeta xmpMeta = XMPMetaFactory.Parse(new MemoryStream(bytes));
-            pdfDocument.SetXmpMetadata(xmpMeta);
-            pdfDocument.SetTagged();
-            pdfDocument.GetCatalog().SetViewerPreferences(new PdfViewerPreferences().SetDisplayDocTitle(true));
-            pdfDocument.GetCatalog().SetLang(new PdfString("en-US"));
-            PdfDocumentInfo info = pdfDocument.GetDocumentInfo();
-            info.SetTitle("PdfUA2 Title");
+        [NUnit.Framework.Test]
+        [LogMessage(PdfUALogMessageConstants.PAGE_FLUSHING_DISABLED, Count = 2)]
+        public virtual void ExtensiveRepairTaggingStructRepairTest() {
+            String sourceHtml = SOURCE_FOLDER + "tagStructureFixes.html";
+            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_tagStructureFixes.pdf";
+            String destinationPdfUa2 = DESTINATION_FOLDER + "tagStructureFixesUA2.pdf";
+            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_tagStructureFixesUA1.pdf";
+            String destinationPdfUa1 = DESTINATION_FOLDER + "tagStructureFixesUA1.pdf";
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InputFieldsUA2Test() {
+            String sourceHtml = SOURCE_FOLDER + "input.html";
+            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_input.pdf";
+            String destinationPdfUa2 = DESTINATION_FOLDER + "inputUA2.pdf";
+            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_inputUA1.pdf";
+            String destinationPdfUa1 = DESTINATION_FOLDER + "inputUA1.pdf";
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(PdfUALogMessageConstants.PAGE_FLUSHING_DISABLED, Count = 2)]
+        public virtual void TableUa2Test() {
+            String sourceHtml = SOURCE_FOLDER + "table.html";
+            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_table.pdf";
+            String destinationPdfUa2 = DESTINATION_FOLDER + "tableUA2.pdf";
+            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_tableUA1.pdf";
+            String destinationPdfUa1 = DESTINATION_FOLDER + "tableUA1.pdf";
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ComplexParagraphStructure() {
+            String sourceHtml = SOURCE_FOLDER + "complexParagraphStructure.html";
+            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_complexParagraphStructureUA1.pdf";
+            String destinationPdfUa1 = DESTINATION_FOLDER + "complexParagraphStructureUA1.pdf";
+            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_complexParagraphStructure.pdf";
+            String destinationPdfUa2 = DESTINATION_FOLDER + "complexParagraphStructure.pdf";
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
         private static void CompareAndCheckCompliance(String destinationPdf, String cmpPdf, bool isExpectedOk) {
@@ -337,9 +345,8 @@ namespace iText.Html2pdf {
 
         private void ConvertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, ConverterProperties
              converterProperties, bool isExpectedOk) {
-            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion
-                (PdfVersion.PDF_2_0)));
-            CreateSimplePdfUA2Document(pdfDocument);
+            PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion
+                (PdfVersion.PDF_2_0)), new PdfUAConfig(PdfUAConformance.PDF_UA_2, "simple doc", "en-US"));
             ConverterProperties converterPropertiesCopy;
             if (converterProperties == null) {
                 converterPropertiesCopy = new ConverterProperties();
