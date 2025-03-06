@@ -188,14 +188,13 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         public virtual void EmptyHtmlTest() {
-            // TODO DEVSIX-8865 PDF document does not contain Document tag if it does not contain any content
             String sourceHtml = SOURCE_FOLDER + "emptyHtml.html";
             String cmpPdfUa1 = SOURCE_FOLDER + "cmp_emptyHtmlUa1.pdf";
             String cmpPdfUa2 = SOURCE_FOLDER + "cmp_emptyHtmlUa2.pdf";
             String destinationPdfUa1 = DESTINATION_FOLDER + "emptyHtmlUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "emptyHtmlUa2.pdf";
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
         }
 
         [NUnit.Framework.Test]
