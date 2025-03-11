@@ -144,5 +144,16 @@ namespace iText.Html2pdf.Css {
         public virtual void VerticalAlignOnNestedInlines02() {
             ConvertToPdfAndCompare("verticalAlignOnNestedInlines02", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void VerticalAlignMiddleWithTtfOS2Version4() {
+            ConvertToPdfAndCompare("verticalAlignMiddleWithTtfOS2Version4", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void VerticalAlignMiddleWithTtfOS2Version1() {
+            // TODO DEVSIX-8994 Improve vertical-align css property related calculations
+            ConvertToPdfAndCompare("verticalAlignMiddleWithTtfOS2Version1", sourceFolder, destinationFolder);
+        }
     }
 }
