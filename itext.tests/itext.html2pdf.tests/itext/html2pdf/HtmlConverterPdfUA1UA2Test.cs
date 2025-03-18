@@ -163,6 +163,17 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
+        public virtual void ParagraphsInHeadingsTest() {
+            String sourceHtml = SOURCE_FOLDER + "paragraphsInHeadings.html";
+            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_paragraphsInHeadingsUa1.pdf";
+            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_paragraphsInHeadingsUa2.pdf";
+            String destinationPdfUa1 = DESTINATION_FOLDER + "paragraphsInHeadingsUa1.pdf";
+            String destinationPdfUa2 = DESTINATION_FOLDER + "paragraphsInHeadingsUa2.pdf";
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void PageBreakAfterAvoidTest() {
             // TODO DEVSIX-8864 PDF 2.0: Destination in GoTo action is not a structure destination
             String sourceHtml = SOURCE_FOLDER + "pageBreakAfterAvoid.html";
