@@ -112,10 +112,10 @@ namespace iText.Html2pdf {
             String cmpPdfUa2 = SOURCE_FOLDER + "cmp_unsupportedGlyphUa2.pdf";
             String destinationPdfUa1 = DESTINATION_FOLDER + "unsupportedGlyphUa1.pdf";
             String destinationPdfUa2 = DESTINATION_FOLDER + "unsupportedGlyphUa2.pdf";
-            String expectedUa1Message = MessageFormatUtil.Format(PdfUAExceptionMessageConstants.GLYPH_IS_NOT_DEFINED_OR_WITHOUT_UNICODE
+            String expectedUaMessage = MessageFormatUtil.Format(PdfUAExceptionMessageConstants.GLYPH_IS_NOT_DEFINED_OR_WITHOUT_UNICODE
                 , '中');
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUa1Message);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUaMessage);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false, expectedUaMessage);
         }
 
         [NUnit.Framework.Test]
@@ -218,7 +218,7 @@ namespace iText.Html2pdf {
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetCreateAcroForm(true);
             ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, converterProperties, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, true);
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, true, null);
         }
 
         [NUnit.Framework.Test]
@@ -334,7 +334,13 @@ namespace iText.Html2pdf {
         private void ConvertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, bool 
             isExpectedOk) {
             ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk
-                );
+                , null);
+        }
+
+        private void ConvertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, bool 
+            isExpectedOk, String expectedErrorMessage) {
+            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk
+                , expectedErrorMessage);
         }
 
         private void ConvertToUa1AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, ConverterProperties
@@ -365,7 +371,7 @@ namespace iText.Html2pdf {
         }
 
         private void ConvertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, ConverterProperties
-             converterProperties, bool isExpectedOk) {
+             converterProperties, bool isExpectedOk, String expectedErrorMessage) {
             PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion
                 (PdfVersion.PDF_2_0)), new PdfUAConfig(PdfUAConformance.PDF_UA_2, "simple doc", "en-US"));
             ConverterProperties converterPropertiesCopy;
@@ -379,9 +385,16 @@ namespace iText.Html2pdf {
             converterPropertiesCopy.SetFontProvider(fontProvider);
             converterPropertiesCopy.SetBaseUri(SOURCE_FOLDER);
             converterPropertiesCopy.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
-            HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterPropertiesCopy
-                );
-            CompareAndCheckCompliance(destinationPdf, cmpPdf, isExpectedOk);
+            if (expectedErrorMessage != null) {
+                Exception e = NUnit.Framework.Assert.Catch(typeof(PdfUAConformanceException), () => HtmlConverter.ConvertToPdf
+                    (new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterPropertiesCopy));
+                NUnit.Framework.Assert.AreEqual(expectedErrorMessage, e.Message);
+            }
+            else {
+                HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterPropertiesCopy
+                    );
+                CompareAndCheckCompliance(destinationPdf, cmpPdf, isExpectedOk);
+            }
         }
     }
 }
