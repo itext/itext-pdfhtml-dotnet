@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Util;
@@ -51,14 +52,16 @@ namespace iText.Html2pdf.Css.Resolve {
     /// interface.
     /// </summary>
     public class DefaultCssResolver : ICssResolver {
+        /// <summary>Css inheritance checker</summary>
+        private static readonly ICollection<IStyleInheritance> INHERITANCE_RULES = JavaCollectionsUtil.UnmodifiableSet
+            (new HashSet<IStyleInheritance>(JavaCollectionsUtil.SingletonList((IStyleInheritance)new CssInheritance
+            ())));
+
         /// <summary>The CSS style sheet.</summary>
         private CssStyleSheet cssStyleSheet;
 
         /// <summary>The device description.</summary>
         private MediaDeviceDescription deviceDescription;
-
-        /// <summary>Css inheritance checker</summary>
-        private IStyleInheritance cssInheritance = new CssInheritance();
 
         /// <summary>The list of fonts.</summary>
         private IList<CssFontFaceRule> fonts = new List<CssFontFaceRule>();
@@ -143,11 +146,9 @@ namespace iText.Html2pdf.Css.Resolve {
                     logger.LogError(Html2PdfLogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
                 }
                 if (parentStyles != null) {
-                    ICollection<IStyleInheritance> inheritanceRules = new HashSet<IStyleInheritance>();
-                    inheritanceRules.Add(cssInheritance);
                     foreach (KeyValuePair<String, String> entry in parentStyles) {
                         elementStyles = StyleUtil.MergeParentStyleDeclaration(elementStyles, entry.Key, entry.Value, parentStyles.
-                            Get(CommonCssConstants.FONT_SIZE), inheritanceRules);
+                            Get(CommonCssConstants.FONT_SIZE), INHERITANCE_RULES);
                         // If the parent has display: flex, the flex item is blockified
                         // no matter what display value is set for it (except 'none' and 'grid' values).
                         // See CSS Flexible Box Layout Module Level 1,
@@ -161,6 +162,7 @@ namespace iText.Html2pdf.Css.Resolve {
                     parentFontSizeStr = parentStyles.Get(CssConstants.FONT_SIZE);
                 }
             }
+            CssVariableUtil.ResolveCssVariables(elementStyles);
             String elementFontSize = elementStyles.Get(CssConstants.FONT_SIZE);
             if (CssTypesValidationUtils.IsRelativeValue(elementFontSize) || CssConstants.LARGER.Equals(elementFontSize
                 ) || CssConstants.SMALLER.Equals(elementFontSize)) {
