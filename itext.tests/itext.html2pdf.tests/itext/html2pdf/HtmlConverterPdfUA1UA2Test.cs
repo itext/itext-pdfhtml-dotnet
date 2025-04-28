@@ -23,14 +23,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.IO;
 using iText.Commons.Utils;
-using iText.Html2pdf.Attach.Impl;
+using iText.Html2pdf.Exceptions;
+using iText.Html2pdf.Logs;
+using iText.IO.Source;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
-using iText.Layout.Font;
-using iText.Pdfua;
 using iText.Pdfua.Exceptions;
 using iText.Pdfua.Logs;
-using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 using iText.Test.Attributes;
 using iText.Test.Pdfa;
@@ -49,269 +48,299 @@ namespace iText.Html2pdf {
             CreateOrClearDestinationFolder(DESTINATION_FOLDER);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void SimpleLinkTest() {
+        public static Object[] ConformanceLevels() {
+            return new Object[] { PdfUAConformance.PDF_UA_1, PdfUAConformance.PDF_UA_2 };
+        }
+
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void SimpleLinkTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "simpleLink.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_simpleLinkUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_simpleLinkUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "simpleLinkUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "simpleLinkUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_simpleLinkUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "simpleLinkUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void BackwardLinkTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void BackwardLinkTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "backwardLink.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_backwardLinkUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_backwardLinkUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "backwardLinkUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "backwardLinkUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_backwardLinkUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "backwardLinkUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void ImageLinkTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void ImageLinkTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "imageLink.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_imageLinkUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_imageLinkUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "imageLinkUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "imageLinkUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_imageLinkUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "imageLinkUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void ExternalLinkTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void ExternalLinkTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "externalLink.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_externalLinkUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_externalLinkUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "externalLinkUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "externalLinkUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpPdf = SOURCE_FOLDER + "cmp_externalLinkUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "externalLinkUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpPdf, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void SimpleOutlineTest() {
-            String sourceHtmlUa1 = SOURCE_FOLDER + "simpleOutlineUa1.html";
-            String sourceHtmlUa2 = SOURCE_FOLDER + "simpleOutlineUa2.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_simpleOutlineUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_simpleOutlineUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "simpleOutlineUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "simpleOutlineUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtmlUa1, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtmlUa2, destinationPdfUa2, cmpPdfUa2, true);
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void SimpleOutlineTest(PdfUAConformance conformance) {
+            if (conformance == PdfUAConformance.PDF_UA_1) {
+                String sourceHtmlUa1 = SOURCE_FOLDER + "simpleOutlineUa1.html";
+                String cmpPdfUa1 = SOURCE_FOLDER + "cmp_simpleOutlineUa1.pdf";
+                String destinationPdfUa1 = DESTINATION_FOLDER + "simpleOutlineUa1.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtmlUa1, destinationPdfUa1, cmpPdfUa1, null, true, null);
+            }
+            if (conformance == PdfUAConformance.PDF_UA_2) {
+                String sourceHtmlUa2 = SOURCE_FOLDER + "simpleOutlineUa2.html";
+                String cmpPdfUa2 = SOURCE_FOLDER + "cmp_simpleOutlineUa2.pdf";
+                String destinationPdfUa2 = DESTINATION_FOLDER + "simpleOutlineUa2.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtmlUa2, destinationPdfUa2, cmpPdfUa2, null, true, null);
+            }
         }
 
-        [NUnit.Framework.Test]
-        public virtual void UnsupportedGlyphTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void UnsupportedGlyphTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "unsupportedGlyph.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_unsupportedGlyphUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_unsupportedGlyphUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "unsupportedGlyphUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "unsupportedGlyphUa2.pdf";
             String expectedUaMessage = MessageFormatUtil.Format(PdfUAExceptionMessageConstants.GLYPH_IS_NOT_DEFINED_OR_WITHOUT_UNICODE
                 , '中');
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, expectedUaMessage);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false, expectedUaMessage);
+            if (conformance == PdfUAConformance.PDF_UA_1) {
+                String cmpPdfUa1 = SOURCE_FOLDER + "cmp_unsupportedGlyphUa1.pdf";
+                String destinationPdfUa1 = DESTINATION_FOLDER + "unsupportedGlyphUa1.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa1, cmpPdfUa1, null, false, expectedUaMessage
+                    );
+            }
+            if (conformance == PdfUAConformance.PDF_UA_2) {
+                String cmpPdfUa2 = SOURCE_FOLDER + "cmp_unsupportedGlyphUa2.pdf";
+                String destinationPdfUa2 = DESTINATION_FOLDER + "unsupportedGlyphUa2.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa2, cmpPdfUa2, null, false, expectedUaMessage
+                    );
+            }
         }
 
-        [NUnit.Framework.Test]
-        public virtual void EmptyElementsTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void EmptyElementsTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "emptyElements.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_emptyElementsUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_emptyElementsUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "emptyElementsUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "emptyElementsUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_emptyElementsUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "emptyElementsUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void BoxSizingInlineBlockTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void BoxSizingInlineBlockTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "boxSizingInlineBlock.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_boxSizingInlineBlockUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_boxSizingInlineBlockUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "boxSizingInlineBlockUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "boxSizingInlineBlockUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_boxSizingInlineBlockUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "boxSizingInlineBlockUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void DivInButtonTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void DivInButtonTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "divInButton.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_divInButtonUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_divInButtonUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "divInButtonUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "divInButtonUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_divInButtonUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "divInButtonUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void HeadingInButtonTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void HeadingInButtonTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "headingInButton.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_headingInButtonUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_headingInButtonUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "headingInButtonUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "headingInButtonUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_headingInButtonUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "headingInButtonUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void ParagraphsInHeadingsTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void ParagraphsInHeadingsTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "paragraphsInHeadings.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_paragraphsInHeadingsUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_paragraphsInHeadingsUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "paragraphsInHeadingsUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "paragraphsInHeadingsUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_paragraphsInHeadingsUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "paragraphsInHeadingsUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void PageBreakAfterAvoidTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void PageBreakAfterAvoidTest(PdfUAConformance conformance) {
             // TODO DEVSIX-8864 PDF 2.0: Destination in GoTo action is not a structure destination
             String sourceHtml = SOURCE_FOLDER + "pageBreakAfterAvoid.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_pageBreakAfterAvoidUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_pageBreakAfterAvoidUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "pageBreakAfterAvoidUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "pageBreakAfterAvoidUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+            if (conformance == PdfUAConformance.PDF_UA_1) {
+                String cmpPdfUa1 = SOURCE_FOLDER + "cmp_pageBreakAfterAvoidUa1.pdf";
+                String destinationPdfUa1 = DESTINATION_FOLDER + "pageBreakAfterAvoidUa1.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa1, cmpPdfUa1, null, true, null);
+            }
+            if (conformance == PdfUAConformance.PDF_UA_2) {
+                String cmpPdfUa2 = SOURCE_FOLDER + "cmp_pageBreakAfterAvoidUa2.pdf";
+                String destinationPdfUa2 = DESTINATION_FOLDER + "pageBreakAfterAvoidUa2.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa2, cmpPdfUa2, null, false, null);
+            }
         }
 
-        [NUnit.Framework.Test]
-        public virtual void LinkWithPageBreakBeforeTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void LinkWithPageBreakBeforeTest(PdfUAConformance conformance) {
             // TODO DEVSIX-8864 PDF 2.0: Destination in GoTo action is not a structure destination
             String sourceHtml = SOURCE_FOLDER + "linkWithPageBreakBefore.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+            if (conformance == PdfUAConformance.PDF_UA_1) {
+                String cmpPdfUa1 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa1.pdf";
+                String destinationPdfUa1 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa1.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa1, cmpPdfUa1, null, true, null);
+            }
+            if (conformance == PdfUAConformance.PDF_UA_2) {
+                String cmpPdfUa2 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa2.pdf";
+                String destinationPdfUa2 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa2.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa2, cmpPdfUa2, null, false, null);
+            }
         }
 
-        [NUnit.Framework.Test]
-        public virtual void EmptyHtmlTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void EmptyHtmlTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "emptyHtml.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_emptyHtmlUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_emptyHtmlUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "emptyHtmlUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "emptyHtmlUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_emptyHtmlUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "emptyHtmlUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void InputWithTitleTagTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void InputWithTitleTagTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "inputWithTitleTag.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_inputWithTitleTagUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_inputWithTitleTagUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "inputWithTitleTagUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "inputWithTitleTagUa2.pdf";
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetCreateAcroForm(true);
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, converterProperties, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, true, null);
+            if (conformance == PdfUAConformance.PDF_UA_1) {
+                String cmpPdfUa1 = SOURCE_FOLDER + "cmp_inputWithTitleTagUa1.pdf";
+                String destinationPdfUa1 = DESTINATION_FOLDER + "inputWithTitleTagUa1.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa1, cmpPdfUa1, converterProperties, 
+                    true, null);
+            }
+            if (conformance == PdfUAConformance.PDF_UA_2) {
+                String cmpPdfUa2 = SOURCE_FOLDER + "cmp_inputWithTitleTagUa2.pdf";
+                String destinationPdfUa2 = DESTINATION_FOLDER + "inputWithTitleTagUa2.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa2, cmpPdfUa2, converterProperties, 
+                    true, null);
+            }
         }
 
-        [NUnit.Framework.Test]
-        public virtual void SvgBase64Test() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void SvgBase64Test(PdfUAConformance conformance) {
             // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
             String sourceHtml = SOURCE_FOLDER + "svgBase64.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_svgBase64Ua1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_svgBase64Ua2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "svgBase64Ua1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "svgBase64Ua2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, false, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, false);
+            if (conformance == PdfUAConformance.PDF_UA_1) {
+                String cmpPdfUa1 = SOURCE_FOLDER + "cmp_svgBase64Ua1.pdf";
+                String destinationPdfUa1 = DESTINATION_FOLDER + "svgBase64Ua1.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa1, cmpPdfUa1, null, false, null);
+            }
+            if (conformance == PdfUAConformance.PDF_UA_2) {
+                String cmpPdfUa2 = SOURCE_FOLDER + "cmp_svgBase64Ua2.pdf";
+                String destinationPdfUa2 = DESTINATION_FOLDER + "svgBase64Ua2.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa2, cmpPdfUa2, null, false, null);
+            }
         }
 
-        [NUnit.Framework.Test]
-        public virtual void PngInDivStyleTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void PngInDivStyleTest(PdfUAConformance conformance) {
             // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
-            String sourceHtml = SOURCE_FOLDER + "pngInDivStyle.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_pngInDivStyleUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_pngInDivStyleUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "pngInDivStyleUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "pngInDivStyleUa2.pdf";
             // Investigate why VeraPdf doesn't complain about the missing tag.
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String sourceHtml = SOURCE_FOLDER + "pngInDivStyle.html";
+            if (conformance == PdfUAConformance.PDF_UA_1) {
+                String cmpPdfUa1 = SOURCE_FOLDER + "cmp_pngInDivStyleUa1.pdf";
+                String destinationPdfUa1 = DESTINATION_FOLDER + "pngInDivStyleUa1.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa1, cmpPdfUa1, null, true, null);
+            }
+            if (conformance == PdfUAConformance.PDF_UA_2) {
+                String cmpPdfUa2 = SOURCE_FOLDER + "cmp_pngInDivStyleUa2.pdf";
+                String destinationPdfUa2 = DESTINATION_FOLDER + "pngInDivStyleUa2.pdf";
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa2, cmpPdfUa2, null, true, null);
+            }
         }
 
-        [NUnit.Framework.Test]
-        public virtual void SvgAlternativeDescription() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void SvgAlternativeDescription(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "svgSimpleAlternateDescription.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_svgSimpleAlternateDescriptionUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_svgSimpleAlternateDescriptionUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "svgSimpleAlternateDescriptionUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "svgSimpleAlternateDescriptionUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_svgSimpleAlternateDescriptionUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "svgSimpleAlternateDescriptionUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        [LogMessage(PdfUALogMessageConstants.PAGE_FLUSHING_DISABLED, Count = 2)]
-        public virtual void ExtensiveRepairTaggingStructRepairTest() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        [LogMessage(PdfUALogMessageConstants.PAGE_FLUSHING_DISABLED, Count = 1)]
+        public virtual void ExtensiveRepairTaggingStructRepairTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "tagStructureFixes.html";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_tagStructureFixes.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "tagStructureFixesUA2.pdf";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_tagStructureFixesUA1.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "tagStructureFixesUA1.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_tagStructureFixesUA" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "tagStructureFixesUA" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void InputFieldsUA2Test() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void InputFieldsUA2Test(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "input.html";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_input.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "inputUA2.pdf";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_inputUA1.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "inputUA1.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_inputUA" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "inputUA" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        [LogMessage(PdfUALogMessageConstants.PAGE_FLUSHING_DISABLED, Count = 2)]
-        public virtual void TableUa2Test() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        [LogMessage(PdfUALogMessageConstants.PAGE_FLUSHING_DISABLED, Count = 1)]
+        public virtual void TableUa2Test(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "table.html";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_table.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "tableUA2.pdf";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_tableUA1.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "tableUA1.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_tableUA" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "tableUA" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
-        [NUnit.Framework.Test]
-        public virtual void ComplexParagraphStructure() {
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void ComplexParagraphStructure(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "complexParagraphStructure.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_complexParagraphStructureUA1.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "complexParagraphStructureUA1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_complexParagraphStructure.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "complexParagraphStructure.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+            String cmpFile = SOURCE_FOLDER + "cmp_complexParagraphStructureUA" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "complexParagraphStructureUA" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
+        }
+
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void EmptyTableDataCellTest(PdfUAConformance conformance) {
+            String sourceHtml = SOURCE_FOLDER + "emptyTableDataCell.html";
+            String cmpPdf = SOURCE_FOLDER + "cmp_emptyTableDataCellUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "emptyTableDataCellUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpPdf, null, true, null);
         }
 
         [NUnit.Framework.Test]
-        public virtual void EmptyTableDataCellTest() {
-            String sourceHtml = SOURCE_FOLDER + "emptyTableDataCell.html";
-            String cmpPdfUa1 = SOURCE_FOLDER + "cmp_emptyTableDataCellUa1.pdf";
-            String cmpPdfUa2 = SOURCE_FOLDER + "cmp_emptyTableDataCellUa2.pdf";
-            String destinationPdfUa1 = DESTINATION_FOLDER + "emptyTableDataCellUa1.pdf";
-            String destinationPdfUa2 = DESTINATION_FOLDER + "emptyTableDataCellUa2.pdf";
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdfUa1, cmpPdfUa1, true, null);
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdfUa2, cmpPdfUa2, true);
+        public virtual void DuplicateConformanceLevelAAndUAThrows() {
+            ConverterProperties converterProperties = new ConverterProperties();
+            converterProperties.SetPdfUAConformance(PdfUAConformance.PDF_UA_1);
+            converterProperties.SetPdfAConformance(PdfAConformance.PDF_A_4);
+            PdfWriter dummy = new PdfWriter(new ByteArrayOutputStream());
+            Exception e = NUnit.Framework.Assert.Catch(typeof(Html2PdfException), () => {
+                HtmlConverter.ConvertToPdf("<h1>Let's gooooo</h1>", dummy, converterProperties);
+            }
+            );
+            NUnit.Framework.Assert.AreEqual(Html2PdfLogMessageConstant.PDF_A_AND_PDF_UA_CONFORMANCE_CANNOT_BE_USED_TOGETHER
+                , e.Message);
+        }
+
+        private void ConvertToUaAndCheckCompliance(PdfUAConformance conformance, String sourceHtml, String destinationPdf
+            , String cmpPdf, ConverterProperties converterProperties, bool isExpectedOk, String expectedErrorMessage
+            ) {
+            if (converterProperties == null) {
+                converterProperties = new ConverterProperties();
+            }
+            converterProperties.SetPdfUAConformance(conformance);
+            converterProperties.SetBaseUri(SOURCE_FOLDER);
+            WriterProperties writerProperties = new WriterProperties();
+            if (conformance == PdfUAConformance.PDF_UA_2) {
+                writerProperties.SetPdfVersion(PdfVersion.PDF_2_0);
+            }
+            FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read);
+            using (PdfWriter pdfWriter = new PdfWriter(destinationPdf, writerProperties)) {
+                if (expectedErrorMessage == null) {
+                    HtmlConverter.ConvertToPdf(fileInputStream, pdfWriter, converterProperties);
+                    CompareAndCheckCompliance(destinationPdf, cmpPdf, isExpectedOk);
+                    return;
+                }
+                ConverterProperties finalConverterProperties = converterProperties;
+                Exception e = NUnit.Framework.Assert.Catch(typeof(PdfUAConformanceException), () => {
+                    HtmlConverter.ConvertToPdf(fileInputStream, pdfWriter, finalConverterProperties);
+                }
+                );
+                NUnit.Framework.Assert.AreEqual(expectedErrorMessage, e.Message);
+            }
         }
 
         private static void CompareAndCheckCompliance(String destinationPdf, String cmpPdf, bool isExpectedOk) {
@@ -323,78 +352,7 @@ namespace iText.Html2pdf {
             }
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER
                 , "diff_simple_"));
-        }
-
-        private void ConvertToUa1AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, bool 
-            isExpectedOk, String expectedErrorMessage) {
-            ConvertToUa1AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk
-                , expectedErrorMessage);
-        }
-
-        private void ConvertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, bool 
-            isExpectedOk) {
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk
-                , null);
-        }
-
-        private void ConvertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, bool 
-            isExpectedOk, String expectedErrorMessage) {
-            ConvertToUa2AndCheckCompliance(sourceHtml, destinationPdf, cmpPdf, new ConverterProperties(), isExpectedOk
-                , expectedErrorMessage);
-        }
-
-        private void ConvertToUa1AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, ConverterProperties
-             converterProperties, bool isExpectedOk, String expectedErrorMessage) {
-            PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(destinationPdf), new PdfUAConfig(PdfUAConformance
-                .PDF_UA_1, "simple doc", "eng"));
-            ConverterProperties converterPropertiesCopy;
-            if (converterProperties == null) {
-                converterPropertiesCopy = new ConverterProperties();
-            }
-            else {
-                converterPropertiesCopy = new ConverterProperties(converterProperties);
-            }
-            FontProvider fontProvider = new BasicFontProvider(false, true, false);
-            converterPropertiesCopy.SetFontProvider(fontProvider);
-            converterPropertiesCopy.SetBaseUri(SOURCE_FOLDER);
-            converterPropertiesCopy.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
-            if (expectedErrorMessage != null) {
-                Exception e = NUnit.Framework.Assert.Catch(typeof(PdfUAConformanceException), () => HtmlConverter.ConvertToPdf
-                    (new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterPropertiesCopy));
-                NUnit.Framework.Assert.AreEqual(expectedErrorMessage, e.Message);
-            }
-            else {
-                HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterPropertiesCopy
-                    );
-                CompareAndCheckCompliance(destinationPdf, cmpPdf, isExpectedOk);
-            }
-        }
-
-        private void ConvertToUa2AndCheckCompliance(String sourceHtml, String destinationPdf, String cmpPdf, ConverterProperties
-             converterProperties, bool isExpectedOk, String expectedErrorMessage) {
-            PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(destinationPdf, new WriterProperties().SetPdfVersion
-                (PdfVersion.PDF_2_0)), new PdfUAConfig(PdfUAConformance.PDF_UA_2, "simple doc", "en-US"));
-            ConverterProperties converterPropertiesCopy;
-            if (converterProperties == null) {
-                converterPropertiesCopy = new ConverterProperties();
-            }
-            else {
-                converterPropertiesCopy = new ConverterProperties(converterProperties);
-            }
-            FontProvider fontProvider = new BasicFontProvider(false, true, false);
-            converterPropertiesCopy.SetFontProvider(fontProvider);
-            converterPropertiesCopy.SetBaseUri(SOURCE_FOLDER);
-            converterPropertiesCopy.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
-            if (expectedErrorMessage != null) {
-                Exception e = NUnit.Framework.Assert.Catch(typeof(PdfUAConformanceException), () => HtmlConverter.ConvertToPdf
-                    (new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterPropertiesCopy));
-                NUnit.Framework.Assert.AreEqual(expectedErrorMessage, e.Message);
-            }
-            else {
-                HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument, converterPropertiesCopy
-                    );
-                CompareAndCheckCompliance(destinationPdf, cmpPdf, isExpectedOk);
-            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareXmp(destinationPdf, cmpPdf, true));
         }
     }
 }

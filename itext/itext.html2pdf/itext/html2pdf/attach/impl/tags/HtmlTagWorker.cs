@@ -78,6 +78,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             if (lang != null) {
                 pdfDocument.GetCatalog().SetLang(new PdfString(lang, PdfEncodings.UNICODE_BIG));
             }
+            String title = element.GetAttribute(AttributeConstants.TITLE);
+            if (title != null) {
+                pdfDocument.GetDocumentInfo().SetTitle(title);
+            }
         }
 
         /* (non-Javadoc)

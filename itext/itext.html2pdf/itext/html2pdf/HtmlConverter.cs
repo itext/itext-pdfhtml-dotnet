@@ -26,13 +26,16 @@ using System.IO;
 using iText.Commons.Actions.Contexts;
 using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Exceptions;
+using iText.Html2pdf.Logs;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
 using iText.Pdfa;
+using iText.Pdfua;
 using iText.StyledXmlParser;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup;
@@ -154,18 +157,10 @@ namespace iText.Html2pdf {
         /// instance
         /// </param>
         public static void ConvertToPdf(String html, PdfWriter pdfWriter, ConverterProperties converterProperties) {
-            if (converterProperties == null || converterProperties.GetPdfAConformance() == null) {
-                ConvertToPdf(html, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo
-                    (converterProperties))), converterProperties);
-                return;
-            }
-            PdfDocument document = new PdfADocument(pdfWriter, converterProperties.GetPdfAConformance(), converterProperties
-                .GetDocumentOutputIntent(), new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo(converterProperties
-                )));
-            converterProperties = SetDefaultFontProviderForPdfA(document, converterProperties);
-            if ("A".Equals(converterProperties.GetPdfAConformance().GetLevel())) {
-                document.SetTagged();
-            }
+            DocumentProperties documentProperties = new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo(
+                converterProperties));
+            PdfDocument document = CreateCorrectDocument(converterProperties, documentProperties, pdfWriter);
+            converterProperties = SetupCustomConversionProperties(document, converterProperties);
             ConvertToPdf(html, document, converterProperties);
         }
 
@@ -379,18 +374,9 @@ namespace iText.Html2pdf {
         /// </param>
         public static void ConvertToPdf(Stream htmlStream, PdfWriter pdfWriter, ConverterProperties converterProperties
             ) {
-            if (converterProperties == null || converterProperties.GetPdfAConformance() == null) {
-                ConvertToPdf(htmlStream, new PdfDocument(pdfWriter, new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo
-                    (converterProperties))), converterProperties);
-                return;
-            }
-            PdfDocument document = new PdfADocument(pdfWriter, converterProperties.GetPdfAConformance(), converterProperties
-                .GetDocumentOutputIntent(), new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo(converterProperties
-                )));
-            converterProperties = SetDefaultFontProviderForPdfA(document, converterProperties);
-            if ("A".Equals(converterProperties.GetPdfAConformance().GetLevel())) {
-                document.SetTagged();
-            }
+            DocumentProperties props = new DocumentProperties().SetEventCountingMetaInfo(ResolveMetaInfo(converterProperties
+                ));
+            PdfDocument document = CreateCorrectDocument(converterProperties, props, pdfWriter);
             ConvertToPdf(htmlStream, document, converterProperties);
         }
 
@@ -420,7 +406,7 @@ namespace iText.Html2pdf {
         /// </param>
         public static void ConvertToPdf(Stream htmlStream, PdfDocument pdfDocument, ConverterProperties converterProperties
             ) {
-            converterProperties = SetDefaultFontProviderForPdfA(pdfDocument, converterProperties);
+            converterProperties = SetupCustomConversionProperties(pdfDocument, converterProperties);
             Document document = ConvertToDocument(htmlStream, pdfDocument, converterProperties);
             IMetaInfo metaInfo = ResolveMetaInfo(converterProperties);
             document.SetProperty(Property.META_INFO, new MetaInfoContainer(metaInfo));
@@ -582,7 +568,7 @@ namespace iText.Html2pdf {
             if (pdfDocument.GetReader() != null) {
                 throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
             }
-            converterProperties = SetDefaultFontProviderForPdfA(pdfDocument, converterProperties);
+            converterProperties = SetupCustomConversionProperties(pdfDocument, converterProperties);
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(html);
             return Attacher.Attach(doc, pdfDocument, converterProperties);
@@ -626,10 +612,9 @@ namespace iText.Html2pdf {
             if (pdfDocument.GetReader() != null) {
                 throw new Html2PdfException(Html2PdfException.PDF_DOCUMENT_SHOULD_BE_IN_WRITING_MODE);
             }
-            converterProperties = SetDefaultFontProviderForPdfA(pdfDocument, converterProperties);
+            converterProperties = SetupCustomConversionProperties(pdfDocument, converterProperties);
             IXmlParser parser = new JsoupHtmlParser();
-            IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
-                ) : null);
+            IDocumentNode doc = parser.Parse(htmlStream, converterProperties.GetCharset());
             return Attacher.Attach(doc, pdfDocument, converterProperties);
         }
 
@@ -694,7 +679,7 @@ namespace iText.Html2pdf {
         /// </param>
         /// <returns>a list of iText building blocks</returns>
         public static IList<IElement> ConvertToElements(String html, ConverterProperties converterProperties) {
-            converterProperties = SetDefaultFontProviderForPdfA(null, converterProperties);
+            converterProperties = SetupCustomConversionProperties(null, converterProperties);
             IXmlParser parser = new JsoupHtmlParser();
             IDocumentNode doc = parser.Parse(html);
             return Attacher.Attach(doc, converterProperties);
@@ -724,10 +709,9 @@ namespace iText.Html2pdf {
         /// <returns>a list of iText building blocks</returns>
         public static IList<IElement> ConvertToElements(Stream htmlStream, ConverterProperties converterProperties
             ) {
-            converterProperties = SetDefaultFontProviderForPdfA(null, converterProperties);
+            converterProperties = SetupCustomConversionProperties(null, converterProperties);
             IXmlParser parser = new JsoupHtmlParser();
-            IDocumentNode doc = parser.Parse(htmlStream, converterProperties != null ? converterProperties.GetCharset(
-                ) : null);
+            IDocumentNode doc = parser.Parse(htmlStream, converterProperties.GetCharset());
             return Attacher.Attach(doc, converterProperties);
         }
 
@@ -737,26 +721,46 @@ namespace iText.Html2pdf {
         }
 //\endcond
 
+        private static PdfDocument CreateCorrectDocument(ConverterProperties converterProps, DocumentProperties documentProps
+            , PdfWriter pdfWriter) {
+            if (converterProps != null) {
+                if (converterProps.GetPdfUaConformance() != null && converterProps.GetPdfAConformance() != null) {
+                    throw new Html2PdfException(Html2PdfLogMessageConstant.PDF_A_AND_PDF_UA_CONFORMANCE_CANNOT_BE_USED_TOGETHER
+                        );
+                }
+                if (converterProps.GetPdfAConformance() != null) {
+                    return new PdfADocument(pdfWriter, converterProps.GetPdfAConformance(), converterProps.GetDocumentOutputIntent
+                        (), documentProps);
+                }
+                if (converterProps.GetPdfUaConformance() != null) {
+                    return new PdfUADocument(pdfWriter, documentProps, new PdfUAConfig(converterProps.GetPdfUaConformance(), "Title"
+                        , "en"));
+                }
+            }
+            return new PdfDocument(pdfWriter, documentProps);
+        }
+
         private static IMetaInfo ResolveMetaInfo(ConverterProperties converterProperties) {
             return converterProperties == null ? CreatePdf2HtmlMetaInfo() : converterProperties.GetEventMetaInfo();
         }
 
-        private static ConverterProperties SetDefaultFontProviderForPdfA(PdfDocument document, ConverterProperties
+        private static ConverterProperties SetupCustomConversionProperties(PdfDocument document, ConverterProperties
              properties) {
-            if (document is PdfADocument) {
-                if (properties == null) {
-                    properties = new ConverterProperties();
-                }
-                if (properties.GetFontProvider() == null) {
-                    properties.SetFontProvider(new BasicFontProvider(false, true, false));
-                }
+            if (properties == null) {
+                properties = new ConverterProperties();
             }
-            else {
-                if (document == null && properties != null && properties.GetPdfAConformance() != null) {
-                    if (properties.GetFontProvider() == null) {
-                        properties.SetFontProvider(new BasicFontProvider(false, true, false));
-                    }
-                }
+            bool needsForcedEmbeddedFonts = document is PdfADocument || document is PdfUADocument || properties.GetPdfUaConformance
+                () != null || properties.GetPdfAConformance() != null;
+            if (needsForcedEmbeddedFonts && properties.GetFontProvider() == null) {
+                BasicFontProvider embeddedFontProvider = new BasicFontProvider(false, true, false);
+                properties.SetFontProvider(embeddedFontProvider);
+            }
+            if ((document is PdfUADocument || properties.GetPdfUaConformance() != null) && properties.GetOutlineHandler
+                () == null) {
+                properties.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
+            }
+            if (properties.GetPdfAConformance() != null && "A".Equals(properties.GetPdfAConformance().GetLevel())) {
+                document.SetTagged();
             }
             return properties;
         }
