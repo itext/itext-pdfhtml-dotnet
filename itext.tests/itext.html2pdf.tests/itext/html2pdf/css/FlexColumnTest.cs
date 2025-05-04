@@ -238,5 +238,25 @@ namespace iText.Html2pdf.Css {
         public virtual void ColumnJustifyContentStartMinSizeTest() {
             ConvertToPdfAndCompare("FlexDirColumnJustifyContentStartMinSize", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnRelativeWidthHrChildTest() {
+            ConvertToPdfAndCompare("ColumnRelativeWidthHrChild", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnRelativeWidthInInlineBlockHrChildTest() {
+            ConvertToPdfAndCompare("ColumnRelativeWidthInInlineBlockHrChild", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnRelativeWidthDivWithContentChildTest() {
+            ConvertToPdfAndCompare("ColumnRelativeWidthDivWithContentChild", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnFixedWidthDivWithContentChildTest() {
+            ConvertToPdfAndCompare("ColumnFixedWidthDivWithContentChild", sourceFolder, destinationFolder);
+        }
     }
 }

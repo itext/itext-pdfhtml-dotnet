@@ -22,13 +22,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Layout.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+    // TODO DEVSIX-5269 ImageRenderer#getMinMaxWidth does not return initial image width
     public class FlexAspectRatioImgColumn007Test : W3CCssTest {
-        // TODO DEVSIX-5269 ImageRenderer#getMinMaxWidth does not return initial image width
         protected internal override String GetHtmlFileName() {
             return "flex-aspect-ratio-img-column-007.html";
         }

@@ -131,7 +131,7 @@ namespace iText.Html2pdf.Resolver.Resource {
                 fixedSrc = fixedSrc.Substring(fixedSrc.IndexOf(BASE64_IDENTIFIER, StringComparison.Ordinal) + BASE64_IDENTIFIER
                     .Length + 1);
                 try {
-                    using (MemoryStream stream = new MemoryStream(Convert.FromBase64String(fixedSrc))) {
+                    using (MemoryStream stream = new MemoryStream(Base64.Decode(fixedSrc))) {
                         PdfFormXObject xObject = iText.Html2pdf.Resolver.Resource.HtmlResourceResolver.ProcessAsSvg(stream, context
                             , null);
                         if (xObject != null) {
