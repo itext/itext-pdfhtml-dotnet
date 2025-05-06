@@ -27,12 +27,21 @@ using iText.Layout.Tagging;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Attach.Util {
+    /// <summary>Utility class to set lang attribute.</summary>
     public class AccessiblePropHelper {
+        /// <summary>Set language attribute in elements accessibility properties if it is not set, does nothing otherwise.
+        ///     </summary>
+        /// <param name="accessibleElement">pdf element to set language property on</param>
+        /// <param name="element">html element from which lang property will be extracted</param>
         public static void TrySetLangAttribute(IAccessibleElement accessibleElement, IElementNode element) {
             String lang = element.GetAttribute(AttributeConstants.LANG);
             TrySetLangAttribute(accessibleElement, lang);
         }
 
+        /// <summary>Set language attribute in elements accessibility properties if it is not set, does nothing otherwise.
+        ///     </summary>
+        /// <param name="accessibleElement">pdf element to set language property on</param>
+        /// <param name="lang">language to set</param>
         public static void TrySetLangAttribute(IAccessibleElement accessibleElement, String lang) {
             if (lang != null) {
                 AccessibilityProperties properties = accessibleElement.GetAccessibilityProperties();

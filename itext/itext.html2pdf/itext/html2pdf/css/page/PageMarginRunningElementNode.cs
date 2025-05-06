@@ -31,10 +31,17 @@ namespace iText.Html2pdf.Css.Page {
     /// serving as a placeholder for running element.
     /// </summary>
     public class PageMarginRunningElementNode : INode {
-        private String runningElementName;
+        private readonly String runningElementName;
 
-        private String runningElementOccurrence;
+        private readonly String runningElementOccurrence;
 
+        /// <summary>
+        /// Create new
+        /// <see cref="PageMarginRunningElementNode"/>
+        /// instance.
+        /// </summary>
+        /// <param name="runningElementName">running element id</param>
+        /// <param name="runningElementOccurrence">running element occurrence</param>
         public PageMarginRunningElementNode(String runningElementName, String runningElementOccurrence) {
             this.runningElementName = runningElementName;
             this.runningElementOccurrence = runningElementOccurrence;
@@ -52,10 +59,14 @@ namespace iText.Html2pdf.Css.Page {
             throw new NotSupportedException();
         }
 
+        /// <summary>Get running element id (moved out of the content flow)</summary>
+        /// <returns>running element string id value</returns>
         public virtual String GetRunningElementName() {
             return runningElementName;
         }
 
+        /// <summary>Get running element occurrence</summary>
+        /// <returns>running element occurrence string value</returns>
         public virtual String GetRunningElementOccurrence() {
             return runningElementOccurrence;
         }

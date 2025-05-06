@@ -26,6 +26,10 @@ using iText.Commons.Utils;
 using iText.StyledXmlParser.Css;
 
 namespace iText.Html2pdf.Css {
+    /// <summary>
+    /// Class containing possible CSS property keys and values, pseudo-element keys,
+    /// units of measurement, and so on, specific for html2pdf module.
+    /// </summary>
     public class CssConstants : CommonCssConstants {
         /// <summary>The Constant AUTO_FIT.</summary>
         public const String AUTO_FIT = "auto-fit";

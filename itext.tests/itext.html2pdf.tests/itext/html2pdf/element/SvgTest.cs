@@ -113,7 +113,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void Convert_inline_Svg_polygon_in_HTML() {
-            // TODO: DEVSIX-2719 SVG<polygon>: tops of figures are cut
             ConvertAndCompare("HTML_with_inline_svg_polygon");
         }
 
@@ -163,7 +162,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void ConvertInlineSvgStar() {
-            // TODO: DEVSIX-2719 SVG<polygon>: tops of figures are cut
             String html = "inline_svg_star";
             PdfDocument pdfDoc = new PdfDocument(new PdfWriter(DESTINATION_FOLDER + html + ".pdf"));
             pdfDoc.AddNewPage();

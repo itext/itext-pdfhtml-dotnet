@@ -86,6 +86,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 );
             ApplyAlignItems(cssProps, element);
             ApplyJustifyContent(cssProps, element);
+            ApplyAlignContent(cssProps, element);
             ApplyWrap(cssProps, element);
             ApplyDirection(cssProps, element);
         }
@@ -285,6 +286,55 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        private static void ApplyAlignContent(IDictionary<String, String> cssProps, IPropertyContainer element) {
+            String alignContentString = cssProps.Get(CommonCssConstants.ALIGN_CONTENT);
+            if (alignContentString != null) {
+                AlignContentPropertyValue alignContent;
+                switch (alignContentString) {
+                    case CommonCssConstants.FLEX_START: {
+                        alignContent = AlignContentPropertyValue.FLEX_START;
+                        break;
+                    }
+
+                    case CommonCssConstants.FLEX_END: {
+                        alignContent = AlignContentPropertyValue.FLEX_END;
+                        break;
+                    }
+
+                    case CommonCssConstants.CENTER: {
+                        alignContent = AlignContentPropertyValue.CENTER;
+                        break;
+                    }
+
+                    case CommonCssConstants.SPACE_BETWEEN: {
+                        alignContent = AlignContentPropertyValue.SPACE_BETWEEN;
+                        break;
+                    }
+
+                    case CommonCssConstants.SPACE_AROUND: {
+                        alignContent = AlignContentPropertyValue.SPACE_AROUND;
+                        break;
+                    }
+
+                    case CommonCssConstants.SPACE_EVENLY: {
+                        alignContent = AlignContentPropertyValue.SPACE_EVENLY;
+                        break;
+                    }
+
+                    case CommonCssConstants.STRETCH: {
+                        alignContent = AlignContentPropertyValue.STRETCH;
+                        break;
+                    }
+
+                    default: {
+                        alignContent = AlignContentPropertyValue.NORMAL;
+                        break;
+                    }
+                }
+                element.SetProperty(Property.ALIGN_CONTENT, alignContent);
+            }
+        }
+
         private static void LogWarningIfThereAreNotSupportedPropertyValues(IDictionary<String, ICollection<String>
             > supportedPairs, IDictionary<String, String> cssProps) {
             foreach (KeyValuePair<String, ICollection<String>> entry in supportedPairs) {
@@ -320,6 +370,12 @@ namespace iText.Html2pdf.Css.Apply.Util {
             ICollection<String> supportedAlignContentValues = new HashSet<String>();
             supportedAlignContentValues.Add(CommonCssConstants.STRETCH);
             supportedAlignContentValues.Add(CommonCssConstants.NORMAL);
+            supportedAlignContentValues.Add(CommonCssConstants.FLEX_START);
+            supportedAlignContentValues.Add(CommonCssConstants.FLEX_END);
+            supportedAlignContentValues.Add(CommonCssConstants.CENTER);
+            supportedAlignContentValues.Add(CommonCssConstants.SPACE_AROUND);
+            supportedAlignContentValues.Add(CommonCssConstants.SPACE_BETWEEN);
+            supportedAlignContentValues.Add(CommonCssConstants.SPACE_EVENLY);
             supportedPairs.Put(CommonCssConstants.ALIGN_CONTENT, supportedAlignContentValues);
             ICollection<String> supportedRowGapValues = new HashSet<String>();
             supportedRowGapValues.Add(CommonCssConstants.NORMAL);

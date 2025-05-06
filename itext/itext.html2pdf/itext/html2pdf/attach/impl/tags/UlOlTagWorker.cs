@@ -139,11 +139,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
 
         /// <summary>Processes an unlabeled list item.</summary>
         private void ProcessUnlabeledListItem() {
-            Paragraph p = inlineHelper.CreateParagraphContainer();
-            inlineHelper.FlushHangingLeaves(p);
-            if (p.GetChildren().Count > 0) {
-                AddUnlabeledListItem(p);
+            AnonymousInlineBox ab = new AnonymousInlineBox();
+            inlineHelper.FlushHangingLeaves(ab);
+            if (ab.GetChildren().IsEmpty()) {
+                return;
             }
+            AddUnlabeledListItem(ab);
         }
 
         /// <summary>Adds an unlabeled list item.</summary>

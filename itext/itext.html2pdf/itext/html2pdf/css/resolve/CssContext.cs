@@ -109,6 +109,12 @@ namespace iText.Html2pdf.Css.Resolve {
             return nonPagesTargetCounterPresent;
         }
 
+        /// <summary>Get running element's manager.</summary>
+        /// <returns>
+        /// 
+        /// <see cref="iText.Html2pdf.Css.Page.CssRunningManager"/>
+        /// instance
+        /// </returns>
         public virtual CssRunningManager GetRunningManager() {
             return runningManager;
         }

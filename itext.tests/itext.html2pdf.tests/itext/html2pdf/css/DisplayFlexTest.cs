@@ -33,6 +33,7 @@ using iText.Layout.Font;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
 using iText.StyledXmlParser.Resolver.Font;
+using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
@@ -499,18 +500,24 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("wrappedRowRtlFlexStartSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT, LogLevel = LogLevelConstants
+            .ERROR, Count = 3)]
         [NUnit.Framework.Test]
         public virtual void EndlessColumnFlexContainerWithPercentFlexBasisTest() {
             ConvertToPdfAndCompare("endlessColumnFlexContainerWithPercentFlexBasis", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT, LogLevel = LogLevelConstants
+            .ERROR, Count = 3)]
         [NUnit.Framework.Test]
         public virtual void DefiniteMainSizeColumnFlexContainerWithPercentFlexBasisTest() {
             ConvertToPdfAndCompare("definiteMainSizeColumnFlexContainerWithPercentFlexBasis", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT, LogLevel = LogLevelConstants
+            .ERROR, Count = 3)]
         [NUnit.Framework.Test]
         public virtual void ImageStretchColumnFlexContainerTest() {
             ConvertToPdfAndCompare("imageStretchColumnFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);

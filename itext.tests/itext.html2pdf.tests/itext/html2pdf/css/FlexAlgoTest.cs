@@ -285,7 +285,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void LtWidthGrow0Shrink1Item2MBP30JustifyContentCenterAlignItemsCenterTest01() {
-            //TODO DEVSIX-5164 support align-content
             ConvertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentCenterAlignItemsCenterTest01", SOURCE_FOLDER
                 , DESTINATION_FOLDER);
         }
@@ -298,7 +297,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void LtWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest() {
-            //TODO DEVSIX-5164 support align-content
             ConvertToPdfAndCompare("ltWidthGrow0Shrink1Item2MBP30JustifyContentFlexStartTest", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }

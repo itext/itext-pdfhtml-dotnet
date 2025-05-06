@@ -40,7 +40,6 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout.Tagging;
 using iText.StyledXmlParser.Node;
-using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 
 namespace iText.Html2pdf.Attach.Util {
     /// <summary>Helper class for links.</summary>
@@ -78,11 +77,13 @@ namespace iText.Html2pdf.Attach.Util {
                     linkAnnotation = (PdfLinkAnnotation)new PdfLinkAnnotation(new Rectangle(0, 0, 0, 0)).SetAction(PdfAction.CreateURI
                         (url)).SetFlags(PdfAnnotation.PRINT);
                 }
-                String alternateDescription = RetrieveAlternativeDescription(element);
-                if (alternateDescription != null) {
-                    linkAnnotation.SetContents(alternateDescription);
-                    if (container is IAccessibleElement) {
-                        ((IAccessibleElement)container).GetAccessibilityProperties().SetAlternateDescription(alternateDescription);
+                if (container is IAccessibleElement) {
+                    context.GetDIContainer().GetInstance<AlternateDescriptionResolver>().Resolve((IAccessibleElement)container
+                        , element);
+                    String altDescription = ((IAccessibleElement)container).GetAccessibilityProperties().GetAlternateDescription
+                        ();
+                    if (altDescription != null) {
+                        linkAnnotation.SetContents(altDescription);
                     }
                 }
                 linkAnnotation.SetBorder(new PdfArray(new float[] { 0, 0, 0 }));
@@ -122,17 +123,6 @@ namespace iText.Html2pdf.Attach.Util {
             if (propertyContainer != null) {
                 propertyContainer.SetProperty(Property.ID, id);
             }
-        }
-
-        private static String RetrieveAlternativeDescription(IElementNode element) {
-            IList<INode> children = element.ChildNodes();
-            // If there is an img tag under the link then prefer the alt attribute as a link description.
-            if (children.Count == 1 && children[0].ChildNodes().IsEmpty() && children[0] is JsoupElementNode && ((JsoupElementNode
-                )children[0]).GetAttribute(AttributeConstants.ALT) != null) {
-                return ((JsoupElementNode)children[0]).GetAttribute(AttributeConstants.ALT);
-            }
-            // Return title attribute value in case of regular link.
-            return element.GetAttribute(AttributeConstants.TITLE);
         }
 
         private static IPropertyContainer GetPropertyContainer(ITagWorker tagWorker) {

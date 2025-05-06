@@ -42,6 +42,9 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant ALT.</summary>
         public const String ALT = "alt";
 
+        /// <summary>The Constant ARIA-LABEL.</summary>
+        public const String ARIA_LABEL = "aria-label";
+
         /// <summary>The Constant APPLICATION_NAME.</summary>
         public const String APPLICATION_NAME = "application-name";
 
@@ -296,6 +299,7 @@ namespace iText.Html2pdf.Html {
             , URL, WEEK })));
 
         // iText custom attributes
+        /// <summary>Class that holds object MIME types.</summary>
         public sealed class ObjectTypes {
             public const String SVGIMAGE = "image/svg+xml";
         }

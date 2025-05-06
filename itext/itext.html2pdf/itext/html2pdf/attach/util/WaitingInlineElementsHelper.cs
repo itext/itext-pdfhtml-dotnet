@@ -66,6 +66,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <param name="text">the text</param>
         public virtual void Add(String text) {
             text = WhiteSpaceUtil.ProcessWhitespaces(text, keepLineBreaks, collapseSpaces);
+            // Here we intentionally use locale dependent toLowerCase/toUpperCase
             if (CssConstants.UPPERCASE.Equals(textTransform)) {
                 text = text.ToUpperInvariant();
             }
@@ -83,6 +84,8 @@ namespace iText.Html2pdf.Attach.Util {
             waitingLeaves.Add(element);
         }
 
+        /// <summary>Adds a block element to the waiting leaves.</summary>
+        /// <param name="element">the element</param>
         public virtual void Add(IBlockElement element) {
             waitingLeaves.Add(element);
         }
@@ -96,13 +99,13 @@ namespace iText.Html2pdf.Attach.Util {
         /// <summary>Flush hanging leaves.</summary>
         /// <param name="container">a container element</param>
         public virtual void FlushHangingLeaves(IPropertyContainer container) {
-            Paragraph p = CreateLeavesContainer();
-            if (p != null) {
+            AnonymousInlineBox ab = CreateLeavesContainer();
+            if (ab != null) {
                 IDictionary<String, String> map = new Dictionary<String, String>();
                 map.Put(CssConstants.OVERFLOW, CommonCssConstants.VISIBLE);
-                OverflowApplierUtil.ApplyOverflow(map, p);
+                OverflowApplierUtil.ApplyOverflow(map, ab);
                 if (container is Document) {
-                    ((Document)container).Add(p);
+                    ((Document)container).Add(ab);
                 }
                 else {
                     if (container is Paragraph) {
@@ -121,21 +124,21 @@ namespace iText.Html2pdf.Attach.Util {
                         if (((IElement)container).GetRenderer() is FlexContainerRenderer) {
                             Div div = new Div();
                             OverflowApplierUtil.ApplyOverflow(map, div);
-                            div.Add(p);
+                            div.Add(ab);
                             ((Div)container).Add(div);
                         }
                         else {
                             if (container is Div) {
-                                ((Div)container).Add(p);
+                                ((Div)container).Add(ab);
                             }
                             else {
                                 if (container is Cell) {
-                                    ((Cell)container).Add(p);
+                                    ((Cell)container).Add(ab);
                                 }
                                 else {
                                     if (container is List) {
                                         ListItem li = new ListItem();
-                                        li.Add(p);
+                                        li.Add(ab);
                                         ((List)container).Add(li);
                                     }
                                     else {
@@ -151,36 +154,38 @@ namespace iText.Html2pdf.Attach.Util {
         }
 
         /// <summary>Creates the leaves container.</summary>
-        /// <returns>a paragraph</returns>
-        private Paragraph CreateLeavesContainer() {
+        /// <returns>
+        /// an
+        /// <see cref="iText.Layout.Element.AnonymousInlineBox"/>
+        /// </returns>
+        private AnonymousInlineBox CreateLeavesContainer() {
             if (collapseSpaces) {
                 waitingLeaves = TrimUtil.TrimLeafElementsAndSanitize(waitingLeaves);
             }
             Capitalize(waitingLeaves);
-            if (waitingLeaves.Count > 0) {
-                Paragraph p = CreateParagraphContainer();
-                bool runningElementsOnly = true;
-                foreach (IElement leaf in waitingLeaves) {
-                    if (leaf is ILeafElement) {
-                        runningElementsOnly = false;
-                        p.Add((ILeafElement)leaf);
-                    }
-                    else {
-                        if (leaf is IBlockElement) {
-                            runningElementsOnly = runningElementsOnly && leaf is RunningElement;
-                            p.Add((IBlockElement)leaf);
-                        }
-                    }
-                }
-                if (runningElementsOnly) {
-                    // TODO DEVSIX-7008 Remove completely empty tags from logical structure of resultant PDF documents
-                    p.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
-                }
-                return p;
-            }
-            else {
+            if (waitingLeaves.IsEmpty()) {
                 return null;
             }
+            AnonymousInlineBox ab = new AnonymousInlineBox();
+            ab.GetAccessibilityProperties().SetRole(StandardRoles.P);
+            bool runningElementsOnly = true;
+            foreach (IElement leaf in waitingLeaves) {
+                if (leaf is ILeafElement) {
+                    runningElementsOnly = false;
+                    ab.Add((ILeafElement)leaf);
+                }
+                else {
+                    if (leaf is IBlockElement) {
+                        runningElementsOnly = runningElementsOnly && leaf is RunningElement;
+                        ab.Add((IBlockElement)leaf);
+                    }
+                }
+            }
+            if (runningElementsOnly) {
+                // TODO DEVSIX-7008 Remove completely empty tags from logical structure of resultant PDF documents
+                ab.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
+            }
+            return ab;
         }
 
         /// <summary>Gets the waiting leaves.</summary>
@@ -207,6 +212,7 @@ namespace iText.Html2pdf.Attach.Util {
 
         /// <summary>Creates a paragraph container.</summary>
         /// <returns>the paragraph container</returns>
+        [System.ObsoleteAttribute(@"to remove as it is not used anywhere anymore")]
         public virtual Paragraph CreateParagraphContainer() {
             return new Paragraph().SetMargin(0);
         }

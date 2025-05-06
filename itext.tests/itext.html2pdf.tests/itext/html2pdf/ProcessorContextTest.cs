@@ -24,9 +24,11 @@ using System;
 using System.IO;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
+using iText.Html2pdf.Attach.Util;
 using iText.Kernel.Exceptions;
 using iText.Kernel.Pdf;
 using iText.Layout;
+using iText.Layout.Tagging;
 using iText.StyledXmlParser;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup;
@@ -55,7 +57,7 @@ namespace iText.Html2pdf {
                 IXmlParser parser = new JsoupHtmlParser();
                 IDocumentNode documentNode = parser.Parse(fileInputStream, null);
                 ConverterProperties converterProperties = new ConverterProperties();
-                converterProperties.SetFontProvider(new _BasicFontProvider_66(false, true, false));
+                converterProperties.SetFontProvider(new _BasicFontProvider_69(false, true, false));
                 // Do nothing here. That should result in an exception.
                 IHtmlProcessor processor = new DefaultHtmlProcessor(converterProperties);
                 Document doc1 = processor.ProcessDocument(documentNode, new PdfDocument(new PdfWriter(new MemoryStream()))
@@ -70,13 +72,40 @@ namespace iText.Html2pdf {
             );
         }
 
-        private sealed class _BasicFontProvider_66 : BasicFontProvider {
-            public _BasicFontProvider_66(bool baseArg1, bool baseArg2, bool baseArg3)
+        private sealed class _BasicFontProvider_69 : BasicFontProvider {
+            public _BasicFontProvider_69(bool baseArg1, bool baseArg2, bool baseArg3)
                 : base(baseArg1, baseArg2, baseArg3) {
             }
 
             public override void Reset() {
             }
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void OverwriteDiContainerAlternateDescriptionResolve() {
+            String html = "<html><body><a href='https://itextpdf.com'  alt=\"some description\"/>Hello</a></body></html>";
+            ConverterProperties properties = new ConverterProperties();
+            String exceptionMessage = "Test me";
+            properties.GetDependencies().Put(typeof(AlternateDescriptionResolver), new _AlternateDescriptionResolver_92
+                (exceptionMessage));
+            Exception e = NUnit.Framework.Assert.Catch((typeof(Exception)), () => {
+                HtmlConverter.ConvertToPdf(html, new PdfWriter(new MemoryStream()), properties);
+            }
+            );
+            NUnit.Framework.Assert.AreEqual(exceptionMessage, e.Message);
+        }
+
+        private sealed class _AlternateDescriptionResolver_92 : AlternateDescriptionResolver {
+            public _AlternateDescriptionResolver_92(String exceptionMessage) {
+                this.exceptionMessage = exceptionMessage;
+            }
+
+            protected internal override void ResolveFallback(IAccessibleElement accessibleElement, IElementNode element
+                ) {
+                throw new Exception(exceptionMessage);
+            }
+
+            private readonly String exceptionMessage;
         }
     }
 }

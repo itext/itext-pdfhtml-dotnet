@@ -93,13 +93,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                 display = CssConstants.BLOCK;
             }
             if (image != null) {
-                String altText = element.GetAttribute(AttributeConstants.ALT);
-                if (altText != null) {
-                    image.GetAccessibilityProperties().SetAlternateDescription(altText);
-                }
                 AccessiblePropHelper.TrySetLangAttribute(image, element);
-            }
-            if (image != null) {
+                context.GetDIContainer().GetInstance<AlternateDescriptionResolver>().Resolve(image, element);
                 String objectFitValue = element.GetStyles() != null ? element.GetStyles().Get(CssConstants.OBJECT_FIT) : null;
                 image.SetObjectFit(GetObjectFitValue(objectFitValue));
             }

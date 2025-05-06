@@ -217,6 +217,16 @@ namespace iText.Html2pdf.Element {
             ConvertToPdfAndCompare("listOver2Pages", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
+        [NUnit.Framework.Test]
+        public virtual void ListSymbolWithoutTextSplitTest() {
+            ConvertToPdfAndCompare("listSymbolWithoutTextSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ListWithImagesTest() {
+            ConvertToPdfAndCompare("listWithImages", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
         // Android-Conversion-Skip-Block-Start (TODO DEVSIX-7372 investigate why a few tests related to PdfA in iTextCore and PdfHtml were cut)
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.NOT_SUPPORTED_LIST_STYLE_TYPE, Count = 32)]

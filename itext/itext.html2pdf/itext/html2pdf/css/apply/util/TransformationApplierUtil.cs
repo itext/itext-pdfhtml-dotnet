@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.Collections.Generic;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.IO.Util;
@@ -30,6 +31,7 @@ using iText.Layout.Properties;
 using iText.StyledXmlParser.Css.Util;
 
 namespace iText.Html2pdf.Css.Apply.Util {
+    /// <summary>Utility class to apply transform properties.</summary>
     public class TransformationApplierUtil {
         /// <summary>
         /// Creates a new
@@ -47,7 +49,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
              element) {
             String transformationFunction;
             if (cssProps.Get(CssConstants.TRANSFORM) != null) {
-                transformationFunction = cssProps.Get(CssConstants.TRANSFORM).ToLowerInvariant();
+                transformationFunction = StringNormalizer.ToLowerCase(cssProps.Get(CssConstants.TRANSFORM));
             }
             else {
                 return;

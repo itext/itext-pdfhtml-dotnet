@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_items {
-    //TODO DEVSIX-8376 Support % in grid layout?
     public class GridItemContainingBlock001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-item-containing-block-001.html";

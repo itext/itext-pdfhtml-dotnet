@@ -23,10 +23,14 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Commons.Utils;
 using iText.Html2pdf;
 using iText.IO.Util;
+using iText.Kernel.Colors;
+using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
+using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Font;
 using iText.Layout.Properties;
@@ -206,6 +210,33 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void LineHeightMathJaxMathFontNormalTest() {
             TestLineHeight("lineHeightMathJaxMathFontNormalTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LeadingInConvertToElementsTest() {
+            String htmlString = "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. " + "Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa.</p>";
+            String destinationPdf = DESTINATION_FOLDER + "leadingInConvertToElementsTest.pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_leadingInConvertToElementsTest.pdf";
+            PdfWriter pdfWriter = new PdfWriter(FileUtil.GetFileOutputStream(destinationPdf));
+            PdfDocument pdfDoc = new PdfDocument(pdfWriter);
+            Document document = new Document(pdfDoc, PageSize.LETTER);
+            ConverterProperties converterProperties = new ConverterProperties();
+            IList<IElement> elements = HtmlConverter.ConvertToElements("<p>" + htmlString + "</p>", converterProperties
+                );
+            foreach (IElement element in elements) {
+                Paragraph p = (Paragraph)element;
+                document.Add(p);
+            }
+            foreach (IElement element in elements) {
+                Paragraph p = (Paragraph)element;
+                p.SetFixedLeading(30);
+                p.SetFontSize(9);
+                p.SetFontColor(ColorConstants.RED);
+                document.Add(p);
+            }
+            document.Close();
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER
+                , "diff_leadingInConvertToElementsTest_"));
         }
 
 //\cond DO_NOT_DOCUMENT

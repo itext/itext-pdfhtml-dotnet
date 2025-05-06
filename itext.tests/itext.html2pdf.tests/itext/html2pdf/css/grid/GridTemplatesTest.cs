@@ -634,6 +634,8 @@ namespace iText.Html2pdf.Css.Grid {
 
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
             LogLevel = LogLevelConstants.WARN)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB, LogLevel = LogLevelConstants
+            .ERROR, Count = 11)]
         [NUnit.Framework.Test]
         public virtual void DivNestingTest() {
             RunTest("divNestingTest");

@@ -21,9 +21,11 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
 using iText.Commons.Actions.Contexts;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css.Apply;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
@@ -38,6 +40,8 @@ namespace iText.Html2pdf {
     public class ConverterProperties {
         /// <summary>Default maximum number of layouts.</summary>
         private const int DEFAULT_LIMIT_OF_LAYOUTS = 10;
+
+        private readonly Dictionary<Type, Object> dependencies = new Dictionary<Type, Object>();
 
         /// <summary>The media device description.</summary>
         private MediaDeviceDescription mediaDeviceDescription;
@@ -82,7 +86,7 @@ namespace iText.Html2pdf {
         private PdfOutputIntent outputIntent;
 
         /// <summary>Conformance for conversion to pdf/a.</summary>
-        private PdfAConformance aConformance;
+        private PdfConformance conformance = new PdfConformance();
 
         /// <summary>
         /// Instantiates a new
@@ -90,6 +94,7 @@ namespace iText.Html2pdf {
         /// instance.
         /// </summary>
         public ConverterProperties() {
+            this.dependencies.Put(typeof(AlternateDescriptionResolver), new AlternateDescriptionResolver());
         }
 
         /// <summary>
@@ -119,6 +124,11 @@ namespace iText.Html2pdf {
             this.limitOfLayouts = other.limitOfLayouts;
             this.immediateFlush = other.immediateFlush;
             this.continuousContainerEnabled = other.continuousContainerEnabled;
+            this.conformance = other.conformance;
+            this.outputIntent = other.outputIntent;
+            foreach (Type aClass in other.dependencies.Keys) {
+                this.dependencies.Put(aClass, other.dependencies.Get(aClass));
+            }
         }
 
         /// <summary>Gets the media device description.</summary>
@@ -444,10 +454,24 @@ namespace iText.Html2pdf {
             return this;
         }
 
+        /// <summary>Gets pdf document output intent (final destination device) to reproduce the color in the PDF.</summary>
+        /// <remarks>
+        /// Gets pdf document output intent (final destination device) to reproduce the color in the PDF.
+        /// <para />
+        /// Note, output intent isn't applicable for HtmlConverter#convertToElements methods
+        /// (e.g.
+        /// <see cref="HtmlConverter.ConvertToElements(System.IO.Stream, ConverterProperties)"/>
+        /// )
+        /// </remarks>
+        /// <returns>pdf output intent</returns>
+        public virtual PdfOutputIntent GetDocumentOutputIntent() {
+            return outputIntent;
+        }
+
         /// <summary>Sets pdf document output intent (final destination device) to reproduce the color in the PDF.</summary>
         /// <remarks>
         /// Sets pdf document output intent (final destination device) to reproduce the color in the PDF.
-        /// Required parameter, when converting to pdf/a one have to specify an explicit output intent.
+        /// Required parameter, when converting to pdf/a one has to specify an explicit output intent.
         /// <para />
         /// Note, output intent isn't applicable for HtmlConverter#convertToElements methods
         /// (e.g.
@@ -469,12 +493,18 @@ namespace iText.Html2pdf {
             return this;
         }
 
+        /// <summary>Gets the generation and strictness level of the PDF/A that must be followed.</summary>
+        /// <returns>pdf/a conformance</returns>
+        public virtual PdfAConformance GetPdfAConformance() {
+            return conformance.GetAConformance();
+        }
+
         /// <summary>Sets the generation and strictness level of the PDF/A that must be followed.</summary>
         /// <remarks>
         /// Sets the generation and strictness level of the PDF/A that must be followed.
-        /// Required parameter, when converting to pdf/a one have to specify an explicit pdf/a conformance.
+        /// Required parameter, when converting to pdf/a one has to specify an explicit pdf/a conformance.
         /// </remarks>
-        /// <param name="conformance">
+        /// <param name="aConformance">
         /// a
         /// <see cref="iText.Kernel.Pdf.PdfAConformance"/>
         /// constant
@@ -484,29 +514,35 @@ namespace iText.Html2pdf {
         /// <see cref="ConverterProperties"/>
         /// instance
         /// </returns>
-        public virtual iText.Html2pdf.ConverterProperties SetPdfAConformance(PdfAConformance conformance) {
-            this.aConformance = conformance;
+        public virtual iText.Html2pdf.ConverterProperties SetPdfAConformance(PdfAConformance aConformance) {
+            this.conformance = new PdfConformance(aConformance, conformance.GetUAConformance());
             return this;
         }
 
-        /// <summary>Gets pdf document output intent (final destination device) to reproduce the color in the PDF.</summary>
-        /// <remarks>
-        /// Gets pdf document output intent (final destination device) to reproduce the color in the PDF.
-        /// <para />
-        /// Note, output intent isn't applicable for HtmlConverter#convertToElements methods
-        /// (e.g.
-        /// <see cref="HtmlConverter.ConvertToElements(System.IO.Stream, ConverterProperties)"/>
-        /// )
-        /// </remarks>
-        /// <returns>pdf output intent</returns>
-        public virtual PdfOutputIntent GetDocumentOutputIntent() {
-            return outputIntent;
+        /// <summary>Gets the generation and strictness level of the PDF/UA that must be followed.</summary>
+        /// <returns>The PDF/UA conformance level.</returns>
+        public virtual PdfUAConformance GetPdfUaConformance() {
+            return conformance.GetUAConformance();
         }
 
-        /// <summary>Gets the generation and strictness level of the PDF/A that must be followed.</summary>
-        /// <returns>pdf/a conformance</returns>
-        public virtual PdfAConformance GetPdfAConformance() {
-            return aConformance;
+        /// <summary>Sets the generation and strictness level of the PDF/UA that must be followed.</summary>
+        /// <remarks>
+        /// Sets the generation and strictness level of the PDF/UA that must be followed.
+        /// Required parameter, when converting to PDF/UA one has to specify an explicit PDF/UA conformance.
+        /// </remarks>
+        /// <param name="uaConformance">
+        /// a
+        /// <see cref="iText.Kernel.Pdf.PdfUAConformance"/>
+        /// constant
+        /// </param>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
+        public virtual iText.Html2pdf.ConverterProperties SetPdfUAConformance(PdfUAConformance uaConformance) {
+            this.conformance = new PdfConformance(conformance.GetAConformance(), uaConformance);
+            return this;
         }
 
         /// <summary>Checks if immediateFlush is set.</summary>
@@ -600,6 +636,12 @@ namespace iText.Html2pdf {
         public virtual iText.Html2pdf.ConverterProperties SetContinuousContainerEnabled(bool value) {
             continuousContainerEnabled = value;
             return this;
+        }
+
+        /// <summary>Gets the dependencies.</summary>
+        /// <returns>the dependencies</returns>
+        public virtual IDictionary<Type, Object> GetDependencies() {
+            return dependencies;
         }
     }
 }

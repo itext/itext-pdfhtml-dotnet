@@ -247,13 +247,11 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void TableWithCellsOfDifferentBorderColorsTest() {
-            // TODO DEVSIX-5524 Left border is drawn underneath, but should overlap top and bottom
             ConvertToPdfAndCompare("tableWithCellsOfDifferentBorderColors", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void CellDifferentBorderColorsTest() {
-            // TODO DEVSIX-5524 Left border is drawn underneath, but should overlap top and bottom
             ConvertToPdfAndCompare("cellDifferentBorderColors", sourceFolder, destinationFolder);
         }
 
@@ -279,7 +277,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BodyCellContentOverlapsBorder2Test() {
-            // TODO DEVSIX-5524 Content should be placed over rather than under overlapped border
+            // TODO DEVSIX-5962 Content should be placed over rather than under overlapped border
             ConvertToPdfAndCompare("bodyCellContentOverlapsBorder2", sourceFolder, destinationFolder);
         }
 
@@ -295,13 +293,12 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BodyCellContentOverlapsBorderTest() {
-            // TODO DEVSIX-5524 ?
+            // TODO DEVSIX-5962 Content should be placed over rather than under overlapped border, red should overlap yellow
             ConvertToPdfAndCompare("bodyCellContentOverlapsBorder", sourceFolder, destinationFolder);
         }
 
         [NUnit.Framework.Test]
         public virtual void BottomBorderCellAndTableCollapseTest() {
-            // TODO DEVSIX-5524 Left border is drawn underneath, but should overlap top and bottom
             ConvertToPdfAndCompare("bottomBorderCellAndTableCollapse", sourceFolder, destinationFolder);
         }
 
@@ -312,7 +309,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void CellBordersDifferentWidthsTest() {
-            // TODO DEVSIX-5524 min-width is not respected
+            // TODO DEVSIX-5962 min-width is not respected
             ConvertToPdfAndCompare("cellBordersDifferentWidths", sourceFolder, destinationFolder);
         }
 

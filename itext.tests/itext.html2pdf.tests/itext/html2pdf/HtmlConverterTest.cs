@@ -85,6 +85,22 @@ namespace iText.Html2pdf {
                 );
         }
 
+        [NUnit.Framework.Test]
+        public virtual void InputsWithTitleTagsAsAltDescTest() {
+            String sourceHtml = SOURCE_FOLDER + "inputsWithTitleTagsAsAltDesc.html";
+            String cmpPdf = SOURCE_FOLDER + "cmp_inputsWithTitleTagsAsAltDesc.pdf";
+            String destinationPdf = DESTINATION_FOLDER + "inputsWithTitleTagsAsAltDesc.pdf";
+            ConverterProperties converterProperties = new ConverterProperties();
+            converterProperties.SetCreateAcroForm(true);
+            PdfDocument document = new PdfDocument(new PdfWriter(destinationPdf));
+            document.SetTagged();
+            using (FileStream fileInputStream = new FileStream(sourceHtml, FileMode.Open, FileAccess.Read)) {
+                HtmlConverter.ConvertToPdf(fileInputStream, document, converterProperties);
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER
+                , "diff_simple_"));
+        }
+
         private static PdfDocument CreateTempDoc() {
             MemoryStream outputStream = new MemoryStream();
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outputStream));

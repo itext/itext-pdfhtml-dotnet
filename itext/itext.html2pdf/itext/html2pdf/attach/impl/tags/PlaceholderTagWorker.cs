@@ -32,6 +32,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// 's placeholder.
     /// </summary>
     public class PlaceholderTagWorker : ITagWorker {
+        /// <summary>
+        /// Creates a new
+        /// <see cref="PlaceholderTagWorker"/>
+        /// instance.
+        /// </summary>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context</param>
         public PlaceholderTagWorker(IElementNode element, ProcessorContext context) {
         }
 

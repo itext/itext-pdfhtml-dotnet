@@ -78,7 +78,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BackgroundWillChangeRootTest() {
-            // TODO DEVSIX-4448 support will-change CSS property
+            // We are not going to support will-change experimental CSS property, it's out of scope for pdfHTML.
             ConvertToPdfAndCompare("backgroundWillChangeRoot", sourceFolder, destinationFolder);
         }
 

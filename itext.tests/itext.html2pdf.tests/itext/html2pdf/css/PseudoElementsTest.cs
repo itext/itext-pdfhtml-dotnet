@@ -60,6 +60,36 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void CssWithListOfSelectorsInPseudoClassTest() {
+            ConvertToPdfAndCompare("pseudoClassTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InvalidPseudoClassWithCommaSelectorTest() {
+            ConvertToPdfAndCompare("invalidPseudoClassWithCommaSelector", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DifferentArgumentsInNotClassTest() {
+            ConvertToPdfAndCompare("invalidPseudoClassWithCommaSelector", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NotFirstPseudoClassTest() {
+            ConvertToPdfAndCompare("notFirstPseudoClassTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AddingNewContentInPseudoClassTest() {
+            ConvertToPdfAndCompare("addingNewContentInPseudoClassTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ComplexPseudoClassTest() {
+            ConvertToPdfAndCompare("complexPseudoClassTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void BeforeAfterPseudoTest01() {
             ConvertToPdfAndCompare("beforeAfterPseudoTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
