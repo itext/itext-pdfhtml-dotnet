@@ -19,10 +19,10 @@
 	<repository type="git" url="https://github.com/itext/i7n-pdfhtml.git" />
     <dependencies>
       <group targetFramework="net461">
-        <dependency id="itext" version="9.2.1-SNAPSHOT" />
+        <dependency id="itext" version="9.3.0-SNAPSHOT" />
       </group>
       <group targetFramework="netstandard2.0">
-        <dependency id="itext" version="9.2.1-SNAPSHOT" />
+        <dependency id="itext" version="9.3.0-SNAPSHOT" />
       </group>
     </dependencies>
   </metadata>
