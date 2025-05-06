@@ -21,6 +21,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Layout;
 using iText.Layout.Tagging;
@@ -44,7 +45,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="context">the context</param>
         public HTagWorker(IElementNode element, ProcessorContext context)
             : base(element, context) {
-            this.role = element.Name().ToUpperInvariant();
+            this.role = StringNormalizer.ToUpperCase(element.Name());
         }
 
         public override void ProcessEnd(IElementNode element, ProcessorContext context) {

@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Commons.Utils;
 using iText.Forms.Form.Element;
 using iText.Forms.Logs;
 using iText.Html2pdf;
@@ -352,9 +353,9 @@ namespace iText.Html2pdf.Element {
 
         private class CustomTextInputTagWorkerFactory : DefaultTagWorkerFactory {
             public override ITagWorker GetCustomTagWorker(IElementNode tag, ProcessorContext context) {
-                switch (tag.Name().ToLowerInvariant()) {
+                switch (StringNormalizer.ToLowerCase(tag.Name())) {
                     case "input": {
-                        switch (tag.GetAttribute("type").ToLowerInvariant()) {
+                        switch (StringNormalizer.ToLowerCase(tag.GetAttribute("type"))) {
                             case "text": {
                                 IDictionary<String, String> map = new Dictionary<String, String>();
                                 map.Put("page-break-inside", "avoid");

@@ -21,6 +21,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html;
 using iText.Kernel.Pdf;
@@ -51,7 +52,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             // Note that charset and http-equiv attributes are processed on DataUtil#parseByteData(ByteBuffer, String, String, Parser) level.
             String name = element.GetAttribute(AttributeConstants.NAME);
             if (null != name) {
-                name = name.ToLowerInvariant();
+                name = StringNormalizer.ToLowerCase(name);
                 String content = element.GetAttribute(AttributeConstants.CONTENT);
                 // although iText do not visit head during processing html to elements
                 // meta tag can by accident be presented in body section and that shouldn't cause NPE

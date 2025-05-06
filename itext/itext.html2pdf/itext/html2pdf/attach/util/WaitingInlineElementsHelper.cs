@@ -66,6 +66,7 @@ namespace iText.Html2pdf.Attach.Util {
         /// <param name="text">the text</param>
         public virtual void Add(String text) {
             text = WhiteSpaceUtil.ProcessWhitespaces(text, keepLineBreaks, collapseSpaces);
+            // Here we intentionally use locale dependent toLowerCase/toUpperCase
             if (CssConstants.UPPERCASE.Equals(textTransform)) {
                 text = text.ToUpperInvariant();
             }

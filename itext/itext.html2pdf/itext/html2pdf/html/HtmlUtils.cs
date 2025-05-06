@@ -21,6 +21,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using iText.Commons.Utils;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Resolve.Func.Counter;
 using iText.Kernel.Numbering;
@@ -163,7 +164,7 @@ namespace iText.Html2pdf.Html {
                 }
 
                 case CounterDigitsGlyphStyle.UPPER_ALPHA_AND_LATIN: {
-                    return LATIN_NUMERALS.ToUpperInvariant();
+                    return StringNormalizer.ToUpperCase(LATIN_NUMERALS);
                 }
 
                 case CounterDigitsGlyphStyle.LOWER_ALPHA_AND_LATIN: {
@@ -179,7 +180,7 @@ namespace iText.Html2pdf.Html {
                 }
 
                 case CounterDigitsGlyphStyle.UPPER_ROMAN: {
-                    return ROMAN_NUMERALS.ToUpperInvariant();
+                    return StringNormalizer.ToUpperCase(ROMAN_NUMERALS);
                 }
 
                 case CounterDigitsGlyphStyle.GEORGIAN: {
