@@ -220,7 +220,7 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
         public virtual void SvgBase64Test(PdfUAConformance conformance) {
-            // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
+            // TODO DDEVSIX-9036 current VeraPdf version behaves incorrectly.
             String sourceHtml = SOURCE_FOLDER + "svgBase64.html";
             if (conformance == PdfUAConformance.PDF_UA_1) {
                 String cmpPdfUa1 = SOURCE_FOLDER + "cmp_svgBase64Ua1.pdf";
@@ -236,7 +236,7 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
         public virtual void PngInDivStyleTest(PdfUAConformance conformance) {
-            // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
+            // TODO DDEVSIX-9036 current VeraPdf version behaves incorrectly.
             // Investigate why VeraPdf doesn't complain about the missing tag.
             String sourceHtml = SOURCE_FOLDER + "pngInDivStyle.html";
             if (conformance == PdfUAConformance.PDF_UA_1) {
