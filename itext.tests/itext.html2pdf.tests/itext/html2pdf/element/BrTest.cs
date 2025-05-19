@@ -93,7 +93,6 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.Test]
         public virtual void TaggedBrTest() {
-            // TODO: DEVSIX-8698 creates an empty tag for the br tag
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationFolder + "taggedBr.pdf"));
             pdfDocument.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(sourceFolder + "taggedBr.html", FileMode.Open, FileAccess.Read), 
