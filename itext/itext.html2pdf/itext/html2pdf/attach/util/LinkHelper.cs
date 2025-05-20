@@ -35,8 +35,8 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Action;
 using iText.Kernel.Pdf.Annot;
 using iText.Kernel.Pdf.Tagging;
+using iText.Kernel.Pdf.Tagutils;
 using iText.Layout;
-using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout.Tagging;
 using iText.StyledXmlParser.Node;
@@ -88,8 +88,15 @@ namespace iText.Html2pdf.Attach.Util {
                 }
                 linkAnnotation.SetBorder(new PdfArray(new float[] { 0, 0, 0 }));
                 container.SetProperty(Property.LINK_ANNOTATION, linkAnnotation);
-                if (container is ILeafElement && container is IAccessibleElement) {
-                    ((IAccessibleElement)container).GetAccessibilityProperties().SetRole(StandardRoles.LINK);
+                if (container is IAccessibleElement) {
+                    AccessibilityProperties accessibilityProperties = ((IAccessibleElement)container).GetAccessibilityProperties
+                        ();
+                    String role = linkAnnotation.GetRoleBasedOnDestination(context.GetPdfDocument());
+                    if (StandardRoles.REFERENCE.Equals(role) && context.GetPdfDocument() != null && PdfVersion.PDF_2_0.CompareTo
+                        (context.GetPdfDocument().GetPdfVersion()) <= 0) {
+                        accessibilityProperties.SetNamespace(PdfNamespace.GetDefault(context.GetPdfDocument()));
+                    }
+                    accessibilityProperties.SetRole(role);
                 }
             }
         }

@@ -25,7 +25,6 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Layout;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
-using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
@@ -80,7 +79,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                     }
                     if (GetAllElements()[i] is IBlockElement) {
                         Div simulatedDiv = new Div();
-                        simulatedDiv.GetAccessibilityProperties().SetRole(StandardRoles.LINK);
                         Transform cssTransform = GetAllElements()[i].GetProperty<Transform>(Property.TRANSFORM);
                         if (cssTransform != null) {
                             GetAllElements()[i].DeleteOwnProperty(Property.TRANSFORM);

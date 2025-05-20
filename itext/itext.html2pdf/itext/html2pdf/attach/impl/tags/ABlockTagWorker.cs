@@ -24,8 +24,6 @@ using System;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
-using iText.Kernel.Pdf.Tagging;
-using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Resolver.Resource;
@@ -68,7 +66,6 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                         }
                     }
                 }
-                ((Div)GetElementResult()).GetAccessibilityProperties().SetRole(StandardRoles.LINK);
                 LinkHelper.ApplyLinkAnnotation(GetElementResult(), url, context, element);
             }
             if (GetElementResult() != null) {
