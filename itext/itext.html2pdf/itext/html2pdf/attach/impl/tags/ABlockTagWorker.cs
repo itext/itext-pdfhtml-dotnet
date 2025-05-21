@@ -22,11 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl.Tags.Util;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Html;
 using iText.Layout.Properties;
 using iText.StyledXmlParser.Node;
-using iText.StyledXmlParser.Resolver.Resource;
 
 namespace iText.Html2pdf.Attach.Impl.Tags {
     /// <summary>TagWorker class for a link block.</summary>
@@ -49,24 +49,10 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             base.ProcessEnd(element, context);
             String url = element.GetAttribute(AttributeConstants.HREF);
             if (url != null) {
-                String @base = context.GetBaseUri();
-                if (@base != null) {
-                    UriResolver uriResolver = new UriResolver(@base);
-                    if (!(url.StartsWith("#") && uriResolver.IsLocalBaseUri())) {
-                        try {
-                            String resolvedUri = uriResolver.ResolveAgainstBaseUri(url).ToExternalForm();
-                            if (!url.EndsWith("/") && resolvedUri.EndsWith("/")) {
-                                resolvedUri = resolvedUri.JSubstring(0, resolvedUri.Length - 1);
-                            }
-                            if (!resolvedUri.StartsWith("file:")) {
-                                url = resolvedUri;
-                            }
-                        }
-                        catch (UriFormatException) {
-                        }
-                    }
-                }
-                LinkHelper.ApplyLinkAnnotation(GetElementResult(), url, context, element);
+                String anchorLink = element.GetAttribute(AttributeConstants.HREF);
+                String baseUri = context.GetBaseUri();
+                String modifiedUrl = ATagUtil.ResolveAnchorLink(anchorLink, baseUri);
+                LinkHelper.ApplyLinkAnnotation(GetElementResult(), modifiedUrl, context, element);
             }
             if (GetElementResult() != null) {
                 String name = element.GetAttribute(AttributeConstants.NAME);
