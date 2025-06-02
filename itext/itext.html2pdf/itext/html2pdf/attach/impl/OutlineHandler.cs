@@ -33,6 +33,7 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Action;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.StyledXmlParser;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
 
@@ -268,7 +269,8 @@ namespace iText.Html2pdf.Attach.Impl {
                     levelsInProcess.JRemoveFirst();
                 }
                 PdfOutline outline = parent.AddOutline(GenerateOutlineName(element));
-                String destination = GenerateUniqueDestinationName(element);
+                String destination = element.GetAttribute(CommonAttributeConstants.ID) == null ? GenerateUniqueDestinationName
+                    (element) : element.GetAttribute(CommonAttributeConstants.ID);
                 PdfAction action = PdfAction.CreateGoTo(destination);
                 outline.AddAction(action);
                 destinationsInProcess.AddFirst(new Tuple2<String, PdfDictionary>(destination, action.GetPdfObject()));

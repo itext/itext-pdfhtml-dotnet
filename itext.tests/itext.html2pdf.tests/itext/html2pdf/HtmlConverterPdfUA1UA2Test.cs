@@ -187,7 +187,11 @@ namespace iText.Html2pdf {
             if (conformance == PdfUAConformance.PDF_UA_2) {
                 String cmpPdfUa2 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa2.pdf";
                 String destinationPdfUa2 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa2.pdf";
-                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa2, cmpPdfUa2, null, false, null);
+                // TODO DEVSIX-8864 PDF 2.0: Destination in GoTo action is not a structure destination
+                Exception exception = NUnit.Framework.Assert.Catch(typeof(PdfUAConformanceException), () => ConvertToUaAndCheckCompliance
+                    (conformance, sourceHtml, destinationPdfUa2, cmpPdfUa2, null, false, null));
+                NUnit.Framework.Assert.AreEqual(PdfUAExceptionMessageConstants.DESTINATION_NOT_STRUCTURE_DESTINATION, exception
+                    .Message);
             }
         }
 
