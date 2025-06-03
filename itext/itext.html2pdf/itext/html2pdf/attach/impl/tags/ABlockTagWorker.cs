@@ -21,6 +21,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl.Tags.Util;
 using iText.Html2pdf.Attach.Util;
@@ -56,7 +57,13 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             if (GetElementResult() != null) {
                 String name = element.GetAttribute(AttributeConstants.NAME);
-                GetElementResult().SetProperty(Property.DESTINATION, name);
+                ICollection<Object> existingDestinations = GetElementResult().GetProperty<ICollection<Object>>(Property.DESTINATION
+                    );
+                if (existingDestinations == null) {
+                    existingDestinations = new HashSet<Object>();
+                }
+                existingDestinations.Add(name);
+                GetElementResult().SetProperty(Property.DESTINATION, existingDestinations);
             }
         }
     }

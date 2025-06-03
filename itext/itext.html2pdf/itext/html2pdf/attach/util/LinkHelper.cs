@@ -124,8 +124,13 @@ namespace iText.Html2pdf.Attach.Util {
                         (id)).SetFlags(PdfAnnotation.PRINT);
                     context.GetLinkContext().AddLinkAnnotation(id, linkAnnotation);
                 }
-                propertyContainer.SetProperty(Property.DESTINATION, new Tuple2<String, PdfDictionary>(id, linkAnnotation.GetAction
-                    ()));
+                ICollection<Object> existingDestinations = propertyContainer.GetProperty<ICollection<Object>>(Property.DESTINATION
+                    );
+                if (existingDestinations == null) {
+                    existingDestinations = new HashSet<Object>();
+                }
+                existingDestinations.Add(new Tuple2<String, PdfDictionary>(id, linkAnnotation.GetAction()));
+                propertyContainer.SetProperty(Property.DESTINATION, existingDestinations);
             }
             if (propertyContainer != null) {
                 propertyContainer.SetProperty(Property.ID, id);

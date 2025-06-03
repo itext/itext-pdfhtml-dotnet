@@ -21,6 +21,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
 using iText.Commons.Datastructures;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach;
@@ -47,10 +48,12 @@ namespace iText.Html2pdf.Attach.Util {
             ProcessorContext context = new ProcessorContext(new ConverterProperties());
             context.GetLinkContext().ScanForIds(elementNode);
             LinkHelper.CreateDestination(worker, elementNode, context);
-            Object destination = worker.GetElementResult().GetProperty<Object>(Property.DESTINATION);
-            Tuple2<String, PdfDictionary> destTuple = (Tuple2<String, PdfDictionary>)destination;
-            NUnit.Framework.Assert.AreEqual("some_id", destTuple.GetFirst());
-            NUnit.Framework.Assert.AreEqual(new PdfString("some_id"), destTuple.GetSecond().Get(PdfName.D));
+            Object destinations = worker.GetElementResult().GetProperty<Object>(Property.DESTINATION);
+            foreach (Object destination in (ICollection<Object>)destinations) {
+                Tuple2<String, PdfDictionary> destTuple = (Tuple2<String, PdfDictionary>)destination;
+                NUnit.Framework.Assert.AreEqual("some_id", destTuple.GetFirst());
+                NUnit.Framework.Assert.AreEqual(new PdfString("some_id"), destTuple.GetSecond().Get(PdfName.D));
+            }
         }
 
         [NUnit.Framework.Test]

@@ -298,7 +298,13 @@ namespace iText.Html2pdf.Attach.Impl {
             if (null != tagWorker && HasMarkPriorityMapping(markName) && destinationsInProcess.Count > 0) {
                 Tuple2<String, PdfDictionary> content = destinationsInProcess.JRemoveFirst();
                 if (tagWorker.GetElementResult() is IElement) {
-                    tagWorker.GetElementResult().SetProperty(Property.DESTINATION, content);
+                    ICollection<Object> existingDestinations = tagWorker.GetElementResult().GetProperty<ICollection<Object>>(Property
+                        .DESTINATION);
+                    if (existingDestinations == null) {
+                        existingDestinations = new HashSet<Object>();
+                    }
+                    existingDestinations.Add(content);
+                    tagWorker.GetElementResult().SetProperty(Property.DESTINATION, existingDestinations);
                 }
                 else {
                     ILogger logger = ITextLogManager.GetLogger(typeof(iText.Html2pdf.Attach.Impl.OutlineHandler));

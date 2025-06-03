@@ -34,6 +34,7 @@ using iText.Kernel.Pdf.Action;
 using iText.Kernel.Utils;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Attach.Impl {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -96,6 +97,7 @@ namespace iText.Html2pdf.Attach.Impl {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.NAME_ALREADY_EXISTS_IN_THE_NAME_TREE)]
         public virtual void DefaultOutlineHandlerWithHTagHavingIdTest() {
             String inFile = SOURCE_FOLDER + "defaultOutlineHandlerWithHTagHavingIdTest.html";
             String outFile = DESTINATION_FOLDER + "defaultOutlineHandlerWithHTagHavingIdTest.pdf";
@@ -162,6 +164,7 @@ namespace iText.Html2pdf.Attach.Impl {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.NAME_ALREADY_EXISTS_IN_THE_NAME_TREE)]
         public virtual void LinkOnOutlineElementTest() {
             String inFile = SOURCE_FOLDER + "linkOnOutlineElement.html";
             String outFile = DESTINATION_FOLDER + "linkOnOutlineElement.pdf";
