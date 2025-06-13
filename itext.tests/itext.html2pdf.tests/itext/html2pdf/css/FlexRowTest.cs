@@ -51,7 +51,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void FlexDirRowAlignContentEndTest() {
             ConvertToPdfAndCompare("flex-dir-row-align-content-end", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -60,6 +59,42 @@ namespace iText.Html2pdf.Css {
         [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void FlexDirRowAlignContentFirstBaselineTest() {
             ConvertToPdfAndCompare("flex-dir-row-align-content-first-baseline", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentFlexStartWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-flex-start-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentFlexEndWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-flex-end-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentFlexCenterWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-flex-center-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentSpaceAroundWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-space-around-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentSpaceEvenlyWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-space-evenly-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentSpaceBetweenWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-space-between-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
         }
 
         [NUnit.Framework.Test]
@@ -177,7 +212,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void FlexDirRowAlignContentStartTest() {
             ConvertToPdfAndCompare("flex-dir-row-align-content-start", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
