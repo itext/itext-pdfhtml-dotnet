@@ -67,8 +67,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("flex-dir-row-align-content-flex-end", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-9178: Adapt after fix
-        //TODO DEVSIX-9180: Adapt after fix
         [NUnit.Framework.Test]
         public virtual void FlexDirRowAlignContentFlexEndTest2() {
             ConvertToPdfAndCompare("flex-dir-row-align-content-flex-end-2", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -89,8 +87,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("flex-dir-row-align-content-space-around", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-9178: Adapt after fix
-        //TODO DEVSIX-9180: Adapt after fix
         [NUnit.Framework.Test]
         public virtual void FlexDirRowAlignContentSpaceAroundTest2() {
             ConvertToPdfAndCompare("flex-dir-row-align-content-space-around-2", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -101,8 +97,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("flex-dir-row-align-content-space-between", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-9178: Adapt after fix
-        //TODO DEVSIX-9180: Adapt after fix
         [NUnit.Framework.Test]
         public virtual void FlexDirRowAlignContentSpaceBetweenTest2() {
             ConvertToPdfAndCompare("flex-dir-row-align-content-space-between-2", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -113,11 +107,37 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("flex-dir-row-align-content-space-evenly", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-9178: Adapt after fix
-        //TODO DEVSIX-9180: Adapt after fix
         [NUnit.Framework.Test]
         public virtual void FlexDirRowAlignContentSpaceEvenlyTest2() {
             ConvertToPdfAndCompare("flex-dir-row-align-content-space-evenly-2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentSpaceEvenlySplittingTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-space-evenly-splitting", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentSpaceBetweenSplittingTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-space-between-splitting", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentSpaceAroundSplittingTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-space-around-splitting", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentFlexEndSplittingTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-flex-end-splitting", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentCenterSplittingTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-center-splitting", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
