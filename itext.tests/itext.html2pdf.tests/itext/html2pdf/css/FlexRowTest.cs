@@ -119,8 +119,20 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentSpaceEvenlySplittingWithOneElementTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-space-evenly-splitting-one-element", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
         public virtual void FlexDirRowAlignContentSpaceBetweenSplittingTest() {
             ConvertToPdfAndCompare("flex-dir-row-align-content-space-between-splitting", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentSpaceBetweenSplittingOneElementTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-space-between-splitting-one-element", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
@@ -131,13 +143,37 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentSpaceAroundSplittingOneElementTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-space-around-splitting-one-element", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
         public virtual void FlexDirRowAlignContentFlexEndSplittingTest() {
             ConvertToPdfAndCompare("flex-dir-row-align-content-flex-end-splitting", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentFlexEndSplittingOneElementTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-flex-end-splitting-one-element", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
         public virtual void FlexDirRowAlignContentCenterSplittingTest() {
             ConvertToPdfAndCompare("flex-dir-row-align-content-center-splitting", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirRowAlignContentCenterSplittingOneElementTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-center-splitting-one-element", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
+        public virtual void FlexDirRowAlignContentWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-row-align-content-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]

@@ -291,13 +291,21 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (alignContentString != null) {
                 AlignContentPropertyValue alignContent;
                 switch (alignContentString) {
-                    case CommonCssConstants.START:
+                    case CommonCssConstants.START: {
+                        alignContent = AlignContentPropertyValue.START;
+                        break;
+                    }
+
                     case CommonCssConstants.FLEX_START: {
                         alignContent = AlignContentPropertyValue.FLEX_START;
                         break;
                     }
 
-                    case CommonCssConstants.END:
+                    case CommonCssConstants.END: {
+                        alignContent = AlignContentPropertyValue.END;
+                        break;
+                    }
+
                     case CommonCssConstants.FLEX_END: {
                         alignContent = AlignContentPropertyValue.FLEX_END;
                         break;

@@ -306,6 +306,13 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
+        public virtual void FlexDirColumnReverseAlignContentWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
         public virtual void FlexDirColumnReverseAlignContentSpaceEvenlyTest() {
             ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-space-evenly", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
