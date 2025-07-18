@@ -323,6 +323,11 @@ namespace iText.Html2pdf.Element {
             RunTest("textFieldWordSpacing");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void TextFieldAlignmentTest() {
+            RunTest("textFieldAlignment");
+        }
+
         private void RunTest(String name) {
             RunTest(name, true);
         }
