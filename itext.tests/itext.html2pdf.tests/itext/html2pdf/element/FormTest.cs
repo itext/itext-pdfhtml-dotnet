@@ -303,6 +303,16 @@ namespace iText.Html2pdf.Element {
             }
         }
 
+        [NUnit.Framework.Test]
+        public virtual void TextFieldUnderlineTest() {
+            RunTest("textFieldUnderline");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextFieldStrikethroughTest() {
+            RunTest("textFieldStrikethrough");
+        }
+
         private void RunTest(String name) {
             RunTest(name, true);
         }
