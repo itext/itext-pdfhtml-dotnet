@@ -313,6 +313,16 @@ namespace iText.Html2pdf.Element {
             RunTest("textFieldStrikethrough");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void TextFieldLetterSpacingTest() {
+            RunTest("textFieldLetterSpacing");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextFieldWordSpacingTest() {
+            RunTest("textFieldWordSpacing");
+        }
+
         private void RunTest(String name) {
             RunTest(name, true);
         }
