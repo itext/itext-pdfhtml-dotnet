@@ -328,6 +328,11 @@ namespace iText.Html2pdf.Element {
             RunTest("textFieldAlignment");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void CheckBoxDisabledTest() {
+            RunTest("checkBoxDisabled");
+        }
+
         private void RunTest(String name) {
             RunTest(name, true);
         }
