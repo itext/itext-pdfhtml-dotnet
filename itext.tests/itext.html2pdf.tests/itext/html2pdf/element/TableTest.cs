@@ -620,6 +620,13 @@ namespace iText.Html2pdf.Element {
             RunTest("breakRendererTreeOnSplitup");
         }
 
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
+            2)]
+        public virtual void NestedTableWithSpecifiedWidthTest() {
+            RunTest("nestedTableWithSpecifiedWidth");
+        }
+
         private void RunTest(String testName) {
             RunTest(testName, false);
         }
