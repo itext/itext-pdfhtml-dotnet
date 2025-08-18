@@ -91,6 +91,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH)]
         public virtual void DisplayTable06Test() {
             ConvertToPdfAndCompare("display_table06", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

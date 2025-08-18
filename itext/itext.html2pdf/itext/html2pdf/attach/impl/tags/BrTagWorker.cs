@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
+using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.StyledXmlParser.Node;
@@ -38,7 +39,7 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     /// </summary>
     public class BrTagWorker : ITagWorker {
         /// <summary>A new line Text element.</summary>
-        private Text newLine = new Text("\n");
+        private readonly Text newLine;
 
         /// <summary>
         /// Creates a new
@@ -48,6 +49,8 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
         /// <param name="element">the element</param>
         /// <param name="context">the context</param>
         public BrTagWorker(IElementNode element, ProcessorContext context) {
+            newLine = new Text("\n");
+            newLine.GetAccessibilityProperties().SetRole(StandardRoles.ARTIFACT);
             //There is no mappings for BR element in DefaultTagCssApplierMapping,
             // because only font-family should be applied to <br /> element.
             String fontFamily = element.GetStyles().Get(CssConstants.FONT_FAMILY);

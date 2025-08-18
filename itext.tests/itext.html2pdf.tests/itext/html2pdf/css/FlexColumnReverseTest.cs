@@ -22,229 +22,359 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     [NUnit.Framework.Category("IntegrationTest")]
     public class FlexColumnReverseTest : ExtendedHtmlConversionITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/FlexColumnReverseTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/FlexColumnReverseTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateOrClearDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignIItemsCenterTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignIItemsCenter", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignIItemsCenter", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsCenterJustifyContentCenterTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsCenterJustifyContentCenter", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsCenterJustifyContentCenter", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsCenterJustifyContentEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsCenterJustifyContentEnd", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsCenterJustifyContentEnd", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsCenterJustifyContentFlexEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsCenterJustifyContentFlexEnd", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsCenterJustifyContentFlexEnd", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsCenterJustifyContentFlexStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsCenterJustifyContentFlexStart", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsCenterJustifyContentFlexStart", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsCenterJustifyContentStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsCenterJustifyContentStart", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsCenterJustifyContentStart", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsEnd", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsEnd", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsEndJustifyContentCenterTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsEndJustifyContentCenter", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsEndJustifyContentCenter", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsEndJustifyContentEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsEndJustifyContentEnd", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsEndJustifyContentEnd", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsEndJustifyContentFlexEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsEndJustifyContentFlexEnd", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsEndJustifyContentFlexEnd", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsEndJustifyContentFlexStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsEndJustifyContentFlexStart", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsEndJustifyContentFlexStart", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsEndJustifyContentStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsEndJustifyContentStart", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsEndJustifyContentStart", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsFlexEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexEnd", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexEnd", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsFlexEndJustifyContentCenterTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexEndJustifyContentCenter", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexEndJustifyContentCenter", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsFlexEndJustifyContentEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexEndJustifyContentEnd", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexEndJustifyContentEnd", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsFlexEndJustifyContentFlexEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexEndJustifyContentFlexEnd", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexEndJustifyContentFlexEnd", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsFlexEndJustifyContentFlexStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexEndJustifyContentFlexStart", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexEndJustifyContentFlexStart", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsFlexEndJustifyContentStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexEndJustifyContentStart", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexEndJustifyContentStart", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsFlexStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexStart", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexStart", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsFlexStartJustifyContentCenterTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexStartJustifyContentCenter", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexStartJustifyContentCenter", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsFlexStartJustifyContentEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexStartJustifyContentEnd", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexStartJustifyContentEnd", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsFlexStartJustifyContentFlexEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexStartJustifyContentFlexEnd", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexStartJustifyContentFlexEnd", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsFlexStartJustifyContentFlexStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexStartJustifyContentFlexStart", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexStartJustifyContentFlexStart", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsFlexStartJustifyContentStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexStartJustifyContentStart", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsFlexStartJustifyContentStart", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsStart", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsStart", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsStartJustifyContentCenterTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsStartJustifyContentCenter", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsStartJustifyContentCenter", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsStartJustifyContentEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsStartJustifyContentEnd", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsStartJustifyContentEnd", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsStartJustifyContentFlexEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsStartJustifyContentFlexEnd", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsStartJustifyContentFlexEnd", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsStartJustifyContentFlexStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsStartJustifyContentFlexStart", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsStartJustifyContentFlexStart", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseAlignItemsStartJustifyContentStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsStartJustifyContentStart", sourceFolder, destinationFolder
+            ConvertToPdfAndCompare("FlexDirColumnReverseAlignItemsStartJustifyContentStart", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseJustifyContentCenterTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentCenter", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentCenter", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseJustifyContentEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentEnd", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentEnd", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseJustifyContentFlexEndTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentFlexEnd", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentFlexEnd", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseJustifyContentFlexStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentFlexStart", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentFlexStart", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseJustifyContentStartTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentStart", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentStart", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseJustifyContentStartMaxSizeTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentStartMaxSize", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentStartMaxSize", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
         }
 
         [NUnit.Framework.Test]
         public virtual void ColumnReverseJustifyContentStartMinSizeTest() {
-            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentStartMinSize", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("FlexDirColumnReverseJustifyContentStartMinSize", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 51)]
+        public virtual void FlexDirColumnReverseAlignContentBaselineTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-baseline", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentCenterTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-center", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentEndTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-end", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
+        public virtual void FlexDirColumnReverseAlignContentFirstBaselineTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-first-baseline", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentFlexEndTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-flex-end", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentFlexStartTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-flex-start", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentNormalTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-normal", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentSpaceAroundTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-space-around", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentSpaceBetweenTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-space-between", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentFlexStartWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-flex-start-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentFlexEndWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-flex-end-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentFlexCenterWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-flex-center-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentSpaceAroundWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-space-around-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentSpaceEvenlyWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-space-evenly-wrap-reverse", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentSpaceBetweenWrapReverseTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-space-between-wrap-reverse", SOURCE_FOLDER, 
+                DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentSpaceEvenlyTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-space-evenly", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexDirColumnReverseAlignContentStartTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-start", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
+        public virtual void FlexDirColumnReverseAlignContentStretchTest() {
+            ConvertToPdfAndCompare("flex-dir-column-reverse-align-content-stretch", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnReverseNonPagingTest() {
+            ConvertToPdfAndCompare("column-reverse-non-paging", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnReversePagingTest() {
+            ConvertToPdfAndCompare("column-reverse-paging", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnReversePagingMultiColumnTest() {
+            ConvertToPdfAndCompare("column-reverse-paging-multi-column", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColumnReversePagingLargeElementTest() {
+            ConvertToPdfAndCompare("column-reverse-paging-large-element", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }

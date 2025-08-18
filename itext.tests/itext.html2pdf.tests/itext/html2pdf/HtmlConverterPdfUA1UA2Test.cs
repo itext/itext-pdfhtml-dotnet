@@ -161,7 +161,6 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
         public virtual void PageBreakAfterAvoidTest(PdfUAConformance conformance) {
-            // TODO DEVSIX-8864 PDF 2.0: Destination in GoTo action is not a structure destination
             String sourceHtml = SOURCE_FOLDER + "pageBreakAfterAvoid.html";
             if (conformance == PdfUAConformance.PDF_UA_1) {
                 String cmpPdfUa1 = SOURCE_FOLDER + "cmp_pageBreakAfterAvoidUa1.pdf";
@@ -171,24 +170,18 @@ namespace iText.Html2pdf {
             if (conformance == PdfUAConformance.PDF_UA_2) {
                 String cmpPdfUa2 = SOURCE_FOLDER + "cmp_pageBreakAfterAvoidUa2.pdf";
                 String destinationPdfUa2 = DESTINATION_FOLDER + "pageBreakAfterAvoidUa2.pdf";
+                // Both structure destination and page destination are not created, because content is not rendered.
                 ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa2, cmpPdfUa2, null, false, null);
             }
         }
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.NAME_ALREADY_EXISTS_IN_THE_NAME_TREE)]
         public virtual void LinkWithPageBreakBeforeTest(PdfUAConformance conformance) {
-            // TODO DEVSIX-8864 PDF 2.0: Destination in GoTo action is not a structure destination
             String sourceHtml = SOURCE_FOLDER + "linkWithPageBreakBefore.html";
-            if (conformance == PdfUAConformance.PDF_UA_1) {
-                String cmpPdfUa1 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa1.pdf";
-                String destinationPdfUa1 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa1.pdf";
-                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa1, cmpPdfUa1, null, true, null);
-            }
-            if (conformance == PdfUAConformance.PDF_UA_2) {
-                String cmpPdfUa2 = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa2.pdf";
-                String destinationPdfUa2 = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa2.pdf";
-                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa2, cmpPdfUa2, null, false, null);
-            }
+            String cmpFile = SOURCE_FOLDER + "cmp_linkWithPageBreakBeforeUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "linkWithPageBreakBeforeUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
         }
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
@@ -220,7 +213,7 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
         public virtual void SvgBase64Test(PdfUAConformance conformance) {
-            // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
+            // TODO DDEVSIX-9036 current VeraPdf version behaves incorrectly.
             String sourceHtml = SOURCE_FOLDER + "svgBase64.html";
             if (conformance == PdfUAConformance.PDF_UA_1) {
                 String cmpPdfUa1 = SOURCE_FOLDER + "cmp_svgBase64Ua1.pdf";
@@ -236,7 +229,7 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
         public virtual void PngInDivStyleTest(PdfUAConformance conformance) {
-            // TODO DEVSIX-8883 content is not tagged as real content or tagged as artifact after conversion
+            // TODO DDEVSIX-9036 current VeraPdf version behaves incorrectly.
             // Investigate why VeraPdf doesn't complain about the missing tag.
             String sourceHtml = SOURCE_FOLDER + "pngInDivStyle.html";
             if (conformance == PdfUAConformance.PDF_UA_1) {
@@ -260,7 +253,8 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
-        [LogMessage(PdfUALogMessageConstants.PAGE_FLUSHING_DISABLED, Count = 1)]
+        [LogMessage(PdfUALogMessageConstants.PAGE_FLUSHING_DISABLED)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.NAME_ALREADY_EXISTS_IN_THE_NAME_TREE, Count = 12)]
         public virtual void ExtensiveRepairTaggingStructRepairTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "tagStructureFixes.html";
             String cmpFile = SOURCE_FOLDER + "cmp_tagStructureFixesUA" + conformance.GetPart() + ".pdf";

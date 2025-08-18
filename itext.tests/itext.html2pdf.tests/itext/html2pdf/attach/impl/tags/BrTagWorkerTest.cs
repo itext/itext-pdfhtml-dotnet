@@ -26,6 +26,7 @@ using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
+using iText.Kernel.Pdf.Tagging;
 using iText.Layout;
 using iText.Layout.Tagging;
 using iText.StyledXmlParser.Jsoup.Nodes;
@@ -51,6 +52,22 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             NUnit.Framework.Assert.IsTrue(propertyContainer is IAccessibleElement);
             String lang = ((IAccessibleElement)propertyContainer).GetAccessibilityProperties().GetLanguage();
             NUnit.Framework.Assert.AreEqual("en", lang);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CheckNewLineStandardRoleTest() {
+            Attributes attributes = new Attributes();
+            iText.StyledXmlParser.Jsoup.Nodes.Element element = new iText.StyledXmlParser.Jsoup.Nodes.Element(iText.StyledXmlParser.Jsoup.Parser.Tag
+                .ValueOf(TagConstants.BR), TagConstants.BR, attributes);
+            JsoupElementNode node = new JsoupElementNode(element);
+            IDictionary<String, String> styles = new Dictionary<String, String>();
+            styles.Put(CssConstants.FONT_FAMILY, "sans-serif");
+            node.SetStyles(styles);
+            ProcessorContext processorContext = new ProcessorContext(new ConverterProperties());
+            BrTagWorker tagWorker = new BrTagWorker(node, processorContext);
+            IPropertyContainer propertyContainer = tagWorker.GetElementResult();
+            NUnit.Framework.Assert.AreEqual(StandardRoles.ARTIFACT, ((IAccessibleElement)propertyContainer).GetAccessibilityProperties
+                ().GetRole());
         }
     }
 }

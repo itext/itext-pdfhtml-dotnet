@@ -291,8 +291,18 @@ namespace iText.Html2pdf.Css.Apply.Util {
             if (alignContentString != null) {
                 AlignContentPropertyValue alignContent;
                 switch (alignContentString) {
+                    case CommonCssConstants.START: {
+                        alignContent = AlignContentPropertyValue.START;
+                        break;
+                    }
+
                     case CommonCssConstants.FLEX_START: {
                         alignContent = AlignContentPropertyValue.FLEX_START;
+                        break;
+                    }
+
+                    case CommonCssConstants.END: {
+                        alignContent = AlignContentPropertyValue.END;
                         break;
                     }
 
@@ -371,7 +381,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             supportedAlignContentValues.Add(CommonCssConstants.STRETCH);
             supportedAlignContentValues.Add(CommonCssConstants.NORMAL);
             supportedAlignContentValues.Add(CommonCssConstants.FLEX_START);
+            supportedAlignContentValues.Add(CommonCssConstants.START);
             supportedAlignContentValues.Add(CommonCssConstants.FLEX_END);
+            supportedAlignContentValues.Add(CommonCssConstants.END);
             supportedAlignContentValues.Add(CommonCssConstants.CENTER);
             supportedAlignContentValues.Add(CommonCssConstants.SPACE_AROUND);
             supportedAlignContentValues.Add(CommonCssConstants.SPACE_BETWEEN);

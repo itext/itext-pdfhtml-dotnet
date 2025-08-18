@@ -21,7 +21,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.IO;
 using iText.Html2pdf;
+using iText.Kernel.Pdf;
+using iText.Kernel.Utils;
 using iText.StyledXmlParser.Css.Validate;
 using iText.StyledXmlParser.Css.Validate.Impl;
 using iText.Test.Attributes;
@@ -29,90 +32,90 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css {
     [NUnit.Framework.Category("IntegrationTest")]
     public class BorderTest : ExtendedHtmlConversionITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/BorderTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/BorderTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void Border01Test() {
-            ConvertToPdfAndCompare("border01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("border01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
             Count = 4)]
         public virtual void Border02Test() {
-            ConvertToPdfAndCompare("border02", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("border02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void Border03Test() {
-            ConvertToPdfAndCompare("border03", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("border03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void Border04Test() {
-            ConvertToPdfAndCompare("border04", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("border04", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
             Count = 2)]
         public virtual void Border05Test() {
-            ConvertToPdfAndCompare("border05", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("border05", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void Border06Test() {
-            ConvertToPdfAndCompare("border06", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("border06", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void Border07Test() {
-            ConvertToPdfAndCompare("border07", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("border07", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void Border08Test() {
-            ConvertToPdfAndCompare("border08", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("border08", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
             Count = 2)]
         public virtual void Border09Test() {
-            ConvertToPdfAndCompare("border09", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("border09", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
             Count = 2)]
         public virtual void Border10Test() {
-            ConvertToPdfAndCompare("border10", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("border10", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void Border3DTest01() {
-            ConvertToPdfAndCompare("border3DTest01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("border3DTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void Border3DTest02() {
-            ConvertToPdfAndCompare("border3DTest02", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("border3DTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void Border3DCmykTest() {
             try {
                 CssDeclarationValidationMaster.SetValidator(new CssDeviceCmykAwareValidator());
-                ConvertToPdfAndCompare("border3DCmykTest", sourceFolder, destinationFolder);
+                ConvertToPdfAndCompare("border3DCmykTest", SOURCE_FOLDER, DESTINATION_FOLDER);
             }
             finally {
                 CssDeclarationValidationMaster.SetValidator(new CssDefaultValidator());
@@ -121,226 +124,262 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void BorderTransparencyTest01() {
-            ConvertToPdfAndCompare("borderTransparencyTest01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderTransparencyTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderTransparencyTest02() {
-            ConvertToPdfAndCompare("borderTransparencyTest02", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderTransparencyTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderStyleOverlayingInTRTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleOverlayingInTR", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleOverlayingInTR", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderStyleSolidAndDoubleValueInTRTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleSolidAndDoubleValueInTR", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleSolidAndDoubleValueInTR", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderStyleSolidAndDottedValueInTRTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleSolidAndDottedValueInTR", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleSolidAndDottedValueInTR", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderStyleSolidAndDashedValueInTRTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleSolidAndDashedValueInTR", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleSolidAndDashedValueInTR", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderStyleInTrDifferentTypesTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleInTrDifferentTypes", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleInTrDifferentTypes", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderStyleTRInsideTheadTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleTRInsideThead", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleTRInsideThead", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderStyleTRInsideTbodyTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleTRInsideTbody", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleTRInsideTbody", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderStyleTRInsideTfootTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleTRInsideTfoot", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleTRInsideTfoot", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderStyleInsideTableElementsTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleInsideTableElements", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleInsideTableElements", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderStyleInTRLengthUnitsTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleInTRLengthUnits", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleInTRLengthUnits", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderStyleInTrColorValuesTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleInTrColorValues", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleInTrColorValues", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         //TODO DEVSIX-2857 update cmp file after fix
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
         public virtual void BorderStyleInTRwithTHTest() {
-            ConvertToPdfAndCompare("borderStyleInTRwithTH", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleInTRwithTH", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderStyleInTRSeparateBorderCollapseTest() {
             //TODO DEVSIX-2857 update cmp file after fix
-            ConvertToPdfAndCompare("borderStyleInTRSeparateBorderCollapse", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderStyleInTRSeparateBorderCollapse", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TbodyBorderCollapseTest() {
             //TODO DEVSIX-4119 update cmp file after fix
-            ConvertToPdfAndCompare("tbodyBorderCollapse", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("tbodyBorderCollapse", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TheadBorderCollapseTest() {
             //TODO DEVSIX-4119 update cmp file after fix
-            ConvertToPdfAndCompare("theadBorderCollapse", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("theadBorderCollapse", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TfootBorderCollapseTest() {
             //TODO DEVSIX-4119 update cmp file after fix
-            ConvertToPdfAndCompare("tfootBorderCollapse", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("tfootBorderCollapse", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TableBorderStyleHiddenTest() {
             // TODO DEVSIX-5914 Currently border-style: hidden works like border-style: none
-            ConvertToPdfAndCompare("tableBorderStyleHidden", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("tableBorderStyleHidden", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TableBorderStyleNoneTest() {
             // TODO DEVSIX-5914 This test could be used as a reference while testing border-style: hidden
-            ConvertToPdfAndCompare("tableBorderStyleNone", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("tableBorderStyleNone", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TableBorderStyleCollapsingPriorityTest() {
             // TODO DEVSIX-5915 border-style is not considered while collapsing: in browsers one can see,
             //  that top border of the cell below always wins the bottom border of the cell above
-            ConvertToPdfAndCompare("tableBorderStyleCollapsingPriority", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("tableBorderStyleCollapsingPriority", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void TableWithCellsOfDifferentBorderColorsTest() {
-            ConvertToPdfAndCompare("tableWithCellsOfDifferentBorderColors", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("tableWithCellsOfDifferentBorderColors", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CellDifferentBorderColorsTest() {
-            ConvertToPdfAndCompare("cellDifferentBorderColors", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("cellDifferentBorderColors", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BorderCollapseWithZeroWidthBorderTest() {
-            ConvertToPdfAndCompare("borderCollapseWithZeroWidthBorder", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("borderCollapseWithZeroWidthBorder", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BigRowspanCollapseTest() {
-            ConvertToPdfAndCompare("bigRowspanCollapse", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("bigRowspanCollapse", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CellBorderCollapseTest() {
-            ConvertToPdfAndCompare("cellBorderCollapse", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("cellBorderCollapse", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void HeaderBodyFooterTest() {
-            ConvertToPdfAndCompare("headerBodyFooter", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("headerBodyFooter", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BodyCellContentOverlapsBorder2Test() {
             // TODO DEVSIX-5962 Content should be placed over rather than under overlapped border
-            ConvertToPdfAndCompare("bodyCellContentOverlapsBorder2", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("bodyCellContentOverlapsBorder2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BordersOfDifferentWidthsTest() {
-            ConvertToPdfAndCompare("bordersOfDifferentWidths", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("bordersOfDifferentWidths", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void HeaderBodyFooterBottomBorderCollapseTest() {
-            ConvertToPdfAndCompare("headerBodyFooterBottomBorderCollapse", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("headerBodyFooterBottomBorderCollapse", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BodyCellContentOverlapsBorderTest() {
             // TODO DEVSIX-5962 Content should be placed over rather than under overlapped border, red should overlap yellow
-            ConvertToPdfAndCompare("bodyCellContentOverlapsBorder", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("bodyCellContentOverlapsBorder", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void BottomBorderCellAndTableCollapseTest() {
-            ConvertToPdfAndCompare("bottomBorderCellAndTableCollapse", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("bottomBorderCellAndTableCollapse", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void FooterContentOverlapsFooterBorderTest() {
-            ConvertToPdfAndCompare("footerContentOverlapsFooterBorder", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("footerContentOverlapsFooterBorder", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CellBordersDifferentWidthsTest() {
             // TODO DEVSIX-5962 min-width is not respected
-            ConvertToPdfAndCompare("cellBordersDifferentWidths", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("cellBordersDifferentWidths", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CornerWidthHorizontalBorderWinsTest() {
-            ConvertToPdfAndCompare("cornerWidthHorizontalBorderWins", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("cornerWidthHorizontalBorderWins", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void CornerWidthVerticalBorderWinsTest() {
-            ConvertToPdfAndCompare("cornerWidthVerticalBorderWins", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("cornerWidthVerticalBorderWins", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ShorthandBorderBottomInThTdTest() {
-            ConvertToPdfAndCompare("shorthandBorderBottomInThTd", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("shorthandBorderBottomInThTd", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ShorthandBorderTopInThTdTest() {
-            ConvertToPdfAndCompare("shorthandBorderTopInThTd", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("shorthandBorderTopInThTd", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ShorthandBorderRightInThTdTest() {
-            ConvertToPdfAndCompare("shorthandBorderRightInThTd", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("shorthandBorderRightInThTd", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ShorthandBorderLeftInThTdTest() {
-            ConvertToPdfAndCompare("shorthandBorderLeftInThTd", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("shorthandBorderLeftInThTd", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void WidthLessThanWordInSentenceTest() {
+            ConvertToPdfAndCompare("borderWidthLessThanWordInSentence", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BorderWidthLessThanWordInSentenceTaggedTest() {
+            // TODO DEVSIX-8998 When border is less than content and document is tagged seems to break copy pasting in adobe
+            String sourceHtml = SOURCE_FOLDER + "borderWidthLessThanWordInSentence.html";
+            String destinationPdf = DESTINATION_FOLDER + "borderWidthLessThanWordInSentenceTagged.pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_borderWidthLessThanWordInSentenceTagged.pdf";
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf));
+            pdfDocument.SetTagged();
+            HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument);
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER
+                , "diff_"));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextCrossesBorderTest() {
+            ConvertToPdfAndCompare("textCrossesBorder", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextCrossesBorderTaggedTest() {
+            // TODO DEVSIX-8998 When border is less than content and document is tagged seems to break copy pasting in adobe
+            String sourceHtml = SOURCE_FOLDER + "borderWidthLessThanWordInSentence.html";
+            String destinationPdf = DESTINATION_FOLDER + "textCrossesBorderTagged.pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_textCrossesBorderTagged.pdf";
+            PdfDocument pdfDocument = new PdfDocument(new PdfWriter(destinationPdf));
+            pdfDocument.SetTagged();
+            HtmlConverter.ConvertToPdf(new FileStream(sourceHtml, FileMode.Open, FileAccess.Read), pdfDocument);
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationPdf, cmpPdf, DESTINATION_FOLDER
+                , "diff_"));
         }
     }
 }

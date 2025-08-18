@@ -303,6 +303,36 @@ namespace iText.Html2pdf.Element {
             }
         }
 
+        [NUnit.Framework.Test]
+        public virtual void TextFieldUnderlineTest() {
+            RunTest("textFieldUnderline");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextFieldStrikethroughTest() {
+            RunTest("textFieldStrikethrough");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextFieldLetterSpacingTest() {
+            RunTest("textFieldLetterSpacing");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextFieldWordSpacingTest() {
+            RunTest("textFieldWordSpacing");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextFieldAlignmentTest() {
+            RunTest("textFieldAlignment");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CheckBoxDisabledTest() {
+            RunTest("checkBoxDisabled");
+        }
+
         private void RunTest(String name) {
             RunTest(name, true);
         }

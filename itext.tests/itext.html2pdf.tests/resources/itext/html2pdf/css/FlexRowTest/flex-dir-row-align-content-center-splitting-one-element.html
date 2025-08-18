@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>row + align-content: center</title>
+<style>
+  .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+	width: 800px;
+	height: 1700px;
+
+
+
+    padding: 10px;
+    border: 2px solid #222;
+    box-sizing: border-box;
+  }
+  .item{
+	border: 2px solid #fff;
+    width: 300px;
+    height: 200px;
+    background-color: #D81B60;
+    color: white;
+    justify-content: center;
+    align-items: center;
+  }
+  .item:nth-child(4) { width: 180px; }
+  .item:nth-child(9) { height: 120px; }
+  .item:nth-child(13) { width: 170px; height: 90px; }
+  .item:nth-child(19) { width: 140px; height: 110px; }
+  
+  #empty {
+    height: 300px;
+	}
+</style>
+</head>
+<body>
+  <div id="empty"></div>
+  <div class="container">
+    <div class="item">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</div>
+	<div class="item">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</div>
+	<div class="item">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</div>
+	<div class="item">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</div>
+	<div class="item">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</div>
+	<div class="item">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</div>
+	<div class="item">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</div>
+	<div class="item">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.</div>
+  </div>
+</body>
+</html>
