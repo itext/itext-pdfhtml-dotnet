@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using System.IO;
+using iText.Commons.Utils;
 using iText.Forms.Form.Element;
 using iText.Html2pdf;
 using iText.Html2pdf.Attach.Impl.Layout;
@@ -30,6 +31,7 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
 using iText.Layout.Element;
 using iText.Layout.Font;
+using iText.Layout.Logs;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
 using iText.StyledXmlParser.Resolver.Font;
@@ -542,9 +544,54 @@ namespace iText.Html2pdf.Css {
             FontProvider fontProvider = new BasicFontProvider(false, false, false);
             fontProvider.AddFont(robotoFont);
             props.SetFontProvider(fontProvider);
-            HtmlConverter.ConvertToPdf(new FileStream(htmlFile, FileMode.Open, FileAccess.Read), pdfDocument, props);
+            HtmlConverter.ConvertToPdf(FileUtil.GetInputStreamForFile(htmlFile), pdfDocument, props);
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmpFile, DESTINATION_FOLDER, "diff_displayFlexWithRobotoFont_"
                 ));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void InlineBlockInsideFlexWithFixedSizeSiblingTest() {
+            // TODO DEVSIX-8951 Nullpointer exception if using display: inline-block with display: flex on page split
+            String html = "inlineBlockInsideFlexWithFixedSizeSibling";
+            FileInfo htmlFile = new FileInfo(SOURCE_FOLDER + html + ".html");
+            FileInfo output = new FileInfo(DESTINATION_FOLDER + html + ".pdf");
+            NUnit.Framework.Assert.Catch(typeof(Exception), () => HtmlConverter.ConvertToPdf(htmlFile, output));
+        }
+
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("TODO DEVSIX-8951 Infinite loop if using display: inline-block with display: flex on page split"
+            )]
+        public virtual void InlineBlockInsideFlexWithFixedWidthOnlySiblingTest() {
+            String html = "inlineBlockInsideFlexWithFixedWidthOnlySibling";
+            FileInfo htmlFile = new FileInfo(SOURCE_FOLDER + html + ".html");
+            FileInfo output = new FileInfo(DESTINATION_FOLDER + html + ".pdf");
+            HtmlConverter.ConvertToPdf(htmlFile, output);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TableInsideDoubleFlexTest() {
+            // TODO DEVSIX-8005 NPE for column width in layout when converting a html
+            String html = "tableInsideDoubleFlex";
+            FileInfo htmlFile = new FileInfo(SOURCE_FOLDER + html + ".html");
+            FileInfo output = new FileInfo(DESTINATION_FOLDER + html + ".pdf");
+            NUnit.Framework.Assert.Catch(typeof(Exception), () => HtmlConverter.ConvertToPdf(htmlFile, output));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DisplayFlexOnHeaderTagTest() {
+            // TODO DEVSIX-9266 NPE flex on header: Cannot read field "maxPositiveMargin" because "marginsCollapse" is null
+            String html = "displayFlexOnHeaderTag";
+            FileInfo htmlFile = new FileInfo(SOURCE_FOLDER + html + ".html");
+            FileInfo output = new FileInfo(DESTINATION_FOLDER + html + ".pdf");
+            NUnit.Framework.Assert.Catch(typeof(Exception), () => HtmlConverter.ConvertToPdf(htmlFile, output));
+        }
+
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("TODO DEVSIX-9342 Flex: keep together property can lead to infinite loop on page split"
+            )]
+        public virtual void FlexWithPageBreakInsideAvoidAndPageSplitTest() {
+            ConvertToPdfAndCompare("flexWithPageBreakInsideAvoidAndPageSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         private static IList<IElement> ConvertToElements(String name) {
