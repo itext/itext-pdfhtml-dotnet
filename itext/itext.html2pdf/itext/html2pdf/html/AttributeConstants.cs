@@ -45,6 +45,15 @@ namespace iText.Html2pdf.Html {
         /// <summary>The Constant ARIA-LABEL.</summary>
         public const String ARIA_LABEL = "aria-label";
 
+        /// <summary>The Constant ARIA-DESCRIPTION.</summary>
+        public const String ARIA_DESCRIPTION = "aria-description";
+
+        /// <summary>The Constant ARIA-LABELLEDBY.</summary>
+        public const String ARIA_LABELLEDBY = "aria-labelledby";
+
+        /// <summary>The Constant ARIA-DESCRIBEDBY.</summary>
+        public const String ARIA_DESCRIBEDBY = "aria-describedby";
+
         /// <summary>The Constant APPLICATION_NAME.</summary>
         public const String APPLICATION_NAME = "application-name";
 
@@ -92,6 +101,9 @@ namespace iText.Html2pdf.Html {
 
         /// <summary>The Constant FACE.</summary>
         public const String FACE = "face";
+
+        /// <summary>The Constant FOR.</summary>
+        public const String FOR = "for";
 
         /// <summary>The Constant HEIGHT.</summary>
         public const String HEIGHT = "height";

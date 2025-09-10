@@ -93,6 +93,9 @@ namespace iText.Html2pdf.Attach {
         /// <summary>The link context</summary>
         private LinkContext linkContext;
 
+        /// <summary>The label context</summary>
+        private LabelContext labelContext;
+
         /// <summary>The PDF document.</summary>
         private PdfDocument pdfDocument;
 
@@ -158,6 +161,7 @@ namespace iText.Html2pdf.Attach {
             cssContext = new CssContext();
             cssStyleSheet = null;
             linkContext = new LinkContext();
+            labelContext = new LabelContext();
             createAcroForm = converterProperties.IsCreateAcroForm();
             formFieldNameResolver = new FormFieldNameResolver();
             radioCheckResolver = new RadioCheckResolver();
@@ -252,6 +256,12 @@ namespace iText.Html2pdf.Attach {
             return linkContext;
         }
 
+        /// <summary>Gets the label context.</summary>
+        /// <returns>the label context</returns>
+        public virtual LabelContext GetLabelContext() {
+            return labelContext;
+        }
+
         /// <summary>Checks if is an AcroForm needs to be created.</summary>
         /// <returns>true, an AcroForm should be created</returns>
         public virtual bool IsCreateAcroForm() {
@@ -326,6 +336,7 @@ namespace iText.Html2pdf.Attach {
             this.cssContext = new CssContext();
             this.cssStyleSheet = null;
             this.linkContext = new LinkContext();
+            this.labelContext = new LabelContext();
             this.formFieldNameResolver.Reset();
             //Reset font provider. PdfFonts shall be reseted.
             this.fontProvider.Reset();

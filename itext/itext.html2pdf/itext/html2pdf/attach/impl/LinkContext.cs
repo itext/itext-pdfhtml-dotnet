@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.Collections.Generic;
+using iText.Html2pdf.Attach;
 using iText.Html2pdf.Html;
 using iText.Kernel.Pdf.Annot;
 using iText.StyledXmlParser.Node;
@@ -36,7 +37,7 @@ namespace iText.Html2pdf.Attach.Impl {
     /// <para />
     /// This class is not reusable and a new instance shall be created for every new conversion process.
     /// </remarks>
-    public class LinkContext {
+    public class LinkContext : IDocumentTreeJob {
         /// <summary>the ids currently in use as valid link destinations</summary>
         private ICollection<String> linkDestinations = new HashSet<String>();
 
@@ -52,9 +53,15 @@ namespace iText.Html2pdf.Attach.Impl {
         public LinkContext() {
         }
 
-        /// <summary>Scan the DOM tree for all (internal) link targets</summary>
+        // Empty constructor, nothing to initialize
+        /// <summary>
+        /// Scan the DOM tree for all (internal) link targets
+        /// Deprecated in favor of
+        /// <see cref="Process(iText.StyledXmlParser.Node.INode, int)"/>
+        /// </summary>
         /// <param name="root">the DOM tree root node</param>
         /// <returns>this LinkContext</returns>
+        [Obsolete]
         public virtual iText.Html2pdf.Attach.Impl.LinkContext ScanForIds(INode root) {
             // clear previous
             linkDestinations.Clear();
@@ -80,6 +87,21 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
             }
             return this;
+        }
+
+        /// <summary>Check if an element is a link.</summary>
+        /// <param name="node">the node to process</param>
+        /// <param name="level">the hierarchical level of the node in the document tree structure</param>
+        public virtual void Process(INode node, int level) {
+            if (node is IElementNode) {
+                IElementNode elem = (IElementNode)node;
+                if (TagConstants.A.Equals(elem.Name())) {
+                    String href = elem.GetAttribute(AttributeConstants.HREF);
+                    if (href != null && href.StartsWith("#")) {
+                        linkDestinations.Add(href.Substring(1));
+                    }
+                }
+            }
         }
 
         /// <summary>Returns whether a given (internal) link destination is used by at least one href element in the document
