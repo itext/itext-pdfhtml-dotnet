@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Area Break Examples</title>
+    <style>
+        body {
+          font-family: sans-serif;
+          font-size: 14px;
+          margin: 20px;
+        }
+        section {
+          border: 2px solid black;
+          margin: 20px 0;
+          padding: 10px;
+          page-break-after: always;
+        }
+        .box {
+          border: 1px solid blue;
+          background: lightblue;
+          padding: 10px;
+          margin: 10px 0;
+        }
+        .inline-box {
+          display: inline-block;
+          border: 1px solid green;
+          background: lightgreen;
+          width: 80px;
+          height: 40px;
+          text-align: center;
+          line-height: 40px;
+          margin: 5px;
+        }
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 10px;
+        }
+        td {
+          border: 1px solid gray;
+          padding: 10px;
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Area Break Examples (Other Elements)</h1>
+
+<section>
+    <h2>1. Paragraphs with page break</h2>
+    <p class="box" style="page-break-after: always;">Paragraph 1 — forces break</p>
+    <p class="box">Paragraph 2</p>
+    <p class="box">Paragraph 3</p>
+</section>
+
+<section>
+    <h2>2. Headings with break</h2>
+    <h2 style="page-break-after: always;">Heading 1 — break after</h2>
+    <h3>Heading 2</h3>
+    <h3>Heading 3</h3>
+</section>
+
+<section>
+    <h2>3. Lists with break inside</h2>
+    <ul>
+        <li>Item 1</li>
+        <li style="page-break-after: always;">Item 2 — break after</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+    </ul>
+</section>
+
+<section>
+    <h2>4. Inline-block elements with break</h2>
+    <div class="inline-box">A</div>
+    <div class="inline-box" style="page-break-after: always;">B (break)</div>
+    <div class="inline-box">C</div>
+    <div class="inline-box">D</div>
+</section>
+
+<section>
+    <h2>5. Tables with row break</h2>
+    <table>
+        <tr>
+            <td>Row 1</td>
+            <td>A</td>
+        </tr>
+        <tr style="page-break-after: always;">
+            <td>Row 2 — break</td>
+            <td>B</td>
+        </tr>
+        <tr>
+            <td>Row 3</td>
+            <td>C</td>
+        </tr>
+    </table>
+</section>
+
+<section>
+    <h2>6. Nested divs with break</h2>
+    <div class="box">Outer 1</div>
+    <div class="box" style="page-break-after: always;">
+        Outer 2 (break)
+        <div class="box" style="page-break-after: always;">Inner A</div>
+        <div class="box">Inner B</div>
+    </div>
+    <div class="box">Outer 3</div>
+</section>
+
+</body>
+</html>

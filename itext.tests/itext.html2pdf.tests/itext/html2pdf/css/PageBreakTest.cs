@@ -164,10 +164,11 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT)]
+        [LogMessage(LayoutLogMessageConstant.AREA_BREAK_UNEXPECTED)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 2)]
         public virtual void PageBreakInConstrainedDivTest() {
             /* Test will fail after fix in DEVSIX-2024 */
-            NUnit.Framework.Assert.Catch(typeof(NotSupportedException), () => RunTest("pageBreakInConstrainedDivTest")
-                );
+            RunTest("pageBreakInConstrainedDivTest");
         }
 
         [NUnit.Framework.Test]

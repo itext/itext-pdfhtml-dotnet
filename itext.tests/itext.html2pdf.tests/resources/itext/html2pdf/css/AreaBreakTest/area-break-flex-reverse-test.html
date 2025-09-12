@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Flex Reverse + Page Break Stress Test</title>
+    <style>
+        body {
+          font-family: sans-serif;
+          font-size: 14px;
+        }
+        section {
+          page-break-after: always;
+          border: 2px solid black;
+          margin: 20px;
+          padding: 10px;
+        }
+        .flex {
+          display: flex;
+          border: 1px dashed gray;
+          padding: 5px;
+          height: 300px;
+          width: 100%;
+          flex-wrap: wrap;
+        }
+        .box {
+          background: lightblue;
+          border: 1px solid blue;
+          width: 100px;
+          height: 50px;
+          margin: 2px;
+          text-align: center;
+          line-height: 50px;
+          font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Flex Reverse + Page Break Test Cases</h1>
+
+<!-- ===== Row-Reverse Cases ===== -->
+
+<section>
+    <h2>1. row-reverse + justify: flex-start + align: flex-start</h2>
+    <div class="flex" style="flex-direction: row-reverse; justify-content: flex-start; align-content: flex-start;">
+        <div class="box" style="page-break-after: always;">1</div>
+        <div class="box">2</div><div class="box">3</div><div class="box">4</div>
+    </div>
+</section>
+
+<section>
+    <h2>2. row-reverse + justify: flex-end + align: flex-end</h2>
+    <div class="flex" style="flex-direction: row-reverse; justify-content: flex-end; align-content: flex-end;">
+        <div class="box" style="page-break-after: always;">1</div>
+        <div class="box" >2</div>
+        <div class="box">3</div><div class="box">4</div>
+    </div>
+</section>
+
+<section>
+    <h2>3. row-reverse + justify: center + align: center</h2>
+    <div class="flex" style="flex-direction: row-reverse; align-content: center;">
+        <div class="box" style="page-break-after: always;">1</div><div class="box">2</div>
+        <div class="box" style="page-break-after: always;">3</div>
+        <div class="box">4</div>
+    </div>
+</section>
+
+<section>
+    <h2>4. row-reverse + justify: flex-start + align: stretch</h2>
+    <div class="flex" style="flex-direction: row-reverse; justify-content: flex-start; align-content: stretch;">
+        <div class="box" style="page-break-after: always;">1</div><div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+    </div>
+</section>
+
+<section>
+    <h2>5. row-reverse + justify: flex-end + align: center</h2>
+    <div class="flex" style="flex-direction: row-reverse; justify-content: flex-end; align-content: center;">
+        <div class="box" style="page-break-after: always;">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+    </div>
+</section>
+
+<section>
+    <h2>6. row-reverse + justify: center + align: flex-end</h2>
+    <div class="flex" style="flex-direction: row-reverse; justify-content: center; align-content: flex-end;">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box" style="page-break-after: always;">4</div>
+    </div>
+</section>
+
+<!-- ===== Column-Reverse Cases ===== -->
+
+<section>
+    <h2>7. column-reverse + justify: flex-start + align: flex-start</h2>
+    <div class="flex" style="flex-direction: column-reverse; justify-content: flex-start; align-content: flex-start;">
+        <div class="box" style="page-break-after: always;">1</div>
+        <div class="box">2</div><div class="box">3</div><div class="box">4</div>
+    </div>
+</section>
+
+<section>
+    <h2>8. column-reverse + justify: flex-end + align: flex-end</h2>
+    <div class="flex" style="flex-direction: column-reverse; justify-content: flex-end; align-content: flex-end;">
+        <div class="box">1</div>
+        <div class="box" style="page-break-after: always;">2</div>
+        <div class="box">3</div><div class="box">4</div>
+    </div>
+</section>
+
+<section>
+    <h2>9. column-reverse + justify: center + align: center</h2>
+    <div class="flex" style="flex-direction: column-reverse; justify-content: center; align-content: center;">
+        <div class="box">1</div><div class="box">2</div>
+        <div class="box" style="page-break-after: always;">3</div>
+        <div class="box">4</div>
+    </div>
+</section>
+
+<section>
+    <h2>10. column-reverse + justify: flex-start + align: stretch</h2>
+    <div class="flex" style="flex-direction: column-reverse; justify-content: flex-start; align-content: stretch;">
+        <div class="box">1</div><div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box" style="page-break-after: always;">4</div>
+    </div>
+</section>
+
+<section>
+    <h2>11. column-reverse + justify: flex-end + align: center</h2>
+    <div class="flex" style="flex-direction: column-reverse; justify-content: flex-end; align-content: center;">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box" style="page-break-after: always;">3</div>
+        <div class="box">4</div>
+    </div>
+</section>
+
+<section>
+    <h2>12. column-reverse + justify: center + align: flex-end</h2>
+    <div class="flex" style="flex-direction: column-reverse; justify-content: center; align-content: flex-end;">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box" style="page-break-after: always;">4</div>
+    </div>
+</section>
+
+</body>
+</html>
