@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Escaped character test</title>
+    <style>
+        \p:nth-child(4){
+            color: cyan;
+        }
+
+        p:nth-child(-3\n + 1){
+            color: red;
+        }
+
+        p:n\th\-c\hi\ld(-n+5){
+            background: violet;
+        }
+
+        span {
+            font-size: 24px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <span>Select paragraphs by expression:</span>
+</div>
+<div>
+    <p>	-n + 5, n == 1; -3n + 1, n == 1 </p>
+    <p>	-n + 5, n == 2 </p>
+    <p>	-n + 5, n == 3 </p>
+    <p>	-n + 5, n == 4 </p>
+    <p> -n + 5, n == 5 </p>
+    <p>	I'm not interesting: -n + 5 < 0 </p>
+    <p>	I'm not interesting: -n + 5 < 0 </p>
+    <p>	I'm not interesting: -n + 5 < 0 </p>
+</div>
+</body>
+</html>
