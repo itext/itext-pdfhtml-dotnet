@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Unsafe Center</title>
+  <style>
+    .container {
+	  margin-left: 50px;
+      margin-bottom: 20px;
+	  background-color: lightblue;
+	  display: flex;
+      border: 2px solid #444;
+      height: 50px;
+      width: 350px;
+	  align-items: baseline;
+	}
+	
+	.wrap {
+	  flex-wrap: wrap; 
+	}
+	
+	.nowrap {
+	  flex-wrap: no-wrap; 
+	}
+	
+	.wrapreverse {
+	  flex-wrap: wrap-reverse; 
+	}
+
+	div {
+	  line-height: 1em;
+	  border: 1px solid;
+	  box-sizing: border-box;
+	  text-align: center;
+	  background-color: pink;
+	  flex: 0 0 100px;
+	}
+  </style>
+</head>
+<body>
+  <h1>Center + wrap</h1>
+
+  <div class="container wrap" style="justify-content: center">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+  </div>
+
+  <h1>Unsafe center + wrap</h1>
+  <div class="container wrap" style="justify-content: unsafe center">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+  </div>
+
+  <h1>Unsafe center 3 elements + wrap</h1>
+  <div class="container wrap" style="justify-content: unsafe center">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+  </div>
+  
+  <h1>Center + no-wrap</h1>
+
+  <div class="container nowrap" style="justify-content: center">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+  </div>
+
+  <h1>Unsafe center + no-wrap</h1>
+  <div class="container nowrap" style="justify-content: unsafe center">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+  </div>
+
+  <h1>Unsafe center 3 elements + no-wrap</h1>
+  <div class="container nowrap" style="justify-content: unsafe center">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+  </div>
+  
+  <h1>Center + wrap-reverse</h1>
+
+  <div class="container wrapreverse" style="justify-content: center">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+  </div>
+
+  <h1>Unsafe center + wrap-reverse</h1>
+  <div class="container wrapreverse" style="justify-content: unsafe center">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+  </div>
+
+  <h1>Unsafe center 3 elements + wrap-reverse</h1>
+  <div class="container wrapreverse" style="justify-content: unsafe center">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+  </div>
+</body>
+</html>

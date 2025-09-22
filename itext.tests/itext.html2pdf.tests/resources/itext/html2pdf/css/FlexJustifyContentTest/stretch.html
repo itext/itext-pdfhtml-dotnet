@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content: stretch demo</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .stage {
+      display: flex;
+	  /* Stretch behaves like flex or flex-start, if we want to stretch in flex-box we have to use flex-grow. */
+	  justify-content: stretch;
+      border: 1px solid #ccc;
+      gap: 10px;
+      width: 1000px; 
+    }
+    .box {
+      background: lightgreen;
+      padding: 10px;
+      border: 1px solid #333;
+      text-align: center;
+	  height: 100px;
+    }
+	
+	div:nth-of-type(2) {
+		width: 200px;
+		height: 150px;
+	}
+  </style>
+</head>
+<body>
+  <h1>justify-content: stretch + flex</h1>
+
+  <div class="stage">
+    <div class="box">Item 1</div>
+    <div class="box">Item 2</div>
+    <div class="box">Item 3</div>
+  </div>
+
+</body>
+</html>

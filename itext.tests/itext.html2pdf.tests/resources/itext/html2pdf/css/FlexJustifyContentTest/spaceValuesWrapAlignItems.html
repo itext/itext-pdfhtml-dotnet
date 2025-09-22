@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox space-* + flex-wrap + align-items (stretch visible)</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .container {
+      display: flex;
+      flex-wrap: wrap; 
+      border: 2px solid #444;
+      margin-bottom: 40px;
+      width: 500px;  
+      height: 250px;  
+    }
+    .box {
+      width: 100px;
+      margin: 5px;
+      text-align: center;
+      border: 1px solid #333;
+	  background: red;
+    }
+    .small {height: 40px; background: lightcoral;}
+    .medium {height: 70px; background: lightgreen;}
+    .large {height: 100px; background: lightblue;}
+    h2 {margin: 10px 0;}
+  </style>
+</head>
+<body>
+  <h1>Flexbox space-* + flex-wrap + align-items (stretch visible)</h1>
+
+  <h2>justify-content: space-between; align-items: flex-start</h2>
+  <div class="container" style="justify-content: space-between; align-items: flex-start;">
+    <div class="box small">1</div><div class="box medium">2</div><div class="box large">3</div>
+    <div class="box medium">4</div><div class="box small">5</div><div class="box large">6</div>
+  </div>
+
+  <h2>justify-content: space-between; align-items: center</h2>
+  <div class="container" style="justify-content: space-between; align-items: center;">
+    <div class="box small">1</div><div class="box medium">2</div><div class="box large">3</div>
+    <div class="box medium">4</div><div class="box small">5</div><div class="box large">6</div>
+  </div>
+
+  <h2>justify-content: space-between; align-items: flex-end</h2>
+  <div class="container" style="justify-content: space-between; align-items: flex-end;">
+    <div class="box small">1</div><div class="box medium">2</div><div class="box large">3</div>
+    <div class="box medium">4</div><div class="box small">5</div><div class="box large">6</div>
+  </div>
+
+  <h2>justify-content: space-between; align-items: stretch</h2>
+  <div class="container" style="justify-content: space-between; align-items: stretch;">
+    <div class="box">1</div><div class="box">2</div><div class="box">3</div>
+    <div class="box">4</div><div class="box">5</div><div class="box">6</div>
+  </div>
+
+  <h2>justify-content: space-around; align-items: flex-start</h2>
+  <div class="container" style="justify-content: space-around; align-items: flex-start;">
+    <div class="box small">1</div><div class="box medium">2</div><div class="box large">3</div>
+    <div class="box medium">4</div><div class="box small">5</div><div class="box large">6</div>
+  </div>
+
+  <h2>justify-content: space-around; align-items: center</h2>
+  <div class="container" style="justify-content: space-around; align-items: center;">
+    <div class="box small">1</div><div class="box medium">2</div><div class="box large">3</div>
+    <div class="box medium">4</div><div class="box small">5</div><div class="box large">6</div>
+  </div>
+
+  <h2>justify-content: space-around; align-items: flex-end</h2>
+  <div class="container" style="justify-content: space-around; align-items: flex-end;">
+    <div class="box small">1</div><div class="box medium">2</div><div class="box large">3</div>
+    <div class="box medium">4</div><div class="box small">5</div><div class="box large">6</div>
+  </div>
+
+  <h2>justify-content: space-around; align-items: stretch</h2>
+  <div class="container" style="justify-content: space-around; align-items: stretch;">
+    <div class="box">1</div><div class="box">2</div><div class="box">3</div>
+    <div class="box">4</div><div class="box">5</div><div class="box">6</div>
+  </div>
+
+  <h2>justify-content: space-evenly; align-items: flex-start</h2>
+  <div class="container" style="justify-content: space-evenly; align-items: flex-start;">
+    <div class="box small">1</div><div class="box medium">2</div><div class="box large">3</div>
+    <div class="box medium">4</div><div class="box small">5</div><div class="box large">6</div>
+  </div>
+
+  <h2>justify-content: space-evenly; align-items: center</h2>
+  <div class="container" style="justify-content: space-evenly; align-items: center;">
+    <div class="box small">1</div><div class="box medium">2</div><div class="box large">3</div>
+    <div class="box medium">4</div><div class="box small">5</div><div class="box large">6</div>
+  </div>
+
+  <h2>justify-content: space-evenly; align-items: flex-end</h2>
+  <div class="container" style="justify-content: space-evenly; align-items: flex-end;">
+    <div class="box small">1</div><div class="box medium">2</div><div class="box large">3</div>
+    <div class="box medium">4</div><div class="box small">5</div><div class="box large">6</div>
+  </div>
+
+  <h2>justify-content: space-evenly; align-items: stretch</h2>
+  <div class="container" style="justify-content: space-evenly; align-items: stretch;">
+    <div class="box">1</div><div class="box">2</div><div class="box">3</div>
+    <div class="box">4</div><div class="box">5</div><div class="box">6</div>
+  </div>
+
+</body>
+</html>

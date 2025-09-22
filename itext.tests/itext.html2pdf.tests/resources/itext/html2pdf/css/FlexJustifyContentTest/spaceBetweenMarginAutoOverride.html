@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flexbox justify-content examples</title>
+  <style>
+    body {font-family: sans-serif;}
+    .stage {display: flex; border: 1px solid #ccc; width: 700px;}
+    .box {background: lightblue; padding: 20px; border: 1px solid #333;}
+  </style>
+</head>
+<body>
+  <h1>Flexbox justify-content examples</h1>
+
+  <div class="example">
+    <h2>space-between</h2>
+    <div class="stage" style="justify-content: space-between;">
+      <div class="box" style="height: 110px; width: 10px;">Item 1</div>
+      <div class="box" style="height: 90px; width: 200px;">Item 2</div>
+      <div class="box">Item 3</div>
+    </div>
+  </div>
+
+  <div class="example">
+    <h2>margin: auto overriding justify-content: space-between</h2>
+    <div class="stage" style="justify-content: space-between;">
+      <div class="box" style="height: 110px; width: 10px;">Item 1</div>
+      <div class="box" style="margin-right: auto; height: 90px; width: 200px;">Item 2 (margin-right:auto)</div>
+    </div>
+  </div>
+
+</body>
+</html>

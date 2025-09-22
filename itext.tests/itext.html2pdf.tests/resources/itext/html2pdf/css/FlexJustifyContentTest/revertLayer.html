@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content: revert-layer </title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .parent {display: flex; justify-content: space-between; border: 1px solid #666; margin-bottom: 20px; gap: 10px;}
+    .parent div {width: 360px; background: lightblue; border: 1px solid #333; text-align: center;}
+    .child-revert-layer {display: flex; justify-content: revert-layer; border: 1px solid #ccc; padding: 10px; gap: 10px;}
+    .child-revert-layer div {width: 60px; background: lightcoral; padding: 20px; border: 1px solid #333; text-align: center;}
+  </style>
+</head>
+<body>
+  <h1>Flexbox revert-layer</h1>
+
+  <div class="parent">
+    <div>Parent 1</div>
+    <div>Parent 2</div>
+    <div>Parent 3</div>
+
+    <div class="child-revert-layer">
+      <div>Child 1</div>
+      <div>Child 2</div>
+      <div>Child 3</div>
+    </div>
+  </div>
+</body>
+</html>

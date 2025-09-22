@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox flex-end + flex-wrap + column-reverse</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .container {
+      display: flex;
+      flex-direction: column-reverse; 
+      flex-wrap: wrap;                
+      justify-content: flex-end;      
+      border: 2px solid #444;
+      width: 500px;                   
+      height: 1500px;                
+    }
+    .box {
+      width: 80px;
+      height: 100px;
+      background: lightblue;
+      border: 1px solid #333;
+      text-align: center;
+      line-height: 100px;
+      margin: 5px 0;
+      font-weight: bold;
+    }
+    h2 {margin: 10px 0;}
+  </style>
+</head>
+<body>
+  <h1>justify-content: flex-end + flex-wrap + column-reverse</h1>
+
+  <h2>flex-end pushes items to the bottom</h2>
+  <div class="container">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+    <div class="box">6</div>
+    <div class="box">7</div>
+    <div class="box">8</div>
+    <div class="box">9</div>
+    <div class="box">10</div>
+    <div class="box">11</div>
+    <div class="box">12</div>
+    <div class="box">13</div>
+    <div class="box">14</div>
+    <div class="box">15</div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content: stretch demo</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .stage {
+      display: flex;
+      border: 1px solid #ccc;
+      gap: 10px;
+      width: 700px; 
+    }
+    .box {
+      background: lightgreen;
+      padding: 10px;
+      border: 1px solid #333;
+      text-align: center;
+	  height: 100px;
+	  width: 150px;
+	  flex-grow: 3;
+    }
+	
+	.biggerBox {
+		background-color: red;
+		width: 200px;
+		height: 150px;
+		flex-grow:0;
+	}
+  </style>
+</head>
+<body>
+  <h1>justify-content: stretch + flex</h1>
+
+  <div class="stage" style="justify-content:space-between;">
+    <div class="box" style="width: 120px; height: 50px;">Item 1</div>
+    <div class="box biggerBox">Item 2</div>
+    <div class="box">Item 3</div>
+  </div>
+  
+  <div class="stage" style="justify-content:space-around;">
+    <div class="box" style="width: 120px; height: 50px;">Item 1</div>
+    <div class="box">Item 2</div>
+    <div class="box biggerBox">Item 3</div>
+  </div>
+  
+  <div class="stage" style="justify-content:space-evenly;">
+    <div class="box biggerBox">Item 1</div>
+    <div class="box">Item 2</div>
+    <div class="box" style="width: 120px; height: 50px;">Item 3</div>
+  </div>
+
+</body>
+</html>

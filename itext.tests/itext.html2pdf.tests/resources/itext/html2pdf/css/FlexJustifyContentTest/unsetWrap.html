@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content: unset & inherit</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .parent {
+      display: flex;
+      justify-content: space-around;
+      border: 2px solid #666;
+      margin-bottom: 40px;
+    }
+    .container {
+      display: flex;
+      border: 2px solid #444;
+      margin-bottom: 20px;
+      height: 100px;
+      width: 220px;
+    }
+    .box {
+      background: lightcoral;
+      padding: 20px;
+      width: 60px;
+      text-align: center;
+    }
+    h2 {
+	  margin: 10px 0;
+	}
+	
+	.wrap {
+	  flex-wrap: wrap; 
+	}
+	
+	.nowrap {
+	  flex-wrap: no-wrap; 
+	}
+	
+	.wrapreverse {
+	  flex-wrap: wrap-reverse; 
+	}
+  </style>
+</head>
+<body>
+  <h1>Flexbox justify-content: unset & inherit with parent</h1>
+
+  <h2>Wrap - justify-content: unset</h2>
+  <div class="parent" style="justify-content: space-between; height: 300px;">
+    <div class="container wrap" style="justify-content: unset; height: 100%;">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+    </div>
+  </div>
+  
+  <h2>Wrap-Reverse - justify-content: unset</h2>
+  <div class="parent" style="justify-content: space-between; height: 300px;">
+    <div class="container wrapreverse" style="justify-content: unset; height: 100%;">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+    </div>
+  </div>
+  
+  <h2>No-wrap - justify-content: unset</h2>
+  <div class="parent" style="justify-content: space-between; height: 300px;">
+    <div class="container nowrap" style="justify-content: unset; height: 100%;">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+    </div>
+  </div>
+</body>

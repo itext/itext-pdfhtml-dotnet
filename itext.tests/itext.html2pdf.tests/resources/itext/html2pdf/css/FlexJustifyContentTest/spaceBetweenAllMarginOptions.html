@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content examples</title>
+  <style>
+    body {font-family: sans-serif;}
+    .stage {display: flex; border: 1px solid #ccc; min-height: 100px; width: 700px;}
+    .box {background: lightblue; padding: 20px; border: 1px solid #333;}
+  </style>
+</head>
+<body>
+  <h1>Flexbox justify-content examples</h1>
+
+  <div class="example">
+    <h2>margin-left: auto overriding justify-content</h2>
+    <div class="stage" style="justify-content: space-between;">
+      <div class="box">Item 1</div>
+      <div class="box" style="margin-right: auto;">Item 2 (margin-left:auto)</div>
+    </div>
+  </div>
+
+  <div class="example">
+    <h2>margin-right: auto overriding justify-content</h2>
+    <div class="stage" style="justify-content: space-between;">
+      <div class="box" style="margin-left: auto;">Item 1 (margin-right:auto)</div>
+      <div class="box">Item 2</div>
+    </div>
+  </div>
+
+  <div class="example">
+    <h2>margin-top: auto overriding align-items</h2>
+    <div class="stage" style="justify-content: space-between; align-items: flex-start;">
+      <div class="box">Item 1</div>
+      <div class="box" style="margin-top: auto;">Item 2 (margin-top:auto)</div>
+    </div>
+  </div>
+
+  <div class="example">
+    <h2>margin-bottom: auto overriding align-items</h2>
+    <div class="stage" style="justify-content: space-between; align-items: flex-end;">
+      <div class="box">Item 1</div>
+      <div class="box" style="margin-bottom: auto;">Item 2 (margin-bottom:auto)</div>
+    </div>
+  </div>
+
+</body>
+</html>

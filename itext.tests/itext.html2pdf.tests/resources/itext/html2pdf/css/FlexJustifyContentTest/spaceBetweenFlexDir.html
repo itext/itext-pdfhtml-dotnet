@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flex Direction Examples</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .container {display: flex; border: 1px solid #666; margin-bottom: 30px; height: 150px;}
+    .box {background: lightcoral; padding: 20px; border: 1px solid #333; width: 60px; text-align: center;}
+    h2 {margin-bottom: 10px;}
+  </style>
+</head>
+<body>
+  <h1>Flexbox Row and Column Examples</h1>
+
+  <h2>Flex Row - justify-content: space-between</h2>
+  <div class="container" style="flex-direction: row; justify-content: space-between;">
+    <div class="box">1</div>
+    <div class="box" style="width: 50px; height: 90px;">2</div>
+    <div class="box" style="width: 200px; height: 20px;">3</div>
+  </div>
+
+  <h2>Flex Column - justify-content: space-between</h2>
+  <div class="container" style="flex-direction: column; justify-content: space-between; height: 300px;">
+    <div class="box" style="width: 200px; height: 20px;">1</div>
+    <div class="box" style="width: 50px; height: 90px;">2</div>
+    <div class="box">3</div>
+  </div>
+
+  <h2>Flex Row Reverse - justify-content: space-between</h2>
+  <div class="container" style="flex-direction: row-reverse; justify-content: space-between;">
+    <div class="box">1</div>
+    <div class="box" style="width: 50px; height: 90px;">2</div>
+    <div class="box" style="width: 200px; height: 20px;">3</div>
+  </div>
+
+  <h2>Flex Column Reverse - justify-content: space-between</h2>
+  <div class="container" style="flex-direction: column-reverse; justify-content: space-between; height: 300px;">
+    <div class="box" style="width: 200px; height: 20px;">1</div>
+    <div class="box" style="width: 50px; height: 90px;">2</div>
+    <div class="box">3</div>
+  </div>
+</body>
+</html>

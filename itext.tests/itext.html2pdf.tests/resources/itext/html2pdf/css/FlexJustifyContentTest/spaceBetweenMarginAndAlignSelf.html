@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Flexbox align-self + justify-content: space-between</title>
+<style>
+body {font-family: sans-serif;}
+.stage {display: flex; justify-content: space-between; border: 1px solid #ccc; height: 200px; width: 700px;}
+.box {background: lightcoral; padding: 20px; border: 1px solid #333; width: 80px; text-align: center;}
+</style>
+</head>
+<body>
+<h1>justify-content: space-between + align-self + margin:auto</h1>
+
+
+<div class="stage">
+<div class="box" style="align-self: flex-start;">flex-start</div>
+<div class="box" style="align-self: center; width: 150px; height: 60px;">center</div>
+<div class="box" style="align-self: flex-end; width: 30px; height: 20px;">flex-end</div>
+<div class="box" style="align-self: stretch;">stretch</div>
+<div class="box" style="margin:auto;">margin:auto</div>
+</div>
+</body>
+</html>

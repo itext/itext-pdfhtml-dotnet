@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content + align-items</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .container {
+      display: flex;
+      justify-content: space-around;
+      border: 2px solid #444;
+      margin-bottom: 40px;
+      width: 800px;
+      height: 200px; 
+    }
+    .box {
+      background: lightblue;
+      border: 1px solid #333;
+      width: 100px;
+      margin: 5px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .small {height: 40px;}
+    .medium {height: 80px;}
+    .large {height: 120px;}
+    h2 {margin: 10px 0;}
+  </style>
+</head>
+<body>
+  <h1>Flexbox justify-content + align-items</h1>
+  <p>Each row has <code>justify-content: space-around</code> and different <code>align-items</code> values.</p>
+
+  <h2>align-items: stretch</h2>
+  <div class="container" style="align-items: stretch;">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+  </div>
+
+  <h2>align-items: flex-start</h2>
+  <div class="container" style="align-items: flex-start;">
+    <div class="box small">1</div>
+    <div class="box medium">2</div>
+    <div class="box large">3</div>
+  </div>
+
+  <h2>align-items: flex-end</h2>
+  <div class="container" style="align-items: flex-end;">
+    <div class="box small">1</div>
+    <div class="box medium">2</div>
+    <div class="box large">3</div>
+  </div>
+
+  <h2>align-items: center</h2>
+  <div class="container" style="align-items: center;">
+    <div class="box small">1</div>
+    <div class="box medium">2</div>
+    <div class="box large">3</div>
+  </div>
+
+  <h2>align-items: baseline</h2>
+  <div class="container" style="align-items: baseline;">
+    <div class="box small">A<br><small>baseline</small></div>
+    <div class="box medium">B</div>
+    <div class="box large" style="font-size: 30px">C</div>
+  </div>
+
+</body>
+</html>

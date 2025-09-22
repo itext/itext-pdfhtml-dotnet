@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flex Direction Examples</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .container {
+      display: flex;
+	  /* Stretch behaves like flex or flex-start, if we want to stretch in flex-box we have to use flex-grow. */
+	  justify-content: stretch;
+      border: 1px solid #ccc;
+      gap: 10px;
+      width: 300px; 
+    }
+	
+	.wrap {
+	  flex-wrap: wrap; 
+	}
+	
+	.nowrap {
+	  flex-wrap: no-wrap; 
+	}
+	
+	.wrapreverse {
+	  flex-wrap: wrap-reverse; 
+	}
+	
+    .box {
+      background: lightgreen;
+      padding: 10px;
+      border: 1px solid #333;
+      text-align: center;
+	  height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Stretch + Wrap examples</h1>
+
+  <h2>justify-content: stretch + wrap</h2>
+  <div class="container wrap">
+    <div class="box" style="width: 200px;">1</div>
+    <div class="box" >2</div>
+    <div class="box" style="width: 30px; height: 200px;">3</div>
+  </div>
+  
+  <h2>justify-content: stretch + no-wrap</h2>
+  <div class="container nowrap">
+    <div class="box" style="width: 200px;">1</div>
+    <div class="box" >2</div>
+    <div class="box" style="width: 30px; height: 200px;">3</div>
+  </div>
+  
+  <h2>justify-content: stretch + wrap-reverse</h2>
+  <div class="container wrapreverse">
+    <div class="box" style="width: 200px;">1</div>
+    <div class="box" >2</div>
+    <div class="box" style="width: 30px; height: 200px;">3</div>
+  </div>
+</body>
+</html>

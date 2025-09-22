@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content with item margins</title>
+  <style>
+    body {font-family: sans-serif;}
+    .container {
+      display: flex;
+      border: 2px solid #444;
+	  width: 700px;
+    }
+    .box {
+      background: lightgreen;
+      padding: 20px;
+      border: 1px solid #333;
+      width: 60px;
+      text-align: center;
+      margin: 50px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Flexbox justify-content with item margins</h1>
+
+  <h2>justify-content: space-around</h2>
+  <div class="container" style="justify-content: space-around;">
+    <div class="box" style="width: 120px; height: 120px;">1</div>
+    <div class="box" style="width: 80px; height: 50px;">2</div>
+    <div class="box">3</div>
+  </div>
+
+  <h2>justify-content: space-between</h2>
+  <div class="container" style="justify-content: space-between;">
+    <div class="box">1</div>
+    <div class="box" style="width: 80px; height: 50px;">2</div>
+    <div class="box" style="width: 120px; height: 120px;">3</div>
+  </div>
+
+  <h2>justify-content: space-evenly</h2>
+  <div class="container" style="justify-content: space-evenly;">
+    <div class="box" style="width: 80px; height: 50px;">1</div>
+    <div class="box">2</div>
+    <div class="box" style="width: 120px; height: 120px;">3</div>
+  </div>
+</body>
+</html>
