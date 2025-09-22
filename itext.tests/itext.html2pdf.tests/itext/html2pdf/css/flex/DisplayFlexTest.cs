@@ -38,16 +38,16 @@ using iText.StyledXmlParser.Resolver.Font;
 using iText.Test;
 using iText.Test.Attributes;
 
-namespace iText.Html2pdf.Css {
+namespace iText.Html2pdf.Css.Flex {
     [NUnit.Framework.Category("IntegrationTest")]
     public class DisplayFlexTest : ExtendedHtmlConversionITextTest {
         private const float EPS = 1e-6f;
 
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/DisplayFlexTest/";
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/flex/DisplayFlexTest/";
 
         private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/css/DisplayFlexTest/";
+             + "/test/itext/html2pdf/css/flex/DisplayFlexTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {

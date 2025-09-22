@@ -28,14 +28,14 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
 
-namespace iText.Html2pdf.Css {
+namespace iText.Html2pdf.Css.Flex {
     [NUnit.Framework.Category("IntegrationTest")]
     public class FloatAndFlexTest : ExtendedHtmlConversionITextTest {
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/FloatAndFlexTest/";
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/flex/FloatAndFlexTest/";
 
         private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/css/FloatAndFlexTest/";
+             + "/test/itext/html2pdf/css/flex/FloatAndFlexTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {

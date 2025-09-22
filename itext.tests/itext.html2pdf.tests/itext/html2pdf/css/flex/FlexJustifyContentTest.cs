@@ -25,15 +25,15 @@ using iText.Html2pdf;
 using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
-namespace iText.Html2pdf.Css {
+namespace iText.Html2pdf.Css.Flex {
     [NUnit.Framework.Category("IntegrationTest")]
     public class FlexJustifyContentTest : ExtendedHtmlConversionITextTest {
         //TODO DEVSIX-5163: Update cmp files
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/FlexJustifyContentTest/";
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/flex/FlexJustifyContentTest/";
 
         private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/css/FlexJustifyContentTest/";
+             + "/test/itext/html2pdf/css/flex/FlexJustifyContentTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {

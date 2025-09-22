@@ -23,7 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using iText.Html2pdf;
 
-namespace iText.Html2pdf.Css {
+namespace iText.Html2pdf.Css.Flex {
     [NUnit.Framework.Category("IntegrationTest")]
     public class FlexAlgoTest : ExtendedHtmlConversionITextTest {
         private static bool s = true;
@@ -36,10 +36,10 @@ namespace iText.Html2pdf.Css {
         - the names are preserved: one can go to FlexUtilTest and see the corresponding tests, but be aware that with
         time they might change and we will not maintain such correspondance */
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/FlexAlgoTest/";
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/flex/FlexAlgoTest/";
 
-        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/css/FlexAlgoTest/";
+        private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+             + "/test/itext/html2pdf/css/flex/FlexAlgoTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {

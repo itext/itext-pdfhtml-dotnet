@@ -25,14 +25,14 @@ using iText.Html2pdf;
 using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
-namespace iText.Html2pdf.Css {
+namespace iText.Html2pdf.Css.Flex {
     [NUnit.Framework.Category("IntegrationTest")]
     public class FlexColumnReverseTest : ExtendedHtmlConversionITextTest {
-        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/FlexColumnReverseTest/";
+        private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/flex/FlexColumnReverseTest/";
 
-        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
-             + "/test/itext/html2pdf/css/FlexColumnReverseTest/";
+        private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+             + "/test/itext/html2pdf/css/flex/FlexColumnReverseTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
