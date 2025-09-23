@@ -118,25 +118,21 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void OverflowYVisibleOverflowXAllValuesTest() {
-            //TODO DEVSIX-5212 CSS parsing: implement correct handling of css tokens with escaped code point
             RunTest("overflowYVisibleOverflowXAllValues", new PageSize(1200, 1400));
         }
 
         [NUnit.Framework.Test]
         public virtual void OverflowYHiddenOverflowXAllValuesTest() {
-            //TODO DEVSIX-5212 CSS parsing: implement correct handling of css tokens with escaped code point
             RunTest("overflowYHiddenOverflowXAllValues", new PageSize(1200, 1400));
         }
 
         [NUnit.Framework.Test]
         public virtual void OverflowYScrollOverflowXAllValuesTest() {
-            //TODO DEVSIX-5212 CSS parsing: implement correct handling of css tokens with escaped code point
             RunTest("overflowYScrollOverflowXAllValues", new PageSize(1200, 1400));
         }
 
         [NUnit.Framework.Test]
         public virtual void OverflowYAutoOverflowXAllValues() {
-            //TODO DEVSIX-5212 CSS parsing: implement correct handling of css tokens with escaped code point
             RunTest("overflowYAutoOverflowXAllValues", new PageSize(1200, 1400));
         }
 
