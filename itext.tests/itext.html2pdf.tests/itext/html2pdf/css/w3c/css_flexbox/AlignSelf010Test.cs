@@ -26,7 +26,7 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5166 change after align-self: baseline is supported
+    // TODO DEVSIX-5167 Support baseline value for align-items and align-self
     [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
     public class AlignSelf010Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {

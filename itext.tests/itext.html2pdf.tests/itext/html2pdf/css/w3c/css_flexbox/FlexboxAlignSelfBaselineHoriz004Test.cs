@@ -27,8 +27,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5167 change after align-items:baseline is supported
-    //TODO DEVSIX-5166 change after align-self: stretch is implemented
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
     public class FlexboxAlignSelfBaselineHoriz004Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-align-self-baseline-horiz-004.xhtml";

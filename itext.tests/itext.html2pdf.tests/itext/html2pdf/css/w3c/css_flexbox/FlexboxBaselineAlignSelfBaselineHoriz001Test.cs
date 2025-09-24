@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5166 change after align-self: baseline is implemented
+    // TODO DEVSIX-5167 Support baseline value for align-items and align-self
     public class FlexboxBaselineAlignSelfBaselineHoriz001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-baseline-align-self-baseline-horiz-001.html";

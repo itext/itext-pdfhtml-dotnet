@@ -22,12 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5166 flex: Support align-self property
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 1)]
+    // TODO DEVSIX-5087 Image is not displayed correctly when overflow happens
     public class FlexAspectRatioImgColumn003Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flex-aspect-ratio-img-column-003.html";

@@ -50,6 +50,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IPropertyContainer element) {
             element.SetProperty(Property.COLLAPSING_MARGINS, null);
             LogWarningIfThereAreNotSupportedPropertyValues(CreateSupportedFlexItemPropertiesAndValuesMap(), cssProps);
+            ApplyAlignSelf(cssProps, element);
             String flexGrow = cssProps.Get(CommonCssConstants.FLEX_GROW);
             if (flexGrow != null) {
                 float? flexGrowValue = CssDimensionParsingUtils.ParseFloat(flexGrow);
@@ -89,6 +90,69 @@ namespace iText.Html2pdf.Css.Apply.Util {
             ApplyAlignContent(cssProps, element);
             ApplyWrap(cssProps, element);
             ApplyDirection(cssProps, element);
+        }
+
+        private static void ApplyAlignSelf(IDictionary<String, String> cssProps, IPropertyContainer element) {
+            String alignSelfString = cssProps.Get(CommonCssConstants.ALIGN_SELF);
+            if (alignSelfString != null) {
+                if (CommonCssConstants.AUTO.Equals(alignSelfString)) {
+                    // "auto" computes to the parent's align-items value.
+                    return;
+                }
+                AlignmentPropertyValue alignSelf;
+                switch (alignSelfString) {
+                    case CommonCssConstants.START: {
+                        // TODO DEVSIX-5167 Support baseline value for align-items and align-self
+                        alignSelf = AlignmentPropertyValue.START;
+                        break;
+                    }
+
+                    case CommonCssConstants.END: {
+                        alignSelf = AlignmentPropertyValue.END;
+                        break;
+                    }
+
+                    case CommonCssConstants.FLEX_START: {
+                        alignSelf = AlignmentPropertyValue.FLEX_START;
+                        break;
+                    }
+
+                    case CommonCssConstants.FLEX_END: {
+                        alignSelf = AlignmentPropertyValue.FLEX_END;
+                        break;
+                    }
+
+                    case CommonCssConstants.CENTER: {
+                        alignSelf = AlignmentPropertyValue.CENTER;
+                        break;
+                    }
+
+                    case CommonCssConstants.SELF_START: {
+                        alignSelf = AlignmentPropertyValue.SELF_START;
+                        break;
+                    }
+
+                    case CommonCssConstants.SELF_END: {
+                        alignSelf = AlignmentPropertyValue.SELF_END;
+                        break;
+                    }
+
+                    case CommonCssConstants.NORMAL:
+                    case CommonCssConstants.STRETCH: {
+                        // For flex items, the "normal" behaves as stretch.
+                        alignSelf = AlignmentPropertyValue.STRETCH;
+                        break;
+                    }
+
+                    default: {
+                        LOGGER.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, 
+                            CommonCssConstants.ALIGN_SELF, alignSelfString));
+                        alignSelf = AlignmentPropertyValue.START;
+                        break;
+                    }
+                }
+                element.SetProperty(Property.ALIGN_SELF, alignSelf);
+            }
         }
 
         private static void ApplyWrap(IDictionary<String, String> cssProps, IPropertyContainer element) {
@@ -360,11 +424,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         private static IDictionary<String, ICollection<String>> CreateSupportedFlexItemPropertiesAndValuesMap() {
             IDictionary<String, ICollection<String>> supportedPairs = new Dictionary<String, ICollection<String>>();
-            ICollection<String> supportedAlignSelfValues = new HashSet<String>();
-            supportedAlignSelfValues.Add(CommonCssConstants.AUTO);
-            supportedPairs.Put(CommonCssConstants.ALIGN_SELF, supportedAlignSelfValues);
-            ICollection<String> supportedOrderValues = new HashSet<String>();
-            supportedPairs.Put(CommonCssConstants.ORDER, supportedOrderValues);
+            supportedPairs.Put(CommonCssConstants.ORDER, new HashSet<String>());
             return supportedPairs;
         }
 

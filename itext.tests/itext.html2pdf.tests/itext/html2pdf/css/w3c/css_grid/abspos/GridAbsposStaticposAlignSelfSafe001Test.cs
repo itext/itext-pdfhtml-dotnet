@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
-    //TODO DEVSIX-5166 change after align-self is supported
     public class GridAbsposStaticposAlignSelfSafe001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-abspos-staticpos-align-self-safe-001.html";

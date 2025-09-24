@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<style>
+		.container {
+		  display: flex;
+		  width: 450px;
+		  height: 250px;
+		  background: beige;
+
+		  align-items: end;
+		}
+
+		.item {
+		  width: 100px;
+		  background: lightgray;
+		  margin: 5px;
+		}
+
+		.container div:nth-child(1) {
+		  height: 20px;
+		  align-self: baseline;
+		  background: lightblue;
+		}
+		.container div:nth-child(2) {
+		  
+		}
+		.container div:nth-child(3) {
+			font-size: 30px;
+		  height: 80px;
+		  align-self: baseline;
+		  background: lightblue;
+		}
+		.container div:nth-child(4) {
+		  height: 50px;
+		}
+		.container div:nth-child(5) {
+			font-size: 10px;
+			align-self: baseline;
+		  height: 100px;
+		  background: lightblue;
+		}
+		.container div:nth-child(6) {
+		  align-self: baseline;
+		  background: lightblue;
+		}
+	</style>
+</head>
+<body>
+	<p>align-items: end; flex-wrap: nowrap; flex-direction: row;</p>
+	<div style="flex-wrap: nowrap; flex-direction: row;" class="container">
+	  <div class="item">Item 1</div>
+	  <div class="item">Item 2</div>
+	  <div class="item">Item 3</div>
+	  <div class="item">Item 4</div>
+	  <div class="item">Item 5</div>
+	  <div class="item">Item 6</div>
+	</div>
+	<p>align-items: end; flex-wrap: wrap; flex-direction: row;</p>
+	<div style="flex-wrap: wrap; flex-direction: row;" class="container">
+	  <div class="item">Item 1</div>
+	  <div class="item">Item 2</div>
+	  <div class="item">Item 3</div>
+	  <div class="item">Item 4</div>
+	  <div class="item">Item 5</div>
+	  <div class="item">Item 6</div>
+	</div>
+	<p>align-items: end; flex-wrap: wrap-reverse; flex-direction: row;</p>
+	<div style="flex-wrap: wrap-reverse; flex-direction: row;" class="container">
+	  <div class="item">Item 1</div>
+	  <div class="item">Item 2</div>
+	  <div class="item">Item 3</div>
+	  <div class="item">Item 4</div>
+	  <div class="item">Item 5</div>
+	  <div class="item">Item 6</div>
+	</div>
+</body>
+</html>

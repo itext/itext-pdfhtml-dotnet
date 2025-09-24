@@ -203,7 +203,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             ProcessorContext context = new ProcessorContext(new ConverterProperties());
             IDictionary<String, String> cssProps = new Dictionary<String, String>();
             cssProps.Put(CssConstants.ORDER, "1");
-            cssProps.Put(CssConstants.ALIGN_SELF, CssConstants.STRETCH);
+            cssProps.Put(CssConstants.ALIGN_SELF, CssConstants.SAFE);
             IElement element = new Div();
             FlexApplierUtil.ApplyFlexItemProperties(cssProps, context, element);
             // This test checks that there are log messages so assertions are not required
