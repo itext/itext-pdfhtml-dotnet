@@ -41,6 +41,12 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        public virtual void SelfEndTest() {
+            ConvertToPdfAndCompare("selfEnd", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 8)]
         public virtual void InheritFlexDirTest() {
             ConvertToPdfAndCompare("inheritFlexDir", SOURCE_FOLDER, DESTINATION_FOLDER);

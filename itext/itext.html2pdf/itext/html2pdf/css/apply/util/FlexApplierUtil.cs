@@ -304,16 +304,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         break;
                     }
 
-                    case CommonCssConstants.SELF_START: {
-                        justifyContent = JustifyContent.SELF_START;
-                        break;
-                    }
-
-                    case CommonCssConstants.SELF_END: {
-                        justifyContent = JustifyContent.SELF_END;
-                        break;
-                    }
-
                     case CommonCssConstants.LEFT: {
                         justifyContent = JustifyContent.LEFT;
                         break;

@@ -128,11 +128,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
         [NUnit.Framework.Test]
         public virtual void ApplyJustifyContentTest() {
             String[] justifyContentStrings = new String[] { CssConstants.START, CssConstants.END, CssConstants.CENTER, 
-                CssConstants.FLEX_START, CssConstants.FLEX_END, CssConstants.SELF_START, CssConstants.SELF_END, CssConstants
-                .LEFT, CssConstants.RIGHT, CssConstants.NORMAL, CssConstants.STRETCH };
+                CssConstants.FLEX_START, CssConstants.FLEX_END, CssConstants.LEFT, CssConstants.RIGHT, CssConstants.NORMAL
+                , CssConstants.STRETCH };
             JustifyContent[] justifyContentValues = new JustifyContent[] { JustifyContent.START, JustifyContent.END, JustifyContent
-                .CENTER, JustifyContent.FLEX_START, JustifyContent.FLEX_END, JustifyContent.SELF_START, JustifyContent
-                .SELF_END, JustifyContent.LEFT, JustifyContent.RIGHT, JustifyContent.NORMAL, JustifyContent.STRETCH };
+                .CENTER, JustifyContent.FLEX_START, JustifyContent.FLEX_END, JustifyContent.LEFT, JustifyContent.RIGHT
+                , JustifyContent.NORMAL, JustifyContent.STRETCH };
             for (int i = 0; i < justifyContentStrings.Length; ++i) {
                 IDictionary<String, String> cssProps = new Dictionary<String, String>();
                 cssProps.Put(CssConstants.JUSTIFY_CONTENT, justifyContentStrings[i]);
