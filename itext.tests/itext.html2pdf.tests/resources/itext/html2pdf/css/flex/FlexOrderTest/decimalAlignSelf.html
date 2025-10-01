@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Flex-wrap + mixed order + align-self</title>
+<style>
+  body { font-family: sans-serif; }
+  .container {
+    display: flex;
+    border: 2px solid #000;
+    width: 700px;
+    height: 250px; 
+  }
+  .box {
+    border: 1px solid #333;
+    background: lightblue;
+    display: flex;
+	width: 120px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Flex-wrap + mixed order + align-self (visible)</h1>
+
+<div class="container">
+  <div class="box" style="order: 3; align-self: flex-start; height: 80px;">Item 1 (order:3, flex-start)</div>
+  <div class="box" style="order: -1; align-self: flex-end; height: 60px;">Item 2 (order:-1, flex-end)</div>
+  <div class="box" style="order: 0; align-self: center; height: 100px;">Item 3 (order:0, center)</div>
+  <div class="box" style="order: 5; align-self: baseline; height: 90px;">Item 4 (order:5, baseline)</div>
+  <div class="box" style="order: -2; align-self: stretch; height: auto;">Item 5 (order:-2, stretch)</div>
+  <div class="box" style="order: 2; align-self: flex-start; height: 70px;">Item 6 (order:2, flex-start)</div>
+  <div class="box" style="order: -3; align-self: flex-end; height: 50px;">Item 7 (order:-3, flex-end)</div>
+</div>
+
+</body>
+</html>

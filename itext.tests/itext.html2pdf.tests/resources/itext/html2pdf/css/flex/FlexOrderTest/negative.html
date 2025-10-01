@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox Order Example (with negative values)</title>
+  <style>
+    body {font-family: sans-serif;}
+    .container {
+      display: flex;
+      border: 2px solid #444;
+      width: 700px;
+      height: 150px;
+    }
+    .box {
+      flex: 1;
+      background: lightcoral;
+      border: 1px solid #333;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Flexbox: order property (with negatives)</h1>
+
+  <div class="container">
+    <div class="box" style="order: 2;">1 (order 2)</div>
+    <div class="box" style="order: -1;">2 (order -1)</div>
+    <div class="box" style="order: 0;">3 (order 0)</div>
+    <div class="box" style="order: -2;">4 (order -2)</div>
+    <div class="box" style="order: 1;">5 (order 1)</div>
+  </div>
+
+</body>
+</html>

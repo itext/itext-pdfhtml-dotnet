@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Flex-wrap + order demo</title>
+<style>
+  body { font-family: sans-serif; }
+  .container {
+    display: flex;
+    flex-flow: column wrap;   
+    border: 2px solid #000;
+    width: 450px; 
+    height: auto;
+  }
+  .box {
+    flex: 0 0 200px;
+    height: 100px;
+    border: 1px solid #333;
+    background: lightgreen;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  .order5{
+	order:5;
+  }
+</style>
+</head>
+<body>
+
+<h1>Flex-wrap + order example</h1>
+
+<h2>order: decimals</h2>
+	<div class="container">
+	  <div class="box" style="order: 3;">Item 1 (order:3)</div>
+	  <div class="box" style="order: 1;">Item 2 (order:1)</div>
+	  <div class="box" style="order: 5;">Item 3 (order:5)</div>
+	  <div class="box" style="order: 2;">Item 4 (order:2)</div>
+	  <div class="box" style="order: 4;">Item 5 (order:4)</div>
+	  <div class="box" style="order: 0;">Item 6 (order:0)</div>
+	  <div class="box" style="order: 6;">Item 7 (order:6)</div>
+	</div>
+	
+	<h2>order: inherit</h2>
+		<div class="container" style="order: 3;">
+		<div class="box" style="order: -1;">1 (order: -1)</div>
+		<div class="box" style="order: inherit;">2 (order: inherit → 3)</div>
+		<div class="box" style="order: 1;">3 (order: 1)</div>
+	</div>
+<h2>order: initial</h2>
+  <div class="container">
+    <div class="box order5" style="order: 2;">1 (order: 2)</div>
+    <div class="box order5" style="order: 1;">2 (order: 1)</div>
+    <div class="box order5" style="order: initial;">3 (order: initial → 0)</div>
+  </div>
+  
+  <h2>order: revert</h2>
+  <div class="container">
+    <div class="box order5" style="order: 2;">1 (order: 2)</div>
+    <div class="box order5" style="order: 1;">2 (order: 1)</div>
+    <div class="box order5" style="order: revert;">3 (order: revert → 0)</div>
+  </div>
+  
+  <h2>order: unset</h2>
+  <div class="container">
+    <div class="box order5" style="order: 2;">1 (order: 2)</div>
+    <div class="box order5" style="order: 1;">2 (order: 1)</div>
+    <div class="box order5" style="order: unset;">3 (order: unset → 0)</div>
+  </div>
+</body>
+</html>

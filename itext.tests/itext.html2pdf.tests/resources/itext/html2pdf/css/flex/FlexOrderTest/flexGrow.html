@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Flex-grow + order demo</title>
+<style>
+  body { font-family: sans-serif; }
+  .container {
+    display: flex;
+    border: 2px solid #000;
+    width: 720px; 
+    height: auto;
+  }
+  .box {
+    flex: 0 1 auto;   
+    min-width: 50px;  
+    height: 100px;
+    border: 1px solid #333;
+    background: lightgreen;
+    display: flex;
+  }
+  .order5 {
+    order: 5;
+  }
+</style>
+</head>
+<body>
+
+<h1>Flex-grow + order examples</h1>
+
+<h2>order: decimals + flex-grow</h2>
+<div class="container">
+  <div class="box" style="order: 3; flex-grow: 1;">Item 1 (order:3, grow:1)</div>
+  <div class="box" style="order: 1;">Item 2 (order:1)</div>
+  <div class="box" style="order: 5;">Item 3 (order:5)</div>
+</div>
+
+<h2>order: inherit + flex-grow</h2>
+<div class="container" style="order: 3;">
+  <div class="box" style="order: -1; flex-grow: 1;">1 (order:-1, grow:1)</div>
+  <div class="box" style="order: inherit; flex-grow: 3;">2 (order:inherit→3, grow:3)</div>
+  <div class="box" style="order: 1; flex-grow: 2;">3 (order:1, grow:2)</div>
+</div>
+
+<h2>order: initial + flex-grow</h2>
+<div class="container">
+  <div class="box order5" style="order: 2; flex-grow: 1;">1 (order:2, grow:1)</div>
+  <div class="box order5" style="order: 1; flex-grow: 3;">2 (order:1, grow:3)</div>
+  <div class="box order5" style="order: initial; flex-grow: 2;">3 (order:initial→0, grow:2)</div>
+</div>
+
+<h2>order: revert + flex-grow</h2>
+<div class="container">
+  <div class="box order5" style="order: 2; flex-grow: 2;">1 (order:2, grow:2)</div>
+  <div class="box order5" style="order: 1; flex-grow: 1;">2 (order:1, grow:1)</div>
+  <div class="box order5" style="order: revert; flex-grow: 3;">3 (order:revert→0, grow:3)</div>
+</div>
+
+<h2>order: unset + flex-grow</h2>
+<div class="container">
+  <div class="box order5" style="order: 2; flex-grow: 3;">1 (order:2, grow:3)</div>
+  <div class="box order5" style="order: 1; flex-grow: 1;">2 (order:1, grow:1)</div>
+  <div class="box order5" style="order: unset; flex-grow: 2;">3 (order:unset→0, grow:2)</div>
+</div>
+
+</body>
+</html>

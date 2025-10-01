@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox Order: inherit</title>
+  <style>
+    body {font-family: sans-serif;}
+    .container {
+      display: flex;
+      border: 2px solid #444;
+      width: 700px;
+      height: 150px;
+    }
+    .box {
+      flex: 1;
+      background: lightblue;
+      border: 1px solid #333;
+      text-align: center;
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <h1>Flexbox: order special keyword values</h1>
+
+  <h2>order: inherit</h2>
+  <div class="container" style="order: 7;">
+	  <div class="container" style="order: 1;">
+		<div class="box" style="order: 2;">child 1 (order: 2)</div>
+		<div class="box" style="order: 3;">child 2 (order: 3)</div>
+		<div class="box" style="order: inherit;">child 3 (order: inherit → 1; Takes the value from child container, not parent.)</div>
+	  </div>
+    <div class="box" style="order: 4;">2 (order: 4)</div>
+    <div class="box" style="order: 6;">3 (order: 6)</div>
+    <div class="box" style="order: 5;">4 (order: 5)</div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Flex-shrink + order demo (strong differences)</title>
+<style>
+  body { font-family: sans-serif; }
+  .container {
+    display: flex;
+    border: 2px solid #000;
+    width: 400px;   /* much smaller to force shrink */
+    height: auto;
+    margin-bottom: 30px;
+  }
+  .box {
+    flex: 0 1 auto;   /* allow shrink */
+    width: 250px;     /* bigger base size */
+    height: 100px;
+    border: 1px solid #333;
+    background: lightcoral;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  .order5 {
+    order: 5;
+  }
+</style>
+</head>
+<body>
+
+<h1>Flex-shrink + order (strong shrink differences)</h1>
+
+<h2>order: decimals + flex-shrink</h2>
+<div class="container">
+  <div class="box" style="order: 3; flex-shrink: 1;">Item 1 (order:3, shrink:1)</div>
+  <div class="box" style="order: 1; flex-shrink: 5;">Item 2 (order:1, shrink:5)</div>
+  <div class="box" style="order: 5; flex-shrink: 10;">Item 3 (order:5, shrink:10)</div>
+</div>
+
+<h2>order: inherit + flex-shrink</h2>
+<div class="container" style="order: 3;">
+  <div class="box" style="order: -1; flex-shrink: 1;">1 (order:-1, shrink:1)</div>
+  <div class="box" style="order: inherit; flex-shrink: 10;">2 (order:inherit→3, shrink:10)</div>
+  <div class="box" style="order: 1; flex-shrink: 5;">3 (order:1, shrink:5)</div>
+</div>
+
+<h2>order: initial + flex-shrink</h2>
+<div class="container">
+  <div class="box order5" style="order: 2; flex-shrink: 10;">1 (order:2, shrink:10)</div>
+  <div class="box order5" style="order: 1; flex-shrink: 1;">2 (order:1, shrink:1)</div>
+  <div class="box order5" style="order: initial; flex-shrink: 5;">3 (order:initial→0, shrink:5)</div>
+</div>
+
+<h2>order: revert + flex-shrink</h2>
+<div class="container">
+  <div class="box order5" style="order: 2; flex-shrink: 5;">1 (order:2, shrink:5)</div>
+  <div class="box order5" style="order: 1; flex-shrink: 10;">2 (order:1, shrink:10)</div>
+  <div class="box order5" style="order: revert; flex-shrink: 1;">3 (order:revert→0, shrink:1)</div>
+</div>
+
+<h2>order: unset + flex-shrink</h2>
+<div class="container">
+  <div class="box order5" style="order: 2; flex-shrink: 1;">1 (order:2, shrink:1)</div>
+  <div class="box order5" style="order: 1; flex-shrink: 10;">2 (order:1, shrink:10)</div>
+  <div class="box order5" style="order: unset; flex-shrink: 5;">3 (order:unset→0, shrink:5)</div>
+</div>
+
+</body>
+</html>
