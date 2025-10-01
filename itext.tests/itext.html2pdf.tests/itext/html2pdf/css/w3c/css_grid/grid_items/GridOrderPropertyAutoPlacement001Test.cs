@@ -25,7 +25,6 @@ using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Grid_items {
     //TODO DEVSIX-2449 z-index is not supported
-    //TODO DEVSIX-5163 Support more complex justify-content values
     public class GridOrderPropertyAutoPlacement001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-order-property-auto-placement-001.html";

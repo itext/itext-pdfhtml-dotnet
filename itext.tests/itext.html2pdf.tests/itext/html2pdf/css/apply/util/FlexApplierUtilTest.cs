@@ -173,7 +173,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ApplyJustifyContentUnsupportedValuesTest() {
             IDictionary<String, String> cssProps = new Dictionary<String, String>();
-            cssProps.Put(CssConstants.JUSTIFY_CONTENT, CommonCssConstants.SPACE_BETWEEN);
+            cssProps.Put(CssConstants.JUSTIFY_CONTENT, "safe center");
             IElement element = new Div();
             FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element);
             NUnit.Framework.Assert.AreEqual(JustifyContent.FLEX_START, (JustifyContent)element.GetProperty<JustifyContent?

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content inheritance & resets with parent containers</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .container {display: flex; border: 1px solid #666; margin-bottom: 30px; height: 150px; width: 500px;}
+    .box {background: lightcoral; padding: 20px; border: 1px solid #333; width: 60px; text-align: center;}
+  </style>
+</head>
+<body>
+  <div style="width:500px; height:870px; background: lightgray"></div>
+
+  <div class="container" style="justify-content: space-evenly;">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+  </div>
+</body>
+</html>

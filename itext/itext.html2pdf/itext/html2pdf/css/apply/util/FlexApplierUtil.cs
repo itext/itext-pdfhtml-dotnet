@@ -289,6 +289,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         break;
                     }
 
+                    case CommonCssConstants.CENTER: {
+                        justifyContent = JustifyContent.CENTER;
+                        break;
+                    }
+
                     case CommonCssConstants.START: {
                         justifyContent = JustifyContent.START;
                         break;
@@ -296,6 +301,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
                     case CommonCssConstants.END: {
                         justifyContent = JustifyContent.END;
+                        break;
+                    }
+
+                    case CommonCssConstants.FLEX_START: {
+                        justifyContent = JustifyContent.FLEX_START;
                         break;
                     }
 
@@ -314,18 +324,23 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         break;
                     }
 
-                    case CommonCssConstants.CENTER: {
-                        justifyContent = JustifyContent.CENTER;
+                    case CommonCssConstants.SPACE_BETWEEN: {
+                        justifyContent = JustifyContent.SPACE_BETWEEN;
+                        break;
+                    }
+
+                    case CommonCssConstants.SPACE_AROUND: {
+                        justifyContent = JustifyContent.SPACE_AROUND;
+                        break;
+                    }
+
+                    case CommonCssConstants.SPACE_EVENLY: {
+                        justifyContent = JustifyContent.SPACE_EVENLY;
                         break;
                     }
 
                     case CommonCssConstants.STRETCH: {
                         justifyContent = JustifyContent.STRETCH;
-                        break;
-                    }
-
-                    case CommonCssConstants.FLEX_START: {
-                        justifyContent = JustifyContent.FLEX_START;
                         break;
                     }
 
