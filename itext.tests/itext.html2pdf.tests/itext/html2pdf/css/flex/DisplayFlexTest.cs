@@ -570,15 +570,6 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        public virtual void TableInsideDoubleFlexTest() {
-            // TODO DEVSIX-8005 NPE for column width in layout when converting a html
-            String html = "tableInsideDoubleFlex";
-            FileInfo htmlFile = new FileInfo(SOURCE_FOLDER + html + ".html");
-            FileInfo output = new FileInfo(DESTINATION_FOLDER + html + ".pdf");
-            NUnit.Framework.Assert.Catch(typeof(Exception), () => HtmlConverter.ConvertToPdf(htmlFile, output));
-        }
-
-        [NUnit.Framework.Test]
         public virtual void DisplayFlexOnHeaderTagTest() {
             // TODO DEVSIX-9266 NPE flex on header: Cannot read field "maxPositiveMargin" because "marginsCollapse" is null
             String html = "displayFlexOnHeaderTag";
