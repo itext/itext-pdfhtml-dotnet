@@ -414,14 +414,28 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
+        public virtual void MarginsCollapseInsideFlexContainer2Test() {
+            ConvertToPdfAndCompare("marginsCollapseInsideFlexContainer2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void MarginsCollapseFlexContainerAndItsChildTest() {
             ConvertToPdfAndCompare("marginsCollapseFlexContainerAndItsChild", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void MarginsCollapseInsideFlexItemTest() {
-            // TODO DEVSIX-5196 Support collapsing margins for flex item's children
             ConvertToPdfAndCompare("marginsCollapseInsideFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MarginsCollapseInsideFlexItem2Test() {
+            ConvertToPdfAndCompare("marginsCollapseInsideFlexItem2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void MarginsCollapseInsideFlexItemBiggerThanItemTest() {
+            ConvertToPdfAndCompare("marginsCollapseInsideFlexItemBiggerThanItem", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
@@ -571,11 +585,8 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void DisplayFlexOnHeaderTagTest() {
-            // TODO DEVSIX-9266 NPE flex on header: Cannot read field "maxPositiveMargin" because "marginsCollapse" is null
-            String html = "displayFlexOnHeaderTag";
-            FileInfo htmlFile = new FileInfo(SOURCE_FOLDER + html + ".html");
-            FileInfo output = new FileInfo(DESTINATION_FOLDER + html + ".pdf");
-            NUnit.Framework.Assert.Catch(typeof(Exception), () => HtmlConverter.ConvertToPdf(htmlFile, output));
+            // TODO DEVSIX-7402 Add display:flex support for all relevant tags
+            ConvertToPdfAndCompare("displayFlexOnHeaderTag", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]

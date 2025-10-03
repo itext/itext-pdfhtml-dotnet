@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5196 change after collapse is supported on flex items
+    // TODO DEVSIX-7603 Flex container float property is ignored
     public class FlexboxCollapsedItemHoriz002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-collapsed-item-horiz-002.html";

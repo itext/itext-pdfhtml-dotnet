@@ -48,7 +48,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="element">the element to set the properties</param>
         public static void ApplyFlexItemProperties(IDictionary<String, String> cssProps, ProcessorContext context, 
             IPropertyContainer element) {
-            element.SetProperty(Property.COLLAPSING_MARGINS, null);
             LogWarningIfThereAreNotSupportedPropertyValues(CreateSupportedFlexItemPropertiesAndValuesMap(), cssProps);
             ApplyAlignSelf(cssProps, element);
             String flexGrow = cssProps.Get(CommonCssConstants.FLEX_GROW);
