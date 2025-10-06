@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Section with Button</title>
+<style>
+section, button {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 2px solid #333;
+}
+section {
+  width: 900px;
+  background: blue;
+}
+button {
+  flex: 1 1 45%;
+  box-sizing: border-box;
+  background: lightblue;
+  margin: 5px;
+}
+button div {
+  display: flex;
+  width: 80px;
+  height: 40px;
+  background: lightcoral;
+  border: 1px solid #333;
+}
+</style>
+</head>
+<body>
+<section>Section
+  <button>
+    <div>Button->DIV 1</div><div>2</div><div>3</div><div>4</div>
+  </button>
+  <button>
+    <div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+  </button>
+</section>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex A with UL (2 columns)</title>
+<style>
+a, ul, li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 2px solid #333;
+}
+a {
+  width: 900px; /* wide enough for 2 columns */
+  text-decoration: none;
+  color: inherit;
+}
+ul {
+  flex: 1 1 45%;
+  box-sizing: border-box;
+}
+li {
+  background: lightblue;
+  border: 1px solid #666;
+  flex: 1 1 45%;
+}
+li div {
+  display: flex;
+  width: 80px;
+  height: 40px;
+  background: lightcoral;
+  border: 1px solid #333;
+}
+</style>
+</head>
+<body>
+<a href="#">A
+  <ul>
+    <li><div>LI->DIV 1</div><div>2</div></li>
+    <li><div>3</div><div>4</div></li>UL
+  </ul>
+  <ul>
+    <li><div>LI->DIV 5</div><div>6</div></li>
+    <li><div>7</div><div>8</div></li>UL
+  </ul>
+</a>
+</body>
+</html>

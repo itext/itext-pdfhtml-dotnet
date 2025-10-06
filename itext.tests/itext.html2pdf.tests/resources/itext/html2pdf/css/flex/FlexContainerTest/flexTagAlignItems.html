@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Align-Items Demo</title>
+<style>
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 260px;
+  border: 2px solid #333;
+  background: #f9f9f9;
+}
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.items.stretch {
+  height: 150px; 
+}
+.items > div {
+  width: 100px;
+  height: auto;
+  background: lightblue;
+  border: 1px solid #666;
+}
+</style>
+</head>
+<body>
+
+<header class="container">header
+  <div class="items" style="align-items:flex-start;">
+    <div>header 1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:flex-end;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:center;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:baseline;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items stretch" style="align-items:stretch;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+</header>
+
+<footer class="container">footer
+  <div class="items" style="align-items:flex-start;">
+    <div>footer 1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:flex-end;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:center;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:baseline;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items stretch" style="align-items:stretch;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+</footer>
+
+<section class="container">section
+  <div class="items" style="align-items:flex-start;">
+    <div>section 1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:flex-end;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:center;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:baseline;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items stretch" style="align-items:stretch;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+</section>
+
+<article class="container">article
+  <div class="items" style="align-items:flex-start;">
+    <div>article 1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:flex-end;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:center;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:baseline;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items stretch" style="align-items:stretch;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+</article>
+
+<button class="container">button
+  <div class="items" style="align-items:flex-start;">
+    <div>button 1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:flex-end;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:center;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:baseline;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items stretch" style="align-items:stretch;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+</button>
+
+<form class="container">form
+  <div class="items" style="align-items:flex-start;">
+    <div>form 1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:flex-end;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:center;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:baseline;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items stretch" style="align-items:stretch;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+</form>
+
+<figure class="container">figure
+  <div class="items" style="align-items:flex-start;">
+    <div>figure 1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:flex-end;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:center;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:baseline;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items stretch" style="align-items:stretch;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+</figure>
+
+<a class="container">a
+  <div class="items" style="align-items:flex-start;">
+    <div>a 1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:flex-end;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:center;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:baseline;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items stretch" style="align-items:stretch;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+</a>
+
+<ul class="container">ul
+  <div class="items" style="align-items:flex-start;">
+    <div>ul 1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:flex-end;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:center;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:baseline;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items stretch" style="align-items:stretch;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+</ul>
+
+<ol class="container">ol
+  <div class="items" style="align-items:flex-start;">
+    <div>ol 1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:flex-end;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:center;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items" style="align-items:baseline;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+  <div class="items stretch" style="align-items:stretch;">
+    <div>1</div><div>2</div><div>3</div>
+  </div>
+</ol>
+
+</body>
+</html>

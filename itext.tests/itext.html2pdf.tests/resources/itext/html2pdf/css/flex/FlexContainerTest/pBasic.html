@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex in a P element with Wrap</title>
+<style>
+  body {
+    font-family: sans-serif;
+    padding: 20px;
+  }
+
+  p {
+    display: flex;
+    gap: 10px; 
+    border: 2px solid #333;
+    padding: 10px;
+    background: #f9f9f9;
+    margin-bottom: 30px;
+  }
+
+  .wrap {
+    flex-wrap: wrap;
+    width: 260px; 
+    align-content: flex-start;
+  }
+
+  .word {
+    background: lightblue;
+    padding: 5px 10px;
+    border: 1px solid #666;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<p>
+  <span class="word">Hello</span>
+  <span class="word">this</span>
+  <span class="word">paragraph</span>
+  <span class="word">is</span>
+  <span class="word">flexbox</span>
+  <span class="word">based!</span>
+</p>
+
+<p class="wrap">
+  <span class="word">Hello</span>
+  <span class="word">this</span>
+  <span class="word">paragraph</span>
+  <span class="word">is</span>
+  <span class="word">flexbox</span>
+  <span class="word">based!</span>
+  <span class="word">showcasing</span>
+  <span class="word">wrap</span>
+</p>
+
+</body>
+</html>

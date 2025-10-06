@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Label with Nested Containers</title>
+<style>
+label, div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 2px solid #333;
+}
+label {
+  width: 900px;
+}
+div {
+  flex: 1 1 45%;
+  box-sizing: border-box;
+}
+div > div {
+  display: flex;
+  width: 100px;
+  height: 50px;
+  background: lightcoral;
+  border: 1px solid #333;
+}
+</style>
+</head>
+<body>
+<label>
+  <div>
+    <div>1</div><div>2</div><div>3</div><div>4</div>
+  </div>
+  <div>
+    <div>5</div><div>6</div><div>7</div><div>8</div>
+  </div>
+</label>
+</body>
+</html>

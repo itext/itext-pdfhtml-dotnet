@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LI as Flex Container</title>
+<style>
+  ul {
+    border: 2px solid #333;
+    padding: 10px;
+    width: 260px;
+    background: #f9f9f9;
+    margin-bottom: 30px;
+  }
+
+  li {
+    display: flex;
+    gap: 5px;
+    background: lightblue;
+    padding: 5px;
+    border: 1px solid #666;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+  }
+
+  .item {
+    background: lightcoral;
+    padding: 5px 10px;
+    border: 1px solid #333;
+  }
+</style>
+</head>
+<body>
+
+<ul>
+  <li>
+    <div class="item">1A</div>
+    <div class="item">1B</div>
+    <div class="item">1C</div>
+  </li>
+  <li>
+    <div class="item">2A</div>
+    <div class="item">2B</div>
+    <div class="item">2C</div>
+  </li>
+  <li>
+    <div class="item">3A</div>
+    <div class="item">3B</div>
+    <div class="item">3C</div>
+  </li>
+  <li>
+    <div class="item">4A</div>
+    <div class="item">4B</div>
+    <div class="item">4C</div>
+  </li>
+</ul>
+
+</body>
+</html>

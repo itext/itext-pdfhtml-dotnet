@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Wrap Demo</title>
+<style>
+.container {
+  display: flex;
+  flex-wrap: wrap-reverse; 
+  gap: 10px;
+  width: 300px;    
+  border: 2px solid #333;
+  padding: 10px;
+  background: #f9f9f9;
+  margin-bottom: 20px;
+}
+.item {
+  width: 120px;     
+  height: 60px;
+  background: lightcoral;
+  border: 1px solid #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+span.item {
+  display: flex;     
+}
+</style>
+</head>
+<body>
+
+<p class="container">
+  <span class="item">P 1</span>
+  <span class="item">2</span>
+  <span class="item">3</span>
+  <span class="item">4</span>
+</p>
+
+<header class="container">
+  <div class="item">HEADER 1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+</header>
+
+<footer class="container">
+  <div class="item">FOOTER 1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+</footer>
+
+<section class="container">
+  <div class="item">SECTION 1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+</section>
+
+<article class="container">
+  <div class="item">ARTICLE 1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+</article>
+
+<button class="container">
+  <div class="item">BUTTON 1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+</button>
+
+<form class="container">
+  <div class="item">FORM 1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+</form>
+
+<figure class="container">
+  <div class="item">FIGURE 1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+</figure>
+
+<a class="container">
+  <div class="item">A 1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+</a>
+
+<ul class="container">
+  <li class="item">UL->LI 1</li>
+  <li class="item">2</li>
+  <li class="item">3</li>
+  <li class="item">4</li>
+</ul>
+
+<ol class="container">
+  <li class="item">OL->LI 1</li>
+  <li class="item">2</li>
+  <li class="item">3</li>
+  <li class="item">4</li>
+</ol>
+
+</body>
+</html>

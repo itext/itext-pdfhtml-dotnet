@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Align-Self All Containers</title>
+<style>
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+  width: 500px;
+  height: 200px;
+  border: 2px solid #333;
+  background: #f9f9f9;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.item {
+  width: 100px;
+  height: 60px;
+  background: lightblue;
+  border: 1px solid #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+.stretch {
+  height: auto;
+  background: lightgreen;
+}
+</style>
+</head>
+<body>
+
+<header class="container">header
+  <div class="item" style="align-self:flex-start;">start</div>
+  <div class="item" style="align-self:flex-end;">end</div>
+  <div class="item" style="align-self:center;">center</div>
+  <div class="item" style="align-self:baseline; font-size:20px;">baseline</div>
+  <div class="item stretch" style="align-self:stretch;">stretch</div>
+</header>
+
+<footer class="container">footer
+  <div class="item" style="align-self:flex-start;">start</div>
+  <div class="item" style="align-self:flex-end;">end</div>
+  <div class="item" style="align-self:center;">center</div>
+  <div class="item" style="align-self:baseline; font-size:20px;">baseline</div>
+  <div class="item stretch" style="align-self:stretch;">stretch</div>
+</footer>
+
+<section class="container">section
+  <div class="item" style="align-self:flex-start;">start</div>
+  <div class="item" style="align-self:flex-end;">end</div>
+  <div class="item" style="align-self:center;">center</div>
+  <div class="item" style="align-self:baseline; font-size:20px;">baseline</div>
+  <div class="item stretch" style="align-self:stretch;">stretch</div>
+</section>
+
+<article class="container">article
+  <div class="item" style="align-self:flex-start;">start</div>
+  <div class="item" style="align-self:flex-end;">end</div>
+  <div class="item" style="align-self:center;">center</div>
+  <div class="item" style="align-self:baseline; font-size:20px;">baseline</div>
+  <div class="item stretch" style="align-self:stretch;">stretch</div>
+</article>
+
+<button class="container">button
+  <div class="item" style="align-self:flex-start;">start</div>
+  <div class="item" style="align-self:flex-end;">end</div>
+  <div class="item" style="align-self:center;">center</div>
+  <div class="item" style="align-self:baseline; font-size:20px;">baseline</div>
+  <div class="item stretch" style="align-self:stretch;">stretch</div>
+</button>
+
+<form class="container">form
+  <div class="item" style="align-self:flex-start;">start</div>
+  <div class="item" style="align-self:flex-end;">end</div>
+  <div class="item" style="align-self:center;">center</div>
+  <div class="item" style="align-self:baseline; font-size:20px;">baseline</div>
+  <div class="item stretch" style="align-self:stretch;">stretch</div>
+</form>
+
+<figure class="container">figure
+  <div class="item" style="align-self:flex-start;">start</div>
+  <div class="item" style="align-self:flex-end;">end</div>
+  <div class="item" style="align-self:center;">center</div>
+  <div class="item" style="align-self:baseline; font-size:20px;">baseline</div>
+  <div class="item stretch" style="align-self:stretch;">stretch</div>
+</figure>
+
+<a class="container">a
+  <div class="item" style="align-self:flex-start;">start</div>
+  <div class="item" style="align-self:flex-end;">end</div>
+  <div class="item" style="align-self:center;">center</div>
+  <div class="item" style="align-self:baseline; font-size:20px;">baseline</div>
+  <div class="item stretch" style="align-self:stretch;">stretch</div>
+</a>
+
+<ul class="container">ul
+  <div class="item" style="align-self:flex-start;">start</div>
+  <div class="item" style="align-self:flex-end;">end</div>
+  <div class="item" style="align-self:center;">center</div>
+  <div class="item" style="align-self:baseline; font-size:20px;">baseline</div>
+  <div class="item stretch" style="align-self:stretch;">stretch</div>
+</ul>
+
+<ol class="container">ol
+  <div class="item" style="align-self:flex-start;">start</div>
+  <div class="item" style="align-self:flex-end;">end</div>
+  <div class="item" style="align-self:center;">center</div>
+  <div class="item" style="align-self:baseline; font-size:20px;">baseline</div>
+  <div class="item stretch" style="align-self:stretch;">stretch</div>
+</ol>
+
+</body>
+</html>

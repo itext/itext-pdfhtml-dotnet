@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Align-Self P</title>
+<style>
+p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+  width: 500px;
+  height: 200px;
+  border: 2px solid #333;
+  background: #f9f9f9;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+span.item {
+  width: 100px;
+  height: 60px;
+  background: lightcoral;
+  border: 1px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+span.stretch {
+  height: auto; 
+  background: lightgreen;
+}
+</style>
+</head>
+<body>
+
+<p>
+  <span class="item" style="align-self:flex-start;">start</span>
+  <span class="item" style="align-self:flex-end;">end</span>
+  <span class="item" style="align-self:center;">center</span>
+  <span class="item" style="align-self:baseline; font-size:20px;">baseline</span>
+  <span class="item stretch" style="align-self:stretch;">stretch</span>
+</p>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex justify-Content SECTION</title>
+<style>
+section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 260px;
+  height: 180px;
+  border: 2px solid #333;
+  background: #f9f9f9;
+}
+div.item {
+  width: 100px;
+  height: 40px;
+  background: lightblue;
+  border: 1px solid #666;
+  display: flex;
+}
+</style>
+</head>
+<body>
+
+<section style="justify-content: flex-start;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</section>
+
+<section style="justify-content: flex-end;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</section>
+
+<section style="justify-content: center;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</section>
+
+<section style="justify-content: space-between;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</section>
+
+<section style="justify-content: space-around;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</section>
+
+<section style="justify-content: space-evenly;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Article > Section > Div</title>
+<style>
+article, section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 2px solid #333;
+}
+article {
+  width: 900px;
+  background: red;
+}
+section {
+  flex: 1 1 45%;
+  box-sizing: border-box;
+  background: blue;
+  margin: 5px;
+}
+section div {
+  display: flex;
+  width: 100px;
+  height: 50px;
+  background: lightcoral;
+  border: 1px solid #333;
+}
+</style>
+</head>
+<body>
+<article>
+  <section>
+    <div>DIV 1</div><div>2</div><div>3</div><div>4</div>section
+  </section>article
+  <section>
+    <div>5</div><div>6</div><div>7</div><div>8</div><div>9</div>
+  </section>
+</article>
+</body>
+</html>

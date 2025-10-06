@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nested Flex in Header</title>
+<style>
+header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 400px;
+  border: 2px solid #333;
+}
+.nested {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: 180px;
+  height: 100px;
+  background: lightblue;
+  border: 1px solid #666;
+}
+.nested div {
+  display: flex;
+  width: 80px;
+  height: 40px;
+  background: lightcoral;
+  border: 1px solid #333;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nested">
+    <div>1</div><div>2</div><div>3</div><div>4</div>
+  </div>
+  <div class="nested">
+    <div>5</div><div>6</div><div>7</div><div>8</div>
+  </div>
+  <div class="nested">
+    <div>9</div><div>10</div><div>11</div><div>12</div>
+  </div>
+  <div class="nested">
+    <div>13</div><div>14</div><div>15</div><div>16</div>
+  </div>
+</header>
+</body>
+</html>
