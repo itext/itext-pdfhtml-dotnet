@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Gap + Align-Content Demo</title>
+    <style>
+        .sample {
+            border: 2px solid #333;
+            margin-bottom: 30px;
+            width: 400px;
+            height: 250px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            background: #f9f9f9;
+        }
+
+        .sample h3 {
+            margin: 0 0 5px 0;
+        }
+
+        .item {
+            width: 80px;
+            height: 50px;
+            background: lightcoral;
+            border: 1px solid #333;
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+<p style="height: 800px">Paragraph</p>
+<div class="sample" style="align-content: end;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+    <div class="item">5</div>
+    <div class="item">6</div>
+    <div class="item">7</div>
+</div>
+</body>
+</html>

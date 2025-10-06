@@ -51,7 +51,6 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 6)]
         public virtual void InheritSpaceValuesTest() {
             ConvertToPdfAndCompare("inheritSpaceValues", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -63,7 +62,6 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void InitialSimpleTest() {
             ConvertToPdfAndCompare("initialSimple", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -189,7 +187,6 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void RevertSimpleTest() {
             ConvertToPdfAndCompare("revertSimple", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -203,7 +200,6 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void RevertLayerTest() {
             ConvertToPdfAndCompare("revertLayer", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -242,23 +238,17 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void StretchTest() {
-            // TODO DEVSIX-7616 Flex: add support for row/column-gap & gap CSS property
             ConvertToPdfAndCompare("stretch", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 8)]
         public virtual void StretchFlexDirTest() {
-            // TODO DEVSIX-7616 Flex: add support for row/column-gap & gap CSS property
             ConvertToPdfAndCompare("stretchFlexDir", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 6)]
         public virtual void StretchWrapTest() {
-            // TODO DEVSIX-7616 Flex: add support for row/column-gap & gap CSS property
             ConvertToPdfAndCompare("stretchWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -500,9 +490,7 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 6)]
         public virtual void SpaceValuesFlexGrowTest() {
-            // TODO DEVSIX-7616 Flex: add support for row/column-gap & gap CSS property
             ConvertToPdfAndCompare("spaceValuesFlexGrow", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -549,9 +537,7 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 6)]
         public virtual void SpaceValuesFlexShrinkTest() {
-            // TODO DEVSIX-7616 Flex: add support for row/column-gap & gap CSS property
             ConvertToPdfAndCompare("spaceValuesFlexShrink", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

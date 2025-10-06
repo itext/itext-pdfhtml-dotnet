@@ -27,7 +27,6 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.Grid {
     [NUnit.Framework.Category("IntegrationTest")]
     public class GridGapTest : ExtendedHtmlConversionITextTest {
-        //TODO DEVSIX-7616: Update cmp's
         public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/grid/GridGapTest/";
 

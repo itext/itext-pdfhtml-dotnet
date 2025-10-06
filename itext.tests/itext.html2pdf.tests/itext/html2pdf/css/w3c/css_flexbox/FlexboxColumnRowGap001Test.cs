@@ -22,12 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-7616 change after row-gap is supported
-    [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
+    // TODO DEVSIX-5087 Support float property for FlexContainerRenderer
+    // TODO DEVSIX-5002 Support 'margin: auto'
+    // TODO DEVSIX-9472 Support percentage values for column/row-gap property
     public class FlexboxColumnRowGap001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-column-row-gap-001.html";

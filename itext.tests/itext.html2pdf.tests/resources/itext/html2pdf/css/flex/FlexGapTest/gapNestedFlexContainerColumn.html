@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  .parent {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    gap: 15px;
+    border: 3px solid #000;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    border: 2px dashed #666;
+    gap: 30px 50px;
+  }
+
+  .item {
+    background: lightcoral;
+    border: 1px solid #333;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+  }
+</style>
+</head>
+<body>
+<div class="parent">
+  <div class="container">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+  </div>
+</div>
+
+</body>
+</html>

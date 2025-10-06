@@ -185,7 +185,6 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         // TODO DEVSIX-5167 Support baseline value for align-items and align-self
-        // TODO DEVSIX-9435 Flex: fix items align-self in case of flex-wrap: wrap-reverse
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 12)]
         public virtual void BaselineFlexDirColumnFlexWrapTest() {
@@ -193,7 +192,6 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         // TODO DEVSIX-5167 Support baseline value for align-items and align-self
-        // TODO DEVSIX-9435 Flex: fix items align-self in case of flex-wrap: wrap-reverse
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 12)]
         public virtual void BaselineFlexDirColumnReverseFlexWrapTest() {
@@ -205,7 +203,6 @@ namespace iText.Html2pdf.Css.Flex {
             ConvertToPdfAndCompare("autoFlexDirRowFlexWrapTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        // TODO DEVSIX-9435 Flex: fix items align-self in case of flex-wrap: wrap-reverse
         [NUnit.Framework.Test]
         public virtual void NormalFlexDirRowFlexWrapTest() {
             ConvertToPdfAndCompare("normalFlexDirRowFlexWrapTest", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -243,25 +240,21 @@ namespace iText.Html2pdf.Css.Flex {
             ConvertToPdfAndCompare("selfEndFlexDirColumnFlexWrapDirTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        // TODO DEVSIX-9435 Flex: fix items align-self in case of flex-wrap: wrap-reverse
         [NUnit.Framework.Test]
         public virtual void StretchFlexDirRowFlexWrapTest() {
             ConvertToPdfAndCompare("stretchFlexDirRowFlexWrapTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        // TODO DEVSIX-9435 Flex: fix items align-self in case of flex-wrap: wrap-reverse
         [NUnit.Framework.Test]
         public virtual void StretchFlexDirRowReverseFlexWrapTest() {
             ConvertToPdfAndCompare("stretchFlexDirRowReverseFlexWrapTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        // TODO DEVSIX-9435 Flex: fix items align-self in case of flex-wrap: wrap-reverse
         [NUnit.Framework.Test]
         public virtual void StretchFlexDirColumnFlexWrapTest() {
             ConvertToPdfAndCompare("stretchFlexDirColumnFlexWrapTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        // TODO DEVSIX-9435 Flex: fix items align-self in case of flex-wrap: wrap-reverse
         [NUnit.Framework.Test]
         public virtual void StretchFlexDirColumnReverseFlexWrapTest() {
             ConvertToPdfAndCompare("stretchFlexDirColumnReverseFlexWrapTest", SOURCE_FOLDER, DESTINATION_FOLDER);

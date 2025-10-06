@@ -40,41 +40,32 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapDecimalsTest() {
             ConvertToPdfAndCompare("gapDecimals", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapDecimalsDoubleDigitsTest() {
             ConvertToPdfAndCompare("gapDecimalsDoubleDigits", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapEmTest() {
             ConvertToPdfAndCompare("gapEm", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 12)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            , Count = 2)]
         public virtual void GapGlobalTest() {
+            // TODO DEVSIX-9472 Support global values for column/row-gap property
             ConvertToPdfAndCompare("gapGlobal", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
         public virtual void GapInheritTest() {
             ConvertToPdfAndCompare("gapInherit", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            , Count = 2)]
         public virtual void GapInitialTest() {
             ConvertToPdfAndCompare("gapInitial", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -82,176 +73,221 @@ namespace iText.Html2pdf.Css.Flex {
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void Gap3vminTest() {
+            // TODO DEVSIX-9472 Support vmin/vmax values for column/row-gap property
             ConvertToPdfAndCompare("gap3vmin", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void GapCalcTest() {
+            // TODO DEVSIX-9472 Support calc values for column/row-gap property
             ConvertToPdfAndCompare("gapCalc", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapZeroTest() {
             ConvertToPdfAndCompare("gapZero", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapZeroColDecimalsTest() {
             ConvertToPdfAndCompare("gapZeroColDecimals", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapZeroRowDecimalsTest() {
             ConvertToPdfAndCompare("gapZeroRowDecimals", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapZeroWidthHeightTest() {
             ConvertToPdfAndCompare("gapZeroWidthHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapPercentageTest() {
+            // TODO DEVSIX-9472 Support percentage values for column/row-gap property
             ConvertToPdfAndCompare("gapPercentage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapPhysUnitsTest() {
             ConvertToPdfAndCompare("gapPhysUnits", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapRemTest() {
             ConvertToPdfAndCompare("gapRem", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void GapRevertTest() {
+            // TODO DEVSIX-9472 Support revert value for column/row-gap property
             ConvertToPdfAndCompare("gapRevert", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void GapRevertLayerTest() {
+            // TODO DEVSIX-9472 Support revert-layer value for column/row-gap property
             ConvertToPdfAndCompare("gapRevertLayer", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
         public virtual void GapUnsetTest() {
             ConvertToPdfAndCompare("gapUnset", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 12)]
+        public virtual void GapNormalTest() {
+            ConvertToPdfAndCompare("gapNormal", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GapNestedFlexContainerTest() {
+            ConvertToPdfAndCompare("gapNestedFlexContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GapNestedFlexContainerColumnTest() {
+            ConvertToPdfAndCompare("gapNestedFlexContainerColumn", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void GapAlignContentTest() {
+            // TODO DEVSIX-9473 Fix issues on page split
             ConvertToPdfAndCompare("gapAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 9)]
+        public virtual void GapAlignContentRowRevDirTest() {
+            // TODO DEVSIX-9473 Fix issues on page split
+            ConvertToPdfAndCompare("gapAlignContentRowRevDir", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GapAlignContentColumnDirTest() {
+            // TODO DEVSIX-9473 Fix issues on page split
+            ConvertToPdfAndCompare("gapAlignContentColumnDir", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GapAlignContentColumnRevDirTest() {
+            // TODO DEVSIX-9473 Fix issues on page split
+            ConvertToPdfAndCompare("gapAlignContentColumnRevDir", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GapAlignContentWrapRevTest() {
+            // TODO DEVSIX-9473 Fix issues on page split
+            ConvertToPdfAndCompare("gapAlignContentWrapRev", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void GapAlignItemsTest() {
             ConvertToPdfAndCompare("gapAlignItems", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 3)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void GapAlignSelfTest() {
             ConvertToPdfAndCompare("gapAlignSelf", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapGrowTest() {
             ConvertToPdfAndCompare("gapGrow", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 15)]
         public virtual void GapJustifyContentTest() {
             ConvertToPdfAndCompare("gapJustifyContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+        public virtual void GapJustifyContentRowRevTest() {
+            ConvertToPdfAndCompare("gapJustifyContentRowRev", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GapJustifyContentColumnTest() {
+            ConvertToPdfAndCompare("gapJustifyContentColumn", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GapJustifyContentColumnRevTest() {
+            ConvertToPdfAndCompare("gapJustifyContentColumnRev", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GapJustifyContentWrapRevTest() {
+            ConvertToPdfAndCompare("gapJustifyContentWrapRev", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void GapLongTest() {
             ConvertToPdfAndCompare("gapLong", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapLongMarginTest() {
             ConvertToPdfAndCompare("gapLongMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 3)]
         public virtual void GapLongMixedPropertiesTest() {
             ConvertToPdfAndCompare("gapLongMixedProperties", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapLongPaddingTest() {
             ConvertToPdfAndCompare("gapLongPadding", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapMarginLongTest() {
             ConvertToPdfAndCompare("gapMarginLong", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 14)]
         public virtual void GapMixedTest() {
+            // TODO DEVSIX-9472 Support percentage values for column/row-gap property
             ConvertToPdfAndCompare("gapMixed", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 8)]
         public virtual void GapMixedSizesTest() {
             ConvertToPdfAndCompare("gapMixedSizes", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapNegativeMarginsTest() {
             ConvertToPdfAndCompare("gapNegativeMargins", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapPaddingLongTest() {
             ConvertToPdfAndCompare("gapPaddingLong", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void GapShrinkTest() {
             ConvertToPdfAndCompare("gapShrink", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 6)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void GapWrapTest() {
             ConvertToPdfAndCompare("gapWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
+        public virtual void GapFlexDirWrapTest() {
+            ConvertToPdfAndCompare("gapFlexDirWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void NestedGapTest() {
             ConvertToPdfAndCompare("nestedGap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -259,108 +295,98 @@ namespace iText.Html2pdf.Css.Flex {
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void ColGap3vminTest() {
+            // TODO DEVSIX-9472 Support vmin/vmax values for column/row-gap property
             ConvertToPdfAndCompare("colGap3vmin", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void ColGapCalcTest() {
+            // TODO DEVSIX-9472 Support calc values for column/row-gap property
             ConvertToPdfAndCompare("colGapCalc", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ColGapDecimalsTest() {
             ConvertToPdfAndCompare("colGapDecimals", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ColGapEmTest() {
             ConvertToPdfAndCompare("colGapEm", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ColGapPercentageTest() {
+            // TODO DEVSIX-9472 Support percentage values for column/row-gap property
             ConvertToPdfAndCompare("colGapPercentage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ColGapPhysUnitsTest() {
             ConvertToPdfAndCompare("colGapPhysUnits", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ColGapRemTest() {
             ConvertToPdfAndCompare("colGapRem", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 6)]
         public virtual void ColGapAlignContentTest() {
+            // TODO DEVSIX-9473 Fix issues on page split
             ConvertToPdfAndCompare("colGapAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 5)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ColGapAlignItemsTest() {
             ConvertToPdfAndCompare("colGapAlignItems", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ColGapAlignSelfTest() {
             ConvertToPdfAndCompare("colGapAlignSelf", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 9)]
         public virtual void ColGapJustifyContentTest() {
             ConvertToPdfAndCompare("colGapJustifyContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ColGapLargeTest() {
             ConvertToPdfAndCompare("colGapLarge", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ColGapMarginTest() {
             ConvertToPdfAndCompare("colGapMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
         public virtual void ColGapMixedSizesTest() {
+            // TODO DEVSIX-9477 Fix issue on page split: cross-size calculated incorrectly
             ConvertToPdfAndCompare("colGapMixedSizes", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ColGapNegativeMarginsTest() {
             ConvertToPdfAndCompare("colGapNegativeMargins", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ColGapPaddingTest() {
             ConvertToPdfAndCompare("colGapPadding", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ColGapTooBigTest() {
             ConvertToPdfAndCompare("colGapTooBig", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 3)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void ColGapWrapTest() {
             ConvertToPdfAndCompare("colGapWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -368,108 +394,98 @@ namespace iText.Html2pdf.Css.Flex {
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void RowGap3vminTest() {
+            // TODO DEVSIX-9472 Support vmin/vmax values for column/row-gap property
             ConvertToPdfAndCompare("rowGap3vmin", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void RowGapCalcTest() {
+            // TODO DEVSIX-9472 Support calc values for column/row-gap property
             ConvertToPdfAndCompare("rowGapCalc", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void RowGapDecimalsTest() {
             ConvertToPdfAndCompare("rowGapDecimals", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void RowGapEmTest() {
             ConvertToPdfAndCompare("rowGapEm", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void RowGapPercentageTest() {
+            // TODO DEVSIX-9472 Support percentage values for column/row-gap property
             ConvertToPdfAndCompare("rowGapPercentage", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void RowGapPhysUnitsTest() {
             ConvertToPdfAndCompare("rowGapPhysUnits", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void RowGapRemTest() {
             ConvertToPdfAndCompare("rowGapRem", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void RowGapTooBigTest() {
             ConvertToPdfAndCompare("rowGapTooBig", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 3)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
         public virtual void RowGapWrapTest() {
             ConvertToPdfAndCompare("rowGapWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 6)]
         public virtual void RowGapAlignContentTest() {
+            // TODO DEVSIX-9473 Fix issues on page split
             ConvertToPdfAndCompare("rowGapAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 5)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void RowGapAlignItemsTest() {
             ConvertToPdfAndCompare("rowGapAlignItems", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void RowGapAlignSelfTest() {
             ConvertToPdfAndCompare("rowGapAlignSelf", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 9)]
         public virtual void RowGapJustifyContentTest() {
             ConvertToPdfAndCompare("rowGapJustifyContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void RowGapLargeTest() {
             ConvertToPdfAndCompare("rowGapLarge", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void RowGapMarginTest() {
             ConvertToPdfAndCompare("rowGapMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
         public virtual void RowGapMixedSizesTest() {
+            // TODO DEVSIX-9477 Fix issue on page split: cross-size calculated incorrectly
             ConvertToPdfAndCompare("rowGapMixedSizes", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void RowGapNegativeMarginsTest() {
             ConvertToPdfAndCompare("rowGapNegativeMargins", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void RowGapPaddingTest() {
             ConvertToPdfAndCompare("rowGapPadding", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

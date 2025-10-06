@@ -108,6 +108,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ApplyAlignItemsTest() {
+            ProcessorContext context = new ProcessorContext(new ConverterProperties());
             String[] alignItemsStrings = new String[] { CssConstants.START, CssConstants.END, CssConstants.CENTER, CssConstants
                 .FLEX_START, CssConstants.FLEX_END, CssConstants.SELF_START, CssConstants.SELF_END, CssConstants.BASELINE
                 , CssConstants.STRETCH, CssConstants.NORMAL };
@@ -119,7 +120,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 IDictionary<String, String> cssProps = new Dictionary<String, String>();
                 cssProps.Put(CssConstants.ALIGN_ITEMS, alignItemsStrings[i]);
                 IElement element = new Div();
-                FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element);
+                FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element, context);
                 NUnit.Framework.Assert.AreEqual(alignItemsValues[i], (AlignmentPropertyValue)element.GetProperty<AlignmentPropertyValue?
                     >(Property.ALIGN_ITEMS));
             }
@@ -127,6 +128,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         [NUnit.Framework.Test]
         public virtual void ApplyJustifyContentTest() {
+            ProcessorContext context = new ProcessorContext(new ConverterProperties());
             String[] justifyContentStrings = new String[] { CssConstants.START, CssConstants.END, CssConstants.CENTER, 
                 CssConstants.FLEX_START, CssConstants.FLEX_END, CssConstants.LEFT, CssConstants.RIGHT, CssConstants.NORMAL
                 , CssConstants.STRETCH };
@@ -137,7 +139,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 IDictionary<String, String> cssProps = new Dictionary<String, String>();
                 cssProps.Put(CssConstants.JUSTIFY_CONTENT, justifyContentStrings[i]);
                 IElement element = new Div();
-                FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element);
+                FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element, context);
                 NUnit.Framework.Assert.AreEqual(justifyContentValues[i], (JustifyContent)element.GetProperty<JustifyContent?
                     >(Property.JUSTIFY_CONTENT));
             }
@@ -145,6 +147,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         [NUnit.Framework.Test]
         public virtual void ApplyFlexWrapTest() {
+            ProcessorContext context = new ProcessorContext(new ConverterProperties());
             String[] wrapStrings = new String[] { CssConstants.NOWRAP, CssConstants.WRAP, CssConstants.WRAP_REVERSE };
             FlexWrapPropertyValue[] wrapValues = new FlexWrapPropertyValue[] { FlexWrapPropertyValue.NOWRAP, FlexWrapPropertyValue
                 .WRAP, FlexWrapPropertyValue.WRAP_REVERSE };
@@ -152,7 +155,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 IDictionary<String, String> cssProps = new Dictionary<String, String>();
                 cssProps.Put(CssConstants.FLEX_WRAP, wrapStrings[i]);
                 IElement element = new Div();
-                FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element);
+                FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element, context);
                 NUnit.Framework.Assert.AreEqual(wrapValues[i], (FlexWrapPropertyValue)element.GetProperty<FlexWrapPropertyValue?
                     >(Property.FLEX_WRAP));
             }
@@ -164,7 +167,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IDictionary<String, String> cssProps = new Dictionary<String, String>();
             cssProps.Put(CommonCssConstants.ALIGN_ITEMS, CssConstants.SAFE + " " + CommonCssConstants.FLEX_END);
             IElement element = new Div();
-            FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element);
+            ProcessorContext context = new ProcessorContext(new ConverterProperties());
+            FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element, context);
             NUnit.Framework.Assert.AreEqual(AlignmentPropertyValue.STRETCH, (AlignmentPropertyValue)element.GetProperty
                 <AlignmentPropertyValue?>(Property.ALIGN_ITEMS));
         }
@@ -175,7 +179,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IDictionary<String, String> cssProps = new Dictionary<String, String>();
             cssProps.Put(CssConstants.JUSTIFY_CONTENT, "safe center");
             IElement element = new Div();
-            FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element);
+            ProcessorContext context = new ProcessorContext(new ConverterProperties());
+            FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element, context);
             NUnit.Framework.Assert.AreEqual(JustifyContent.FLEX_START, (JustifyContent)element.GetProperty<JustifyContent?
                 >(Property.JUSTIFY_CONTENT));
         }
@@ -183,15 +188,15 @@ namespace iText.Html2pdf.Css.Apply.Util {
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
         public virtual void ApplyFlexContainerUnsupportedPropertiesUnsupportedValuesTest() {
-            String[] unsupportedProperties = new String[] { CssConstants.FLEX_DIRECTION, CssConstants.ROW_GAP, CssConstants
-                .COLUMN_GAP, CssConstants.ALIGN_CONTENT };
-            String[] unsupportedValues = new String[] { CssConstants.COLUMN, "20px", "10em", CssConstants.SPACE_AROUND
-                 };
+            ProcessorContext context = new ProcessorContext(new ConverterProperties());
+            String[] unsupportedProperties = new String[] { CssConstants.FLEX_DIRECTION, CssConstants.ALIGN_CONTENT };
+            // Invalid values are used for testing.
+            String[] unsupportedValues = new String[] { CssConstants.NORMAL, CssConstants.RIGHT };
             for (int i = 0; i < unsupportedValues.Length; ++i) {
                 IDictionary<String, String> cssProps = new Dictionary<String, String>();
                 cssProps.Put(unsupportedProperties[i], unsupportedValues[i]);
                 IElement element = new Div();
-                FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element);
+                FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element, context);
             }
             // This test checks that there are log messages so assertions are not required
             NUnit.Framework.Assert.IsTrue(true);
@@ -212,13 +217,14 @@ namespace iText.Html2pdf.Css.Apply.Util {
 
         [NUnit.Framework.Test]
         public virtual void ApplyFlexContainerUnsupportedPropertiesSupportedValuesTest() {
+            ProcessorContext context = new ProcessorContext(new ConverterProperties());
             String[] unsupportedProperties = new String[] { CssConstants.FLEX_DIRECTION, CssConstants.ALIGN_CONTENT };
             String[] supportedValues = new String[] { CssConstants.ROW, CssConstants.STRETCH };
             for (int i = 0; i < supportedValues.Length; ++i) {
                 IDictionary<String, String> cssProps = new Dictionary<String, String>();
                 cssProps.Put(unsupportedProperties[i], supportedValues[i]);
                 IElement element = new Div();
-                FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element);
+                FlexApplierUtil.ApplyFlexContainerProperties(cssProps, element, context);
             }
             // This test checks that there are no log messages so assertions are not required
             NUnit.Framework.Assert.IsTrue(true);

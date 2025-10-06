@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Gap + Item Height Variations</title>
+<style>
+  .sample {
+    border: 2px solid #333;
+    margin-bottom: 30px;
+    padding: 10px;
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 30px;
+    background: #f9f9f9;
+  }
+
+  .sample h3 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+  }
+
+  .item {
+    width: 80px;
+    background: lightcoral;
+    border: 1px solid #333;
+    display: flex;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<h3 style="height: 800px">Gap + Varying Fixed Size Items</h3>
+
+<h3>Test</h3>
+
+<h3>Page split: Gap + Min-Height / Min-Width Items</h3>
+<div class="sample">
+  <div class="item" style="min-height: 50px; min-width: 60px;">1</div>
+  <div class="item" style="min-height: 70px; min-width: 80px;">2</div>
+  <div class="item" style="min-height: 60px; min-width: 70px;">3</div>
+  <div class="item" style="min-height: 50px; min-width: 90px;">4</div>
+  <div class="item" style="min-height: 55px; min-width: 65px;">5</div>
+  <div class="item" style="min-height: 65px; min-width: 75px;">6</div>
+  <div class="item" style="min-height: 60px; min-width: 80px;">7</div>
+  <div class="item" style="min-height: 50px; min-width: 70px;">8</div>
+</div>
+</body>
+</html>

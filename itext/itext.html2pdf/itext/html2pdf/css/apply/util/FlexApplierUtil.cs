@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
 using iText.Commons.Utils;
+using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
@@ -80,8 +81,19 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <summary>Applies properties to a flex container.</summary>
         /// <param name="cssProps">the CSS properties</param>
         /// <param name="element">the element</param>
+        [System.ObsoleteAttribute(@"in favour of ApplyFlexContainerProperties(System.Collections.Generic.IDictionary{K, V}, iText.Layout.IPropertyContainer, iText.Html2pdf.Attach.ProcessorContext)"
+            )]
         public static void ApplyFlexContainerProperties(IDictionary<String, String> cssProps, IPropertyContainer element
             ) {
+            ApplyFlexContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
+        }
+
+        /// <summary>Applies properties to a flex container.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context of the converter processor</param>
+        public static void ApplyFlexContainerProperties(IDictionary<String, String> cssProps, IPropertyContainer element
+            , ProcessorContext context) {
             LogWarningIfThereAreNotSupportedPropertyValues(CreateSupportedFlexContainerPropertiesAndValuesMap(), cssProps
                 );
             ApplyAlignItems(cssProps, element);
@@ -89,6 +101,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             ApplyAlignContent(cssProps, element);
             ApplyWrap(cssProps, element);
             ApplyDirection(cssProps, element);
+            ApplyGap(cssProps, element, context);
         }
 
         private static void ApplyAlignSelf(IDictionary<String, String> cssProps, IPropertyContainer element) {
@@ -413,6 +426,22 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        private static void ApplyGap(IDictionary<String, String> cssProps, IPropertyContainer element, ProcessorContext
+             context) {
+            float emValue = CssDimensionParsingUtils.ParseAbsoluteFontSize(cssProps.Get(CssConstants.FONT_SIZE));
+            float remValue = context.GetCssContext().GetRootFontSize();
+            ApplyGap(element, emValue, remValue, cssProps.Get(CssConstants.COLUMN_GAP), Property.COLUMN_GAP);
+            ApplyGap(element, emValue, remValue, cssProps.Get(CssConstants.ROW_GAP), Property.ROW_GAP);
+        }
+
+        private static void ApplyGap(IPropertyContainer container, float em, float rem, String gap, int property) {
+            String gapLength = CommonCssConstants.NORMAL.Equals(gap) ? "0px" : gap;
+            UnitValue gapValue = CssDimensionParsingUtils.ParseLengthValueToPt(gapLength, em, rem);
+            if (gapValue != null) {
+                container.SetProperty(property, gapValue.GetValue());
+            }
+        }
+
         private static void LogWarningIfThereAreNotSupportedPropertyValues(IDictionary<String, ICollection<String>
             > supportedPairs, IDictionary<String, String> cssProps) {
             foreach (KeyValuePair<String, ICollection<String>> entry in supportedPairs) {
@@ -453,12 +482,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             supportedAlignContentValues.Add(CommonCssConstants.SPACE_BETWEEN);
             supportedAlignContentValues.Add(CommonCssConstants.SPACE_EVENLY);
             supportedPairs.Put(CommonCssConstants.ALIGN_CONTENT, supportedAlignContentValues);
-            ICollection<String> supportedRowGapValues = new HashSet<String>();
-            supportedRowGapValues.Add(CommonCssConstants.NORMAL);
-            supportedPairs.Put(CommonCssConstants.ROW_GAP, supportedRowGapValues);
-            ICollection<String> supportedColumnGapValues = new HashSet<String>();
-            supportedColumnGapValues.Add(CommonCssConstants.NORMAL);
-            supportedPairs.Put(CommonCssConstants.COLUMN_GAP, supportedColumnGapValues);
             return supportedPairs;
         }
     }
