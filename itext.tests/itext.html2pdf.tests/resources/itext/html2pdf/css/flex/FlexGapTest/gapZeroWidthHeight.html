@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Gap + Zero-Width / Zero-Height Items (2 Rows)</title>
+<style>
+  body {
+    font-family: sans-serif;
+    padding: 20px;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;  
+    gap: 20px;       
+    border: 2px solid #333;
+    padding: 10px;
+    width: 400px;     
+    background: #f9f9f9;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #333;
+  }
+
+  .zero-width {
+    width: 0px;
+    height: 60px;
+    background: lightblue;
+  }
+
+  .zero-height {
+    width: 100px;
+    height: 0px;
+    background: lightgreen;
+  }
+
+  .zero-both {
+    width: 0px;
+    height: 0px;
+    background: lightgreen;
+  }
+
+
+  .normal {
+    width: 100px;
+    height: 60px;
+    background: gold;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="item normal">Normal</div>
+  <div class="item zero-width">Zero Width</div>
+  <div class="item zero-height">Zero Height</div>
+  <div class="item normal">Normal</div>
+  <div class="item normal">Normal</div>
+  <div class="item zero-both">Zero H&W</div>
+  <div class="item normal">Normal</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Gap + Flex-Shrink Demo</title>
+<style>
+  .container {
+    display: flex;
+    gap: 10px; 
+    width: 400px; 
+    border: 2px solid #333;
+    padding: 10px;
+    background: #f9f9f9;
+    margin-bottom: 30px;
+  }
+
+  .item {
+    width: 150px;  
+    height: 60px;
+    background: lightcoral;
+    border: 1px solid #333;
+    display: flex;
+  }
+
+  .shrink-0 { flex-shrink: 0; background: lightblue; }
+  .shrink-1 { flex-shrink: 1; background: lightgreen; }
+  .shrink-2 { flex-shrink: 2; background: lightcoral; }
+  .shrink-3 { flex-shrink: 3; background: gold; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="item shrink-0">Shrink 0</div>
+  <div class="item shrink-1">Shrink 1</div>
+  <div class="item shrink-2">Shrink 2</div>
+  <div class="item shrink-3">Shrink 3</div>
+</div>
+
+</body>
+</html>

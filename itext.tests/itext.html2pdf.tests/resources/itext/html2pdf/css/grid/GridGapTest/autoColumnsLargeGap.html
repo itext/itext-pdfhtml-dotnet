@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Grid - auto columns with large gaps</title>
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      column-gap: 200px;
+      border: 2px solid #000;
+      width: 800px;
+    }
+    .item { background: lightblue; border: 1px solid #333; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Auto columns + 200px gap</h2>
+  <div class="grid">
+    <div class="item">A</div>
+    <div class="item">B</div>
+    <div class="item">C</div>
+  </div>
+</body>
+</html>

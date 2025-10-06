@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>row-gap: 0</title>
+<style>
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 0;
+    border: 2px solid black;
+    width: 400px;
+  }
+  .item {
+    background: lightblue;
+    text-align: center;
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+<h1>row-gap: 0</h1>
+<div class="container">
+  <div class="item">A</div>
+  <div class="item">B</div>
+  <div class="item">C</div>
+  <div class="item">D</div>
+</div>
+</body>
+</html>

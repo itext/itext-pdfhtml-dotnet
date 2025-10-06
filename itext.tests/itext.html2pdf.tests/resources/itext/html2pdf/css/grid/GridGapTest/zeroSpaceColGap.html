@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>column-gap: 0</title>
+<style>
+  .container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 0;
+    border: 2px solid black;
+  }
+  .item {
+    background: lightblue;
+    text-align: center;
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+<h1>column-gap: 0</h1>
+<div class="container">
+  <div class="item">A</div>
+  <div class="item">B</div>
+  <div class="item">C</div>
+  <div class="item">D</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Gap + Item Height Variations</title>
+<style>
+  .sample {
+    border: 2px solid #333;
+    margin-bottom: 30px;
+    padding: 10px;
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 30px;
+    background: #f9f9f9;
+  }
+
+  .sample h3 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+  }
+
+  .item {
+    width: 80px;
+    background: lightcoral;
+    border: 1px solid #333;
+    display: flex;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<h3>Gap + Varying Fixed Size Items</h3>
+<div class="sample">
+  <div class="item" style="width: 60px; height: 50px;">1</div>
+  <div class="item" style="width: 80px; height: 60px;">2</div>
+  <div class="item" style="width: 100px; height: 40px;">3</div>
+  <div class="item" style="width: 70px; height: 55px;">4</div>
+  <div class="item" style="width: 90px; height: 45px;">5</div>
+  <div class="item" style="width: 60px; height: 65px;">6</div>
+  <div class="item" style="width: 80px; height: 50px;">7</div>
+  <div class="item" style="width: 100px; height: 60px;">8</div>
+</div>
+
+<h3>Gap + Auto Height Items</h3>
+<div class="sample">
+  <div class="item" style="height: auto;">Short</div>
+  <div class="item" style="height: auto;">Medium content</div>
+  <div class="item" style="height: auto;">A bit longer text for this item</div>
+  <div class="item" style="height: auto;">Longer text content</div>
+  <div class="item" style="height: auto;">Extra</div>
+  <div class="item" style="height: auto;">Very long content in this item for a larger element</div>
+  <div class="item" style="height: auto;">Text</div>
+  <div class="item" style="height: auto;">Last</div>
+</div>
+
+<h3>Gap + Mixed Fixed + Auto Height</h3>
+<div class="sample">
+  <div class="item" style="height: 50px;">Fixed</div>
+  <div class="item" style="height: auto;">Auto</div>
+  <div class="item" style="height: 70px;">Fixed</div>
+  <div class="item" style="height: auto;">Auto content</div>
+  <div class="item" style="height: 50px;">Fixed</div>
+  <div class="item" style="height: auto;">Auto</div>
+  <div class="item" style="height: 60px;">Fixed</div>
+  <div class="item" style="height: auto;">Auto</div>
+</div>
+
+<h3>Gap + Min-Height / Min-Width Items</h3>
+<div class="sample">
+  <div class="item" style="min-height: 50px; min-width: 60px;">1</div>
+  <div class="item" style="min-height: 70px; min-width: 80px;">2</div>
+  <div class="item" style="min-height: 60px; min-width: 70px;">3</div>
+  <div class="item" style="min-height: 50px; min-width: 90px;">4</div>
+  <div class="item" style="min-height: 55px; min-width: 65px;">5</div>
+  <div class="item" style="min-height: 65px; min-width: 75px;">6</div>
+  <div class="item" style="min-height: 60px; min-width: 80px;">7</div>
+  <div class="item" style="min-height: 50px; min-width: 70px;">8</div>
+</div>
+
+</body>
+</html>

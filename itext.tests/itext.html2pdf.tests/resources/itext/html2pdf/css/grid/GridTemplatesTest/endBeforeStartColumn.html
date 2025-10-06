@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Grid-column 2 / 1</title>
+  <style>
+    .container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      border: 2px solid black;
+    }
+    .item {
+      background: lightgreen;
+      text-align: center;
+      padding: 20px;
+    }
+    .special {
+      background: tomato;
+      grid-column: 2 / 1; 
+    }
+  </style>
+</head>
+<body>
+  <h1>grid-column: 2 / 1</h1>
+  <div class="container">
+    <div class="item">A</div>
+    <div class="item special">B (2 / 1)</div>
+    <div class="item">C</div>
+    <div class="item">D</div>
+  </div>
+</body>
+</html>

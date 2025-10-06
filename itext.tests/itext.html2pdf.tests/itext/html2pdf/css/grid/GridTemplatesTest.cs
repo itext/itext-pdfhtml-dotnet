@@ -704,6 +704,31 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("gridSplitPaddingMarginBorderTest8");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void UnexistingColumnSpanTest() {
+            RunTest("unexistingColumnSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NegativeColumnSpanTest() {
+            RunTest("negativeColumnSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void EndBeforeStartColumnTest() {
+            RunTest("endBeforeStartColumn");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BiggerThanExistingColumnSpanTest() {
+            RunTest("biggerThanExistingColumnSpan");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SameStartEndColumnTest() {
+            RunTest("sameStartEndColumn");
+        }
+
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
                 (SOURCE_FOLDER));

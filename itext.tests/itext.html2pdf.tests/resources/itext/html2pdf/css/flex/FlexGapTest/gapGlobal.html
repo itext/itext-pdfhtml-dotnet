@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Gap Global Values Demo</title>
+<style>
+  body {
+    font-family: sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .demo {
+    border: 2px solid black;
+    padding: 10px;
+    flex: 1 1 250px;
+    min-width: 220px;
+    background: #f9f9f9;
+  }
+
+  .demo h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px dashed #666;
+    padding: 10px;
+    min-height: 120px;
+  }
+
+  .item {
+    background: lightcoral;
+    border: 1px solid #333;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-weight: bold;
+  }
+
+  /* Global value variations */
+  .initial-container { gap: initial; }   /* resets to 0 */
+  .inherit .container { gap: inherit; }   /* inherits from parent */
+  .unset   .container { gap: unset; }     /* inherit if possible, otherwise initial */
+
+  /* Parent wrappers to demonstrate behavior */
+  .inherit-parent { gap: 25px; display: flex; }
+  .unset-parent   { gap: 15px; display: flex; }
+  .revert-parent  { gap: 40px; display: flex; }
+</style>
+</head>
+<body>
+
+  <div class="inherit-parent">
+    <div class="initial-container">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+    </div>
+  </div>
+
+  <div class="demo inherit">
+    <h2>gap: inherit (→ from parent 25px)</h2>
+    <div class="inherit-parent">
+      <div class="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo unset">
+    <h2>gap: unset (→ acts like inherit, parent 15px)</h2>
+    <div class="unset-parent">
+      <div class="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="demo revert">
+    <h2>gap: revert (→ ignores parent 40px, back to UA default 0)</h2>
+    <div class="revert-parent">
+      <div class="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  body {
+    font-family: sans-serif;
+    padding: 20px;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  .mini-sample {
+    border: 2px solid #333;
+	margin: 25px;
+    padding: 10px;
+    width: 250px;
+    background: #f9f9f9;
+  }
+
+  .mini-sample h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px dashed #666;
+    padding: 10px;
+    min-height: 80px;
+  }
+
+  .item {
+    background: lightcoral;
+    border: 1px solid #333;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    margin: 0; /* we rely on gap */
+  }
+</style>
+</head>
+<body>
+
+<div class="mini-sample">
+  <h3>gap: 1em 10%</h3>
+  <div class="container" style="gap: 1em 10%;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+  </div>
+</div>
+
+<div class="mini-sample">
+  <h3>gap: 5mm 20px</h3>
+  <div class="container" style="gap: 5mm 20px;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+  </div>
+</div>
+
+<div class="mini-sample">
+  <h3>gap: 2rem 15%</h3>
+  <div class="container" style="gap: 2rem 15%;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+  </div>
+</div>
+
+<div class="mini-sample">
+  <h3>gap: 10px 3em</h3>
+  <div class="container" style="gap: 10px 3em;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+  </div>
+</div>
+
+<div class="mini-sample">
+  <h3>gap: 8mm 5%</h3>
+  <div class="container" style="gap: 8mm 5%;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+    <div class="item">5</div>
+    <div class="item">6</div>
+    <div class="item">7</div>
+    <div class="item">8</div>
+  </div>
+</div>
+
+<div class="mini-sample">
+  <h3>gap: 0 2rem</h3>
+  <div class="container" style="gap: 0 2rem;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+  </div>
+</div>
+
+<div class="mini-sample">
+  <h3>gap: 2.4cm 15%</h3>
+  <div class="container" style="gap: 2.4cm 15%;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+  </div>
+</div>
+</body>
+</html>

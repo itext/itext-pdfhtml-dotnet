@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Gap + Flex-Grow Demo</title>
+<style>
+  .container {
+    display: flex;
+    gap: 10px;         
+    width: 600px; 
+    border: 2px solid #333;
+    padding: 10px;
+    background: #f9f9f9;
+    margin-bottom: 30px;
+  }
+
+  .item {
+    width: 80px;       
+    height: 60px;
+    border: 1px solid #333;
+    display: flex;
+  }
+
+  .grow-0 { flex-grow: 0; background: lightblue; }
+  .grow-1 { flex-grow: 1; background: lightgreen; }
+  .grow-2 { flex-grow: 2; background: lightcoral; }
+  .grow-3 { flex-grow: 3; background: gold; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="item grow-0">Grow 0</div>
+  <div class="item grow-1">Grow 1</div>
+  <div class="item grow-2">Grow 2</div>
+  <div class="item grow-3">Grow 3</div>
+</div>
+
+</body>
+</html>
