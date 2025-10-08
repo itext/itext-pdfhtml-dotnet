@@ -203,11 +203,10 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void ApplyFlexItemUnsupportedPropertiesUnsupportedValuesTest() {
             ProcessorContext context = new ProcessorContext(new ConverterProperties());
             IDictionary<String, String> cssProps = new Dictionary<String, String>();
-            cssProps.Put(CssConstants.ORDER, "1");
             cssProps.Put(CssConstants.ALIGN_SELF, CssConstants.SAFE);
             IElement element = new Div();
             FlexApplierUtil.ApplyFlexItemProperties(cssProps, context, element);

@@ -51,6 +51,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
             IPropertyContainer element) {
             LogWarningIfThereAreNotSupportedPropertyValues(CreateSupportedFlexItemPropertiesAndValuesMap(), cssProps);
             ApplyAlignSelf(cssProps, element);
+            ApplyOrder(cssProps, element);
             String flexGrow = cssProps.Get(CommonCssConstants.FLEX_GROW);
             if (flexGrow != null) {
                 float? flexGrowValue = CssDimensionParsingUtils.ParseFloat(flexGrow);
@@ -291,6 +292,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        private static void ApplyOrder(IDictionary<String, String> cssProps, IPropertyContainer element) {
+            element.SetProperty(Property.ORDER, CssDimensionParsingUtils.ParseInteger(cssProps.Get(CommonCssConstants.
+                ORDER)));
+        }
+
         private static void ApplyJustifyContent(IDictionary<String, String> cssProps, IPropertyContainer element) {
             String justifyContentString = cssProps.Get(CommonCssConstants.JUSTIFY_CONTENT);
             if (justifyContentString != null) {
@@ -456,9 +462,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         private static IDictionary<String, ICollection<String>> CreateSupportedFlexItemPropertiesAndValuesMap() {
-            IDictionary<String, ICollection<String>> supportedPairs = new Dictionary<String, ICollection<String>>();
-            supportedPairs.Put(CommonCssConstants.ORDER, new HashSet<String>());
-            return supportedPairs;
+            return new Dictionary<String, ICollection<String>>();
         }
 
         private static IDictionary<String, ICollection<String>> CreateSupportedFlexContainerPropertiesAndValuesMap

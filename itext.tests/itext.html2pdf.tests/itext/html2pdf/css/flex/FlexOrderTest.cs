@@ -28,7 +28,6 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.Flex {
     [NUnit.Framework.Category("IntegrationTest")]
     public class FlexOrderTest : ExtendedHtmlConversionITextTest {
-        //TODO DEVSIX-9402: Update cmp files
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/flex/FlexOrderTest/";
 
@@ -41,179 +40,134 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 36)]
         public virtual void DecimalAlignContentWrapTest() {
             ConvertToPdfAndCompare("decimalAlignContentWrap", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 36)]
         public virtual void DecimalAlignContentWrapReverseTest() {
             ConvertToPdfAndCompare("decimalAlignContentWrapReverse", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 16)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
         public virtual void DecimalAlignItemsTest() {
             ConvertToPdfAndCompare("decimalAlignItems", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 8)]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void DecimalAlignSelfTest() {
             ConvertToPdfAndCompare("decimalAlignSelf", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 4)]
         public virtual void DecimalsTest() {
             ConvertToPdfAndCompare("decimals", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 9)]
         public virtual void DecimalsNestedTest() {
             ConvertToPdfAndCompare("decimalsNested", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 10)]
         public virtual void DecimalsDuplicatedValuesTest() {
             ConvertToPdfAndCompare("decimalsDuplicatedValues", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 18)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
+        public virtual void DecimalsDuplicatedValuesWrapReverseTest() {
+            ConvertToPdfAndCompare("decimalsDuplicatedValuesWrapReverse", SOURCE_FOLDER, DESTINATION_FOLDER, true);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void DirColumnTest() {
             ConvertToPdfAndCompare("dirColumn", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 12)]
         public virtual void DirColumnLongTest() {
             ConvertToPdfAndCompare("dirColumnLong", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 18)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
         public virtual void DirColumnReverseTest() {
             ConvertToPdfAndCompare("dirColumnReverse", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 18)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
         public virtual void DirRowTest() {
             ConvertToPdfAndCompare("dirRow", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 18)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
         public virtual void DirRowReverseTest() {
             ConvertToPdfAndCompare("dirRowReverse", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 6)]
         public virtual void DirRowWideTest() {
             ConvertToPdfAndCompare("dirRowWide", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 18)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
         public virtual void FlexBasisTest() {
             ConvertToPdfAndCompare("flexBasis", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 14)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
         public virtual void FlexGrowTest() {
             ConvertToPdfAndCompare("flexGrow", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 14)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
         public virtual void FlexShrinkTest() {
             ConvertToPdfAndCompare("flexShrink", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 18)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
         public virtual void FlowColumnWrapTest() {
             ConvertToPdfAndCompare("flowColumnWrap", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 18)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
         public virtual void FlowRowWrapTest() {
             ConvertToPdfAndCompare("flowRowWrap", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 3)]
         public virtual void InheritTest() {
             ConvertToPdfAndCompare("inherit", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 7)]
         public virtual void InheritNestedTest() {
             ConvertToPdfAndCompare("inheritNested", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 2)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
         public virtual void InitialTest() {
             ConvertToPdfAndCompare("initial", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 35)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            , Count = 7)]
         public virtual void InitialAlignContentTest() {
             ConvertToPdfAndCompare("initialAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 5)]
         public virtual void NegativeTest() {
             ConvertToPdfAndCompare("negative", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 18)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
-            Count = 5)]
         public virtual void NoWrapTest() {
             ConvertToPdfAndCompare("noWrap", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 3)]
         public virtual void RevertTest() {
             ConvertToPdfAndCompare("revert", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
@@ -225,23 +179,16 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 3)]
         public virtual void UnsetTest() {
             ConvertToPdfAndCompare("unset", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 18)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
         public virtual void WrapTest() {
             ConvertToPdfAndCompare("wrap", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 18)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.DEFAULT_VALUE_OF_CSS_PROPERTY_UNKNOWN
-            )]
         public virtual void WrapReverseTest() {
             ConvertToPdfAndCompare("wrapReverse", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
