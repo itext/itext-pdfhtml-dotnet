@@ -590,10 +590,15 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("TODO DEVSIX-9342 Flex: keep together property can lead to infinite loop on page split"
-            )]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void FlexWithPageBreakInsideAvoidAndPageSplitTest() {
             ConvertToPdfAndCompare("flexWithPageBreakInsideAvoidAndPageSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void FlexWithPageBreakInsideAvoidAndPageSplit2Test() {
+            ConvertToPdfAndCompare("flexWithPageBreakInsideAvoidAndPageSplit2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         private static IList<IElement> ConvertToElements(String name) {
