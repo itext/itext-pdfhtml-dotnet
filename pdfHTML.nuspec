@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>itext.pdfhtml</id>
-    <version>6.2.2-SNAPSHOT</version>
+    <version>6.3.0-SNAPSHOT</version>
     <title>iText pdfHTML</title>
     <authors>Apryse Software</authors>
     <owners>Apryse Software</owners>
