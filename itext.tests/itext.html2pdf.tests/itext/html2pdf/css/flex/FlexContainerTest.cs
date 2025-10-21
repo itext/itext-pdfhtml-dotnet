@@ -41,6 +41,11 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
+        public virtual void ItemsHigherThanContainerTest() {
+            ConvertToPdfAndCompare("itemsHigherThanContainer", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void ABasicTest() {
             ConvertToPdfAndCompare("aBasic", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

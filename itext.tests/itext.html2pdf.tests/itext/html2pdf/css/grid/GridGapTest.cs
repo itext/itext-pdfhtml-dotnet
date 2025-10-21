@@ -299,7 +299,6 @@ namespace iText.Html2pdf.Css.Grid {
 
         [NUnit.Framework.Test]
         public virtual void OrderOnItemsTest() {
-            //TODO DEVSIX-9402: Update cmp's
             ConvertToPdfAndCompare("orderOnItems", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

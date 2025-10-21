@@ -177,7 +177,6 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void FlexEndDirColumnWrapLongTest() {
-            // TODO DEVSIX-9456 Flex: in column direction take into account margins while calculating justify-content shift
             ConvertToPdfAndCompare("flexEndDirColumnWrapLong", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -353,7 +352,6 @@ namespace iText.Html2pdf.Css.Flex {
         [NUnit.Framework.Test]
         public virtual void SpaceAroundColumnWrapLongTest() {
             // TODO DEVSIX-9446 Support continuous container logic for flex
-            // TODO DEVSIX-9456 Flex: in column direction take into account margins while calculating justify-content shift
             ConvertToPdfAndCompare("spaceAroundColumnWrapLong", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -422,7 +420,6 @@ namespace iText.Html2pdf.Css.Flex {
         [NUnit.Framework.Test]
         public virtual void SpaceBetweenColumnReverseWrapLongTest() {
             // TODO DEVSIX-9446 Support continuous container logic for flex
-            // TODO DEVSIX-9456 Flex: in column direction take into account margins while calculating justify-content shift
             ConvertToPdfAndCompare("spaceBetweenColumnReverseWrapLong", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -474,7 +471,6 @@ namespace iText.Html2pdf.Css.Flex {
         [NUnit.Framework.Test]
         public virtual void SpaceEvenlyColumnReverseWrapLongTest() {
             // TODO DEVSIX-9446 Support continuous container logic for flex
-            // TODO DEVSIX-9456 Flex: in column direction take into account margins while calculating justify-content shift
             ConvertToPdfAndCompare("spaceEvenlyColumnReverseWrapLong", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
