@@ -217,6 +217,17 @@ namespace iText.Html2pdf.Css.Grid {
             RunTest("noTemplate2");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void BlockInsideGridTest() {
+            RunTest("blockInsideGrid");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockInsideGridTest() {
+            // TODO DEVSIX-9509 Move inline-block item to the next page
+            RunTest("inlineBlockInsideGrid");
+        }
+
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
                 (SOURCE_FOLDER));

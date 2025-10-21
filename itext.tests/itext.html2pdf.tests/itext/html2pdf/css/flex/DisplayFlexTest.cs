@@ -564,23 +564,72 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void InlineBlockInsideFlexWithFixedSizeSiblingTest() {
-            // TODO DEVSIX-8951 Nullpointer exception if using display: inline-block with display: flex on page split
-            String html = "inlineBlockInsideFlexWithFixedSizeSibling";
-            FileInfo htmlFile = new FileInfo(SOURCE_FOLDER + html + ".html");
-            FileInfo output = new FileInfo(DESTINATION_FOLDER + html + ".pdf");
-            NUnit.Framework.Assert.Catch(typeof(Exception), () => HtmlConverter.ConvertToPdf(htmlFile, output));
+            ConvertToPdfAndCompare("inlineBlockInsideFlexWithFixedSizeSibling", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("TODO DEVSIX-8951 Infinite loop if using display: inline-block with display: flex on page split"
-            )]
         public virtual void InlineBlockInsideFlexWithFixedWidthOnlySiblingTest() {
-            String html = "inlineBlockInsideFlexWithFixedWidthOnlySibling";
-            FileInfo htmlFile = new FileInfo(SOURCE_FOLDER + html + ".html");
-            FileInfo output = new FileInfo(DESTINATION_FOLDER + html + ".pdf");
-            HtmlConverter.ConvertToPdf(htmlFile, output);
+            ConvertToPdfAndCompare("inlineBlockInsideFlexWithFixedWidthOnlySibling", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockInsideFlexWithFixedWidthOnlySiblingAfterParagraphTest() {
+            // TODO DEVSIX-9509 Move flex container to the next page since inline-block flex item is not fit and not 1st
+            ConvertToPdfAndCompare("inlineBlockInsideFlexWithFixedWidthOnlySiblingAfterParagraph", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockInsideFlexAfterParagraphTest() {
+            // TODO DEVSIX-9509 Move flex container to the next page since inline-block flex item is not fit and not 1st
+            ConvertToPdfAndCompare("inlineBlockInsideFlexAfterParagraph", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockInsideFlexSingleItemTest() {
+            ConvertToPdfAndCompare("inlineBlockInsideFlexSingleItem", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockInsideFlexFirstItemTest() {
+            ConvertToPdfAndCompare("inlineBlockInsideFlexFirstItem", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockInsideFlexSplitTest() {
+            ConvertToPdfAndCompare("inlineBlockInsideFlexSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockInsideFlexSeveralItemsTest() {
+            ConvertToPdfAndCompare("inlineBlockInsideFlexSeveralItems", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockInsideFlexWrapTest() {
+            ConvertToPdfAndCompare("inlineBlockInsideFlexWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockInsideFlexColumnTest() {
+            ConvertToPdfAndCompare("inlineBlockInsideFlexColumn", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockInsideFlexColumnReverseTest() {
+            ConvertToPdfAndCompare("inlineBlockInsideFlexColumnReverse", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void BlockInsideFlexSimpleColumnTest() {
+            ConvertToPdfAndCompare("blockInsideFlexSimpleColumn", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockInsideFlexSimpleColumnTest() {
+            ConvertToPdfAndCompare("inlineBlockInsideFlexSimpleColumn", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
