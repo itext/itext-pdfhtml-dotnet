@@ -24,7 +24,7 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css21.Linebox {
-    // TODO DEVSIX-3757 change cmp file after completing the ticket
+    // TODO DEVSIX-3757 Support vertical-align css property
     public class LineHeight126Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "line-height-126.xht";

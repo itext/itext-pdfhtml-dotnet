@@ -40,7 +40,6 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void MixedSizesTest() {
-            // TODO DEVSIX-9477 Fix issue on page split
             ConvertToPdfAndCompare("mixedSizes", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

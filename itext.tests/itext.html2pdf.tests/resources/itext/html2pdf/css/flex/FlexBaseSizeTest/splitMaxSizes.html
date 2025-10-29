@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Gap + Item Height Variations</title>
+<style>
+  .sample {
+    border: 5px solid #5a8cb1;
+    margin-bottom: 30px;
+    padding: 10px;
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 55px;
+    background: #f9f9f9;
+  }
+
+  .sample h3 {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+  }
+
+  .item {
+    width: 80px;
+    background: lightcoral;
+    border: 1px solid #333;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<h3 style="height: 750px">Test Fixed Size Items</h3>
+
+<h3>Test</h3>
+
+<h3>Page split: Max-Height / Max-Width Items</h3>
+<div class="sample">
+  <div class="item" style="max-height: 40px; max-width: 60px;">11111long11111<br>11111<br>11111<br>11111<br>11111</div>
+  <div class="item" style="max-height: 80px; max-width: 80px;">22222long22222<br>22222<br>22222<br>22222<br>22222</div>
+  <div class="item" style="max-height: 60px; max-width: 70px;">33333long33333<br>33333<br>33333<br>33333<br>33333</div>
+  <div class="item" style="max-height: 40px; max-width: 120px;">44444long44444<br>44444<br>44444<br>44444<br>44444</div>
+  <div class="item" style="max-height: 55px; max-width: 70px;">55555long55555<br>55555<br>55555<br>55555<br>55555</div>
+  <div class="item" style="max-height: 75px; max-width: 40px;">66666long66666<br>66666<br>66666<br>66666<br>66666</div>
+  <div class="item" style="max-height: 60px; max-width: 40px;">77777long77777<br>77777<br>77777<br>77777<br>77777</div>
+  <div class="item" style="max-height: 40px; max-width: 120px;">88888long88888<br>88888<br>88888<br>88888<br>88888</div>
+</div>
+</body>
+</html>

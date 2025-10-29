@@ -377,6 +377,11 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
+        public virtual void FlexNestedTest() {
+            ConvertToPdfAndCompare("flexNested", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void DeepNestingTest() {
             ConvertToPdfAndCompare("deepNesting", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

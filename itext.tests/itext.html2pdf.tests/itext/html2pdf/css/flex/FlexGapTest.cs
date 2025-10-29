@@ -367,7 +367,6 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void ColGapMixedSizesTest() {
-            // TODO DEVSIX-9477 Fix issue on page split: cross-size calculated incorrectly
             ConvertToPdfAndCompare("colGapMixedSizes", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -476,7 +475,6 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void RowGapMixedSizesTest() {
-            // TODO DEVSIX-9477 Fix issue on page split: cross-size calculated incorrectly
             ConvertToPdfAndCompare("rowGapMixedSizes", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

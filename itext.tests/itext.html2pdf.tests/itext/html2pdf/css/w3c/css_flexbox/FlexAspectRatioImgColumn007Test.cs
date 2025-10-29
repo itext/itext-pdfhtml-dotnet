@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    // TODO DEVSIX-5269 ImageRenderer#getMinMaxWidth does not return initial image width
     public class FlexAspectRatioImgColumn007Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flex-aspect-ratio-img-column-007.html";

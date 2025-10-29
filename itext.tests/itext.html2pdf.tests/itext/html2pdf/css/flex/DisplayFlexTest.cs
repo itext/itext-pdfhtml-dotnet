@@ -301,7 +301,7 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void FlexBasisContentMaxWidth() {
-            // TODO DEVSIX-5091 change cmp file when working on the thicket
+            // TODO DEVSIX-5091 Support flex-basis: content
             ConvertToPdfAndCompare("flexBasisContentMaxWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -648,6 +648,16 @@ namespace iText.Html2pdf.Css.Flex {
         [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void FlexWithPageBreakInsideAvoidAndPageSplit2Test() {
             ConvertToPdfAndCompare("flexWithPageBreakInsideAvoidAndPageSplit2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void ImageSizeTest() {
+            // Result for image width differs from browser, although min width and flexible lengths are determined according
+            // to the CSS specification algorithms. Not sure why browser behaves like this: min main size is calculated based on
+            // transferred size suggestion instead of content size suggestion and aspect ratio is based on specified properties
+            // (we calculate it based on original image width / height).
+            ConvertToPdfAndCompare("imageSize", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         private static IList<IElement> ConvertToElements(String name) {
