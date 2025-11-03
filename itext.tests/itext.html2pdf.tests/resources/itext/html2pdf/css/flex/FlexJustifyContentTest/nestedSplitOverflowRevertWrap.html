@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Flexbox justify-content inheritance & resets with parent containers</title>
+    <style>
+        body {
+          font-family: sans-serif; margin: 20px;
+        }
+        .parent {
+          display: flex; border: 2px solid #444; margin-bottom: 20px;
+        }
+        .container {
+          display: flex; border: 1px solid #666; height: 250px; width: 300px;
+        }
+        .box {
+          background: lightcoral; padding: 20px; border: 1px solid #333; width: 60px; text-align: center;
+        }
+        .wrapreverse {
+          flex-wrap: wrap-reverse;
+        }
+        .heightDiv {
+            height: 800px;
+        }
+    </style>
+</head>
+<body>
+<div class="heightDiv"></div>
+<div class="parent" style="justify-content: space-between;">
+    <div class="container wrapreverse" style="justify-content: revert;">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+    </div>
+</div>
+
+<div class="parent" style="justify-content: space-evenly;">
+    <div class="container wrapreverse" style="justify-content: revert-layer;">
+        <div class="container wrapreverse" style="justify-content: revert-layer;">
+            <div class="container wrapreverse" style="justify-content: revert-layer;">
+                <div class="container wrapreverse" style="justify-content: revert-layer;">
+                    <div class="box">1</div>
+                    <div class="box">2</div>
+                    <div class="box">3</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -622,5 +622,20 @@ namespace iText.Html2pdf.Css.Flex {
         public virtual void HeaderArticleNestedTest() {
             ConvertToPdfAndCompare("headerArticleNested", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void FlexThirdLevelNestingSplitTest() {
+            ConvertToPdfAndCompare("flexThirdLevelNestingSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SeveralFlexNestedSplitTest() {
+            ConvertToPdfAndCompare("severalFlexNestedSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SeveralFlexThirdLevelNestingSplitTest() {
+            ConvertToPdfAndCompare("severalFlexThirdLevelNestingSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
     }
 }

@@ -57,7 +57,6 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void InheritWrapTest() {
-            // TODO DEVSIX-9449 Flex: wrong items order in nested flex container with flex-wrap: wrap-reverse
             ConvertToPdfAndCompare("inheritWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -208,8 +207,14 @@ namespace iText.Html2pdf.Css.Flex {
         [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
             Count = 6)]
         public virtual void RevertWrapTest() {
-            // TODO DEVSIX-9449 Flex: wrong items order in nested flex container with flex-wrap: wrap-reverse
             ConvertToPdfAndCompare("revertWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 5)]
+        public virtual void NestedSplitOverflowRevertWrap() {
+            ConvertToPdfAndCompare("nestedSplitOverflowRevertWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
@@ -286,7 +291,6 @@ namespace iText.Html2pdf.Css.Flex {
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 3)]
         public virtual void UnsetWrapTest() {
-            // TODO DEVSIX-9449 Flex: wrong items order in nested flex container with flex-wrap: wrap-reverse
             ConvertToPdfAndCompare("unsetWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
