@@ -52,6 +52,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.ABBR, () => new SpanTagCssApplier());
             mapping.PutMapping(TagConstants.ADDRESS, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.ARTICLE, () => new BlockCssApplier());
+            mapping.PutMapping(TagConstants.ARTICLE, CssConstants.FLEX, () => new DisplayFlexTagCssApplier());
             mapping.PutMapping(TagConstants.ASIDE, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.B, () => new SpanTagCssApplier());
             mapping.PutMapping(TagConstants.BDI, () => new SpanTagCssApplier());
@@ -59,6 +60,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.BLOCKQUOTE, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.BODY, () => new BodyTagCssApplier());
             mapping.PutMapping(TagConstants.BUTTON, () => new BlockCssApplier());
+            mapping.PutMapping(TagConstants.BUTTON, CssConstants.FLEX, () => new DisplayFlexTagCssApplier());
             mapping.PutMapping(TagConstants.CAPTION, () => new CaptionCssApplier());
             mapping.PutMapping(TagConstants.CENTER, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.CITE, () => new SpanTagCssApplier());
@@ -75,9 +77,12 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.FIELDSET, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.FIGCAPTION, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.FIGURE, () => new BlockCssApplier());
+            mapping.PutMapping(TagConstants.FIGURE, CssConstants.FLEX, () => new DisplayFlexTagCssApplier());
             mapping.PutMapping(TagConstants.FONT, () => new SpanTagCssApplier());
             mapping.PutMapping(TagConstants.FOOTER, () => new BlockCssApplier());
+            mapping.PutMapping(TagConstants.FOOTER, CssConstants.FLEX, () => new DisplayFlexTagCssApplier());
             mapping.PutMapping(TagConstants.FORM, () => new BlockCssApplier());
+            mapping.PutMapping(TagConstants.FORM, CssConstants.FLEX, () => new DisplayFlexTagCssApplier());
             mapping.PutMapping(TagConstants.H1, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.H2, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.H3, () => new BlockCssApplier());
@@ -85,6 +90,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.H5, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.H6, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.HEADER, () => new BlockCssApplier());
+            mapping.PutMapping(TagConstants.HEADER, CssConstants.FLEX, () => new DisplayFlexTagCssApplier());
             mapping.PutMapping(TagConstants.HR, () => new HrTagCssApplier());
             mapping.PutMapping(TagConstants.HTML, () => new HtmlTagCssApplier());
             mapping.PutMapping(TagConstants.I, () => new SpanTagCssApplier());
@@ -103,11 +109,13 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.OPTGROUP, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.OPTION, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.P, () => new BlockCssApplier());
+            mapping.PutMapping(TagConstants.P, CssConstants.FLEX, () => new DisplayFlexTagCssApplier());
             mapping.PutMapping(TagConstants.PRE, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.Q, () => new SpanTagCssApplier());
             mapping.PutMapping(TagConstants.S, () => new SpanTagCssApplier());
             mapping.PutMapping(TagConstants.SAMP, () => new SpanTagCssApplier());
             mapping.PutMapping(TagConstants.SECTION, () => new BlockCssApplier());
+            mapping.PutMapping(TagConstants.SECTION, CssConstants.FLEX, () => new DisplayFlexTagCssApplier());
             mapping.PutMapping(TagConstants.SELECT, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.SMALL, () => new SpanTagCssApplier());
             mapping.PutMapping(TagConstants.SPAN, () => new SpanTagCssApplier());
@@ -143,8 +151,10 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(TagConstants.A, CssConstants.INLINE_BLOCK, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.A, CssConstants.BLOCK, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.A, CssConstants.TABLE_CELL, () => new BlockCssApplier());
+            mapping.PutMapping(TagConstants.A, CssConstants.FLEX, () => new DisplayFlexTagCssApplier());
             mapping.PutMapping(TagConstants.LABEL, CssConstants.BLOCK, () => new BlockCssApplier());
             mapping.PutMapping(TagConstants.LABEL, CssConstants.INLINE_BLOCK, () => new BlockCssApplier());
+            mapping.PutMapping(TagConstants.LABEL, CssConstants.FLEX, () => new DisplayFlexTagCssApplier());
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE, () => new TableTagCssApplier());
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_CELL, () => new TdTagCssApplier());
             mapping.PutMapping(TagConstants.DIV, CssConstants.TABLE_ROW, () => new DisplayTableRowTagCssApplier());

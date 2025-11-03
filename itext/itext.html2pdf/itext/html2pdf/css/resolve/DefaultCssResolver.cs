@@ -155,7 +155,8 @@ namespace iText.Html2pdf.Css.Resolve {
                         // W3C Candidate Recommendation, 19 November 2018: 4. Flex Items.
                         String currentElementDisplay = elementStyles.Get(CssConstants.DISPLAY);
                         if (IsFlexItem(entry, currentElementDisplay) && !CommonCssConstants.NONE.Equals(currentElementDisplay) && 
-                            !CommonCssConstants.GRID.Equals(currentElementDisplay)) {
+                            !CommonCssConstants.GRID.Equals(currentElementDisplay) && !CssConstants.LIST_ITEM.Equals(currentElementDisplay
+                            )) {
                             elementStyles.Put(CssConstants.DISPLAY, CssConstants.BLOCK);
                         }
                     }

@@ -541,7 +541,6 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void UnorderedListFlexTest() {
-            //TODO: DEVSIX-8730 bullet is not drawn
             ConvertToPdfAndCompare("UnorderedListWithFlex", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -634,7 +633,6 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void DisplayFlexOnHeaderTagTest() {
-            // TODO DEVSIX-7402 Add display:flex support for all relevant tags
             ConvertToPdfAndCompare("displayFlexOnHeaderTag", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
+using iText.Layout.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Flex {
@@ -34,7 +35,7 @@ namespace iText.Html2pdf.Css.Flex {
         private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/flex/FlexContainerTest/";
 
-        //TODO DEVSIX-7402: Update cmp / tests
+        //TODO DEVSIX-9519: Update cmp / tests for ul ol li button p tags
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
             CreateOrClearDestinationFolder(DESTINATION_FOLDER);
@@ -65,7 +66,6 @@ namespace iText.Html2pdf.Css.Flex {
             ConvertToPdfAndCompare("aNested", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
         public virtual void AUlNestedTest() {
             ConvertToPdfAndCompare("aUlNested", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -96,7 +96,6 @@ namespace iText.Html2pdf.Css.Flex {
             ConvertToPdfAndCompare("articleNested", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
         public virtual void ArticleUlNestedTest() {
             ConvertToPdfAndCompare("articleUlNested", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -109,28 +108,28 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void ButtonBasicTest() {
-            ConvertToPdfAndCompare("buttonBasic", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("buttonBasic", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void ButtonBasic2ColTest() {
-            ConvertToPdfAndCompare("buttonBasic2Col", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("buttonBasic2Col", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void ButtonLongTest() {
-            ConvertToPdfAndCompare("buttonLong", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("buttonLong", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void ButtonNestedTest() {
-            ConvertToPdfAndCompare("buttonNested", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("buttonNested", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void ButtonWideTest() {
-            ConvertToPdfAndCompare("buttonWide", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("buttonWide", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
@@ -295,30 +294,28 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void PBasicTest() {
-            ConvertToPdfAndCompare("pBasic", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("pBasic", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 80)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT)]
         public virtual void PLongTest() {
-            ConvertToPdfAndCompare("pLong", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("pLong", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 4)]
         public virtual void PNestedTest() {
-            ConvertToPdfAndCompare("pNested", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("pNested", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 8)]
         public virtual void PWideTest() {
-            ConvertToPdfAndCompare("pWide", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("pWide", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
         public virtual void PBasic2ColTest() {
-            ConvertToPdfAndCompare("pBasic2Col", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("pBasic2Col", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
@@ -346,31 +343,26 @@ namespace iText.Html2pdf.Css.Flex {
             ConvertToPdfAndCompare("sectionWide", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
         public virtual void UlBasicTest() {
             ConvertToPdfAndCompare("ulBasic", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
         public virtual void UlBasic2ColTest() {
             ConvertToPdfAndCompare("ulBasic2Col", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
         public virtual void UlLongTest() {
             ConvertToPdfAndCompare("ulLong", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
         public virtual void UlNestedTest() {
             ConvertToPdfAndCompare("ulNested", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
         public virtual void UlWideTest() {
             ConvertToPdfAndCompare("ulWide", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -386,7 +378,6 @@ namespace iText.Html2pdf.Css.Flex {
             ConvertToPdfAndCompare("deepNesting", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
         public virtual void DeepNesting2Test() {
             ConvertToPdfAndCompare("deepNesting2", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -402,23 +393,17 @@ namespace iText.Html2pdf.Css.Flex {
             ConvertToPdfAndCompare("sectionFormNested", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 4)]
         public virtual void LargeMarginTest() {
             ConvertToPdfAndCompare("largeMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 4)]
         public virtual void LargeMarginsAndPaddingsTest() {
             ConvertToPdfAndCompare("largeMarginsAndPaddings", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 4)]
         public virtual void LargePaddingTest() {
             ConvertToPdfAndCompare("largePadding", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -433,16 +418,15 @@ namespace iText.Html2pdf.Css.Flex {
             ConvertToPdfAndCompare("articleJustifyContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
         public virtual void UlJustifyContentTest() {
             ConvertToPdfAndCompare("ulJustifyContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 36)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 6)]
         public virtual void PJustifyContentTest() {
-            ConvertToPdfAndCompare("pJustifyContent", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("pJustifyContent", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
@@ -482,11 +466,10 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void ButtonJustifyContentTest() {
-            ConvertToPdfAndCompare("buttonJustifyContent", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("buttonJustifyContent", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 6)]
         public virtual void ArticleAlignContentTest() {
             ConvertToPdfAndCompare("articleAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -496,7 +479,6 @@ namespace iText.Html2pdf.Css.Flex {
             ConvertToPdfAndCompare("aAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 6)]
         public virtual void UlAlignContentTest() {
@@ -516,69 +498,60 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 6)]
         public virtual void FormAlignContentTest() {
             ConvertToPdfAndCompare("formAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 6)]
         public virtual void FigureAlignContentTest() {
             ConvertToPdfAndCompare("figureAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void ButtonAlignContentTest() {
-            ConvertToPdfAndCompare("buttonAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
-        }
-
-        [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 42)]
-        public virtual void PAlignContentTest() {
-            ConvertToPdfAndCompare("pAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("buttonAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 6)]
+        public virtual void PAlignContentTest() {
+            ConvertToPdfAndCompare("pAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER, true);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void FooterAlignContentTest() {
             ConvertToPdfAndCompare("footerAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 6)]
         public virtual void HeaderAlignContentTest() {
             ConvertToPdfAndCompare("headerAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 6)]
         public virtual void SectionAlignContentTest() {
             ConvertToPdfAndCompare("sectionAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 4)]
         public virtual void GapOnFlexTagsTest() {
             ConvertToPdfAndCompare("gapOnFlexTags", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 10)]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 8)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 2)]
         public virtual void FlexTagAlignSelfTest() {
             ConvertToPdfAndCompare("flexTagAlignSelf", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 5)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT)]
         public virtual void PAlignSelfTest() {
-            ConvertToPdfAndCompare("pAlignSelf", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("pAlignSelf", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 10)]
         public virtual void FlexTagAlignItemsTest() {
@@ -586,34 +559,27 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
         public virtual void PAlignItemsTest() {
-            ConvertToPdfAndCompare("pAlignItems", SOURCE_FOLDER, DESTINATION_FOLDER);
+            ConvertToPdfAndCompare("pAlignItems", SOURCE_FOLDER, DESTINATION_FOLDER, true);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 4)]
         public virtual void GapOnFlexTags2Test() {
             ConvertToPdfAndCompare("gapOnFlexTags2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 4)]
         public virtual void FlexWrapTest() {
             ConvertToPdfAndCompare("flexWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 4)]
         public virtual void FlexNoWrapTest() {
             ConvertToPdfAndCompare("flexNoWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO DEVSIX-8730: Update after fix
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER, Count = 4)]
         public virtual void FlexWrapReverseTest() {
             ConvertToPdfAndCompare("flexWrapReverse", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
