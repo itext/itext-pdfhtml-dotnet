@@ -459,7 +459,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <returns>the element node</returns>
         private IElementNode FindElement(INode node, String tagName) {
             LinkedList<INode> q = new LinkedList<INode>();
-            q.Add(node);
+            q.AddLast(node);
             while (!q.IsEmpty()) {
                 INode currentNode = q.JGetFirst();
                 q.RemoveFirst();
@@ -468,7 +468,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
                 foreach (INode child in currentNode.ChildNodes()) {
                     if (child is IElementNode) {
-                        q.Add(child);
+                        q.AddLast(child);
                     }
                 }
             }

@@ -256,7 +256,7 @@ namespace iText.Html2pdf.Css.Resolve {
             ) {
             cssStyleSheet = new CssStyleSheet();
             LinkedList<INode> q = new LinkedList<INode>();
-            q.Add(rootNode);
+            q.AddLast(rootNode);
             while (!q.IsEmpty()) {
                 INode currentNode = q.JRemoveFirst();
                 if (currentNode is IElementNode) {
@@ -291,7 +291,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
                 foreach (INode child in currentNode.ChildNodes()) {
                     if (child is IElementNode) {
-                        q.Add(child);
+                        q.AddLast(child);
                     }
                 }
             }
