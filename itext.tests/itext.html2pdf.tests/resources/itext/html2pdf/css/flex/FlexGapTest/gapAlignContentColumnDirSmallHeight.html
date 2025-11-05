@@ -1,35 +1,46 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Gap + Align-Content Demo</title>
-<style>
-  .sample {
-    border: 2px solid #333;
-    margin-bottom: 30px;
-    width: 400px;
-    height: 250px;
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 30px; 
-    background: #f9f9f9;
-  }
+  <meta charset="utf-8">
+  <title>Gap + Align-Content Demo</title>
+  <style>
+    .sample {
+      border: 2px solid #333;
+      margin-bottom: 30px;
+      width: 400px;
+      height: 150px;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 10px 40px;
+      background: #f9f9f9;
+    }
 
-  .sample h3 {
-    margin: 0 0 5px 0;
-  }
+    .sample h3 {
+      margin: 0 0 5px 0;
+    }
 
-  .item {
-    width: 80px;
-    height: 50px;
-    background: lightcoral;
-    border: 1px solid #333;
-    display: flex;
-  }
-</style>
+    .item {
+      width: 80px;
+      height: 50px;
+      background: lightcoral;
+      border: 1px solid #333;
+    }
+  </style>
 </head>
 <body>
 <div class="sample" style="align-content: flex-start;">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+  <div class="item">5</div>
+  <div class="item">6</div>
+  <div class="item">7</div>
+  <div class="item">8</div>
+</div>
+
+<div class="sample" style="align-content: start;">
   <div class="item">1</div>
   <div class="item">2</div>
   <div class="item">3</div>
@@ -51,7 +62,7 @@
   <div class="item">8</div>
 </div>
 
-<div class="sample" style="align-content: center;">
+<div class="sample" style="align-content: end;">
   <div class="item">1</div>
   <div class="item">2</div>
   <div class="item">3</div>
@@ -62,7 +73,7 @@
   <div class="item">8</div>
 </div>
 
-<div class="sample" style="align-content: space-between;">
+<div class="sample" style="align-content: center;">
   <div class="item">1</div>
   <div class="item">2</div>
   <div class="item">3</div>
@@ -96,6 +107,17 @@
 </div>
 
 <div class="sample" style="align-content: space-evenly;">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+  <div class="item">5</div>
+  <div class="item">6</div>
+  <div class="item">7</div>
+  <div class="item">8</div>
+</div>
+
+<div class="sample" style="align-content: stretch">
   <div class="item">1</div>
   <div class="item">2</div>
   <div class="item">3</div>

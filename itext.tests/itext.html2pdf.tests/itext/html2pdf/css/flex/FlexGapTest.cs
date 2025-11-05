@@ -166,13 +166,28 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void GapAlignContentColumnDirTest() {
-            // TODO DEVSIX-9473 Fix issues on page split
             ConvertToPdfAndCompare("gapAlignContentColumnDir", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        public virtual void GapAlignContentColumnDirPageSplitTest() {
+            ConvertToPdfAndCompare("gapAlignContentColumnDirPageSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GapAlignContentColumnDirSmallHeightTest() {
+            // TODO DEVSIX-9559 Fix align-content in case free space is negative
+            ConvertToPdfAndCompare("gapAlignContentColumnDirSmallHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GapAlignContentColumnDirSmallHeightWrapRevTest() {
+            // TODO DEVSIX-9559 Fix align-content in case free space is negative
+            ConvertToPdfAndCompare("gapAlignContentColumnDirSmallHeightWrapRev", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void GapAlignContentColumnRevDirTest() {
-            // TODO DEVSIX-9473 Fix issues on page split
             ConvertToPdfAndCompare("gapAlignContentColumnRevDir", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
