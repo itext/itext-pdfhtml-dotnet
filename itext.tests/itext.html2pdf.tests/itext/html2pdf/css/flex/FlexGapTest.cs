@@ -156,13 +156,11 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void GapAlignContentTest() {
-            // TODO DEVSIX-9473 Fix issues on page split
             ConvertToPdfAndCompare("gapAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void GapAlignContentRowRevDirTest() {
-            // TODO DEVSIX-9473 Fix issues on page split
             ConvertToPdfAndCompare("gapAlignContentRowRevDir", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -180,7 +178,6 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void GapAlignContentWrapRevTest() {
-            // TODO DEVSIX-9473 Fix issues on page split
             ConvertToPdfAndCompare("gapAlignContentWrapRev", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -334,7 +331,6 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void ColGapAlignContentTest() {
-            // TODO DEVSIX-9473 Fix issues on page split
             ConvertToPdfAndCompare("colGapAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -442,7 +438,6 @@ namespace iText.Html2pdf.Css.Flex {
 
         [NUnit.Framework.Test]
         public virtual void RowGapAlignContentTest() {
-            // TODO DEVSIX-9473 Fix issues on page split
             ConvertToPdfAndCompare("rowGapAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

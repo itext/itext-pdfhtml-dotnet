@@ -46,6 +46,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// </remarks>
         private const bool TRIM_LAST_BLANK_PAGE = true;
 
+        private readonly HtmlBodyStylesApplierHandler htmlBodyHandler;
+
+        private readonly IDictionary<int, HtmlBodyStylesApplierHandler.PageStylesProperties> pageStylesPropertiesMap
+             = new Dictionary<int, HtmlBodyStylesApplierHandler.PageStylesProperties>();
+
         /// <summary>The page context processor for the first page.</summary>
         private PageContextProcessor firstPageProc;
 
@@ -66,13 +71,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         private HtmlDocumentRenderer.PageMarginBoxesDrawingHandler marginBoxesHandler;
 
-        private HtmlBodyStylesApplierHandler htmlBodyHandler;
-
-        private IDictionary<int, HtmlBodyStylesApplierHandler.PageStylesProperties> pageStylesPropertiesMap = new 
-            Dictionary<int, HtmlBodyStylesApplierHandler.PageStylesProperties>();
-
         /// <summary>
-        /// The waiting element, an child element is kept waiting for the
+        /// The waiting element, a child element is kept waiting for the
         /// next element to process the "keep with previous" property.
         /// </summary>
         private IRenderer waitingElement;

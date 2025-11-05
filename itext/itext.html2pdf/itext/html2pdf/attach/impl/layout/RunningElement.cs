@@ -40,7 +40,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
     /// from the normal flow. This element is designed to register where particular running element would have been placed.
     /// </remarks>
     public class RunningElement : Div {
-        private RunningElementContainer runningElementContainer;
+        private readonly RunningElementContainer runningElementContainer;
 
         /// <summary>
         /// Creates a new instance of
@@ -60,7 +60,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 //\cond DO_NOT_DOCUMENT
         /// <summary>It's an empty div so it's not expected to be ever split between areas.</summary>
         internal class RunningElementRenderer : DivRenderer {
-            private RunningElementContainer runningElementContainer;
+            private readonly RunningElementContainer runningElementContainer;
 
             private bool isFirstOnRootArea;
 

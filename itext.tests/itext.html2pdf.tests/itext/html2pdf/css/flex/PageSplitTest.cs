@@ -26,7 +26,6 @@ using iText.Html2pdf;
 namespace iText.Html2pdf.Css.Flex {
     [NUnit.Framework.Category("IntegrationTest")]
     public class PageSplitTest : ExtendedHtmlConversionITextTest {
-        // TODO DEVSIX-9473 Fix issues on page split
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/flex/PageSplitTest/";
 
