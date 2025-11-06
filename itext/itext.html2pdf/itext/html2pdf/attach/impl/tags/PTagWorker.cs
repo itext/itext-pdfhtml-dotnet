@@ -172,6 +172,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
                                     }
                                     return allChildrenProcessed;
                                 }
+                                else {
+                                    if (childTagWorker is DisplayFlexTagWorker) {
+                                        ProcessBlockElement((Div)element);
+                                        return true;
+                                    }
+                                }
                             }
                         }
                     }

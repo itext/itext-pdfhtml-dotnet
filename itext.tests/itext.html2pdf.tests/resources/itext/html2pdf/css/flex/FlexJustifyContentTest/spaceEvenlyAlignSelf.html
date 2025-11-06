@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content: space-evenly + align-self</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .container {
+      display: flex;
+      justify-content: space-evenly;
+      border: 2px solid #444;
+      width: 600px;
+      height: 200px;
+      margin-bottom: 40px;
+      align-items: flex-start; 
+    }
+    .box {
+      width: 80px;
+      background: lightblue;
+      border: 1px solid #333;
+      text-align: center;
+      font-weight: bold;
+      line-height: 50px;
+      margin: 2px;
+    }
+    .stretch-box {
+      height: auto;
+      line-height: normal;
+    }
+  </style>
+</head>
+<body>
+  <h1>justify-content: space-evenly + align-self</h1>
+
+  <div class="container">
+    <div class="box" style="align-self: flex-start;">flex-start</div>
+    <div class="box" style="align-self: flex-end;">flex-end</div>
+    <div class="box" style="align-self: center;">center</div>
+    <div class="box" style="align-self: baseline;">baseline</div>
+    <div class="box stretch-box" style="align-self: stretch;">stretch</div>
+  </div>
+
+</body>
+</html>

@@ -271,6 +271,14 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void FlexTagsUA2Test(PdfUAConformance conformance) {
+            String sourceHtml = SOURCE_FOLDER + "flexTagsUA2.html";
+            String cmpFile = SOURCE_FOLDER + "cmp_flexTagsUA" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "flexTagsUA" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpFile, null, true, null);
+        }
+
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
         [LogMessage(PdfUALogMessageConstants.PAGE_FLUSHING_DISABLED, Count = 1)]
         public virtual void TableUa2Test(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "table.html";

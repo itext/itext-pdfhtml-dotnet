@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Gap + Negative Margins (2 Rows)</title>
+<style>
+.container {
+    display: flex;
+    flex-wrap: wrap;  
+    gap: 20px;         
+    border: 2px solid #333;
+    width: 400px;    
+    background: #f9f9f9;
+  }
+
+  .item {
+    width: 100px;
+    height: 60px;
+    background: gold;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .Negative-left {
+    margin-left: -10px; 
+    background: lightcoral;
+  }
+
+  .Negative-top {
+    margin-top: -10px; 
+    background: lightgreen;
+  }
+
+  .Negative-right {
+    margin-right: -10px;
+    background: lightblue;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="item">Normal</div>
+  <div class="item Negative-left">Negative Left</div>
+  <div class="item Negative-top">Negative Top</div>
+  <div class="item Negative-right">Negative Right</div>
+  <div class="item">Normal</div>
+  <div class="item Negative-left">Negative Left</div>
+  <div class="item Negative-top">Negative Top</div>
+  <div class="item Negative-right">Negative Right</div>
+</div>
+
+</body>
+</html>

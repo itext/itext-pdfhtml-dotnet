@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>row-gap: 10%</title>
+<style>
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 10%;
+    border: 2px solid black;
+    width: 400px;
+    height: 500px; /* percentage based on this height */
+  }
+  .item {
+    background: lightyellow;
+    text-align: center;
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+<h1>row-gap: 10%</h1>
+<div class="container">
+  <div class="item">One</div>
+  <div class="item">Two</div>
+  <div class="item">Three</div>
+  <div class="item">Four</div>
+</div>
+</body>
+</html>

@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
-    //TODO DEVSIX-5163: Support more justify-content values
     public class GridAbsposStaticposJustifySelfRtl001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-abspos-staticpos-justify-self-rtl-001.html";

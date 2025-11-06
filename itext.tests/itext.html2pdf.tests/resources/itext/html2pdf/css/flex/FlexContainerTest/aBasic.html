@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex in Anchor</title>
+<style>
+  a {
+    display: flex;
+    gap: 10px;
+    border: 2px solid #333;
+    padding: 10px;
+    background: #f9f9f9;
+    margin-bottom: 30px;
+    text-decoration: none;
+  }
+
+  .wrap {
+    flex-wrap: wrap;
+    width: 260px;
+    align-content: flex-start;
+  }
+
+  .item {
+    background: lightblue;
+    padding: 10px;
+    border: 1px solid #666;
+  }
+</style>
+</head>
+<body>
+
+<a href="#">
+  <div class="item">Hello</div>
+  <div class="item">this</div>
+  <div class="item">link</div>
+  <div class="item">is</div>
+  <div class="item">flexbox</div>
+  <div class="item">based!</div>
+</a>
+
+<a href="#" class="wrap">
+  <div class="item">Hello</div>
+  <div class="item">this</div>
+  <div class="item">link</div>
+  <div class="item">is</div>
+  <div class="item">flexbox</div>
+  <div class="item">based!</div>
+  <div class="item">showcasing</div>
+  <div class="item">wrap</div>
+</a>
+
+</body>
+</html>

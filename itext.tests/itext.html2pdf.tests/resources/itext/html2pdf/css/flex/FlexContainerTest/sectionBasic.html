@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex in Section</title>
+<style>
+  section {
+    display: flex;
+    gap: 10px;
+    border: 2px solid #333;
+    padding: 10px;
+    background: #f9f9f9;
+    margin-bottom: 30px;
+  }
+
+  .wrap {
+    flex-wrap: wrap;
+    width: 260px;
+    align-content: flex-start;
+  }
+
+  .item {
+    background: lightblue;
+    padding: 10px;
+    border: 1px solid #666;
+  }
+</style>
+</head>
+<body>
+
+<section>
+  <div class="item">Hello</div>
+  <div class="item">this</div>
+  <div class="item">section</div>
+  <div class="item">is</div>
+  <div class="item">flexbox</div>
+  <div class="item">based!</div>
+</section>
+
+<section class="wrap">
+  <div class="item">Hello</div>
+  <div class="item">this</div>
+  <div class="item">section</div>
+  <div class="item">is</div>
+  <div class="item">flexbox</div>
+  <div class="item">based!</div>
+  <div class="item">showcasing</div>
+  <div class="item">wrap</div>
+</section>
+
+</body>
+</html>

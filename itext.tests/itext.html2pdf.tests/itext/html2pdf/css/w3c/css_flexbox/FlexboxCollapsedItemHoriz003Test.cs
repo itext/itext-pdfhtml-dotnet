@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-5196 change after collapse is supported on flex items
     public class FlexboxCollapsedItemHoriz003Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-collapsed-item-horiz-003.html";

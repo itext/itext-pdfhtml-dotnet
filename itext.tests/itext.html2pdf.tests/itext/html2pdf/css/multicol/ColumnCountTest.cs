@@ -419,6 +419,16 @@ namespace iText.Html2pdf.Css.Multicol {
             RunTest("shortHandResolverTest01");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void BlockInsideMulticolTest() {
+            RunTest("blockInsideMulticol");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InlineBlockInsideMulticolTest() {
+            RunTest("inlineBlockInsideMulticol");
+        }
+
         private void RunTest(String testName) {
             ConvertToPdfAndCompare(testName, SOURCE_FOLDER, DESTINATION_FOLDER, false, new ConverterProperties().SetBaseUri
                 (SOURCE_FOLDER));

@@ -25,7 +25,6 @@ using iText.Html2pdf.Css.W3c;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Abspos {
-    //TODO DEVSIX-5166 change after align-self is supported
     [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 26)]
     public class GridAbsposStaticposAlignSelfImg001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {

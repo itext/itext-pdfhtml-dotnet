@@ -24,11 +24,13 @@ using System;
 using iText.Forms.Form;
 using iText.Forms.Form.Element;
 using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Html;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.Layout.Tagging;
 using iText.StyledXmlParser.Css.Util;
 using iText.StyledXmlParser.Node;
 
@@ -67,6 +69,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             textArea.SetProperty(FormProperty.FORM_FIELD_COLS, cols);
             textArea.SetProperty(FormProperty.FORM_FIELD_FLATTEN, !context.IsCreateAcroForm());
             textArea.GetAccessibilityProperties().SetLanguage(element.GetAttribute(AttributeConstants.LANG));
+            textArea.SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.GetConformance());
+            context.GetDIContainer().GetInstance<AlternateDescriptionResolver>().Resolve((IAccessibleElement)textArea, 
+                element);
             // Default html2pdf text area appearance differs from the default one for form fields.
             // That's why we need to get rid of several properties we set by default during TextArea instance creation.
             textArea.DeleteOwnProperty(Property.BOX_SIZING);

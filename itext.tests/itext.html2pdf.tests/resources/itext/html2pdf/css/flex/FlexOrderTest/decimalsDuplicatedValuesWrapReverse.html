@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Flexbox Order Example - 10 Elements</title>
+    <style>
+        body {font-family: sans-serif;}
+        .container {
+          display: flex;
+          flex-wrap: wrap-reverse;
+          border: 2px solid #444;
+          width: 600px;
+          height: auto;
+        }
+        .box {
+          flex: 1 0 80px;
+          background: lightblue;
+          border: 1px solid #333;
+          text-align: center;
+          font-size: 20px;
+          font-weight: bold;
+          height: 200px;
+        }
+    </style>
+</head>
+<body>
+<h1>Flexbox: order property (10 elements)</h1>
+
+<div class="container">
+    <div class="box" style="order: 4;">1 (4)</div>
+    <div class="box" style="order: 1;">2 (1)</div>
+    <div class="box" style="order: 3;">3 (3)</div>
+    <div class="box" style="order: 1;">4 (1)</div>
+    <div class="box" style="order: 4;">5 (4)</div>
+    <div class="box" style="order: 2;">6 (2)</div>
+    <div class="box" style="order: 5;">7 (5)</div>
+    <div class="box" style="order: 3;">8 (3)</div>
+    <div class="box" style="order: 6;">9 (6)</div>
+    <div class="box" style="order: 4;">10 (4)</div>
+</div>
+
+</body>
+</html>

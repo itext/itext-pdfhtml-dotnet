@@ -48,6 +48,7 @@ using iText.Layout.Element;
 using iText.Layout.Font;
 using iText.Layout.Properties;
 using iText.Layout.Renderer;
+using iText.Layout.Tagging;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Font;
 using iText.StyledXmlParser.Css.Pseudo;
@@ -128,11 +129,7 @@ namespace iText.Html2pdf.Attach.Impl {
             EventManager.GetInstance().OnEvent(PdfHtmlProductEvent.CreateConvertHtmlEvent(sequenceId, context.GetMetaInfoContainer
                 ().GetMetaInfo()));
             context.Reset();
-            roots = new List<IPropertyContainer>();
-            cssResolver = new DefaultCssResolver(root, context);
-            context.SetCssStyleSheet(((DefaultCssResolver)cssResolver).GetCssStyleSheet());
-            context.GetLinkContext().ScanForIds(root);
-            AddFontFaceFonts();
+            InitContext(root);
             IElementNode html = FindHtmlNode(root);
             IElementNode body = FindBodyNode(root);
             // Force resolve styles to fetch default font size etc
@@ -167,11 +164,7 @@ namespace iText.Html2pdf.Attach.Impl {
             if (!context.HasFonts()) {
                 throw new Html2PdfException(Html2PdfException.FONT_PROVIDER_CONTAINS_ZERO_FONTS);
             }
-            roots = new List<IPropertyContainer>();
-            cssResolver = new DefaultCssResolver(root, context);
-            context.SetCssStyleSheet(((DefaultCssResolver)cssResolver).GetCssStyleSheet());
-            context.GetLinkContext().ScanForIds(root);
-            AddFontFaceFonts();
+            InitContext(root);
             root = FindHtmlNode(root);
             if (context.GetCssContext().IsNonPagesTargetCounterPresent()) {
                 VisitToProcessCounters(root);
@@ -202,6 +195,18 @@ namespace iText.Html2pdf.Attach.Impl {
             cssResolver = null;
             roots = null;
             return doc;
+        }
+
+        private void InitContext(INode root) {
+            roots = new List<IPropertyContainer>();
+            cssResolver = new DefaultCssResolver(root, context);
+            context.SetCssStyleSheet(((DefaultCssResolver)cssResolver).GetCssStyleSheet());
+            //Not using Arrays.asList because it can't derive types correctly in .NET
+            IList<IDocumentTreeJob> jobs = new List<IDocumentTreeJob>();
+            jobs.Add(context.GetLinkContext());
+            jobs.Add(context.GetLabelContext());
+            DocumentTreeUtil.Traverse(root, jobs);
+            AddFontFaceFonts();
         }
 
         /// <summary>Recursively processes a node to preprocess target-counters.</summary>
@@ -291,6 +296,11 @@ namespace iText.Html2pdf.Attach.Impl {
                     if (tagWorker.GetElementResult() != null && context.IsContinuousContainerEnabled()) {
                         tagWorker.GetElementResult().SetProperty(Property.COLLAPSING_MARGINS, false);
                         tagWorker.GetElementResult().SetProperty(Property.TREAT_AS_CONTINUOUS_CONTAINER, true);
+                    }
+                    IPropertyContainer result = tagWorker.GetElementResult();
+                    if (result is IAccessibleElement) {
+                        context.GetDIContainer().GetInstance<AlternateDescriptionResolver>().ResolveLabelableElement((IAccessibleElement
+                            )result, element, context);
                     }
                 }
                 element.SetStyles(null);
@@ -449,7 +459,7 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <returns>the element node</returns>
         private IElementNode FindElement(INode node, String tagName) {
             LinkedList<INode> q = new LinkedList<INode>();
-            q.Add(node);
+            q.AddLast(node);
             while (!q.IsEmpty()) {
                 INode currentNode = q.JGetFirst();
                 q.RemoveFirst();
@@ -458,7 +468,7 @@ namespace iText.Html2pdf.Attach.Impl {
                 }
                 foreach (INode child in currentNode.ChildNodes()) {
                     if (child is IElementNode) {
-                        q.Add(child);
+                        q.AddLast(child);
                     }
                 }
             }

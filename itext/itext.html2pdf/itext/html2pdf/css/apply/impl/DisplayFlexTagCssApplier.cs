@@ -37,7 +37,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             base.Apply(context, stylesContainer, tagWorker);
             IPropertyContainer container = tagWorker.GetElementResult();
             if (container != null) {
-                FlexApplierUtil.ApplyFlexContainerProperties(stylesContainer.GetStyles(), container);
+                FlexApplierUtil.ApplyFlexContainerProperties(stylesContainer.GetStyles(), container, context);
                 //TODO DEVSIX-5087 remove these lines when working on a ticket
                 container.DeleteOwnProperty(Property.FLOAT);
                 container.DeleteOwnProperty(Property.CLEAR);

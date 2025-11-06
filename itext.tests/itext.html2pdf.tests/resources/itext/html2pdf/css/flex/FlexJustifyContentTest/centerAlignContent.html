@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content alignment values</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      border: 2px solid #444;
+      margin-bottom: 40px;
+      width: 250px;
+      height: 300px; 
+    }
+    .box {
+      background: lightblue;
+      border: 1px solid #333;
+      width: 60px;
+      text-align: center;
+      margin: 5px;
+    }
+    .small {height: 40px;}
+    .medium {height: 80px;}
+    .large {height: 120px;}
+    h2 {margin: 10px 0;}
+  </style>
+</head>
+<body>
+  <h1>Flexbox justify-content alignment values</h1>
+
+  <h2>justify-content: center</h2>
+  <div class="container" style="justify-content: center; align-content: center;">
+    <div class="box small">1</div>
+    <div class="box medium">2</div>
+    <div class="box large">3</div>
+    <div class="box medium">4</div>
+  </div>
+
+  <h2>justify-content: start</h2>
+  <div class="container" style="justify-content: start; align-content: center;">
+    <div class="box small">1</div>
+    <div class="box medium">2</div>
+    <div class="box large">3</div>
+    <div class="box medium">4</div>
+  </div>
+
+  <h2>justify-content: end</h2>
+  <div class="container" style="justify-content: end; align-content: center;">
+    <div class="box small">1</div>
+    <div class="box medium">2</div>
+    <div class="box large">3</div>
+    <div class="box medium">4</div>
+  </div>
+
+  <h2>justify-content: flex-start</h2>
+  <div class="container" style="justify-content: flex-start; align-content: center;">
+    <div class="box small">1</div>
+    <div class="box medium">2</div>
+    <div class="box large">3</div>
+    <div class="box medium">4</div>
+  </div>
+
+  <h2>justify-content: flex-end</h2>
+  <div class="container" style="justify-content: flex-end; align-content: center;">
+    <div class="box small">1</div>
+    <div class="box medium">2</div>
+    <div class="box large">3</div>
+    <div class="box medium">4</div>
+  </div>
+
+  <h2>justify-content: left</h2>
+  <div class="container" style="justify-content: left; align-content: center;">
+    <div class="box small">1</div>
+    <div class="box medium">2</div>
+    <div class="box large">3</div>
+    <div class="box medium">4</div>
+  </div>
+
+  <h2>justify-content: right</h2>
+  <div class="container" style="justify-content: right; align-content: center;">
+    <div class="box small">1</div>
+    <div class="box medium">2</div>
+    <div class="box large">3</div>
+    <div class="box medium">4</div>
+  </div>
+
+</body>
+</html>

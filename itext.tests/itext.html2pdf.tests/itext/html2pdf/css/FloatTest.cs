@@ -679,7 +679,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void FloatElementInDivTest() {
-            //TODO DEVSIX-5291 change cmp file
+            // TODO DEVSIX-5291 floating elements are not included in the div
             RunTest("floatElementInDiv", "diff_floatElementInDiv_");
         }
 

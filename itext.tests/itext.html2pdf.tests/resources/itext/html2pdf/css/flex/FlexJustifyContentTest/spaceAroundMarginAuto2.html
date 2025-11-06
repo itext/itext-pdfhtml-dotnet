@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox space-around with margin:auto</title>
+  <style>
+    body {font-family: sans-serif;}
+    .stage {
+      display: flex;
+      justify-content: space-around;
+      border: 1px solid #ccc;
+	  width: 700px;
+    }
+    .box {
+      background: lightseagreen;
+      padding: 20px;
+      border: 1px solid #333;
+      min-width: 60px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>justify-content: space-around + margin:auto</h1>
+
+  <div class="stage">
+    <div class="box" style="width: 150px; height: 30px;">Item 1</div>
+    <div class="box" style="margin:auto;">Item 2 (auto)</div>
+    <div class="box" style="width: 40px; height: 130px;">Item 3</div>
+    <div class="box" style="margin:auto; width: 125px;">Item 4 (auto)</div>
+    <div class="box">Item 5</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Section with Form (2 columns)</title>
+<style>
+section, form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 2px solid #333;
+}
+section {
+  width: 900px;
+}
+form {
+  flex: 1 1 45%;
+  box-sizing: border-box;
+  background: blue;
+}
+form div {
+  display: flex;
+  width: 100px;
+  height: 50px;
+  background: lightcoral;
+  border: 1px solid #333;
+}
+</style>
+</head>
+<body>
+<section>Section
+  <form>
+    <div>Form->Div1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+  </form>
+  <form>
+    <div>5</div><div>6</div><div>7</div><div>8</div><div>5</div>
+  </form>
+</section>
+</body>
+</html>

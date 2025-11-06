@@ -22,8 +22,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.Collections.Generic;
+using System.Text;
 using iText.Commons.Utils;
+using iText.Forms.Form;
+using iText.Html2pdf.Attach;
+using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Html;
+using iText.Layout;
 using iText.Layout.Tagging;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup.Node;
@@ -42,13 +47,15 @@ namespace iText.Html2pdf.Attach.Util {
     /// 1) alt attribute
     /// 2) title attribute
     /// 3) aria-label attribute
-    /// 4) aria-labelledby attribute
+    /// 4) aria-description attribute
+    /// 5) aria-describedby attribute
+    /// 6) aria-labelledby attribute
     /// <para />
     /// If none of the above attributes are present, the alternate description is not set.
     /// </remarks>
     public class AlternateDescriptionResolver {
         private static readonly IList<String> ALTERNATIVE_DESCRIPTION_RESOLUTION_ORDER = JavaUtil.ArraysAsList(AttributeConstants
-            .ALT, AttributeConstants.ARIA_LABEL, AttributeConstants.TITLE);
+            .ALT, AttributeConstants.TITLE, AttributeConstants.ARIA_LABEL, AttributeConstants.ARIA_DESCRIPTION);
 
         /// <summary>
         /// Creates a new
@@ -89,6 +96,40 @@ namespace iText.Html2pdf.Attach.Util {
                 return;
             }
             ResolveFallback(accessibleElement, element);
+        }
+
+        /// <summary>
+        /// Resolves the alternate description of the labeled
+        /// <see cref="iText.Layout.Tagging.IAccessibleElement"/>
+        /// based on the attributes of the
+        /// <see cref="iText.StyledXmlParser.Node.IElementNode"/>
+        /// and
+        /// <see cref="iText.Html2pdf.Attach.ProcessorContext"/>.
+        /// </summary>
+        /// <param name="accessibleElement">
+        /// the
+        /// <see cref="iText.Layout.Tagging.IAccessibleElement"/>
+        /// to which the alternate description should be applied.
+        /// </param>
+        /// <param name="element">
+        /// the
+        /// <see cref="iText.StyledXmlParser.Node.IElementNode"/>
+        /// from which properties the alternate description should be resolved.
+        /// </param>
+        /// <param name="context">
+        /// the
+        /// <see cref="iText.Html2pdf.Attach.ProcessorContext"/>
+        /// from which the alternate description should be resolved.
+        /// </param>
+        public virtual void ResolveLabelableElement(IAccessibleElement accessibleElement, IElementNode element, ProcessorContext
+             context) {
+            if (LabelUtil.IsLabelable(element)) {
+                SetAltDescForActivelyLabeledElements(accessibleElement, element, context);
+                SetAltDescForPassivelyLabelledElements(accessibleElement, element, context, AttributeConstants.ARIA_LABELLEDBY
+                    );
+                SetAltDescForPassivelyLabelledElements(accessibleElement, element, context, AttributeConstants.ARIA_DESCRIBEDBY
+                    );
+            }
         }
 
         /// <summary>
@@ -215,6 +256,35 @@ namespace iText.Html2pdf.Attach.Util {
                 }
             }
             return false;
+        }
+
+        private static void SetAltDescForPassivelyLabelledElements(IAccessibleElement accessibleElement, IElementNode
+             element, ProcessorContext context, String property) {
+            if (element.GetAttribute(property) != null) {
+                String[] ids = iText.Commons.Utils.StringUtil.Split(element.GetAttribute(property), " ");
+                StringBuilder alt = new StringBuilder();
+                foreach (String id in ids) {
+                    String description = context.GetLabelContext().GetAltDescription(id);
+                    if (description != null) {
+                        alt.Append(description);
+                    }
+                }
+                ((IPropertyContainer)accessibleElement).SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.GetConformance
+                    ());
+                accessibleElement.GetAccessibilityProperties().SetAlternateDescription(alt.ToString());
+            }
+        }
+
+        private static void SetAltDescForActivelyLabeledElements(IAccessibleElement accessibleElement, IElementNode
+             element, ProcessorContext context) {
+            String id = element.GetAttribute(AttributeConstants.ID);
+            if (id == null) {
+                return;
+            }
+            ((IPropertyContainer)accessibleElement).SetProperty(FormProperty.FORM_CONFORMANCE_LEVEL, context.GetConformance
+                ());
+            String text = context.GetLabelContext().GetAltDescription(id);
+            accessibleElement.GetAccessibilityProperties().SetAlternateDescription(text);
         }
     }
 }

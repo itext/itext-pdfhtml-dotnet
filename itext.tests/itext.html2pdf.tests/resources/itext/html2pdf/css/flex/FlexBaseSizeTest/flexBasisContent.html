@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p>Row direction:</p>
+<div style="display: flex; flex-direction: row; width: 200px; border: 5px solid lightcyan;">
+    <div style="flex-basis: content; border: 5px solid mistyrose;">
+        Simple flex item
+    </div>
+    <div style="flex-basis: content; border: 5px solid lavender;">
+        Max-content width is greater than container width
+    </div>
+    <div style="flex-basis: content; border: 5px solid lightpink;">
+        ContentWidthIsGreaterThanContainerWidth
+    </div>
+</div>
+<p>Row direction wrapped:</p>
+<div style="display: flex; flex-direction: row; flex-wrap: wrap; width: 200px; border: 5px solid lightcyan;">
+    <div style="flex-basis: content; border: 5px solid mistyrose;">
+        Simple flex item
+    </div>
+    <div style="flex-basis: content; border: 5px solid lavender;">
+        Max-content width is greater than container width
+    </div>
+    <div style="flex-basis: content; border: 5px solid lightpink;">
+        ContentWidthIsGreaterThanContainerWidth
+    </div>
+</div>
+<p>Column direction:</p>
+<div style="display: flex; flex-direction: column; width: 200px; border: 5px solid lightcyan;">
+    <div style="flex-basis: content; border: 5px solid mistyrose;">
+        Simple flex item
+    </div>
+    <div style="flex-basis: content; border: 5px solid lavender;">
+        Max-content width is greater than container width
+    </div>
+    <div style="flex-basis: content; border: 5px solid lightpink;">
+        ContentWidthIsGreaterThanContainerWidth
+    </div>
+</div>
+<p>Nested container with no width:</p>
+<div style="display: flex; width: 200px; border: 5px solid #cce5ff">
+    <div style="display: flex; flex-direction: row; border: 5px solid lightcyan;">
+        <div style="flex-basis: content; border: 5px solid mistyrose;">
+            Simple flex item
+        </div>
+        <div style="flex-basis: content; border: 5px solid lavender;">
+            Max-content width is greater than container width
+        </div>
+        <div style="flex-basis: content; border: 5px solid lightpink;">
+            ContentWidthIsGreaterThanContainerWidth
+        </div>
+    </div>
+</div>
+</body>
+</html>

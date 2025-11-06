@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Flex Gap + Wrap Demo</title>
+    <style>
+        .sample_col {
+            border: 2px solid #333;
+            width: 400px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            background: #f9f9f9;
+        }
+
+        .big_div {
+            border: 2px solid #333;
+            width: 400px;
+            height: 950px;
+            background: #f9f9f9;
+        }
+
+        .item {
+          width: 80px;
+          height: 90px;
+          background: lightcoral;
+          border: 1px solid #333;
+          display: flex;
+        }
+    </style>
+</head>
+<body>
+<div class="big_div"></div>
+<div class="sample_col" style="flex-wrap: wrap;">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+    <div class="item">5</div>
+    <div class="item">6</div>
+</div>
+</body>
+</html>

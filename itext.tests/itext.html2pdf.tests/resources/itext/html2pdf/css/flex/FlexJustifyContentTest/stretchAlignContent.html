@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content: stretch + align-content</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .container {
+      display: flex;
+      flex-wrap: wrap;               
+      justify-content: stretch;      
+      border: 2px solid #444;
+      margin-bottom: 40px;
+      width: 500px;
+      height: 300px;                 
+    }
+    .box {
+      background: lightblue;
+      border: 1px solid #333;
+      width: 100px;
+      height: 60px;
+      margin: 5px;
+      text-align: center;
+      font-weight: bold;
+    }
+    h2 {margin: 10px 0;}
+  </style>
+</head>
+<body>
+  <h1>Flexbox justify-content: stretch + align-content</h1>
+
+  <h2>align-content: flex-start</h2>
+  <div class="container" style="align-content: flex-start;">
+    <div class="box">1</div><div class="box">2</div><div class="box">3</div>
+    <div class="box">4</div><div class="box">5</div><div class="box">6</div>
+    <div class="box">7</div><div class="box">8</div><div class="box">9</div>
+  </div>
+
+  <h2>align-content: flex-end</h2>
+  <div class="container" style="align-content: flex-end;">
+    <div class="box">1</div><div class="box">2</div><div class="box">3</div>
+    <div class="box">4</div><div class="box">5</div><div class="box">6</div>
+    <div class="box">7</div><div class="box">8</div><div class="box">9</div>
+  </div>
+
+  <h2>align-content: center</h2>
+  <div class="container" style="align-content: center;">
+    <div class="box">1</div><div class="box">2</div><div class="box">3</div>
+    <div class="box">4</div><div class="box">5</div><div class="box">6</div>
+    <div class="box">7</div><div class="box">8</div><div class="box">9</div>
+  </div>
+
+  <h2>align-content: space-between</h2>
+  <div class="container" style="align-content: space-between;">
+    <div class="box">1</div><div class="box">2</div><div class="box">3</div>
+    <div class="box">4</div><div class="box">5</div><div class="box">6</div>
+    <div class="box">7</div><div class="box">8</div><div class="box">9</div>
+  </div>
+
+  <h2>align-content: space-around</h2>
+  <div class="container" style="align-content: space-around;">
+    <div class="box">1</div><div class="box">2</div><div class="box">3</div>
+    <div class="box">4</div><div class="box">5</div><div class="box">6</div>
+    <div class="box">7</div><div class="box">8</div><div class="box">9</div>
+  </div>
+
+  <h2>align-content: space-evenly</h2>
+  <div class="container" style="align-content: space-evenly;">
+    <div class="box">1</div><div class="box">2</div><div class="box">3</div>
+    <div class="box">4</div><div class="box">5</div><div class="box">6</div>
+    <div class="box">7</div><div class="box">8</div><div class="box">9</div>
+  </div>
+
+</body>
+</html>

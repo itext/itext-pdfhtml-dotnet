@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content with margin:auto examples</title>
+  <style>
+    body {font-family: sans-serif;}
+	.parent {background: lightblue; border: 1px solid #333; justify-content: space-around;width: 700px;}
+    .stage {display: flex; border: 1px solid #333; height: 120px; width: 700px;}
+    .box {background: lightcoral; padding: 20px; border: 1px solid #333; width: 80px; text-align: center;}
+  </style>
+</head>
+<body>
+  <h1>Flexbox justify-content + margin:auto demos</h1>
+
+  <h2>justify-content: stretch</h2>
+  <div class="parent">
+  <div class="stage" style="justify-content: stretch;">
+    <div class="box" style="margin:auto;">margin:auto</div>
+    <div class="box">1</div>
+    <div class="box">2</div>
+  </div>
+
+  <h2>justify-content: safe center</h2>
+  <div class="stage" style="justify-content: safe center;">
+    <div class="box">1</div>
+    <div class="box" style="margin:auto;">margin:auto</div>
+    <div class="box">2</div>
+  </div>
+
+  <h2>justify-content: unsafe center</h2>
+  <div class="stage" style="justify-content: unsafe center;">
+    <div class="box">1</div>
+    <div class="box" style="margin:auto;">margin:auto</div>
+    <div class="box">2</div>
+  </div>
+
+  <h2>justify-content: inherit</h2>
+  <div class="stage" style="justify-content: inherit;">
+    <div class="box">1</div>
+    <div class="box" style="margin:auto;">margin:auto</div>
+    <div class="box">2</div>
+  </div>
+
+  <h2>justify-content: initial</h2>
+  <div class="stage" style="justify-content: initial;">
+    <div class="box">1</div>
+    <div class="box" style="margin:auto;">margin:auto</div>
+    <div class="box">2</div>
+  </div>
+
+  <h2>justify-content: revert</h2>
+  <div class="stage" style="justify-content: revert;">
+    <div class="box">1</div>
+    <div class="box" style="margin:auto;">margin:auto</div>
+    <div class="box">2</div>
+  </div>
+
+  <h2>justify-content: revert-layer</h2>
+  <div class="stage" style="justify-content: revert-layer;">
+    <div class="box">1</div>
+    <div class="box" style="margin:auto;">margin:auto</div>
+    <div class="box">2</div>
+  </div>
+
+  <h2>justify-content: unset</h2>
+  <div class="stage" style="justify-content: unset;">
+    <div class="box">1</div>
+    <div class="box" style="margin:auto;">margin:auto</div>
+    <div class="box">2</div>
+  </div>
+  </div>
+
+</body>
+</html>

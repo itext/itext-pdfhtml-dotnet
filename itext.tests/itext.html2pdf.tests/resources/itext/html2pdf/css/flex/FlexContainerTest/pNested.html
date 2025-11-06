@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nested Flex in P</title>
+<style>
+p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 400px;
+  border: 2px solid #333;
+}
+.nested {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  width: 180px;
+  height: 100px;
+  background: lightblue;
+  border: 1px solid #666;
+}
+.nested span {
+  display: flex;
+  width: 80px;
+  height: 40px;
+  background: lightcoral;
+  border: 1px solid #333;
+}
+</style>
+</head>
+<body>
+<p>
+  <span class="nested">
+    <span>1</span><span>2</span><span>3</span><span>4</span>
+  </span>
+  <span class="nested">
+    <span>5</span><span>6</span><span>7</span><span>8</span>
+  </span>
+  <span class="nested">
+    <span>9</span><span>10</span><span>11</span><span>12</span>
+  </span>
+  <span class="nested">
+    <span>13</span><span>14</span><span>15</span><span>16</span>
+  </span>
+</p>
+</body>
+</html>

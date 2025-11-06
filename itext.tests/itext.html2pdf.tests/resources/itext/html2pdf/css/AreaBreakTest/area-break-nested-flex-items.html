@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Nested Flex Item with Page Break</title>
+    <style>
+        body {
+          font-family: sans-serif;
+          margin: 20px;
+        }
+        .flex {
+          display: flex;
+          border: 2px solid black;
+          padding: 10px;
+          margin-bottom: 30px;
+          height: 250px;
+        }
+        .item {
+          flex: 1 1 auto;
+          margin: 5px;
+          padding: 20px;
+          text-align: center;
+          border: 1px solid blue;
+          background: lightblue;
+        }
+        .nested-flex {
+          display: flex;
+          flex-direction: column;
+          border: 2px dashed darkred;
+          padding: 5px;
+        }
+        .nested-item {
+          flex: 1 1 auto;
+          margin: 5px;
+          padding: 10px;
+          border: 1px solid darkred;
+          background: mistyrose;
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Flex Container → Flex Item → Nested Flex with Page Break</h1>
+
+<div class="flex">
+    <div class="item">1</div>
+
+    <div class="item">
+        <div class="nested-flex">
+            <div class="nested-item" style="page-break-after: always;">2.1 (forces break)</div>
+            <div class="nested-item">2.2</div>
+        </div>
+    </div>
+
+    <div class="item">3</div>
+    <div class="item">4</div>
+</div>
+
+<div class="flex">
+    <div class="item">5</div>
+    <div class="item">6</div>
+    <div class="item">7</div>
+</div>
+
+</body>
+</html>

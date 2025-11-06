@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Align-Content A</title>
+<style>
+a {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 260px;
+  height: 180px;
+  border: 2px solid #333;
+  background: #f9f9f9;
+  text-decoration: none;
+}
+div.item {
+  width: 100px;
+  height: 40px;
+  background: lightblue;
+  border: 1px solid #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.stretch div.item { height: auto; }
+</style>
+</head>
+<body>
+
+<a style="align-content: flex-start;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</a>
+
+<a style="align-content: flex-end;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</a>
+
+<a style="align-content: center;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</a>
+
+<a style="align-content: space-between;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</a>
+
+<a style="align-content: space-around;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</a>
+
+<a style="align-content: space-evenly;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</a>
+
+<a class="stretch" style="align-content: stretch; height: 300px;">
+  <div class="item">1</div><div class="item">2</div><div class="item">3</div>
+  <div class="item">4</div><div class="item">5</div><div class="item">6</div>
+</a>
+
+</body>
+</html>

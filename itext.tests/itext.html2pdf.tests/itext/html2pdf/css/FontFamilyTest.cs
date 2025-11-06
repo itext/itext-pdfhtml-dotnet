@@ -59,8 +59,8 @@ namespace iText.Html2pdf.Css {
             String pdfPath = DESTINATION_FOLDER + "selectFontInGroup.pdf";
             String cmpPdfPath = SOURCE_FOLDER + "cmp_selectFontInGroup.pdf";
             HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(pdfPath));
-            //TODO DEVSIX-1104: Change cmp file after supporting ttc#id when selecting font from ttc
-            //Currently it will look for a font file where #{id} is part of the font path.
+            // TODO DEVSIX-1104: Change cmp file after supporting ttc#id when selecting font from ttc
+            //  Currently it will look for a font file where #{id} is part of the font path.
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(pdfPath, cmpPdfPath, DESTINATION_FOLDER, 
                 "diff_"));
         }

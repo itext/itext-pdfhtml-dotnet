@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Escaped character test</title>
+    <style>
+        #test\0020AC {
+            background-color: cyan;
+            width: 100px;
+            height: 100px;
+        }
+
+        .test\0020AC -cls {
+            background-color: red;
+            width: 100px;
+            height: 100px;
+        }
+
+        .\0020ACtest {
+            background-color: yellow;
+            width: 100px;
+            height: 100px;
+        }
+
+        p .\0020ACtest {
+            background-color: green;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="test€">Release Notes with €</div>
+    <div class="test€-cls">Release Notes with € and trailing space</div>
+    <div class="€test">Release Notes with € at the beginning</div>
+    <p>
+        <div class="€test">Release Notes with € after combinator</div>
+    </p>
+    <div class="€test">Release Notes with € without combinator</div>
+</body>
+</html>

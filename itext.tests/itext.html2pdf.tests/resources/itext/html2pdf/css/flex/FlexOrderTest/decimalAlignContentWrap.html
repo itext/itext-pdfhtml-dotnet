@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Flex-wrap + align-content + order demo</title>
+<style>
+  body { font-family: sans-serif; }
+  .container {
+    display: flex;
+    flex-wrap: wrap;       
+    border: 2px solid #000;
+    width: 700px;
+    height: 300px;         
+  }
+  .box {
+    flex: 0 0 180px;       
+    height: 80px;
+    border: 1px solid #333;
+    background: lightblue;
+    display: flex;
+    align-items: center;    
+    justify-content: center;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<h1>Flex-wrap + align-content + order examples</h1>
+
+<h2>align-content: flex-start</h2>
+<div class="container" style="align-content: flex-start;">
+  <div class="box" style="order: 3;">1 (order:3)</div>
+  <div class="box" style="order: -1;">2 (order:-1)</div>
+  <div class="box" style="order: 0;">3 (order:0)</div>
+  <div class="box" style="order: 2;">4 (order:2)</div>
+  <div class="box" style="order: -2;">5 (order:-2)</div>
+  <div class="box" style="order: 1;">6 (order:1)</div>
+</div>
+
+<h2>align-content: flex-end</h2>
+<div class="container" style="align-content: flex-end;">
+  <div class="box" style="order: -1;">1 (order:-1)</div>
+  <div class="box" style="order: 2;">2 (order:2)</div>
+  <div class="box" style="order: 0;">3 (order:0)</div>
+  <div class="box" style="order: -2;">4 (order:-2)</div>
+  <div class="box" style="order: 1;">5 (order:1)</div>
+  <div class="box" style="order: 3;">6 (order:3)</div>
+</div>
+
+<h2>align-content: center</h2>
+<div class="container" style="align-content: center;">
+  <div class="box" style="order: 1;">1 (order:1)</div>
+  <div class="box" style="order: -1;">2 (order:-1)</div>
+  <div class="box" style="order: 0;">3 (order:0)</div>
+  <div class="box" style="order: 3;">4 (order:3)</div>
+  <div class="box" style="order: -2;">5 (order:-2)</div>
+  <div class="box" style="order: 2;">6 (order:2)</div>
+</div>
+
+<h2>align-content: space-between</h2>
+<div class="container" style="align-content: space-between;">
+  <div class="box" style="order: 0;">1 (order:0)</div>
+  <div class="box" style="order: -1;">2 (order:-1)</div>
+  <div class="box" style="order: 1;">3 (order:1)</div>
+  <div class="box" style="order: 2;">4 (order:2)</div>
+  <div class="box" style="order: -2;">5 (order:-2)</div>
+  <div class="box" style="order: 3;">6 (order:3)</div>
+</div>
+
+<h2>align-content: space-around</h2>
+<div class="container" style="align-content: space-around;">
+  <div class="box" style="order: -1;">1 (order:-1)</div>
+  <div class="box" style="order: 0;">2 (order:0)</div>
+  <div class="box" style="order: 1;">3 (order:1)</div>
+  <div class="box" style="order: 2;">4 (order:2)</div>
+  <div class="box" style="order: -2;">5 (order:-2)</div>
+  <div class="box" style="order: 3;">6 (order:3)</div>
+</div>
+
+<h2>align-content: space-evenly</h2>
+<div class="container" style="align-content: space-evenly;">
+  <div class="box" style="order: 0;">1 (order:0)</div>
+  <div class="box" style="order: 2;">2 (order:2)</div>
+  <div class="box" style="order: -1;">3 (order:-1)</div>
+  <div class="box" style="order: 1;">4 (order:1)</div>
+  <div class="box" style="order: -2;">5 (order:-2)</div>
+  <div class="box" style="order: 3;">6 (order:3)</div>
+</div>
+
+</body>
+</html>

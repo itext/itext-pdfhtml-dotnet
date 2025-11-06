@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
 using iText.Commons.Utils;
+using iText.Html2pdf;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Logs;
@@ -48,8 +49,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="element">the element to set the properties</param>
         public static void ApplyFlexItemProperties(IDictionary<String, String> cssProps, ProcessorContext context, 
             IPropertyContainer element) {
-            element.SetProperty(Property.COLLAPSING_MARGINS, null);
             LogWarningIfThereAreNotSupportedPropertyValues(CreateSupportedFlexItemPropertiesAndValuesMap(), cssProps);
+            ApplyAlignSelf(cssProps, element);
+            ApplyOrder(cssProps, element);
             String flexGrow = cssProps.Get(CommonCssConstants.FLEX_GROW);
             if (flexGrow != null) {
                 float? flexGrowValue = CssDimensionParsingUtils.ParseFloat(flexGrow);
@@ -80,8 +82,19 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <summary>Applies properties to a flex container.</summary>
         /// <param name="cssProps">the CSS properties</param>
         /// <param name="element">the element</param>
+        [System.ObsoleteAttribute(@"in favour of ApplyFlexContainerProperties(System.Collections.Generic.IDictionary{K, V}, iText.Layout.IPropertyContainer, iText.Html2pdf.Attach.ProcessorContext)"
+            )]
         public static void ApplyFlexContainerProperties(IDictionary<String, String> cssProps, IPropertyContainer element
             ) {
+            ApplyFlexContainerProperties(cssProps, element, new ProcessorContext(new ConverterProperties()));
+        }
+
+        /// <summary>Applies properties to a flex container.</summary>
+        /// <param name="cssProps">the CSS properties</param>
+        /// <param name="element">the element</param>
+        /// <param name="context">the context of the converter processor</param>
+        public static void ApplyFlexContainerProperties(IDictionary<String, String> cssProps, IPropertyContainer element
+            , ProcessorContext context) {
             LogWarningIfThereAreNotSupportedPropertyValues(CreateSupportedFlexContainerPropertiesAndValuesMap(), cssProps
                 );
             ApplyAlignItems(cssProps, element);
@@ -89,6 +102,70 @@ namespace iText.Html2pdf.Css.Apply.Util {
             ApplyAlignContent(cssProps, element);
             ApplyWrap(cssProps, element);
             ApplyDirection(cssProps, element);
+            ApplyGap(cssProps, element, context);
+        }
+
+        private static void ApplyAlignSelf(IDictionary<String, String> cssProps, IPropertyContainer element) {
+            String alignSelfString = cssProps.Get(CommonCssConstants.ALIGN_SELF);
+            if (alignSelfString != null) {
+                if (CommonCssConstants.AUTO.Equals(alignSelfString)) {
+                    // "auto" computes to the parent's align-items value.
+                    return;
+                }
+                AlignmentPropertyValue alignSelf;
+                switch (alignSelfString) {
+                    case CommonCssConstants.START: {
+                        // TODO DEVSIX-5167 Support baseline value for align-items and align-self
+                        alignSelf = AlignmentPropertyValue.START;
+                        break;
+                    }
+
+                    case CommonCssConstants.END: {
+                        alignSelf = AlignmentPropertyValue.END;
+                        break;
+                    }
+
+                    case CommonCssConstants.FLEX_START: {
+                        alignSelf = AlignmentPropertyValue.FLEX_START;
+                        break;
+                    }
+
+                    case CommonCssConstants.FLEX_END: {
+                        alignSelf = AlignmentPropertyValue.FLEX_END;
+                        break;
+                    }
+
+                    case CommonCssConstants.CENTER: {
+                        alignSelf = AlignmentPropertyValue.CENTER;
+                        break;
+                    }
+
+                    case CommonCssConstants.SELF_START: {
+                        alignSelf = AlignmentPropertyValue.SELF_START;
+                        break;
+                    }
+
+                    case CommonCssConstants.SELF_END: {
+                        alignSelf = AlignmentPropertyValue.SELF_END;
+                        break;
+                    }
+
+                    case CommonCssConstants.NORMAL:
+                    case CommonCssConstants.STRETCH: {
+                        // For flex items, the "normal" behaves as stretch.
+                        alignSelf = AlignmentPropertyValue.STRETCH;
+                        break;
+                    }
+
+                    default: {
+                        LOGGER.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, 
+                            CommonCssConstants.ALIGN_SELF, alignSelfString));
+                        alignSelf = AlignmentPropertyValue.START;
+                        break;
+                    }
+                }
+                element.SetProperty(Property.ALIGN_SELF, alignSelf);
+            }
         }
 
         private static void ApplyWrap(IDictionary<String, String> cssProps, IPropertyContainer element) {
@@ -215,6 +292,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        private static void ApplyOrder(IDictionary<String, String> cssProps, IPropertyContainer element) {
+            element.SetProperty(Property.ORDER, CssDimensionParsingUtils.ParseInteger(cssProps.Get(CommonCssConstants.
+                ORDER)));
+        }
+
         private static void ApplyJustifyContent(IDictionary<String, String> cssProps, IPropertyContainer element) {
             String justifyContentString = cssProps.Get(CommonCssConstants.JUSTIFY_CONTENT);
             if (justifyContentString != null) {
@@ -222,6 +304,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 switch (justifyContentString) {
                     case CommonCssConstants.NORMAL: {
                         justifyContent = JustifyContent.NORMAL;
+                        break;
+                    }
+
+                    case CommonCssConstants.CENTER: {
+                        justifyContent = JustifyContent.CENTER;
                         break;
                     }
 
@@ -235,18 +322,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         break;
                     }
 
+                    case CommonCssConstants.FLEX_START: {
+                        justifyContent = JustifyContent.FLEX_START;
+                        break;
+                    }
+
                     case CommonCssConstants.FLEX_END: {
                         justifyContent = JustifyContent.FLEX_END;
-                        break;
-                    }
-
-                    case CommonCssConstants.SELF_START: {
-                        justifyContent = JustifyContent.SELF_START;
-                        break;
-                    }
-
-                    case CommonCssConstants.SELF_END: {
-                        justifyContent = JustifyContent.SELF_END;
                         break;
                     }
 
@@ -260,18 +342,23 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         break;
                     }
 
-                    case CommonCssConstants.CENTER: {
-                        justifyContent = JustifyContent.CENTER;
+                    case CommonCssConstants.SPACE_BETWEEN: {
+                        justifyContent = JustifyContent.SPACE_BETWEEN;
+                        break;
+                    }
+
+                    case CommonCssConstants.SPACE_AROUND: {
+                        justifyContent = JustifyContent.SPACE_AROUND;
+                        break;
+                    }
+
+                    case CommonCssConstants.SPACE_EVENLY: {
+                        justifyContent = JustifyContent.SPACE_EVENLY;
                         break;
                     }
 
                     case CommonCssConstants.STRETCH: {
                         justifyContent = JustifyContent.STRETCH;
-                        break;
-                    }
-
-                    case CommonCssConstants.FLEX_START: {
-                        justifyContent = JustifyContent.FLEX_START;
                         break;
                     }
 
@@ -345,6 +432,22 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
+        private static void ApplyGap(IDictionary<String, String> cssProps, IPropertyContainer element, ProcessorContext
+             context) {
+            float emValue = CssDimensionParsingUtils.ParseAbsoluteFontSize(cssProps.Get(CssConstants.FONT_SIZE));
+            float remValue = context.GetCssContext().GetRootFontSize();
+            ApplyGap(element, emValue, remValue, cssProps.Get(CssConstants.COLUMN_GAP), Property.COLUMN_GAP);
+            ApplyGap(element, emValue, remValue, cssProps.Get(CssConstants.ROW_GAP), Property.ROW_GAP);
+        }
+
+        private static void ApplyGap(IPropertyContainer container, float em, float rem, String gap, int property) {
+            String gapLength = CommonCssConstants.NORMAL.Equals(gap) ? "0px" : gap;
+            UnitValue gapValue = CssDimensionParsingUtils.ParseLengthValueToPt(gapLength, em, rem);
+            if (gapValue != null) {
+                container.SetProperty(property, gapValue.GetValue());
+            }
+        }
+
         private static void LogWarningIfThereAreNotSupportedPropertyValues(IDictionary<String, ICollection<String>
             > supportedPairs, IDictionary<String, String> cssProps) {
             foreach (KeyValuePair<String, ICollection<String>> entry in supportedPairs) {
@@ -359,13 +462,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
         }
 
         private static IDictionary<String, ICollection<String>> CreateSupportedFlexItemPropertiesAndValuesMap() {
-            IDictionary<String, ICollection<String>> supportedPairs = new Dictionary<String, ICollection<String>>();
-            ICollection<String> supportedAlignSelfValues = new HashSet<String>();
-            supportedAlignSelfValues.Add(CommonCssConstants.AUTO);
-            supportedPairs.Put(CommonCssConstants.ALIGN_SELF, supportedAlignSelfValues);
-            ICollection<String> supportedOrderValues = new HashSet<String>();
-            supportedPairs.Put(CommonCssConstants.ORDER, supportedOrderValues);
-            return supportedPairs;
+            return new Dictionary<String, ICollection<String>>();
         }
 
         private static IDictionary<String, ICollection<String>> CreateSupportedFlexContainerPropertiesAndValuesMap
@@ -389,12 +486,6 @@ namespace iText.Html2pdf.Css.Apply.Util {
             supportedAlignContentValues.Add(CommonCssConstants.SPACE_BETWEEN);
             supportedAlignContentValues.Add(CommonCssConstants.SPACE_EVENLY);
             supportedPairs.Put(CommonCssConstants.ALIGN_CONTENT, supportedAlignContentValues);
-            ICollection<String> supportedRowGapValues = new HashSet<String>();
-            supportedRowGapValues.Add(CommonCssConstants.NORMAL);
-            supportedPairs.Put(CommonCssConstants.ROW_GAP, supportedRowGapValues);
-            ICollection<String> supportedColumnGapValues = new HashSet<String>();
-            supportedColumnGapValues.Add(CommonCssConstants.NORMAL);
-            supportedPairs.Put(CommonCssConstants.COLUMN_GAP, supportedColumnGapValues);
             return supportedPairs;
         }
     }

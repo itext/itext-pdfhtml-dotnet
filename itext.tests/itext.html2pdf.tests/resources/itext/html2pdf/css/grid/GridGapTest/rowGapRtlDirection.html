@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Grid - RTL direction</title>
+  <style>
+    .grid {
+      display: grid;
+      direction: rtl;
+      grid-template-columns: 100px 100px;
+      row-gap: 50px;
+      border: 2px solid #000;
+      width: 400px;
+    }
+    .item { background: lightcyan; border: 1px solid #333; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h2>RTL + row-gap: 50px</h2>
+  <div class="grid">
+    <div class="item">One</div>
+    <div class="item">Two</div>
+    <div class="item">Three</div>
+    <div class="item">Four</div>
+  </div>
+</body>
+</html>

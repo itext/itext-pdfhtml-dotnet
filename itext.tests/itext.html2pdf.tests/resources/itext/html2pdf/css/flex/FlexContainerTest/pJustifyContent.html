@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex justify-Content P</title>
+<style>
+p {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 260px;
+  height: 180px;
+  border: 2px solid #333;
+  background: #f9f9f9;
+}
+span.item {
+  width: 100px;
+  height: 40px;
+  background: lightblue;
+  border: 1px solid #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
+</head>
+<body>
+
+<p style="justify-content: flex-start;">
+  <span class="item">1</span>
+  <span class="item">2</span>
+  <span class="item">3</span>
+  <span class="item">4</span>
+  <span class="item">5</span>
+  <span class="item">6</span>
+</p>
+
+<p style="justify-content: flex-end;">
+  <span class="item">1</span>
+  <span class="item">2</span>
+  <span class="item">3</span>
+  <span class="item">4</span>
+  <span class="item">5</span>
+  <span class="item">6</span>
+</p>
+
+<p style="justify-content: center;">
+  <span class="item">1</span>
+  <span class="item">2</span>
+  <span class="item">3</span>
+  <span class="item">4</span>
+  <span class="item">5</span>
+  <span class="item">6</span>
+</p>
+
+<p style="justify-content: space-between;">
+  <span class="item">1</span>
+  <span class="item">2</span>
+  <span class="item">3</span>
+  <span class="item">4</span>
+  <span class="item">5</span>
+  <span class="item">6</span>
+</p>
+
+<p style="justify-content: space-around;">
+  <span class="item">1</span>
+  <span class="item">2</span>
+  <span class="item">3</span>
+  <span class="item">4</span>
+  <span class="item">5</span>
+  <span class="item">6</span>
+</p>
+
+<p style="justify-content: space-evenly;">
+  <span class="item">1</span>
+  <span class="item">2</span>
+  <span class="item">3</span>
+  <span class="item">4</span>
+  <span class="item">5</span>
+  <span class="item">6</span>
+</p>
+
+</body>
+</html>

@@ -155,7 +155,8 @@ namespace iText.Html2pdf.Css.Resolve {
                         // W3C Candidate Recommendation, 19 November 2018: 4. Flex Items.
                         String currentElementDisplay = elementStyles.Get(CssConstants.DISPLAY);
                         if (IsFlexItem(entry, currentElementDisplay) && !CommonCssConstants.NONE.Equals(currentElementDisplay) && 
-                            !CommonCssConstants.GRID.Equals(currentElementDisplay)) {
+                            !CommonCssConstants.GRID.Equals(currentElementDisplay) && !CssConstants.LIST_ITEM.Equals(currentElementDisplay
+                            )) {
                             elementStyles.Put(CssConstants.DISPLAY, CssConstants.BLOCK);
                         }
                     }
@@ -255,7 +256,7 @@ namespace iText.Html2pdf.Css.Resolve {
             ) {
             cssStyleSheet = new CssStyleSheet();
             LinkedList<INode> q = new LinkedList<INode>();
-            q.Add(rootNode);
+            q.AddLast(rootNode);
             while (!q.IsEmpty()) {
                 INode currentNode = q.JRemoveFirst();
                 if (currentNode is IElementNode) {
@@ -290,7 +291,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 }
                 foreach (INode child in currentNode.ChildNodes()) {
                     if (child is IElementNode) {
-                        q.Add(child);
+                        q.AddLast(child);
                     }
                 }
             }

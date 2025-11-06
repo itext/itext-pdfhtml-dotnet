@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox align-self + justify-content space-around</title>
+  <style>
+    body {font-family: sans-serif;}
+    .stage {display: flex; justify-content: space-around; border: 1px solid #ccc; height: 400px; width: 600px;}
+    .box {background: lightcoral; padding: 20px; border: 1px solid #333; width: 65px; text-align: center;}
+  </style>
+</head>
+<body>
+  <h1>justify-content: space-around with align-self + margin:auto</h1>
+
+  <div class="stage">
+    <div class="box" style="align-self: flex-start; height: 30px; width: 100px;">flex-start</div>
+    <div class="box" style="align-self: center; height: 200px; width: 40px;">center</div>
+    <div class="box" style="align-self: flex-end;">flex-end</div>
+    <div class="box" style="align-self: stretch;">stretch</div>
+    <div class="box" style="margin:auto;">margin:auto</div>
+  </div>
+</body>
+</html>

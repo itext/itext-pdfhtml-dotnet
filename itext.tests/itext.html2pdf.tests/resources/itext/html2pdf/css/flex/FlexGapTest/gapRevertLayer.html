@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>gap: revert-layer Demo</title>
+
+<style layer(base)>
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    border: 2px dashed #666;
+    padding: 10px;
+  }
+</style>
+
+<style layer(override)>
+  .container {
+    gap: 25px;
+  }
+</style>
+
+<style>
+  .container.revert-layer {
+    gap: revert-layer;
+  }
+
+  .item {
+    background: lightcoral;
+    border: 1px solid #333;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container revert-layer">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+</div>
+
+</body>
+</html>

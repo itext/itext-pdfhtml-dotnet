@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Flexbox order with decimal values</title>
+<style>
+  body { font-family: sans-serif; }
+  .container {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #000;
+    width: 300px;
+  }
+  .box {
+    height: 250px;
+    display: flex;
+    border: 1px solid #333;
+    background: lightblue;
+  }
+</style>
+</head>
+<body>
+
+<h1>Flexbox order with decimal values (negative & positive)</h1>
+
+<div class="container">
+  <div class="box" style="order: -2;">Item 1 (order: -2)</div>
+  <div class="box" style="order: 0;">Item 2 (order: 0)</div>
+  <div class="box" style="order: -1;">Item 3 (order: -1)</div>
+  <div class="box" style="order: 3;">Item 4 (order: 3)</div>
+  <div class="box" style="order: 1;">Item 5 (order: 1)</div>
+  <div class="box" style="order: -2;">Item 6 (order: -2)</div>
+  <div class="box" style="order: 2;">Item 7 (order: 2)</div>
+  <div class="box" style="order: -4;">Item 8 (order: -4)</div>
+  <div class="box" style="order: 6;">Item 9 (order: 6)</div>
+  <div class="box" style="order: 5;">Item 10 (order: 5)</div>
+  <div class="box" style="order: -3;">Item 11 (order: -3)</div>
+  <div class="box" style="order: 4;">Item 12 (order: 4)</div>
+</div>
+
+</body>
+</html>

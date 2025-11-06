@@ -47,6 +47,8 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.ABBR, (lhs, rhs) => new AbbrTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.ADDRESS, (lhs, rhs) => new DivTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.ARTICLE, (lhs, rhs) => new DivTagWorker(lhs, rhs));
+            workerMapping.PutMapping(TagConstants.ARTICLE, CssConstants.FLEX, (lhs, rhs) => new DisplayFlexTagWorker(lhs
+                , rhs));
             workerMapping.PutMapping(TagConstants.ASIDE, (lhs, rhs) => new DivTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.B, (lhs, rhs) => new SpanTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.BDI, (lhs, rhs) => new SpanTagWorker(lhs, rhs));
@@ -71,9 +73,15 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.FIELDSET, (lhs, rhs) => new DivTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.FIGCAPTION, (lhs, rhs) => new DivTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.FIGURE, (lhs, rhs) => new DivTagWorker(lhs, rhs));
+            workerMapping.PutMapping(TagConstants.FIGURE, CssConstants.FLEX, (lhs, rhs) => new DisplayFlexTagWorker(lhs
+                , rhs));
             workerMapping.PutMapping(TagConstants.FONT, (lhs, rhs) => new SpanTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.FOOTER, (lhs, rhs) => new DivTagWorker(lhs, rhs));
+            workerMapping.PutMapping(TagConstants.FOOTER, CssConstants.FLEX, (lhs, rhs) => new DisplayFlexTagWorker(lhs
+                , rhs));
             workerMapping.PutMapping(TagConstants.FORM, (lhs, rhs) => new DivTagWorker(lhs, rhs));
+            workerMapping.PutMapping(TagConstants.FORM, CssConstants.FLEX, (lhs, rhs) => new DisplayFlexTagWorker(lhs, 
+                rhs));
             workerMapping.PutMapping(TagConstants.H1, (lhs, rhs) => new HTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.H2, (lhs, rhs) => new HTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.H3, (lhs, rhs) => new HTagWorker(lhs, rhs));
@@ -81,6 +89,8 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.H5, (lhs, rhs) => new HTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.H6, (lhs, rhs) => new HTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.HEADER, (lhs, rhs) => new DivTagWorker(lhs, rhs));
+            workerMapping.PutMapping(TagConstants.HEADER, CssConstants.FLEX, (lhs, rhs) => new DisplayFlexTagWorker(lhs
+                , rhs));
             workerMapping.PutMapping(TagConstants.HR, (lhs, rhs) => new HrTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.HTML, (lhs, rhs) => new HtmlTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.I, (lhs, rhs) => new SpanTagWorker(lhs, rhs));
@@ -106,6 +116,8 @@ namespace iText.Html2pdf.Attach.Impl {
             workerMapping.PutMapping(TagConstants.S, (lhs, rhs) => new SpanTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.SAMP, (lhs, rhs) => new SpanTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.SECTION, (lhs, rhs) => new DivTagWorker(lhs, rhs));
+            workerMapping.PutMapping(TagConstants.SECTION, CssConstants.FLEX, (lhs, rhs) => new DisplayFlexTagWorker(lhs
+                , rhs));
             workerMapping.PutMapping(TagConstants.SELECT, (lhs, rhs) => new SelectTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.SMALL, (lhs, rhs) => new SpanTagWorker(lhs, rhs));
             workerMapping.PutMapping(TagConstants.SPAN, (lhs, rhs) => new SpanTagWorker(lhs, rhs));

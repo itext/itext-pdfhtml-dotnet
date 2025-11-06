@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flexbox Order: revert-layer Demo</title>
+<style>
+  @layer base {
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      border: 2px solid #444;
+      width: 700px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    .box {
+      flex: 1 0 60px;
+      height: 60px;
+      background: lightblue;
+      border: 1px solid #333;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 2px;
+      order: 1; 
+    }
+  }
+
+  @layer overrides {
+    .box.override-2 { order: 2; background: lightgreen; }
+    .box.override-3 { order: 3; background: lightcoral; }
+    .box.revert { order: revert-layer; background: lightgoldenrodyellow; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Flexbox: order with revert-layer</h1>
+
+<div class="container">
+  <div class="box override-2">1 (order 2)</div>
+  <div class="box override-3">2 (order 3)</div>
+  <div class="box revert">3 (revert-layer → 1)</div>
+  <div class="box override-2">4 (order 2)</div>
+  <div class="box revert">5 (revert-layer → 1)</div>
+  <div class="box override-3">6 (order 3)</div>
+  <div class="box revert">7 (revert-layer → 1)</div>
+  <div class="box override-2">8 (order 2)</div>
+  <div class="box revert">9 (revert-layer → 1)</div>
+  <div class="box override-3">10 (order 3)</div>
+</div>
+
+</body>
+</html>

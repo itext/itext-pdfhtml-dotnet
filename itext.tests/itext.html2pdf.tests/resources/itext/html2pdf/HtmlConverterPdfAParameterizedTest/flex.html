@@ -2,11 +2,12 @@
 <html>
 <head>
 <style>
-	body {
-		display: flex;
-		flex-direction:row;
+	.container {
+        display: flex;
+        flex-direction:row;
 	}
-    div {
+
+    .item {
 		width: 200px;
 		height: 200px;
 		background-color:red;
@@ -20,8 +21,10 @@
 <title>Test</title>
 </head>
 <body >
-<div>1</div>
-<div>2</div>
-<div>3</div>
+<div class="container">
+	<div class="item">1</div>
+	<div class="item">2</div>
+	<div class="item">3</div>
+</div>
 </body>
 </html>

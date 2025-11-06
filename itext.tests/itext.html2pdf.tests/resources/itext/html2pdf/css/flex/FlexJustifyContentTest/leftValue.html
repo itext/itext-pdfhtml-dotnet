@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+    body {
+      padding: 20px;
+    }
+
+    .container {
+      display: flex;
+      border: 2px solid #333;
+      background: #f0f0f0;
+      height: 80px;
+    }
+
+    .item {
+      background: tomato;
+      padding: 10px 20px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .start    { justify-content: start; }
+    .flex     { justify-content: flex-start; }
+    .left     { justify-content: left; }
+  </style>
+</head>
+<body dir="rtl">
+
+  <div class="container start">
+    <div class="item">start</div>
+  </div>
+
+  <div class="container flex">
+    <div class="item">flex-start</div>
+  </div>
+
+  <div class="container left">
+    <div class="item">left</div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content: inherit demo</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .parent {display: flex; justify-content: space-between; border: 1px solid #666; margin-bottom: 20px;}
+    .parent div {background: lightblue; border: 1px solid #333; text-align: center;}
+    .child {display: flex; justify-content: inherit; border: 1px solid #ccc; padding: 10px; gap: 10px;}
+    .box {background: lightcoral; padding: 20px; border: 1px solid #333; text-align: center;}
+  </style>
+</head>
+<body>
+  <h1>justify-content: inherit demo</h1>
+
+<div class="parent" style="display:flex; justify-content: space-between;">
+  <div class="child" style="display:flex; justify-content: inherit; width:800px;">
+    <div class="box">Child 1</div>
+    <div class="box">Child 2</div>
+    <div class="box">Child 3</div>
+  </div>
+</div>
+
+<div class="parent" style="display:flex; justify-content: space-evenly;">
+  <div class="child" style="display:flex; justify-content: inherit; width:800px;">
+    <div class="box">Child 1</div>
+    <div class="box">Child 2</div>
+    <div class="box">Child 3</div>
+  </div>
+</div>
+
+<div class="parent" style="display:flex; justify-content: space-around;">
+  <div class="child" style="display:flex; justify-content: inherit; width:800px;">
+    <div class="box">Child 1</div>
+    <div class="box">Child 2</div>
+    <div class="box">Child 3</div>
+  </div>
+</div>
+</body>
+</html>

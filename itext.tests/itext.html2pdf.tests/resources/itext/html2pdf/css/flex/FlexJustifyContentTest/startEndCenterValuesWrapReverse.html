@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content alignment values with flex-wrap</title>
+  <style>
+    body {font-family: sans-serif; margin: 20px;}
+    .container {
+      display: flex;
+      flex-wrap: wrap-reverse; 
+      border: 2px solid #444;
+      margin-bottom: 40px;
+      width: 400px; 
+    }
+    .box {
+      background: lightblue;
+      padding: 20px;
+      border: 1px solid #333;
+      width: 100px;
+      text-align: center;
+      margin: 5px;
+    }
+    h2 {margin: 10px 0;}
+  </style>
+</head>
+<body>
+  <h1>Flexbox justify-content alignment values with flex-wrap</h1>
+
+  <h2>justify-content: center</h2>
+  <div class="container" style="justify-content: center;">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+  </div>
+
+  <h2>justify-content: start</h2>
+  <div class="container" style="justify-content: start;">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+  </div>
+
+  <h2>justify-content: end</h2>
+  <div class="container" style="justify-content: end;">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+  </div>
+
+  <h2>justify-content: flex-start</h2>
+  <div class="container" style="justify-content: flex-start;">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+  </div>
+
+  <h2>justify-content: flex-end</h2>
+  <div class="container" style="justify-content: flex-end;">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+  </div>
+
+  <h2>justify-content: left</h2>
+  <div class="container" style="justify-content: left;">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+  </div>
+
+  <h2>justify-content: right</h2>
+  <div class="container" style="justify-content: right;">
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+  </div>
+
+</body>
+</html>

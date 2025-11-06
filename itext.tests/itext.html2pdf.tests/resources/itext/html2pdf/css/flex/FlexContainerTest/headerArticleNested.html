@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Header with Article (2 columns)</title>
+<style>
+header, article {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 2px solid #333;
+}
+header {
+  width: 900px;
+}
+article {
+  flex: 1 1 45%;
+  box-sizing: border-box;
+  background: blue;
+  margin: 5px;
+}
+article div {
+  display: flex;
+  width: 100px;
+  height: 50px;
+  background: lightcoral;
+  border: 1px solid #333;
+}
+</style>
+</head>
+<body>
+<header>Header
+  <article>
+    <div>Article->DIV 1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+  </article>
+  <article>
+    <div>Article->DIV 5</div><div>6</div><div>7</div><div>8</div><div>5</div>
+  </article>
+</header>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Flex Gap + Align-Self Demo</title>
+<style>
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start; 
+    column-gap: 50px;
+    width: 500px;
+    height: 200px;
+    border: 2px solid #333;
+    padding: 10px;
+    background: #f9f9f9;
+    margin-bottom: 30px;
+  }
+
+  .item {
+    width: 100px;
+    height: 60px;
+    background: lightcoral;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="item" style="align-self: flex-start;">flex-start</div>
+  <div class="item" style="align-self: flex-end;">flex-end</div>
+  <div class="item" style="align-self: center;">center</div>
+  <div class="item" style="align-self: baseline; font-size: 24px;">baseline</div>
+  <div class="item" style="align-self: stretch; height: auto;">stretch</div>
+</div>
+
+</body>
+</html>

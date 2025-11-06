@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Div with Div</title>
+<style>
+.flex, .nested_flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 2px solid #333;
+}
+.flex {
+  width: 720px;
+  background: blue;
+}
+.nested_flex {
+  flex: 1 1 45%;
+  background: lightblue;
+  margin: 5px;
+}
+.item {
+  width: 80px;
+  height: 40px;
+  background: lightcoral;
+  border: 1px solid #333;
+}
+</style>
+</head>
+<body>
+<div class="flex">
+  Div
+  <div class="nested_flex">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+  </div>
+  <div class="nested_flex">
+    <div class="item">5</div>
+    <div class="item">6</div>
+    <div class="item">7</div>
+    <div class="item">8</div>
+    <div class="item">9</div>
+  </div>
+</div>
+</body>
+</html>

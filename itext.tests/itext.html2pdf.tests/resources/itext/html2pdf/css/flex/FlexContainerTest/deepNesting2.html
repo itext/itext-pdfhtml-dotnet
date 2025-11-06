@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Deep Flex Nesting</title>
+<style>
+div, ul, li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 2px solid #333;
+}
+div {
+  width: 900px;
+}
+ul {
+  flex: 1 1 45%;
+  box-sizing: border-box;
+  background: blue;
+}
+li {
+  flex: 1 1 45%;
+  background: lightblue;
+  border: 1px solid #666;
+  margin: 5px;
+}
+li div {
+  display: flex;
+  width: 80px;
+  height: 40px;
+  background: lightcoral;
+  border: 1px solid #333;
+}
+</style>
+</head>
+<body>
+<div>div
+  <ul>
+    <li><div>LI->DIV 1</div><div>2</div></li>
+    <li><div>3</div><div>4</div></li>ul
+  </ul>
+  <ul>
+    <li><div>5</div><div>6</div></li>
+    <li><div>7</div><div>8</div><div>9</div></li>
+  </ul>
+</div>
+</body>
+</html>

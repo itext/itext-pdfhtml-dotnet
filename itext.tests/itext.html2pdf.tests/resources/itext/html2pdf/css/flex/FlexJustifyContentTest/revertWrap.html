@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Flexbox justify-content inheritance & resets with parent containers</title>
+  <style>
+    body {
+	  font-family: sans-serif; margin: 20px;
+	}
+	
+    .parent {
+	  display: flex; border: 2px solid #444; margin-bottom: 20px;
+	}
+    .container {
+	  display: flex; border: 1px solid #666; margin-bottom: 30px; height: 150px; width: 300px;
+	}
+    .box {
+	  background: lightcoral; padding: 20px; border: 1px solid #333; width: 60px; text-align: center;
+	}
+    h2 {
+	  margin-bottom: 10px;
+	}
+	
+	.wrap {
+	  flex-wrap: wrap; 
+	}
+	
+	.nowrap {
+	  flex-wrap: nowrap;
+	}
+	
+	.wrapreverse {
+	  flex-wrap: wrap-reverse; 
+	}
+  </style>
+</head>
+<body>
+  <h1>Flexbox justify-content inheritance & resets with parent containers</h1>
+
+  <h2>Wrap - justify-content: revert -> Parent (space-between)</h2>
+  <div class="parent" style="justify-content: space-between;">
+    <div class="container wrap" style="justify-content: revert;">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+    </div>
+  </div>
+
+  <h2>Wrap - justify-content: revert-layer -> Parent (space-evenly)</h2>
+  <div class="parent" style="justify-content: space-evenly;">
+    <div class="container wrap" style="justify-content: revert-layer;">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+    </div>
+  </div>
+
+  <h2>Wrap-Reverse - justify-content: revert -> Parent (space-between)</h2>
+  <div class="parent" style="justify-content: space-between;">
+    <div class="container wrapreverse" style="justify-content: revert;">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+    </div>
+  </div>
+
+  <h2>Wrap-Reverse - justify-content: revert-layer -> Parent (space-evenly)</h2>
+  <div class="parent" style="justify-content: space-evenly;">
+    <div class="container wrapreverse" style="justify-content: revert-layer;">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+    </div>
+  </div>
+
+  <h2>Nowrap - justify-content: revert -> Parent (space-between)</h2>
+  <div class="parent" style="justify-content: space-between;">
+    <div class="container nowrap" style="justify-content: revert;">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+    </div>
+  </div>
+
+  <h2>Nowrap - justify-content: revert-layer -> Parent (space-evenly)</h2>
+  <div class="parent" style="justify-content: space-evenly;">
+    <div class="container nowrap" style="justify-content: revert-layer;">
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+    </div>
+  </div>
+</body>
+</html>

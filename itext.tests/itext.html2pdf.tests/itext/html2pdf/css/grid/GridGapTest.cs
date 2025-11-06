@@ -146,8 +146,58 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
+        public virtual void ColGapLargeMarginItemTest() {
+            ConvertToPdfAndCompare("colGapLargeMarginItem", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColGapLargeMarginsTest() {
+            ConvertToPdfAndCompare("colGapLargeMargins", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void PaddingTest() {
             RunTest("padding");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColGapLargePaddingTest() {
+            ConvertToPdfAndCompare("colGapLargePadding", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColGapLargePaddingItemTest() {
+            ConvertToPdfAndCompare("colGapLargePaddingItem", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColGapLargePaddingOverflowItemTest() {
+            ConvertToPdfAndCompare("colGapLargePaddingOverflowItem", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowGapLargeMarginItemTest() {
+            ConvertToPdfAndCompare("rowGapLargeMarginItem", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowGapLargeMarginsTest() {
+            ConvertToPdfAndCompare("rowGapLargeMargins", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowGapLargePaddingTest() {
+            ConvertToPdfAndCompare("rowGapLargePadding", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowGapLargePaddingItemTest() {
+            ConvertToPdfAndCompare("rowGapLargePaddingItem", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowGapLargePaddingOverflowItemTest() {
+            ConvertToPdfAndCompare("rowGapLargePaddingOverflowItem", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
@@ -196,6 +246,80 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void GridRowGapTest() {
             RunTest("gridRowGapTest");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AutoColumnsLargeGapTest() {
+            ConvertToPdfAndCompare("autoColumnsLargeGap", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AutoRowsLargeGapTest() {
+            ConvertToPdfAndCompare("autoRowsLargeGap", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage("Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties"
+            , Count = 32)]
+        public virtual void ColGapRtlDirectionTest() {
+            ConvertToPdfAndCompare("colGapRtlDirection", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage("Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties"
+            , Count = 32)]
+        public virtual void RowGapRtlDirectionTest() {
+            ConvertToPdfAndCompare("rowGapRtlDirection", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ColGapLongGridTest() {
+            ConvertToPdfAndCompare("colGapLongGrid", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LargeColGapTest() {
+            ConvertToPdfAndCompare("largeColGap", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RowGapLongGridTest() {
+            ConvertToPdfAndCompare("rowGapLongGrid", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LargeRowGapTest() {
+            ConvertToPdfAndCompare("largeRowGap", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void LongGridTest() {
+            ConvertToPdfAndCompare("longGrid", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void OrderOnItemsTest() {
+            ConvertToPdfAndCompare("orderOnItems", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PercentageColGapTest() {
+            ConvertToPdfAndCompare("percentageColGap", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void PercentageRowGapTest() {
+            ConvertToPdfAndCompare("percentageRowGap", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ZeroSpaceColGapTest() {
+            ConvertToPdfAndCompare("zeroSpaceColGap", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ZeroSpaceRowGapTest() {
+            ConvertToPdfAndCompare("zeroSpaceRowGap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         private void RunTest(String testName) {
