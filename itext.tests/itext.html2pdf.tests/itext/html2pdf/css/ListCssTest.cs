@@ -72,11 +72,9 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("1Type", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        //TODO: DEVSIX-6128 NullPointerException when trying to convert html with non-existing ol type.
         [NUnit.Framework.Test]
         public virtual void UnsupportedType() {
-            NUnit.Framework.Assert.Catch(typeof(NullReferenceException), () => ConvertToPdfAndCompare("unsupportedType"
-                , SOURCE_FOLDER, DESTINATION_FOLDER));
+            ConvertToPdfAndCompare("unsupportedType", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
