@@ -179,6 +179,24 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        public virtual void PositionAbsolutePageSplitTest() {
+            //TODO DEVSIX-2431 Positioned elements (e.g. absolute positioning) are lost when block is split across pages
+            ConvertToPdfAndCompare("positionAbsolutePageSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NoPositionPageSplitTest() {
+            //TODO DEVSIX-2431 Positioned elements (e.g. absolute positioning) are lost when block is split across pages
+            ConvertToPdfAndCompare("noPositionPageSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void RelativePositionPageSplitTest() {
+            //TODO DEVSIX-2431 Positioned elements (e.g. absolute positioning) are lost when block is split across pages
+            ConvertToPdfAndCompare("relativePositionPageSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void ListItemAbsolutePositionTest() {
             //TODO DEVSIX-2431 Positioned elements (e.g. absolute positioning) are lost when block is split across pages
             ConvertToPdfAndCompare("list-item-absolute", SOURCE_FOLDER, DESTINATION_FOLDER);
