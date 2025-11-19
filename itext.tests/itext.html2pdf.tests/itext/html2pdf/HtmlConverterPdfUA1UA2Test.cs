@@ -69,6 +69,14 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void LongLinkBrokenAcrossPagesTest(PdfUAConformance conformance) {
+            String sourceHtml = SOURCE_FOLDER + "longLinkBrokenAcrossPages.html";
+            String cmpPdf = SOURCE_FOLDER + "cmp_longLinkBrokenAcrossPagesUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "twolongLinkBrokenAcrossPagesUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpPdf, null, true, null);
+        }
+
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
         public virtual void ImageLinkTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "imageLink.html";
             String cmpFile = SOURCE_FOLDER + "cmp_imageLinkUa" + conformance.GetPart() + ".pdf";
