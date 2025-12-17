@@ -310,6 +310,14 @@ namespace iText.Html2pdf {
             ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpPdf, null, true, null);
         }
 
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void ZeroFontSizeTest(PdfUAConformance conformance) {
+            String sourceHtml = SOURCE_FOLDER + "zeroFontSize.html";
+            String cmpPdf = SOURCE_FOLDER + "cmp_zeroFontSizeUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "zeroFontSizeUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpPdf, null, true, null);
+        }
+
         [NUnit.Framework.Test]
         public virtual void DuplicateConformanceLevelAAndUAThrows() {
             ConverterProperties converterProperties = new ConverterProperties();

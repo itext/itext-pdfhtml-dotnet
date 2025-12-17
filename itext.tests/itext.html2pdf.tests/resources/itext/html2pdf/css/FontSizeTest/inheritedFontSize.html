@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style type="text/css">
+    * { white-space: normal; font: inherit; }
+  </style>
+</head>
+<body>
+<p style="font: inherit;">This test is for inheritance of font size.</p>
+<div style="font-size: 20pt;">
+    Font size is 20pt
+    <div style="font-size: 16pt;">
+        Font size is 16pt
+        <div>
+            Font size is inherited
+            <div style="font: inherit;">
+                Font size is inherited
+                <div style="font-size: smaller;">
+                    Smaller font size is inherited from 16pt and should be 13.(3)pt
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="font-size: -40pt;">
+        Negative font size should be converted to 20pt inheriting from parent
+    </div>
+</div>
+<div style="font-size: inherit;">
+    Font size is default 12pt
+</div>
+</body>
+</html>
