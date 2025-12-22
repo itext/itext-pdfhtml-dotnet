@@ -61,6 +61,16 @@ namespace iText.Html2pdf.Css.Resolve {
         }
 
         [NUnit.Framework.Test]
+        public virtual void InvalidAttributeValue() {
+            iText.StyledXmlParser.Jsoup.Nodes.Element element = new iText.StyledXmlParser.Jsoup.Nodes.Element(iText.StyledXmlParser.Jsoup.Parser.Tag
+                .ValueOf(TagConstants.OL), "");
+            element.Attr("type", "circle");
+            JsoupElementNode node = new JsoupElementNode(element);
+            IList<CssDeclaration> cssDeclarations = HtmlStylesToCssConverter.Convert(node);
+            AssertCssDeclarationListWithOneElement(cssDeclarations, "list-style-type", null);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void WithoutSemicolonsHeightAttributeTest() {
             iText.StyledXmlParser.Jsoup.Nodes.Element element = new iText.StyledXmlParser.Jsoup.Nodes.Element(iText.StyledXmlParser.Jsoup.Parser.Tag
                 .ValueOf(TagConstants.IMG), "");

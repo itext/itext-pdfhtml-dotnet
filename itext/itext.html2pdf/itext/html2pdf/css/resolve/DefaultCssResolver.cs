@@ -186,8 +186,22 @@ namespace iText.Html2pdf.Css.Resolve {
                     .PT);
             }
             else {
-                elementStyles.Put(CssConstants.FONT_SIZE, Convert.ToString(CssDimensionParsingUtils.ParseAbsoluteFontSize(
-                    elementFontSize), System.Globalization.CultureInfo.InvariantCulture) + CssConstants.PT);
+                float fontSize;
+                if (CssTypesValidationUtils.IsInitialOrInheritOrUnset(elementFontSize)) {
+                    // font-size is inheritable property so we can always process initial/inherit/unset identically
+                    if (parentFontSizeStr == null) {
+                        fontSize = CssDimensionParsingUtils.ParseAbsoluteFontSize(CssDefaults.GetDefaultValue(CssConstants.FONT_SIZE
+                            ));
+                    }
+                    else {
+                        fontSize = CssDimensionParsingUtils.ParseAbsoluteLength(parentFontSizeStr);
+                    }
+                }
+                else {
+                    fontSize = CssDimensionParsingUtils.ParseAbsoluteFontSize(elementFontSize);
+                }
+                elementStyles.Put(CssConstants.FONT_SIZE, Convert.ToString(fontSize, System.Globalization.CultureInfo.InvariantCulture
+                    ) + CssConstants.PT);
             }
             // Update root font size
             if (element is IElementNode && TagConstants.HTML.Equals(((IElementNode)element).Name())) {

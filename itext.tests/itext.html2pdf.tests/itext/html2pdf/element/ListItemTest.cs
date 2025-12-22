@@ -21,113 +21,75 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using System.IO;
 using iText.Html2pdf;
-using iText.Kernel.Utils;
-using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
     [NUnit.Framework.Category("IntegrationTest")]
-    public class ListItemTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+    public class ListItemTest : ExtendedHtmlConversionITextTest {
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/element/ListItemTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/element/ListItemTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 14)]
         public virtual void RtlListItemInsideLtrOrderedListTest() {
-            String name = "rtlListItemInsideLtrOrderedListTest";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
-                 + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
-                 + "cmp_" + name + ".pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("rtlListItemInsideLtrOrderedListTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 16)]
         public virtual void ListItemWithDifferentDirAndPositionInsideTest() {
-            String name = "listItemWithDifferentDirAndPositionInsideTest";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
-                 + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
-                 + "cmp_" + name + ".pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("listItemWithDifferentDirAndPositionInsideTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 12)]
         public virtual void RtlListItemInsideLtrUnorderedListTest() {
-            String name = "rtlListItemInsideLtrUnorderedListTest";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
-                 + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
-                 + "cmp_" + name + ".pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("rtlListItemInsideLtrUnorderedListTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 12)]
         public virtual void DrawBulletRtlTest() {
-            String name = "drawBulletRtl";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
-                 + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
-                 + "cmp_" + name + ".pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("drawBulletRtl", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 16)]
         public virtual void DrawBulletLtrTest() {
-            String name = "drawBulletLtr";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
-                 + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
-                 + "cmp_" + name + ".pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("drawBulletLtr", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 8)]
         public virtual void BulletsAreNotDrawnAsTheyAreInPageMarginsTest() {
-            String name = "bulletsAreNotDrawnAsTheyAreInPageMargins";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
-                 + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
-                 + "cmp_" + name + ".pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("bulletsAreNotDrawnAsTheyAreInPageMargins", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 20)]
         public virtual void RltListItemWithDifferentMarginsTest() {
-            String name = "rltListItemWithDifferentMargins";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
-                 + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
-                 + "cmp_" + name + ".pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("rltListItemWithDifferentMargins", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 16)]
         public virtual void DiffListItemsInsideDiffListsWithDiffDirectionsWithoutWidthTest() {
-            String name = "diffListItemsInsideDiffListsWithDiffDirectionsWithoutWidth";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
-                 + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
-                 + "cmp_" + name + ".pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("diffListItemsInsideDiffListsWithDiffDirectionsWithoutWidth", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
         }
 
         [NUnit.Framework.Test]
         public virtual void ListItemWithBlockDisplayTest() {
-            String name = "listItemWithBlockDisplay";
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + name + ".html"), new FileInfo(destinationFolder + name
-                 + ".pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + name + ".pdf", sourceFolder
-                 + "cmp_" + name + ".pdf", destinationFolder, "diff01_"));
+            ConvertToPdfAndCompare("listItemWithBlockDisplay", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }

@@ -69,6 +69,14 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void LongLinkBrokenAcrossPagesTest(PdfUAConformance conformance) {
+            String sourceHtml = SOURCE_FOLDER + "longLinkBrokenAcrossPages.html";
+            String cmpPdf = SOURCE_FOLDER + "cmp_longLinkBrokenAcrossPagesUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "twolongLinkBrokenAcrossPagesUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpPdf, null, true, null);
+        }
+
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
         public virtual void ImageLinkTest(PdfUAConformance conformance) {
             String sourceHtml = SOURCE_FOLDER + "imageLink.html";
             String cmpFile = SOURCE_FOLDER + "cmp_imageLinkUa" + conformance.GetPart() + ".pdf";
@@ -213,23 +221,22 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
         public virtual void SvgBase64Test(PdfUAConformance conformance) {
-            // TODO DDEVSIX-9036 current VeraPdf version behaves incorrectly.
             String sourceHtml = SOURCE_FOLDER + "svgBase64.html";
             if (conformance == PdfUAConformance.PDF_UA_1) {
                 String cmpPdfUa1 = SOURCE_FOLDER + "cmp_svgBase64Ua1.pdf";
                 String destinationPdfUa1 = DESTINATION_FOLDER + "svgBase64Ua1.pdf";
-                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa1, cmpPdfUa1, null, false, null);
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa1, cmpPdfUa1, null, true, null);
             }
             if (conformance == PdfUAConformance.PDF_UA_2) {
                 String cmpPdfUa2 = SOURCE_FOLDER + "cmp_svgBase64Ua2.pdf";
                 String destinationPdfUa2 = DESTINATION_FOLDER + "svgBase64Ua2.pdf";
-                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa2, cmpPdfUa2, null, false, null);
+                ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdfUa2, cmpPdfUa2, null, true, null);
             }
         }
 
         [NUnit.Framework.TestCaseSource("ConformanceLevels")]
         public virtual void PngInDivStyleTest(PdfUAConformance conformance) {
-            // TODO DDEVSIX-9036 current VeraPdf version behaves incorrectly.
+            // TODO DEVSIX-9580 current VeraPdf version behaves incorrectly.
             // Investigate why VeraPdf doesn't complain about the missing tag.
             String sourceHtml = SOURCE_FOLDER + "pngInDivStyle.html";
             if (conformance == PdfUAConformance.PDF_UA_1) {
@@ -300,6 +307,14 @@ namespace iText.Html2pdf {
             String sourceHtml = SOURCE_FOLDER + "emptyTableDataCell.html";
             String cmpPdf = SOURCE_FOLDER + "cmp_emptyTableDataCellUa" + conformance.GetPart() + ".pdf";
             String destinationPdf = DESTINATION_FOLDER + "emptyTableDataCellUa" + conformance.GetPart() + ".pdf";
+            ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpPdf, null, true, null);
+        }
+
+        [NUnit.Framework.TestCaseSource("ConformanceLevels")]
+        public virtual void ZeroFontSizeTest(PdfUAConformance conformance) {
+            String sourceHtml = SOURCE_FOLDER + "zeroFontSize.html";
+            String cmpPdf = SOURCE_FOLDER + "cmp_zeroFontSizeUa" + conformance.GetPart() + ".pdf";
+            String destinationPdf = DESTINATION_FOLDER + "zeroFontSizeUa" + conformance.GetPart() + ".pdf";
             ConvertToUaAndCheckCompliance(conformance, sourceHtml, destinationPdf, cmpPdf, null, true, null);
         }
 

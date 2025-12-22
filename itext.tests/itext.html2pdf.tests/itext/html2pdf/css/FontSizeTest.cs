@@ -69,5 +69,23 @@ namespace iText.Html2pdf.Css {
         public virtual void DefaultFontDiffFontSizeSpanTest() {
             ConvertToPdfAndCompare("defaultFontDiffFontSizeSpan", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
+        public virtual void InheritedFontSizeTest() {
+            ConvertToPdfAndCompare("inheritedFontSize", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NestingTagsFontSizeTest() {
+            ConvertToPdfAndCompare("nestingTagsFontSize", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION, 
+            Count = 2)]
+        public virtual void GarbageFontSizeTest() {
+            ConvertToPdfAndCompare("garbageFontSize", sourceFolder, destinationFolder);
+        }
     }
 }

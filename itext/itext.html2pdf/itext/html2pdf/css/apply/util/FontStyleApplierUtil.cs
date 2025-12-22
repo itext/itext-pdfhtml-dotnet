@@ -72,9 +72,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
              stylesContainer, IPropertyContainer element) {
             float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
             float rem = context.GetCssContext().GetRootFontSize();
-            if (em != 0) {
-                element.SetProperty(Property.FONT_SIZE, UnitValue.CreatePointValue(em));
-            }
+            element.SetProperty(Property.FONT_SIZE, UnitValue.CreatePointValue(em));
             if (cssProps.Get(CssConstants.FONT_FAMILY) != null) {
                 // TODO DEVSIX-2534
                 IList<String> fontFamilies = FontFamilySplitterUtil.SplitFontFamily(cssProps.Get(CssConstants.FONT_FAMILY)

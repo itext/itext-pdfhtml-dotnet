@@ -173,29 +173,49 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void PageBreakInsideAvoidInOlLiWithDivTest() {
+            RunTest("pageBreakInsideAvoidInOlLiWithDiv");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void PageBreakInsideAvoidInOlLiSecondPageTest() {
+            RunTest("pageBreakInsideAvoidInOlLiSecondPage");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void PageBreakInsideAvoidInOlLiOverflowTest() {
+            RunTest("pageBreakInsideAvoidInOlLiOverflow");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void PageBreakInsideAvoidInUlLiWithDivTest() {
+            RunTest("pageBreakInsideAvoidInUlLiWithDiv");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void PageBreakInsideAvoidInTdWithBrInsideTest() {
-            // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
             ConvertToElements("pageBreakInsideAvoidInTdWithBrInside");
         }
 
         [NUnit.Framework.Test]
         [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void PageBreakInsideAvoidInTdWithSpanInsideTest() {
-            // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
             ConvertToElements("pageBreakInsideAvoidInTdWithSpanInside");
         }
 
         [NUnit.Framework.Test]
         [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void PageBreakInsideAvoidInTdWithHeadingsTest() {
-            // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
             ConvertToElements("pageBreakInsideAvoidInTdWithHeadings");
         }
 
         [NUnit.Framework.Test]
         [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void PageBreakInsideAvoidInTdWithParaTest() {
-            // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
             ConvertToElements("pageBreakInsideAvoidInTdWithPara");
         }
 
@@ -203,14 +223,12 @@ namespace iText.Html2pdf.Css {
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE)]
         [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void PageBreakInsideAvoidInTdWithTableTest() {
-            // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
             ConvertToElements("pageBreakInsideAvoidInTdWithTable");
         }
 
         [NUnit.Framework.Test]
         [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void PageBreakInsideAvoidInTdWithDivTest() {
-            // TODO: DEVSIX-5263 inconsistent behavior when page-break-inside: avoid set in td and td contains inline elements
             ConvertToElements("pageBreakInsideAvoidInTdWithDiv");
         }
 
