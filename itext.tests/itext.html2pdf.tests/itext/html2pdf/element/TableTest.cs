@@ -505,10 +505,10 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.LAST_ROW_IS_NOT_COMPLETE, LogLevel = LogLevelConstants.WARN
+            )]
         public virtual void CollapsedBorderWithWrongRowspanTableTest() {
-            // TODO DEVSIX-5036
-            NUnit.Framework.Assert.Catch(typeof(Exception), () => RunTest("collapsedBorderWithWrongRowspanTable", false
-                , new PageSize(PageSize.A5).Rotate()));
+            RunTest("collapsedBorderWithWrongRowspanTable", false, new PageSize(PageSize.A5).Rotate());
         }
 
         [NUnit.Framework.Test]
@@ -625,6 +625,16 @@ namespace iText.Html2pdf.Element {
             2)]
         public virtual void NestedTableWithSpecifiedWidthTest() {
             RunTest("nestedTableWithSpecifiedWidth");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CollapsedBordersRowspanOnPageSplitTest() {
+            RunTest("collapsedBordersRowspanOnPageSplit");
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void CollapsedBordersRowspanOnPageSplit2Test() {
+            RunTest("collapsedBordersRowspanOnPageSplit2");
         }
 
         private void RunTest(String testName) {
