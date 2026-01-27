@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>:has() with table structures</title>
+  <style>
+    table { border-collapse: collapse; margin: 10px 0; width: 90%; }
+    th, td { border: 1px solid #999; padding: 6px; }
+
+    /* Style tables that have a thead */
+    table:has(thead) { border: 3px solid #0a7; }
+
+    /* Highlight rows that have any TH cell */
+    tr:has(th) { background: #e6fff5; }
+
+    /* Emphasize rows that have a cell with colspan */
+    tr:has(td[colspan]) { outline: 2px dashed #a70; }
+
+    /* Mark TBODY that has a row with .selected */
+    tbody:has(tr.selected) { box-shadow: inset 0 0 0 3px #07a; }
+  </style>
+</head>
+<body>
+<h1>:has() with tables</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Header A</th>
+      <th>Header B</th>
+      <th>Header C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td><td>2</td><td>3</td>
+    </tr>
+    <tr class="selected">
+      <td colspan="2">Wide cell</td><td>ok</td>
+    </tr>
+    <tr>
+      <td>4</td><td>5</td><td>6</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Alpha</td><td>Beta</td>
+    </tr>
+    <tr>
+      <td>Gamma</td><td>Delta</td>
+    </tr>
+  </tbody>
+</table>
+</body>
+</html>

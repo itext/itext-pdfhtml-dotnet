@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>:has() with ::before/::after</title>
+  <style>
+    .box { margin: 8px 0; padding: 8px; border: 1px solid #ccc; }
+    .mark { color: #b00; }
+
+    /* Add pseudo content to boxes that have a .mark descendant */
+    .box:has(.mark) { border-color: #007acc; }
+    .box:has(.mark)::before { content: "HAS MARK"; display: block; background: #007acc; color: #fff; padding: 2px 4px; font-size: 12px; }
+    .box:has(.mark)::after { content: " [end]"; color: #007acc; }
+
+    /* Boxes without .mark stay neutral */
+  </style>
+</head>
+<body>
+<h1>:has() interaction with pseudo-elements</h1>
+<div class="box" id="b1">
+  <p>No special mark here.</p>
+</div>
+<div class="box" id="b2">
+  <p>Contains a <span class="mark">mark</span> inside.</p>
+</div>
+<div class="box" id="b3">
+  <div>
+    <p>Nested <em>structures</em> with a <span class="mark">deep mark</span>.</p>
+  </div>
+</div>
+</body>
+</html>

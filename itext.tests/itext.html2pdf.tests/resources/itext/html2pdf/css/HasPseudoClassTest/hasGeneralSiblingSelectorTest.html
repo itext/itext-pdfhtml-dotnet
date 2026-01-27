@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>:has() with general sibling selector</title>
+  <style>
+    /* Style a .note if it has any following sibling .footnote */
+    .note:has(~ .footnote) { background: #eef9ee; border: 2px solid #2a8f2a; padding: 6px; }
+    .footnote { color: #2a8f2a; }
+  </style>
+</head>
+<body>
+<h1>General sibling combinator inside :has()</h1>
+<div class="note">Note A (no footnote later)</div>
+<p>Some unrelated text</p>
+<div>Another block</div>
+<div class="note">Note B (has later footnote)</div>
+<p>Intervening paragraph</p>
+<div class="footnote">Footnote for Note B</div>
+<div class="note">Note C (no footnote later)</div>
+</body>
+</html>

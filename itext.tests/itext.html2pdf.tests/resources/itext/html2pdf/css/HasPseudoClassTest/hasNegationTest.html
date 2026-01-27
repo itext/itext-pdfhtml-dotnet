@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>:has() with :not()</title>
+  <style>
+    /* Highlight lists that have a direct child li not marked .ok */
+    ul.checklist:has(> li:not(.ok)) { border: 3px solid red; padding: 6px; }
+    ul.checklist { margin: 8px 0; }
+
+    /* Cards that have a .badge which is not .active */
+    .card:has(.badge:not(.active)) { background: #fff0f0; border: 2px solid #cc0000; }
+    .badge { padding: 2px 4px; border-radius: 3px; background:#ddd; }
+    .badge.active { background:#8f8; }
+  </style>
+</head>
+<body>
+<h1>:has() with negation</h1>
+<ul class="checklist">
+  <li class="ok">OK item</li>
+  <li>Missing .ok class</li>
+</ul>
+<ul class="checklist">
+  <li class="ok">OK item</li>
+  <li class="ok">Another OK item</li>
+</ul>
+
+<div class="card">
+  <span class="badge">inactive badge</span>
+  <p>Card with inactive badge</p>
+</div>
+<div class="card">
+  <span class="badge active">active badge</span>
+  <p>Card with active badge</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Nested :has()</title>
+  <style>
+    /* A wrapper that has a .card which itself has an <img> */
+    .wrapper:has(.card:has(img)) { border: 4px double #444; background:#f5f5f5; padding:10px; margin:10px 0; }
+
+    /* Section that has a direct child UL that has a selected LI */
+    section:has(> ul:has(li.selected)) { outline: 3px solid #008800; }
+
+    /* Deep nesting: container that has a row that has a cell that has a strong */
+    .container:has(.row:has(.cell:has(strong))) { background:#eef; }
+
+    .row { display:block; margin:6px 0; }
+    .cell { display:inline-block; min-width:100px; border:1px solid #99c; padding:4px; }
+  </style>
+</head>
+<body>
+<h1>Nested :has() cases</h1>
+<div class="wrapper" id="w1">
+  <div class="card">
+    <p>No image here</p>
+  </div>
+</div>
+<div class="wrapper" id="w2">
+  <div class="card">
+    <img alt="pic" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" />
+    <p>Has image</p>
+  </div>
+</div>
+
+<section>
+  <h2>Plain section</h2>
+  <ul>
+    <li>alpha</li>
+    <li>beta</li>
+  </ul>
+</section>
+<section>
+  <h2>Selected inside</h2>
+  <ul>
+    <li>gamma</li>
+    <li class="selected">delta</li>
+  </ul>
+</section>
+
+<div class="container">
+  <div class="row">
+    <div class="cell">A</div>
+    <div class="cell">B</div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="cell"><strong>X</strong></div>
+    <div class="cell">Y</div>
+  </div>
+</div>
+</body>
+</html>

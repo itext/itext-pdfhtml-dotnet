@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>:has() with box-model properties</title>
+  <style>
+    .card { margin: 8px 0; border: 1px solid #ccc; padding: 8px; }
+    .thumb { display:inline-block; width:40px; height:40px; background:#999; margin-right:8px; }
+
+    /* Increase padding and border width if card has a thumbnail */
+    .card:has(.thumb) { padding: 16px; border-width: 4px; border-color:#007acc; }
+
+    .article { border:1px solid #aaa; padding:6px; margin:8px 0; }
+    .meta { font-size:12px; color:#666; }
+    /* Add extra outer margin to article that has meta */
+    .article:has(.meta) { margin: 20px 0; }
+
+    .sidebar { border:2px solid #ddd; padding:6px; width:220px; }
+    .ad { background:#ffe8cc; border:1px solid #f60; padding:4px; }
+    /* Widen sidebar and recolor border when it has an .ad */
+    .sidebar:has(.ad) { width:300px; border-color:#f60; }
+  </style>
+</head>
+<body>
+<h1>:has() with box-model changes</h1>
+<div class="card" id="card1">
+  <p>Card without thumbnail</p>
+</div>
+<div class="card" id="card2">
+  <span class="thumb"></span>
+  <span>Card with thumbnail</span>
+</div>
+
+<div class="article" id="art1">
+  <p>Plain article</p>
+</div>
+<div class="article" id="art2">
+  <div class="meta">By Author • 2025</div>
+  <p>Article with metadata</p>
+</div>
+
+<div class="sidebar" id="sb1">
+  <p>Sidebar content</p>
+</div>
+<div class="sidebar" id="sb2">
+  <div class="ad">Advertisement block</div>
+  <p>Sidebar with ad</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>:has() with display/visibility</title>
+  <style>
+    .panel { border:1px solid #ccc; margin:8px 0; padding:6px; }
+
+    /* Style panels that have any .flag element regardless of its visibility */
+    .panel:has(.flag) { border-color:#007a3d; background:#eefaf2; }
+
+    .flag.hidden { display:none; }
+    .flag.invisible { visibility:hidden; }
+
+    /* Also style containers that have an element with display:none explicitly */
+    .container:has(.flag.hidden) { outline:3px dashed #cc0000; }
+    .container:has(.flag.invisible) { outline:3px dotted #aa7700; }
+
+    .legend { font-size:12px; color:#555; }
+  </style>
+</head>
+<body>
+<h1>:has() with display and visibility</h1>
+<div class="legend">Panels are styled if they contain .flag, even if the flag is not visible.</div>
+
+<div class="container">
+  <div class="panel" id="p1">
+    <p>No flag here.</p>
+  </div>
+</div>
+
+<div class="container" id="c2">
+  <div class="panel" id="p2">
+    <p>Contains a visible flag <span class="flag">FLAG!</span></p>
+  </div>
+</div>
+
+<div class="container" id="c3">
+  <div class="panel" id="p3">
+    <p>Contains a hidden flag <span class="flag hidden">HIDDEN</span></p>
+  </div>
+</div>
+
+<div class="container" id="c4">
+  <div class="panel" id="p4">
+    <p>Contains an invisible flag <span class="flag invisible">INVISIBLE</span></p>
+  </div>
+</div>
+</body>
+</html>

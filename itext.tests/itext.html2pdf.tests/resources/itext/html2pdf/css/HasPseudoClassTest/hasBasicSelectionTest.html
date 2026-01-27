@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>:has() basic selection</title>
+  <style>
+    /* Color any .card that has an <img> inside */
+    .card:has(img) { border: 3px solid green; padding: 8px; margin: 8px 0; }
+    /* Highlight containers that have a .warning descendant */
+    .container:has(.warning) { background: #ffeeee; }
+    /* Select list items that have a nested <ul> (sublist) */
+    li:has(> ul) { font-weight: bold; color: darkblue; }
+  </style>
+</head>
+<body>
+<h1>Basic :has() usage</h1>
+<div class="container">
+  <div class="card" id="c1">
+    <p>Card without image</p>
+  </div>
+  <div class="card" id="c2">
+    <img alt="pic" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" />
+    <p>Card with image</p>
+  </div>
+  <div class="card warning" id="c3">
+    <p>Warning card</p>
+  </div>
+</div>
+
+<ul>
+  <li>Item A</li>
+  <li>Item B
+    <ul>
+      <li>Item B.1</li>
+    </ul>
+  </li>
+  <li>Item C</li>
+</ul>
+</body>
+</html>

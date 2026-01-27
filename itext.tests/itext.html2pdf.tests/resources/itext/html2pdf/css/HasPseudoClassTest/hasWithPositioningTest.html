@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>:has() with positioning</title>
+  <style>
+    .wrap { border:1px solid #ccc; margin:10px 0; padding:10px; min-height:60px; position:relative; }
+    .wrap:has(.abs) { border-color:#0057b7; background:#eef5ff; }
+    .wrap:has(.rel) { outline:3px solid #5a9; }
+    .wrap:has(.float) { box-shadow: inset 0 0 0 3px #f90; }
+
+    .abs { position:absolute; top:6px; right:6px; background:#cde; padding:2px 4px; }
+    .rel { position:relative; left:6px; background:#efe; padding:2px 4px; display:inline-block; }
+    .float { float:right; background:#fee; padding:2px 4px; }
+    .clearfix::after { content:""; display:block; clear:both; }
+  </style>
+</head>
+<body>
+<h1>:has() with positioned/float children</h1>
+<div class="wrap" id="w1">
+  <p>Plain wrapper without special child</p>
+</div>
+<div class="wrap" id="w2">
+  <div class="abs">ABS</div>
+  <p>Wrapper with absolutely positioned child</p>
+</div>
+<div class="wrap" id="w3">
+  <div class="rel">REL</div>
+  <p>Wrapper with relatively positioned child</p>
+</div>
+<div class="wrap clearfix" id="w4">
+  <span class="float">FLOAT</span>
+  <p>Wrapper with floated child</p>
+</div>
+</body>
+</html>

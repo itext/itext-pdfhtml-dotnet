@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>:has() with child selector</title>
+  <style>
+    /* Select section that has a direct child .title */
+    section:has(> .title) { border: 2px solid #0066cc; padding: 6px; margin: 6px 0; }
+    /* Select article that has a direct child figure */
+    article:has(> figure) { background: #e6f2ff; }
+  </style>
+</head>
+<body>
+<h1>Child combinator inside :has()</h1>
+<section>
+  <div>no title</div>
+</section>
+<section>
+  <div class="title">Title present</div>
+  <p>Content</p>
+</section>
+
+<article>
+  <header>Header only</header>
+</article>
+<article>
+  <figure>
+      <img alt="pic" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" />
+    <figcaption>A figure</figcaption>
+  </figure>
+  <p>With figure child</p>
+</article>
+</body>
+</html>
