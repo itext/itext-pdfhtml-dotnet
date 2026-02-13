@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'Roboto Serif';
+  font-weight: 400;
+  font-style: normal;
+  src: url('../../fonts/RobotoSerif-Regular.ttf') format('truetype'),
+       url('../../fonts/RobotoSerif-invalid.ttf') format('opentype')/* test invalid font */;
+}
+
+@font-face {
+  font-family: 'Roboto Serif';
+  font-weight: 700;
+  font-style: normal;
+  src: url('../../fonts/RobotoSerif-Bold.ttf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Roboto Serif';
+  font-weight: 700;
+  font-style: italic;
+  src: url('../../fonts/RobotoSerif-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto Serif';
+  font-weight: 400;
+  font-style: italic;
+  src: url('../../fonts/RobotoSerif-Italic.ttf') format('opentype');
+}
+
+p {
+  font-size: 40pt;
+}

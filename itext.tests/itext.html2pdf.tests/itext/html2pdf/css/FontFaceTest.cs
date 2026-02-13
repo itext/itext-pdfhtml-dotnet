@@ -55,33 +55,33 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        public virtual void DroidSerifWebFontTest() {
-            RunTest("droidSerifWebFontTest");
+        public virtual void RobotoSerifWebFontTest() {
+            RunTest("robotoSerifWebFontTest");
         }
 
         [NUnit.Framework.Test]
-        public virtual void DroidSerifLocalFontTest() {
-            RunTest("droidSerifLocalFontTest");
+        public virtual void RobotoSerifLocalFontTest() {
+            RunTest("robotoSerifLocalFontTest");
         }
 
         [NUnit.Framework.Test]
-        public virtual void DroidSerifLocalLocalFontTest() {
-            RunTest("droidSerifLocalLocalFontTest");
+        public virtual void RobotoSerifLocalLocalFontTest() {
+            RunTest("robotoSerifLocalLocalFontTest");
         }
 
         [NUnit.Framework.Test]
-        public virtual void DroidSerifLocalWithMediaFontTest() {
-            RunTest("droidSerifLocalWithMediaFontTest");
+        public virtual void RobotoSerifLocalWithMediaFontTest() {
+            RunTest("robotoSerifLocalWithMediaFontTest");
         }
 
         [NUnit.Framework.Test]
-        public virtual void DroidSerifLocalWithMediaRuleFontTest() {
-            RunTest("droidSerifLocalWithMediaRuleFontTest");
+        public virtual void RobotoSerifLocalWithMediaRuleFontTest() {
+            RunTest("robotoSerifLocalWithMediaRuleFontTest");
         }
 
         [NUnit.Framework.Test]
-        public virtual void DroidSerifLocalWithMediaRuleFontTest2() {
-            RunTest("droidSerifLocalWithMediaRuleFontTest2");
+        public virtual void RobotoSerifLocalWithMediaRuleFontTest2() {
+            RunTest("robotoSerifLocalWithMediaRuleFontTest2");
         }
 
         [NUnit.Framework.Test]

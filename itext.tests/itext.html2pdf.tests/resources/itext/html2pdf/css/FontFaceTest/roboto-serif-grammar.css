@@ -1,0 +1,8 @@
+
+@font-face {
+  font-family: 'Roboto Serif';
+  font-weight: 400;
+  font-style: normal;
+  src: url('fake') format('opentype')   ,   url('../../fonts/RobotoSerif-Regular.ttf') format('opentype');
+}
+
