@@ -137,5 +137,20 @@ namespace iText.Html2pdf.Css {
             // TODO DEVSIX-1950
             ConvertToPdfAndCompare("absPosNoTopBottomTest01", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePositionSplitPagesBeforeTextTest() {
+            ConvertToPdfAndCompare("absolutePositionSplitPagesBeforeText", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePositionSplitPagesAfterTextTest() {
+            ConvertToPdfAndCompare("absolutePositionSplitPagesAfterText", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePositionSplitPagesAfterTextInImageBlockTest() {
+            ConvertToPdfAndCompare("absolutePositionSplitPagesAfterTextInImageBlock", sourceFolder, destinationFolder);
+        }
     }
 }
