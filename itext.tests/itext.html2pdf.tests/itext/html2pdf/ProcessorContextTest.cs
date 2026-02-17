@@ -86,7 +86,7 @@ namespace iText.Html2pdf {
             String html = "<html><body><a href='https://itextpdf.com'  alt=\"some description\"/>Hello</a></body></html>";
             ConverterProperties properties = new ConverterProperties();
             String exceptionMessage = "Test me";
-            properties.GetDependencies().Put(typeof(AlternateDescriptionResolver), new _AlternateDescriptionResolver_92
+            properties.RegisterDependency(typeof(AlternateDescriptionResolver), () => new _AlternateDescriptionResolver_92
                 (exceptionMessage));
             Exception e = NUnit.Framework.Assert.Catch((typeof(Exception)), () => {
                 HtmlConverter.ConvertToPdf(html, new PdfWriter(new MemoryStream()), properties);

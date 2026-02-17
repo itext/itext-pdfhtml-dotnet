@@ -20,8 +20,11 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+using System;
+using System.Collections.Generic;
 using iText.Commons.Actions;
 using iText.Commons.Actions.Contexts;
+using iText.Html2pdf.Attach.Util;
 using iText.Test;
 
 namespace iText.Html2pdf {
@@ -56,6 +59,36 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.IsFalse(propertiesCopied.IsImmediateFlush());
             NUnit.Framework.Assert.IsTrue(propertiesCopied.IsCreateAcroForm());
             NUnit.Framework.Assert.AreEqual(20, propertiesCopied.GetLimitOfLayouts());
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConverterPropsSetDependencyWithNullInstance() {
+            ConverterProperties converterProperties = new ConverterProperties();
+            NUnit.Framework.Assert.Catch(typeof(ArgumentException), () => {
+                converterProperties.RegisterDependency(typeof(AlternateDescriptionResolver), null);
+            }
+            );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConverterPropsSetDependencyWithNullType() {
+            ConverterProperties converterProperties = new ConverterProperties();
+            Func<Object> dummySupplier = () => new Object();
+            NUnit.Framework.Assert.Catch(typeof(ArgumentException), () => {
+                converterProperties.RegisterDependency(null, dummySupplier);
+            }
+            );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void GetDependenciesTest() {
+            ConverterProperties converterProperties = new ConverterProperties();
+            Object dummyObject = new Object();
+            Func<Object> dummySupplier = () => dummyObject;
+            converterProperties.RegisterDependency(typeof(AlternateDescriptionResolver), dummySupplier);
+            IDictionary<Type, Object> dependencies = converterProperties.GetDependencies();
+            NUnit.Framework.Assert.AreEqual(1, dependencies.Count);
+            NUnit.Framework.Assert.AreSame(dummyObject, dependencies.Get(typeof(AlternateDescriptionResolver)));
         }
 
         private class TestMetaInfo : IMetaInfo {

@@ -27,6 +27,7 @@ using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Attach.Util;
 using iText.Html2pdf.Css.Apply;
+using iText.Kernel.Exceptions;
 using iText.Kernel.Pdf;
 using iText.Layout.Font;
 using iText.StyledXmlParser.Css.Media;
@@ -41,7 +42,7 @@ namespace iText.Html2pdf {
         /// <summary>Default maximum number of layouts.</summary>
         private const int DEFAULT_LIMIT_OF_LAYOUTS = 10;
 
-        private readonly Dictionary<Type, Object> dependencies = new Dictionary<Type, Object>();
+        private readonly IDictionary<Type, Func<Object>> dependencies = new Dictionary<Type, Func<Object>>();
 
         /// <summary>The media device description.</summary>
         private MediaDeviceDescription mediaDeviceDescription;
@@ -94,7 +95,7 @@ namespace iText.Html2pdf {
         /// instance.
         /// </summary>
         public ConverterProperties() {
-            this.dependencies.Put(typeof(AlternateDescriptionResolver), new AlternateDescriptionResolver());
+            this.dependencies.Put(typeof(AlternateDescriptionResolver), () => new AlternateDescriptionResolver());
         }
 
         /// <summary>
@@ -126,9 +127,7 @@ namespace iText.Html2pdf {
             this.continuousContainerEnabled = other.continuousContainerEnabled;
             this.conformance = other.conformance;
             this.outputIntent = other.outputIntent;
-            foreach (Type aClass in other.dependencies.Keys) {
-                this.dependencies.Put(aClass, other.dependencies.Get(aClass));
-            }
+            this.dependencies.AddAll(other.dependencies);
         }
 
         /// <summary>Gets the media device description.</summary>
@@ -640,8 +639,49 @@ namespace iText.Html2pdf {
 
         /// <summary>Gets the dependencies.</summary>
         /// <returns>the dependencies</returns>
+        [System.ObsoleteAttribute(@"in favor of GetDependenciesClasses() ,GetDependencySupplier(System.Type{T})")]
         public virtual IDictionary<Type, Object> GetDependencies() {
-            return dependencies;
+            IDictionary<Type, Object> currentInstances = new Dictionary<Type, Object>();
+            foreach (KeyValuePair<Type, Func<Object>> entry in dependencies) {
+                currentInstances.Put(entry.Key, entry.Value());
+            }
+            return currentInstances;
+        }
+
+        /// <summary>Register custom dependency for the document.</summary>
+        /// <param name="clazz">type of the dependency</param>
+        /// <param name="instanceSupplier">the instance of the supplier for the dependency</param>
+        /// <returns>
+        /// this
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
+        public virtual iText.Html2pdf.ConverterProperties RegisterDependency(Type clazz, Func<Object> instanceSupplier
+            ) {
+            if (clazz == null) {
+                throw new ArgumentException(KernelExceptionMessageConstant.TYPE_SHOULD_NOT_BE_NULL);
+            }
+            if (instanceSupplier == null) {
+                throw new ArgumentException(KernelExceptionMessageConstant.INSTANCE_SUPPLIER_SHOULD_NOT_BE_NULL);
+            }
+            dependencies.Put(clazz, instanceSupplier);
+            return this;
+        }
+
+        /// <summary>Get all dependencies classes.</summary>
+        /// <returns>the set of dependencies classes</returns>
+        public virtual ICollection<Type> GetDependenciesClasses() {
+            return dependencies.Keys;
+        }
+
+        /// <summary>Get specific dependency supplier.</summary>
+        /// <param name="clazz">the dependency class to return supplier for</param>
+        /// <returns>
+        /// supplier for the dependency.
+        /// May return {code null} if no dependency supplier is present for specified class.
+        /// </returns>
+        public virtual Func<Object> GetDependencySupplier(Type clazz) {
+            return dependencies.Get(clazz);
         }
     }
 }

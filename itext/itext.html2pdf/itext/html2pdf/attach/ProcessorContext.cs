@@ -21,7 +21,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using System.Collections.Generic;
 using iText.Commons.Actions.Contexts;
 using iText.Commons.Utils;
 using iText.Html2pdf;
@@ -169,8 +168,8 @@ namespace iText.Html2pdf.Attach {
             pdfAConformanceFromProperties = new PdfConformance(converterProperties.GetPdfAConformance());
             processingInlineSvg = false;
             continuousContainerEnabled = converterProperties.IsContinuousContainerEnabled();
-            foreach (KeyValuePair<Type, Object> entry in converterProperties.GetDependencies()) {
-                diContainer.Register(entry.Key, entry.Value);
+            foreach (Type clazz in converterProperties.GetDependenciesClasses()) {
+                diContainer.Register(clazz, converterProperties.GetDependencySupplier(clazz)());
             }
         }
 
