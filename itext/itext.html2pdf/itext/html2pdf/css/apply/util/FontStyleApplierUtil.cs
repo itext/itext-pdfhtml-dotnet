@@ -201,7 +201,8 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String letterSpacing = cssProps.Get(CssConstants.LETTER_SPACING);
             if (letterSpacing != null && !CssConstants.NORMAL.Equals(letterSpacing)) {
                 UnitValue letterSpacingValue = CssDimensionParsingUtils.ParseLengthValueToPt(letterSpacing, em, rem);
-                if (letterSpacingValue.IsPointValue()) {
+                //TODO DEVSIX-4723 Remove null check, should be already processed properly in case unset value
+                if (letterSpacingValue != null && letterSpacingValue.IsPointValue()) {
                     element.SetProperty(Property.CHARACTER_SPACING, letterSpacingValue.GetValue());
                 }
             }

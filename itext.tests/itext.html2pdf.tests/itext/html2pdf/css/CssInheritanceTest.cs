@@ -77,5 +77,10 @@ namespace iText.Html2pdf.Css {
         public virtual void CssFontFamilyInheritanceTest01() {
             ConvertToPdfAndCompare("cssFontFamilyInheritanceTest01", sourceFolder, destinationFolder);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void UnsetPropertyInheritanceTest() {
+            ConvertToPdfAndCompare("unsetCssInheritance", sourceFolder, destinationFolder);
+        }
     }
 }

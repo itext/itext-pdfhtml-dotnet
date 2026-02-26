@@ -375,6 +375,13 @@ namespace iText.Html2pdf {
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
         }
 
+        [NUnit.Framework.Test]
+        public virtual void UnsetLetterSpacingTest() {
+            String unsetDoc = "<div style=\"letter-spacing: unset;\">Test</div>";
+            Div div = (Div)HtmlConverter.ConvertToElements(unsetDoc)[0];
+            NUnit.Framework.Assert.IsNull(div.GetProperty<int?>(Property.CHARACTER_SPACING));
+        }
+
         private static void AddElementsToDocument(Document document, IList<IElement> elements) {
             foreach (IElement elem in elements) {
                 if (elem is IBlockElement) {
