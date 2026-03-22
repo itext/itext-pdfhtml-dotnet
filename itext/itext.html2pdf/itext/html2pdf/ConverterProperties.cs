@@ -544,6 +544,36 @@ namespace iText.Html2pdf {
             return this;
         }
 
+        /// <summary>Sets the generation and strictness level of the WTPDF that must be followed.</summary>
+        /// <remarks>
+        /// Sets the generation and strictness level of the WTPDF that must be followed.
+        /// Required parameter, when converting to WTPDF one has to specify an explicit WTPDF conformance.
+        /// <para />
+        /// For pdfHtml currently we only support 1 WTPDF conformance level.
+        /// </remarks>
+        /// <param name="wtPdfConformance">
+        /// a
+        /// <see cref="iText.Kernel.Pdf.WellTaggedPdfConformance"/>
+        /// constant
+        /// </param>
+        /// <returns>
+        /// the
+        /// <see cref="ConverterProperties"/>
+        /// instance
+        /// </returns>
+        public virtual iText.Html2pdf.ConverterProperties SetWtPdfConformance(WellTaggedPdfConformance wtPdfConformance
+            ) {
+            this.conformance = new PdfConformance(conformance.GetAConformance(), conformance.GetUAConformance(), wtPdfConformance
+                );
+            return this;
+        }
+
+        /// <summary>Gets the generation and strictness level of the conformance that must be followed.</summary>
+        /// <returns>The conformance level</returns>
+        public virtual PdfConformance GetPdfConformance() {
+            return conformance;
+        }
+
         /// <summary>Checks if immediateFlush is set.</summary>
         /// <remarks>
         /// Checks if immediateFlush is set.
