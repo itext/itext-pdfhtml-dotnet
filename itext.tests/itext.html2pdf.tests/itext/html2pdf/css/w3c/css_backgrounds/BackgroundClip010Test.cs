@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2025 Apryse Group NV
+Copyright (c) 1998-2026 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -24,7 +24,6 @@ using System;
 using iText.Html2pdf.Css.W3c;
 
 namespace iText.Html2pdf.Css.W3c.Css_backgrounds {
-    // TODO DEVSIX-4538 consider whether it is possible not to draw a rectangle when width or height equals to zero
     public class BackgroundClip010Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "background-clip-010.html";

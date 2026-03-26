@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>:has() with adjacent sibling selector</title>
+  <style>
+    /* Style a .panel if it has an adjacent sibling .hint */
+    .panel:has(+ .hint) { border: 3px dashed #aa5500; padding: 8px; margin: 8px 0; background:#fff8e6; }
+    .hint { color:#aa5500; }
+  </style>
+</head>
+<body>
+<h1>Adjacent sibling combinator inside :has()</h1>
+<div class="panel">Panel 1 (no hint follows)</div>
+<p>Some text</p>
+<div class="panel">Panel 2 (hint follows)</div>
+<div class="hint">Important hint near panel 2</div>
+<div class="panel">Panel 3 (no hint follows)</div>
+</body>
+</html>

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2025 Apryse Group NV
+Copyright (c) 1998-2026 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -157,7 +157,7 @@ namespace iText.Html2pdf.Logs {
 
         public const String GRID_TEMPLATE_WAS_NOT_RECOGNISED = "Grid template {0} value was not recognised";
 
-        public const String PDF_A_AND_PDF_UA_CONFORMANCE_CANNOT_BE_USED_TOGETHER = "Using both PDF/A and PDF/UA conformance is currently not supported.";
+        public const String PDF_A_AND_PDF_UA_CONFORMANCE_CANNOT_BE_USED_TOGETHER = "Targeting multiple conformance levels (PDF/A,PDF/UA, WTPDF) is currently not supported.";
 
         private Html2PdfLogMessageConstant() {
         }

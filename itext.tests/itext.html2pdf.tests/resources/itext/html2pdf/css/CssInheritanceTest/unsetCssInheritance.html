@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        span {
+          letter-spacing: 10px;
+          border: 1px solid red;
+        }
+
+        .no-set {
+          /* nothing here */
+        }
+
+        .unset {
+          letter-spacing: unset;
+          border: unset;
+          font-size: unset;
+        }
+
+        .parent {
+          letter-spacing: 1px;
+          border: 1px solid blue;
+          font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<h3>Global span <span>letter-spacing: 5px, border: red</span></h3>
+<div class="parent">
+    Parent font: 25px (inherited), letter-spacing: 1px (inherited), border: blue (not inherited)<br><br>
+
+    <span class="no-set">no property set - 25px font, 5px wide with red border</span><br><br>
+
+    <span class="unset">unset - 25px font, 1px wide without border</span>
+</div>
+</body>
+</html>

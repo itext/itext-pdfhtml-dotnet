@@ -1,37 +1,37 @@
 @font-face {
-  font-family: 'Droid Serif';
+  font-family: 'Roboto Serif';
   font-weight: 400;
   font-style: normal;
-  src: url('web-fonts/droid-serif-regular.ttf') format('truetype'),
-       url('web-fonts/droid-serif-invalid.ttf') format('opentype')/* test invalid font */;
+  src: url('../../fonts/RobotoSerif-Regular.ttf') format('truetype'),
+       url('../../fonts/RobotoSerif-invalid.ttf') format('opentype')/* test invalid font */;
 }
 
 @font-face {
-  font-family: 'Droid Serif';
+  font-family: 'Roboto Serif';
   font-weight: 700;
   font-style: normal;
-  src: url('web-fonts/droid-serif-bold.ttf') format('opentype');
+  src: url('../../fonts/RobotoSerif-Bold.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Droid Serif';
+  font-family: 'Amaranth Serif';
   font-weight: 300;
   font-style: normal;
-  src: url('../../fonts/Amaranth-Regular.woff') format('opentype');
+  src: url('../../fonts/Amaranth-Regular.woff') format('woff');
 }
 
 @font-face {
-  font-family: 'Droid Serif';
+  font-family: 'Roboto Serif';
   font-weight: 500;
   font-style: normal;
-  src: url('web-fonts/droid-serif-italic.ttf') format('truetype');
+  src: url('../../fonts/RobotoSerif-Italic.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Droid Serif';
+  font-family: 'Roboto Serif';
   font-weight: 800;
   font-style: normal;
-  src: url('web-fonts/droid-serif-bolditalic.ttf') format('truetype');
+  src: url('../../fonts/RobotoSerif-BoldItalic.ttf') format('truetype');
 }
 
 

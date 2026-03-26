@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2025 Apryse Group NV
+Copyright (c) 1998-2026 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -136,6 +136,21 @@ namespace iText.Html2pdf.Css {
         public virtual void AbsPosNoTopBottomTest01() {
             // TODO DEVSIX-1950
             ConvertToPdfAndCompare("absPosNoTopBottomTest01", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePositionSplitPagesBeforeTextTest() {
+            ConvertToPdfAndCompare("absolutePositionSplitPagesBeforeText", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePositionSplitPagesAfterTextTest() {
+            ConvertToPdfAndCompare("absolutePositionSplitPagesAfterText", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsolutePositionSplitPagesAfterTextInImageBlockTest() {
+            ConvertToPdfAndCompare("absolutePositionSplitPagesAfterTextInImageBlock", sourceFolder, destinationFolder);
         }
     }
 }

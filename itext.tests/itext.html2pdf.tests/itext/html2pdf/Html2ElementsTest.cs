@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2025 Apryse Group NV
+Copyright (c) 1998-2026 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -373,6 +373,13 @@ namespace iText.Html2pdf {
             }
             NUnit.Framework.Assert.IsNull(new VeraPdfValidator().Validate(outPdf));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void UnsetLetterSpacingTest() {
+            String unsetDoc = "<div style=\"letter-spacing: unset;\">Test</div>";
+            Div div = (Div)HtmlConverter.ConvertToElements(unsetDoc)[0];
+            NUnit.Framework.Assert.IsNull(div.GetProperty<int?>(Property.CHARACTER_SPACING));
         }
 
         private static void AddElementsToDocument(Document document, IList<IElement> elements) {

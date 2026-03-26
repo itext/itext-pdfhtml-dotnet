@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2025 Apryse Group NV
+Copyright (c) 1998-2026 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -35,6 +35,9 @@ namespace iText.Html2pdf {
     public class FontProviderTest : ExtendedITextTest {
         public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/FontProviderTest/";
+
+        public static readonly String FONT_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/fonts/";
 
         public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/FontProviderTest/";
@@ -93,36 +96,36 @@ namespace iText.Html2pdf {
             // monospace' family reproduces comparator exception. Update test after fixing.)
             ConverterProperties properties = new ConverterProperties();
             FontProvider pro = new BasicFontProvider();
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSansArabic-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSansArabic-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSansGurmukhi-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSansGurmukhi-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSansMyanmar-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSansMyanmar-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSansOriya-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSansOriya-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifBengali-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifBengali-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifDevanagari-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifDevanagari-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifGujarati-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifGujarati-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifHebrew-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifHebrew-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifKannada-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifKannada-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifKhmer-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifKhmer-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifMalayalam-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifMalayalam-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifMyanmar-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifMyanmar-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifTamil-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifTamil-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifTelugu-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifTelugu-Bold.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifThai-Regular.ttf"));
-            pro.AddFont(FontProgramFactory.CreateFont(SOURCE_FOLDER + "NotoSerifThai-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSansArabic-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSansArabic-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSansGurmukhi-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSansGurmukhi-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSansMyanmar-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSansMyanmar-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSansOriya-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSansOriya-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifBengali-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifBengali-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifDevanagari-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifDevanagari-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifGujarati-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifGujarati-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifHebrew-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifHebrew-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifKannada-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifKannada-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifKhmer-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifKhmer-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifMalayalam-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifMalayalam-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifMyanmar-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifMyanmar-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifTamil-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifTamil-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifTelugu-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifTelugu-Bold.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifThai-Regular.ttf"));
+            pro.AddFont(FontProgramFactory.CreateFont(FONT_FOLDER + "NotoSerifThai-Bold.ttf"));
             properties.SetFontProvider(pro);
             bool isExceptionThrown = false;
             try {
@@ -143,7 +146,7 @@ namespace iText.Html2pdf {
         public virtual void DifferentFontFamiliesTest() {
             ConverterProperties properties = new ConverterProperties();
             FontProvider fontProvider = new BasicFontProvider(false, false, false);
-            fontProvider.AddDirectory(SOURCE_FOLDER + "Lato_fonts");
+            fontProvider.AddDirectory(FONT_FOLDER);
             properties.SetFontProvider(fontProvider);
             HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "differentFontFamilies.html"), new FileInfo(DESTINATION_FOLDER
                  + "differentFontFamilies.pdf"), properties);

@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'Roboto Serif';
+  font-weight: 400;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/robotoserif/v17/R707jywflP6FLr3gZx7K8UyuXDs9zVwDmXCb8lxYgmuimXPEWoRldX48gtLHywA.woff2') format('woff2'),
+               url('../../fonts/RobotoSerif-Regular.ttf') format('truetype');
+
+}
+
+@font-face {
+  font-family: 'Roboto Serif';
+  font-weight: 700;
+  font-style: normal;
+  src: url('https://fonts.gstatic.com/s/robotoserif/v17/R70mjywflP6FLr3gZx7K8UyuXDs9zVwDmXCb8lxYgmuimXPEWoRldX48gvjL4_HUPM_kB_qXr0P5KSh0.woff2') format('woff2'),
+              url('../../fonts/RobotoSerif-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto Serif';
+  font-weight: 700;
+  font-style: italic;
+  src: url('https://fonts.gstatic.com/s/robotoserif/v17/R70kjywflP6FLr3gZx7K8UyEVQnyR1E7VN-f51xYuGCQepO9CRLLcmv0wAqC0Q4MVaR-qf2CgAfGahh23OY.woff2') format('woff2'),
+              url('../../fonts/RobotoSerif-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto Serif';
+  font-weight: 400;
+  font-style: italic;
+  src: url('https://fonts.gstatic.com/s/robotoserif/v17/R70kjywflP6FLr3gZx7K8UyEVQnyR1E7VN-f51xYuGCQepO9CRLLcmv0wAqC0Q4MVaR-qf2CgAchbRh23OY.woff2') format('woff2'),
+              url('../../fonts/RobotoSerif-Italic.ttf') format('truetype');
+}

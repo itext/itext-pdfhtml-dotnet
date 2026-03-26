@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2025 Apryse Group NV
+Copyright (c) 1998-2026 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -33,11 +33,11 @@ namespace iText.Html2pdf.Actions.Data {
     public sealed class PdfHtmlProductData {
         private const String PDF_HTML_PUBLIC_PRODUCT_NAME = "pdfHTML";
 
-        private const String PDF_HTML_VERSION = "6.3.1";
+        private const String PDF_HTML_VERSION = "6.3.2";
 
         private const int PDF_HTML_COPYRIGHT_SINCE = 2000;
 
-        private const int PDF_HTML_COPYRIGHT_TO = 2025;
+        private const int PDF_HTML_COPYRIGHT_TO = 2026;
 
         private static readonly ProductData PDF_HTML_PRODUCT_DATA = new ProductData(PDF_HTML_PUBLIC_PRODUCT_NAME, 
             ProductNameConstant.PDF_HTML, PDF_HTML_VERSION, PDF_HTML_COPYRIGHT_SINCE, PDF_HTML_COPYRIGHT_TO);

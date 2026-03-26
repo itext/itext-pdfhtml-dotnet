@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2025 Apryse Group NV
+Copyright (c) 1998-2026 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -30,15 +30,18 @@ using iText.Test;
 namespace iText.Html2pdf.Resolver.Resource {
     [NUnit.Framework.Category("IntegrationTest")]
     public class ResourceReleaseResolverTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/resolver/resource/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        private static readonly String FONT_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/fonts/";
+
+        private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/resolver/resource/release/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateOrClearDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
@@ -47,10 +50,10 @@ namespace iText.Html2pdf.Resolver.Resource {
             String htmlFileName = "testWithSvg.html";
             String svgFileName = "imageWithMultipleShapes.svg";
             String imageFileName = "image.png";
-            String sourceHtmlFile = sourceFolder + dirName + htmlFileName;
-            String sourceSvgFile = sourceFolder + dirName + svgFileName;
-            String sourceImageFile = sourceFolder + dirName + imageFileName;
-            String workDir = destinationFolder + dirName;
+            String sourceHtmlFile = SOURCE_FOLDER + dirName + htmlFileName;
+            String sourceSvgFile = SOURCE_FOLDER + dirName + svgFileName;
+            String sourceImageFile = SOURCE_FOLDER + dirName + imageFileName;
+            String workDir = DESTINATION_FOLDER + dirName;
             CreateDestinationFolder(workDir);
             String targetPdfFile = workDir + "target.pdf";
             String workDirHtmlFile = workDir + htmlFileName;
@@ -76,9 +79,9 @@ namespace iText.Html2pdf.Resolver.Resource {
             String dirName = "LocalFontIsReleased/";
             String htmlFileName = "localFontIsReleased.html";
             String fontFileName = "NotoSans-Regular.ttf";
-            String sourceHtmlFile = sourceFolder + dirName + htmlFileName;
-            String sourceFontFile = sourceFolder + dirName + fontFileName;
-            String workDir = destinationFolder + dirName;
+            String sourceHtmlFile = SOURCE_FOLDER + dirName + htmlFileName;
+            String sourceFontFile = FONT_FOLDER + fontFileName;
+            String workDir = DESTINATION_FOLDER + dirName;
             CreateDestinationFolder(workDir);
             String targetPdfFile = workDir + "target.pdf";
             String workDirHtmlFile = workDir + htmlFileName;
@@ -105,16 +108,16 @@ namespace iText.Html2pdf.Resolver.Resource {
             String dirName = "AddedFontIsReleased/";
             String htmlFileName = "addedFontIsReleased.html";
             String fontFileName = "NotoSans-Regular.ttf";
-            String sourceHtmlFile = sourceFolder + dirName + htmlFileName;
-            String sourceFontFile = sourceFolder + dirName + fontFileName;
-            String workDir = destinationFolder + dirName;
+            String sourceHtmlFile = SOURCE_FOLDER + dirName + htmlFileName;
+            String sourceFontFile = FONT_FOLDER + dirName + fontFileName;
+            String workDir = DESTINATION_FOLDER + dirName;
             CreateDestinationFolder(workDir);
             String targetPdfFile = workDir + "target.pdf";
             String workDirFontFile = workDir + fontFileName;
             File.Copy(System.IO.Path.Combine(sourceFontFile), System.IO.Path.Combine(workDirFontFile));
             BasicFontProvider fontProvider = new BasicFontProvider(true, false, false);
             fontProvider.AddDirectory(workDir);
-            ConverterProperties properties = new ConverterProperties().SetBaseUri(sourceFolder).SetFontProvider(fontProvider
+            ConverterProperties properties = new ConverterProperties().SetBaseUri(SOURCE_FOLDER).SetFontProvider(fontProvider
                 );
             HtmlConverter.ConvertToPdf(new FileInfo(sourceHtmlFile), new FileInfo(targetPdfFile), properties);
             FileInfo resourceToBeRemoved = new FileInfo(workDirFontFile);
@@ -127,9 +130,9 @@ namespace iText.Html2pdf.Resolver.Resource {
             String dirName = "CssIsReleased/";
             String htmlFileName = "cssIsReleased.html";
             String cssFileName = "cssIsReleased.css";
-            String sourceHtmlFile = sourceFolder + dirName + htmlFileName;
-            String sourceCssFile = sourceFolder + dirName + cssFileName;
-            String workDir = destinationFolder + dirName;
+            String sourceHtmlFile = SOURCE_FOLDER + dirName + htmlFileName;
+            String sourceCssFile = SOURCE_FOLDER + dirName + cssFileName;
+            String workDir = DESTINATION_FOLDER + dirName;
             CreateDestinationFolder(workDir);
             String targetPdfFile = workDir + "target.pdf";
             String workDirHtmlFile = workDir + htmlFileName;

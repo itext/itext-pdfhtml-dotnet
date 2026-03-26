@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2025 Apryse Group NV
+Copyright (c) 1998-2026 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -76,6 +76,11 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void CssFontFamilyInheritanceTest01() {
             ConvertToPdfAndCompare("cssFontFamilyInheritanceTest01", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void UnsetPropertyInheritanceTest() {
+            ConvertToPdfAndCompare("unsetCssInheritance", sourceFolder, destinationFolder);
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2025 Apryse Group NV
+Copyright (c) 1998-2026 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -32,88 +32,88 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css {
     [NUnit.Framework.Category("IntegrationTest")]
     public class WordBreakTest : ExtendedITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/WordBreakTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        private static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/WordBreakTest/";
 
-        public static readonly String fontsFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
-            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/CJKFonts/";
+        private static readonly String FONTS_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+            .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/fonts/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void WordBreakCommonScenarioTest() {
             FontProvider fontProvider = new BasicFontProvider();
-            fontProvider.AddFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
+            fontProvider.AddFont(FONTS_FOLDER + "NotoSansCJKjp-Regular.otf");
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetFontProvider(fontProvider);
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "wordBreakCommonScenario.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "wordBreakCommonScenario.html"), new FileInfo(DESTINATION_FOLDER
                  + "wordBreakCommonScenario.pdf"), converterProperties);
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "wordBreakCommonScenario.pdf"
-                , sourceFolder + "cmp_wordBreakCommonScenario.pdf", destinationFolder));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "wordBreakCommonScenario.pdf"
+                , SOURCE_FOLDER + "cmp_wordBreakCommonScenario.pdf", DESTINATION_FOLDER));
         }
 
         [NUnit.Framework.Test]
         public virtual void OverflowXWordBreakTest() {
             FontProvider fontProvider = new BasicFontProvider();
-            fontProvider.AddFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
+            fontProvider.AddFont(FONTS_FOLDER + "NotoSansCJKjp-Regular.otf");
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetFontProvider(fontProvider);
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "overflowXWordBreak.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "overflowXWordBreak.html"), new FileInfo(DESTINATION_FOLDER
                  + "overflowXWordBreak.pdf"), converterProperties);
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "overflowXWordBreak.pdf"
-                , sourceFolder + "cmp_overflowXWordBreak.pdf", destinationFolder));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "overflowXWordBreak.pdf"
+                , SOURCE_FOLDER + "cmp_overflowXWordBreak.pdf", DESTINATION_FOLDER));
         }
 
         [NUnit.Framework.Test]
         public virtual void WhiteSpaceAndWordBreakTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "whiteSpaceAndWordBreak.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "whiteSpaceAndWordBreak.html"), new FileInfo(DESTINATION_FOLDER
                  + "whiteSpaceAndWordBreak.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "whiteSpaceAndWordBreak.pdf"
-                , sourceFolder + "cmp_whiteSpaceAndWordBreak.pdf", destinationFolder));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "whiteSpaceAndWordBreak.pdf"
+                , SOURCE_FOLDER + "cmp_whiteSpaceAndWordBreak.pdf", DESTINATION_FOLDER));
         }
 
         [NUnit.Framework.Test]
         public virtual void WordBreakMidNumbersTest() {
             FontProvider fontProvider = new BasicFontProvider();
-            fontProvider.AddFont(fontsFolder + "NotoSansCJKjp-Regular.otf");
+            fontProvider.AddFont(FONTS_FOLDER + "NotoSansCJKjp-Regular.otf");
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetFontProvider(fontProvider);
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "wordBreakMidNumbers.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "wordBreakMidNumbers.html"), new FileInfo(DESTINATION_FOLDER
                  + "wordBreakMidNumbers.pdf"), converterProperties);
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "wordBreakMidNumbers.pdf"
-                , sourceFolder + "cmp_wordBreakMidNumbers.pdf", destinationFolder));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "wordBreakMidNumbers.pdf"
+                , SOURCE_FOLDER + "cmp_wordBreakMidNumbers.pdf", DESTINATION_FOLDER));
         }
 
         [NUnit.Framework.Test]
         public virtual void WordBreakMidPunctuationTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "wordBreakMidPunctuation.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "wordBreakMidPunctuation.html"), new FileInfo(DESTINATION_FOLDER
                  + "wordBreakMidPunctuation.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "wordBreakMidPunctuation.pdf"
-                , sourceFolder + "cmp_wordBreakMidPunctuation.pdf", destinationFolder));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "wordBreakMidPunctuation.pdf"
+                , SOURCE_FOLDER + "cmp_wordBreakMidPunctuation.pdf", DESTINATION_FOLDER));
         }
 
         [NUnit.Framework.Test]
         public virtual void WordBreakAllAndFloatTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "wordBreakAllAndFloat.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "wordBreakAllAndFloat.html"), new FileInfo(DESTINATION_FOLDER
                  + "wordBreakAllAndFloat.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "wordBreakAllAndFloat.pdf"
-                , sourceFolder + "cmp_wordBreakAllAndFloat.pdf", destinationFolder));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "wordBreakAllAndFloat.pdf"
+                , SOURCE_FOLDER + "cmp_wordBreakAllAndFloat.pdf", DESTINATION_FOLDER));
         }
 
         [NUnit.Framework.Test]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
             3)]
         public virtual void WordBreakTableScenarioTest() {
-            HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "wordBreakTableScenario.html"), new FileInfo(destinationFolder
+            HtmlConverter.ConvertToPdf(new FileInfo(SOURCE_FOLDER + "wordBreakTableScenario.html"), new FileInfo(DESTINATION_FOLDER
                  + "wordBreakTableScenario.pdf"));
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(destinationFolder + "wordBreakTableScenario.pdf"
-                , sourceFolder + "cmp_wordBreakTableScenario.pdf", destinationFolder));
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(DESTINATION_FOLDER + "wordBreakTableScenario.pdf"
+                , SOURCE_FOLDER + "cmp_wordBreakTableScenario.pdf", DESTINATION_FOLDER));
         }
     }
 }

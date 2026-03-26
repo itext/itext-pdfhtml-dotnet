@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>:has() with form controls</title>
+  <style>
+    form { border:1px solid #bbb; padding:10px; margin:10px 0; }
+    fieldset { border:1px solid #aaa; margin:8px 0; padding:8px; }
+    legend { font-weight:bold; }
+
+    /* Form that has any invalid control */
+    form:has(:invalid) { border-color:#cc0000; background:#fff0f0; }
+
+    /* Fieldset that has a required input */
+    fieldset:has(input[required]) { outline:3px solid #007acc; }
+
+    /* Group that has a checked checkbox */
+    .group:has(input[type="checkbox"]:checked) { background:#eef9ee; border:2px solid #2a8f2a; padding:8px; }
+
+    /* Label that has an input inside */
+    label:has(input) { font-weight:bold; }
+
+    /* Form that has a submit button disabled */
+    form:has(button[disabled]) { box-shadow: inset 0 0 0 3px #999; }
+  </style>
+</head>
+<body>
+<h1>:has() with form controls</h1>
+<form id="f1">
+  <fieldset>
+    <legend>Account</legend>
+    <div class="row">
+      <label>Username <input type="text" name="u" required /></label>
+    </div>
+    <div class="row">
+      <label>Password <input type="password" name="p" required /></label>
+    </div>
+    <div class="row group">
+      <label><input type="checkbox" name="remember" /> Remember me</label>
+    </div>
+    <div class="row">
+      <button type="submit" disabled>Submit (disabled)</button>
+    </div>
+  </fieldset>
+</form>
+
+<form id="f2">
+  <fieldset>
+    <legend>Preferences</legend>
+    <div class="row group">
+      <label><input type="checkbox" name="newsletter" checked /> Subscribe to newsletter</label>
+    </div>
+    <div class="row">
+      <label>Color theme <input type="text" name="theme" /></label>
+    </div>
+    <div class="row">
+      <button type="submit">Save</button>
+    </div>
+  </fieldset>
+</form>
+</body>
+</html>

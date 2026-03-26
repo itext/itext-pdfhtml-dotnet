@@ -1,6 +1,6 @@
 /*
 This file is part of the iText (R) project.
-Copyright (c) 1998-2025 Apryse Group NV
+Copyright (c) 1998-2026 Apryse Group NV
 Authors: Apryse Software.
 
 This program is offered under a commercial and under the AGPL license.
@@ -36,6 +36,7 @@ using iText.Layout.Properties;
 using iText.Layout.Renderer;
 using iText.Pdfa;
 using iText.Pdfua;
+using iText.Pdfua.Wtpdf;
 using iText.StyledXmlParser;
 using iText.StyledXmlParser.Node;
 using iText.StyledXmlParser.Node.Impl.Jsoup;
@@ -724,17 +725,24 @@ namespace iText.Html2pdf {
         private static PdfDocument CreateCorrectDocument(ConverterProperties converterProps, DocumentProperties documentProps
             , PdfWriter pdfWriter) {
             if (converterProps != null) {
-                if (converterProps.GetPdfUaConformance() != null && converterProps.GetPdfAConformance() != null) {
+                PdfConformance pdfConformance = converterProps.GetPdfConformance();
+                bool hasMultipleConformances = (pdfConformance.IsPdfA() ? 1 : 0) + (pdfConformance.IsPdfUA() ? 1 : 0) + (pdfConformance
+                    .IsWtpdf() ? 1 : 0) > 1;
+                if (hasMultipleConformances) {
                     throw new Html2PdfException(Html2PdfLogMessageConstant.PDF_A_AND_PDF_UA_CONFORMANCE_CANNOT_BE_USED_TOGETHER
                         );
                 }
-                if (converterProps.GetPdfAConformance() != null) {
+                if (pdfConformance.IsPdfA()) {
                     return new PdfADocument(pdfWriter, converterProps.GetPdfAConformance(), converterProps.GetDocumentOutputIntent
                         (), documentProps);
                 }
-                if (converterProps.GetPdfUaConformance() != null) {
+                if (pdfConformance.IsPdfUA()) {
                     return new PdfUADocument(pdfWriter, documentProps, new PdfUAConfig(converterProps.GetPdfUaConformance(), "Title"
                         , "en"));
+                }
+                if (pdfConformance.IsWtpdf()) {
+                    return new WellTaggedPdfDocument(pdfWriter, documentProps, new WellTaggedPdfConfig(pdfConformance.GetWtpdfConformances
+                        (), "Title", "en-US"));
                 }
             }
             return new PdfDocument(pdfWriter, documentProps);
@@ -749,14 +757,14 @@ namespace iText.Html2pdf {
             if (properties == null) {
                 properties = new ConverterProperties();
             }
-            bool needsForcedEmbeddedFonts = document is PdfADocument || document is PdfUADocument || properties.GetPdfUaConformance
-                () != null || properties.GetPdfAConformance() != null;
+            bool isWtpdfDocument = document is WellTaggedPdfDocument || properties.GetPdfConformance().IsWtpdf();
+            bool isPdfADocument = document is PdfADocument || properties.GetPdfAConformance() != null;
+            bool isPdfUADocument = document is PdfUADocument || properties.GetPdfUaConformance() != null;
+            bool needsForcedEmbeddedFonts = isPdfUADocument || isPdfADocument || isWtpdfDocument;
             if (needsForcedEmbeddedFonts && properties.GetFontProvider() == null) {
-                BasicFontProvider embeddedFontProvider = new BasicFontProvider(false, true, false);
-                properties.SetFontProvider(embeddedFontProvider);
+                properties.SetFontProvider(new BasicFontProvider(false, true, false));
             }
-            if ((document is PdfUADocument || properties.GetPdfUaConformance() != null) && properties.GetOutlineHandler
-                () == null) {
+            if ((isWtpdfDocument || isPdfUADocument) && properties.GetOutlineHandler() == null) {
                 properties.SetOutlineHandler(OutlineHandler.CreateStandardHandler());
             }
             if (properties.GetPdfAConformance() != null && "A".Equals(properties.GetPdfAConformance().GetLevel())) {
