@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Direction + Flex</title>
+<style>
+  .container {
+    display: flex;
+    gap: 10px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+  }
+
+  :where([dir="rtl"]) .container {
+    background: #ffe0e0;
+  }
+
+  :where([dir="ltr"]) .container {
+    background: #e0ffe0;
+  }
+
+  .item {
+    background: black;
+    color: white;
+    padding: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div dir="ltr">
+  <div class="container">
+    <div class="item">LTR 1</div>
+    <div class="item">LTR 2</div>
+    <div class="item">LTR 3</div>
+  </div>
+</div>
+
+<div dir="rtl">
+  <div class="container">
+    <div class="item">RTL 1</div>
+    <div class="item">RTL 2</div>
+    <div class="item">RTL 3</div>
+  </div>
+</div>
+
+</body>
+</html>

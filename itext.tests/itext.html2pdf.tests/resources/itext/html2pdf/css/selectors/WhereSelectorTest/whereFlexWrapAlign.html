@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wrap vs Wrap-Reverse</title>
+<style>
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 220px;
+    height: 180px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+  }
+
+  :where(.wrap, .wrap-reverse) {
+    align-content: space-between;
+    background: #eef;
+  }
+
+  .wrap {
+    flex-wrap: wrap;
+  }
+
+  .wrap-reverse {
+    flex-wrap: wrap-reverse;
+  }
+
+  .item {
+    width: 60px;
+    height: 40px;
+    background: crimson;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<div class="container wrap">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+  <div class="item">5</div>
+</div>
+
+<div class="container wrap-reverse">
+  <div class="item">A</div>
+  <div class="item">B</div>
+  <div class="item">C</div>
+  <div class="item">D</div>
+  <div class="item">E</div>
+</div>
+
+</body>
+</html>

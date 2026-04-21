@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nested Lists + :is()</title>
+<style>
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+  }
+
+  :is(ul.root, ul.nested) {
+    display: flex;
+    gap: 10px;
+  }
+
+  ul.root {
+    flex-direction: row;
+  }
+
+  ul.nested {
+    flex-direction: column;
+  }
+
+  .item {
+    background: steelblue;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<ul class="root">
+  <li class="item">A</li>
+  <li>
+    <ul class="nested">
+      <li class="item">B1</li>
+      <li class="item">B2</li>
+    </ul>
+  </li>
+  <li class="item">C</li>
+</ul>
+
+</body>
+</html>

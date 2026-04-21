@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>:where() with ID</title>
+  <style>
+    .card .title {
+      color: red;
+    }
+
+    :where(.card, #main) .title {
+      color: green;
+    }
+
+    :where(#idElement) {
+      color: purple;
+    }
+
+    :where(.soloClass) {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="title">Should be RED</div>
+</div>
+
+<div id="idElement">
+  <div class="title">Should be PURPLE</div>
+</div>
+
+<div class="soloClass">
+  <div class="title">Should be BLUE</div>
+</div>
+
+</body>
+</html>

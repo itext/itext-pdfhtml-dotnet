@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RTL + Flex Direction</title>
+<style>
+  .container {
+    display: flex;
+    gap: 10px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+  }
+
+  :where(.row, .row-reverse) {
+    background: #f5f5f5;
+  }
+
+  .row {
+    flex-direction: row;
+  }
+
+  .row-reverse {
+    flex-direction: row-reverse;
+  }
+
+  .item {
+    background: navy;
+    color: white;
+    padding: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div dir="ltr">
+  <div class="container row">
+    <div class="item">LTR Row</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+</div>
+
+<div dir="rtl">
+  <div class="container row-reverse">
+    <div class="item">RTL Reverse</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+  </div>
+</div>
+
+</body>
+</html>

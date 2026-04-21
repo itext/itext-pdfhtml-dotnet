@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Deep Nest + :is()</title>
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  :is(ul, ol) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    background: #f9f9f9;
+    padding: 5px;
+  }
+
+  ul.level-2 {
+    background: lightgreen;
+  }
+
+  li {
+    background: tomato;
+    color: white;
+    padding: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <ul class="level-1">
+    <li>1</li>
+    <li>
+      <ul class="level-2">
+        <li>2A</li>
+        <li>2B</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>:where() Test</title>
+  <style>
+    :where(h1, h2, h3) {
+      color: green;
+    }
+
+    h1 {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Heading 1 (should be red)</h1>
+  <h2>Heading 2 (should be green)</h2>
+  <h3>Heading 3 (should be green)</h3>
+
+</body>
+</html>

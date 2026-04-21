@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Flex Stress Test 2</title>
+<style>
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 260px;
+    height: 160px;
+    border: 3px solid black;
+    margin-bottom: 20px;
+  }
+
+  :is(.layout-a, .layout-b) {
+    gap: 6px;
+  }
+
+  .layout-a {
+    justify-content: center;
+    align-content: center;
+  }
+
+  .layout-b {
+    justify-content: space-between;
+    align-content: space-around;
+  }
+
+  :where(.theme-light, .theme-dark) {
+    color: white;
+  }
+
+  .theme-light {
+    background: lightblue;
+  }
+
+  .theme-dark {
+    background: black;
+  }
+
+  .theme-dark.override {
+    background: purple;
+  }
+
+  .item {
+    width: 50px;
+    height: 40px;
+    background: inherit;
+    border: 1px solid white;
+  }
+</style>
+</head>
+<body>
+
+<div class="container layout-a theme-light">
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+
+<div class="container layout-b theme-dark override">
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+
+</body>
+</html>

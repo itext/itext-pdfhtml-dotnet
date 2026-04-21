@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>:where() Always Loses</title>
+<style>
+  .box {
+    background: red;
+  }
+
+  :where(.box) {
+    background: green;
+  }
+</style>
+</head>
+<body>
+
+<div class="box">Should be RED</div>
+
+</body>
+</html>

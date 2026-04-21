@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>List Specificity</title>
+<style>
+  :where(ul li) {
+    background: lightgray;
+  }
+
+  ul li {
+    background: orange;
+  }
+
+  :is(ul li.special) {
+    background: green;
+  }
+</style>
+</head>
+<body>
+
+<ul>
+  <li>Normal</li>
+  <li class="special">Special</li>
+</ul>
+
+</body>
+</html>

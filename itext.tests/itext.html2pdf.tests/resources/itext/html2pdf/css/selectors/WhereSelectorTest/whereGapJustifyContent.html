@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gap + Justify</title>
+<style>
+  .container {
+    display: flex;
+    width: 300px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+  }
+
+  :where(.jc-center, .jc-around, .jc-evenly) {
+    gap: 10px;
+    background: #fafafa;
+  }
+
+  .jc-center {
+    justify-content: center;
+  }
+
+  .jc-around {
+    justify-content: space-around;
+  }
+
+  .jc-evenly {
+    justify-content: space-evenly;
+  }
+
+  .item {
+    width: 50px;
+    height: 40px;
+    background: orange;
+  }
+</style>
+</head>
+<body>
+
+<div class="container jc-center">
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+
+<div class="container jc-around">
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+
+<div class="container jc-evenly">
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+
+</body>
+</html>

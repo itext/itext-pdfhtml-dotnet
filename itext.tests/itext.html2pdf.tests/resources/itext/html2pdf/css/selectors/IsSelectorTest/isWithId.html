@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>:is() Surprise Win</title>
+  <style>
+    .card .title {
+      color: red;
+    }
+
+    :is(.card, #main) .title {
+      color: green;
+    }
+
+    :is(#idElement) {
+      color: purple;
+    }
+
+    :is(.soloClass) {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="title">Should be GREEN</div>
+</div>
+
+<div id="idElement">
+  <div class="title">Should be PURPLE</div>
+</div>
+
+<div class="soloClass">
+  <div class="title">Should be BLUE</div>
+</div>
+</body>
+</html>

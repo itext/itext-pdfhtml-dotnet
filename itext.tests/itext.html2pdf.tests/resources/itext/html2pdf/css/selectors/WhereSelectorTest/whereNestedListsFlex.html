@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Align Content Nested</title>
+<style>
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    height: 120px;
+    border: 2px solid black;
+    margin-bottom: 15px;
+    padding: 0;
+  }
+
+  :where(.start, .end, .between) {
+    gap: 5px;
+  }
+
+  .start {
+    align-content: flex-start;
+  }
+
+  .end {
+    align-content: flex-end;
+  }
+
+  .between {
+    align-content: space-between;
+  }
+
+  li {
+    list-style: none;
+    width: 50px;
+    height: 30px;
+    background: purple;
+  }
+</style>
+</head>
+<body>
+
+<ul class="start">
+  <li></li><li></li><li></li><li></li>
+</ul>
+
+<ul class="end">
+  <li></li><li></li><li></li><li></li>
+</ul>
+
+<ul class="between">
+  <li></li><li></li><li></li><li></li>
+</ul>
+
+</body>
+</html>

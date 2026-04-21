@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>:is vs :where</title>
+  <style>
+    :is(.card, #unique) {
+      background: lightblue;
+    }
+
+    :where(.card, #unique) {
+      border: 5px solid orange;
+      background: green;
+    }
+
+    .card {
+      background: pink;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">Card element</div>
+  <div id="unique">Unique element</div>
+
+</body>
+</html>

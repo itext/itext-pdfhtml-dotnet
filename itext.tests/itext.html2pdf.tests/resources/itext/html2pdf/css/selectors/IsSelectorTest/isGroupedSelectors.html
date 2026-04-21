@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Alignment stress test</title>
+<style>
+  :is(.a, .b, .c) {
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    height: 120px;
+    border: 2px solid black;
+    gap: 5px;
+  }
+
+  .a { justify-content: center; align-content: center; }
+  .b { justify-content: space-between; align-content: space-between; }
+  .c { justify-content: flex-end; align-content: flex-start; }
+
+  .item {
+    width: 40px;
+    height: 30px;
+    background: purple;
+  }
+</style>
+</head>
+<body>
+
+<div class="a">
+  <div class="item"></div><div class="item"></div><div class="item"></div>
+</div>
+
+<div class="b">
+  <div class="item"></div><div class="item"></div><div class="item"></div>
+</div>
+
+<div class="c">
+  <div class="item"></div><div class="item"></div><div class="item"></div>
+</div>
+
+</body>
+</html>

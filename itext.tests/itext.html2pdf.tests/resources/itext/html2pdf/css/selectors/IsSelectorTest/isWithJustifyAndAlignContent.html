@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Alignment Test</title>
+<style>
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    height: 150px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+  }
+
+  :is(.center, .space) {
+    background: #eef;
+  }
+
+  .center {
+    justify-content: center;
+    align-content: center;
+  }
+
+  .space {
+    justify-content: space-between;
+    align-content: space-between;
+  }
+
+  .item {
+    width: 60px;
+    height: 40px;
+    background: purple;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<div class="container center">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+</div>
+
+<div class="container space">
+  <div class="item">A</div>
+  <div class="item">B</div>
+  <div class="item">C</div>
+  <div class="item">D</div>
+</div>
+
+</body>
+</html>
