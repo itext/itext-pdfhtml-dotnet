@@ -479,12 +479,16 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             return !IsPageLeft(pageNum);
         }
 
-        private class PageMarginBoxesDrawingHandler : AbstractPdfDocumentEventHandler {
+        private sealed class PageMarginBoxesDrawingHandler : AbstractPdfDocumentEventHandler {
             private HtmlDocumentRenderer htmlDocumentRenderer;
 
+            public PageMarginBoxesDrawingHandler() {
+            }
+
 //\cond DO_NOT_DOCUMENT
-            internal virtual HtmlDocumentRenderer.PageMarginBoxesDrawingHandler SetHtmlDocumentRenderer(HtmlDocumentRenderer
-                 htmlDocumentRenderer) {
+            // Default constructor.
+            internal HtmlDocumentRenderer.PageMarginBoxesDrawingHandler SetHtmlDocumentRenderer(HtmlDocumentRenderer htmlDocumentRenderer
+                ) {
                 this.htmlDocumentRenderer = htmlDocumentRenderer;
                 return this;
             }
@@ -500,7 +504,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
 
 //\cond DO_NOT_DOCUMENT
-            internal virtual void ProcessPage(PdfDocument pdfDoc, int pageNumber) {
+            internal void ProcessPage(PdfDocument pdfDoc, int pageNumber) {
                 PageContextProcessor pageProcessor = htmlDocumentRenderer.GetPageProcessor(pageNumber);
                 pageProcessor.ProcessPageEnd(pageNumber, pdfDoc, htmlDocumentRenderer);
             }
