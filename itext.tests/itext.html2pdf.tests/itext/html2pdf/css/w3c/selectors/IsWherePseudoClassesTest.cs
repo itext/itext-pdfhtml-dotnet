@@ -26,10 +26,9 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Selectors {
-    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count
-         = 2)]
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
     public class IsWherePseudoClassesTest : W3CCssTest {
+        // TODO DEVSIX-9971 ":enabled" css pseudo selector is not supported
         protected internal override String GetHtmlFileName() {
             return "is-where-pseudo-classes.html";
         }

@@ -1,6 +1,5 @@
 using System;
 using iText.Html2pdf;
-using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Selectors {
@@ -18,37 +17,32 @@ namespace iText.Html2pdf.Css.Selectors {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         public virtual void IsClassOverridesListTest() {
             ConvertToPdfAndCompare("isClassOverridesList", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsDeepNestedTest() {
+            // TODO DEVSIX-9519 display:flex is not supported with ul/ol elements.
             ConvertToPdfAndCompare("isDeepNested", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsDeepNested2Test() {
             ConvertToPdfAndCompare("isDeepNested2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsFirstVsClassTest() {
             ConvertToPdfAndCompare("isFirstVsClass", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsFlexDirTest() {
             ConvertToPdfAndCompare("isFlexDir", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         [LogMessage("Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties"
             , Count = 48)]
         public virtual void IsFlexDirReadDirTest() {
@@ -56,55 +50,49 @@ namespace iText.Html2pdf.Css.Selectors {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsFlexWrapTest() {
             ConvertToPdfAndCompare("isFlexWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsFlexWrapAlignTest() {
             ConvertToPdfAndCompare("isFlexWrapAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsGapJustifyContentTest() {
             ConvertToPdfAndCompare("isGapJustifyContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsGroupedSelectorsTest() {
             ConvertToPdfAndCompare("isGroupedSelectors", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsNestedTest() {
             ConvertToPdfAndCompare("isNested", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsNestedListsTest() {
+            // TODO DEVSIX-9519 display:flex is not supported with ul/ol elements.
             ConvertToPdfAndCompare("isNestedLists", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsNestedListsFlexTest() {
+            // TODO DEVSIX-9519 display:flex is not supported with ul/ol elements.
             ConvertToPdfAndCompare("isNestedListsFlex", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         public virtual void IsNthChildTest() {
+            // TODO DEVSIX-9519 display:flex is not supported with ul/ol elements.
             ConvertToPdfAndCompare("isNthChild", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         [LogMessage("Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties"
             , Count = 48)]
         public virtual void IsReadDirFlexTest() {
@@ -112,31 +100,26 @@ namespace iText.Html2pdf.Css.Selectors {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         public virtual void IsSelectoreBasicTest() {
             ConvertToPdfAndCompare("isSelectoreBasic", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsSpecificOverrideTest() {
             ConvertToPdfAndCompare("isSpecificOverride", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsWinsFromClassTest() {
             ConvertToPdfAndCompare("isWinsFromClass", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 3)]
         public virtual void IsWithIdTest() {
             ConvertToPdfAndCompare("isWithId", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsWithJustifyAndAlignContentTest() {
             ConvertToPdfAndCompare("isWithJustifyAndAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

@@ -22,12 +22,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css3_selectors {
-    [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
-    public class Css3Modsel_83_NegationPseudoClassCannotBeAnArgumentOfItselfTest : W3CCssTest {
+    // In Selectors level 4 specification ":not" pseudo-class selector can be an argument of another ":not" selector.
+    public class Css3Modsel_83_NegationPseudoClassCanBeAnArgumentOfItselfTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "css3-modsel-83.html";
         }

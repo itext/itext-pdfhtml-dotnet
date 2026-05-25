@@ -26,8 +26,6 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Selectors {
-    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count
-         = 5)]
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
     public class IsTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {

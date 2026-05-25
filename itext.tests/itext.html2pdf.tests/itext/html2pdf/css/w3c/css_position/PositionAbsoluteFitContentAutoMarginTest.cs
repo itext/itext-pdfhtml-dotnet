@@ -26,9 +26,9 @@ using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_position {
-    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 6)]
     public class PositionAbsoluteFitContentAutoMarginTest : W3CCssTest {
+        // TODO DEVSIX-5182 "writing-mode" style is not supported
         protected internal override String GetHtmlFileName() {
             return "position-absolute-fit-content-auto-margin.html";
         }

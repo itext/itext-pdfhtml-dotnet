@@ -22,10 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Selectors {
-    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
+    // TODO DEVSIX-9971 ":disabled" css pseudo selector is not supported
     public class IsDefaultNs002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "is-default-ns-002.html";

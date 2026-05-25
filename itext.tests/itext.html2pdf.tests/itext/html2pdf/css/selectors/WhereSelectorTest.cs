@@ -1,6 +1,5 @@
 using System;
 using iText.Html2pdf;
-using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Selectors {
@@ -18,25 +17,22 @@ namespace iText.Html2pdf.Css.Selectors {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereDeepNestedTest() {
+            // TODO DEVSIX-9519 display:flex is not supported with ul/ol elements.
             ConvertToPdfAndCompare("whereDeepNested", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereDeepNested2Test() {
             ConvertToPdfAndCompare("whereDeepNested2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereFlexDirTest() {
             ConvertToPdfAndCompare("whereFlexDir", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         [LogMessage("Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties"
             , Count = 48)]
         public virtual void WhereFlexDirReadDirTest() {
@@ -44,55 +40,49 @@ namespace iText.Html2pdf.Css.Selectors {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereFlexWrapTest() {
             ConvertToPdfAndCompare("whereFlexWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereFlexWrapAlignTest() {
             ConvertToPdfAndCompare("whereFlexWrapAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereGapJustifyContentTest() {
             ConvertToPdfAndCompare("whereGapJustifyContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereLosesFromClassTest() {
             ConvertToPdfAndCompare("whereLosesFromClass", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereNestedTest() {
             ConvertToPdfAndCompare("whereNested", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereNestedListsTest() {
+            // TODO DEVSIX-9519 display:flex is not supported with ul/ol elements.
             ConvertToPdfAndCompare("whereNestedLists", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereNestedListsFlexTest() {
+            // TODO DEVSIX-9519 display:flex is not supported with ul/ol elements.
             ConvertToPdfAndCompare("whereNestedListsFlex", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         public virtual void WhereNthChildTest() {
+            // TODO DEVSIX-9519 display:flex is not supported with ul/ol elements.
             ConvertToPdfAndCompare("whereNthChild", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         [LogMessage("Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties"
             , Count = 48)]
         public virtual void WhereReadDirFlexTest() {
@@ -100,19 +90,16 @@ namespace iText.Html2pdf.Css.Selectors {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereSelectorBasicTest() {
             ConvertToPdfAndCompare("whereSelectorBasic", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereSpecificOverrideTest() {
             ConvertToPdfAndCompare("whereSpecificOverride", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 3)]
         public virtual void WhereWithIdTest() {
             ConvertToPdfAndCompare("whereWithId", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

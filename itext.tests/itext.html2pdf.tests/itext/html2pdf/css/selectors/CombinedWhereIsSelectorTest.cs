@@ -1,7 +1,5 @@
 using System;
 using iText.Html2pdf;
-using iText.Html2pdf.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Selectors {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -18,55 +16,46 @@ namespace iText.Html2pdf.Css.Selectors {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         public virtual void IsVsWhereTest() {
             ConvertToPdfAndCompare("isVsWhere", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void IsWhereNestedTest() {
             ConvertToPdfAndCompare("isWhereNested", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         public virtual void NestedSelectorsBasicTest() {
             ConvertToPdfAndCompare("nestedSelectorsBasic", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
         public virtual void WhereIsNestedTest() {
             ConvertToPdfAndCompare("whereIsNested", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         public virtual void WhereIsWithJustifyAndAlignContentTest() {
             ConvertToPdfAndCompare("whereIsWithJustifyAndAlignContent", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         public virtual void CombinedDeepNestingTest() {
             ConvertToPdfAndCompare("combinedDeepNesting", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         public virtual void CombinedOverwriteChainTest() {
             ConvertToPdfAndCompare("combinedOverwriteChain", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         public virtual void CombinedTest() {
             ConvertToPdfAndCompare("combinedTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR, Count = 2)]
         public virtual void CombinedTest2() {
             ConvertToPdfAndCompare("combinedTest2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
