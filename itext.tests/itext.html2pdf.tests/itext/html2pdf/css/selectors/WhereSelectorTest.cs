@@ -1,6 +1,5 @@
 using System;
 using iText.Html2pdf;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Selectors {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -33,8 +32,6 @@ namespace iText.Html2pdf.Css.Selectors {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage("Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties"
-            , Count = 48)]
         public virtual void WhereFlexDirReadDirTest() {
             ConvertToPdfAndCompare("whereFlexDirReadDir", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -83,8 +80,6 @@ namespace iText.Html2pdf.Css.Selectors {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage("Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties"
-            , Count = 48)]
         public virtual void WhereReadDirFlexTest() {
             ConvertToPdfAndCompare("whereReadDirFlex", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

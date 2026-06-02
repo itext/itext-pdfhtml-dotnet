@@ -23,7 +23,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
-using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Flex {
@@ -61,8 +60,6 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 84, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void StartFlexDirColumnFlexWrapDirTest() {
             // TODO DEVSIX-9436 Flex: alignment doesn't work correctly with direction: rtl
             ConvertToPdfAndCompare("startFlexDirColumnFlexWrapDirTest", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -84,8 +81,6 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 84, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void EndFlexDirColumnFlexWrapDirTest() {
             ConvertToPdfAndCompare("endFlexDirColumnFlexWrapDirTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -136,8 +131,6 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 84, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void FlexStartFlexDirColumnFlexWrapDirTest() {
             // TODO DEVSIX-9436 Flex: alignment doesn't work correctly with direction: rtl
             ConvertToPdfAndCompare("flexStartFlexDirColumnFlexWrapDirTest", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -164,8 +157,6 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 84, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void FlexEndFlexDirColumnReverseFlexWrapDirTest() {
             ConvertToPdfAndCompare("flexEndFlexDirColumnReverseFlexWrapDirTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -209,32 +200,24 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 84, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void SelfStartFlexDirColumnFlexWrapDirTest() {
             // TODO DEVSIX-9436 Flex: alignment doesn't work correctly with direction: rtl
             ConvertToPdfAndCompare("selfStartFlexDirColumnFlexWrapDirTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 84, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void SelfStartFlexDirColumnReverseFlexWrapDirTest() {
             // TODO DEVSIX-9436 Flex: alignment doesn't work correctly with direction: rtl
             ConvertToPdfAndCompare("selfStartFlexDirColumnReverseFlexWrapDirTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 108, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void SelfStartFlexDirRowFlexWrapDirTest() {
             // TODO DEVSIX-9436 Flex: alignment doesn't work correctly with direction: rtl
             ConvertToPdfAndCompare("selfStartFlexDirRowFlexWrapDirTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 84, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void SelfEndFlexDirColumnFlexWrapDirTest() {
             // TODO DEVSIX-9436 Flex: alignment doesn't work correctly with direction: rtl
             ConvertToPdfAndCompare("selfEndFlexDirColumnFlexWrapDirTest", SOURCE_FOLDER, DESTINATION_FOLDER);

@@ -76,8 +76,6 @@ namespace iText.Html2pdf.Css.Flex {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage("Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties"
-            , Count = 24)]
         public virtual void LeftValueTest() {
             // TODO DEVSIX-9436 Flex: alignment/justify-content doesn't work correctly with direction: rtl
             ConvertToPdfAndCompare("leftValue", SOURCE_FOLDER, DESTINATION_FOLDER);

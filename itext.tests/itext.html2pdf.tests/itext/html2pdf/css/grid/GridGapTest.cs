@@ -259,15 +259,11 @@ namespace iText.Html2pdf.Css.Grid {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage("Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties"
-            , Count = 32)]
         public virtual void ColGapRtlDirectionTest() {
             ConvertToPdfAndCompare("colGapRtlDirection", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage("Cannot find pdfCalligraph module, which was implicitly required by one of the layout properties"
-            , Count = 32)]
         public virtual void RowGapRtlDirectionTest() {
             ConvertToPdfAndCompare("rowGapRtlDirection", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

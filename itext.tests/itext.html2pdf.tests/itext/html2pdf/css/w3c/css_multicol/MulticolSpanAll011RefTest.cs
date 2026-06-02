@@ -22,10 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
-    [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4)]
     public class MulticolSpanAll011RefTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-span-all-011-ref.html";

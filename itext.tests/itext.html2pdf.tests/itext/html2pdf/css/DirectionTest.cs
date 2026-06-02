@@ -44,8 +44,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void SimpleLtrDocTest() {
             NUnit.Framework.Assert.IsTrue(GetTextFromDocument(ConvertToHtmlDocument("SimpleLtrDoc"), 1).Contains("123456789."
                 ));
@@ -66,8 +64,6 @@ namespace iText.Html2pdf.Css {
 
         //TODO DEVSIX-2437 : Change test after fix
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void LtrInRtlDocTest() {
             NUnit.Framework.Assert.IsFalse(GetTextFromDocument(ConvertToHtmlDocument("LtrInRtlDoc"), 1).Contains("!Right to left text"
                 ));
@@ -75,8 +71,6 @@ namespace iText.Html2pdf.Css {
 
         //TODO DEVSIX-2437 : Change test after fix
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 4, LogLevel = LogLevelConstants
-            .WARN)]
         public virtual void RtlInLtrDocTest() {
             NUnit.Framework.Assert.IsFalse(GetTextFromDocument(ConvertToHtmlDocument("RtlInLtrDoc"), 1).Contains("!Right to left text"
                 ));
@@ -84,8 +78,6 @@ namespace iText.Html2pdf.Css {
 
         //TODO DEVSIX-3069: Change test after fix
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 34, LogLevel = LogLevelConstants
-            .WARN)]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.TABLE_WIDTH_IS_MORE_THAN_EXPECTED_DUE_TO_MIN_WIDTH, Count = 
             1, LogLevel = LogLevelConstants.WARN)]
         public virtual void BigTableTest() {
