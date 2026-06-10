@@ -21,8 +21,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.IO;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
+using iText.IO.Image;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Element {
@@ -578,6 +580,20 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void PercentHeightImgContainer2() {
             ConvertToPdfAndCompare("percentHeightImgContainer2", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        // TODO DEVSIX-10012 Extra misleading log messages are produced when WebP module is missing
+        [LogMessage(WebPLogMessageConstant.WEBP_NOT_FOUND)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
+            )]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
+        public virtual void WebPImageWithoutWebPModuleTest() {
+            String html = "<!DOCTYPE html><html><body>" + "<img src=\"opaqueWebPImage.webp\">" + "</body></html>";
+            using (FileStream outputStream = new FileStream(DESTINATION_FOLDER + "webPImageWithoutWebPModule.pdf", FileMode.Create
+                )) {
+                HtmlConverter.ConvertToPdf(html, outputStream, new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
+            }
         }
     }
 }
