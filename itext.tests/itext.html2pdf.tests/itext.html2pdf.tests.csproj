@@ -43,6 +43,7 @@
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <PackageReference Include="Microsoft.CodeCoverage" Version="16.11.0"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\itextcore\itext\itext.io\itext.io.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.io\itext.io.csproj')" />
