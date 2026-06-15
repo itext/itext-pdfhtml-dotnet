@@ -45,16 +45,19 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.FLEX_CONTAINER_SHOULD_NOT_CONTAIN_AREA_OR_SECTION_BREAK, Count = 13)]
         public virtual void AreaBreakFlexReverseTest() {
             ConvertToPdfAndCompare("area-break-flex-reverse-test", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.FLEX_CONTAINER_SHOULD_NOT_CONTAIN_AREA_OR_SECTION_BREAK, Count = 10)]
         public virtual void AreaBreakFlexTest() {
             ConvertToPdfAndCompare("area-break-flex-test", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.FLEX_CONTAINER_SHOULD_NOT_CONTAIN_AREA_OR_SECTION_BREAK)]
         public virtual void AreaBreakNestedFlexTest() {
             ConvertToPdfAndCompare("area-break-nested-flex-items", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
