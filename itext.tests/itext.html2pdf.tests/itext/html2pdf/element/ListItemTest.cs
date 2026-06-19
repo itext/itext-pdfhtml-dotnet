@@ -82,5 +82,15 @@ namespace iText.Html2pdf.Element {
         public virtual void ListItemWithBlockDisplayTest() {
             ConvertToPdfAndCompare("listItemWithBlockDisplay", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void DuplicateListMarkersInGridTest() {
+            ConvertToPdfAndCompare("duplicateListMarkersInGrid", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DuplicateListMarkersInFlexTest() {
+            ConvertToPdfAndCompare("duplicateListMarkersInFlex", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
     }
 }
