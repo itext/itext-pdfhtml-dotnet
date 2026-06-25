@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
 using iText.Commons.Actions.Contexts;
+using iText.Commons.Internal.Runtime;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Attach.Impl;
 using iText.Html2pdf.Attach.Util;

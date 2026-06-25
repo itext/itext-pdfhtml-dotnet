@@ -24,6 +24,7 @@ using System;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
+using iText.Commons.Internal.Runtime;
 using iText.Commons.Utils;
 using iText.Forms.Form;
 using iText.Forms.Form.Element;

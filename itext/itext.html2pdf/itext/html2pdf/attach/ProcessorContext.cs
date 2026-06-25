@@ -311,8 +311,8 @@ namespace iText.Html2pdf.Attach {
         /// <param name="encoding">the encoding</param>
         /// <param name="alias">the alias</param>
         /// <param name="unicodeRange">the unicode range</param>
-        public virtual void AddTemporaryFont(FontProgram fontProgram, String encoding, String alias, Range unicodeRange
-            ) {
+        public virtual void AddTemporaryFont(FontProgram fontProgram, String encoding, String alias, iText.Layout.Font.Range
+             unicodeRange) {
             if (tempFonts == null) {
                 tempFonts = new FontSet();
             }

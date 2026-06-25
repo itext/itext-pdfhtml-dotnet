@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using iText.Commons.Actions;
 using iText.Commons.Actions.Contexts;
+using iText.Commons.Internal.Runtime;
 using iText.Html2pdf.Attach.Util;
 using iText.Test;
 

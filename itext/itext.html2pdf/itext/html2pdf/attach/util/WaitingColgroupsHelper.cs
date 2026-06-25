@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.Collections.Generic;
+using iText.Commons.Internal.Runtime;
 using iText.Html2pdf.Attach.Wrapelement;
 using iText.Html2pdf.Html;
 using iText.StyledXmlParser.Css.Util;
