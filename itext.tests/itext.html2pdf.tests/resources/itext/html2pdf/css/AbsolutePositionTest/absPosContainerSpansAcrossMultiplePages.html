@@ -15,14 +15,15 @@
   .absolute-1 {
     position: absolute;
     left: 20px;
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     background: #2563eb;
+    opacity: 50%;
   }
 
   .container-2 {
     width: 500px;
-    height: 2000px;
+    height: 1800px;
     background: green;
   }
 </style>
@@ -37,14 +38,46 @@
     <div style="height: 200px">placeholder</div>
     <div style="height: 200px">placeholder</div>
     <div class="absolute-1"></div>
-    <div style="width: 100px; margin-left: 20px">you shan't see this text</div>
+    <div style="width: 100px; margin-left: 20px">box shall fully cover this text, in pdf rectangle won't be transparent</div>
   </div>
   <div class="container-2">
     <div style="height: 200px">placeholder</div>
     <div style="height: 200px">placeholder</div>
     <div style="height: 200px">placeholder</div>
     <div class="absolute-1"></div>
-    <div style="width: 100px; margin-left: 20px">you shan't see this text</div>
+    <div style="width: 100px; margin-left: 20px">box shall fully cover this text, in pdf rectangle won't be transparent</div>
+  </div>
+  <div class="container" style="background-color: yellow">
+    <div style="height: 200px">placeholder</div>
+    <div style="height: 200px">placeholder</div>
+    <div style="height: 200px">placeholder</div>
+    <div>
+      <div style="height: 200px">inner placeholder</div>
+      <div style="height: 200px">inner placeholder</div>
+      <div class="absolute-1"></div>
+      <div style="width: 100px; margin-left: 20px">box shall fully cover this text, in pdf rectangle won't be transparent</div>
+    </div>
+  </div>
+  <div class="container" style="background-color: magenta">
+    <div style="height: 200px">placeholder</div>
+    <div>
+      <div style="height: 200px">inner placeholder</div>
+      <div style="height: 200px">inner placeholder</div>
+      <div style="height: 200px">inner placeholder</div>
+      <div style="height: 200px">inner placeholder</div>
+      <div class="absolute-1"></div>
+      <div style="width: 100px; margin-left: 20px">box shall fully cover this text, in pdf rectangle won't be transparent</div>
+    </div>
+  </div>
+  <div class="container-2" style="background-color: coral">
+    <div style="height: 200px">placeholder</div>
+    <div style="height: 200px">placeholder</div>
+    <div>
+      <div style="height: 200px">inner placeholder</div>
+      <div style="height: 200px">inner placeholder</div>
+      <div class="absolute-1"></div>
+      <div style="width: 100px; margin-left: 20px">box shall fully cover this text, in pdf rectangle won't be transparent</div>
+    </div>
   </div>
 </body>
 </html>
