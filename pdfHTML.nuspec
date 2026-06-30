@@ -7,7 +7,7 @@
     <authors>Apryse Software</authors>
     <owners>Apryse Software</owners>
     <licenseUrl>https://www.gnu.org/licenses/agpl.html</licenseUrl>
-    <projectUrl>https://itextpdf.com/en/products/itext-7/pdfhtml</projectUrl>
+    <projectUrl>https://itextpdf.com/products/convert-html-css-to-pdf-pdfhtml</projectUrl>
     <icon>ITSC-avatar.png</icon>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>pdfHTML is an iText add-on for C# (.NET) that allows you to easily convert HTML and CSS into standards compliant PDFs that are accessible, searchable and usable for indexing.</description>
@@ -16,7 +16,7 @@
     <copyright>Copyright (c) 1998-2026 Apryse Group NV</copyright>
     <language>en-US</language>
     <tags>itext itext7 itextsharp c# .net csharp pdf html pdfhtml htmltopdf html2pdf html-to-pdf html-to-pdf-converter svg acroform pdf-generation generation converter accessbility opensource open source</tags>
-	<repository type="git" url="https://github.com/itext/i7n-pdfhtml.git" />
+	<repository type="git" url="https://github.com/itext/itext-pdfhtml-dotnet" />
     <dependencies>
       <group targetFramework="net461">
         <dependency id="itext" version="9.8.0-SNAPSHOT" />
