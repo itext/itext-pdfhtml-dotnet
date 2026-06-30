@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>min max width clash</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+  }
+
+  .container {
+    position: relative;
+    width: 500px;
+    height: 100px;
+    background: #cbd5e1;
+    margin-bottom: 20px;
+  }
+
+  .box-max-clamped {
+    position: absolute;
+    left: 40px;
+    max-width: 150px;
+    height: 50px;
+    background: #2563eb;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+
+  .container-2 {
+    position: relative;
+    width: 300px;
+    height: 100px;
+    background: #cbd5e1;
+  }
+
+  .box-min-overflow {
+    position: absolute;
+    top: 20px;
+    min-width: 320px;
+    height: 50px;
+    background: #db2777;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="box-max-clamped">left<br>max-width:150px</div>
+  </div>
+
+  <div class="container-2">
+    <div class="box-min-overflow">top:20px<br>min-width:320px<br>(overflows)</div>
+  </div>
+</body>
+</html>

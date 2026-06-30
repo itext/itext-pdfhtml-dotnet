@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>absolute on image</title>
+<style>
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+  }
+
+  .container {
+    position: relative;
+    width: 600px;
+    height: 900px;
+    background: #cbd5e1;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .img-intrinsic {
+    position: absolute;
+    top: 300px;
+  }
+
+  .img-left-right {
+    position: absolute;
+    right: 20px;
+  }
+
+  .img-width-only {
+    position: absolute;
+    bottom: 20px;
+    width: 250px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <img class="img-intrinsic" src="img-intrinsic.png">
+    <img src="img-intrinsic.png" alt="intrinsic 120x80">
+    <img class="img-left-right" src="img-intrinsic.png">
+    <img src="img-intrinsic.png" alt="intrinsic 120x80">
+    <img class="img-width-only" src="img-intrinsic.png">
+    <img src="img-intrinsic.png" alt="intrinsic 120x80">
+  </div>
+</body>
+</html>

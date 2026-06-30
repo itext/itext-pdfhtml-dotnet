@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>absolute in flex</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 12px;
+  }
+
+  .flex-container {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    width: 500px;
+    height: 120px;
+    background: #cbd5e1;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .flex-item {
+    background: #94a3b8;
+    color: white;
+    padding: 8px;
+    flex: 1;
+  }
+
+  .flex-item-absolute {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 140px;
+    background: #2563eb;
+    color: white;
+    padding: 8px;
+    flex: 3;     order: -1;   }
+
+  .flex-container-2 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    height: 140px;
+    background: #cbd5e1;
+  }
+
+  .flex-item-no-offset {
+    position: absolute;
+    background: #d97706;
+    color: white;
+    padding: 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="flex-container">
+    <div class="flex-item">flex item 1</div>
+    <div class="flex-item-absolute">absolute flex item<br>flex:3 order:-1 ignored</div>
+    <div class="flex-item">flex item 3</div>
+  </div>
+
+  <div class="flex-container-2">
+    <div class="flex-item-no-offset">absolute, no offsets,<br>inside centered flex container</div>
+  </div>
+</body>
+</html>

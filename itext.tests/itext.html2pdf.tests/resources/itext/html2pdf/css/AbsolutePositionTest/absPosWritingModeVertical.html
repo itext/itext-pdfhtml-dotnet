@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>writing mode vertical</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 11px;
+  }
+
+  .container-physical {
+    position: relative;
+    writing-mode: vertical-rl;
+    width: 400px;
+    height: 200px;
+    background: #cbd5e1;
+    margin-bottom: 20px;
+  }
+
+  .box-physical {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 120px;
+    height: 60px;
+    background: #2563eb;
+    color: white;
+    padding: 6px;
+    writing-mode: horizontal-tb;   }
+
+  .container-logical {
+    position: relative;
+    writing-mode: vertical-rl;
+    width: 400px;
+    height: 200px;
+    background: #cbd5e1;
+  }
+
+  .box-logical {
+    position: absolute;
+    inset-block-start: 20px;
+    inset-inline-start: 20px;
+    width: 120px;
+    height: 60px;
+    background: #16a34a;
+    color: white;
+    padding: 6px;
+    writing-mode: horizontal-tb;
+  }
+</style>
+</head>
+<body>
+  <div class="container-physical">
+    <div class="box-physical">top:20px left:20px<br>(physical, unaffected<br>by writing-mode)</div>
+  </div>
+
+  <div class="container-logical">
+    <div class="box-logical">inset-block-start:20px<br>inset-inline-start:20px<br>(maps to right+top<br>under vertical-rl)</div>
+  </div>
+</body>
+</html>

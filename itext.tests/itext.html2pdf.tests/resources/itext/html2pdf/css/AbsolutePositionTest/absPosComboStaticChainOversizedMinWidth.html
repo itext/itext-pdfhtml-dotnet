@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>static chain oversized min width</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 1500px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 11px;
+  }
+
+  .static-1 { padding: 20px; background: #e2e8f0; }
+  .static-2 { padding: 20px; background: #cbd5e1; }
+  .static-3 { padding: 20px; background: #94a3b8; }
+
+  .absolute-from-static-chain {
+    position: absolute;
+    top: 150px;
+    height: 90px;
+    background: #2563eb;
+    color: white;
+    padding: 8px;
+  }
+
+  .min-width-overflow-child {
+    position: absolute;
+    left: 100px;
+    min-width: 500px;
+    height: 40px;
+    background: #16a34a;
+    color: white;
+    padding: 6px;
+  }
+
+  .oversized-after-chain {
+    position: absolute;
+    top: 600px;
+    width: 1400px;
+    height: 800px;
+    background: red;
+    color: white;
+    padding: 16px;
+  }
+</style>
+</head>
+<body>
+  <div class="static-1">
+    static wrapper
+    <div class="static-2">
+      static wrapper
+      <div class="static-3">
+        static wrapper
+        <div class="absolute-from-static-chain">
+          stretch
+          <div class="min-width-overflow-child">min-width overflow</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="oversized-after-chain">oversized</div>
+</body>
+</html>

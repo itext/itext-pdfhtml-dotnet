@@ -22,135 +22,295 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css {
     [NUnit.Framework.Category("IntegrationTest")]
     public class AbsolutePositionTest : ExtendedHtmlConversionITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/css/AbsolutePositionTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/css/AbsolutePositionTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition01Test() {
-            ConvertToPdfAndCompare("absolutePositionTest01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [NUnit.Framework.Ignore("DEVSIX-1616: Absolute position for elements that break across pages is not supported"
-            )]
         public virtual void AbsolutePosition02Test() {
-            ConvertToPdfAndCompare("absolutePositionTest02", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest02", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition03Test() {
-            ConvertToPdfAndCompare("absolutePositionTest03", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest03", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition04Test() {
-            ConvertToPdfAndCompare("absolutePositionTest04", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest04", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition05Test() {
-            ConvertToPdfAndCompare("absolutePositionTest05", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest05", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition06Test() {
-            ConvertToPdfAndCompare("absolutePositionTest06", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest06", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition07Test() {
-            ConvertToPdfAndCompare("absolutePositionTest07", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest07", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition08Test() {
-            ConvertToPdfAndCompare("absolutePositionTest08", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest08", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 1)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED)]
         public virtual void AbsolutePosition09Test() {
-            ConvertToPdfAndCompare("absolutePositionTest09", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest09", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition10Test() {
-            ConvertToPdfAndCompare("absolutePositionTest10", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest10", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition11Test() {
-            ConvertToPdfAndCompare("absolutePositionTest11", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest11", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition12Test() {
-            ConvertToPdfAndCompare("absolutePositionTest12", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest12", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition13Test() {
-            ConvertToPdfAndCompare("absolutePositionTest13", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest13", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition14Test() {
-            ConvertToPdfAndCompare("absolutePositionTest14", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest14", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePosition15Test() {
-            ConvertToPdfAndCompare("absolutePositionTest15", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest15", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePositionTest16() {
-            ConvertToPdfAndCompare("absolutePositionTest16", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest16", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePositionTest17() {
-            ConvertToPdfAndCompare("absolutePositionTest17", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest17", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Ignore("DEVSIX-1818")]
         [NUnit.Framework.Test]
         public virtual void AbsolutePositionTest18() {
-            ConvertToPdfAndCompare("absolutePositionTest18", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionTest18", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsPosNoTopBottomTest01() {
-            // TODO DEVSIX-1950
-            ConvertToPdfAndCompare("absPosNoTopBottomTest01", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absPosNoTopBottomTest01", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePositionSplitPagesBeforeTextTest() {
-            ConvertToPdfAndCompare("absolutePositionSplitPagesBeforeText", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionSplitPagesBeforeText", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePositionSplitPagesAfterTextTest() {
-            ConvertToPdfAndCompare("absolutePositionSplitPagesAfterText", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionSplitPagesAfterText", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void AbsolutePositionSplitPagesAfterTextInImageBlockTest() {
-            ConvertToPdfAndCompare("absolutePositionSplitPagesAfterTextInImageBlock", sourceFolder, destinationFolder);
+            ConvertToPdfAndCompare("absolutePositionSplitPagesAfterTextInImageBlock", SOURCE_FOLDER, DESTINATION_FOLDER
+                );
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosTopOnlyTest() {
+            ConvertToPdfAndCompare("absPosTopOnly", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosLeftOnlyTest() {
+            ConvertToPdfAndCompare("absPosLeftOnly", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosBottomOnlyTest() {
+            ConvertToPdfAndCompare("absPosBottomOnly", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosRightOnlyTest() {
+            ConvertToPdfAndCompare("absPosRightOnly", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosRightBottomOnlyTest() {
+            ConvertToPdfAndCompare("absPosRightBottomOnly", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosTopRightCornerTest() {
+            ConvertToPdfAndCompare("absPosTopRightCorner", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosBottomLeftCornerTest() {
+            ConvertToPdfAndCompare("absPosBottomLeftCorner", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosNoOffsetsTest() {
+            ConvertToPdfAndCompare("absPosNoOffsets", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosLeftRightOverconstrainedTest() {
+            ConvertToPdfAndCompare("absPosLeftRightOverconstrained", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosMinMaxWidthClashTest() {
+            ConvertToPdfAndCompare("absPosMinMaxWidthClash", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosInsetShorthandTest() {
+            ConvertToPdfAndCompare("absPosInsetShorthand", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosCenteringMarginAutoTest() {
+            ConvertToPdfAndCompare("absPosCenteringMarginAuto", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Count = 4)]
+        public virtual void AbsPosPercentageAutoHeightTest() {
+            ConvertToPdfAndCompare("absPosPercentageAutoHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosZeroNegativeDimensionsTest() {
+            ConvertToPdfAndCompare("absPosZeroNegativeDimensions", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosExtremeOffsetsTest() {
+            ConvertToPdfAndCompare("absPosExtremeOffsets", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosExtremelyOversizedTest() {
+            ConvertToPdfAndCompare("absPosExtremelyOversized", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosRtlLeftRightTest() {
+            ConvertToPdfAndCompare("absPosRtlLeftRight", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosRtlLeftRightBothTest() {
+            ConvertToPdfAndCompare("absPosRtlLeftRightBoth", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosWritingModeVerticalTest() {
+            ConvertToPdfAndCompare("absPosWritingModeVertical", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsoluteInsideRelativeInsideAbsoluteTest() {
+            ConvertToPdfAndCompare("absoluteInsideRelativeInsideAbsolute", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsoluteNestedFourLevelsTest() {
+            ConvertToPdfAndCompare("absoluteNestedFourLevels", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsoluteInsideStaticAncestorChainTest() {
+            ConvertToPdfAndCompare("absoluteInsideStaticAncestorChain", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED, Count = 3)]
+        public virtual void AbsPosOnImageTest() {
+            ConvertToPdfAndCompare("absPosOnImage", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.FONT_PROPERTY_MUST_BE_PDF_FONT_OBJECT, Count = 2)]
+        public virtual void AbsPosOnInlineTextTest() {
+            ConvertToPdfAndCompare("absPosOnInlineText", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosOnListTest() {
+            ConvertToPdfAndCompare("absPosOnList", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosOnTableTest() {
+            ConvertToPdfAndCompare("absPosOnTable", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED)]
+        public virtual void AbsPosOnFormControlsTest() {
+            ConvertToPdfAndCompare("absPosOnFormControls", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED, Count = 2)]
+        public virtual void AbsPosComboFlexNestedMissingAxisTest() {
+            ConvertToPdfAndCompare("absPosComboFlexNestedMissingAxis", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosComboRtlWritingModeNestedTest() {
+            ConvertToPdfAndCompare("absPosComboRtlWritingModeNested", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosComboStaticChainOversizedMinWidthTest() {
+            ConvertToPdfAndCompare("absPosComboStaticChainOversizedMinWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AbsPosContainerSpansAcrossMultiplePagesTest() {
+            ConvertToPdfAndCompare("absPosContainerSpansAcrossMultiplePages", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }

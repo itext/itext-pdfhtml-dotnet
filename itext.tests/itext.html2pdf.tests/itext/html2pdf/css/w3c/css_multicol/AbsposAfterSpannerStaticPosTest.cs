@@ -22,8 +22,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
+    [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED)]
     public class AbsposAfterSpannerStaticPosTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "abspos-after-spanner-static-pos.html";

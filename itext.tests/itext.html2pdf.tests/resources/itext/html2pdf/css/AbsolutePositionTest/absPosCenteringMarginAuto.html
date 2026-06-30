@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>margin auto centering</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+  }
+
+  .container {
+    position: relative;
+    width: 500px;
+    height: 220px;
+    background: #cbd5e1;
+    margin-bottom: 30px;
+  }
+
+  .box-centered {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 160px;
+    height: 60px;
+    background: #2563eb;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+
+  .container-2 {
+    position: relative;
+    width: 500px;
+    height: 220px;
+    background: #cbd5e1;
+  }
+
+  .box-half-centered {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 160px;
+    height: 60px;
+    background: #db2777;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="box-centered">inset:0 margin:auto<br>(centers both axes)</div>
+  </div>
+
+  <div class="container-2">
+    <div class="box-half-centered">top:0 bottom:0 margin:auto<br>left/right: auto (no horizontal center)</div>
+  </div>
+</body>
+</html>

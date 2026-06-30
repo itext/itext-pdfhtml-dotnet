@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>margin auto centering</title>
+<style>
+  .container {
+    position: relative;
+    width: 500px;
+    height: 2000px;
+    background: red;
+    margin-bottom: 20px;
+  }
+
+  .absolute-1 {
+    position: absolute;
+    left: 20px;
+    width: 100px;
+    height: 100px;
+    background: #2563eb;
+  }
+
+  .container-2 {
+    width: 500px;
+    height: 2000px;
+    background: green;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div style="height: 200px">placeholder</div>
+    <div style="height: 200px">placeholder</div>
+    <div style="height: 200px">placeholder</div>
+    <div style="height: 200px">placeholder</div>
+    <div style="height: 200px">placeholder</div>
+    <div style="height: 200px">placeholder</div>
+    <div style="height: 200px">placeholder</div>
+    <div class="absolute-1"></div>
+    <div style="width: 100px; margin-left: 20px">you shan't see this text</div>
+  </div>
+  <div class="container-2">
+    <div style="height: 200px">placeholder</div>
+    <div style="height: 200px">placeholder</div>
+    <div style="height: 200px">placeholder</div>
+    <div class="absolute-1"></div>
+    <div style="width: 100px; margin-left: 20px">you shan't see this text</div>
+  </div>
+</body>
+</html>

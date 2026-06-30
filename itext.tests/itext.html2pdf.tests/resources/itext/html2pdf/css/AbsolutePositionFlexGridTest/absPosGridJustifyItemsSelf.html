@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>justify items self</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 12px;
+  }
+
+  .grid-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 180px);
+    grid-template-rows: 100px;
+    justify-items: end;
+    align-items: end;
+    gap: 12px;
+    width: 400px;
+    background: #cbd5e1;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .grid-cell {
+    background: #94a3b8;
+    color: white;
+    padding: 6px;
+    width: 80px;
+    height: 40px;
+  }
+
+  .grid-cell-self-override {
+    background: #16a34a;
+    color: white;
+    padding: 6px;
+    width: 80px;
+    height: 40px;
+    justify-self: start;
+    align-self: start;
+  }
+
+  .grid-container-2 {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 180px);
+    grid-template-rows: 120px;
+    justify-items: center;
+    align-items: center;
+    gap: 12px;
+    width: 400px;
+    background: #cbd5e1;
+    padding: 10px;
+  }
+
+  .grid-cell-2 {
+    background: #94a3b8;
+    color: white;
+    padding: 6px;
+  }
+
+  .absolute-grid-item {
+    position: absolute;
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    align-self: start;
+    width: 90px;
+    background: #2563eb;
+    color: white;
+    padding: 6px;
+  }
+</style>
+</head>
+<body>
+  <div class="grid-container">
+    <div class="grid-cell">justify-items:end<br>align-items:end</div>
+    <div class="grid-cell-self-override">justify-self:start<br>align-self:start<br>(overrides container)</div>
+  </div>
+
+  <div class="grid-container-2">
+    <div class="grid-cell-2">centered cell</div>
+    <div class="absolute-grid-item">absolute,<br>grid-column:2 grid-row:1<br>justify-self:end align-self:start</div>
+  </div>
+</body>
+</html>

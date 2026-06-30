@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>absolute in grid</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 12px;
+  }
+
+  .grid-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 80px 80px;
+    gap: 10px;
+    width: 500px;
+    background: #cbd5e1;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .grid-cell {
+    background: #94a3b8;
+    color: white;
+    padding: 8px;
+  }
+
+  .grid-item-absolute-placed {
+    position: absolute;
+    grid-column: 2 / 4;
+    grid-row: 1 / 3;
+    top: 10px;
+    left: 10px;
+    background: #2563eb;
+    color: white;
+    padding: 8px;
+  }
+
+  .grid-container-2 {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 80px 80px;
+    gap: 10px;
+    width: 500px;
+    background: #cbd5e1;
+    padding: 10px;
+  }
+
+  .grid-cell-2 {
+    background: #94a3b8;
+    color: white;
+    padding: 8px;
+  }
+
+  .grid-item-no-placement {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 140px;
+    background: #d97706;
+    color: white;
+    padding: 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="grid-container">
+    <div class="grid-cell">cell A1</div>
+    <div class="grid-item-absolute-placed">absolute<br>grid-column:2/4<br>grid-row:1/3</div>
+    <div class="grid-cell">cell C1</div>
+    <div class="grid-cell">cell A2</div>
+    <div class="grid-cell">cell C2</div>
+  </div>
+
+  <div class="grid-container-2">
+    <div class="grid-cell-2">cell A1</div>
+    <div class="grid-cell-2">cell B1</div>
+    <div class="grid-cell-2">cell C1</div>
+    <div class="grid-item-no-placement">absolute, no grid placement<br>(spans whole grid)</div>
+  </div>
+</body>
+</html>

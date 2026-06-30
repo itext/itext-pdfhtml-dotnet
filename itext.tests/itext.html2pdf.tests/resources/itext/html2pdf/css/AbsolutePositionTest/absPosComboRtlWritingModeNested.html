@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>rtl writing mode nested absolute</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 11px;
+  }
+
+  .outer-rtl {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    direction: rtl;
+    width: 520px;
+    height: 260px;
+    background: #2563eb;
+    padding: 12px;
+  }
+
+  .middle-relative {
+    position: relative;
+    top: 15px;
+    left: 20px;
+    width: 380px;
+    height: 150px;
+    background: #db2777;
+    padding: 10px;
+  }
+
+  .inner-stretch {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    height: 50px;
+    background: #16a34a;
+    color: white;
+    padding: 6px 8px;
+  }
+
+  .outer-vertical {
+    position: relative;
+    writing-mode: vertical-rl;
+    width: 460px;
+    height: 220px;
+    background: #cbd5e1;
+    margin-top: 30px;
+    padding: 10px;
+  }
+
+  .vertical-sibling {
+    width: 100px;
+    height: 180px;
+    background: #94a3b8;
+    color: white;
+    padding: 6px;
+    writing-mode: horizontal-tb;
+  }
+
+  .absolute-top-only-vertical {
+    position: absolute;
+    top: 20px;
+    width: 130px;
+    height: 60px;
+    background: #d97706;
+    color: white;
+    padding: 6px;
+    writing-mode: horizontal-tb;
+  }
+</style>
+</head>
+<body>
+  <div class="outer-rtl">
+    outer rtl
+    <div class="middle-relative">
+      relative
+      <div class="inner-stretch">left + right stretch</div>
+    </div>
+  </div>
+
+  <div class="outer-vertical">
+    vertical-rl
+    <div class="vertical-sibling">sibling</div>
+    <div class="absolute-top-only-vertical">top only</div>
+  </div>
+</body>
+</html>

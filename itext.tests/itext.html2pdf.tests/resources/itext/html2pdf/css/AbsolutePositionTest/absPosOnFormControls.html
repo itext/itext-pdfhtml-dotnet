@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>absolute on form controls</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 13px;
+  }
+
+  .container {
+    position: relative;
+    width: 500px;
+    height: 240px;
+    background: #cbd5e1;
+    padding: 10px;
+  }
+
+  .textarea-absolute {
+    position: absolute;
+    top: 70px;
+    height: 60px;
+  }
+
+  .select-absolute {
+    position: absolute;
+  }
+
+  .button-absolute {
+    position: absolute;
+    bottom: 10px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <input class="input-absolute" type="text" placeholder="static">
+    <textarea class="textarea-absolute" placeholder="top set, no width"></textarea>
+    <p>Some inline text before the select.</p>
+    <select class="select-absolute">
+      <option>no offsets — static position</option>
+      <option>option two</option>
+    </select>
+    <button class="button-absolute">bottom</button>
+  </div>
+</body>
+</html>

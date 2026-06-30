@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>percentage offsets auto height</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+  }
+
+  .container-auto-height {
+    position: relative;
+    width: 400px;
+    background: #cbd5e1;
+    padding: 20px;
+  }
+
+  .content-line {
+    font-family: monospace;
+    font-size: 12px;
+    color: #333;
+  }
+
+  .box-percent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 40px;
+    background: #2563eb;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+
+  .container-fixed-height {
+    position: relative;
+    width: 400px;
+    height: 220px;
+    background: #cbd5e1;
+    margin-top: 140px;
+  }
+
+  .box-percent-2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 40px;
+    background: #db2777;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="container-auto-height">
+    <div class="content-line">auto-height container (top:50% left:50%)</div>
+    <div class="content-line">just two lines of text, no explicit height</div>
+    <div class="box-percent">top:50% left:50%</div>
+  </div>
+
+  <div class="container-fixed-height">
+    <div class="box-percent-2">top:50% left:50%</div>
+  </div>
+</body>
+</html>
