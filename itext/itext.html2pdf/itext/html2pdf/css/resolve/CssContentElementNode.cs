@@ -24,6 +24,7 @@ Copyright (c) 1998-2026 Apryse Group NV
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using iText.Commons.Internal.Runtime;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Pseudo;
 using iText.StyledXmlParser.Node;
