@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>extremely oversized</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 12px;
+  }
+
+  .box-huge {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    width: 6000px;
+    height: 4000px;
+    background: linear-gradient(135deg, #2563eb, #16a34a);
+    color: white;
+    padding: 20px;
+  }
+
+  .marker-far-corner {
+    position: absolute;
+    background: #d97706;
+    padding: 10px 16px;
+    width: 100px;
+  }
+</style>
+</head>
+<body>
+  <div class="box-huge">
+    6000px × 4000px absolute box, top:40px left:40px.
+    Scroll far right and far down to find the corner marker.
+    <div style="display: flex;"><div style="min-width: 100px; height: 50px; border: black solid 2px"></div><div><div><div class="marker-far-corner" style="bottom: 20px">bottom-left corner of the 6000×4000 box</div></div></div></div>
+    <div class="marker-far-corner" style="right: 20px">top-right corner of the 6000×4000 box</div>
+  </div>
+</body>
+</html>

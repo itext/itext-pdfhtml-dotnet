@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>absolute on inline text</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 14px;
+  }
+
+  .container {
+    position: relative;
+    width: 500px;
+    height: 140px;
+    background: #cbd5e1;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .span-absolute {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #2563eb;
+    color: white;
+    padding: 4px 8px;
+  }
+
+  .container-2 {
+    position: relative;
+    width: 500px;
+    height: 140px;
+    background: #cbd5e1;
+    padding: 16px;
+  }
+
+  .link-absolute {
+    position: absolute;
+    background: #d97706;
+    color: white;
+    padding: 4px 8px;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    Some normal flow text before
+    <span class="span-absolute">absolute span</span>
+    and some text after it that no longer wraps around the span.
+  </div>
+
+  <div class="container-2">
+    Some text before the link
+    <a href="#" class="link-absolute">absolute link, no offsets</a>
+    and text after — note the link's static position approximates where it sat inline.
+  </div>
+</body>
+</html>

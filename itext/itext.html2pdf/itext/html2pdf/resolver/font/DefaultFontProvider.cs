@@ -21,7 +21,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using iText.Layout.Font;
 using iText.StyledXmlParser.Resolver.Font;
 
 namespace iText.Html2pdf.Resolver.Font {
@@ -101,7 +100,7 @@ namespace iText.Html2pdf.Resolver.Font {
         /// to load characters
         /// </param>
         [Obsolete]
-        protected override void AddShippedFonts(Range rangeToLoad) {
+        protected override void AddShippedFonts(iText.Layout.Font.Range rangeToLoad) {
             base.AddShippedFonts(rangeToLoad);
         }
 
@@ -124,7 +123,7 @@ namespace iText.Html2pdf.Resolver.Font {
         /// i.e. the unicode range that is to be rendered with any other font contained in this FontProvider
         /// </returns>
         [Obsolete]
-        protected override Range AddCalligraphFonts() {
+        protected override iText.Layout.Font.Range AddCalligraphFonts() {
             return base.AddCalligraphFonts();
         }
     }

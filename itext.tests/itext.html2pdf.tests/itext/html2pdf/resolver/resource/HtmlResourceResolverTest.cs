@@ -44,7 +44,6 @@ using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Resolver.Resource {
-    // TODO: DEVSIX-5968 Add new tests in HtmlResourceResolverTest
     [NUnit.Framework.Category("IntegrationTest")]
     public class HtmlResourceResolverTest : ExtendedITextTest {
         private static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
@@ -455,6 +454,26 @@ namespace iText.Html2pdf.Resolver.Resource {
             String cmpPdf = SOURCE_FOLDER + "cmp_baseHrefViaHtmlStylesheetReferenceTest.pdf";
             ConvertHtmlFileToPdf(SOURCE_FOLDER + "baseHrefViaHtmlStylesheetReferenceTest.html", outPdf, cmpPdf, new ConverterProperties
                 ());
+        }
+
+        //Be aware that this test uses resources from https://github.com/XodoDocs/itext-sdk-html2pdf-java,
+        //so extra attention needs to be paid when changing related resources
+        [NUnit.Framework.Test]
+        public virtual void ConvertToPdfWithAbsoluteHttpTest() {
+            String outPdf = DESTINATION_FOLDER + "convertToPdfWithAbsoluteHttp.pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_convertToPdfWithAbsoluteHttp.pdf";
+            ConvertHtmlFileToPdf(SOURCE_FOLDER + "convertToPdfWithAbsoluteHttp.html", outPdf, cmpPdf, new ConverterProperties
+                ());
+        }
+
+        //Be aware that this test uses resources from https://github.com/XodoDocs/itext-sdk-html2pdf-java,
+        //so extra attention needs to be paid when changing related resources
+        [NUnit.Framework.Test]
+        public virtual void ConvertToPdfWithHttpBaseUriTest() {
+            String baseUri = "https://raw.githubusercontent.com/itext/itext-pdfhtml-java/develop/src/test/" + "resources/com/itextpdf/html2pdf/resolver/resource/HtmlResourceResolverTest/";
+            String outPdf = DESTINATION_FOLDER + "convertToPdfWithHttpBaseUriTest.pdf";
+            String cmpPdf = SOURCE_FOLDER + "cmp_convertToPdfWithHttpBaseUriTest.pdf";
+            ConvertHtmlStreamToPdf(SOURCE_FOLDER + "convertToPdfWithHttpBaseUriTest.html", outPdf, cmpPdf, baseUri);
         }
 
         private void ConvertHtmlStreamToPdf(String htmlPath, String outPdf, String cmpPdf, String baseUri) {

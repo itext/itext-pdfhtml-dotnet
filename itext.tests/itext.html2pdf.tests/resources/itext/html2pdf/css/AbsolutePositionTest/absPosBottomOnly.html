@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>bottom only</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 16px;
+    min-height: 600px;
+    background: #fafbfc;
+  }
+
+  .sibling-before {
+    width: 240px;
+    height: 50px;
+    background: #cbd5e1;
+    color: #333;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+    margin-bottom: 10px;
+  }
+
+  .box {
+    position: absolute;
+    bottom: 40px;
+    width: 160px;
+    height: 60px;
+    background: #2563eb;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+    line-height: 1.4;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+  <div class="sibling-before">in-flow sibling</div>
+  <div class="box">bottom:40px</div>
+</body>
+</html>

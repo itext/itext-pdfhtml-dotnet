@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>absolute nested four levels</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+  }
+
+  .level-0 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 500px;
+    height: 320px;
+    background: #2563eb;
+  }
+
+  .level-1 {
+    position: absolute;
+    left: 30px;
+    width: 380px;
+    height: 220px;
+    background: #db2777;
+  }
+
+  .level-2 {
+    position: absolute;
+    bottom: 15px;
+    width: 200px;
+    height: 90px;
+    background: #16a34a;
+  }
+
+  .level-3 {
+    position: absolute;
+    width: 130px;
+    height: 40px;
+    background: #d97706;
+    margin: 10px;
+  }
+
+  .level-0, .level-1, .level-2, .level-3 {
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+    line-height: 1.4;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+  <div class="level-0">
+    L0
+    <div class="level-1">
+      L1
+      <div class="level-2">
+        L2
+        <div class="level-3">L3</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

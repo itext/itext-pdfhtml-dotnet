@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>align content wrap</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 12px;
+  }
+
+  .flex-wrap-container {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: center;
+    width: 400px;
+    height: 260px;
+    background: #cbd5e1;
+    padding: 10px;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .flex-item {
+    background: #94a3b8;
+    color: white;
+    padding: 8px;
+    width: 150px;
+    height: 50px;
+  }
+
+  .absolute-in-wrap {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 100px;
+    background: #2563eb;
+    color: white;
+    padding: 8px;
+  }
+
+  .grid-align-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(2, 70px);
+    justify-content: center;
+    align-content: space-between;
+    width: 400px;
+    height: 220px;
+    background: #cbd5e1;
+    gap: 8px;
+  }
+
+  .grid-item {
+    background: #94a3b8;
+    color: white;
+    padding: 6px;
+  }
+
+  .absolute-in-grid-align {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 120px;
+    background: #db2777;
+    color: white;
+    padding: 6px;
+  }
+</style>
+</head>
+<body>
+  <div class="flex-wrap-container">
+    <div class="flex-item">item 1</div>
+    <div class="flex-item">item 2</div>
+    <div class="flex-item">item 3</div>
+    <div class="flex-item">item 4</div>
+    <div class="absolute-in-wrap">absolute,<br>ignores wrap/<br>align-content</div>
+  </div>
+
+  <div class="grid-align-container">
+    <div class="grid-item">A1</div>
+    <div class="grid-item">B1</div>
+    <div class="grid-item">C1</div>
+    <div class="grid-item">A2</div>
+    <div class="absolute-in-grid-align">absolute,<br>no grid-area,<br>ignores align-content</div>
+  </div>
+</body>
+</html>

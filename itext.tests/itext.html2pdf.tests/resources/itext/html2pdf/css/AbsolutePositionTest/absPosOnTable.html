@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>absolute on table</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 12px;
+  }
+
+  .container {
+    position: relative;
+    width: 500px;
+    height: 220px;
+    background: #cbd5e1;
+    margin-bottom: 20px;
+  }
+
+  table { border-collapse: collapse; }
+  td, th { border: 1px solid #94a3b8; padding: 6px 10px; background: white; }
+
+  .table-absolute {
+    position: absolute;
+    top: 100px;
+  }
+
+  .container-2 {
+    position: relative;
+    width: 500px;
+    height: 220px;
+    background: #cbd5e1;
+  }
+
+  .td-absolute {
+    position: absolute;
+    right: 10px;
+    background: #d97706;
+    color: white;
+    width: 160px;
+  }
+</style>
+</head>
+<body>
+  <div class="container" style="padding-left: 100px">
+    <table class="table-absolute">
+      <tr><th>Col A</th><th>Col B</th></tr>
+      <tr><td>1,1</td><td>1,2</td></tr>
+      <tr><td>2,1</td><td>2,2</td></tr>
+    </table>
+  </div>
+
+  <div class="container-2">
+    <table>
+      <tr><th>Col A</th><th>Col B</th><th>Col C</th></tr>
+      <tr><td>normal</td><td class="td-absolute">absolute td<br>right:10px</td><td>normal</td></tr>
+      <tr><td>normal</td><td>normal</td><td>normal</td></tr>
+    </table>
+  </div>
+</body>
+</html>

@@ -41,7 +41,6 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2)]
         public virtual void SurrogatePairFrom2Chars() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairFrom2Chars.html"), new FileInfo(destinationFolder
                  + "surrogatePairFrom2Chars.pdf"));
@@ -50,7 +49,6 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2)]
         public virtual void SurrogatePair2Pairs() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePair2Pairs.html"), new FileInfo(destinationFolder
                  + "surrogatePair2Pairs.pdf"));
@@ -59,7 +57,6 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2)]
         public virtual void SurrogatePairFullCharacter() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairFullCharacter.html"), new FileInfo(destinationFolder
                  + "surrogatePairFullCharacter.pdf"));
@@ -69,7 +66,6 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         //TODO DEVSIX-3307: It is required to update cmp files when the ticket will be implemented.
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2)]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void SurrogatePairCombingFullSurrs() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairCombingFullSurrs.html"), new FileInfo
@@ -80,7 +76,6 @@ namespace iText.Html2pdf {
 
         [NUnit.Framework.Test]
         //TODO DEVSIX-3307: It is required to update cmp files when the ticket will be implemented.
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2)]
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.FONT_SUBSET_ISSUE)]
         public virtual void SurrogatePairCombingFullSurrsWithNoSurrs() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairCombingFullSurrsWithNoSurrs.html"), new 
@@ -90,7 +85,6 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.TYPOGRAPHY_NOT_FOUND, Count = 2)]
         public virtual void SurrogatePairCombinationOf3TypesPairs() {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "surrogatePairCombinationOf3TypesPairs.html"), new 
                 FileInfo(destinationFolder + "surrogatePairCombinationOf3TypesPairs.pdf"));

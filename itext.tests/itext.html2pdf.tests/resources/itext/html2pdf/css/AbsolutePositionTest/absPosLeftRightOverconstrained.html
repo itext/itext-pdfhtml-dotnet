@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>left and right both set</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+  }
+
+  .box-stretch {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    right: 40px;
+    height: 50px;
+    background: #2563eb;
+  }
+
+  .box-fixed-width {
+    position: absolute;
+    top: 110px;
+    left: 40px;
+    right: 40px;
+    width: 120px;
+    height: 50px;
+    background: #db2777;
+  }
+
+  .box-stretch, .box-fixed-width {
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+    line-height: 1.4;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+  <div class="box-stretch">left:40px right:40px<br>width:auto</div>
+  <div class="box-fixed-width">left:40px right:40px<br>width:120px</div>
+</body>
+</html>

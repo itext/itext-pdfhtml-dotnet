@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>rtl left and right</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 11px;
+  }
+
+  .container {
+    position: relative;
+    width: 500px;
+    height: 120px;
+    background: #cbd5e1;
+    margin-bottom: 20px;
+    direction: rtl;
+  }
+
+  .box-stretch-rtl {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 50px;
+    background: #2563eb;
+    color: white;
+    padding: 6px 8px;
+  }
+
+  .container-2 {
+    position: relative;
+    width: 500px;
+    height: 120px;
+    background: #cbd5e1;
+    direction: rtl;
+  }
+
+  .box-stretch-logical-rtl {
+    position: absolute;
+    top: 20px;
+    inset-inline-start: 40px;
+    inset-inline-end: 40px;
+    height: 50px;
+    background: #db2777;
+    color: white;
+    padding: 6px 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="box-stretch-rtl">left:40px right:40px<br>(physical, RTL container)</div>
+  </div>
+
+  <div class="container-2">
+    <div class="box-stretch-logical-rtl">inset-inline-start:40px<br>inset-inline-end:40px<br>(logical, RTL container)</div>
+  </div>
+</body>
+</html>

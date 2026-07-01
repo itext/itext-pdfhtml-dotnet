@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Structural + :where()</title>
+<style>
+  :where(ul, ol) {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  li {
+    list-style: none;
+    padding: 10px;
+    background: gray;
+    color: white;
+  }
+
+  :where(ul, ol) li:nth-child(odd) {
+    background: darkred;
+  }
+</style>
+</head>
+<body>
+
+<ul>
+  <li>U1</li>
+  <li>U2</li>
+  <li>U3</li>
+</ul>
+
+<ol>
+  <li>O1</li>
+  <li>O2</li>
+  <li>O3</li>
+</ol>
+
+</body>
+</html>

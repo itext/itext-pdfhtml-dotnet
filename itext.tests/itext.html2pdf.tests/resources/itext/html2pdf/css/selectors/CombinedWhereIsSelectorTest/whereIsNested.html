@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nested is inside where</title>
+<style>
+  .box {
+    background: red;
+  }
+
+  :where(:is(.box, #id)) {
+    background: green;
+  }
+</style>
+</head>
+<body>
+
+<div class="box">Should be RED</div>
+
+</body>
+</html>

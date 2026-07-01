@@ -25,11 +25,11 @@ using iText.Html2pdf.Css.W3c;
 using iText.Html2pdf.Logs;
 using iText.Test.Attributes;
 
-namespace iText.Html2pdf.Css.W3c.Css3_selectors {
-    [LogMessage(Html2PdfLogMessageConstant.ERROR_PARSING_CSS_SELECTOR)]
-    public class Css3Modsel_83_NegationPseudoClassCannotBeAnArgumentOfItselfTest : W3CCssTest {
+namespace iText.Html2pdf.Css.W3c.Selectors {
+    [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
+    public class IsNestedTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
-            return "css3-modsel-83.html";
+            return "is-nested.html";
         }
     }
 }

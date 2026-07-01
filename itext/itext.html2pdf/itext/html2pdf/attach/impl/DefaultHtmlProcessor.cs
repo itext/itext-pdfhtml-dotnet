@@ -26,6 +26,7 @@ using Microsoft.Extensions.Logging;
 using iText.Commons;
 using iText.Commons.Actions;
 using iText.Commons.Actions.Sequence;
+using iText.Commons.Internal.Runtime;
 using iText.Commons.Utils;
 using iText.Forms.Form.Element;
 using iText.Html2pdf;
@@ -384,7 +385,8 @@ namespace iText.Html2pdf.Attach.Impl {
         /// <param name="src">the source of the font</param>
         /// <param name="unicodeRange">the unicode range</param>
         /// <returns>true, if successful</returns>
-        private bool CreateFont(String fontFamily, CssFontFace.CssFontFaceSrc src, Range unicodeRange) {
+        private bool CreateFont(String fontFamily, CssFontFace.CssFontFaceSrc src, iText.Layout.Font.Range unicodeRange
+            ) {
             if (!CssFontFace.IsSupportedFontFormat(src.GetFormat())) {
                 return false;
             }

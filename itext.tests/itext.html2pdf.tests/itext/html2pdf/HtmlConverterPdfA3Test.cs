@@ -24,6 +24,7 @@ using System;
 using System.IO;
 using iText.Commons.Utils;
 using iText.Kernel.Pdf;
+using iText.Layout.Logs;
 using iText.Pdfa;
 using iText.Pdfa.Exceptions;
 using iText.StyledXmlParser.Resolver.Font;
@@ -146,6 +147,7 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.TYPOGRAPHY_NOT_FOUND_WARNING)]
         public virtual void ConvertToPdfA3UnreferencedGlyphsTest() {
             String destinationPdf = DESTINATION_FOLDER + "pdfA3FontTest.pdf";
             String html = "<html>\n" + "<head>" + "<title>Test</title></head>\n" + "<body >\n" + "<p>أميرة</p>" + "</body>\n"
@@ -168,6 +170,8 @@ namespace iText.Html2pdf {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.TYPOGRAPHY_NOT_FOUND_WARNING, LogLevel = LogLevelConstants.WARN, Count
+             = 1)]
         public virtual void ConvertToPdfA3ArabicFontTest() {
             String cmpPdf = SOURCE_FOLDER + "cmp_pdfA3ArabicFontTest.pdf";
             String destinationPdf = DESTINATION_FOLDER + "pdfA3ArabicFontTest.pdf";

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Deep Combinators</title>
+<style>
+  :is(.wrapper ul li) {
+    display: flex;
+    gap: 5px;
+    background: #eee;
+  }
+
+  .wrapper ul.special li {
+    background: orange;
+  }
+
+  .wrapper {
+    border: 2px solid black;
+    padding: 10px;
+  }
+
+  li {
+    list-style: none;
+    padding: 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <ul>
+    <li>Normal 1</li>
+    <li>Normal 2</li>
+  </ul>
+
+  <ul class="special">
+    <li>Special 1</li>
+    <li>Special 2</li>
+  </ul>
+</div>
+
+</body>
+</html>

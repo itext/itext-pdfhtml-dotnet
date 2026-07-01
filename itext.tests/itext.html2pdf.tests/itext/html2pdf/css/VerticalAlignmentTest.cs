@@ -152,7 +152,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void VerticalAlignMiddleWithTtfOS2Version1() {
-            // TODO DEVSIX-8994 Improve vertical-align css property related calculations
             ConvertToPdfAndCompare("verticalAlignMiddleWithTtfOS2Version1", sourceFolder, destinationFolder);
         }
     }

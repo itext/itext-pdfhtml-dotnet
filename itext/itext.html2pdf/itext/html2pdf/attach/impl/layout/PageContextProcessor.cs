@@ -24,21 +24,20 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
+using iText.Commons.Internal.Runtime;
 using iText.Commons.Utils;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Html2pdf.Css.Apply.Impl;
 using iText.Html2pdf.Css.Apply.Util;
-using iText.Html2pdf.Logs;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Tagging;
-using iText.Kernel.Pdf.Tagutils;
 using iText.Layout.Borders;
 using iText.Layout.Element;
-using iText.Layout.Layout;
 using iText.Layout.Properties;
+using iText.Layout.Properties.Margins;
 using iText.Layout.Renderer;
 using iText.StyledXmlParser.Css.Page;
 using iText.StyledXmlParser.Css.Util;
@@ -366,41 +365,13 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             if (pageMarginBoxHelper.GetRenderers() != null) {
                 for (int i = 0; i < 16; i++) {
                     if (pageMarginBoxHelper.GetRenderers()[i] != null) {
-                        Draw(pageMarginBoxHelper.GetRenderers()[i], pageMarginBoxHelper.GetNodes()[i], pdfDocument, pdfDocument.GetPage
-                            (pageNumber), documentRenderer, pageNumber);
+                        IRenderer renderer = pageMarginBoxHelper.GetRenderers()[i];
+                        PageMarginBoxContextNode node = pageMarginBoxHelper.GetNodes()[i];
+                        Rectangle rect = node.GetPageMarginBoxRectangle();
+                        String marginBoxName = node.GetMarginBoxName();
+                        PageMarginBoxes.Draw(renderer, rect, documentRenderer, pdfDocument, pageNumber, marginBoxName);
                     }
                 }
-            }
-        }
-
-        private void Draw(IRenderer renderer, PageMarginBoxContextNode node, PdfDocument pdfDocument, PdfPage page
-            , DocumentRenderer documentRenderer, int pageNumber) {
-            LayoutResult result = renderer.Layout(new LayoutContext(new LayoutArea(pageNumber, node.GetPageMarginBoxRectangle
-                ())));
-            IRenderer rendererToDraw = result.GetStatus() == LayoutResult.FULL ? renderer : result.GetSplitRenderer();
-            if (rendererToDraw != null) {
-                TagTreePointer tagPointer = null;
-                TagTreePointer backupPointer = null;
-                PdfPage backupPage = null;
-                if (pdfDocument.IsTagged()) {
-                    tagPointer = pdfDocument.GetTagStructureContext().GetAutoTaggingPointer();
-                    backupPage = tagPointer.GetCurrentPage();
-                    backupPointer = new TagTreePointer(tagPointer);
-                    tagPointer.MoveToRoot();
-                    tagPointer.SetPageForTagging(page);
-                }
-                rendererToDraw.SetParent(documentRenderer).Draw(new DrawContext(page.GetDocument(), new PdfCanvas(page), pdfDocument
-                    .IsTagged()));
-                if (pdfDocument.IsTagged()) {
-                    tagPointer.SetPageForTagging(backupPage);
-                    tagPointer.MoveToPointer(backupPointer);
-                }
-            }
-            else {
-                // marginBoxElements have overflow property set to HIDDEN, therefore it is not expected to neither get
-                // LayoutResult other than FULL nor get no split renderer (result NOTHING) even if result is not FULL
-                LOGGER.LogError(MessageFormatUtil.Format(Html2PdfLogMessageConstant.PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN
-                    , node.GetMarginBoxName()));
             }
         }
 

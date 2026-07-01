@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>is() vs class override</title>
+<style>
+  :is(ul, ol) li {
+    padding: 6px;
+    background: lightgray;
+  }
+
+  :is(ul.main, ol.main) li {
+    background: steelblue;
+    color: white;
+  }
+
+  ul.main li.special {
+    background: gold;
+    color: black;
+  }
+</style>
+</head>
+<body>
+
+<ul class="main">
+  <li>Normal</li>
+  <li class="special">Special</li>
+</ul>
+
+<ol class="main">
+  <li>Item 1</li>
+  <li class="special">Item 2</li>
+</ol>
+
+</body>
+</html>

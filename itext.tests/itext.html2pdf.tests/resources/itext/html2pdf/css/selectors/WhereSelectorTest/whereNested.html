@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nested Flex + :where()</title>
+<style>
+  .outer {
+    display: flex;
+    gap: 20px;
+    border: 3px solid black;
+    padding: 10px;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  :where(.outer, .inner) > .item {
+    background: teal;
+    color: white;
+    padding: 10px;
+  }
+
+  .inner > .item {
+    background: darkcyan;
+  }
+</style>
+</head>
+<body>
+
+<div class="outer">
+  <div class="item">Outer 1</div>
+
+  <div class="inner">
+    <div class="item">Inner A</div>
+    <div class="item">Inner B</div>
+  </div>
+
+  <div class="item">Outer 2</div>
+</div>
+
+</body>
+</html>

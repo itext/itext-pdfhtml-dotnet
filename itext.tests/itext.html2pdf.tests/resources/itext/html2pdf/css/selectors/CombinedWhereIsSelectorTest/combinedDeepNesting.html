@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Deep Nesting</title>
+<style>
+  .tree {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  :is(.branch, .leaf-group) {
+    display: flex;
+    gap: 5px;
+  }
+
+  .branch {
+    flex-direction: row;
+  }
+
+  .leaf-group {
+    flex-direction: column;
+  }
+
+  :where(.leaf) {
+    background: teal;
+    color: white;
+    padding: 5px;
+  }
+
+  /* Override specific leaves */
+  .leaf.highlight {
+    background: gold;
+    color: black;
+  }
+</style>
+</head>
+<body>
+
+<div class="tree">
+  <div class="branch">
+    <div class="leaf">A</div>
+
+    <div class="leaf-group">
+      <div class="leaf">B1</div>
+      <div class="leaf highlight">B2</div>
+    </div>
+
+    <div class="leaf">C</div>
+  </div>
+</div>
+
+</body>
+</html>

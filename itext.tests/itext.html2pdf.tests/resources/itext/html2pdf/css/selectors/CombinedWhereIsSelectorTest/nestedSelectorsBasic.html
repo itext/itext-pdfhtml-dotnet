@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nested Selectors</title>
+  <style>
+    :is(nav, footer) a {
+      color: purple;
+      text-decoration: none;
+    }
+
+    :where(section, article) {
+      margin: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#">Nav Link</a>
+  </nav>
+
+  <footer>
+    <a href="#">Footer Link</a>
+  </footer>
+
+  <section>Section content</section>
+  <article>Article content</article>
+
+</body>
+</html>

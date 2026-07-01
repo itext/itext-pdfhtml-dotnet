@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>extreme offsets</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 8200px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 12px;
+  }
+
+  .box-far-positive {
+    position: absolute;
+    top: 8000px;
+    left: 5000px;
+    width: 200px;
+    height: 80px;
+    background: #2563eb;
+    color: white;
+    padding: 8px;
+  }
+
+  .box-far-negative {
+    position: absolute;
+    top: -3000px;
+    left: -3000px;
+    width: 200px;
+    height: 80px;
+    background: #db2777;
+    color: white;
+    padding: 8px;
+  }
+
+  .small-container {
+    position: relative;
+    width: 250px;
+    height: 150px;
+    background: #cbd5e1;
+    margin-top: 60px;
+  }
+
+  .box-huge-offset-small-container {
+    position: absolute;
+    bottom: -5000px;
+    right: -5000px;
+    width: 150px;
+    height: 60px;
+    background: #16a34a;
+    color: white;
+    padding: 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="box-far-positive">top:8000px left:5000px<br>(scroll far to find me)</div>
+  <div class="box-far-negative">top:-3000px left:-3000px<br>(off-screen top-left)</div>
+
+  <div class="small-container">
+    small relative container (250×150)
+    <div class="box-huge-offset-small-container">bottom:-5000px<br>right:-5000px</div>
+  </div>
+</body>
+</html>

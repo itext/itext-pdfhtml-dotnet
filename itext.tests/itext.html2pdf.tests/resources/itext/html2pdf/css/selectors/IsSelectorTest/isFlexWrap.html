@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Flex Wrap + :is()</title>
+<style>
+  .container {
+    display: flex;
+    width: 200px;
+    border: 2px solid black;
+  }
+
+  :is(.wrap, .wrap-reverse) {
+    gap: 5px;
+    background: lightyellow;
+  }
+
+  .wrap {
+    flex-wrap: wrap;
+  }
+
+  .wrap-reverse {
+    flex-wrap: wrap-reverse;
+  }
+
+  .wrap {
+    background: lightgreen;
+  }
+
+  .item {
+    width: 60px;
+    height: 40px;
+    background: tomato;
+  }
+</style>
+</head>
+<body>
+
+<div class="container wrap">
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+
+<div class="container wrap-reverse">
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</div>
+
+</body>
+</html>

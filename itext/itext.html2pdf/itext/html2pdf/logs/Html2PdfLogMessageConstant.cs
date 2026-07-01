@@ -100,6 +100,7 @@ namespace iText.Html2pdf.Logs {
         /// <summary>The Constant PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED.</summary>
         public const String PADDING_VALUE_IN_PERCENT_NOT_SUPPORTED = "Padding value in percents not supported";
 
+        [Obsolete]
         public const String PAGE_MARGIN_BOX_CONTENT_CANNOT_BE_DRAWN = "Page margin box {0} content cannot be drawn.";
 
         public const String PAGE_MARGIN_BOX_SOME_PROPERTIES_NOT_PROCESSED = "Page margin box margin, padding, height and width properties are not processed. Passed styles container "

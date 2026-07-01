@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>zero and negative dimensions</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+    font-family: monospace;
+    font-size: 11px;
+  }
+
+  .zero-size-ancestor {
+    position: relative;
+    width: 0;
+    height: 0;
+    background: #cbd5e1;
+    margin: 40px 40px 200px 40px;
+    overflow: visible;
+  }
+
+  .box-in-zero-ancestor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160px;
+    height: 50px;
+    background: #2563eb;
+    color: white;
+    padding: 6px;
+  }
+
+  .normal-ancestor {
+    position: relative;
+    width: 400px;
+    height: 150px;
+    background: #cbd5e1;
+    margin-bottom: 20px;
+  }
+
+  .box-negative-size {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: -100px;
+    height: -50px;
+    background: #db2777;
+    color: white;
+    padding: 6px;
+    border: 2px solid #db2777;   }
+
+  .box-sliver {
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    width: 300px;
+    height: 1px;
+    background: #16a34a;
+  }
+</style>
+</head>
+<body>
+  <div class="zero-size-ancestor">
+    <div class="box-in-zero-ancestor">top:0% left:0%<br>(ancestor is 0×0,<br>% offsets collapse to origin)</div>
+  </div>
+
+  <div class="normal-ancestor">
+    <div class="box-negative-size">width:-100px height:-50px<br>(invalid → clamped to 0)</div>
+    <div class="box-sliver"></div>
+  </div>
+</body>
+</html>

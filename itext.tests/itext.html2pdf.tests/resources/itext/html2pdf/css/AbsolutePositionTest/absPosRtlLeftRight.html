@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>rtl left right</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+  }
+
+  .container {
+    position: relative;
+    width: 500px;
+    height: 140px;
+    background: #cbd5e1;
+    margin-bottom: 20px;
+    direction: rtl;   }
+
+  .box-physical-left {
+    position: absolute;
+    left: 20px;
+    width: 130px;
+    height: 50px;
+    background: #2563eb;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+
+  .container-2 {
+    position: relative;
+    width: 500px;
+    height: 140px;
+    background: #cbd5e1;
+    direction: rtl;
+  }
+
+  .box-logical-start {
+    position: absolute;
+    top: 20px;
+    width: 130px;
+    height: 50px;
+    background: #16a34a;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="box-physical-left">left:20px (RTL container,<br>still anchors true-left)</div>
+  </div>
+
+  <div class="container-2">
+    <div class="box-logical-start"><br>(RTL → anchors right)</div>
+  </div>
+</body>
+</html>

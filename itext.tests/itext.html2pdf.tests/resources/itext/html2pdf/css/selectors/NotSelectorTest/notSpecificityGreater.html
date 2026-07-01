@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>:not() Specificity</title>
+<style>
+    :not(html, body, .notbox) {
+        background: green;
+    }
+    div {
+        background: red;
+    }
+</style>
+</head>
+<body>
+
+<div class="box">Should be GREEN</div>
+
+</body>
+</html>

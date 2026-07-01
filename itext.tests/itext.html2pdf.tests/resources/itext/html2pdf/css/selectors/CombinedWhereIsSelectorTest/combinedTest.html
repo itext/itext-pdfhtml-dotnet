@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Full Flex + Selector Test</title>
+<style>
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    height: 180px;
+    border: 3px solid black;
+    margin-bottom: 20px;
+  }
+
+  :is(.row-wrap, .col-wrap) {
+    gap: 8px;
+  }
+
+  .row-wrap {
+    flex-direction: row;
+  }
+
+  .col-wrap {
+    flex-direction: column;
+  }
+
+  :where(.centered) {
+    justify-content: center;
+    align-content: center;
+    background: #f9f9f9;
+  }
+
+  .centered.special {
+    background: gold;
+  }
+
+  .item {
+    width: 60px;
+    height: 40px;
+    background: teal;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<div class="container row-wrap centered">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+</div>
+
+<div class="container col-wrap centered special">
+  <div class="item">A</div>
+  <div class="item">B</div>
+  <div class="item">C</div>
+  <div class="item">D</div>
+</div>
+
+</body>
+</html>

@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
+using iText.Commons.Internal.Runtime;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css;
 using iText.Layout;
@@ -57,17 +58,23 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String widthVal = cssProps.Get(CssConstants.WIDTH);
             if (!CssConstants.AUTO.Equals(widthVal) && widthVal != null) {
                 UnitValue width = CssDimensionParsingUtils.ParseLengthValueToPt(widthVal, em, rem);
-                element.SetProperty(Property.WIDTH, width);
+                if (width != null) {
+                    element.SetProperty(Property.WIDTH, width);
+                }
             }
             String minWidthVal = cssProps.Get(CssConstants.MIN_WIDTH);
             if (!CssConstants.AUTO.Equals(minWidthVal) && minWidthVal != null) {
                 UnitValue minWidth = CssDimensionParsingUtils.ParseLengthValueToPt(minWidthVal, em, rem);
-                element.SetProperty(Property.MIN_WIDTH, minWidth);
+                if (minWidth != null) {
+                    element.SetProperty(Property.MIN_WIDTH, minWidth);
+                }
             }
             String maxWidthVal = cssProps.Get(CssConstants.MAX_WIDTH);
             if (!CssConstants.AUTO.Equals(maxWidthVal) && maxWidthVal != null) {
                 UnitValue maxWidth = CssDimensionParsingUtils.ParseLengthValueToPt(maxWidthVal, em, rem);
-                element.SetProperty(Property.MAX_WIDTH, maxWidth);
+                if (maxWidth != null) {
+                    element.SetProperty(Property.MAX_WIDTH, maxWidth);
+                }
             }
             bool applyToTable = element is Table;
             bool applyToCell = element is Cell;

@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
+using iText.Commons.Internal.Runtime;
 using iText.Html2pdf.Attach;
 using iText.Html2pdf.Css.Apply;
 using iText.Html2pdf.Css.Page;
@@ -35,8 +36,8 @@ using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Minmaxwidth;
 using iText.Layout.Properties;
+using iText.Layout.Properties.Margins;
 using iText.Layout.Renderer;
-using iText.Layout.Tagging;
 using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Css.Page;
 using iText.StyledXmlParser.Css.Util;
@@ -172,7 +173,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             for (int i = 0; i < 4; i++) {
                 renderers[i * 4] = CreateCornerRenderer(elements[i * 4], documentRenderer, pdfDocument, i);
                 for (int j = 1; j <= 3; j++) {
-                    renderers[i * 4 + j] = CreateRendererFromElement(elements[i * 4 + j], documentRenderer, pdfDocument);
+                    renderers[i * 4 + j] = PageMarginBoxes.CreateRendererFromElement(elements[i * 4 + j], documentRenderer, pdfDocument
+                        );
                 }
                 DetermineSizes(i);
             }
@@ -180,7 +182,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         private IRenderer CreateCornerRenderer(IElement cornerBoxElement, DocumentRenderer documentRenderer, PdfDocument
              pdfDocument, int indexOfCorner) {
-            IRenderer cornerRenderer = CreateRendererFromElement(cornerBoxElement, documentRenderer, pdfDocument);
+            IRenderer cornerRenderer = PageMarginBoxes.CreateRendererFromElement(cornerBoxElement, documentRenderer, pdfDocument
+                );
             if (cornerRenderer != null) {
                 float rendererWidth = margins[indexOfCorner % 3 == 0 ? 3 : 1] - GetSizeOfOneSide(cornerRenderer, Property.
                     MARGIN_LEFT, Property.BORDER_LEFT, Property.PADDING_LEFT) - GetSizeOfOneSide(cornerRenderer, Property.
@@ -193,42 +196,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                 return cornerRenderer;
             }
             return null;
-        }
-
-        private IRenderer CreateRendererFromElement(IElement element, DocumentRenderer documentRenderer, PdfDocument
-             pdfDocument) {
-            if (element != null) {
-                IRenderer renderer = element.CreateRendererSubTree();
-                RemoveAreaBreaks(renderer);
-                renderer.SetParent(documentRenderer);
-                if (pdfDocument.IsTagged()) {
-                    LayoutTaggingHelper taggingHelper = renderer.GetProperty<LayoutTaggingHelper>(Property.TAGGING_HELPER);
-                    LayoutTaggingHelper.AddTreeHints(taggingHelper, renderer);
-                }
-                return renderer;
-            }
-            return null;
-        }
-
-        /// <summary>Gets rid of all page breaks that might have occurred inside page margin boxes because of the running elements.
-        ///     </summary>
-        /// <param name="renderer">root renderer of renderers subtree</param>
-        private static void RemoveAreaBreaks(IRenderer renderer) {
-            IList<IRenderer> areaBreaks = null;
-            foreach (IRenderer child in renderer.GetChildRenderers()) {
-                if (child is AreaBreakRenderer) {
-                    if (areaBreaks == null) {
-                        areaBreaks = new List<IRenderer>();
-                    }
-                    areaBreaks.Add(child);
-                }
-                else {
-                    RemoveAreaBreaks(child);
-                }
-            }
-            if (areaBreaks != null) {
-                renderer.GetChildRenderers().RemoveAll(areaBreaks);
-            }
         }
 
         private void DetermineSizes(int side) {

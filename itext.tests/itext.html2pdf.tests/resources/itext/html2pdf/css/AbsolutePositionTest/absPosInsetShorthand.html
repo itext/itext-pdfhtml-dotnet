@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>inset shorthand</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 600px;
+    background: #fafbfc;
+  }
+
+  .container {
+    position: relative;
+    width: 500px;
+    height: 220px;
+    background: #cbd5e1;
+    margin-bottom: 30px;
+  }
+
+  .box-inset-all {
+    position: absolute;
+    inset: 20px 30px 20px 30px;
+    background: #2563eb;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+
+  .container-2 {
+    position: relative;
+    width: 500px;
+    height: 220px;
+    background: #cbd5e1;
+    margin-bottom: 30px;
+  }
+
+  .box-inset-override {
+    position: absolute;
+    inset: 10px;
+    left: 250px;     width: 140px;
+    background: #db2777;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+
+  .container-3 {
+    position: relative;
+    width: 500px;
+    height: 220px;
+    background: #cbd5e1;
+  }
+
+  .box-logical {
+    position: absolute;
+    inset-block-start: 15px;
+    inset-inline-end: 15px;
+    width: 130px;
+    height: 50px;
+    background: #16a34a;
+    color: white;
+    font-family: monospace;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="box-inset-all">inset: 20px 30px 20px 30px</div>
+  </div>
+
+  <div class="container-2">
+    <div class="box-inset-override">inset:10px; left:250px (override)</div>
+  </div>
+
+  <div class="container-3">
+    <div class="box-logical">inset-block-start:15px<br>inset-inline-end:15px</div>
+  </div>
+</body>
+</html>
