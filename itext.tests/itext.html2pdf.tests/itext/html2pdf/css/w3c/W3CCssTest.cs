@@ -69,17 +69,17 @@ namespace iText.Html2pdf.Css.W3c {
 
         private String GetDestinationFolder() {
             String localPackage = GetLocalPackage();
-            return baseDestinationFolder + localPackage + System.IO.Path.DirectorySeparatorChar + GetTestClassName() +
-                 System.IO.Path.DirectorySeparatorChar;
+            return (baseDestinationFolder + localPackage + System.IO.Path.DirectorySeparatorChar + GetTestClassName() 
+                + System.IO.Path.DirectorySeparatorChar).ToLowerInvariant();
         }
 
         private String GetSourceFolder() {
             String localPackage = GetLocalPackage();
-            return baseSourceFolder + localPackage + System.IO.Path.DirectorySeparatorChar;
+            return (baseSourceFolder + localPackage + System.IO.Path.DirectorySeparatorChar).ToLowerInvariant();
         }
 
         private String GetTestClassName() {
-            return GetType().Name;
+            return GetType().Name.ToLowerInvariant();
         }
 
         private String GetLocalPackage() {
