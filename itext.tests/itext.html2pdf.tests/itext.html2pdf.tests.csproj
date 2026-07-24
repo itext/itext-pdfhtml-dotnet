@@ -1,87 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-  <PropertyGroup Label="Configuration">
-    <SignAssembly>True</SignAssembly>
-    <DelaySign>False</DelaySign>
-    <RootNamespace />
-  </PropertyGroup>
+    <!-- The .csrpoj file uses ../Directory.Build.props as a source for some configurations -->
+    <PropertyGroup>
+        <AssemblyName>itext.html2pdf.tests</AssemblyName>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\itext\itext.html2pdf\itext.html2pdf.csproj" />
 
+        <PackageReference Include="itext" Version="9.8.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.io\itext.io.csproj')" />
+        <ProjectReference Include="..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.csproj')" />
+        <ProjectReference Include="..\..\..\itextcore\itext\itext.svg\itext.svg.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.svg\itext.svg.csproj')" />
+        <ProjectReference Include="..\..\..\itextcore\itext\itext.pdfua\itext.pdfua.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdfua\itext.pdfua.csproj')" />
 
-  <PropertyGroup>
-    <TargetFrameworks>net10.0;netcoreapp2.0;net461</TargetFrameworks>
-  </PropertyGroup>
+        <PackageReference Include="itext.hyph" Version="9.8.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.hyph\itext.hyph.csproj')" />
+        <ProjectReference Include="..\..\..\itextcore\itext\itext.hyph\itext.hyph.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.hyph\itext.hyph.csproj')" />
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <OutputType>library</OutputType>
-  </PropertyGroup>
+        <PackageReference Include="itext.pdftest" Version="9.8.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj')" />
+        <ProjectReference Include="..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj')" />
 
-  <PropertyGroup Condition=" '$(TargetFramework)' != 'net461' ">
-    <OutputType>Library</OutputType>
-    <DefineConstants>NETSTANDARD2_0</DefineConstants>
-  </PropertyGroup>
-  
-  
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>itext.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <ApplicationIcon />
-    <OutputTypeEx>library</OutputTypeEx>
-    <StartupObject />
-    <AssemblyName>itext.html2pdf.tests</AssemblyName>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="itext.snk" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <PropertyGroup>
-    <NoWarn>1701;1702;1591;1570;1572;1573;1574;1580;1584;1658</NoWarn>
-    <!-- TODO DEVSIX-9075: remove this suppression -->
-    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.io\itext.io.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.io\itext.io.csproj')" />
-    <PackageReference Include="itext" Version="9.8.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.io\itext.io.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.layout\itext.layout.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.layout\itext.layout.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.forms\itext.forms.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.forms\itext.forms.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.hyph\itext.hyph.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.hyph\itext.hyph.csproj')" />
-    <PackageReference Include="itext.hyph" Version="9.8.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.hyph\itext.hyph.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj')" />
-    <PackageReference Include="itext.pdftest" Version="9.8.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.pdftest\itext.pdftest.csproj')" />
-	<ProjectReference Include="..\..\..\itextcore\itext\itext.bouncy-castle-adapter\itext.bouncy-castle-adapter.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.bouncy-castle-adapter\itext.bouncy-castle-adapter.csproj')" />
-    <PackageReference Include="itext.bouncy-castle-adapter" Version="9.8.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.bouncy-castle-adapter\itext.bouncy-castle-adapter.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.svg\itext.svg.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.svg\itext.svg.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.pdfua\itext.pdfua.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdfua\itext.pdfua.csproj')" />
-    <ProjectReference Include="..\..\itext\itext.html2pdf\itext.html2pdf.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461'  ">
-    <PackageReference Include="NUnit" Version="3.7.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
-    <PackageReference Include="Microsoft.CodeCoverage" Version="16.11.0" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.0'">
-    <PackageReference Include="NUnit" Version="3.7.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
-    <PackageReference Include="Microsoft.CodeCoverage" Version="16.11.0" />
-    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
-  </ItemGroup>
-
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
-    <PackageReference Include="NUnit" Version="3.14.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-  </ItemGroup>
-
+        <PackageReference Include="itext.bouncy-castle-adapter" Version="9.8.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.bouncy-castle-adapter\itext.bouncy-castle-adapter.csproj')" />
+        <ProjectReference Include="..\..\..\itextcore\itext\itext.bouncy-castle-adapter\itext.bouncy-castle-adapter.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.bouncy-castle-adapter\itext.bouncy-castle-adapter.csproj')" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="App.config" />
+    </ItemGroup>
 </Project>

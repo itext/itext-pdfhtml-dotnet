@@ -1,26 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-  <PropertyGroup Label="Configuration">
-    <SignAssembly>True</SignAssembly>
-    <DelaySign>False</DelaySign>
-    <RootNamespace />
-    <DocumentationFile>$(TargetDir)bin\$(Configuration)\$(TargetFramework)\itext.html2pdf.xml</DocumentationFile>
-  </PropertyGroup>
+  <!-- The .csrpoj file uses ../Directory.Build.props as a source for some configurations -->
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
-  </PropertyGroup>
-  <PropertyGroup>
-    <OutputType>library</OutputType>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>itext.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>itext.html2pdf</AssemblyName>
-    <RootNamespace />
-  </PropertyGroup>
-  <PropertyGroup>
-    <NoWarn>1701;1702;1591;1570;1572;1573;1574;1580;1584;1658</NoWarn>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />
@@ -30,12 +11,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.io\itext.io.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.io\itext.io.csproj')" />
     <PackageReference Include="itext" Version="9.8.0-SNAPSHOT" Condition="!Exists('..\..\..\itextcore\itext\itext.io\itext.io.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.kernel\itext.kernel.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.layout\itext.layout.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.layout\itext.layout.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.forms\itext.forms.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.forms\itext.forms.csproj')" />
-    <ProjectReference Include="..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.styledxmlparser\itext.styledxmlparser.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.svg\itext.svg.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.svg\itext.svg.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdfa\itext.pdfa.csproj')" />
     <ProjectReference Include="..\..\..\itextcore\itext\itext.pdfua\itext.pdfua.csproj" Condition="Exists('..\..\..\itextcore\itext\itext.pdfua\itext.pdfua.csproj')" />
