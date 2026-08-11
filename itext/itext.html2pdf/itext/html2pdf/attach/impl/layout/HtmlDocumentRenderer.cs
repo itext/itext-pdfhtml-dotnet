@@ -163,7 +163,7 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             ProcessWaitingElement();
             base.Close();
             TrimLastPageIfNecessary();
-            RemoveEventHandlers();
+            RemoveEventHandlersForRelayout();
             for (int i = 1; i <= document.GetPdfDocument().GetNumberOfPages(); ++i) {
                 PdfPage page = document.GetPdfDocument().GetPage(i);
                 if (!page.IsFlushed()) {
@@ -173,18 +173,18 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
         }
 
-//\cond DO_NOT_DOCUMENT
         /// <summary>
         /// Removes event handlers that were added to pdf document when this
         /// <see cref="HtmlDocumentRenderer"/>
         /// was created.
         /// </summary>
-        internal virtual void RemoveEventHandlers() {
-            // This handler is added in processPageRules method.
-            document.GetPdfDocument().RemoveEventHandler(marginBoxesHandler);
+        public override void RemoveEventHandlersForRelayout() {
+            base.RemoveEventHandlersForRelayout();
+            if (marginBoxesHandler != null) {
+                document.GetPdfDocument().RemoveEventHandler(marginBoxesHandler);
+            }
             document.GetPdfDocument().RemoveEventHandler(htmlBodyHandler);
         }
-//\endcond
 
         /* (non-Javadoc)
         * @see com.itextpdf.layout.renderer.DocumentRenderer#getNextRenderer()
@@ -202,7 +202,11 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             relayoutRenderer.rightPageProc = rightPageProc.Reset(defaultPageSize, defaultPageMargins);
             relayoutRenderer.estimatedNumberOfPages = currentArea == null ? estimatedNumberOfPages : currentArea.GetPageNumber
                 () - SimulateTrimLastPage();
-            relayoutRenderer.marginBoxesHandler = marginBoxesHandler.SetHtmlDocumentRenderer(relayoutRenderer);
+            if (marginBoxesHandler != null) {
+                relayoutRenderer.marginBoxesHandler = new HtmlDocumentRenderer.PageMarginBoxesDrawingHandler().SetHtmlDocumentRenderer
+                    (relayoutRenderer);
+                document.GetPdfDocument().AddEventHandler(PdfDocumentEvent.END_PAGE, relayoutRenderer.marginBoxesHandler);
+            }
             relayoutRenderer.targetCounterHandler = new TargetCounterHandler(targetCounterHandler);
             return relayoutRenderer;
         }
