@@ -125,25 +125,20 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        //TODO DEVSIX-10168 last paragraph too small in flex container
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 4)]
         public virtual void VertLrLetterSpacingTest() {
+            //TODO DEVSIX-10168 last paragraph too small in flex container
             ConvertToPdfAndCompare("vertLrLetterSpacing", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        //TODO DEVSIX-10168 flex borders misaligned
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 8)]
         public virtual void VertLrLineHeightTest() {
+            //TODO DEVSIX-10168 flex borders misaligned
             ConvertToPdfAndCompare("vertLrLineHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
-        //TODO DEVSIX-10186 Lists with vertical writing.
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 4)]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.OCCUPIED_AREA_HAS_NOT_BEEN_INITIALIZED)]
         public virtual void VertLrListsTest() {
+            //TODO DEVSIX-10186 Lists with vertical writing.
             ConvertToPdfAndCompare("vertLrLists", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -172,10 +167,8 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        //TODO DEVSIX-10168 paragraph positioning in flex container
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 9)]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE, Count = 3)]
         public virtual void VertLrOverflowTest() {
+            //TODO DEVSIX-10168 paragraph positioning in flex container
             ConvertToPdfAndCompare("vertLrOverflow", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -235,7 +228,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, LogLevel = LogLevelConstants.WARN, Count = 9)]
         [LogMessage(LayoutLogMessageConstant.FLEX_ITEM_LAYOUT_RESULT_IS_NOT_FULL, LogLevel = LogLevelConstants.ERROR
             , Count = 1)]
         public virtual void VertLrZeroNegativeDimensionsTest() {
@@ -245,7 +237,6 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 7)]
         public virtual void MixedUprightSidewaysTest() {
             // TODO DEVSIX-10176 Text-orientation sideways and mixed are not supported.
             ConvertToPdfAndCompare("mixedUprightSideways", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -260,6 +251,21 @@ namespace iText.Html2pdf.Css {
         public virtual void InlineBlockAndTextRiseTest() {
             //TODO DEVSIX-10180 Support text rise in html mode for vertical text
             ConvertToPdfAndCompare("inline_block_and_text_rise", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void OverflowTest() {
+            ConvertToPdfAndCompare("overflow", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void OverflowWrapTest() {
+            ConvertToPdfAndCompare("overflowWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NoWrapTest() {
+            ConvertToPdfAndCompare("noWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }
