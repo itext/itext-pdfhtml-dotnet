@@ -218,6 +218,29 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             // browsers ignore values in percents
+            String writingMode = cssProps.Get(CssConstants.WRITING_MODE);
+            if (writingMode != null) {
+                switch (writingMode) {
+                    case CommonCssConstants.HORIZONTAL_TB: {
+                        element.SetProperty(Property.WRITING_MODE, WritingMode.HORIZONTAL_TB);
+                        break;
+                    }
+
+                    case CommonCssConstants.VERTICAL_LR: {
+                        element.SetProperty(Property.WRITING_MODE, WritingMode.VERTICAL_LR);
+                        break;
+                    }
+                }
+            }
+            String textOrientation = cssProps.Get(CssConstants.TEXT_ORIENTATION);
+            if (textOrientation != null) {
+                switch (textOrientation) {
+                    case CommonCssConstants.UPRIGHT: {
+                        element.SetProperty(Property.TEXT_ORIENTATION, VerticalTextOrientation.UPRIGHT);
+                        break;
+                    }
+                }
+            }
             String lineHeight = cssProps.Get(CssConstants.LINE_HEIGHT);
             SetLineHeight(element, lineHeight, em, rem);
             SetLineHeightByLeading(element, lineHeight, em, rem);

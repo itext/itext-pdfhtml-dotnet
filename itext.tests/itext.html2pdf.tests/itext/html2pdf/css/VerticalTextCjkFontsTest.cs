@@ -40,6 +40,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.CLIP_ELEMENT, Count = 3)]
         public virtual void CjkFontMetricsComparisonTest() {
             ConvertToPdfAndCompare("cjkFontMetricsComparison", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
