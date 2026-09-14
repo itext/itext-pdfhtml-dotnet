@@ -28,26 +28,29 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Tagging;
 using iText.Kernel.Pdf.Tagutils;
 using iText.Kernel.Utils;
+using iText.Layout;
 using iText.Layout.Element;
+using iText.Pdfua;
+using iText.Test.Pdfa;
 
 namespace iText.Html2pdf.Attribute {
     [NUnit.Framework.Category("IntegrationTest")]
     public class LangAttributeTest : ExtendedHtmlConversionITextTest {
-        public static readonly String sourceFolder = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
+        public static readonly String SOURCE_FOLDER = iText.Test.TestUtil.GetParentProjectDirectory(NUnit.Framework.TestContext
             .CurrentContext.TestDirectory) + "/resources/itext/html2pdf/attribute/LangAttributeTest/";
 
-        public static readonly String destinationFolder = NUnit.Framework.TestContext.CurrentContext.TestDirectory
+        public static readonly String DESTINATION_FOLDER = NUnit.Framework.TestContext.CurrentContext.TestDirectory
              + "/test/itext/html2pdf/attribute/LangAttributeTest/";
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void LangAttrInElementForTaggedPdfTest() {
-            String html = sourceFolder + "langAttrInElementForTaggedPdfTest.html";
-            String outFile = destinationFolder + "langAttrInElementForTaggedPdfTest.pdf";
+            String html = SOURCE_FOLDER + "langAttrInElementForTaggedPdfTest.html";
+            String outFile = DESTINATION_FOLDER + "langAttrInElementForTaggedPdfTest.pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             pdfDocument.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(html, FileMode.Open, FileAccess.Read), pdfDocument, null);
@@ -62,8 +65,8 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrInvalidTagsTest() {
-            String html = sourceFolder + "langAttrInvalidTagsTest.html";
-            String outFile = destinationFolder + "langAttrInvalidTagsTest.pdf";
+            String html = SOURCE_FOLDER + "langAttrInvalidTagsTest.html";
+            String outFile = DESTINATION_FOLDER + "langAttrInvalidTagsTest.pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             pdfDocument.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(html, FileMode.Open, FileAccess.Read), pdfDocument, null);
@@ -88,8 +91,8 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrEmptyTagTest() {
-            String html = sourceFolder + "langAttrEmptyTagTest.html";
-            String outFile = destinationFolder + "langAttrEmptyTagTest.pdf";
+            String html = SOURCE_FOLDER + "langAttrEmptyTagTest.html";
+            String outFile = DESTINATION_FOLDER + "langAttrEmptyTagTest.pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             pdfDocument.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(html, FileMode.Open, FileAccess.Read), pdfDocument, null);
@@ -112,8 +115,8 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrRegionSubtagTest() {
-            String html = sourceFolder + "langAttrRegionSubtagTest.html";
-            String outFile = destinationFolder + "langAttrRegionSubtagTest.pdf";
+            String html = SOURCE_FOLDER + "langAttrRegionSubtagTest.html";
+            String outFile = DESTINATION_FOLDER + "langAttrRegionSubtagTest.pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             pdfDocument.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(html, FileMode.Open, FileAccess.Read), pdfDocument, null);
@@ -132,8 +135,8 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrScriptSubtagTest() {
-            String html = sourceFolder + "langAttrScriptSubtagTest.html";
-            String outFile = destinationFolder + "langAttrScriptSubtagTest.pdf";
+            String html = SOURCE_FOLDER + "langAttrScriptSubtagTest.html";
+            String outFile = DESTINATION_FOLDER + "langAttrScriptSubtagTest.pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             pdfDocument.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(html, FileMode.Open, FileAccess.Read), pdfDocument, null);
@@ -152,8 +155,8 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrScriptRegionSubtagTest() {
-            String html = sourceFolder + "langAttrScriptRegionSubtagTest.html";
-            String outFile = destinationFolder + "langAttrScriptRegionSubtagTest.pdf";
+            String html = SOURCE_FOLDER + "langAttrScriptRegionSubtagTest.html";
+            String outFile = DESTINATION_FOLDER + "langAttrScriptRegionSubtagTest.pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             pdfDocument.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(html, FileMode.Open, FileAccess.Read), pdfDocument, null);
@@ -170,12 +173,12 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrInSvgForTaggedPdfTest() {
-            String html = sourceFolder + "langAttrInSvgForTaggedPdfTest.html";
-            String outFile = destinationFolder + "langAttrInSvgForTaggedPdfTest.pdf";
+            String html = SOURCE_FOLDER + "langAttrInSvgForTaggedPdfTest.html";
+            String outFile = DESTINATION_FOLDER + "langAttrInSvgForTaggedPdfTest.pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             pdfDocument.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(html, FileMode.Open, FileAccess.Read), pdfDocument, new ConverterProperties
-                ().SetBaseUri(sourceFolder));
+                ().SetBaseUri(SOURCE_FOLDER));
             PrintOutputPdfNameAndDir(outFile);
             PdfDocument document = new PdfDocument(new PdfReader(outFile));
             TagTreePointer tagPointer = new TagTreePointer(document);
@@ -191,8 +194,8 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrInListsForTaggedPdfTest() {
-            String html = sourceFolder + "langAttrInListsForTaggedPdfTest.html";
-            String outFile = destinationFolder + "langAttrInListsForTaggedPdfTest.pdf";
+            String html = SOURCE_FOLDER + "langAttrInListsForTaggedPdfTest.html";
+            String outFile = DESTINATION_FOLDER + "langAttrInListsForTaggedPdfTest.pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             pdfDocument.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(html, FileMode.Open, FileAccess.Read), pdfDocument, null);
@@ -219,8 +222,8 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrInListWithBeforeStyleForTaggedPdfTest() {
-            String html = sourceFolder + "langAttrInListWithBeforeStyleForTaggedPdfTest.html";
-            String outFile = destinationFolder + "langAttrInListWithBeforeStyleForTaggedPdfTest.pdf";
+            String html = SOURCE_FOLDER + "langAttrInListWithBeforeStyleForTaggedPdfTest.html";
+            String outFile = DESTINATION_FOLDER + "langAttrInListWithBeforeStyleForTaggedPdfTest.pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             pdfDocument.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(html, FileMode.Open, FileAccess.Read), pdfDocument, null);
@@ -246,7 +249,7 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrInDivAndSpanForConvertToElementsMethodTest() {
-            String html = sourceFolder + "langAttrInDivAndSpanForTagPdfTest.html";
+            String html = SOURCE_FOLDER + "langAttrInDivAndSpanForTagPdfTest.html";
             IList<IElement> elemList = HtmlConverter.ConvertToElements(new FileStream(html, FileMode.Open, FileAccess.Read
                 ));
             Div div = (Div)elemList[0];
@@ -297,20 +300,20 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrInInputAndTextareaForTaggedPdfWithActoformTest() {
-            String html = sourceFolder + "langAttrInInputAndTextareaForTaggedPdfTest.html";
-            String outFile = destinationFolder + "langAttrInInputAndTextareaForTaggedPdfWithActoformTest.pdf";
-            String cmp = sourceFolder + "cmp_langAttrInInputAndTextareaForTaggedPdfWithActoformTest.pdf";
+            String html = SOURCE_FOLDER + "langAttrInInputAndTextareaForTaggedPdfTest.html";
+            String outFile = DESTINATION_FOLDER + "langAttrInInputAndTextareaForTaggedPdfWithActoformTest.pdf";
+            String cmp = SOURCE_FOLDER + "cmp_langAttrInInputAndTextareaForTaggedPdfWithActoformTest.pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             pdfDocument.SetTagged();
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetCreateAcroForm(true);
-            converterProperties.SetBaseUri(sourceFolder);
+            converterProperties.SetBaseUri(SOURCE_FOLDER);
             HtmlConverter.ConvertToPdf(new FileStream(html, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
             PrintOutputPdfNameAndDir(outFile);
             PdfDocument document = new PdfDocument(new PdfReader(outFile));
             //compareByContent is used here to check the complete logical structure tree to notice all the differences.
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmp, destinationFolder, "diff_forms"
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmp, DESTINATION_FOLDER, "diff_forms"
                 ));
             NUnit.Framework.Assert.AreEqual("da", document.GetCatalog().GetLang().ToUnicodeString());
             document.Close();
@@ -318,20 +321,20 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrInButtonForTaggedPdfWithActoformTest() {
-            String html = sourceFolder + "langAttrInButtonForTaggedPdfTest.html";
-            String outFile = destinationFolder + "langAttrInButtonForTaggedPdfWithActoformTest.pdf";
-            String cmp = sourceFolder + "cmp_langAttrInButtonForTaggedPdfWithActoformTest.pdf";
+            String html = SOURCE_FOLDER + "langAttrInButtonForTaggedPdfTest.html";
+            String outFile = DESTINATION_FOLDER + "langAttrInButtonForTaggedPdfWithActoformTest.pdf";
+            String cmp = SOURCE_FOLDER + "cmp_langAttrInButtonForTaggedPdfWithActoformTest.pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             pdfDocument.SetTagged();
             ConverterProperties converterProperties = new ConverterProperties();
             converterProperties.SetCreateAcroForm(true);
-            converterProperties.SetBaseUri(sourceFolder);
+            converterProperties.SetBaseUri(SOURCE_FOLDER);
             HtmlConverter.ConvertToPdf(new FileStream(html, FileMode.Open, FileAccess.Read), pdfDocument, converterProperties
                 );
             PrintOutputPdfNameAndDir(outFile);
             PdfDocument document = new PdfDocument(new PdfReader(outFile));
             //compareByContent is used here to check the complete logical structure tree to notice all the differences.
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmp, destinationFolder, "diff_forms"
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmp, DESTINATION_FOLDER, "diff_forms"
                 ));
             NUnit.Framework.Assert.AreEqual("da", document.GetCatalog().GetLang().ToUnicodeString());
             document.Close();
@@ -402,7 +405,7 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrInHtmlWithLangBodyWithoutLangForConvertToElementsMethodTest() {
-            String html = sourceFolder + "langAttrInHtmlWithLangBodyWithoutLangTest.html";
+            String html = SOURCE_FOLDER + "langAttrInHtmlWithLangBodyWithoutLangTest.html";
             IList<IElement> elemList = HtmlConverter.ConvertToElements(new FileStream(html, FileMode.Open, FileAccess.Read
                 ));
             Paragraph p = (Paragraph)elemList[0];
@@ -431,7 +434,7 @@ namespace iText.Html2pdf.Attribute {
 
         [NUnit.Framework.Test]
         public virtual void LangAttrInHtmlWithLangBodyWithLangForConvertToElementsMethodTest() {
-            String html = sourceFolder + "langAttrInHtmlWithLangBodyWithLangTest.html";
+            String html = SOURCE_FOLDER + "langAttrInHtmlWithLangBodyWithLangTest.html";
             IList<IElement> elemList = HtmlConverter.ConvertToElements(new FileStream(html, FileMode.Open, FileAccess.Read
                 ));
             Paragraph p = (Paragraph)elemList[0];
@@ -444,18 +447,82 @@ namespace iText.Html2pdf.Attribute {
             NUnit.Framework.Assert.AreEqual("by", p.GetAccessibilityProperties().GetLanguage());
         }
 
+        [NUnit.Framework.Test]
+        public virtual void MissingLangInBodyTest() {
+            String outFilename = DESTINATION_FOLDER + "missingLangInBody.pdf";
+            String html = "<div>Some div automatically wrapped by a body tag without a language set</div>";
+            using (PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(outFilename), new PdfUAConfig(PdfUAConformance
+                .PDF_UA_1, "Some title", "en-US"))) {
+                using (Document document = new Document(pdfDocument)) {
+                    AddElementsToDocument(document, HtmlConverter.ConvertToElements(html, new ConverterProperties().SetPdfUAConformance
+                        (PdfUAConformance.PDF_UA_1)));
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new VeraPdfValidator().Validate(outFilename));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ExplicitlySetWrongLangInBodyTest() {
+            String outFilename = DESTINATION_FOLDER + "explicitlySetWrongLangInBody.pdf";
+            String html = "<html><head></head></html><body lang=\"\">" + "<div>Some div wrapped by a body with a wrong language</div></body>";
+            using (PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(outFilename), new PdfUAConfig(PdfUAConformance
+                .PDF_UA_1, "Some title", "en-US"))) {
+                using (Document document = new Document(pdfDocument)) {
+                    AddElementsToDocument(document, HtmlConverter.ConvertToElements(html, new ConverterProperties().SetPdfUAConformance
+                        (PdfUAConformance.PDF_UA_1)));
+                }
+            }
+            NUnit.Framework.Assert.IsNotNull(new VeraPdfValidator().Validate(outFilename));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void WrongLangInDivTest() {
+            String outFilename = DESTINATION_FOLDER + "wrongLangInDiv.pdf";
+            String html = "<div lang=\"\">Some div with a wrong language</div>";
+            using (PdfDocument pdfDocument = new PdfUADocument(new PdfWriter(outFilename), new PdfUAConfig(PdfUAConformance
+                .PDF_UA_1, "Some title", "en-US"))) {
+                using (Document document = new Document(pdfDocument)) {
+                    AddElementsToDocument(document, HtmlConverter.ConvertToElements(html, new ConverterProperties().SetPdfUAConformance
+                        (PdfUAConformance.PDF_UA_1)));
+                }
+            }
+            NUnit.Framework.Assert.IsNotNull(new VeraPdfValidator().Validate(outFilename));
+        }
+
+        private static void AddElementsToDocument(Document document, IList<IElement> elements) {
+            foreach (IElement elem in elements) {
+                if (elem is IBlockElement) {
+                    document.Add((IBlockElement)elem);
+                }
+                else {
+                    if (elem is Image) {
+                        document.Add((Image)elem);
+                    }
+                    else {
+                        if (elem is AreaBreak) {
+                            document.Add((AreaBreak)elem);
+                        }
+                        else {
+                            NUnit.Framework.Assert.Fail("The #convertToElements method gave element which is unsupported as root element, it's unexpected."
+                                );
+                        }
+                    }
+                }
+            }
+        }
+
         private PdfDocument CompareResultWithDocument(String fileName) {
-            String html = sourceFolder + fileName + ".html";
-            String outFile = destinationFolder + fileName + ".pdf";
-            String cmp = sourceFolder + "cmp_" + fileName + ".pdf";
+            String html = SOURCE_FOLDER + fileName + ".html";
+            String outFile = DESTINATION_FOLDER + fileName + ".pdf";
+            String cmp = SOURCE_FOLDER + "cmp_" + fileName + ".pdf";
             PdfDocument pdfDocument = new PdfDocument(new PdfWriter(outFile));
             pdfDocument.SetTagged();
             HtmlConverter.ConvertToPdf(new FileStream(html, FileMode.Open, FileAccess.Read), pdfDocument, new ConverterProperties
-                ().SetBaseUri(sourceFolder));
+                ().SetBaseUri(SOURCE_FOLDER));
             PrintOutputPdfNameAndDir(outFile);
             PdfDocument document = new PdfDocument(new PdfReader(outFile));
             // compareByContent is used here to check the complete logical structure tree to notice all the differences.
-            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmp, destinationFolder, "diff_test"
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outFile, cmp, DESTINATION_FOLDER, "diff_test"
                 ));
             return document;
         }
