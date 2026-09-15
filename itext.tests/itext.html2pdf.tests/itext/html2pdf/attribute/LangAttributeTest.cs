@@ -472,7 +472,7 @@ namespace iText.Html2pdf.Attribute {
                         (PdfUAConformance.PDF_UA_1)));
                 }
             }
-            NUnit.Framework.Assert.IsNotNull(new VeraPdfValidator().Validate(outFilename));
+            new VeraPdfValidator().ValidateFailure(outFilename);
         }
 
         [NUnit.Framework.Test]
@@ -486,7 +486,7 @@ namespace iText.Html2pdf.Attribute {
                         (PdfUAConformance.PDF_UA_1)));
                 }
             }
-            NUnit.Framework.Assert.IsNotNull(new VeraPdfValidator().Validate(outFilename));
+            new VeraPdfValidator().ValidateFailure(outFilename);
         }
 
         private static void AddElementsToDocument(Document document, IList<IElement> elements) {
