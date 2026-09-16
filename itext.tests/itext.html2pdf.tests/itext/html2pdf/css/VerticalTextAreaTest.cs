@@ -78,7 +78,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void SpansInDiv2Test() {
-            //TODO minor borders should not be closed on bottom and top for line splited spans
             ConvertToPdfAndCompare("spansInDiv2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

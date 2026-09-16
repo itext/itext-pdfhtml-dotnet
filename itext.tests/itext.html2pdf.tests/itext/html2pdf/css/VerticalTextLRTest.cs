@@ -42,7 +42,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void VertLrAbsolutePositioningTest() {
-            //TODO DEVSIX-10183 fixed width ignored
             ConvertToPdfAndCompare("vertLrAbsolutePositioning", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -179,7 +178,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void VertLrTableCellTest() {
-            //TODO DEVSIX-10183 Cells vertically oversized
             ConvertToPdfAndCompare("vertLrTableCell", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -248,6 +246,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
         public virtual void InlineBlockAndTextRiseTest() {
             //TODO DEVSIX-10180 Support text rise in html mode for vertical text
             ConvertToPdfAndCompare("inline_block_and_text_rise", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -266,6 +265,12 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void NoWrapTest() {
             ConvertToPdfAndCompare("noWrap", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.ELEMENT_DOES_NOT_FIT_AREA)]
+        public virtual void OccupiedAreaSmallerThanTextTest() {
+            ConvertToPdfAndCompare("occupiedAreaSmallerThanTextTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }
