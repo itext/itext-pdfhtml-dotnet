@@ -165,7 +165,7 @@ namespace iText.Html2pdf {
                 }
                 );
                 NUnit.Framework.Assert.AreEqual(MessageFormatUtil.Format(PdfaExceptionMessageConstant.EMBEDDED_FONTS_SHALL_DEFINE_ALL_REFERENCED_GLYPHS
-                    ), e.Message);
+                    , 'أ'), e.Message);
             }
         }
 
@@ -207,7 +207,7 @@ namespace iText.Html2pdf {
                 }
                 );
                 NUnit.Framework.Assert.AreEqual(MessageFormatUtil.Format(PdfaExceptionMessageConstant.EMBEDDED_FONTS_SHALL_DEFINE_ALL_REFERENCED_GLYPHS
-                    ), e.Message);
+                    , "\uD83D\uDE09"), e.Message);
             }
         }
 
