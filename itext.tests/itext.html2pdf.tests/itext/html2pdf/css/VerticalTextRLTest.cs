@@ -40,6 +40,32 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void VertRlBasicTest() {
+            // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
+            ConvertToPdfAndCompare("vertRlBasic", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void VertRlPageSplitTest() {
+            ConvertToPdfAndCompare("vertRlPageSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void DirectionRtlTest() {
+            ConvertToPdfAndCompare("directionRtl", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void InnerTextVerticalRlTest() {
+            ConvertToPdfAndCompare("innerTextVerticalRl", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void SeveralInnerTextVerticalRlTest() {
+            ConvertToPdfAndCompare("severalInnerTextVerticalRl", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.CSS_PROPERTY_IN_PERCENTS_NOT_SUPPORTED)]
         public virtual void VertRlAbsolutePositioningTest() {
             ConvertToPdfAndCompare("vertRlAbsolutePositioning", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -48,11 +74,6 @@ namespace iText.Html2pdf.Css {
         [NUnit.Framework.Test]
         public virtual void VertRlBackgroundDecorationTest() {
             ConvertToPdfAndCompare("vertRlBackgroundDecoration", SOURCE_FOLDER, DESTINATION_FOLDER);
-        }
-
-        [NUnit.Framework.Test]
-        public virtual void VertRlBasicTest() {
-            ConvertToPdfAndCompare("vertRlBasic", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
@@ -67,6 +88,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void VertRlComboComplexTest() {
+            // TODO DEVSIX-10180 Support line-through for vertical text
             ConvertToPdfAndCompare("vertRlComboComplex", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -77,11 +99,13 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void VertRlComboSpacingDecorationOverflowTest() {
+            // TODO DEVSIX-10180 Support line-through for vertical text
             ConvertToPdfAndCompare("vertRlComboSpacingDecorationOverflow", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void VertRlComboWideDecoratedTest() {
+            // TODO DEVSIX-10180 Support line-through for vertical text
             ConvertToPdfAndCompare("vertRlComboWideDecorated", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -97,6 +121,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void VertRlFloatTest() {
+            // TODO DEVSIX-10168 Improve min-max width calculations for vertical text
             ConvertToPdfAndCompare("vertRlFloat", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -131,6 +156,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void VertRlLongContainerWithWidthTest() {
+            ConvertToPdfAndCompare("vertRlLongContainerWithWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void VertRlLongTextTest() {
             ConvertToPdfAndCompare("vertRlLongText", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -162,6 +192,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void VertRlTextAlignTest() {
+            // Start and end text-align is not supported, justify is a bit different.
             ConvertToPdfAndCompare("vertRlTextAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -172,6 +203,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void VertRlTextDecorationTest() {
+            // TODO DEVSIX-10180 Support line-through for vertical text
             ConvertToPdfAndCompare("vertRlTextDecoration", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -196,8 +228,15 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
+        [LogMessage(iText.IO.Logs.IoLogMessageConstant.RECTANGLE_HAS_NEGATIVE_SIZE)]
         public virtual void VertRlZeroNegativeDimensionsTest() {
             ConvertToPdfAndCompare("vertRlZeroNegativeDimensions", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void VerticalLrPlusRTLDirectionTest() {
+            ConvertToPdfAndCompare("verticalLrPlusRTLDirection", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
     }
 }

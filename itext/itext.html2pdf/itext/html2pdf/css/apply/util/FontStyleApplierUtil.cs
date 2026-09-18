@@ -230,6 +230,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
                         element.SetProperty(Property.WRITING_MODE, WritingMode.VERTICAL_LR);
                         break;
                     }
+
+                    case CommonCssConstants.VERTICAL_RL: {
+                        element.SetProperty(Property.WRITING_MODE, WritingMode.VERTICAL_RL);
+                        break;
+                    }
                 }
             }
             String textOrientation = cssProps.Get(CssConstants.TEXT_ORIENTATION);

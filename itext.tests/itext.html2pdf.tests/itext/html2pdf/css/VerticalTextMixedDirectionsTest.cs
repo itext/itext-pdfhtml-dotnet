@@ -43,6 +43,31 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void ParagraphMixedVerticalTextTest() {
+            // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks,
+            //  after that vertical RTL text chunks in vertical LTR paragraphs and vice versa will be fixed.
+            ConvertToPdfAndCompare("paragraphMixedVerticalText", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ParagraphMixedVerticalTextRtlTest() {
+            // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
+            ConvertToPdfAndCompare("paragraphMixedVerticalTextRtl", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ParagraphMixedVerticalTextHorizontalTest() {
+            // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
+            ConvertToPdfAndCompare("paragraphMixedVerticalTextHorizontal", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ParagraphMixedVerticalTextInlineBlockTest() {
+            // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
+            ConvertToPdfAndCompare("paragraphMixedVerticalTextInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void ParagraphMixedTextWithLineBreaksTest() {
             ConvertToPdfAndCompare("paragraphMixedTextWithLineBreaksTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

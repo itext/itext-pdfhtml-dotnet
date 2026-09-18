@@ -70,8 +70,7 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void VertLrComboComplexTest() {
-            //TODO DEVSIX-10168 paragraph positioning in flex container
-            //TODO DEVSIX-10180 Support text rise in html mode for vertical text
+            // TODO DEVSIX-10180 Support line-through for vertical text
             ConvertToPdfAndCompare("vertLrComboComplex", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -204,7 +203,6 @@ namespace iText.Html2pdf.Css {
 
         [NUnit.Framework.Test]
         public virtual void VertLrUnderlinePositionTest() {
-            //TODO DEVSIX-10168 paragraph border in flex container too narrow
             ConvertToPdfAndCompare("vertLrUnderlinePosition", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

@@ -53,8 +53,8 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
-        public virtual void VertMixedMultipleLanesTest() {
-            ConvertToPdfAndCompare("vertMixedMultipleLanes", SOURCE_FOLDER, DESTINATION_FOLDER);
+        public virtual void VertMixedMultipleLinesTest() {
+            ConvertToPdfAndCompare("vertMixedMultipleLines", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
