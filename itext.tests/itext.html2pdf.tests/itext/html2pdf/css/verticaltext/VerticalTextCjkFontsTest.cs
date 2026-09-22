@@ -80,6 +80,7 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void CjkMixedAllScriptsTest() {
             ConvertToPdfAndCompare("cjkMixedAllScripts", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -95,6 +96,7 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void CjkMixedMongolianChineseLatinTest() {
             ConvertToPdfAndCompare("cjkMixedMongolianChineseLatin", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -105,6 +107,7 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void CjkMongolianEmbeddedLatinSidewaysTest() {
             ConvertToPdfAndCompare("cjkMongolianEmbeddedLatinSideways", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

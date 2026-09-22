@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
 using iText.Commons.Internal.Runtime;
@@ -32,6 +33,7 @@ using iText.Html2pdf.Logs;
 using iText.Kernel.Colors;
 using iText.Kernel.Pdf.Canvas;
 using iText.Layout;
+using iText.Layout.Element;
 using iText.Layout.Properties;
 using iText.Layout.Splitting;
 using iText.StyledXmlParser.Css;
@@ -55,6 +57,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
         private const float TEXT_DECORATION_LINE_OVER_Y_POS = 9 / 10F;
 
         private const float TEXT_DECORATION_LIN_UNDER_Y_POS = -1 / 10F;
+
+        private static readonly ConditionalWeakTable<ProcessorContext, ICollection<Type>> loggedVerticalIssues = new 
+            ConditionalWeakTable<ProcessorContext, ICollection<Type>>();
 
         /// <summary>
         /// Creates a
@@ -220,6 +225,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
             // browsers ignore values in percents
             String writingMode = cssProps.Get(CssConstants.WRITING_MODE);
             if (writingMode != null) {
+                if (!loggedVerticalIssues.ContainsKey(context)) {
+                    loggedVerticalIssues.Put(context, new List<Type>());
+                }
                 switch (writingMode) {
                     case CommonCssConstants.HORIZONTAL_TB: {
                         element.SetProperty(Property.WRITING_MODE, WritingMode.HORIZONTAL_TB);
@@ -227,11 +235,13 @@ namespace iText.Html2pdf.Css.Apply.Util {
                     }
 
                     case CommonCssConstants.VERTICAL_LR: {
+                        CheckIfVerticalWritingModeSupported(context, element);
                         element.SetProperty(Property.WRITING_MODE, WritingMode.VERTICAL_LR);
                         break;
                     }
 
                     case CommonCssConstants.VERTICAL_RL: {
+                        CheckIfVerticalWritingModeSupported(context, element);
                         element.SetProperty(Property.WRITING_MODE, WritingMode.VERTICAL_RL);
                         break;
                     }
@@ -249,6 +259,16 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String lineHeight = cssProps.Get(CssConstants.LINE_HEIGHT);
             SetLineHeight(element, lineHeight, em, rem);
             SetLineHeightByLeading(element, lineHeight, em, rem);
+        }
+
+        private static void CheckIfVerticalWritingModeSupported(ProcessorContext context, IPropertyContainer element
+            ) {
+            if (!(element is Paragraph || element is Text) && !loggedVerticalIssues.Get(context).Contains(element.GetType
+                ())) {
+                loggedVerticalIssues.Get(context).Add(element.GetType());
+                logger.LogWarning(MessageFormatUtil.Format(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT
+                    , element.GetType().Name));
+            }
         }
 
         private static void SetTextDecoration(IPropertyContainer element, IDictionary<String, String> cssProps) {

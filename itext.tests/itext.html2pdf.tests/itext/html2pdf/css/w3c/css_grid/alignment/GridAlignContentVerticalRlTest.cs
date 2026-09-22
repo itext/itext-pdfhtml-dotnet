@@ -27,6 +27,7 @@ using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_grid.Alignment {
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 4)]
+    [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, Count = 2)]
     public class GridAlignContentVerticalRlTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "grid-align-content-vertical-rl.html";

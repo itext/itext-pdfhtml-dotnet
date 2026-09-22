@@ -22,6 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Verticaltext {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -62,6 +64,7 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void ParagraphMixedVerticalTextInlineBlockTest() {
             // TODO DEVSIX-10200 Consider text elements with different writing-mode as inline-blocks
             ConvertToPdfAndCompare("paragraphMixedVerticalTextInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);

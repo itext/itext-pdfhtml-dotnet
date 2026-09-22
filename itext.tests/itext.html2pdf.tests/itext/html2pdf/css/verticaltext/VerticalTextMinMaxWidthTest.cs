@@ -23,6 +23,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
+using iText.Layout.Logs;
+using iText.Test;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Verticaltext {
@@ -40,51 +42,71 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxTableAutoLayoutTest() {
             ConvertToPdfAndCompare("vertMinMaxTableAutoLayout", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxTableExplicitCellMinMaxTest() {
             ConvertToPdfAndCompare("vertMinMaxTableExplicitCellMinMax", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxTableColgroupWidthsTest() {
             ConvertToPdfAndCompare("vertMinMaxTableColgroupWidths", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxTableFixedLayoutTest() {
             ConvertToPdfAndCompare("vertMinMaxTableFixedLayout", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxTableDisplayTableCellTest() {
             ConvertToPdfAndCompare("vertMinMaxTableDisplayTableCell", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxTableColspanVerticalTest() {
             ConvertToPdfAndCompare("vertMinMaxTableColspanVertical", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxTableRowspanVerticalTest() {
             ConvertToPdfAndCompare("vertMinMaxTableRowspanVertical", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxTableMultipleVerticalCellsSameRowTest() {
             ConvertToPdfAndCompare("vertMinMaxTableMultipleVerticalCellsSameRow", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxTableAllVerticalCellsTest() {
             ConvertToPdfAndCompare("vertMinMaxTableAllVerticalCells", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxTableNowrapCellTest() {
             ConvertToPdfAndCompare("vertMinMaxTableNowrapCell", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -95,6 +117,8 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxTableNestedInTableCellTest() {
             ConvertToPdfAndCompare("vertMinMaxTableNestedInTableCell", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -156,6 +180,8 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxTableNestedInFlexItemTest() {
             ConvertToPdfAndCompare("vertMinMaxTableNestedInFlexItem", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -171,6 +197,8 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxInlineBlockElementItselfTest() {
             ConvertToPdfAndCompare("vertMinMaxInlineBlockElementItself", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -207,21 +235,25 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.UNSUPPORTED_PROPERTY)]
         public virtual void VertMinMaxGridAutoTracksTest() {
             ConvertToPdfAndCompare("vertMinMaxGridAutoTracks", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.UNSUPPORTED_PROPERTY)]
         public virtual void VertMinMaxGridMinmaxFunctionTest() {
             ConvertToPdfAndCompare("vertMinMaxGridMinmaxFunction", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.UNSUPPORTED_PROPERTY)]
         public virtual void VertMinMaxGridMinWidthZeroTest() {
             ConvertToPdfAndCompare("vertMinMaxGridMinWidthZero", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.UNSUPPORTED_PROPERTY, Count = 2)]
         public virtual void VertMinMaxGridNestedInGridItemTest() {
             ConvertToPdfAndCompare("vertMinMaxGridNestedInGridItem", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -237,11 +269,15 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxBreakLogicalSizeInTableTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakLogicalSizeInTable", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxBreakTableConflictingColumnWidthsAcrossRowsTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakTableConflictingColumnWidthsAcrossRows", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
@@ -249,18 +285,24 @@ namespace iText.Html2pdf.Css.Verticaltext {
 
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxBreakTableFixedTinyWidthUnbreakableTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakTableFixedTinyWidthUnbreakable", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.ELEMENT_DOES_NOT_FIT_CURRENT_AREA)]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxBreakTableZeroWidthCellOverflowHiddenTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakTableZeroWidthCellOverflowHidden", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxBreakTableEverythingConflictsAtOnceTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakTableEverythingConflictsAtOnce", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -308,38 +350,49 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxBreakInlineBlockZeroWidthNowrapAncestorTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakInlineBlockZeroWidthNowrapAncestor", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxBreakInlineBlockDoubleNowrapTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakInlineBlockDoubleNowrap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxBreakInlineBlockNegativePaddingTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakInlineBlockNegativePadding", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxBreakInlineBlockFloatOverridesDisplayTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakInlineBlockFloatOverridesDisplay", SOURCE_FOLDER, DESTINATION_FOLDER
                 );
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.UNSUPPORTED_PROPERTY, Count = 2)]
         public virtual void VertMinMaxBreakGridMinmaxZeroToFrTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakGridMinmaxZeroToFr", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.UNSUPPORTED_PROPERTY, Count = 5)]
         public virtual void VertMinMaxBreakGridAutoFillMinmaxTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakGridAutoFillMinmax", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.UNSUPPORTED_PROPERTY)]
         public virtual void VertMinMaxBreakGridMinmaxInvertedTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakGridMinmaxInverted", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -365,6 +418,8 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMinMaxBreakExtremeTinyMaxWidthTest() {
             ConvertToPdfAndCompare("vertMinMaxBreakExtremeTinyMaxWidth", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

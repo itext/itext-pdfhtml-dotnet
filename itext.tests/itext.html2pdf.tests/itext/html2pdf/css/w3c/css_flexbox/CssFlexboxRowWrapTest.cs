@@ -22,10 +22,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Html2pdf.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    //TODO DEVSIX-7615 change after flex-flow: row in combination with vertical writing mode is supported
+    [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
     public class CssFlexboxRowWrapTest : W3CCssTest {
+        //TODO DEVSIX-7615 change after flex-flow: row in combination with vertical writing mode is supported
         protected internal override String GetHtmlFileName() {
             return "css-flexbox-row-wrap.html";
         }

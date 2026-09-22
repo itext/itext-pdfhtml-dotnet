@@ -22,6 +22,10 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
+using iText.Layout.Logs;
+using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Verticaltext {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -38,16 +42,21 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void DivTest() {
             ConvertToPdfAndCompare("div", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void DivsTest() {
             ConvertToPdfAndCompare("divs", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN, Count = 3)]
+        [LogMessage(LayoutLogMessageConstant.UNSUPPORTED_PROPERTY, LogLevel = LogLevelConstants.WARN)]
         public virtual void DivDisplayModesTest() {
             ConvertToPdfAndCompare("divDisplayModes", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -73,17 +82,20 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void SpansInDiv2Test() {
             ConvertToPdfAndCompare("spansInDiv2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void BodyTest() {
             // Height of body is ignored in horizontal and vertical modes.
             ConvertToPdfAndCompare("body", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void FlexPsTest() {
             ConvertToPdfAndCompare("flexPs", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -94,6 +106,7 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void FlexDivs2Test() {
             ConvertToPdfAndCompare("flexDivs2", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

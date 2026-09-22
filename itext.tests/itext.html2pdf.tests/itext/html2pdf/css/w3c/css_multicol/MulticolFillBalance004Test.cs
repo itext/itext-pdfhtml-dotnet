@@ -22,8 +22,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Html2pdf.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_multicol {
+    [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, Count = 2)]
     public class MulticolFillBalance004Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "multicol-fill-balance-004.html";

@@ -22,6 +22,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf;
+using iText.Html2pdf.Logs;
+using iText.Test;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Verticaltext {
     [NUnit.Framework.Category("IntegrationTest")]
@@ -43,46 +46,63 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMixedAdjacentNoGapTest() {
             ConvertToPdfAndCompare("vertMixedAdjacentNoGap", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void VertMixedDirectionInParagraphTest() {
             ConvertToPdfAndCompare("vertMixedDirectionInParagraph", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMixedMultipleLinesTest() {
             ConvertToPdfAndCompare("vertMixedMultipleLines", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMixedSingleLineForcedSplitTest() {
             ConvertToPdfAndCompare("vertMixedSingleLineForcedSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMixedSingleLineNoSplitTest() {
             ConvertToPdfAndCompare("vertMixedSingleLineNoSplit", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMixedWithHorizontalTest() {
             ConvertToPdfAndCompare("vertMixedWithHorizontal", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMixedWritingModeAndDirectionTest() {
             ConvertToPdfAndCompare("vertMixedWritingModeAndDirection", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMixedWritingModeLrInRlTest() {
             ConvertToPdfAndCompare("vertMixedWritingModeLrInRl", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, LogLevel = LogLevelConstants
+            .WARN)]
         public virtual void VertMixedWritingModeRlInLrTest() {
             ConvertToPdfAndCompare("vertMixedWritingModeRlInLr", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

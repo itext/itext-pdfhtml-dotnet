@@ -23,6 +23,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 using System;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
+using iText.Layout.Logs;
 using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.Verticaltext {
@@ -77,6 +78,7 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void VertRlBlockquoteTest() {
             ConvertToPdfAndCompare("vertRlBlockquote", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -93,6 +95,7 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void VertRlComboFlexMixedTest() {
             ConvertToPdfAndCompare("vertRlComboFlexMixed", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -120,16 +123,20 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(LayoutLogMessageConstant.UNSUPPORTED_PROPERTY, Count = 2)]
         public virtual void VertRlFloatTest() {
+            // TODO DEVSIX-10168 Improve min-max width calculations for vertical text
             ConvertToPdfAndCompare("vertRlFloat", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void VertRlHeadingsTest() {
             ConvertToPdfAndCompare("vertRlHeadings", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, Count = 2)]
         public virtual void VertRlImageInlineBlockTest() {
             ConvertToPdfAndCompare("vertRlImageInlineBlock", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -145,6 +152,7 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, Count = 2)]
         public virtual void VertRlListsTest() {
             ConvertToPdfAndCompare("vertRlLists", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -185,6 +193,7 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void VertRlTableCellTest() {
             ConvertToPdfAndCompare("vertRlTableCell", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

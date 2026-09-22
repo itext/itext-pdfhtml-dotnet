@@ -29,6 +29,7 @@ namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5167 change after align-items:baseline is supported
     [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET, Count = 1)]
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
+    [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, Count = 3)]
     public class AlignItemsBaselineColumnVertRlTableItemTest : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "align-items-baseline-column-vert-rl-table-item.html";
