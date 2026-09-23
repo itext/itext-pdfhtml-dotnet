@@ -326,7 +326,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 else {
                     if (CommonCssConstants.LINE_THROUGH.Equals(line)) {
                         underlineList.Add(new Underline(color, opacity, TEXT_DECORATION_LINE_DEFAULT_THICKNESS, 0, 0, TEXT_DECORATION_LINE_THROUGH_Y_POS
-                            , PdfCanvasConstants.LineCapStyle.BUTT));
+                            , PdfCanvasConstants.LineCapStyle.BUTT).SetXPosition(0, 0.5f));
                     }
                     else {
                         if (CommonCssConstants.OVERLINE.Equals(line)) {

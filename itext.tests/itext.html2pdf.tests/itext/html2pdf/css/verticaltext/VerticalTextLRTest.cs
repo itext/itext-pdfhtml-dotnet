@@ -70,7 +70,6 @@ namespace iText.Html2pdf.Css.Verticaltext {
 
         [NUnit.Framework.Test]
         public virtual void VertLrComboComplexTest() {
-            // TODO DEVSIX-10180 Support line-through for vertical text
             ConvertToPdfAndCompare("vertLrComboComplex", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -82,13 +81,11 @@ namespace iText.Html2pdf.Css.Verticaltext {
 
         [NUnit.Framework.Test]
         public virtual void VertLrComboSpacingDecorationOverflowTest() {
-            //TODO DEVSIX-10180 Support text rise in html mode for vertical text
             ConvertToPdfAndCompare("vertLrComboSpacingDecorationOverflow", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void VertLrComboWideDecoratedTest() {
-            //TODO DEVSIX-10180 Strike-through positioning is off.
             ConvertToPdfAndCompare("vertLrComboWideDecorated", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -181,7 +178,6 @@ namespace iText.Html2pdf.Css.Verticaltext {
 
         [NUnit.Framework.Test]
         public virtual void VertLrTextAlignTest() {
-            //TODO DEVSIX-10180 Support text rise in html mode for vertical text
             ConvertToPdfAndCompare("vertLrTextAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -193,7 +189,6 @@ namespace iText.Html2pdf.Css.Verticaltext {
 
         [NUnit.Framework.Test]
         public virtual void VertLrTextDecorationTest() {
-            //TODO DEVSIX-10180 Support text rise in html mode for vertical text
             ConvertToPdfAndCompare("vertLrTextDecoration", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -204,8 +199,22 @@ namespace iText.Html2pdf.Css.Verticaltext {
 
         [NUnit.Framework.Test]
         public virtual void VertLrVerticalAlignTest() {
-            //TODO DEVSIX-10180 Support text rise in html mode for vertical text
             ConvertToPdfAndCompare("vertLrVerticalAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void VertLrVerticalAlignShiftsTest() {
+            ConvertToPdfAndCompare("vertLrVerticalAlignShifts", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void TextRiseWithInlineVerticalAlignmentTest() {
+            ConvertToPdfAndCompare("textRiseWithInlineVerticalAlignment", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NestedSpansVerticalAlignmentTest() {
+            ConvertToPdfAndCompare("nestedSpansVerticalAlignment", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]

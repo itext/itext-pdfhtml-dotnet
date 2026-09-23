@@ -90,7 +90,6 @@ namespace iText.Html2pdf.Css.Verticaltext {
 
         [NUnit.Framework.Test]
         public virtual void VertRlComboComplexTest() {
-            // TODO DEVSIX-10180 Support line-through for vertical text
             ConvertToPdfAndCompare("vertRlComboComplex", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -102,13 +101,11 @@ namespace iText.Html2pdf.Css.Verticaltext {
 
         [NUnit.Framework.Test]
         public virtual void VertRlComboSpacingDecorationOverflowTest() {
-            // TODO DEVSIX-10180 Support line-through for vertical text
             ConvertToPdfAndCompare("vertRlComboSpacingDecorationOverflow", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
         public virtual void VertRlComboWideDecoratedTest() {
-            // TODO DEVSIX-10180 Support line-through for vertical text
             ConvertToPdfAndCompare("vertRlComboWideDecorated", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -211,7 +208,6 @@ namespace iText.Html2pdf.Css.Verticaltext {
 
         [NUnit.Framework.Test]
         public virtual void VertRlTextDecorationTest() {
-            // TODO DEVSIX-10180 Support line-through for vertical text
             ConvertToPdfAndCompare("vertRlTextDecoration", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
@@ -223,6 +219,11 @@ namespace iText.Html2pdf.Css.Verticaltext {
         [NUnit.Framework.Test]
         public virtual void VertRlVerticalAlignTest() {
             ConvertToPdfAndCompare("vertRlVerticalAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void NestedSpansVerticalAlignmentTest() {
+            ConvertToPdfAndCompare("nestedSpansVerticalAlignment", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]

@@ -133,7 +133,6 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
-        //TODO DEVSIX-10180 Support text rise in html mode for vertical text
         [LogMessage(iText.IO.Logs.IoLogMessageConstant.WIDOWS_CONSTRAINT_VIOLATED)]
         public virtual void VertCornerMultiPageOrphansWidowsTest() {
             ConvertToPdfAndCompare("vertCornerMultiPageOrphansWidows", SOURCE_FOLDER, DESTINATION_FOLDER);
@@ -183,7 +182,7 @@ namespace iText.Html2pdf.Css.Verticaltext {
 
         [NUnit.Framework.Test]
         public virtual void VertCornerTinyLineHeightTest() {
-            //TODO DEVSIX-10180 Support text rise in html mode for vertical text
+            // Doesn't look like browser due to layout restraining minimal line height
             ConvertToPdfAndCompare("vertCornerTinyLineHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
