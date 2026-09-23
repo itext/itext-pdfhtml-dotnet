@@ -122,7 +122,6 @@ namespace iText.Html2pdf.Css.Verticaltext {
         [NUnit.Framework.Test]
         [LogMessage(LayoutLogMessageConstant.UNSUPPORTED_PROPERTY, Count = 2)]
         public virtual void VertRlFloatTest() {
-            // TODO DEVSIX-10168 Improve min-max width calculations for vertical text
             ConvertToPdfAndCompare("vertRlFloat", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 

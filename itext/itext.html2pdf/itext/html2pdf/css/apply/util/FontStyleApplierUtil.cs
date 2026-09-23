@@ -191,6 +191,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
             }
             SetTextDecoration(element, cssProps);
+            TextCombineUprightApplierUtil.ApplyTextCombineUpright(cssProps, element);
             String textIndent = cssProps.Get(CommonCssConstants.TEXT_INDENT);
             if (textIndent != null) {
                 UnitValue textIndentValue = CssDimensionParsingUtils.ParseLengthValueToPt(textIndent, em, rem);

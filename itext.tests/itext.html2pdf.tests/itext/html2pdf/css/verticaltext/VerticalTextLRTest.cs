@@ -183,7 +183,6 @@ namespace iText.Html2pdf.Css.Verticaltext {
 
         [NUnit.Framework.Test]
         public virtual void VertLrTextCombineUprightTest() {
-            //TODO DEVSIX-10167 text-combine-upright all not supported
             ConvertToPdfAndCompare("vertLrTextCombineUpright", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
