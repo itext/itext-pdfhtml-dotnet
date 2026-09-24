@@ -56,9 +56,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 return;
             }
             String[] components = iText.Commons.Utils.StringUtil.Split(transformationFunction, "\\)");
-            Transform multipleFunction = new Transform(components.Length);
+            Transform multipleFunction = new Transform();
             foreach (String component in components) {
-                multipleFunction.AddSingleTransform(ParseSingleFunction(component));
+                multipleFunction.AddTransform(ParseSingleFunction(component));
             }
             element.SetProperty(Property.TRANSFORM, multipleFunction);
         }

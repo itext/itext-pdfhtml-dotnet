@@ -194,6 +194,7 @@ namespace iText.Html2pdf.Css.Flex {
         // D from https://www.w3.org/TR/css-flexbox-1/#algo-main-item (Determine the flex base size algorithm)
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void FlexBasisContentOrthogonalFlowTest() {
             // TODO DEVSIX-5182 Support writing-mode property
             // E.g. infinite height + vertical main axe for flex container (column) + vertical-writing-mode flex item

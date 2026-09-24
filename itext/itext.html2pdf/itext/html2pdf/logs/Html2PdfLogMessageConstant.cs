@@ -160,6 +160,8 @@ namespace iText.Html2pdf.Logs {
 
         public const String PDF_A_AND_PDF_UA_CONFORMANCE_CANNOT_BE_USED_TOGETHER = "Targeting multiple conformance levels (PDF/A,PDF/UA, WTPDF) is currently not supported.";
 
+        public const String VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT = "Vertical writing mode is not supported for element {0}.";
+
         private Html2PdfLogMessageConstant() {
         }
         //Private constructor will prevent the instantiation of this class directly

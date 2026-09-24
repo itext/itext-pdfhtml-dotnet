@@ -28,6 +28,7 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-5167 change after align-items:baseline is supported
     [LogMessage(Html2PdfLogMessageConstant.FLEX_PROPERTY_IS_NOT_SUPPORTED_YET)]
+    [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
     public class BaselineSynthesis003Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "baseline-synthesis-003.html";

@@ -244,6 +244,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void AbsPosWritingModeVerticalTest() {
             ConvertToPdfAndCompare("absPosWritingModeVertical", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -299,6 +300,7 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void AbsPosComboRtlWritingModeNestedTest() {
             ConvertToPdfAndCompare("absPosComboRtlWritingModeNested", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

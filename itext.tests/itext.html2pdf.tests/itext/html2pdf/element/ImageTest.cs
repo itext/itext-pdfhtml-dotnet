@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.IO;
+using iText.Commons.Utils;
 using iText.Html2pdf;
 using iText.Html2pdf.Logs;
 using iText.IO.Image;
@@ -583,17 +584,25 @@ namespace iText.Html2pdf.Element {
         }
 
         [NUnit.Framework.Test]
-        // TODO DEVSIX-10012 Extra misleading log messages are produced when WebP module is missing
         [LogMessage(WebPLogMessageConstant.WEBP_NOT_FOUND)]
-        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_BASE_URI
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_PROCESS_IMAGE_WITH_GIVEN_BASE_URI
             )]
         [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
         public virtual void WebPImageWithoutWebPModuleTest() {
             String html = "<!DOCTYPE html><html><body>" + "<img src=\"opaqueWebPImage.webp\">" + "</body></html>";
-            using (FileStream outputStream = new FileStream(DESTINATION_FOLDER + "webPImageWithoutWebPModule.pdf", FileMode.Create
-                )) {
-                HtmlConverter.ConvertToPdf(html, outputStream, new ConverterProperties().SetBaseUri(SOURCE_FOLDER));
-            }
+            NUnit.Framework.Assert.DoesNotThrow(() => HtmlConverter.ConvertToPdf(html, new MemoryStream(), new ConverterProperties
+                ().SetBaseUri(SOURCE_FOLDER)));
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(WebPLogMessageConstant.WEBP_NOT_FOUND)]
+        [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.UNABLE_TO_RETRIEVE_IMAGE_WITH_GIVEN_DATA_URI
+            )]
+        [LogMessage(Html2PdfLogMessageConstant.WORKER_UNABLE_TO_PROCESS_OTHER_WORKER)]
+        public virtual void WebPImageWithoutWebPModuleBase64Test() {
+            String html = SOURCE_FOLDER + "imageBase64WebP.html";
+            NUnit.Framework.Assert.DoesNotThrow(() => HtmlConverter.ConvertToPdf(FileUtil.GetInputStreamForFile(html), 
+                new MemoryStream(), new ConverterProperties().SetBaseUri(SOURCE_FOLDER)));
         }
     }
 }

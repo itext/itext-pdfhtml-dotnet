@@ -22,10 +22,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Html2pdf.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     // TODO DEVSIX-5087 Support floating for FlexContainerRenderer
     // TODO DEVSIX-7615 Support flex-direction: row / row-reverse in combination with vertical writing-mode
+    [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
     public class JustifyContentWmvert001Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-justify-content-wmvert-001.xhtml";

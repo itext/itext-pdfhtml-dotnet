@@ -28,6 +28,7 @@ using iText.Test.Attributes;
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     //TODO DEVSIX-8967 investigate min width with no value for align self and align items
     [LogMessage(Html2PdfLogMessageConstant.NO_WORKER_FOUND_FOR_TAG, Count = 3)]
+    [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
     public class AlignContentWrap003Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "align-content-wrap-003.html";

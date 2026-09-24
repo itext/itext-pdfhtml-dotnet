@@ -116,6 +116,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void VerticalAlignValuesVerticalWritingTest() {
+            ConvertToPdfAndCompare("verticalAlignValuesVerticalWritingTest", sourceFolder, destinationFolder);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void VerticalAlignmentCellTest01() {
             ConvertToPdfAndCompare("verticalAlignmentCellTest01", sourceFolder, destinationFolder);
         }

@@ -22,10 +22,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
+using iText.Html2pdf.Logs;
+using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
     // TODO DEVSIX-7615 Support flex-direction: row / row-reverse in combination with vertical writing-mode
     // TODO DEVSIX-9472 Support percentage values for column/row-gap property
+    [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
     public class FlexboxColumnRowGap004Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "flexbox-column-row-gap-004.html";

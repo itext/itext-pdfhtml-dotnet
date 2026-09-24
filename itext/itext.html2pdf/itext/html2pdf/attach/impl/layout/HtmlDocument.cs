@@ -58,7 +58,6 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
         /// <summary><inheritDoc/></summary>
         public override void Relayout() {
             if (rootRenderer is HtmlDocumentRenderer) {
-                ((HtmlDocumentRenderer)rootRenderer).RemoveEventHandlers();
                 base.Relayout();
                 ((HtmlDocumentRenderer)rootRenderer).ProcessWaitingElement();
             }

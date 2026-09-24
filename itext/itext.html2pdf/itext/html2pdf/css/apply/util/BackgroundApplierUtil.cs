@@ -326,7 +326,7 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 StrategyBasedLinearGradientBuilder gradientBuilder = CssGradientUtil.ParseCssLinearGradient(image, em, rem
                     );
                 if (gradientBuilder != null) {
-                    backgroundImagesList.Add(new BackgroundImage.Builder().SetLinearGradientBuilder(gradientBuilder).SetBackgroundBlendMode
+                    backgroundImagesList.Add(new BackgroundImage.Builder().SetGradientBuilder(gradientBuilder).SetBackgroundBlendMode
                         (blendMode).SetBackgroundPosition(position).SetBackgroundRepeat(repeat).SetBackgroundClip(clip).SetBackgroundOrigin
                         (origin).Build());
                     return true;

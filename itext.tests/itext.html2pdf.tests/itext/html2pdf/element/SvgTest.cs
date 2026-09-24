@@ -428,6 +428,12 @@ namespace iText.Html2pdf.Element {
             ConvertAndCompare("relativeSvgDifferentGrandparent");
         }
 
+        [NUnit.Framework.Test]
+        public virtual void InlineColorTest() {
+            //TODO DEVSIX-10188 Support URL-escaped colours for svg images.
+            ConvertAndCompare("inlineColor");
+        }
+
         private static void ConvertAndCompare(String name) {
             String htmlPath = SOURCE_FOLDER + name + ".html";
             HtmlConverter.ConvertToPdf(new FileInfo(htmlPath), new FileInfo(DESTINATION_FOLDER + name + ".pdf"));

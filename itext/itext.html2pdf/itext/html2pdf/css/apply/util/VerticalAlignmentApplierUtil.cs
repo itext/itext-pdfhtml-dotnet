@@ -146,6 +146,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
              context, IStylesContainer stylesContainer, IList<IPropertyContainer> childElements) {
             String vAlignVal = cssProps.Get(CssConstants.VERTICAL_ALIGN);
             if (vAlignVal != null) {
+                bool isVerticalWriting = IsVerticalWriting(cssProps);
+                // Only line-relative alignments need to be deferred to layout. Parent-relative alignments
+                // must be resolved to points here, before nested spans are flattened into text elements.
+                if (isVerticalWriting && (CssConstants.TOP.Equals(vAlignVal) || CssConstants.BOTTOM.Equals(vAlignVal))) {
+                    foreach (IPropertyContainer element in childElements) {
+                        if (element is Text) {
+                            ApplyVerticalAlignmentForBlocks(cssProps, element, true);
+                        }
+                    }
+                    return;
+                }
                 // TODO DEVSIX-1961 for inline images and tables (inline-blocks) v-align is not supported
                 float textRise = 0;
                 // TODO DEVSIX-3757 'top' and 'bottom' values are not supported;
@@ -158,15 +169,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 }
                 else {
                     if (CssConstants.MIDDLE.Equals(vAlignVal)) {
-                        textRise = CalcTextRiseForMiddle(stylesContainer);
+                        textRise = CalcTextRiseForMiddle(stylesContainer, isVerticalWriting);
                     }
                     else {
                         if (CssConstants.TEXT_TOP.Equals(vAlignVal)) {
-                            textRise = CalcTextRiseForTextTop(stylesContainer, context.GetCssContext().GetRootFontSize());
+                            textRise = CalcTextRiseForTextTop(stylesContainer, context.GetCssContext().GetRootFontSize(), isVerticalWriting
+                                );
                         }
                         else {
                             if (CssConstants.TEXT_BOTTOM.Equals(vAlignVal)) {
-                                textRise = CalcTextRiseForTextBottom(stylesContainer, context.GetCssContext().GetRootFontSize());
+                                textRise = CalcTextRiseForTextBottom(stylesContainer, context.GetCssContext().GetRootFontSize(), isVerticalWriting
+                                    );
                             }
                             else {
                                 if (CssTypesValidationUtils.IsMetricValue(vAlignVal)) {
@@ -219,13 +232,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <summary>Calculates the text rise for middle alignment.</summary>
         /// <param name="stylesContainer">the styles container</param>
         /// <returns>the calculated text rise</returns>
-        private static float CalcTextRiseForMiddle(IStylesContainer stylesContainer) {
+        private static float CalcTextRiseForMiddle(IStylesContainer stylesContainer, bool isVerticalWriting) {
+            if (isVerticalWriting) {
+                // In vertical writing, the middle and central baseline are the same.
+                return 0;
+            }
             String ownFontSizeStr = stylesContainer.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssDimensionParsingUtils.ParseAbsoluteLength(ownFontSizeStr);
             float parentFontSize = GetParentFontSize(stylesContainer);
             double fontMiddleCoefficient = 0.3;
+            // Shift to element mid-point from the baseline.
             float elementMidPoint = (float)(fontSize * fontMiddleCoefficient);
-            // shift to element mid point from the baseline
             float xHeight = parentFontSize / 4;
             return xHeight - elementMidPoint;
         }
@@ -234,12 +251,17 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <param name="stylesContainer">the styles container</param>
         /// <param name="rootFontSize">the root font size</param>
         /// <returns>the calculated text rise</returns>
-        private static float CalcTextRiseForTextTop(IStylesContainer stylesContainer, float rootFontSize) {
+        private static float CalcTextRiseForTextTop(IStylesContainer stylesContainer, float rootFontSize, bool isVerticalWriting
+            ) {
             String ownFontSizeStr = stylesContainer.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssDimensionParsingUtils.ParseAbsoluteLength(ownFontSizeStr);
             String lineHeightStr = stylesContainer.GetStyles().Get(CssConstants.LINE_HEIGHT);
             float lineHeightActualValue = GetLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
             float parentFontSize = GetParentFontSize(stylesContainer);
+            if (isVerticalWriting) {
+                // The over edge is half the inline box width away from the central baseline.
+                return (parentFontSize - lineHeightActualValue) / 2;
+            }
             float elementTopEdge = (float)(fontSize * ASCENDER_COEFFICIENT + (lineHeightActualValue - fontSize) / 2);
             float parentTextTop = (float)(parentFontSize * ASCENDER_COEFFICIENT);
             return parentTextTop - elementTopEdge;
@@ -248,13 +270,18 @@ namespace iText.Html2pdf.Css.Apply.Util {
         /// <summary>Calculates the text rise for bottom alignment.</summary>
         /// <param name="stylesContainer">the styles container</param>
         /// <param name="rootFontSize">the root font size</param>
+        /// <param name="isVerticalWriting">whether the text writing mode is vertical</param>
         /// <returns>the calculated text rise</returns>
-        private static float CalcTextRiseForTextBottom(IStylesContainer stylesContainer, float rootFontSize) {
+        private static float CalcTextRiseForTextBottom(IStylesContainer stylesContainer, float rootFontSize, bool 
+            isVerticalWriting) {
             String ownFontSizeStr = stylesContainer.GetStyles().Get(CssConstants.FONT_SIZE);
             float fontSize = CssDimensionParsingUtils.ParseAbsoluteLength(ownFontSizeStr);
             String lineHeightStr = stylesContainer.GetStyles().Get(CssConstants.LINE_HEIGHT);
             float lineHeightActualValue = GetLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
             float parentFontSize = GetParentFontSize(stylesContainer);
+            if (isVerticalWriting) {
+                return (lineHeightActualValue - parentFontSize) / 2;
+            }
             float elementBottomEdge = (float)(fontSize * DESCENDER_COEFFICIENT + (lineHeightActualValue - fontSize) / 
                 2);
             float parentTextBottom = (float)(parentFontSize * DESCENDER_COEFFICIENT);
@@ -273,6 +300,20 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String lineHeightStr = stylesContainer.GetStyles().Get(CssConstants.LINE_HEIGHT);
             float lineHeightActualValue = GetLineHeightActualValue(fontSize, rootFontSize, lineHeightStr);
             return CssDimensionParsingUtils.ParseRelativeValue(vAlignVal, lineHeightActualValue);
+        }
+
+        /// <summary>Checks if the text writing mode is vertical.</summary>
+        /// <param name="cssProps">the CSS properties to check</param>
+        /// <returns>
+        /// 
+        /// <see langword="true"/>
+        /// if the text writing mode is vertical-lr or vertical-rl,
+        /// <see langword="false"/>
+        /// otherwise
+        /// </returns>
+        private static bool IsVerticalWriting(IDictionary<String, String> cssProps) {
+            String writingMode = cssProps.Get(CssConstants.WRITING_MODE);
+            return CssConstants.VERTICAL_LR.Equals(writingMode) || CssConstants.VERTICAL_RL.Equals(writingMode);
         }
 
         /// <summary>Gets the actual value of the line height.</summary>
