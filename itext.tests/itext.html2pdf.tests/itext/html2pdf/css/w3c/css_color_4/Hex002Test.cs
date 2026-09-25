@@ -22,12 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_color_4 {
-    // Color values as in this test are considered for now as invalid. E.g. Chrome does the same. 
-    [LogMessage(iText.IO.Logs.IoLogMessageConstant.UNKNOWN_COLOR_FORMAT_MUST_BE_RGB_OR_RRGGBB)]
-    [LogMessage(iText.StyledXmlParser.Logs.StyledXmlParserLogMessageConstant.INVALID_CSS_PROPERTY_DECLARATION)]
     public class Hex002Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "hex-002.html";
