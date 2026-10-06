@@ -77,6 +77,7 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
         public virtual void SpansInDivTest() {
             ConvertToPdfAndCompare("spansInDiv", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

@@ -147,6 +147,7 @@ namespace iText.Html2pdf.Css.Resolve {
                     logger.LogError(Html2PdfLogMessageConstant.ERROR_RESOLVING_PARENT_STYLES);
                 }
                 if (parentStyles != null) {
+                    ApplyInlineBlockInCaseOfParentHavingDifferentWritingMode(elementStyles, parentStyles, element);
                     foreach (KeyValuePair<String, String> entry in parentStyles) {
                         elementStyles = StyleUtil.MergeParentStyleDeclaration(elementStyles, entry.Key, entry.Value, parentStyles.
                             Get(CommonCssConstants.FONT_SIZE), INHERITANCE_RULES);
@@ -224,6 +225,28 @@ namespace iText.Html2pdf.Css.Resolve {
             CounterProcessorUtil.ProcessCounters(elementStyles, context);
             ResolveContentProperty(elementStyles, element, context);
             return elementStyles;
+        }
+
+        private void ApplyInlineBlockInCaseOfParentHavingDifferentWritingMode(IDictionary<String, String> elementStyles
+            , IDictionary<String, String> parentStyles, INode element) {
+            // If a box has a different writing-mode value than its parent box
+            // If the box would otherwise become an in-flow box with a computed display of inline,
+            // its display computes instead to inline-block.
+            if (element is IElementNode) {
+                String elementDisplay = elementStyles.Get(CssConstants.DISPLAY);
+                // We apply the logic for any "display: inline" element or for any span without display property.
+                if ((TagConstants.SPAN.Equals(((IElementNode)element).Name()) && elementDisplay == null) || CssConstants.INLINE
+                    .Equals(elementDisplay)) {
+                    String elementWritingMode = elementStyles.Get(CssConstants.WRITING_MODE);
+                    String parentWritingMode = parentStyles.Get(CssConstants.WRITING_MODE);
+                    if (parentWritingMode == null) {
+                        parentWritingMode = CssConstants.HORIZONTAL_TB;
+                    }
+                    if (elementWritingMode != null && !elementWritingMode.Equals(parentWritingMode)) {
+                        elementStyles.Put(CssConstants.DISPLAY, CssConstants.INLINE_BLOCK);
+                    }
+                }
+            }
         }
 
         private IDictionary<String, String> ResolveElementsStyles(INode element) {
