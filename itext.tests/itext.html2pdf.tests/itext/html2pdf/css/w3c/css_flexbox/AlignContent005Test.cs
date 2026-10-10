@@ -22,11 +22,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using iText.Html2pdf.Css.W3c;
-using iText.Html2pdf.Logs;
-using iText.Test.Attributes;
 
 namespace iText.Html2pdf.Css.W3c.Css_flexbox {
-    [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION)]
     public class AlignContent005Test : W3CCssTest {
         protected internal override String GetHtmlFileName() {
             return "align-content-005.htm";

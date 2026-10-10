@@ -99,12 +99,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             String listStyleImageStr = cssProps.Get(CssConstants.LIST_STYLE_IMAGE);
             PdfXObject imageXObject = null;
             if (listStyleImageStr != null && !CssConstants.NONE.Equals(listStyleImageStr)) {
-                if (CssGradientUtil.IsCssLinearGradientValue(listStyleImageStr)) {
+                if (CssGradientUtil.IsCssGradientValue(listStyleImageStr)) {
                     float em = CssDimensionParsingUtils.ParseAbsoluteLength(cssProps.Get(CssConstants.FONT_SIZE));
                     float rem = context.GetCssContext().GetRootFontSize();
                     try {
-                        StrategyBasedLinearGradientBuilder gradientBuilder = CssGradientUtil.ParseCssLinearGradient(listStyleImageStr
-                            , em, rem);
+                        IGradientBuilder gradientBuilder = CssGradientUtil.ParseCssGradient(listStyleImageStr, em, rem);
                         if (gradientBuilder != null) {
                             Rectangle formBBox = new Rectangle(0, 0, em * LIST_ITEM_MARKER_SIZE_COEFFICIENT, em * LIST_ITEM_MARKER_SIZE_COEFFICIENT
                                 );

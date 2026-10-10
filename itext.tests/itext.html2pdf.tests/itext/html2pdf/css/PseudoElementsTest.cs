@@ -44,6 +44,12 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("pseudoContentWithWidthAndHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
+        // The radial gradient in html is present in Chrome but not in Firefox
+        [NUnit.Framework.Test]
+        public virtual void PseudoContentWithRadialGradientTest() {
+            ConvertToPdfAndCompare("pseudoContentWithRadialGradientTest", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
         [NUnit.Framework.Test]
         public virtual void PseudoContentWithPercentWidthAndHeightTest() {
             ConvertToPdfAndCompare("pseudoContentWithPercentWidthAndHeightTest", SOURCE_FOLDER, DESTINATION_FOLDER);

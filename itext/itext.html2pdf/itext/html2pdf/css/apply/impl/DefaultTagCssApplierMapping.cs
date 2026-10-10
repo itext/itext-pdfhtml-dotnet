@@ -175,7 +175,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             mapping.PutMapping(afterPseudoElemName, CssConstants.TABLE, () => new BlockCssApplier());
             mapping.PutMapping(CssPseudoElementUtil.CreatePseudoElementTagName(TagConstants.IMG), () => new BlockCssApplier
                 ());
-            mapping.PutMapping(CssPseudoElementUtil.CreatePseudoElementTagName(TagConstants.DIV), () => new CssContentLinearGradientApplier
+            mapping.PutMapping(CssPseudoElementUtil.CreatePseudoElementTagName(TagConstants.DIV), () => new CssContentGradientApplier
                 ());
             // custom elements mapping, implementation-specific
             mapping.PutMapping(PageCountElementNode.PAGE_COUNTER_TAG, () => new SpanTagCssApplier());

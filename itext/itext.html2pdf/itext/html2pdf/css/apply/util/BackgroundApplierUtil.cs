@@ -110,9 +110,9 @@ namespace iText.Html2pdf.Css.Apply.Util {
                 BackgroundRepeat repeat = ApplyBackgroundRepeat(backgroundRepeatArray, i);
                 BackgroundBox clip = GetBackgroundBoxProperty(backgroundClipArray, i, BackgroundBox.BORDER_BOX);
                 BackgroundBox origin = GetBackgroundBoxProperty(backgroundOriginArray, i, BackgroundBox.PADDING_BOX);
-                if (CssGradientUtil.IsCssLinearGradientValue(backgroundImage)) {
-                    imageApplied = ApplyLinearGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem, repeat
-                        , clip, origin);
+                if (CssGradientUtil.IsCssGradientValue(backgroundImage)) {
+                    imageApplied = ApplyGradient(backgroundImage, backgroundImagesList, blendMode, position, em, rem, repeat, 
+                        clip, origin);
                 }
                 else {
                     PdfXObject image = context.GetResourceResolver().RetrieveImage(CssUtils.ExtractUrl(backgroundImage));
@@ -319,12 +319,11 @@ namespace iText.Html2pdf.Css.Apply.Util {
             }
         }
 
-        private static bool ApplyLinearGradient(String image, IList<BackgroundImage> backgroundImagesList, BlendMode
-             blendMode, BackgroundPosition position, float em, float rem, BackgroundRepeat repeat, BackgroundBox clip
-            , BackgroundBox origin) {
+        private static bool ApplyGradient(String image, IList<BackgroundImage> backgroundImagesList, BlendMode blendMode
+            , BackgroundPosition position, float em, float rem, BackgroundRepeat repeat, BackgroundBox clip, BackgroundBox
+             origin) {
             try {
-                StrategyBasedLinearGradientBuilder gradientBuilder = CssGradientUtil.ParseCssLinearGradient(image, em, rem
-                    );
+                IGradientBuilder gradientBuilder = CssGradientUtil.ParseCssGradient(image, em, rem);
                 if (gradientBuilder != null) {
                     backgroundImagesList.Add(new BackgroundImage.Builder().SetGradientBuilder(gradientBuilder).SetBackgroundBlendMode
                         (blendMode).SetBackgroundPosition(position).SetBackgroundRepeat(repeat).SetBackgroundClip(clip).SetBackgroundOrigin

@@ -210,7 +210,7 @@ namespace iText.Html2pdf.Css.Resolve {
                                     result.Add(new CssContentElementNode(contentContainer, TagConstants.IMG, attributes));
                                 }
                                 else {
-                                    if (CssGradientUtil.IsCssLinearGradientValue(token.GetValue())) {
+                                    if (CssGradientUtil.IsCssGradientValue(token.GetValue())) {
                                         IDictionary<String, String> attributes = new Dictionary<String, String>();
                                         attributes.Put(AttributeConstants.STYLE, CssConstants.BACKGROUND_IMAGE + ":" + token.GetValue() + ";" + CssConstants
                                             .HEIGHT + ":" + CssConstants.INHERIT + ";" + CssConstants.WIDTH + ":" + CssConstants.INHERIT + ";");
