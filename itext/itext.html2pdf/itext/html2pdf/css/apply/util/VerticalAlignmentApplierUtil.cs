@@ -55,15 +55,19 @@ namespace iText.Html2pdf.Css.Apply.Util {
             , IPropertyContainer element) {
             String vAlignVal = cssProps.Get(CssConstants.VERTICAL_ALIGN);
             if (vAlignVal != null) {
-                // In layout, 'top' is the default behaviour for cells;
-                // 'baseline' is not supported at the moment on layout level, so it defaults to value 'top';
-                // all other possible values except 'middle' and 'bottom' do not apply to cells; 'baseline' is applied instead.
+                // In layout, TOP is the default behavior for cells. However, in vertical-rl writing mode,
+                // it behaves like BOTTOM, so we still need to set TOP so it can be applied later.
+                // BASELINE is not supported at the layout level yet, so it falls back to TOP.
+                // All other values except TOP, MIDDLE and BOTTOM do not apply to cells; BASELINE is applied instead.
                 if (CssConstants.MIDDLE.Equals(vAlignVal)) {
                     element.SetProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.MIDDLE);
                 }
                 else {
                     if (CssConstants.BOTTOM.Equals(vAlignVal)) {
                         element.SetProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.BOTTOM);
+                    }
+                    else {
+                        element.SetProperty(Property.VERTICAL_ALIGNMENT, VerticalAlignment.TOP);
                     }
                 }
             }

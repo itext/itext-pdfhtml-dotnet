@@ -177,6 +177,33 @@ namespace iText.Html2pdf.Css.Verticaltext {
         }
 
         [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
+        public virtual void VertLrTableCellVerticalAlignTest() {
+            ConvertToPdfAndCompare("vertLrTableCellVerticalAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
+        public virtual void VertLrTableCellHorizontalAlignTest() {
+            ConvertToPdfAndCompare("vertLrTableCellHorizontalAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
+        public virtual void VertLrTableCellAlignWithHeightTest() {
+            ConvertToPdfAndCompare("vertLrTableCellAlignWithHeight", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT, Count = 2)]
+        public virtual void VertLrTableCellSeveralParagraphsTest() {
+            // We don't support vertical writing mode in cells,
+            // so com.itextpdf.layout.renderer.CellRenderer.correctChildrenHeight is disabled
+            // in case we have several child renderers.
+            ConvertToPdfAndCompare("vertLrTableCellSeveralParagraphs", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void VertLrTextAlignTest() {
             ConvertToPdfAndCompare("vertLrTextAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
@@ -199,6 +226,12 @@ namespace iText.Html2pdf.Css.Verticaltext {
         [NUnit.Framework.Test]
         public virtual void VertLrVerticalAlignTest() {
             ConvertToPdfAndCompare("vertLrVerticalAlign", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.VERTICAL_WRITING_MODE_NOT_SUPPORTED_FOR_ELEMENT)]
+        public virtual void VertLrVerticalAlignInTableTest() {
+            ConvertToPdfAndCompare("vertLrVerticalAlignInTable", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
         [NUnit.Framework.Test]
