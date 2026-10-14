@@ -21,11 +21,14 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
 using System.IO;
 using iText.Html2pdf;
 using iText.IO.Util;
 using iText.Kernel.Pdf;
 using iText.Kernel.Utils;
+using iText.Layout;
+using iText.Layout.Element;
 using iText.Pdfa;
 using iText.Pdfa.Logs;
 using iText.Test;
@@ -198,6 +201,50 @@ namespace iText.Html2pdf.Element {
             HtmlConverter.ConvertToPdf(new FileInfo(sourceFolder + "simpleLink.html"), new FileInfo(outPdf));
             NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPdf, cmpPdf, destinationFolder, "diff09_"
                 ));
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertWithLinkToReferencePdf1_7ToDocTest() {
+            ConvertWithLinkToReference(PdfVersion.PDF_1_7, true);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertWithLinkToReferencePdf1_7ToEleTest() {
+            ConvertWithLinkToReference(PdfVersion.PDF_1_7, false);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertWithLinkToReferencePdf2_0ToDocTest() {
+            ConvertWithLinkToReference(PdfVersion.PDF_2_0, true);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void ConvertWithLinkToReferencePdf2_0ToEleTest() {
+            ConvertWithLinkToReference(PdfVersion.PDF_2_0, false);
+        }
+
+        private static void ConvertWithLinkToReference(PdfVersion version, bool directToPdf) {
+            String html = "<body><a href='#jump'>TOC jump </a></body>";
+            String convertTypeSuffix = directToPdf ? "dir_" : "ele_";
+            String outPath = destinationFolder + "linkToReference_" + convertTypeSuffix + version.ToString() + ".pdf";
+            String cmpFileName = sourceFolder + "cmp_linkToReference_" + version.ToString() + ".pdf";
+            WriterProperties writerProperties = new WriterProperties();
+            writerProperties.SetPdfVersion(version);
+            using (PdfDocument pdf = new PdfDocument(CompareTool.CreateTestPdfWriter(outPath, writerProperties))) {
+                pdf.SetTagged();
+                if (directToPdf) {
+                    HtmlConverter.ConvertToPdf(html, pdf, new ConverterProperties());
+                }
+                else {
+                    IList<IElement> elements = HtmlConverter.ConvertToElements(html);
+                    Document doc = new Document(pdf);
+                    foreach (IElement element in elements) {
+                        doc.Add((IBlockElement)element);
+                    }
+                }
+            }
+            NUnit.Framework.Assert.IsNull(new CompareTool().CompareByContent(outPath, cmpFileName, destinationFolder, 
+                "diff"));
         }
     }
 }

@@ -93,9 +93,8 @@ namespace iText.Html2pdf.Attach.Util {
                     AccessibilityProperties accessibilityProperties = ((IAccessibleElement)container).GetAccessibilityProperties
                         ();
                     String role = linkAnnotation.GetRoleBasedOnDestination(context.GetPdfDocument());
-                    if (StandardRoles.REFERENCE.Equals(role) && context.GetPdfDocument() != null && PdfVersion.PDF_2_0.CompareTo
-                        (context.GetPdfDocument().GetPdfVersion()) <= 0) {
-                        accessibilityProperties.SetNamespace(PdfNamespace.GetDefault(context.GetPdfDocument()));
+                    if (StandardRoles.REFERENCE.Equals(role)) {
+                        accessibilityProperties.SetNamespace(new PdfNamespace(StandardNamespaces.PDF_1_7));
                     }
                     accessibilityProperties.SetRole(role);
                 }
