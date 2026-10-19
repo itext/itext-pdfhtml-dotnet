@@ -69,7 +69,8 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
 
         private const float EPSILON = 0.00001f;
 
-        public PageMarginBoxBuilder(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes, float[] margins, PageSize
+//\cond DO_NOT_DOCUMENT
+        internal PageMarginBoxBuilder(IList<PageMarginBoxContextNode> resolvedPageMarginBoxes, float[] margins, PageSize
              pageSize) {
             this.resolvedPageMarginBoxes = resolvedPageMarginBoxes;
             this.margins = margins;
@@ -89,8 +90,10 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
                     , marginBoxRectangles[marginBoxInd]));
             }
         }
+//\endcond
 
-        public virtual void BuildForSinglePage(int pageNumber, PdfDocument pdfDocument, DocumentRenderer documentRenderer
+//\cond DO_NOT_DOCUMENT
+        internal virtual void BuildForSinglePage(int pageNumber, PdfDocument pdfDocument, DocumentRenderer documentRenderer
             , ProcessorContext context) {
             if (resolvedPageMarginBoxes.IsEmpty()) {
                 return;
@@ -107,14 +110,19 @@ namespace iText.Html2pdf.Attach.Impl.Layout {
             }
             GetPMBRenderers(elements, documentRenderer, pdfDocument);
         }
+//\endcond
 
-        public virtual IRenderer[] GetRenderers() {
+//\cond DO_NOT_DOCUMENT
+        internal virtual IRenderer[] GetRenderers() {
             return renderers;
         }
+//\endcond
 
-        public virtual PageMarginBoxContextNode[] GetNodes() {
+//\cond DO_NOT_DOCUMENT
+        internal virtual PageMarginBoxContextNode[] GetNodes() {
             return nodes;
         }
+//\endcond
 
         private IElement ProcessMarginBoxContent(PageMarginBoxContextNode marginBoxContentNode, int pageNumber, ProcessorContext
              context) {

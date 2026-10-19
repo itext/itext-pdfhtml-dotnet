@@ -58,6 +58,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>Gets the styles of a node.</summary>
         /// <param name="node">the node</param>
         /// <returns>
@@ -65,9 +66,10 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <see cref="iText.StyledXmlParser.Css.CssDeclaration"/>
         /// values
         /// </returns>
-        public static IList<CssDeclaration> GetStyles(INode node) {
+        internal static IList<CssDeclaration> GetStyles(INode node) {
             return defaultCss.GetCssDeclarations(node, MediaDeviceDescription.CreateDefault());
         }
+//\endcond
     }
 //\endcond
 }

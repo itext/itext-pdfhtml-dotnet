@@ -71,6 +71,7 @@ namespace iText.Html2pdf.Css.Resolve {
                 ());
         }
 
+//\cond DO_NOT_DOCUMENT
         /// <summary>
         /// Converts a the HTML styles of an element to a list of
         /// <see cref="iText.StyledXmlParser.Css.CssDeclaration"/>
@@ -82,7 +83,7 @@ namespace iText.Html2pdf.Css.Resolve {
         /// <see cref="iText.StyledXmlParser.Css.CssDeclaration"/>
         /// instances.
         /// </returns>
-        public static IList<CssDeclaration> Convert(IElementNode element) {
+        internal static IList<CssDeclaration> Convert(IElementNode element) {
             List<CssDeclaration> convertedHtmlStyles = new List<CssDeclaration>();
             if (element.GetAdditionalHtmlStyles() != null) {
                 Dictionary<String, String> additionalStyles = new Dictionary<String, String>();
@@ -102,6 +103,7 @@ namespace iText.Html2pdf.Css.Resolve {
             }
             return convertedHtmlStyles;
         }
+//\endcond
 
         /// <summary>Interface for all the attribute converter classes.</summary>
         private interface IAttributeConverter {
