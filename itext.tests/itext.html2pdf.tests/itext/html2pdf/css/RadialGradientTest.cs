@@ -46,7 +46,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("background-radial-gradient", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        // TODO DEVSIX-4136 alpha is not supported
         [NUnit.Framework.Test]
         public virtual void BackgroundRadialGradientWithSlashInColorTest() {
             ConvertToPdfAndCompare("background-radial-gradient-with-slash-in-color", SOURCE_FOLDER, DESTINATION_FOLDER
@@ -192,7 +191,6 @@ namespace iText.Html2pdf.Css {
             ConvertToPdfAndCompare("radial-gradient-interpolation", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
 
-        // TODO DEVSIX-4136 update cmp when gradient opacity is supported
         [NUnit.Framework.Test]
         [LogMessage(Html2PdfLogMessageConstant.INVALID_GRADIENT_DECLARATION, Count = 4, LogLevel = LogLevelConstants
             .WARN)]
