@@ -32,6 +32,7 @@ using iText.Html2pdf.Css.Apply.Util;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iText.StyledXmlParser.Css;
 using iText.StyledXmlParser.Node;
 
 namespace iText.Html2pdf.Css.Apply.Impl {
@@ -54,6 +55,7 @@ namespace iText.Html2pdf.Css.Apply.Impl {
                     ApplyChildElementStyles(child, cssStyles, context, stylesContainer);
                 }
             }
+            ApplyMarginsPaddingsBordersStyles(spanTagWorker.GetAllElements(), cssStyles, context);
             VerticalAlignmentApplierUtil.ApplyVerticalAlignmentForInlines(cssStyles, context, stylesContainer, spanTagWorker
                 .GetAllElements());
             if (cssStyles.ContainsKey(CssConstants.OPACITY)) {
@@ -92,13 +94,116 @@ namespace iText.Html2pdf.Css.Apply.Impl {
             > css, ProcessorContext context, IStylesContainer stylesContainer) {
             FontStyleApplierUtil.ApplyFontStyles(css, context, stylesContainer, element);
             BackgroundApplierUtil.ApplyBackground(css, context, element);
-            BorderStyleApplierUtil.ApplyBorders(css, context, element);
             OutlineApplierUtil.ApplyOutlines(css, context, element);
             HyphenationApplierUtil.ApplyHyphenation(css, context, stylesContainer, element);
-            MarginApplierUtil.ApplyMargins(css, context, element);
             PositionApplierUtil.ApplyPosition(css, context, element);
             FloatApplierUtil.ApplyFloating(css, context, element);
-            PaddingApplierUtil.ApplyPaddings(css, context, element);
+        }
+
+        protected internal virtual void ApplyMarginsPaddingsBordersStyles(IList<IPropertyContainer> allChildren, IDictionary
+            <String, String> css, ProcessorContext context) {
+            if (allChildren != null && !allChildren.IsEmpty()) {
+                IPropertyContainer firstChild = allChildren[0];
+                IPropertyContainer lastChild = allChildren[allChildren.Count - 1];
+                // Apply left margin to the first child, apply right margin to the last child.
+                ApplyPropertiesCertainPropertyValue(firstChild, css, Property.MARGIN_LEFT, true, (newStyles) => MarginApplierUtil
+                    .ApplyMargins(newStyles, context, firstChild), CommonCssConstants.MARGIN_LEFT);
+                ApplyPropertiesCertainPropertyValue(lastChild, css, Property.MARGIN_RIGHT, true, (newStyles) => MarginApplierUtil
+                    .ApplyMargins(newStyles, context, lastChild), CommonCssConstants.MARGIN_RIGHT);
+                // Apply left padding to the first child, apply right padding to the last child.
+                ApplyPropertiesCertainPropertyValue(firstChild, css, Property.PADDING_LEFT, true, (newStyles) => PaddingApplierUtil
+                    .ApplyPaddings(newStyles, context, firstChild), CommonCssConstants.PADDING_LEFT);
+                ApplyPropertiesCertainPropertyValue(lastChild, css, Property.PADDING_RIGHT, true, (newStyles) => PaddingApplierUtil
+                    .ApplyPaddings(newStyles, context, lastChild), CommonCssConstants.PADDING_RIGHT);
+                // Apply top and bottom paddings to all the children.
+                IDictionary<String, String> topAndBottomPaddingStyles = new Dictionary<String, String>();
+                topAndBottomPaddingStyles.Put(CommonCssConstants.PADDING_TOP, css.Get(CommonCssConstants.PADDING_TOP));
+                topAndBottomPaddingStyles.Put(CommonCssConstants.PADDING_BOTTOM, css.Get(CommonCssConstants.PADDING_BOTTOM
+                    ));
+                topAndBottomPaddingStyles.Put(CommonCssConstants.FONT_SIZE, css.Get(CommonCssConstants.FONT_SIZE));
+                foreach (IPropertyContainer child in allChildren) {
+                    PaddingApplierUtil.ApplyPaddings(topAndBottomPaddingStyles, context, child);
+                }
+                // Apply border-left, as well as left radii to the first child.
+                ApplyPropertiesCertainPropertyValue(firstChild, css, Property.BORDER_LEFT, false, (newStyles) => BorderStyleApplierUtil
+                    .ApplyBorders(newStyles, context, firstChild), CommonCssConstants.BORDER_LEFT_STYLE, CommonCssConstants
+                    .BORDER_LEFT_COLOR, CommonCssConstants.BORDER_LEFT_WIDTH);
+                ApplyPropertiesCertainPropertyValue(firstChild, css, Property.BORDER_TOP_LEFT_RADIUS, false, (newStyles) =>
+                     BorderStyleApplierUtil.ApplyBorders(newStyles, context, firstChild), CommonCssConstants.BORDER_TOP_LEFT_RADIUS
+                    );
+                ApplyPropertiesCertainPropertyValue(firstChild, css, Property.BORDER_BOTTOM_LEFT_RADIUS, false, (newStyles
+                    ) => BorderStyleApplierUtil.ApplyBorders(newStyles, context, firstChild), CommonCssConstants.BORDER_BOTTOM_LEFT_RADIUS
+                    );
+                // Apply border-right, as well as right radii to the last child.
+                ApplyPropertiesCertainPropertyValue(lastChild, css, Property.BORDER_RIGHT, false, (newStyles) => BorderStyleApplierUtil
+                    .ApplyBorders(newStyles, context, lastChild), CommonCssConstants.BORDER_RIGHT_STYLE, CommonCssConstants
+                    .BORDER_RIGHT_COLOR, CommonCssConstants.BORDER_RIGHT_WIDTH);
+                ApplyPropertiesCertainPropertyValue(lastChild, css, Property.BORDER_TOP_RIGHT_RADIUS, false, (newStyles) =>
+                     BorderStyleApplierUtil.ApplyBorders(newStyles, context, lastChild), CommonCssConstants.BORDER_TOP_RIGHT_RADIUS
+                    );
+                ApplyPropertiesCertainPropertyValue(lastChild, css, Property.BORDER_BOTTOM_RIGHT_RADIUS, false, (newStyles
+                    ) => BorderStyleApplierUtil.ApplyBorders(newStyles, context, lastChild), CommonCssConstants.BORDER_BOTTOM_RIGHT_RADIUS
+                    );
+                // Apply top and bottom borders to all the children.
+                IDictionary<String, String> topAndBottomBorderStyles = new Dictionary<String, String>(css);
+                topAndBottomBorderStyles.JRemove(CommonCssConstants.BORDER_LEFT_STYLE);
+                topAndBottomBorderStyles.JRemove(CommonCssConstants.BORDER_LEFT_COLOR);
+                topAndBottomBorderStyles.JRemove(CommonCssConstants.BORDER_LEFT_WIDTH);
+                topAndBottomBorderStyles.JRemove(CommonCssConstants.BORDER_RIGHT_STYLE);
+                topAndBottomBorderStyles.JRemove(CommonCssConstants.BORDER_RIGHT_COLOR);
+                topAndBottomBorderStyles.JRemove(CommonCssConstants.BORDER_RIGHT_WIDTH);
+                topAndBottomBorderStyles.JRemove(CommonCssConstants.BORDER_TOP_LEFT_RADIUS);
+                topAndBottomBorderStyles.JRemove(CommonCssConstants.BORDER_TOP_RIGHT_RADIUS);
+                topAndBottomBorderStyles.JRemove(CommonCssConstants.BORDER_BOTTOM_LEFT_RADIUS);
+                topAndBottomBorderStyles.JRemove(CommonCssConstants.BORDER_BOTTOM_RIGHT_RADIUS);
+                IDictionary<String, String> topBorderStyles = new Dictionary<String, String>(topAndBottomBorderStyles);
+                topBorderStyles.JRemove(CommonCssConstants.BORDER_BOTTOM_STYLE);
+                topBorderStyles.JRemove(CommonCssConstants.BORDER_BOTTOM_WIDTH);
+                topBorderStyles.JRemove(CommonCssConstants.BORDER_BOTTOM_COLOR);
+                IDictionary<String, String> bottomBorderStyles = new Dictionary<String, String>(topAndBottomBorderStyles);
+                topBorderStyles.JRemove(CommonCssConstants.BORDER_TOP_STYLE);
+                topBorderStyles.JRemove(CommonCssConstants.BORDER_TOP_WIDTH);
+                topBorderStyles.JRemove(CommonCssConstants.BORDER_TOP_COLOR);
+                foreach (IPropertyContainer child in allChildren) {
+                    if (!child.HasProperty(Property.BORDER_TOP)) {
+                        BorderStyleApplierUtil.ApplyBorders(topBorderStyles, context, child);
+                    }
+                    if (!child.HasProperty(Property.BORDER_BOTTOM)) {
+                        BorderStyleApplierUtil.ApplyBorders(bottomBorderStyles, context, child);
+                    }
+                }
+            }
+        }
+
+        private static void ApplyPropertiesCertainPropertyValue(IPropertyContainer child, IDictionary<String, String
+            > styles, int property, bool combineValues, Action<IDictionary<String, String>> operation, params String
+            [] propertyNames) {
+            IDictionary<String, String> stylesWithRequiredValue = new Dictionary<String, String>(propertyNames.Length);
+            foreach (String propertyName in propertyNames) {
+                stylesWithRequiredValue.Put(propertyName, styles.Get(propertyName));
+            }
+            // Commonly useful properties.
+            stylesWithRequiredValue.Put(CommonCssConstants.FONT_SIZE, styles.Get(CommonCssConstants.FONT_SIZE));
+            stylesWithRequiredValue.Put(CommonCssConstants.COLOR, styles.Get(CommonCssConstants.COLOR));
+            if (combineValues) {
+                UnitValue previousPropertyValue = child.GetProperty<UnitValue>(property);
+                child.DeleteOwnProperty(property);
+                operation(stylesWithRequiredValue);
+                UnitValue currentPropertyValue = child.GetProperty<UnitValue>(property);
+                if (previousPropertyValue != null) {
+                    if (currentPropertyValue == null || previousPropertyValue.IsPercentValue() || currentPropertyValue.IsPercentValue
+                        ()) {
+                        child.SetProperty(property, previousPropertyValue);
+                    }
+                    else {
+                        child.SetProperty(property, UnitValue.CreatePointValue(previousPropertyValue.GetValue() + currentPropertyValue
+                            .GetValue()));
+                    }
+                }
+            }
+            else {
+                operation(stylesWithRequiredValue);
+            }
         }
     }
 }

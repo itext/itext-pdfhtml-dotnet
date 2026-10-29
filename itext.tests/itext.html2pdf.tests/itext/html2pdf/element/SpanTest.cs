@@ -39,7 +39,7 @@ namespace iText.Html2pdf.Element {
 
         [NUnit.Framework.OneTimeSetUp]
         public static void BeforeClass() {
-            CreateDestinationFolder(destinationFolder);
+            CreateOrClearDestinationFolder(destinationFolder);
         }
 
         private void TestWithSuffix(String testIndex) {
