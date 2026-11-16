@@ -332,5 +332,15 @@ namespace iText.Html2pdf.Css {
             // TODO: update cmp file after DEVSIX-6192 will be fixed
             ConvertToPdfAndCompare("pseudoElementsWithMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
         }
+
+        [NUnit.Framework.Test]
+        public virtual void BeforeWithStaticTextPaddingMarginTest() {
+            ConvertToPdfAndCompare("beforeWithStaticTextPaddingMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
+        public virtual void AfterWithStaticTextPaddingMarginTest() {
+            ConvertToPdfAndCompare("afterWithStaticTextPaddingMargin", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
     }
 }
