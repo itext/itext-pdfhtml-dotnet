@@ -21,6 +21,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.IO;
+using iText.Commons.Utils;
 using iText.Html2pdf;
 
 namespace iText.Html2pdf.Css.Selectors {
@@ -91,6 +93,16 @@ namespace iText.Html2pdf.Css.Selectors {
         [NUnit.Framework.Test]
         public virtual void IsNestedTest() {
             ConvertToPdfAndCompare("isNested", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        // TODO DEVSIX-10291 remove assertion when fixed
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-10291")]
+        public virtual void DeeplyNestedIsSelectorCausesStackOverflowError() {
+            using (Stream html = FileUtil.GetInputStreamForFile(SOURCE_FOLDER + "deeplyNestedIsSelector.html")) {
+                NUnit.Framework.Assert.Catch(typeof(OutOfMemoryException), () => HtmlConverter.ConvertToPdf(html, new MemoryStream
+                    ()));
+            }
         }
 
         [NUnit.Framework.Test]

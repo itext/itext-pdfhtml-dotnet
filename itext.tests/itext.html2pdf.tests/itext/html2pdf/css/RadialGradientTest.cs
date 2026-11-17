@@ -132,6 +132,11 @@ namespace iText.Html2pdf.Css {
         }
 
         [NUnit.Framework.Test]
+        public virtual void RadialGradientEllipseClosestCornerAtTopTest() {
+            ConvertToPdfAndCompare("radial-gradient-ellipse-closest-corner-at-top", SOURCE_FOLDER, DESTINATION_FOLDER);
+        }
+
+        [NUnit.Framework.Test]
         public virtual void RadialGradientCircleOneLengthTest() {
             ConvertToPdfAndCompare("radial-gradient-circle-one-length", SOURCE_FOLDER, DESTINATION_FOLDER);
         }

@@ -69,6 +69,9 @@ namespace iText.Html2pdf.Logs {
         /// <summary>The Constant INPUT_TYPE_IS_NOT_SUPPORTED.</summary>
         public const String INPUT_TYPE_IS_NOT_SUPPORTED = "Input type {0} is not supported";
 
+        /// <summary>The constant INPUT_BUTTON_WITHOUT_VALUE.</summary>
+        public const String INPUT_BUTTON_WITHOUT_VALUE = "Button or submit input has no value attribute. An empty button label will be used.";
+
         /// <summary>The Constant INVALID_CSS_PROPERTY_DECLARATION.</summary>
         public const String INVALID_CSS_PROPERTY_DECLARATION = "Invalid css property declaration: {0}";
 

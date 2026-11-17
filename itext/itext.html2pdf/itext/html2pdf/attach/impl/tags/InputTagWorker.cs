@@ -25,6 +25,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using iText.Commons;
 using iText.Commons.Internal.Runtime;
+using iText.Commons.Logs;
 using iText.Commons.Utils;
 using iText.Forms.Form;
 using iText.Forms.Form.Element;
@@ -51,6 +52,9 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
     public class InputTagWorker : ITagWorker, IDisplayAware {
         private static readonly Regex NUMBER_INPUT_ALLOWED_VALUES = iText.Commons.Utils.StringUtil.RegexCompile("^(((-?[0-9]+)(\\.[0-9]+)?)|(-?\\.[0-9]+))$"
             );
+
+        private static readonly LazyLogger LOGGER = new LazyLogger(typeof(iText.Html2pdf.Attach.Impl.Tags.InputTagWorker
+            ));
 
         private static int radioNameIdx = 0;
 
@@ -114,7 +118,12 @@ namespace iText.Html2pdf.Attach.Impl.Tags {
             }
             else {
                 if (AttributeConstants.SUBMIT.Equals(inputType) || AttributeConstants.BUTTON.Equals(inputType)) {
-                    formElement = new Button(name).SetSingleLineValue(value);
+                    String resolvedValue = value;
+                    if (resolvedValue == null) {
+                        resolvedValue = "";
+                        LOGGER.Info(() => Html2PdfLogMessageConstant.INPUT_BUTTON_WITHOUT_VALUE);
+                    }
+                    formElement = new Button(name).SetSingleLineValue(resolvedValue);
                 }
                 else {
                     if (AttributeConstants.CHECKBOX.Equals(inputType)) {

@@ -21,6 +21,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.IO;
+using System.Text;
 using iText.Html2pdf;
 
 namespace iText.Html2pdf.Css.Grid {
@@ -90,6 +92,23 @@ namespace iText.Html2pdf.Css.Grid {
         [NUnit.Framework.Test]
         public virtual void TemplateColumnMinMaxTest() {
             RunTest("template-cols-minmax");
+        }
+
+        // TODO DEVSIX-10292 remove assertion when fixed
+        [NUnit.Framework.Test]
+        [NUnit.Framework.Ignore("DEVSIX-10292")]
+        public virtual void DeeplyNestedGridMinMaxFunctionsCauseStackOverflowError() {
+            StringBuilder trackSize = new StringBuilder();
+            for (int i = 0; i < 3000; i++) {
+                trackSize.Append("minmax(1px,");
+            }
+            trackSize.Append("1fr");
+            for (int i = 0; i < 3000; i++) {
+                trackSize.Append(')');
+            }
+            String html = "<html><body><div style=\"display:grid;grid-template-columns:" + trackSize + "\"><div>item</div></div></body></html>";
+            NUnit.Framework.Assert.Catch(typeof(OutOfMemoryException), () => HtmlConverter.ConvertToPdf(html, new MemoryStream
+                ()));
         }
 
         [NUnit.Framework.Test]

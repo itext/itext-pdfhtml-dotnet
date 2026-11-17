@@ -42,6 +42,7 @@ using iText.Layout.Element;
 using iText.Layout.Font;
 using iText.Layout.Logs;
 using iText.StyledXmlParser.Node;
+using iText.Test;
 using iText.Test.Attributes;
 using iText.Test.Pdfa;
 
@@ -123,6 +124,18 @@ namespace iText.Html2pdf.Element {
         [NUnit.Framework.Test]
         public virtual void Input10Test() {
             RunTest("inputTest10");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_BUTTON_WITHOUT_VALUE, LogLevel = LogLevelConstants.INFO)]
+        public virtual void SubmitInputWithoutValue() {
+            RunTest("submitInputWithoutValue");
+        }
+
+        [NUnit.Framework.Test]
+        [LogMessage(Html2PdfLogMessageConstant.INPUT_BUTTON_WITHOUT_VALUE, LogLevel = LogLevelConstants.INFO)]
+        public virtual void ButtonInputWithoutValue() {
+            RunTest("buttonInputWithoutValue");
         }
 
         [NUnit.Framework.Test]
